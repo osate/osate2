@@ -1,0 +1,110 @@
+-- Semantic rule X.5.(13)
+
+-- $Id$
+
+package example_sr_X5_13
+public
+
+data dt
+end dt;
+
+subprogram spg
+features
+  p : in parameter dt;
+  o : out parameter dt;
+end spg;
+
+thread thg
+  features
+    p0 : in event data port dt;
+    p1 : in out event data port dt;
+    p2 : out event data port dt;
+end thg;
+
+thread implementation thg.good
+subcomponents
+  x1 : data dt;
+  x2 : data dt;
+  sp : subprogram spg;
+properties
+  Dispatch_Trigger => reference (p0);
+annex behavior_specification {**
+  states
+    s0 : initial state;
+    comp : final state;
+    next1 : complete state;
+    next2 : complete state;
+    
+  transitions
+    s0 -[ ]-> next1 { x1 := p1 };
+    
+    -- p1 and p2 are out port
+    next1 -[on dispatch p0]-> next2 { p1!; p2! };
+    
+    next2 -[on dispatch p0]-> next1 {spg!};
+    next2 -[on dispatch p1]-> comp {sp!};
+**};
+end thg.good;
+
+thread th
+  features
+    p0 : in event data port dt;
+    p1 : in event data port dt;
+    p2 : in event data port dt;
+    p3 : out event data port dt;
+end th;
+
+thread implementation th.error
+subcomponents
+  x1 : data dt;
+  x2 : data dt;
+  sp : subprogram spg;
+properties
+  Dispatch_Trigger => reference (p1);
+annex behavior_specification {**
+  states
+    s0 : initial state;
+    comp : final state;
+    next1 : complete state;
+    next2 : complete state;
+    
+  transitions
+    s0 -[ ]-> next1 { x1 := p1 };
+    
+    --  Error: output elements in action blocks can only be out or in out port/parameter
+    --  subprogram access/subcomponent/classifier
+    next1 -[on dispatch p1]-> comp { p1!; p2! };
+    next2 -[on dispatch p1]-> comp {th!};
+    
+    next2 -[on dispatch p1]-> comp {spg!};
+    next2 -[on dispatch p1]-> comp {sp!};
+    
+    next2 -[on dispatch p1]-> comp {if (x1 = 1) p3! ; p2! elsif (x1 = 2) p2! ; p1! end if};
+**};
+end th.error;
+
+system s
+end s;
+
+processor cpu
+end cpu;
+
+process proc
+end proc;
+
+process implementation proc.impl
+subcomponents
+	th : thread thg.good;
+	th2 : thread th.error;
+end proc.impl;
+
+system implementation s.impl
+subcomponents
+ p : process proc;
+ c : processor cpu;
+ 
+properties
+  Actual_Processor_Binding => reference (c) applies to p;  
+end s.impl;
+
+end example_sr_X5_13;

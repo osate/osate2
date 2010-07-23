@@ -1,0 +1,6 @@
+property set DummyPropertySet is
+
+aConstant : constant aadlinteger => 28;
+aValue : aadlinteger applies to (subprogram) ;
+
+end DummyPropertySet;

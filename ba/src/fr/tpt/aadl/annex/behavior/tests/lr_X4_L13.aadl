@@ -1,0 +1,92 @@
+-- Legality rule X.4.(L13)
+
+-- $Id$
+
+package example_lr_X4_L13
+public
+
+data dt
+end dt;
+
+thread th
+  features
+    p1 : in event data port dt;
+    p2 : in event data port dt;
+    m : out event data port dt;
+end th;
+
+thread implementation th.good
+subcomponents
+  x1 : data dt;
+  x2 : data dt;
+properties
+  Dispatch_Trigger => reference (p1);
+  Dispatch_Protocol => Timed;
+  Period => 10 ms;
+annex behavior_specification {**
+  states
+    s0 : initial state;
+    comp : final state;
+    next1 : complete state;
+    next2 : complete state;
+    
+  transitions
+    s0 -[ ]-> next1 { x1 := p1 };
+    next1 -[on dispatch p1]-> comp { x2 := p1 };
+    next1 -[on dispatch timeout 10 ms]-> comp { x2 := 0 };
+    next2 -[on dispatch p1]-> comp { x2 := p1 };
+**};
+end th.good;
+
+thread implementation th.error
+subcomponents
+  x1 : data dt;
+  x2 : data dt;
+properties
+  Dispatch_Trigger => reference (p1);
+  Dispatch_Protocol => Timed;
+  Period => 10 ms;
+annex behavior_specification {**
+  states
+    s0 : initial state;
+    comp : final state;
+    next1 : complete state;
+    next2 : complete state;
+    
+  transitions
+    s0 -[ ]-> next1 { x1 := p1 };
+    next1 -[on dispatch p1]-> comp { x2 := p1 };
+    
+    --  Error : the timeout behavior time must be equal to the
+    --  AADL period property
+    next1 -[on dispatch timeout 3 ms]-> comp { x2 := 0 };
+    
+    next2 -[on dispatch p1]-> comp { x2 := p1 };
+**};
+end th.error;
+
+system s
+end s;
+
+processor cpu
+end cpu;
+
+process proc
+end proc;
+
+process implementation proc.impl
+subcomponents
+	th : thread th.good;
+	
+end proc.impl;
+
+system implementation s.impl
+subcomponents
+ p : process proc;
+ c : processor cpu;
+ 
+properties
+  Actual_Processor_Binding => reference (c) applies to p;  
+end s.impl;
+
+end example_lr_X4_L13;

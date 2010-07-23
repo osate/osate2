@@ -1,0 +1,16 @@
+package DummySubRoutine
+public
+   with Base_Types ;
+
+subprogram addition
+features
+  x: in parameter Base_types::integer;
+  y: in parameter Base_types::integer;
+  r: out parameter Base_types::integer;
+end addition;
+
+subprogram implementation addition.impl
+
+end addition.impl;
+
+end DummySubRoutine ;

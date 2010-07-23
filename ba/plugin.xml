@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="edu.cmu.sei.aadl.annex.parser">
+      <parser
+            annexName="behavior_specification"
+            class="fr.tpt.aadl.annex.behavior.AadlBaParserAction"
+            id="fr.tpt.aadl.annex.behavior.parser"
+            name="AADL Behavior Annex">
+      </parser>
+   </extension>
+   <extension
+         point="edu.cmu.sei.aadl.annex.resolver">
+      <resolver
+            annexName="behavior_specification"
+            class="fr.tpt.aadl.annex.behavior.analyzers.AadlBaResolver"
+            id="fr.tpt.aadl.annex.behavior.analyzers.resolver"
+            name="AADL Behavior Annex">
+      </resolver>
+   </extension>
+  
+</plugin>
+  

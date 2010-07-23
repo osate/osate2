@@ -1,0 +1,224 @@
+-- Behavior Annex big parsing test
+-- Use only to test syntactic parsing. This test hasn't any semantic meaning.
+
+-- TODO
+   -- element_values as array of data_component_references
+   -- ** operator
+
+
+-- variables : 
+-- a and b and c are states
+-- tmp and x and y are integers
+-- tab is an integer array
+-- b1 and b2 are boolean
+-- portA and portB are port identifiers 
+-- sub1 is a subprogram access name
+-- DummyPropertySet::aConstant is a property set constant
+-- SubRoutine::subA.v1 is the v1 version of subA subprogram contained in package SubRoutine 
+
+package BigTest
+public
+
+   with Base_Types ;
+
+data number
+end number;
+
+subprogram mul
+features
+  x : in parameter number;
+  y : in parameter number;
+  z : out parameter number;
+end mul;
+
+subprogram cube
+features
+  x : in parameter number;
+  y : out parameter number;
+  mul : requires subprogram access mul;
+end cube;
+
+subprogram implementation cube.ba
+annex behavior_specification {**
+
+ -- *** VARIABLES *** 
+
+variables 
+ tmp : number ;
+ x, y : number ;
+ tab[10] : number ;
+ tab[10][10] : number ;
+ tab[DummyPropertySet::aConstant] : number ;
+ x : persistent number ; 
+ tmp : Base_Types::Integer ;
+ tmp : Base_Types::Number::Integer ;
+ tmp : Base_Types::Number::Integer.v1 ;
+
+--  *** STATES ***
+ 
+states
+ a : state ;
+ a : initial state ;
+ a : complete state ;
+ a : final state ;
+ a : initial final state ;
+ a : initial complete  final state ;
+ a, b : state ;
+
+-- *** TRANSITIONS ***
+
+   -- * transition and source identifier variations *
+
+transitions
+ a -[]-> a {tmp := 1} ;
+ regular: a -[]-> a {tmp := 1} ;
+ regular [1] : a -[]-> a {tmp := 1} ;
+ 
+ regular [1_2] : a -[]-> a {tmp := 1} ;
+
+ a, b -[]-> c {tmp := 1} ;
+ 
+   -- ** behavior condition combinations **
+
+      -- logical value expression variations
+ 
+ a -[2 > 1]-> a {tmp := 1} ;
+ a -[x < y]-> a {tmp := 1} ;
+ a -[x <= y]-> a {tmp := 1} ;
+ a -[x >= y]-> a {tmp := 1} ;
+ a -[x = y]-> a {tmp := 1} ;
+ a -[x != y]-> a {tmp := 1} ;
+ a -[b1 and b2]-> a {tmp := 1} ;
+ a -[2>1 xor x=y]-> a {tmp := 1} ;
+ a -[b1 or x=y]-> a {tmp := 1} ;
+ a -[b1]-> a {tmp := 1} ;
+ a -[not b2]-> a {tmp := 1} ; 
+ a -[true]-> a {tmp := 1} ;
+ a -[false]-> a {tmp := 1} ;
+ a -[-1 > 0]-> a {tmp := 1} ;
+ a -[1+1 > 0]-> a {tmp := 1} ;
+ a -[+1 * 0 = 0]-> a {tmp := 1} ;
+ a -[1 /2 > 0]-> a {tmp := 1} ;
+ a -[2 mod x > 0 or true]-> a {tmp := 1} ;
+ a -[+y rem x > 0]-> a {tmp := 1} ;
+ a -[DummyPropertySet::aConstant mod x > 0 or true]-> a {tmp := 1} ;
+ a -[not 2< -1 + 3 and b1 or b2]-> a {tmp := 1} ;
+ a -[abs 1 > 2]-> a {tmp := 1} ; -- Remember a numeric_literal can't be negative.
+                                 -- So "abs -1" and "abs +1" are aadl behavior annex syntax errors.
+                                 
+      -- dispatch condition combinations
+      
+ a -[on dispatch frozen portA]-> a {tmp := 1} ; 
+ a -[on dispatch frozen portA, portB]-> a {tmp := 1} ;
+ a -[on dispatch stop]-> a {tmp := 1} ;
+ a -[on dispatch portA]-> a {tmp := 1} ;
+ a -[on dispatch portA(1)]-> a {tmp := 1} ;
+ a -[on dispatch portA(others)]-> a {tmp := 1} ;
+ a -[on dispatch portA(XXXXXXXXXXXXXXXXxx)]-> a {tmp := 1} ;
+ a -[on dispatch timeout]-> a {tmp := 1} ;
+ a -[on dispatch timeout 10 min]-> a {tmp := 1} ;
+ a -[on dispatch timeout tab[x] min]-> a {tmp := 1} ;
+ a -[on dispatch timeout DummyPropertySet::aConstant min]-> a {tmp := 1} ;
+ a -[on dispatch 1 ormore (portA) frozen portA, portB]-> a {tmp := 1} ;
+ a -[on dispatch 1 ormore (portA, timeout)]-> a {tmp := 1} ;
+ 
+ a -[on dispatch 1 orless (not portA)]-> a {tmp := 1} ; 
+ a -[on dispatch not portA]-> a {tmp := 1} ; 
+ a -[on dispatch not 1 (portA)]-> a {tmp := 1} ;
+ 
+ a -[on dispatch 1 (portA)]-> a {tmp := 1} ; 
+ a -[on dispatch ]-> a {tmp := 1} ;
+ a -[on dispatch portA or portB]-> a {tmp := 123_456_1} ; 
+ a -[on dispatch portA and portB]-> a {tmp := 1} ;
+ a -[on dispatch portA and (stop)]-> a {tmp := 1} ; -- stop is not a dispatch trigger,
+                                                    -- it's a dispatch logical expression. 
+ a -[on dispatch portA or (portA and portB)]-> a {tmp := 1} ;
+ a -[on dispatch portA and portB and (stop)]-> a {tmp := 1} ;
+ a -[on dispatch portA or portB or (stop)]-> a {tmp := 1} ;
+ a -[on dispatch portA xor portB xor (stop)]-> a {tmp := 1} ;
+ a -[on dispatch not (portB and portA)]-> a {tmp := 1} ;
+ 
+   -- ** behavior actions combinations **
+
+      -- actions, sequences et action sets
+ 
+ a -[]-> a {tmp := 1 ; tmp := 1 ; tmp := 1} ;
+ a -[]-> a {tmp := 1 & tmp := 1 & tmp := 1} ;
+ 
+      -- basic action variations
+
+ a -[]-> a {sub1 !} ; 
+ a -[]-> a {sub1 ! (x)} ;
+ a -[]-> a {sub1 ! (x, y)} ;
+ a -[]-> a {sub1 ! (1+1)} ; 
+ a -[]-> a {sub1 ! (-1 * x)} ;
+ a -[]-> a {sub1 ! (not x = y)} ;
+ a -[]-> a {SubRoutine::subA !};
+ a -[]-> a {subA.v1 !};
+ a -[]-> a {SubRoutine::subA ! (x)};
+ a -[]-> a {subA.v1 ! (y)};
+ a -[]-> a {SubRoutine::subA.v1 ! (x, y)};
+ a -[]-> a {computation (2h)} ;
+ a -[]-> a {computation (1min, 30 seconde)} ;
+ a -[]-> a {delay (x min, y seconde)} ;
+ a -[]-> a {delay (2h)} ;
+ a -[]-> a {delay (x h)} ; -- can't be xh because there is no difference
+                           -- between an identifier and behavior time.
+ a -[]-> a {delay (1min, 30_1 seconde)} ;
+ a -[]-> a { {tmp :=1} } ;
+ a -[]-> a { {tmp :=any} } ;
+ 
+      -- control structures variations
+ 
+ a -[]-> a { if(true) tmp :=1 end if} ;
+ a -[]-> a { if(true) tmp :=1 ; tmp:=1 end if} ;
+ a -[]-> a { if(true) tmp :=1 & tmp:=1 end if} ;
+ a -[]-> a { if(b1) tmp :=1 else tmp:=2 end if} ;
+ a -[]-> a { if(x > y or b1) tmp:=1 end if} ;  
+ a -[]-> a { if(b1) tmp :=1 elsif(b2) tmp:=2 else tmp:=3 end if} ;
+  
+-- a -[]-> a { for(x in 0..9) {tmp:=1} } ; -- //FIX ME : Lexer doesn't take 0. 
+
+ a -[]-> a { for(x in 0 .. 9) {tmp:=1 ; tmp:=1} } ;
+ a -[]-> a { for(x in 0 .. 9) {tmp:=1 & tmp:=1} } ;
+ a -[]-> a { for(x in y..9) {tmp:=1} } ; 
+ a -[]-> a { for(x in portA) {tmp:=1} } ;
+ a -[]-> a { for(x in temp..y) {tmp:=1} } ;
+ a -[]-> a { for(i : Base_Types::Integer in 0 .. 9) {tmp:=1} } ;
+ a -[]-> a { for(i : Types::Integer.v1 in 0 .. 9) {tmp:=1} } ;
+ a -[]-> a { forall(x in 0_1 .. 9) {tmp:=1} } ;
+ a -[]-> a { forall(x in 0 .. 9) {tmp:=1 ; tmp:=1} } ;
+ a -[]-> a { forall(x in 0 .. 9) {tmp:=1 & tmp:=1} } ;
+ a -[]-> a { forall(x in y .. 9) {tmp:=1} } ;
+ a -[]-> a { forall(x in portA) {tmp:=1} } ;
+ a -[]-> a { forall(i : Base_Types::Integer in 0 .. 9) {tmp:=1} } ;
+ a -[]-> a { forall(i : Types::Integer.v1 in 0 .. 9) {tmp:=1} } ;
+ a -[]-> a { while(true) {tmp:=1} } ;
+ a -[]-> a { while(b1) {tmp:=1 ; tmp:=1} } ;
+ a -[]-> a { while(b1) {tmp:=1 & tmp:=1} } ;
+ a -[]-> a { while(b1 and b1) {tmp:=1} } ;
+ a -[]-> a { do tmp:=1 until (true) };
+ a -[]-> a { do tmp:=1 & tmp:=1 until (true) };
+ a -[]-> a { do tmp:=1 ; tmp:=1 until (true) };
+ a -[]-> a { do tmp:=1 until (b1) };
+ a -[]-> a { do tmp:=1 until (b1 xor b2) };
+ a -[]-> a { do tmp:=1 until (b1 or x +1 > -y) } ;
+**};
+end cube.ba;
+-- Such a basic use of the behavior annex simply corresponds to a shortcut for an equivalent calls 
+-- specification in core AADL:
+
+subprogram implementation cube.no_ba
+calls t : {
+  mul1 : subprogram mul;
+  mul2 : subprogram mul;
+};
+connections
+  parameter x -> mul1.x;
+  parameter x -> mul1.y;
+  parameter mul1.z -> mul2.x;
+  parameter x -> mul2.y;
+  parameter mul2.z -> y;
+end cube.no_ba;
+
+end bigTest;

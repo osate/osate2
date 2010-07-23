@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="aadlba"
+    nsURI="http:///AADLBA" nsPrefix="aadlba">
+  <eClassifiers xsi:type="ecore:EDataType" name="Integer" instanceClassName="int">
+    <eAnnotations source="http://www.topcased.org/documentation">
+      <details key="documentation" value="An integer is a primitive type representing integer values."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Real" instanceClassName="double">
+    <eAnnotations source="http://www.topcased.org/documentation">
+      <details key="documentation" value="A real is a primitive type representing real numeric values."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="String" instanceClassName="java.lang.String">
+    <eAnnotations source="http://www.topcased.org/documentation">
+      <details key="documentation" value="A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Boolean" instanceClassName="boolean">
+    <eAnnotations source="http://www.topcased.org/documentation">
+      <details key="documentation" value="A Boolean type is used for logical expression, consisting of the predefined values true and false."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true" eSuperTypes="../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//Element">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="An element is a constituent of a model.&#xD;&#xA;An element is a constituent of a model. As such, it has the capability of owning other elements."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BaReferencedEntity" eType="#//Element"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="AadlReferencedEntity" eType="ecore:EClass ../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//Element"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Comment" eSuperTypes="#//Element">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A comment is a textual annotation that can be attached to a set of elements."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="body" ordered="false" eType="#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Specifies a string that is the comment"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.topcased.org/documentation">
+        <details key="documentation" value="Specifies a string that is the comment"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true" eSuperTypes="#//Element">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A named element is an element in a model that may have a name."/>
+    </eAnnotations>
+    <eOperations name="has_no_qualified_name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="(self.name->isEmpty() or self.allNamespaces()->select(ns | ns.name->isEmpty())->notEmpty()) implies self.qualifiedName->isEmpty()"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If there is no name, or one of the containing namespaces has no name, there is no qualified name.&#xD;&#xA;(self.name->isEmpty() or self.allNamespaces()->select(ns | ns.name->isEmpty())->notEmpty()) implies self.qualifiedName->isEmpty()"/>
+      </eAnnotations>
+      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+        </eAnnotations>
+      </eParameters>
+      <eParameters name="context">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The cache of context-specific information."/>
+        </eAnnotations>
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="has_qualified_name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="(self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) &#xD;&#xA;implies &#xD;&#xA;self.qualifiedName = self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="When there is a name, and all of the containing namespaces have a name, the qualified name is constructed from the names of the containing namespaces.&#xD;&#xA;(self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) &#xD;&#xA;implies &#xD;&#xA;self.qualifiedName = self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))"/>
+      </eAnnotations>
+      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+        </eAnnotations>
+      </eParameters>
+      <eParameters name="context">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The cache of context-specific information."/>
+        </eAnnotations>
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="allNamespaces" upperBound="-1" eType="#//Namespace">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The query allNamespaces() gives the sequence of namespaces in which the NamedElement is nested, working outwards.&#xD;&#xA;if self.namespace->isEmpty() then &#xD;&#xA;  Sequence{}&#xD;&#xA;else&#xD;&#xA;  self.namespace.allNamespaces()->prepend(self.namespace)&#xD;&#xA;endif"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="if self.namespace->isEmpty() then &#xD;&#xA;  Sequence{}&#xD;&#xA;else&#xD;&#xA;  self.namespace.allNamespaces()->prepend(self.namespace)&#xD;&#xA;endif"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="isDistinguishableFrom" ordered="false" lowerBound="1" eType="#//Boolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The query isDistinguishableFrom() determines whether two NamedElements may logically co-exist within a Namespace. By default, two named elements are distinguishable if (a) they have unrelated types or (b) they have related types but different names.&#xD;&#xA;if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType) then&#xD;&#xA;  ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()&#xD;&#xA;else&#xD;&#xA;  true&#xD;&#xA;endif"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType) then&#xD;&#xA;  ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()&#xD;&#xA;else&#xD;&#xA;  true&#xD;&#xA;endif"/>
+      </eAnnotations>
+      <eParameters name="n" ordered="false" lowerBound="1" eType="#//NamedElement"/>
+      <eParameters name="ns" ordered="false" lowerBound="1" eType="#//Namespace"/>
+    </eOperations>
+    <eOperations name="separator" ordered="false" lowerBound="1" eType="#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The query separator() gives the string that is used to separate names when constructing a qualified name.&#xD;&#xA;'.'"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="'.'"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" ordered="false" eType="#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The name of the NamedElement."/>
+      </eAnnotations>
+      <eAnnotations source="http://www.topcased.org/documentation">
+        <details key="documentation" value="The name of the NamedElement."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedName" ordered="false"
+        eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="namespace" ordered="false"
+        eType="#//Namespace" changeable="false" volatile="true" transient="true" derived="true"
+        eOpposite="#//Namespace/ownedMember">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Specifies the namespace that owns the NamedElement."/>
+      </eAnnotations>
+      <eAnnotations source="http://www.topcased.org/documentation">
+        <details key="documentation" value="Specifies the namespace that owns the NamedElement."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Namespace" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A namespace is an element in a model that contains a set of named elements that can be identified by name."/>
+    </eAnnotations>
+    <eOperations name="members_distinguishable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="membersAreDistinguishable()"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="All the members of a Namespace are distinguishable within it.&#xD;&#xA;membersAreDistinguishable()"/>
+      </eAnnotations>
+      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+        </eAnnotations>
+      </eParameters>
+      <eParameters name="context">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The cache of context-specific information."/>
+        </eAnnotations>
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="getNamesOfMember" ordered="false" upperBound="-1" eType="#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The query getNamesOfMember() gives a set of all of the names that a member would have in a Namespace. In general a member can have multiple names in a Namespace if it is imported more than once with different aliases. Those semantics are specified by overriding the getNamesOfMember operation. The specification here simply returns a set containing a single name, or the empty set if no name.&#xD;&#xA;if member->includes(element) then&#xD;&#xA;  Set{}->including(element.name)&#xD;&#xA;else&#xD;&#xA;  Set{}&#xD;&#xA;endif"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="if member->includes(element) then&#xD;&#xA;  Set{}->including(element.name)&#xD;&#xA;else&#xD;&#xA;  Set{}&#xD;&#xA;endif"/>
+      </eAnnotations>
+      <eParameters name="element" ordered="false" lowerBound="1" eType="#//NamedElement"/>
+    </eOperations>
+    <eOperations name="membersAreDistinguishable" ordered="false" lowerBound="1" eType="#//Boolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The Boolean query membersAreDistinguishable() determines whether all of the namespaces members are distinguishable within it.&#xD;&#xA;self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMember" ordered="false"
+        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
+        transient="true" unsettable="true" derived="true" containment="true" eOpposite="#//NamedElement/namespace">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
+      </eAnnotations>
+      <eAnnotations source="subsets" references="#//Namespace/member"/>
+      <eAnnotations source="union"/>
+      <eAnnotations source="http://www.topcased.org/documentation">
+        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="member" ordered="false"
+        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
+        transient="true" unsettable="true" derived="true" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
+      </eAnnotations>
+      <eAnnotations source="union"/>
+      <eAnnotations source="http://www.topcased.org/documentation">
+        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GlobalNamespace" eSuperTypes="#//Namespace"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorAnnex" eSuperTypes="../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//AnnexSubclause #//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Variables" upperBound="-1"
+        eType="#//BehaviorVariable" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="States" upperBound="-1"
+        eType="#//BehaviorState" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Transitions" upperBound="-1"
+        eType="#//BehaviorTransition" unsettable="true" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UniqueComponentClassifierReference"
+      eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariable" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="LocalVariableDeclarators"
+        lowerBound="1" upperBound="-1" eType="#//Declarator" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="DataUniqueComponentClassifierReference"
+        lowerBound="1" eType="#//UniqueComponentClassifierReference" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Persistent" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorState" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorStateIdentifiers"
+        lowerBound="1" upperBound="-1" eType="#//Identifier" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Initial" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Complete" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Final" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorTransition" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="SourceStateIdentifiers"
+        upperBound="-1" eType="#//Identifier" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorActionsOwned" eType="#//BehaviorActions"
+        unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorConditionOwned"
+        eType="#//BehaviorCondition" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorTransitionPriority"
+        eType="#//Numeral" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="DestinationStateIdentifier"
+        eType="#//Identifier" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="TransitionIdentifier" eType="#//Identifier"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Timeout" eType="#//BehaviorTime"
+        unsettable="true" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorCondition" abstract="true" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Declarator" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ArraySizes" upperBound="-1"
+        eType="#//ArraySize" unsettable="true" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArraySize" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="IntegerValueConstant" eType="#//ValueConstant"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DispatchCondition" eSuperTypes="#//BehaviorCondition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasFrozenPorts" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="TheDispatchLogicalExpression"
+        eType="#//DispatchLogicalExpression" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="FrozenPorts" upperBound="-1"
+        eType="#//Identifier" unsettable="true" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DispatchLogicalExpression" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="DispatchTriggers" upperBound="-1"
+        eType="#//DispatchTrigger" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrExpression" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="AndExpression" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="XorExpression" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Stop" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DispatchTrigger" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="TheDispatchLogicalExpression"
+        eType="#//DispatchLogicalExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="TheBehaviorTime" eType="#//BehaviorTime"
+        unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="IdentifierOwned" eType="#//Identifier"
+        unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="DispatchTriggers" upperBound="-1"
+        eType="#//DispatchTrigger" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="NumeralOwned" eType="#//Numeral"
+        unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ValueConstantOwned" eType="#//ValueConstant"
+        unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Not" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Timeout" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Others" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrMore" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OrLess" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorActions" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorAction" upperBound="-1"
+        eType="#//BehaviorAction" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Sequence" eType="#//Boolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Set" eType="#//Boolean"
+        defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorAction" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BasicActionOwned" eType="#//BasicAction"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorActionsOwned" eType="#//BehaviorActions"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="CondStatementOwned" eType="#//CondStatement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="BasicAction" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="If" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="For" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="While" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DoUntil" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Timeout" eType="#//BehaviorTime"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CondStatement" abstract="true" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BasicAction" abstract="true" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IfStatement" eSuperTypes="#//Element #//CondStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasElse" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ValueExpressionOwned" upperBound="-1"
+        eType="#//ValueExpression" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorActionsOwned" upperBound="-1"
+        eType="#//BehaviorActions" unsettable="true" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ForOrForAllStatement" eSuperTypes="#//NamedElement #//CondStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="DataUniqueCmtClassRef"
+        eType="#//UniqueComponentClassifierReference" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ElementValuesOwned" eType="#//ElementValues"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorActionsOwned" eType="#//BehaviorActions"
+        unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ForAll" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WhileStatement" eSuperTypes="#//CondStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ValueExpressionOwned" eType="#//ValueExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorActionsOwned" eType="#//BehaviorActions"
+        unsettable="true" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DoUntilStatement" eSuperTypes="#//CondStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorActionsOwned" eType="#//BehaviorActions"
+        unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ValueExpressionOwned" eType="#//ValueExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementValues" abstract="true" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AssignmentAction" eSuperTypes="#//BasicAction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="TargetOwned" eType="#//Target"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ValueExpressionOwned" eType="#//ValueExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Any" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CommActionParameter">
+    <eLiterals name="None"/>
+    <eLiterals name="Exclamation" value="1"/>
+    <eLiterals name="LeftLeft" value="2"/>
+    <eLiterals name="Interrogation" value="3"/>
+    <eLiterals name="ExclamationLeft" value="4"/>
+    <eLiterals name="ExclamationRight" value="5"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CommunicationAction" eSuperTypes="#//BasicAction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ActionType" eType="#//CommActionParameter"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="EltNameOwned" eType="#//Name"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="SubpgmParamListOwned" eType="#//SubprogramParameterList"
+        unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasValueExpression" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasTarget" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ValueExprOwned" eType="#//ValueExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="TarOwned" eType="#//Target"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="DataUniqueComponentClassifierReference"
+        lowerBound="1" eType="#//UniqueComponentClassifierReference" unsettable="true"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="CatchTimeout" eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="All" eType="#//Boolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramParameterList" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ParameterList" upperBound="-1"
+        eType="#//ParameterLabel" unsettable="true" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimedAction" eSuperTypes="#//BasicAction">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="If the boolean IsComputation is false it means it is delay.&#xA;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorTimesOwned" upperBound="-1"
+        eType="#//BehaviorTime" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Computation" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Target" eSuperTypes="#//ParameterLabel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ElementNameOwned" eType="#//Name"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="DataComponentReferenceOwned"
+        eType="#//DataComponentReference" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterLabel" abstract="true" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataComponentReference" eSuperTypes="#//Element #//ElementValues">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ElementsNameOwned" upperBound="-1"
+        eType="#//Name" unsettable="true" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Name" eSuperTypes="#//NamedElement #//ElementValues">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ArrayIndexListOwned" upperBound="-1"
+        eType="#//ArrayIndex" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Identifier" eType="#//Identifier"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArrayIndex" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="IntegerValueVariableOwned"
+        eType="#//ValueVariable" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Value" abstract="true" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueVariable" eSuperTypes="#//Value #//IntegerValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="DataComponentReferenceOwned"
+        eType="#//DataComponentReference" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Interrogation" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Count" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Fresh" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasDataCptRef" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ElementNameOwned" eType="#//Name"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueConstant" abstract="true" eSuperTypes="#//Value #//IntegerValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueExpression" eSuperTypes="#//Value #//ParameterLabel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="RelationsOwned" upperBound="-1"
+        eType="#//Relation" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="LogicalOperatorsOwned"
+        upperBound="-1" eType="#//LogicalOperator" unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasLogicalOperator" eType="#//Boolean"
+        defaultValueLiteral="False"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LogicalOperator">
+    <eLiterals name="And"/>
+    <eLiterals name="Or" value="1"/>
+    <eLiterals name="Xor" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RelationalOperator">
+    <eLiterals name="Equal"/>
+    <eLiterals name="NotEqual" value="1"/>
+    <eLiterals name="LessThan" value="2"/>
+    <eLiterals name="LessOrEqualThan" value="3"/>
+    <eLiterals name="GreaterThan" value="4"/>
+    <eLiterals name="GreaterOrEqualThan" value="5"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Relation" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="SimpleExpressionOwned"
+        eType="#//SimpleExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="SimpleExpressionSdOwned"
+        eType="#//SimpleExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="RelationalOperatorOwned"
+        eType="#//RelationalOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasRelationalOperator"
+        eType="#//Boolean" defaultValueLiteral="False"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleExpression" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="TermsOwned" upperBound="-1"
+        eType="#//Term" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="UnaryAddingOperatorOwned"
+        eType="#//UnaryAddingOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasUnaryAddingOperator"
+        eType="#//Boolean" defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="BinaryAddingOperatorOwned"
+        upperBound="-1" eType="#//BinaryAddingOperator" unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasBinaryAddingOperator"
+        eType="#//Boolean" defaultValueLiteral="False"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Term" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="FactorsOwned" upperBound="-1"
+        eType="#//Factor" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasMultiplyingOperator"
+        eType="#//Boolean" defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MultiplyingOperatorsOwned"
+        upperBound="-1" eType="#//MultiplyingOperator" unsettable="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Factor" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ValueOwned" eType="#//Value"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ValueSdOwned" eType="#//Value"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="BinaryNumericOperatorOwned"
+        eType="#//BinaryNumericOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="UnaryNumericOperatorOwned"
+        eType="#//UnaryNumericOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="UnaryBooleanOperatorOwned"
+        eType="#//UnaryBooleanOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasBinaryNumericOperator"
+        eType="#//Boolean" defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasUnaryNumericOperator"
+        eType="#//Boolean" defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasUnaryBooleanOperator"
+        eType="#//Boolean" defaultValueLiteral="False"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IntegerRange" eSuperTypes="#//Element #//ElementValues">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="LowerIntegerValue" eType="#//IntegerValue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="UpperIntegerValue" eType="#//IntegerValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IntegerValue" abstract="true" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorTime" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="IntegerValueOwned" eType="#//IntegerValue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="UnitIdentifier" eType="#//String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyConstant" eSuperTypes="#//NamedElement #//ValueConstant"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyValue" eSuperTypes="#//NamedElement #//ValueConstant"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="BinaryAddingOperator">
+    <eLiterals name="Plus"/>
+    <eLiterals name="Minus" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="UnaryAddingOperator">
+    <eLiterals name="Plus"/>
+    <eLiterals name="Minus" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MultiplyingOperator">
+    <eLiterals name="Multiply"/>
+    <eLiterals name="Divide"/>
+    <eLiterals name="Mod"/>
+    <eLiterals name="Rem"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BinaryNumericOperator">
+    <eLiterals name="MultiplyMultiply"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="UnaryNumericOperator">
+    <eLiterals name="Abs"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="UnaryBooleanOperator">
+    <eLiterals name="Not"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Identifier" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Id" eType="#//String" defaultValueLiteral=""/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NumericLiteral" eSuperTypes="#//ValueConstant">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="NumValue" eType="#//String"
+        defaultValueLiteral=""/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanLiteral" eSuperTypes="#//ValueConstant">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="BoolValue" eType="#//Boolean"
+        defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StringLiteral" eSuperTypes="#//ValueConstant">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="StringValue" eType="#//String"
+        defaultValueLiteral=""/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Numeral" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="NumeralValue" eType="#//Integer"
+        defaultValueLiteral="-1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExecuteCondition" eSuperTypes="#//BehaviorCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ValueExpression" eType="#//ValueExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="CatchTimeout" eType="#//Boolean"/>
+  </eClassifiers>
+</ecore:EPackage>

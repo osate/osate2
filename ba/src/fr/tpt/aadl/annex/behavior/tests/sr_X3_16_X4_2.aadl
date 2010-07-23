@@ -1,0 +1,58 @@
+-- Semantic rules X.3.(16), X.4.(2)
+
+-- $Id$
+
+package example_sr_X3_16_X4_2
+public
+
+data dt
+end dt;
+
+thread th
+  features
+    p1 : in event data port dt;
+    p2 : in event data port dt;
+    m : out event data port dt;
+end th;
+
+thread implementation th.good 
+subcomponents
+  x1 : data dt;
+  x2 : data dt;
+annex behavior_specification {**
+  states
+    s0 : initial state;
+    comp : final state;
+    next1 : complete state;
+    
+    -- Error : next2 must be a complete state
+    next2 : complete state;
+    
+  transitions
+    s0 -[ ]-> next1 { x1 := p1 };
+    next1 -[ on dispatch p2 ]-> next2 { x2 := p2 };  
+    next2 -[ on dispatch p2 ]-> comp { x2 := p2 };
+**};
+end th.good;
+
+thread implementation th.error 
+subcomponents
+  x1 : data dt;
+  x2 : data dt;
+annex behavior_specification {**
+  states
+    s0 : initial state;
+    comp : final state;
+    next1 : complete state;
+    
+    -- Error : next2 must be a complete state
+    next2 : state;
+    
+  transitions
+    s0 -[ ]-> next1 { x1 := p1 };
+    next1 -[ on dispatch p2 ]-> next2 { x2 := p2 };  
+    next2 -[ on dispatch p2 ]-> comp { x2 := p2 };
+**};
+end th.error;
+
+end example_sr_X3_16_X4_2;

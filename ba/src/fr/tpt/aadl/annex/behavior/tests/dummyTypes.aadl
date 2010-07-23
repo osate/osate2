@@ -1,0 +1,9 @@
+package Dummy::Types
+public
+  data Opaque
+  end Opaque;
+  
+  data implementation Opaque.v1
+  end Opaque.v1 ;
+  
+end Dummy::Types ;

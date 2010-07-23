@@ -1,0 +1,269 @@
+-- Behavior Annex names resolution.
+-- Use only to test name resolution. This test hasn't any semantic meaning.
+
+package NamesResolutionTest
+public
+   with Base_Types, DummyPropertySet, Dummy::Types, DummySubRoutine;
+
+data number
+end number;
+
+data implementation number.impl
+subcomponents
+      length : data Base_Types::Integer ;
+end number.impl ;
+
+thread thread1
+
+end thread1;
+
+thread implementation thread1.impl
+subcomponents
+spg2 : subprogram multiplication;
+
+calls 
+mycall : {
+spg1 : subprogram multiplication;
+};
+
+properties
+  Dispatch_Protocol => Periodic;
+
+annex behavior_specification {**
+
+ -- *** VARIABLES *** 
+
+variables 
+ x : number ;
+ 
+--  *** STATES ***
+ 
+states
+ a : state ;
+
+-- *** TRANSITIONS ***
+transitions
+
+ a -[]-> a {spg2 !} ;
+ a -[]-> a {spg2 ! (0, 1, x)} ;
+
+**};  
+
+end thread1.impl;
+
+subprogram multiplication
+features
+  x : in parameter number;
+  y : in parameter number;
+  z : out parameter number;
+end multiplication;
+
+subprogram cube
+features
+  x : in parameter number;
+  y : out parameter number;
+  mul : requires subprogram access multiplication;
+  portA : out event data port Base_Types::Integer;
+  portB : out event data port Base_Types::Integer;
+  dataAccess : requires data access number.impl ;
+
+end cube;
+
+subprogram implementation cube.ba
+
+subcomponents
+  subData1: data number.impl;
+annex behavior_specification {**
+
+ -- *** VARIABLES *** 
+
+variables 
+ tmp : number ;
+ tab[10] : number ;
+ squareTab[10][10] : number ;
+ tab2[DummyPropertySet::aConstant] : number ;
+ p : persistent number ; 
+ tmp1 : Base_Types::Integer ;
+ tmp2 : Dummy::Types::Opaque ;
+ tmp3 : Dummy::Types::Opaque.v1 ;
+ bool1, bool2 : Base_Types::Boolean ;
+ 
+--  *** STATES ***
+ 
+states
+ a : state ;
+ a2 : initial state ;
+ a3 : complete state ;
+ a4 : final state ;
+ a5 : initial final state ;
+ a6 : initial complete  final state ;
+ b, c : state ;
+
+-- *** TRANSITIONS ***
+
+transitions
+ 
+ -- Transition and source identifier variations
+ a -[]-> a {tmp := 1} ;
+ a -[]-> a {tmp := 1} timeout 20 ms;
+ a -[]-> a {tmp := 1} timeout x ms;
+ a -[]-> a {tmp := 1} timeout DummyPropertySet::aConstant ms;
+ regular1: a -[]-> a {tmp := 1} ;
+ regular2 [1] : a -[]-> a {tmp := 1} ;
+ regular3 [1_2] : a -[]-> a {tmp := 1} ;
+ a, b -[]-> c {tmp := 1} ;
+  
+ -- Dispatch condition tests -- 
+ a -[on dispatch frozen portA]-> a {tmp := 1} ; 
+ a -[on dispatch frozen portA, portB]-> a {tmp := 1} ;
+ a -[on dispatch stop]-> a {tmp := 1} ;
+ a -[on dispatch portA]-> a {tmp := 1} ;
+ a -[on dispatch portA(1)]-> a {tmp := 1} ;
+ a -[on dispatch portA(others)]-> a {tmp := 1} ;
+ a -[on dispatch portA(DummyPropertySet::aConstant)]-> a {tmp := 1} ;
+ a -[on dispatch portA(DummyPropertySet::aValue)]-> a {tmp := 1} ;
+ a -[on dispatch timeout]-> a {tmp := 1} ;
+ a -[on dispatch timeout 10 min]-> a {tmp := 1} ;
+ a -[on dispatch timeout tab[x] min]-> a {tmp := 1} ;
+ a -[on dispatch timeout tmp min]-> a {tmp := 1} ;
+ a -[on dispatch timeout DummyPropertySet::aConstant min]-> a {tmp := 1} ;
+ a -[on dispatch 1 ormore (portA) frozen portA, portB]-> a {tmp := 1} ;
+ a -[on dispatch 1 ormore (portA, timeout x s)]-> a {tmp := 1} ;
+ a -[on dispatch 1 orless (not portA)]-> a {tmp := 1} ; 
+ a -[on dispatch not portA]-> a {tmp := 1} ; 
+ a -[on dispatch not 1 (portA)]-> a {tmp := 1} ;
+ a -[on dispatch 1 (portA)]-> a {tmp := 1} ; 
+ a -[on dispatch ]-> a {tmp := 1} ;
+ a -[on dispatch mul or portB]-> a {tmp := 123_456_1} ; 
+ a -[on dispatch portA and portB]-> a {tmp := 1} ;
+ a -[on dispatch portA and (stop)]-> a {tmp := 1} ; -- stop is not a dispatch trigger, it's a dispatch logical expression.
+ a -[on dispatch portA or (portA and portB)]-> a {tmp := 1} ;
+ a -[on dispatch portA and portB and (stop)]-> a {tmp := 1} ;
+ a -[on dispatch portA or portB or (stop)]-> a {tmp := 1} ;
+ a -[on dispatch portA xor portB xor (stop)]-> a {tmp := 1} ;
+ a -[on dispatch not (portB and portA)]-> a {tmp := 1} ;
+  
+ -- Execute condition tests --
+ a -[2 > 1]-> a {tmp := 1} ;
+ a -[x < y]-> a {tmp := 1} ;
+ a -[x <= y]-> a {tmp := 1} ;
+ a -[x >= y]-> a {tmp := 1} ;
+ a -[x = subData1]-> a {tmp := 1} ;
+ a -[x != y]-> a {tmp := 1} ;
+ a -[bool1 and bool2]-> a {tmp := 1} ;
+ a -[2>1 xor x=y]-> a {tmp := 1} ;
+ a -[bool1 or x=y]-> a {tmp := 1} ;
+ a -[bool1]-> a {tmp := 1} ;
+ a -[not bool2]-> a {tmp := 1} ; 
+ a -[true]-> a {tmp := 1} ;
+ a -[false]-> a {tmp := 1} ;
+ a -[-x > 0]-> a {tmp := 1} ;
+ a -[1+x > 0]-> a {tmp := 1} ;
+ a -[+x * 0 = 0]-> a {tmp := 1} ;
+ a -[1 /x > 0]-> a {tmp := 1} ;
+ a -[DummyPropertySet::aConstant mod x > 0 or true]-> a {tmp := 1} ;
+ a -[+y rem x > 0]-> a {tmp := 1} ;
+ a -[not x< -y + 3 and bool1 or bool2]-> a {tmp := 1} ;
+ a -[abs x > 2]-> a {tmp := 1} ;-- Remember a numeric_literal can't be negative. So "abs -1" and "abs +1" are aadl behavior annex syntax errors.
+ a -[-1 > 0]-> a {tmp := 1} ;
+ a -[1+1 > 0]-> a {tmp := 1} ;
+ a -[+1 * 0 = 0]-> a {tmp := 1} ;
+ a -[1 /2 > 0]-> a {tmp := 1} ;
+ a -[2 mod x > 0 or true]-> a {tmp := 1} ; 
+ a -[catch (timeout)]-> a {tmp := 1} ;
+ 
+ -- Actions, sequences et action sets
+ a -[]-> a {tmp := 1 ; x := 1 ; y := 1} ;
+ a -[]-> a {tmp := 1 & x := 1 & y := 1} ;
+ a -[]-> a {tmp := 1 ; x := 1 ; y := 1} timeout 100 ms;
+ a -[]-> a {tmp := 1 & x := 1 & y := 1} timeout x ms; 
+ a -[]-> c {tmp := 1} timeout DummyPropertySet::aConstant ms; 
+   
+   -- Basic action variations
+ a -[]-> a {mul !} ;
+ a -[]-> a {mul ! (0, 0, 0)} ;
+ a -[]-> a {mul ! (x, y, 0)} ;
+ a -[]-> a {multiplication !} ;
+ a -[]-> a {DummySubRoutine::addition !} ;
+ a -[]-> a {DummySubRoutine::addition.impl !} ;
+ a -[]-> a {DummySubRoutine::addition ! (0, 1, x)} ;
+ a -[]-> a {DummySubRoutine::addition.impl ! (0, 1, x)} ;
+ a -[]-> a {portB ! (1+1)} ; 
+ a -[]-> a {portB ! (-1 * x)} ;
+ a -[]-> a {portB ! (not x = y)} ;
+ a -[]-> a {portA ? (y)} ;
+ a -[]-> a {portA >>} ;
+ a -[]-> a {portA ? (dataAccess.length)} ;
+ a -[]-> a {portA ? (subData1.length)} ;
+ a -[]-> a {dataAccess !>} ;
+ a -[]-> a {dataAccess !<} ;
+ a -[]-> a {catch (timeout)} ;
+ a -[]-> a {* !>} ;
+ a -[]-> a {* !<} ;
+ a -[]-> a {computation (2h)} ;
+ a -[]-> a {computation (1min, 30 seconde)} ;
+-- a -[]-> a {delay (x min, subData1 seconde)} ;
+-- a -[]-> a {delay (2h)} ;
+-- a -[]-> a {delay (x h)} ; -- can't be xh because there is no difference between an identifier and behavior time.
+-- a -[]-> a {delay (1min, 30_1 seconde)} ;
+ a -[]-> a { {tmp :=1} } ;
+ a -[]-> a { {tmp :=any} } ;
+ a -[]-> a { {tmp :=subData1} } ;
+
+ -- Control structures variations
+ 
+ a -[]-> a { if(true) tmp :=1 end if} ;
+ a -[]-> a { if(true) tmp :=1 ; tmp:=1 end if} ;
+ a -[]-> a { if(true) tmp :=1 & tmp:=1 end if} ;
+ a -[]-> a { if(bool1) tmp :=1 else tmp:=2 end if} ;
+ a -[]-> a { if(x > y or bool1) tmp:=1 end if} ;  
+ a -[]-> a { if(bool1) tmp :=1 elsif(bool2) tmp:=2 else tmp:=3 end if} ;
+  
+-- a -[]-> a { for(x in 0..9) {tmp:=1} } ; -- //FIX ME : Lexer doesn't take 0. 
+
+ a -[]-> a { for(x in 0 .. 9) {tmp:=1 ; tmp:=1} } ;
+ a -[]-> a { for(x in 0 .. 9) {tmp:=1 & tmp:=1} } ;
+ a -[]-> a { for(x in y..9) {tmp:=1} } ;
+ a -[]-> a { for(x in y..DummyPropertySet::aConstant) {tmp:=1} } ;
+ a -[]-> a { for(x in y..dataAccess.length) {tmp:=1} } ;
+ a -[]-> a { for(x in portA) {tmp:=1} } ;
+ a -[]-> a { for(x in tmp..y) {tmp:=x} } ;
+ a -[]-> a { for(i : Base_Types::Integer in 0 .. 9) {tmp:=1} } ;
+ a -[]-> a { for(i : Dummy::Types::Opaque.v1 in 0 .. 9) {tmp:=1} } ;
+ a -[]-> a { forall(x in 0_1 .. 9) {tmp:=1} } ;
+ a -[]-> a { forall(x in 0 .. 9) {tmp:=1 ; tmp:=1} } ;
+ a -[]-> a { forall(x in 0 .. 9) {tmp:=1 & tmp:=1} } ;
+ a -[]-> a { forall(x in y .. subData1) {tmp:=1} } ;
+ a -[]-> a { forall(x in portA) {tmp:=1} } ;
+ a -[]-> a { forall(i : Base_Types::Integer in 0 .. 9) {tmp:=1} } ;
+ a -[]-> a { forall(i : Dummy::Types::Opaque.v1 in 0 .. 9) {tmp:=1} } ;
+ a -[]-> a { while(true) {tmp:=1} } ;
+ a -[]-> a { while(bool1) {tmp:=1 ; tmp:=1} } ;
+ a -[]-> a { while(bool1) {tmp:=1 & tmp:=1} } ;
+ a -[]-> a { while(bool1 and bool1) {tmp:=1} } ;
+ a -[]-> a { do tmp:=1 until (true) };
+ a -[]-> a { do tmp:=1 & tmp:=1 until (true) };
+ a -[]-> a { do tmp:=1 ; tmp:=1 until (true) };
+ a -[]-> a { do tmp:=1 until (bool1) };
+ a -[]-> a { do tmp:=1 until (bool1 xor bool2) };
+ a -[]-> a { do tmp:=1 until (bool1 or x +1 > -y) } ; 
+ 
+**};
+end cube.ba;
+-- Such a basic use of the behavior annex simply corresponds to a shortcut for an equivalent calls 
+-- specification in core AADL:
+
+subprogram implementation cube.no_ba
+calls t : {
+  mul1 : subprogram mul;
+  mul2 : subprogram mul;
+};
+connections
+  parameter x -> mul1.x;
+  parameter x -> mul1.y;
+  parameter mul1.z -> mul2.x;
+  parameter x -> mul2.y;
+  parameter mul2.z -> y;
+end cube.no_ba;
+
+end NamesResolutionTest;
