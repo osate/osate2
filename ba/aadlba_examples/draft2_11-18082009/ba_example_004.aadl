@@ -1,0 +1,28 @@
+--  Behavior Annex 2.11-18082009
+--  Annex X.6 Behavior Action Language
+--  Example 4
+
+--  $Id: ba_example_004.aadl 131 2009-10-28 12:52:35Z lasnier $
+
+package example4 public
+
+subprogram addition
+features
+  x: in parameter Basic_types::integer;
+  y: in parameter Basic_types::integer;
+  r: out parameter Basic_types::integer;
+  ovf: out parameter Basic_types::boolean;
+end addition;
+
+subprogram implementation addition.default
+annex behavior_specification {**
+  states
+    s0 : initial state;
+    s1 : final state;
+  transitions
+    regular: s0 -[ ]-> s1 { r := x + y ; ovf := false };
+    overflow: s0 -[ ]-> s1 { r := 0; ovf := true };
+**};
+end addition.default;
+
+end example4;

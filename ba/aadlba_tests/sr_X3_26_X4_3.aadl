@@ -1,0 +1,88 @@
+-- Semantic rules X.3.(26), X.4.(3)
+
+-- $Id: sr_X3_26_X4_3.aadl 238 2010-05-26 22:53:05Z lasnier $
+
+package example_sr_X3_26_X4_3
+public
+
+data dt
+end dt;
+
+thread th
+  features
+    p1 : in event data port dt;
+    p2 : in event data port dt;
+    m : out event data port dt;
+end th;
+
+thread implementation th.good
+subcomponents
+  x1 : data dt;
+  x2 : data dt;
+properties
+  Dispatch_Trigger => reference (p1);
+  Dispatch_Protocol => Timed;
+  Period => 10 ms;
+annex behavior_specification {**
+  states
+    s0 : initial state;
+    comp : final state;
+    next1 : complete state;
+    next2 : complete state;
+    
+  transitions
+    s0 -[ ]-> next1 { x1 := p1 };
+    next1 -[on dispatch p1]-> comp { x2 := p1 };
+    next1 -[on dispatch timeout]-> comp { x2 := 0 };
+    next2 -[on dispatch p1]-> comp { x2 := p1 };
+**};
+end th.good;
+
+thread implementation th.error
+subcomponents
+  x1 : data dt;
+  x2 : data dt;
+properties
+  Dispatch_Trigger => reference (p1);
+  Dispatch_Protocol => Timed;
+  Period => 10 ms;
+annex behavior_specification {**
+  states
+    s0 : initial state;
+    comp : final state;
+    next1 : complete state;
+    next2 : complete state;
+    
+  transitions
+    s0 -[ ]-> next1 { x1 := p1 };
+    next1 -[on dispatch p1]-> comp { x2 := p1 };
+    next1 -[on dispatch timeout 3 ms]-> comp { x2 := 0 };
+    next2 -[on dispatch p1]-> comp { x2 := p1 };
+**};
+end th.error;
+
+system s
+end s;
+
+processor cpu
+end cpu;
+
+process proc
+end proc;
+
+process implementation proc.impl
+subcomponents
+	th : thread th.good;
+	
+end proc.impl;
+
+system implementation s.impl
+subcomponents
+ p : process proc;
+ c : processor cpu;
+ 
+properties
+  Actual_Processor_Binding => reference (c) applies to p;  
+end s.impl;
+
+end example_sr_X3_26_X4_3;

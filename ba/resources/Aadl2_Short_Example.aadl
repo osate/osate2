@@ -1,0 +1,14 @@
+package Model::Test
+public
+
+   data MySimpleData
+   end MySimpleData;
+
+   thread MyThread
+   features
+    port1 : out event data port MySimpleData;
+   properties
+     Dispatch_Protocol => Periodic;
+     Period            => 1000 Ms;
+   end MyThread;
+end Model::Test;
