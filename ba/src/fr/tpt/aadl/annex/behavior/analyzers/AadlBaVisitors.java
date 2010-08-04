@@ -2,6 +2,7 @@ package fr.tpt.aadl.annex.behavior.analyzers ;
 
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
+import org.eclipse.emf.ecore.EObject ;
 
 import edu.cmu.sei.aadl.aadl2.AadlPackage ;
 import edu.cmu.sei.aadl.aadl2.ComponentClassifier ;
@@ -13,28 +14,24 @@ import edu.cmu.sei.aadl.aadl2.Namespace ;
 import edu.cmu.sei.aadl.aadl2.PackageRename ;
 import edu.cmu.sei.aadl.aadl2.PackageSection ;
 import edu.cmu.sei.aadl.aadl2.PrivatePackageSection ;
-import edu.cmu.sei.aadl.aadl2.Property;
-import edu.cmu.sei.aadl.aadl2.PropertyAssociation;
 import edu.cmu.sei.aadl.aadl2.PropertySet ;
 import edu.cmu.sei.aadl.aadl2.PublicPackageSection ;
 import edu.cmu.sei.aadl.aadl2.Subcomponent ;
-
 import edu.cmu.sei.aadl.modelsupport.eclipseinterface.OsateResourceManager ;
-
 import fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction ;
 import fr.tpt.aadl.annex.behavior.aadlba.BasicAction ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable ;
 import fr.tpt.aadl.annex.behavior.aadlba.CommActionParameter ;
 import fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction ;
 import fr.tpt.aadl.annex.behavior.aadlba.Declarator ;
-import fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition;
-import fr.tpt.aadl.annex.behavior.aadlba.DispatchLogicalExpression;
-import fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger;
+import fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition ;
+import fr.tpt.aadl.annex.behavior.aadlba.DispatchLogicalExpression ;
+import fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger ;
 import fr.tpt.aadl.annex.behavior.aadlba.DoUntilStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.Element ;
 import fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement ;
@@ -42,7 +39,6 @@ import fr.tpt.aadl.annex.behavior.aadlba.Identifier ;
 import fr.tpt.aadl.annex.behavior.aadlba.IfStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.Name ;
 import fr.tpt.aadl.annex.behavior.aadlba.NamedElement ;
-import fr.tpt.aadl.annex.behavior.aadlba.Target ;
 import fr.tpt.aadl.annex.behavior.aadlba.WhileStatement ;
 
 /**
@@ -90,6 +86,26 @@ public class AadlBaVisitors
    }
 
    /**
+    * Return the behavior transition that contains a given dispatch trigger or 
+    * {@code null}.
+    * 
+    * @param trigg the given dispatch trigger
+    * @return the behavior transition that contains the given dispatch trigger
+    * or {@code null}.
+    */
+   static public BehaviorTransition getBehaviorTransition(DispatchTrigger trigg)
+   {
+      EObject result = trigg.eContainer() ;
+      
+      while (! (result instanceof BehaviorTransition))
+      {
+         result = result.eContainer() ;
+      }
+      
+      return (BehaviorTransition) result ;
+   }
+   
+   /**
     * Find the first occurrence of an BehaviorVariable within a given
     * BehaviorAnnex which name equals to a given name. Return {@code null} if no 
     * BehaviorVariable is found.
@@ -106,7 +122,7 @@ public class AadlBaVisitors
       {
          for(Declarator d : v.getLocalVariableDeclarators())
          {
-            if(variableName.equals(d.getName()))
+            if(variableName.equalsIgnoreCase(d.getName()))
             {
                return v ;
             }
@@ -130,7 +146,7 @@ public class AadlBaVisitors
    {
       for(Feature f : cc.getAllFeatures())
       {
-         if(featureName.equals(f.getName()))
+         if(featureName.equalsIgnoreCase(f.getName()))
          {
             return f ;
          }
@@ -160,7 +176,7 @@ public class AadlBaVisitors
          .getAllSubcomponents() ;
          for(Subcomponent subc : lsubcs)
          {
-            if (subc.getName().equals(subComponentName))
+            if (subc.getName().equalsIgnoreCase(subComponentName))
             {
                result = subc ;
                break ;
@@ -188,7 +204,7 @@ public class AadlBaVisitors
       {
          for(Identifier id : s.getBehaviorStateIdentifiers())
          {
-            if(stateName.equals(id.getId()))
+            if(stateName.equalsIgnoreCase(id.getId()))
             {
                return s ;
             }

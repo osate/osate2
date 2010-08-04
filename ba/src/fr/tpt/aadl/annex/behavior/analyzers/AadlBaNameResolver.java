@@ -141,7 +141,7 @@ public class AadlBaNameResolver
             {
                for(Identifier ids : s.getBehaviorStateIdentifiers())
                {
-                  if(ids.getId().equals(d.getName()))
+                  if(ids.getId().equalsIgnoreCase(d.getName()))
                   {
                      _errManager.error(ids, "conflict with " + d.getName()
                            + " at line " + d.getLocationReference().getLine()) ;
@@ -152,7 +152,7 @@ public class AadlBaNameResolver
             for(BehaviorTransition t : ltrans)
             {
                Identifier idt = t.getTransitionIdentifier() ;
-               if(idt != null && idt.getId().equals(d.getName()))
+               if(idt != null && idt.getId().equalsIgnoreCase(d.getName()))
                {
                   _errManager.error(t, "conflict with " + d.getName()
                         + " at line " + d.getLocationReference().getLine()) ;
@@ -174,7 +174,7 @@ public class AadlBaNameResolver
             for(BehaviorTransition t : ltrans)
             {
                Identifier idt = t.getTransitionIdentifier() ;
-               if(idt != null && idt.getId().equals(ids.getId()))
+               if(idt != null && idt.getId().equalsIgnoreCase(ids.getId()))
                {
                   _errManager.error(t, "conflict with " + ids.getId()
                         + " at line " + ids.getLocationReference().getLine()) ;
@@ -893,7 +893,7 @@ public class AadlBaNameResolver
          {
             for(Declarator d : v.getLocalVariableDeclarators())
             {
-               if(d.getName().equals(ne.getName()))
+               if(d.getName().equalsIgnoreCase(ne.getName()))
                {
                   _errManager.error(d, "conflict with " + ne.getName()
                         + " at line " + ne.getLocationReference().getLine()) ;
@@ -906,7 +906,7 @@ public class AadlBaNameResolver
          {
             for(Identifier ids : s.getBehaviorStateIdentifiers())
             {
-               if(ids.getId().equals(ne.getName()))
+               if(ids.getId().equalsIgnoreCase(ne.getName()))
                {
                   _errManager.error(ids, "conflict with " + ne.getName()
                         + " at line " + ne.getLocationReference().getLine()) ;
@@ -918,7 +918,7 @@ public class AadlBaNameResolver
          for(BehaviorTransition t : ltrans)
          {
             Identifier idt = t.getTransitionIdentifier() ;
-            if(idt != null && idt.getId().equals(ne.getName()))
+            if(idt != null && idt.getId().equalsIgnoreCase(ne.getName()))
             {
                _errManager.error(t, "conflict with " + ne.getName()
                      + " at line " + ne.getLocationReference().getLine()) ;
