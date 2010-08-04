@@ -1688,7 +1688,9 @@ fact_value returns [Value Val]
               Val = PropertyCst ;
             }
          | // Cases of value variable and unresolved case between propertyset
-           // constant without qualified name and one symbol value variable.
+           // constant without qualified name and one name value variable
+           // (ex: port name, data component reference, subprogram parameter, 
+           // local variable).
            ValueVar=value_variable {Val=ValueVar;}
        )
      | // Cases from value constant category. 
