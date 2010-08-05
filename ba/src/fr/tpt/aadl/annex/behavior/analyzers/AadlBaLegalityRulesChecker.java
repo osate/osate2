@@ -36,7 +36,8 @@ LEGALITY RULES
 
 .conditions
 -------------------------------------------
-- X.4.(L12) dispatch trigger condition, event data port and value others
+- X.4.(L12) dispatch trigger condition, event data port and value others. Same
+            as semantic rule X.4.(5). Implemented.
 
 
 .timeout
@@ -46,30 +47,31 @@ LEGALITY RULES
 
 .assignment actions
 -------------------------------------------
-- X.6.(14) type of target and expression must match
-- X.6.(15) element_variable_identifier of for control struct is not a target
-- X.6.(16) action set and local variable
-- X.6.(17) action set and port variable
+- X.6.(L14) type of target and expression must match. Same as semantic rule X.6(17). 
+            Not implemented.
+- X.6.(L15) element_variable_identifier of for control struct is not a target
+- X.6.(L16) action set and local variable
+- X.6.(L17) action set and port variable
 
 
 .timed actions
 -------------------------------------------
-- X.6.(21) computation max >= min
+- X.6.(L21) computation max >= min
 
 
 .subprogram
 -------------------------------------------
-- X.6.(18) parameter list and subprogram signature must match
+- X.6.(L18) parameter list and subprogram signature must match
 
 
 .ports
 -------------------------------------------
-- X.6.(20) port name only one dimension array
+- X.6.(L20) port name only one dimension array
 
 
 .expressions
 -------------------------------------------
-- X.7.(22) a (27)
+- X.7.(L22) a (L27)
  */
 
 public class AadlBaLegalityRulesChecker

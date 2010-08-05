@@ -32,7 +32,7 @@ public class AadlBaUtils {
     * 
     * @param id the Identifier object to be checked.
     * @param klass the class 
-    * @param direction the given direction
+    * @param direction the given direction or {@code null}
     * @param errManager the given error reporter manager
     * @return {@code true} if checking passed. {@code false} otherwise.
     */

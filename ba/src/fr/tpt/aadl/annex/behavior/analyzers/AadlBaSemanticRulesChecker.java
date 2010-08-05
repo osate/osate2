@@ -37,6 +37,128 @@ import fr.tpt.aadl.annex.behavior.aadlba.UniqueComponentClassifierReference ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaGetProperties ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 
+/*
+--------------------------------------------------------------------------------
+SEMANTIC RULES
+--------------------------------------------------------------------------------
+
+.behavior annex subclause/specification
+-------------------------------------------
+- X.3.(2) in modes, all modes > nothing to do
+- X.3.(20) annex subclause and aadl core language consistency
+- X.3.(21) SUBPROGRAM CALLS and behavior annex subclause
+
+.automaton
+-------------------------------------------
+#subprograms
+- X.3.(8) subprogram's automaton must contain one initial state...
+          no complete state
+          -> check_subprogram_automaton
+             .> check one initial state, check one final, no complete 
+- X.3.(12) modes and subprograms
+
+#threads and devices
+- X.3.(9) complete state...
+- X.3.(13) components and modes
+- X.3.(14) out transition, complete state, dispatch condition
+- X.3.(16) dispatch condition
+- X.3.(21) SUBPROGRAM CALLS and behavior annex subclause
+- X.3.(22) thread automaton and AADL core semantics
+- X.3.(23) behavior specification
+- X.4.(1) consistency between aadl core port frozen...
+
+#others components
+- X.3.(10)
+- X.3.(13) components and modes
+- X.3.(23) behavior specification
+
+
+.states
+-------------------------------------------
+- X.3.(11) final state cannot accept outgoing transitions
+
+
+.variables
+-------------------------------------------
+- X.3.(27) local variables must be typed
+- X.3.(28) if persistent variables, not oblige to have data subcomp
+
+
+.transitions
+-------------------------------------------
+- X.3.(15) transitions and conditions
+- X.3.(18) transitions and priority numbers
+- X.3.(19) transitions and actions
+
+
+.conditions
+-------------------------------------------
+- X.3.(16) dispatch conditions
+- X.3.(17) execute conditions
+- X.3.(24) dipatch conditions refinement
+- X.3.(25) dispatch condition, priority...
+- X.3.(26) timeout dispatch condition, Period property
+
+- X.4.(2) dipatch condition, transition, out complete state
+- X.4.(3) dispatch condition, timeout et aadl core language
+- X.4.(4) dispatch condition, transition, complete and final state
+          aadl core language
+- X.4.(5) dispatch condition, event data dispatch trigger. Same as legality rule
+          X.4(12). Implemented.
+- X.4.(6) dispatch trigger, numeral, ormore, orless
+
+
+.ports
+-------------------------------------------
+- X.5.(6) ports, input_time property, output_time, aadl consistency
+- X.5.(7) 
+- X.5.(13) output out or in out ports, data access features, incoming parameter
+- X.5.(15) send, receive output on ports
+
+
+.data components
+-------------------------------------------
+- X.5.(11) shared data, concurrency control protocol
+- X.5.(12) shared data, concurrency control protocol, 3 sc
+
+
+.subprograms
+-------------------------------------------
+- X.5.(18)
+- X.5.(19)
+- X.5.(20) nothing to implement
+
+.basic actions
+-------------------------------------------
+- X.6.(3) assignment action target references in assignments
+- X.6.(4) communication actions ports parameters subprogram calls
+- X.6.(5) timed actions and computation
+- X.6.(6) timed actions and time values and aadl core language properties
+
+.assignment actions
+-------------------------------------------
+- X.6.(15) out and assignment actions
+- X.6.(16) assignment actions re-used in same action sets
+- X.6.(17) target, expressions matching types. Same as legality rule X.6(14).
+           Chosen to be implemented instead of the legality rule X.6(14).
+
+.timed actions
+-------------------------------------------
+- X.6.(18) timed actions cannont be used in action sets
+- X.6.(19) computation and behavior time unit
+
+.timeout
+-------------------------------------------
+- X.6.(7) timeout and execution block
+
+.behavior expressions
+-------------------------------------------
+- X.7.(1) 
+- X.7.(2) 
+- X.7.(3) 
+- X.7.(4) 
+*/
+
 public class AadlBaSemanticRulesChecker
 {
    private BehaviorAnnex _ba ;
@@ -862,6 +984,7 @@ public class AadlBaSemanticRulesChecker
       return result ;
    }
 
+   // XXX Same as legality rule X.4.(L12)
    /**
     * Document: AADL Behavior Annex draft 
     * Version : 2.13 
