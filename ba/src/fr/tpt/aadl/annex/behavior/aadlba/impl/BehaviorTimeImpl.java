@@ -35,234 +35,227 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 {
    /**
-    * The cached value of the '{@link #getIntegerValueOwned() <em>Integer Value Owned</em>}' containment reference.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getIntegerValueOwned() <em>Integer Value Owned</em>}' containment reference.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getIntegerValueOwned()
-    * @generated
-    * @ordered
-    */
+	 * @see #getIntegerValueOwned()
+	 * @generated
+	 * @ordered
+	 */
    protected IntegerValue integerValueOwned;
 
    /**
-    * The default value of the '{@link #getUnitIdentifier() <em>Unit Identifier</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getUnitIdentifier() <em>Unit Identifier</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getUnitIdentifier()
-    * @generated
-    * @ordered
-    */
+	 * @see #getUnitIdentifier()
+	 * @generated
+	 * @ordered
+	 */
    protected static final String UNIT_IDENTIFIER_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getUnitIdentifier() <em>Unit Identifier</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getUnitIdentifier() <em>Unit Identifier</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getUnitIdentifier()
-    * @generated
-    * @ordered
-    */
+	 * @see #getUnitIdentifier()
+	 * @generated
+	 * @ordered
+	 */
    protected String unitIdentifier = UNIT_IDENTIFIER_EDEFAULT;
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected BehaviorTimeImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.BEHAVIOR_TIME;
-   }
+		return AadlBaPackage.Literals.BEHAVIOR_TIME;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public IntegerValue getIntegerValueOwned()
    {
-      return integerValueOwned;
-   }
+		return integerValueOwned;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public NotificationChain basicSetIntegerValueOwned(IntegerValue newIntegerValueOwned, NotificationChain msgs)
    {
-      IntegerValue oldIntegerValueOwned = integerValueOwned;
-      integerValueOwned = newIntegerValueOwned;
-      if (eNotificationRequired())
-      {
-         ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED, oldIntegerValueOwned, newIntegerValueOwned);
-         if (msgs == null) msgs = notification; else msgs.add(notification);
-      }
-      return msgs;
-   }
+		IntegerValue oldIntegerValueOwned = integerValueOwned;
+		integerValueOwned = newIntegerValueOwned;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED, oldIntegerValueOwned, newIntegerValueOwned);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void setIntegerValueOwned(IntegerValue newIntegerValueOwned)
    {
-      if (newIntegerValueOwned != integerValueOwned)
-      {
-         NotificationChain msgs = null;
-         if (integerValueOwned != null)
-            msgs = ((InternalEObject)integerValueOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED, null, msgs);
-         if (newIntegerValueOwned != null)
-            msgs = ((InternalEObject)newIntegerValueOwned).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED, null, msgs);
-         msgs = basicSetIntegerValueOwned(newIntegerValueOwned, msgs);
-         if (msgs != null) msgs.dispatch();
-      }
-      else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED, newIntegerValueOwned, newIntegerValueOwned));
-   }
+		if (newIntegerValueOwned != integerValueOwned) {
+			NotificationChain msgs = null;
+			if (integerValueOwned != null)
+				msgs = ((InternalEObject)integerValueOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED, null, msgs);
+			if (newIntegerValueOwned != null)
+				msgs = ((InternalEObject)newIntegerValueOwned).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED, null, msgs);
+			msgs = basicSetIntegerValueOwned(newIntegerValueOwned, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED, newIntegerValueOwned, newIntegerValueOwned));
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String getUnitIdentifier()
    {
-      return unitIdentifier;
-   }
+		return unitIdentifier;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void setUnitIdentifier(String newUnitIdentifier)
    {
-      String oldUnitIdentifier = unitIdentifier;
-      unitIdentifier = newUnitIdentifier;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER, oldUnitIdentifier, unitIdentifier));
-   }
+		String oldUnitIdentifier = unitIdentifier;
+		unitIdentifier = newUnitIdentifier;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER, oldUnitIdentifier, unitIdentifier));
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
-            return basicSetIntegerValueOwned(null, msgs);
-      }
-      return super.eInverseRemove(otherEnd, featureID, msgs);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
+				return basicSetIntegerValueOwned(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public Object eGet(int featureID, boolean resolve, boolean coreType)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
-            return getIntegerValueOwned();
-         case AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER:
-            return getUnitIdentifier();
-      }
-      return super.eGet(featureID, resolve, coreType);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
+				return getIntegerValueOwned();
+			case AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER:
+				return getUnitIdentifier();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public void eSet(int featureID, Object newValue)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
-            setIntegerValueOwned((IntegerValue)newValue);
-            return;
-         case AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER:
-            setUnitIdentifier((String)newValue);
-            return;
-      }
-      super.eSet(featureID, newValue);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
+				setIntegerValueOwned((IntegerValue)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER:
+				setUnitIdentifier((String)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public void eUnset(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
-            setIntegerValueOwned((IntegerValue)null);
-            return;
-         case AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER:
-            setUnitIdentifier(UNIT_IDENTIFIER_EDEFAULT);
-            return;
-      }
-      super.eUnset(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
+				setIntegerValueOwned((IntegerValue)null);
+				return;
+			case AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER:
+				setUnitIdentifier(UNIT_IDENTIFIER_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public boolean eIsSet(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
-            return integerValueOwned != null;
-         case AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER:
-            return UNIT_IDENTIFIER_EDEFAULT == null ? unitIdentifier != null : !UNIT_IDENTIFIER_EDEFAULT.equals(unitIdentifier);
-      }
-      return super.eIsSet(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
+				return integerValueOwned != null;
+			case AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER:
+				return UNIT_IDENTIFIER_EDEFAULT == null ? unitIdentifier != null : !UNIT_IDENTIFIER_EDEFAULT.equals(unitIdentifier);
+		}
+		return super.eIsSet(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public String toString()
    {
-      if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-      StringBuffer result = new StringBuffer(super.toString());
-      result.append(" (UnitIdentifier: ");
-      result.append(unitIdentifier);
-      result.append(')');
-      return result.toString();
-   }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (UnitIdentifier: ");
+		result.append(unitIdentifier);
+		result.append(')');
+		return result.toString();
+	}
 
 } //BehaviorTimeImpl

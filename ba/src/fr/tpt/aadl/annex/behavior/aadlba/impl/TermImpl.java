@@ -45,279 +45,272 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class TermImpl extends ElementImpl implements Term
 {
    /**
-    * The cached value of the '{@link #getFactorsOwned() <em>Factors Owned</em>}' containment reference list.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getFactorsOwned() <em>Factors Owned</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getFactorsOwned()
-    * @generated
-    * @ordered
-    */
+	 * @see #getFactorsOwned()
+	 * @generated
+	 * @ordered
+	 */
    protected EList<Factor> factorsOwned;
 
    /**
-    * The default value of the '{@link #isHasMultiplyingOperator() <em>Has Multiplying Operator</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isHasMultiplyingOperator() <em>Has Multiplying Operator</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #isHasMultiplyingOperator()
-    * @generated
-    * @ordered
-    */
+	 * @see #isHasMultiplyingOperator()
+	 * @generated
+	 * @ordered
+	 */
    protected static final boolean HAS_MULTIPLYING_OPERATOR_EDEFAULT = false;
 
    /**
-    * The cached value of the '{@link #isHasMultiplyingOperator() <em>Has Multiplying Operator</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isHasMultiplyingOperator() <em>Has Multiplying Operator</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #isHasMultiplyingOperator()
-    * @generated
-    * @ordered
-    */
+	 * @see #isHasMultiplyingOperator()
+	 * @generated
+	 * @ordered
+	 */
    protected boolean hasMultiplyingOperator = HAS_MULTIPLYING_OPERATOR_EDEFAULT;
 
    /**
-    * The cached value of the '{@link #getMultiplyingOperatorsOwned() <em>Multiplying Operators Owned</em>}' attribute list.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getMultiplyingOperatorsOwned() <em>Multiplying Operators Owned</em>}' attribute list.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getMultiplyingOperatorsOwned()
-    * @generated
-    * @ordered
-    */
+	 * @see #getMultiplyingOperatorsOwned()
+	 * @generated
+	 * @ordered
+	 */
    protected EList<MultiplyingOperator> multiplyingOperatorsOwned;
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected TermImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.TERM;
-   }
+		return AadlBaPackage.Literals.TERM;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public EList<Factor> getFactorsOwned()
    {
-      if (factorsOwned == null)
-      {
-         factorsOwned = new EObjectContainmentEList.Unsettable<Factor>(Factor.class, this, AadlBaPackage.TERM__FACTORS_OWNED);
-      }
-      return factorsOwned;
-   }
+		if (factorsOwned == null) {
+			factorsOwned = new EObjectContainmentEList.Unsettable<Factor>(Factor.class, this, AadlBaPackage.TERM__FACTORS_OWNED);
+		}
+		return factorsOwned;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void unsetFactorsOwned()
    {
-      if (factorsOwned != null) ((InternalEList.Unsettable<?>)factorsOwned).unset();
-   }
+		if (factorsOwned != null) ((InternalEList.Unsettable<?>)factorsOwned).unset();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isSetFactorsOwned()
    {
-      return factorsOwned != null && ((InternalEList.Unsettable<?>)factorsOwned).isSet();
-   }
+		return factorsOwned != null && ((InternalEList.Unsettable<?>)factorsOwned).isSet();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isHasMultiplyingOperator()
    {
-      return hasMultiplyingOperator;
-   }
+		return hasMultiplyingOperator;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void setHasMultiplyingOperator(boolean newHasMultiplyingOperator)
    {
-      boolean oldHasMultiplyingOperator = hasMultiplyingOperator;
-      hasMultiplyingOperator = newHasMultiplyingOperator;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.TERM__HAS_MULTIPLYING_OPERATOR, oldHasMultiplyingOperator, hasMultiplyingOperator));
-   }
+		boolean oldHasMultiplyingOperator = hasMultiplyingOperator;
+		hasMultiplyingOperator = newHasMultiplyingOperator;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.TERM__HAS_MULTIPLYING_OPERATOR, oldHasMultiplyingOperator, hasMultiplyingOperator));
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public EList<MultiplyingOperator> getMultiplyingOperatorsOwned()
    {
-      if (multiplyingOperatorsOwned == null)
-      {
-         multiplyingOperatorsOwned = new EDataTypeUniqueEList.Unsettable<MultiplyingOperator>(MultiplyingOperator.class, this, AadlBaPackage.TERM__MULTIPLYING_OPERATORS_OWNED);
-      }
-      return multiplyingOperatorsOwned;
-   }
+		if (multiplyingOperatorsOwned == null) {
+			multiplyingOperatorsOwned = new EDataTypeUniqueEList.Unsettable<MultiplyingOperator>(MultiplyingOperator.class, this, AadlBaPackage.TERM__MULTIPLYING_OPERATORS_OWNED);
+		}
+		return multiplyingOperatorsOwned;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void unsetMultiplyingOperatorsOwned()
    {
-      if (multiplyingOperatorsOwned != null) ((InternalEList.Unsettable<?>)multiplyingOperatorsOwned).unset();
-   }
+		if (multiplyingOperatorsOwned != null) ((InternalEList.Unsettable<?>)multiplyingOperatorsOwned).unset();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isSetMultiplyingOperatorsOwned()
    {
-      return multiplyingOperatorsOwned != null && ((InternalEList.Unsettable<?>)multiplyingOperatorsOwned).isSet();
-   }
+		return multiplyingOperatorsOwned != null && ((InternalEList.Unsettable<?>)multiplyingOperatorsOwned).isSet();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.TERM__FACTORS_OWNED:
-            return ((InternalEList<?>)getFactorsOwned()).basicRemove(otherEnd, msgs);
-      }
-      return super.eInverseRemove(otherEnd, featureID, msgs);
-   }
+		switch (featureID) {
+			case AadlBaPackage.TERM__FACTORS_OWNED:
+				return ((InternalEList<?>)getFactorsOwned()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public Object eGet(int featureID, boolean resolve, boolean coreType)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.TERM__FACTORS_OWNED:
-            return getFactorsOwned();
-         case AadlBaPackage.TERM__HAS_MULTIPLYING_OPERATOR:
-            return isHasMultiplyingOperator();
-         case AadlBaPackage.TERM__MULTIPLYING_OPERATORS_OWNED:
-            return getMultiplyingOperatorsOwned();
-      }
-      return super.eGet(featureID, resolve, coreType);
-   }
+		switch (featureID) {
+			case AadlBaPackage.TERM__FACTORS_OWNED:
+				return getFactorsOwned();
+			case AadlBaPackage.TERM__HAS_MULTIPLYING_OPERATOR:
+				return isHasMultiplyingOperator();
+			case AadlBaPackage.TERM__MULTIPLYING_OPERATORS_OWNED:
+				return getMultiplyingOperatorsOwned();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @SuppressWarnings("unchecked")
    @Override
    public void eSet(int featureID, Object newValue)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.TERM__FACTORS_OWNED:
-            getFactorsOwned().clear();
-            getFactorsOwned().addAll((Collection<? extends Factor>)newValue);
-            return;
-         case AadlBaPackage.TERM__HAS_MULTIPLYING_OPERATOR:
-            setHasMultiplyingOperator((Boolean)newValue);
-            return;
-         case AadlBaPackage.TERM__MULTIPLYING_OPERATORS_OWNED:
-            getMultiplyingOperatorsOwned().clear();
-            getMultiplyingOperatorsOwned().addAll((Collection<? extends MultiplyingOperator>)newValue);
-            return;
-      }
-      super.eSet(featureID, newValue);
-   }
+		switch (featureID) {
+			case AadlBaPackage.TERM__FACTORS_OWNED:
+				getFactorsOwned().clear();
+				getFactorsOwned().addAll((Collection<? extends Factor>)newValue);
+				return;
+			case AadlBaPackage.TERM__HAS_MULTIPLYING_OPERATOR:
+				setHasMultiplyingOperator((Boolean)newValue);
+				return;
+			case AadlBaPackage.TERM__MULTIPLYING_OPERATORS_OWNED:
+				getMultiplyingOperatorsOwned().clear();
+				getMultiplyingOperatorsOwned().addAll((Collection<? extends MultiplyingOperator>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public void eUnset(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.TERM__FACTORS_OWNED:
-            unsetFactorsOwned();
-            return;
-         case AadlBaPackage.TERM__HAS_MULTIPLYING_OPERATOR:
-            setHasMultiplyingOperator(HAS_MULTIPLYING_OPERATOR_EDEFAULT);
-            return;
-         case AadlBaPackage.TERM__MULTIPLYING_OPERATORS_OWNED:
-            unsetMultiplyingOperatorsOwned();
-            return;
-      }
-      super.eUnset(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.TERM__FACTORS_OWNED:
+				unsetFactorsOwned();
+				return;
+			case AadlBaPackage.TERM__HAS_MULTIPLYING_OPERATOR:
+				setHasMultiplyingOperator(HAS_MULTIPLYING_OPERATOR_EDEFAULT);
+				return;
+			case AadlBaPackage.TERM__MULTIPLYING_OPERATORS_OWNED:
+				unsetMultiplyingOperatorsOwned();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public boolean eIsSet(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.TERM__FACTORS_OWNED:
-            return isSetFactorsOwned();
-         case AadlBaPackage.TERM__HAS_MULTIPLYING_OPERATOR:
-            return hasMultiplyingOperator != HAS_MULTIPLYING_OPERATOR_EDEFAULT;
-         case AadlBaPackage.TERM__MULTIPLYING_OPERATORS_OWNED:
-            return isSetMultiplyingOperatorsOwned();
-      }
-      return super.eIsSet(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.TERM__FACTORS_OWNED:
+				return isSetFactorsOwned();
+			case AadlBaPackage.TERM__HAS_MULTIPLYING_OPERATOR:
+				return hasMultiplyingOperator != HAS_MULTIPLYING_OPERATOR_EDEFAULT;
+			case AadlBaPackage.TERM__MULTIPLYING_OPERATORS_OWNED:
+				return isSetMultiplyingOperatorsOwned();
+		}
+		return super.eIsSet(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public String toString()
    {
-      if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-      StringBuffer result = new StringBuffer(super.toString());
-      result.append(" (hasMultiplyingOperator: ");
-      result.append(hasMultiplyingOperator);
-      result.append(", MultiplyingOperatorsOwned: ");
-      result.append(multiplyingOperatorsOwned);
-      result.append(')');
-      return result.toString();
-   }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (hasMultiplyingOperator: ");
+		result.append(hasMultiplyingOperator);
+		result.append(", MultiplyingOperatorsOwned: ");
+		result.append(multiplyingOperatorsOwned);
+		result.append(')');
+		return result.toString();
+	}
 
 } //TermImpl

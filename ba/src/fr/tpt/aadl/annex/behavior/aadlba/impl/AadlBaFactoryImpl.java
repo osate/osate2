@@ -26,938 +26,932 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
 {
    /**
-    * Creates the default factory implementation.
-    * <!-- begin-user-doc -->
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public static AadlBaFactory init()
    {
-      try
-      {
-         AadlBaFactory theAadlBaFactory = (AadlBaFactory)EPackage.Registry.INSTANCE.getEFactory("http:///AADLBA"); 
-         if (theAadlBaFactory != null)
-         {
-            return theAadlBaFactory;
-         }
-      }
-      catch (Exception exception)
-      {
-         EcorePlugin.INSTANCE.log(exception);
-      }
-      return new AadlBaFactoryImpl();
-   }
+		try {
+			AadlBaFactory theAadlBaFactory = (AadlBaFactory)EPackage.Registry.INSTANCE.getEFactory("http:///AADLBA"); 
+			if (theAadlBaFactory != null) {
+				return theAadlBaFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new AadlBaFactoryImpl();
+	}
 
    /**
-    * Creates an instance of the factory.
-    * <!-- begin-user-doc -->
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public AadlBaFactoryImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public EObject create(EClass eClass)
    {
-      switch (eClass.getClassifierID())
-      {
-         case AadlBaPackage.COMMENT: return (EObject)createComment();
-         case AadlBaPackage.GLOBAL_NAMESPACE: return (EObject)createGlobalNamespace();
-         case AadlBaPackage.BEHAVIOR_ANNEX: return (EObject)createBehaviorAnnex();
-         case AadlBaPackage.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE: return (EObject)createUniqueComponentClassifierReference();
-         case AadlBaPackage.BEHAVIOR_VARIABLE: return (EObject)createBehaviorVariable();
-         case AadlBaPackage.BEHAVIOR_STATE: return (EObject)createBehaviorState();
-         case AadlBaPackage.BEHAVIOR_TRANSITION: return (EObject)createBehaviorTransition();
-         case AadlBaPackage.DECLARATOR: return (EObject)createDeclarator();
-         case AadlBaPackage.ARRAY_SIZE: return (EObject)createArraySize();
-         case AadlBaPackage.DISPATCH_CONDITION: return (EObject)createDispatchCondition();
-         case AadlBaPackage.DISPATCH_LOGICAL_EXPRESSION: return (EObject)createDispatchLogicalExpression();
-         case AadlBaPackage.DISPATCH_TRIGGER: return (EObject)createDispatchTrigger();
-         case AadlBaPackage.BEHAVIOR_ACTIONS: return (EObject)createBehaviorActions();
-         case AadlBaPackage.BEHAVIOR_ACTION: return (EObject)createBehaviorAction();
-         case AadlBaPackage.IF_STATEMENT: return (EObject)createIfStatement();
-         case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT: return (EObject)createForOrForAllStatement();
-         case AadlBaPackage.WHILE_STATEMENT: return (EObject)createWhileStatement();
-         case AadlBaPackage.DO_UNTIL_STATEMENT: return (EObject)createDoUntilStatement();
-         case AadlBaPackage.ASSIGNMENT_ACTION: return (EObject)createAssignmentAction();
-         case AadlBaPackage.COMMUNICATION_ACTION: return (EObject)createCommunicationAction();
-         case AadlBaPackage.SUBPROGRAM_PARAMETER_LIST: return (EObject)createSubprogramParameterList();
-         case AadlBaPackage.TIMED_ACTION: return (EObject)createTimedAction();
-         case AadlBaPackage.TARGET: return (EObject)createTarget();
-         case AadlBaPackage.DATA_COMPONENT_REFERENCE: return (EObject)createDataComponentReference();
-         case AadlBaPackage.NAME: return (EObject)createName();
-         case AadlBaPackage.ARRAY_INDEX: return (EObject)createArrayIndex();
-         case AadlBaPackage.VALUE_VARIABLE: return (EObject)createValueVariable();
-         case AadlBaPackage.VALUE_EXPRESSION: return (EObject)createValueExpression();
-         case AadlBaPackage.RELATION: return (EObject)createRelation();
-         case AadlBaPackage.SIMPLE_EXPRESSION: return (EObject)createSimpleExpression();
-         case AadlBaPackage.TERM: return (EObject)createTerm();
-         case AadlBaPackage.FACTOR: return (EObject)createFactor();
-         case AadlBaPackage.INTEGER_RANGE: return (EObject)createIntegerRange();
-         case AadlBaPackage.BEHAVIOR_TIME: return (EObject)createBehaviorTime();
-         case AadlBaPackage.PROPERTY_CONSTANT: return (EObject)createPropertyConstant();
-         case AadlBaPackage.PROPERTY_VALUE: return (EObject)createPropertyValue();
-         case AadlBaPackage.IDENTIFIER: return (EObject)createIdentifier();
-         case AadlBaPackage.NUMERIC_LITERAL: return (EObject)createNumericLiteral();
-         case AadlBaPackage.BOOLEAN_LITERAL: return (EObject)createBooleanLiteral();
-         case AadlBaPackage.STRING_LITERAL: return (EObject)createStringLiteral();
-         case AadlBaPackage.NUMERAL: return (EObject)createNumeral();
-         case AadlBaPackage.EXECUTE_CONDITION: return (EObject)createExecuteCondition();
-         default:
-            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-      }
-   }
+		switch (eClass.getClassifierID()) {
+			case AadlBaPackage.COMMENT: return (EObject)createComment();
+			case AadlBaPackage.GLOBAL_NAMESPACE: return (EObject)createGlobalNamespace();
+			case AadlBaPackage.BEHAVIOR_ANNEX: return (EObject)createBehaviorAnnex();
+			case AadlBaPackage.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE: return (EObject)createUniqueComponentClassifierReference();
+			case AadlBaPackage.BEHAVIOR_VARIABLE: return (EObject)createBehaviorVariable();
+			case AadlBaPackage.BEHAVIOR_STATE: return (EObject)createBehaviorState();
+			case AadlBaPackage.BEHAVIOR_TRANSITION: return (EObject)createBehaviorTransition();
+			case AadlBaPackage.DECLARATOR: return (EObject)createDeclarator();
+			case AadlBaPackage.ARRAY_SIZE: return (EObject)createArraySize();
+			case AadlBaPackage.DISPATCH_CONDITION: return (EObject)createDispatchCondition();
+			case AadlBaPackage.DISPATCH_LOGICAL_EXPRESSION: return (EObject)createDispatchLogicalExpression();
+			case AadlBaPackage.DISPATCH_TRIGGER: return (EObject)createDispatchTrigger();
+			case AadlBaPackage.BEHAVIOR_ACTIONS: return (EObject)createBehaviorActions();
+			case AadlBaPackage.BEHAVIOR_ACTION: return (EObject)createBehaviorAction();
+			case AadlBaPackage.IF_STATEMENT: return (EObject)createIfStatement();
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT: return (EObject)createForOrForAllStatement();
+			case AadlBaPackage.WHILE_STATEMENT: return (EObject)createWhileStatement();
+			case AadlBaPackage.DO_UNTIL_STATEMENT: return (EObject)createDoUntilStatement();
+			case AadlBaPackage.ASSIGNMENT_ACTION: return (EObject)createAssignmentAction();
+			case AadlBaPackage.COMMUNICATION_ACTION: return (EObject)createCommunicationAction();
+			case AadlBaPackage.SUBPROGRAM_PARAMETER_LIST: return (EObject)createSubprogramParameterList();
+			case AadlBaPackage.TIMED_ACTION: return (EObject)createTimedAction();
+			case AadlBaPackage.TARGET: return (EObject)createTarget();
+			case AadlBaPackage.DATA_COMPONENT_REFERENCE: return (EObject)createDataComponentReference();
+			case AadlBaPackage.NAME: return (EObject)createName();
+			case AadlBaPackage.ARRAY_INDEX: return (EObject)createArrayIndex();
+			case AadlBaPackage.VALUE_VARIABLE: return (EObject)createValueVariable();
+			case AadlBaPackage.VALUE_EXPRESSION: return (EObject)createValueExpression();
+			case AadlBaPackage.RELATION: return (EObject)createRelation();
+			case AadlBaPackage.SIMPLE_EXPRESSION: return (EObject)createSimpleExpression();
+			case AadlBaPackage.TERM: return (EObject)createTerm();
+			case AadlBaPackage.FACTOR: return (EObject)createFactor();
+			case AadlBaPackage.INTEGER_RANGE: return (EObject)createIntegerRange();
+			case AadlBaPackage.BEHAVIOR_TIME: return (EObject)createBehaviorTime();
+			case AadlBaPackage.PROPERTY_CONSTANT: return (EObject)createPropertyConstant();
+			case AadlBaPackage.PROPERTY_VALUE: return (EObject)createPropertyValue();
+			case AadlBaPackage.IDENTIFIER: return (EObject)createIdentifier();
+			case AadlBaPackage.NUMERIC_LITERAL: return (EObject)createNumericLiteral();
+			case AadlBaPackage.BOOLEAN_LITERAL: return (EObject)createBooleanLiteral();
+			case AadlBaPackage.STRING_LITERAL: return (EObject)createStringLiteral();
+			case AadlBaPackage.NUMERAL: return (EObject)createNumeral();
+			case AadlBaPackage.EXECUTE_CONDITION: return (EObject)createExecuteCondition();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public Object createFromString(EDataType eDataType, String initialValue)
    {
-      switch (eDataType.getClassifierID())
-      {
-         case AadlBaPackage.COMM_ACTION_PARAMETER:
-            return createCommActionParameterFromString(eDataType, initialValue);
-         case AadlBaPackage.LOGICAL_OPERATOR:
-            return createLogicalOperatorFromString(eDataType, initialValue);
-         case AadlBaPackage.RELATIONAL_OPERATOR:
-            return createRelationalOperatorFromString(eDataType, initialValue);
-         case AadlBaPackage.BINARY_ADDING_OPERATOR:
-            return createBinaryAddingOperatorFromString(eDataType, initialValue);
-         case AadlBaPackage.UNARY_ADDING_OPERATOR:
-            return createUnaryAddingOperatorFromString(eDataType, initialValue);
-         case AadlBaPackage.MULTIPLYING_OPERATOR:
-            return createMultiplyingOperatorFromString(eDataType, initialValue);
-         case AadlBaPackage.BINARY_NUMERIC_OPERATOR:
-            return createBinaryNumericOperatorFromString(eDataType, initialValue);
-         case AadlBaPackage.UNARY_NUMERIC_OPERATOR:
-            return createUnaryNumericOperatorFromString(eDataType, initialValue);
-         case AadlBaPackage.UNARY_BOOLEAN_OPERATOR:
-            return createUnaryBooleanOperatorFromString(eDataType, initialValue);
-         case AadlBaPackage.INTEGER:
-            return createIntegerFromString(eDataType, initialValue);
-         case AadlBaPackage.REAL:
-            return createRealFromString(eDataType, initialValue);
-         case AadlBaPackage.STRING:
-            return createStringFromString(eDataType, initialValue);
-         case AadlBaPackage.BOOLEAN:
-            return createBooleanFromString(eDataType, initialValue);
-         default:
-            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-      }
-   }
+		switch (eDataType.getClassifierID()) {
+			case AadlBaPackage.COMM_ACTION_PARAMETER:
+				return createCommActionParameterFromString(eDataType, initialValue);
+			case AadlBaPackage.LOGICAL_OPERATOR:
+				return createLogicalOperatorFromString(eDataType, initialValue);
+			case AadlBaPackage.RELATIONAL_OPERATOR:
+				return createRelationalOperatorFromString(eDataType, initialValue);
+			case AadlBaPackage.BINARY_ADDING_OPERATOR:
+				return createBinaryAddingOperatorFromString(eDataType, initialValue);
+			case AadlBaPackage.UNARY_ADDING_OPERATOR:
+				return createUnaryAddingOperatorFromString(eDataType, initialValue);
+			case AadlBaPackage.MULTIPLYING_OPERATOR:
+				return createMultiplyingOperatorFromString(eDataType, initialValue);
+			case AadlBaPackage.BINARY_NUMERIC_OPERATOR:
+				return createBinaryNumericOperatorFromString(eDataType, initialValue);
+			case AadlBaPackage.UNARY_NUMERIC_OPERATOR:
+				return createUnaryNumericOperatorFromString(eDataType, initialValue);
+			case AadlBaPackage.UNARY_BOOLEAN_OPERATOR:
+				return createUnaryBooleanOperatorFromString(eDataType, initialValue);
+			case AadlBaPackage.INTEGER:
+				return createIntegerFromString(eDataType, initialValue);
+			case AadlBaPackage.REAL:
+				return createRealFromString(eDataType, initialValue);
+			case AadlBaPackage.STRING:
+				return createStringFromString(eDataType, initialValue);
+			case AadlBaPackage.BOOLEAN:
+				return createBooleanFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public String convertToString(EDataType eDataType, Object instanceValue)
    {
-      switch (eDataType.getClassifierID())
-      {
-         case AadlBaPackage.COMM_ACTION_PARAMETER:
-            return convertCommActionParameterToString(eDataType, instanceValue);
-         case AadlBaPackage.LOGICAL_OPERATOR:
-            return convertLogicalOperatorToString(eDataType, instanceValue);
-         case AadlBaPackage.RELATIONAL_OPERATOR:
-            return convertRelationalOperatorToString(eDataType, instanceValue);
-         case AadlBaPackage.BINARY_ADDING_OPERATOR:
-            return convertBinaryAddingOperatorToString(eDataType, instanceValue);
-         case AadlBaPackage.UNARY_ADDING_OPERATOR:
-            return convertUnaryAddingOperatorToString(eDataType, instanceValue);
-         case AadlBaPackage.MULTIPLYING_OPERATOR:
-            return convertMultiplyingOperatorToString(eDataType, instanceValue);
-         case AadlBaPackage.BINARY_NUMERIC_OPERATOR:
-            return convertBinaryNumericOperatorToString(eDataType, instanceValue);
-         case AadlBaPackage.UNARY_NUMERIC_OPERATOR:
-            return convertUnaryNumericOperatorToString(eDataType, instanceValue);
-         case AadlBaPackage.UNARY_BOOLEAN_OPERATOR:
-            return convertUnaryBooleanOperatorToString(eDataType, instanceValue);
-         case AadlBaPackage.INTEGER:
-            return convertIntegerToString(eDataType, instanceValue);
-         case AadlBaPackage.REAL:
-            return convertRealToString(eDataType, instanceValue);
-         case AadlBaPackage.STRING:
-            return convertStringToString(eDataType, instanceValue);
-         case AadlBaPackage.BOOLEAN:
-            return convertBooleanToString(eDataType, instanceValue);
-         default:
-            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-      }
-   }
+		switch (eDataType.getClassifierID()) {
+			case AadlBaPackage.COMM_ACTION_PARAMETER:
+				return convertCommActionParameterToString(eDataType, instanceValue);
+			case AadlBaPackage.LOGICAL_OPERATOR:
+				return convertLogicalOperatorToString(eDataType, instanceValue);
+			case AadlBaPackage.RELATIONAL_OPERATOR:
+				return convertRelationalOperatorToString(eDataType, instanceValue);
+			case AadlBaPackage.BINARY_ADDING_OPERATOR:
+				return convertBinaryAddingOperatorToString(eDataType, instanceValue);
+			case AadlBaPackage.UNARY_ADDING_OPERATOR:
+				return convertUnaryAddingOperatorToString(eDataType, instanceValue);
+			case AadlBaPackage.MULTIPLYING_OPERATOR:
+				return convertMultiplyingOperatorToString(eDataType, instanceValue);
+			case AadlBaPackage.BINARY_NUMERIC_OPERATOR:
+				return convertBinaryNumericOperatorToString(eDataType, instanceValue);
+			case AadlBaPackage.UNARY_NUMERIC_OPERATOR:
+				return convertUnaryNumericOperatorToString(eDataType, instanceValue);
+			case AadlBaPackage.UNARY_BOOLEAN_OPERATOR:
+				return convertUnaryBooleanOperatorToString(eDataType, instanceValue);
+			case AadlBaPackage.INTEGER:
+				return convertIntegerToString(eDataType, instanceValue);
+			case AadlBaPackage.REAL:
+				return convertRealToString(eDataType, instanceValue);
+			case AadlBaPackage.STRING:
+				return convertStringToString(eDataType, instanceValue);
+			case AadlBaPackage.BOOLEAN:
+				return convertBooleanToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public Comment createComment()
    {
-      CommentImpl comment = new CommentImpl();
-      return comment;
-   }
+		CommentImpl comment = new CommentImpl();
+		return comment;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public GlobalNamespace createGlobalNamespace()
    {
-      GlobalNamespaceImpl globalNamespace = new GlobalNamespaceImpl();
-      return globalNamespace;
-   }
+		GlobalNamespaceImpl globalNamespace = new GlobalNamespaceImpl();
+		return globalNamespace;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public BehaviorAnnex createBehaviorAnnex()
    {
-      BehaviorAnnexImpl behaviorAnnex = new BehaviorAnnexImpl();
-      return behaviorAnnex;
-   }
+		BehaviorAnnexImpl behaviorAnnex = new BehaviorAnnexImpl();
+		return behaviorAnnex;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public UniqueComponentClassifierReference createUniqueComponentClassifierReference()
    {
-      UniqueComponentClassifierReferenceImpl uniqueComponentClassifierReference = new UniqueComponentClassifierReferenceImpl();
-      return uniqueComponentClassifierReference;
-   }
+		UniqueComponentClassifierReferenceImpl uniqueComponentClassifierReference = new UniqueComponentClassifierReferenceImpl();
+		return uniqueComponentClassifierReference;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public BehaviorVariable createBehaviorVariable()
    {
-      BehaviorVariableImpl behaviorVariable = new BehaviorVariableImpl();
-      return behaviorVariable;
-   }
+		BehaviorVariableImpl behaviorVariable = new BehaviorVariableImpl();
+		return behaviorVariable;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public BehaviorState createBehaviorState()
    {
-      BehaviorStateImpl behaviorState = new BehaviorStateImpl();
-      return behaviorState;
-   }
+		BehaviorStateImpl behaviorState = new BehaviorStateImpl();
+		return behaviorState;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public BehaviorTransition createBehaviorTransition()
    {
-      BehaviorTransitionImpl behaviorTransition = new BehaviorTransitionImpl();
-      return behaviorTransition;
-   }
+		BehaviorTransitionImpl behaviorTransition = new BehaviorTransitionImpl();
+		return behaviorTransition;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public Declarator createDeclarator()
    {
-      DeclaratorImpl declarator = new DeclaratorImpl();
-      return declarator;
-   }
+		DeclaratorImpl declarator = new DeclaratorImpl();
+		return declarator;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public ArraySize createArraySize()
    {
-      ArraySizeImpl arraySize = new ArraySizeImpl();
-      return arraySize;
-   }
+		ArraySizeImpl arraySize = new ArraySizeImpl();
+		return arraySize;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public DispatchCondition createDispatchCondition()
    {
-      DispatchConditionImpl dispatchCondition = new DispatchConditionImpl();
-      return dispatchCondition;
-   }
+		DispatchConditionImpl dispatchCondition = new DispatchConditionImpl();
+		return dispatchCondition;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public DispatchLogicalExpression createDispatchLogicalExpression()
    {
-      DispatchLogicalExpressionImpl dispatchLogicalExpression = new DispatchLogicalExpressionImpl();
-      return dispatchLogicalExpression;
-   }
+		DispatchLogicalExpressionImpl dispatchLogicalExpression = new DispatchLogicalExpressionImpl();
+		return dispatchLogicalExpression;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public DispatchTrigger createDispatchTrigger()
    {
-      DispatchTriggerImpl dispatchTrigger = new DispatchTriggerImpl();
-      return dispatchTrigger;
-   }
+		DispatchTriggerImpl dispatchTrigger = new DispatchTriggerImpl();
+		return dispatchTrigger;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public BehaviorActions createBehaviorActions()
    {
-      BehaviorActionsImpl behaviorActions = new BehaviorActionsImpl();
-      return behaviorActions;
-   }
+		BehaviorActionsImpl behaviorActions = new BehaviorActionsImpl();
+		return behaviorActions;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public BehaviorAction createBehaviorAction()
    {
-      BehaviorActionImpl behaviorAction = new BehaviorActionImpl();
-      return behaviorAction;
-   }
+		BehaviorActionImpl behaviorAction = new BehaviorActionImpl();
+		return behaviorAction;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public IfStatement createIfStatement()
    {
-      IfStatementImpl ifStatement = new IfStatementImpl();
-      return ifStatement;
-   }
+		IfStatementImpl ifStatement = new IfStatementImpl();
+		return ifStatement;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public ForOrForAllStatement createForOrForAllStatement()
    {
-      ForOrForAllStatementImpl forOrForAllStatement = new ForOrForAllStatementImpl();
-      return forOrForAllStatement;
-   }
+		ForOrForAllStatementImpl forOrForAllStatement = new ForOrForAllStatementImpl();
+		return forOrForAllStatement;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public WhileStatement createWhileStatement()
    {
-      WhileStatementImpl whileStatement = new WhileStatementImpl();
-      return whileStatement;
-   }
+		WhileStatementImpl whileStatement = new WhileStatementImpl();
+		return whileStatement;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public DoUntilStatement createDoUntilStatement()
    {
-      DoUntilStatementImpl doUntilStatement = new DoUntilStatementImpl();
-      return doUntilStatement;
-   }
+		DoUntilStatementImpl doUntilStatement = new DoUntilStatementImpl();
+		return doUntilStatement;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public AssignmentAction createAssignmentAction()
    {
-      AssignmentActionImpl assignmentAction = new AssignmentActionImpl();
-      return assignmentAction;
-   }
+		AssignmentActionImpl assignmentAction = new AssignmentActionImpl();
+		return assignmentAction;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public CommunicationAction createCommunicationAction()
    {
-      CommunicationActionImpl communicationAction = new CommunicationActionImpl();
-      return communicationAction;
-   }
+		CommunicationActionImpl communicationAction = new CommunicationActionImpl();
+		return communicationAction;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public SubprogramParameterList createSubprogramParameterList()
    {
-      SubprogramParameterListImpl subprogramParameterList = new SubprogramParameterListImpl();
-      return subprogramParameterList;
-   }
+		SubprogramParameterListImpl subprogramParameterList = new SubprogramParameterListImpl();
+		return subprogramParameterList;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public TimedAction createTimedAction()
    {
-      TimedActionImpl timedAction = new TimedActionImpl();
-      return timedAction;
-   }
+		TimedActionImpl timedAction = new TimedActionImpl();
+		return timedAction;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public Target createTarget()
    {
-      TargetImpl target = new TargetImpl();
-      return target;
-   }
+		TargetImpl target = new TargetImpl();
+		return target;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public DataComponentReference createDataComponentReference()
    {
-      DataComponentReferenceImpl dataComponentReference = new DataComponentReferenceImpl();
-      return dataComponentReference;
-   }
+		DataComponentReferenceImpl dataComponentReference = new DataComponentReferenceImpl();
+		return dataComponentReference;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public Name createName()
    {
-      NameImpl name = new NameImpl();
-      return name;
-   }
+		NameImpl name = new NameImpl();
+		return name;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public ArrayIndex createArrayIndex()
    {
-      ArrayIndexImpl arrayIndex = new ArrayIndexImpl();
-      return arrayIndex;
-   }
+		ArrayIndexImpl arrayIndex = new ArrayIndexImpl();
+		return arrayIndex;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public ValueVariable createValueVariable()
    {
-      ValueVariableImpl valueVariable = new ValueVariableImpl();
-      return valueVariable;
-   }
+		ValueVariableImpl valueVariable = new ValueVariableImpl();
+		return valueVariable;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public ValueExpression createValueExpression()
    {
-      ValueExpressionImpl valueExpression = new ValueExpressionImpl();
-      return valueExpression;
-   }
+		ValueExpressionImpl valueExpression = new ValueExpressionImpl();
+		return valueExpression;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public Relation createRelation()
    {
-      RelationImpl relation = new RelationImpl();
-      return relation;
-   }
+		RelationImpl relation = new RelationImpl();
+		return relation;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public SimpleExpression createSimpleExpression()
    {
-      SimpleExpressionImpl simpleExpression = new SimpleExpressionImpl();
-      return simpleExpression;
-   }
+		SimpleExpressionImpl simpleExpression = new SimpleExpressionImpl();
+		return simpleExpression;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public Term createTerm()
    {
-      TermImpl term = new TermImpl();
-      return term;
-   }
+		TermImpl term = new TermImpl();
+		return term;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public Factor createFactor()
    {
-      FactorImpl factor = new FactorImpl();
-      return factor;
-   }
+		FactorImpl factor = new FactorImpl();
+		return factor;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public IntegerRange createIntegerRange()
    {
-      IntegerRangeImpl integerRange = new IntegerRangeImpl();
-      return integerRange;
-   }
+		IntegerRangeImpl integerRange = new IntegerRangeImpl();
+		return integerRange;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public BehaviorTime createBehaviorTime()
    {
-      BehaviorTimeImpl behaviorTime = new BehaviorTimeImpl();
-      return behaviorTime;
-   }
+		BehaviorTimeImpl behaviorTime = new BehaviorTimeImpl();
+		return behaviorTime;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public PropertyConstant createPropertyConstant()
    {
-      PropertyConstantImpl propertyConstant = new PropertyConstantImpl();
-      return propertyConstant;
-   }
+		PropertyConstantImpl propertyConstant = new PropertyConstantImpl();
+		return propertyConstant;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public PropertyValue createPropertyValue()
    {
-      PropertyValueImpl propertyValue = new PropertyValueImpl();
-      return propertyValue;
-   }
+		PropertyValueImpl propertyValue = new PropertyValueImpl();
+		return propertyValue;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public Identifier createIdentifier()
    {
-      IdentifierImpl identifier = new IdentifierImpl();
-      return identifier;
-   }
+		IdentifierImpl identifier = new IdentifierImpl();
+		return identifier;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public NumericLiteral createNumericLiteral()
    {
-      NumericLiteralImpl numericLiteral = new NumericLiteralImpl();
-      return numericLiteral;
-   }
+		NumericLiteralImpl numericLiteral = new NumericLiteralImpl();
+		return numericLiteral;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public BooleanLiteral createBooleanLiteral()
    {
-      BooleanLiteralImpl booleanLiteral = new BooleanLiteralImpl();
-      return booleanLiteral;
-   }
+		BooleanLiteralImpl booleanLiteral = new BooleanLiteralImpl();
+		return booleanLiteral;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public StringLiteral createStringLiteral()
    {
-      StringLiteralImpl stringLiteral = new StringLiteralImpl();
-      return stringLiteral;
-   }
+		StringLiteralImpl stringLiteral = new StringLiteralImpl();
+		return stringLiteral;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public Numeral createNumeral()
    {
-      NumeralImpl numeral = new NumeralImpl();
-      return numeral;
-   }
+		NumeralImpl numeral = new NumeralImpl();
+		return numeral;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public ExecuteCondition createExecuteCondition()
    {
-      ExecuteConditionImpl executeCondition = new ExecuteConditionImpl();
-      return executeCondition;
-   }
+		ExecuteConditionImpl executeCondition = new ExecuteConditionImpl();
+		return executeCondition;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public CommActionParameter createCommActionParameterFromString(EDataType eDataType, String initialValue)
    {
-      CommActionParameter result = CommActionParameter.get(initialValue);
-      if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-      return result;
-   }
+		CommActionParameter result = CommActionParameter.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertCommActionParameterToString(EDataType eDataType, Object instanceValue)
    {
-      return instanceValue == null ? null : instanceValue.toString();
-   }
+		return instanceValue == null ? null : instanceValue.toString();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public LogicalOperator createLogicalOperatorFromString(EDataType eDataType, String initialValue)
    {
-      LogicalOperator result = LogicalOperator.get(initialValue);
-      if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-      return result;
-   }
+		LogicalOperator result = LogicalOperator.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertLogicalOperatorToString(EDataType eDataType, Object instanceValue)
    {
-      return instanceValue == null ? null : instanceValue.toString();
-   }
+		return instanceValue == null ? null : instanceValue.toString();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public RelationalOperator createRelationalOperatorFromString(EDataType eDataType, String initialValue)
    {
-      RelationalOperator result = RelationalOperator.get(initialValue);
-      if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-      return result;
-   }
+		RelationalOperator result = RelationalOperator.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertRelationalOperatorToString(EDataType eDataType, Object instanceValue)
    {
-      return instanceValue == null ? null : instanceValue.toString();
-   }
+		return instanceValue == null ? null : instanceValue.toString();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public BinaryAddingOperator createBinaryAddingOperatorFromString(EDataType eDataType, String initialValue)
    {
-      BinaryAddingOperator result = BinaryAddingOperator.get(initialValue);
-      if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-      return result;
-   }
+		BinaryAddingOperator result = BinaryAddingOperator.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertBinaryAddingOperatorToString(EDataType eDataType, Object instanceValue)
    {
-      return instanceValue == null ? null : instanceValue.toString();
-   }
+		return instanceValue == null ? null : instanceValue.toString();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public UnaryAddingOperator createUnaryAddingOperatorFromString(EDataType eDataType, String initialValue)
    {
-      UnaryAddingOperator result = UnaryAddingOperator.get(initialValue);
-      if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-      return result;
-   }
+		UnaryAddingOperator result = UnaryAddingOperator.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertUnaryAddingOperatorToString(EDataType eDataType, Object instanceValue)
    {
-      return instanceValue == null ? null : instanceValue.toString();
-   }
+		return instanceValue == null ? null : instanceValue.toString();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public MultiplyingOperator createMultiplyingOperatorFromString(EDataType eDataType, String initialValue)
    {
-      MultiplyingOperator result = MultiplyingOperator.get(initialValue);
-      if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-      return result;
-   }
+		MultiplyingOperator result = MultiplyingOperator.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertMultiplyingOperatorToString(EDataType eDataType, Object instanceValue)
    {
-      return instanceValue == null ? null : instanceValue.toString();
-   }
+		return instanceValue == null ? null : instanceValue.toString();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public BinaryNumericOperator createBinaryNumericOperatorFromString(EDataType eDataType, String initialValue)
    {
-      BinaryNumericOperator result = BinaryNumericOperator.get(initialValue);
-      if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-      return result;
-   }
+		BinaryNumericOperator result = BinaryNumericOperator.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertBinaryNumericOperatorToString(EDataType eDataType, Object instanceValue)
    {
-      return instanceValue == null ? null : instanceValue.toString();
-   }
+		return instanceValue == null ? null : instanceValue.toString();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public UnaryNumericOperator createUnaryNumericOperatorFromString(EDataType eDataType, String initialValue)
    {
-      UnaryNumericOperator result = UnaryNumericOperator.get(initialValue);
-      if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-      return result;
-   }
+		UnaryNumericOperator result = UnaryNumericOperator.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertUnaryNumericOperatorToString(EDataType eDataType, Object instanceValue)
    {
-      return instanceValue == null ? null : instanceValue.toString();
-   }
+		return instanceValue == null ? null : instanceValue.toString();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public UnaryBooleanOperator createUnaryBooleanOperatorFromString(EDataType eDataType, String initialValue)
    {
-      UnaryBooleanOperator result = UnaryBooleanOperator.get(initialValue);
-      if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-      return result;
-   }
+		UnaryBooleanOperator result = UnaryBooleanOperator.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertUnaryBooleanOperatorToString(EDataType eDataType, Object instanceValue)
    {
-      return instanceValue == null ? null : instanceValue.toString();
-   }
+		return instanceValue == null ? null : instanceValue.toString();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public Integer createIntegerFromString(EDataType eDataType, String initialValue)
    {
-      return (Integer)super.createFromString(eDataType, initialValue);
-   }
+		return (Integer)super.createFromString(eDataType, initialValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertIntegerToString(EDataType eDataType, Object instanceValue)
    {
-      return super.convertToString(eDataType, instanceValue);
-   }
+		return super.convertToString(eDataType, instanceValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public Double createRealFromString(EDataType eDataType, String initialValue)
    {
-      return (Double)super.createFromString(eDataType, initialValue);
-   }
+		return (Double)super.createFromString(eDataType, initialValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertRealToString(EDataType eDataType, Object instanceValue)
    {
-      return super.convertToString(eDataType, instanceValue);
-   }
+		return super.convertToString(eDataType, instanceValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String createStringFromString(EDataType eDataType, String initialValue)
    {
-      return (String)super.createFromString(eDataType, initialValue);
-   }
+		return (String)super.createFromString(eDataType, initialValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertStringToString(EDataType eDataType, Object instanceValue)
    {
-      return super.convertToString(eDataType, instanceValue);
-   }
+		return super.convertToString(eDataType, instanceValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public Boolean createBooleanFromString(EDataType eDataType, String initialValue)
    {
-      return (Boolean)super.createFromString(eDataType, initialValue);
-   }
+		return (Boolean)super.createFromString(eDataType, initialValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public String convertBooleanToString(EDataType eDataType, Object instanceValue)
    {
-      return super.convertToString(eDataType, instanceValue);
-   }
+		return super.convertToString(eDataType, instanceValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public AadlBaPackage getAadlBaPackage()
    {
-      return (AadlBaPackage)getEPackage();
-   }
+		return (AadlBaPackage)getEPackage();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @deprecated
-    * @generated
-    */
+	 * @deprecated
+	 * @generated
+	 */
    @Deprecated
    public static AadlBaPackage getPackage()
    {
-      return AadlBaPackage.eINSTANCE;
-   }
+		return AadlBaPackage.eINSTANCE;
+	}
 
 } //AadlBaFactoryImpl

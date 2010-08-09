@@ -1144,7 +1144,12 @@ behavior_action returns [BehaviorAction BehAction]
      ( identifier=FOR LPAREN { ForStat = AadlBaF.createForOrForAllStatement(); 
                                setLocationReference(ForStat, identifier); 
                                BehAction.setLocationReference(ForStat.getLocationReference()) ; } 
-       identifier=IDENT { ForStat.setName(identifier.getText()); }
+       identifier=IDENT {  
+                           Identifier Id = AadlBaF.createIdentifier();
+                           Id.setId(identifier.getText());
+                           setLocationReference(Id, identifier);
+                           ForStat.setElement(Id);
+                        }
        ( COLON dt=unique_component_classifier_reference
          {
             ForStat.setDataUniqueCmtClassRef(dt);
@@ -1167,7 +1172,12 @@ behavior_action returns [BehaviorAction BehAction]
         setLocationReference(ForStat, identifier); 
         BehAction.setLocationReference(ForStat.getLocationReference()) ; 
        }
-       identifier=IDENT { ForStat.setName(identifier.getText()); }
+       identifier=IDENT {  
+                           Identifier Id = AadlBaF.createIdentifier();
+                           Id.setId(identifier.getText());
+                           setLocationReference(Id, identifier);
+                           ForStat.setElement(Id);
+                        }
        ( COLON dt=unique_component_classifier_reference 
          {
           ForStat.setDataUniqueCmtClassRef(dt);

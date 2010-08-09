@@ -23,24 +23,24 @@ import org.eclipse.emf.ecore.EClass;
 public abstract class ValueImpl extends ElementImpl implements Value
 {
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected ValueImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.VALUE;
-   }
+		return AadlBaPackage.Literals.VALUE;
+	}
 
 } //ValueImpl

@@ -44,279 +44,272 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class IfStatementImpl extends ElementImpl implements IfStatement
 {
    /**
-    * The default value of the '{@link #isHasElse() <em>Has Else</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isHasElse() <em>Has Else</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #isHasElse()
-    * @generated
-    * @ordered
-    */
+	 * @see #isHasElse()
+	 * @generated
+	 * @ordered
+	 */
    protected static final boolean HAS_ELSE_EDEFAULT = false;
 
    /**
-    * The cached value of the '{@link #isHasElse() <em>Has Else</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isHasElse() <em>Has Else</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #isHasElse()
-    * @generated
-    * @ordered
-    */
+	 * @see #isHasElse()
+	 * @generated
+	 * @ordered
+	 */
    protected boolean hasElse = HAS_ELSE_EDEFAULT;
 
    /**
-    * The cached value of the '{@link #getValueExpressionOwned() <em>Value Expression Owned</em>}' containment reference list.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getValueExpressionOwned() <em>Value Expression Owned</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getValueExpressionOwned()
-    * @generated
-    * @ordered
-    */
+	 * @see #getValueExpressionOwned()
+	 * @generated
+	 * @ordered
+	 */
    protected EList<ValueExpression> valueExpressionOwned;
 
    /**
-    * The cached value of the '{@link #getBehaviorActionsOwned() <em>Behavior Actions Owned</em>}' containment reference list.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getBehaviorActionsOwned() <em>Behavior Actions Owned</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getBehaviorActionsOwned()
-    * @generated
-    * @ordered
-    */
+	 * @see #getBehaviorActionsOwned()
+	 * @generated
+	 * @ordered
+	 */
    protected EList<BehaviorActions> behaviorActionsOwned;
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected IfStatementImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.IF_STATEMENT;
-   }
+		return AadlBaPackage.Literals.IF_STATEMENT;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isHasElse()
    {
-      return hasElse;
-   }
+		return hasElse;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void setHasElse(boolean newHasElse)
    {
-      boolean oldHasElse = hasElse;
-      hasElse = newHasElse;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__HAS_ELSE, oldHasElse, hasElse));
-   }
+		boolean oldHasElse = hasElse;
+		hasElse = newHasElse;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__HAS_ELSE, oldHasElse, hasElse));
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public EList<ValueExpression> getValueExpressionOwned()
    {
-      if (valueExpressionOwned == null)
-      {
-         valueExpressionOwned = new EObjectContainmentEList.Unsettable<ValueExpression>(ValueExpression.class, this, AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED);
-      }
-      return valueExpressionOwned;
-   }
+		if (valueExpressionOwned == null) {
+			valueExpressionOwned = new EObjectContainmentEList.Unsettable<ValueExpression>(ValueExpression.class, this, AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED);
+		}
+		return valueExpressionOwned;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void unsetValueExpressionOwned()
    {
-      if (valueExpressionOwned != null) ((InternalEList.Unsettable<?>)valueExpressionOwned).unset();
-   }
+		if (valueExpressionOwned != null) ((InternalEList.Unsettable<?>)valueExpressionOwned).unset();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isSetValueExpressionOwned()
    {
-      return valueExpressionOwned != null && ((InternalEList.Unsettable<?>)valueExpressionOwned).isSet();
-   }
+		return valueExpressionOwned != null && ((InternalEList.Unsettable<?>)valueExpressionOwned).isSet();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public EList<BehaviorActions> getBehaviorActionsOwned()
    {
-      if (behaviorActionsOwned == null)
-      {
-         behaviorActionsOwned = new EObjectContainmentEList.Unsettable<BehaviorActions>(BehaviorActions.class, this, AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED);
-      }
-      return behaviorActionsOwned;
-   }
+		if (behaviorActionsOwned == null) {
+			behaviorActionsOwned = new EObjectContainmentEList.Unsettable<BehaviorActions>(BehaviorActions.class, this, AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED);
+		}
+		return behaviorActionsOwned;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void unsetBehaviorActionsOwned()
    {
-      if (behaviorActionsOwned != null) ((InternalEList.Unsettable<?>)behaviorActionsOwned).unset();
-   }
+		if (behaviorActionsOwned != null) ((InternalEList.Unsettable<?>)behaviorActionsOwned).unset();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isSetBehaviorActionsOwned()
    {
-      return behaviorActionsOwned != null && ((InternalEList.Unsettable<?>)behaviorActionsOwned).isSet();
-   }
+		return behaviorActionsOwned != null && ((InternalEList.Unsettable<?>)behaviorActionsOwned).isSet();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
-            return ((InternalEList<?>)getValueExpressionOwned()).basicRemove(otherEnd, msgs);
-         case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-            return ((InternalEList<?>)getBehaviorActionsOwned()).basicRemove(otherEnd, msgs);
-      }
-      return super.eInverseRemove(otherEnd, featureID, msgs);
-   }
+		switch (featureID) {
+			case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
+				return ((InternalEList<?>)getValueExpressionOwned()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				return ((InternalEList<?>)getBehaviorActionsOwned()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public Object eGet(int featureID, boolean resolve, boolean coreType)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.IF_STATEMENT__HAS_ELSE:
-            return isHasElse();
-         case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
-            return getValueExpressionOwned();
-         case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-            return getBehaviorActionsOwned();
-      }
-      return super.eGet(featureID, resolve, coreType);
-   }
+		switch (featureID) {
+			case AadlBaPackage.IF_STATEMENT__HAS_ELSE:
+				return isHasElse();
+			case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
+				return getValueExpressionOwned();
+			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				return getBehaviorActionsOwned();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @SuppressWarnings("unchecked")
    @Override
    public void eSet(int featureID, Object newValue)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.IF_STATEMENT__HAS_ELSE:
-            setHasElse((Boolean)newValue);
-            return;
-         case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
-            getValueExpressionOwned().clear();
-            getValueExpressionOwned().addAll((Collection<? extends ValueExpression>)newValue);
-            return;
-         case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-            getBehaviorActionsOwned().clear();
-            getBehaviorActionsOwned().addAll((Collection<? extends BehaviorActions>)newValue);
-            return;
-      }
-      super.eSet(featureID, newValue);
-   }
+		switch (featureID) {
+			case AadlBaPackage.IF_STATEMENT__HAS_ELSE:
+				setHasElse((Boolean)newValue);
+				return;
+			case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
+				getValueExpressionOwned().clear();
+				getValueExpressionOwned().addAll((Collection<? extends ValueExpression>)newValue);
+				return;
+			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				getBehaviorActionsOwned().clear();
+				getBehaviorActionsOwned().addAll((Collection<? extends BehaviorActions>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public void eUnset(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.IF_STATEMENT__HAS_ELSE:
-            setHasElse(HAS_ELSE_EDEFAULT);
-            return;
-         case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
-            unsetValueExpressionOwned();
-            return;
-         case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-            unsetBehaviorActionsOwned();
-            return;
-      }
-      super.eUnset(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.IF_STATEMENT__HAS_ELSE:
+				setHasElse(HAS_ELSE_EDEFAULT);
+				return;
+			case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
+				unsetValueExpressionOwned();
+				return;
+			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				unsetBehaviorActionsOwned();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public boolean eIsSet(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.IF_STATEMENT__HAS_ELSE:
-            return hasElse != HAS_ELSE_EDEFAULT;
-         case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
-            return isSetValueExpressionOwned();
-         case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-            return isSetBehaviorActionsOwned();
-      }
-      return super.eIsSet(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.IF_STATEMENT__HAS_ELSE:
+				return hasElse != HAS_ELSE_EDEFAULT;
+			case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
+				return isSetValueExpressionOwned();
+			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				return isSetBehaviorActionsOwned();
+		}
+		return super.eIsSet(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public String toString()
    {
-      if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-      StringBuffer result = new StringBuffer(super.toString());
-      result.append(" (hasElse: ");
-      result.append(hasElse);
-      result.append(')');
-      return result.toString();
-   }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (hasElse: ");
+		result.append(hasElse);
+		result.append(')');
+		return result.toString();
+	}
 
 } //IfStatementImpl

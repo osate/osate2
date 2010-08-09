@@ -228,6 +228,7 @@ transitions
  a -[]-> a { for(x in y..dataAccess.length) {tmp:=1} } ;
  a -[]-> a { for(x in portA) {tmp:=1} } ;
  a -[]-> a { for(x in tmp..y) {tmp:=x} } ;
+ a -[]-> a { for (i in 0 .. 9) {tmp:= i }} ;
  a -[]-> a { for(i : Base_Types::Integer in 0 .. 9) {tmp:=1} } ;
  a -[]-> a { for(i : Dummy::Types::Opaque.v1 in 0 .. 9) {tmp:=1} } ;
  a -[]-> a { forall(x in 0_1 .. 9) {tmp:=1} } ;
@@ -237,6 +238,11 @@ transitions
  a -[]-> a { forall(x in portA) {tmp:=1} } ;
  a -[]-> a { forall(i : Base_Types::Integer in 0 .. 9) {tmp:=1} } ;
  a -[]-> a { forall(i : Dummy::Types::Opaque.v1 in 0 .. 9) {tmp:=1} } ;
+ a -[]-> a { for (i in 0 .. 9)
+             {
+               for (j in 0 .. 9) {tmp:= i + j}
+             }
+           } ;
  a -[]-> a { while(true) {tmp:=1} } ;
  a -[]-> a { while(bool1) {tmp:=1 ; tmp:=1} } ;
  a -[]-> a { while(bool1) {tmp:=1 & tmp:=1} } ;
@@ -246,8 +252,8 @@ transitions
  a -[]-> a { do tmp:=1 ; tmp:=1 until (true) };
  a -[]-> a { do tmp:=1 until (bool1) };
  a -[]-> a { do tmp:=1 until (bool1 xor bool2) };
- a -[]-> a { do tmp:=1 until (bool1 or x +1 > -y) } ; 
- 
+ a -[]-> a { do tmp:=1 until (bool1 or x +1 > -y) } ;
+
 **};
 end cube.ba;
 -- Such a basic use of the behavior annex simply corresponds to a shortcut for an equivalent calls 

@@ -23,24 +23,24 @@ import org.eclipse.emf.ecore.EClass;
 public class PropertyValueImpl extends NamedElementImpl implements PropertyValue
 {
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected PropertyValueImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.PROPERTY_VALUE;
-   }
+		return AadlBaPackage.Literals.PROPERTY_VALUE;
+	}
 
 } //PropertyValueImpl

@@ -26,30 +26,30 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface Identifier extends Element
 {
    /**
-    * Returns the value of the '<em><b>Id</b></em>' attribute.
-    * The default value is <code>""</code>.
-    * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Id</b></em>' attribute.
+	 * The default value is <code>""</code>.
+	 * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Id</em>' attribute isn't clear,
     * there really should be more of a description here...
     * </p>
     * <!-- end-user-doc -->
-    * @return the value of the '<em>Id</em>' attribute.
-    * @see #setId(String)
-    * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIdentifier_Id()
-    * @model default="" dataType="fr.tpt.aadl.annex.behavior.aadlba.String"
-    * @generated
-    */
+	 * @return the value of the '<em>Id</em>' attribute.
+	 * @see #setId(String)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIdentifier_Id()
+	 * @model default="" dataType="fr.tpt.aadl.annex.behavior.aadlba.String"
+	 * @generated
+	 */
    String getId();
 
    /**
-    * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Identifier#getId <em>Id</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Identifier#getId <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @param value the new value of the '<em>Id</em>' attribute.
-    * @see #getId()
-    * @generated
-    */
+	 * @param value the new value of the '<em>Id</em>' attribute.
+	 * @see #getId()
+	 * @generated
+	 */
    void setId(String value);
 
 } // Identifier

@@ -350,6 +350,8 @@
         unsettable="true" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ForAll" eType="#//Boolean"
         defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Element" eType="#//Identifier"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WhileStatement" eSuperTypes="#//CondStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ValueExpressionOwned" eType="#//ValueExpression"

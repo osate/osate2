@@ -23,24 +23,24 @@ import org.eclipse.emf.ecore.EClass;
 public abstract class BasicActionImpl extends ElementImpl implements BasicAction
 {
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected BasicActionImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.BASIC_ACTION;
-   }
+		return AadlBaPackage.Literals.BASIC_ACTION;
+	}
 
 } //BasicActionImpl

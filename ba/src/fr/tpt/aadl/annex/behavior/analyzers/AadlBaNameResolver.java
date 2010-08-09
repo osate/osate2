@@ -79,6 +79,9 @@ public class AadlBaNameResolver
    PackageSection[] _contextsTab ;
    private AnalysisErrorReporterManager _errManager ;
    
+   // Contains Element identifiers of for and forall structures.
+   private EList<Identifier> _lForElementIds = new BasicEList<Identifier>();
+   
    /**
     * Constructs an AADL behavior annex name resolver for a given behavior annex
     *  and reports any errors in a given error reporter manager.
@@ -403,6 +406,9 @@ public class AadlBaNameResolver
                {
                   ForOrForAllStatement stat = (ForOrForAllStatement) cond ;
                   
+                  // Add the for structure's element in the scope handler.
+                  _lForElementIds.add(stat.getElement()) ;
+                  
                   // Check unique component classifier reference. It may be null.
                   UniqueComponentClassifierReference uccr = 
                                                stat.getDataUniqueCmtClassRef() ;
@@ -410,13 +416,22 @@ public class AadlBaNameResolver
                   if(uccr != null)
                   {
                      result = checkUniqueComponentClassifierRefNames(uccr, true) ;
+                     
+                     // Set the for structure's element type as BA referenced
+                     // entity.
+                     stat.getElement().setBaReferencedEntity(uccr);
                   }
                   
                   // Check element values.
-                  result &= checkElementValuesNames(stat.getElementValuesOwned()) ;
+                  result &= checkElementValuesNames(
+                                                 stat.getElementValuesOwned()) ;
                   
-                  // Check behavior values.
-                  result &= checkBehaviorActionsNames(stat.getBehaviorActionsOwned()) ;
+                  // Check behavior actions.
+                  result &= checkBehaviorActionsNames(
+                                               stat.getBehaviorActionsOwned()) ;
+                  
+                  // Remove the for structure's element off the scope handler.
+                  _lForElementIds.remove(stat.getElement()) ;
                }
             }
          }
@@ -453,7 +468,7 @@ public class AadlBaNameResolver
 
    private boolean checkBehaviorTimeNames(BehaviorTime bt)
    {
-      // TODO Has to check time unit as a property set ???
+      // Time unit checking is performed in semantic rules checkers class.
       return checkIntegerValueNames(bt.getIntegerValueOwned()) ;
    }
 
@@ -781,26 +796,56 @@ public class AadlBaNameResolver
       }
    }
 
+   // Check the given Identifier object versus for struture's elements 
+   // Identifier objects.
+   // It doesn't report error.
+   private boolean checkWithinForStructureElementScope(Identifier id)
+   {
+      boolean result = false ;
+      
+      for(Identifier el : _lForElementIds)
+      {
+         if(id.getId().equalsIgnoreCase(el.getId()))
+         {
+            result = true ;
+            break ;
+         }
+      }
+      
+      return result ;
+   }
+   
    private boolean checkIdentifierName(ComponentClassifier parentContainer,
                                        Identifier id)
    {
+      // Case of a Behavior annex component.
       if(parentContainer == _baParentContainer)
       {
-         // At first, check within ba's variables names but 
-         // don't report any error.
-         if(checkBaVariableName(id, false))
+         // First, check within for structure's elements scope.
+         // Don't report any error.
+         if(checkWithinForStructureElementScope(id))
          {
             return true ;
          }
          else
          {
-            // Then check within ba's parent container features names.
-            if(checkFeatureName(id, false))
+            // In second, check within ba's variables names but 
+            // don't report any error.
+            if(checkBaVariableName(id, false))
             {
-               return true ;  
+               return true ;
+            }
+            else
+            {
+               // Third, check within ba's parent container features names.
+               if(checkFeatureName(id, false))
+               {
+                  return true ;  
+               }
             }
          }
       }
+      
       // At last check subcomponent names within given parent container and
       // report any error.
       return checkSubcomponentName(parentContainer, id, true);
@@ -834,7 +879,8 @@ public class AadlBaNameResolver
    }
    
    // Check Name Object'names means to check names (identifier and array index)
-   // within parent component's features ones and ba's variables ones.
+   // within parent component's features ones and ba's variables ones and
+   // for structure elements scope handler.
    // name ::= identifier { array_index }*
    // array_index :: [ integer_value_variable ]
    private boolean checkNameObject(ComponentClassifier parentContainer,

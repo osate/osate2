@@ -42,222 +42,216 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class TimedActionImpl extends BasicActionImpl implements TimedAction
 {
    /**
-    * The cached value of the '{@link #getBehaviorTimesOwned() <em>Behavior Times Owned</em>}' containment reference list.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getBehaviorTimesOwned() <em>Behavior Times Owned</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getBehaviorTimesOwned()
-    * @generated
-    * @ordered
-    */
+	 * @see #getBehaviorTimesOwned()
+	 * @generated
+	 * @ordered
+	 */
    protected EList<BehaviorTime> behaviorTimesOwned;
 
    /**
-    * The default value of the '{@link #isComputation() <em>Computation</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isComputation() <em>Computation</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #isComputation()
-    * @generated
-    * @ordered
-    */
+	 * @see #isComputation()
+	 * @generated
+	 * @ordered
+	 */
    protected static final boolean COMPUTATION_EDEFAULT = false;
 
    /**
-    * The cached value of the '{@link #isComputation() <em>Computation</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isComputation() <em>Computation</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #isComputation()
-    * @generated
-    * @ordered
-    */
+	 * @see #isComputation()
+	 * @generated
+	 * @ordered
+	 */
    protected boolean computation = COMPUTATION_EDEFAULT;
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected TimedActionImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.TIMED_ACTION;
-   }
+		return AadlBaPackage.Literals.TIMED_ACTION;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public EList<BehaviorTime> getBehaviorTimesOwned()
    {
-      if (behaviorTimesOwned == null)
-      {
-         behaviorTimesOwned = new EObjectContainmentEList.Unsettable<BehaviorTime>(BehaviorTime.class, this, AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED);
-      }
-      return behaviorTimesOwned;
-   }
+		if (behaviorTimesOwned == null) {
+			behaviorTimesOwned = new EObjectContainmentEList.Unsettable<BehaviorTime>(BehaviorTime.class, this, AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED);
+		}
+		return behaviorTimesOwned;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void unsetBehaviorTimesOwned()
    {
-      if (behaviorTimesOwned != null) ((InternalEList.Unsettable<?>)behaviorTimesOwned).unset();
-   }
+		if (behaviorTimesOwned != null) ((InternalEList.Unsettable<?>)behaviorTimesOwned).unset();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isSetBehaviorTimesOwned()
    {
-      return behaviorTimesOwned != null && ((InternalEList.Unsettable<?>)behaviorTimesOwned).isSet();
-   }
+		return behaviorTimesOwned != null && ((InternalEList.Unsettable<?>)behaviorTimesOwned).isSet();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isComputation()
    {
-      return computation;
-   }
+		return computation;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void setComputation(boolean newComputation)
    {
-      boolean oldComputation = computation;
-      computation = newComputation;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__COMPUTATION, oldComputation, computation));
-   }
+		boolean oldComputation = computation;
+		computation = newComputation;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__COMPUTATION, oldComputation, computation));
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
-            return ((InternalEList<?>)getBehaviorTimesOwned()).basicRemove(otherEnd, msgs);
-      }
-      return super.eInverseRemove(otherEnd, featureID, msgs);
-   }
+		switch (featureID) {
+			case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
+				return ((InternalEList<?>)getBehaviorTimesOwned()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public Object eGet(int featureID, boolean resolve, boolean coreType)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
-            return getBehaviorTimesOwned();
-         case AadlBaPackage.TIMED_ACTION__COMPUTATION:
-            return isComputation();
-      }
-      return super.eGet(featureID, resolve, coreType);
-   }
+		switch (featureID) {
+			case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
+				return getBehaviorTimesOwned();
+			case AadlBaPackage.TIMED_ACTION__COMPUTATION:
+				return isComputation();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @SuppressWarnings("unchecked")
    @Override
    public void eSet(int featureID, Object newValue)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
-            getBehaviorTimesOwned().clear();
-            getBehaviorTimesOwned().addAll((Collection<? extends BehaviorTime>)newValue);
-            return;
-         case AadlBaPackage.TIMED_ACTION__COMPUTATION:
-            setComputation((Boolean)newValue);
-            return;
-      }
-      super.eSet(featureID, newValue);
-   }
+		switch (featureID) {
+			case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
+				getBehaviorTimesOwned().clear();
+				getBehaviorTimesOwned().addAll((Collection<? extends BehaviorTime>)newValue);
+				return;
+			case AadlBaPackage.TIMED_ACTION__COMPUTATION:
+				setComputation((Boolean)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public void eUnset(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
-            unsetBehaviorTimesOwned();
-            return;
-         case AadlBaPackage.TIMED_ACTION__COMPUTATION:
-            setComputation(COMPUTATION_EDEFAULT);
-            return;
-      }
-      super.eUnset(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
+				unsetBehaviorTimesOwned();
+				return;
+			case AadlBaPackage.TIMED_ACTION__COMPUTATION:
+				setComputation(COMPUTATION_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public boolean eIsSet(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
-            return isSetBehaviorTimesOwned();
-         case AadlBaPackage.TIMED_ACTION__COMPUTATION:
-            return computation != COMPUTATION_EDEFAULT;
-      }
-      return super.eIsSet(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
+				return isSetBehaviorTimesOwned();
+			case AadlBaPackage.TIMED_ACTION__COMPUTATION:
+				return computation != COMPUTATION_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public String toString()
    {
-      if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-      StringBuffer result = new StringBuffer(super.toString());
-      result.append(" (Computation: ");
-      result.append(computation);
-      result.append(')');
-      return result.toString();
-   }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (Computation: ");
+		result.append(computation);
+		result.append(')');
+		return result.toString();
+	}
 
 } //TimedActionImpl

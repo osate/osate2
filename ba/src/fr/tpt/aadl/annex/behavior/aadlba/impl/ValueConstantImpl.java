@@ -23,24 +23,24 @@ import org.eclipse.emf.ecore.EClass;
 public abstract class ValueConstantImpl extends ValueImpl implements ValueConstant
 {
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected ValueConstantImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.VALUE_CONSTANT;
-   }
+		return AadlBaPackage.Literals.VALUE_CONSTANT;
+	}
 
 } //ValueConstantImpl

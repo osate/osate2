@@ -43,277 +43,271 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class BehaviorActionsImpl extends ElementImpl implements BehaviorActions
 {
    /**
-    * The cached value of the '{@link #getBehaviorAction() <em>Behavior Action</em>}' containment reference list.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getBehaviorAction() <em>Behavior Action</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getBehaviorAction()
-    * @generated
-    * @ordered
-    */
+	 * @see #getBehaviorAction()
+	 * @generated
+	 * @ordered
+	 */
    protected EList<BehaviorAction> behaviorAction;
 
    /**
-    * The default value of the '{@link #isSequence() <em>Sequence</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isSequence() <em>Sequence</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #isSequence()
-    * @generated
-    * @ordered
-    */
+	 * @see #isSequence()
+	 * @generated
+	 * @ordered
+	 */
    protected static final boolean SEQUENCE_EDEFAULT = false;
 
    /**
-    * The cached value of the '{@link #isSequence() <em>Sequence</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isSequence() <em>Sequence</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #isSequence()
-    * @generated
-    * @ordered
-    */
+	 * @see #isSequence()
+	 * @generated
+	 * @ordered
+	 */
    protected boolean sequence = SEQUENCE_EDEFAULT;
 
    /**
-    * The default value of the '{@link #isSet() <em>Set</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isSet() <em>Set</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #isSet()
-    * @generated
-    * @ordered
-    */
+	 * @see #isSet()
+	 * @generated
+	 * @ordered
+	 */
    protected static final boolean SET_EDEFAULT = false;
 
    /**
-    * The cached value of the '{@link #isSet() <em>Set</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isSet() <em>Set</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #isSet()
-    * @generated
-    * @ordered
-    */
+	 * @see #isSet()
+	 * @generated
+	 * @ordered
+	 */
    protected boolean set = SET_EDEFAULT;
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected BehaviorActionsImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.BEHAVIOR_ACTIONS;
-   }
+		return AadlBaPackage.Literals.BEHAVIOR_ACTIONS;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public EList<BehaviorAction> getBehaviorAction()
    {
-      if (behaviorAction == null)
-      {
-         behaviorAction = new EObjectContainmentEList.Unsettable<BehaviorAction>(BehaviorAction.class, this, AadlBaPackage.BEHAVIOR_ACTIONS__BEHAVIOR_ACTION);
-      }
-      return behaviorAction;
-   }
+		if (behaviorAction == null) {
+			behaviorAction = new EObjectContainmentEList.Unsettable<BehaviorAction>(BehaviorAction.class, this, AadlBaPackage.BEHAVIOR_ACTIONS__BEHAVIOR_ACTION);
+		}
+		return behaviorAction;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void unsetBehaviorAction()
    {
-      if (behaviorAction != null) ((InternalEList.Unsettable<?>)behaviorAction).unset();
-   }
+		if (behaviorAction != null) ((InternalEList.Unsettable<?>)behaviorAction).unset();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isSetBehaviorAction()
    {
-      return behaviorAction != null && ((InternalEList.Unsettable<?>)behaviorAction).isSet();
-   }
+		return behaviorAction != null && ((InternalEList.Unsettable<?>)behaviorAction).isSet();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isSequence()
    {
-      return sequence;
-   }
+		return sequence;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void setSequence(boolean newSequence)
    {
-      boolean oldSequence = sequence;
-      sequence = newSequence;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTIONS__SEQUENCE, oldSequence, sequence));
-   }
+		boolean oldSequence = sequence;
+		sequence = newSequence;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTIONS__SEQUENCE, oldSequence, sequence));
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isSet()
    {
-      return set;
-   }
+		return set;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void setSet(boolean newSet)
    {
-      boolean oldSet = set;
-      set = newSet;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTIONS__SET, oldSet, set));
-   }
+		boolean oldSet = set;
+		set = newSet;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTIONS__SET, oldSet, set));
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_ACTIONS__BEHAVIOR_ACTION:
-            return ((InternalEList<?>)getBehaviorAction()).basicRemove(otherEnd, msgs);
-      }
-      return super.eInverseRemove(otherEnd, featureID, msgs);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ACTIONS__BEHAVIOR_ACTION:
+				return ((InternalEList<?>)getBehaviorAction()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public Object eGet(int featureID, boolean resolve, boolean coreType)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_ACTIONS__BEHAVIOR_ACTION:
-            return getBehaviorAction();
-         case AadlBaPackage.BEHAVIOR_ACTIONS__SEQUENCE:
-            return isSequence();
-         case AadlBaPackage.BEHAVIOR_ACTIONS__SET:
-            return isSet();
-      }
-      return super.eGet(featureID, resolve, coreType);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ACTIONS__BEHAVIOR_ACTION:
+				return getBehaviorAction();
+			case AadlBaPackage.BEHAVIOR_ACTIONS__SEQUENCE:
+				return isSequence();
+			case AadlBaPackage.BEHAVIOR_ACTIONS__SET:
+				return isSet();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @SuppressWarnings("unchecked")
    @Override
    public void eSet(int featureID, Object newValue)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_ACTIONS__BEHAVIOR_ACTION:
-            getBehaviorAction().clear();
-            getBehaviorAction().addAll((Collection<? extends BehaviorAction>)newValue);
-            return;
-         case AadlBaPackage.BEHAVIOR_ACTIONS__SEQUENCE:
-            setSequence((Boolean)newValue);
-            return;
-         case AadlBaPackage.BEHAVIOR_ACTIONS__SET:
-            setSet((Boolean)newValue);
-            return;
-      }
-      super.eSet(featureID, newValue);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ACTIONS__BEHAVIOR_ACTION:
+				getBehaviorAction().clear();
+				getBehaviorAction().addAll((Collection<? extends BehaviorAction>)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_ACTIONS__SEQUENCE:
+				setSequence((Boolean)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_ACTIONS__SET:
+				setSet((Boolean)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public void eUnset(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_ACTIONS__BEHAVIOR_ACTION:
-            unsetBehaviorAction();
-            return;
-         case AadlBaPackage.BEHAVIOR_ACTIONS__SEQUENCE:
-            setSequence(SEQUENCE_EDEFAULT);
-            return;
-         case AadlBaPackage.BEHAVIOR_ACTIONS__SET:
-            setSet(SET_EDEFAULT);
-            return;
-      }
-      super.eUnset(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ACTIONS__BEHAVIOR_ACTION:
+				unsetBehaviorAction();
+				return;
+			case AadlBaPackage.BEHAVIOR_ACTIONS__SEQUENCE:
+				setSequence(SEQUENCE_EDEFAULT);
+				return;
+			case AadlBaPackage.BEHAVIOR_ACTIONS__SET:
+				setSet(SET_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public boolean eIsSet(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_ACTIONS__BEHAVIOR_ACTION:
-            return isSetBehaviorAction();
-         case AadlBaPackage.BEHAVIOR_ACTIONS__SEQUENCE:
-            return sequence != SEQUENCE_EDEFAULT;
-         case AadlBaPackage.BEHAVIOR_ACTIONS__SET:
-            return set != SET_EDEFAULT;
-      }
-      return super.eIsSet(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ACTIONS__BEHAVIOR_ACTION:
+				return isSetBehaviorAction();
+			case AadlBaPackage.BEHAVIOR_ACTIONS__SEQUENCE:
+				return sequence != SEQUENCE_EDEFAULT;
+			case AadlBaPackage.BEHAVIOR_ACTIONS__SET:
+				return set != SET_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public String toString()
    {
-      if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-      StringBuffer result = new StringBuffer(super.toString());
-      result.append(" (Sequence: ");
-      result.append(sequence);
-      result.append(", Set: ");
-      result.append(set);
-      result.append(')');
-      return result.toString();
-   }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (Sequence: ");
+		result.append(sequence);
+		result.append(", Set: ");
+		result.append(set);
+		result.append(')');
+		return result.toString();
+	}
 
 } //BehaviorActionsImpl

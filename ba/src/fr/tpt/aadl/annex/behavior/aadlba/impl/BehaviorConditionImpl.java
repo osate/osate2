@@ -23,24 +23,24 @@ import org.eclipse.emf.ecore.EClass;
 public abstract class BehaviorConditionImpl extends ElementImpl implements BehaviorCondition
 {
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected BehaviorConditionImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.BEHAVIOR_CONDITION;
-   }
+		return AadlBaPackage.Literals.BEHAVIOR_CONDITION;
+	}
 
 } //BehaviorConditionImpl

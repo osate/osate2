@@ -38,152 +38,146 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class DataComponentReferenceImpl extends ElementImpl implements DataComponentReference
 {
    /**
-    * The cached value of the '{@link #getElementsNameOwned() <em>Elements Name Owned</em>}' containment reference list.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getElementsNameOwned() <em>Elements Name Owned</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getElementsNameOwned()
-    * @generated
-    * @ordered
-    */
+	 * @see #getElementsNameOwned()
+	 * @generated
+	 * @ordered
+	 */
    protected EList<Name> elementsNameOwned;
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected DataComponentReferenceImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.DATA_COMPONENT_REFERENCE;
-   }
+		return AadlBaPackage.Literals.DATA_COMPONENT_REFERENCE;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public EList<Name> getElementsNameOwned()
    {
-      if (elementsNameOwned == null)
-      {
-         elementsNameOwned = new EObjectContainmentEList.Unsettable<Name>(Name.class, this, AadlBaPackage.DATA_COMPONENT_REFERENCE__ELEMENTS_NAME_OWNED);
-      }
-      return elementsNameOwned;
-   }
+		if (elementsNameOwned == null) {
+			elementsNameOwned = new EObjectContainmentEList.Unsettable<Name>(Name.class, this, AadlBaPackage.DATA_COMPONENT_REFERENCE__ELEMENTS_NAME_OWNED);
+		}
+		return elementsNameOwned;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void unsetElementsNameOwned()
    {
-      if (elementsNameOwned != null) ((InternalEList.Unsettable<?>)elementsNameOwned).unset();
-   }
+		if (elementsNameOwned != null) ((InternalEList.Unsettable<?>)elementsNameOwned).unset();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isSetElementsNameOwned()
    {
-      return elementsNameOwned != null && ((InternalEList.Unsettable<?>)elementsNameOwned).isSet();
-   }
+		return elementsNameOwned != null && ((InternalEList.Unsettable<?>)elementsNameOwned).isSet();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.DATA_COMPONENT_REFERENCE__ELEMENTS_NAME_OWNED:
-            return ((InternalEList<?>)getElementsNameOwned()).basicRemove(otherEnd, msgs);
-      }
-      return super.eInverseRemove(otherEnd, featureID, msgs);
-   }
+		switch (featureID) {
+			case AadlBaPackage.DATA_COMPONENT_REFERENCE__ELEMENTS_NAME_OWNED:
+				return ((InternalEList<?>)getElementsNameOwned()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public Object eGet(int featureID, boolean resolve, boolean coreType)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.DATA_COMPONENT_REFERENCE__ELEMENTS_NAME_OWNED:
-            return getElementsNameOwned();
-      }
-      return super.eGet(featureID, resolve, coreType);
-   }
+		switch (featureID) {
+			case AadlBaPackage.DATA_COMPONENT_REFERENCE__ELEMENTS_NAME_OWNED:
+				return getElementsNameOwned();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @SuppressWarnings("unchecked")
    @Override
    public void eSet(int featureID, Object newValue)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.DATA_COMPONENT_REFERENCE__ELEMENTS_NAME_OWNED:
-            getElementsNameOwned().clear();
-            getElementsNameOwned().addAll((Collection<? extends Name>)newValue);
-            return;
-      }
-      super.eSet(featureID, newValue);
-   }
+		switch (featureID) {
+			case AadlBaPackage.DATA_COMPONENT_REFERENCE__ELEMENTS_NAME_OWNED:
+				getElementsNameOwned().clear();
+				getElementsNameOwned().addAll((Collection<? extends Name>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public void eUnset(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.DATA_COMPONENT_REFERENCE__ELEMENTS_NAME_OWNED:
-            unsetElementsNameOwned();
-            return;
-      }
-      super.eUnset(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.DATA_COMPONENT_REFERENCE__ELEMENTS_NAME_OWNED:
+				unsetElementsNameOwned();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public boolean eIsSet(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.DATA_COMPONENT_REFERENCE__ELEMENTS_NAME_OWNED:
-            return isSetElementsNameOwned();
-      }
-      return super.eIsSet(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.DATA_COMPONENT_REFERENCE__ELEMENTS_NAME_OWNED:
+				return isSetElementsNameOwned();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //DataComponentReferenceImpl

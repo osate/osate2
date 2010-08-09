@@ -23,24 +23,24 @@ import org.eclipse.emf.ecore.EClass;
 public abstract class ElementValuesImpl extends ElementImpl implements ElementValues
 {
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected ElementValuesImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.ELEMENT_VALUES;
-   }
+		return AadlBaPackage.Literals.ELEMENT_VALUES;
+	}
 
 } //ElementValuesImpl

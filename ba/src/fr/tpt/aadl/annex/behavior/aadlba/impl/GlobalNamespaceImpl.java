@@ -23,24 +23,24 @@ import org.eclipse.emf.ecore.EClass;
 public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespace
 {
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected GlobalNamespaceImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.GLOBAL_NAMESPACE;
-   }
+		return AadlBaPackage.Literals.GLOBAL_NAMESPACE;
+	}
 
 } //GlobalNamespaceImpl

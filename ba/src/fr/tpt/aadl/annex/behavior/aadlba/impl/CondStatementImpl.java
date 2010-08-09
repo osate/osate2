@@ -23,24 +23,24 @@ import org.eclipse.emf.ecore.EClass;
 public abstract class CondStatementImpl extends ElementImpl implements CondStatement
 {
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected CondStatementImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.COND_STATEMENT;
-   }
+		return AadlBaPackage.Literals.COND_STATEMENT;
+	}
 
 } //CondStatementImpl

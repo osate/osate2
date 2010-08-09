@@ -27,55 +27,55 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface BehaviorTime extends Element
 {
    /**
-    * Returns the value of the '<em><b>Integer Value Owned</b></em>' containment reference.
-    * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Integer Value Owned</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Integer Value Owned</em>' containment reference isn't clear,
     * there really should be more of a description here...
     * </p>
     * <!-- end-user-doc -->
-    * @return the value of the '<em>Integer Value Owned</em>' containment reference.
-    * @see #setIntegerValueOwned(IntegerValue)
-    * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTime_IntegerValueOwned()
-    * @model containment="true"
-    * @generated
-    */
+	 * @return the value of the '<em>Integer Value Owned</em>' containment reference.
+	 * @see #setIntegerValueOwned(IntegerValue)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTime_IntegerValueOwned()
+	 * @model containment="true"
+	 * @generated
+	 */
    IntegerValue getIntegerValueOwned();
 
    /**
-    * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime#getIntegerValueOwned <em>Integer Value Owned</em>}' containment reference.
-    * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime#getIntegerValueOwned <em>Integer Value Owned</em>}' containment reference.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @param value the new value of the '<em>Integer Value Owned</em>' containment reference.
-    * @see #getIntegerValueOwned()
-    * @generated
-    */
+	 * @param value the new value of the '<em>Integer Value Owned</em>' containment reference.
+	 * @see #getIntegerValueOwned()
+	 * @generated
+	 */
    void setIntegerValueOwned(IntegerValue value);
 
    /**
-    * Returns the value of the '<em><b>Unit Identifier</b></em>' attribute.
-    * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Unit Identifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Unit Identifier</em>' attribute isn't clear,
     * there really should be more of a description here...
     * </p>
     * <!-- end-user-doc -->
-    * @return the value of the '<em>Unit Identifier</em>' attribute.
-    * @see #setUnitIdentifier(String)
-    * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTime_UnitIdentifier()
-    * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.String"
-    * @generated
-    */
+	 * @return the value of the '<em>Unit Identifier</em>' attribute.
+	 * @see #setUnitIdentifier(String)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTime_UnitIdentifier()
+	 * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.String"
+	 * @generated
+	 */
    String getUnitIdentifier();
 
    /**
-    * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime#getUnitIdentifier <em>Unit Identifier</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime#getUnitIdentifier <em>Unit Identifier</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @param value the new value of the '<em>Unit Identifier</em>' attribute.
-    * @see #getUnitIdentifier()
-    * @generated
-    */
+	 * @param value the new value of the '<em>Unit Identifier</em>' attribute.
+	 * @see #getUnitIdentifier()
+	 * @generated
+	 */
    void setUnitIdentifier(String value);
 
 } // BehaviorTime

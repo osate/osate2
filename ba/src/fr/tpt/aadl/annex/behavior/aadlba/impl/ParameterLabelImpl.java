@@ -23,24 +23,24 @@ import org.eclipse.emf.ecore.EClass;
 public abstract class ParameterLabelImpl extends ElementImpl implements ParameterLabel
 {
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected ParameterLabelImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.PARAMETER_LABEL;
-   }
+		return AadlBaPackage.Literals.PARAMETER_LABEL;
+	}
 
 } //ParameterLabelImpl

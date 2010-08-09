@@ -30,29 +30,29 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface Comment extends Element
 {
    /**
-    * Returns the value of the '<em><b>Body</b></em>' attribute.
-    * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Body</b></em>' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * <!-- begin-model-doc -->
-    * Specifies a string that is the comment
-    * <!-- end-model-doc -->
-    * @return the value of the '<em>Body</em>' attribute.
-    * @see #setBody(String)
-    * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getComment_Body()
-    * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.String" ordered="false"
-    *        annotation="http://www.topcased.org/documentation documentation='Specifies a string that is the comment'"
-    * @generated
-    */
+	 * <!-- begin-model-doc -->
+	 * Specifies a string that is the comment
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Body</em>' attribute.
+	 * @see #setBody(String)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getComment_Body()
+	 * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.String" ordered="false"
+	 *        annotation="http://www.topcased.org/documentation documentation='Specifies a string that is the comment'"
+	 * @generated
+	 */
    String getBody();
 
    /**
-    * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Comment#getBody <em>Body</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Comment#getBody <em>Body</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @param value the new value of the '<em>Body</em>' attribute.
-    * @see #getBody()
-    * @generated
-    */
+	 * @param value the new value of the '<em>Body</em>' attribute.
+	 * @see #getBody()
+	 * @generated
+	 */
    void setBody(String value);
 
 } // Comment

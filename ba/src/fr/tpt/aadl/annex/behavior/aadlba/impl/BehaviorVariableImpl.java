@@ -44,272 +44,264 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class BehaviorVariableImpl extends ElementImpl implements BehaviorVariable
 {
    /**
-    * The cached value of the '{@link #getLocalVariableDeclarators() <em>Local Variable Declarators</em>}' containment reference list.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLocalVariableDeclarators() <em>Local Variable Declarators</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getLocalVariableDeclarators()
-    * @generated
-    * @ordered
-    */
+	 * @see #getLocalVariableDeclarators()
+	 * @generated
+	 * @ordered
+	 */
    protected EList<Declarator> localVariableDeclarators;
 
    /**
-    * The cached value of the '{@link #getDataUniqueComponentClassifierReference() <em>Data Unique Component Classifier Reference</em>}' containment reference.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getDataUniqueComponentClassifierReference() <em>Data Unique Component Classifier Reference</em>}' containment reference.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getDataUniqueComponentClassifierReference()
-    * @generated
-    * @ordered
-    */
+	 * @see #getDataUniqueComponentClassifierReference()
+	 * @generated
+	 * @ordered
+	 */
    protected UniqueComponentClassifierReference dataUniqueComponentClassifierReference;
 
    /**
-    * The default value of the '{@link #isPersistent() <em>Persistent</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isPersistent() <em>Persistent</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #isPersistent()
-    * @generated
-    * @ordered
-    */
+	 * @see #isPersistent()
+	 * @generated
+	 * @ordered
+	 */
    protected static final boolean PERSISTENT_EDEFAULT = false;
 
    /**
-    * The cached value of the '{@link #isPersistent() <em>Persistent</em>}' attribute.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isPersistent() <em>Persistent</em>}' attribute.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #isPersistent()
-    * @generated
-    * @ordered
-    */
+	 * @see #isPersistent()
+	 * @generated
+	 * @ordered
+	 */
    protected boolean persistent = PERSISTENT_EDEFAULT;
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected BehaviorVariableImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.BEHAVIOR_VARIABLE;
-   }
+		return AadlBaPackage.Literals.BEHAVIOR_VARIABLE;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public EList<Declarator> getLocalVariableDeclarators()
    {
-      if (localVariableDeclarators == null)
-      {
-         localVariableDeclarators = new EObjectContainmentEList<Declarator>(Declarator.class, this, AadlBaPackage.BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS);
-      }
-      return localVariableDeclarators;
-   }
+		if (localVariableDeclarators == null) {
+			localVariableDeclarators = new EObjectContainmentEList<Declarator>(Declarator.class, this, AadlBaPackage.BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS);
+		}
+		return localVariableDeclarators;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public UniqueComponentClassifierReference getDataUniqueComponentClassifierReference()
    {
-      return dataUniqueComponentClassifierReference;
-   }
+		return dataUniqueComponentClassifierReference;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public NotificationChain basicSetDataUniqueComponentClassifierReference(UniqueComponentClassifierReference newDataUniqueComponentClassifierReference, NotificationChain msgs)
    {
-      UniqueComponentClassifierReference oldDataUniqueComponentClassifierReference = dataUniqueComponentClassifierReference;
-      dataUniqueComponentClassifierReference = newDataUniqueComponentClassifierReference;
-      if (eNotificationRequired())
-      {
-         ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE, oldDataUniqueComponentClassifierReference, newDataUniqueComponentClassifierReference);
-         if (msgs == null) msgs = notification; else msgs.add(notification);
-      }
-      return msgs;
-   }
+		UniqueComponentClassifierReference oldDataUniqueComponentClassifierReference = dataUniqueComponentClassifierReference;
+		dataUniqueComponentClassifierReference = newDataUniqueComponentClassifierReference;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE, oldDataUniqueComponentClassifierReference, newDataUniqueComponentClassifierReference);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void setDataUniqueComponentClassifierReference(UniqueComponentClassifierReference newDataUniqueComponentClassifierReference)
    {
-      if (newDataUniqueComponentClassifierReference != dataUniqueComponentClassifierReference)
-      {
-         NotificationChain msgs = null;
-         if (dataUniqueComponentClassifierReference != null)
-            msgs = ((InternalEObject)dataUniqueComponentClassifierReference).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE, null, msgs);
-         if (newDataUniqueComponentClassifierReference != null)
-            msgs = ((InternalEObject)newDataUniqueComponentClassifierReference).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE, null, msgs);
-         msgs = basicSetDataUniqueComponentClassifierReference(newDataUniqueComponentClassifierReference, msgs);
-         if (msgs != null) msgs.dispatch();
-      }
-      else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE, newDataUniqueComponentClassifierReference, newDataUniqueComponentClassifierReference));
-   }
+		if (newDataUniqueComponentClassifierReference != dataUniqueComponentClassifierReference) {
+			NotificationChain msgs = null;
+			if (dataUniqueComponentClassifierReference != null)
+				msgs = ((InternalEObject)dataUniqueComponentClassifierReference).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE, null, msgs);
+			if (newDataUniqueComponentClassifierReference != null)
+				msgs = ((InternalEObject)newDataUniqueComponentClassifierReference).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE, null, msgs);
+			msgs = basicSetDataUniqueComponentClassifierReference(newDataUniqueComponentClassifierReference, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE, newDataUniqueComponentClassifierReference, newDataUniqueComponentClassifierReference));
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isPersistent()
    {
-      return persistent;
-   }
+		return persistent;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void setPersistent(boolean newPersistent)
    {
-      boolean oldPersistent = persistent;
-      persistent = newPersistent;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_VARIABLE__PERSISTENT, oldPersistent, persistent));
-   }
+		boolean oldPersistent = persistent;
+		persistent = newPersistent;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_VARIABLE__PERSISTENT, oldPersistent, persistent));
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS:
-            return ((InternalEList<?>)getLocalVariableDeclarators()).basicRemove(otherEnd, msgs);
-         case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
-            return basicSetDataUniqueComponentClassifierReference(null, msgs);
-      }
-      return super.eInverseRemove(otherEnd, featureID, msgs);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS:
+				return ((InternalEList<?>)getLocalVariableDeclarators()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
+				return basicSetDataUniqueComponentClassifierReference(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public Object eGet(int featureID, boolean resolve, boolean coreType)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS:
-            return getLocalVariableDeclarators();
-         case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
-            return getDataUniqueComponentClassifierReference();
-         case AadlBaPackage.BEHAVIOR_VARIABLE__PERSISTENT:
-            return isPersistent();
-      }
-      return super.eGet(featureID, resolve, coreType);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS:
+				return getLocalVariableDeclarators();
+			case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
+				return getDataUniqueComponentClassifierReference();
+			case AadlBaPackage.BEHAVIOR_VARIABLE__PERSISTENT:
+				return isPersistent();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @SuppressWarnings("unchecked")
    @Override
    public void eSet(int featureID, Object newValue)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS:
-            getLocalVariableDeclarators().clear();
-            getLocalVariableDeclarators().addAll((Collection<? extends Declarator>)newValue);
-            return;
-         case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
-            setDataUniqueComponentClassifierReference((UniqueComponentClassifierReference)newValue);
-            return;
-         case AadlBaPackage.BEHAVIOR_VARIABLE__PERSISTENT:
-            setPersistent((Boolean)newValue);
-            return;
-      }
-      super.eSet(featureID, newValue);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS:
+				getLocalVariableDeclarators().clear();
+				getLocalVariableDeclarators().addAll((Collection<? extends Declarator>)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
+				setDataUniqueComponentClassifierReference((UniqueComponentClassifierReference)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_VARIABLE__PERSISTENT:
+				setPersistent((Boolean)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public void eUnset(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS:
-            getLocalVariableDeclarators().clear();
-            return;
-         case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
-            setDataUniqueComponentClassifierReference((UniqueComponentClassifierReference)null);
-            return;
-         case AadlBaPackage.BEHAVIOR_VARIABLE__PERSISTENT:
-            setPersistent(PERSISTENT_EDEFAULT);
-            return;
-      }
-      super.eUnset(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS:
+				getLocalVariableDeclarators().clear();
+				return;
+			case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
+				setDataUniqueComponentClassifierReference((UniqueComponentClassifierReference)null);
+				return;
+			case AadlBaPackage.BEHAVIOR_VARIABLE__PERSISTENT:
+				setPersistent(PERSISTENT_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public boolean eIsSet(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS:
-            return localVariableDeclarators != null && !localVariableDeclarators.isEmpty();
-         case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
-            return dataUniqueComponentClassifierReference != null;
-         case AadlBaPackage.BEHAVIOR_VARIABLE__PERSISTENT:
-            return persistent != PERSISTENT_EDEFAULT;
-      }
-      return super.eIsSet(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS:
+				return localVariableDeclarators != null && !localVariableDeclarators.isEmpty();
+			case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
+				return dataUniqueComponentClassifierReference != null;
+			case AadlBaPackage.BEHAVIOR_VARIABLE__PERSISTENT:
+				return persistent != PERSISTENT_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public String toString()
    {
-      if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-      StringBuffer result = new StringBuffer(super.toString());
-      result.append(" (Persistent: ");
-      result.append(persistent);
-      result.append(')');
-      return result.toString();
-   }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (Persistent: ");
+		result.append(persistent);
+		result.append(')');
+		return result.toString();
+	}
 
 } //BehaviorVariableImpl

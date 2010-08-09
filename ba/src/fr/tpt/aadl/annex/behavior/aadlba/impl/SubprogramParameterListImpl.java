@@ -38,152 +38,146 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class SubprogramParameterListImpl extends ElementImpl implements SubprogramParameterList
 {
    /**
-    * The cached value of the '{@link #getParameterList() <em>Parameter List</em>}' containment reference list.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getParameterList() <em>Parameter List</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getParameterList()
-    * @generated
-    * @ordered
-    */
+	 * @see #getParameterList()
+	 * @generated
+	 * @ordered
+	 */
    protected EList<ParameterLabel> parameterList;
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected SubprogramParameterListImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.SUBPROGRAM_PARAMETER_LIST;
-   }
+		return AadlBaPackage.Literals.SUBPROGRAM_PARAMETER_LIST;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public EList<ParameterLabel> getParameterList()
    {
-      if (parameterList == null)
-      {
-         parameterList = new EObjectContainmentEList.Unsettable<ParameterLabel>(ParameterLabel.class, this, AadlBaPackage.SUBPROGRAM_PARAMETER_LIST__PARAMETER_LIST);
-      }
-      return parameterList;
-   }
+		if (parameterList == null) {
+			parameterList = new EObjectContainmentEList.Unsettable<ParameterLabel>(ParameterLabel.class, this, AadlBaPackage.SUBPROGRAM_PARAMETER_LIST__PARAMETER_LIST);
+		}
+		return parameterList;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void unsetParameterList()
    {
-      if (parameterList != null) ((InternalEList.Unsettable<?>)parameterList).unset();
-   }
+		if (parameterList != null) ((InternalEList.Unsettable<?>)parameterList).unset();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isSetParameterList()
    {
-      return parameterList != null && ((InternalEList.Unsettable<?>)parameterList).isSet();
-   }
+		return parameterList != null && ((InternalEList.Unsettable<?>)parameterList).isSet();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.SUBPROGRAM_PARAMETER_LIST__PARAMETER_LIST:
-            return ((InternalEList<?>)getParameterList()).basicRemove(otherEnd, msgs);
-      }
-      return super.eInverseRemove(otherEnd, featureID, msgs);
-   }
+		switch (featureID) {
+			case AadlBaPackage.SUBPROGRAM_PARAMETER_LIST__PARAMETER_LIST:
+				return ((InternalEList<?>)getParameterList()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public Object eGet(int featureID, boolean resolve, boolean coreType)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.SUBPROGRAM_PARAMETER_LIST__PARAMETER_LIST:
-            return getParameterList();
-      }
-      return super.eGet(featureID, resolve, coreType);
-   }
+		switch (featureID) {
+			case AadlBaPackage.SUBPROGRAM_PARAMETER_LIST__PARAMETER_LIST:
+				return getParameterList();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @SuppressWarnings("unchecked")
    @Override
    public void eSet(int featureID, Object newValue)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.SUBPROGRAM_PARAMETER_LIST__PARAMETER_LIST:
-            getParameterList().clear();
-            getParameterList().addAll((Collection<? extends ParameterLabel>)newValue);
-            return;
-      }
-      super.eSet(featureID, newValue);
-   }
+		switch (featureID) {
+			case AadlBaPackage.SUBPROGRAM_PARAMETER_LIST__PARAMETER_LIST:
+				getParameterList().clear();
+				getParameterList().addAll((Collection<? extends ParameterLabel>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public void eUnset(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.SUBPROGRAM_PARAMETER_LIST__PARAMETER_LIST:
-            unsetParameterList();
-            return;
-      }
-      super.eUnset(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.SUBPROGRAM_PARAMETER_LIST__PARAMETER_LIST:
+				unsetParameterList();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public boolean eIsSet(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.SUBPROGRAM_PARAMETER_LIST__PARAMETER_LIST:
-            return isSetParameterList();
-      }
-      return super.eIsSet(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.SUBPROGRAM_PARAMETER_LIST__PARAMETER_LIST:
+				return isSetParameterList();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //SubprogramParameterListImpl

@@ -36,302 +36,289 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class WhileStatementImpl extends CondStatementImpl implements WhileStatement
 {
    /**
-    * The cached value of the '{@link #getValueExpressionOwned() <em>Value Expression Owned</em>}' containment reference.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getValueExpressionOwned() <em>Value Expression Owned</em>}' containment reference.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getValueExpressionOwned()
-    * @generated
-    * @ordered
-    */
+	 * @see #getValueExpressionOwned()
+	 * @generated
+	 * @ordered
+	 */
    protected ValueExpression valueExpressionOwned;
 
    /**
-    * The cached value of the '{@link #getBehaviorActionsOwned() <em>Behavior Actions Owned</em>}' containment reference.
-    * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getBehaviorActionsOwned() <em>Behavior Actions Owned</em>}' containment reference.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @see #getBehaviorActionsOwned()
-    * @generated
-    * @ordered
-    */
+	 * @see #getBehaviorActionsOwned()
+	 * @generated
+	 * @ordered
+	 */
    protected BehaviorActions behaviorActionsOwned;
 
    /**
-    * This is true if the Behavior Actions Owned containment reference has been set.
-    * <!-- begin-user-doc -->
+	 * This is true if the Behavior Actions Owned containment reference has been set.
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    * @ordered
-    */
+	 * @generated
+	 * @ordered
+	 */
    protected boolean behaviorActionsOwnedESet;
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    protected WhileStatementImpl()
    {
-      super();
-   }
+		super();
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    protected EClass eStaticClass()
    {
-      return AadlBaPackage.Literals.WHILE_STATEMENT;
-   }
+		return AadlBaPackage.Literals.WHILE_STATEMENT;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public ValueExpression getValueExpressionOwned()
    {
-      return valueExpressionOwned;
-   }
+		return valueExpressionOwned;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public NotificationChain basicSetValueExpressionOwned(ValueExpression newValueExpressionOwned, NotificationChain msgs)
    {
-      ValueExpression oldValueExpressionOwned = valueExpressionOwned;
-      valueExpressionOwned = newValueExpressionOwned;
-      if (eNotificationRequired())
-      {
-         ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED, oldValueExpressionOwned, newValueExpressionOwned);
-         if (msgs == null) msgs = notification; else msgs.add(notification);
-      }
-      return msgs;
-   }
+		ValueExpression oldValueExpressionOwned = valueExpressionOwned;
+		valueExpressionOwned = newValueExpressionOwned;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED, oldValueExpressionOwned, newValueExpressionOwned);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void setValueExpressionOwned(ValueExpression newValueExpressionOwned)
    {
-      if (newValueExpressionOwned != valueExpressionOwned)
-      {
-         NotificationChain msgs = null;
-         if (valueExpressionOwned != null)
-            msgs = ((InternalEObject)valueExpressionOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED, null, msgs);
-         if (newValueExpressionOwned != null)
-            msgs = ((InternalEObject)newValueExpressionOwned).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED, null, msgs);
-         msgs = basicSetValueExpressionOwned(newValueExpressionOwned, msgs);
-         if (msgs != null) msgs.dispatch();
-      }
-      else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED, newValueExpressionOwned, newValueExpressionOwned));
-   }
+		if (newValueExpressionOwned != valueExpressionOwned) {
+			NotificationChain msgs = null;
+			if (valueExpressionOwned != null)
+				msgs = ((InternalEObject)valueExpressionOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED, null, msgs);
+			if (newValueExpressionOwned != null)
+				msgs = ((InternalEObject)newValueExpressionOwned).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED, null, msgs);
+			msgs = basicSetValueExpressionOwned(newValueExpressionOwned, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED, newValueExpressionOwned, newValueExpressionOwned));
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public BehaviorActions getBehaviorActionsOwned()
    {
-      return behaviorActionsOwned;
-   }
+		return behaviorActionsOwned;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public NotificationChain basicSetBehaviorActionsOwned(BehaviorActions newBehaviorActionsOwned, NotificationChain msgs)
    {
-      BehaviorActions oldBehaviorActionsOwned = behaviorActionsOwned;
-      behaviorActionsOwned = newBehaviorActionsOwned;
-      boolean oldBehaviorActionsOwnedESet = behaviorActionsOwnedESet;
-      behaviorActionsOwnedESet = true;
-      if (eNotificationRequired())
-      {
-         ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, oldBehaviorActionsOwned, newBehaviorActionsOwned, !oldBehaviorActionsOwnedESet);
-         if (msgs == null) msgs = notification; else msgs.add(notification);
-      }
-      return msgs;
-   }
+		BehaviorActions oldBehaviorActionsOwned = behaviorActionsOwned;
+		behaviorActionsOwned = newBehaviorActionsOwned;
+		boolean oldBehaviorActionsOwnedESet = behaviorActionsOwnedESet;
+		behaviorActionsOwnedESet = true;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, oldBehaviorActionsOwned, newBehaviorActionsOwned, !oldBehaviorActionsOwnedESet);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void setBehaviorActionsOwned(BehaviorActions newBehaviorActionsOwned)
    {
-      if (newBehaviorActionsOwned != behaviorActionsOwned)
-      {
-         NotificationChain msgs = null;
-         if (behaviorActionsOwned != null)
-            msgs = ((InternalEObject)behaviorActionsOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, null, msgs);
-         if (newBehaviorActionsOwned != null)
-            msgs = ((InternalEObject)newBehaviorActionsOwned).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, null, msgs);
-         msgs = basicSetBehaviorActionsOwned(newBehaviorActionsOwned, msgs);
-         if (msgs != null) msgs.dispatch();
-      }
-      else
-      {
-         boolean oldBehaviorActionsOwnedESet = behaviorActionsOwnedESet;
-         behaviorActionsOwnedESet = true;
-         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, newBehaviorActionsOwned, newBehaviorActionsOwned, !oldBehaviorActionsOwnedESet));
-      }
-   }
+		if (newBehaviorActionsOwned != behaviorActionsOwned) {
+			NotificationChain msgs = null;
+			if (behaviorActionsOwned != null)
+				msgs = ((InternalEObject)behaviorActionsOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, null, msgs);
+			if (newBehaviorActionsOwned != null)
+				msgs = ((InternalEObject)newBehaviorActionsOwned).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, null, msgs);
+			msgs = basicSetBehaviorActionsOwned(newBehaviorActionsOwned, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else {
+			boolean oldBehaviorActionsOwnedESet = behaviorActionsOwnedESet;
+			behaviorActionsOwnedESet = true;
+			if (eNotificationRequired())
+				eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, newBehaviorActionsOwned, newBehaviorActionsOwned, !oldBehaviorActionsOwnedESet));
+		}
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public NotificationChain basicUnsetBehaviorActionsOwned(NotificationChain msgs)
    {
-      BehaviorActions oldBehaviorActionsOwned = behaviorActionsOwned;
-      behaviorActionsOwned = null;
-      boolean oldBehaviorActionsOwnedESet = behaviorActionsOwnedESet;
-      behaviorActionsOwnedESet = false;
-      if (eNotificationRequired())
-      {
-         ENotificationImpl notification = new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, oldBehaviorActionsOwned, null, oldBehaviorActionsOwnedESet);
-         if (msgs == null) msgs = notification; else msgs.add(notification);
-      }
-      return msgs;
-   }
+		BehaviorActions oldBehaviorActionsOwned = behaviorActionsOwned;
+		behaviorActionsOwned = null;
+		boolean oldBehaviorActionsOwnedESet = behaviorActionsOwnedESet;
+		behaviorActionsOwnedESet = false;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, oldBehaviorActionsOwned, null, oldBehaviorActionsOwnedESet);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public void unsetBehaviorActionsOwned()
    {
-      if (behaviorActionsOwned != null)
-      {
-         NotificationChain msgs = null;
-         msgs = ((InternalEObject)behaviorActionsOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, null, msgs);
-         msgs = basicUnsetBehaviorActionsOwned(msgs);
-         if (msgs != null) msgs.dispatch();
-      }
-      else
-      {
-         boolean oldBehaviorActionsOwnedESet = behaviorActionsOwnedESet;
-         behaviorActionsOwnedESet = false;
-         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, null, null, oldBehaviorActionsOwnedESet));
-      }
-   }
+		if (behaviorActionsOwned != null) {
+			NotificationChain msgs = null;
+			msgs = ((InternalEObject)behaviorActionsOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, null, msgs);
+			msgs = basicUnsetBehaviorActionsOwned(msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else {
+			boolean oldBehaviorActionsOwnedESet = behaviorActionsOwnedESet;
+			behaviorActionsOwnedESet = false;
+			if (eNotificationRequired())
+				eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED, null, null, oldBehaviorActionsOwnedESet));
+		}
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public boolean isSetBehaviorActionsOwned()
    {
-      return behaviorActionsOwnedESet;
-   }
+		return behaviorActionsOwnedESet;
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
-            return basicSetValueExpressionOwned(null, msgs);
-         case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-            return basicUnsetBehaviorActionsOwned(msgs);
-      }
-      return super.eInverseRemove(otherEnd, featureID, msgs);
-   }
+		switch (featureID) {
+			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
+				return basicSetValueExpressionOwned(null, msgs);
+			case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				return basicUnsetBehaviorActionsOwned(msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public Object eGet(int featureID, boolean resolve, boolean coreType)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
-            return getValueExpressionOwned();
-         case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-            return getBehaviorActionsOwned();
-      }
-      return super.eGet(featureID, resolve, coreType);
-   }
+		switch (featureID) {
+			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
+				return getValueExpressionOwned();
+			case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				return getBehaviorActionsOwned();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public void eSet(int featureID, Object newValue)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
-            setValueExpressionOwned((ValueExpression)newValue);
-            return;
-         case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-            setBehaviorActionsOwned((BehaviorActions)newValue);
-            return;
-      }
-      super.eSet(featureID, newValue);
-   }
+		switch (featureID) {
+			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
+				setValueExpressionOwned((ValueExpression)newValue);
+				return;
+			case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				setBehaviorActionsOwned((BehaviorActions)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public void eUnset(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
-            setValueExpressionOwned((ValueExpression)null);
-            return;
-         case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-            unsetBehaviorActionsOwned();
-            return;
-      }
-      super.eUnset(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
+				setValueExpressionOwned((ValueExpression)null);
+				return;
+			case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				unsetBehaviorActionsOwned();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
    /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    @Override
    public boolean eIsSet(int featureID)
    {
-      switch (featureID)
-      {
-         case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
-            return valueExpressionOwned != null;
-         case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-            return isSetBehaviorActionsOwned();
-      }
-      return super.eIsSet(featureID);
-   }
+		switch (featureID) {
+			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
+				return valueExpressionOwned != null;
+			case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				return isSetBehaviorActionsOwned();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //WhileStatementImpl
