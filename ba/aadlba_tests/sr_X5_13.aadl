@@ -1,6 +1,6 @@
 -- Semantic rule X.5.(13)
 
--- $Id$
+-- $Id: sr_X5_13.aadl 246 2010-05-28 17:07:46Z lasnier $
 
 package example_sr_X5_13
 public

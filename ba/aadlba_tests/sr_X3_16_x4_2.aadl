@@ -1,6 +1,6 @@
 -- Semantic rules X.3.(16), X.4.(2)
 
--- $Id: sr_X3_16_x4_2.aadl 238 2010-05-26 22:53:05Z lasnier $
+-- $Id$
 
 package example_sr_X3_16_X4_2
 public
