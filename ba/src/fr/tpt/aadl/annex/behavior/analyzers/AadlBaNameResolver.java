@@ -79,7 +79,7 @@ public class AadlBaNameResolver
    PackageSection[] _contextsTab ;
    private AnalysisErrorReporterManager _errManager ;
    
-   // Contains Element identifiers of for and forall structures.
+   // Contains Element variable identifiers of for and forall structures.
    private EList<Identifier> _lForElementIds = new BasicEList<Identifier>();
    
    /**
@@ -121,12 +121,12 @@ public class AadlBaNameResolver
     * @return {@code true} if behavior annex's rule is satisfied. {@code false}
     * otherwise. 
     */
-   public boolean checkBaComponentsUnicity()
+   public boolean checkBaComponentsUniqueness()
    {
       boolean result = true ;
       
       // Separated check in order to improve visibility and performance.
-      result = checkParentComponentIdentifiersUnicity() ;
+      result = checkParentComponentIdentifiersUniqueness() ;
 
       EList<BehaviorVariable> lvars = _ba.getVariables() ;
       EList<BehaviorState> lstates = _ba.getStates() ;
@@ -406,7 +406,8 @@ public class AadlBaNameResolver
                {
                   ForOrForAllStatement stat = (ForOrForAllStatement) cond ;
                   
-                  // Add the for structure's element in the scope handler.
+                  // Add the for structure's element variable in the scope
+                  // handler.
                   _lForElementIds.add(stat.getElement()) ;
                   
                   // Check unique component classifier reference. It may be null.
@@ -417,8 +418,8 @@ public class AadlBaNameResolver
                   {
                      result = checkUniqueComponentClassifierRefNames(uccr, true) ;
                      
-                     // Set the for structure's element type as BA referenced
-                     // entity.
+                     // Set the for structure's element variable type as BA
+                     // referenced entity.
                      stat.getElement().setBaReferencedEntity(uccr);
                   }
                   
@@ -430,7 +431,8 @@ public class AadlBaNameResolver
                   result &= checkBehaviorActionsNames(
                                                stat.getBehaviorActionsOwned()) ;
                   
-                  // Remove the for structure's element off the scope handler.
+                  // Remove the for structure's element variable off the scope
+                  // handler.
                   _lForElementIds.remove(stat.getElement()) ;
                }
             }
@@ -796,7 +798,7 @@ public class AadlBaNameResolver
       }
    }
 
-   // Check the given Identifier object versus for struture's elements 
+   // Check the given Identifier object versus for struture's element variables
    // Identifier objects.
    // It doesn't report error.
    private boolean checkWithinForStructureElementScope(Identifier id)
@@ -821,7 +823,7 @@ public class AadlBaNameResolver
       // Case of a Behavior annex component.
       if(parentContainer == _baParentContainer)
       {
-         // First, check within for structure's elements scope.
+         // First, check within for structure's element variables scope.
          // Don't report any error.
          if(checkWithinForStructureElementScope(id))
          {
@@ -880,7 +882,7 @@ public class AadlBaNameResolver
    
    // Check Name Object'names means to check names (identifier and array index)
    // within parent component's features ones and ba's variables ones and
-   // for structure elements scope handler.
+   // for structure element variables scope handler.
    // name ::= identifier { array_index }*
    // array_index :: [ integer_value_variable ]
    private boolean checkNameObject(ComponentClassifier parentContainer,
@@ -908,12 +910,12 @@ public class AadlBaNameResolver
    }
 
    /**
-    * Check behavior annex's sub component unicity within behavior annex's
+    * Check behavior annex's sub component uniqueness within behavior annex's
     * parent component scope. Conflits are reported in the given error report
     * manager.
     * 
     */
-   private boolean checkParentComponentIdentifiersUnicity()
+   private boolean checkParentComponentIdentifiersUniqueness()
    {
       boolean result = true ;
       
@@ -932,7 +934,7 @@ public class AadlBaNameResolver
       EList<BehaviorState> lstates = _ba.getStates() ;
       EList<BehaviorTransition> ltrans = _ba.getTransitions() ;
 
-      // Check unicity within the parent component.
+      // Check uniqueness within the parent component.
       for(edu.cmu.sei.aadl.aadl2.NamedElement ne : lcc)
       {
          for(BehaviorVariable v : lvars)
