@@ -37,6 +37,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.Element ;
 import fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.Identifier ;
 import fr.tpt.aadl.annex.behavior.aadlba.IfStatement ;
+import fr.tpt.aadl.annex.behavior.aadlba.LoopStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.Name ;
 import fr.tpt.aadl.annex.behavior.aadlba.NamedElement ;
 import fr.tpt.aadl.annex.behavior.aadlba.WhileStatement ;
@@ -49,6 +50,72 @@ import fr.tpt.aadl.annex.behavior.aadlba.WhileStatement ;
  */
 public class AadlBaVisitors
 {
+   /**
+    * Return the BasicAction objects contained in a given BehaviorActions
+    * object (recursively). For a {@code null} given BehaviorActions object, the
+    * returned list is an empty list.
+    * 
+    * 
+    * @param BehAction the given BehaviorActions object or {@code null} (for
+    * batch processing)
+    * @return the list of BasicAction contained in the given BehaviorActions
+    * object.
+    */
+   public static EList<BasicAction> getBasicActions(BehaviorActions BehActions)
+   {
+      EList<BasicAction> result = new BasicEList<BasicAction>() ;
+      
+      // A behavior transition may have no behavior actions.
+      if(BehActions != null)
+      {
+         for(BehaviorAction BehAct : BehActions.getBehaviorAction())
+         {
+            // Case of BehaviorAction is an BasicAction.
+            if (BehAct.isBasicAction())
+            {
+               result.add(BehAct.getBasicActionOwned());
+               continue ;
+            }
+            
+            // Case of BehaviorAction is an BehaviorActionS.
+            if (BehAct.isBehaviorActions())
+            {
+               // Recursive call.
+               result.addAll(getBasicActions(BehAct.getBehaviorActionsOwned()));
+               continue ;
+            }
+            
+            // Case of an conditional structure excepted if structure
+            // (loop structure).
+            if (BehAct.isLoop())
+            {
+               LoopStatement loopStat = (LoopStatement) BehAct
+                                                       .getCondStatementOwned();
+                  // Recursive call.
+               result.addAll(getBasicActions(loopStat.
+                                                    getBehaviorActionsOwned()));
+               continue ;
+            }
+            
+            if (BehAct.isIf())
+            {
+               IfStatement stat = (IfStatement) BehAct.getCondStatementOwned();
+               
+               for(BehaviorActions tmp : stat.getBehaviorActionsOwned())
+               {
+                  // Recursive call.
+                  result.addAll(getBasicActions(tmp)) ;
+               }
+               
+               continue ;
+            }
+         } // End of for.
+      } // End of first if.
+      
+      return result ;
+   }
+   
+   
    /**
     * Return the package sections related to a given BehaviorAnnex. As 
     * "Classifier declarations in public sections are accessible to other
