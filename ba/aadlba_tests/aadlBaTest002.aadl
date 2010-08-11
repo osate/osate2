@@ -180,6 +180,7 @@ transitions
  a -[]-> c {tmp := 1} timeout DummyPropertySet::aConstant ms; 
    
    -- Basic action variations
+ a -[]-> a ;
  a -[]-> a {mul !} ;
  a -[]-> a {mul ! (0, 0, 0)} ;
  a -[]-> a {mul ! (x, y, 0)} ;
@@ -221,26 +222,27 @@ transitions
   
 -- a -[]-> a { for(x in 0..9) {tmp:=1} } ; -- //FIX ME : Lexer doesn't take 0. 
 
- a -[]-> a { for(x in 0 .. 9) {tmp:=1 ; tmp:=1} } ;
- a -[]-> a { for(x in 0 .. 9) {tmp:=1 & tmp:=1} } ;
- a -[]-> a { for(x in y..9) {tmp:=1} } ;
- a -[]-> a { for(x in y..DummyPropertySet::aConstant) {tmp:=1} } ;
- a -[]-> a { for(x in y..dataAccess.length) {tmp:=1} } ;
- a -[]-> a { for(x in portA) {tmp:=1} } ;
- a -[]-> a { for(x in tmp..y) {tmp:=x} } ;
+ a -[]-> a { for(i in 0 .. 9) {tmp:=1 ; tmp:=1} } ;
+ a -[]-> a { for(i in 0 .. 9) {tmp:=1 & tmp:=1} } ;
+ a -[]-> a { for(i in y..9) {tmp:=1} } ;
+ a -[]-> a { for(i in y..DummyPropertySet::aConstant) {tmp:=1} } ;
+ a -[]-> a { for(i in y..dataAccess.length) {tmp:=1} } ;
+ a -[]-> a { for(i in portA) {tmp:=1} } ;
+ a -[]-> a { for(i in tmp..y) {tmp:=x} } ;
  a -[]-> a { for (i in 0 .. 9) {tmp:= i }} ;
  a -[]-> a { for(i : Base_Types::Integer in 0 .. 9) {tmp:=1} } ;
  a -[]-> a { for(i : Dummy::Types::Opaque.v1 in 0 .. 9) {tmp:=1} } ;
- a -[]-> a { forall(x in 0_1 .. 9) {tmp:=1} } ;
- a -[]-> a { forall(x in 0 .. 9) {tmp:=1 ; tmp:=1} } ;
- a -[]-> a { forall(x in 0 .. 9) {tmp:=1 & tmp:=1} } ;
- a -[]-> a { forall(x in y .. subData1) {tmp:=1} } ;
- a -[]-> a { forall(x in portA) {tmp:=1} } ;
+ a -[]-> a { forall(i in 0_1 .. 9) {tmp:=1} } ;
+ a -[]-> a { forall(i in 0 .. 9) {tmp:=1 ; tmp:=1} } ;
+ a -[]-> a { forall(i in 0 .. 9) {tmp:=1 & tmp:=1} } ;
+ a -[]-> a { forall(i in y .. subData1) {tmp:=1} } ;
+ a -[]-> a { forall(i in portA) {tmp:=1} } ;
  a -[]-> a { forall(i : Base_Types::Integer in 0 .. 9) {tmp:=1} } ;
  a -[]-> a { forall(i : Dummy::Types::Opaque.v1 in 0 .. 9) {tmp:=1} } ;
  a -[]-> a { for (i in 0 .. 9)
              {
-               for (j in 0 .. 9) {tmp:= i + j}
+               for (j in 0 .. 9) {tmp:= i + j} ;
+               tmp := i 
              }
            } ;
  a -[]-> a { while(true) {tmp:=1} } ;
@@ -253,7 +255,27 @@ transitions
  a -[]-> a { do tmp:=1 until (bool1) };
  a -[]-> a { do tmp:=1 until (bool1 xor bool2) };
  a -[]-> a { do tmp:=1 until (bool1 or x +1 > -y) } ;
-
+ a -[]-> a {
+             while(true)
+             {
+               for (i : Base_Types::Integer in 0 .. 9)
+               {
+                 if (true)
+                 {
+                   tmp := 1 
+                 }
+                 elsif (true) { tmp:= 1 }
+                 else
+                 {
+                   for (j : Base_Types::Integer in 0 .. 9)
+                   {
+                     do { tmp := i + j } until (true) 
+                   }
+                 }
+                   end if
+                 }
+               }
+             } ;
 **};
 end cube.ba;
 -- Such a basic use of the behavior annex simply corresponds to a shortcut for an equivalent calls 

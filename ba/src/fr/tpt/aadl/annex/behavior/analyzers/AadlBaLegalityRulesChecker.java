@@ -1,6 +1,8 @@
 package fr.tpt.aadl.annex.behavior.analyzers ;
 
+import java.util.ArrayList ;
 import java.util.Iterator ;
+import java.util.List ;
 
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
@@ -16,6 +18,10 @@ import edu.cmu.sei.aadl.aadl2.ThreadType ;
 import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager ;
 import edu.cmu.sei.osate.workspace.names.standard.ThreadProperties ;
 import edu.cmu.sei.osate.workspace.names.standard.TimingProperties ;
+import fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction ;
+import fr.tpt.aadl.annex.behavior.aadlba.BasicAction ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime ;
@@ -24,7 +30,11 @@ import fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition ;
 import fr.tpt.aadl.annex.behavior.aadlba.DispatchLogicalExpression ;
 import fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger ;
 import fr.tpt.aadl.annex.behavior.aadlba.Element ;
+import fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.Identifier ;
+import fr.tpt.aadl.annex.behavior.aadlba.IfStatement ;
+import fr.tpt.aadl.annex.behavior.aadlba.LoopStatement ;
+import fr.tpt.aadl.annex.behavior.aadlba.Target ;
 import fr.tpt.aadl.annex.behavior.aadlba.impl.NumericLiteralImpl ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaGetProperties ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
@@ -76,96 +86,252 @@ LEGALITY RULES
 
 public class AadlBaLegalityRulesChecker
 {
-	private BehaviorAnnex _ba ;
-	private ComponentClassifier _baParentContainer ;
-	PackageSection[] _contextsTab ;
-	private AnalysisErrorReporterManager _errManager ;
+   private BehaviorAnnex _ba ;
+   private ComponentClassifier _baParentContainer ;
+   PackageSection[] _contextsTab ;
+   private AnalysisErrorReporterManager _errManager ;
 
-	public AadlBaLegalityRulesChecker(BehaviorAnnex ba,
-	                                  AnalysisErrorReporterManager errManager)
-	{
-		_ba = ba ;
-		_errManager = errManager ;
-		_baParentContainer = AadlBaVisitors.getParentComponent(ba) ;
-		_contextsTab = AadlBaVisitors.getBaPackageSections(_ba) ;
-	}
+   public AadlBaLegalityRulesChecker(BehaviorAnnex ba,
+                                     AnalysisErrorReporterManager errManager)
+   {
+      _ba = ba ;
+      _errManager = errManager ;
+      _baParentContainer = AadlBaVisitors.getParentComponent(ba) ;
+      _contextsTab = AadlBaVisitors.getBaPackageSections(_ba) ;
+   }
 
-	public boolean checkLegalityRules()
-	{
-		boolean result = false ;
+   public boolean checkLegalityRules()
+   {
+      boolean result = false ;
 
-		result = checkTimeoutAndPeriodProperty() ;
-		result &= checkValueOthersInDispatchTriggerCondition() ;
- 
-		return result ;
-	}
+      result = checkTimeoutAndPeriodProperty() ;
+      result &= checkValueOthersInDispatchTriggerCondition() ;
+      result &= checkForForAllElementVariableAsTarget() ;
+      
+      return result ;
+   }
+   
+  /**
+    * Document: AADL Behavior Annex draft
+    * Version : 2.13
+    * Type    : Legality rule
+    * Section : X.6 Assignment actions
+    * Object  : Check legality rule X.6.(L15)
+    * Keys    : assignment actions, for structure element, target
+    */
+   private boolean checkForForAllElementVariableAsTarget()
+   {
+      boolean result = true ;
+      
+      BehaviorActions beActions = null ;
+      
+      List<String> lforElementVariables = new ArrayList<String>() ;
+      
+      for(BehaviorTransition bt : _ba.getTransitions())
+      {
+         beActions = bt.getBehaviorActionsOwned() ;
+         
+         if(beActions != null)
+         {
+            result &= checkForForAllElementVariableAsTarget(beActions,
+                                                          lforElementVariables);
+         }
+      }
+      
+      return result ;
+   }
+   
+   // Check X.6.(L15) rule for BehaviorActions objects and report any error.
+   private boolean checkForForAllElementVariableAsTarget(
+                                                      BehaviorActions beActions,
+                                             List<String> lforElementVariables)
+   {
+      boolean result = true ;
+      
+      for(BehaviorAction beAct : beActions.getBehaviorAction())
+      {
+         // Case of basic action : check the rule (for structure's element
+         // variable is not a valid assignment target).
+         if(beAct.isBasicAction())
+         {
+            BasicAction basicAct = beAct.getBasicActionOwned() ;
+            
+            // Case of an assignment action. 
+            if(basicAct instanceof AssignmentAction)
+            {
+               result &= checkForForAllElementVariableAsTarget(
+                                 ((AssignmentAction) basicAct).getTargetOwned(),
+                                            lforElementVariables) ;
+            }
+            
+            // The other basic actions are not affected by this rule.
+            continue ;
+         }
+         
+         // *** Cases of recursive calls. ***
+         
+         // Case of behavior actions.
+         if(beAct.isBehaviorActions())
+         {
+            result &= checkForForAllElementVariableAsTarget(
+                                                beAct.getBehaviorActionsOwned(),
+                                                lforElementVariables);
+            continue ;
+         }
+         
+         // Case of if structure. 
+         if(beAct.isIf())
+         {
+            IfStatement ifStat = (IfStatement) beAct.getCondStatementOwned() ;
+            
+            for(BehaviorActions tmp : ifStat.getBehaviorActionsOwned())
+            {
+               result &= checkForForAllElementVariableAsTarget(tmp,
+                                                          lforElementVariables);
+            }
+            continue ;
+         }
+         
+         // Case of for/forall structures.
+         if(beAct.isFor())
+         {
+            ForOrForAllStatement forStat = (ForOrForAllStatement)
+                                                 beAct.getCondStatementOwned() ; 
+            
+            // Store the for structure's element variable name so as to check
+            // the rule.
+            lforElementVariables.add(forStat.getElement().getId()) ;
+            
+            result &= checkForForAllElementVariableAsTarget(
+                                              forStat.getBehaviorActionsOwned(),
+                                                lforElementVariables) ;
+            
+            
+            // Remove the for structure's element variable name as the for
+            // structure element variable scope end here.
+            
+            lforElementVariables.remove(forStat.getElement().getId());
+            
+            continue ;
+         }
+         
+         // The other loops except the for/forall structure
+         // (while and do until).
+         if(beAct.isLoop())
+         {
+            LoopStatement otherLoopStat = (LoopStatement) 
+                                                 beAct.getCondStatementOwned() ;
+            
+            result &= checkForForAllElementVariableAsTarget(
+                                       otherLoopStat.getBehaviorActionsOwned(),
+                                       lforElementVariables);
+            continue ;
+         }
+      } // End of first for.
+      
+      return result ;
+   }
 
-	private boolean checkInputTimeAndFrozenPorts()
-	{
-		// TODO : to be implemented
-		return false ;
-	}
+   // Check X.6.(L15) rule for Target objects and report any error.
+   // XXX : for structure's element variable substitute to any elements that have
+   // the same name, until AADL BA committee clarifies its behavior towards  
+   // BA local variable. SEE AadlBaNameResolver::checkForForAllElementVariable.
+   private boolean checkForForAllElementVariableAsTarget(Target target,
+                                    List<String> lforElementVariables)
+   {
+      // Ambiguity between a none qualified data component reference and a 
+      // name.
+      // Check the first name of data component reference names list only.
+      
+      Identifier targetId = target
+         .getDataComponentReferenceOwned().getElementsNameOwned()
+            .get(0).getIdentifier() ;
+      
+      for(String s : lforElementVariables)
+      {
+         // Case of a for structure's element variable used as a assignment
+         // target.
+         if(targetId.getId().equalsIgnoreCase(s))
+         {
+            // Report X.6.(L15) rule break.
+            
+            reportLegalityError(targetId,"Assignment target "+targetId.getId()+
+            " is not a valid target: Behavior Annex X.6.(L15) legality rules " +
+            "failed");
+            
+            return false ;
+         }
+      }
+      
+      return true ;
+   }
 
-	// Return true if event data port checking succeed.
-	// Populates EList if dispatch triggers can't be paired within the same 
-	// dispatch logical expression.
-	private boolean buildValueOthersTriggerListsInDispatchLogicalExpression
-	                         (DispatchLogicalExpression dle,
-	                          EList<DispatchTrigger> lunsolvedExternalWithValue,
-	                          EList<DispatchTrigger> lunsolvedExternalWithOthers)
-	{
-	   boolean result = true ;
-	   
-	   EList<DispatchTrigger> lunsolvedInternalWithValue = 
-	                                          new BasicEList<DispatchTrigger>() ;
-	   EList<DispatchTrigger> lunsolvedInternalWithOthers = 
-	                                          new BasicEList<DispatchTrigger>() ;
-	   
-	   for(DispatchTrigger trigg : dle.getDispatchTriggers())
-	   {
-	      // Case of a dispatch logical expression : recursive call.
-	      if (trigg.getTheDispatchLogicalExpression() != null)
-	      {
-	         buildValueOthersTriggerListsInDispatchLogicalExpression(
-	                                     trigg.getTheDispatchLogicalExpression(),
-	                                           lunsolvedInternalWithValue,
-	                                           lunsolvedInternalWithOthers);
-	      }
-	      else 
-	      {
-	         // TODO : numeral case.
-	         
-	         // Case of a simple dispatch trigger
-	         
-	         // Add concerned dispatch triggers to the list depending on its 
-	         // value/others nature.
-	         if(trigg.getValueConstantOwned() != null)
-	         {
-	            if(dle.isAndExpression())
-	            {
-	               // Case of AND relation.
-	               // The current dispatch trigger can have its complementary
-	               // within its behavior transition. So try to solve it.
-	               lunsolvedInternalWithValue.add(trigg) ;
-	            }
-	            else // Case of OR or XOR relation.
-	            {
-	               // The current dispatch trigger can't have its complementary
-	               // within its behavior condition. So try to solve it with
-	               // the others behavior transitions.
-	               lunsolvedExternalWithValue.add(trigg) ;
-	            }
-	            
-	            // Check event data port. It Reports any error.
-	            result &= AadlBaUtils.checkIdentifier(trigg.getIdentifierOwned(),
+   private boolean checkInputTimeAndFrozenPorts()
+   {
+      // TODO : to be implemented
+      return false ;
+   }
+
+   // Return true if event data port checking succeed.
+   // Populates EList if dispatch triggers can't be paired within the same 
+   // dispatch logical expression.
+   private boolean buildValueOthersTriggerListsInDispatchLogicalExpression
+                            (DispatchLogicalExpression dle,
+                             EList<DispatchTrigger> lunsolvedExternalWithValue,
+                             EList<DispatchTrigger> lunsolvedExternalWithOthers)
+   {
+      boolean result = true ;
+      
+      EList<DispatchTrigger> lunsolvedInternalWithValue = 
+                                             new BasicEList<DispatchTrigger>() ;
+      EList<DispatchTrigger> lunsolvedInternalWithOthers = 
+                                             new BasicEList<DispatchTrigger>() ;
+      
+      for(DispatchTrigger trigg : dle.getDispatchTriggers())
+      {
+         // Case of a dispatch logical expression : recursive call.
+         if (trigg.getTheDispatchLogicalExpression() != null)
+         {
+            buildValueOthersTriggerListsInDispatchLogicalExpression(
+                                        trigg.getTheDispatchLogicalExpression(),
+                                              lunsolvedInternalWithValue,
+                                              lunsolvedInternalWithOthers);
+         }
+         else 
+         {
+            // TODO : numeral case.
+            
+            // Case of a simple dispatch trigger
+            
+            // Add concerned dispatch triggers to the list depending on its 
+            // value/others nature.
+            if(trigg.getValueConstantOwned() != null)
+            {
+               if(dle.isAndExpression())
+               {
+                  // Case of AND relation.
+                  // The current dispatch trigger can have its complementary
+                  // within its behavior transition. So try to solve it.
+                  lunsolvedInternalWithValue.add(trigg) ;
+               }
+               else // Case of OR or XOR relation.
+               {
+                  // The current dispatch trigger can't have its complementary
+                  // within its behavior condition. So try to solve it with
+                  // the other behavior transitions.
+                  lunsolvedExternalWithValue.add(trigg) ;
+               }
+               
+               // Check event data port. It Reports any error.
+               result &= AadlBaUtils.checkIdentifier(trigg.getIdentifierOwned(),
                                          EventDataPort.class, DirectionType.IN,
                                          _errManager) ;
-	         }
-	         
-	         // Same as above but for keyword other.
-	         if(trigg.isOthers())
-	         {
-	            if(dle.isAndExpression())
+            }
+            
+            // Same as above but for keyword other.
+            if(trigg.isOthers())
+            {
+               if(dle.isAndExpression())
                {
                   lunsolvedInternalWithOthers.add(trigg) ;
                }
@@ -173,50 +339,50 @@ public class AadlBaLegalityRulesChecker
                {
                   lunsolvedExternalWithOthers.add(trigg) ;
                }
-	            
-	            // Check event data port. It reports any error.
-	            result &= AadlBaUtils.checkIdentifier(trigg.getIdentifierOwned(),
+               
+               // Check event data port. It reports any error.
+               result &= AadlBaUtils.checkIdentifier(trigg.getIdentifierOwned(),
                                          EventDataPort.class, DirectionType.IN,
                                          _errManager) ;
-	         }
-	      } // End of else
-	   } // End of for.
-	   
-	   if (result)
-	   {
-	      // Event data port and value checking succeed.
-	      // Compare internal lists to find unresolved dispatch triggers.
-	      compareDispatchTriggersValueOthersLists(lunsolvedInternalWithValue,
-	                                              lunsolvedInternalWithOthers,
-	                                              lunsolvedExternalWithValue) ;
-	      compareDispatchTriggersValueOthersLists(lunsolvedInternalWithOthers,
-	                                              lunsolvedInternalWithValue,
-	                                              lunsolvedExternalWithOthers) ;
-	     
-	   }
-	   
-	   // Don't compare lists if checking failed.
-	   return result ;
-	}
-	
-	// Compare two list of dispatch triggers. Populates unsolved list with
-	// unpaired dispatch triggers.
-	private void compareDispatchTriggersValueOthersLists
-	                                            (EList<DispatchTrigger> l1,
-	                                             EList<DispatchTrigger> l2,
-	                                             EList<DispatchTrigger> unsolved)
-	{
-	   boolean hasComplementary = false ;
-	   
-	   EList<Identifier> identifiersL1 = new BasicEList<Identifier>() ;
-	   EList<Identifier> identifiersL2 = new BasicEList<Identifier>() ;
-	   Iterator<DispatchTrigger> it2 = l2.iterator() ;
-	   DispatchTrigger other = null ;
-	   
-	   for(DispatchTrigger trigg : l1)
+            }
+         } // End of else
+      } // End of for.
+      
+      if (result)
       {
-	      // Get behavior transition' source states list
-	      // for this dispatch trigger
+         // Event data port and value checking succeed.
+         // Compare internal lists to find unresolved dispatch triggers.
+         compareDispatchTriggersValueOthersLists(lunsolvedInternalWithValue,
+                                                 lunsolvedInternalWithOthers,
+                                                 lunsolvedExternalWithValue) ;
+         compareDispatchTriggersValueOthersLists(lunsolvedInternalWithOthers,
+                                                 lunsolvedInternalWithValue,
+                                                 lunsolvedExternalWithOthers) ;
+        
+      }
+      
+      // Don't compare lists if checking failed.
+      return result ;
+   }
+   
+   // Compare two list of dispatch triggers. Populates unsolved list with
+   // unpaired dispatch triggers.
+   private void compareDispatchTriggersValueOthersLists
+                                               (EList<DispatchTrigger> l1,
+                                                EList<DispatchTrigger> l2,
+                                                EList<DispatchTrigger> unsolved)
+   {
+      boolean hasComplementary = false ;
+      
+      EList<Identifier> identifiersL1 = new BasicEList<Identifier>() ;
+      EList<Identifier> identifiersL2 = new BasicEList<Identifier>() ;
+      Iterator<DispatchTrigger> it2 = l2.iterator() ;
+      DispatchTrigger other = null ;
+      
+      for(DispatchTrigger trigg : l1)
+      {
+         // Get behavior transition' source states list
+         // for this dispatch trigger
          identifiersL1.addAll(AadlBaVisitors.getBehaviorTransition(trigg)
                                                   .getSourceStateIdentifiers());
          
@@ -271,10 +437,10 @@ public class AadlBaLegalityRulesChecker
          identifiersL1.clear();
          
       } // End of first for.
-	}
-	
-	// XXX : same as semantic rule X.4.(5)
-	/**
+   }
+   
+   // XXX : same as semantic rule X.4.(5)
+   /**
     * Document: AADL Behavior Annex draft
     * Version : 2.13
     * Type    : Legality rule
@@ -282,101 +448,101 @@ public class AadlBaLegalityRulesChecker
     * Object  : Check legality rule X.4.(L12)
     * Keys    : dispatch trigger, event data port, others
     */
-	private boolean checkValueOthersInDispatchTriggerCondition()
-	{
-		boolean result = true ;
-		
-	   EList<DispatchTrigger> lwithValue = new BasicEList<DispatchTrigger>();
-	   EList<DispatchTrigger> lwithOther = new BasicEList<DispatchTrigger>();
-	   EList<DispatchTrigger> unsolved = new BasicEList<DispatchTrigger>();
-	   
-	   BehaviorCondition baCond = null ;
-	   DispatchLogicalExpression dle = null ;
-		
-	   // Preliminaries checking and build dispatch trigger condition lists.
-	   for(BehaviorTransition trans : _ba.getTransitions())
-	   {
-	      baCond = trans.getBehaviorConditionOwned() ;
-	      
-	      // Behavior condition may be null.
-	      if(baCond != null && baCond instanceof DispatchCondition)
-	      {
-	         dle=((DispatchCondition) baCond).getTheDispatchLogicalExpression();
-	         
-	         // DispatchLogicalExpression may be null.
-	         if (dle != null)
-	         {
-	            result &= 
-	                      buildValueOthersTriggerListsInDispatchLogicalExpression
-	                                              (dle, lwithValue, lwithOther) ;
-	         }
-	      }
-	   }
-	   
-	   if (result) 
-	   {
-	      // Compare lists to find pair of dispatch trigger with value and with
-	      // keyword others.
-	      
-	      compareDispatchTriggersValueOthersLists(lwithValue, lwithOther,
-	                                                                  unsolved) ;
-	      
-	      compareDispatchTriggersValueOthersLists(lwithOther, lwithValue,
-                                                                     unsolved) ;
-	      for(DispatchTrigger trigg : unsolved)
+   private boolean checkValueOthersInDispatchTriggerCondition()
+   {
+      boolean result = true ;
+      
+      EList<DispatchTrigger> lwithValue = new BasicEList<DispatchTrigger>();
+      EList<DispatchTrigger> lwithOther = new BasicEList<DispatchTrigger>();
+      EList<DispatchTrigger> unsolved = new BasicEList<DispatchTrigger>();
+      
+      BehaviorCondition baCond = null ;
+      DispatchLogicalExpression dle = null ;
+      
+      // Preliminaries checking and build dispatch trigger condition lists.
+      for(BehaviorTransition trans : _ba.getTransitions())
+      {
+         baCond = trans.getBehaviorConditionOwned() ;
+         
+         // Behavior condition may be null.
+         if(baCond != null && baCond instanceof DispatchCondition)
          {
-	         reportLegalityError(trigg, "Dispatch trigger hasn't a complementary"
-	               + " one : Behavior Annex X.4.(L12) legality rules failed");
+            dle=((DispatchCondition) baCond).getTheDispatchLogicalExpression();
+            
+            // DispatchLogicalExpression may be null.
+            if (dle != null)
+            {
+               result &= 
+                         buildValueOthersTriggerListsInDispatchLogicalExpression
+                                                 (dle, lwithValue, lwithOther) ;
+            }
          }
-	      
-	      // Return false if any unsolved dispatch trigger.
-	      result = unsolved.isEmpty() ;
-	   }
-	   
-	   // Don't compare lists if preliminaries checking failed.
+      }
+      
+      if (result) 
+      {
+         // Compare lists to find pair of dispatch trigger with value and with
+         // keyword others.
+         
+         compareDispatchTriggersValueOthersLists(lwithValue, lwithOther,
+                                                                     unsolved) ;
+         
+         compareDispatchTriggersValueOthersLists(lwithOther, lwithValue,
+                                                                     unsolved) ;
+         for(DispatchTrigger trigg : unsolved)
+         {
+            reportLegalityError(trigg, "Dispatch trigger hasn't a complementary"
+                  + " one : Behavior Annex X.4.(L12) legality rules failed");
+         }
+         
+         // Return false if any unsolved dispatch trigger.
+         result = unsolved.isEmpty() ;
+      }
+      
+      // Don't compare lists if preliminaries checking failed.
       return result ;
-	}
+   }
    
    /**
-	 * Document: AADL Behavior Annex draft 
-	 * Version : 2.13 
-	 * Type : Legality rule
-	 * Section : X.4 Thread Dispatch Behavior Specification
-	 * Object : Check legality rule X.4.(L13)
-	 * Keys : dispatch trigger, timeout, behavior time
-	 */
-	// TODO : not tested yet.
-	private boolean checkTimeoutAndPeriodProperty()
-	{
-		boolean result = true ;
+    * Document: AADL Behavior Annex draft 
+    * Version : 2.13 
+    * Type : Legality rule
+    * Section : X.4 Thread Dispatch Behavior Specification
+    * Object : Check legality rule X.4.(L13)
+    * Keys : dispatch trigger, timeout, behavior time
+    */
+   // TODO : not tested yet.
+   private boolean checkTimeoutAndPeriodProperty()
+   {
+      boolean result = true ;
 
-		String value = null ;
-		String unit = null ;
+      String value = null ;
+      String unit = null ;
 
-		BehaviorTime time = null ;
-		
-		EList<DispatchTrigger> ldt = null ;
-		EList<BehaviorTransition> lbt = null ;
-		EList<edu.cmu.sei.aadl.aadl2.PropertyValue> lpv = null ;
-		if(_ba.isSetTransitions() &&
-				(_baParentContainer instanceof ThreadImplementation
-						|| _baParentContainer instanceof ThreadType 
-						|| _baParentContainer instanceof DeviceImplementation 
-						|| _baParentContainer instanceof DeviceType))
-		{
-			lbt = _ba.getTransitions() ;
+      BehaviorTime time = null ;
+      
+      EList<DispatchTrigger> ldt = null ;
+      EList<BehaviorTransition> lbt = null ;
+      EList<edu.cmu.sei.aadl.aadl2.PropertyValue> lpv = null ;
+      if(_ba.isSetTransitions() &&
+            (_baParentContainer instanceof ThreadImplementation
+                  || _baParentContainer instanceof ThreadType 
+                  || _baParentContainer instanceof DeviceImplementation 
+                  || _baParentContainer instanceof DeviceType))
+      {
+         lbt = _ba.getTransitions() ;
 
-			// FIXME : TODO : check if it have DispatchTriggers
-			ldt = AadlBaVisitors.getBehaviorDispatchTriggers(lbt) ;
+         // FIXME : TODO : check if it have DispatchTriggers
+         ldt = AadlBaVisitors.getBehaviorDispatchTriggers(lbt) ;
 
-			// check if timeout triggers have behavior time
-			for(DispatchTrigger dt : ldt)
-			{
-				if(dt.isTimeout() && dt.isSetTheBehaviorTime())
-				{
-				   time = dt.getTheBehaviorTime() ;
-				   
-				   // Check behavior time's integer value.
+         // check if timeout triggers have behavior time
+         for(DispatchTrigger dt : ldt)
+         {
+            if(dt.isTimeout() && dt.isSetTheBehaviorTime())
+            {
+               time = dt.getTheBehaviorTime() ;
+               
+               // Check behavior time's integer value.
                // The method used reports any error.
                if (AadlBaUtils.checkIntegerValue(time.getIntegerValueOwned(),
                                                  _errManager))
@@ -416,16 +582,16 @@ public class AadlBaLegalityRulesChecker
                {
                   result = false ;
                }
-				} // End of first if.
-			} // End of for.
-		}
-		return result ;
-	}
+            } // End of first if.
+         } // End of for.
+      }
+      return result ;
+   }
 
    // TODO Provide column number.
-	private void reportLegalityError(Element obj, String name)
-	{
-		_errManager.error(obj, "Behavior Legality Error: " + name + ".") ;
-	}
+   private void reportLegalityError(Element obj, String name)
+   {
+      _errManager.error(obj, "Behavior Legality Error: " + name + ".") ;
+   }
 
 }

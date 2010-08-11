@@ -6,15 +6,15 @@
    -- ** operator
 
 
--- variables : 
--- a and b and c are states
--- tmp and x and y are integers
+-- BA variables : tmp and x and y are integers
+-- BA states : a and b and c are states 
 -- tab is an integer array
 -- b1 and b2 are boolean
--- portA and portB are port identifiers 
+-- portA and portB are ports 
 -- sub1 is a subprogram access name
 -- DummyPropertySet::aConstant is a property set constant
--- SubRoutine::subA.v1 is the v1 version of subA subprogram contained in package SubRoutine 
+-- SubRoutine::subA.v1 is the v1 version of subA subprogram contained in package SubRoutine
+-- data1 is a data access name 
 
 package BigTest
 public
@@ -67,15 +67,15 @@ states
 
 -- *** TRANSITIONS ***
 
+transitions
+
+
    -- * transition and source identifier variations *
 
-transitions
  a -[]-> a {tmp := 1} ;
  regular: a -[]-> a {tmp := 1} ;
  regular [1] : a -[]-> a {tmp := 1} ;
- 
  regular [1_2] : a -[]-> a {tmp := 1} ;
-
  a, b -[]-> c {tmp := 1} ;
  
    -- ** behavior condition combinations **
@@ -139,7 +139,9 @@ transitions
  a -[on dispatch not (portB and portA)]-> a {tmp := 1} ;
  
    -- ** behavior actions combinations **
-
+ 
+ a -[]-> a ;
+ 
       -- actions, sequences et action sets
  
  a -[]-> a {tmp := 1 ; tmp := 1 ; tmp := 1} ;
@@ -158,15 +160,21 @@ transitions
  a -[]-> a {SubRoutine::subA ! (x)};
  a -[]-> a {subA.v1 ! (y)};
  a -[]-> a {SubRoutine::subA.v1 ! (x, y)};
+ a -[]-> a {portA ? (tmp)} ;
+ a -[]-> a {portA >>} ;
+ a -[]-> a {data1 !<} ;
+ a -[]-> a {data1 !>} ;
  a -[]-> a {computation (2h)} ;
  a -[]-> a {computation (1min, 30 seconde)} ;
- a -[]-> a {delay (x min, y seconde)} ;
- a -[]-> a {delay (2h)} ;
- a -[]-> a {delay (x h)} ; -- can't be xh because there is no difference
+
+-- delay is no more specified in AADL BA standard.
+-- a -[]-> a {delay (x min, y seconde)} ;
+-- a -[]-> a {delay (2h)} ;
+-- a -[]-> a {delay (x h)} ; -- can't be xh because there is no difference
                            -- between an identifier and behavior time.
- a -[]-> a {delay (1min, 30_1 seconde)} ;
- a -[]-> a { {tmp :=1} } ;
- a -[]-> a { {tmp :=any} } ;
+-- a -[]-> a {delay (1min, 30_1 seconde)} ;
+-- a -[]-> a { {tmp :=1} } ;
+-- a -[]-> a { {tmp :=any} } ;
  
       -- control structures variations
  
@@ -183,7 +191,7 @@ transitions
  a -[]-> a { for(x in 0 .. 9) {tmp:=1 & tmp:=1} } ;
  a -[]-> a { for(x in y..9) {tmp:=1} } ; 
  a -[]-> a { for(x in portA) {tmp:=1} } ;
- a -[]-> a { for(x in temp..y) {tmp:=1} } ;
+ a -[]-> a { for(x in tmp..y) {tmp:=x} } ;
  a -[]-> a { for(i : Base_Types::Integer in 0 .. 9) {tmp:=1} } ;
  a -[]-> a { for(i : Types::Integer.v1 in 0 .. 9) {tmp:=1} } ;
  a -[]-> a { forall(x in 0_1 .. 9) {tmp:=1} } ;
@@ -203,6 +211,34 @@ transitions
  a -[]-> a { do tmp:=1 until (b1) };
  a -[]-> a { do tmp:=1 until (b1 xor b2) };
  a -[]-> a { do tmp:=1 until (b1 or x +1 > -y) } ;
+ a -[]-> a { for (i : Base_Types::Integer in 0 .. 9)
+             {
+               for (j in 0 .. 9) {tmp:= i + j} ;
+               tmp := i 
+             }
+           } ;
+             
+ a -[]-> a {
+             while(true)
+             {
+               for (i : Base_Types::Integer in 0 .. 9)
+               {
+                 if (true)
+                 {
+                   tmp := 1 
+                 }
+                 elsif (true) { tmp:= 1 }
+                 else
+                 {
+                   for (j : Base_Types::Integer in 0 .. 9)
+                   {
+                     do { tmp := i + j } until (true) 
+                   }
+                 }
+                   end if
+                 }
+               }
+             } ;
 **};
 end cube.ba;
 -- Such a basic use of the behavior annex simply corresponds to a shortcut for an equivalent calls 
