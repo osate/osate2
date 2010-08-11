@@ -1892,13 +1892,31 @@ public interface AadlBaPackage extends EPackage
    int BEHAVIOR_ACTION__TIMEOUT = ELEMENT_FEATURE_COUNT + 8;
 
    /**
+	 * The feature id for the '<em><b>Behavior Actions</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ACTION__BEHAVIOR_ACTIONS = ELEMENT_FEATURE_COUNT + 9;
+
+			/**
+	 * The feature id for the '<em><b>Loop</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ACTION__LOOP = ELEMENT_FEATURE_COUNT + 10;
+
+			/**
 	 * The number of structural features of the '<em>Behavior Action</em>' class.
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-   int BEHAVIOR_ACTION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 9;
+   int BEHAVIOR_ACTION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 11;
 
    /**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.CondStatementImpl <em>Cond Statement</em>}' class.
@@ -2202,31 +2220,31 @@ public interface AadlBaPackage extends EPackage
    int FOR_OR_FOR_ALL_STATEMENT__NAMESPACE = NAMED_ELEMENT__NAMESPACE;
 
    /**
-	 * The feature id for the '<em><b>Data Unique Cmt Class Ref</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-   int FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-   /**
-	 * The feature id for the '<em><b>Element Values Owned</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-   int FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-   /**
 	 * The feature id for the '<em><b>Behavior Actions Owned</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-   int FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED = NAMED_ELEMENT_FEATURE_COUNT + 2;
+   int FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+			/**
+	 * The feature id for the '<em><b>Data Unique Cmt Class Ref</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+   int FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+			/**
+	 * The feature id for the '<em><b>Element Values Owned</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+   int FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
    /**
 	 * The feature id for the '<em><b>For All</b></em>' attribute.
@@ -2256,6 +2274,79 @@ public interface AadlBaPackage extends EPackage
    int FOR_OR_FOR_ALL_STATEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
    /**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.LoopStatement <em>Loop Statement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.LoopStatement
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLoopStatement()
+	 * @generated
+	 */
+	int LOOP_STATEMENT = 53;
+
+			/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOOP_STATEMENT__OWNED_ELEMENT = COND_STATEMENT__OWNED_ELEMENT;
+
+			/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOOP_STATEMENT__OWNER = COND_STATEMENT__OWNER;
+
+			/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOOP_STATEMENT__OWNED_COMMENT = COND_STATEMENT__OWNED_COMMENT;
+
+			/**
+	 * The feature id for the '<em><b>Ba Referenced Entity</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOOP_STATEMENT__BA_REFERENCED_ENTITY = COND_STATEMENT__BA_REFERENCED_ENTITY;
+
+			/**
+	 * The feature id for the '<em><b>Aadl Referenced Entity</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOOP_STATEMENT__AADL_REFERENCED_ENTITY = COND_STATEMENT__AADL_REFERENCED_ENTITY;
+
+			/**
+	 * The feature id for the '<em><b>Behavior Actions Owned</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOOP_STATEMENT__BEHAVIOR_ACTIONS_OWNED = COND_STATEMENT_FEATURE_COUNT + 0;
+
+			/**
+	 * The number of structural features of the '<em>Loop Statement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOOP_STATEMENT_FEATURE_COUNT = COND_STATEMENT_FEATURE_COUNT + 1;
+
+			/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.WhileStatementImpl <em>While Statement</em>}' class.
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -2272,7 +2363,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int WHILE_STATEMENT__OWNED_ELEMENT = COND_STATEMENT__OWNED_ELEMENT;
+   int WHILE_STATEMENT__OWNED_ELEMENT = LOOP_STATEMENT__OWNED_ELEMENT;
 
    /**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference.
@@ -2281,7 +2372,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int WHILE_STATEMENT__OWNER = COND_STATEMENT__OWNER;
+   int WHILE_STATEMENT__OWNER = LOOP_STATEMENT__OWNER;
 
    /**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2290,7 +2381,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int WHILE_STATEMENT__OWNED_COMMENT = COND_STATEMENT__OWNED_COMMENT;
+   int WHILE_STATEMENT__OWNED_COMMENT = LOOP_STATEMENT__OWNED_COMMENT;
 
    /**
 	 * The feature id for the '<em><b>Ba Referenced Entity</b></em>' reference.
@@ -2299,7 +2390,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int WHILE_STATEMENT__BA_REFERENCED_ENTITY = COND_STATEMENT__BA_REFERENCED_ENTITY;
+   int WHILE_STATEMENT__BA_REFERENCED_ENTITY = LOOP_STATEMENT__BA_REFERENCED_ENTITY;
 
    /**
 	 * The feature id for the '<em><b>Aadl Referenced Entity</b></em>' reference.
@@ -2308,16 +2399,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int WHILE_STATEMENT__AADL_REFERENCED_ENTITY = COND_STATEMENT__AADL_REFERENCED_ENTITY;
-
-   /**
-	 * The feature id for the '<em><b>Value Expression Owned</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-   int WHILE_STATEMENT__VALUE_EXPRESSION_OWNED = COND_STATEMENT_FEATURE_COUNT + 0;
+   int WHILE_STATEMENT__AADL_REFERENCED_ENTITY = LOOP_STATEMENT__AADL_REFERENCED_ENTITY;
 
    /**
 	 * The feature id for the '<em><b>Behavior Actions Owned</b></em>' containment reference.
@@ -2326,7 +2408,16 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED = COND_STATEMENT_FEATURE_COUNT + 1;
+   int WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED = LOOP_STATEMENT__BEHAVIOR_ACTIONS_OWNED;
+
+			/**
+	 * The feature id for the '<em><b>Value Expression Owned</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+   int WHILE_STATEMENT__VALUE_EXPRESSION_OWNED = LOOP_STATEMENT_FEATURE_COUNT + 0;
 
    /**
 	 * The number of structural features of the '<em>While Statement</em>' class.
@@ -2335,7 +2426,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int WHILE_STATEMENT_FEATURE_COUNT = COND_STATEMENT_FEATURE_COUNT + 2;
+   int WHILE_STATEMENT_FEATURE_COUNT = LOOP_STATEMENT_FEATURE_COUNT + 1;
 
    /**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DoUntilStatementImpl <em>Do Until Statement</em>}' class.
@@ -2354,7 +2445,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int DO_UNTIL_STATEMENT__OWNED_ELEMENT = COND_STATEMENT__OWNED_ELEMENT;
+   int DO_UNTIL_STATEMENT__OWNED_ELEMENT = LOOP_STATEMENT__OWNED_ELEMENT;
 
    /**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference.
@@ -2363,7 +2454,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int DO_UNTIL_STATEMENT__OWNER = COND_STATEMENT__OWNER;
+   int DO_UNTIL_STATEMENT__OWNER = LOOP_STATEMENT__OWNER;
 
    /**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2372,7 +2463,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int DO_UNTIL_STATEMENT__OWNED_COMMENT = COND_STATEMENT__OWNED_COMMENT;
+   int DO_UNTIL_STATEMENT__OWNED_COMMENT = LOOP_STATEMENT__OWNED_COMMENT;
 
    /**
 	 * The feature id for the '<em><b>Ba Referenced Entity</b></em>' reference.
@@ -2381,7 +2472,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int DO_UNTIL_STATEMENT__BA_REFERENCED_ENTITY = COND_STATEMENT__BA_REFERENCED_ENTITY;
+   int DO_UNTIL_STATEMENT__BA_REFERENCED_ENTITY = LOOP_STATEMENT__BA_REFERENCED_ENTITY;
 
    /**
 	 * The feature id for the '<em><b>Aadl Referenced Entity</b></em>' reference.
@@ -2390,7 +2481,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int DO_UNTIL_STATEMENT__AADL_REFERENCED_ENTITY = COND_STATEMENT__AADL_REFERENCED_ENTITY;
+   int DO_UNTIL_STATEMENT__AADL_REFERENCED_ENTITY = LOOP_STATEMENT__AADL_REFERENCED_ENTITY;
 
    /**
 	 * The feature id for the '<em><b>Behavior Actions Owned</b></em>' containment reference.
@@ -2399,7 +2490,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int DO_UNTIL_STATEMENT__BEHAVIOR_ACTIONS_OWNED = COND_STATEMENT_FEATURE_COUNT + 0;
+   int DO_UNTIL_STATEMENT__BEHAVIOR_ACTIONS_OWNED = LOOP_STATEMENT__BEHAVIOR_ACTIONS_OWNED;
 
    /**
 	 * The feature id for the '<em><b>Value Expression Owned</b></em>' containment reference.
@@ -2408,7 +2499,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int DO_UNTIL_STATEMENT__VALUE_EXPRESSION_OWNED = COND_STATEMENT_FEATURE_COUNT + 1;
+   int DO_UNTIL_STATEMENT__VALUE_EXPRESSION_OWNED = LOOP_STATEMENT_FEATURE_COUNT + 0;
 
    /**
 	 * The number of structural features of the '<em>Do Until Statement</em>' class.
@@ -2417,7 +2508,7 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-   int DO_UNTIL_STATEMENT_FEATURE_COUNT = COND_STATEMENT_FEATURE_COUNT + 2;
+   int DO_UNTIL_STATEMENT_FEATURE_COUNT = LOOP_STATEMENT_FEATURE_COUNT + 1;
 
    /**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ElementValuesImpl <em>Element Values</em>}' class.
@@ -4922,7 +5013,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCommActionParameter()
 	 * @generated
 	 */
-   int COMM_ACTION_PARAMETER = 53;
+   int COMM_ACTION_PARAMETER = 54;
 
    /**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -4932,7 +5023,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLogicalOperator()
 	 * @generated
 	 */
-   int LOGICAL_OPERATOR = 54;
+   int LOGICAL_OPERATOR = 55;
 
    /**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.RelationalOperator <em>Relational Operator</em>}' enum.
@@ -4942,7 +5033,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getRelationalOperator()
 	 * @generated
 	 */
-   int RELATIONAL_OPERATOR = 55;
+   int RELATIONAL_OPERATOR = 56;
 
    /**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator <em>Binary Adding Operator</em>}' enum.
@@ -4952,7 +5043,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBinaryAddingOperator()
 	 * @generated
 	 */
-   int BINARY_ADDING_OPERATOR = 56;
+   int BINARY_ADDING_OPERATOR = 57;
 
    /**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.UnaryAddingOperator <em>Unary Adding Operator</em>}' enum.
@@ -4962,7 +5053,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getUnaryAddingOperator()
 	 * @generated
 	 */
-   int UNARY_ADDING_OPERATOR = 57;
+   int UNARY_ADDING_OPERATOR = 58;
 
    /**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator <em>Multiplying Operator</em>}' enum.
@@ -4972,7 +5063,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getMultiplyingOperator()
 	 * @generated
 	 */
-   int MULTIPLYING_OPERATOR = 58;
+   int MULTIPLYING_OPERATOR = 59;
 
    /**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.BinaryNumericOperator <em>Binary Numeric Operator</em>}' enum.
@@ -4982,7 +5073,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBinaryNumericOperator()
 	 * @generated
 	 */
-   int BINARY_NUMERIC_OPERATOR = 59;
+   int BINARY_NUMERIC_OPERATOR = 60;
 
    /**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.UnaryNumericOperator <em>Unary Numeric Operator</em>}' enum.
@@ -4992,7 +5083,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getUnaryNumericOperator()
 	 * @generated
 	 */
-   int UNARY_NUMERIC_OPERATOR = 60;
+   int UNARY_NUMERIC_OPERATOR = 61;
 
    /**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.UnaryBooleanOperator <em>Unary Boolean Operator</em>}' enum.
@@ -5002,7 +5093,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getUnaryBooleanOperator()
 	 * @generated
 	 */
-   int UNARY_BOOLEAN_OPERATOR = 61;
+   int UNARY_BOOLEAN_OPERATOR = 62;
 
    /**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -5011,7 +5102,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getInteger()
 	 * @generated
 	 */
-   int INTEGER = 62;
+   int INTEGER = 63;
 
    /**
 	 * The meta object id for the '<em>Real</em>' data type.
@@ -5020,7 +5111,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getReal()
 	 * @generated
 	 */
-   int REAL = 63;
+   int REAL = 64;
 
    /**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -5030,7 +5121,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getString()
 	 * @generated
 	 */
-   int STRING = 64;
+   int STRING = 65;
 
    /**
 	 * The meta object id for the '<em>Boolean</em>' data type.
@@ -5039,7 +5130,7 @@ public interface AadlBaPackage extends EPackage
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBoolean()
 	 * @generated
 	 */
-   int BOOLEAN = 65;
+   int BOOLEAN = 66;
 
 
    /**
@@ -5861,6 +5952,28 @@ public interface AadlBaPackage extends EPackage
    EReference getBehaviorAction_Timeout();
 
    /**
+	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction#isBehaviorActions <em>Behavior Actions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Behavior Actions</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction#isBehaviorActions()
+	 * @see #getBehaviorAction()
+	 * @generated
+	 */
+	EAttribute getBehaviorAction_BehaviorActions();
+
+			/**
+	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction#isLoop <em>Loop</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Loop</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction#isLoop()
+	 * @see #getBehaviorAction()
+	 * @generated
+	 */
+	EAttribute getBehaviorAction_Loop();
+
+			/**
 	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.CondStatement <em>Cond Statement</em>}'.
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -5956,17 +6069,6 @@ public interface AadlBaPackage extends EPackage
    EReference getForOrForAllStatement_ElementValuesOwned();
 
    /**
-	 * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Behavior Actions Owned</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getBehaviorActionsOwned()
-	 * @see #getForOrForAllStatement()
-	 * @generated
-	 */
-   EReference getForOrForAllStatement_BehaviorActionsOwned();
-
-   /**
 	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#isForAll <em>For All</em>}'.
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -6010,17 +6112,6 @@ public interface AadlBaPackage extends EPackage
    EReference getWhileStatement_ValueExpressionOwned();
 
    /**
-	 * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.aadlba.WhileStatement#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Behavior Actions Owned</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.WhileStatement#getBehaviorActionsOwned()
-	 * @see #getWhileStatement()
-	 * @generated
-	 */
-   EReference getWhileStatement_BehaviorActionsOwned();
-
-   /**
 	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.DoUntilStatement <em>Do Until Statement</em>}'.
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -6029,17 +6120,6 @@ public interface AadlBaPackage extends EPackage
 	 * @generated
 	 */
    EClass getDoUntilStatement();
-
-   /**
-	 * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.aadlba.DoUntilStatement#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Behavior Actions Owned</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.DoUntilStatement#getBehaviorActionsOwned()
-	 * @see #getDoUntilStatement()
-	 * @generated
-	 */
-   EReference getDoUntilStatement_BehaviorActionsOwned();
 
    /**
 	 * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.aadlba.DoUntilStatement#getValueExpressionOwned <em>Value Expression Owned</em>}'.
@@ -7025,6 +7105,27 @@ public interface AadlBaPackage extends EPackage
    EAttribute getExecuteCondition_CatchTimeout();
 
    /**
+	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.LoopStatement <em>Loop Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Loop Statement</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.LoopStatement
+	 * @generated
+	 */
+	EClass getLoopStatement();
+
+			/**
+	 * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.aadlba.LoopStatement#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Behavior Actions Owned</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.LoopStatement#getBehaviorActionsOwned()
+	 * @see #getLoopStatement()
+	 * @generated
+	 */
+	EReference getLoopStatement_BehaviorActionsOwned();
+
+			/**
 	 * Returns the meta object for enum '{@link fr.tpt.aadl.annex.behavior.aadlba.CommActionParameter <em>Comm Action Parameter</em>}'.
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -7827,6 +7928,22 @@ public interface AadlBaPackage extends EPackage
       EReference BEHAVIOR_ACTION__TIMEOUT = eINSTANCE.getBehaviorAction_Timeout();
 
       /**
+		 * The meta object literal for the '<em><b>Behavior Actions</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BEHAVIOR_ACTION__BEHAVIOR_ACTIONS = eINSTANCE.getBehaviorAction_BehaviorActions();
+
+						/**
+		 * The meta object literal for the '<em><b>Loop</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BEHAVIOR_ACTION__LOOP = eINSTANCE.getBehaviorAction_Loop();
+
+						/**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.CondStatementImpl <em>Cond Statement</em>}' class.
 		 * <!-- begin-user-doc -->
        * <!-- end-user-doc -->
@@ -7907,14 +8024,6 @@ public interface AadlBaPackage extends EPackage
       EReference FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED = eINSTANCE.getForOrForAllStatement_ElementValuesOwned();
 
       /**
-		 * The meta object literal for the '<em><b>Behavior Actions Owned</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-       * <!-- end-user-doc -->
-		 * @generated
-		 */
-      EReference FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED = eINSTANCE.getForOrForAllStatement_BehaviorActionsOwned();
-
-      /**
 		 * The meta object literal for the '<em><b>For All</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
        * <!-- end-user-doc -->
@@ -7949,14 +8058,6 @@ public interface AadlBaPackage extends EPackage
       EReference WHILE_STATEMENT__VALUE_EXPRESSION_OWNED = eINSTANCE.getWhileStatement_ValueExpressionOwned();
 
       /**
-		 * The meta object literal for the '<em><b>Behavior Actions Owned</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-       * <!-- end-user-doc -->
-		 * @generated
-		 */
-      EReference WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED = eINSTANCE.getWhileStatement_BehaviorActionsOwned();
-
-      /**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DoUntilStatementImpl <em>Do Until Statement</em>}' class.
 		 * <!-- begin-user-doc -->
        * <!-- end-user-doc -->
@@ -7965,14 +8066,6 @@ public interface AadlBaPackage extends EPackage
 		 * @generated
 		 */
       EClass DO_UNTIL_STATEMENT = eINSTANCE.getDoUntilStatement();
-
-      /**
-		 * The meta object literal for the '<em><b>Behavior Actions Owned</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-       * <!-- end-user-doc -->
-		 * @generated
-		 */
-      EReference DO_UNTIL_STATEMENT__BEHAVIOR_ACTIONS_OWNED = eINSTANCE.getDoUntilStatement_BehaviorActionsOwned();
 
       /**
 		 * The meta object literal for the '<em><b>Value Expression Owned</b></em>' containment reference feature.
@@ -8769,6 +8862,24 @@ public interface AadlBaPackage extends EPackage
       EAttribute EXECUTE_CONDITION__CATCH_TIMEOUT = eINSTANCE.getExecuteCondition_CatchTimeout();
 
       /**
+		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.LoopStatement <em>Loop Statement</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.LoopStatement
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLoopStatement()
+		 * @generated
+		 */
+		EClass LOOP_STATEMENT = eINSTANCE.getLoopStatement();
+
+						/**
+		 * The meta object literal for the '<em><b>Behavior Actions Owned</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LOOP_STATEMENT__BEHAVIOR_ACTIONS_OWNED = eINSTANCE.getLoopStatement_BehaviorActionsOwned();
+
+						/**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.CommActionParameter <em>Comm Action Parameter</em>}' enum.
 		 * <!-- begin-user-doc -->
        * <!-- end-user-doc -->

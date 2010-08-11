@@ -24,6 +24,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction#isWhile <em>While</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction#isDoUntil <em>Do Until</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction#getTimeout <em>Timeout</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction#isBehaviorActions <em>Behavior Actions</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction#isLoop <em>Loop</em>}</li>
  * </ul>
  * </p>
  *
@@ -271,5 +273,57 @@ public interface BehaviorAction extends Element
 	 * @generated
 	 */
    void setTimeout(BehaviorTime value);
+
+			/**
+	 * Returns the value of the '<em><b>Behavior Actions</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Behavior Actions</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Behavior Actions</em>' attribute.
+	 * @see #setBehaviorActions(boolean)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAction_BehaviorActions()
+	 * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+	 * @generated
+	 */
+	boolean isBehaviorActions();
+
+			/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction#isBehaviorActions <em>Behavior Actions</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Behavior Actions</em>' attribute.
+	 * @see #isBehaviorActions()
+	 * @generated
+	 */
+	void setBehaviorActions(boolean value);
+
+			/**
+	 * Returns the value of the '<em><b>Loop</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Loop</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Loop</em>' attribute.
+	 * @see #setLoop(boolean)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAction_Loop()
+	 * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+	 * @generated
+	 */
+	boolean isLoop();
+
+			/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction#isLoop <em>Loop</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Loop</em>' attribute.
+	 * @see #isLoop()
+	 * @generated
+	 */
+	void setLoop(boolean value);
 
 } // BehaviorAction

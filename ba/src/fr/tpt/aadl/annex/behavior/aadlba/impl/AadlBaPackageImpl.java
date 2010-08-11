@@ -46,6 +46,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.IfStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerRange;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue;
 import fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator;
+import fr.tpt.aadl.annex.behavior.aadlba.LoopStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator;
 import fr.tpt.aadl.annex.behavior.aadlba.Name;
 import fr.tpt.aadl.annex.behavior.aadlba.NamedElement;
@@ -469,6 +470,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    private EClass executeConditionEClass = null;
 
    /**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass loopStatementEClass = null;
+
+			/**
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
 	 * @generated
@@ -1396,6 +1404,24 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
    /**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBehaviorAction_BehaviorActions() {
+		return (EAttribute)behaviorActionEClass.getEStructuralFeatures().get(9);
+	}
+
+			/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBehaviorAction_Loop() {
+		return (EAttribute)behaviorActionEClass.getEStructuralFeatures().get(10);
+	}
+
+			/**
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -1489,19 +1515,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public EReference getForOrForAllStatement_BehaviorActionsOwned()
-   {
-		return (EReference)forOrForAllStatementEClass.getEStructuralFeatures().get(2);
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
    public EAttribute getForOrForAllStatement_ForAll()
    {
-		return (EAttribute)forOrForAllStatementEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)forOrForAllStatementEClass.getEStructuralFeatures().get(2);
 	}
 
    /**
@@ -1510,7 +1526,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 	 * @generated
 	 */
 	public EReference getForOrForAllStatement_Element() {
-		return (EReference)forOrForAllStatementEClass.getEStructuralFeatures().get(4);
+		return (EReference)forOrForAllStatementEClass.getEStructuralFeatures().get(3);
 	}
 
 			/**
@@ -1538,16 +1554,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public EReference getWhileStatement_BehaviorActionsOwned()
-   {
-		return (EReference)whileStatementEClass.getEStructuralFeatures().get(1);
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
    public EClass getDoUntilStatement()
    {
 		return doUntilStatementEClass;
@@ -1558,19 +1564,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public EReference getDoUntilStatement_BehaviorActionsOwned()
-   {
-		return (EReference)doUntilStatementEClass.getEStructuralFeatures().get(0);
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
    public EReference getDoUntilStatement_ValueExpressionOwned()
    {
-		return (EReference)doUntilStatementEClass.getEStructuralFeatures().get(1);
+		return (EReference)doUntilStatementEClass.getEStructuralFeatures().get(0);
 	}
 
    /**
@@ -2485,6 +2481,24 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
    /**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLoopStatement() {
+		return loopStatementEClass;
+	}
+
+			/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLoopStatement_BehaviorActionsOwned() {
+		return (EReference)loopStatementEClass.getEStructuralFeatures().get(0);
+	}
+
+			/**
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -2736,6 +2750,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 		createEAttribute(behaviorActionEClass, BEHAVIOR_ACTION__WHILE);
 		createEAttribute(behaviorActionEClass, BEHAVIOR_ACTION__DO_UNTIL);
 		createEReference(behaviorActionEClass, BEHAVIOR_ACTION__TIMEOUT);
+		createEAttribute(behaviorActionEClass, BEHAVIOR_ACTION__BEHAVIOR_ACTIONS);
+		createEAttribute(behaviorActionEClass, BEHAVIOR_ACTION__LOOP);
 
 		condStatementEClass = createEClass(COND_STATEMENT);
 
@@ -2749,16 +2765,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 		forOrForAllStatementEClass = createEClass(FOR_OR_FOR_ALL_STATEMENT);
 		createEReference(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF);
 		createEReference(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED);
-		createEReference(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED);
 		createEAttribute(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__FOR_ALL);
 		createEReference(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__ELEMENT);
 
 		whileStatementEClass = createEClass(WHILE_STATEMENT);
 		createEReference(whileStatementEClass, WHILE_STATEMENT__VALUE_EXPRESSION_OWNED);
-		createEReference(whileStatementEClass, WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED);
 
 		doUntilStatementEClass = createEClass(DO_UNTIL_STATEMENT);
-		createEReference(doUntilStatementEClass, DO_UNTIL_STATEMENT__BEHAVIOR_ACTIONS_OWNED);
 		createEReference(doUntilStatementEClass, DO_UNTIL_STATEMENT__VALUE_EXPRESSION_OWNED);
 
 		elementValuesEClass = createEClass(ELEMENT_VALUES);
@@ -2881,6 +2894,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 		createEReference(executeConditionEClass, EXECUTE_CONDITION__VALUE_EXPRESSION);
 		createEAttribute(executeConditionEClass, EXECUTE_CONDITION__CATCH_TIMEOUT);
 
+		loopStatementEClass = createEClass(LOOP_STATEMENT);
+		createEReference(loopStatementEClass, LOOP_STATEMENT__BEHAVIOR_ACTIONS_OWNED);
+
 		// Create enums
 		commActionParameterEEnum = createEEnum(COMM_ACTION_PARAMETER);
 		logicalOperatorEEnum = createEEnum(LOGICAL_OPERATOR);
@@ -2955,9 +2971,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 		ifStatementEClass.getESuperTypes().add(this.getElement());
 		ifStatementEClass.getESuperTypes().add(this.getCondStatement());
 		forOrForAllStatementEClass.getESuperTypes().add(this.getNamedElement());
-		forOrForAllStatementEClass.getESuperTypes().add(this.getCondStatement());
-		whileStatementEClass.getESuperTypes().add(this.getCondStatement());
-		doUntilStatementEClass.getESuperTypes().add(this.getCondStatement());
+		forOrForAllStatementEClass.getESuperTypes().add(this.getLoopStatement());
+		whileStatementEClass.getESuperTypes().add(this.getLoopStatement());
+		doUntilStatementEClass.getESuperTypes().add(this.getLoopStatement());
 		elementValuesEClass.getESuperTypes().add(this.getElement());
 		assignmentActionEClass.getESuperTypes().add(this.getBasicAction());
 		communicationActionEClass.getESuperTypes().add(this.getBasicAction());
@@ -2995,6 +3011,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 		stringLiteralEClass.getESuperTypes().add(this.getValueConstant());
 		numeralEClass.getESuperTypes().add(this.getElement());
 		executeConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
+		loopStatementEClass.getESuperTypes().add(this.getCondStatement());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(elementEClass, Element.class, "Element", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3130,6 +3147,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 		initEAttribute(getBehaviorAction_While(), this.getBoolean(), "While", "False", 0, 1, BehaviorAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBehaviorAction_DoUntil(), this.getBoolean(), "DoUntil", "False", 0, 1, BehaviorAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorAction_Timeout(), this.getBehaviorTime(), null, "Timeout", null, 0, 1, BehaviorAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorAction_BehaviorActions(), this.getBoolean(), "BehaviorActions", null, 0, 1, BehaviorAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorAction_Loop(), this.getBoolean(), "Loop", null, 0, 1, BehaviorAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(condStatementEClass, CondStatement.class, "CondStatement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3143,16 +3162,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 		initEClass(forOrForAllStatementEClass, ForOrForAllStatement.class, "ForOrForAllStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getForOrForAllStatement_DataUniqueCmtClassRef(), this.getUniqueComponentClassifierReference(), null, "DataUniqueCmtClassRef", null, 0, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getForOrForAllStatement_ElementValuesOwned(), this.getElementValues(), null, "ElementValuesOwned", null, 0, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getForOrForAllStatement_BehaviorActionsOwned(), this.getBehaviorActions(), null, "BehaviorActionsOwned", null, 0, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getForOrForAllStatement_ForAll(), this.getBoolean(), "ForAll", "False", 0, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getForOrForAllStatement_Element(), this.getIdentifier(), null, "Element", null, 0, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(whileStatementEClass, WhileStatement.class, "WhileStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getWhileStatement_ValueExpressionOwned(), this.getValueExpression(), null, "ValueExpressionOwned", null, 0, 1, WhileStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getWhileStatement_BehaviorActionsOwned(), this.getBehaviorActions(), null, "BehaviorActionsOwned", null, 0, 1, WhileStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(doUntilStatementEClass, DoUntilStatement.class, "DoUntilStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDoUntilStatement_BehaviorActionsOwned(), this.getBehaviorActions(), null, "BehaviorActionsOwned", null, 0, 1, DoUntilStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDoUntilStatement_ValueExpressionOwned(), this.getValueExpression(), null, "ValueExpressionOwned", null, 0, 1, DoUntilStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(elementValuesEClass, ElementValues.class, "ElementValues", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3274,6 +3290,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 		initEClass(executeConditionEClass, ExecuteCondition.class, "ExecuteCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExecuteCondition_ValueExpression(), this.getValueExpression(), null, "ValueExpression", null, 0, 1, ExecuteCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExecuteCondition_CatchTimeout(), this.getBoolean(), "CatchTimeout", null, 0, 1, ExecuteCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(loopStatementEClass, LoopStatement.class, "LoopStatement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLoopStatement_BehaviorActionsOwned(), this.getBehaviorActions(), null, "BehaviorActionsOwned", null, 0, 1, LoopStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(commActionParameterEEnum, CommActionParameter.class, "CommActionParameter");

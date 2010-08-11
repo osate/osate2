@@ -1,7 +1,9 @@
 package fr.tpt.aadl.annex.behavior.analyzers;
 
+import java.util.ArrayList ;
 import java.util.HashSet ;
 import java.util.Iterator ;
+import java.util.List ;
 import java.util.Set ;
 
 import org.eclipse.emf.common.util.BasicEList ;
@@ -47,6 +49,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.Identifier ;
 import fr.tpt.aadl.annex.behavior.aadlba.IfStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerRange ;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue ;
+import fr.tpt.aadl.annex.behavior.aadlba.LoopStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.Name ;
 import fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel ;
 import fr.tpt.aadl.annex.behavior.aadlba.PropertyConstant ;
@@ -121,7 +124,7 @@ public class AadlBaNameResolver
     * @return {@code true} if behavior annex's rule is satisfied. {@code false}
     * otherwise. 
     */
-   public boolean checkBaComponentsUniqueness()
+   private boolean checkBaComponentsUniqueness()
    {
       boolean result = true ;
       
@@ -202,6 +205,18 @@ public class AadlBaNameResolver
          }
       }
       
+      List<String> lforElementVariables = new ArrayList<String>();
+      BehaviorActions beActions = null ;
+      
+      // Check for/forall element variable uniqueness.
+      for(BehaviorTransition t : ltrans)
+      {
+         beActions = t.getBehaviorActionsOwned() ;
+         
+         result &= checkForForAllElementVariableUniqueness(beActions,
+                                                        lforElementVariables) ;
+      }
+      
       return result ;
    }
 
@@ -275,7 +290,7 @@ public class AadlBaNameResolver
     * 
     * @return {@code true} if all names are resolved. {@code false} otherwise. 
     */
-   public boolean checkBaTransitionNames()
+   private boolean checkBaTransitionNames()
    {
         boolean result = true ;
         
@@ -343,6 +358,26 @@ public class AadlBaNameResolver
          {
             reportNameError(id, variableName) ;
          }
+         return false ;
+      }
+   }
+   
+   private boolean checkBaVariableNameUniqueness(Identifier id)
+   {
+      String variableName = id.getId() ;
+      
+      BehaviorVariable v = AadlBaVisitors.findBehaviorVariable(_ba,
+                                                               variableName) ;
+      
+      if(v == null)
+      {
+         return true ;
+      }
+      else
+      {
+         // Report error.
+         _errManager.error(id, "Duplicate local variable " + id.getId());
+         
          return false ;
       }
    }
@@ -798,22 +833,136 @@ public class AadlBaNameResolver
       }
    }
 
-   // Check the given Identifier object versus for struture's element variables
-   // Identifier objects.
-   // It doesn't report error.
-   private boolean checkWithinForStructureElementScope(Identifier id)
+   // Just the opposite of checkFeatureName.
+   private boolean checkFeatureNameUniqueness(Identifier id)
    {
-      boolean result = false ;
+      String nameToFind = id.getId(); 
       
-      for(Identifier el : _lForElementIds)
+      Feature f = AadlBaVisitors.findFeatureInComponent(_baParentContainer,
+                                                        nameToFind) ;
+      if (f == null)
       {
-         if(id.getId().equalsIgnoreCase(el.getId()))
-         {
-            result = true ;
-            break ;
-         }
+         return true ;
       }
+      else
+      {
+         // Report error.
+         _errManager.error(id, "Duplicate local variable " + id.getId());
+         
+         return false ;
+      }
+   }
+   
+   // Check for/forall structure's element variable name uniqueness
+   // towards themselves and AADL elements.
+   // BehaviorActions object may be null (batch processing).
+   // XXX TEMPORARY MEASURE (in addition of the above purpose): 
+   // Extends for/forall element variable uniqueness to the BA's local
+   // variables. This temporary measure SHOULD BE REMOVED after the AADL
+   // commitee's CLARIFICATION of the behavior of for/forall element variable 
+   // towards BA's local variable.
+   private boolean checkForForAllElementVariableUniqueness
+                                                     (BehaviorActions beActions,
+                                              List<String> lforElementVariables)
+   {
+      boolean result = true ;
       
+      if(beActions != null)
+      {
+         for(BehaviorAction beAct : beActions.getBehaviorAction())
+         {
+            // Case of for/forall structures.
+            if(beAct.isFor())
+            {
+               ForOrForAllStatement forStat = (ForOrForAllStatement)
+                                                 beAct.getCondStatementOwned() ; 
+               
+               Identifier element = forStat.getElement() ;
+               
+               // Check uniqueness towards AADL elements.
+               result &= checkFeatureNameUniqueness(element);
+               
+               // Check uniqueness towards for/forall element variable according
+               // to their scope.           
+               for (String s : lforElementVariables)
+               {
+                  // Case of an for/forall element variable name same as an 
+                  // other one within its scope (nested for/forall structures).   
+                  if(element.getId().equalsIgnoreCase(s))
+                  {
+                     result = false ;
+                     
+                     // Report error.
+                     _errManager.error(element, "Duplicate local variable " +
+                           element.getId());
+                  }
+               }
+               
+               // XXX TEMPORARY MEASURE ****************************************
+               
+               // Check uniqueness towards BA local variable.
+               result &= checkBaVariableNameUniqueness(element);
+               
+               
+               // END OF TEMPORARY MEASU****************************************
+               
+               // Store the for structure's element variable name so as to check
+               // the rule.
+               lforElementVariables.add(element.getId()) ;
+               
+               // Recursive call.
+               result &= checkForForAllElementVariableUniqueness(
+                                              forStat.getBehaviorActionsOwned(),
+                                                          lforElementVariables);
+               
+               // Remove the for structure's element variable name as the for
+               // structure element variable scope end here.
+               
+               lforElementVariables.remove(forStat.getElement().getId());
+               
+               continue ;
+            } // End of first if.
+            
+            // Recursive calls. ***
+            
+            // Case of behavior actions.
+            if(beAct.isBehaviorActions())
+            {
+               result &= checkForForAllElementVariableUniqueness(
+                                                beAct.getBehaviorActionsOwned(),
+                                                          lforElementVariables);
+               
+               continue ;
+            }
+            
+            // Case of if structure.
+            if(beAct.isIf())
+            {
+               IfStatement ifStat = (IfStatement) beAct.getCondStatementOwned();
+               
+               for(BehaviorActions tmp : ifStat.getBehaviorActionsOwned())
+               {
+                  result &= checkForForAllElementVariableUniqueness(tmp,
+                        lforElementVariables);
+               }
+               
+               continue ;
+            }
+            
+            // Case of other loops except for/forall structure.
+            if(beAct.isLoop())
+            {
+               LoopStatement otherLoopStat = (LoopStatement) 
+                                                 beAct.getCondStatementOwned() ;
+               
+               result &= checkForForAllElementVariableUniqueness(
+                                        otherLoopStat.getBehaviorActionsOwned(),
+                                                          lforElementVariables);
+            }
+            
+         } // End of first for.
+      }
+
       return result ;
    }
    
@@ -875,6 +1024,26 @@ public class AadlBaNameResolver
       }
     }
 
+   /**
+    * Resolves the names in behavior annex.
+    * 
+    * @return {@code true} if all names are resolved. {@code false} otherwise.
+    */
+   public boolean resolveNames()
+   {
+      boolean result = this.checkBaComponentsUniqueness() ;
+      
+      // Continue other checking if only BA's components uniqueness 
+      // is ensured.
+      if (result)
+      {
+         result &= this.checkVariablesNames() ;
+         result &= this.checkBaTransitionNames() ;
+      }
+      
+      return result ;
+   }
+   
    private boolean checkNameObject(Name nameObj)
    {
       return checkNameObject(_baParentContainer, nameObj) ;
@@ -1227,7 +1396,7 @@ public class AadlBaNameResolver
     * 
     * @return {@code true} if all names are resolved. {@code false} otherwise.
     */
-   public boolean checkVariablesNames()
+   private boolean checkVariablesNames()
    {
       boolean result = true ;
       UniqueComponentClassifierReference uccr ;
@@ -1240,6 +1409,25 @@ public class AadlBaNameResolver
 
          result &=checkUniqueComponentClassifierRefNames(uccr, true);
       }
+      return result ;
+   }
+   
+   // Check the given Identifier object versus for struture's element variables
+   // Identifier objects.
+   // It doesn't report error.
+   private boolean checkWithinForStructureElementScope(Identifier id)
+   {
+      boolean result = false ;
+      
+      for(Identifier el : _lForElementIds)
+      {
+         if(id.getId().equalsIgnoreCase(el.getId()))
+         {
+            result = true ;
+            break ;
+         }
+      }
+      
       return result ;
    }
 

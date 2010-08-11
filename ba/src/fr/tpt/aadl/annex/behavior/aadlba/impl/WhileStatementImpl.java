@@ -26,8 +26,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.WhileStatementImpl#getValueExpressionOwned <em>Value Expression Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.WhileStatementImpl#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.WhileStatementImpl#getValueExpressionOwned <em>Value Expression Owned</em>}</li>
  * </ul>
  * </p>
  *
@@ -35,16 +35,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class WhileStatementImpl extends CondStatementImpl implements WhileStatement
 {
-   /**
-	 * The cached value of the '{@link #getValueExpressionOwned() <em>Value Expression Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getValueExpressionOwned()
-	 * @generated
-	 * @ordered
-	 */
-   protected ValueExpression valueExpressionOwned;
-
    /**
 	 * The cached value of the '{@link #getBehaviorActionsOwned() <em>Behavior Actions Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -63,6 +53,16 @@ public class WhileStatementImpl extends CondStatementImpl implements WhileStatem
 	 * @ordered
 	 */
    protected boolean behaviorActionsOwnedESet;
+
+			/**
+	 * The cached value of the '{@link #getValueExpressionOwned() <em>Value Expression Owned</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+	 * @see #getValueExpressionOwned()
+	 * @generated
+	 * @ordered
+	 */
+   protected ValueExpression valueExpressionOwned;
 
    /**
 	 * <!-- begin-user-doc -->
@@ -241,10 +241,10 @@ public class WhileStatementImpl extends CondStatementImpl implements WhileStatem
    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
 		switch (featureID) {
-			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
-				return basicSetValueExpressionOwned(null, msgs);
 			case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
 				return basicUnsetBehaviorActionsOwned(msgs);
+			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
+				return basicSetValueExpressionOwned(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -258,10 +258,10 @@ public class WhileStatementImpl extends CondStatementImpl implements WhileStatem
    public Object eGet(int featureID, boolean resolve, boolean coreType)
    {
 		switch (featureID) {
-			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
-				return getValueExpressionOwned();
 			case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
 				return getBehaviorActionsOwned();
+			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
+				return getValueExpressionOwned();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -275,11 +275,11 @@ public class WhileStatementImpl extends CondStatementImpl implements WhileStatem
    public void eSet(int featureID, Object newValue)
    {
 		switch (featureID) {
-			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
-				setValueExpressionOwned((ValueExpression)newValue);
-				return;
 			case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
 				setBehaviorActionsOwned((BehaviorActions)newValue);
+				return;
+			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
+				setValueExpressionOwned((ValueExpression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -294,11 +294,11 @@ public class WhileStatementImpl extends CondStatementImpl implements WhileStatem
    public void eUnset(int featureID)
    {
 		switch (featureID) {
-			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
-				setValueExpressionOwned((ValueExpression)null);
-				return;
 			case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
 				unsetBehaviorActionsOwned();
+				return;
+			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
+				setValueExpressionOwned((ValueExpression)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -313,10 +313,10 @@ public class WhileStatementImpl extends CondStatementImpl implements WhileStatem
    public boolean eIsSet(int featureID)
    {
 		switch (featureID) {
-			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
-				return valueExpressionOwned != null;
 			case AadlBaPackage.WHILE_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
 				return isSetBehaviorActionsOwned();
+			case AadlBaPackage.WHILE_STATEMENT__VALUE_EXPRESSION_OWNED:
+				return valueExpressionOwned != null;
 		}
 		return super.eIsSet(featureID);
 	}

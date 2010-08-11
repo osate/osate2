@@ -235,6 +235,8 @@ public class AadlBaValidator extends EObjectValidator
 				return validateNumeral((Numeral)value, diagnostics, context);
 			case AadlBaPackage.EXECUTE_CONDITION:
 				return validateExecuteCondition((ExecuteCondition)value, diagnostics, context);
+			case AadlBaPackage.LOOP_STATEMENT:
+				return validateLoopStatement((LoopStatement)value, diagnostics, context);
 			case AadlBaPackage.COMM_ACTION_PARAMETER:
 				return validateCommActionParameter((CommActionParameter)value, diagnostics, context);
 			case AadlBaPackage.LOGICAL_OPERATOR:
@@ -1329,6 +1331,24 @@ public class AadlBaValidator extends EObjectValidator
 	}
 
    /**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLoopStatement(LoopStatement loopStatement, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		boolean result = validate_EveryMultiplicityConforms((EObject)loopStatement, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms((EObject)loopStatement, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained((EObject)loopStatement, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves((EObject)loopStatement, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID((EObject)loopStatement, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique((EObject)loopStatement, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique((EObject)loopStatement, diagnostics, context);
+		if (result || diagnostics != null) result &= aadl2Validator.validateElement_not_own_self(loopStatement, diagnostics, context);
+		if (result || diagnostics != null) result &= aadl2Validator.validateElement_has_owner(loopStatement, diagnostics, context);
+		return result;
+	}
+
+			/**
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
 	 * @generated

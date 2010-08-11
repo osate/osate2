@@ -37,6 +37,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorActionImpl#isWhile <em>While</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorActionImpl#isDoUntil <em>Do Until</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorActionImpl#getTimeout <em>Timeout</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorActionImpl#isBehaviorActions <em>Behavior Actions</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorActionImpl#isLoop <em>Loop</em>}</li>
  * </ul>
  * </p>
  *
@@ -185,6 +187,46 @@ public class BehaviorActionImpl extends ElementImpl implements BehaviorAction
    protected BehaviorTime timeout;
 
    /**
+	 * The default value of the '{@link #isBehaviorActions() <em>Behavior Actions</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isBehaviorActions()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean BEHAVIOR_ACTIONS_EDEFAULT = false;
+
+			/**
+	 * The cached value of the '{@link #isBehaviorActions() <em>Behavior Actions</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isBehaviorActions()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean behaviorActions = BEHAVIOR_ACTIONS_EDEFAULT;
+
+			/**
+	 * The default value of the '{@link #isLoop() <em>Loop</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLoop()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean LOOP_EDEFAULT = false;
+
+			/**
+	 * The cached value of the '{@link #isLoop() <em>Loop</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLoop()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean loop = LOOP_EDEFAULT;
+
+			/**
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
 	 * @generated
@@ -506,6 +548,48 @@ public class BehaviorActionImpl extends ElementImpl implements BehaviorAction
 
    /**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isBehaviorActions() {
+		return behaviorActions;
+	}
+
+			/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBehaviorActions(boolean newBehaviorActions) {
+		boolean oldBehaviorActions = behaviorActions;
+		behaviorActions = newBehaviorActions;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTION__BEHAVIOR_ACTIONS, oldBehaviorActions, behaviorActions));
+	}
+
+			/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isLoop() {
+		return loop;
+	}
+
+			/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLoop(boolean newLoop) {
+		boolean oldLoop = loop;
+		loop = newLoop;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTION__LOOP, oldLoop, loop));
+	}
+
+			/**
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -552,6 +636,10 @@ public class BehaviorActionImpl extends ElementImpl implements BehaviorAction
 				return isDoUntil();
 			case AadlBaPackage.BEHAVIOR_ACTION__TIMEOUT:
 				return getTimeout();
+			case AadlBaPackage.BEHAVIOR_ACTION__BEHAVIOR_ACTIONS:
+				return isBehaviorActions();
+			case AadlBaPackage.BEHAVIOR_ACTION__LOOP:
+				return isLoop();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -591,6 +679,12 @@ public class BehaviorActionImpl extends ElementImpl implements BehaviorAction
 				return;
 			case AadlBaPackage.BEHAVIOR_ACTION__TIMEOUT:
 				setTimeout((BehaviorTime)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_ACTION__BEHAVIOR_ACTIONS:
+				setBehaviorActions((Boolean)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_ACTION__LOOP:
+				setLoop((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -632,6 +726,12 @@ public class BehaviorActionImpl extends ElementImpl implements BehaviorAction
 			case AadlBaPackage.BEHAVIOR_ACTION__TIMEOUT:
 				setTimeout((BehaviorTime)null);
 				return;
+			case AadlBaPackage.BEHAVIOR_ACTION__BEHAVIOR_ACTIONS:
+				setBehaviorActions(BEHAVIOR_ACTIONS_EDEFAULT);
+				return;
+			case AadlBaPackage.BEHAVIOR_ACTION__LOOP:
+				setLoop(LOOP_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -663,6 +763,10 @@ public class BehaviorActionImpl extends ElementImpl implements BehaviorAction
 				return doUntil != DO_UNTIL_EDEFAULT;
 			case AadlBaPackage.BEHAVIOR_ACTION__TIMEOUT:
 				return timeout != null;
+			case AadlBaPackage.BEHAVIOR_ACTION__BEHAVIOR_ACTIONS:
+				return behaviorActions != BEHAVIOR_ACTIONS_EDEFAULT;
+			case AadlBaPackage.BEHAVIOR_ACTION__LOOP:
+				return loop != LOOP_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -688,6 +792,10 @@ public class BehaviorActionImpl extends ElementImpl implements BehaviorAction
 		result.append(while_);
 		result.append(", DoUntil: ");
 		result.append(doUntil);
+		result.append(", BehaviorActions: ");
+		result.append(behaviorActions);
+		result.append(", Loop: ");
+		result.append(loop);
 		result.append(')');
 		return result.toString();
 	}

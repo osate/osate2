@@ -26,6 +26,7 @@ public class AadlBaResolver implements AnnexResolver
       
       while(it.hasNext())
       {
+         boolean result = false ;
          ba = (BehaviorAnnex) it.next() ;
          pc = AadlBaVisitors.getParentComponent(ba) ;
          nameResolver = new AadlBaNameResolver(ba, errManager) ;
@@ -34,32 +35,30 @@ public class AadlBaResolver implements AnnexResolver
          System.out.println("----- begin name resolution for " + pc.getName()
                + " ---- ") ;
 
-         nameResolver.checkBaComponentsUnicity() ;
-         
-         nameResolver.checkVariablesNames() ;
-         
-         nameResolver.checkBaTransitionNames() ;
-         
+         result = nameResolver.resolveNames() ;
+            
          System.out.println("number of error : " + errManager.getNumErrors()) ;
-
          System.out.println("----- end of name resolution ---- ") ;
          
-         System.out.println("----- begin semantic analysis for " + pc.getName()
-                 + " ---- ") ;
-         semanticChecker = new AadlBaSemanticRulesChecker(ba, errManager);
-         semanticChecker.checkSemanticRules();
-         System.out.println("number of error : " + errManager.getNumErrors()) ;
-         System.out.println("----- end semantic analysis for " + pc.getName()
-                 + " ---- ") ;
+         if (result)
+         {
+            
+            System.out.println("----- begin semantic analysis for " + 
+                  pc.getName() + " ---- ") ;
+            semanticChecker = new AadlBaSemanticRulesChecker(ba, errManager);
+            semanticChecker.checkSemanticRules();
+            System.out.println("number of error : " + errManager.getNumErrors());
+            System.out.println("----- end semantic analysis for " + pc.getName()
+                    + " ---- ") ;
          
-         System.out.println("----- begin legality analysis for " + pc.getName()
-               + " ---- ") ;
-         legalityChecker = new AadlBaLegalityRulesChecker(ba, errManager);
-         legalityChecker.checkLegalityRules();
-         System.out.println("number of error : " + errManager.getNumErrors()) ;
-         System.out.println("----- end legality analysis for " + pc.getName()
-               + " ---- ") ;
-         
+            System.out.println("----- begin legality analysis for "+pc.getName()
+                  + " ---- ") ;
+            legalityChecker = new AadlBaLegalityRulesChecker(ba, errManager);
+            legalityChecker.checkLegalityRules();
+            System.out.println("number of error : " + errManager.getNumErrors());
+            System.out.println("----- end legality analysis for " + pc.getName()
+                  + " ---- ") ;
+         }
       }
 
       System.out.println("END BA RESOLVER ***********") ;

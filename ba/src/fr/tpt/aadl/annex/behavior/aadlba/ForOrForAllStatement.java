@@ -17,7 +17,6 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * <ul>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getDataUniqueCmtClassRef <em>Data Unique Cmt Class Ref</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getElementValuesOwned <em>Element Values Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#isForAll <em>For All</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getElement <em>Element</em>}</li>
  * </ul>
@@ -27,7 +26,7 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface ForOrForAllStatement extends NamedElement, CondStatement
+public interface ForOrForAllStatement extends NamedElement, LoopStatement
 {
    /**
 	 * Returns the value of the '<em><b>Data Unique Cmt Class Ref</b></em>' containment reference.
@@ -80,59 +79,6 @@ public interface ForOrForAllStatement extends NamedElement, CondStatement
 	 * @generated
 	 */
    void setElementValuesOwned(ElementValues value);
-
-   /**
-	 * Returns the value of the '<em><b>Behavior Actions Owned</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Behavior Actions Owned</em>' containment reference isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Behavior Actions Owned</em>' containment reference.
-	 * @see #isSetBehaviorActionsOwned()
-	 * @see #unsetBehaviorActionsOwned()
-	 * @see #setBehaviorActionsOwned(BehaviorActions)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_BehaviorActionsOwned()
-	 * @model containment="true" unsettable="true"
-	 * @generated
-	 */
-   BehaviorActions getBehaviorActionsOwned();
-
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Behavior Actions Owned</em>' containment reference.
-	 * @see #isSetBehaviorActionsOwned()
-	 * @see #unsetBehaviorActionsOwned()
-	 * @see #getBehaviorActionsOwned()
-	 * @generated
-	 */
-   void setBehaviorActionsOwned(BehaviorActions value);
-
-   /**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isSetBehaviorActionsOwned()
-	 * @see #getBehaviorActionsOwned()
-	 * @see #setBehaviorActionsOwned(BehaviorActions)
-	 * @generated
-	 */
-   void unsetBehaviorActionsOwned();
-
-   /**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}' containment reference is set.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Behavior Actions Owned</em>' containment reference is set.
-	 * @see #unsetBehaviorActionsOwned()
-	 * @see #getBehaviorActionsOwned()
-	 * @see #setBehaviorActionsOwned(BehaviorActions)
-	 * @generated
-	 */
-   boolean isSetBehaviorActionsOwned();
 
    /**
 	 * Returns the value of the '<em><b>For All</b></em>' attribute.

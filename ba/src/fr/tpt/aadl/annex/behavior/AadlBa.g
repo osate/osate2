@@ -1094,6 +1094,7 @@ behavior_action returns [BehaviorAction BehAction]
      ( identifier=LCURLY BehActions=behavior_actions RCURLY
        { 
           BehAction.setBehaviorActionsOwned(BehActions);
+          BehAction.setBehaviorActions(true);
           setLocationReference(BehAction, identifier) ; 
           BehActions.setLocationReference(BehAction.getLocationReference()) ;
        }
@@ -1160,6 +1161,7 @@ behavior_action returns [BehaviorAction BehAction]
        { 
         BehAction.setCondStatementOwned(ForStat);
         BehAction.setFor(true);
+        BehAction.setLoop(true);
         setLocationReference(BehActions, identifier) ; 
        }
      )
@@ -1188,6 +1190,7 @@ behavior_action returns [BehaviorAction BehAction]
        { 
         BehAction.setCondStatementOwned(ForStat);
         BehAction.setFor(true);
+        BehAction.setLoop(true);
         setLocationReference(BehActions, identifier) ; 
        }
      )
@@ -1201,6 +1204,7 @@ behavior_action returns [BehaviorAction BehAction]
         WhileStat.setBehaviorActionsOwned(BehActions);
         BehAction.setCondStatementOwned(WhileStat);
         BehAction.setWhile(true);
+        BehAction.setLoop(true);
         setLocationReference(WhileStat, identifier1); 
         BehAction.setLocationReference(WhileStat.getLocationReference()); 
         setLocationReference(ValExpr, identifier2) ; 
@@ -1217,6 +1221,7 @@ behavior_action returns [BehaviorAction BehAction]
         DoUnStat.setBehaviorActionsOwned(BehActions);
         BehAction.setCondStatementOwned(DoUnStat);
         BehAction.setDoUntil(true);
+        BehAction.setLoop(true);
         setLocationReference(DoUnStat, identifier1); 
         setLocationReference(ValExpr, identifier2); 
         BehAction.setLocationReference(DoUnStat.getLocationReference()) ; 
@@ -1349,8 +1354,10 @@ target returns [Target Tar]
  @init{
    Tar = AadlBaF.createTarget();
  }
-  : // Semantic checker and naming resolver have to check if Tar contains
-    // a Name or a DataComponentReference. See Target's set methods. 
+  : 
+    // Ambiguity between a name and a none qualified data component reference.
+    // A DataComponentReference object is also used to store Name objects.
+    // See data_component_reference method. 
     ( dt=data_component_reference
          {  Tar.setDataComponentReferenceOwned(dt);
             Tar.setLocationReference(dt.getLocationReference()); 

@@ -330,6 +330,8 @@
         defaultValueLiteral="False"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Timeout" eType="#//BehaviorTime"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="BehaviorActions" eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Loop" eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CondStatement" abstract="true" eSuperTypes="#//Element"/>
   <eClassifiers xsi:type="ecore:EClass" name="BasicAction" abstract="true" eSuperTypes="#//Element"/>
@@ -341,27 +343,21 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorActionsOwned" upperBound="-1"
         eType="#//BehaviorActions" unsettable="true" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ForOrForAllStatement" eSuperTypes="#//NamedElement #//CondStatement">
+  <eClassifiers xsi:type="ecore:EClass" name="ForOrForAllStatement" eSuperTypes="#//NamedElement #//LoopStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="DataUniqueCmtClassRef"
         eType="#//UniqueComponentClassifierReference" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ElementValuesOwned" eType="#//ElementValues"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorActionsOwned" eType="#//BehaviorActions"
-        unsettable="true" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ForAll" eType="#//Boolean"
         defaultValueLiteral="False"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Element" eType="#//Identifier"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WhileStatement" eSuperTypes="#//CondStatement">
+  <eClassifiers xsi:type="ecore:EClass" name="WhileStatement" eSuperTypes="#//LoopStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ValueExpressionOwned" eType="#//ValueExpression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorActionsOwned" eType="#//BehaviorActions"
-        unsettable="true" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DoUntilStatement" eSuperTypes="#//CondStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorActionsOwned" eType="#//BehaviorActions"
-        unsettable="true" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DoUntilStatement" eSuperTypes="#//LoopStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ValueExpressionOwned" eType="#//ValueExpression"
         containment="true"/>
   </eClassifiers>
@@ -581,5 +577,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ValueExpression" eType="#//ValueExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="CatchTimeout" eType="#//Boolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LoopStatement" abstract="true" interface="true"
+      eSuperTypes="#//CondStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BehaviorActionsOwned" eType="#//BehaviorActions"
+        unsettable="true" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -276,6 +276,7 @@ public class AadlBaSwitch<T>
 				ForOrForAllStatement forOrForAllStatement = (ForOrForAllStatement)theEObject;
 				T result = caseForOrForAllStatement(forOrForAllStatement);
 				if (result == null) result = caseNamedElement(forOrForAllStatement);
+				if (result == null) result = caseLoopStatement(forOrForAllStatement);
 				if (result == null) result = caseCondStatement(forOrForAllStatement);
 				if (result == null) result = caseElement(forOrForAllStatement);
 				if (result == null) result = caseAadl2_Element(forOrForAllStatement);
@@ -285,6 +286,7 @@ public class AadlBaSwitch<T>
 			case AadlBaPackage.WHILE_STATEMENT: {
 				WhileStatement whileStatement = (WhileStatement)theEObject;
 				T result = caseWhileStatement(whileStatement);
+				if (result == null) result = caseLoopStatement(whileStatement);
 				if (result == null) result = caseCondStatement(whileStatement);
 				if (result == null) result = caseElement(whileStatement);
 				if (result == null) result = caseAadl2_Element(whileStatement);
@@ -294,6 +296,7 @@ public class AadlBaSwitch<T>
 			case AadlBaPackage.DO_UNTIL_STATEMENT: {
 				DoUntilStatement doUntilStatement = (DoUntilStatement)theEObject;
 				T result = caseDoUntilStatement(doUntilStatement);
+				if (result == null) result = caseLoopStatement(doUntilStatement);
 				if (result == null) result = caseCondStatement(doUntilStatement);
 				if (result == null) result = caseElement(doUntilStatement);
 				if (result == null) result = caseAadl2_Element(doUntilStatement);
@@ -561,6 +564,15 @@ public class AadlBaSwitch<T>
 				if (result == null) result = caseBehaviorCondition(executeCondition);
 				if (result == null) result = caseElement(executeCondition);
 				if (result == null) result = caseAadl2_Element(executeCondition);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AadlBaPackage.LOOP_STATEMENT: {
+				LoopStatement loopStatement = (LoopStatement)theEObject;
+				T result = caseLoopStatement(loopStatement);
+				if (result == null) result = caseCondStatement(loopStatement);
+				if (result == null) result = caseElement(loopStatement);
+				if (result == null) result = caseAadl2_Element(loopStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1417,6 +1429,21 @@ public class AadlBaSwitch<T>
 	}
 
    /**
+	 * Returns the result of interpreting the object as an instance of '<em>Loop Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Loop Statement</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLoopStatement(LoopStatement object) {
+		return null;
+	}
+
+			/**
 	 * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
 	 * <!-- begin-user-doc -->
     * This implementation returns null;

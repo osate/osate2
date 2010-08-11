@@ -8,9 +8,11 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions;
+import fr.tpt.aadl.annex.behavior.aadlba.CondStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.ElementValues;
 import fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.Identifier;
+import fr.tpt.aadl.annex.behavior.aadlba.LoopStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.UniqueComponentClassifierReference;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -28,9 +30,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#getDataUniqueCmtClassRef <em>Data Unique Cmt Class Ref</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#getElementValuesOwned <em>Element Values Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#isForAll <em>For All</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#getElement <em>Element</em>}</li>
  * </ul>
@@ -40,26 +42,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrForAllStatement
 {
-   /**
-	 * The cached value of the '{@link #getDataUniqueCmtClassRef() <em>Data Unique Cmt Class Ref</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getDataUniqueCmtClassRef()
-	 * @generated
-	 * @ordered
-	 */
-   protected UniqueComponentClassifierReference dataUniqueCmtClassRef;
-
-   /**
-	 * The cached value of the '{@link #getElementValuesOwned() <em>Element Values Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getElementValuesOwned()
-	 * @generated
-	 * @ordered
-	 */
-   protected ElementValues elementValuesOwned;
-
    /**
 	 * The cached value of the '{@link #getBehaviorActionsOwned() <em>Behavior Actions Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -78,6 +60,26 @@ public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrF
 	 * @ordered
 	 */
    protected boolean behaviorActionsOwnedESet;
+
+			/**
+	 * The cached value of the '{@link #getDataUniqueCmtClassRef() <em>Data Unique Cmt Class Ref</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+	 * @see #getDataUniqueCmtClassRef()
+	 * @generated
+	 * @ordered
+	 */
+   protected UniqueComponentClassifierReference dataUniqueCmtClassRef;
+
+			/**
+	 * The cached value of the '{@link #getElementValuesOwned() <em>Element Values Owned</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+	 * @see #getElementValuesOwned()
+	 * @generated
+	 * @ordered
+	 */
+   protected ElementValues elementValuesOwned;
 
    /**
 	 * The default value of the '{@link #isForAll() <em>For All</em>}' attribute.
@@ -398,12 +400,12 @@ public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrF
    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
 		switch (featureID) {
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				return basicUnsetBehaviorActionsOwned(msgs);
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF:
 				return basicSetDataUniqueCmtClassRef(null, msgs);
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED:
 				return basicSetElementValuesOwned(null, msgs);
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-				return basicUnsetBehaviorActionsOwned(msgs);
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT:
 				return basicSetElement(null, msgs);
 		}
@@ -419,12 +421,12 @@ public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrF
    public Object eGet(int featureID, boolean resolve, boolean coreType)
    {
 		switch (featureID) {
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				return getBehaviorActionsOwned();
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF:
 				return getDataUniqueCmtClassRef();
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED:
 				return getElementValuesOwned();
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-				return getBehaviorActionsOwned();
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__FOR_ALL:
 				return isForAll();
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT:
@@ -442,14 +444,14 @@ public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrF
    public void eSet(int featureID, Object newValue)
    {
 		switch (featureID) {
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				setBehaviorActionsOwned((BehaviorActions)newValue);
+				return;
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF:
 				setDataUniqueCmtClassRef((UniqueComponentClassifierReference)newValue);
 				return;
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED:
 				setElementValuesOwned((ElementValues)newValue);
-				return;
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-				setBehaviorActionsOwned((BehaviorActions)newValue);
 				return;
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__FOR_ALL:
 				setForAll((Boolean)newValue);
@@ -470,14 +472,14 @@ public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrF
    public void eUnset(int featureID)
    {
 		switch (featureID) {
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				unsetBehaviorActionsOwned();
+				return;
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF:
 				setDataUniqueCmtClassRef((UniqueComponentClassifierReference)null);
 				return;
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED:
 				setElementValuesOwned((ElementValues)null);
-				return;
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-				unsetBehaviorActionsOwned();
 				return;
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__FOR_ALL:
 				setForAll(FOR_ALL_EDEFAULT);
@@ -498,12 +500,12 @@ public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrF
    public boolean eIsSet(int featureID)
    {
 		switch (featureID) {
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
+				return isSetBehaviorActionsOwned();
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF:
 				return dataUniqueCmtClassRef != null;
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED:
 				return elementValuesOwned != null;
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-				return isSetBehaviorActionsOwned();
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__FOR_ALL:
 				return forAll != FOR_ALL_EDEFAULT;
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT:
@@ -513,6 +515,48 @@ public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrF
 	}
 
    /**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == CondStatement.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == LoopStatement.class) {
+			switch (derivedFeatureID) {
+				case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED: return AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS_OWNED;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+			/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == CondStatement.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == LoopStatement.class) {
+			switch (baseFeatureID) {
+				case AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS_OWNED: return AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+			/**
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
 	 * @generated

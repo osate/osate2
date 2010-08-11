@@ -290,6 +290,10 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
 				return createExecuteConditionAdapter();
 			}
 			@Override
+			public Adapter caseLoopStatement(LoopStatement object) {
+				return createLoopStatementAdapter();
+			}
+			@Override
 			public Adapter caseAadl2_Element(edu.cmu.sei.aadl.aadl2.Element object) {
 				return createAadl2_ElementAdapter();
 			}
@@ -1122,6 +1126,20 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
 	}
 
    /**
+	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.LoopStatement <em>Loop Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.LoopStatement
+	 * @generated
+	 */
+	public Adapter createLoopStatementAdapter() {
+		return null;
+	}
+
+			/**
 	 * Creates a new adapter for an object of class '{@link edu.cmu.sei.aadl.aadl2.Element <em>Element</em>}'.
 	 * <!-- begin-user-doc -->
     * This default implementation returns null so that we can easily ignore cases;
