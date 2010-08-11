@@ -62,8 +62,9 @@ SEMANTIC RULES
 - X.4.(3) dispatch condition, timeout et aadl core language (DONE UNCHECKED, group with X.3.(26))
 - X.4.(4) dispatch condition, transition, complete and final state NYI
           aadl core language
-- X.4.(5) dispatch condition, event data dispatch trigger (DONE, CHECKED)
-- X.4.(6) dispatch trigger, numeral, ormore, orless  (DONE, CHECKED) >> need to be verify with aadl comitee
+- X.4.(5) dispatch condition, event data dispatch trigger (DONE, CHECKED). Same as legality rule
+          X.4(12). Implemented.
+- X.4.(6) dispatch trigger, numeral, ormore, orless  (DONE, CHECKED) >> need to be verify with aadl committee
 
 
 .ports
@@ -122,7 +123,8 @@ LEGALITY RULES
 
 .conditions
 -------------------------------------------
-- X.4.(L12) dispatch trigger condition, event data port and value others
+- X.4.(L12) dispatch trigger condition, event data port and value others. Same
+            as semantic rule X.4.(5). Implemented.
 
 
 .timeout
@@ -132,7 +134,8 @@ LEGALITY RULES
 
 .assignment actions
 -------------------------------------------
-- X.6.(14) type of target and expression must match
+- X.6.(14) type of target and expression must match. Same as semantic rule X.6(17). 
+            Not implemented.
 - X.6.(15) element_variable_identifier of for control struct is not a target
 - X.6.(16) action set and local variable
 - X.6.(17) action set and port variable
