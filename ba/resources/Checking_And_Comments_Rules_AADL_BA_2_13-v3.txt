@@ -21,7 +21,9 @@ SEMANTIC RULES
 .automaton
 -------------------------------------------
 #subprograms
-- X.3.(8) subprogram states automaton  (DONE & CHECKED) 
+[DUPLICATED]- X.3.(8) subprogram states automaton  (DONE & CHECKED).
+                      this rule includes legality rule X.3.(L3) and 
+                      legality rule X.3.(L4). Implemented.
 - X.3.(12) modes and subprograms       (NYI)
 
 #components
@@ -33,7 +35,11 @@ SEMANTIC RULES
 
 .states
 -------------------------------------------
-- X.3.(11) final state cannot accept outgoing transitions (DONE & CHECKED)
+- X.3.(9)  states thread device suspendable. This rule includes and is completed by
+           legality rule X.3.(L5). Implemented.
+[OVERLAPED] - X.3.(10) nothing to do but is completed by legality rule X.3.(L6). Not implemented.
+[DUPLICATED] - X.3.(11) final state cannot accept outgoing transitions (DONE & CHECKED).
+               This rule includes legality rule X.3.(L10). Implemented.
 
 
 .variables
@@ -52,18 +58,22 @@ SEMANTIC RULES
 
 .conditions
 -------------------------------------------
-- X.3.(16) dispatch conditions (DONE partially & CHECKED)
+[DUPLICATED]- X.3.(16) dispatch conditions (DONE partialy & CHECKED).
+              This rule includes legality rule X.3.(L8) and partialy semantic rule X.4.(2).
+              Implemented with semantic rule X.4.(2).
 - X.3.(17) execute conditions (DONE partially & CHECKED)
 - X.3.(24) dipatch conditions refinement (DONE partially improve property in component type & CHECKED)
 - X.3.(25) dispatch condition, priority (NOTHING TO DO)
 - X.3.(26) timeout dispatch condition, Period property (DONE & CHECKED)
 
-- X.4.(2) dipatch condition, transition, out complete state (DONE, CHECKED, group with X.3.(16))
-- X.4.(3) dispatch condition, timeout et aadl core language (DONE UNCHECKED, group with X.3.(26))
+[DUPLICATED]- X.4.(2) dipatch condition, transition, out complete state (DONE, CHECKED, group with X.3.(16)).
+                      This rule includes legality rule X.3.(L8).
+[OVERLAPED] - X.4.(3) dispatch condition, timeout et aadl core language (DONE UNCHECKED, group with X.3.(26)).
+                      This rule is completed by legality rule X.4.(L13). Both rules are implemented.
 - X.4.(4) dispatch condition, transition, complete and final state NYI
           aadl core language
-- X.4.(5) dispatch condition, event data dispatch trigger (DONE, CHECKED). Same as legality rule
-          X.4(12). Implemented.
+[DUPLICATED] - X.4.(5) dispatch condition, event data dispatch trigger (DONE, CHECKED).
+                       This rule is equivalent to legality rule X.4(L12). Implemented.
 - X.4.(6) dispatch trigger, numeral, ormore, orless  (DONE, CHECKED) >> need to be verify with aadl committee
 
 
@@ -84,7 +94,8 @@ SEMANTIC RULES
 .subprograms
 -------------------------------------------
 - X.5.(18)
-- X.5.(19)
+[DUPLICATED] - X.5.(19) subprogram call. This rule is equivalent to legality rule X.6.(L18).
+               Imlpemented.
 - X.5.(20) nothing to implement
 
 .basic actions
@@ -97,13 +108,17 @@ SEMANTIC RULES
 .assignment actions
 -------------------------------------------
 - X.6.(15) out and assignment actions
-- X.6.(16) assignment actions re-used in same action sets
-- X.6.(17) target, expressions matching types
+[DUPLICATED] - X.6.(16) assignment actions re-used in same action sets.
+                        this rule includes legality rule X.6.(L16) plus X.6.(L17).
+                        Not implemented.
+[DUPLICATED] - X.6.(17) target, expressions matching types.
+                        This rule is equivalent to legality rule X.6.(L14). To be implemented.
 
 .timed actions
 -------------------------------------------
 - X.6.(18) timed actions cannont be used in action sets
-- X.6.(19) computation
+[OVERLAPED] - X.6.(19) computation. This rule is completed by legality rule X.6.(L21).
+                       Both rules are implemented.
 
 .timeout
 -------------------------------------------
@@ -123,65 +138,74 @@ LEGALITY RULES
 
 .conditions
 -------------------------------------------
-- X.4.(L12) dispatch trigger condition, event data port and value others. Same
-            as semantic rule X.4.(5). Implemented.
+[DUPLICATED] - X.4.(L12) dispatch trigger condition, event data port and value others.
+                         This rule is equivalent to semantic rule X.4.(5).
+                         Both rules are implemented.
 
 
 .timeout
 -------------------------------------------
-- X.4.(L13) timeout value, aadl core language property
+[OVERLAPED] - X.4.(L13) timeout value, aadl core language property. This rule completes semantic rule X.4.(3).
+                        Both are implemented.
 
 
 .assignment actions
 -------------------------------------------
-- X.6.(14) type of target and expression must match. Same as semantic rule X.6(17). 
-            Not implemented.
-- X.6.(15) element_variable_identifier of for control struct is not a target
-- X.6.(16) action set and local variable
-- X.6.(17) action set and port variable
+[DUPLICATED] - X.6.(L14) type of target and expression must match.
+                         This rule is equivalent to semantic rule X.6(17). 
+                         Not implemented.
+- X.6.(L15) element_variable_identifier of for control struct is not a target
+[DUPLICATED] - X.6.(L16) action set and local variable. This rule is a part of semantic rule X.6.(16).
+                         Implemented.
+[DUPLICATED] - X.6.(L17) action set and port variable. This rule is a part of semantic rule X.6.(16).
+                         Implemented.
 
 
 .timed actions
 -------------------------------------------
-- X.6.(21) computation max >= min
+[OVERLAPED] - X.6.(L21) computation max >= min. This rule completes semantic rule X.6.(19).
+                        Both rules are implemented.
 
 
 .subprogram
 -------------------------------------------
-- X.6.(18) parameter list and subprogram signature must match
-[SEB]- X.3.(L1) subprogram must not define persistent variables
-[SEB]- X.3.(L3) subprogram must define an initial state and one final state 
-[SEB]- X.3.(L4) subprogram must not define any complete states
-[SEB]- X.3.(L7) subprogram must not contain a dispatch condition in any of its transitions 
+[DUPLICATED] - X.6.(L18) parameter list and subprogram signature must match.
+                         This rule is equivalent to semantic rule X.5.(19). Not implemented.
+- X.3.(L1) subprogram must not define persistent variables
+[DUPLICATED]- X.3.(L3) subprogram must define an initial state and one final state.
+                       this rule is a part of semantic rule X.3.(8). Not implemented.
+[DUPLICATED]- X.3.(L4) subprogram must not define any complete states.
+                       this rule is a part of semantic rule X.3.(8). Not implemented.
+- X.3.(L7) subprogram must not contain a dispatch condition in any of its transitions 
 
 
 .thread and devices
 -------------------------------------------
-[SEB]- X.3.(L5) suspendable components must define one complete state and one initial state.
-[SEB]- X.3.(L6) component with initialization and finalization entrypoints may
-                include one initial state and one or more final states
-
+[OVERLAPED] - X.3.(L5) suspendable components must define one complete state and one initial state.
+                       This rule completes and is a part of semantic rule X.3.(9). Not implemented.
+[OVERLAPED] - X.3.(L6) component with initialization and finalization entrypoints may
+                       include one initial state and one or more final states.
+                       This rule completes to semantic rule X.3.(10). Implemented.
+                 
 .ports
 -------------------------------------------
-[SEB]- X.3.(L11) frozen ports in dispatch condition must be consistent with that of
+- X.3.(L11) frozen ports in dispatch condition must be consistent with that of
                  the core AADL model
-- X.6.(20) port name only one dimension array
+[??? wating for explanations]- X.6.(20) port name only one dimension array
 
 
 .expressions
 -------------------------------------------
 - X.7.(L22) a (L27)
 
-[SEB]. variable
--------------------------------------------
-[SEB]- X.3.(L2) local variable and persistent variable reference
-
-
 .transition
 -------------------------------------------
-[SEB]- X.3.(L8) only transitions out of complete states may have dispatch conditions
-[SEB]- X.3.(L9) transitions out of completes must have dispatch conditions
-[SEB]- X.3.(L10) transitions from states that are final only are not allowed  
+[DUPLICATED]- X.3.(L8) only transitions out of complete states may have dispatch conditions.
+                       This rule is a part of semantic rule X.3.(16) and also
+                       semantic rule X.4.(2). Not implemented.
+[??? wating for Gilles about X.3.(16)]- X.3.(L9) transitions out of completes must have dispatch conditions
+[DUPLICATED]- X.3.(L10) transitions from states that are final only are not allowed.
+                        This rule is a part of semantic rule X.3.(11). Not implemented.
 
 --------------------------------------------------------------------------------
 CONSISTENCY RULES
