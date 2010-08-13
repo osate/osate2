@@ -198,13 +198,13 @@ public class AadlBaUtils {
    
    /**
     * Compare a given Identifier objects list to an other. The matching
-    * is based on identifier's name (case insensitive). Lists orders are
-    *  not taken in account.
+    * is based on identifier's name (case insensitive). Lists may not be sorted
+    * so complexity is O(n²).
     * 
-    * @param l1  the given list
-    * @param l2 the other list
+    * @param l1  the given list (sorted or not)
+    * @param l2 the other list (sorted or not)
     * @return {@code true} if the first list contains the same identifier's
-    * names than the second one (in any order). {@code false} otherwise.
+    * names than the second one. {@code false} otherwise.
     */
    static public boolean compareIdentifiersList(EList<Identifier> l1,
                                          EList<Identifier> l2)
