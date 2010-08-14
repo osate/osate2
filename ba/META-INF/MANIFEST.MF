@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.core.runtime,
  edu.cmu.sei.aadl.aadl2;bundle-version="1.0.0",
  edu.cmu.sei.aadl.annex;bundle-version="2.0.0",
  edu.cmu.sei.aadl.parser;bundle-version="2.0.0",
- edu.cmu.sei.osate.workspace;bundle-version="2.0.1"
+ edu.cmu.sei.osate.workspace;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy
 Import-Package: edu.cmu.sei.aadl.modelsupport.errorreporting,
  edu.cmu.sei.osate.core,
