@@ -317,7 +317,8 @@ public class AadlBaLegalityRulesChecker
             }
          }
          
-         // ...
+         // Add all assigned values in the recursive list for any higher level
+         // action set checking.
          for (List<DataComponentReference> l : llActionSetDcr)
          {
             lActionSetDcr.addAll(l) ;
