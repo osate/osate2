@@ -191,7 +191,7 @@ LEGALITY RULES
 -------------------------------------------
 - X.3.(L11) frozen ports in dispatch condition must be consistent with that of
                  the core AADL model
-[??? wating for explanations]- X.6.(20) port name only one dimension array
+- X.6.(20) port name only one dimension array
 
 
 .expressions

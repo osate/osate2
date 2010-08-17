@@ -1,19 +1,21 @@
 package fr.tpt.aadl.annex.behavior.utils;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.Comparator ;
+import java.util.Iterator ;
+import java.util.List ;
 
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList ;
+import org.eclipse.emf.common.util.EList ;
 
 import edu.cmu.sei.aadl.aadl2.DirectedFeature ;
 import edu.cmu.sei.aadl.aadl2.DirectionType ;
-import edu.cmu.sei.aadl.aadl2.NamedElement;
+import edu.cmu.sei.aadl.aadl2.NamedElement ;
 import edu.cmu.sei.aadl.aadl2.parsesupport.AObject ;
 import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager ;
 import fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference ;
-import fr.tpt.aadl.annex.behavior.aadlba.Identifier;
+import fr.tpt.aadl.annex.behavior.aadlba.Identifier ;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue ;
+import fr.tpt.aadl.annex.behavior.aadlba.Name ;
 import fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral ;
 import fr.tpt.aadl.annex.behavior.aadlba.ValueConstant ;
 import fr.tpt.aadl.annex.behavior.aadlba.ValueVariable ;
@@ -233,6 +235,78 @@ public class AadlBaUtils {
          }
       }
       return true ;
+   }
+   
+  /**
+    * Create a comparator of DataComponentReference objects.<BR><BR> 
+    * 
+    * This comparator doesn't support array indexes comparison, meaning that two
+    * data component references with the same names and different array indexes
+    * are considered as equals since the array index are integer variables and
+    * the behavior annex doesn't perform dynamic checking.<BR><BR>
+    * 
+    * @return a data component reference Comparator object. 
+    */
+   static public Comparator<DataComponentReference>
+                                        createDataComponentReferenceComparator()
+   {
+      return new Comparator<DataComponentReference>()
+      {
+         public int compare(DataComponentReference dcr1,
+                            DataComponentReference dcr2)
+         {
+            int result = 0 ;
+            
+            Name n1 = null ;
+            Name n2 = null ;
+            
+            EList<Name> ln1 = null ;
+            EList<Name> ln2 = null ;
+            
+            
+            // This comparator compares two list of names with the same size or
+            // it compares the largest size one with the smallest one in order
+            // to avoid index out of bounds exception.
+            if(dcr1.getElementsNameOwned().size() >= 
+               dcr2.getElementsNameOwned().size())
+            {
+               ln1 = dcr1.getElementsNameOwned() ;
+               ln2 = dcr2.getElementsNameOwned() ;
+            }
+            else
+            {
+               ln2 = dcr1.getElementsNameOwned() ;
+               ln1 = dcr2.getElementsNameOwned() ;
+            }
+            
+            // Compare the dcr's names one to one.
+            for(int i = 0 ; i < ln1.size() ; i++)
+            {
+               n1 = ln1.get(i) ;
+               
+               // Since dcr can have different size of qualifying names,
+               // this avoids index out of bounds exception.
+               if(i < ln2.size())
+               {
+                  n2 = ln2.get(i) ;
+                  result = n1.getIdentifier().getId().compareToIgnoreCase(
+                                                   n2.getIdentifier().getId()) ;
+                  
+                  if(result != 0)
+                  {
+                     return result ;
+                  }
+               }
+               else // return the comparison result between null and the current
+                    // first list's name in case of second list's size smaller. 
+               {
+                  return  n1.getIdentifier().getId().compareToIgnoreCase(null) ;
+               }
+            }
+            
+            return result ;
+         }
+      } ;
    }
    
    /**

@@ -1,8 +1,11 @@
 package fr.tpt.aadl.annex.behavior.analyzers ;
 
 import java.util.ArrayList ;
+import java.util.Comparator ;
+import java.util.HashSet ;
 import java.util.Iterator ;
 import java.util.List ;
+import java.util.Set ;
 
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
@@ -26,6 +29,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition ;
+import fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference ;
 import fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition ;
 import fr.tpt.aadl.annex.behavior.aadlba.DispatchLogicalExpression ;
 import fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger ;
@@ -107,10 +111,220 @@ public class AadlBaLegalityRulesChecker
       result = checkTimeoutAndPeriodProperty() ;
       result &= checkValueOthersInDispatchTriggerCondition() ;
       result &= checkForForAllElementVariableAsTarget() ;
+      result &= checkActionSetVariables();
       
       return result ;
    }
    
+   
+   /**
+    * Document: AADL Behavior Annex draft
+    * Version : 2.13
+    * Type    : Legality rule
+    * Section : X.6 Assignment actions
+    * Object  : Check legality rule X.6.(L16), X.6.(L17)
+    * Keys    : action set, local variable, port variable
+    */
+   private boolean checkActionSetVariables()
+   {
+      BehaviorActions beActions = null ;
+      
+      // Temporary list of dcr passed between recursive calls of
+      // buildActionSetAssignedValuesLists method.
+      List<DataComponentReference> lActionSetDcr =
+                                       new ArrayList<DataComponentReference>() ;
+      
+      // Set of duplicated dcr between several action sets.
+      Set<DataComponentReference> lDuplicates =
+                                          new HashSet<DataComponentReference>();
+      
+      for(BehaviorTransition bt : _ba.getTransitions())
+      {
+         beActions = bt.getBehaviorActionsOwned() ;
+         
+         // Behavior transition's behavior actions may be null.
+         if(beActions != null)
+         {
+            buildActionSetAssignedValuesLists(beActions, lActionSetDcr,
+                                                                  lDuplicates) ;
+            // Clear list between two calls in order to
+            // avoid creating a list at each call of
+            // buildActionSetAssignedValuesLists.
+            lActionSetDcr.clear() ;
+         }
+      }
+      
+      for(DataComponentReference dcr : lDuplicates)
+      {
+         reportLegalityError(dcr, " assigned values are not accessible to"
+         	+ " expressions of other assignment actions in the same action set" 
+            + " : Behavior Annex X.6.(L16) or X.6.(L17) legality rule failed") ;
+      }
+      
+      return lDuplicates.isEmpty() ;
+   }
+   
+   /**
+    * Recursively builds a list of assigned values contained
+    * in a given BehaviorActions tree and checks for duplicates and populates 
+    * a duplicate list every action set nodes met in the tree.<BR><BR>
+    * 
+    * A special attention is given to report legality rules X.6.(L16) and (L17)
+    * failures : in order to help the user to correct his errors, the duplicate
+    * list contains all instances of duplicate assigned values. 
+    * 
+    * @param beActions The given BehaviorActions tree.
+    * @param lActionSetDcr The list of assigned valued
+    * @param lDuplicates The list of duplicated assigned values.
+    */
+   @SuppressWarnings("unchecked") // As Java 1.6 can't create generic array.
+   private void buildActionSetAssignedValuesLists(BehaviorActions beActions,
+                                     List<DataComponentReference> lActionSetDcr,
+                                        Set<DataComponentReference> lDuplicates)
+   {
+      // Current assigned values list reference. It can be lActionSetDcr
+      // (the recursive list) or, in case of action set node, the list created 
+      // to collect the assigned values contained in the current BehaviorAction
+      // of the action set.
+      List<DataComponentReference> lCurrentActionSetDcr = null ;
+      
+      // An array to keep the reference of the created lists.
+      List<DataComponentReference> llActionSetDcr[] = null ;
+      
+      // List of BehaviorAction objects contained in the given BehaviorActions
+      // tree.
+      List<BehaviorAction> lbeActs = beActions.getBehaviorAction() ;
+      
+      // Current BehaviorAction object.
+      BehaviorAction behAct = null ;
+      
+      // If the given BehaviorActions is a action set, create the array as
+      // a list of assigned values will be created for each 
+      // action set's behavior action.
+      if(beActions.isSet())
+      {
+         llActionSetDcr = new List[lbeActs.size()];
+      }
+      
+      // For each BehaviorAction of the given BehaviorActions.
+      for(int i = 0 ; i < lbeActs.size() ; i++)
+      {
+         behAct = lbeActs.get(i) ;
+         
+         // In case of an action set, create a list to collect assigned values
+         // in the current BehaviorAction.
+         if(beActions.isSet())
+         {
+            lCurrentActionSetDcr = new ArrayList<DataComponentReference>() ;
+            llActionSetDcr[i] = lCurrentActionSetDcr ;
+         }
+         else // In the case of action sequence or a simple BehaviorActions :
+              // use the recursive list of assigned values.
+         {
+            lCurrentActionSetDcr = lActionSetDcr ;
+         }
+         
+         // Case of assignment action. Add the data component reference to the
+         // current assigned values list.
+         if(behAct.isBasicAction() && behAct.getBasicActionOwned() instanceof
+                                                               AssignmentAction)
+         {
+            DataComponentReference tmp = ((AssignmentAction)
+                                 behAct.getBasicActionOwned()).getTargetOwned()
+                                             .getDataComponentReferenceOwned() ;
+            lCurrentActionSetDcr.add(tmp) ;
+            continue ;
+         }
+         
+         // *** Case of recursive calls ***
+         
+         // Case of behavior actions.
+         if(behAct.isBehaviorActions())
+         {
+            buildActionSetAssignedValuesLists(behAct.getBehaviorActionsOwned(),
+                                              lCurrentActionSetDcr,
+                                              lDuplicates) ;
+            continue ;
+         }
+         
+         // Case of if structure.
+         if(behAct.isIf())
+         {
+            IfStatement ifStat = (IfStatement) behAct.getCondStatementOwned() ;
+            for (BehaviorActions tmp : ifStat.getBehaviorActionsOwned())
+            {
+               buildActionSetAssignedValuesLists(tmp, lCurrentActionSetDcr,
+                                                 lDuplicates) ;
+            }
+            continue ;
+         }
+         
+         // Case of loops structures.
+         if(behAct.isLoop())
+         {
+            LoopStatement loopStat = (LoopStatement) behAct
+                                                      .getCondStatementOwned() ;
+            buildActionSetAssignedValuesLists(loopStat.getBehaviorActionsOwned(),
+                                            lCurrentActionSetDcr, lDuplicates) ;
+            continue ;
+         }
+      } // End of first for.
+      
+      // If the given BehaviorActions is an action set, check for duplicate
+      // assigned values in the lists from the BehaviorAction of the
+      // action set. Complexity is O(n²) as the lists are not sorted.
+      if(beActions.isSet())
+      {
+         List<DataComponentReference> lCurrent = null ;
+         List<DataComponentReference> lOther = null ;
+         Comparator<DataComponentReference> comp = AadlBaUtils
+                                     .createDataComponentReferenceComparator() ;
+         
+         // Optimization flag to avoid adding the same dcr to the duplicate 
+         // list.
+         boolean hasToAdd = true ;
+         
+         // Compare the lists between them (no need to consider the final list).
+         for(int i = 0 ; i < llActionSetDcr.length - 1 ; i++)
+         {
+            lCurrent = llActionSetDcr[i] ;
+            
+            for(DataComponentReference dcrCurrent : lCurrent)
+            {
+               // Compare current list with the others.
+               for(int j = i+1 ; j < llActionSetDcr.length ; j++ )
+               {
+                  lOther = llActionSetDcr[j] ;
+               
+                  for(DataComponentReference dcrOther : lOther)
+                  {
+                     // Case of duplicate assigned value.
+                     if(comp.compare(dcrCurrent, dcrOther) == 0)
+                     {
+                        // Add the current dcr if it hasn't be done yet.
+                        if(hasToAdd)
+                        {
+                           lDuplicates.add(dcrCurrent) ;
+                           hasToAdd = true ;
+                        }
+                     
+                        lDuplicates.add(dcrOther) ;
+                     }
+                  }
+               }
+               
+               hasToAdd = true ;
+            }
+         }
+         
+         // ...
+         for (List<DataComponentReference> l : llActionSetDcr)
+         {
+            lActionSetDcr.addAll(l) ;
+         }
+      } // End of if(beActions.isSet()).
+   }
+
   /**
     * Document: AADL Behavior Annex draft
     * Version : 2.13
@@ -131,6 +345,7 @@ public class AadlBaLegalityRulesChecker
       {
          beActions = bt.getBehaviorActionsOwned() ;
          
+         // Behavior transition's behavior actions may be null.
          if(beActions != null)
          {
             result &= checkForForAllElementVariableAsTarget(beActions,
@@ -366,7 +581,8 @@ public class AadlBaLegalityRulesChecker
    }
    
    // Compare two list of dispatch triggers. Populates unsolved list with
-   // unpaired dispatch triggers.
+   // unpaired dispatch triggers. Remove paired dispatch triggers from their
+   // list.
    private void compareDispatchTriggersValueOthersLists
                                                (EList<DispatchTrigger> l1,
                                                 EList<DispatchTrigger> l2,

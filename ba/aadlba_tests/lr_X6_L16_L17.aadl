@@ -1,0 +1,108 @@
+-- Behavior Annex legality rules checker.
+-- Use only to test legality rule X.6(L15).
+
+package LegalityRulesTest
+public
+   with Base_Types ;
+
+data dummyData1
+end dummyData1;
+
+data implementation dummyData1.impl
+  subcomponents
+    a : data Base_Types::Integer [100];
+    b : data Base_Types::Integer;
+end dummyData1.impl;
+
+thread dummyThread
+ features
+   portA : in event data port Base_Types::Integer ;
+   portB : out event data port Base_Types::Integer ;
+   portC : out data port Base_Types::Integer ;
+   portD : in event data port Base_Types::Integer ;
+   fakeData : requires data access dummyData1.impl;
+end dummyThread;
+
+
+thread implementation dummyThread.impl
+    subcomponents
+    x : data Base_Types::Integer [100];
+    y : data Base_Types::Integer;
+    
+annex behavior_specification {**
+
+variables
+ a : Base_Types::Integer ;
+ b : Base_Types::Integer ;
+ c : Base_Types::Integer ;
+ d : Base_Types::Integer ;
+ e : Base_Types::Integer ;
+ f : Base_Types::Integer ;
+  
+states
+ s1 : initial final state ;
+ s2 : complete state ;
+ s3 : final state ;
+
+transitions
+ s2 -[]-> s2 ;
+ s2 -[]-> s2 {a := 1};
+ s2 -[]-> s2 {{a := 1}};
+ s2 -[]-> s2 { a := 1 & b := 2 } ;
+ s2 -[]-> s2 { portA := 1 & portB := 2 };
+ s2 -[]-> s2 { x[a] := 1 & y := 2 };
+ s2 -[]-> s2 { fakeData.a[a] := 1 & fakeData.b := 2 };
+ s2 -[]-> s2 {
+                while(true)
+                {
+                   for (i : Base_Types::Integer in 0 .. 9)
+                   {
+                      if (true)
+                      {
+                         a := 1 & b := 1
+                      }
+                      elsif (true) { 
+                                     a:= 1 & 
+                                     {
+                                        if (true)
+                                        {
+                                           b := 1
+                                        }
+                                        else
+                                        {
+                                           fakeData.a[a] := 2
+                                        }
+                                        end if
+                                     }
+                                   }
+                      else
+                      {
+                        for (j : Base_Types::Integer in 0 .. 9)
+                        {
+                           do { c := i + j } until (true) 
+                        }
+                      }
+                      end if
+                   } -- End of first for.
+                 } -- End of while.
+                 &
+                 do
+                 {
+                   if (true)
+                   {
+                      d := 1
+                   }
+                   else
+                   {
+                      d := 0
+                   }
+                   end if
+                 } until (true)
+                 &
+                 fakeData.b := 1
+             } ;
+**};
+
+end dummyThread.impl;
+
+end LegalityRulesTest;
