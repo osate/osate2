@@ -85,6 +85,9 @@ public class AadlBaNameResolver
    // Contains Element variable identifiers of for and forall structures.
    private EList<Identifier> _lForElementIds = new BasicEList<Identifier>();
    
+   // Time units property set name.
+   public static final String TIME_UNITS_PROPERTY_SET = "Time_Units" ; 
+   
    /**
     * Constructs an AADL behavior annex name resolver for a given behavior annex
     *  and reports any errors in a given error reporter manager.
@@ -505,8 +508,8 @@ public class AadlBaNameResolver
 
    private boolean checkBehaviorTimeNames(BehaviorTime bt)
    {
-      // Time unit checking is performed in semantic rules checkers class.
-      return checkIntegerValueNames(bt.getIntegerValueOwned()) ;
+      return checkIntegerValueNames(bt.getIntegerValueOwned()) &
+             checkTimeUnit(bt.getUnitIdentifier());
    }
 
    private boolean checkCommunicationActionNames(CommunicationAction act)
@@ -1204,6 +1207,48 @@ public class AadlBaNameResolver
          result &= checkBehaviorTimeNames(bt) ;
       }
       return result ;
+   }
+   
+   // Checks behavior time's time unit according to property set Time_Units and 
+   // binds if checking is successful.
+   private boolean checkTimeUnit(Identifier unitIdentifier)
+   {
+      PackageSection context = AadlBaVisitors.getContainingPackageSection(_ba);
+      
+      edu.cmu.sei.aadl.aadl2.NamedElement ne = 
+         AadlBaVisitors.findNamedElementInPropertySet(
+                                        null, TIME_UNITS_PROPERTY_SET, context);
+      
+      // Property set Time_Units is found.
+      if (ne != null && ne instanceof edu.cmu.sei.aadl.aadl2.UnitsType)
+      {
+         edu.cmu.sei.aadl.aadl2.UnitsType ut = 
+                                         (edu.cmu.sei.aadl.aadl2.UnitsType) ne ;
+         
+         // Find the given time unit in the enumeration.
+         edu.cmu.sei.aadl.aadl2.UnitLiteral ul = ut.findLiteral(
+                                                       unitIdentifier.getId()) ;
+         
+         // The given time unit is found.
+         if(ul != null)
+         {
+            unitIdentifier.setAadlReferencedEntity(ul) ;
+            return true ;
+         }
+         else
+         {
+            _errManager.error(unitIdentifier, unitIdentifier.getId() +
+                             " is not a valid time unit according " +
+                             "to the property set Time_Units.") ;
+            return false ;
+         }
+      }
+      else
+      {
+         _errManager.error(unitIdentifier,
+                           "Property set Time_Units is not found") ;
+         return false ;
+      }
    }
 
    private boolean checkUniqueComponentClassifierRefNames(

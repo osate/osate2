@@ -10,8 +10,10 @@ import org.eclipse.emf.common.util.EList ;
 import edu.cmu.sei.aadl.aadl2.DirectedFeature ;
 import edu.cmu.sei.aadl.aadl2.DirectionType ;
 import edu.cmu.sei.aadl.aadl2.NamedElement ;
+import edu.cmu.sei.aadl.aadl2.UnitLiteral ;
 import edu.cmu.sei.aadl.aadl2.parsesupport.AObject ;
 import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime ;
 import fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference ;
 import fr.tpt.aadl.annex.behavior.aadlba.Identifier ;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue ;
@@ -103,6 +105,23 @@ public class AadlBaUtils {
             return true ;
          }
       }// End of first else.
+   }
+   
+   /**
+    * Check a given BehaviorTime object (check its integer value).<BR><BR>
+    * 
+    * Reports any error with a given error reporter manager.
+    * 
+    * @param behTime the given BehaviorTime object
+    * @param errManager  the given error reporter manager.
+    * @return {@code true} if checking passed. {@code false} otherwise.
+    */
+   public static boolean checkBehaviorTime(BehaviorTime behTime,
+                                        AnalysisErrorReporterManager errManager)
+   {
+      // As time unit is check during name resolution, only check integer value
+      // owned.
+      return checkIntegerValue(behTime.getIntegerValueOwned(), errManager) ;
    }
    
    // TODO : to be implemented
@@ -238,12 +257,14 @@ public class AadlBaUtils {
    }
    
   /**
-    * Create a comparator of DataComponentReference objects.<BR><BR> 
+    * Create a DataComponentReference objects comparator.<BR><BR> 
     * 
     * This comparator doesn't support array indexes comparison, meaning that two
     * data component references with the same names and different array indexes
     * are considered as equals since the array index are integer variables and
     * the behavior annex doesn't perform dynamic checking.<BR><BR>
+    * 
+    * It does not perform data component reference checking.
     * 
     * @return a data component reference Comparator object. 
     */
@@ -305,6 +326,65 @@ public class AadlBaUtils {
             }
             
             return result ;
+         }
+      } ;
+   }
+   
+   /**
+    * Create a behavior time comparator.<BR><BR>
+    * 
+    * This comparator supports time units (from AADL property set Time_Units)
+    * comparison. For example, comparing 60 sec and 1 min returns 0.<BR><BR>
+    * 
+    * It only supports behavior time with numeric literal constant integer
+    * values (NumericLiteral). Otherwise it throws a ClassCastException. 
+    * 
+    * @return a behavior time comparator
+    * @throws ClassCastException if behavior time are not numeric literal
+    * constant integer values (NumericLiteral)
+    */
+   public static Comparator<BehaviorTime> createBehaviorTimeComparator()
+   {
+      return new Comparator<BehaviorTime>()
+      {
+         public int compare(BehaviorTime behT1, BehaviorTime behT2)
+         {
+            IntegerValue iv1 = behT1.getIntegerValueOwned() ;
+            IntegerValue iv2 = behT2.getIntegerValueOwned() ;
+            
+            if(iv1 instanceof NumericLiteral &&
+               iv2 instanceof NumericLiteral)
+            {
+                  double d1 = Double.parseDouble(((NumericLiteral) iv1)
+                                                                .getNumValue());
+                  double d2 = Double.parseDouble(((NumericLiteral) iv2)
+                                                                .getNumValue());
+                  
+                  UnitLiteral unit1 = (UnitLiteral) behT1.getUnitIdentifier()
+                                                    .getAadlReferencedEntity() ;
+                  UnitLiteral unit2 = (UnitLiteral) behT2.getUnitIdentifier()
+                                                    .getAadlReferencedEntity() ;
+                  
+                  double relativeFact = unit1.getAbsoluteFactor(unit2) ; 
+                                   
+                  // Convert to the smallest time unit. In order to keep 
+                  // the highest precision.
+                  if (relativeFact < 1)
+                  {
+                     d2 *= unit2.getAbsoluteFactor(unit1) ; 
+                  }
+                  else
+                  {
+                     d1 *= relativeFact ;
+                  }
+                  
+                  return (d1<d2 ? -1 : (d1==d2 ? 0 : 1));
+            }
+            else
+            {
+               throw new ClassCastException("Can't compare BehaviorTime with " +
+                     "IntegerValue other than those of Numerical type") ;
+            }
          }
       } ;
    }

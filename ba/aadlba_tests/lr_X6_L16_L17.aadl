@@ -1,5 +1,5 @@
 -- Behavior Annex legality rules checker.
--- Use only to test legality rule X.6(L15).
+-- Use only to test legality rule X.6(L16) and X.6.(L17).
 
 package LegalityRulesTest
 public

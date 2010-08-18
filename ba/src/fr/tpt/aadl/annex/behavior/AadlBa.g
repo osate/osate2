@@ -2283,7 +2283,10 @@ behavior_time returns [BehaviorTime BehTime]
      IntValue=integer_value UnitIdent=IDENT
      {
       BehTime.setIntegerValueOwned(IntValue);
-      BehTime.setUnitIdentifier(UnitIdent.getText()); // SG XXX should we create an object for time unit ??? With an object, time unit could be located. 
+      Identifier Id = AadlBaF.createIdentifier() ;
+      Id.setId(UnitIdent.getText());
+      setLocationReference(Id, UnitIdent) ;
+      BehTime.setUnitIdentifier(Id);
       BehTime.setLocationReference(IntValue.getLocationReference()); 
      }
    )

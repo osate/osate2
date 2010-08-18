@@ -39,6 +39,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.Identifier ;
 import fr.tpt.aadl.annex.behavior.aadlba.IfStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.LoopStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.Target ;
+import fr.tpt.aadl.annex.behavior.aadlba.TimedAction ;
 import fr.tpt.aadl.annex.behavior.aadlba.impl.NumericLiteralImpl ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaGetProperties ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
@@ -112,11 +113,114 @@ public class AadlBaLegalityRulesChecker
       result &= checkValueOthersInDispatchTriggerCondition() ;
       result &= checkForForAllElementVariableAsTarget() ;
       result &= checkActionSetVariables();
+      result &= checkBasicActions();
       
       return result ;
    }
    
+   // Performs basic action checking.
+   private boolean checkBasicActions()
+   {
+      boolean result = true ;
+      BehaviorActions behActions = null ;
+      EList<BasicAction> lBasicActions = null ;
+      
+      for(BehaviorTransition bt : _ba.getTransitions())
+      {
+         behActions = bt.getBehaviorActionsOwned() ;
+         
+         lBasicActions = AadlBaVisitors.getBasicActions(behActions) ;
+         
+         for(BasicAction basicAct : lBasicActions)
+         {
+            // Assignment action checking.
+            if(basicAct instanceof AssignmentAction)
+            {
+               AssignmentAction aa = (AssignmentAction) basicAct ;
+               result &= checkPortOneDimensionArray(aa);
+               continue ;
+            }
+            
+            // Timed action checking.
+            if(basicAct instanceof TimedAction)
+            {
+               TimedAction ta = (TimedAction) basicAct ;
+               try { result &= checkTimedActionsMinMaxParam(ta) ; }
+               catch (ClassCastException e)
+               {
+                  reportLegalityWarning(ta,
+                        "cannot check legality rule X.6.(L21) " +
+                        "because one of the behavior times is an integer " +
+                        "variable") ;
+               }
+               continue ;
+            }
+         }
+      }
+      
+      return result ;
+   }
    
+   /**
+    * Document: AADL Behavior Annex draft
+    * Version : 2.13
+    * Type    : Legality rule
+    * Section : X.6 Assignment actions
+    * Object  : Check legality rule X.6.(L21)
+    * Keys    : timed actions, max min parameter
+    */
+   // Throws ClassCastException if behavior time are not numeric literal
+   // constant integer values.
+   private boolean checkTimedActionsMinMaxParam(TimedAction timedAct)
+                                                       throws ClassCastException
+   {
+      boolean result = true ;
+      
+      EList<BehaviorTime> lbt = timedAct.getBehaviorTimesOwned() ;
+      
+      // Check integer values.
+      for(BehaviorTime bt : lbt)
+      {
+         result &= AadlBaUtils.checkBehaviorTime(bt, _errManager);
+      }
+      
+      if (lbt.size() == 2)
+      {
+         Comparator<BehaviorTime> comp =
+                                    AadlBaUtils.createBehaviorTimeComparator() ;
+         
+         boolean tmp = comp.compare(lbt.get(0), lbt.get(1)) <= 0 ;
+         
+         // Legality rule X.6.(L21) failure reporting.
+         if(! tmp)
+         {
+            reportLegalityError(lbt.get(0), " in timed actions, the value of " +
+                  " the first parameter must be lesser than the second one : " +
+                  "Behavior Annex X.6.(L21) legality rule failed") ;
+         }
+         
+         return result & tmp ;
+      }
+      else // No need to check as only one behavior time is given.
+      {
+         return result ;
+      }
+   }
+
+   /**
+    * Document: AADL Behavior Annex draft
+    * Version : 2.13
+    * Type    : Legality rule
+    * Section : X.6 Assignment actions
+    * Object  : Check legality rule X.6.(L20)
+    * Keys    : port name, one dimension array
+    */
+   private boolean checkPortOneDimensionArray(AssignmentAction assignAct)
+   {
+      // TODO to be implemented.
+      return false ;
+   }
+
    /**
     * Document: AADL Behavior Annex draft
     * Version : 2.13
@@ -784,7 +888,8 @@ public class AadlBaLegalityRulesChecker
                      // Case of NOT equivalent behavior times.
                      if (!(((NumericLiteralImpl)time.getIntegerValueOwned())
                                  .getNumValue().equalsIgnoreCase(value) 
-                            && time.getUnitIdentifier().equalsIgnoreCase(unit)))
+                            && time.getUnitIdentifier().getId()
+                                                       .equalsIgnoreCase(unit)))
                      {
                         result = false ;
                         this.reportLegalityError(time, 
@@ -797,7 +902,9 @@ public class AadlBaLegalityRulesChecker
                } // End of second if.
                else // Case of behavior time is not an integer value.
                {
-                  result = false ;
+                  reportLegalityWarning(time, 
+                                       "cannot check legality rule X.4.(L13)" +
+                          " because the behavior time is an integer variable") ;
                }
             } // End of first if.
          } // End of for.
@@ -810,5 +917,9 @@ public class AadlBaLegalityRulesChecker
    {
       _errManager.error(obj, "Behavior Legality Error: " + name + ".") ;
    }
-
+   
+   private void reportLegalityWarning(Element obj, String name)
+   {
+      _errManager.warning(obj, "Behavior Legality Warning: " + name + ".") ;
+   }
 }

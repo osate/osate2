@@ -527,7 +527,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorTime" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="IntegerValueOwned" eType="#//IntegerValue"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="UnitIdentifier" eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="UnitIdentifier" eType="#//Identifier"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyConstant" eSuperTypes="#//NamedElement #//ValueConstant"/>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyValue" eSuperTypes="#//NamedElement #//ValueConstant"/>

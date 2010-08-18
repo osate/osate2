@@ -128,7 +128,7 @@ transitions
  a -[on dispatch timeout tmp min]-> a {tmp := 1} ;
  a -[on dispatch timeout DummyPropertySet::aConstant min]-> a {tmp := 1} ;
  a -[on dispatch 1 ormore (portA) frozen portA, portB]-> a {tmp := 1} ;
- a -[on dispatch 1 ormore (portA, timeout x s)]-> a {tmp := 1} ;
+ a -[on dispatch 1 ormore (portA, timeout x sec)]-> a {tmp := 1} ;
  a -[on dispatch 1 orless (not portA)]-> a {tmp := 1} ; 
  a -[on dispatch not portA]-> a {tmp := 1} ; 
  a -[on dispatch not 1 (portA)]-> a {tmp := 1} ;
@@ -201,12 +201,12 @@ transitions
  a -[]-> a {catch (timeout)} ;
  a -[]-> a {* !>} ;
  a -[]-> a {* !<} ;
- a -[]-> a {computation (2h)} ;
- a -[]-> a {computation (1min, 30 seconde)} ;
--- a -[]-> a {delay (x min, subData1 seconde)} ;
--- a -[]-> a {delay (2h)} ;
--- a -[]-> a {delay (x h)} ; -- can't be xh because there is no difference between an identifier and behavior time.
--- a -[]-> a {delay (1min, 30_1 seconde)} ;
+ a -[]-> a {computation (2hr)} ;
+ a -[]-> a {computation (1min, 30 sec)} ;
+-- a -[]-> a {delay (x min, subData1 sec)} ;
+-- a -[]-> a {delay (2hr)} ;
+-- a -[]-> a {delay (x hr)} ; -- can't be xh because there is no difference between an identifier and behavior time.
+-- a -[]-> a {delay (1min, 30_1 sec)} ;
  a -[]-> a { {tmp :=1} } ;
  a -[]-> a { {tmp :=any} } ;
  a -[]-> a { {tmp :=subData1} } ;

@@ -1,0 +1,58 @@
+-- Behavior Annex legality rules checker.
+-- Use only to test legality rule X.6(L21).
+
+package LegalityRulesTest
+public
+   with Base_Types ;
+
+thread dummyThread
+end dummyThread;
+
+
+thread implementation dummyThread.impl
+annex behavior_specification {**
+
+variables
+ a : Base_Types::Integer ;
+  
+states
+ s1 : initial final state ;
+ s2 : complete state ;
+ s3 : final state ;
+
+transitions
+ s2 -[]-> s2 ;
+ s2 -[]-> s2 {computation (1 sec)};
+ s2 -[]-> s2 {computation (1 sec, a sec)};
+ s2 -[]-> s2 {computation (1 sec, 1 sec)} ;
+ s2 -[]-> s2 {computation (1 sec, 2 sec)} ;
+ s2 -[]-> s2 {computation (1 sec, 1 min)} ;
+ s2 -[]-> s2 {computation (60 sec, 1 min)};
+ s2 -[]-> s2 {
+                while(true)
+                {
+                   for (i : Base_Types::Integer in 0 .. 9)
+                   {
+                      if (true)
+                      {
+                         a := 1
+                      }
+                      elsif (true) { 
+                                     a:= 2 
+                                   }
+                      else
+                      {
+                        for (j : Base_Types::Integer in 0 .. 9)
+                        {
+                           do { computation (1 sec, 1 min) } until (true) 
+                        }
+                      }
+                      end if
+                   } -- End of first for.
+                 } -- End of while.
+             } ;
+**};
+
+end dummyThread.impl;
+
+end LegalityRulesTest;

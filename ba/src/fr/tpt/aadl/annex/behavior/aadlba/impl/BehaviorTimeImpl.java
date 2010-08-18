@@ -8,6 +8,7 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime;
+import fr.tpt.aadl.annex.behavior.aadlba.Identifier;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -45,24 +46,14 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
    protected IntegerValue integerValueOwned;
 
    /**
-	 * The default value of the '{@link #getUnitIdentifier() <em>Unit Identifier</em>}' attribute.
+	 * The cached value of the '{@link #getUnitIdentifier() <em>Unit Identifier</em>}' containment reference.
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
 	 * @see #getUnitIdentifier()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final String UNIT_IDENTIFIER_EDEFAULT = null;
-
-   /**
-	 * The cached value of the '{@link #getUnitIdentifier() <em>Unit Identifier</em>}' attribute.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getUnitIdentifier()
-	 * @generated
-	 * @ordered
-	 */
-   protected String unitIdentifier = UNIT_IDENTIFIER_EDEFAULT;
+   protected Identifier unitIdentifier;
 
    /**
 	 * <!-- begin-user-doc -->
@@ -136,25 +127,46 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
     * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public String getUnitIdentifier()
+   public Identifier getUnitIdentifier()
    {
 		return unitIdentifier;
 	}
 
    /**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setUnitIdentifier(String newUnitIdentifier)
-   {
-		String oldUnitIdentifier = unitIdentifier;
+	public NotificationChain basicSetUnitIdentifier(Identifier newUnitIdentifier, NotificationChain msgs) {
+		Identifier oldUnitIdentifier = unitIdentifier;
 		unitIdentifier = newUnitIdentifier;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER, oldUnitIdentifier, unitIdentifier));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER, oldUnitIdentifier, newUnitIdentifier);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
-   /**
+			/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUnitIdentifier(Identifier newUnitIdentifier) {
+		if (newUnitIdentifier != unitIdentifier) {
+			NotificationChain msgs = null;
+			if (unitIdentifier != null)
+				msgs = ((InternalEObject)unitIdentifier).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER, null, msgs);
+			if (newUnitIdentifier != null)
+				msgs = ((InternalEObject)newUnitIdentifier).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER, null, msgs);
+			msgs = basicSetUnitIdentifier(newUnitIdentifier, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER, newUnitIdentifier, newUnitIdentifier));
+	}
+
+			/**
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
 	 * @generated
@@ -165,6 +177,8 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 		switch (featureID) {
 			case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
 				return basicSetIntegerValueOwned(null, msgs);
+			case AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER:
+				return basicSetUnitIdentifier(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -199,7 +213,7 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 				setIntegerValueOwned((IntegerValue)newValue);
 				return;
 			case AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER:
-				setUnitIdentifier((String)newValue);
+				setUnitIdentifier((Identifier)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -218,7 +232,7 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 				setIntegerValueOwned((IntegerValue)null);
 				return;
 			case AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER:
-				setUnitIdentifier(UNIT_IDENTIFIER_EDEFAULT);
+				setUnitIdentifier((Identifier)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -236,26 +250,9 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 			case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
 				return integerValueOwned != null;
 			case AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER:
-				return UNIT_IDENTIFIER_EDEFAULT == null ? unitIdentifier != null : !UNIT_IDENTIFIER_EDEFAULT.equals(unitIdentifier);
+				return unitIdentifier != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   @Override
-   public String toString()
-   {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (UnitIdentifier: ");
-		result.append(unitIdentifier);
-		result.append(')');
-		return result.toString();
 	}
 
 } //BehaviorTimeImpl

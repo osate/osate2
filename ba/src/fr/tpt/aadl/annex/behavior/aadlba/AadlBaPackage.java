@@ -4359,7 +4359,7 @@ public interface AadlBaPackage extends EPackage
    int BEHAVIOR_TIME__INTEGER_VALUE_OWNED = ELEMENT_FEATURE_COUNT + 0;
 
    /**
-	 * The feature id for the '<em><b>Unit Identifier</b></em>' attribute.
+	 * The feature id for the '<em><b>Unit Identifier</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
 	 * @generated
@@ -6937,15 +6937,15 @@ public interface AadlBaPackage extends EPackage
    EReference getBehaviorTime_IntegerValueOwned();
 
    /**
-	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime#getUnitIdentifier <em>Unit Identifier</em>}'.
+	 * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime#getUnitIdentifier <em>Unit Identifier</em>}'.
 	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Unit Identifier</em>'.
+	 * @return the meta object for the containment reference '<em>Unit Identifier</em>'.
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime#getUnitIdentifier()
 	 * @see #getBehaviorTime()
 	 * @generated
 	 */
-   EAttribute getBehaviorTime_UnitIdentifier();
+   EReference getBehaviorTime_UnitIdentifier();
 
    /**
 	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.PropertyConstant <em>Property Constant</em>}'.
@@ -8718,12 +8718,12 @@ public interface AadlBaPackage extends EPackage
       EReference BEHAVIOR_TIME__INTEGER_VALUE_OWNED = eINSTANCE.getBehaviorTime_IntegerValueOwned();
 
       /**
-		 * The meta object literal for the '<em><b>Unit Identifier</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Unit Identifier</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
        * <!-- end-user-doc -->
 		 * @generated
 		 */
-      EAttribute BEHAVIOR_TIME__UNIT_IDENTIFIER = eINSTANCE.getBehaviorTime_UnitIdentifier();
+      EReference BEHAVIOR_TIME__UNIT_IDENTIFIER = eINSTANCE.getBehaviorTime_UnitIdentifier();
 
       /**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PropertyConstantImpl <em>Property Constant</em>}' class.

@@ -2324,9 +2324,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public EAttribute getBehaviorTime_UnitIdentifier()
+   public EReference getBehaviorTime_UnitIdentifier()
    {
-		return (EAttribute)behaviorTimeEClass.getEStructuralFeatures().get(1);
+		return (EReference)behaviorTimeEClass.getEStructuralFeatures().get(1);
 	}
 
    /**
@@ -2869,7 +2869,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
 		behaviorTimeEClass = createEClass(BEHAVIOR_TIME);
 		createEReference(behaviorTimeEClass, BEHAVIOR_TIME__INTEGER_VALUE_OWNED);
-		createEAttribute(behaviorTimeEClass, BEHAVIOR_TIME__UNIT_IDENTIFIER);
+		createEReference(behaviorTimeEClass, BEHAVIOR_TIME__UNIT_IDENTIFIER);
 
 		propertyConstantEClass = createEClass(PROPERTY_CONSTANT);
 
@@ -3266,7 +3266,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
 		initEClass(behaviorTimeEClass, BehaviorTime.class, "BehaviorTime", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBehaviorTime_IntegerValueOwned(), this.getIntegerValue(), null, "IntegerValueOwned", null, 0, 1, BehaviorTime.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorTime_UnitIdentifier(), this.getString(), "UnitIdentifier", null, 0, 1, BehaviorTime.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorTime_UnitIdentifier(), this.getIdentifier(), null, "UnitIdentifier", null, 0, 1, BehaviorTime.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(propertyConstantEClass, PropertyConstant.class, "PropertyConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
