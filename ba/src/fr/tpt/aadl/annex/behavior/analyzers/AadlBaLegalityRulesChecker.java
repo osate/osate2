@@ -38,9 +38,9 @@ import fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.Identifier ;
 import fr.tpt.aadl.annex.behavior.aadlba.IfStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.LoopStatement ;
+import fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral ;
 import fr.tpt.aadl.annex.behavior.aadlba.Target ;
 import fr.tpt.aadl.annex.behavior.aadlba.TimedAction ;
-import fr.tpt.aadl.annex.behavior.aadlba.impl.NumericLiteralImpl ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaGetProperties ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 
@@ -150,8 +150,8 @@ public class AadlBaLegalityRulesChecker
                {
                   reportLegalityWarning(ta,
                         "cannot check legality rule X.6.(L21) " +
-                        "because one of the behavior times is an integer " +
-                        "variable") ;
+                        "because one of the behavior times is not a numerical "+
+                        "literal integer constant") ;
                }
                continue ;
             }
@@ -170,7 +170,7 @@ public class AadlBaLegalityRulesChecker
     * Keys    : timed actions, max min parameter
     */
    // Throws ClassCastException if behavior time are not numeric literal
-   // constant integer values.
+   // integer constants.
    private boolean checkTimedActionsMinMaxParam(TimedAction timedAct)
                                                        throws ClassCastException
    {
@@ -832,7 +832,8 @@ public class AadlBaLegalityRulesChecker
     * Object : Check legality rule X.4.(L13)
     * Keys : dispatch trigger, timeout, behavior time
     */
-   // TODO : not tested yet.
+   // TODO : can't test it as soon as timed or hybrid dispatch protocol are not
+   // recognized by Osate.
    private boolean checkTimeoutAndPeriodProperty()
    {
       boolean result = true ;
@@ -868,43 +869,58 @@ public class AadlBaLegalityRulesChecker
                if (AadlBaUtils.checkIntegerValue(time.getIntegerValueOwned(),
                                                  _errManager))
                {
-                  lpv = AadlBaGetProperties.getPropertyValue(_baParentContainer,
-                        ThreadProperties.DISPATCH_PROTOCOL) ;
+                  // Check the rule only if the behavior time is contain a 
+                  // numerical literal integer constant. Otherwise raise
+                  // a warning.
+                  if(time.getIntegerValueOwned() instanceof NumericLiteral)
+                  {
+                     lpv = AadlBaGetProperties.getPropertyValue(_baParentContainer,
+                           ThreadProperties.DISPATCH_PROTOCOL) ;
 
-                  value = ((edu.cmu.sei.aadl.aadl2.EnumerationValue)lpv.get(0))
+                     value = ((edu.cmu.sei.aadl.aadl2.EnumerationValue)lpv.get(0))
                                                        .getLiteral().getName() ;
 
-                  if(value.equalsIgnoreCase(AadlBaGetProperties.TIMED) ||
-                        value.equalsIgnoreCase(AadlBaGetProperties.HYBRID))
-                  {
-                     lpv = AadlBaGetProperties.getPropertyValue(
+                     // Check the rule only for timed or hybrid dispatch 
+                     // protocol.
+                     if(value.equalsIgnoreCase(AadlBaGetProperties.TIMED) ||
+                        value.equalsIgnoreCase(AadlBaGetProperties.HYBRID) ||
+                        value.equalsIgnoreCase("periodic"))
+                     {
+                        lpv = AadlBaGetProperties.getPropertyValue(
                                   _baParentContainer, TimingProperties.PERIOD) ;
 
-                     value = ((edu.cmu.sei.aadl.aadl2.IntegerLiteral)lpv.get(0))
+                        value = ((edu.cmu.sei.aadl.aadl2.IntegerLiteral)lpv.get(0))
                                                              .getValueString() ;
-                     unit = ((edu.cmu.sei.aadl.aadl2.IntegerLiteral)lpv.get(0))
+                        unit = ((edu.cmu.sei.aadl.aadl2.IntegerLiteral)lpv.get(0))
                                                            .getUnit().getName();
-                     
-                     // Case of NOT equivalent behavior times.
-                     if (!(((NumericLiteralImpl)time.getIntegerValueOwned())
-                                 .getNumValue().equalsIgnoreCase(value) 
-                            && time.getUnitIdentifier().getId()
+                        
+                        // Case of NOT equivalent behavior times.
+                        if (!(((NumericLiteral)time.getIntegerValueOwned())
+                                    .getNumValue().equalsIgnoreCase(value) 
+                               && time.getUnitIdentifier().getId()
                                                        .equalsIgnoreCase(unit)))
-                     {
-                        result = false ;
-                        this.reportLegalityError(time, 
+                        {
+                           result = false ;
+                           this.reportLegalityError(time, 
                                        " timeout behavior time must be equal to"
-                                                       + " AADL period property" 
-                         + " : Behavior Annex X.4.(L13) legality rules failed");
-                        continue ;
+                                       + " AADL period property : Behavior" +
+                                      " Annex X.4.(L13) legality rules failed");
+                           continue ;
+                        }
                      }
                   }
+                  else // The behavior time doesn't contain a numerical 
+                       // literal integer constant.
+                  {
+                        reportLegalityWarning(time, 
+                          "cannot check legality rule X.4.(L13) because the " +
+                          "behavior time is not a numerical literal integer " +
+                          "constant") ;
+                  } // End of third if.
                } // End of second if.
                else // Case of behavior time is not an integer value.
                {
-                  reportLegalityWarning(time, 
-                                       "cannot check legality rule X.4.(L13)" +
-                          " because the behavior time is an integer variable") ;
+                  result = false ;
                }
             } // End of first if.
          } // End of for.

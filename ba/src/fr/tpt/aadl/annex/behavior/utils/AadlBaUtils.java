@@ -261,8 +261,9 @@ public class AadlBaUtils {
     * 
     * This comparator doesn't support array indexes comparison, meaning that two
     * data component references with the same names and different array indexes
-    * are considered as equals since the array index are integer variables and
-    * the behavior annex doesn't perform dynamic checking.<BR><BR>
+    * are considered as equals since the array index are not numerical literal
+    * integer constants and the behavior annex doesn't perform dynamic checking.
+    * <BR><BR>
     * 
     * It does not perform data component reference checking.
     * 
@@ -336,12 +337,12 @@ public class AadlBaUtils {
     * This comparator supports time units (from AADL property set Time_Units)
     * comparison. For example, comparing 60 sec and 1 min returns 0.<BR><BR>
     * 
-    * It only supports behavior time with numeric literal constant integer
-    * values (NumericLiteral). Otherwise it throws a ClassCastException. 
+    * It only supports behavior time with numeric literal integer constant
+    * (NumericLiteral). Otherwise it throws a ClassCastException. 
     * 
     * @return a behavior time comparator
     * @throws ClassCastException if behavior time are not numeric literal
-    * constant integer values (NumericLiteral)
+    * integer constant (NumericLiteral)
     */
    public static Comparator<BehaviorTime> createBehaviorTimeComparator()
    {
