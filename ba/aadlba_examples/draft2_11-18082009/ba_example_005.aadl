@@ -12,28 +12,30 @@
 package stack
 public
 
+   with Base_Types ;
+
   data stack
     features
-      put : subprogram push;
-      get : subprogram pop;
+      put : provides subprogram access push;
+      get : provides subprogram access pop;
   end stack;
 
   data implementation stack.default
     subcomponents
-      elems : data Basic_Types::Integer [100];
-      sp : data Basic_Types::Integer;
+      elems : data Base_Types::Integer [100];
+      sp : data Base_Types::Integer;
   end stack.default;
 
   subprogram push
     features
-      v : in parameter Basic_Types::Integer;
+      v : in parameter Base_Types::Integer;
       this : requires data access stack.default;
       overflow : out event port;
   end push;
 
   subprogram pop
     features
-      v : out parameter Basic_Types::Integer;
+      v : out parameter Base_Types::Integer;
       this : requires data access stack.default;
       underflow : out event port;
   end pop;
@@ -45,8 +47,8 @@ private
     states
       s0 : initial final state;
     transitions
-      s0 -[ sp <= 100 ]-> s0 { this.elems[this.sp]:=v; this.sp:=this.sp+1 };
-      s0 -[ sp > 100 ]-> s0 { overflow! };
+      s0 -[ this.sp <= 100 ]-> s0 { this.elems[this.sp]:=v; this.sp:=this.sp+1 };
+      s0 -[ this.sp > 100 ]-> s0 { overflow! };
   **};
   end push.default;
 
@@ -55,8 +57,8 @@ private
     states
       s0 : initial final state;
     transitions
-      s0 -[ sp > 0 ]-> s0 { this.sp := this.sp-1; v:=this.elems[this.sp] };
-      s0 -[ sp = 0 ]-> s0 { underflow! };
+      s0 -[ this.sp > 0 ]-> s0 { this.sp := this.sp-1; v:=this.elems[this.sp] };
+      s0 -[ this.sp = 0 ]-> s0 { underflow! };
   **};
   end pop.default;
 

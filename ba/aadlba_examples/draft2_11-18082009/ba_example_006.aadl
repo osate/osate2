@@ -13,6 +13,8 @@
 -- that it continues its execution at the next dispatch.
 package example6 public
 
+   with Base_Types ;
+
 thread merger
   features
     p1 : in event data port Base_Types::Integer;

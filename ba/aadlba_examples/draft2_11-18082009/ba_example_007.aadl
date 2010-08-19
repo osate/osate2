@@ -12,6 +12,8 @@
 package example7 
 public
 
+   with Base_Types ;
+
 process client_server
 end client_server;
 
@@ -43,7 +45,7 @@ annex behavior_specification {**
   transitions
     s0 -[ on dispatch ]-> s1 { pre!; computation(50ms) };
     s1 -[ on dispatch call_back ]-> s0 
-	{ call_back!(x); if(x!=0) post!(x,y) end if };
+   { call_back!(x); if(x!=0) post!(x,y) end if };
 **};
 end a_client;
 

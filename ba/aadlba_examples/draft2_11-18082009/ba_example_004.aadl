@@ -6,12 +6,14 @@
 
 package example4 public
 
+   with Base_Types ;
+
 subprogram addition
 features
-  x: in parameter Basic_types::integer;
-  y: in parameter Basic_types::integer;
-  r: out parameter Basic_types::integer;
-  ovf: out parameter Basic_types::boolean;
+  x: in parameter Base_types::integer;
+  y: in parameter Base_types::integer;
+  r: out parameter Base_types::integer;
+  ovf: out parameter Base_types::boolean;
 end addition;
 
 subprogram implementation addition.default

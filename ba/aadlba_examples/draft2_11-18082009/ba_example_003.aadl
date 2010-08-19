@@ -12,6 +12,8 @@
 package example3 
 public
 
+   with Base_Types ;
+
 thread sender
 features
   d: out event data port Base_Types::Integer;

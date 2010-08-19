@@ -16,10 +16,12 @@
 package example2 
 public
 
+  with Base_Types ;
+
 thread speed
   features
     tick: in event port { Dequeue_Protocol => AllItems; };
-    sp: out data port Behavior::integer;
+    sp: out data port Base_Types::integer;
   properties
     Dispatch_Protocol => periodic;
     Period => 1 sec;
