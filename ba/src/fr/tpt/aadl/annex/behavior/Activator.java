@@ -2,8 +2,19 @@ package fr.tpt.aadl.annex.behavior;
 
 
 
+import java.io.IOException;
+
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.*;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+
+import fr.tpt.aadl.annex.behavior.aadlba.AadlBaFactory;
+import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
+import fr.tpt.aadl.annex.behavior.aadlba.Comment;
 
 /**
  * The activator class controls the plug-in life cycle

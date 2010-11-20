@@ -22,7 +22,7 @@ subcomponents
   c : thread a_client;
   s : thread a_server.i;
 connections
-  access c.result -> s.return;
+  access c.call_back -> s.return;
   access s.long -> c.pre;
   access s.short -> c.post;
 end client_server.i;

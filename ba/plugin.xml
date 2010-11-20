@@ -19,6 +19,22 @@
             name="AADL Behavior Annex">
       </resolver>
    </extension>
+   
+   <extension
+         point="edu.cmu.sei.aadl.annex.unparser">
+      <parser
+            annexName="behavior_specification"
+            class="fr.tpt.aadl.annex.behavior.unparser.AadlBaUnParserAction"
+            id="fr.tpt.aadl.annex.behavior.unparser"
+            name="AADL Behavior Annex">
+      </parser>
+   </extension>
   
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http:///AADLBA" 
+       class = "fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage"
+       genModel = "model/aadlba.genmodel" /> 
+  </extension>
 </plugin>
   
