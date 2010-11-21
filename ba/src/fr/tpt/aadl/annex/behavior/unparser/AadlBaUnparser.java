@@ -26,6 +26,8 @@ import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
+import fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator;
+import fr.tpt.aadl.annex.behavior.aadlba.BinayAddingOperator;
 import fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction;
 import fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference;
@@ -34,21 +36,31 @@ import fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition;
 import fr.tpt.aadl.annex.behavior.aadlba.DispatchLogicalExpression;
 import fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger;
 import fr.tpt.aadl.annex.behavior.aadlba.DoUntilStatement;
+import fr.tpt.aadl.annex.behavior.aadlba.ExecuteCondition;
+import fr.tpt.aadl.annex.behavior.aadlba.Factor;
 import fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.Identifier;
 import fr.tpt.aadl.annex.behavior.aadlba.IfStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerRange;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue;
+import fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator;
+import fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator;
 import fr.tpt.aadl.annex.behavior.aadlba.Name;
 import fr.tpt.aadl.annex.behavior.aadlba.Numeral;
 import fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.PropertyConstant;
 import fr.tpt.aadl.annex.behavior.aadlba.PropertyValue;
+import fr.tpt.aadl.annex.behavior.aadlba.Relation;
+import fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression;
 import fr.tpt.aadl.annex.behavior.aadlba.StringLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.SubprogramParameterList;
 import fr.tpt.aadl.annex.behavior.aadlba.Target;
+import fr.tpt.aadl.annex.behavior.aadlba.Term;
 import fr.tpt.aadl.annex.behavior.aadlba.TimedAction;
 import fr.tpt.aadl.annex.behavior.aadlba.UniqueComponentClassifierReference;
+import fr.tpt.aadl.annex.behavior.aadlba.ValueConstant;
+import fr.tpt.aadl.annex.behavior.aadlba.ValueExpression;
+import fr.tpt.aadl.annex.behavior.aadlba.ValueVariable;
 import fr.tpt.aadl.annex.behavior.aadlba.WhileStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.util.AadlBaSwitch;
 
@@ -428,6 +440,20 @@ public class AadlBaUnparser {
 				}
 				return DONE;
 			}
+			
+			/**
+			 * Unparse executecondition
+			 */
+			public String caseExecuteCondition(ExecuteCondition object) {
+				//FIXME : TODO : update location reference
+				if (object.isCatchTimeout()) {
+					aadlbaText.addOutput("catch (timeout)");
+				} else if (object.getValueExpression() != null) {
+					process(object.getValueExpression());
+				} else
+					aadlbaText.addOutput(" ");
+				return DONE;
+			}
 
 			/**
 			 * Unparse dispatchcondition
@@ -681,7 +707,29 @@ public class AadlBaUnparser {
 			 */
 			public String caseIfStatement(IfStatement object) {
 				//FIXME : TODO : update location reference
-				aadlbaText.addOutput("-- IF statement not handle yet");
+				boolean first = true;
+				EList<ValueExpression> lve = object.getValueExpressionOwned();
+				EList<BehaviorActions> lba = object.getBehaviorActionsOwned();
+				
+				for (ValueExpression ve : lve) {
+					if (first) {
+						first = false;
+						aadlbaText.addOutput("if (");
+					} else {
+						aadlbaText.addOutput("elsif (");
+					}
+					process(ve);
+					aadlbaText.addOutput(") ");
+					process(lba.get(lve.indexOf(ve)));
+					aadlbaText.addOutputNewline("");
+				}
+				if (object.isHasElse()) {
+					aadlbaText.addOutput("else ");
+					process(lba.get(lba.size()-1));
+					aadlbaText.addOutputNewline("");
+				}
+				aadlbaText.addOutputNewline("end if");
+				
 				return DONE;
 			}
 
@@ -690,18 +738,41 @@ public class AadlBaUnparser {
 			 */
 			public String caseForOrForAllStatement(ForOrForAllStatement object) {
 				//FIXME : TODO : update location reference
-				aadlbaText.addOutput("-- For ForAll statement not handle yet");
-
+				if (object.isForAll())
+					aadlbaText.addOutput("forall (");
+				else
+					aadlbaText.addOutput("for (");
+				process(object.getElement());
+				if (object.getDataUniqueCmtClassRef() != null) {
+					aadlbaText.addOutput(" : ");
+					process(object.getDataUniqueCmtClassRef());
+				}
+				aadlbaText.addOutput(" in ");
+				process(object.getElementValuesOwned());
+				aadlbaText.addOutputNewline(")");
+				aadlbaText.addOutputNewline("{");
+				aadlbaText.incrementIndent();
+				process(object.getBehaviorActionsOwned());
+				aadlbaText.decrementIndent();
+				aadlbaText.addOutputNewline("");
+				aadlbaText.addOutputNewline("}");				
 				return DONE;
 			}
 
 			/**
-			 * Unparse whilewtatement
+			 * Unparse whilestatement
 			 */
 			public String caseWhileStatement(WhileStatement object) {
 				//FIXME : TODO : update location reference
-				aadlbaText.addOutput("-- While statement not handle yet");
-
+				aadlbaText.addOutput("while (");
+				process(object.getValueExpressionOwned());
+				aadlbaText.addOutputNewline(")");
+				aadlbaText.addOutputNewline("{");
+				aadlbaText.incrementIndent();
+				process(object.getBehaviorActionsOwned());
+				aadlbaText.decrementIndent();
+				aadlbaText.addOutputNewline("");
+				aadlbaText.addOutputNewline("}");
 				return DONE;
 			}
 
@@ -710,13 +781,17 @@ public class AadlBaUnparser {
 			 */
 			public String caseDoUntilStatement(DoUntilStatement object) {
 				//FIXME : TODO : update location reference
-				aadlbaText.addOutput("-- Do Until statement not handle yet");
-
+				aadlbaText.addOutputNewline("do");
+				process(object.getBehaviorActionsOwned());
+				aadlbaText.addOutputNewline("");
+				aadlbaText.addOutput("until (");
+				process(object.getValueExpressionOwned());
+				aadlbaText.addOutputNewline(")");
 				return DONE;
 			}
 			
 			/**
-			 * Integer_Range
+			 * Unparse integer_Range
 			 */
 			public String caseIntegerRange(IntegerRange object) {
 				//FIXME : TODO : update location reference
@@ -725,8 +800,123 @@ public class AadlBaUnparser {
 				process(object.getUpperIntegerValue());
 				return DONE;
 			}
+			
 			/**
-			 * Unparse booelanliteral
+			 * Unparse valuevariable
+			 */
+			public String caseValueVariable(ValueVariable object) {
+				//FIXME : TODO : update location reference
+				if (object.getElementNameOwned() != null) {
+					process(object.getElementNameOwned());
+					if (object.isInterrogation())
+						aadlbaText.addOutput("?");
+					if (object.isCount())
+						aadlbaText.addOutput("'count");
+					if (object.isFresh())
+						aadlbaText.addOutput("'fresh");
+				} else
+					process(object.getDataComponentReferenceOwned());
+				return DONE;
+			}
+			
+			/**
+			 * Unparse valueexpression
+			 */
+			public String caseValueExpression(ValueExpression object) {
+				//FIXME : TODO : update location reference
+				if (object.isHasLogicalOperator()) {
+					EList<Relation> lr = object.getRelationsOwned();
+					EList<LogicalOperator> lo = object.getLogicalOperatorsOwned();
+					for (Relation r : lr) {
+						process(r);
+						LogicalOperator o = object.getLogicalOperatorsOwned().get(lr.indexOf(r));
+						if (o != null) 
+							aadlbaText.addOutput(" "+ o.getLiteral());
+					}
+				} else // only one relation case
+					processEList(object.getRelationsOwned());
+				return DONE;
+			}
+			
+			/**
+			 * Unparse relation
+			 */
+			public String caseRelation(Relation object) {
+				//FIXME : TODO : update location reference
+				process(object.getSimpleExpressionOwned());
+				if (object.isHasRelationalOperator()) {
+					aadlbaText.addOutput(" "+object.getRelationalOperatorOwned().getLiteral()+" ");
+					process(object.getSimpleExpressionSdOwned());
+				} 
+				return DONE;
+			}
+			
+			/**
+			 * Unparse simpleexpression
+			 */
+			public String caseSimpleExpression(SimpleExpression object) {
+				//FIXME : TODO : update location reference
+				if (object.isHasUnaryAddingOperator())
+					aadlbaText.addOutput(object.getUnaryAddingOperatorOwned().getLiteral());
+				if (object.isHasBinaryAddingOperator()) {
+					EList<Term> lt = object.getTermsOwned();
+					EList<BinaryAddingOperator> lbao = object.getBinaryAddingOperatorOwned();
+					for (Term t : lt) {
+						process(t);
+						BinaryAddingOperator bao = lbao.get(lt.indexOf(t));
+						if (bao != null)
+							aadlbaText.addOutput(" "+bao.getLiteral()+" ");
+					}
+				} else // only one term case
+					processEList(object.getTermsOwned());
+	
+				return DONE;
+			}
+			
+			/**
+			 * Unparse term
+			 */
+			public String caseTerm(Term object) {
+				//FIXME : TODO : update location reference
+				if (object.isHasMultiplyingOperator()) {
+					EList<Factor> lf = object.getFactorsOwned();
+					EList<MultiplyingOperator> lmo = object.getMultiplyingOperatorsOwned();
+					for (Factor f : lf) {
+						process(f);
+						MultiplyingOperator mo = lmo.get(lf.indexOf(f));
+						if (mo != null)
+							aadlbaText.addOutput(" "+mo.getLiteral()+" ");
+					}
+				} else // only one factor case
+					processEList(object.getFactorsOwned());
+				return DONE;
+			}
+			
+			/**
+			 * Unparse factor
+			 */
+			public String caseFactor(Factor object) {
+				//FIXME : TODO : update location reference
+				if (object.isHasBinaryNumericOperator()) {
+					process(object.getValueOwned());
+					aadlbaText.addOutput(" "+object.getBinaryNumericOperatorOwned().getLiteral()+" ");
+					process(object.getValueSdOwned());
+				}
+				else if (object.isHasUnaryNumericOperator()) {
+					aadlbaText.addOutput(object.getUnaryNumericOperatorOwned().getLiteral()+" ");
+					process(object.getValueOwned());
+				}
+				else if (object.isHasUnaryBooleanOperator()) {
+					aadlbaText.addOutput(object.getUnaryBooleanOperatorOwned().getLiteral()+" ");
+					process(object.getValueOwned());
+				} else
+					process(object.getValueOwned());
+				
+				return DONE;
+			}
+			
+			/**
+			 * Unparse booleanliteral
 			 */
 			public String caseBooleanLiteral(BooleanLiteral object) {
 				//FIXME : TODO : update location reference
