@@ -17,17 +17,14 @@ import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.ArrayIndex;
 import fr.tpt.aadl.annex.behavior.aadlba.ArraySize;
 import fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction;
-import fr.tpt.aadl.annex.behavior.aadlba.BasicAction;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
 import fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator;
-import fr.tpt.aadl.annex.behavior.aadlba.BinayAddingOperator;
 import fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction;
 import fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference;
@@ -58,10 +55,10 @@ import fr.tpt.aadl.annex.behavior.aadlba.Target;
 import fr.tpt.aadl.annex.behavior.aadlba.Term;
 import fr.tpt.aadl.annex.behavior.aadlba.TimedAction;
 import fr.tpt.aadl.annex.behavior.aadlba.UniqueComponentClassifierReference;
-import fr.tpt.aadl.annex.behavior.aadlba.ValueConstant;
 import fr.tpt.aadl.annex.behavior.aadlba.ValueExpression;
 import fr.tpt.aadl.annex.behavior.aadlba.ValueVariable;
 import fr.tpt.aadl.annex.behavior.aadlba.WhileStatement;
+
 import fr.tpt.aadl.annex.behavior.aadlba.util.AadlBaSwitch;
 
 public class AadlBaUnparser {
@@ -791,7 +788,7 @@ public class AadlBaUnparser {
 			}
 			
 			/**
-			 * Unparse integer_Range
+			 * Unparse integerrange
 			 */
 			public String caseIntegerRange(IntegerRange object) {
 				//FIXME : TODO : update location reference
