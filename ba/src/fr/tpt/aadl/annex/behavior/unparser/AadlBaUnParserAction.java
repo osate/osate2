@@ -13,20 +13,27 @@ import fr.tpt.aadl.annex.behavior.aadlba.util.AadlBaSwitch;
 
 public class AadlBaUnParserAction implements edu.cmu.sei.aadl.annex.AnnexUnparser {
 
+	/**
+	 * AadlBa unparser instance
+	 */
 	protected AadlBaUnparser unparser = null;
-	@Override
+	
+	/**
+	 * Top-level annex libray unparse method called by
+	 * the unparser registry.
+	 */
 	public String unparseAnnexLibrary(AnnexLibrary library, String indent) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	/**
+	 * Top-level annex subclause method called by
+	 * the unparser registry.
+	 */
 	public String unparseAnnexSubclause(AnnexSubclause subclause, String indent) {
-		// TODO Auto-generated method stub
-		System.out.println("annex unparser called");
 		unparser = new AadlBaUnparser(subclause, indent);
-		unparser.process(subclause);
-		return "";
+		return unparser.process(subclause);
 	}
 
 }
