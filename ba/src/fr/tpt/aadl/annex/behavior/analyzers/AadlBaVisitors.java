@@ -15,6 +15,7 @@ import edu.cmu.sei.aadl.aadl2.PackageRename ;
 import edu.cmu.sei.aadl.aadl2.PackageSection ;
 import edu.cmu.sei.aadl.aadl2.PrivatePackageSection ;
 import edu.cmu.sei.aadl.aadl2.PropertySet ;
+import edu.cmu.sei.aadl.aadl2.Prototype;
 import edu.cmu.sei.aadl.aadl2.PublicPackageSection ;
 import edu.cmu.sei.aadl.aadl2.Subcomponent ;
 import edu.cmu.sei.aadl.modelsupport.eclipseinterface.OsateResourceManager ;
@@ -246,6 +247,40 @@ public class AadlBaVisitors
             if (subc.getName().equalsIgnoreCase(subComponentName))
             {
                result = subc ;
+               break ;
+            }
+         }
+      }
+
+      return result ;
+   }
+   
+   /**
+    * Find the first occurrence of a Prototype within a given aadls'
+    * component which name equals to a given name. Return {@code null} if no
+    * Subcomponent is found.  
+    * 
+    * @param cc the given aadl's component 
+    * @param prototypeName the given name
+    * @return the first occurrence of a Prototype related to the given name
+    * or {@code null}
+    */
+   // FIXME : TODO : XXX : GL : Add support for prototype identifier (need errata)
+   public static Prototype findPrototypeInComponent
+   (ComponentClassifier cc,
+    String prototypeName)
+   {
+      Prototype result = null ;
+
+      if(cc instanceof ComponentImplementation)
+      {
+         EList<Prototype> lprotos = ((ComponentImplementation) cc)
+         .getOwnedPrototypes() ;
+         for(Prototype proto : lprotos)
+         {
+            if (proto.getName().equalsIgnoreCase(prototypeName))
+            {
+               result = proto ;
                break ;
             }
          }

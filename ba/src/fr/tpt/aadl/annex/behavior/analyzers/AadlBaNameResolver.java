@@ -17,6 +17,7 @@ import edu.cmu.sei.aadl.aadl2.Feature ;
 import edu.cmu.sei.aadl.aadl2.Mode ;
 import edu.cmu.sei.aadl.aadl2.Namespace ;
 import edu.cmu.sei.aadl.aadl2.PackageSection ;
+import edu.cmu.sei.aadl.aadl2.Prototype;
 import edu.cmu.sei.aadl.aadl2.Subcomponent ;
 import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager ;
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaFactory ;
@@ -996,13 +997,25 @@ public class AadlBaNameResolver
                {
                   return true ;  
                }
+               else
+               {
+            	   if(checkSubcomponentName(parentContainer, id, false))
+            	   {
+            		   return true ;
+            	   }
+               }
+               
             }
          }
       }
       
       // At last check subcomponent names within given parent container and
       // report any error.
-      return checkSubcomponentName(parentContainer, id, true);
+      //return checkSubcomponentName(parentContainer, id, true);
+      
+      // FIXME : TODO : XXX : GL : Add for support prototype_identifier
+      // Need to write an errata for the SEI
+      return checkPrototypeName(parentContainer, id, true);
    }
 
    private boolean checkIntegerRangeNames(IntegerRange range)
@@ -1172,6 +1185,30 @@ public class AadlBaNameResolver
           return false ;
       }
    }
+   
+   private boolean checkPrototypeName(ComponentClassifier parentComponent,
+		   Identifier id, boolean hasToReport)
+   {
+	   String nameToFind = id.getId() ;
+
+	   Prototype proto = AadlBaVisitors.findPrototypeInComponent
+	   (parentComponent, nameToFind);
+
+	   if (proto != null)
+	   {
+		   id.setAadlReferencedEntity(proto);
+		   return true ;
+	   }
+	   else 
+	   {
+		   if (hasToReport)
+		   {
+			   reportNameError(id, nameToFind);
+		   }
+		   return false ;
+	   }
+   }
+
 
    private boolean checkSubprogramParameterListNames(SubprogramParameterList spl)
    {

@@ -21,5 +21,6 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-ActivationPolicy: lazy
 Import-Package: edu.cmu.sei.aadl.modelsupport.errorreporting,
  edu.cmu.sei.osate.core,
+ fr.tpt.aadl.annex.behavior.aadlba,
  org.eclipse.core.resources,
  org.eclipse.ui.plugin

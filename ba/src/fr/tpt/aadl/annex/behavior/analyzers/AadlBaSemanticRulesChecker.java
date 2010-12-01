@@ -1090,8 +1090,9 @@ public class AadlBaSemanticRulesChecker
     * Section : X.5 Component Interaction Behavior Specification 
     * Object : Check semantic rule X.5.(13) 
     * Keys : output, in, in out, port, parameter, subprogram classifier
-    * subprogram subcomponent, subprogram access
+    * subprogram subcomponent, subprogram access, 
     */
+   // FIXME : XXX: TODO : GL : Add prototype identifier support
    private boolean checkOutputs()
    {
       boolean result = true ;
@@ -1156,9 +1157,11 @@ public class AadlBaSemanticRulesChecker
                         }
                      }
                   // case of others components except subprogram subcomponent and subprogram access
+                  // FIXME : TODO : XXX : GL : add prototype support
                   else 
                      if(!(((Name) ne).getIdentifier().getAadlReferencedEntity() instanceof edu.cmu.sei.aadl.aadl2.SubprogramSubcomponent) 
-                           && !(((Name) ne).getIdentifier().getAadlReferencedEntity() instanceof edu.cmu.sei.aadl.aadl2.SubprogramAccess))
+                           && !(((Name) ne).getIdentifier().getAadlReferencedEntity() instanceof edu.cmu.sei.aadl.aadl2.SubprogramAccess)
+                           && !(((Name) ne).getIdentifier().getAadlReferencedEntity() instanceof edu.cmu.sei.aadl.aadl2.Prototype))
                      {
                         result = false ;
                         this.reportSemanticError(ne, ne.getName() 

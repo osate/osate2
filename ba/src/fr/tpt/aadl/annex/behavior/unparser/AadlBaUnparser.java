@@ -942,7 +942,6 @@ public class AadlBaUnparser {
 				aadlbaText.addOutput(inum.toString());
 				return DONE;
 			}
-
 		};
 	}
 }
