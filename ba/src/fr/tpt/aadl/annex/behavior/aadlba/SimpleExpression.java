@@ -16,11 +16,9 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getTermsOwned <em>Terms Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getUnaryAddingOperatorOwned <em>Unary Adding Operator Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#isHasUnaryAddingOperator <em>Has Unary Adding Operator</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getBinaryAddingOperatorOwned <em>Binary Adding Operator Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#isHasBinaryAddingOperator <em>Has Binary Adding Operator</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getTerms <em>Terms</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getBinaryAddingOperators <em>Binary Adding Operators</em>}</li>
  * </ul>
  * </p>
  *
@@ -28,169 +26,141 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SimpleExpression extends Element
-{
-   /**
-	 * Returns the value of the '<em><b>Terms Owned</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.Term}.
-	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Terms Owned</em>' containment reference list isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Terms Owned</em>' containment reference list.
-	 * @see #isSetTermsOwned()
-	 * @see #unsetTermsOwned()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSimpleExpression_TermsOwned()
-	 * @model containment="true" unsettable="true"
-	 * @generated
-	 */
-   EList<Term> getTermsOwned();
-
-   /**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getTermsOwned <em>Terms Owned</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isSetTermsOwned()
-	 * @see #getTermsOwned()
-	 * @generated
-	 */
-   void unsetTermsOwned();
-
-   /**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getTermsOwned <em>Terms Owned</em>}' containment reference list is set.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Terms Owned</em>' containment reference list is set.
-	 * @see #unsetTermsOwned()
-	 * @see #getTermsOwned()
-	 * @generated
-	 */
-   boolean isSetTermsOwned();
-
-   /**
+public interface SimpleExpression extends Element {
+	/**
 	 * Returns the value of the '<em><b>Unary Adding Operator Owned</b></em>' attribute.
 	 * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.UnaryAddingOperator}.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Unary Adding Operator Owned</em>' attribute isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Unary Adding Operator Owned</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Unary Adding Operator Owned</em>' attribute.
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.UnaryAddingOperator
+	 * @see #isSetUnaryAddingOperatorOwned()
+	 * @see #unsetUnaryAddingOperatorOwned()
 	 * @see #setUnaryAddingOperatorOwned(UnaryAddingOperator)
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSimpleExpression_UnaryAddingOperatorOwned()
-	 * @model
-	 * @generated
-	 */
-   UnaryAddingOperator getUnaryAddingOperatorOwned();
-
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getUnaryAddingOperatorOwned <em>Unary Adding Operator Owned</em>}' attribute.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Unary Adding Operator Owned</em>' attribute.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.UnaryAddingOperator
-	 * @see #getUnaryAddingOperatorOwned()
-	 * @generated
-	 */
-   void setUnaryAddingOperatorOwned(UnaryAddingOperator value);
-
-   /**
-	 * Returns the value of the '<em><b>Has Unary Adding Operator</b></em>' attribute.
-	 * The default value is <code>"False"</code>.
-	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Has Unary Adding Operator</em>' attribute isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Has Unary Adding Operator</em>' attribute.
-	 * @see #setHasUnaryAddingOperator(boolean)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSimpleExpression_HasUnaryAddingOperator()
-	 * @model default="False" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
-	 * @generated
-	 */
-   boolean isHasUnaryAddingOperator();
-
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#isHasUnaryAddingOperator <em>Has Unary Adding Operator</em>}' attribute.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Has Unary Adding Operator</em>' attribute.
-	 * @see #isHasUnaryAddingOperator()
-	 * @generated
-	 */
-   void setHasUnaryAddingOperator(boolean value);
-
-   /**
-	 * Returns the value of the '<em><b>Binary Adding Operator Owned</b></em>' attribute list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator}.
-	 * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator}.
-	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Binary Adding Operator Owned</em>' attribute list isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Binary Adding Operator Owned</em>' attribute list.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator
-	 * @see #isSetBinaryAddingOperatorOwned()
-	 * @see #unsetBinaryAddingOperatorOwned()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSimpleExpression_BinaryAddingOperatorOwned()
 	 * @model unsettable="true"
 	 * @generated
 	 */
-   EList<BinaryAddingOperator> getBinaryAddingOperatorOwned();
+	UnaryAddingOperator getUnaryAddingOperatorOwned();
 
-   /**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getBinaryAddingOperatorOwned <em>Binary Adding Operator Owned</em>}' attribute list.
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getUnaryAddingOperatorOwned <em>Unary Adding Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isSetBinaryAddingOperatorOwned()
-	 * @see #getBinaryAddingOperatorOwned()
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Unary Adding Operator Owned</em>' attribute.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.UnaryAddingOperator
+	 * @see #isSetUnaryAddingOperatorOwned()
+	 * @see #unsetUnaryAddingOperatorOwned()
+	 * @see #getUnaryAddingOperatorOwned()
 	 * @generated
 	 */
-   void unsetBinaryAddingOperatorOwned();
+	void setUnaryAddingOperatorOwned(UnaryAddingOperator value);
 
-   /**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getBinaryAddingOperatorOwned <em>Binary Adding Operator Owned</em>}' attribute list is set.
+	/**
+	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getUnaryAddingOperatorOwned <em>Unary Adding Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Binary Adding Operator Owned</em>' attribute list is set.
-	 * @see #unsetBinaryAddingOperatorOwned()
-	 * @see #getBinaryAddingOperatorOwned()
+	 * <!-- end-user-doc -->
+	 * @see #isSetUnaryAddingOperatorOwned()
+	 * @see #getUnaryAddingOperatorOwned()
+	 * @see #setUnaryAddingOperatorOwned(UnaryAddingOperator)
 	 * @generated
 	 */
-   boolean isSetBinaryAddingOperatorOwned();
+	void unsetUnaryAddingOperatorOwned();
 
-   /**
-	 * Returns the value of the '<em><b>Has Binary Adding Operator</b></em>' attribute.
-	 * The default value is <code>"False"</code>.
+	/**
+	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getUnaryAddingOperatorOwned <em>Unary Adding Operator Owned</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Has Binary Adding Operator</em>' attribute isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Has Binary Adding Operator</em>' attribute.
-	 * @see #setHasBinaryAddingOperator(boolean)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSimpleExpression_HasBinaryAddingOperator()
-	 * @model default="False" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Unary Adding Operator Owned</em>' attribute is set.
+	 * @see #unsetUnaryAddingOperatorOwned()
+	 * @see #getUnaryAddingOperatorOwned()
+	 * @see #setUnaryAddingOperatorOwned(UnaryAddingOperator)
 	 * @generated
 	 */
-   boolean isHasBinaryAddingOperator();
+	boolean isSetUnaryAddingOperatorOwned();
 
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#isHasBinaryAddingOperator <em>Has Binary Adding Operator</em>}' attribute.
+	/**
+	 * Returns the value of the '<em><b>Terms</b></em>' containment reference list.
+	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.Term}.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Has Binary Adding Operator</em>' attribute.
-	 * @see #isHasBinaryAddingOperator()
+	 * <p>
+	 * If the meaning of the '<em>Terms</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Terms</em>' containment reference list.
+	 * @see #isSetTerms()
+	 * @see #unsetTerms()
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSimpleExpression_Terms()
+	 * @model containment="true" unsettable="true" required="true"
 	 * @generated
 	 */
-   void setHasBinaryAddingOperator(boolean value);
+	EList<Term> getTerms();
+
+	/**
+	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getTerms <em>Terms</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetTerms()
+	 * @see #getTerms()
+	 * @generated
+	 */
+	void unsetTerms();
+
+	/**
+	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getTerms <em>Terms</em>}' containment reference list is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Terms</em>' containment reference list is set.
+	 * @see #unsetTerms()
+	 * @see #getTerms()
+	 * @generated
+	 */
+	boolean isSetTerms();
+
+	/**
+	 * Returns the value of the '<em><b>Binary Adding Operators</b></em>' attribute list.
+	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator}.
+	 * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Binary Adding Operators</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Binary Adding Operators</em>' attribute list.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator
+	 * @see #isSetBinaryAddingOperators()
+	 * @see #unsetBinaryAddingOperators()
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSimpleExpression_BinaryAddingOperators()
+	 * @model unique="false" unsettable="true"
+	 * @generated
+	 */
+	EList<BinaryAddingOperator> getBinaryAddingOperators();
+
+	/**
+	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getBinaryAddingOperators <em>Binary Adding Operators</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetBinaryAddingOperators()
+	 * @see #getBinaryAddingOperators()
+	 * @generated
+	 */
+	void unsetBinaryAddingOperators();
+
+	/**
+	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression#getBinaryAddingOperators <em>Binary Adding Operators</em>}' attribute list is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Binary Adding Operators</em>' attribute list is set.
+	 * @see #unsetBinaryAddingOperators()
+	 * @see #getBinaryAddingOperators()
+	 * @generated
+	 */
+	boolean isSetBinaryAddingOperators();
 
 } // SimpleExpression

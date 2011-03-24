@@ -20,26 +20,23 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class PropertyConstantImpl extends NamedElementImpl implements PropertyConstant
-{
-   /**
+public class PropertyConstantImpl extends NamedElementImpl implements PropertyConstant {
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected PropertyConstantImpl()
-   {
+	protected PropertyConstantImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.PROPERTY_CONSTANT;
 	}
 

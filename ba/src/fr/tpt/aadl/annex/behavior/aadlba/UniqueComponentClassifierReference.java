@@ -17,6 +17,5 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface UniqueComponentClassifierReference extends NamedElement
-{
+public interface UniqueComponentClassifierReference extends NamedElement {
 } // UniqueComponentClassifierReference

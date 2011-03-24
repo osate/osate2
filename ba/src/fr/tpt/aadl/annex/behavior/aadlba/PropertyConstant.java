@@ -17,6 +17,5 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface PropertyConstant extends NamedElement, ValueConstant
-{
+public interface PropertyConstant extends NamedElement, ValueConstant {
 } // PropertyConstant

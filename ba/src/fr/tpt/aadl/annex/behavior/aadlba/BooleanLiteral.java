@@ -15,7 +15,7 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral#isBoolValue <em>Bool Value</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral#isValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -23,33 +23,32 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface BooleanLiteral extends ValueConstant
-{
-   /**
-	 * Returns the value of the '<em><b>Bool Value</b></em>' attribute.
+public interface BooleanLiteral extends Literal {
+	/**
+	 * Returns the value of the '<em><b>Value</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Bool Value</em>' attribute isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Bool Value</em>' attribute.
-	 * @see #setBoolValue(boolean)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBooleanLiteral_BoolValue()
+	 * <p>
+	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Value</em>' attribute.
+	 * @see #setValue(boolean)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBooleanLiteral_Value()
 	 * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
 	 * @generated
 	 */
-   boolean isBoolValue();
+	boolean isValue();
 
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral#isBoolValue <em>Bool Value</em>}' attribute.
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral#isValue <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Bool Value</em>' attribute.
-	 * @see #isBoolValue()
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Value</em>' attribute.
+	 * @see #isValue()
 	 * @generated
 	 */
-   void setBoolValue(boolean value);
+	void setValue(boolean value);
 
 } // BooleanLiteral

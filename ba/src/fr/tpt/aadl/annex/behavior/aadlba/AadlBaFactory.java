@@ -16,401 +16,463 @@ import org.eclipse.emf.ecore.EFactory;
  * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage
  * @generated
  */
-public interface AadlBaFactory extends EFactory
-{
-   /**
+public interface AadlBaFactory extends EFactory {
+	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   AadlBaFactory eINSTANCE = fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaFactoryImpl.init();
+	AadlBaFactory eINSTANCE = fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaFactoryImpl.init();
 
-   /**
-	 * Returns a new object of class '<em>Comment</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Comment</em>'.
-	 * @generated
-	 */
-   Comment createComment();
-
-   /**
-	 * Returns a new object of class '<em>Global Namespace</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Global Namespace</em>'.
-	 * @generated
-	 */
-   GlobalNamespace createGlobalNamespace();
-
-   /**
+	/**
 	 * Returns a new object of class '<em>Behavior Annex</em>'.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>Behavior Annex</em>'.
 	 * @generated
 	 */
-   BehaviorAnnex createBehaviorAnnex();
+	BehaviorAnnex createBehaviorAnnex();
 
-   /**
-	 * Returns a new object of class '<em>Unique Component Classifier Reference</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Unique Component Classifier Reference</em>'.
-	 * @generated
-	 */
-   UniqueComponentClassifierReference createUniqueComponentClassifierReference();
-
-   /**
-	 * Returns a new object of class '<em>Behavior Variable</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Behavior Variable</em>'.
-	 * @generated
-	 */
-   BehaviorVariable createBehaviorVariable();
-
-   /**
+	/**
 	 * Returns a new object of class '<em>Behavior State</em>'.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>Behavior State</em>'.
 	 * @generated
 	 */
-   BehaviorState createBehaviorState();
+	BehaviorState createBehaviorState();
 
-   /**
+	/**
 	 * Returns a new object of class '<em>Behavior Transition</em>'.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>Behavior Transition</em>'.
 	 * @generated
 	 */
-   BehaviorTransition createBehaviorTransition();
+	BehaviorTransition createBehaviorTransition();
 
-   /**
+	/**
+	 * Returns a new object of class '<em>Behavior Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior Variable</em>'.
+	 * @generated
+	 */
+	BehaviorVariable createBehaviorVariable();
+
+	/**
+	 * Returns a new object of class '<em>Comment</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Comment</em>'.
+	 * @generated
+	 */
+	Comment createComment();
+
+	/**
 	 * Returns a new object of class '<em>Declarator</em>'.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>Declarator</em>'.
 	 * @generated
 	 */
-   Declarator createDeclarator();
+	Declarator createDeclarator();
 
-   /**
-	 * Returns a new object of class '<em>Array Size</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Array Size</em>'.
-	 * @generated
-	 */
-   ArraySize createArraySize();
-
-   /**
-	 * Returns a new object of class '<em>Dispatch Condition</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Dispatch Condition</em>'.
-	 * @generated
-	 */
-   DispatchCondition createDispatchCondition();
-
-   /**
-	 * Returns a new object of class '<em>Dispatch Logical Expression</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Dispatch Logical Expression</em>'.
-	 * @generated
-	 */
-   DispatchLogicalExpression createDispatchLogicalExpression();
-
-   /**
-	 * Returns a new object of class '<em>Dispatch Trigger</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Dispatch Trigger</em>'.
-	 * @generated
-	 */
-   DispatchTrigger createDispatchTrigger();
-
-   /**
-	 * Returns a new object of class '<em>Behavior Actions</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Behavior Actions</em>'.
-	 * @generated
-	 */
-   BehaviorActions createBehaviorActions();
-
-   /**
-	 * Returns a new object of class '<em>Behavior Action</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Behavior Action</em>'.
-	 * @generated
-	 */
-   BehaviorAction createBehaviorAction();
-
-   /**
-	 * Returns a new object of class '<em>If Statement</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>If Statement</em>'.
-	 * @generated
-	 */
-   IfStatement createIfStatement();
-
-   /**
-	 * Returns a new object of class '<em>For Or For All Statement</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>For Or For All Statement</em>'.
-	 * @generated
-	 */
-   ForOrForAllStatement createForOrForAllStatement();
-
-   /**
-	 * Returns a new object of class '<em>While Statement</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>While Statement</em>'.
-	 * @generated
-	 */
-   WhileStatement createWhileStatement();
-
-   /**
-	 * Returns a new object of class '<em>Do Until Statement</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Do Until Statement</em>'.
-	 * @generated
-	 */
-   DoUntilStatement createDoUntilStatement();
-
-   /**
-	 * Returns a new object of class '<em>Assignment Action</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Assignment Action</em>'.
-	 * @generated
-	 */
-   AssignmentAction createAssignmentAction();
-
-   /**
-	 * Returns a new object of class '<em>Communication Action</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Communication Action</em>'.
-	 * @generated
-	 */
-   CommunicationAction createCommunicationAction();
-
-   /**
-	 * Returns a new object of class '<em>Subprogram Parameter List</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Subprogram Parameter List</em>'.
-	 * @generated
-	 */
-   SubprogramParameterList createSubprogramParameterList();
-
-   /**
-	 * Returns a new object of class '<em>Timed Action</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Timed Action</em>'.
-	 * @generated
-	 */
-   TimedAction createTimedAction();
-
-   /**
-	 * Returns a new object of class '<em>Target</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Target</em>'.
-	 * @generated
-	 */
-   Target createTarget();
-
-   /**
-	 * Returns a new object of class '<em>Data Component Reference</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Data Component Reference</em>'.
-	 * @generated
-	 */
-   DataComponentReference createDataComponentReference();
-
-   /**
-	 * Returns a new object of class '<em>Name</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Name</em>'.
-	 * @generated
-	 */
-   Name createName();
-
-   /**
-	 * Returns a new object of class '<em>Array Index</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Array Index</em>'.
-	 * @generated
-	 */
-   ArrayIndex createArrayIndex();
-
-   /**
-	 * Returns a new object of class '<em>Value Variable</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Value Variable</em>'.
-	 * @generated
-	 */
-   ValueVariable createValueVariable();
-
-   /**
-	 * Returns a new object of class '<em>Value Expression</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Value Expression</em>'.
-	 * @generated
-	 */
-   ValueExpression createValueExpression();
-
-   /**
-	 * Returns a new object of class '<em>Relation</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Relation</em>'.
-	 * @generated
-	 */
-   Relation createRelation();
-
-   /**
-	 * Returns a new object of class '<em>Simple Expression</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Simple Expression</em>'.
-	 * @generated
-	 */
-   SimpleExpression createSimpleExpression();
-
-   /**
-	 * Returns a new object of class '<em>Term</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Term</em>'.
-	 * @generated
-	 */
-   Term createTerm();
-
-   /**
-	 * Returns a new object of class '<em>Factor</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Factor</em>'.
-	 * @generated
-	 */
-   Factor createFactor();
-
-   /**
-	 * Returns a new object of class '<em>Integer Range</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Integer Range</em>'.
-	 * @generated
-	 */
-   IntegerRange createIntegerRange();
-
-   /**
-	 * Returns a new object of class '<em>Behavior Time</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Behavior Time</em>'.
-	 * @generated
-	 */
-   BehaviorTime createBehaviorTime();
-
-   /**
-	 * Returns a new object of class '<em>Property Constant</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Property Constant</em>'.
-	 * @generated
-	 */
-   PropertyConstant createPropertyConstant();
-
-   /**
-	 * Returns a new object of class '<em>Property Value</em>'.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Property Value</em>'.
-	 * @generated
-	 */
-   PropertyValue createPropertyValue();
-
-   /**
+	/**
 	 * Returns a new object of class '<em>Identifier</em>'.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>Identifier</em>'.
 	 * @generated
 	 */
-   Identifier createIdentifier();
+	Identifier createIdentifier();
 
-   /**
-	 * Returns a new object of class '<em>Numeric Literal</em>'.
+	/**
+	 * Returns a new object of class '<em>Otherwise</em>'.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Numeric Literal</em>'.
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Otherwise</em>'.
 	 * @generated
 	 */
-   NumericLiteral createNumericLiteral();
+	Otherwise createOtherwise();
 
-   /**
+	/**
+	 * Returns a new object of class '<em>Timeout Catch</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Timeout Catch</em>'.
+	 * @generated
+	 */
+	TimeoutCatch createTimeoutCatch();
+
+	/**
+	 * Returns a new object of class '<em>Unique Component Classifier Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Unique Component Classifier Reference</em>'.
+	 * @generated
+	 */
+	UniqueComponentClassifierReference createUniqueComponentClassifierReference();
+
+	/**
+	 * Returns a new object of class '<em>Completion Relative Timeout Condition And Catch</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Completion Relative Timeout Condition And Catch</em>'.
+	 * @generated
+	 */
+	CompletionRelativeTimeoutConditionAndCatch createCompletionRelativeTimeoutConditionAndCatch();
+
+	/**
+	 * Returns a new object of class '<em>Dispatch Condition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dispatch Condition</em>'.
+	 * @generated
+	 */
+	DispatchCondition createDispatchCondition();
+
+	/**
+	 * Returns a new object of class '<em>Dispatch Conjunction</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dispatch Conjunction</em>'.
+	 * @generated
+	 */
+	DispatchConjunction createDispatchConjunction();
+
+	/**
+	 * Returns a new object of class '<em>Dispatch Trigger Condition Stop</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dispatch Trigger Condition Stop</em>'.
+	 * @generated
+	 */
+	DispatchTriggerConditionStop createDispatchTriggerConditionStop();
+
+	/**
+	 * Returns a new object of class '<em>Dispatch Trigger Logical Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dispatch Trigger Logical Expression</em>'.
+	 * @generated
+	 */
+	DispatchTriggerLogicalExpression createDispatchTriggerLogicalExpression();
+
+	/**
+	 * Returns a new object of class '<em>Assignment Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Assignment Action</em>'.
+	 * @generated
+	 */
+	AssignmentAction createAssignmentAction();
+
+	/**
+	 * Returns a new object of class '<em>Behavior Action Block</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior Action Block</em>'.
+	 * @generated
+	 */
+	BehaviorActionBlock createBehaviorActionBlock();
+
+	/**
+	 * Returns a new object of class '<em>Behavior Action Sequence</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior Action Sequence</em>'.
+	 * @generated
+	 */
+	BehaviorActionSequence createBehaviorActionSequence();
+
+	/**
+	 * Returns a new object of class '<em>Behavior Action Set</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior Action Set</em>'.
+	 * @generated
+	 */
+	BehaviorActionSet createBehaviorActionSet();
+
+	/**
+	 * Returns a new object of class '<em>Data Component Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Data Component Reference</em>'.
+	 * @generated
+	 */
+	DataComponentReference createDataComponentReference();
+
+	/**
+	 * Returns a new object of class '<em>For Or For All Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>For Or For All Statement</em>'.
+	 * @generated
+	 */
+	ForOrForAllStatement createForOrForAllStatement();
+
+	/**
+	 * Returns a new object of class '<em>If Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>If Statement</em>'.
+	 * @generated
+	 */
+	IfStatement createIfStatement();
+
+	/**
+	 * Returns a new object of class '<em>Lock Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Lock Action</em>'.
+	 * @generated
+	 */
+	LockAction createLockAction();
+
+	/**
+	 * Returns a new object of class '<em>Name</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Name</em>'.
+	 * @generated
+	 */
+	Name createName();
+
+	/**
+	 * Returns a new object of class '<em>Port Dequeue Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Dequeue Action</em>'.
+	 * @generated
+	 */
+	PortDequeueAction createPortDequeueAction();
+
+	/**
+	 * Returns a new object of class '<em>Port Freeze Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Freeze Action</em>'.
+	 * @generated
+	 */
+	PortFreezeAction createPortFreezeAction();
+
+	/**
+	 * Returns a new object of class '<em>Port Send Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Send Action</em>'.
+	 * @generated
+	 */
+	PortSendAction createPortSendAction();
+
+	/**
+	 * Returns a new object of class '<em>Subprogram Call Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Subprogram Call Action</em>'.
+	 * @generated
+	 */
+	SubprogramCallAction createSubprogramCallAction();
+
+	/**
+	 * Returns a new object of class '<em>Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Target</em>'.
+	 * @generated
+	 */
+	Target createTarget();
+
+	/**
+	 * Returns a new object of class '<em>Timed Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Timed Action</em>'.
+	 * @generated
+	 */
+	TimedAction createTimedAction();
+
+	/**
+	 * Returns a new object of class '<em>Unlock Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Unlock Action</em>'.
+	 * @generated
+	 */
+	UnlockAction createUnlockAction();
+
+	/**
+	 * Returns a new object of class '<em>While Or Do Until Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>While Or Do Until Statement</em>'.
+	 * @generated
+	 */
+	WhileOrDoUntilStatement createWhileOrDoUntilStatement();
+
+	/**
+	 * Returns a new object of class '<em>Behavior Time</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior Time</em>'.
+	 * @generated
+	 */
+	BehaviorTime createBehaviorTime();
+
+	/**
 	 * Returns a new object of class '<em>Boolean Literal</em>'.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>Boolean Literal</em>'.
 	 * @generated
 	 */
-   BooleanLiteral createBooleanLiteral();
+	BooleanLiteral createBooleanLiteral();
 
-   /**
-	 * Returns a new object of class '<em>String Literal</em>'.
+	/**
+	 * Returns a new object of class '<em>Factor</em>'.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>String Literal</em>'.
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Factor</em>'.
 	 * @generated
 	 */
-   StringLiteral createStringLiteral();
+	Factor createFactor();
 
-   /**
+	/**
+	 * Returns a new object of class '<em>Integer Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Integer Literal</em>'.
+	 * @generated
+	 */
+	IntegerLiteral createIntegerLiteral();
+
+	/**
+	 * Returns a new object of class '<em>Integer Range</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Integer Range</em>'.
+	 * @generated
+	 */
+	IntegerRange createIntegerRange();
+
+	/**
 	 * Returns a new object of class '<em>Numeral</em>'.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>Numeral</em>'.
 	 * @generated
 	 */
-   Numeral createNumeral();
+	Numeral createNumeral();
 
-   /**
-	 * Returns a new object of class '<em>Execute Condition</em>'.
+	/**
+	 * Returns a new object of class '<em>Property Constant</em>'.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Execute Condition</em>'.
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Property Constant</em>'.
 	 * @generated
 	 */
-   ExecuteCondition createExecuteCondition();
+	PropertyConstant createPropertyConstant();
 
-   /**
+	/**
+	 * Returns a new object of class '<em>Property Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Property Value</em>'.
+	 * @generated
+	 */
+	PropertyValue createPropertyValue();
+
+	/**
+	 * Returns a new object of class '<em>Port Count Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Count Value</em>'.
+	 * @generated
+	 */
+	PortCountValue createPortCountValue();
+
+	/**
+	 * Returns a new object of class '<em>Port Dequeue Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Dequeue Value</em>'.
+	 * @generated
+	 */
+	PortDequeueValue createPortDequeueValue();
+
+	/**
+	 * Returns a new object of class '<em>Port Fresh Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Fresh Value</em>'.
+	 * @generated
+	 */
+	PortFreshValue createPortFreshValue();
+
+	/**
+	 * Returns a new object of class '<em>Real Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Real Literal</em>'.
+	 * @generated
+	 */
+	RealLiteral createRealLiteral();
+
+	/**
+	 * Returns a new object of class '<em>Relation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Relation</em>'.
+	 * @generated
+	 */
+	Relation createRelation();
+
+	/**
+	 * Returns a new object of class '<em>Simple Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Simple Expression</em>'.
+	 * @generated
+	 */
+	SimpleExpression createSimpleExpression();
+
+	/**
+	 * Returns a new object of class '<em>String Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>String Literal</em>'.
+	 * @generated
+	 */
+	StringLiteral createStringLiteral();
+
+	/**
+	 * Returns a new object of class '<em>Term</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Term</em>'.
+	 * @generated
+	 */
+	Term createTerm();
+
+	/**
+	 * Returns a new object of class '<em>Value Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Value Expression</em>'.
+	 * @generated
+	 */
+	ValueExpression createValueExpression();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-   AadlBaPackage getAadlBaPackage();
+	AadlBaPackage getAadlBaPackage();
 
 } //AadlBaFactory

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import org.eclipse.emf.common.util.AbstractEnumerator;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.FeatureMap;
 
@@ -13,51 +14,7 @@ import edu.cmu.sei.aadl.aadl2.Element;
 import edu.cmu.sei.aadl.aadl2.parsesupport.AObject;
 import edu.cmu.sei.aadl.modelsupport.AadlConstants;
 import edu.cmu.sei.aadl.modelsupport.UnparseText;
-import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
-import fr.tpt.aadl.annex.behavior.aadlba.ArrayIndex;
-import fr.tpt.aadl.annex.behavior.aadlba.ArraySize;
-import fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
-import fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator;
-import fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral;
-import fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction;
-import fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference;
-import fr.tpt.aadl.annex.behavior.aadlba.Declarator;
-import fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition;
-import fr.tpt.aadl.annex.behavior.aadlba.DispatchLogicalExpression;
-import fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger;
-import fr.tpt.aadl.annex.behavior.aadlba.DoUntilStatement;
-import fr.tpt.aadl.annex.behavior.aadlba.ExecuteCondition;
-import fr.tpt.aadl.annex.behavior.aadlba.Factor;
-import fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement;
-import fr.tpt.aadl.annex.behavior.aadlba.Identifier;
-import fr.tpt.aadl.annex.behavior.aadlba.IfStatement;
-import fr.tpt.aadl.annex.behavior.aadlba.IntegerRange;
-import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue;
-import fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator;
-import fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator;
-import fr.tpt.aadl.annex.behavior.aadlba.Name;
-import fr.tpt.aadl.annex.behavior.aadlba.Numeral;
-import fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral;
-import fr.tpt.aadl.annex.behavior.aadlba.PropertyConstant;
-import fr.tpt.aadl.annex.behavior.aadlba.PropertyValue;
-import fr.tpt.aadl.annex.behavior.aadlba.Relation;
-import fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression;
-import fr.tpt.aadl.annex.behavior.aadlba.StringLiteral;
-import fr.tpt.aadl.annex.behavior.aadlba.SubprogramParameterList;
-import fr.tpt.aadl.annex.behavior.aadlba.Target;
-import fr.tpt.aadl.annex.behavior.aadlba.Term;
-import fr.tpt.aadl.annex.behavior.aadlba.TimedAction;
-import fr.tpt.aadl.annex.behavior.aadlba.UniqueComponentClassifierReference;
-import fr.tpt.aadl.annex.behavior.aadlba.ValueExpression;
-import fr.tpt.aadl.annex.behavior.aadlba.ValueVariable;
-import fr.tpt.aadl.annex.behavior.aadlba.WhileStatement;
+import fr.tpt.aadl.annex.behavior.aadlba.*;
 
 import fr.tpt.aadl.annex.behavior.aadlba.util.AadlBaSwitch;
 
@@ -67,16 +24,6 @@ public class AadlBaUnparser {
 	 * Aadlba switch which overrides methods to process unparsing
 	 */
 	protected AadlBaSwitch<String> aadlbaSwitch = null;
-
-	/**
-	 * Indentation position
-	 */
-	private String startIndent = "";
-
-	/**
-	 * Root of the current annexsubclause unparsed
-	 */
-	private AnnexSubclause rootAnnex = null;
 
 	/**
 	 * The unparser buffer
@@ -105,13 +52,26 @@ public class AadlBaUnparser {
 	 * @param indent : indentation position
 	 */
 	public AadlBaUnparser(AnnexSubclause root, String indent) {
-		this.rootAnnex = root;
-		this.startIndent = indent;
 		//TODO : FIXME : XXX : set indentation position
 		aadlbaText = new UnparseText();
 		this.initSwitches();
 	}
 
+	public AadlBaUnparser(String indent) {
+		//TODO : FIXME : XXX : set indentation position
+		aadlbaText = new UnparseText();
+		this.initSwitches();
+	}
+	
+	/**
+	 * Constructor with default ;
+	 */
+	public AadlBaUnparser() {
+		//TODO : FIXME : XXX : set indentation position
+		aadlbaText = new UnparseText();
+		this.initSwitches();
+	}
+	
 	/**
 	 * Calls the package-specific switch
 	 */
@@ -150,6 +110,7 @@ public class AadlBaUnparser {
 	 * @param list
 	 * @param separator
 	 */
+	@SuppressWarnings("unchecked")
 	public void processEList(EList list, String separator) {
 		boolean first = true;
 		for (Iterator it = list.iterator(); it.hasNext();) {
@@ -176,20 +137,6 @@ public class AadlBaUnparser {
 	}
 
 	/**
-	 * Unparse curly (property) list
-	 */
-	public void processCurlyList(EList list) {
-		// process property associations
-		if (list != null && !list.isEmpty()) {
-			aadlbaText.addOutputNewline(" {");
-			aadlbaText.incrementIndent();
-			processEList(list);
-			aadlbaText.addOutput("}");
-			aadlbaText.decrementIndent();
-		}
-	}
-
-	/**
 	 * Unparse comment
 	 * 
 	 * @param obj
@@ -210,56 +157,6 @@ public class AadlBaUnparser {
 			}
 		}
 	}*/
-
-
-	/**
-	 * Does processing of list as optional section without separators
-	 * 
-	 * @param list
-	 *            to be processed
-	 * @param sectionName
-	 *            section
-	 * @param emptyOption
-	 *            shown with section name if empty list
-	 */
-	public void processOptionalSection(EList list, String sectionName,
-			String emptyOption) {
-		if (list == null)
-			return;
-		if (!list.isEmpty()) {
-			aadlbaText.addOutputNewline(sectionName);
-			aadlbaText.incrementIndent();
-			this.processEList(list);
-			aadlbaText.decrementIndent();
-		} else if (emptyOption != null && emptyOption.length() > 0) {
-			aadlbaText.addOutputNewline(sectionName + " " + emptyOption);
-		}
-	}
-
-	/**
-	 * Does processing of list as section without separators
-	 * 
-	 * @param list
-	 *            to be processed
-	 * @param sectionName
-	 *            section
-	 * @param emptyOption
-	 *            shown with section name if empty list
-	 */
-	public void processSection(EList list, String sectionName,
-			String emptyOption) {
-		if (list == null)
-			return;
-		aadlbaText.addOutput(sectionName);
-		if (!list.isEmpty()) {
-			aadlbaText.addOutputNewline("");
-			aadlbaText.incrementIndent();
-			this.processEList(list);
-			aadlbaText.decrementIndent();
-		} else if (emptyOption != null) {
-			aadlbaText.addOutputNewline(" " + emptyOption);
-		}
-	}
 
 	/**
 	 * Returns the unparsed output as a single String
@@ -292,22 +189,22 @@ public class AadlBaUnparser {
 			 */
 			public String caseBehaviorAnnex(BehaviorAnnex object) {
 				//FIXME : TODO : update location reference
-				if (!object.getVariables().isEmpty()) {
+				if (object.isSetBehaviorVariables()) {
 					aadlbaText.addOutputNewline("variables");
 					aadlbaText.incrementIndent();
-					processEList(object.getVariables());
+					processEList(object.getBehaviorVariables());
 					aadlbaText.decrementIndent();
 				}
-				if (!object.getStates().isEmpty()) {
+				if (object.isSetBehaviorStates()) {
 					aadlbaText.addOutputNewline("states");
 					aadlbaText.incrementIndent();
-					processEList(object.getStates());
+					processEList(object.getBehaviorStates());
 					aadlbaText.decrementIndent();
 				}
-				if (!object.getTransitions().isEmpty()) {
+				if (object.isSetBehaviorTransitions()) {
 					aadlbaText.addOutputNewline("transitions");
 					aadlbaText.incrementIndent();
-					processEList(object.getTransitions());
+					processEList(object.getBehaviorTransitions());
 					aadlbaText.decrementIndent();
 
 				}				return DONE;
@@ -321,7 +218,7 @@ public class AadlBaUnparser {
 				processEList(object.getLocalVariableDeclarators(), ", ");
 				aadlbaText.addOutput(" : ");
 				process(object.getDataUniqueComponentClassifierReference());
-				aadlbaText.addOutputNewline(";");
+				aadlbaText.addOutputNewline(" ;");
 				return DONE;
 			}
 
@@ -330,46 +227,21 @@ public class AadlBaUnparser {
 			 */
 			public String caseDeclarator(Declarator object) {
 				//FIXME : TODO : update location reference
-				aadlbaText.addOutput(object.getName());
-				processEList(object.getArraySizes());
-				return DONE;
+				aadlbaText.addOutput(object.getIdentifierOwned().getId());
+				return caseArraySize(object.getArraySizes());
 			}
 
 			/**
 			 * Unparse arraysize
 			 */
-			public String caseArraySize(ArraySize object) {
+			public String caseArraySize(EList<IntegerValueConstant> arraySizes) {
 				//FIXME : TODO : update location reference
-				aadlbaText.addOutput("[");
-				process(object.getIntegerValueConstant());
-				aadlbaText.addOutput("]");
-				return DONE;
-			}
-
-			/**
-			 * Unparse NumericLiteral
-			 */
-			public String caseNumericLiteral(NumericLiteral object) {
-				//FIXME : TODO : update location reference
-				aadlbaText.addOutput(object.getNumValue());
-				return DONE;
-			}
-
-			/**
-			 * Unparser PropertyConstant
-			 */
-			public String casePropertyConstant(PropertyConstant object) {
-				//FIXME : TODO : update location reference
-				aadlbaText.addOutput(object.getQualifiedName()+"::"+object.getName());
-				return DONE;
-			}
-			
-			/**
-			 * Unparser PropertyValue
-			 */
-			public String casePropertyValue(PropertyValue object) {
-				//FIXME : TODO : update location reference
-				aadlbaText.addOutput(object.getQualifiedName()+"::"+object.getName());
+				for(IntegerValueConstant ivc : arraySizes)
+				{
+					aadlbaText.addOutput("[");
+					process(ivc);
+					aadlbaText.addOutput("]");
+				}
 				return DONE;
 			}
 
@@ -377,10 +249,12 @@ public class AadlBaUnparser {
 			 * Unparse uniquecomponentclassifierreference
 			 */
 			public String caseUniqueComponentClassifierReference(UniqueComponentClassifierReference object) {
-				//FIXME : TODO : update location reference
-				if (object.getQualifiedName() != null)
-					aadlbaText.addOutput(object.getQualifiedName() + ".");
-				aadlbaText.addOutput(object.getName());
+				return caseNamedElement(object) ;
+			}
+			
+			public String caseNamedElement (NamedElement object)
+			{
+				aadlbaText.addOutput(object.getQualifiedName() );
 				return DONE;
 			}
 
@@ -389,7 +263,7 @@ public class AadlBaUnparser {
 			 */
 			public String caseBehaviorState(BehaviorState object) {
 				//FIXME : TODO : update location reference
-				processEList(object.getBehaviorStateIdentifiers(), ", ");
+				processEList(object.getIdentifiers(), ", ");
 				aadlbaText.addOutput(" : ");
 				if (object.isInitial())
 					aadlbaText.addOutput("initial ");
@@ -397,7 +271,7 @@ public class AadlBaUnparser {
 					aadlbaText.addOutput("complete ");
 				if (object.isFinal())
 					aadlbaText.addOutput("final ");
-				aadlbaText.addOutputNewline("state;");
+				aadlbaText.addOutputNewline("state ;");
 				return DONE;
 			}
 
@@ -421,8 +295,7 @@ public class AadlBaUnparser {
 					process(tid);
 					if (num != null) {// numeral
 						aadlbaText.addOutput(" [");
-						Integer inum = new Integer(num.getNumeralValue());
-						aadlbaText.addOutput(inum.toString());
+						aadlbaText.addOutput(String.valueOf(num.getValue()));
 						aadlbaText.addOutput("]");
 					}
 					aadlbaText.addOutput(" : ");
@@ -432,23 +305,23 @@ public class AadlBaUnparser {
 				process(object.getBehaviorConditionOwned());
 				aadlbaText.addOutput("]-> ");
 				process(object.getDestinationStateIdentifier());
-				if (object.getBehaviorActionsOwned() != null) {
-					process(object.getBehaviorActionsOwned());
+				if (object.getBehaviorActionBlockOwned() != null) {
+				   aadlbaText.addOutput(" ");
+				   process(object.getBehaviorActionBlockOwned());
 				}
+				aadlbaText.addOutputNewline(" ;") ;
+				
 				return DONE;
 			}
 			
-			/**
-			 * Unparse executecondition
-			 */
-			public String caseExecuteCondition(ExecuteCondition object) {
-				//FIXME : TODO : update location reference
-				if (object.isCatchTimeout()) {
-					aadlbaText.addOutput("catch (timeout)");
-				} else if (object.getValueExpression() != null) {
-					process(object.getValueExpression());
-				} else
-					aadlbaText.addOutput(" ");
+			public String caseTimeoutCatch(TimeoutCatch object)
+			{
+				aadlbaText.addOutput("timeout");
+				return DONE;
+			}
+			
+			public String caseOtherwise(Otherwise object) {
+				aadlbaText.addOutput("otherwise");
 				return DONE;
 			}
 
@@ -458,244 +331,60 @@ public class AadlBaUnparser {
 			public String caseDispatchCondition(DispatchCondition object) {
 				//FIXME : TODO : update location reference
 				aadlbaText.addOutput("on dispatch");
-				if (object.getTheDispatchLogicalExpression() != null)
-					process(object.getTheDispatchLogicalExpression());
-				if (!object.getFrozenPorts().isEmpty())
-					aadlbaText.addOutput(" ");
-				processEList(object.getFrozenPorts(), ", ");
-				return DONE;
-			}
-
-			/**
-			 * Unparse dispatchlogicalexpression
-			 */
-			public String caseDispatchLogicalExpression(DispatchLogicalExpression object) {
-				//FIXME : TODO : update location reference
-				if (object.isOrExpression())
-					processEList(object.getDispatchTriggers(), "or ");
-				else if (object.isAndExpression())
-					processEList(object.getDispatchTriggers(), "and ");
-				else if(object.isXorExpression())
-					processEList(object.getDispatchTriggers(), "xor ");
-				else if (object.isStop())
-					aadlbaText.addOutput("stop");
-				else // Only one dispatch trigger case
-					processEList(object.getDispatchTriggers());
-				return DONE;
-			}
-
-			/**
-			 * Unparser dispatchtrigger
-			 */
-			public String caseDispatchTrigger(DispatchTrigger object) {
-				//FIXME : TODO : update location reference
-				if (object.isNot())
-					aadlbaText.addOutput("not");
-				if (object.isTimeout()) {
-					aadlbaText.addOutput("timeout");
-					if (object.getTheBehaviorTime() != null)
-						process(object.getTheBehaviorTime());
+				if (object.getDispatchTriggerConditionOwned() != null) {
+					aadlbaText.addOutput(" ") ;
+					process(object.getDispatchTriggerConditionOwned());
 				}
-				else if (object.getNumeralOwned() != null) {
-					Integer inum = new Integer(object.getNumeralOwned().getNumeralValue());
-					aadlbaText.addOutput(inum.toString());
-					if (object.isOrMore())
-						aadlbaText.addOutput("ormore");
-					if (object.isOrLess())
-						aadlbaText.addOutput("orless");
-					if (!object.getDispatchTriggers().isEmpty()) {
-						aadlbaText.addOutput("(");
-						processEList(object.getDispatchTriggers(), ", ");
-						aadlbaText.addOutput(")");
-					}
+				
+				if (object.isSetFrozenPorts()) {
+					aadlbaText.addOutput(" frozen ");
+					processEList(object.getFrozenPorts(), ", ");
 				}
-				else if (object.getIdentifierOwned() != null) {
-					process(object.getIdentifierOwned());
-					if (object.isOthers()) {
-						aadlbaText.addOutput("(");
-						aadlbaText.addOutput("others");
-						aadlbaText.addOutput(")");
-					}
-					else if (object.getValueConstantOwned() != null) {
-						aadlbaText.addOutput("(");
-						process(object.getValueConstantOwned());
-						aadlbaText.addOutput(")");
-					}
-				}
-				else {
-					aadlbaText.addOutput("(");
-					process(object.getTheDispatchLogicalExpression());
-					aadlbaText.addOutput(")");
-				}
+					
 				return DONE;
 			}
 
-			/**
-			 * Unparse behavioractions
-			 */
-			public String caseBehaviorActions(BehaviorActions object) {
-				//FIXME : TODO : update location reference
-				if (object.isSequence())
-					processEList(object.getBehaviorAction(), " ; ");
-				else if (object.isSet())
-					processEList(object.getBehaviorAction(), " & ");
-				else
-					processEList(object.getBehaviorAction());
+			public String caseDispatchTriggerConditionStop(DispatchTriggerConditionStop object) {
+				aadlbaText.addOutput("stop");
 				return DONE;
 			}
 
-			/**
-			 * Unparse behavioraction
-			 */
-			public String caseBehaviorAction(BehaviorAction object) {
-				//FIXME : TODO : update location reference
-				if (object.getBasicActionOwned() != null) {
-					process(object.getBasicActionOwned());
-				} else if (object.getCondStatementOwned() != null) {
-					process(object.getCondStatementOwned());
-				} else {
-					aadlbaText.addOutputNewline("{");
-					aadlbaText.incrementIndent();
-					process(object.getBehaviorActionsOwned());
-					aadlbaText.decrementIndent();
-					aadlbaText.addOutputNewline("}");
-				}
-				return DONE;
-			}
-
-			/**
-			 * Unparse assignmentaction
-			 */
-			public String caseAssignmentAction(AssignmentAction object) {
-				//FIXME : TODO : update location reference
-				process(object.getTargetOwned());
-				aadlbaText.addOutput(" := ");
-				if (object.isAny())
-					aadlbaText.addOutput("any");
-				else
-					process(object.getValueExpressionOwned());
-				return DONE;
-			}
-
-			/**
-			 * Unparse target
-			 */
-			public String caseTarget(Target object) {
-				//FIXME : TODO : update location reference
-				if (object.getElementNameOwned() != null)
-					process(object.getElementNameOwned());
-				else
-					process(object.getDataComponentReferenceOwned());
-				return DONE;
-			}
-
-			/**
-			 * Unparse name
-			 */
-			public String caseName(Name object) {
-				//FIXME : TODO : update location reference
-				process(object.getIdentifier());
-				if (!object.getArrayIndexListOwned().isEmpty())
-					processEList(object.getArrayIndexListOwned());
-				return DONE;
-			}
-
-			/**
-			 * Unparse arrayindex
-			 */
-			public String caseArrayIndex(ArrayIndex object) {
-				//FIXME : TODO : update location reference
-				aadlbaText.addOutput("[");
-				process(object.getIntegerValueVariableOwned());
-				aadlbaText.addOutput("]");
-				return DONE;
-			}
-
-			/**
-			 * Unparse integervalue
-			 */
-			public String caseIntegerValue(IntegerValue object) {
-				//FIXME : TODO : update location reference
-				aadlbaText.addOutput("-- IntegeValue not handle yet");
-				return DONE;
-			}
-
-			/**
-			 * Unparse datacomponentreference
-			 */
-			public String caseDataComponentReference(DataComponentReference object) {
-				//FIXME : TODO : update location reference
-				processEList(object.getElementsNameOwned(), ".");
-				return DONE;
-			}
-
-			/**
-			 * Unparse communicationaction
-			 */
-			public String caseCommunicationAction(CommunicationAction object) {
-				//FIXME : TODO : update location reference
-				if (object.isCatchTimeout()) {
-					aadlbaText.addOutput("catch (timeout)");
-				} else if (object.getDataUniqueComponentClassifierReference() != null) {
-					process(object.getDataUniqueComponentClassifierReference());
-					aadlbaText.addOutput(object.getActionType().getLiteral());
-					if (object.isSetSubpgmParamListOwned()) {
-						aadlbaText.addOutput("(");
-						process(object.getSubpgmParamListOwned());
-						aadlbaText.addOutput(")");
-					}
-				} else if (object.isAll()) {
-					aadlbaText.addOutput("*"+object.getActionType().getLiteral());
-				} else {
-					process(object.getEltNameOwned());
-					aadlbaText.addOutput(object.getActionType().getLiteral());
-					if (object.isSetSubpgmParamListOwned()) {
-						aadlbaText.addOutput("(");
-						process(object.getSubpgmParamListOwned());
-						aadlbaText.addOutput(")");
-					}
-					if (object.isHasValueExpression()) {
-						aadlbaText.addOutput("(");
-						process(object.getValueExprOwned());
-						aadlbaText.addOutput(")");
-					}
-					if (object.isHasTarget()) {
-						aadlbaText.addOutput("(");
-						process(object.getTarOwned());
-						aadlbaText.addOutput(")");
-					}
-				}
+			public String caseCompletionRelativeTimeoutConditionAndCatch(CompletionRelativeTimeoutConditionAndCatch object) {
+				aadlbaText.addOutput("timeout ") ;
+				caseBehaviorTime(object) ;				
 				return DONE;
 			}
 			
-			/**
-			 * Unparse subprogramparameterlist
-			 */
-			public String caseSubprogramParameterList(SubprogramParameterList object) {
-				//FIXME : TODO : update location reference
-				processEList(object.getParameterList(), ", ");
+			public String caseDispatchTriggerLogicalExpression(DispatchTriggerLogicalExpression object) {
+				
+				processEList(object.getDispatchConjunctions(), " or ") ;
 				return DONE;
 			}
 			
-			/**
-			 * Unparse timedaction
-			 */
-			public String caseTimedAction(TimedAction object) {
-				//FIXME : TODO : update location reference
-				aadlbaText.addOutput("computation (");
-				processEList(object.getBehaviorTimesOwned(), ", ");
-				aadlbaText.addOutput(")");
+			public String caseDispatchConjunction(DispatchConjunction object) {
+				processEList(object.getDispatchTriggers(), " and ");
 				return DONE;
 			}
-
-			/**
-			 * Unparse behaviortime
-			 */
-			public String caseBehaviorTime(BehaviorTime object) {
-				//FIXME : TODO : update location reference
-				process(object.getIntegerValueOwned());
-				if (object.getUnitIdentifier() != null)
-					process(object.getUnitIdentifier());
+			
+			public String caseBehaviorActionBlock (BehaviorActionBlock object) {
+				aadlbaText.addOutput("{") ;
+				process(object.getBehaviorActionsOwned());
+				if(object.getBehaviorTimeOwned() != null)
+				{
+					aadlbaText.addOutput(" timeout ") ;
+					process(object.getBehaviorTimeOwned());
+				}
+				aadlbaText.addOutput("}") ;
+				return DONE ;
+			}
+			
+			public String caseBehaviorActionSequence(BehaviorActionSequence object) {
+				processEList(object.getBehaviorActions(), " ; ") ;
+				return DONE;
+			}
+			
+			public String caseBehaviorActionSet(BehaviorActionSet object) {
+				processEList(object.getBehaviorActions(), " & ") ;
 				return DONE;
 			}
 			
@@ -705,7 +394,7 @@ public class AadlBaUnparser {
 			public String caseIfStatement(IfStatement object) {
 				//FIXME : TODO : update location reference
 				boolean first = true;
-				EList<ValueExpression> lve = object.getValueExpressionOwned();
+				EList<ValueExpression> lve = object.getLogicalValueExpressions();
 				EList<BehaviorActions> lba = object.getBehaviorActionsOwned();
 				
 				for (ValueExpression ve : lve) {
@@ -739,11 +428,9 @@ public class AadlBaUnparser {
 					aadlbaText.addOutput("forall (");
 				else
 					aadlbaText.addOutput("for (");
-				process(object.getElement());
-				if (object.getDataUniqueCmtClassRef() != null) {
-					aadlbaText.addOutput(" : ");
-					process(object.getDataUniqueCmtClassRef());
-				}
+				process(object.getElementIdentifier());
+    			aadlbaText.addOutput(" : ");
+				process(object.getDataUniqueComponentClassifierReference());
 				aadlbaText.addOutput(" in ");
 				process(object.getElementValuesOwned());
 				aadlbaText.addOutputNewline(")");
@@ -756,13 +443,21 @@ public class AadlBaUnparser {
 				return DONE;
 			}
 
+			public String caseWhileOrDoUntilStatement(WhileOrDoUntilStatement object) {
+				if(object.isDoUntil())
+					return caseDoUntilStatement(object) ;
+				else
+					return caseWhileStatement(object) ;
+			}
+
 			/**
 			 * Unparse whilestatement
 			 */
-			public String caseWhileStatement(WhileStatement object) {
+
+			public String caseWhileStatement(WhileOrDoUntilStatement object) {
 				//FIXME : TODO : update location reference
 				aadlbaText.addOutput("while (");
-				process(object.getValueExpressionOwned());
+				process(object.getLogicalValueExpression());
 				aadlbaText.addOutputNewline(")");
 				aadlbaText.addOutputNewline("{");
 				aadlbaText.incrementIndent();
@@ -770,19 +465,19 @@ public class AadlBaUnparser {
 				aadlbaText.decrementIndent();
 				aadlbaText.addOutputNewline("");
 				aadlbaText.addOutputNewline("}");
-				return DONE;
+				return DONE;	
 			}
-
+			
 			/**
 			 * Unparse dountilstatement
 			 */
-			public String caseDoUntilStatement(DoUntilStatement object) {
+			public String caseDoUntilStatement(WhileOrDoUntilStatement object) {
 				//FIXME : TODO : update location reference
 				aadlbaText.addOutputNewline("do");
 				process(object.getBehaviorActionsOwned());
 				aadlbaText.addOutputNewline("");
 				aadlbaText.addOutput("until (");
-				process(object.getValueExpressionOwned());
+				process(object.getLogicalValueExpression());
 				aadlbaText.addOutputNewline(")");
 				return DONE;
 			}
@@ -799,116 +494,161 @@ public class AadlBaUnparser {
 			}
 			
 			/**
-			 * Unparse valuevariable
+			 * Unparse timedaction
 			 */
-			public String caseValueVariable(ValueVariable object) {
-				//FIXME : TODO : update location reference
-				if (object.getElementNameOwned() != null) {
-					process(object.getElementNameOwned());
-					if (object.isInterrogation())
-						aadlbaText.addOutput("?");
-					if (object.isCount())
-						aadlbaText.addOutput("'count");
-					if (object.isFresh())
-						aadlbaText.addOutput("'fresh");
-				} else
-					process(object.getDataComponentReferenceOwned());
+			public String caseTimedAction(TimedAction object) {
+				aadlbaText.addOutput("computation (") ;
+				process(object.getLowerBehaviorTime()) ;
+				if(object.getUpperBehaviorTime() != null)
+			    {
+					aadlbaText.addOutput(" .. ") ;
+					process(object.getUpperBehaviorTime()) ;
+			    }
+				aadlbaText.addOutput(")") ;
 				return DONE;
 			}
 			
 			/**
-			 * Unparse valueexpression
+			 * Unparse assignmentaction
 			 */
-			public String caseValueExpression(ValueExpression object) {
+			public String caseAssignmentAction(AssignmentAction object) {
 				//FIXME : TODO : update location reference
-				if (object.isHasLogicalOperator()) {
-					EList<Relation> lr = object.getRelationsOwned();
-					EList<LogicalOperator> lo = object.getLogicalOperatorsOwned();
-					for (Relation r : lr) {
-						process(r);
-						LogicalOperator o = object.getLogicalOperatorsOwned().get(lr.indexOf(r));
-						if (o != null) 
-							aadlbaText.addOutput(" "+ o.getLiteral());
-					}
-				} else // only one relation case
-					processEList(object.getRelationsOwned());
+				process(object.getTargetOwned());
+				aadlbaText.addOutput(" := ");
+				if (object.isAny())
+					aadlbaText.addOutput("any");
+				else
+					process(object.getValueExpressionOwned());
 				return DONE;
 			}
-			
+
 			/**
-			 * Unparse relation
+			 * Unparse name
 			 */
-			public String caseRelation(Relation object) {
+			public String caseName(Name object) {
 				//FIXME : TODO : update location reference
-				process(object.getSimpleExpressionOwned());
-				if (object.isHasRelationalOperator()) {
-					aadlbaText.addOutput(" "+object.getRelationalOperatorOwned().getLiteral()+" ");
-					process(object.getSimpleExpressionSdOwned());
-				} 
-				return DONE;
+				process(object.getIdentifierOwned());
+				if (object.isSetArrayIndexes())
+					return caseArrayIndex(object.getArrayIndexes()) ; 
+			    else
+			    	return DONE;
 			}
-			
+
 			/**
-			 * Unparse simpleexpression
+			 * Unparse arrayindex
 			 */
-			public String caseSimpleExpression(SimpleExpression object) {
+			public String caseArrayIndex(EList<IntegerValueVariable> object) {
 				//FIXME : TODO : update location reference
-				if (object.isHasUnaryAddingOperator())
-					aadlbaText.addOutput(object.getUnaryAddingOperatorOwned().getLiteral());
-				if (object.isHasBinaryAddingOperator()) {
-					EList<Term> lt = object.getTermsOwned();
-					EList<BinaryAddingOperator> lbao = object.getBinaryAddingOperatorOwned();
-					for (Term t : lt) {
-						process(t);
-						BinaryAddingOperator bao = lbao.get(lt.indexOf(t));
-						if (bao != null)
-							aadlbaText.addOutput(" "+bao.getLiteral()+" ");
-					}
-				} else // only one term case
-					processEList(object.getTermsOwned());
-	
-				return DONE;
-			}
-			
-			/**
-			 * Unparse term
-			 */
-			public String caseTerm(Term object) {
-				//FIXME : TODO : update location reference
-				if (object.isHasMultiplyingOperator()) {
-					EList<Factor> lf = object.getFactorsOwned();
-					EList<MultiplyingOperator> lmo = object.getMultiplyingOperatorsOwned();
-					for (Factor f : lf) {
-						process(f);
-						MultiplyingOperator mo = lmo.get(lf.indexOf(f));
-						if (mo != null)
-							aadlbaText.addOutput(" "+mo.getLiteral()+" ");
-					}
-				} else // only one factor case
-					processEList(object.getFactorsOwned());
-				return DONE;
-			}
-			
-			/**
-			 * Unparse factor
-			 */
-			public String caseFactor(Factor object) {
-				//FIXME : TODO : update location reference
-				if (object.isHasBinaryNumericOperator()) {
-					process(object.getValueOwned());
-					aadlbaText.addOutput(" "+object.getBinaryNumericOperatorOwned().getLiteral()+" ");
-					process(object.getValueSdOwned());
+				for(IntegerValueVariable ivv : object)
+				{
+					aadlbaText.addOutput("[");
+					process(ivv);
+					aadlbaText.addOutput("]");
 				}
-				else if (object.isHasUnaryNumericOperator()) {
-					aadlbaText.addOutput(object.getUnaryNumericOperatorOwned().getLiteral()+" ");
-					process(object.getValueOwned());
-				}
-				else if (object.isHasUnaryBooleanOperator()) {
-					aadlbaText.addOutput(object.getUnaryBooleanOperatorOwned().getLiteral()+" ");
-					process(object.getValueOwned());
-				} else
-					process(object.getValueOwned());
+				return DONE;
+			}
+
+			/**
+			 * Unparse datacomponentreference
+			 */
+			public String caseDataComponentReference(DataComponentReference object) {
+				//FIXME : TODO : update location reference
+				processEList(object.getNames(), ".");
+				return DONE;
+			}
+
+			public String caseSubprogramCallAction(SubprogramCallAction object) {
+				if(object.isSetSubprogramNames())
+					processEList(object.getSubprogramNames(), ".") ;
+				else
+					process(object.getSubprogramReference()) ;
 				
+				aadlbaText.addOutput(" !") ;
+				
+				if(object.isSetParameterLabels()) {
+					aadlbaText.addOutput(" (") ;
+					processEList(object.getParameterLabels(), ", ") ;
+					aadlbaText.addOutput(")") ;
+				}
+				return DONE;
+			}
+			
+			public String casePortSendAction(PortSendAction object) {
+				process(object.getPortName()) ;
+				aadlbaText.addOutput(" !") ;
+				
+				if(object.getValueExpressionOwned() != null) {
+					aadlbaText.addOutput(" (") ;
+					process(object.getValueExpressionOwned());
+					aadlbaText.addOutput(")") ;
+				}
+				return DONE;
+			}
+			
+			public String casePortFreezeAction(PortFreezeAction object) {
+				return casePortActionOrValue(object, " >>") ;
+			}
+			
+			public String casePortDequeueAction(PortDequeueAction object) {
+				process(object.getPortName()) ;
+				aadlbaText.addOutput(" ?") ;
+				if(object.getTargetOwned() != null)
+				{
+					aadlbaText.addOutput(" (") ;
+					process(object.getTargetOwned()) ;
+					aadlbaText.addOutput(")");
+				}
+				return DONE;
+			}
+			
+			public String caseLockAction(LockAction object) {
+				return caseSharedDataAction(object, "!<") ;
+			}
+			
+			public String caseUnlockAction(UnlockAction object) {
+				return caseSharedDataAction(object, "!>") ;
+			}
+			
+			public String caseSharedDataAction(SharedDataAction object, String token) {
+				if(object.getDataAccessName() != null)
+				{
+					process(object.getDataAccessName()) ;
+					aadlbaText.addOutput(" ") ;
+				}
+				else
+					aadlbaText.addOutput("*") ;
+				
+				aadlbaText.addOutput(token) ;				
+				return DONE;
+			}
+			
+			/**
+			 * Unparse behaviortime
+			 */
+			public String caseBehaviorTime(BehaviorTime object) {
+				//FIXME : TODO : update location reference
+				process(object.getIntegerValueOwned());
+				aadlbaText.addOutput(" ") ;
+				process(object.getUnitIdentifier());
+				return DONE;
+			}
+			
+			public String casePortDequeueValue(PortDequeueValue object) {
+				return casePortActionOrValue(object, " ?") ;
+			}
+			
+			public String casePortCountValue(PortCountValue object) {
+				return casePortActionOrValue(object, "' count");
+			}
+			
+			public String casePortFreshValue(PortFreshValue object) {
+				return casePortActionOrValue(object, "' fresh");
+			}
+			
+			public String casePortActionOrValue(Name object, String token)
+			{
+				caseName(object) ;
+				aadlbaText.addOutput(token) ;
 				return DONE;
 			}
 			
@@ -917,7 +657,7 @@ public class AadlBaUnparser {
 			 */
 			public String caseBooleanLiteral(BooleanLiteral object) {
 				//FIXME : TODO : update location reference
-				if (object.isBoolValue())
+				if (object.isValue())
 					aadlbaText.addOutput("true");
 				else
 					aadlbaText.addOutput("false");
@@ -929,17 +669,152 @@ public class AadlBaUnparser {
 			 */
 			public String caseStringLiteral(StringLiteral object) {
 				//FIXME : TODO : update location reference
-				aadlbaText.addOutput(object.getStringValue());
+				aadlbaText.addOutput(object.getValue());
+				return DONE;
+			}
+			
+			public String caseRealLiteral(RealLiteral object) {
+				aadlbaText.addOutput(String.valueOf(object.getValue())) ;
+				return DONE;
+			}
+			
+			public String caseIntegerLiteral(IntegerLiteral object) {
+				aadlbaText.addOutput(object.getValueString()) ;
 				return DONE;
 			}
 			
 			/**
-			 * Unparse numeral
+			 * Unparser PropertyConstant
 			 */
-			public String caseNumeral(Numeral object) {
+			public String casePropertyConstant(PropertyConstant object) {
+				return caseNamedElement(object) ;
+			}
+			
+			/**
+			 * Unparser PropertyValue
+			 */
+			public String casePropertyValue(PropertyValue object) {
+				return caseNamedElement(object) ;
+			}
+			
+			/**
+			 * Unparse valueexpression
+			 */
+			public String caseValueExpression(ValueExpression object) {
 				//FIXME : TODO : update location reference
-				Integer inum = new Integer(object.getNumeralValue());
-				aadlbaText.addOutput(inum.toString());
+				Iterator<Relation> itRel = object.getRelations().iterator(); 
+				process(itRel.next()) ;
+							
+				if(object.isSetLogicalOperators()) {
+					Iterator<LogicalOperator> itOp = object.getLogicalOperators().iterator();
+					while(itRel.hasNext())
+					{
+						aadlbaText.addOutput(" " + itOp.next().getLiteral() + " ");
+						process(itRel.next()) ;
+					}
+				}
+				return DONE;
+			}
+			
+			/**
+			 * Unparse relation
+			 */
+			public String caseRelation(Relation object) {
+				//FIXME : TODO : update location reference
+				process(object.getSimpleExpressionOwned());
+				if (object.getSimpleExpressionSdOwned() != null) {
+					aadlbaText.addOutput(" "+object.getRelationalOperatorOwned().getLiteral()+" ");
+					process(object.getSimpleExpressionSdOwned());
+				} 
+				return DONE;
+			}
+			
+			/**
+			 * Unparse simpleexpression
+			 */
+			public String caseSimpleExpression(SimpleExpression object) {
+				//FIXME : TODO : update location reference
+				if (object.isSetUnaryAddingOperatorOwned())
+					aadlbaText.addOutput(object.getUnaryAddingOperatorOwned().getLiteral());
+				
+				Iterator<Term> itTerm = object.getTerms().iterator() ;
+				
+				process(itTerm.next()) ;
+				
+				if(object.isSetBinaryAddingOperators())
+				{
+					Iterator<BinaryAddingOperator> itOp = object.getBinaryAddingOperators().iterator() ;
+					while(itTerm.hasNext())
+					{
+						aadlbaText.addOutput(" "+itOp.next().getLiteral()+" ");
+						process(itTerm.next()) ;
+					}
+				}
+				
+				return DONE;
+			}
+			
+			/**
+			 * Unparse term
+			 */
+			public String caseTerm(Term object) {
+				//FIXME : TODO : update location reference
+				Iterator<Factor> itFact = object.getFactors().iterator() ;
+				
+				process(itFact.next()) ;
+				
+				if(object.isSetMultiplyingOperators()) {
+					Iterator<MultiplyingOperator> itOp = object.getMultiplyingOperators().iterator() ;
+					while(itFact.hasNext()) {
+					aadlbaText.addOutput(" " + itOp.next().getLiteral() + " ") ;
+					process(itFact.next()) ;
+					}
+				}
+				return DONE;
+			}
+			
+			/**
+			 * Unparse factor
+			 */
+			public String caseFactor(Factor object) {
+				//FIXME : TODO : update location reference
+				if(object.isSetUnaryNumericOperatorOwned() ||
+				   object.isSetUnaryBooleanOperatorOwned()    ) {
+					Enumerator e = null ;
+					if(object.isSetUnaryNumericOperatorOwned())
+						e = object.getUnaryNumericOperatorOwned() ;
+					else
+						if(object.isSetUnaryBooleanOperatorOwned())
+							e = object.getUnaryBooleanOperatorOwned() ;
+					
+					aadlbaText.addOutput(e.getLiteral() + " ");
+				}
+				
+				if(object.getValueOwned() instanceof ValueExpression)
+				{
+					aadlbaText.addOutput("(") ;
+					process(object.getValueOwned()) ;
+					aadlbaText.addOutput(")") ;
+				}
+				else
+				{
+					process(object.getValueOwned()) ;
+				}
+				
+				if(object.isSetBinaryNumericOperatorOwned())
+				{
+					aadlbaText.addOutput(" " + object.getBinaryNumericOperatorOwned().getLiteral() + " ");
+					if(object.getValueSdOwned() instanceof ValueExpression)
+					{
+						aadlbaText.addOutput("(") ;
+						process(object.getValueSdOwned()) ;
+						aadlbaText.addOutput(")") ;
+					}
+					else
+					{
+						process(object.getValueSdOwned()) ;
+					}
+				}
 				return DONE;
 			}
 		};

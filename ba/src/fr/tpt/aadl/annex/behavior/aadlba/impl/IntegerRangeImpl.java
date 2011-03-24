@@ -32,66 +32,61 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class IntegerRangeImpl extends ElementImpl implements IntegerRange
-{
-   /**
+public class IntegerRangeImpl extends ElementImpl implements IntegerRange {
+	/**
 	 * The cached value of the '{@link #getLowerIntegerValue() <em>Lower Integer Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getLowerIntegerValue()
 	 * @generated
 	 * @ordered
 	 */
-   protected IntegerValue lowerIntegerValue;
+	protected IntegerValue lowerIntegerValue;
 
-   /**
+	/**
 	 * The cached value of the '{@link #getUpperIntegerValue() <em>Upper Integer Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getUpperIntegerValue()
 	 * @generated
 	 * @ordered
 	 */
-   protected IntegerValue upperIntegerValue;
+	protected IntegerValue upperIntegerValue;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected IntegerRangeImpl()
-   {
+	protected IntegerRangeImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.INTEGER_RANGE;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public IntegerValue getLowerIntegerValue()
-   {
+	public IntegerValue getLowerIntegerValue() {
 		return lowerIntegerValue;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public NotificationChain basicSetLowerIntegerValue(IntegerValue newLowerIntegerValue, NotificationChain msgs)
-   {
+	public NotificationChain basicSetLowerIntegerValue(IntegerValue newLowerIntegerValue, NotificationChain msgs) {
 		IntegerValue oldLowerIntegerValue = lowerIntegerValue;
 		lowerIntegerValue = newLowerIntegerValue;
 		if (eNotificationRequired()) {
@@ -101,13 +96,12 @@ public class IntegerRangeImpl extends ElementImpl implements IntegerRange
 		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setLowerIntegerValue(IntegerValue newLowerIntegerValue)
-   {
+	public void setLowerIntegerValue(IntegerValue newLowerIntegerValue) {
 		if (newLowerIntegerValue != lowerIntegerValue) {
 			NotificationChain msgs = null;
 			if (lowerIntegerValue != null)
@@ -121,23 +115,21 @@ public class IntegerRangeImpl extends ElementImpl implements IntegerRange
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.INTEGER_RANGE__LOWER_INTEGER_VALUE, newLowerIntegerValue, newLowerIntegerValue));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public IntegerValue getUpperIntegerValue()
-   {
+	public IntegerValue getUpperIntegerValue() {
 		return upperIntegerValue;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public NotificationChain basicSetUpperIntegerValue(IntegerValue newUpperIntegerValue, NotificationChain msgs)
-   {
+	public NotificationChain basicSetUpperIntegerValue(IntegerValue newUpperIntegerValue, NotificationChain msgs) {
 		IntegerValue oldUpperIntegerValue = upperIntegerValue;
 		upperIntegerValue = newUpperIntegerValue;
 		if (eNotificationRequired()) {
@@ -147,13 +139,12 @@ public class IntegerRangeImpl extends ElementImpl implements IntegerRange
 		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setUpperIntegerValue(IntegerValue newUpperIntegerValue)
-   {
+	public void setUpperIntegerValue(IntegerValue newUpperIntegerValue) {
 		if (newUpperIntegerValue != upperIntegerValue) {
 			NotificationChain msgs = null;
 			if (upperIntegerValue != null)
@@ -167,14 +158,13 @@ public class IntegerRangeImpl extends ElementImpl implements IntegerRange
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.INTEGER_RANGE__UPPER_INTEGER_VALUE, newUpperIntegerValue, newUpperIntegerValue));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case AadlBaPackage.INTEGER_RANGE__LOWER_INTEGER_VALUE:
 				return basicSetLowerIntegerValue(null, msgs);
@@ -184,14 +174,13 @@ public class IntegerRangeImpl extends ElementImpl implements IntegerRange
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case AadlBaPackage.INTEGER_RANGE__LOWER_INTEGER_VALUE:
 				return getLowerIntegerValue();
@@ -201,14 +190,13 @@ public class IntegerRangeImpl extends ElementImpl implements IntegerRange
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case AadlBaPackage.INTEGER_RANGE__LOWER_INTEGER_VALUE:
 				setLowerIntegerValue((IntegerValue)newValue);
@@ -220,14 +208,13 @@ public class IntegerRangeImpl extends ElementImpl implements IntegerRange
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.INTEGER_RANGE__LOWER_INTEGER_VALUE:
 				setLowerIntegerValue((IntegerValue)null);
@@ -239,14 +226,13 @@ public class IntegerRangeImpl extends ElementImpl implements IntegerRange
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.INTEGER_RANGE__LOWER_INTEGER_VALUE:
 				return lowerIntegerValue != null;

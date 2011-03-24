@@ -33,194 +33,153 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.FactorImpl#getBinaryNumericOperatorOwned <em>Binary Numeric Operator Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.FactorImpl#getUnaryNumericOperatorOwned <em>Unary Numeric Operator Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.FactorImpl#getUnaryBooleanOperatorOwned <em>Unary Boolean Operator Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.FactorImpl#isHasBinaryNumericOperator <em>Has Binary Numeric Operator</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.FactorImpl#isHasUnaryNumericOperator <em>Has Unary Numeric Operator</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.FactorImpl#isHasUnaryBooleanOperator <em>Has Unary Boolean Operator</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class FactorImpl extends ElementImpl implements Factor
-{
-   /**
+public class FactorImpl extends ElementImpl implements Factor {
+	/**
 	 * The cached value of the '{@link #getValueOwned() <em>Value Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getValueOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected Value valueOwned;
+	protected Value valueOwned;
 
-   /**
+	/**
 	 * The cached value of the '{@link #getValueSdOwned() <em>Value Sd Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getValueSdOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected Value valueSdOwned;
+	protected Value valueSdOwned;
 
-   /**
+	/**
 	 * The default value of the '{@link #getBinaryNumericOperatorOwned() <em>Binary Numeric Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getBinaryNumericOperatorOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final BinaryNumericOperator BINARY_NUMERIC_OPERATOR_OWNED_EDEFAULT = BinaryNumericOperator.MULTIPLY_MULTIPLY;
+	protected static final BinaryNumericOperator BINARY_NUMERIC_OPERATOR_OWNED_EDEFAULT = BinaryNumericOperator.NONE;
 
-   /**
+	/**
 	 * The cached value of the '{@link #getBinaryNumericOperatorOwned() <em>Binary Numeric Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getBinaryNumericOperatorOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected BinaryNumericOperator binaryNumericOperatorOwned = BINARY_NUMERIC_OPERATOR_OWNED_EDEFAULT;
+	protected BinaryNumericOperator binaryNumericOperatorOwned = BINARY_NUMERIC_OPERATOR_OWNED_EDEFAULT;
 
-   /**
+	/**
+	 * This is true if the Binary Numeric Operator Owned attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean binaryNumericOperatorOwnedESet;
+
+	/**
 	 * The default value of the '{@link #getUnaryNumericOperatorOwned() <em>Unary Numeric Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getUnaryNumericOperatorOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final UnaryNumericOperator UNARY_NUMERIC_OPERATOR_OWNED_EDEFAULT = UnaryNumericOperator.ABS;
+	protected static final UnaryNumericOperator UNARY_NUMERIC_OPERATOR_OWNED_EDEFAULT = UnaryNumericOperator.NONE;
 
-   /**
+	/**
 	 * The cached value of the '{@link #getUnaryNumericOperatorOwned() <em>Unary Numeric Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getUnaryNumericOperatorOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected UnaryNumericOperator unaryNumericOperatorOwned = UNARY_NUMERIC_OPERATOR_OWNED_EDEFAULT;
+	protected UnaryNumericOperator unaryNumericOperatorOwned = UNARY_NUMERIC_OPERATOR_OWNED_EDEFAULT;
 
-   /**
+	/**
+	 * This is true if the Unary Numeric Operator Owned attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean unaryNumericOperatorOwnedESet;
+
+	/**
 	 * The default value of the '{@link #getUnaryBooleanOperatorOwned() <em>Unary Boolean Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getUnaryBooleanOperatorOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final UnaryBooleanOperator UNARY_BOOLEAN_OPERATOR_OWNED_EDEFAULT = UnaryBooleanOperator.NOT;
+	protected static final UnaryBooleanOperator UNARY_BOOLEAN_OPERATOR_OWNED_EDEFAULT = UnaryBooleanOperator.NONE;
 
-   /**
+	/**
 	 * The cached value of the '{@link #getUnaryBooleanOperatorOwned() <em>Unary Boolean Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getUnaryBooleanOperatorOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected UnaryBooleanOperator unaryBooleanOperatorOwned = UNARY_BOOLEAN_OPERATOR_OWNED_EDEFAULT;
+	protected UnaryBooleanOperator unaryBooleanOperatorOwned = UNARY_BOOLEAN_OPERATOR_OWNED_EDEFAULT;
 
-   /**
-	 * The default value of the '{@link #isHasBinaryNumericOperator() <em>Has Binary Numeric Operator</em>}' attribute.
+	/**
+	 * This is true if the Unary Boolean Operator Owned attribute has been set.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isHasBinaryNumericOperator()
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-   protected static final boolean HAS_BINARY_NUMERIC_OPERATOR_EDEFAULT = false;
+	protected boolean unaryBooleanOperatorOwnedESet;
 
-   /**
-	 * The cached value of the '{@link #isHasBinaryNumericOperator() <em>Has Binary Numeric Operator</em>}' attribute.
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isHasBinaryNumericOperator()
-	 * @generated
-	 * @ordered
-	 */
-   protected boolean hasBinaryNumericOperator = HAS_BINARY_NUMERIC_OPERATOR_EDEFAULT;
-
-   /**
-	 * The default value of the '{@link #isHasUnaryNumericOperator() <em>Has Unary Numeric Operator</em>}' attribute.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isHasUnaryNumericOperator()
-	 * @generated
-	 * @ordered
-	 */
-   protected static final boolean HAS_UNARY_NUMERIC_OPERATOR_EDEFAULT = false;
-
-   /**
-	 * The cached value of the '{@link #isHasUnaryNumericOperator() <em>Has Unary Numeric Operator</em>}' attribute.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isHasUnaryNumericOperator()
-	 * @generated
-	 * @ordered
-	 */
-   protected boolean hasUnaryNumericOperator = HAS_UNARY_NUMERIC_OPERATOR_EDEFAULT;
-
-   /**
-	 * The default value of the '{@link #isHasUnaryBooleanOperator() <em>Has Unary Boolean Operator</em>}' attribute.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isHasUnaryBooleanOperator()
-	 * @generated
-	 * @ordered
-	 */
-   protected static final boolean HAS_UNARY_BOOLEAN_OPERATOR_EDEFAULT = false;
-
-   /**
-	 * The cached value of the '{@link #isHasUnaryBooleanOperator() <em>Has Unary Boolean Operator</em>}' attribute.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isHasUnaryBooleanOperator()
-	 * @generated
-	 * @ordered
-	 */
-   protected boolean hasUnaryBooleanOperator = HAS_UNARY_BOOLEAN_OPERATOR_EDEFAULT;
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected FactorImpl()
-   {
+	protected FactorImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.FACTOR;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public Value getValueOwned()
-   {
+	public Value getValueOwned() {
 		return valueOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public NotificationChain basicSetValueOwned(Value newValueOwned, NotificationChain msgs)
-   {
+	public NotificationChain basicSetValueOwned(Value newValueOwned, NotificationChain msgs) {
 		Value oldValueOwned = valueOwned;
 		valueOwned = newValueOwned;
 		if (eNotificationRequired()) {
@@ -230,13 +189,12 @@ public class FactorImpl extends ElementImpl implements Factor
 		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setValueOwned(Value newValueOwned)
-   {
+	public void setValueOwned(Value newValueOwned) {
 		if (newValueOwned != valueOwned) {
 			NotificationChain msgs = null;
 			if (valueOwned != null)
@@ -250,23 +208,21 @@ public class FactorImpl extends ElementImpl implements Factor
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__VALUE_OWNED, newValueOwned, newValueOwned));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public Value getValueSdOwned()
-   {
+	public Value getValueSdOwned() {
 		return valueSdOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public NotificationChain basicSetValueSdOwned(Value newValueSdOwned, NotificationChain msgs)
-   {
+	public NotificationChain basicSetValueSdOwned(Value newValueSdOwned, NotificationChain msgs) {
 		Value oldValueSdOwned = valueSdOwned;
 		valueSdOwned = newValueSdOwned;
 		if (eNotificationRequired()) {
@@ -276,13 +232,12 @@ public class FactorImpl extends ElementImpl implements Factor
 		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setValueSdOwned(Value newValueSdOwned)
-   {
+	public void setValueSdOwned(Value newValueSdOwned) {
 		if (newValueSdOwned != valueSdOwned) {
 			NotificationChain msgs = null;
 			if (valueSdOwned != null)
@@ -296,152 +251,151 @@ public class FactorImpl extends ElementImpl implements Factor
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__VALUE_SD_OWNED, newValueSdOwned, newValueSdOwned));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public BinaryNumericOperator getBinaryNumericOperatorOwned()
-   {
+	public BinaryNumericOperator getBinaryNumericOperatorOwned() {
 		return binaryNumericOperatorOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setBinaryNumericOperatorOwned(BinaryNumericOperator newBinaryNumericOperatorOwned)
-   {
+	public void setBinaryNumericOperatorOwned(BinaryNumericOperator newBinaryNumericOperatorOwned) {
 		BinaryNumericOperator oldBinaryNumericOperatorOwned = binaryNumericOperatorOwned;
 		binaryNumericOperatorOwned = newBinaryNumericOperatorOwned == null ? BINARY_NUMERIC_OPERATOR_OWNED_EDEFAULT : newBinaryNumericOperatorOwned;
+		boolean oldBinaryNumericOperatorOwnedESet = binaryNumericOperatorOwnedESet;
+		binaryNumericOperatorOwnedESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR_OWNED, oldBinaryNumericOperatorOwned, binaryNumericOperatorOwned));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR_OWNED, oldBinaryNumericOperatorOwned, binaryNumericOperatorOwned, !oldBinaryNumericOperatorOwnedESet));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public UnaryNumericOperator getUnaryNumericOperatorOwned()
-   {
+	public void unsetBinaryNumericOperatorOwned() {
+		BinaryNumericOperator oldBinaryNumericOperatorOwned = binaryNumericOperatorOwned;
+		boolean oldBinaryNumericOperatorOwnedESet = binaryNumericOperatorOwnedESet;
+		binaryNumericOperatorOwned = BINARY_NUMERIC_OPERATOR_OWNED_EDEFAULT;
+		binaryNumericOperatorOwnedESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR_OWNED, oldBinaryNumericOperatorOwned, BINARY_NUMERIC_OPERATOR_OWNED_EDEFAULT, oldBinaryNumericOperatorOwnedESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetBinaryNumericOperatorOwned() {
+		return binaryNumericOperatorOwnedESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UnaryNumericOperator getUnaryNumericOperatorOwned() {
 		return unaryNumericOperatorOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setUnaryNumericOperatorOwned(UnaryNumericOperator newUnaryNumericOperatorOwned)
-   {
+	public void setUnaryNumericOperatorOwned(UnaryNumericOperator newUnaryNumericOperatorOwned) {
 		UnaryNumericOperator oldUnaryNumericOperatorOwned = unaryNumericOperatorOwned;
 		unaryNumericOperatorOwned = newUnaryNumericOperatorOwned == null ? UNARY_NUMERIC_OPERATOR_OWNED_EDEFAULT : newUnaryNumericOperatorOwned;
+		boolean oldUnaryNumericOperatorOwnedESet = unaryNumericOperatorOwnedESet;
+		unaryNumericOperatorOwnedESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR_OWNED, oldUnaryNumericOperatorOwned, unaryNumericOperatorOwned));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR_OWNED, oldUnaryNumericOperatorOwned, unaryNumericOperatorOwned, !oldUnaryNumericOperatorOwnedESet));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public UnaryBooleanOperator getUnaryBooleanOperatorOwned()
-   {
+	public void unsetUnaryNumericOperatorOwned() {
+		UnaryNumericOperator oldUnaryNumericOperatorOwned = unaryNumericOperatorOwned;
+		boolean oldUnaryNumericOperatorOwnedESet = unaryNumericOperatorOwnedESet;
+		unaryNumericOperatorOwned = UNARY_NUMERIC_OPERATOR_OWNED_EDEFAULT;
+		unaryNumericOperatorOwnedESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR_OWNED, oldUnaryNumericOperatorOwned, UNARY_NUMERIC_OPERATOR_OWNED_EDEFAULT, oldUnaryNumericOperatorOwnedESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetUnaryNumericOperatorOwned() {
+		return unaryNumericOperatorOwnedESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UnaryBooleanOperator getUnaryBooleanOperatorOwned() {
 		return unaryBooleanOperatorOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setUnaryBooleanOperatorOwned(UnaryBooleanOperator newUnaryBooleanOperatorOwned)
-   {
+	public void setUnaryBooleanOperatorOwned(UnaryBooleanOperator newUnaryBooleanOperatorOwned) {
 		UnaryBooleanOperator oldUnaryBooleanOperatorOwned = unaryBooleanOperatorOwned;
 		unaryBooleanOperatorOwned = newUnaryBooleanOperatorOwned == null ? UNARY_BOOLEAN_OPERATOR_OWNED_EDEFAULT : newUnaryBooleanOperatorOwned;
+		boolean oldUnaryBooleanOperatorOwnedESet = unaryBooleanOperatorOwnedESet;
+		unaryBooleanOperatorOwnedESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR_OWNED, oldUnaryBooleanOperatorOwned, unaryBooleanOperatorOwned));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR_OWNED, oldUnaryBooleanOperatorOwned, unaryBooleanOperatorOwned, !oldUnaryBooleanOperatorOwnedESet));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isHasBinaryNumericOperator()
-   {
-		return hasBinaryNumericOperator;
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public void setHasBinaryNumericOperator(boolean newHasBinaryNumericOperator)
-   {
-		boolean oldHasBinaryNumericOperator = hasBinaryNumericOperator;
-		hasBinaryNumericOperator = newHasBinaryNumericOperator;
+	public void unsetUnaryBooleanOperatorOwned() {
+		UnaryBooleanOperator oldUnaryBooleanOperatorOwned = unaryBooleanOperatorOwned;
+		boolean oldUnaryBooleanOperatorOwnedESet = unaryBooleanOperatorOwnedESet;
+		unaryBooleanOperatorOwned = UNARY_BOOLEAN_OPERATOR_OWNED_EDEFAULT;
+		unaryBooleanOperatorOwnedESet = false;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__HAS_BINARY_NUMERIC_OPERATOR, oldHasBinaryNumericOperator, hasBinaryNumericOperator));
+			eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR_OWNED, oldUnaryBooleanOperatorOwned, UNARY_BOOLEAN_OPERATOR_OWNED_EDEFAULT, oldUnaryBooleanOperatorOwnedESet));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isHasUnaryNumericOperator()
-   {
-		return hasUnaryNumericOperator;
+	public boolean isSetUnaryBooleanOperatorOwned() {
+		return unaryBooleanOperatorOwnedESet;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setHasUnaryNumericOperator(boolean newHasUnaryNumericOperator)
-   {
-		boolean oldHasUnaryNumericOperator = hasUnaryNumericOperator;
-		hasUnaryNumericOperator = newHasUnaryNumericOperator;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__HAS_UNARY_NUMERIC_OPERATOR, oldHasUnaryNumericOperator, hasUnaryNumericOperator));
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public boolean isHasUnaryBooleanOperator()
-   {
-		return hasUnaryBooleanOperator;
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public void setHasUnaryBooleanOperator(boolean newHasUnaryBooleanOperator)
-   {
-		boolean oldHasUnaryBooleanOperator = hasUnaryBooleanOperator;
-		hasUnaryBooleanOperator = newHasUnaryBooleanOperator;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__HAS_UNARY_BOOLEAN_OPERATOR, oldHasUnaryBooleanOperator, hasUnaryBooleanOperator));
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case AadlBaPackage.FACTOR__VALUE_OWNED:
 				return basicSetValueOwned(null, msgs);
@@ -451,14 +405,13 @@ public class FactorImpl extends ElementImpl implements Factor
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case AadlBaPackage.FACTOR__VALUE_OWNED:
 				return getValueOwned();
@@ -470,24 +423,17 @@ public class FactorImpl extends ElementImpl implements Factor
 				return getUnaryNumericOperatorOwned();
 			case AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR_OWNED:
 				return getUnaryBooleanOperatorOwned();
-			case AadlBaPackage.FACTOR__HAS_BINARY_NUMERIC_OPERATOR:
-				return isHasBinaryNumericOperator();
-			case AadlBaPackage.FACTOR__HAS_UNARY_NUMERIC_OPERATOR:
-				return isHasUnaryNumericOperator();
-			case AadlBaPackage.FACTOR__HAS_UNARY_BOOLEAN_OPERATOR:
-				return isHasUnaryBooleanOperator();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case AadlBaPackage.FACTOR__VALUE_OWNED:
 				setValueOwned((Value)newValue);
@@ -504,27 +450,17 @@ public class FactorImpl extends ElementImpl implements Factor
 			case AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR_OWNED:
 				setUnaryBooleanOperatorOwned((UnaryBooleanOperator)newValue);
 				return;
-			case AadlBaPackage.FACTOR__HAS_BINARY_NUMERIC_OPERATOR:
-				setHasBinaryNumericOperator((Boolean)newValue);
-				return;
-			case AadlBaPackage.FACTOR__HAS_UNARY_NUMERIC_OPERATOR:
-				setHasUnaryNumericOperator((Boolean)newValue);
-				return;
-			case AadlBaPackage.FACTOR__HAS_UNARY_BOOLEAN_OPERATOR:
-				setHasUnaryBooleanOperator((Boolean)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.FACTOR__VALUE_OWNED:
 				setValueOwned((Value)null);
@@ -533,79 +469,56 @@ public class FactorImpl extends ElementImpl implements Factor
 				setValueSdOwned((Value)null);
 				return;
 			case AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR_OWNED:
-				setBinaryNumericOperatorOwned(BINARY_NUMERIC_OPERATOR_OWNED_EDEFAULT);
+				unsetBinaryNumericOperatorOwned();
 				return;
 			case AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR_OWNED:
-				setUnaryNumericOperatorOwned(UNARY_NUMERIC_OPERATOR_OWNED_EDEFAULT);
+				unsetUnaryNumericOperatorOwned();
 				return;
 			case AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR_OWNED:
-				setUnaryBooleanOperatorOwned(UNARY_BOOLEAN_OPERATOR_OWNED_EDEFAULT);
-				return;
-			case AadlBaPackage.FACTOR__HAS_BINARY_NUMERIC_OPERATOR:
-				setHasBinaryNumericOperator(HAS_BINARY_NUMERIC_OPERATOR_EDEFAULT);
-				return;
-			case AadlBaPackage.FACTOR__HAS_UNARY_NUMERIC_OPERATOR:
-				setHasUnaryNumericOperator(HAS_UNARY_NUMERIC_OPERATOR_EDEFAULT);
-				return;
-			case AadlBaPackage.FACTOR__HAS_UNARY_BOOLEAN_OPERATOR:
-				setHasUnaryBooleanOperator(HAS_UNARY_BOOLEAN_OPERATOR_EDEFAULT);
+				unsetUnaryBooleanOperatorOwned();
 				return;
 		}
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.FACTOR__VALUE_OWNED:
 				return valueOwned != null;
 			case AadlBaPackage.FACTOR__VALUE_SD_OWNED:
 				return valueSdOwned != null;
 			case AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR_OWNED:
-				return binaryNumericOperatorOwned != BINARY_NUMERIC_OPERATOR_OWNED_EDEFAULT;
+				return isSetBinaryNumericOperatorOwned();
 			case AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR_OWNED:
-				return unaryNumericOperatorOwned != UNARY_NUMERIC_OPERATOR_OWNED_EDEFAULT;
+				return isSetUnaryNumericOperatorOwned();
 			case AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR_OWNED:
-				return unaryBooleanOperatorOwned != UNARY_BOOLEAN_OPERATOR_OWNED_EDEFAULT;
-			case AadlBaPackage.FACTOR__HAS_BINARY_NUMERIC_OPERATOR:
-				return hasBinaryNumericOperator != HAS_BINARY_NUMERIC_OPERATOR_EDEFAULT;
-			case AadlBaPackage.FACTOR__HAS_UNARY_NUMERIC_OPERATOR:
-				return hasUnaryNumericOperator != HAS_UNARY_NUMERIC_OPERATOR_EDEFAULT;
-			case AadlBaPackage.FACTOR__HAS_UNARY_BOOLEAN_OPERATOR:
-				return hasUnaryBooleanOperator != HAS_UNARY_BOOLEAN_OPERATOR_EDEFAULT;
+				return isSetUnaryBooleanOperatorOwned();
 		}
 		return super.eIsSet(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public String toString()
-   {
+	@Override
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (BinaryNumericOperatorOwned: ");
-		result.append(binaryNumericOperatorOwned);
-		result.append(", UnaryNumericOperatorOwned: ");
-		result.append(unaryNumericOperatorOwned);
-		result.append(", UnaryBooleanOperatorOwned: ");
-		result.append(unaryBooleanOperatorOwned);
-		result.append(", hasBinaryNumericOperator: ");
-		result.append(hasBinaryNumericOperator);
-		result.append(", hasUnaryNumericOperator: ");
-		result.append(hasUnaryNumericOperator);
-		result.append(", hasUnaryBooleanOperator: ");
-		result.append(hasUnaryBooleanOperator);
+		result.append(" (binaryNumericOperatorOwned: ");
+		if (binaryNumericOperatorOwnedESet) result.append(binaryNumericOperatorOwned); else result.append("<unset>");
+		result.append(", unaryNumericOperatorOwned: ");
+		if (unaryNumericOperatorOwnedESet) result.append(unaryNumericOperatorOwned); else result.append("<unset>");
+		result.append(", unaryBooleanOperatorOwned: ");
+		if (unaryBooleanOperatorOwnedESet) result.append(unaryBooleanOperatorOwned); else result.append("<unset>");
 		result.append(')');
 		return result.toString();
 	}

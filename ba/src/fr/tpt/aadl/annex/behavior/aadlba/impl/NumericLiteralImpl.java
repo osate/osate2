@@ -22,153 +22,143 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NumericLiteralImpl#getNumValue <em>Num Value</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NumericLiteralImpl#getValueString <em>Value String</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class NumericLiteralImpl extends ValueConstantImpl implements NumericLiteral
-{
-   /**
-	 * The default value of the '{@link #getNumValue() <em>Num Value</em>}' attribute.
+public abstract class NumericLiteralImpl extends ElementImpl implements NumericLiteral {
+	/**
+	 * The default value of the '{@link #getValueString() <em>Value String</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getNumValue()
+	 * <!-- end-user-doc -->
+	 * @see #getValueString()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final String NUM_VALUE_EDEFAULT = "";
+	protected static final String VALUE_STRING_EDEFAULT = null;
 
-   /**
-	 * The cached value of the '{@link #getNumValue() <em>Num Value</em>}' attribute.
+	/**
+	 * The cached value of the '{@link #getValueString() <em>Value String</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getNumValue()
+	 * <!-- end-user-doc -->
+	 * @see #getValueString()
 	 * @generated
 	 * @ordered
 	 */
-   protected String numValue = NUM_VALUE_EDEFAULT;
+	protected String valueString = VALUE_STRING_EDEFAULT;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected NumericLiteralImpl()
-   {
+	protected NumericLiteralImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.NUMERIC_LITERAL;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public String getNumValue()
-   {
-		return numValue;
+	public String getValueString() {
+		return valueString;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setNumValue(String newNumValue)
-   {
-		String oldNumValue = numValue;
-		numValue = newNumValue;
+	public void setValueString(String newValueString) {
+		String oldValueString = valueString;
+		valueString = newValueString;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.NUMERIC_LITERAL__NUM_VALUE, oldNumValue, numValue));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.NUMERIC_LITERAL__VALUE_STRING, oldValueString, valueString));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AadlBaPackage.NUMERIC_LITERAL__NUM_VALUE:
-				return getNumValue();
+			case AadlBaPackage.NUMERIC_LITERAL__VALUE_STRING:
+				return getValueString();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AadlBaPackage.NUMERIC_LITERAL__NUM_VALUE:
-				setNumValue((String)newValue);
+			case AadlBaPackage.NUMERIC_LITERAL__VALUE_STRING:
+				setValueString((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.NUMERIC_LITERAL__NUM_VALUE:
-				setNumValue(NUM_VALUE_EDEFAULT);
+			case AadlBaPackage.NUMERIC_LITERAL__VALUE_STRING:
+				setValueString(VALUE_STRING_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.NUMERIC_LITERAL__NUM_VALUE:
-				return NUM_VALUE_EDEFAULT == null ? numValue != null : !NUM_VALUE_EDEFAULT.equals(numValue);
+			case AadlBaPackage.NUMERIC_LITERAL__VALUE_STRING:
+				return VALUE_STRING_EDEFAULT == null ? valueString != null : !VALUE_STRING_EDEFAULT.equals(valueString);
 		}
 		return super.eIsSet(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public String toString()
-   {
+	@Override
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (NumValue: ");
-		result.append(numValue);
+		result.append(" (valueString: ");
+		result.append(valueString);
 		result.append(')');
 		return result.toString();
 	}

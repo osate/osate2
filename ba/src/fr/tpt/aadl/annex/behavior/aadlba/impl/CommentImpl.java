@@ -28,80 +28,74 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class CommentImpl extends ElementImpl implements Comment
-{
-   /**
+public class CommentImpl extends ElementImpl implements Comment {
+	/**
 	 * The default value of the '{@link #getBody() <em>Body</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getBody()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final String BODY_EDEFAULT = null;
+	protected static final String BODY_EDEFAULT = null;
 
-   /**
+	/**
 	 * The cached value of the '{@link #getBody() <em>Body</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getBody()
 	 * @generated
 	 * @ordered
 	 */
-   protected String body = BODY_EDEFAULT;
+	protected String body = BODY_EDEFAULT;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected CommentImpl()
-   {
+	protected CommentImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.COMMENT;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public String getBody()
-   {
+	public String getBody() {
 		return body;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setBody(String newBody)
-   {
+	public void setBody(String newBody) {
 		String oldBody = body;
 		body = newBody;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.COMMENT__BODY, oldBody, body));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case AadlBaPackage.COMMENT__BODY:
 				return getBody();
@@ -109,14 +103,13 @@ public class CommentImpl extends ElementImpl implements Comment
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case AadlBaPackage.COMMENT__BODY:
 				setBody((String)newValue);
@@ -125,14 +118,13 @@ public class CommentImpl extends ElementImpl implements Comment
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.COMMENT__BODY:
 				setBody(BODY_EDEFAULT);
@@ -141,14 +133,13 @@ public class CommentImpl extends ElementImpl implements Comment
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.COMMENT__BODY:
 				return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
@@ -156,14 +147,13 @@ public class CommentImpl extends ElementImpl implements Comment
 		return super.eIsSet(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public String toString()
-   {
+	@Override
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

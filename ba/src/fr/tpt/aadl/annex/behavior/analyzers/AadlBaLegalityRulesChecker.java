@@ -1,941 +1,790 @@
 package fr.tpt.aadl.annex.behavior.analyzers ;
 
 import java.util.ArrayList ;
-import java.util.Comparator ;
+import java.util.Comparator;
 import java.util.HashSet ;
-import java.util.Iterator ;
 import java.util.List ;
 import java.util.Set ;
 
-import org.eclipse.emf.common.util.BasicEList ;
-import org.eclipse.emf.common.util.EList ;
+import org.eclipse.emf.common.util.EList;
 
-import edu.cmu.sei.aadl.aadl2.ComponentClassifier ;
-import edu.cmu.sei.aadl.aadl2.DeviceImplementation ;
-import edu.cmu.sei.aadl.aadl2.DeviceType ;
-import edu.cmu.sei.aadl.aadl2.DirectionType ;
-import edu.cmu.sei.aadl.aadl2.EventDataPort ;
+import edu.cmu.sei.aadl.aadl2.ComponentClassifier;
+import edu.cmu.sei.aadl.aadl2.DeviceClassifier;
+import edu.cmu.sei.aadl.aadl2.MetaclassReference ;
 import edu.cmu.sei.aadl.aadl2.PackageSection ;
-import edu.cmu.sei.aadl.aadl2.ThreadImplementation ;
-import edu.cmu.sei.aadl.aadl2.ThreadType ;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import edu.cmu.sei.aadl.aadl2.Property ;
+import edu.cmu.sei.aadl.aadl2.PropertyAssociation ;
+import edu.cmu.sei.aadl.aadl2.PropertyOwner ;
+import edu.cmu.sei.aadl.aadl2.SubprogramClassifier;
+import edu.cmu.sei.aadl.aadl2.ThreadClassifier;
+import edu.cmu.sei.aadl.aadl2.VirtualProcessorClassifier ;
+import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import edu.cmu.sei.osate.workspace.names.standard.ThreadProperties ;
 import edu.cmu.sei.osate.workspace.names.standard.TimingProperties ;
-import fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction ;
-import fr.tpt.aadl.annex.behavior.aadlba.BasicAction ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition ;
-import fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference ;
-import fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition ;
-import fr.tpt.aadl.annex.behavior.aadlba.DispatchLogicalExpression ;
-import fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger ;
-import fr.tpt.aadl.annex.behavior.aadlba.Element ;
-import fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement ;
-import fr.tpt.aadl.annex.behavior.aadlba.Identifier ;
-import fr.tpt.aadl.annex.behavior.aadlba.IfStatement ;
-import fr.tpt.aadl.annex.behavior.aadlba.LoopStatement ;
-import fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral ;
-import fr.tpt.aadl.annex.behavior.aadlba.Target ;
-import fr.tpt.aadl.annex.behavior.aadlba.TimedAction ;
+import fr.tpt.aadl.annex.behavior.aadlba.*;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaGetProperties ;
-import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
-
-/*
---------------------------------------------------------------------------------
-LEGALITY RULES
---------------------------------------------------------------------------------
-
-.conditions
--------------------------------------------
-- X.4.(L12) dispatch trigger condition, event data port and value others. Same
-            as semantic rule X.4.(5). Implemented.
-
-
-.timeout
--------------------------------------------
-- X.4.(L13) timeout value, aadl core language property
-
-
-.assignment actions
--------------------------------------------
-- X.6.(L14) type of target and expression must match. Same as semantic rule X.6(17). 
-            Not implemented.
-- X.6.(L15) element_variable_identifier of for control struct is not a target
-- X.6.(L16) action set and local variable
-- X.6.(L17) action set and port variable
-
-
-.timed actions
--------------------------------------------
-- X.6.(L21) computation max >= min
-
-
-.subprogram
--------------------------------------------
-- X.6.(L18) parameter list and subprogram signature must match
-
-
-.ports
--------------------------------------------
-- X.6.(L20) port name only one dimension array
-
-
-.expressions
--------------------------------------------
-- X.7.(L22) a (L27)
- */
+import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors;
 
 public class AadlBaLegalityRulesChecker
 {
    private BehaviorAnnex _ba ;
    private ComponentClassifier _baParentContainer ;
-   PackageSection[] _contextsTab ;
    private AnalysisErrorReporterManager _errManager ;
-
+   private final static String LIST_SEPARATOR =", " ; 
+   
+   private boolean _hasAlreadyDispatchRelativeTimeoutCatch = false ;
+   
+   private boolean _hasAlreadyCompletionRelativeTimeoutConditionCatch = false ;
+   
    public AadlBaLegalityRulesChecker(BehaviorAnnex ba,
                                      AnalysisErrorReporterManager errManager)
    {
       _ba = ba ;
       _errManager = errManager ;
       _baParentContainer = AadlBaVisitors.getParentComponent(ba) ;
-      _contextsTab = AadlBaVisitors.getBaPackageSections(_ba) ;
    }
 
-   public boolean checkLegalityRules()
+   /**
+    * Document: AADL Behavior Annex draft 
+    * Version : 0.94 
+    * Type : Legality rule
+    * Section : D.3 Behavior Specification 
+    * Object : Check legality rules D.3.(L1), D.3.(L2) 
+    * Keys : subprogram components initial complete final states
+    */
+   public boolean D_3_L1_And_L2_Check (EList<Identifier> initialStates,
+		                               EList<Identifier> completeStates,
+		                               EList<Identifier> finalStates)
    {
-      boolean result = false ;
+	   boolean result = true ;
+	   
+	   if(_baParentContainer instanceof SubprogramClassifier)
+	   {
+		   String reportElements = null ;
 
-      result = checkTimeoutAndPeriodProperty() ;
-      result &= checkValueOthersInDispatchTriggerCondition() ;
-      result &= checkForForAllElementVariableAsTarget() ;
-      result &= checkActionSetVariables();
-      result &= checkBasicActions();
+	       if(initialStates.size() > 1)
+	       {
+	          result = false ;
+	          reportElements = AadlBaUtils.identifierListToString(initialStates,
+	                                                             LIST_SEPARATOR);
+	          this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() +
+	             " can't have more than one initial state : " + reportElements +
+	                " : Behavior Annex D.3.(L1) legality rule failed") ;
+	       }
+	       else
+	    	   if(initialStates.size() == 0)
+	    	   {
+	    		   result = false ;
+	    		   this.reportLegalityError(_ba, 
+	    		      _baParentContainer.getQualifiedName() + " has no initial" +
+	    		      	   "state : Behavior Annex D.3.(L1) legality rule failed") ;
+	           }
+	       
+	       if(completeStates.size() > 0)
+	       {
+	          result = false ;
+	          reportElements = AadlBaUtils.identifierListToString(completeStates,
+	                                                            LIST_SEPARATOR) ;
+	          this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() +
+	             " can't have complete state : " + reportElements +
+	                " : Behavior Annex D.3.(L2) legality rule failed") ;
+	       }
+
+	       if(finalStates.size() > 1)
+	       {
+	          result = false ;
+	          reportElements = AadlBaUtils.identifierListToString(finalStates,
+	                                                            LIST_SEPARATOR) ;
+	          this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() +
+	             " has more than one final state : " + reportElements +
+	                " : Behavior Annex D.3.(L1) legality rule failed") ;
+	       }
+	       else
+	       {
+	          if(finalStates.size() == 0)
+	          {
+	             result = false ;
+	             this.reportLegalityError(_ba, 
+	                   _baParentContainer.getQualifiedName() + " has no final " +
+	                    "state : Behavior Annex D.3.(L1) legality rule failed") ;
+	          }
+	       }
+	   } // End of first if.
+       
+       return result ;
+   }
+
+   /**
+    * Document: AADL Behavior Annex draft 
+    * Version : 0.94 
+    * Type : Legality rule
+    * Section : D.3 Behavior Specification 
+    * Object : Check legality rule D.3.(L3) 
+    * Keys : threads, suspendable devices initial complete states
+    */
+   public boolean D_3_L3_Check (EList<Identifier> initialStates,
+				                       EList<Identifier> completeStates)
+   {
+	  boolean result = true ;
+	   
+	  if(_baParentContainer instanceof ThreadClassifier ||
+		  _baParentContainer instanceof DeviceClassifier ||
+		  _baParentContainer instanceof VirtualProcessorClassifier)
+	  {
+		  String reportElements = null ;
+	      
+	      if(initialStates.size() > 1)
+	      {
+	         result = false ;
+	         reportElements = AadlBaUtils.identifierListToString(initialStates,
+	                                                            LIST_SEPARATOR) ;
+	         this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() +
+	            " can't have more than one initial state : " + reportElements +
+	               " : Behavior Annex D.3.(L3) legality rule failed") ;
+	      }
+	      else
+	         if(initialStates.size() == 0)
+	         {
+	            result = false ;
+	            this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()+
+	               " has no initial state : " +
+	                  "Behavior Annex D.3.(L3) legality rule failed") ;
+	         }
+
+	      if(completeStates.size() == 0)
+	      {
+	         result = false ;
+	         this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() + 
+	            " has no complete state : " +
+	               "Behavior Annex D.3.(L3) legality rule failed") ;
+	      }
+	  }
       
       return result ;
    }
    
-   // Performs basic action checking.
-   private boolean checkBasicActions()
+   /**
+    * Document: AADL Behavior Annex draft 
+    * Version : 0.94 
+    * Type : Legality rule
+    * Section : D.3 Behavior Specification 
+    * Object : Check legality rule D.3.(L4) 
+    * Keys : threads, components initialization finalization entrypoints initial
+    * final states
+    */
+   @SuppressWarnings("unchecked")
+   public boolean D_3_L4_Check (EList<Identifier> initialStates,
+				                EList<Identifier> finalStates)
    {
       boolean result = true ;
-      BehaviorActions behActions = null ;
-      EList<BasicAction> lBasicActions = null ;
       
-      for(BehaviorTransition bt : _ba.getTransitions())
+      // As the user can add component which have initialization and finalization
+      // entrypoints, fetches the component list.
+      
+      edu.cmu.sei.aadl.aadl2.NamedElement ne ;
+      
+      PackageSection[] contextsTab =AadlBaVisitors.getBaPackageSections(_ba);
+      
+      ne = AadlBaVisitors.findNamedElementInPropertySet(
+                             AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTYSET,
+                             AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME,
+                             contextsTab[0]);
+      
+      ArrayList<Class<? extends edu.cmu.sei.aadl.aadl2.Element>> klassl = 
+         new ArrayList<Class<? extends edu.cmu.sei.aadl.aadl2.Element>>() ;
+      
+      Class<? extends edu.cmu.sei.aadl.aadl2.Element> klass ;
+      
+      StringBuilder klassName = new StringBuilder();
+      
+      String firstChar ;
+      int firstCharIndex ;
+      
+      // For each component that the initialize entrypoint property is applied
+      // to, gets the component's name and transform into the corresponding
+      // class name and populates the class list.
+      for (PropertyOwner p : ((Property) ne).getAppliesTos())
       {
-         behActions = bt.getBehaviorActionsOwned() ;
+         klassName.append(AadlBaVisitors.SEI_AADL2_PACKAGE_NAME);
+         klassName.append('.');
          
-         lBasicActions = AadlBaVisitors.getBasicActions(behActions) ;
+         firstCharIndex = klassName.length() ;
          
-         for(BasicAction basicAct : lBasicActions)
+         klassName.append(((MetaclassReference) p).getMetaclass().getName()) ;
+         
+         firstChar = klassName.substring(firstCharIndex, firstCharIndex+1) ;
+         
+         // Transform the first char of the property name to upper case.
+         firstChar.toUpperCase() ;
+         
+         klassName.setCharAt(firstCharIndex, firstChar.charAt(0)) ;
+         
+         klassName.append(AadlBaVisitors.SEI_AADL2_CLASSIFIER_SUFFIX);
+         
+         try
          {
-            // Assignment action checking.
-            if(basicAct instanceof AssignmentAction)
+            klass = (Class<? extends edu.cmu.sei.aadl.aadl2.Element>) 
+                        Class.forName(klassName.toString()) ;
+            
+            klassl.add(klass);
+         }
+         catch (java.lang.ClassNotFoundException e)
+         {
+            continue ;
+         }
+         finally
+         {
+            klassName.setLength(0) ;
+         }
+      }
+      
+      // Checks the rule for the given component list.
+      for(Class<? extends edu.cmu.sei.aadl.aadl2.Element> tmp : klassl)
+      {
+         if(tmp.isAssignableFrom(_baParentContainer.getClass()))
+         {  
+            String reportElements = null ;
+             
+            if(initialStates.size() > 1)
             {
-               AssignmentAction aa = (AssignmentAction) basicAct ;
-               result &= checkPortOneDimensionArray(aa);
-               continue ;
+               result = false ;
+               reportElements = AadlBaUtils.identifierListToString(initialStates,
+                                                                  LIST_SEPARATOR) ;
+               this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() +
+                   " can't have more than one initial state : " + reportElements +
+                      " : Behavior Annex D.3.(L4) legality rule failed") ;
+            }
+            else
+               if(initialStates.size() == 0)
+               {
+                  result = false ;
+                  this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()+
+                      " has no initial state : " +
+                         "Behavior Annex D.3.(L4) legality rule failed") ;
+               }
+             
+            if(finalStates.size() == 0)
+            {
+               result = false ;
+               this.reportLegalityError(_ba,
+                  _baParentContainer.getQualifiedName() + 
+                     " has no final state : Behavior Annex D.3.(L4)"+
+                        " legality rules failed") ;
+            }
+             
+            return result ; 
+         }
+      }
+      
+      return result ;
+   }
+
+   /**
+    * Document: AADL Behavior Annex draft 
+    * Version : 0.94 
+    * Type : Legality rule
+    * Section : D.3 Behavior Specification 
+    * Object : Check legality rule D.3.(L5)
+    * Keys : subprogram dispatch condition transition
+    */
+   public boolean D_3_L5_Check(DispatchCondition dc)
+   {
+      // Error case.
+      if(_baParentContainer instanceof SubprogramClassifier)
+      {
+         this.reportLegalityError(dc, "Subprogram components must not contain" +
+            " a dispatch condition in any of its transitions: " + 
+               "Behavior Annex D.3.(L5) legality rule failed") ;
+         
+         return false ;
+      }
+      else
+         return true ;
+   }
+   
+   /**
+    * Document: AADL Behavior Annex draft 
+    * Version : 0.94 
+    * Type : Legality rule
+    * Section : D.3 Behavior Specification 
+    * Object : Check legality rule D.3.(L6)
+    * Keys : transition complete state dispatch condition
+    */
+   public boolean D_3_L6_Check(BehaviorTransition bt,
+                               Identifier transSrcStateIdentifier)
+   {
+      BehaviorState tmp = (BehaviorState) transSrcStateIdentifier.getBaRef() ;
+      
+      // D.3.(L6) error case.
+      if(bt.getBehaviorConditionOwned() instanceof DispatchCondition &&
+            ! tmp.isComplete())
+      {
+         this.reportLegalityError(transSrcStateIdentifier, "Only transition " +
+            "out of complete states may have dispatch condition : Behavior " +
+               "Annex D.3.(L6) legality rule failed") ;
+         
+         return false ;
+      }
+      else
+      {
+        return true ;
+      }
+   }   
+   
+   /**
+    * Document: AADL Behavior Annex draft 
+    * Version : 0.94 
+    * Type : Legality rule
+    * Section : D.3 Behavior Specification 
+    * Object : Check legality rule D.3.(L7)
+    * Keys : transition complete state dispatch condition
+    */
+   public boolean D_3_L7_Check(BehaviorTransition bt,
+		                       Identifier transSrcStateIdentifier)
+   {
+	   BehaviorState tmp = (BehaviorState) transSrcStateIdentifier.getBaRef() ;
+	   
+	   // D.3.(L7) error case.
+	   if(tmp.isComplete() && (! (bt.getBehaviorConditionOwned() 
+				                                 instanceof DispatchCondition)))
+	   {
+		  this.reportLegalityError(transSrcStateIdentifier, "Transitions out " +
+		     "of complete states must have dispatch condition : Behavior Annex"+
+		     " D.3.(L7) legality rule failed") ;
+		  return false ;
+	   }
+	   else
+		   return true ;
+   }
+   
+   /**
+    * Document: AADL Behavior Annex draft 
+    * Version : 0.94 
+    * Type : Legality rule
+    * Section : D.3 Behavior Specification 
+    * Object : Check legality rule D.3.(L8)
+    * Keys : transition out final state
+    */
+   public boolean D_3_L8_Check(Identifier transSrcStateIdentifier)
+   {
+	   BehaviorState tmp = (BehaviorState) transSrcStateIdentifier.getBaRef() ;
+	   
+	   // D.3.(L8) error case.
+	   if(tmp.isFinal() && ! (tmp.isComplete() || tmp.isInitial()))
+	   {
+		  this.reportLegalityError(transSrcStateIdentifier, "Transitions out " +
+		     "of final states are not allowed : Behavior Annex" +
+		        " D.3.(L8) legality rule failed") ;
+		  return false ;
+	   }
+	   else
+		   return true ;
+   }
+   
+   /**
+    * Document: AADL Behavior Annex draft 
+    * Version : 0.94 
+    * Type : Legality rule and Semantic rule
+    * Section : D.4 Thread Dispatch Behavior Specification
+    * Object : Check legality rule D.4.(L1) and semantic rule D.4.(5)
+    * Keys : dispatch relative timeout condition catch timed thread complete
+    * state period property
+    */
+   public boolean D_4_L1_Check(TimeoutCatch tc, BehaviorTransition btOwner)
+   {
+      if(! _hasAlreadyDispatchRelativeTimeoutCatch && 
+         btOwner.getSourceStateIdentifiers().size() == 1)
+      {
+         BehaviorState bs = (BehaviorState) btOwner.getSourceStateIdentifiers().
+                                                             get(0).getBaRef() ;
+         if(bs.isComplete())
+         {
+            // If the ba's parent container is not a Thread, the return value
+            // list will be empty.
+
+            EList<edu.cmu.sei.aadl.aadl2.PropertyValue> vl ;
+            vl = AadlBaGetProperties.getPropertyValue(_baParentContainer,
+                  ThreadProperties.DISPATCH_PROTOCOL) ;
+            if(vl.size() > 0)
+            {
+               edu.cmu.sei.aadl.aadl2.PropertyValue value = 
+                  vl.get(vl.size()-1) ;
+
+               if(value instanceof edu.cmu.sei.aadl.aadl2.EnumerationValue)
+               {
+                  String literal = 
+                     ((edu.cmu.sei.aadl.aadl2.EnumerationValue) value).
+                     getLiteral().getName() ;
+                  
+                  if(literal.equalsIgnoreCase(AadlBaGetProperties.TIMED))
+                  {
+                     // XXX is TimingProperties.PERIOD the right property for D.4.(5) checking ?
+                     PropertyAssociation period = AadlBaGetProperties.
+                        getPropertyAssociation(_baParentContainer,
+                                               TimingProperties.PERIOD) ;
+                     
+                     // Positive case.
+                     if(period != null)
+                     {
+                        _hasAlreadyDispatchRelativeTimeoutCatch = true ;
+                        return true ;
+                     }
+                     else // Error case: period property must be declared in the
+                          // ba's parent container.
+                     {
+                        reportLegalityError(tc, "The dispatch relative timeout"+
+                              " and catch statement must declared for timed " +
+                              " thread with period property properly set: " +
+                              " Behavior Annex D.4.(5) semantic rule failed") ;
+                        
+                        // Early exit to skip the next error reporting. 
+                        return false ;
+                     }
+                  }
+               }
             }
             
-            // Timed action checking.
-            if(basicAct instanceof TimedAction)
-            {
-               TimedAction ta = (TimedAction) basicAct ;
-               try { result &= checkTimedActionsMinMaxParam(ta) ; }
-               catch (ClassCastException e)
-               {
-                  reportLegalityWarning(ta,
-                        "cannot check legality rule X.6.(L21) " +
-                        "because one of the behavior times is not a numerical "+
-                        "literal integer constant") ;
-               }
-               continue ;
-            }
+            // Error case : it must only be declared for timed thread.
+            this.reportLegalityError(tc, "The dispatch relative timeout and" +
+            		" catch statement must only be declared for timed thread: " +
+            		   "Behavior Annex D.4.(L1) legality rule failed") ;
+         }
+         else // Error case : It must be declared in an outgoing transition of
+              // a complete state.
+         {
+            this.reportLegalityError(tc, "The dispatch relative timeout and " +
+                  "catch statement must be declared in an outgoing transition "+
+                     "of a complete state: Behavior Annex" +
+                        " D.4.(L1) legality rule failed") ;
          }
       }
+      else // Error case : It must be declared in only one transition.
+      {
+         // If transition source states list is > 1, report errors for the 
+         // furthers timeout catch.
+         _hasAlreadyDispatchRelativeTimeoutCatch = true ;
+         
+         this.reportLegalityError(tc, "The dispatch relative timeout and catch"+
+         		" statement must be declared in only one transition: " +
+         		   "Behavior Annex D.4.(L1) legality rule failed") ;
+      }
       
-      return result ;
+      return false ;
+   }
+   
+   /**
+    * Document: AADL Behavior Annex draft 
+    * Version : 0.94 
+    * Type : Legality rule
+    * Section : D.4 Thread Dispatch Behavior Specification
+    * Object : Check legality rule D.4.(L2)
+    * Keys : dispatch completion relative timeout condition catch complete
+    * state
+    */
+   public Boolean D_4_L2_Check(CompletionRelativeTimeoutConditionAndCatch crtcac
+                               , BehaviorTransition btOwner)
+   {
+      if(! _hasAlreadyCompletionRelativeTimeoutConditionCatch &&
+         btOwner.getSourceStateIdentifiers().size() == 1)
+      {
+         BehaviorState bs = (BehaviorState) btOwner.getSourceStateIdentifiers().
+                                                             get(0).getBaRef() ;
+         // Positive case.
+         if(bs.isComplete())
+         {
+            _hasAlreadyCompletionRelativeTimeoutConditionCatch = true ;
+            return true ;
+         }
+         else // Error case : it must be declared in an outgoing transition of
+              // a complete state.
+         {
+            this.reportLegalityError(crtcac, "The completion relative timeout" + 
+                  " condition and catch statement must be declared in an " + 
+                     "outgoing transition of a complete state: Behavior Annex" +
+                        " D.4.(L2) legality rule failed") ;
+         }
+      }
+      else // Error case : it must be declared in at most one transition.
+      {
+         // If transition source states list is > 1, report errors for the 
+         // furthers completion timeout catch.
+         _hasAlreadyCompletionRelativeTimeoutConditionCatch = true ;
+         
+         this.reportLegalityError(crtcac, "The completion relative timeout " + 
+            "condition and catch statement must be declared in only one " + 
+               "transition: Behavior Annex D.4.(L2) legality rule failed") ;
+      }
+      
+      return false ;
    }
    
    /**
     * Document: AADL Behavior Annex draft
-    * Version : 2.13
+    * Version : 0.94
     * Type    : Legality rule
-    * Section : X.6 Assignment actions
-    * Object  : Check legality rule X.6.(L21)
-    * Keys    : timed actions, max min parameter
+    * Section : D.6 Behavior Action Language
+    * Object  : Check legality rules D.6.(L3), D.6.(L4) 
+    * Keys    : local variable port variable assigned action set
     */
-   // Throws ClassCastException if behavior time are not numeric literal
-   // integer constants.
-   private boolean checkTimedActionsMinMaxParam(TimedAction timedAct)
-                                                       throws ClassCastException
+   public boolean D_6_L3_And_L4_Check(BehaviorActionBlock bab)
    {
-      boolean result = true ;
+      BehaviorActions beActions = bab.getBehaviorActionsOwned() ;
       
-      EList<BehaviorTime> lbt = timedAct.getBehaviorTimesOwned() ;
-      
-      // Check integer values.
-      for(BehaviorTime bt : lbt)
-      {
-         result &= AadlBaUtils.checkBehaviorTime(bt, _errManager);
-      }
-      
-      if (lbt.size() == 2)
-      {
-         Comparator<BehaviorTime> comp =
-                                    AadlBaUtils.createBehaviorTimeComparator() ;
-         
-         boolean tmp = comp.compare(lbt.get(0), lbt.get(1)) <= 0 ;
-         
-         // Legality rule X.6.(L21) failure reporting.
-         if(! tmp)
-         {
-            reportLegalityError(lbt.get(0), " in timed actions, the value of " +
-                  " the first parameter must be lesser than the second one : " +
-                  "Behavior Annex X.6.(L21) legality rule failed") ;
-         }
-         
-         return result & tmp ;
-      }
-      else // No need to check as only one behavior time is given.
-      {
-         return result ;
-      }
-   }
-
-   /**
-    * Document: AADL Behavior Annex draft
-    * Version : 2.13
-    * Type    : Legality rule
-    * Section : X.6 Assignment actions
-    * Object  : Check legality rule X.6.(L20)
-    * Keys    : port name, one dimension array
-    */
-   private boolean checkPortOneDimensionArray(AssignmentAction assignAct)
-   {
-      // TODO to be implemented.
-      return false ;
-   }
-
-   /**
-    * Document: AADL Behavior Annex draft
-    * Version : 2.13
-    * Type    : Legality rule
-    * Section : X.6 Assignment actions
-    * Object  : Check legality rule X.6.(L16), X.6.(L17)
-    * Keys    : action set, local variable, port variable
-    */
-   private boolean checkActionSetVariables()
-   {
-      BehaviorActions beActions = null ;
-      
-      // Temporary list of dcr passed between recursive calls of
+      // Temporary list of targets passed between recursive calls of
       // buildActionSetAssignedValuesLists method.
-      List<DataComponentReference> lActionSetDcr =
-                                       new ArrayList<DataComponentReference>() ;
+      List<Target> lActionSetTar = new ArrayList<Target>() ;
       
-      // Set of duplicated dcr between several action sets.
-      Set<DataComponentReference> lDuplicates =
-                                          new HashSet<DataComponentReference>();
-      
-      for(BehaviorTransition bt : _ba.getTransitions())
-      {
-         beActions = bt.getBehaviorActionsOwned() ;
+      // Set of duplicated targets between multiple action sets.
+      Set<Target> lDuplicates = new HashSet<Target>();
          
-         // Behavior transition's behavior actions may be null.
-         if(beActions != null)
-         {
-            buildActionSetAssignedValuesLists(beActions, lActionSetDcr,
-                                                                  lDuplicates) ;
-            // Clear list between two calls in order to
-            // avoid creating a list at each call of
-            // buildActionSetAssignedValuesLists.
-            lActionSetDcr.clear() ;
-         }
-      }
+      buildActionSetAssignedTargetLists(beActions,
+                                        lActionSetTar,
+                                        lDuplicates) ;
+      String localVariableErrorMsg = "The same local variable must not be " +
+         "assigned to in different actions of an action set" + 
+            ": Behavior Annex D.6.(L3) legality rules failed" ;
+      String portErrorMsg = "The same port variable must not be assigned to " +
+         "in different actions of an action set: "+
+            "Behavior Annex D.6.(L4) legality rules failed" ;
       
-      for(DataComponentReference dcr : lDuplicates)
+      String tmp ;
+      
+      for(Target tar : lDuplicates)
       {
-         reportLegalityError(dcr, " assigned values are not accessible to"
-         	+ " expressions of other assignment actions in the same action set" 
-            + " : Behavior Annex X.6.(L16) or X.6.(L17) legality rule failed") ;
+         // Local variable case.
+         if(tar instanceof Name && tar.getBaRef() != null)
+         {
+            tmp = localVariableErrorMsg ;
+         }
+         else // Port case.
+         {
+            tmp = portErrorMsg ; 
+         }
+         
+         reportLegalityError(tar, tmp); 
       }
       
       return lDuplicates.isEmpty() ;
    }
    
    /**
-    * Recursively builds a list of assigned values contained
-    * in a given BehaviorActions tree and checks for duplicates and populates 
-    * a duplicate list every action set nodes met in the tree.<BR><BR>
+    * Recursively builds a list of assigned target contained
+    * in a given BehaviorActions tree and checks for duplicated targets every time
+    * it meet a Behavior Action Set node. It populates the given set with 
+    * duplicated targets.<BR><BR>
     * 
-    * A special attention is given to report legality rules X.6.(L16) and (L17)
-    * failures : in order to help the user to correct his errors, the duplicate
-    * list contains all instances of duplicate assigned values. 
+    * A special attention is given to report legality rules D.6.(L3) and (L4)
+    * failures : in order to help the user to correct his errors, the duplicates
+    * list contains all instances of duplicated assigned targets. 
     * 
     * @param beActions The given BehaviorActions tree.
-    * @param lActionSetDcr The list of assigned valued
-    * @param lDuplicates The list of duplicated assigned values.
+    * @param lActionSetDcr The list of assigned targets
+    * @param lDuplicates The set of duplicated assigned targets.
     */
    @SuppressWarnings("unchecked") // As Java 1.6 can't create generic array.
-   private void buildActionSetAssignedValuesLists(BehaviorActions beActions,
-                                     List<DataComponentReference> lActionSetDcr,
-                                        Set<DataComponentReference> lDuplicates)
+   private void buildActionSetAssignedTargetLists(BehaviorActions beActions,
+                                                  List<Target> lActionSetTar,
+                                                  Set<Target> lDuplicates)
    {
-      // Current assigned values list reference. It can be lActionSetDcr
-      // (the recursive list) or, in case of action set node, the list created 
-      // to collect the assigned values contained in the current BehaviorAction
-      // of the action set.
-      List<DataComponentReference> lCurrentActionSetDcr = null ;
+      // Note: lActionSetTar can't be a Java'Set object because, duplicated
+      // assigned targets is legal in behavior action sequence.
       
-      // An array to keep the reference of the created lists.
-      List<DataComponentReference> llActionSetDcr[] = null ;
+      // ***** Processing leafs of the behavior actions tree:
+      
+      // Basic action cases.
+      if(beActions instanceof BasicAction)
+      {
+         if(beActions instanceof AssignmentAction)
+         {
+            lActionSetTar.add(((AssignmentAction)beActions).getTargetOwned()) ;
+         }
+         
+         return ;
+      }
+      
+      // Behavior Action Block case.
+      if(beActions instanceof BehaviorActionBlock)
+      {
+         BehaviorActionBlock tmp = (BehaviorActionBlock) beActions ;
+         
+         buildActionSetAssignedTargetLists(tmp.getBehaviorActionsOwned(),
+                                           lActionSetTar, lDuplicates) ;
+         return ;
+      }
+      
+      // If Statement case.
+      if(beActions instanceof IfStatement)
+      {
+         IfStatement ifStat = (IfStatement) beActions ;
+         for (BehaviorActions tmp : ifStat.getBehaviorActionsOwned())
+         {
+            buildActionSetAssignedTargetLists(tmp, lActionSetTar,
+                                              lDuplicates) ;
+         }
+         
+         return ;
+      }
+      
+      // Loop Statement case.
+      if(beActions instanceof LoopStatement)
+      {
+         LoopStatement tmp = (LoopStatement) beActions ;
+         
+         buildActionSetAssignedTargetLists(tmp.getBehaviorActionsOwned(),
+               lActionSetTar, lDuplicates) ;
+         return ;
+      }
+      
+      // ***** Processing containers: 
       
       // List of BehaviorAction objects contained in the given BehaviorActions
       // tree.
-      List<BehaviorAction> lbeActs = beActions.getBehaviorAction() ;
+      List<BehaviorAction> lbeActs = ((BehaviorActionCollection)beActions)
+                                                         .getBehaviorActions() ;
+      
+      // Behavior Action Sequence case:
+      if(beActions instanceof BehaviorActionSequence)
+      {
+         for(BehaviorAction tmp : lbeActs)
+         {
+            buildActionSetAssignedTargetLists(tmp, lActionSetTar,
+                                              lDuplicates) ;
+         }
+         
+         return ;
+      }
+            
+      // Behavior Action Set case:
       
       // Current BehaviorAction object.
-      BehaviorAction behAct = null ;
+      BehaviorAction behAct ;
       
-      // If the given BehaviorActions is a action set, create the array as
-      // a list of assigned values will be created for each 
-      // action set's behavior action.
-      if(beActions.isSet())
-      {
-         llActionSetDcr = new List[lbeActs.size()];
-      }
+      // Creates an array which will handle the lists of assigned targets. One
+      // list for each behavior action of the action set.
+      List<Target>[] llActionSetTar = null ;
+      llActionSetTar = new List[lbeActs.size()];
       
-      // For each BehaviorAction of the given BehaviorActions.
+      // For each BehaviorAction of the given BehaviorActionCollection.
       for(int i = 0 ; i < lbeActs.size() ; i++)
       {
-         behAct = lbeActs.get(i) ;
-         
-         // In case of an action set, create a list to collect assigned values
-         // in the current BehaviorAction.
-         if(beActions.isSet())
-         {
-            lCurrentActionSetDcr = new ArrayList<DataComponentReference>() ;
-            llActionSetDcr[i] = lCurrentActionSetDcr ;
-         }
-         else // In the case of action sequence or a simple BehaviorActions :
-              // use the recursive list of assigned values.
-         {
-            lCurrentActionSetDcr = lActionSetDcr ;
-         }
-         
-         // Case of assignment action. Add the data component reference to the
-         // current assigned values list.
-         if(behAct.isBasicAction() && behAct.getBasicActionOwned() instanceof
-                                                               AssignmentAction)
-         {
-            DataComponentReference tmp = ((AssignmentAction)
-                                 behAct.getBasicActionOwned()).getTargetOwned()
-                                             .getDataComponentReferenceOwned() ;
-            lCurrentActionSetDcr.add(tmp) ;
-            continue ;
-         }
-         
-         // *** Case of recursive calls ***
-         
-         // Case of behavior actions.
-         if(behAct.isBehaviorActions())
-         {
-            buildActionSetAssignedValuesLists(behAct.getBehaviorActionsOwned(),
-                                              lCurrentActionSetDcr,
-                                              lDuplicates) ;
-            continue ;
-         }
-         
-         // Case of if structure.
-         if(behAct.isIf())
-         {
-            IfStatement ifStat = (IfStatement) behAct.getCondStatementOwned() ;
-            for (BehaviorActions tmp : ifStat.getBehaviorActionsOwned())
-            {
-               buildActionSetAssignedValuesLists(tmp, lCurrentActionSetDcr,
-                                                 lDuplicates) ;
-            }
-            continue ;
-         }
-         
-         // Case of loops structures.
-         if(behAct.isLoop())
-         {
-            LoopStatement loopStat = (LoopStatement) behAct
-                                                      .getCondStatementOwned() ;
-            buildActionSetAssignedValuesLists(loopStat.getBehaviorActionsOwned(),
-                                            lCurrentActionSetDcr, lDuplicates) ;
-            continue ;
-         }
-      } // End of first for.
+         behAct  =lbeActs.get(i) ;
+         llActionSetTar[i] = new ArrayList<Target>() ;
+         buildActionSetAssignedTargetLists(behAct, llActionSetTar[i],
+                                           lDuplicates) ;
+      }
       
-      // If the given BehaviorActions is an action set, check for duplicate
-      // assigned values in the lists from the BehaviorAction of the
-      // action set. Complexity is O(n²) as the lists are not sorted.
-      if(beActions.isSet())
+      // Check for duplicated assigned targets in the lists of the
+      // action set. Complexity is O(n^2) as the lists are not sorted.
+      
+      List<Target> lCurrent = null ;
+      List<Target> lOther = null ;
+      
+      // Optimization flag to avoid adding the same target to the duplicates 
+      // set.
+      boolean hasToAdd = true ;
+      
+      // Compare the lists between them.
+      for(int i = 0 ; i < llActionSetTar.length - 1 ; i++)
       {
-         List<DataComponentReference> lCurrent = null ;
-         List<DataComponentReference> lOther = null ;
-         Comparator<DataComponentReference> comp = AadlBaUtils
-                                     .createDataComponentReferenceComparator() ;
+         lCurrent = llActionSetTar[i] ;
          
-         // Optimization flag to avoid adding the same dcr to the duplicate 
-         // list.
-         boolean hasToAdd = true ;
-         
-         // Compare the lists between them (no need to consider the final list).
-         for(int i = 0 ; i < llActionSetDcr.length - 1 ; i++)
+         for(Target currentTar : lCurrent)
          {
-            lCurrent = llActionSetDcr[i] ;
-            
-            for(DataComponentReference dcrCurrent : lCurrent)
+            // Compare current list with the others.
+            for(int j = i+1 ; j < llActionSetTar.length ; j++ )
             {
-               // Compare current list with the others.
-               for(int j = i+1 ; j < llActionSetDcr.length ; j++ )
+               lOther = llActionSetTar[j] ;
+            
+               for(Target otherTar : lOther)
                {
-                  lOther = llActionSetDcr[j] ;
-               
-                  for(DataComponentReference dcrOther : lOther)
+                  // Case of duplicated assigned target.
+                  if(AadlBaUtils.isSameTarget(currentTar, otherTar))
                   {
-                     // Case of duplicate assigned value.
-                     if(comp.compare(dcrCurrent, dcrOther) == 0)
+                     // Add the current target if it hasn't be done yet.
+                     if(hasToAdd)
                      {
-                        // Add the current dcr if it hasn't be done yet.
-                        if(hasToAdd)
-                        {
-                           lDuplicates.add(dcrCurrent) ;
-                           hasToAdd = true ;
-                        }
-                     
-                        lDuplicates.add(dcrOther) ;
+                        lDuplicates.add(currentTar) ;
+                        hasToAdd = false ;
                      }
+                     
+                     // Add the other target to help the user finding his errors.
+                     lDuplicates.add(otherTar) ;
                   }
                }
-               
-               hasToAdd = true ;
             }
-         }
-         
-         // Add all assigned values in the recursive list for any higher level
-         // action set checking.
-         for (List<DataComponentReference> l : llActionSetDcr)
-         {
-            lActionSetDcr.addAll(l) ;
-         }
-      } // End of if(beActions.isSet()).
-   }
-
-  /**
-    * Document: AADL Behavior Annex draft
-    * Version : 2.13
-    * Type    : Legality rule
-    * Section : X.6 Assignment actions
-    * Object  : Check legality rule X.6.(L15)
-    * Keys    : assignment actions, for structure element, target
-    */
-   private boolean checkForForAllElementVariableAsTarget()
-   {
-      boolean result = true ;
-      
-      BehaviorActions beActions = null ;
-      
-      List<String> lforElementVariables = new ArrayList<String>() ;
-      
-      for(BehaviorTransition bt : _ba.getTransitions())
-      {
-         beActions = bt.getBehaviorActionsOwned() ;
-         
-         // Behavior transition's behavior actions may be null.
-         if(beActions != null)
-         {
-            result &= checkForForAllElementVariableAsTarget(beActions,
-                                                          lforElementVariables);
+            
+            // Reset the flag for the next target.
+            hasToAdd = true ;
          }
       }
       
-      return result ;
-   }
-   
-   // Check X.6.(L15) rule for BehaviorActions objects and report any error.
-   private boolean checkForForAllElementVariableAsTarget(
-                                                      BehaviorActions beActions,
-                                             List<String> lforElementVariables)
-   {
-      boolean result = true ;
-      
-      for(BehaviorAction beAct : beActions.getBehaviorAction())
+      // Add all assigned targets in the recursively transmitted list for any 
+      // higher level action set checking.
+      for (List<Target> l : llActionSetTar)
       {
-         // Case of basic action : check the rule (for structure's element
-         // variable is not a valid assignment target).
-         if(beAct.isBasicAction())
-         {
-            BasicAction basicAct = beAct.getBasicActionOwned() ;
-            
-            // Case of an assignment action. 
-            if(basicAct instanceof AssignmentAction)
-            {
-               result &= checkForForAllElementVariableAsTarget(
-                                 ((AssignmentAction) basicAct).getTargetOwned(),
-                                            lforElementVariables) ;
-            }
-            
-            // The other basic actions are not affected by this rule.
-            continue ;
-         }
-         
-         // *** Cases of recursive calls. ***
-         
-         // Case of behavior actions.
-         if(beAct.isBehaviorActions())
-         {
-            result &= checkForForAllElementVariableAsTarget(
-                                                beAct.getBehaviorActionsOwned(),
-                                                lforElementVariables);
-            continue ;
-         }
-         
-         // Case of if structure. 
-         if(beAct.isIf())
-         {
-            IfStatement ifStat = (IfStatement) beAct.getCondStatementOwned() ;
-            
-            for(BehaviorActions tmp : ifStat.getBehaviorActionsOwned())
-            {
-               result &= checkForForAllElementVariableAsTarget(tmp,
-                                                          lforElementVariables);
-            }
-            continue ;
-         }
-         
-         // Case of for/forall structures.
-         if(beAct.isFor())
-         {
-            ForOrForAllStatement forStat = (ForOrForAllStatement)
-                                                 beAct.getCondStatementOwned() ; 
-            
-            // Store the for structure's element variable name so as to check
-            // the rule.
-            lforElementVariables.add(forStat.getElement().getId()) ;
-            
-            result &= checkForForAllElementVariableAsTarget(
-                                              forStat.getBehaviorActionsOwned(),
-                                                lforElementVariables) ;
-            
-            
-            // Remove the for structure's element variable name as the for
-            // structure element variable scope end here.
-            
-            lforElementVariables.remove(forStat.getElement().getId());
-            
-            continue ;
-         }
-         
-         // The other loops except the for/forall structure
-         // (while and do until).
-         if(beAct.isLoop())
-         {
-            LoopStatement otherLoopStat = (LoopStatement) 
-                                                 beAct.getCondStatementOwned() ;
-            
-            result &= checkForForAllElementVariableAsTarget(
-                                       otherLoopStat.getBehaviorActionsOwned(),
-                                       lforElementVariables);
-            continue ;
-         }
-      } // End of first for.
-      
-      return result ;
+         lActionSetTar.addAll(l) ;
+      }
    }
 
-   // Check X.6.(L15) rule for Target objects and report any error.
-   // XXX : for structure's element variable substitute to any elements that have
-   // the same name, until AADL BA committee clarifies its behavior towards  
-   // BA local variable. SEE AadlBaNameResolver::checkForForAllElementVariable.
-   private boolean checkForForAllElementVariableAsTarget(Target target,
-                                    List<String> lforElementVariables)
+   /**
+    * Document: AADL Behavior Annex draft
+    * Version : 0.94
+    * Type    : Legality rule
+    * Section : D.6 Behavior Action Language
+    * Object  : Check legality rule D.6.(L8)
+    * Keys    : timed actions, max min time values
+    * 
+    * At static analysis phase, D.6.(L8) can only be
+    * checked with behavior time objects that contain IntegerLiteral objects.
+    * Otherwise (with IntegerValueVariable objects), this checker returns
+    * always true.
+    */
+   public boolean D_6_L8_Check(TimedAction timedAct)
    {
-      // Ambiguity between a none qualified data component reference and a 
-      // name.
-      // Check the first name of data component reference names list only.
+      BehaviorTime btMin = timedAct.getLowerBehaviorTime();
+      BehaviorTime btMax = timedAct.getUpperBehaviorTime();     
       
-      Identifier targetId = target
-         .getDataComponentReferenceOwned().getElementsNameOwned()
-            .get(0).getIdentifier() ;
-      
-      for(String s : lforElementVariables)
+      if (btMax != null)
       {
-         // Case of a for structure's element variable used as a assignment
-         // target.
-         if(targetId.getId().equalsIgnoreCase(s))
+         Comparator<BehaviorTime> comp =
+                                    AadlBaUtils.createBehaviorTimeComparator() ;
+         int compResult ;
+         
+         try
          {
-            // Report X.6.(L15) rule break.
-            
-            reportLegalityError(targetId,"Assignment target "+targetId.getId()+
-            " is not a valid target: Behavior Annex X.6.(L15) legality rules " +
-            "failed");
-            
+            compResult = comp.compare(btMin, btMax) ;
+         }
+         catch (UnsupportedOperationException e)
+         {
+            // On exception, D_6_L8_Check returns true and don't report error as
+            // the rule can only be checked at runtime when behavior time objects
+            // contain IntegerValueVariable objects.
+            compResult = 0 ;            
+         }
+         
+         // Error case : max time value is strictly lesser than min time value.
+         if(compResult > 0)
+         {
+            reportLegalityError(timedAct, "In timed actions, the value of " +
+                  " the first parameter must be lesser than the second one: " +
+                  "Behavior Annex D.6.(L8) legality rule failed") ;
             return false ;
          }
-      }
-      
-      return true ;
-   }
-
-   private boolean checkInputTimeAndFrozenPorts()
-   {
-      // TODO : to be implemented
-      return false ;
-   }
-
-   // Return true if event data port checking succeed.
-   // Populates EList if dispatch triggers can't be paired within the same 
-   // dispatch logical expression.
-   private boolean buildValueOthersTriggerListsInDispatchLogicalExpression
-                            (DispatchLogicalExpression dle,
-                             EList<DispatchTrigger> lunsolvedExternalWithValue,
-                             EList<DispatchTrigger> lunsolvedExternalWithOthers)
-   {
-      boolean result = true ;
-      
-      EList<DispatchTrigger> lunsolvedInternalWithValue = 
-                                             new BasicEList<DispatchTrigger>() ;
-      EList<DispatchTrigger> lunsolvedInternalWithOthers = 
-                                             new BasicEList<DispatchTrigger>() ;
-      
-      for(DispatchTrigger trigg : dle.getDispatchTriggers())
-      {
-         // Case of a dispatch logical expression : recursive call.
-         if (trigg.getTheDispatchLogicalExpression() != null)
+         else
          {
-            buildValueOthersTriggerListsInDispatchLogicalExpression(
-                                        trigg.getTheDispatchLogicalExpression(),
-                                              lunsolvedInternalWithValue,
-                                              lunsolvedInternalWithOthers);
+        	 return true ;
          }
-         else 
-         {
-            // TODO : numeral case.
-            
-            // Case of a simple dispatch trigger
-            
-            // Add concerned dispatch triggers to the list depending on its 
-            // value/others nature.
-            if(trigg.getValueConstantOwned() != null)
-            {
-               if(dle.isAndExpression())
-               {
-                  // Case of AND relation.
-                  // The current dispatch trigger can have its complementary
-                  // within its behavior transition. So try to solve it.
-                  lunsolvedInternalWithValue.add(trigg) ;
-               }
-               else // Case of OR or XOR relation.
-               {
-                  // The current dispatch trigger can't have its complementary
-                  // within its behavior condition. So try to solve it with
-                  // the other behavior transitions.
-                  lunsolvedExternalWithValue.add(trigg) ;
-               }
-               
-               // Check event data port. It Reports any error.
-               result &= AadlBaUtils.checkIdentifier(trigg.getIdentifierOwned(),
-                                         EventDataPort.class, DirectionType.IN,
-                                         _errManager) ;
-            }
-            
-            // Same as above but for keyword other.
-            if(trigg.isOthers())
-            {
-               if(dle.isAndExpression())
-               {
-                  lunsolvedInternalWithOthers.add(trigg) ;
-               }
-               else
-               {
-                  lunsolvedExternalWithOthers.add(trigg) ;
-               }
-               
-               // Check event data port. It reports any error.
-               result &= AadlBaUtils.checkIdentifier(trigg.getIdentifierOwned(),
-                                         EventDataPort.class, DirectionType.IN,
-                                         _errManager) ;
-            }
-         } // End of else
-      } // End of for.
-      
-      if (result)
-      {
-         // Event data port and value checking succeed.
-         // Compare internal lists to find unresolved dispatch triggers.
-         compareDispatchTriggersValueOthersLists(lunsolvedInternalWithValue,
-                                                 lunsolvedInternalWithOthers,
-                                                 lunsolvedExternalWithValue) ;
-         compareDispatchTriggersValueOthersLists(lunsolvedInternalWithOthers,
-                                                 lunsolvedInternalWithValue,
-                                                 lunsolvedExternalWithOthers) ;
-        
       }
-      
-      // Don't compare lists if checking failed.
-      return result ;
+      else // No need to check as only one time value is given.
+      {
+         return true ;
+      }
    }
    
-   // Compare two list of dispatch triggers. Populates unsolved list with
-   // unpaired dispatch triggers. Remove paired dispatch triggers from their
-   // list.
-   private void compareDispatchTriggersValueOthersLists
-                                               (EList<DispatchTrigger> l1,
-                                                EList<DispatchTrigger> l2,
-                                                EList<DispatchTrigger> unsolved)
-   {
-      boolean hasComplementary = false ;
-      
-      EList<Identifier> identifiersL1 = new BasicEList<Identifier>() ;
-      EList<Identifier> identifiersL2 = new BasicEList<Identifier>() ;
-      Iterator<DispatchTrigger> it2 = l2.iterator() ;
-      DispatchTrigger other = null ;
-      
-      for(DispatchTrigger trigg : l1)
-      {
-         // Get behavior transition' source states list
-         // for this dispatch trigger
-         identifiersL1.addAll(AadlBaVisitors.getBehaviorTransition(trigg)
-                                                  .getSourceStateIdentifiers());
-         
-         // Add event data port identifier to the list.
-         identifiersL1.add(trigg.getIdentifierOwned()) ;
-         
-         // Try to find a complementary to the current trigger.
-         while(it2.hasNext())
-         {
-            other = it2.next() ;
-            
-            // Get behavior transition' source states list
-            // for this dispatch trigger
-            identifiersL2.addAll(AadlBaVisitors.getBehaviorTransition(other)
-                                                 .getSourceStateIdentifiers()) ;
-            
-            // Add event data port identifier to the list.
-            identifiersL2.add(other.getIdentifierOwned()) ;
-            
-            // compare to find the complementary dispatch trigger.
-            hasComplementary |= AadlBaUtils.compareIdentifiersList(identifiersL1,
-                                                                identifiersL2) ;
-            
-            // Reset list for the next trigger.
-            identifiersL2.clear() ;
-            
-            if (hasComplementary)
-            {
-               // Remove matching DispatchTrigger.
-               it2.remove() ;
-               break ; // continue to the next dispatch trigger in l1.
-            }
-         }
-         
-         // Reset iterator.
-         it2 = l2.iterator() ;
-         
-         if (hasComplementary)
-         {
-            // Case of the current dispatch trigger has a complementary one.
-            // Reset hasComplementary flag.
-            hasComplementary = false ;
-         }
-         else 
-         {
-            // Case of the current dispatch trigger hasn't a complementary one.
-            // Then store it to the unsolved dispatch triggers list.
-            unsolved.add(trigg) ;
-         }
-         
-         // Reset list for the next trigger.
-         identifiersL1.clear();
-         
-      } // End of first for.
-   }
-   
-   // XXX : same as semantic rule X.4.(5)
-   /**
-    * Document: AADL Behavior Annex draft
-    * Version : 2.13
-    * Type    : Legality rule
-    * Section : X.4 Thread Dispatch Behavior Specification
-    * Object  : Check legality rule X.4.(L12)
-    * Keys    : dispatch trigger, event data port, others
-    */
-   private boolean checkValueOthersInDispatchTriggerCondition()
-   {
-      boolean result = true ;
-      
-      EList<DispatchTrigger> lwithValue = new BasicEList<DispatchTrigger>();
-      EList<DispatchTrigger> lwithOther = new BasicEList<DispatchTrigger>();
-      EList<DispatchTrigger> unsolved = new BasicEList<DispatchTrigger>();
-      
-      BehaviorCondition baCond = null ;
-      DispatchLogicalExpression dle = null ;
-      
-      // Preliminaries checking and build dispatch trigger condition lists.
-      for(BehaviorTransition trans : _ba.getTransitions())
-      {
-         baCond = trans.getBehaviorConditionOwned() ;
-         
-         // Behavior condition may be null.
-         if(baCond != null && baCond instanceof DispatchCondition)
-         {
-            dle=((DispatchCondition) baCond).getTheDispatchLogicalExpression();
-            
-            // DispatchLogicalExpression may be null.
-            if (dle != null)
-            {
-               result &= 
-                         buildValueOthersTriggerListsInDispatchLogicalExpression
-                                                 (dle, lwithValue, lwithOther) ;
-            }
-         }
-      }
-      
-      if (result) 
-      {
-         // Compare lists to find pair of dispatch trigger with value and with
-         // keyword others.
-         
-         compareDispatchTriggersValueOthersLists(lwithValue, lwithOther,
-                                                                     unsolved) ;
-         
-         compareDispatchTriggersValueOthersLists(lwithOther, lwithValue,
-                                                                     unsolved) ;
-         for(DispatchTrigger trigg : unsolved)
-         {
-            reportLegalityError(trigg, "Dispatch trigger hasn't a complementary"
-                  + " one : Behavior Annex X.4.(L12) legality rules failed");
-         }
-         
-         // Return false if any unsolved dispatch trigger.
-         result = unsolved.isEmpty() ;
-      }
-      
-      // Don't compare lists if preliminaries checking failed.
-      return result ;
-   }
-   
-   /**
-    * Document: AADL Behavior Annex draft 
-    * Version : 2.13 
-    * Type : Legality rule
-    * Section : X.4 Thread Dispatch Behavior Specification
-    * Object : Check legality rule X.4.(L13)
-    * Keys : dispatch trigger, timeout, behavior time
-    */
-   // TODO : can't test it as soon as timed or hybrid dispatch protocol are not
-   // recognized by Osate.
-   private boolean checkTimeoutAndPeriodProperty()
-   {
-      boolean result = true ;
-
-      String value = null ;
-      String unit = null ;
-
-      BehaviorTime time = null ;
-      
-      EList<DispatchTrigger> ldt = null ;
-      EList<BehaviorTransition> lbt = null ;
-      EList<edu.cmu.sei.aadl.aadl2.PropertyValue> lpv = null ;
-      if(_ba.isSetTransitions() &&
-            (_baParentContainer instanceof ThreadImplementation
-                  || _baParentContainer instanceof ThreadType 
-                  || _baParentContainer instanceof DeviceImplementation 
-                  || _baParentContainer instanceof DeviceType))
-      {
-         lbt = _ba.getTransitions() ;
-
-         // FIXME : TODO : check if it have DispatchTriggers
-         ldt = AadlBaVisitors.getBehaviorDispatchTriggers(lbt) ;
-
-         // check if timeout triggers have behavior time
-         for(DispatchTrigger dt : ldt)
-         {
-            if(dt.isTimeout() && dt.isSetTheBehaviorTime())
-            {
-               time = dt.getTheBehaviorTime() ;
-               
-               // Check behavior time's integer value.
-               // The method used reports any error.
-               if (AadlBaUtils.checkIntegerValue(time.getIntegerValueOwned(),
-                                                 _errManager))
-               {
-                  // Check the rule only if the behavior time is contain a 
-                  // numerical literal integer constant. Otherwise raise
-                  // a warning.
-                  if(time.getIntegerValueOwned() instanceof NumericLiteral)
-                  {
-                     lpv = AadlBaGetProperties.getPropertyValue(_baParentContainer,
-                           ThreadProperties.DISPATCH_PROTOCOL) ;
-
-                     value = ((edu.cmu.sei.aadl.aadl2.EnumerationValue)lpv.get(0))
-                                                       .getLiteral().getName() ;
-
-                     // Check the rule only for timed or hybrid dispatch 
-                     // protocol.
-                     if(value.equalsIgnoreCase(AadlBaGetProperties.TIMED) ||
-                        value.equalsIgnoreCase(AadlBaGetProperties.HYBRID) ||
-                        value.equalsIgnoreCase("periodic"))
-                     {
-                        lpv = AadlBaGetProperties.getPropertyValue(
-                                  _baParentContainer, TimingProperties.PERIOD) ;
-
-                        value = ((edu.cmu.sei.aadl.aadl2.IntegerLiteral)lpv.get(0))
-                                                             .getValueString() ;
-                        unit = ((edu.cmu.sei.aadl.aadl2.IntegerLiteral)lpv.get(0))
-                                                           .getUnit().getName();
-                        
-                        // Case of NOT equivalent behavior times.
-                        if (!(((NumericLiteral)time.getIntegerValueOwned())
-                                    .getNumValue().equalsIgnoreCase(value) 
-                               && time.getUnitIdentifier().getId()
-                                                       .equalsIgnoreCase(unit)))
-                        {
-                           result = false ;
-                           this.reportLegalityError(time, 
-                                       " timeout behavior time must be equal to"
-                                       + " AADL period property : Behavior" +
-                                      " Annex X.4.(L13) legality rules failed");
-                           continue ;
-                        }
-                     }
-                  }
-                  else // The behavior time doesn't contain a numerical 
-                       // literal integer constant.
-                  {
-                        reportLegalityWarning(time, 
-                          "cannot check legality rule X.4.(L13) because the " +
-                          "behavior time is not a numerical literal integer " +
-                          "constant") ;
-                  } // End of third if.
-               } // End of second if.
-               else // Case of behavior time is not an integer value.
-               {
-                  result = false ;
-               }
-            } // End of first if.
-         } // End of for.
-      }
-      return result ;
-   }
-
    // TODO Provide column number.
-   private void reportLegalityError(Element obj, String name)
+   private void reportLegalityError(Element obj, String msg)
    {
-      _errManager.error(obj, "Behavior Legality Error: " + name + ".") ;
-   }
-   
-   private void reportLegalityWarning(Element obj, String name)
-   {
-      _errManager.warning(obj, "Behavior Legality Warning: " + name + ".") ;
+      _errManager.error(obj, msg + ".") ;
    }
 }

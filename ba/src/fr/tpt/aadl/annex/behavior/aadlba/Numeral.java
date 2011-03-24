@@ -15,7 +15,7 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Numeral#getNumeralValue <em>Numeral Value</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Numeral#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -23,33 +23,31 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface Numeral extends Element
-{
-   /**
-	 * Returns the value of the '<em><b>Numeral Value</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+public interface Numeral extends Element {
+	/**
+	 * Returns the value of the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Numeral Value</em>' attribute isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Numeral Value</em>' attribute.
-	 * @see #setNumeralValue(int)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getNumeral_NumeralValue()
-	 * @model default="-1" dataType="fr.tpt.aadl.annex.behavior.aadlba.Integer"
+	 * <p>
+	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Value</em>' attribute.
+	 * @see #setValue(int)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getNumeral_Value()
+	 * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.Integer"
 	 * @generated
 	 */
-   int getNumeralValue();
+	int getValue();
 
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Numeral#getNumeralValue <em>Numeral Value</em>}' attribute.
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Numeral#getValue <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Numeral Value</em>' attribute.
-	 * @see #getNumeralValue()
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Value</em>' attribute.
+	 * @see #getValue()
 	 * @generated
 	 */
-   void setNumeralValue(int value);
+	void setValue(int value);
 
 } // Numeral

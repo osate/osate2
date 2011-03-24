@@ -33,66 +33,61 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
-{
-   /**
+public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime {
+	/**
 	 * The cached value of the '{@link #getIntegerValueOwned() <em>Integer Value Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getIntegerValueOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected IntegerValue integerValueOwned;
+	protected IntegerValue integerValueOwned;
 
-   /**
+	/**
 	 * The cached value of the '{@link #getUnitIdentifier() <em>Unit Identifier</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getUnitIdentifier()
 	 * @generated
 	 * @ordered
 	 */
-   protected Identifier unitIdentifier;
+	protected Identifier unitIdentifier;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected BehaviorTimeImpl()
-   {
+	protected BehaviorTimeImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.BEHAVIOR_TIME;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public IntegerValue getIntegerValueOwned()
-   {
+	public IntegerValue getIntegerValueOwned() {
 		return integerValueOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public NotificationChain basicSetIntegerValueOwned(IntegerValue newIntegerValueOwned, NotificationChain msgs)
-   {
+	public NotificationChain basicSetIntegerValueOwned(IntegerValue newIntegerValueOwned, NotificationChain msgs) {
 		IntegerValue oldIntegerValueOwned = integerValueOwned;
 		integerValueOwned = newIntegerValueOwned;
 		if (eNotificationRequired()) {
@@ -102,13 +97,12 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setIntegerValueOwned(IntegerValue newIntegerValueOwned)
-   {
+	public void setIntegerValueOwned(IntegerValue newIntegerValueOwned) {
 		if (newIntegerValueOwned != integerValueOwned) {
 			NotificationChain msgs = null;
 			if (integerValueOwned != null)
@@ -122,17 +116,16 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED, newIntegerValueOwned, newIntegerValueOwned));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public Identifier getUnitIdentifier()
-   {
+	public Identifier getUnitIdentifier() {
 		return unitIdentifier;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -147,7 +140,7 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 		return msgs;
 	}
 
-			/**
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -166,14 +159,13 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TIME__UNIT_IDENTIFIER, newUnitIdentifier, newUnitIdentifier));
 	}
 
-			/**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
 				return basicSetIntegerValueOwned(null, msgs);
@@ -183,14 +175,13 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
 				return getIntegerValueOwned();
@@ -200,14 +191,13 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
 				setIntegerValueOwned((IntegerValue)newValue);
@@ -219,14 +209,13 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
 				setIntegerValueOwned((IntegerValue)null);
@@ -238,14 +227,13 @@ public class BehaviorTimeImpl extends ElementImpl implements BehaviorTime
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE_OWNED:
 				return integerValueOwned != null;

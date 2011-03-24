@@ -6,23 +6,17 @@
  */
 package fr.tpt.aadl.annex.behavior.aadlba;
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Timed Action</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * If the boolean IsComputation is false it means it is delay.
- * 
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.TimedAction#getBehaviorTimesOwned <em>Behavior Times Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.TimedAction#isComputation <em>Computation</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.TimedAction#getLowerBehaviorTime <em>Lower Behavior Time</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.TimedAction#getUpperBehaviorTime <em>Upper Behavior Time</em>}</li>
  * </ul>
  * </p>
  *
@@ -30,72 +24,84 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface TimedAction extends BasicAction
-{
-   /**
-	 * Returns the value of the '<em><b>Behavior Times Owned</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime}.
+public interface TimedAction extends BasicAction {
+	/**
+	 * Returns the value of the '<em><b>Lower Behavior Time</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Behavior Times Owned</em>' containment reference list isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Behavior Times Owned</em>' containment reference list.
-	 * @see #isSetBehaviorTimesOwned()
-	 * @see #unsetBehaviorTimesOwned()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTimedAction_BehaviorTimesOwned()
-	 * @model containment="true" unsettable="true"
+	 * <p>
+	 * If the meaning of the '<em>Lower Behavior Time</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Lower Behavior Time</em>' containment reference.
+	 * @see #isSetLowerBehaviorTime()
+	 * @see #unsetLowerBehaviorTime()
+	 * @see #setLowerBehaviorTime(BehaviorTime)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTimedAction_LowerBehaviorTime()
+	 * @model containment="true" unsettable="true" required="true"
 	 * @generated
 	 */
-   EList<BehaviorTime> getBehaviorTimesOwned();
+	BehaviorTime getLowerBehaviorTime();
 
-   /**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.TimedAction#getBehaviorTimesOwned <em>Behavior Times Owned</em>}' containment reference list.
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.TimedAction#getLowerBehaviorTime <em>Lower Behavior Time</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isSetBehaviorTimesOwned()
-	 * @see #getBehaviorTimesOwned()
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Lower Behavior Time</em>' containment reference.
+	 * @see #isSetLowerBehaviorTime()
+	 * @see #unsetLowerBehaviorTime()
+	 * @see #getLowerBehaviorTime()
 	 * @generated
 	 */
-   void unsetBehaviorTimesOwned();
+	void setLowerBehaviorTime(BehaviorTime value);
 
-   /**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.TimedAction#getBehaviorTimesOwned <em>Behavior Times Owned</em>}' containment reference list is set.
+	/**
+	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.TimedAction#getLowerBehaviorTime <em>Lower Behavior Time</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Behavior Times Owned</em>' containment reference list is set.
-	 * @see #unsetBehaviorTimesOwned()
-	 * @see #getBehaviorTimesOwned()
+	 * <!-- end-user-doc -->
+	 * @see #isSetLowerBehaviorTime()
+	 * @see #getLowerBehaviorTime()
+	 * @see #setLowerBehaviorTime(BehaviorTime)
 	 * @generated
 	 */
-   boolean isSetBehaviorTimesOwned();
+	void unsetLowerBehaviorTime();
 
-   /**
-	 * Returns the value of the '<em><b>Computation</b></em>' attribute.
-	 * The default value is <code>"False"</code>.
+	/**
+	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.TimedAction#getLowerBehaviorTime <em>Lower Behavior Time</em>}' containment reference is set.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Computation</em>' attribute isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Computation</em>' attribute.
-	 * @see #setComputation(boolean)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTimedAction_Computation()
-	 * @model default="False" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Lower Behavior Time</em>' containment reference is set.
+	 * @see #unsetLowerBehaviorTime()
+	 * @see #getLowerBehaviorTime()
+	 * @see #setLowerBehaviorTime(BehaviorTime)
 	 * @generated
 	 */
-   boolean isComputation();
+	boolean isSetLowerBehaviorTime();
 
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.TimedAction#isComputation <em>Computation</em>}' attribute.
+	/**
+	 * Returns the value of the '<em><b>Upper Behavior Time</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Computation</em>' attribute.
-	 * @see #isComputation()
+	 * <p>
+	 * If the meaning of the '<em>Upper Behavior Time</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Upper Behavior Time</em>' containment reference.
+	 * @see #setUpperBehaviorTime(BehaviorTime)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTimedAction_UpperBehaviorTime()
+	 * @model containment="true"
 	 * @generated
 	 */
-   void setComputation(boolean value);
+	BehaviorTime getUpperBehaviorTime();
+
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.TimedAction#getUpperBehaviorTime <em>Upper Behavior Time</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Upper Behavior Time</em>' containment reference.
+	 * @see #getUpperBehaviorTime()
+	 * @generated
+	 */
+	void setUpperBehaviorTime(BehaviorTime value);
 
 } // TimedAction

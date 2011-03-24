@@ -1,0 +1,51 @@
+-- Behavior Annex semantic rule D.4.(6) tests.
+
+package exemple_sr_D4_6
+public
+   with Base_Types ;
+
+thread th
+end th;
+
+
+thread implementation th.good
+
+annex behavior_specification {**
+
+states
+ initState : initial state ;
+ compState : complete state ;
+ finalState : final state ;
+ exeState1 : state ;
+ exeState2 : state ;
+ 
+transitions
+ compState -[on dispatch stop]-> exeState1 ;
+ exeState1 -[]-> exeState2 ;
+ exeState2 -[]-> finalState ;
+ 
+**};
+
+end th.good;
+
+thread implementation th.error 
+annex behavior_specification {**
+
+states
+ initState : initial state ;
+ compState : complete state ;
+ finalState : final state ;
+ exeState1 : state ;
+ exeState2 : state ;
+ 
+transitions
+
+ -- Errors : _ initState is not complete, it cannot have outgoing transition with a stop dispatch trigger and 
+ --            dispatch condition in general.
+ --          _ the transition don't end to a final state.
+ initState -[on dispatch stop]-> exeState1 ;
+
+**};
+end th.error;
+
+end exemple_sr_D4_6 ;

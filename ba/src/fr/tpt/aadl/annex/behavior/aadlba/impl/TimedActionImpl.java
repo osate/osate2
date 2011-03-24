@@ -10,20 +10,13 @@ import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime;
 import fr.tpt.aadl.annex.behavior.aadlba.TimedAction;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,226 +25,282 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.TimedActionImpl#getBehaviorTimesOwned <em>Behavior Times Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.TimedActionImpl#isComputation <em>Computation</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.TimedActionImpl#getLowerBehaviorTime <em>Lower Behavior Time</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.TimedActionImpl#getUpperBehaviorTime <em>Upper Behavior Time</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class TimedActionImpl extends BasicActionImpl implements TimedAction
-{
-   /**
-	 * The cached value of the '{@link #getBehaviorTimesOwned() <em>Behavior Times Owned</em>}' containment reference list.
+public class TimedActionImpl extends ElementImpl implements TimedAction {
+	/**
+	 * The cached value of the '{@link #getLowerBehaviorTime() <em>Lower Behavior Time</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getBehaviorTimesOwned()
+	 * <!-- end-user-doc -->
+	 * @see #getLowerBehaviorTime()
 	 * @generated
 	 * @ordered
 	 */
-   protected EList<BehaviorTime> behaviorTimesOwned;
+	protected BehaviorTime lowerBehaviorTime;
 
-   /**
-	 * The default value of the '{@link #isComputation() <em>Computation</em>}' attribute.
+	/**
+	 * This is true if the Lower Behavior Time containment reference has been set.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isComputation()
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-   protected static final boolean COMPUTATION_EDEFAULT = false;
+	protected boolean lowerBehaviorTimeESet;
 
-   /**
-	 * The cached value of the '{@link #isComputation() <em>Computation</em>}' attribute.
+	/**
+	 * The cached value of the '{@link #getUpperBehaviorTime() <em>Upper Behavior Time</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isComputation()
+	 * <!-- end-user-doc -->
+	 * @see #getUpperBehaviorTime()
 	 * @generated
 	 * @ordered
 	 */
-   protected boolean computation = COMPUTATION_EDEFAULT;
+	protected BehaviorTime upperBehaviorTime;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected TimedActionImpl()
-   {
+	protected TimedActionImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.TIMED_ACTION;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public EList<BehaviorTime> getBehaviorTimesOwned()
-   {
-		if (behaviorTimesOwned == null) {
-			behaviorTimesOwned = new EObjectContainmentEList.Unsettable<BehaviorTime>(BehaviorTime.class, this, AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED);
+	public BehaviorTime getLowerBehaviorTime() {
+		return lowerBehaviorTime;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetLowerBehaviorTime(BehaviorTime newLowerBehaviorTime, NotificationChain msgs) {
+		BehaviorTime oldLowerBehaviorTime = lowerBehaviorTime;
+		lowerBehaviorTime = newLowerBehaviorTime;
+		boolean oldLowerBehaviorTimeESet = lowerBehaviorTimeESet;
+		lowerBehaviorTimeESet = true;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__LOWER_BEHAVIOR_TIME, oldLowerBehaviorTime, newLowerBehaviorTime, !oldLowerBehaviorTimeESet);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
-		return behaviorTimesOwned;
+		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void unsetBehaviorTimesOwned()
-   {
-		if (behaviorTimesOwned != null) ((InternalEList.Unsettable<?>)behaviorTimesOwned).unset();
+	public void setLowerBehaviorTime(BehaviorTime newLowerBehaviorTime) {
+		if (newLowerBehaviorTime != lowerBehaviorTime) {
+			NotificationChain msgs = null;
+			if (lowerBehaviorTime != null)
+				msgs = ((InternalEObject)lowerBehaviorTime).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__LOWER_BEHAVIOR_TIME, null, msgs);
+			if (newLowerBehaviorTime != null)
+				msgs = ((InternalEObject)newLowerBehaviorTime).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__LOWER_BEHAVIOR_TIME, null, msgs);
+			msgs = basicSetLowerBehaviorTime(newLowerBehaviorTime, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else {
+			boolean oldLowerBehaviorTimeESet = lowerBehaviorTimeESet;
+			lowerBehaviorTimeESet = true;
+			if (eNotificationRequired())
+				eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__LOWER_BEHAVIOR_TIME, newLowerBehaviorTime, newLowerBehaviorTime, !oldLowerBehaviorTimeESet));
+		}
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isSetBehaviorTimesOwned()
-   {
-		return behaviorTimesOwned != null && ((InternalEList.Unsettable<?>)behaviorTimesOwned).isSet();
+	public NotificationChain basicUnsetLowerBehaviorTime(NotificationChain msgs) {
+		BehaviorTime oldLowerBehaviorTime = lowerBehaviorTime;
+		lowerBehaviorTime = null;
+		boolean oldLowerBehaviorTimeESet = lowerBehaviorTimeESet;
+		lowerBehaviorTimeESet = false;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.TIMED_ACTION__LOWER_BEHAVIOR_TIME, oldLowerBehaviorTime, null, oldLowerBehaviorTimeESet);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isComputation()
-   {
-		return computation;
+	public void unsetLowerBehaviorTime() {
+		if (lowerBehaviorTime != null) {
+			NotificationChain msgs = null;
+			msgs = ((InternalEObject)lowerBehaviorTime).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__LOWER_BEHAVIOR_TIME, null, msgs);
+			msgs = basicUnsetLowerBehaviorTime(msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else {
+			boolean oldLowerBehaviorTimeESet = lowerBehaviorTimeESet;
+			lowerBehaviorTimeESet = false;
+			if (eNotificationRequired())
+				eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.TIMED_ACTION__LOWER_BEHAVIOR_TIME, null, null, oldLowerBehaviorTimeESet));
+		}
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setComputation(boolean newComputation)
-   {
-		boolean oldComputation = computation;
-		computation = newComputation;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__COMPUTATION, oldComputation, computation));
+	public boolean isSetLowerBehaviorTime() {
+		return lowerBehaviorTimeESet;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
+	public BehaviorTime getUpperBehaviorTime() {
+		return upperBehaviorTime;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetUpperBehaviorTime(BehaviorTime newUpperBehaviorTime, NotificationChain msgs) {
+		BehaviorTime oldUpperBehaviorTime = upperBehaviorTime;
+		upperBehaviorTime = newUpperBehaviorTime;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__UPPER_BEHAVIOR_TIME, oldUpperBehaviorTime, newUpperBehaviorTime);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUpperBehaviorTime(BehaviorTime newUpperBehaviorTime) {
+		if (newUpperBehaviorTime != upperBehaviorTime) {
+			NotificationChain msgs = null;
+			if (upperBehaviorTime != null)
+				msgs = ((InternalEObject)upperBehaviorTime).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__UPPER_BEHAVIOR_TIME, null, msgs);
+			if (newUpperBehaviorTime != null)
+				msgs = ((InternalEObject)newUpperBehaviorTime).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__UPPER_BEHAVIOR_TIME, null, msgs);
+			msgs = basicSetUpperBehaviorTime(newUpperBehaviorTime, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__UPPER_BEHAVIOR_TIME, newUpperBehaviorTime, newUpperBehaviorTime));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
-				return ((InternalEList<?>)getBehaviorTimesOwned()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.TIMED_ACTION__LOWER_BEHAVIOR_TIME:
+				return basicUnsetLowerBehaviorTime(msgs);
+			case AadlBaPackage.TIMED_ACTION__UPPER_BEHAVIOR_TIME:
+				return basicSetUpperBehaviorTime(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
-				return getBehaviorTimesOwned();
-			case AadlBaPackage.TIMED_ACTION__COMPUTATION:
-				return isComputation();
+			case AadlBaPackage.TIMED_ACTION__LOWER_BEHAVIOR_TIME:
+				return getLowerBehaviorTime();
+			case AadlBaPackage.TIMED_ACTION__UPPER_BEHAVIOR_TIME:
+				return getUpperBehaviorTime();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @SuppressWarnings("unchecked")
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
-				getBehaviorTimesOwned().clear();
-				getBehaviorTimesOwned().addAll((Collection<? extends BehaviorTime>)newValue);
+			case AadlBaPackage.TIMED_ACTION__LOWER_BEHAVIOR_TIME:
+				setLowerBehaviorTime((BehaviorTime)newValue);
 				return;
-			case AadlBaPackage.TIMED_ACTION__COMPUTATION:
-				setComputation((Boolean)newValue);
+			case AadlBaPackage.TIMED_ACTION__UPPER_BEHAVIOR_TIME:
+				setUpperBehaviorTime((BehaviorTime)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
-				unsetBehaviorTimesOwned();
+			case AadlBaPackage.TIMED_ACTION__LOWER_BEHAVIOR_TIME:
+				unsetLowerBehaviorTime();
 				return;
-			case AadlBaPackage.TIMED_ACTION__COMPUTATION:
-				setComputation(COMPUTATION_EDEFAULT);
+			case AadlBaPackage.TIMED_ACTION__UPPER_BEHAVIOR_TIME:
+				setUpperBehaviorTime((BehaviorTime)null);
 				return;
 		}
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.TIMED_ACTION__BEHAVIOR_TIMES_OWNED:
-				return isSetBehaviorTimesOwned();
-			case AadlBaPackage.TIMED_ACTION__COMPUTATION:
-				return computation != COMPUTATION_EDEFAULT;
+			case AadlBaPackage.TIMED_ACTION__LOWER_BEHAVIOR_TIME:
+				return isSetLowerBehaviorTime();
+			case AadlBaPackage.TIMED_ACTION__UPPER_BEHAVIOR_TIME:
+				return upperBehaviorTime != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   @Override
-   public String toString()
-   {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (Computation: ");
-		result.append(computation);
-		result.append(')');
-		return result.toString();
 	}
 
 } //TimedActionImpl

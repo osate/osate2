@@ -20,26 +20,23 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class UniqueComponentClassifierReferenceImpl extends NamedElementImpl implements UniqueComponentClassifierReference
-{
-   /**
+public class UniqueComponentClassifierReferenceImpl extends NamedElementImpl implements UniqueComponentClassifierReference {
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected UniqueComponentClassifierReferenceImpl()
-   {
+	protected UniqueComponentClassifierReferenceImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE;
 	}
 

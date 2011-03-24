@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStateImpl#getBehaviorStateIdentifiers <em>Behavior State Identifiers</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStateImpl#getIdentifiers <em>Identifiers</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStateImpl#isInitial <em>Initial</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStateImpl#isComplete <em>Complete</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStateImpl#isFinal <em>Final</em>}</li>
@@ -41,207 +41,213 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class BehaviorStateImpl extends ElementImpl implements BehaviorState
-{
-   /**
-	 * The cached value of the '{@link #getBehaviorStateIdentifiers() <em>Behavior State Identifiers</em>}' containment reference list.
+public class BehaviorStateImpl extends ElementImpl implements BehaviorState {
+	/**
+	 * The cached value of the '{@link #getIdentifiers() <em>Identifiers</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getBehaviorStateIdentifiers()
+	 * <!-- end-user-doc -->
+	 * @see #getIdentifiers()
 	 * @generated
 	 * @ordered
 	 */
-   protected EList<Identifier> behaviorStateIdentifiers;
+	protected EList<Identifier> identifiers;
 
-   /**
+	/**
 	 * The default value of the '{@link #isInitial() <em>Initial</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isInitial()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final boolean INITIAL_EDEFAULT = false;
+	protected static final boolean INITIAL_EDEFAULT = false;
 
-   /**
+	/**
 	 * The cached value of the '{@link #isInitial() <em>Initial</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isInitial()
 	 * @generated
 	 * @ordered
 	 */
-   protected boolean initial = INITIAL_EDEFAULT;
+	protected boolean initial = INITIAL_EDEFAULT;
 
-   /**
+	/**
 	 * The default value of the '{@link #isComplete() <em>Complete</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isComplete()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final boolean COMPLETE_EDEFAULT = false;
+	protected static final boolean COMPLETE_EDEFAULT = false;
 
-   /**
+	/**
 	 * The cached value of the '{@link #isComplete() <em>Complete</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isComplete()
 	 * @generated
 	 * @ordered
 	 */
-   protected boolean complete = COMPLETE_EDEFAULT;
+	protected boolean complete = COMPLETE_EDEFAULT;
 
-   /**
+	/**
 	 * The default value of the '{@link #isFinal() <em>Final</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isFinal()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final boolean FINAL_EDEFAULT = false;
+	protected static final boolean FINAL_EDEFAULT = false;
 
-   /**
+	/**
 	 * The cached value of the '{@link #isFinal() <em>Final</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isFinal()
 	 * @generated
 	 * @ordered
 	 */
-   protected boolean final_ = FINAL_EDEFAULT;
+	protected boolean final_ = FINAL_EDEFAULT;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected BehaviorStateImpl()
-   {
+	protected BehaviorStateImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.BEHAVIOR_STATE;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public EList<Identifier> getBehaviorStateIdentifiers()
-   {
-		if (behaviorStateIdentifiers == null) {
-			behaviorStateIdentifiers = new EObjectContainmentEList<Identifier>(Identifier.class, this, AadlBaPackage.BEHAVIOR_STATE__BEHAVIOR_STATE_IDENTIFIERS);
+	public EList<Identifier> getIdentifiers() {
+		if (identifiers == null) {
+			identifiers = new EObjectContainmentEList.Unsettable<Identifier>(Identifier.class, this, AadlBaPackage.BEHAVIOR_STATE__IDENTIFIERS);
 		}
-		return behaviorStateIdentifiers;
+		return identifiers;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isInitial()
-   {
+	public void unsetIdentifiers() {
+		if (identifiers != null) ((InternalEList.Unsettable<?>)identifiers).unset();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetIdentifiers() {
+		return identifiers != null && ((InternalEList.Unsettable<?>)identifiers).isSet();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isInitial() {
 		return initial;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setInitial(boolean newInitial)
-   {
+	public void setInitial(boolean newInitial) {
 		boolean oldInitial = initial;
 		initial = newInitial;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_STATE__INITIAL, oldInitial, initial));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isComplete()
-   {
+	public boolean isComplete() {
 		return complete;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setComplete(boolean newComplete)
-   {
+	public void setComplete(boolean newComplete) {
 		boolean oldComplete = complete;
 		complete = newComplete;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_STATE__COMPLETE, oldComplete, complete));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isFinal()
-   {
+	public boolean isFinal() {
 		return final_;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setFinal(boolean newFinal)
-   {
+	public void setFinal(boolean newFinal) {
 		boolean oldFinal = final_;
 		final_ = newFinal;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_STATE__FINAL, oldFinal, final_));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_STATE__BEHAVIOR_STATE_IDENTIFIERS:
-				return ((InternalEList<?>)getBehaviorStateIdentifiers()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.BEHAVIOR_STATE__IDENTIFIERS:
+				return ((InternalEList<?>)getIdentifiers()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_STATE__BEHAVIOR_STATE_IDENTIFIERS:
-				return getBehaviorStateIdentifiers();
+			case AadlBaPackage.BEHAVIOR_STATE__IDENTIFIERS:
+				return getIdentifiers();
 			case AadlBaPackage.BEHAVIOR_STATE__INITIAL:
 				return isInitial();
 			case AadlBaPackage.BEHAVIOR_STATE__COMPLETE:
@@ -252,19 +258,18 @@ public class BehaviorStateImpl extends ElementImpl implements BehaviorState
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @SuppressWarnings("unchecked")
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_STATE__BEHAVIOR_STATE_IDENTIFIERS:
-				getBehaviorStateIdentifiers().clear();
-				getBehaviorStateIdentifiers().addAll((Collection<? extends Identifier>)newValue);
+			case AadlBaPackage.BEHAVIOR_STATE__IDENTIFIERS:
+				getIdentifiers().clear();
+				getIdentifiers().addAll((Collection<? extends Identifier>)newValue);
 				return;
 			case AadlBaPackage.BEHAVIOR_STATE__INITIAL:
 				setInitial((Boolean)newValue);
@@ -279,17 +284,16 @@ public class BehaviorStateImpl extends ElementImpl implements BehaviorState
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_STATE__BEHAVIOR_STATE_IDENTIFIERS:
-				getBehaviorStateIdentifiers().clear();
+			case AadlBaPackage.BEHAVIOR_STATE__IDENTIFIERS:
+				unsetIdentifiers();
 				return;
 			case AadlBaPackage.BEHAVIOR_STATE__INITIAL:
 				setInitial(INITIAL_EDEFAULT);
@@ -304,17 +308,16 @@ public class BehaviorStateImpl extends ElementImpl implements BehaviorState
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_STATE__BEHAVIOR_STATE_IDENTIFIERS:
-				return behaviorStateIdentifiers != null && !behaviorStateIdentifiers.isEmpty();
+			case AadlBaPackage.BEHAVIOR_STATE__IDENTIFIERS:
+				return isSetIdentifiers();
 			case AadlBaPackage.BEHAVIOR_STATE__INITIAL:
 				return initial != INITIAL_EDEFAULT;
 			case AadlBaPackage.BEHAVIOR_STATE__COMPLETE:
@@ -325,22 +328,21 @@ public class BehaviorStateImpl extends ElementImpl implements BehaviorState
 		return super.eIsSet(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public String toString()
-   {
+	@Override
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (Initial: ");
+		result.append(" (initial: ");
 		result.append(initial);
-		result.append(", Complete: ");
+		result.append(", complete: ");
 		result.append(complete);
-		result.append(", Final: ");
+		result.append(", final: ");
 		result.append(final_);
 		result.append(')');
 		return result.toString();

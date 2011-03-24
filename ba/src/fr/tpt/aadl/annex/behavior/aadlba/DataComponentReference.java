@@ -16,7 +16,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference#getElementsNameOwned <em>Elements Name Owned</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference#getNames <em>Names</em>}</li>
  * </ul>
  * </p>
  *
@@ -24,45 +24,44 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface DataComponentReference extends Element, ElementValues
-{
-   /**
-	 * Returns the value of the '<em><b>Elements Name Owned</b></em>' containment reference list.
+public interface DataComponentReference extends ElementValues, Target, ValueVariable {
+	/**
+	 * Returns the value of the '<em><b>Names</b></em>' containment reference list.
 	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.Name}.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Elements Name Owned</em>' containment reference list isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Elements Name Owned</em>' containment reference list.
-	 * @see #isSetElementsNameOwned()
-	 * @see #unsetElementsNameOwned()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getDataComponentReference_ElementsNameOwned()
-	 * @model containment="true" unsettable="true"
+	 * <p>
+	 * If the meaning of the '<em>Names</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Names</em>' containment reference list.
+	 * @see #isSetNames()
+	 * @see #unsetNames()
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getDataComponentReference_Names()
+	 * @model containment="true" unsettable="true" required="true"
 	 * @generated
 	 */
-   EList<Name> getElementsNameOwned();
+	EList<Name> getNames();
 
-   /**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference#getElementsNameOwned <em>Elements Name Owned</em>}' containment reference list.
+	/**
+	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference#getNames <em>Names</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isSetElementsNameOwned()
-	 * @see #getElementsNameOwned()
+	 * <!-- end-user-doc -->
+	 * @see #isSetNames()
+	 * @see #getNames()
 	 * @generated
 	 */
-   void unsetElementsNameOwned();
+	void unsetNames();
 
-   /**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference#getElementsNameOwned <em>Elements Name Owned</em>}' containment reference list is set.
+	/**
+	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference#getNames <em>Names</em>}' containment reference list is set.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Elements Name Owned</em>' containment reference list is set.
-	 * @see #unsetElementsNameOwned()
-	 * @see #getElementsNameOwned()
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Names</em>' containment reference list is set.
+	 * @see #unsetNames()
+	 * @see #getNames()
 	 * @generated
 	 */
-   boolean isSetElementsNameOwned();
+	boolean isSetNames();
 
 } // DataComponentReference

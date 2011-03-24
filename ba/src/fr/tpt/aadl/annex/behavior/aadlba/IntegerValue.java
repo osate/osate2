@@ -14,9 +14,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  *
  *
  * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIntegerValue()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
-public interface IntegerValue extends Element
-{
+public interface IntegerValue extends Element {
 } // IntegerValue

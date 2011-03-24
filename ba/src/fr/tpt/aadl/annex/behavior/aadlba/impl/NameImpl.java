@@ -7,8 +7,8 @@
 package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
-import fr.tpt.aadl.annex.behavior.aadlba.ArrayIndex;
 import fr.tpt.aadl.annex.behavior.aadlba.Identifier;
+import fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable;
 import fr.tpt.aadl.annex.behavior.aadlba.Name;
 
 import java.util.Collection;
@@ -33,222 +33,208 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NameImpl#getArrayIndexListOwned <em>Array Index List Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NameImpl#getIdentifier <em>Identifier</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NameImpl#getIdentifierOwned <em>Identifier Owned</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NameImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class NameImpl extends NamedElementImpl implements Name
-{
-   /**
-	 * The cached value of the '{@link #getArrayIndexListOwned() <em>Array Index List Owned</em>}' containment reference list.
+public class NameImpl extends ElementImpl implements Name {
+	/**
+	 * The cached value of the '{@link #getIdentifierOwned() <em>Identifier Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getArrayIndexListOwned()
+	 * <!-- end-user-doc -->
+	 * @see #getIdentifierOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected EList<ArrayIndex> arrayIndexListOwned;
+	protected Identifier identifierOwned;
 
-   /**
-	 * The cached value of the '{@link #getIdentifier() <em>Identifier</em>}' containment reference.
+	/**
+	 * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getIdentifier()
+	 * <!-- end-user-doc -->
+	 * @see #getArrayIndexes()
 	 * @generated
 	 * @ordered
 	 */
-   protected Identifier identifier;
+	protected EList<IntegerValueVariable> arrayIndexes;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected NameImpl()
-   {
+	protected NameImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.NAME;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public EList<ArrayIndex> getArrayIndexListOwned()
-   {
-		if (arrayIndexListOwned == null) {
-			arrayIndexListOwned = new EObjectContainmentEList.Unsettable<ArrayIndex>(ArrayIndex.class, this, AadlBaPackage.NAME__ARRAY_INDEX_LIST_OWNED);
-		}
-		return arrayIndexListOwned;
+	public Identifier getIdentifierOwned() {
+		return identifierOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void unsetArrayIndexListOwned()
-   {
-		if (arrayIndexListOwned != null) ((InternalEList.Unsettable<?>)arrayIndexListOwned).unset();
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public boolean isSetArrayIndexListOwned()
-   {
-		return arrayIndexListOwned != null && ((InternalEList.Unsettable<?>)arrayIndexListOwned).isSet();
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public Identifier getIdentifier()
-   {
-		return identifier;
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public NotificationChain basicSetIdentifier(Identifier newIdentifier, NotificationChain msgs)
-   {
-		Identifier oldIdentifier = identifier;
-		identifier = newIdentifier;
+	public NotificationChain basicSetIdentifierOwned(Identifier newIdentifierOwned, NotificationChain msgs) {
+		Identifier oldIdentifierOwned = identifierOwned;
+		identifierOwned = newIdentifierOwned;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.NAME__IDENTIFIER, oldIdentifier, newIdentifier);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.NAME__IDENTIFIER_OWNED, oldIdentifierOwned, newIdentifierOwned);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setIdentifier(Identifier newIdentifier)
-   {
-		if (newIdentifier != identifier) {
+	public void setIdentifierOwned(Identifier newIdentifierOwned) {
+		if (newIdentifierOwned != identifierOwned) {
 			NotificationChain msgs = null;
-			if (identifier != null)
-				msgs = ((InternalEObject)identifier).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.NAME__IDENTIFIER, null, msgs);
-			if (newIdentifier != null)
-				msgs = ((InternalEObject)newIdentifier).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.NAME__IDENTIFIER, null, msgs);
-			msgs = basicSetIdentifier(newIdentifier, msgs);
+			if (identifierOwned != null)
+				msgs = ((InternalEObject)identifierOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.NAME__IDENTIFIER_OWNED, null, msgs);
+			if (newIdentifierOwned != null)
+				msgs = ((InternalEObject)newIdentifierOwned).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.NAME__IDENTIFIER_OWNED, null, msgs);
+			msgs = basicSetIdentifierOwned(newIdentifierOwned, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.NAME__IDENTIFIER, newIdentifier, newIdentifier));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.NAME__IDENTIFIER_OWNED, newIdentifierOwned, newIdentifierOwned));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
+	public EList<IntegerValueVariable> getArrayIndexes() {
+		if (arrayIndexes == null) {
+			arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValueVariable>(IntegerValueVariable.class, this, AadlBaPackage.NAME__ARRAY_INDEXES);
+		}
+		return arrayIndexes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetArrayIndexes() {
+		if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetArrayIndexes() {
+		return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case AadlBaPackage.NAME__ARRAY_INDEX_LIST_OWNED:
-				return ((InternalEList<?>)getArrayIndexListOwned()).basicRemove(otherEnd, msgs);
-			case AadlBaPackage.NAME__IDENTIFIER:
-				return basicSetIdentifier(null, msgs);
+			case AadlBaPackage.NAME__IDENTIFIER_OWNED:
+				return basicSetIdentifierOwned(null, msgs);
+			case AadlBaPackage.NAME__ARRAY_INDEXES:
+				return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AadlBaPackage.NAME__ARRAY_INDEX_LIST_OWNED:
-				return getArrayIndexListOwned();
-			case AadlBaPackage.NAME__IDENTIFIER:
-				return getIdentifier();
+			case AadlBaPackage.NAME__IDENTIFIER_OWNED:
+				return getIdentifierOwned();
+			case AadlBaPackage.NAME__ARRAY_INDEXES:
+				return getArrayIndexes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @SuppressWarnings("unchecked")
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AadlBaPackage.NAME__ARRAY_INDEX_LIST_OWNED:
-				getArrayIndexListOwned().clear();
-				getArrayIndexListOwned().addAll((Collection<? extends ArrayIndex>)newValue);
+			case AadlBaPackage.NAME__IDENTIFIER_OWNED:
+				setIdentifierOwned((Identifier)newValue);
 				return;
-			case AadlBaPackage.NAME__IDENTIFIER:
-				setIdentifier((Identifier)newValue);
+			case AadlBaPackage.NAME__ARRAY_INDEXES:
+				getArrayIndexes().clear();
+				getArrayIndexes().addAll((Collection<? extends IntegerValueVariable>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.NAME__ARRAY_INDEX_LIST_OWNED:
-				unsetArrayIndexListOwned();
+			case AadlBaPackage.NAME__IDENTIFIER_OWNED:
+				setIdentifierOwned((Identifier)null);
 				return;
-			case AadlBaPackage.NAME__IDENTIFIER:
-				setIdentifier((Identifier)null);
+			case AadlBaPackage.NAME__ARRAY_INDEXES:
+				unsetArrayIndexes();
 				return;
 		}
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.NAME__ARRAY_INDEX_LIST_OWNED:
-				return isSetArrayIndexListOwned();
-			case AadlBaPackage.NAME__IDENTIFIER:
-				return identifier != null;
+			case AadlBaPackage.NAME__IDENTIFIER_OWNED:
+				return identifierOwned != null;
+			case AadlBaPackage.NAME__ARRAY_INDEXES:
+				return isSetArrayIndexes();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -20,8 +20,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Element#getBaReferencedEntity <em>Ba Referenced Entity</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Element#getAadlReferencedEntity <em>Aadl Referenced Entity</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Element#getBaRef <em>Ba Ref</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Element#getAadlRef <em>Aadl Ref</em>}</li>
  * </ul>
  * </p>
  *
@@ -29,58 +29,57 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model abstract="true"
  * @generated
  */
-public interface Element extends edu.cmu.sei.aadl.aadl2.Element
-{
-   /**
-	 * Returns the value of the '<em><b>Ba Referenced Entity</b></em>' reference.
+public interface Element extends edu.cmu.sei.aadl.aadl2.Element {
+	/**
+	 * Returns the value of the '<em><b>Ba Ref</b></em>' reference.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Ba Referenced Entity</em>' reference isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Ba Referenced Entity</em>' reference.
-	 * @see #setBaReferencedEntity(Element)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getElement_BaReferencedEntity()
+	 * <p>
+	 * If the meaning of the '<em>Ba Ref</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ba Ref</em>' reference.
+	 * @see #setBaRef(Element)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getElement_BaRef()
 	 * @model
 	 * @generated
 	 */
-   Element getBaReferencedEntity();
+	Element getBaRef();
 
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Element#getBaReferencedEntity <em>Ba Referenced Entity</em>}' reference.
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Element#getBaRef <em>Ba Ref</em>}' reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Ba Referenced Entity</em>' reference.
-	 * @see #getBaReferencedEntity()
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Ba Ref</em>' reference.
+	 * @see #getBaRef()
 	 * @generated
 	 */
-   void setBaReferencedEntity(Element value);
+	void setBaRef(Element value);
 
-   /**
-	 * Returns the value of the '<em><b>Aadl Referenced Entity</b></em>' reference.
+	/**
+	 * Returns the value of the '<em><b>Aadl Ref</b></em>' reference.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Aadl Referenced Entity</em>' reference isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Aadl Referenced Entity</em>' reference.
-	 * @see #setAadlReferencedEntity(edu.cmu.sei.aadl.aadl2.Element)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getElement_AadlReferencedEntity()
+	 * <p>
+	 * If the meaning of the '<em>Aadl Ref</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Aadl Ref</em>' reference.
+	 * @see #setAadlRef(edu.cmu.sei.aadl.aadl2.Element)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getElement_AadlRef()
 	 * @model
 	 * @generated
 	 */
-   edu.cmu.sei.aadl.aadl2.Element getAadlReferencedEntity();
+	edu.cmu.sei.aadl.aadl2.Element getAadlRef();
 
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Element#getAadlReferencedEntity <em>Aadl Referenced Entity</em>}' reference.
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Element#getAadlRef <em>Aadl Ref</em>}' reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Aadl Referenced Entity</em>' reference.
-	 * @see #getAadlReferencedEntity()
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Aadl Ref</em>' reference.
+	 * @see #getAadlRef()
 	 * @generated
 	 */
-   void setAadlReferencedEntity(edu.cmu.sei.aadl.aadl2.Element value);
+	void setAadlRef(edu.cmu.sei.aadl.aadl2.Element value);
 
 } // Element

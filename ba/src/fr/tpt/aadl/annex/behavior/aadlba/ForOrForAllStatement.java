@@ -15,10 +15,10 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getDataUniqueCmtClassRef <em>Data Unique Cmt Class Ref</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getElementIdentifier <em>Element Identifier</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getDataUniqueComponentClassifierReference <em>Data Unique Component Classifier Reference</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getElementValuesOwned <em>Element Values Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#isForAll <em>For All</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getElement <em>Element</em>}</li>
  * </ul>
  * </p>
  *
@@ -26,111 +26,110 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface ForOrForAllStatement extends NamedElement, LoopStatement
-{
-   /**
-	 * Returns the value of the '<em><b>Data Unique Cmt Class Ref</b></em>' containment reference.
+public interface ForOrForAllStatement extends LoopStatement {
+	/**
+	 * Returns the value of the '<em><b>Element Identifier</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Data Unique Cmt Class Ref</em>' containment reference isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Data Unique Cmt Class Ref</em>' containment reference.
-	 * @see #setDataUniqueCmtClassRef(UniqueComponentClassifierReference)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_DataUniqueCmtClassRef()
-	 * @model containment="true"
+	 * <p>
+	 * If the meaning of the '<em>Element Identifier</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Element Identifier</em>' containment reference.
+	 * @see #setElementIdentifier(Identifier)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_ElementIdentifier()
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-   UniqueComponentClassifierReference getDataUniqueCmtClassRef();
+	Identifier getElementIdentifier();
 
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getDataUniqueCmtClassRef <em>Data Unique Cmt Class Ref</em>}' containment reference.
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getElementIdentifier <em>Element Identifier</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Data Unique Cmt Class Ref</em>' containment reference.
-	 * @see #getDataUniqueCmtClassRef()
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Element Identifier</em>' containment reference.
+	 * @see #getElementIdentifier()
 	 * @generated
 	 */
-   void setDataUniqueCmtClassRef(UniqueComponentClassifierReference value);
+	void setElementIdentifier(Identifier value);
 
-   /**
+	/**
+	 * Returns the value of the '<em><b>Data Unique Component Classifier Reference</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Data Unique Component Classifier Reference</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Unique Component Classifier Reference</em>' containment reference.
+	 * @see #setDataUniqueComponentClassifierReference(UniqueComponentClassifierReference)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_DataUniqueComponentClassifierReference()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	UniqueComponentClassifierReference getDataUniqueComponentClassifierReference();
+
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getDataUniqueComponentClassifierReference <em>Data Unique Component Classifier Reference</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Data Unique Component Classifier Reference</em>' containment reference.
+	 * @see #getDataUniqueComponentClassifierReference()
+	 * @generated
+	 */
+	void setDataUniqueComponentClassifierReference(UniqueComponentClassifierReference value);
+
+	/**
 	 * Returns the value of the '<em><b>Element Values Owned</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Element Values Owned</em>' containment reference isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Element Values Owned</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Element Values Owned</em>' containment reference.
 	 * @see #setElementValuesOwned(ElementValues)
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_ElementValuesOwned()
-	 * @model containment="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-   ElementValues getElementValuesOwned();
+	ElementValues getElementValuesOwned();
 
-   /**
+	/**
 	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getElementValuesOwned <em>Element Values Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Element Values Owned</em>' containment reference.
 	 * @see #getElementValuesOwned()
 	 * @generated
 	 */
-   void setElementValuesOwned(ElementValues value);
+	void setElementValuesOwned(ElementValues value);
 
-   /**
+	/**
 	 * Returns the value of the '<em><b>For All</b></em>' attribute.
-	 * The default value is <code>"False"</code>.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>For All</em>' attribute isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>For All</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>For All</em>' attribute.
 	 * @see #setForAll(boolean)
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_ForAll()
-	 * @model default="False" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+	 * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
 	 * @generated
 	 */
-   boolean isForAll();
+	boolean isForAll();
 
-   /**
+	/**
 	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#isForAll <em>For All</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>For All</em>' attribute.
 	 * @see #isForAll()
 	 * @generated
 	 */
-   void setForAll(boolean value);
-
-			/**
-	 * Returns the value of the '<em><b>Element</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Element</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Element</em>' containment reference.
-	 * @see #setElement(Identifier)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_Element()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Identifier getElement();
-
-			/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getElement <em>Element</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Element</em>' containment reference.
-	 * @see #getElement()
-	 * @generated
-	 */
-	void setElement(Identifier value);
+	void setForAll(boolean value);
 
 } // ForOrForAllStatement

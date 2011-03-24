@@ -14,9 +14,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  *
  *
  * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorCondition()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
-public interface BehaviorCondition extends Element
-{
+public interface BehaviorCondition extends Element {
 } // BehaviorCondition

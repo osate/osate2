@@ -1,9 +1,20 @@
 package Dummy::Types
+
 public
+  with Data_Model ;
+
   data Opaque
   end Opaque;
   
   data implementation Opaque.v1
   end Opaque.v1 ;
+  
+  data Integer
+    properties
+      Data_Model::Data_Representation => Integer;
+  end Integer ;
+  
+  data implementation Integer.v1
+  end Integer.v1 ;
   
 end Dummy::Types ;

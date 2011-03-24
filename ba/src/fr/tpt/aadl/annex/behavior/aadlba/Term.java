@@ -16,9 +16,8 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getFactorsOwned <em>Factors Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Term#isHasMultiplyingOperator <em>Has Multiplying Operator</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getMultiplyingOperatorsOwned <em>Multiplying Operators Owned</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getFactors <em>Factors</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getMultiplyingOperators <em>Multiplying Operators</em>}</li>
  * </ul>
  * </p>
  *
@@ -26,113 +25,85 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Term extends Element
-{
-   /**
-	 * Returns the value of the '<em><b>Factors Owned</b></em>' containment reference list.
+public interface Term extends Element {
+	/**
+	 * Returns the value of the '<em><b>Factors</b></em>' containment reference list.
 	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.Factor}.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Factors Owned</em>' containment reference list isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Factors Owned</em>' containment reference list.
-	 * @see #isSetFactorsOwned()
-	 * @see #unsetFactorsOwned()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTerm_FactorsOwned()
-	 * @model containment="true" unsettable="true"
+	 * <p>
+	 * If the meaning of the '<em>Factors</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Factors</em>' containment reference list.
+	 * @see #isSetFactors()
+	 * @see #unsetFactors()
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTerm_Factors()
+	 * @model containment="true" unsettable="true" required="true"
 	 * @generated
 	 */
-   EList<Factor> getFactorsOwned();
+	EList<Factor> getFactors();
 
-   /**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getFactorsOwned <em>Factors Owned</em>}' containment reference list.
+	/**
+	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getFactors <em>Factors</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isSetFactorsOwned()
-	 * @see #getFactorsOwned()
+	 * <!-- end-user-doc -->
+	 * @see #isSetFactors()
+	 * @see #getFactors()
 	 * @generated
 	 */
-   void unsetFactorsOwned();
+	void unsetFactors();
 
-   /**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getFactorsOwned <em>Factors Owned</em>}' containment reference list is set.
+	/**
+	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getFactors <em>Factors</em>}' containment reference list is set.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Factors Owned</em>' containment reference list is set.
-	 * @see #unsetFactorsOwned()
-	 * @see #getFactorsOwned()
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Factors</em>' containment reference list is set.
+	 * @see #unsetFactors()
+	 * @see #getFactors()
 	 * @generated
 	 */
-   boolean isSetFactorsOwned();
+	boolean isSetFactors();
 
-   /**
-	 * Returns the value of the '<em><b>Has Multiplying Operator</b></em>' attribute.
-	 * The default value is <code>"False"</code>.
-	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Has Multiplying Operator</em>' attribute isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Has Multiplying Operator</em>' attribute.
-	 * @see #setHasMultiplyingOperator(boolean)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTerm_HasMultiplyingOperator()
-	 * @model default="False" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
-	 * @generated
-	 */
-   boolean isHasMultiplyingOperator();
-
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#isHasMultiplyingOperator <em>Has Multiplying Operator</em>}' attribute.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Has Multiplying Operator</em>' attribute.
-	 * @see #isHasMultiplyingOperator()
-	 * @generated
-	 */
-   void setHasMultiplyingOperator(boolean value);
-
-   /**
-	 * Returns the value of the '<em><b>Multiplying Operators Owned</b></em>' attribute list.
+	/**
+	 * Returns the value of the '<em><b>Multiplying Operators</b></em>' attribute list.
 	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator}.
 	 * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator}.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Multiplying Operators Owned</em>' attribute list isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Multiplying Operators Owned</em>' attribute list.
+	 * <p>
+	 * If the meaning of the '<em>Multiplying Operators</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Multiplying Operators</em>' attribute list.
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator
-	 * @see #isSetMultiplyingOperatorsOwned()
-	 * @see #unsetMultiplyingOperatorsOwned()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTerm_MultiplyingOperatorsOwned()
-	 * @model unsettable="true"
+	 * @see #isSetMultiplyingOperators()
+	 * @see #unsetMultiplyingOperators()
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTerm_MultiplyingOperators()
+	 * @model unique="false" unsettable="true"
 	 * @generated
 	 */
-   EList<MultiplyingOperator> getMultiplyingOperatorsOwned();
+	EList<MultiplyingOperator> getMultiplyingOperators();
 
-   /**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getMultiplyingOperatorsOwned <em>Multiplying Operators Owned</em>}' attribute list.
+	/**
+	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getMultiplyingOperators <em>Multiplying Operators</em>}' attribute list.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isSetMultiplyingOperatorsOwned()
-	 * @see #getMultiplyingOperatorsOwned()
+	 * <!-- end-user-doc -->
+	 * @see #isSetMultiplyingOperators()
+	 * @see #getMultiplyingOperators()
 	 * @generated
 	 */
-   void unsetMultiplyingOperatorsOwned();
+	void unsetMultiplyingOperators();
 
-   /**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getMultiplyingOperatorsOwned <em>Multiplying Operators Owned</em>}' attribute list is set.
+	/**
+	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getMultiplyingOperators <em>Multiplying Operators</em>}' attribute list is set.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Multiplying Operators Owned</em>' attribute list is set.
-	 * @see #unsetMultiplyingOperatorsOwned()
-	 * @see #getMultiplyingOperatorsOwned()
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Multiplying Operators</em>' attribute list is set.
+	 * @see #unsetMultiplyingOperators()
+	 * @see #getMultiplyingOperators()
 	 * @generated
 	 */
-   boolean isSetMultiplyingOperatorsOwned();
+	boolean isSetMultiplyingOperators();
 
 } // Term

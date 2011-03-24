@@ -7,12 +7,9 @@
 package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions;
-import fr.tpt.aadl.annex.behavior.aadlba.CondStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.ElementValues;
 import fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.Identifier;
-import fr.tpt.aadl.annex.behavior.aadlba.LoopStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.UniqueComponentClassifierReference;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -30,171 +27,186 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#getDataUniqueCmtClassRef <em>Data Unique Cmt Class Ref</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#getElementIdentifier <em>Element Identifier</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#getDataUniqueComponentClassifierReference <em>Data Unique Component Classifier Reference</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#getElementValuesOwned <em>Element Values Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#isForAll <em>For All</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl#getElement <em>Element</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrForAllStatement
-{
-   /**
-	 * The cached value of the '{@link #getBehaviorActionsOwned() <em>Behavior Actions Owned</em>}' containment reference.
+public class ForOrForAllStatementImpl extends LoopStatementImpl implements ForOrForAllStatement {
+	/**
+	 * The cached value of the '{@link #getElementIdentifier() <em>Element Identifier</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getBehaviorActionsOwned()
+	 * <!-- end-user-doc -->
+	 * @see #getElementIdentifier()
 	 * @generated
 	 * @ordered
 	 */
-   protected BehaviorActions behaviorActionsOwned;
+	protected Identifier elementIdentifier;
 
-   /**
-	 * This is true if the Behavior Actions Owned containment reference has been set.
+	/**
+	 * The cached value of the '{@link #getDataUniqueComponentClassifierReference() <em>Data Unique Component Classifier Reference</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataUniqueComponentClassifierReference()
 	 * @generated
 	 * @ordered
 	 */
-   protected boolean behaviorActionsOwnedESet;
+	protected UniqueComponentClassifierReference dataUniqueComponentClassifierReference;
 
-			/**
-	 * The cached value of the '{@link #getDataUniqueCmtClassRef() <em>Data Unique Cmt Class Ref</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getDataUniqueCmtClassRef()
-	 * @generated
-	 * @ordered
-	 */
-   protected UniqueComponentClassifierReference dataUniqueCmtClassRef;
-
-			/**
+	/**
 	 * The cached value of the '{@link #getElementValuesOwned() <em>Element Values Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getElementValuesOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected ElementValues elementValuesOwned;
+	protected ElementValues elementValuesOwned;
 
-   /**
+	/**
 	 * The default value of the '{@link #isForAll() <em>For All</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isForAll()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final boolean FOR_ALL_EDEFAULT = false;
+	protected static final boolean FOR_ALL_EDEFAULT = false;
 
-   /**
+	/**
 	 * The cached value of the '{@link #isForAll() <em>For All</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isForAll()
 	 * @generated
 	 * @ordered
 	 */
-   protected boolean forAll = FOR_ALL_EDEFAULT;
+	protected boolean forAll = FOR_ALL_EDEFAULT;
 
-   /**
-	 * The cached value of the '{@link #getElement() <em>Element</em>}' containment reference.
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getElement()
-	 * @generated
-	 * @ordered
-	 */
-	protected Identifier element;
-
-			/**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected ForOrForAllStatementImpl()
-   {
+	protected ForOrForAllStatementImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.FOR_OR_FOR_ALL_STATEMENT;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public UniqueComponentClassifierReference getDataUniqueCmtClassRef()
-   {
-		return dataUniqueCmtClassRef;
+	public Identifier getElementIdentifier() {
+		return elementIdentifier;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public NotificationChain basicSetDataUniqueCmtClassRef(UniqueComponentClassifierReference newDataUniqueCmtClassRef, NotificationChain msgs)
-   {
-		UniqueComponentClassifierReference oldDataUniqueCmtClassRef = dataUniqueCmtClassRef;
-		dataUniqueCmtClassRef = newDataUniqueCmtClassRef;
+	public NotificationChain basicSetElementIdentifier(Identifier newElementIdentifier, NotificationChain msgs) {
+		Identifier oldElementIdentifier = elementIdentifier;
+		elementIdentifier = newElementIdentifier;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF, oldDataUniqueCmtClassRef, newDataUniqueCmtClassRef);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_IDENTIFIER, oldElementIdentifier, newElementIdentifier);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setDataUniqueCmtClassRef(UniqueComponentClassifierReference newDataUniqueCmtClassRef)
-   {
-		if (newDataUniqueCmtClassRef != dataUniqueCmtClassRef) {
+	public void setElementIdentifier(Identifier newElementIdentifier) {
+		if (newElementIdentifier != elementIdentifier) {
 			NotificationChain msgs = null;
-			if (dataUniqueCmtClassRef != null)
-				msgs = ((InternalEObject)dataUniqueCmtClassRef).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF, null, msgs);
-			if (newDataUniqueCmtClassRef != null)
-				msgs = ((InternalEObject)newDataUniqueCmtClassRef).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF, null, msgs);
-			msgs = basicSetDataUniqueCmtClassRef(newDataUniqueCmtClassRef, msgs);
+			if (elementIdentifier != null)
+				msgs = ((InternalEObject)elementIdentifier).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_IDENTIFIER, null, msgs);
+			if (newElementIdentifier != null)
+				msgs = ((InternalEObject)newElementIdentifier).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_IDENTIFIER, null, msgs);
+			msgs = basicSetElementIdentifier(newElementIdentifier, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF, newDataUniqueCmtClassRef, newDataUniqueCmtClassRef));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_IDENTIFIER, newElementIdentifier, newElementIdentifier));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public ElementValues getElementValuesOwned()
-   {
+	public UniqueComponentClassifierReference getDataUniqueComponentClassifierReference() {
+		return dataUniqueComponentClassifierReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDataUniqueComponentClassifierReference(UniqueComponentClassifierReference newDataUniqueComponentClassifierReference, NotificationChain msgs) {
+		UniqueComponentClassifierReference oldDataUniqueComponentClassifierReference = dataUniqueComponentClassifierReference;
+		dataUniqueComponentClassifierReference = newDataUniqueComponentClassifierReference;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE, oldDataUniqueComponentClassifierReference, newDataUniqueComponentClassifierReference);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataUniqueComponentClassifierReference(UniqueComponentClassifierReference newDataUniqueComponentClassifierReference) {
+		if (newDataUniqueComponentClassifierReference != dataUniqueComponentClassifierReference) {
+			NotificationChain msgs = null;
+			if (dataUniqueComponentClassifierReference != null)
+				msgs = ((InternalEObject)dataUniqueComponentClassifierReference).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE, null, msgs);
+			if (newDataUniqueComponentClassifierReference != null)
+				msgs = ((InternalEObject)newDataUniqueComponentClassifierReference).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE, null, msgs);
+			msgs = basicSetDataUniqueComponentClassifierReference(newDataUniqueComponentClassifierReference, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE, newDataUniqueComponentClassifierReference, newDataUniqueComponentClassifierReference));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ElementValues getElementValuesOwned() {
 		return elementValuesOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public NotificationChain basicSetElementValuesOwned(ElementValues newElementValuesOwned, NotificationChain msgs)
-   {
+	public NotificationChain basicSetElementValuesOwned(ElementValues newElementValuesOwned, NotificationChain msgs) {
 		ElementValues oldElementValuesOwned = elementValuesOwned;
 		elementValuesOwned = newElementValuesOwned;
 		if (eNotificationRequired()) {
@@ -204,13 +216,12 @@ public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrF
 		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setElementValuesOwned(ElementValues newElementValuesOwned)
-   {
+	public void setElementValuesOwned(ElementValues newElementValuesOwned) {
 		if (newElementValuesOwned != elementValuesOwned) {
 			NotificationChain msgs = null;
 			if (elementValuesOwned != null)
@@ -224,231 +235,78 @@ public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrF
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED, newElementValuesOwned, newElementValuesOwned));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public BehaviorActions getBehaviorActionsOwned()
-   {
-		return behaviorActionsOwned;
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public NotificationChain basicSetBehaviorActionsOwned(BehaviorActions newBehaviorActionsOwned, NotificationChain msgs)
-   {
-		BehaviorActions oldBehaviorActionsOwned = behaviorActionsOwned;
-		behaviorActionsOwned = newBehaviorActionsOwned;
-		boolean oldBehaviorActionsOwnedESet = behaviorActionsOwnedESet;
-		behaviorActionsOwnedESet = true;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED, oldBehaviorActionsOwned, newBehaviorActionsOwned, !oldBehaviorActionsOwnedESet);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public void setBehaviorActionsOwned(BehaviorActions newBehaviorActionsOwned)
-   {
-		if (newBehaviorActionsOwned != behaviorActionsOwned) {
-			NotificationChain msgs = null;
-			if (behaviorActionsOwned != null)
-				msgs = ((InternalEObject)behaviorActionsOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED, null, msgs);
-			if (newBehaviorActionsOwned != null)
-				msgs = ((InternalEObject)newBehaviorActionsOwned).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED, null, msgs);
-			msgs = basicSetBehaviorActionsOwned(newBehaviorActionsOwned, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else {
-			boolean oldBehaviorActionsOwnedESet = behaviorActionsOwnedESet;
-			behaviorActionsOwnedESet = true;
-			if (eNotificationRequired())
-				eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED, newBehaviorActionsOwned, newBehaviorActionsOwned, !oldBehaviorActionsOwnedESet));
-		}
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public NotificationChain basicUnsetBehaviorActionsOwned(NotificationChain msgs)
-   {
-		BehaviorActions oldBehaviorActionsOwned = behaviorActionsOwned;
-		behaviorActionsOwned = null;
-		boolean oldBehaviorActionsOwnedESet = behaviorActionsOwnedESet;
-		behaviorActionsOwnedESet = false;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED, oldBehaviorActionsOwned, null, oldBehaviorActionsOwnedESet);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public void unsetBehaviorActionsOwned()
-   {
-		if (behaviorActionsOwned != null) {
-			NotificationChain msgs = null;
-			msgs = ((InternalEObject)behaviorActionsOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED, null, msgs);
-			msgs = basicUnsetBehaviorActionsOwned(msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else {
-			boolean oldBehaviorActionsOwnedESet = behaviorActionsOwnedESet;
-			behaviorActionsOwnedESet = false;
-			if (eNotificationRequired())
-				eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED, null, null, oldBehaviorActionsOwnedESet));
-		}
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public boolean isSetBehaviorActionsOwned()
-   {
-		return behaviorActionsOwnedESet;
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public boolean isForAll()
-   {
+	public boolean isForAll() {
 		return forAll;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setForAll(boolean newForAll)
-   {
+	public void setForAll(boolean newForAll) {
 		boolean oldForAll = forAll;
 		forAll = newForAll;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__FOR_ALL, oldForAll, forAll));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Identifier getElement() {
-		return element;
-	}
-
-			/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetElement(Identifier newElement, NotificationChain msgs) {
-		Identifier oldElement = element;
-		element = newElement;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT, oldElement, newElement);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-			/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setElement(Identifier newElement) {
-		if (newElement != element) {
-			NotificationChain msgs = null;
-			if (element != null)
-				msgs = ((InternalEObject)element).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT, null, msgs);
-			if (newElement != null)
-				msgs = ((InternalEObject)newElement).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT, null, msgs);
-			msgs = basicSetElement(newElement, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT, newElement, newElement));
-	}
-
-			/**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-				return basicUnsetBehaviorActionsOwned(msgs);
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF:
-				return basicSetDataUniqueCmtClassRef(null, msgs);
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_IDENTIFIER:
+				return basicSetElementIdentifier(null, msgs);
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
+				return basicSetDataUniqueComponentClassifierReference(null, msgs);
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED:
 				return basicSetElementValuesOwned(null, msgs);
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT:
-				return basicSetElement(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-				return getBehaviorActionsOwned();
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF:
-				return getDataUniqueCmtClassRef();
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_IDENTIFIER:
+				return getElementIdentifier();
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
+				return getDataUniqueComponentClassifierReference();
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED:
 				return getElementValuesOwned();
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__FOR_ALL:
 				return isForAll();
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT:
-				return getElement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-				setBehaviorActionsOwned((BehaviorActions)newValue);
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_IDENTIFIER:
+				setElementIdentifier((Identifier)newValue);
 				return;
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF:
-				setDataUniqueCmtClassRef((UniqueComponentClassifierReference)newValue);
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
+				setDataUniqueComponentClassifierReference((UniqueComponentClassifierReference)newValue);
 				return;
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED:
 				setElementValuesOwned((ElementValues)newValue);
@@ -456,27 +314,23 @@ public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrF
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__FOR_ALL:
 				setForAll((Boolean)newValue);
 				return;
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT:
-				setElement((Identifier)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-				unsetBehaviorActionsOwned();
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_IDENTIFIER:
+				setElementIdentifier((Identifier)null);
 				return;
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF:
-				setDataUniqueCmtClassRef((UniqueComponentClassifierReference)null);
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
+				setDataUniqueComponentClassifierReference((UniqueComponentClassifierReference)null);
 				return;
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED:
 				setElementValuesOwned((ElementValues)null);
@@ -484,90 +338,41 @@ public class ForOrForAllStatementImpl extends NamedElementImpl implements ForOrF
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__FOR_ALL:
 				setForAll(FOR_ALL_EDEFAULT);
 				return;
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT:
-				setElement((Identifier)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
-				return isSetBehaviorActionsOwned();
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_CMT_CLASS_REF:
-				return dataUniqueCmtClassRef != null;
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_IDENTIFIER:
+				return elementIdentifier != null;
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE:
+				return dataUniqueComponentClassifierReference != null;
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED:
 				return elementValuesOwned != null;
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__FOR_ALL:
 				return forAll != FOR_ALL_EDEFAULT;
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__ELEMENT:
-				return element != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == CondStatement.class) {
-			switch (derivedFeatureID) {
-				default: return -1;
-			}
-		}
-		if (baseClass == LoopStatement.class) {
-			switch (derivedFeatureID) {
-				case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED: return AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS_OWNED;
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-			/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == CondStatement.class) {
-			switch (baseFeatureID) {
-				default: return -1;
-			}
-		}
-		if (baseClass == LoopStatement.class) {
-			switch (baseFeatureID) {
-				case AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS_OWNED: return AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT__BEHAVIOR_ACTIONS_OWNED;
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-	}
-
-			/**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   @Override
-   public String toString()
-   {
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (ForAll: ");
+		result.append(" (forAll: ");
 		result.append(forAll);
 		result.append(')');
 		return result.toString();

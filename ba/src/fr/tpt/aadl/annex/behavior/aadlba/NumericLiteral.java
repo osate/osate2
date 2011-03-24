@@ -15,41 +15,39 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral#getNumValue <em>Num Value</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral#getValueString <em>Value String</em>}</li>
  * </ul>
  * </p>
  *
  * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getNumericLiteral()
- * @model
+ * @model abstract="true"
  * @generated
  */
-public interface NumericLiteral extends ValueConstant
-{
-   /**
-	 * Returns the value of the '<em><b>Num Value</b></em>' attribute.
-	 * The default value is <code>""</code>.
+public interface NumericLiteral extends Literal {
+	/**
+	 * Returns the value of the '<em><b>Value String</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Num Value</em>' attribute isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Num Value</em>' attribute.
-	 * @see #setNumValue(String)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getNumericLiteral_NumValue()
-	 * @model default="" dataType="fr.tpt.aadl.annex.behavior.aadlba.String"
+	 * <p>
+	 * If the meaning of the '<em>Value String</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Value String</em>' attribute.
+	 * @see #setValueString(String)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getNumericLiteral_ValueString()
+	 * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.String" required="true"
 	 * @generated
 	 */
-   String getNumValue();
+	String getValueString();
 
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral#getNumValue <em>Num Value</em>}' attribute.
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral#getValueString <em>Value String</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Num Value</em>' attribute.
-	 * @see #getNumValue()
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Value String</em>' attribute.
+	 * @see #getValueString()
 	 * @generated
 	 */
-   void setNumValue(String value);
+	void setValueString(String value);
 
 } // NumericLiteral

@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -35,393 +35,298 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SimpleExpressionImpl#getTermsOwned <em>Terms Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SimpleExpressionImpl#getUnaryAddingOperatorOwned <em>Unary Adding Operator Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SimpleExpressionImpl#isHasUnaryAddingOperator <em>Has Unary Adding Operator</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SimpleExpressionImpl#getBinaryAddingOperatorOwned <em>Binary Adding Operator Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SimpleExpressionImpl#isHasBinaryAddingOperator <em>Has Binary Adding Operator</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SimpleExpressionImpl#getTerms <em>Terms</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SimpleExpressionImpl#getBinaryAddingOperators <em>Binary Adding Operators</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class SimpleExpressionImpl extends ElementImpl implements SimpleExpression
-{
-   /**
-	 * The cached value of the '{@link #getTermsOwned() <em>Terms Owned</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getTermsOwned()
-	 * @generated
-	 * @ordered
-	 */
-   protected EList<Term> termsOwned;
-
-   /**
+public class SimpleExpressionImpl extends ElementImpl implements SimpleExpression {
+	/**
 	 * The default value of the '{@link #getUnaryAddingOperatorOwned() <em>Unary Adding Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getUnaryAddingOperatorOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final UnaryAddingOperator UNARY_ADDING_OPERATOR_OWNED_EDEFAULT = UnaryAddingOperator.PLUS;
+	protected static final UnaryAddingOperator UNARY_ADDING_OPERATOR_OWNED_EDEFAULT = UnaryAddingOperator.NONE;
 
-   /**
+	/**
 	 * The cached value of the '{@link #getUnaryAddingOperatorOwned() <em>Unary Adding Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getUnaryAddingOperatorOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected UnaryAddingOperator unaryAddingOperatorOwned = UNARY_ADDING_OPERATOR_OWNED_EDEFAULT;
+	protected UnaryAddingOperator unaryAddingOperatorOwned = UNARY_ADDING_OPERATOR_OWNED_EDEFAULT;
 
-   /**
-	 * The default value of the '{@link #isHasUnaryAddingOperator() <em>Has Unary Adding Operator</em>}' attribute.
+	/**
+	 * This is true if the Unary Adding Operator Owned attribute has been set.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isHasUnaryAddingOperator()
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-   protected static final boolean HAS_UNARY_ADDING_OPERATOR_EDEFAULT = false;
+	protected boolean unaryAddingOperatorOwnedESet;
 
-   /**
-	 * The cached value of the '{@link #isHasUnaryAddingOperator() <em>Has Unary Adding Operator</em>}' attribute.
+	/**
+	 * The cached value of the '{@link #getTerms() <em>Terms</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isHasUnaryAddingOperator()
+	 * <!-- end-user-doc -->
+	 * @see #getTerms()
 	 * @generated
 	 * @ordered
 	 */
-   protected boolean hasUnaryAddingOperator = HAS_UNARY_ADDING_OPERATOR_EDEFAULT;
+	protected EList<Term> terms;
 
-   /**
-	 * The cached value of the '{@link #getBinaryAddingOperatorOwned() <em>Binary Adding Operator Owned</em>}' attribute list.
+	/**
+	 * The cached value of the '{@link #getBinaryAddingOperators() <em>Binary Adding Operators</em>}' attribute list.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getBinaryAddingOperatorOwned()
+	 * <!-- end-user-doc -->
+	 * @see #getBinaryAddingOperators()
 	 * @generated
 	 * @ordered
 	 */
-   protected EList<BinaryAddingOperator> binaryAddingOperatorOwned;
+	protected EList<BinaryAddingOperator> binaryAddingOperators;
 
-   /**
-	 * The default value of the '{@link #isHasBinaryAddingOperator() <em>Has Binary Adding Operator</em>}' attribute.
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isHasBinaryAddingOperator()
-	 * @generated
-	 * @ordered
-	 */
-   protected static final boolean HAS_BINARY_ADDING_OPERATOR_EDEFAULT = false;
-
-   /**
-	 * The cached value of the '{@link #isHasBinaryAddingOperator() <em>Has Binary Adding Operator</em>}' attribute.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isHasBinaryAddingOperator()
-	 * @generated
-	 * @ordered
-	 */
-   protected boolean hasBinaryAddingOperator = HAS_BINARY_ADDING_OPERATOR_EDEFAULT;
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected SimpleExpressionImpl()
-   {
+	protected SimpleExpressionImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.SIMPLE_EXPRESSION;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public EList<Term> getTermsOwned()
-   {
-		if (termsOwned == null) {
-			termsOwned = new EObjectContainmentEList.Unsettable<Term>(Term.class, this, AadlBaPackage.SIMPLE_EXPRESSION__TERMS_OWNED);
-		}
-		return termsOwned;
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public void unsetTermsOwned()
-   {
-		if (termsOwned != null) ((InternalEList.Unsettable<?>)termsOwned).unset();
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public boolean isSetTermsOwned()
-   {
-		return termsOwned != null && ((InternalEList.Unsettable<?>)termsOwned).isSet();
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public UnaryAddingOperator getUnaryAddingOperatorOwned()
-   {
+	public UnaryAddingOperator getUnaryAddingOperatorOwned() {
 		return unaryAddingOperatorOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setUnaryAddingOperatorOwned(UnaryAddingOperator newUnaryAddingOperatorOwned)
-   {
+	public void setUnaryAddingOperatorOwned(UnaryAddingOperator newUnaryAddingOperatorOwned) {
 		UnaryAddingOperator oldUnaryAddingOperatorOwned = unaryAddingOperatorOwned;
 		unaryAddingOperatorOwned = newUnaryAddingOperatorOwned == null ? UNARY_ADDING_OPERATOR_OWNED_EDEFAULT : newUnaryAddingOperatorOwned;
+		boolean oldUnaryAddingOperatorOwnedESet = unaryAddingOperatorOwnedESet;
+		unaryAddingOperatorOwnedESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR_OWNED, oldUnaryAddingOperatorOwned, unaryAddingOperatorOwned));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR_OWNED, oldUnaryAddingOperatorOwned, unaryAddingOperatorOwned, !oldUnaryAddingOperatorOwnedESet));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isHasUnaryAddingOperator()
-   {
-		return hasUnaryAddingOperator;
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public void setHasUnaryAddingOperator(boolean newHasUnaryAddingOperator)
-   {
-		boolean oldHasUnaryAddingOperator = hasUnaryAddingOperator;
-		hasUnaryAddingOperator = newHasUnaryAddingOperator;
+	public void unsetUnaryAddingOperatorOwned() {
+		UnaryAddingOperator oldUnaryAddingOperatorOwned = unaryAddingOperatorOwned;
+		boolean oldUnaryAddingOperatorOwnedESet = unaryAddingOperatorOwnedESet;
+		unaryAddingOperatorOwned = UNARY_ADDING_OPERATOR_OWNED_EDEFAULT;
+		unaryAddingOperatorOwnedESet = false;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SIMPLE_EXPRESSION__HAS_UNARY_ADDING_OPERATOR, oldHasUnaryAddingOperator, hasUnaryAddingOperator));
+			eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR_OWNED, oldUnaryAddingOperatorOwned, UNARY_ADDING_OPERATOR_OWNED_EDEFAULT, oldUnaryAddingOperatorOwnedESet));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public EList<BinaryAddingOperator> getBinaryAddingOperatorOwned()
-   {
-		if (binaryAddingOperatorOwned == null) {
-			binaryAddingOperatorOwned = new EDataTypeUniqueEList.Unsettable<BinaryAddingOperator>(BinaryAddingOperator.class, this, AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATOR_OWNED);
+	public boolean isSetUnaryAddingOperatorOwned() {
+		return unaryAddingOperatorOwnedESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Term> getTerms() {
+		if (terms == null) {
+			terms = new EObjectContainmentEList.Unsettable<Term>(Term.class, this, AadlBaPackage.SIMPLE_EXPRESSION__TERMS);
 		}
-		return binaryAddingOperatorOwned;
+		return terms;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void unsetBinaryAddingOperatorOwned()
-   {
-		if (binaryAddingOperatorOwned != null) ((InternalEList.Unsettable<?>)binaryAddingOperatorOwned).unset();
+	public void unsetTerms() {
+		if (terms != null) ((InternalEList.Unsettable<?>)terms).unset();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isSetBinaryAddingOperatorOwned()
-   {
-		return binaryAddingOperatorOwned != null && ((InternalEList.Unsettable<?>)binaryAddingOperatorOwned).isSet();
+	public boolean isSetTerms() {
+		return terms != null && ((InternalEList.Unsettable<?>)terms).isSet();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isHasBinaryAddingOperator()
-   {
-		return hasBinaryAddingOperator;
+	public EList<BinaryAddingOperator> getBinaryAddingOperators() {
+		if (binaryAddingOperators == null) {
+			binaryAddingOperators = new EDataTypeEList.Unsettable<BinaryAddingOperator>(BinaryAddingOperator.class, this, AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS);
+		}
+		return binaryAddingOperators;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setHasBinaryAddingOperator(boolean newHasBinaryAddingOperator)
-   {
-		boolean oldHasBinaryAddingOperator = hasBinaryAddingOperator;
-		hasBinaryAddingOperator = newHasBinaryAddingOperator;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SIMPLE_EXPRESSION__HAS_BINARY_ADDING_OPERATOR, oldHasBinaryAddingOperator, hasBinaryAddingOperator));
+	public void unsetBinaryAddingOperators() {
+		if (binaryAddingOperators != null) ((InternalEList.Unsettable<?>)binaryAddingOperators).unset();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
+	public boolean isSetBinaryAddingOperators() {
+		return binaryAddingOperators != null && ((InternalEList.Unsettable<?>)binaryAddingOperators).isSet();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS_OWNED:
-				return ((InternalEList<?>)getTermsOwned()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
+				return ((InternalEList<?>)getTerms()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS_OWNED:
-				return getTermsOwned();
 			case AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR_OWNED:
 				return getUnaryAddingOperatorOwned();
-			case AadlBaPackage.SIMPLE_EXPRESSION__HAS_UNARY_ADDING_OPERATOR:
-				return isHasUnaryAddingOperator();
-			case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATOR_OWNED:
-				return getBinaryAddingOperatorOwned();
-			case AadlBaPackage.SIMPLE_EXPRESSION__HAS_BINARY_ADDING_OPERATOR:
-				return isHasBinaryAddingOperator();
+			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
+				return getTerms();
+			case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS:
+				return getBinaryAddingOperators();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @SuppressWarnings("unchecked")
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS_OWNED:
-				getTermsOwned().clear();
-				getTermsOwned().addAll((Collection<? extends Term>)newValue);
-				return;
 			case AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR_OWNED:
 				setUnaryAddingOperatorOwned((UnaryAddingOperator)newValue);
 				return;
-			case AadlBaPackage.SIMPLE_EXPRESSION__HAS_UNARY_ADDING_OPERATOR:
-				setHasUnaryAddingOperator((Boolean)newValue);
+			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
+				getTerms().clear();
+				getTerms().addAll((Collection<? extends Term>)newValue);
 				return;
-			case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATOR_OWNED:
-				getBinaryAddingOperatorOwned().clear();
-				getBinaryAddingOperatorOwned().addAll((Collection<? extends BinaryAddingOperator>)newValue);
-				return;
-			case AadlBaPackage.SIMPLE_EXPRESSION__HAS_BINARY_ADDING_OPERATOR:
-				setHasBinaryAddingOperator((Boolean)newValue);
+			case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS:
+				getBinaryAddingOperators().clear();
+				getBinaryAddingOperators().addAll((Collection<? extends BinaryAddingOperator>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS_OWNED:
-				unsetTermsOwned();
-				return;
 			case AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR_OWNED:
-				setUnaryAddingOperatorOwned(UNARY_ADDING_OPERATOR_OWNED_EDEFAULT);
+				unsetUnaryAddingOperatorOwned();
 				return;
-			case AadlBaPackage.SIMPLE_EXPRESSION__HAS_UNARY_ADDING_OPERATOR:
-				setHasUnaryAddingOperator(HAS_UNARY_ADDING_OPERATOR_EDEFAULT);
+			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
+				unsetTerms();
 				return;
-			case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATOR_OWNED:
-				unsetBinaryAddingOperatorOwned();
-				return;
-			case AadlBaPackage.SIMPLE_EXPRESSION__HAS_BINARY_ADDING_OPERATOR:
-				setHasBinaryAddingOperator(HAS_BINARY_ADDING_OPERATOR_EDEFAULT);
+			case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS:
+				unsetBinaryAddingOperators();
 				return;
 		}
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS_OWNED:
-				return isSetTermsOwned();
 			case AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR_OWNED:
-				return unaryAddingOperatorOwned != UNARY_ADDING_OPERATOR_OWNED_EDEFAULT;
-			case AadlBaPackage.SIMPLE_EXPRESSION__HAS_UNARY_ADDING_OPERATOR:
-				return hasUnaryAddingOperator != HAS_UNARY_ADDING_OPERATOR_EDEFAULT;
-			case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATOR_OWNED:
-				return isSetBinaryAddingOperatorOwned();
-			case AadlBaPackage.SIMPLE_EXPRESSION__HAS_BINARY_ADDING_OPERATOR:
-				return hasBinaryAddingOperator != HAS_BINARY_ADDING_OPERATOR_EDEFAULT;
+				return isSetUnaryAddingOperatorOwned();
+			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
+				return isSetTerms();
+			case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS:
+				return isSetBinaryAddingOperators();
 		}
 		return super.eIsSet(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public String toString()
-   {
+	@Override
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (UnaryAddingOperatorOwned: ");
-		result.append(unaryAddingOperatorOwned);
-		result.append(", hasUnaryAddingOperator: ");
-		result.append(hasUnaryAddingOperator);
-		result.append(", BinaryAddingOperatorOwned: ");
-		result.append(binaryAddingOperatorOwned);
-		result.append(", hasBinaryAddingOperator: ");
-		result.append(hasBinaryAddingOperator);
+		result.append(" (unaryAddingOperatorOwned: ");
+		if (unaryAddingOperatorOwnedESet) result.append(unaryAddingOperatorOwned); else result.append("<unset>");
+		result.append(", binaryAddingOperators: ");
+		result.append(binaryAddingOperators);
 		result.append(')');
 		return result.toString();
 	}

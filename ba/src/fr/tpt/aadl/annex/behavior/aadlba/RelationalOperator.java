@@ -21,166 +21,191 @@ import org.eclipse.emf.common.util.Enumerator;
  * @model
  * @generated
  */
-public enum RelationalOperator implements Enumerator
-{
-   /**
+public enum RelationalOperator implements Enumerator {
+	/**
+	 * The '<em><b>None</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NONE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NONE(0, "None", "None"),
+
+	/**
 	 * The '<em><b>Equal</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #EQUAL_VALUE
 	 * @generated
 	 * @ordered
 	 */
-   EQUAL(0, "Equal", "Equal"),
+	EQUAL(1, "Equal", "="),
 
-   /**
+	/**
 	 * The '<em><b>Not Equal</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #NOT_EQUAL_VALUE
 	 * @generated
 	 * @ordered
 	 */
-   NOT_EQUAL(1, "NotEqual", "NotEqual"),
+	NOT_EQUAL(2, "NotEqual", "!="),
 
-   /**
+	/**
 	 * The '<em><b>Less Than</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #LESS_THAN_VALUE
 	 * @generated
 	 * @ordered
 	 */
-   LESS_THAN(2, "LessThan", "LessThan"),
+	LESS_THAN(3, "LessThan", "<"),
 
-   /**
+	/**
 	 * The '<em><b>Less Or Equal Than</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #LESS_OR_EQUAL_THAN_VALUE
 	 * @generated
 	 * @ordered
 	 */
-   LESS_OR_EQUAL_THAN(3, "LessOrEqualThan", "LessOrEqualThan"),
+	LESS_OR_EQUAL_THAN(4, "LessOrEqualThan", "<="),
 
-   /**
+	/**
 	 * The '<em><b>Greater Than</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #GREATER_THAN_VALUE
 	 * @generated
 	 * @ordered
 	 */
-   GREATER_THAN(4, "GreaterThan", "GreaterThan"),
+	GREATER_THAN(5, "GreaterThan", ">"),
 
-   /**
+	/**
 	 * The '<em><b>Greater Or Equal Than</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #GREATER_OR_EQUAL_THAN_VALUE
 	 * @generated
 	 * @ordered
 	 */
-   GREATER_OR_EQUAL_THAN(5, "GreaterOrEqualThan", "GreaterOrEqualThan");
+	GREATER_OR_EQUAL_THAN(6, "GreaterOrEqualThan", ">=");
 
-   /**
+	/**
+	 * The '<em><b>None</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>None</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NONE
+	 * @model name="None"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NONE_VALUE = 0;
+
+	/**
 	 * The '<em><b>Equal</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of '<em><b>Equal</b></em>' literal object isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Equal</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
 	 * @see #EQUAL
-	 * @model name="Equal"
+	 * @model name="Equal" literal="="
 	 * @generated
 	 * @ordered
 	 */
-   public static final int EQUAL_VALUE = 0;
+	public static final int EQUAL_VALUE = 1;
 
-   /**
+	/**
 	 * The '<em><b>Not Equal</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of '<em><b>Not Equal</b></em>' literal object isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Not Equal</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
 	 * @see #NOT_EQUAL
-	 * @model name="NotEqual"
+	 * @model name="NotEqual" literal="!="
 	 * @generated
 	 * @ordered
 	 */
-   public static final int NOT_EQUAL_VALUE = 1;
+	public static final int NOT_EQUAL_VALUE = 2;
 
-   /**
+	/**
 	 * The '<em><b>Less Than</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of '<em><b>Less Than</b></em>' literal object isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Less Than</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
 	 * @see #LESS_THAN
-	 * @model name="LessThan"
+	 * @model name="LessThan" literal="<"
 	 * @generated
 	 * @ordered
 	 */
-   public static final int LESS_THAN_VALUE = 2;
+	public static final int LESS_THAN_VALUE = 3;
 
-   /**
+	/**
 	 * The '<em><b>Less Or Equal Than</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of '<em><b>Less Or Equal Than</b></em>' literal object isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Less Or Equal Than</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
 	 * @see #LESS_OR_EQUAL_THAN
-	 * @model name="LessOrEqualThan"
+	 * @model name="LessOrEqualThan" literal="<="
 	 * @generated
 	 * @ordered
 	 */
-   public static final int LESS_OR_EQUAL_THAN_VALUE = 3;
+	public static final int LESS_OR_EQUAL_THAN_VALUE = 4;
 
-   /**
+	/**
 	 * The '<em><b>Greater Than</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of '<em><b>Greater Than</b></em>' literal object isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Greater Than</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
 	 * @see #GREATER_THAN
-	 * @model name="GreaterThan"
+	 * @model name="GreaterThan" literal=">"
 	 * @generated
 	 * @ordered
 	 */
-   public static final int GREATER_THAN_VALUE = 4;
+	public static final int GREATER_THAN_VALUE = 5;
 
-   /**
+	/**
 	 * The '<em><b>Greater Or Equal Than</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of '<em><b>Greater Or Equal Than</b></em>' literal object isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Greater Or Equal Than</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
 	 * @see #GREATER_OR_EQUAL_THAN
-	 * @model name="GreaterOrEqualThan"
+	 * @model name="GreaterOrEqualThan" literal=">="
 	 * @generated
 	 * @ordered
 	 */
-   public static final int GREATER_OR_EQUAL_THAN_VALUE = 5;
+	public static final int GREATER_OR_EQUAL_THAN_VALUE = 6;
 
-   /**
+	/**
 	 * An array of all the '<em><b>Relational Operator</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   private static final RelationalOperator[] VALUES_ARRAY =
-      new RelationalOperator[] {
+	private static final RelationalOperator[] VALUES_ARRAY =
+		new RelationalOperator[] {
+			NONE,
 			EQUAL,
 			NOT_EQUAL,
 			LESS_THAN,
@@ -189,22 +214,21 @@ public enum RelationalOperator implements Enumerator
 			GREATER_OR_EQUAL_THAN,
 		};
 
-   /**
+	/**
 	 * A public read-only list of all the '<em><b>Relational Operator</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public static final List<RelationalOperator> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<RelationalOperator> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
-   /**
+	/**
 	 * Returns the '<em><b>Relational Operator</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public static RelationalOperator get(String literal)
-   {
+	public static RelationalOperator get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			RelationalOperator result = VALUES_ARRAY[i];
 			if (result.toString().equals(literal)) {
@@ -214,14 +238,13 @@ public enum RelationalOperator implements Enumerator
 		return null;
 	}
 
-   /**
+	/**
 	 * Returns the '<em><b>Relational Operator</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public static RelationalOperator getByName(String name)
-   {
+	public static RelationalOperator getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			RelationalOperator result = VALUES_ARRAY[i];
 			if (result.getName().equals(name)) {
@@ -231,15 +254,15 @@ public enum RelationalOperator implements Enumerator
 		return null;
 	}
 
-   /**
+	/**
 	 * Returns the '<em><b>Relational Operator</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public static RelationalOperator get(int value)
-   {
+	public static RelationalOperator get(int value) {
 		switch (value) {
+			case NONE_VALUE: return NONE;
 			case EQUAL_VALUE: return EQUAL;
 			case NOT_EQUAL_VALUE: return NOT_EQUAL;
 			case LESS_THAN_VALUE: return LESS_THAN;
@@ -250,80 +273,75 @@ public enum RelationalOperator implements Enumerator
 		return null;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   private final int value;
+	private final int value;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   private final String name;
+	private final String name;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   private final String literal;
+	private final String literal;
 
-   /**
+	/**
 	 * Only this class can construct instances.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   private RelationalOperator(int value, String name, String literal)
-   {
+	private RelationalOperator(int value, String name, String literal) {
 		this.value = value;
 		this.name = name;
 		this.literal = literal;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public int getValue()
-   {
+	public int getValue() {
 	  return value;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public String getName()
-   {
+	public String getName() {
 	  return name;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public String getLiteral()
-   {
+	public String getLiteral() {
 	  return literal;
 	}
 
-   /**
+	/**
 	 * Returns the literal value of the enumerator, which is its string representation.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public String toString()
-   {
+	@Override
+	public String toString() {
 		return literal;
 	}
-   
+	
 } //RelationalOperator

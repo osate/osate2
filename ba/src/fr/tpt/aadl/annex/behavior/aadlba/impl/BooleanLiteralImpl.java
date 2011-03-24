@@ -22,153 +22,143 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BooleanLiteralImpl#isBoolValue <em>Bool Value</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BooleanLiteralImpl#isValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class BooleanLiteralImpl extends ValueConstantImpl implements BooleanLiteral
-{
-   /**
-	 * The default value of the '{@link #isBoolValue() <em>Bool Value</em>}' attribute.
+public class BooleanLiteralImpl extends ElementImpl implements BooleanLiteral {
+	/**
+	 * The default value of the '{@link #isValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isBoolValue()
+	 * <!-- end-user-doc -->
+	 * @see #isValue()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final boolean BOOL_VALUE_EDEFAULT = false;
+	protected static final boolean VALUE_EDEFAULT = false;
 
-   /**
-	 * The cached value of the '{@link #isBoolValue() <em>Bool Value</em>}' attribute.
+	/**
+	 * The cached value of the '{@link #isValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isBoolValue()
+	 * <!-- end-user-doc -->
+	 * @see #isValue()
 	 * @generated
 	 * @ordered
 	 */
-   protected boolean boolValue = BOOL_VALUE_EDEFAULT;
+	protected boolean value = VALUE_EDEFAULT;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected BooleanLiteralImpl()
-   {
+	protected BooleanLiteralImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.BOOLEAN_LITERAL;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isBoolValue()
-   {
-		return boolValue;
+	public boolean isValue() {
+		return value;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setBoolValue(boolean newBoolValue)
-   {
-		boolean oldBoolValue = boolValue;
-		boolValue = newBoolValue;
+	public void setValue(boolean newValue) {
+		boolean oldValue = value;
+		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BOOLEAN_LITERAL__BOOL_VALUE, oldBoolValue, boolValue));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BOOLEAN_LITERAL__VALUE, oldValue, value));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AadlBaPackage.BOOLEAN_LITERAL__BOOL_VALUE:
-				return isBoolValue();
+			case AadlBaPackage.BOOLEAN_LITERAL__VALUE:
+				return isValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AadlBaPackage.BOOLEAN_LITERAL__BOOL_VALUE:
-				setBoolValue((Boolean)newValue);
+			case AadlBaPackage.BOOLEAN_LITERAL__VALUE:
+				setValue((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.BOOLEAN_LITERAL__BOOL_VALUE:
-				setBoolValue(BOOL_VALUE_EDEFAULT);
+			case AadlBaPackage.BOOLEAN_LITERAL__VALUE:
+				setValue(VALUE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.BOOLEAN_LITERAL__BOOL_VALUE:
-				return boolValue != BOOL_VALUE_EDEFAULT;
+			case AadlBaPackage.BOOLEAN_LITERAL__VALUE:
+				return value != VALUE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public String toString()
-   {
+	@Override
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (BoolValue: ");
-		result.append(boolValue);
+		result.append(" (value: ");
+		result.append(value);
 		result.append(')');
 		return result.toString();
 	}

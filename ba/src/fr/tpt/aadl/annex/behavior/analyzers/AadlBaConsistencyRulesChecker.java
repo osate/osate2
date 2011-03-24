@@ -1,80 +1,24 @@
 package fr.tpt.aadl.annex.behavior.analyzers;
 
-import java.util.HashSet ;
-import java.util.Iterator ;
-import java.util.Set ;
+import java.util.ArrayList ;
+import java.util.List ;
 
-import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
 
-import edu.cmu.sei.aadl.aadl2.ComponentClassifier ;
-import edu.cmu.sei.aadl.aadl2.Data ;
-import edu.cmu.sei.aadl.aadl2.DataAccess ;
-import edu.cmu.sei.aadl.aadl2.DataSubcomponent ;
-import edu.cmu.sei.aadl.aadl2.Feature ;
+import edu.cmu.sei.aadl.aadl2.ComponentClassifier;
 import edu.cmu.sei.aadl.aadl2.Mode ;
-import edu.cmu.sei.aadl.aadl2.Namespace ;
-import edu.cmu.sei.aadl.aadl2.PackageSection ;
-import edu.cmu.sei.aadl.aadl2.Subcomponent ;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager ;
-import fr.tpt.aadl.annex.behavior.aadlba.AadlBaFactory ;
-import fr.tpt.aadl.annex.behavior.aadlba.ArrayIndex ;
-import fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction ;
-import fr.tpt.aadl.annex.behavior.aadlba.BasicAction ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition ;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable ;
-import fr.tpt.aadl.annex.behavior.aadlba.CommActionParameter ;
-import fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction ;
-import fr.tpt.aadl.annex.behavior.aadlba.CondStatement ;
-import fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference ;
-import fr.tpt.aadl.annex.behavior.aadlba.Declarator ;
-import fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition ;
-import fr.tpt.aadl.annex.behavior.aadlba.DispatchLogicalExpression ;
-import fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger ;
-import fr.tpt.aadl.annex.behavior.aadlba.DoUntilStatement ;
-import fr.tpt.aadl.annex.behavior.aadlba.Element ;
-import fr.tpt.aadl.annex.behavior.aadlba.ElementValues ;
-import fr.tpt.aadl.annex.behavior.aadlba.ExecuteCondition ;
-import fr.tpt.aadl.annex.behavior.aadlba.Factor ;
-import fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement ;
-import fr.tpt.aadl.annex.behavior.aadlba.Identifier ;
-import fr.tpt.aadl.annex.behavior.aadlba.IfStatement ;
-import fr.tpt.aadl.annex.behavior.aadlba.IntegerRange ;
-import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue ;
-import fr.tpt.aadl.annex.behavior.aadlba.Name ;
-import fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel ;
-import fr.tpt.aadl.annex.behavior.aadlba.PropertyConstant ;
-import fr.tpt.aadl.annex.behavior.aadlba.PropertyValue ;
-import fr.tpt.aadl.annex.behavior.aadlba.Relation ;
-import fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression ;
-import fr.tpt.aadl.annex.behavior.aadlba.SubprogramParameterList ;
-import fr.tpt.aadl.annex.behavior.aadlba.Target ;
-import fr.tpt.aadl.annex.behavior.aadlba.Term ;
-import fr.tpt.aadl.annex.behavior.aadlba.TimedAction ;
-import fr.tpt.aadl.annex.behavior.aadlba.UniqueComponentClassifierReference ;
-import fr.tpt.aadl.annex.behavior.aadlba.Value ;
-import fr.tpt.aadl.annex.behavior.aadlba.ValueConstant ;
-import fr.tpt.aadl.annex.behavior.aadlba.ValueExpression ;
-import fr.tpt.aadl.annex.behavior.aadlba.ValueVariable ;
-import fr.tpt.aadl.annex.behavior.aadlba.WhileStatement ;
+import edu.cmu.sei.aadl.aadl2.ModeTransition ;
+import edu.cmu.sei.aadl.aadl2.ModeTransitionTrigger ;
+import edu.cmu.sei.aadl.aadl2.PackageSection;
+import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager;
+
+import fr.tpt.aadl.annex.behavior.aadlba.*;
+
+import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors;
 
 
-/*
--------------------------------------------------------------------------------
-CONSISTENCY RULES
---------------------------------------------------------------------------------
 
-.ports
--------------------------------------------
-- X.5.(C1) port and aadl input_time property
-- X.5.(C2) port and aadl output_time property
- */
 
 public class AadlBaConsistencyRulesChecker
 {
@@ -84,7 +28,7 @@ public class AadlBaConsistencyRulesChecker
 	private AnalysisErrorReporterManager _errManager ;
 
 	public AadlBaConsistencyRulesChecker(BehaviorAnnex ba , 
-			AnalysisErrorReporterManager errManager)
+			                               AnalysisErrorReporterManager errManager)
 	{
 		_ba = ba ;
 		_errManager = errManager ;
@@ -92,53 +36,146 @@ public class AadlBaConsistencyRulesChecker
 		_contextsTab = AadlBaVisitors.getBaPackageSections(_ba) ;
 	}
 	
-	public boolean checkConsistencyRules(){
-		boolean result = false;
-		
-		result = this.checkInputTimeAndFrozenPorts();
-		if (result == false) {
-			this.reportNameError(_ba, "check X.5.(C1) consistency rule failed");
-		}
-		
-		result &= this.checkOutputTimeAndSendActionsPorts();
-		if (result == false) {
-			this.reportNameError(_ba, "check X.5.(C2) consistency rule failed");
-		}
-		
-		return result;
-	}
-
 	/**
 	 * Document: AADL Behavior Annex draft
-	 * Version : 2.13
+	 * Version : 0.94
 	 * Type    : Consistency rule
-	 * Section : X.5 Component Interaction Behavior Specification
-	 * Object  : Check consistency rule X.5.(C1)
-	 * Keys    : ports, frozen, Input_Time aadl property
+	 * Section : D.3 Behavior Specification 
+	 * Object  : Check consistency rule D.3.(C4)
+	 * Keys    : complete state mode behavior condition mode transition triggers
 	 */
-	private boolean checkInputTimeAndFrozenPorts(){
-		boolean result = true ;
-		// TODO : XXX : NYI
-		return result;
-	}
-
-	/**
-	 * Document: AADL Behavior Annex draft
-	 * Version : 2.13
-	 * Type    : Consistency rule
-	 * Section : X.5 Component Interaction Behavior Specification
-	 * Object  : Check consistency rule X.5.(C2)
-	 * Keys    : ports, send action, Output_Time aadl property
-	 */
-	private boolean checkOutputTimeAndSendActionsPorts(){
-		boolean result = true ;
-		// TODO : XXX : NYI
-		return result;
-	}
-
-	// TODO Provide column number.
-	private void reportNameError(Element obj, String name) 
+	public boolean D_3_C4_Check(BehaviorTransition btOwner, Identifier srcState)
 	{
-		_errManager.error(obj, "\'" + name + "\' is not found");
+	   // [OPTIM] -------------------------------------------------------------
+      // these checking can be moved to the rules driver in order to optimize.
+      
+      BehaviorState bs = (BehaviorState) srcState.getBaRef() ;
+      Identifier declaredState = null ;
+      
+      for(Identifier tmp : bs.getIdentifiers())
+      {
+         if(tmp.getId().equalsIgnoreCase(srcState.getId()))
+         {
+            declaredState = tmp ;
+         }
+      }
+      
+      // If the srcState doesn't represent a mode: nothing to check for, exit
+      // with true.
+      if(! (declaredState.getAadlRef() instanceof Mode))
+      {
+         return true ;
+      }
+      
+      // ---------------------------------------------------------------------
+      
+      // At this point, one of the current behavior transtion's src states
+      // represent a mode.
+      
+      DispatchTriggerLogicalExpression dtle ;
+      Mode mode = (Mode) declaredState.getAadlRef() ;
+      
+      // As D.3.(C4), behavior state that represents a mode is a complete 
+      // state and as D.3.(L6) and D.3(L7) legality rules: only dispatch 
+      // trigger logical expression is analyzed.
+      if(btOwner.getBehaviorConditionOwned() instanceof DispatchCondition)
+      {
+           DispatchCondition dc = (DispatchCondition) btOwner.
+                                                   getBehaviorConditionOwned() ;
+           
+           if(dc.getDispatchTriggerConditionOwned() instanceof 
+                                            DispatchTriggerLogicalExpression)
+           {
+              dtle = (DispatchTriggerLogicalExpression) 
+                        dc.getDispatchTriggerConditionOwned() ;
+           }
+           else
+           {
+              // At least, there is one mode transition trigger in a mode
+              // transition. So this transition is not consistency.
+              reportConsistencyError(srcState, "The behavior transition tries "+
+              		"to refine a transition mode but it hasn't got any dispatch "+
+              		"trigger logical expression: Behavior Annex D.3.(C4) " +
+              		"consistency rule failed") ;
+              return false ;
+           }
+      }
+      else
+      {
+         // D.3.(L6) and D.3(L7) error case. Do not report error but
+         // exit with false result.
+         return false ;
+      }
+      
+      EList<ModeTransition> lModeTrans = AadlBaVisitors.
+               getElementsInNamespace(_baParentContainer,ModeTransition.class) ;
+      
+      // Can't be out a state/mode if the parent container doesn't declare 
+      // any transition mode.
+      if(lModeTrans.isEmpty())
+      {
+         reportConsistencyError(srcState, "The behavior transition tries to " +
+               "refine a transition mode while " +
+               _baParentContainer.getQualifiedName() + 
+               " component hasn't got any transition mode: " +
+               "Behavior Annex D.3.(C4) consistency rule failed") ;
+         return false ;
+      }
+      
+      // At this point preliminary checking has been passed.
+      
+      List<String> lModeTriggs = new ArrayList<String>();
+      
+      // Fetches dispatch trigger names in the given behavior transition.
+      List<String> ldispTriggs = new ArrayList<String>() ;
+      
+      for(Identifier id : AadlBaVisitors.getDispatchTriggers(dtle))
+      {
+         ldispTriggs.add(id.getId()) ;
+      }
+      
+      // Checks if the behavior transition is consisting with one of 
+      // the mode transitions where the considered mode is contained.
+      // Otherwise reports an error.
+      for (ModeTransition mTrans : lModeTrans)
+      {
+         // If the transition mode contains the considered mode:
+         if(mTrans.getSource().getName().equalsIgnoreCase(mode.getName()))
+         {
+            // Fetches mode transition trigger names.
+            for(ModeTransitionTrigger mtt : mTrans.getTriggers())
+            {
+               lModeTriggs.add(AadlBaUtils.getName(mtt)) ;
+            }
+            
+            // Checks consistency between the two triggers lists without 
+            // considering their order.
+            if(AadlBaUtils.compareStringList(ldispTriggs, lModeTriggs))
+            {
+               return true ;
+            }
+            else
+            {
+               lModeTriggs.clear() ;
+               continue ;
+            }
+         }
+         // Else continue to the next transition mode.
+      }
+      
+      // Error case : the given behavior transition which is out of a mode 
+      // is not consisting with any transition mode which involves the considered
+      // mode.
+      reportConsistencyError(srcState, "The behavior transition tries to " +
+         "refine a transition mode but it is not consisting with any " +
+         "transition mode of " + _baParentContainer.getQualifiedName() +
+         " component: Behavior Annex D.3.(C4) consistency rule failed") ;
+      return false ; 
 	}
+
+   // TODO Provide column number.
+   private void reportConsistencyError(Element obj, String msg)
+   {
+      _errManager.error(obj, msg + ".") ;
+   }
 }

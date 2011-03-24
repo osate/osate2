@@ -34,86 +34,81 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class AssignmentActionImpl extends BasicActionImpl implements AssignmentAction
-{
-   /**
+public class AssignmentActionImpl extends ElementImpl implements AssignmentAction {
+	/**
 	 * The cached value of the '{@link #getTargetOwned() <em>Target Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getTargetOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected Target targetOwned;
+	protected Target targetOwned;
 
-   /**
+	/**
 	 * The cached value of the '{@link #getValueExpressionOwned() <em>Value Expression Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getValueExpressionOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected ValueExpression valueExpressionOwned;
+	protected ValueExpression valueExpressionOwned;
 
-   /**
+	/**
 	 * The default value of the '{@link #isAny() <em>Any</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isAny()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final boolean ANY_EDEFAULT = false;
+	protected static final boolean ANY_EDEFAULT = false;
 
-   /**
+	/**
 	 * The cached value of the '{@link #isAny() <em>Any</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isAny()
 	 * @generated
 	 * @ordered
 	 */
-   protected boolean any = ANY_EDEFAULT;
+	protected boolean any = ANY_EDEFAULT;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected AssignmentActionImpl()
-   {
+	protected AssignmentActionImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.ASSIGNMENT_ACTION;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public Target getTargetOwned()
-   {
+	public Target getTargetOwned() {
 		return targetOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public NotificationChain basicSetTargetOwned(Target newTargetOwned, NotificationChain msgs)
-   {
+	public NotificationChain basicSetTargetOwned(Target newTargetOwned, NotificationChain msgs) {
 		Target oldTargetOwned = targetOwned;
 		targetOwned = newTargetOwned;
 		if (eNotificationRequired()) {
@@ -123,13 +118,12 @@ public class AssignmentActionImpl extends BasicActionImpl implements AssignmentA
 		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setTargetOwned(Target newTargetOwned)
-   {
+	public void setTargetOwned(Target newTargetOwned) {
 		if (newTargetOwned != targetOwned) {
 			NotificationChain msgs = null;
 			if (targetOwned != null)
@@ -143,23 +137,21 @@ public class AssignmentActionImpl extends BasicActionImpl implements AssignmentA
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ASSIGNMENT_ACTION__TARGET_OWNED, newTargetOwned, newTargetOwned));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public ValueExpression getValueExpressionOwned()
-   {
+	public ValueExpression getValueExpressionOwned() {
 		return valueExpressionOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public NotificationChain basicSetValueExpressionOwned(ValueExpression newValueExpressionOwned, NotificationChain msgs)
-   {
+	public NotificationChain basicSetValueExpressionOwned(ValueExpression newValueExpressionOwned, NotificationChain msgs) {
 		ValueExpression oldValueExpressionOwned = valueExpressionOwned;
 		valueExpressionOwned = newValueExpressionOwned;
 		if (eNotificationRequired()) {
@@ -169,13 +161,12 @@ public class AssignmentActionImpl extends BasicActionImpl implements AssignmentA
 		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setValueExpressionOwned(ValueExpression newValueExpressionOwned)
-   {
+	public void setValueExpressionOwned(ValueExpression newValueExpressionOwned) {
 		if (newValueExpressionOwned != valueExpressionOwned) {
 			NotificationChain msgs = null;
 			if (valueExpressionOwned != null)
@@ -189,37 +180,34 @@ public class AssignmentActionImpl extends BasicActionImpl implements AssignmentA
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION_OWNED, newValueExpressionOwned, newValueExpressionOwned));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isAny()
-   {
+	public boolean isAny() {
 		return any;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setAny(boolean newAny)
-   {
+	public void setAny(boolean newAny) {
 		boolean oldAny = any;
 		any = newAny;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ASSIGNMENT_ACTION__ANY, oldAny, any));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case AadlBaPackage.ASSIGNMENT_ACTION__TARGET_OWNED:
 				return basicSetTargetOwned(null, msgs);
@@ -229,14 +217,13 @@ public class AssignmentActionImpl extends BasicActionImpl implements AssignmentA
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case AadlBaPackage.ASSIGNMENT_ACTION__TARGET_OWNED:
 				return getTargetOwned();
@@ -248,14 +235,13 @@ public class AssignmentActionImpl extends BasicActionImpl implements AssignmentA
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case AadlBaPackage.ASSIGNMENT_ACTION__TARGET_OWNED:
 				setTargetOwned((Target)newValue);
@@ -270,14 +256,13 @@ public class AssignmentActionImpl extends BasicActionImpl implements AssignmentA
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.ASSIGNMENT_ACTION__TARGET_OWNED:
 				setTargetOwned((Target)null);
@@ -292,14 +277,13 @@ public class AssignmentActionImpl extends BasicActionImpl implements AssignmentA
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.ASSIGNMENT_ACTION__TARGET_OWNED:
 				return targetOwned != null;
@@ -311,18 +295,17 @@ public class AssignmentActionImpl extends BasicActionImpl implements AssignmentA
 		return super.eIsSet(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public String toString()
-   {
+	@Override
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (Any: ");
+		result.append(" (any: ");
 		result.append(any);
 		result.append(')');
 		return result.toString();

@@ -24,208 +24,195 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ElementImpl#getBaReferencedEntity <em>Ba Referenced Entity</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ElementImpl#getAadlReferencedEntity <em>Aadl Referenced Entity</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ElementImpl#getBaRef <em>Ba Ref</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ElementImpl#getAadlRef <em>Aadl Ref</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class ElementImpl extends edu.cmu.sei.aadl.aadl2.impl.ElementImpl implements Element
-{
-   /**
-	 * The cached value of the '{@link #getBaReferencedEntity() <em>Ba Referenced Entity</em>}' reference.
+public abstract class ElementImpl extends edu.cmu.sei.aadl.aadl2.impl.ElementImpl implements Element {
+	/**
+	 * The cached value of the '{@link #getBaRef() <em>Ba Ref</em>}' reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getBaReferencedEntity()
+	 * <!-- end-user-doc -->
+	 * @see #getBaRef()
 	 * @generated
 	 * @ordered
 	 */
-   protected Element baReferencedEntity;
+	protected Element baRef;
 
-   /**
-	 * The cached value of the '{@link #getAadlReferencedEntity() <em>Aadl Referenced Entity</em>}' reference.
+	/**
+	 * The cached value of the '{@link #getAadlRef() <em>Aadl Ref</em>}' reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getAadlReferencedEntity()
+	 * <!-- end-user-doc -->
+	 * @see #getAadlRef()
 	 * @generated
 	 * @ordered
 	 */
-   protected edu.cmu.sei.aadl.aadl2.Element aadlReferencedEntity;
+	protected edu.cmu.sei.aadl.aadl2.Element aadlRef;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected ElementImpl()
-   {
+	protected ElementImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.ELEMENT;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public Element getBaReferencedEntity()
-   {
-		if (baReferencedEntity != null && ((EObject)baReferencedEntity).eIsProxy()) {
-			InternalEObject oldBaReferencedEntity = (InternalEObject)baReferencedEntity;
-			baReferencedEntity = (Element)eResolveProxy(oldBaReferencedEntity);
-			if (baReferencedEntity != oldBaReferencedEntity) {
+	public Element getBaRef() {
+		if (baRef != null && ((EObject)baRef).eIsProxy()) {
+			InternalEObject oldBaRef = (InternalEObject)baRef;
+			baRef = (Element)eResolveProxy(oldBaRef);
+			if (baRef != oldBaRef) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.ELEMENT__BA_REFERENCED_ENTITY, oldBaReferencedEntity, baReferencedEntity));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.ELEMENT__BA_REF, oldBaRef, baRef));
 			}
 		}
-		return baReferencedEntity;
+		return baRef;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public Element basicGetBaReferencedEntity()
-   {
-		return baReferencedEntity;
+	public Element basicGetBaRef() {
+		return baRef;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setBaReferencedEntity(Element newBaReferencedEntity)
-   {
-		Element oldBaReferencedEntity = baReferencedEntity;
-		baReferencedEntity = newBaReferencedEntity;
+	public void setBaRef(Element newBaRef) {
+		Element oldBaRef = baRef;
+		baRef = newBaRef;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ELEMENT__BA_REFERENCED_ENTITY, oldBaReferencedEntity, baReferencedEntity));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ELEMENT__BA_REF, oldBaRef, baRef));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public edu.cmu.sei.aadl.aadl2.Element getAadlReferencedEntity()
-   {
-		if (aadlReferencedEntity != null && ((EObject)aadlReferencedEntity).eIsProxy()) {
-			InternalEObject oldAadlReferencedEntity = (InternalEObject)aadlReferencedEntity;
-			aadlReferencedEntity = (edu.cmu.sei.aadl.aadl2.Element)eResolveProxy(oldAadlReferencedEntity);
-			if (aadlReferencedEntity != oldAadlReferencedEntity) {
+	public edu.cmu.sei.aadl.aadl2.Element getAadlRef() {
+		if (aadlRef != null && ((EObject)aadlRef).eIsProxy()) {
+			InternalEObject oldAadlRef = (InternalEObject)aadlRef;
+			aadlRef = (edu.cmu.sei.aadl.aadl2.Element)eResolveProxy(oldAadlRef);
+			if (aadlRef != oldAadlRef) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.ELEMENT__AADL_REFERENCED_ENTITY, oldAadlReferencedEntity, aadlReferencedEntity));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.ELEMENT__AADL_REF, oldAadlRef, aadlRef));
 			}
 		}
-		return aadlReferencedEntity;
+		return aadlRef;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public edu.cmu.sei.aadl.aadl2.Element basicGetAadlReferencedEntity()
-   {
-		return aadlReferencedEntity;
+	public edu.cmu.sei.aadl.aadl2.Element basicGetAadlRef() {
+		return aadlRef;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setAadlReferencedEntity(edu.cmu.sei.aadl.aadl2.Element newAadlReferencedEntity)
-   {
-		edu.cmu.sei.aadl.aadl2.Element oldAadlReferencedEntity = aadlReferencedEntity;
-		aadlReferencedEntity = newAadlReferencedEntity;
+	public void setAadlRef(edu.cmu.sei.aadl.aadl2.Element newAadlRef) {
+		edu.cmu.sei.aadl.aadl2.Element oldAadlRef = aadlRef;
+		aadlRef = newAadlRef;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ELEMENT__AADL_REFERENCED_ENTITY, oldAadlReferencedEntity, aadlReferencedEntity));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ELEMENT__AADL_REF, oldAadlRef, aadlRef));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AadlBaPackage.ELEMENT__BA_REFERENCED_ENTITY:
-				if (resolve) return getBaReferencedEntity();
-				return basicGetBaReferencedEntity();
-			case AadlBaPackage.ELEMENT__AADL_REFERENCED_ENTITY:
-				if (resolve) return getAadlReferencedEntity();
-				return basicGetAadlReferencedEntity();
+			case AadlBaPackage.ELEMENT__BA_REF:
+				if (resolve) return getBaRef();
+				return basicGetBaRef();
+			case AadlBaPackage.ELEMENT__AADL_REF:
+				if (resolve) return getAadlRef();
+				return basicGetAadlRef();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AadlBaPackage.ELEMENT__BA_REFERENCED_ENTITY:
-				setBaReferencedEntity((Element)newValue);
+			case AadlBaPackage.ELEMENT__BA_REF:
+				setBaRef((Element)newValue);
 				return;
-			case AadlBaPackage.ELEMENT__AADL_REFERENCED_ENTITY:
-				setAadlReferencedEntity((edu.cmu.sei.aadl.aadl2.Element)newValue);
+			case AadlBaPackage.ELEMENT__AADL_REF:
+				setAadlRef((edu.cmu.sei.aadl.aadl2.Element)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.ELEMENT__BA_REFERENCED_ENTITY:
-				setBaReferencedEntity((Element)null);
+			case AadlBaPackage.ELEMENT__BA_REF:
+				setBaRef((Element)null);
 				return;
-			case AadlBaPackage.ELEMENT__AADL_REFERENCED_ENTITY:
-				setAadlReferencedEntity((edu.cmu.sei.aadl.aadl2.Element)null);
+			case AadlBaPackage.ELEMENT__AADL_REF:
+				setAadlRef((edu.cmu.sei.aadl.aadl2.Element)null);
 				return;
 		}
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.ELEMENT__BA_REFERENCED_ENTITY:
-				return baReferencedEntity != null;
-			case AadlBaPackage.ELEMENT__AADL_REFERENCED_ENTITY:
-				return aadlReferencedEntity != null;
+			case AadlBaPackage.ELEMENT__BA_REF:
+				return baRef != null;
+			case AadlBaPackage.ELEMENT__AADL_REF:
+				return aadlRef != null;
 		}
 		return super.eIsSet(featureID);
 	}

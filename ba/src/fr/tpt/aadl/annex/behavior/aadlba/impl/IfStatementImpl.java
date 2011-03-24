@@ -34,217 +34,203 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IfStatementImpl#isHasElse <em>Has Else</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IfStatementImpl#getValueExpressionOwned <em>Value Expression Owned</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IfStatementImpl#getLogicalValueExpressions <em>Logical Value Expressions</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IfStatementImpl#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class IfStatementImpl extends ElementImpl implements IfStatement
-{
-   /**
+public class IfStatementImpl extends ElementImpl implements IfStatement {
+	/**
 	 * The default value of the '{@link #isHasElse() <em>Has Else</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isHasElse()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final boolean HAS_ELSE_EDEFAULT = false;
+	protected static final boolean HAS_ELSE_EDEFAULT = false;
 
-   /**
+	/**
 	 * The cached value of the '{@link #isHasElse() <em>Has Else</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isHasElse()
 	 * @generated
 	 * @ordered
 	 */
-   protected boolean hasElse = HAS_ELSE_EDEFAULT;
+	protected boolean hasElse = HAS_ELSE_EDEFAULT;
 
-   /**
-	 * The cached value of the '{@link #getValueExpressionOwned() <em>Value Expression Owned</em>}' containment reference list.
+	/**
+	 * The cached value of the '{@link #getLogicalValueExpressions() <em>Logical Value Expressions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getValueExpressionOwned()
+	 * <!-- end-user-doc -->
+	 * @see #getLogicalValueExpressions()
 	 * @generated
 	 * @ordered
 	 */
-   protected EList<ValueExpression> valueExpressionOwned;
+	protected EList<ValueExpression> logicalValueExpressions;
 
-   /**
+	/**
 	 * The cached value of the '{@link #getBehaviorActionsOwned() <em>Behavior Actions Owned</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getBehaviorActionsOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected EList<BehaviorActions> behaviorActionsOwned;
+	protected EList<BehaviorActions> behaviorActionsOwned;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected IfStatementImpl()
-   {
+	protected IfStatementImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.IF_STATEMENT;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isHasElse()
-   {
+	public boolean isHasElse() {
 		return hasElse;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setHasElse(boolean newHasElse)
-   {
+	public void setHasElse(boolean newHasElse) {
 		boolean oldHasElse = hasElse;
 		hasElse = newHasElse;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__HAS_ELSE, oldHasElse, hasElse));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public EList<ValueExpression> getValueExpressionOwned()
-   {
-		if (valueExpressionOwned == null) {
-			valueExpressionOwned = new EObjectContainmentEList.Unsettable<ValueExpression>(ValueExpression.class, this, AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED);
+	public EList<ValueExpression> getLogicalValueExpressions() {
+		if (logicalValueExpressions == null) {
+			logicalValueExpressions = new EObjectContainmentEList.Unsettable<ValueExpression>(ValueExpression.class, this, AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSIONS);
 		}
-		return valueExpressionOwned;
+		return logicalValueExpressions;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void unsetValueExpressionOwned()
-   {
-		if (valueExpressionOwned != null) ((InternalEList.Unsettable<?>)valueExpressionOwned).unset();
+	public void unsetLogicalValueExpressions() {
+		if (logicalValueExpressions != null) ((InternalEList.Unsettable<?>)logicalValueExpressions).unset();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isSetValueExpressionOwned()
-   {
-		return valueExpressionOwned != null && ((InternalEList.Unsettable<?>)valueExpressionOwned).isSet();
+	public boolean isSetLogicalValueExpressions() {
+		return logicalValueExpressions != null && ((InternalEList.Unsettable<?>)logicalValueExpressions).isSet();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public EList<BehaviorActions> getBehaviorActionsOwned()
-   {
+	public EList<BehaviorActions> getBehaviorActionsOwned() {
 		if (behaviorActionsOwned == null) {
 			behaviorActionsOwned = new EObjectContainmentEList.Unsettable<BehaviorActions>(BehaviorActions.class, this, AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED);
 		}
 		return behaviorActionsOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void unsetBehaviorActionsOwned()
-   {
+	public void unsetBehaviorActionsOwned() {
 		if (behaviorActionsOwned != null) ((InternalEList.Unsettable<?>)behaviorActionsOwned).unset();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isSetBehaviorActionsOwned()
-   {
+	public boolean isSetBehaviorActionsOwned() {
 		return behaviorActionsOwned != null && ((InternalEList.Unsettable<?>)behaviorActionsOwned).isSet();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
-				return ((InternalEList<?>)getValueExpressionOwned()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSIONS:
+				return ((InternalEList<?>)getLogicalValueExpressions()).basicRemove(otherEnd, msgs);
 			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
 				return ((InternalEList<?>)getBehaviorActionsOwned()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case AadlBaPackage.IF_STATEMENT__HAS_ELSE:
 				return isHasElse();
-			case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
-				return getValueExpressionOwned();
+			case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSIONS:
+				return getLogicalValueExpressions();
 			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
 				return getBehaviorActionsOwned();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @SuppressWarnings("unchecked")
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case AadlBaPackage.IF_STATEMENT__HAS_ELSE:
 				setHasElse((Boolean)newValue);
 				return;
-			case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
-				getValueExpressionOwned().clear();
-				getValueExpressionOwned().addAll((Collection<? extends ValueExpression>)newValue);
+			case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSIONS:
+				getLogicalValueExpressions().clear();
+				getLogicalValueExpressions().addAll((Collection<? extends ValueExpression>)newValue);
 				return;
 			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
 				getBehaviorActionsOwned().clear();
@@ -254,20 +240,19 @@ public class IfStatementImpl extends ElementImpl implements IfStatement
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.IF_STATEMENT__HAS_ELSE:
 				setHasElse(HAS_ELSE_EDEFAULT);
 				return;
-			case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
-				unsetValueExpressionOwned();
+			case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSIONS:
+				unsetLogicalValueExpressions();
 				return;
 			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
 				unsetBehaviorActionsOwned();
@@ -276,33 +261,31 @@ public class IfStatementImpl extends ElementImpl implements IfStatement
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.IF_STATEMENT__HAS_ELSE:
 				return hasElse != HAS_ELSE_EDEFAULT;
-			case AadlBaPackage.IF_STATEMENT__VALUE_EXPRESSION_OWNED:
-				return isSetValueExpressionOwned();
+			case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSIONS:
+				return isSetLogicalValueExpressions();
 			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED:
 				return isSetBehaviorActionsOwned();
 		}
 		return super.eIsSet(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public String toString()
-   {
+	@Override
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

@@ -20,26 +20,23 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class PropertyValueImpl extends NamedElementImpl implements PropertyValue
-{
-   /**
+public class PropertyValueImpl extends NamedElementImpl implements PropertyValue {
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected PropertyValueImpl()
-   {
+	protected PropertyValueImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.PROPERTY_VALUE;
 	}
 

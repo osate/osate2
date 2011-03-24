@@ -21,60 +21,84 @@ import org.eclipse.emf.common.util.Enumerator;
  * @model
  * @generated
  */
-public enum BinaryNumericOperator implements Enumerator
-{
-   /**
+public enum BinaryNumericOperator implements Enumerator {
+	/**
+	 * The '<em><b>None</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NONE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NONE(0, "None", "None"),
+
+	/**
 	 * The '<em><b>Multiply Multiply</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #MULTIPLY_MULTIPLY_VALUE
 	 * @generated
 	 * @ordered
 	 */
-   MULTIPLY_MULTIPLY(0, "MultiplyMultiply", "MultiplyMultiply");
+	MULTIPLY_MULTIPLY(1, "MultiplyMultiply", "**");
 
-   /**
-	 * The '<em><b>Multiply Multiply</b></em>' literal value.
+	/**
+	 * The '<em><b>None</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of '<em><b>Multiply Multiply</b></em>' literal object isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @see #MULTIPLY_MULTIPLY
-	 * @model name="MultiplyMultiply"
+	 * <p>
+	 * If the meaning of '<em><b>None</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NONE
+	 * @model name="None"
 	 * @generated
 	 * @ordered
 	 */
-   public static final int MULTIPLY_MULTIPLY_VALUE = 0;
+	public static final int NONE_VALUE = 0;
 
-   /**
+	/**
+	 * The '<em><b>Multiply Multiply</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Multiply Multiply</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #MULTIPLY_MULTIPLY
+	 * @model name="MultiplyMultiply" literal="**"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int MULTIPLY_MULTIPLY_VALUE = 1;
+
+	/**
 	 * An array of all the '<em><b>Binary Numeric Operator</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   private static final BinaryNumericOperator[] VALUES_ARRAY =
-      new BinaryNumericOperator[] {
+	private static final BinaryNumericOperator[] VALUES_ARRAY =
+		new BinaryNumericOperator[] {
+			NONE,
 			MULTIPLY_MULTIPLY,
 		};
 
-   /**
+	/**
 	 * A public read-only list of all the '<em><b>Binary Numeric Operator</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public static final List<BinaryNumericOperator> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<BinaryNumericOperator> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
-   /**
+	/**
 	 * Returns the '<em><b>Binary Numeric Operator</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public static BinaryNumericOperator get(String literal)
-   {
+	public static BinaryNumericOperator get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			BinaryNumericOperator result = VALUES_ARRAY[i];
 			if (result.toString().equals(literal)) {
@@ -84,14 +108,13 @@ public enum BinaryNumericOperator implements Enumerator
 		return null;
 	}
 
-   /**
+	/**
 	 * Returns the '<em><b>Binary Numeric Operator</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public static BinaryNumericOperator getByName(String name)
-   {
+	public static BinaryNumericOperator getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			BinaryNumericOperator result = VALUES_ARRAY[i];
 			if (result.getName().equals(name)) {
@@ -101,94 +124,89 @@ public enum BinaryNumericOperator implements Enumerator
 		return null;
 	}
 
-   /**
+	/**
 	 * Returns the '<em><b>Binary Numeric Operator</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public static BinaryNumericOperator get(int value)
-   {
+	public static BinaryNumericOperator get(int value) {
 		switch (value) {
+			case NONE_VALUE: return NONE;
 			case MULTIPLY_MULTIPLY_VALUE: return MULTIPLY_MULTIPLY;
 		}
 		return null;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   private final int value;
+	private final int value;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   private final String name;
+	private final String name;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   private final String literal;
+	private final String literal;
 
-   /**
+	/**
 	 * Only this class can construct instances.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   private BinaryNumericOperator(int value, String name, String literal)
-   {
+	private BinaryNumericOperator(int value, String name, String literal) {
 		this.value = value;
 		this.name = name;
 		this.literal = literal;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public int getValue()
-   {
+	public int getValue() {
 	  return value;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public String getName()
-   {
+	public String getName() {
 	  return name;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public String getLiteral()
-   {
+	public String getLiteral() {
 	  return literal;
 	}
 
-   /**
+	/**
 	 * Returns the literal value of the enumerator, which is its string representation.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public String toString()
-   {
+	@Override
+	public String toString() {
 		return literal;
 	}
-   
+	
 } //BinaryNumericOperator

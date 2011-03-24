@@ -18,7 +18,6 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Relation#getSimpleExpressionOwned <em>Simple Expression Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Relation#getSimpleExpressionSdOwned <em>Simple Expression Sd Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Relation#getRelationalOperatorOwned <em>Relational Operator Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Relation#isHasRelationalOperator <em>Has Relational Operator</em>}</li>
  * </ul>
  * </p>
  *
@@ -26,114 +25,113 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface Relation extends Element
-{
-   /**
+public interface Relation extends Element {
+	/**
 	 * Returns the value of the '<em><b>Simple Expression Owned</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Simple Expression Owned</em>' containment reference isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Simple Expression Owned</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Simple Expression Owned</em>' containment reference.
 	 * @see #setSimpleExpressionOwned(SimpleExpression)
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getRelation_SimpleExpressionOwned()
-	 * @model containment="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-   SimpleExpression getSimpleExpressionOwned();
+	SimpleExpression getSimpleExpressionOwned();
 
-   /**
+	/**
 	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Relation#getSimpleExpressionOwned <em>Simple Expression Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Simple Expression Owned</em>' containment reference.
 	 * @see #getSimpleExpressionOwned()
 	 * @generated
 	 */
-   void setSimpleExpressionOwned(SimpleExpression value);
+	void setSimpleExpressionOwned(SimpleExpression value);
 
-   /**
+	/**
 	 * Returns the value of the '<em><b>Simple Expression Sd Owned</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Simple Expression Sd Owned</em>' containment reference isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Simple Expression Sd Owned</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Simple Expression Sd Owned</em>' containment reference.
 	 * @see #setSimpleExpressionSdOwned(SimpleExpression)
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getRelation_SimpleExpressionSdOwned()
 	 * @model containment="true"
 	 * @generated
 	 */
-   SimpleExpression getSimpleExpressionSdOwned();
+	SimpleExpression getSimpleExpressionSdOwned();
 
-   /**
+	/**
 	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Relation#getSimpleExpressionSdOwned <em>Simple Expression Sd Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Simple Expression Sd Owned</em>' containment reference.
 	 * @see #getSimpleExpressionSdOwned()
 	 * @generated
 	 */
-   void setSimpleExpressionSdOwned(SimpleExpression value);
+	void setSimpleExpressionSdOwned(SimpleExpression value);
 
-   /**
+	/**
 	 * Returns the value of the '<em><b>Relational Operator Owned</b></em>' attribute.
 	 * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.RelationalOperator}.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Relational Operator Owned</em>' attribute isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Relational Operator Owned</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Relational Operator Owned</em>' attribute.
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.RelationalOperator
+	 * @see #isSetRelationalOperatorOwned()
+	 * @see #unsetRelationalOperatorOwned()
 	 * @see #setRelationalOperatorOwned(RelationalOperator)
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getRelation_RelationalOperatorOwned()
-	 * @model
+	 * @model unsettable="true"
 	 * @generated
 	 */
-   RelationalOperator getRelationalOperatorOwned();
+	RelationalOperator getRelationalOperatorOwned();
 
-   /**
+	/**
 	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Relation#getRelationalOperatorOwned <em>Relational Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Relational Operator Owned</em>' attribute.
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.RelationalOperator
+	 * @see #isSetRelationalOperatorOwned()
+	 * @see #unsetRelationalOperatorOwned()
 	 * @see #getRelationalOperatorOwned()
 	 * @generated
 	 */
-   void setRelationalOperatorOwned(RelationalOperator value);
+	void setRelationalOperatorOwned(RelationalOperator value);
 
-   /**
-	 * Returns the value of the '<em><b>Has Relational Operator</b></em>' attribute.
-	 * The default value is <code>"False"</code>.
+	/**
+	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Relation#getRelationalOperatorOwned <em>Relational Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Has Relational Operator</em>' attribute isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Has Relational Operator</em>' attribute.
-	 * @see #setHasRelationalOperator(boolean)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getRelation_HasRelationalOperator()
-	 * @model default="False" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+	 * <!-- end-user-doc -->
+	 * @see #isSetRelationalOperatorOwned()
+	 * @see #getRelationalOperatorOwned()
+	 * @see #setRelationalOperatorOwned(RelationalOperator)
 	 * @generated
 	 */
-   boolean isHasRelationalOperator();
+	void unsetRelationalOperatorOwned();
 
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Relation#isHasRelationalOperator <em>Has Relational Operator</em>}' attribute.
+	/**
+	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Relation#getRelationalOperatorOwned <em>Relational Operator Owned</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Has Relational Operator</em>' attribute.
-	 * @see #isHasRelationalOperator()
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Relational Operator Owned</em>' attribute is set.
+	 * @see #unsetRelationalOperatorOwned()
+	 * @see #getRelationalOperatorOwned()
+	 * @see #setRelationalOperatorOwned(RelationalOperator)
 	 * @generated
 	 */
-   void setHasRelationalOperator(boolean value);
+	boolean isSetRelationalOperatorOwned();
 
 } // Relation

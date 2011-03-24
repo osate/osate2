@@ -14,9 +14,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  *
  *
  * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getElementValues()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
-public interface ElementValues extends Element
-{
+public interface ElementValues extends Element {
 } // ElementValues

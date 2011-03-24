@@ -14,9 +14,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  *
  *
  * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getParameterLabel()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
-public interface ParameterLabel extends Element
-{
+public interface ParameterLabel extends Element {
 } // ParameterLabel

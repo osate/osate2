@@ -14,9 +14,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  *
  *
  * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getValueConstant()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
-public interface ValueConstant extends Value, IntegerValue
-{
+public interface ValueConstant extends Value, IntegerValueConstant {
 } // ValueConstant

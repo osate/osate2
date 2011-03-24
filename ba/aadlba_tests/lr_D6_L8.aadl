@@ -1,0 +1,52 @@
+-- Behavior Annex legality rule D.6.(L8) tests.
+
+package exemple_lr_D6_L8
+public
+   with Base_Types ;
+
+thread th
+end th;
+
+
+thread implementation th.good
+annex behavior_specification {**
+
+variables
+ a : Base_Types::Integer ;
+  
+states
+ s1 : initial state ;
+ s2 : complete state ;
+ s3 : final state ;
+
+transitions
+ s1 -[]-> s2 ;
+ s1 -[]-> s2 {computation (1 sec)} ;
+ s1 -[]-> s2 {computation (1 sec .. a sec)} ;
+ s1 -[]-> s2 {computation (1 sec .. 1 sec)} ;
+ s1 -[]-> s2 {computation (1 sec .. 2 sec)} ;
+ s1 -[]-> s2 {computation (1 sec .. 1 min)} ;
+ s1 -[]-> s2 {computation (60 sec .. 1 min)};
+
+**};
+
+end th.good;
+
+thread implementation th.error
+annex behavior_specification {**
+
+states
+ s1 : initial state ;
+ s2 : complete state ;
+ s3 : final state ;
+
+-- Error 61 seconds are greater than 1 minute.
+
+transitions
+ s1 -[]-> s2 {computation (61 sec .. 1 min)};
+
+**};
+
+end th.error;
+
+end exemple_lr_D6_L8 ;

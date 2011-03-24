@@ -4,311 +4,304 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/fr.tpt.aadl.annex.behavior/src/"
     modelPluginID="fr.tpt.aadl.annex.behavior" modelName="Aadlba" rootExtendsInterface="edu.cmu.sei.aadl.aadl2.parsesupport.AObject"
     rootExtendsClass="edu.cmu.sei.aadl.aadl2.parsesupport.AObjectImpl" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="6.0" copyrightFields="false" usedGenPackages="../../edu.cmu.sei.aadl.aadl2/model/aadl2.genmodel#//aadl2 platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
+    complianceLevel="6.0" copyrightFields="false" usedGenPackages="../../edu.cmu.sei.aadl.aadl2/model/aadl2.genmodel#//aadl2 platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
+    interfaceNamePattern="">
   <foreignModel>aadlba.ecore</foreignModel>
   <genPackages prefix="AadlBa" basePackage="fr.tpt.aadl.annex.behavior" disposableProviderFactory="true"
       ecorePackage="aadlba.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//CommActionParameter">
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//CommActionParameter/Exclamation"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//CommActionParameter/LeftLeft"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//CommActionParameter/Interrogation"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//CommActionParameter/ExclamationLeft"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//CommActionParameter/ExclamationRight"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//behaviorSpecification/BehaviorAnnexFeatureType">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/BehaviorAnnexFeatureType/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/BehaviorAnnexFeatureType/BEHAVIOR_VARIABLE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/BehaviorAnnexFeatureType/UNIQUE_COMPONENT_CLASSIFIER_REFERENCE"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//LogicalOperator">
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//LogicalOperator/And"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//LogicalOperator/Or"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//LogicalOperator/Xor"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//behaviorSpecification/FeatureType">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/IN_DATA_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/OUT_DATA_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/IN_OUT_DATA_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/IN_EVENT_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/OUT_EVENT_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/IN_OUT_EVENT_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/IN_EVENT_DATA_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/OUT_EVENT_DATA_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/IN_OUT_EVENT_DATA_PORT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/PROVIDES_SUBPROGRAM_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/REQUIRES_SUBPROGRAM_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/PROVIDES_SUBPROGRAM_GROUP_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/REQUIRES_SUBPROGRAM_GROUP_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/SUBPROGRAM_SUBCOMPONENT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/SUBPROGRAM_CLASSIFIER"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/SUBPROGRAM_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/COMPONENT_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/COMPONENT_PROTOTYPE_BINDING"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/FEATURE_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/FEATURE_PROTOTYPE_BINDING"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/FEATURE_GROUP_PROTOTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/FEATURE_GROUP_PROTOTYPE_BINDING"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/PROVIDES_DATA_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/REQUIRES_DATA_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/DATA_SUBCOMPONENT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/DATA_CLASSIFIER"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/IN_PARAMETER"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/OUT_PARAMETER"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/IN_OUT_PARAMETER"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/PROPERTY_CONSTANT"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/PROPERTY_VALUE"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/PROVIDES_BUS_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/REQUIRES_BUS_ACCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/FEATURE_GROUP"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorSpecification/FeatureType/ABSTRACT_FEATURE"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//RelationalOperator">
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/Equal"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/NotEqual"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/LessThan"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/LessOrEqualThan"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/GreaterThan"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//RelationalOperator/GreaterOrEqualThan"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//behaviorExpressionLanguage/BinaryAddingOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/BinaryAddingOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/BinaryAddingOperator/Plus"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/BinaryAddingOperator/Minus"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//BinaryAddingOperator">
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//BinaryAddingOperator/Plus"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//BinaryAddingOperator/Minus"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//behaviorExpressionLanguage/BinaryNumericOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/BinaryNumericOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/BinaryNumericOperator/MultiplyMultiply"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//UnaryAddingOperator">
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//UnaryAddingOperator/Plus"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//UnaryAddingOperator/Minus"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//behaviorExpressionLanguage/DataRepresentation">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/DataRepresentation/Unknown"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/DataRepresentation/Integer"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/DataRepresentation/Float"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/DataRepresentation/Character"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/DataRepresentation/Boolean"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/DataRepresentation/String"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//MultiplyingOperator">
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//MultiplyingOperator/Multiply"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//MultiplyingOperator/Divide"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//MultiplyingOperator/Mod"/>
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//MultiplyingOperator/Rem"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//behaviorExpressionLanguage/LogicalOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/LogicalOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/LogicalOperator/And"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/LogicalOperator/Or"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/LogicalOperator/Xor"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//BinaryNumericOperator">
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//BinaryNumericOperator/MultiplyMultiply"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//behaviorExpressionLanguage/MultiplyingOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/MultiplyingOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/MultiplyingOperator/Multiply"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/MultiplyingOperator/Divide"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/MultiplyingOperator/Mod"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/MultiplyingOperator/Rem"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//UnaryNumericOperator">
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//UnaryNumericOperator/Abs"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//behaviorExpressionLanguage/RelationalOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/RelationalOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/RelationalOperator/Equal"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/RelationalOperator/NotEqual"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/RelationalOperator/LessThan"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/RelationalOperator/LessOrEqualThan"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/RelationalOperator/GreaterThan"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/RelationalOperator/GreaterOrEqualThan"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//UnaryBooleanOperator">
-      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//UnaryBooleanOperator/Not"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//behaviorExpressionLanguage/UnaryAddingOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/UnaryAddingOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/UnaryAddingOperator/Plus"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/UnaryAddingOperator/Minus"/>
     </genEnums>
-    <genDataTypes ecoreDataType="aadlba.ecore#//Integer"/>
-    <genDataTypes ecoreDataType="aadlba.ecore#//Real"/>
-    <genDataTypes ecoreDataType="aadlba.ecore#//String"/>
-    <genDataTypes ecoreDataType="aadlba.ecore#//Boolean"/>
-    <genClasses image="false" ecoreClass="aadlba.ecore#//Element"/>
-    <genClasses ecoreClass="aadlba.ecore#//Comment">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Comment/body"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//behaviorExpressionLanguage/UnaryBooleanOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/UnaryBooleanOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/UnaryBooleanOperator/Not"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//behaviorExpressionLanguage/UnaryNumericOperator">
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/UnaryNumericOperator/None"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//behaviorExpressionLanguage/UnaryNumericOperator/Abs"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="aadlba.ecore#//behaviorSpecification/Boolean"/>
+    <genDataTypes ecoreDataType="aadlba.ecore#//behaviorSpecification/Integer"/>
+    <genDataTypes ecoreDataType="aadlba.ecore#//behaviorSpecification/Real"/>
+    <genDataTypes ecoreDataType="aadlba.ecore#//behaviorSpecification/String"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorSpecification/BehaviorAnnex">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/BehaviorAnnex/behaviorVariables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/BehaviorAnnex/behaviorStates"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/BehaviorAnnex/behaviorTransitions"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="aadlba.ecore#//NamedElement">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//NamedElement/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//NamedElement/qualifiedName"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference aadlba.ecore#//NamedElement/namespace"/>
-      <genOperations ecoreOperation="aadlba.ecore#//NamedElement/has_no_qualified_name">
-        <genParameters ecoreParameter="aadlba.ecore#//NamedElement/has_no_qualified_name/diagnostics"/>
-        <genParameters ecoreParameter="aadlba.ecore#//NamedElement/has_no_qualified_name/context"/>
-      </genOperations>
-      <genOperations ecoreOperation="aadlba.ecore#//NamedElement/has_qualified_name">
-        <genParameters ecoreParameter="aadlba.ecore#//NamedElement/has_qualified_name/diagnostics"/>
-        <genParameters ecoreParameter="aadlba.ecore#//NamedElement/has_qualified_name/context"/>
-      </genOperations>
-      <genOperations ecoreOperation="aadlba.ecore#//NamedElement/allNamespaces"/>
-      <genOperations ecoreOperation="aadlba.ecore#//NamedElement/isDistinguishableFrom">
-        <genParameters ecoreParameter="aadlba.ecore#//NamedElement/isDistinguishableFrom/n"/>
-        <genParameters ecoreParameter="aadlba.ecore#//NamedElement/isDistinguishableFrom/ns"/>
-      </genOperations>
-      <genOperations ecoreOperation="aadlba.ecore#//NamedElement/separator"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorSpecification/BehaviorCondition"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorSpecification/BehaviorState">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/BehaviorState/identifiers"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorSpecification/BehaviorState/initial"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorSpecification/BehaviorState/complete"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorSpecification/BehaviorState/final"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="aadlba.ecore#//Namespace">
-      <genFeatures property="None" children="true" createChild="false" ecoreFeature="ecore:EReference aadlba.ecore#//Namespace/ownedMember"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference aadlba.ecore#//Namespace/member"/>
-      <genOperations ecoreOperation="aadlba.ecore#//Namespace/members_distinguishable">
-        <genParameters ecoreParameter="aadlba.ecore#//Namespace/members_distinguishable/diagnostics"/>
-        <genParameters ecoreParameter="aadlba.ecore#//Namespace/members_distinguishable/context"/>
-      </genOperations>
-      <genOperations ecoreOperation="aadlba.ecore#//Namespace/getNamesOfMember">
-        <genParameters ecoreParameter="aadlba.ecore#//Namespace/getNamesOfMember/element"/>
-      </genOperations>
-      <genOperations ecoreOperation="aadlba.ecore#//Namespace/membersAreDistinguishable"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorSpecification/BehaviorTransition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/BehaviorTransition/transitionIdentifier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/BehaviorTransition/sourceStateIdentifiers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/BehaviorTransition/behaviorConditionOwned"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/BehaviorTransition/destinationStateIdentifier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/BehaviorTransition/behaviorActionBlockOwned"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/BehaviorTransition/behaviorTransitionPriority"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//GlobalNamespace"/>
-    <genClasses ecoreClass="aadlba.ecore#//BehaviorAnnex">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAnnex/Variables"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAnnex/States"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAnnex/Transitions"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorSpecification/BehaviorVariable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/BehaviorVariable/LocalVariableDeclarators"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/BehaviorVariable/DataUniqueComponentClassifierReference"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//UniqueComponentClassifierReference">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//UniqueComponentClassifierReference/ParentContainer"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorSpecification/Comment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorSpecification/Comment/body"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//BehaviorVariable">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorVariable/ParentContainer"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorVariable/LocalVariableDeclarators"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorVariable/DataUniqueComponentClassifierReference"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorVariable/isPersistent"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorSpecification/Declarator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/Declarator/identifierOwned"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/Declarator/arraySizes"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//BehaviorState">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorState/ParentContainer"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorState/BehaviorStateIdentifiers"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorState/IsInitial"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorState/IsComplete"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorState/IsFinal"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorSpecification/Element">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/Element/baRef"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorSpecification/Element/aadlRef"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//BehaviorTransition">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTransition/ParentContainer"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTransition/SourceStateIdentifiers"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTransition/BehaviorActionsOwned"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTransition/BehaviorConditionOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTransition/BehaviorTransitionPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTransition/DestinationStateIdentifier"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTransition/TransitionIdentifier"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorSpecification/ExecuteCondition"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorSpecification/Identifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorSpecification/Identifier/id"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//BehaviorCondition"/>
-    <genClasses ecoreClass="aadlba.ecore#//Declarator">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//Declarator/ArraySizes"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorSpecification/NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorSpecification/NamedElement/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorSpecification/NamedElement/qualifiedName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorSpecification/NamedElement/namespaceSeparator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorSpecification/NamedElement/namespace"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//ArraySize">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//ArraySize/IntegerValueConstant"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorSpecification/Otherwise"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorSpecification/TimeoutCatch"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorSpecification/UniqueComponentClassifierReference"/>
+    <genClasses ecoreClass="aadlba.ecore#//threadDispatchBehaviorSpecification/CompletionRelativeTimeoutConditionAndCatch"/>
+    <genClasses ecoreClass="aadlba.ecore#//threadDispatchBehaviorSpecification/DispatchCondition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//threadDispatchBehaviorSpecification/DispatchCondition/dispatchTriggerConditionOwned"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//threadDispatchBehaviorSpecification/DispatchCondition/frozenPorts"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//DispatchCondition">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//DispatchCondition/hasFrozenPorts"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchCondition/TheDispatchLogicalExpression"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchCondition/FrozenPorts"/>
+    <genClasses ecoreClass="aadlba.ecore#//threadDispatchBehaviorSpecification/DispatchConjunction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//threadDispatchBehaviorSpecification/DispatchConjunction/dispatchTriggers"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//DispatchLogicalExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchLogicalExpression/DispatchTriggers"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//DispatchLogicalExpression/isOrExpression"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//DispatchLogicalExpression/isAndExpression"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//DispatchLogicalExpression/isXorExpression"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//DispatchLogicalExpression/isStop"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//threadDispatchBehaviorSpecification/DispatchTriggerCondition"/>
+    <genClasses ecoreClass="aadlba.ecore#//threadDispatchBehaviorSpecification/DispatchTriggerConditionStop"/>
+    <genClasses ecoreClass="aadlba.ecore#//threadDispatchBehaviorSpecification/DispatchTriggerLogicalExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//threadDispatchBehaviorSpecification/DispatchTriggerLogicalExpression/dispatchConjunctions"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//DispatchTrigger">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchTrigger/TheDispatchLogicalExpression"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchTrigger/TheBehaviorTime"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchTrigger/IdentifierOwned"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchTrigger/DispatchTriggers"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchTrigger/NumeralOwned"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchTrigger/ValueConstantOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//DispatchTrigger/isNot"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//DispatchTrigger/isTimeout"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//DispatchTrigger/isOthers"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//DispatchTrigger/IsOrmore"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//DispatchTrigger/isOrless"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//DispatchTrigger/ParentContainer"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/AssignmentAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/AssignmentAction/targetOwned"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/AssignmentAction/valueExpressionOwned"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorActionLanguage/AssignmentAction/any"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//BehaviorActions">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorActions/TheBehaviorAction"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorActions/BehaviorActionSequence"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorActions/BehaviorActionSet"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorActionLanguage/BasicAction"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorActionLanguage/BehaviorAction"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/BehaviorActionBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/BehaviorActionBlock/behaviorActionsOwned"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/BehaviorActionBlock/behaviorTimeOwned"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//BehaviorAction">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAction/BasicActionOwned"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAction/BehaviorActionsOwned"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAction/CondStatementOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorAction/isBasicAction"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorAction/isIf"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorAction/isFor"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorAction/isWhile"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorAction/isDoUntil"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorActionLanguage/BehaviorActionCollection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/BehaviorActionCollection/behaviorActions"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="aadlba.ecore#//CondStatement"/>
-    <genClasses ecoreClass="aadlba.ecore#//BasicAction"/>
-    <genClasses ecoreClass="aadlba.ecore#//IfStatement">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//IfStatement/ValueExpressionOwned"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//IfStatement/BehaviorActionsOwned"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//IfStatement/ElsifValueExpressionOwned"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//IfStatement/ElsifBehaviorActionsOwned"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//IfStatement/ElseBehaviorActionsOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//IfStatement/hasElsif"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//IfStatement/hasElse"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorActionLanguage/BehaviorActions"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/BehaviorActionSequence"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/BehaviorActionSet"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorActionLanguage/CommunicationAction"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorActionLanguage/CondStatement"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/DataComponentReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/DataComponentReference/names"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//ForOrForAllStatement">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//ForOrForAllStatement/DataUniqueCmtClassRef"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//ForOrForAllStatement/ElementValuesOwned"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//ForOrForAllStatement/BehaviorActionsOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//ForOrForAllStatement/isForAll"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorActionLanguage/ElementValues"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/ForOrForAllStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/ForOrForAllStatement/elementIdentifier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/ForOrForAllStatement/dataUniqueComponentClassifierReference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/ForOrForAllStatement/elementValuesOwned"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorActionLanguage/ForOrForAllStatement/forAll"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//WhileStatement">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//WhileStatement/ValueExpressionOwned"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//WhileStatement/BehaviorActionsOwned"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/IfStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorActionLanguage/IfStatement/hasElse"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/IfStatement/logicalValueExpressions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/IfStatement/behaviorActionsOwned"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//DoUntilStatement">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//DoUntilStatement/BehaviorActionsOwned"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//DoUntilStatement/ValueExpressionOwned"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/LockAction"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorActionLanguage/LoopStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/LoopStatement/behaviorActionsOwned"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//ElementValues"/>
-    <genClasses ecoreClass="aadlba.ecore#//AssignmentAction">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//AssignmentAction/TargetOwned"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//AssignmentAction/ValueExpressionOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//AssignmentAction/isAny"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//AssignmentAction/ParentContainer"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/Name">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/Name/identifierOwned"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/Name/arrayIndexes"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//CommunicationAction">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//CommunicationAction/ActionType"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//CommunicationAction/EltNameOwned"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//CommunicationAction/SubpgmParamListOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//CommunicationAction/hasSpgParamList"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//CommunicationAction/hasValueExpression"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//CommunicationAction/hasTarget"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//CommunicationAction/ValueExprOwned"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//CommunicationAction/TarOwned"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//CommunicationAction/ParentContainer"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorActionLanguage/ParameterLabel"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/PortDequeueAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/PortDequeueAction/portName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/PortDequeueAction/targetOwned"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//SubprogramParameterList">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//SubprogramParameterList/ParameterList"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//SubprogramParameterList/ParentContainer"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/PortFreezeAction"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/PortSendAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/PortSendAction/portName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/PortSendAction/valueExpressionOwned"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//TimedAction">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//TimedAction/BehaviorTimesOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//TimedAction/isComputation"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//TimedAction/ParentContainer"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorActionLanguage/SharedDataAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/SharedDataAction/dataAccessName"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//Target">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//Target/ElementNameOwned"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//Target/DataComponentReferenceOwned"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/SubprogramCallAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/SubprogramCallAction/subprogramNames"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/SubprogramCallAction/subprogramReference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/SubprogramCallAction/parameterLabels"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//ParameterLabel"/>
-    <genClasses ecoreClass="aadlba.ecore#//DataComponentReference">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//DataComponentReference/ElementsNameOwned"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/Target"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/TimedAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/TimedAction/lowerBehaviorTime"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/TimedAction/upperBehaviorTime"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//Name">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//Name/ArrayIndexListOwned"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//Name/ParentContainer"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/UnlockAction"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorActionLanguage/WhileOrDoUntilStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorActionLanguage/WhileOrDoUntilStatement/logicalValueExpression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorActionLanguage/WhileOrDoUntilStatement/doUntil"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//ArrayIndex">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//ArrayIndex/IntegerValueVariableOwned"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/BehaviorTime">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorExpressionLanguage/BehaviorTime/integerValueOwned"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorExpressionLanguage/BehaviorTime/unitIdentifier"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//Value"/>
-    <genClasses ecoreClass="aadlba.ecore#//ValueVariable">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//ValueVariable/ElementNameOwned"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//ValueVariable/DataComponentReferenceOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//ValueVariable/isInterrogation"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//ValueVariable/isCount"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//ValueVariable/isFresh"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//ValueVariable/hasDataCptRef"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//ValueVariable/ParentContainer"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/BooleanLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/BooleanLiteral/value"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//ValueConstant">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//ValueConstant/ParentContainer"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/Factor">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorExpressionLanguage/Factor/valueOwned"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorExpressionLanguage/Factor/valueSdOwned"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/Factor/binaryNumericOperatorOwned"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/Factor/unaryNumericOperatorOwned"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/Factor/unaryBooleanOperatorOwned"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//ValueExpression">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//ValueExpression/RelationsOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//ValueExpression/LogicalOperatorsOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//ValueExpression/hasLogicalOperator"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//ValueExpression/ParentContainer"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/IntegerLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/IntegerLiteral/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/IntegerLiteral/base"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//Relation">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//Relation/SimpleExpressionOwned"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//Relation/SimpleExpressionSdOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Relation/RelationalOperatorOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Relation/hasRelationalOperator"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/IntegerRange">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorExpressionLanguage/IntegerRange/lowerIntegerValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorExpressionLanguage/IntegerRange/upperIntegerValue"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//SimpleExpression">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//SimpleExpression/TermsOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//SimpleExpression/UnaryAddingOperatorOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//SimpleExpression/hasUnaryAddingOperator"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//SimpleExpression/BinaryAddingOperatorOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//SimpleExpression/hasBinaryAddingOperator"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/IntegerValue"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/IntegerValueConstant"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/IntegerValueVariable"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/Literal"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/Numeral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/Numeral/value"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//Term">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//Term/FactorsOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Term/hasMultiplyingOperator"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Term/MultiplyingOperatorsOwned"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/NumericLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/NumericLiteral/valueString"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//Factor">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//Factor/ValueOwned"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//Factor/ValueSdOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Factor/BinaryNumericOperatorOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Factor/UnaryNumericOperatorOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Factor/UnaryBooleanOperatorOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Factor/hasBinaryNumericOperator"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Factor/hasUnaryNumericOperator"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Factor/hasUnaryBooleanOperator"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/PropertyConstant"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/PropertyValue"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/PortCountValue"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/PortDequeueValue"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/PortFreshValue"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/RealLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/RealLiteral/value"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//IntegerRange">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//IntegerRange/LowerIntegerValue"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//IntegerRange/UpperIntegerValue"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/Relation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorExpressionLanguage/Relation/simpleExpressionOwned"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorExpressionLanguage/Relation/simpleExpressionSdOwned"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/Relation/relationalOperatorOwned"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//IntegerValue"/>
-    <genClasses ecoreClass="aadlba.ecore#//BehaviorTime">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorTime/IntegerValueOwned"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BehaviorTime/UnitIdentifier"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/SimpleExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/SimpleExpression/unaryAddingOperatorOwned"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorExpressionLanguage/SimpleExpression/terms"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/SimpleExpression/binaryAddingOperators"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//PropertyConstant"/>
-    <genClasses ecoreClass="aadlba.ecore#//PropertyValue"/>
-    <genClasses ecoreClass="aadlba.ecore#//Identifier">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Identifier/Id"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/StringLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/StringLiteral/value"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//NumericLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//NumericLiteral/NumValue"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/Term">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorExpressionLanguage/Term/factors"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/Term/multiplyingOperators"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//BooleanLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//BooleanLiteral/BoolValue"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/Value"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/ValueConstant"/>
+    <genClasses ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/ValueExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//behaviorExpressionLanguage/ValueExpression/relations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//behaviorExpressionLanguage/ValueExpression/logicalOperators"/>
     </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//StringLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//StringLiteral/StringValue"/>
-    </genClasses>
-    <genClasses ecoreClass="aadlba.ecore#//Numeral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//Numeral/NumeralValue"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="aadlba.ecore#//ExecuteCondition"/>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//behaviorExpressionLanguage/ValueVariable"/>
   </genPackages>
 </genmodel:GenModel>

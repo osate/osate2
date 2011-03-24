@@ -14,9 +14,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  *
  *
  * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBasicAction()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
-public interface BasicAction extends Element
-{
+public interface BasicAction extends BehaviorAction {
 } // BasicAction

@@ -22,153 +22,143 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NumeralImpl#getNumeralValue <em>Numeral Value</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NumeralImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class NumeralImpl extends ElementImpl implements Numeral
-{
-   /**
-	 * The default value of the '{@link #getNumeralValue() <em>Numeral Value</em>}' attribute.
+public class NumeralImpl extends ElementImpl implements Numeral {
+	/**
+	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getNumeralValue()
+	 * <!-- end-user-doc -->
+	 * @see #getValue()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final int NUMERAL_VALUE_EDEFAULT = -1;
+	protected static final int VALUE_EDEFAULT = 0;
 
-   /**
-	 * The cached value of the '{@link #getNumeralValue() <em>Numeral Value</em>}' attribute.
+	/**
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #getNumeralValue()
+	 * <!-- end-user-doc -->
+	 * @see #getValue()
 	 * @generated
 	 * @ordered
 	 */
-   protected int numeralValue = NUMERAL_VALUE_EDEFAULT;
+	protected int value = VALUE_EDEFAULT;
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected NumeralImpl()
-   {
+	protected NumeralImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.NUMERAL;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public int getNumeralValue()
-   {
-		return numeralValue;
+	public int getValue() {
+		return value;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setNumeralValue(int newNumeralValue)
-   {
-		int oldNumeralValue = numeralValue;
-		numeralValue = newNumeralValue;
+	public void setValue(int newValue) {
+		int oldValue = value;
+		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.NUMERAL__NUMERAL_VALUE, oldNumeralValue, numeralValue));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.NUMERAL__VALUE, oldValue, value));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AadlBaPackage.NUMERAL__NUMERAL_VALUE:
-				return getNumeralValue();
+			case AadlBaPackage.NUMERAL__VALUE:
+				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AadlBaPackage.NUMERAL__NUMERAL_VALUE:
-				setNumeralValue((Integer)newValue);
+			case AadlBaPackage.NUMERAL__VALUE:
+				setValue((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.NUMERAL__NUMERAL_VALUE:
-				setNumeralValue(NUMERAL_VALUE_EDEFAULT);
+			case AadlBaPackage.NUMERAL__VALUE:
+				setValue(VALUE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.NUMERAL__NUMERAL_VALUE:
-				return numeralValue != NUMERAL_VALUE_EDEFAULT;
+			case AadlBaPackage.NUMERAL__VALUE:
+				return value != VALUE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public String toString()
-   {
+	@Override
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (NumeralValue: ");
-		result.append(numeralValue);
+		result.append(" (value: ");
+		result.append(value);
 		result.append(')');
 		return result.toString();
 	}

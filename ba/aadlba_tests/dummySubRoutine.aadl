@@ -2,6 +2,14 @@ package DummySubRoutine
 public
    with Base_Types ;
 
+subprogram parameterlessProcedure
+
+end parameterlessProcedure ;
+
+subprogram implementation parameterlessProcedure.impl
+
+end parameterlessProcedure.impl ;
+
 subprogram addition
 features
   x: in parameter Base_types::integer;

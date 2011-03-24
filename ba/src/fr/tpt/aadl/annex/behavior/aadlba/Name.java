@@ -16,8 +16,8 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Name#getArrayIndexListOwned <em>Array Index List Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Name#getIdentifier <em>Identifier</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Name#getIdentifierOwned <em>Identifier Owned</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Name#getArrayIndexes <em>Array Indexes</em>}</li>
  * </ul>
  * </p>
  *
@@ -25,71 +25,70 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Name extends NamedElement, ElementValues
-{
-   /**
-	 * Returns the value of the '<em><b>Array Index List Owned</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.ArrayIndex}.
+public interface Name extends ElementValues, Target, ValueVariable {
+	/**
+	 * Returns the value of the '<em><b>Identifier Owned</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Array Index List Owned</em>' containment reference list isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Array Index List Owned</em>' containment reference list.
-	 * @see #isSetArrayIndexListOwned()
-	 * @see #unsetArrayIndexListOwned()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getName_ArrayIndexListOwned()
+	 * <p>
+	 * If the meaning of the '<em>Identifier Owned</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Identifier Owned</em>' containment reference.
+	 * @see #setIdentifierOwned(Identifier)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getName_IdentifierOwned()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	Identifier getIdentifierOwned();
+
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Name#getIdentifierOwned <em>Identifier Owned</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Identifier Owned</em>' containment reference.
+	 * @see #getIdentifierOwned()
+	 * @generated
+	 */
+	void setIdentifierOwned(Identifier value);
+
+	/**
+	 * Returns the value of the '<em><b>Array Indexes</b></em>' containment reference list.
+	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Array Indexes</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Array Indexes</em>' containment reference list.
+	 * @see #isSetArrayIndexes()
+	 * @see #unsetArrayIndexes()
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getName_ArrayIndexes()
 	 * @model containment="true" unsettable="true"
 	 * @generated
 	 */
-   EList<ArrayIndex> getArrayIndexListOwned();
+	EList<IntegerValueVariable> getArrayIndexes();
 
-   /**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Name#getArrayIndexListOwned <em>Array Index List Owned</em>}' containment reference list.
+	/**
+	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Name#getArrayIndexes <em>Array Indexes</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isSetArrayIndexListOwned()
-	 * @see #getArrayIndexListOwned()
+	 * <!-- end-user-doc -->
+	 * @see #isSetArrayIndexes()
+	 * @see #getArrayIndexes()
 	 * @generated
 	 */
-   void unsetArrayIndexListOwned();
+	void unsetArrayIndexes();
 
-   /**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Name#getArrayIndexListOwned <em>Array Index List Owned</em>}' containment reference list is set.
+	/**
+	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Name#getArrayIndexes <em>Array Indexes</em>}' containment reference list is set.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Array Index List Owned</em>' containment reference list is set.
-	 * @see #unsetArrayIndexListOwned()
-	 * @see #getArrayIndexListOwned()
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Array Indexes</em>' containment reference list is set.
+	 * @see #unsetArrayIndexes()
+	 * @see #getArrayIndexes()
 	 * @generated
 	 */
-   boolean isSetArrayIndexListOwned();
-
-   /**
-	 * Returns the value of the '<em><b>Identifier</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Identifier</em>' containment reference isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Identifier</em>' containment reference.
-	 * @see #setIdentifier(Identifier)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getName_Identifier()
-	 * @model containment="true"
-	 * @generated
-	 */
-   Identifier getIdentifier();
-
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Name#getIdentifier <em>Identifier</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Identifier</em>' containment reference.
-	 * @see #getIdentifier()
-	 * @generated
-	 */
-   void setIdentifier(Identifier value);
+	boolean isSetArrayIndexes();
 
 } // Name

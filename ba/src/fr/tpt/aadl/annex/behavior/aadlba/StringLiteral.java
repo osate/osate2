@@ -15,7 +15,7 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.StringLiteral#getStringValue <em>String Value</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.StringLiteral#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -23,33 +23,31 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface StringLiteral extends ValueConstant
-{
-   /**
-	 * Returns the value of the '<em><b>String Value</b></em>' attribute.
-	 * The default value is <code>""</code>.
+public interface StringLiteral extends Literal {
+	/**
+	 * Returns the value of the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>String Value</em>' attribute isn't clear,
-    * there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-	 * @return the value of the '<em>String Value</em>' attribute.
-	 * @see #setStringValue(String)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getStringLiteral_StringValue()
-	 * @model default="" dataType="fr.tpt.aadl.annex.behavior.aadlba.String"
+	 * <p>
+	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Value</em>' attribute.
+	 * @see #setValue(String)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getStringLiteral_Value()
+	 * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.String" required="true"
 	 * @generated
 	 */
-   String getStringValue();
+	String getValue();
 
-   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.StringLiteral#getStringValue <em>String Value</em>}' attribute.
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.StringLiteral#getValue <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>String Value</em>' attribute.
-	 * @see #getStringValue()
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Value</em>' attribute.
+	 * @see #getValue()
 	 * @generated
 	 */
-   void setStringValue(String value);
+	void setValue(String value);
 
 } // StringLiteral

@@ -29,112 +29,95 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl#getSimpleExpressionOwned <em>Simple Expression Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl#getSimpleExpressionSdOwned <em>Simple Expression Sd Owned</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl#getRelationalOperatorOwned <em>Relational Operator Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl#isHasRelationalOperator <em>Has Relational Operator</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class RelationImpl extends ElementImpl implements Relation
-{
-   /**
+public class RelationImpl extends ElementImpl implements Relation {
+	/**
 	 * The cached value of the '{@link #getSimpleExpressionOwned() <em>Simple Expression Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getSimpleExpressionOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected SimpleExpression simpleExpressionOwned;
+	protected SimpleExpression simpleExpressionOwned;
 
-   /**
+	/**
 	 * The cached value of the '{@link #getSimpleExpressionSdOwned() <em>Simple Expression Sd Owned</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getSimpleExpressionSdOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected SimpleExpression simpleExpressionSdOwned;
+	protected SimpleExpression simpleExpressionSdOwned;
 
-   /**
+	/**
 	 * The default value of the '{@link #getRelationalOperatorOwned() <em>Relational Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getRelationalOperatorOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected static final RelationalOperator RELATIONAL_OPERATOR_OWNED_EDEFAULT = RelationalOperator.EQUAL;
+	protected static final RelationalOperator RELATIONAL_OPERATOR_OWNED_EDEFAULT = RelationalOperator.NONE;
 
-   /**
+	/**
 	 * The cached value of the '{@link #getRelationalOperatorOwned() <em>Relational Operator Owned</em>}' attribute.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getRelationalOperatorOwned()
 	 * @generated
 	 * @ordered
 	 */
-   protected RelationalOperator relationalOperatorOwned = RELATIONAL_OPERATOR_OWNED_EDEFAULT;
+	protected RelationalOperator relationalOperatorOwned = RELATIONAL_OPERATOR_OWNED_EDEFAULT;
 
-   /**
-	 * The default value of the '{@link #isHasRelationalOperator() <em>Has Relational Operator</em>}' attribute.
+	/**
+	 * This is true if the Relational Operator Owned attribute has been set.
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isHasRelationalOperator()
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-   protected static final boolean HAS_RELATIONAL_OPERATOR_EDEFAULT = false;
+	protected boolean relationalOperatorOwnedESet;
 
-   /**
-	 * The cached value of the '{@link #isHasRelationalOperator() <em>Has Relational Operator</em>}' attribute.
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @see #isHasRelationalOperator()
-	 * @generated
-	 * @ordered
-	 */
-   protected boolean hasRelationalOperator = HAS_RELATIONAL_OPERATOR_EDEFAULT;
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   protected RelationImpl()
-   {
+	protected RelationImpl() {
 		super();
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   protected EClass eStaticClass()
-   {
+	@Override
+	protected EClass eStaticClass() {
 		return AadlBaPackage.Literals.RELATION;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public SimpleExpression getSimpleExpressionOwned()
-   {
+	public SimpleExpression getSimpleExpressionOwned() {
 		return simpleExpressionOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public NotificationChain basicSetSimpleExpressionOwned(SimpleExpression newSimpleExpressionOwned, NotificationChain msgs)
-   {
+	public NotificationChain basicSetSimpleExpressionOwned(SimpleExpression newSimpleExpressionOwned, NotificationChain msgs) {
 		SimpleExpression oldSimpleExpressionOwned = simpleExpressionOwned;
 		simpleExpressionOwned = newSimpleExpressionOwned;
 		if (eNotificationRequired()) {
@@ -144,13 +127,12 @@ public class RelationImpl extends ElementImpl implements Relation
 		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setSimpleExpressionOwned(SimpleExpression newSimpleExpressionOwned)
-   {
+	public void setSimpleExpressionOwned(SimpleExpression newSimpleExpressionOwned) {
 		if (newSimpleExpressionOwned != simpleExpressionOwned) {
 			NotificationChain msgs = null;
 			if (simpleExpressionOwned != null)
@@ -164,23 +146,21 @@ public class RelationImpl extends ElementImpl implements Relation
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED, newSimpleExpressionOwned, newSimpleExpressionOwned));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public SimpleExpression getSimpleExpressionSdOwned()
-   {
+	public SimpleExpression getSimpleExpressionSdOwned() {
 		return simpleExpressionSdOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public NotificationChain basicSetSimpleExpressionSdOwned(SimpleExpression newSimpleExpressionSdOwned, NotificationChain msgs)
-   {
+	public NotificationChain basicSetSimpleExpressionSdOwned(SimpleExpression newSimpleExpressionSdOwned, NotificationChain msgs) {
 		SimpleExpression oldSimpleExpressionSdOwned = simpleExpressionSdOwned;
 		simpleExpressionSdOwned = newSimpleExpressionSdOwned;
 		if (eNotificationRequired()) {
@@ -190,13 +170,12 @@ public class RelationImpl extends ElementImpl implements Relation
 		return msgs;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setSimpleExpressionSdOwned(SimpleExpression newSimpleExpressionSdOwned)
-   {
+	public void setSimpleExpressionSdOwned(SimpleExpression newSimpleExpressionSdOwned) {
 		if (newSimpleExpressionSdOwned != simpleExpressionSdOwned) {
 			NotificationChain msgs = null;
 			if (simpleExpressionSdOwned != null)
@@ -210,60 +189,59 @@ public class RelationImpl extends ElementImpl implements Relation
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__SIMPLE_EXPRESSION_SD_OWNED, newSimpleExpressionSdOwned, newSimpleExpressionSdOwned));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public RelationalOperator getRelationalOperatorOwned()
-   {
+	public RelationalOperator getRelationalOperatorOwned() {
 		return relationalOperatorOwned;
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public void setRelationalOperatorOwned(RelationalOperator newRelationalOperatorOwned)
-   {
+	public void setRelationalOperatorOwned(RelationalOperator newRelationalOperatorOwned) {
 		RelationalOperator oldRelationalOperatorOwned = relationalOperatorOwned;
 		relationalOperatorOwned = newRelationalOperatorOwned == null ? RELATIONAL_OPERATOR_OWNED_EDEFAULT : newRelationalOperatorOwned;
+		boolean oldRelationalOperatorOwnedESet = relationalOperatorOwnedESet;
+		relationalOperatorOwnedESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED, oldRelationalOperatorOwned, relationalOperatorOwned));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED, oldRelationalOperatorOwned, relationalOperatorOwned, !oldRelationalOperatorOwnedESet));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   public boolean isHasRelationalOperator()
-   {
-		return hasRelationalOperator;
-	}
-
-   /**
-	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-	 * @generated
-	 */
-   public void setHasRelationalOperator(boolean newHasRelationalOperator)
-   {
-		boolean oldHasRelationalOperator = hasRelationalOperator;
-		hasRelationalOperator = newHasRelationalOperator;
+	public void unsetRelationalOperatorOwned() {
+		RelationalOperator oldRelationalOperatorOwned = relationalOperatorOwned;
+		boolean oldRelationalOperatorOwnedESet = relationalOperatorOwnedESet;
+		relationalOperatorOwned = RELATIONAL_OPERATOR_OWNED_EDEFAULT;
+		relationalOperatorOwnedESet = false;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__HAS_RELATIONAL_OPERATOR, oldHasRelationalOperator, hasRelationalOperator));
+			eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED, oldRelationalOperatorOwned, RELATIONAL_OPERATOR_OWNED_EDEFAULT, oldRelationalOperatorOwnedESet));
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
+	public boolean isSetRelationalOperatorOwned() {
+		return relationalOperatorOwnedESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED:
 				return basicSetSimpleExpressionOwned(null, msgs);
@@ -273,14 +251,13 @@ public class RelationImpl extends ElementImpl implements Relation
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED:
 				return getSimpleExpressionOwned();
@@ -288,20 +265,17 @@ public class RelationImpl extends ElementImpl implements Relation
 				return getSimpleExpressionSdOwned();
 			case AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED:
 				return getRelationalOperatorOwned();
-			case AadlBaPackage.RELATION__HAS_RELATIONAL_OPERATOR:
-				return isHasRelationalOperator();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eSet(int featureID, Object newValue)
-   {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED:
 				setSimpleExpressionOwned((SimpleExpression)newValue);
@@ -312,21 +286,17 @@ public class RelationImpl extends ElementImpl implements Relation
 			case AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED:
 				setRelationalOperatorOwned((RelationalOperator)newValue);
 				return;
-			case AadlBaPackage.RELATION__HAS_RELATIONAL_OPERATOR:
-				setHasRelationalOperator((Boolean)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public void eUnset(int featureID)
-   {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED:
 				setSimpleExpressionOwned((SimpleExpression)null);
@@ -335,51 +305,42 @@ public class RelationImpl extends ElementImpl implements Relation
 				setSimpleExpressionSdOwned((SimpleExpression)null);
 				return;
 			case AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED:
-				setRelationalOperatorOwned(RELATIONAL_OPERATOR_OWNED_EDEFAULT);
-				return;
-			case AadlBaPackage.RELATION__HAS_RELATIONAL_OPERATOR:
-				setHasRelationalOperator(HAS_RELATIONAL_OPERATOR_EDEFAULT);
+				unsetRelationalOperatorOwned();
 				return;
 		}
 		super.eUnset(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public boolean eIsSet(int featureID)
-   {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED:
 				return simpleExpressionOwned != null;
 			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_SD_OWNED:
 				return simpleExpressionSdOwned != null;
 			case AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED:
-				return relationalOperatorOwned != RELATIONAL_OPERATOR_OWNED_EDEFAULT;
-			case AadlBaPackage.RELATION__HAS_RELATIONAL_OPERATOR:
-				return hasRelationalOperator != HAS_RELATIONAL_OPERATOR_EDEFAULT;
+				return isSetRelationalOperatorOwned();
 		}
 		return super.eIsSet(featureID);
 	}
 
-   /**
+	/**
 	 * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-   @Override
-   public String toString()
-   {
+	@Override
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (RelationalOperatorOwned: ");
-		result.append(relationalOperatorOwned);
-		result.append(", hasRelationalOperator: ");
-		result.append(hasRelationalOperator);
+		result.append(" (relationalOperatorOwned: ");
+		if (relationalOperatorOwnedESet) result.append(relationalOperatorOwned); else result.append("<unset>");
 		result.append(')');
 		return result.toString();
 	}

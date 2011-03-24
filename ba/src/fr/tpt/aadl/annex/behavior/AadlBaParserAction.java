@@ -6,6 +6,8 @@ import org.antlr.runtime.CommonTokenStream;
 import edu.cmu.sei.aadl.aadl2.AnnexLibrary;
 import edu.cmu.sei.aadl.aadl2.AnnexSubclause;
 import edu.cmu.sei.aadl.modelsupport.errorreporting.ParseErrorReporter;
+import fr.tpt.aadl.annex.behavior.parser.AadlBaLexer ;
+import fr.tpt.aadl.annex.behavior.parser.AadlBaParser ;
 import fr.tpt.aadl.annex.behavior.utils.CaseInsensitiveCharStream;
 
 
@@ -46,7 +48,7 @@ public class AadlBaParserAction implements edu.cmu.sei.aadl.annex.AnnexParser {
 		lexer.setFilename(filename);
 
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		System.out.println(tokens.toString());
+		tokens.toString();
 		AadlBaParser parser = new AadlBaParser(tokens);
 
 		parser.setParseErrorReporter(reporter);

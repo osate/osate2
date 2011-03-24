@@ -20,7 +20,7 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * </p>
  *
  * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getLoopStatement()
- * @model interface="true" abstract="true"
+ * @model abstract="true"
  * @generated
  */
 public interface LoopStatement extends CondStatement {
@@ -33,11 +33,9 @@ public interface LoopStatement extends CondStatement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Behavior Actions Owned</em>' containment reference.
-	 * @see #isSetBehaviorActionsOwned()
-	 * @see #unsetBehaviorActionsOwned()
 	 * @see #setBehaviorActionsOwned(BehaviorActions)
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getLoopStatement_BehaviorActionsOwned()
-	 * @model containment="true" unsettable="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	BehaviorActions getBehaviorActionsOwned();
@@ -47,34 +45,9 @@ public interface LoopStatement extends CondStatement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Behavior Actions Owned</em>' containment reference.
-	 * @see #isSetBehaviorActionsOwned()
-	 * @see #unsetBehaviorActionsOwned()
 	 * @see #getBehaviorActionsOwned()
 	 * @generated
 	 */
 	void setBehaviorActionsOwned(BehaviorActions value);
-
-	/**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.LoopStatement#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetBehaviorActionsOwned()
-	 * @see #getBehaviorActionsOwned()
-	 * @see #setBehaviorActionsOwned(BehaviorActions)
-	 * @generated
-	 */
-	void unsetBehaviorActionsOwned();
-
-	/**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.LoopStatement#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}' containment reference is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Behavior Actions Owned</em>' containment reference is set.
-	 * @see #unsetBehaviorActionsOwned()
-	 * @see #getBehaviorActionsOwned()
-	 * @see #setBehaviorActionsOwned(BehaviorActions)
-	 * @generated
-	 */
-	boolean isSetBehaviorActionsOwned();
 
 } // LoopStatement

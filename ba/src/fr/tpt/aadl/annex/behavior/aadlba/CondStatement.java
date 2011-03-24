@@ -14,9 +14,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  *
  *
  * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getCondStatement()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
-public interface CondStatement extends Element
-{
+public interface CondStatement extends BehaviorAction {
 } // CondStatement
