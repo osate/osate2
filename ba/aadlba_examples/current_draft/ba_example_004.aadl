@@ -1,3 +1,5 @@
+-- Copyright © 2008 SAE International
+
 -- This example shows the use of non deterministic transitions that enumerate 
 -- all the possible behaviors of a subprogram, without specifying precisely 
 -- when each case occurs.

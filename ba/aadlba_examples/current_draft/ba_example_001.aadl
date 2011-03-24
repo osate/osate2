@@ -1,3 +1,5 @@
+-- Copyright © 2008 SAE International
+
 -- This first example shows the use of variable labels as local variables to 
 -- pass data between successive actions.
 package BA_example1 public

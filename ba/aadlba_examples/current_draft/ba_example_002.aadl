@@ -1,3 +1,5 @@
+-- Copyright Â© 2008 SAE International
+
 -- Next example exploits the AADL execution model to compute a speed by 
 -- counting the number of ticks received each second by the measuring thread. 
 -- The event port queue acts as a persistent count. At each periodic 
@@ -27,7 +29,7 @@ thread implementation speed.i
   **};
 end speed.i;
 
--- Note that in the preceding code, tickÕcount provides the number of events 
+-- Note that in the preceding code, tickï¿½count provides the number of events 
 -- that are available in the tick port queue.
 
 end BA_example2;

@@ -1,3 +1,5 @@
+-- Copyright © 2008 SAE International
+
 -- Execute conditions are used in the following example which merges sorted 
 -- data received from two ports. Initially, arrival on either port can 
 -- trigger a dispatch. Then arrival on one of the ports triggers the next 

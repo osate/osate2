@@ -1,3 +1,5 @@
+-- Copyright © 2008 SAE International
+
 -- Following example shows the use of a LSER call between a client thread
 -- and a server thread. The client thread does not need to wait for the
 -- completion of the call to a long remote calculation. Result value is later 

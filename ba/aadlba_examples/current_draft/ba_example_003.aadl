@@ -1,3 +1,5 @@
+-- Copyright © 2008 SAE International
+
 -- Next example shows various dispatch conditions and transition actions. The 
 -- timeout value is given by the Period property of the thread. States st and 
 -- sf are complete states and thus outgoing transitions are triggered by 
