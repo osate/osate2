@@ -7,7 +7,7 @@
             annexName="behavior_specification"
             class="fr.tpt.aadl.annex.behavior.AadlBaParserAction"
             id="fr.tpt.aadl.annex.behavior.parser"
-            name="AADL Behavior Annex">
+            name="AADL-BA-FrontEnd">
       </parser>
    </extension>
    
@@ -17,7 +17,7 @@
             annexName="behavior_specification"
             class="fr.tpt.aadl.annex.behavior.AadlBaResolver"
             id="fr.tpt.aadl.annex.behavior.analyzers.resolver"
-            name="AADL Behavior Annex">
+            name="AADL-BA-FrontEnd">
       </resolver>
    </extension>
    
@@ -36,13 +36,13 @@
             annexName="behavior_specification"
             class="fr.tpt.aadl.annex.behavior.AadlBaUnParserAction"
             id="fr.tpt.aadl.annex.behavior.unparser"
-            name="AADL Behavior Annex">
+            name="AADL-BA-FrontEnd">
       </unparser>
    </extension>
   
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
-       uri = "http:///AADLBA" 
+       uri = "http:///AADL-BA-FrontEnd" 
        class = "fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage"
        genModel = "model/aadlba.genmodel" /> 
   </extension>
@@ -50,12 +50,12 @@
   <extension
         point="org.eclipse.ui.actionSets">
      <actionSet
-           id="fr.tpt.aadl.annex.behavior.actionSet2"
-           label="AADL-BA Action Manager"
+           id="fr.tpt.aadl.annex.behavior.actionSet1"
+           label="AADL-BA-FrontEnd"
            visible="true">
         <menu
               id="fr.tpt.aadl.annex.behavior.menu1"
-              label="AADL-BA"
+              label="AADL-BA-FrontEnd"
               path="additions">
            <separator
                  name="additions">
@@ -80,7 +80,8 @@
          point="edu.cmu.sei.osate.pluginsupport.aadlcontribution">
       <aadlcontribution
             file="resources/properties/behavior_properties.aadl"
-            id="fr.tpt.aadl.annex.behavior.behavior_properties.aadlcontribution">
+            id="fr.tpt.aadl.annex.behavior.behavior_properties.aadlcontribution"
+            name="AADL-BA-FrontEnd">
       </aadlcontribution>
    </extension>
   <extension
@@ -90,7 +91,7 @@
             default="false"
             extensions="aadl"
             id="fr.tpt.aadl.annex.behavior.texteditor.AadlBaTextEditorID"
-            name="AadlBa Text Editor">
+            name="AADL-BA-FrontEnd Text Editor">
       </editor>
    </extension>
 </plugin>
