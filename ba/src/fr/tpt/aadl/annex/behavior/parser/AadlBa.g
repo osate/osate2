@@ -107,8 +107,7 @@ options {
   }
   
   /**
-   * Report parser error
-   * @param msg  error message
+   * Reports a parser error.
    * @param e  antlr error exception 
    */
   public  void reportError(RecognitionException e)  {
@@ -146,8 +145,7 @@ options {
   }
 
   /**
-   * Report parser error
-   * @param msg  error message
+   * Reports parser error.
    * @param e  any exception 
    */
   public  void reportError(Exception e) {

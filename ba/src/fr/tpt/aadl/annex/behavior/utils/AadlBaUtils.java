@@ -130,7 +130,8 @@ public class AadlBaUtils {
    }
    
    /**
-    * Returns the data representation associated to the given property type object.
+    * Returns the data representation associated to the given property type
+    * object.
     * <BR><BR>
     * Note : this method doesn't support the following property types :
     * <BR>_ ClassifierType
@@ -258,7 +259,7 @@ public class AadlBaUtils {
     * property is not set or if the ValueVariable object represents a data
     * structure.
     *
-    * @param c the given ValueVariable object
+    * @param v the given ValueVariable object
     * @return the data representation or DataRepresentation.UNKNOWN
     */
    static public DataRepresentation getDataRepresentation(ValueVariable v)
@@ -302,10 +303,11 @@ public class AadlBaUtils {
                   {
                      return getDataRepresentation((BehaviorVariable)el) ;
                   }
-                  else // Iterative variable case (Unique component classifier reference case).
+                  else // Iterative variable case (Unique component classifier 
+                	   // reference case).
                   {
                      DataClassifier c = (DataClassifier) 
-                           ((UniqueComponentClassifierReference) el).getAadlRef() ;
+                        ((UniqueComponentClassifierReference) el).getAadlRef() ;
            
                      return getDataRepresentation(c) ;
                   }
@@ -368,8 +370,8 @@ public class AadlBaUtils {
     * 
     * @param s the given string or {@code null}
     * @param stringArray the given string array
-    * @return {@code true} if the given string is found (case not sensitive) into
-    * the given string array. Otherwise {@code false}. 
+    * @return {@code true} if the given string is found (case not sensitive) 
+    * into the given string array. Otherwise {@code false}. 
     */
    static public boolean contains(String s, String[] stringArray )
    {
@@ -431,7 +433,8 @@ public class AadlBaUtils {
                return (DataClassifier) bv.
                      getDataUniqueComponentClassifierReference().getAadlRef() ;
             }
-            else // Iterative variable case (Unique component classifier reference case).
+            else // Iterative variable case (Unique component classifier 
+            	 // reference case).
             {
                return (DataClassifier)
                        ((UniqueComponentClassifierReference) el).getAadlRef() ;
@@ -609,19 +612,19 @@ public class AadlBaUtils {
    /**
     * Compare the given Target objects.<BR><BR> 
     * 
-    * This method is based on {@link#isSameName(Name, Name)}} and 
-    * {@link#isSameDataComponentReference(DataComponentReference,
-    * DataComponentReference)}}.<BR><BR> 
+    * This method is based on {@link #isSameName(Name, Name)} and 
+    * {@link #isSameDataComponentReference(DataComponentReference,
+    * DataComponentReference)}.<BR><BR> 
     * 
     * This comparator doesn't support array indexes comparison, meaning that two
     * target with the same identifiers and different array indexes
     * are considered as equals.
     * <BR><BR>
     * 
-    * @param n0 the first name
-    * @param n1 the second name
-    * @return {@code true} if the given Name objects are the same.
-    * Otherwise return {@code false}  
+    * @param tar0 the first name
+    * @param tar1 the second name
+    * @return {@code true} if the given Target objects are the same.
+    * Otherwise returns {@code false}  
     */
    public static boolean isSameTarget(Target tar0, Target tar1)
    {
@@ -666,7 +669,7 @@ public class AadlBaUtils {
    /**
     * Compare the given DataComponentReference objects.<BR><BR> 
     * 
-    * This method is based on {@link#isSameName(Name, Name)}} : it compares 
+    * This method is based on {@link #isSameName(Name, Name)} : it compares 
     * the dcr's names one to one.<BR><BR> 
     * 
     * This comparator doesn't support array indexes comparison, meaning that two
@@ -679,8 +682,9 @@ public class AadlBaUtils {
     * @return {@code true} if the given DataComponentReference are the same.
     * Otherwise return {@code false}  
     */
-   public static boolean isSameDataComponentReference(DataComponentReference dcr0,
-                                                      DataComponentReference dcr1)
+   public static boolean isSameDataComponentReference(
+		                                            DataComponentReference dcr0,
+                                                    DataComponentReference dcr1)
    {
       EList<Name> ln0 = null ;
       EList<Name> ln1 = null ;

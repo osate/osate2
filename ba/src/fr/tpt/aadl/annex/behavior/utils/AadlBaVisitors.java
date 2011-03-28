@@ -69,7 +69,7 @@ public class AadlBaVisitors
     * component and its ancestors which name equals to a given name or
     * returns {@code null} if there isn't matching prototype found.  
     * 
-    * @param cc the given aadl's component 
+    * @param c the given aadl's component 
     * @param prototypeName the given name
     * @return the first occurrence of a Prototype related to the given name
     * or {@code null}
@@ -172,7 +172,7 @@ public class AadlBaVisitors
     * returned list is an empty list.
     * 
     * 
-    * @param BehAction the given BehaviorActions object or {@code null} (for
+    * @param BehActions the given BehaviorActions object or {@code null} (for
     * batch processing)
     * @return the list of BasicAction contained in the given BehaviorActions
     * object.
@@ -218,7 +218,8 @@ public class AadlBaVisitors
    public static PackageSection[] getBaPackageSections(BehaviorAnnex ba)
    {
       PackageSection result[] ;
-      PackageSection container = AadlBaVisitors.getContainingPackageSection((edu.cmu.sei.aadl.aadl2.Element)ba);
+      PackageSection container = AadlBaVisitors.getContainingPackageSection(
+    		                                (edu.cmu.sei.aadl.aadl2.Element)ba);
 
       // Init contexts tab with current package's sections.
       // Private section is also investigated only if ba is declared in
@@ -261,11 +262,11 @@ public class AadlBaVisitors
    
    /**
     * Find the first occurrence of an BehaviorVariable within a given
-    * BehaviorAnnex which name equals to a given name. Return {@code null} if no 
-    * BehaviorVariable is found.
+    * BehaviorAnnex which name equals to the given name. Return {@code null}
+    * if no BehaviorVariable is found.
     * 
     * @param ba the given BehaviorAnnex
-    * @param stateName the given name
+    * @param variableName the given name
     * @return the first occurrence of an BehaviorVariable related to the given
     * name or {@code null}.
     */
@@ -382,12 +383,12 @@ public class AadlBaVisitors
    }
 
    /**
-    * Return the list of members within a given name space (inherit members
+    * Returns the list of members within a given name space (inherit members
     * included) witch type matches with the specified one. If no members is
-    * found, the returned list is a zero size list. 
+    * found, the returned list is a empty list. 
     * 
     * @param <T> the specified type
-    * @param cc the given name space
+    * @param ns the given name space
     * @param klass the specified type's class object
     * @return the members list
     */
@@ -408,7 +409,7 @@ public class AadlBaVisitors
          }
 
    /**
-    * Return the behavior annex's parent component.
+    * Returns the behavior annex's parent component.
     * 
     * @param ba the behavior annex
     * @return the behavior annex's parent component
@@ -421,28 +422,67 @@ public class AadlBaVisitors
    /**
     * Get all members, inherit members included, of a given name space.
     * 
-    * @param cc the given name space
+    * @param ns the given name space
     * @return the component's members list
     */
-   public static EList<edu.cmu.sei.aadl.aadl2.NamedElement> getMembers(Namespace ns)
+   public static EList<edu.cmu.sei.aadl.aadl2.NamedElement> getMembers(
+		                                                           Namespace ns)
    {
       return ns.getMembers() ;
    }
 
    /********************* Copied from NameResolver ****************************/
 
+   /*
+    * <copyright>
+    * Copyright  2009 by Carnegie Mellon University, all rights reserved.
+    *
+    * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
+    * at http://www.eclipse.org/legal/cpl-v10.html.
+    *
+    * NO WARRANTY
+    *
+    * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
+    * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
+    * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
+    * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
+    * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
+    * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
+    * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
+    * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
+    * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
+    *
+    * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
+    * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
+    * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
+    * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
+    * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
+    * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
+    *
+    * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
+    * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
+    * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
+    * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
+    * under the contract clause at 252.227.7013.
+    * </copyright>
+    */
 
    /**
     * Dependencies:
     *       If propertySetName is the name of a different, non standard property set: WithStatementReference.
     */
-   public static edu.cmu.sei.aadl.aadl2.NamedElement findNamedElementInPropertySet(String propertySetName, String elementName, Namespace context)
+   public static edu.cmu.sei.aadl.aadl2.NamedElement 
+                           findNamedElementInPropertySet(String propertySetName,
+                        	                             String elementName,
+                        		                         Namespace context)
    {
       if (propertySetName == null)
       {
-         for (PropertySet predeclaredPropertySet : OsateResourceManager.getPredeclaredPropertySets())
+         for (PropertySet predeclaredPropertySet : OsateResourceManager.
+        		                                   getPredeclaredPropertySets())
          {
-            edu.cmu.sei.aadl.aadl2.NamedElement searchResult = predeclaredPropertySet.findNamedElement(elementName);
+            edu.cmu.sei.aadl.aadl2.NamedElement searchResult = 
+            	           predeclaredPropertySet.findNamedElement(elementName);
             if (searchResult != null)
                return searchResult;
          }
@@ -451,14 +491,17 @@ public class AadlBaVisitors
       else
       {
          PropertySet propertySet;
-         if (context instanceof PropertySet && context.getName().equalsIgnoreCase(propertySetName))
+         if (context instanceof PropertySet && context.getName().
+        		                              equalsIgnoreCase(propertySetName))
             propertySet = (PropertySet)context;
          else
          {
             propertySet = findImportedPropertySet(propertySetName, context);
             if (propertySet == null)
-               for (PropertySet predeclaredPropertySet : OsateResourceManager.getPredeclaredPropertySets())
-                  if (predeclaredPropertySet.getName().equalsIgnoreCase(propertySetName))
+               for (PropertySet predeclaredPropertySet : OsateResourceManager.
+            		                               getPredeclaredPropertySets())
+                  if (predeclaredPropertySet.getName().
+                		                      equalsIgnoreCase(propertySetName))
                      propertySet = predeclaredPropertySet;
          }
          if (propertySet != null)
@@ -468,13 +511,15 @@ public class AadlBaVisitors
       }
    }
 
-   private static PropertySet findImportedPropertySet(String name, Namespace context)
+   private static PropertySet findImportedPropertySet(String name,
+		                                              Namespace context)
    {
       EList<PropertySet> importedPropertySets;
       if (context instanceof PropertySet)
          importedPropertySets = ((PropertySet)context).getImportedPropertySets();
       else
-         importedPropertySets = ((PackageSection)context).getImportedPropertySets();
+         importedPropertySets = ((PackageSection)context).
+                                                      getImportedPropertySets();
       for (PropertySet importedPropertySet : importedPropertySets)
          if (importedPropertySet.getName().equalsIgnoreCase(name))
             return importedPropertySet;
@@ -503,9 +548,10 @@ public class AadlBaVisitors
     * specified {@link Element}.
     * @return The {@link NamedElement} or {@code null} if it cannot be found.
     */
-   public static edu.cmu.sei.aadl.aadl2.NamedElement findNamedElementInAadlPackage(String packageName,
-                                                                                   String elementName,
-                                                                                   Namespace context)
+   public static edu.cmu.sei.aadl.aadl2.NamedElement 
+                               findNamedElementInAadlPackage(String packageName,
+                                                             String elementName,
+                                                             Namespace context)
    {
       if(context instanceof PackageSection
             && (packageName == null || context.getName().equalsIgnoreCase(
@@ -560,11 +606,12 @@ public class AadlBaVisitors
     * {@link Element} that needs the search result.
     * @return The {@link NamedElement} or {@code null} if it cannot be found.
     */
-   private static edu.cmu.sei.aadl.aadl2.NamedElement findNamedElementInAadlPackage(
-                                                                                    String name,
-                                                                                    PackageSection context)
+   private static edu.cmu.sei.aadl.aadl2.NamedElement 
+                                      findNamedElementInAadlPackage(String name,
+                                                         PackageSection context)
    {
-      edu.cmu.sei.aadl.aadl2.NamedElement result = context.findNamedElement(name, false) ;
+      edu.cmu.sei.aadl.aadl2.NamedElement result = context.findNamedElement(
+    		                                                      name, false) ;
       if(result == null && context instanceof PrivatePackageSection
             && ((AadlPackage) context.eContainer()).getPublicSection() != null)
          result =
@@ -589,7 +636,8 @@ public class AadlBaVisitors
    private static PackageRename findPackageRename(String name,
                                                   PackageSection context)
    {
-      edu.cmu.sei.aadl.aadl2.NamedElement searchResult = context.findNamedElement(name, false) ;
+      edu.cmu.sei.aadl.aadl2.NamedElement searchResult = context.
+                                                 findNamedElement(name, false) ;
       if(searchResult == null && context instanceof PrivatePackageSection
             && ((AadlPackage) context.eContainer()).getPublicSection() != null)
       {
@@ -622,7 +670,8 @@ public class AadlBaVisitors
       return null ;
    }
 
-   public static PackageSection getContainingPackageSection(edu.cmu.sei.aadl.aadl2.Element element)
+   public static PackageSection getContainingPackageSection(
+		                                 edu.cmu.sei.aadl.aadl2.Element element)
    {
       edu.cmu.sei.aadl.aadl2.Element container = element.getOwner() ;
       while(container != null && !(container instanceof PackageSection))

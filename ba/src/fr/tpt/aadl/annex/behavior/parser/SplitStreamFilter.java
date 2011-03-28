@@ -94,8 +94,7 @@ public class SplitStreamFilter extends CommonTokenStream {
 	}
 
 	/**
-	 * returns the Vector of tokens that got split out
-	 * @return
+	 * @return the Vector of tokens that got split out
 	 */
 	public Vector<Token> getSplitTokens() {
 		Vector<Token> v = this.comments;

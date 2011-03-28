@@ -72,7 +72,8 @@ public class AadlBaGetProperties
 			{
 		EList<PropertyValue> result = new BasicEList<PropertyValue>() ;
 
-		EList<PropertyAssociation> lpa = getPropertyAssociations(cc, propertyName) ;
+		EList<PropertyAssociation> lpa = getPropertyAssociations(cc,
+				                                                 propertyName) ;
 
 		for (PropertyAssociation pa : lpa)
 		{
@@ -98,11 +99,13 @@ public class AadlBaGetProperties
 	 * @param propertyName a given property name
 	 * @return the property association
 	 */
-	public static PropertyAssociation getPropertyAssociation(Classifier cc, String propertyName)
+	public static PropertyAssociation getPropertyAssociation(Classifier cc,
+			                                                String propertyName)
 	{
 		Property p = null ;
 
-		// FIXME : TODO : improve function, get properties from component type too
+		// FIXME : TODO : improve function, get properties from component type
+		// too
 		if(!cc.isNoProperties())
 		{
 			for(PropertyAssociation pa : cc.getAllPropertyAssociations())
@@ -127,14 +130,17 @@ public class AadlBaGetProperties
 	 * @return the list of property association which match
 	 * the given propertyName
 	 */
-	public static EList<PropertyAssociation> getPropertyAssociations(Classifier cc, String propertyName)
+	public static EList<PropertyAssociation> getPropertyAssociations(
+			                                 Classifier cc, String propertyName)
 	{
 		Property p = null ;
 		EList<PropertyAssociation> lpa = null ;
 
-		EList<PropertyAssociation> lparesult = new BasicEList<PropertyAssociation>() ;
+		EList<PropertyAssociation> lparesult = 
+			                             new BasicEList<PropertyAssociation>() ;
 
-		// FIXME : TODO : improve function, get properties from component type too
+		// FIXME : TODO : improve function, get properties from component type
+		// too
 		if(cc != null && !cc.isNoProperties())
 		{
 			lpa = cc.getAllPropertyAssociations() ;
@@ -143,7 +149,8 @@ public class AadlBaGetProperties
 			{
 				p = pa.getProperty() ;
 				// Sometime, properties don't have name.
-				if(p.getName() != null && p.getName().equalsIgnoreCase(propertyName))
+				if(p.getName() != null && p.getName().
+						                         equalsIgnoreCase(propertyName))
 				{
 					lparesult.add(pa) ;
 				}
@@ -153,12 +160,12 @@ public class AadlBaGetProperties
 	}
 
 	/**
-	 * 
 	 * @param lpa property association lists
-	 * @return
+	 * @return the list of dispatch trigger property values.
 	 */
 
-	public static EList<String> getPropertyDispatchTriggers(EList<PropertyAssociation> lpa)
+	public static EList<String> getPropertyDispatchTriggers(
+			                                     EList<PropertyAssociation> lpa)
 	{
 		ReferenceValue rv = null ;
 		EList<ContainmentPathElement> lcpe = null ;
