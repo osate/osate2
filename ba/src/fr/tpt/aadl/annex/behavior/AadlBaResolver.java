@@ -43,7 +43,7 @@ public class AadlBaResolver implements AnnexResolver
       // Can't resolve behavior annex if there are AADL errors.
       if(errManager.getNumErrors() == 0)
       {
-         Iterator it = annexElements.iterator() ;
+         Iterator<?> it = annexElements.iterator() ;
          BehaviorAnnex ba ;
          AadlBaNameResolver nameResolver ;
          AadlBaRulesCheckersDriver semanticAnalysis;

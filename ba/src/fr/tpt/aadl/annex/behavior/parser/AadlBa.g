@@ -154,19 +154,6 @@ options {
   }
 
   /**
-   * the current resource being parsed
-   */
-  protected SplitStreamFilter filter = null;
-  
-  /**
-   * sets the filter for pulling comment tokens.
-   * @param filter  filter with comment tokens
-   */
-  public void setFilter(SplitStreamFilter filter){
-    this.filter = filter;
-  }
-  
-  /**
    * Sets obj's location reference based on full token informations.
    *
    * @param obj the AObject to be set

@@ -431,7 +431,7 @@ public class AadlBaVisitors
       return ns.getMembers() ;
    }
 
-   /********************* Copied from NameResolver ****************************/
+   /********** Copied from edu.cmu.sei.aadl.parser.NameResolver ***************/
 
    /*
     * <copyright>
@@ -679,5 +679,5 @@ public class AadlBaVisitors
       return (PackageSection) container ;
    }
 
-   /***************** End copied from NameResolver ****************************/
+   /********** End copied from edu.cmu.sei.aadl.parser.NameResolver ***********/
 }
