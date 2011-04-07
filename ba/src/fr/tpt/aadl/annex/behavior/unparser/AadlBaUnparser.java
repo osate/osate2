@@ -270,10 +270,10 @@ public class AadlBaUnparser {
 			 * Unparse uniquecomponentclassifierreference
 			 */
 			public String caseUniqueComponentClassifierReference(UniqueComponentClassifierReference object) {
-				return caseNamedElement(object) ;
+				return caseBehaviorNamedElement(object) ;
 			}
 			
-			public String caseNamedElement (NamedElement object)
+			public String caseBehaviorNamedElement (BehaviorNamedElement object)
 			{
 				aadlbaText.addOutput(object.getQualifiedName() );
 				return DONE;
@@ -702,20 +702,6 @@ public class AadlBaUnparser {
 			public String caseIntegerLiteral(IntegerLiteral object) {
 				aadlbaText.addOutput(object.getValueString()) ;
 				return DONE;
-			}
-			
-			/**
-			 * Unparser PropertyConstant
-			 */
-			public String casePropertyConstant(PropertyConstant object) {
-				return caseNamedElement(object) ;
-			}
-			
-			/**
-			 * Unparser PropertyValue
-			 */
-			public String casePropertyValue(PropertyValue object) {
-				return caseNamedElement(object) ;
 			}
 			
 			/**

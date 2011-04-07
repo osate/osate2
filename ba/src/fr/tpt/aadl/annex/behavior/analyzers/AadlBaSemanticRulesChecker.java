@@ -212,7 +212,7 @@ public class AadlBaSemanticRulesChecker
    }
    
    // TODO Provide column number.
-   private void reportSemanticError(Element obj, String msg)
+   private void reportSemanticError(BehaviorElement obj, String msg)
    {
       _errManager.error(obj, msg + ".") ;
    }

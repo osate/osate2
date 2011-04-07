@@ -272,22 +272,22 @@ public class AadlBaTypeChecker
       return result ;
    }
 
-   private void reportError (Element el, String msg)
+   private void reportError (BehaviorElement el, String msg)
    {
       _errManager.error(el, msg);
    }
    
-   private void reportTypeError(Element el, String name,
+   private void reportTypeError(BehaviorElement el, String name,
                                 String expectedTypes,
                                 String typeFound)
    {
-      String message = "\'" + name + "\' type error: \"" + expectedTypes + "\" expected"
-                                                 + ", found \"" + typeFound + "\".";
+      String message = "\'" + name + "\' type error: \"" + expectedTypes +
+                               "\" expected" + ", found \"" + typeFound + "\".";
       
       reportError(el, message) ;
    }
    
-   private String unparseNameElement(Element e)
+   private String unparseNameElement(BehaviorElement e)
    {
        AadlBaUnparser unparser = new AadlBaUnparser() ;
        unparser.process(e) ;
@@ -896,12 +896,14 @@ public class AadlBaTypeChecker
    // reports error and returns null.
    private ValueAndTypeHolder valueConstantCheck(ValueConstant v)
    {
-      if(v instanceof PropertyConstant)
+      if(v instanceof BehaviorPropertyConstant)
       {
-         // Ambiguity between propertyset constant and propertyset value.
-         // propertyset values are parsed as propertyset constants.
+         // Ambiguity between behavior propertyset constant and 
+         // behavior propertyset value because 
+         // behavior propertyset values are parsed as behavior propertyset
+         // constants.
 
-         PropertyConstant pc = (PropertyConstant) v ;
+         BehaviorPropertyConstant pc = (BehaviorPropertyConstant) v ;
 
          // Namespace doens't need to be checked as namespace has no type.
          Enum<?> e = typeCheck(pc, pc.getName(),
@@ -913,8 +915,8 @@ public class AadlBaTypeChecker
                // Builds a PropertyValue object and returns it instead of
                // the property constant which has been parsed.
 
-               PropertyValue pv = AadlBaFactory.eINSTANCE.
-                                                          createPropertyValue();
+               BehaviorPropertyValue pv = AadlBaFactory.eINSTANCE.
+                                                  createBehaviorPropertyValue();
 
                pv.setAadlRef(pc.getAadlRef()) ;
                pv.setLocationReference(pc.getLocationReference());
@@ -1905,7 +1907,7 @@ public class AadlBaTypeChecker
    }
  
    private void reportSubprogParamMatchingError(
-                                         Element e,
+                                         BehaviorElement e,
                                          String subprogramName,
                                          List<TypeHolder> expectedTypes,
                                          List<DirectionType> expectedDirections,
@@ -2040,7 +2042,8 @@ public class AadlBaTypeChecker
    // If the given ValueAndTypeHolder object is null, it returns false without 
    // reporting any error.
    // If the given name is null, the method will unparse the given element.
-   private boolean typeCheck(Element e, String name, ValueAndTypeHolder holder,
+   private boolean typeCheck(BehaviorElement e, String name,
+                             ValueAndTypeHolder holder,
                              DataRepresentation expectedDataRepresentation)
    {
       boolean result = false ;
@@ -2065,16 +2068,16 @@ public class AadlBaTypeChecker
    
    
    /**
-    * Checks the type of the reference linked to the given element within 
-    * the given rule's expected types. Returns the
+    * Checks the type of the reference linked to the given behavior element
+    * within the given rule's expected types. Returns the
     * matching type or {@code null} otherwise. Reports any error.
     *
-    * @param e the element to be checked
-    * @param name the element's name
+    * @param e the behavior element to be checked
+    * @param name the behavior element's name
     * @param rule the checking rule that contains the expected types
     * @return the matching type or {@code null}
     */
-   private Enum<?> typeCheck(Element el, String name, TypeCheckRule rule)
+   private Enum<?> typeCheck(BehaviorElement el, String name, TypeCheckRule rule)
    {
       Enum<?> testedEnum = AadlBaUtils.getType(el) ;
       
@@ -2202,8 +2205,8 @@ public class AadlBaTypeChecker
       
       
       LOCAL_VARIABLE ("local variable", new Enum[] {
-            BehaviorAnnexFeatureType.BEHAVIOR_VARIABLE,
-            BehaviorAnnexFeatureType.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE}),
+            BehaviorFeatureType.BEHAVIOR_VARIABLE,
+            BehaviorFeatureType.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE}),
                         
       VALUE_VARIABLE ("value variable", new Enum[] {
             TypeCheckRule.IN_PORT,
@@ -2228,7 +2231,7 @@ public class AadlBaTypeChecker
       TARGET ("target", new Enum[] {
             TypeCheckRule.OUT_PORT,
             TypeCheckRule.OUT_PARAMETER,
-            BehaviorAnnexFeatureType.BEHAVIOR_VARIABLE,
+            BehaviorFeatureType.BEHAVIOR_VARIABLE,
             TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME}),
                                 
       SHARED_DATA_ACTION ("shared data action", new Enum[] {

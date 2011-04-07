@@ -30,12 +30,12 @@ import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager
 import fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.BinaryNumericOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.DataRepresentation ;
-import fr.tpt.aadl.annex.behavior.aadlba.Element ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement ;
 import fr.tpt.aadl.annex.behavior.aadlba.Factor ;
 import fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator ;
-import fr.tpt.aadl.annex.behavior.aadlba.PropertyConstant ;
-import fr.tpt.aadl.annex.behavior.aadlba.PropertyValue ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorPropertyConstant ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorPropertyValue ;
 import fr.tpt.aadl.annex.behavior.aadlba.RelationalOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.UnaryAddingOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.UnaryBooleanOperator ;
@@ -125,7 +125,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
    }
 
    @Override
-   public TypeHolder checkDefinition(fr.tpt.aadl.annex.behavior.aadlba.Element e,
+   public TypeHolder checkDefinition(BehaviorElement e,
                                      Enumerator operator,
                                      TypeHolder operand1,
                                      TypeHolder operand2)
@@ -264,7 +264,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                      // IntegerLiteral cannot be negative (otherwise parse 
                      // error) so it only checks
                      // PropertyConstants and warns PropertyValues.
-                     if (val instanceof PropertyConstant)
+                     if (val instanceof BehaviorPropertyConstant)
                      {
                         edu.cmu.sei.aadl.aadl2.PropertyConstant pc = 
                            (edu.cmu.sei.aadl.aadl2.PropertyConstant) 
@@ -278,7 +278,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                            reportError = true ;
                         }
                      }
-                     else if(val instanceof PropertyValue)
+                     else if(val instanceof BehaviorPropertyValue)
                      // PropertyValue case : its value can only be evaluated at
                      // runtime so raises a warning.
                      {
@@ -320,7 +320,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
    }
 
    @Override
-   public TypeHolder checkDefinition(fr.tpt.aadl.annex.behavior.aadlba.Element e,
+   public TypeHolder checkDefinition(BehaviorElement e,
                                      Enumerator operator,
                                      TypeHolder operand)
    {
@@ -366,7 +366,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
       }
    }
    
-   private void reportErrorBinaryOperator(Element e,
+   private void reportErrorBinaryOperator(BehaviorElement e,
                                           Enumerator operator,
                                           TypeHolder operand1)
    {
@@ -374,7 +374,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
             operator.getLiteral() + "\" for type " + operand1.toString()); 
    }
    
-   private void reportErrorConsystency(Element e,
+   private void reportErrorConsystency(BehaviorElement e,
                                           Enumerator operator,
                                           TypeHolder operand1,
                                           TypeHolder operand2)
@@ -385,7 +385,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
             operand2.toString()) ;
    }
    
-   private void reportErrorUnaryOperator(Element e,
+   private void reportErrorUnaryOperator(BehaviorElement e,
                                           Enumerator operator,
                                           TypeHolder operand)
    {

@@ -28,8 +28,10 @@
 package fr.tpt.aadl.annex.behavior.aadlba.util;
 
 import edu.cmu.sei.aadl.aadl2.AnnexSubclause;
+import edu.cmu.sei.aadl.aadl2.Element;
 import edu.cmu.sei.aadl.aadl2.ModalElement;
 
+import edu.cmu.sei.aadl.aadl2.NamedElement;
 import fr.tpt.aadl.annex.behavior.aadlba.*;
 
 import org.eclipse.emf.common.notify.Adapter;
@@ -136,6 +138,14 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createBehaviorConditionAdapter();
 			}
 			@Override
+			public Adapter caseBehaviorElement(BehaviorElement object) {
+				return createBehaviorElementAdapter();
+			}
+			@Override
+			public Adapter caseBehaviorNamedElement(BehaviorNamedElement object) {
+				return createBehaviorNamedElementAdapter();
+			}
+			@Override
 			public Adapter caseBehaviorState(BehaviorState object) {
 				return createBehaviorStateAdapter();
 			}
@@ -154,10 +164,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseBooleanLiteral(BooleanLiteral object) {
 				return createBooleanLiteralAdapter();
-			}
-			@Override
-			public Adapter caseComment(Comment object) {
-				return createCommentAdapter();
 			}
 			@Override
 			public Adapter caseCommunicationAction(CommunicationAction object) {
@@ -198,10 +204,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseDispatchTriggerLogicalExpression(DispatchTriggerLogicalExpression object) {
 				return createDispatchTriggerLogicalExpressionAdapter();
-			}
-			@Override
-			public Adapter caseElement(Element object) {
-				return createElementAdapter();
 			}
 			@Override
 			public Adapter caseElementValues(ElementValues object) {
@@ -264,10 +266,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createNameAdapter();
 			}
 			@Override
-			public Adapter caseNamedElement(NamedElement object) {
-				return createNamedElementAdapter();
-			}
-			@Override
 			public Adapter caseNumeral(Numeral object) {
 				return createNumeralAdapter();
 			}
@@ -308,12 +306,12 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createPortSendActionAdapter();
 			}
 			@Override
-			public Adapter casePropertyConstant(PropertyConstant object) {
-				return createPropertyConstantAdapter();
+			public Adapter caseBehaviorPropertyConstant(BehaviorPropertyConstant object) {
+				return createBehaviorPropertyConstantAdapter();
 			}
 			@Override
-			public Adapter casePropertyValue(PropertyValue object) {
-				return createPropertyValueAdapter();
+			public Adapter caseBehaviorPropertyValue(BehaviorPropertyValue object) {
+				return createBehaviorPropertyValueAdapter();
 			}
 			@Override
 			public Adapter caseRealLiteral(RealLiteral object) {
@@ -384,12 +382,12 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createWhileOrDoUntilStatementAdapter();
 			}
 			@Override
-			public Adapter caseAadl2_Element(edu.cmu.sei.aadl.aadl2.Element object) {
-				return createAadl2_ElementAdapter();
+			public Adapter caseElement(Element object) {
+				return createElementAdapter();
 			}
 			@Override
-			public Adapter caseAadl2_NamedElement(edu.cmu.sei.aadl.aadl2.NamedElement object) {
-				return createAadl2_NamedElementAdapter();
+			public Adapter caseNamedElement(NamedElement object) {
+				return createNamedElementAdapter();
 			}
 			@Override
 			public Adapter caseModalElement(ModalElement object) {
@@ -448,6 +446,34 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement <em>Behavior Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement
+	 * @generated
+	 */
+	public Adapter createBehaviorElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement <em>Behavior Named Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement
+	 * @generated
+	 */
+	public Adapter createBehaviorNamedElementAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorState <em>Behavior State</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -490,20 +516,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.Comment <em>Comment</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.Comment
-	 * @generated
-	 */
-	public Adapter createCommentAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.Declarator <em>Declarator</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -518,13 +530,13 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.Element <em>Element</em>}'.
+	 * Creates a new adapter for an object of class '{@link edu.cmu.sei.aadl.aadl2.Element <em>Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.Element
+	 * @see edu.cmu.sei.aadl.aadl2.Element
 	 * @generated
 	 */
 	public Adapter createElementAdapter() {
@@ -560,13 +572,13 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.NamedElement <em>Named Element</em>}'.
+	 * Creates a new adapter for an object of class '{@link edu.cmu.sei.aadl.aadl2.NamedElement <em>Named Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.NamedElement
+	 * @see edu.cmu.sei.aadl.aadl2.NamedElement
 	 * @generated
 	 */
 	public Adapter createNamedElementAdapter() {
@@ -766,34 +778,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNumericLiteralAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.PropertyConstant <em>Property Constant</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.PropertyConstant
-	 * @generated
-	 */
-	public Adapter createPropertyConstantAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.PropertyValue <em>Property Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.PropertyValue
-	 * @generated
-	 */
-	public Adapter createPropertyValueAdapter() {
 		return null;
 	}
 
@@ -1260,6 +1244,34 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorPropertyConstant <em>Behavior Property Constant</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorPropertyConstant
+	 * @generated
+	 */
+	public Adapter createBehaviorPropertyConstantAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorPropertyValue <em>Behavior Property Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorPropertyValue
+	 * @generated
+	 */
+	public Adapter createBehaviorPropertyValueAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.SharedDataAction <em>Shared Data Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1424,34 +1436,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDispatchTriggerLogicalExpressionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link edu.cmu.sei.aadl.aadl2.Element <em>Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see edu.cmu.sei.aadl.aadl2.Element
-	 * @generated
-	 */
-	public Adapter createAadl2_ElementAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link edu.cmu.sei.aadl.aadl2.NamedElement <em>Named Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see edu.cmu.sei.aadl.aadl2.NamedElement
-	 * @generated
-	 */
-	public Adapter createAadl2_NamedElementAdapter() {
 		return null;
 	}
 

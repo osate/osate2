@@ -195,7 +195,7 @@ public class AadlBaConsistencyRulesChecker
 	}
 
    // TODO Provide column number.
-   private void reportConsistencyError(Element obj, String msg)
+   private void reportConsistencyError(BehaviorElement obj, String msg)
    {
       _errManager.error(obj, msg + ".") ;
    }

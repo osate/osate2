@@ -7,26 +7,26 @@
 package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
-import fr.tpt.aadl.annex.behavior.aadlba.Target;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorPropertyValue;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Target</b></em>'.
+ * An implementation of the model object '<em><b>Behavior Property Value</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class TargetImpl extends BehaviorElementImpl implements Target {
+public class BehaviorPropertyValueImpl extends BehaviorNamedElementImpl implements BehaviorPropertyValue {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TargetImpl() {
+	protected BehaviorPropertyValueImpl() {
 		super();
 	}
 
@@ -37,7 +37,7 @@ public class TargetImpl extends BehaviorElementImpl implements Target {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return AadlBaPackage.Literals.TARGET;
+		return AadlBaPackage.Literals.BEHAVIOR_PROPERTY_VALUE;
 	}
 
-} //TargetImpl
+} //BehaviorPropertyValueImpl

@@ -23,6 +23,8 @@ package fr.tpt.aadl.annex.behavior.analyzers;
 
 import org.eclipse.emf.common.util.Enumerator ;
 
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement ;
+
 /**
  * Data type checker specifications.
  * 
@@ -34,13 +36,13 @@ public interface DataTypeChecker
     * Returns the type of the result (top level type) but on error, reports error
     * and returns null.
     * 
-    * @param e the element that the given operator belongs to
+    * @param e the behavior element that the given operator belongs to
     * @param operator the given operator
     * @param operand1 the left operand
     * @param operand2 the right operand
     * @return he type of the result or {@code null} on error
     */
-   TypeHolder checkDefinition(fr.tpt.aadl.annex.behavior.aadlba.Element e,
+   TypeHolder checkDefinition(BehaviorElement e,
                               Enumerator operator,
                               TypeHolder operand1,
                               TypeHolder operand2);
@@ -50,12 +52,12 @@ public interface DataTypeChecker
     * Returns the type of the result (top level type) but on error, reports error
     * and returns null.
     * 
-    * @param e the element that the given operator belongs to
+    * @param e the behavior element that the given operator belongs to
     * @param operator the given operator
     * @param operand the given operand
     * @return the type of the result or {@code null} on error
     */
-   TypeHolder checkDefinition(fr.tpt.aadl.annex.behavior.aadlba.Element e,
+   TypeHolder checkDefinition(BehaviorElement e,
                               Enumerator operator,
                               TypeHolder operand);
    

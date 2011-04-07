@@ -28,8 +28,10 @@
 package fr.tpt.aadl.annex.behavior.aadlba.util;
 
 import edu.cmu.sei.aadl.aadl2.AnnexSubclause;
+import edu.cmu.sei.aadl.aadl2.Element;
 import edu.cmu.sei.aadl.aadl2.ModalElement;
 
+import edu.cmu.sei.aadl.aadl2.NamedElement;
 import fr.tpt.aadl.annex.behavior.aadlba.*;
 
 import java.util.List;
@@ -117,8 +119,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseBasicAction(assignmentAction);
 				if (result == null) result = caseBehaviorAction(assignmentAction);
 				if (result == null) result = caseBehaviorActions(assignmentAction);
+				if (result == null) result = caseBehaviorElement(assignmentAction);
 				if (result == null) result = caseElement(assignmentAction);
-				if (result == null) result = caseAadl2_Element(assignmentAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -127,8 +129,8 @@ public class AadlBaSwitch<T> {
 				T result = caseBasicAction(basicAction);
 				if (result == null) result = caseBehaviorAction(basicAction);
 				if (result == null) result = caseBehaviorActions(basicAction);
+				if (result == null) result = caseBehaviorElement(basicAction);
 				if (result == null) result = caseElement(basicAction);
-				if (result == null) result = caseAadl2_Element(basicAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -136,8 +138,8 @@ public class AadlBaSwitch<T> {
 				BehaviorAction behaviorAction = (BehaviorAction)theEObject;
 				T result = caseBehaviorAction(behaviorAction);
 				if (result == null) result = caseBehaviorActions(behaviorAction);
+				if (result == null) result = caseBehaviorElement(behaviorAction);
 				if (result == null) result = caseElement(behaviorAction);
-				if (result == null) result = caseAadl2_Element(behaviorAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -145,9 +147,9 @@ public class AadlBaSwitch<T> {
 				BehaviorActionBlock behaviorActionBlock = (BehaviorActionBlock)theEObject;
 				T result = caseBehaviorActionBlock(behaviorActionBlock);
 				if (result == null) result = caseBehaviorAction(behaviorActionBlock);
-				if (result == null) result = caseAadl2_Element(behaviorActionBlock);
-				if (result == null) result = caseBehaviorActions(behaviorActionBlock);
 				if (result == null) result = caseElement(behaviorActionBlock);
+				if (result == null) result = caseBehaviorActions(behaviorActionBlock);
+				if (result == null) result = caseBehaviorElement(behaviorActionBlock);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -155,16 +157,16 @@ public class AadlBaSwitch<T> {
 				BehaviorActionCollection behaviorActionCollection = (BehaviorActionCollection)theEObject;
 				T result = caseBehaviorActionCollection(behaviorActionCollection);
 				if (result == null) result = caseBehaviorActions(behaviorActionCollection);
+				if (result == null) result = caseBehaviorElement(behaviorActionCollection);
 				if (result == null) result = caseElement(behaviorActionCollection);
-				if (result == null) result = caseAadl2_Element(behaviorActionCollection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.BEHAVIOR_ACTIONS: {
 				BehaviorActions behaviorActions = (BehaviorActions)theEObject;
 				T result = caseBehaviorActions(behaviorActions);
+				if (result == null) result = caseBehaviorElement(behaviorActions);
 				if (result == null) result = caseElement(behaviorActions);
-				if (result == null) result = caseAadl2_Element(behaviorActions);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -173,8 +175,8 @@ public class AadlBaSwitch<T> {
 				T result = caseBehaviorActionSequence(behaviorActionSequence);
 				if (result == null) result = caseBehaviorActionCollection(behaviorActionSequence);
 				if (result == null) result = caseBehaviorActions(behaviorActionSequence);
+				if (result == null) result = caseBehaviorElement(behaviorActionSequence);
 				if (result == null) result = caseElement(behaviorActionSequence);
-				if (result == null) result = caseAadl2_Element(behaviorActionSequence);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -183,8 +185,8 @@ public class AadlBaSwitch<T> {
 				T result = caseBehaviorActionSet(behaviorActionSet);
 				if (result == null) result = caseBehaviorActionCollection(behaviorActionSet);
 				if (result == null) result = caseBehaviorActions(behaviorActionSet);
+				if (result == null) result = caseBehaviorElement(behaviorActionSet);
 				if (result == null) result = caseElement(behaviorActionSet);
-				if (result == null) result = caseAadl2_Element(behaviorActionSet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -192,50 +194,65 @@ public class AadlBaSwitch<T> {
 				BehaviorAnnex behaviorAnnex = (BehaviorAnnex)theEObject;
 				T result = caseBehaviorAnnex(behaviorAnnex);
 				if (result == null) result = caseAnnexSubclause(behaviorAnnex);
-				if (result == null) result = caseElement(behaviorAnnex);
+				if (result == null) result = caseBehaviorElement(behaviorAnnex);
 				if (result == null) result = caseModalElement(behaviorAnnex);
-				if (result == null) result = caseAadl2_NamedElement(behaviorAnnex);
-				if (result == null) result = caseAadl2_Element(behaviorAnnex);
+				if (result == null) result = caseNamedElement(behaviorAnnex);
+				if (result == null) result = caseElement(behaviorAnnex);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.BEHAVIOR_CONDITION: {
 				BehaviorCondition behaviorCondition = (BehaviorCondition)theEObject;
 				T result = caseBehaviorCondition(behaviorCondition);
+				if (result == null) result = caseBehaviorElement(behaviorCondition);
 				if (result == null) result = caseElement(behaviorCondition);
-				if (result == null) result = caseAadl2_Element(behaviorCondition);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AadlBaPackage.BEHAVIOR_ELEMENT: {
+				BehaviorElement behaviorElement = (BehaviorElement)theEObject;
+				T result = caseBehaviorElement(behaviorElement);
+				if (result == null) result = caseElement(behaviorElement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT: {
+				BehaviorNamedElement behaviorNamedElement = (BehaviorNamedElement)theEObject;
+				T result = caseBehaviorNamedElement(behaviorNamedElement);
+				if (result == null) result = caseBehaviorElement(behaviorNamedElement);
+				if (result == null) result = caseElement(behaviorNamedElement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.BEHAVIOR_STATE: {
 				BehaviorState behaviorState = (BehaviorState)theEObject;
 				T result = caseBehaviorState(behaviorState);
+				if (result == null) result = caseBehaviorElement(behaviorState);
 				if (result == null) result = caseElement(behaviorState);
-				if (result == null) result = caseAadl2_Element(behaviorState);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.BEHAVIOR_TIME: {
 				BehaviorTime behaviorTime = (BehaviorTime)theEObject;
 				T result = caseBehaviorTime(behaviorTime);
+				if (result == null) result = caseBehaviorElement(behaviorTime);
 				if (result == null) result = caseElement(behaviorTime);
-				if (result == null) result = caseAadl2_Element(behaviorTime);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.BEHAVIOR_TRANSITION: {
 				BehaviorTransition behaviorTransition = (BehaviorTransition)theEObject;
 				T result = caseBehaviorTransition(behaviorTransition);
+				if (result == null) result = caseBehaviorElement(behaviorTransition);
 				if (result == null) result = caseElement(behaviorTransition);
-				if (result == null) result = caseAadl2_Element(behaviorTransition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.BEHAVIOR_VARIABLE: {
 				BehaviorVariable behaviorVariable = (BehaviorVariable)theEObject;
 				T result = caseBehaviorVariable(behaviorVariable);
+				if (result == null) result = caseBehaviorElement(behaviorVariable);
 				if (result == null) result = caseElement(behaviorVariable);
-				if (result == null) result = caseAadl2_Element(behaviorVariable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -247,16 +264,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseValue(booleanLiteral);
 				if (result == null) result = caseIntegerValueConstant(booleanLiteral);
 				if (result == null) result = caseIntegerValue(booleanLiteral);
+				if (result == null) result = caseBehaviorElement(booleanLiteral);
 				if (result == null) result = caseElement(booleanLiteral);
-				if (result == null) result = caseAadl2_Element(booleanLiteral);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case AadlBaPackage.COMMENT: {
-				Comment comment = (Comment)theEObject;
-				T result = caseComment(comment);
-				if (result == null) result = caseElement(comment);
-				if (result == null) result = caseAadl2_Element(comment);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -266,8 +275,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseBasicAction(communicationAction);
 				if (result == null) result = caseBehaviorAction(communicationAction);
 				if (result == null) result = caseBehaviorActions(communicationAction);
+				if (result == null) result = caseBehaviorElement(communicationAction);
 				if (result == null) result = caseElement(communicationAction);
-				if (result == null) result = caseAadl2_Element(communicationAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -276,8 +285,8 @@ public class AadlBaSwitch<T> {
 				T result = caseCompletionRelativeTimeoutConditionAndCatch(completionRelativeTimeoutConditionAndCatch);
 				if (result == null) result = caseDispatchTriggerCondition(completionRelativeTimeoutConditionAndCatch);
 				if (result == null) result = caseBehaviorTime(completionRelativeTimeoutConditionAndCatch);
+				if (result == null) result = caseBehaviorElement(completionRelativeTimeoutConditionAndCatch);
 				if (result == null) result = caseElement(completionRelativeTimeoutConditionAndCatch);
-				if (result == null) result = caseAadl2_Element(completionRelativeTimeoutConditionAndCatch);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -286,8 +295,8 @@ public class AadlBaSwitch<T> {
 				T result = caseCondStatement(condStatement);
 				if (result == null) result = caseBehaviorAction(condStatement);
 				if (result == null) result = caseBehaviorActions(condStatement);
+				if (result == null) result = caseBehaviorElement(condStatement);
 				if (result == null) result = caseElement(condStatement);
-				if (result == null) result = caseAadl2_Element(condStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -300,17 +309,17 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseParameterLabel(dataComponentReference);
 				if (result == null) result = caseValue(dataComponentReference);
 				if (result == null) result = caseIntegerValueVariable(dataComponentReference);
-				if (result == null) result = caseAadl2_Element(dataComponentReference);
-				if (result == null) result = caseIntegerValue(dataComponentReference);
 				if (result == null) result = caseElement(dataComponentReference);
+				if (result == null) result = caseIntegerValue(dataComponentReference);
+				if (result == null) result = caseBehaviorElement(dataComponentReference);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.DECLARATOR: {
 				Declarator declarator = (Declarator)theEObject;
 				T result = caseDeclarator(declarator);
+				if (result == null) result = caseBehaviorElement(declarator);
 				if (result == null) result = caseElement(declarator);
-				if (result == null) result = caseAadl2_Element(declarator);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -318,24 +327,24 @@ public class AadlBaSwitch<T> {
 				DispatchCondition dispatchCondition = (DispatchCondition)theEObject;
 				T result = caseDispatchCondition(dispatchCondition);
 				if (result == null) result = caseBehaviorCondition(dispatchCondition);
+				if (result == null) result = caseBehaviorElement(dispatchCondition);
 				if (result == null) result = caseElement(dispatchCondition);
-				if (result == null) result = caseAadl2_Element(dispatchCondition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.DISPATCH_CONJUNCTION: {
 				DispatchConjunction dispatchConjunction = (DispatchConjunction)theEObject;
 				T result = caseDispatchConjunction(dispatchConjunction);
+				if (result == null) result = caseBehaviorElement(dispatchConjunction);
 				if (result == null) result = caseElement(dispatchConjunction);
-				if (result == null) result = caseAadl2_Element(dispatchConjunction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.DISPATCH_TRIGGER_CONDITION: {
 				DispatchTriggerCondition dispatchTriggerCondition = (DispatchTriggerCondition)theEObject;
 				T result = caseDispatchTriggerCondition(dispatchTriggerCondition);
+				if (result == null) result = caseBehaviorElement(dispatchTriggerCondition);
 				if (result == null) result = caseElement(dispatchTriggerCondition);
-				if (result == null) result = caseAadl2_Element(dispatchTriggerCondition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -343,8 +352,8 @@ public class AadlBaSwitch<T> {
 				DispatchTriggerConditionStop dispatchTriggerConditionStop = (DispatchTriggerConditionStop)theEObject;
 				T result = caseDispatchTriggerConditionStop(dispatchTriggerConditionStop);
 				if (result == null) result = caseDispatchTriggerCondition(dispatchTriggerConditionStop);
+				if (result == null) result = caseBehaviorElement(dispatchTriggerConditionStop);
 				if (result == null) result = caseElement(dispatchTriggerConditionStop);
-				if (result == null) result = caseAadl2_Element(dispatchTriggerConditionStop);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -352,23 +361,16 @@ public class AadlBaSwitch<T> {
 				DispatchTriggerLogicalExpression dispatchTriggerLogicalExpression = (DispatchTriggerLogicalExpression)theEObject;
 				T result = caseDispatchTriggerLogicalExpression(dispatchTriggerLogicalExpression);
 				if (result == null) result = caseDispatchTriggerCondition(dispatchTriggerLogicalExpression);
+				if (result == null) result = caseBehaviorElement(dispatchTriggerLogicalExpression);
 				if (result == null) result = caseElement(dispatchTriggerLogicalExpression);
-				if (result == null) result = caseAadl2_Element(dispatchTriggerLogicalExpression);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case AadlBaPackage.ELEMENT: {
-				Element element = (Element)theEObject;
-				T result = caseElement(element);
-				if (result == null) result = caseAadl2_Element(element);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.ELEMENT_VALUES: {
 				ElementValues elementValues = (ElementValues)theEObject;
 				T result = caseElementValues(elementValues);
+				if (result == null) result = caseBehaviorElement(elementValues);
 				if (result == null) result = caseElement(elementValues);
-				if (result == null) result = caseAadl2_Element(elementValues);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -376,16 +378,16 @@ public class AadlBaSwitch<T> {
 				ExecuteCondition executeCondition = (ExecuteCondition)theEObject;
 				T result = caseExecuteCondition(executeCondition);
 				if (result == null) result = caseBehaviorCondition(executeCondition);
+				if (result == null) result = caseBehaviorElement(executeCondition);
 				if (result == null) result = caseElement(executeCondition);
-				if (result == null) result = caseAadl2_Element(executeCondition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.FACTOR: {
 				Factor factor = (Factor)theEObject;
 				T result = caseFactor(factor);
+				if (result == null) result = caseBehaviorElement(factor);
 				if (result == null) result = caseElement(factor);
-				if (result == null) result = caseAadl2_Element(factor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -396,8 +398,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseCondStatement(forOrForAllStatement);
 				if (result == null) result = caseBehaviorAction(forOrForAllStatement);
 				if (result == null) result = caseBehaviorActions(forOrForAllStatement);
+				if (result == null) result = caseBehaviorElement(forOrForAllStatement);
 				if (result == null) result = caseElement(forOrForAllStatement);
-				if (result == null) result = caseAadl2_Element(forOrForAllStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -405,8 +407,8 @@ public class AadlBaSwitch<T> {
 				Identifier identifier = (Identifier)theEObject;
 				T result = caseIdentifier(identifier);
 				if (result == null) result = caseDispatchTriggerCondition(identifier);
+				if (result == null) result = caseBehaviorElement(identifier);
 				if (result == null) result = caseElement(identifier);
-				if (result == null) result = caseAadl2_Element(identifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -416,8 +418,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseCondStatement(ifStatement);
 				if (result == null) result = caseBehaviorAction(ifStatement);
 				if (result == null) result = caseBehaviorActions(ifStatement);
+				if (result == null) result = caseBehaviorElement(ifStatement);
 				if (result == null) result = caseElement(ifStatement);
-				if (result == null) result = caseAadl2_Element(ifStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -430,8 +432,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseValue(integerLiteral);
 				if (result == null) result = caseIntegerValueConstant(integerLiteral);
 				if (result == null) result = caseIntegerValue(integerLiteral);
+				if (result == null) result = caseBehaviorElement(integerLiteral);
 				if (result == null) result = caseElement(integerLiteral);
-				if (result == null) result = caseAadl2_Element(integerLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -439,16 +441,16 @@ public class AadlBaSwitch<T> {
 				IntegerRange integerRange = (IntegerRange)theEObject;
 				T result = caseIntegerRange(integerRange);
 				if (result == null) result = caseElementValues(integerRange);
+				if (result == null) result = caseBehaviorElement(integerRange);
 				if (result == null) result = caseElement(integerRange);
-				if (result == null) result = caseAadl2_Element(integerRange);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.INTEGER_VALUE: {
 				IntegerValue integerValue = (IntegerValue)theEObject;
 				T result = caseIntegerValue(integerValue);
+				if (result == null) result = caseBehaviorElement(integerValue);
 				if (result == null) result = caseElement(integerValue);
-				if (result == null) result = caseAadl2_Element(integerValue);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -456,8 +458,8 @@ public class AadlBaSwitch<T> {
 				IntegerValueConstant integerValueConstant = (IntegerValueConstant)theEObject;
 				T result = caseIntegerValueConstant(integerValueConstant);
 				if (result == null) result = caseIntegerValue(integerValueConstant);
+				if (result == null) result = caseBehaviorElement(integerValueConstant);
 				if (result == null) result = caseElement(integerValueConstant);
-				if (result == null) result = caseAadl2_Element(integerValueConstant);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -465,8 +467,8 @@ public class AadlBaSwitch<T> {
 				IntegerValueVariable integerValueVariable = (IntegerValueVariable)theEObject;
 				T result = caseIntegerValueVariable(integerValueVariable);
 				if (result == null) result = caseIntegerValue(integerValueVariable);
+				if (result == null) result = caseBehaviorElement(integerValueVariable);
 				if (result == null) result = caseElement(integerValueVariable);
-				if (result == null) result = caseAadl2_Element(integerValueVariable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -477,8 +479,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseValue(literal);
 				if (result == null) result = caseIntegerValueConstant(literal);
 				if (result == null) result = caseIntegerValue(literal);
+				if (result == null) result = caseBehaviorElement(literal);
 				if (result == null) result = caseElement(literal);
-				if (result == null) result = caseAadl2_Element(literal);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -490,8 +492,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseBasicAction(lockAction);
 				if (result == null) result = caseBehaviorAction(lockAction);
 				if (result == null) result = caseBehaviorActions(lockAction);
+				if (result == null) result = caseBehaviorElement(lockAction);
 				if (result == null) result = caseElement(lockAction);
-				if (result == null) result = caseAadl2_Element(lockAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -501,8 +503,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseCondStatement(loopStatement);
 				if (result == null) result = caseBehaviorAction(loopStatement);
 				if (result == null) result = caseBehaviorActions(loopStatement);
+				if (result == null) result = caseBehaviorElement(loopStatement);
 				if (result == null) result = caseElement(loopStatement);
-				if (result == null) result = caseAadl2_Element(loopStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -515,25 +517,17 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseParameterLabel(name);
 				if (result == null) result = caseValue(name);
 				if (result == null) result = caseIntegerValueVariable(name);
-				if (result == null) result = caseAadl2_Element(name);
-				if (result == null) result = caseIntegerValue(name);
 				if (result == null) result = caseElement(name);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case AadlBaPackage.NAMED_ELEMENT: {
-				NamedElement namedElement = (NamedElement)theEObject;
-				T result = caseNamedElement(namedElement);
-				if (result == null) result = caseElement(namedElement);
-				if (result == null) result = caseAadl2_Element(namedElement);
+				if (result == null) result = caseIntegerValue(name);
+				if (result == null) result = caseBehaviorElement(name);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.NUMERAL: {
 				Numeral numeral = (Numeral)theEObject;
 				T result = caseNumeral(numeral);
+				if (result == null) result = caseBehaviorElement(numeral);
 				if (result == null) result = caseElement(numeral);
-				if (result == null) result = caseAadl2_Element(numeral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -545,8 +539,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseValue(numericLiteral);
 				if (result == null) result = caseIntegerValueConstant(numericLiteral);
 				if (result == null) result = caseIntegerValue(numericLiteral);
+				if (result == null) result = caseBehaviorElement(numericLiteral);
 				if (result == null) result = caseElement(numericLiteral);
-				if (result == null) result = caseAadl2_Element(numericLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -555,16 +549,16 @@ public class AadlBaSwitch<T> {
 				T result = caseOtherwise(otherwise);
 				if (result == null) result = caseExecuteCondition(otherwise);
 				if (result == null) result = caseBehaviorCondition(otherwise);
+				if (result == null) result = caseBehaviorElement(otherwise);
 				if (result == null) result = caseElement(otherwise);
-				if (result == null) result = caseAadl2_Element(otherwise);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.PARAMETER_LABEL: {
 				ParameterLabel parameterLabel = (ParameterLabel)theEObject;
 				T result = caseParameterLabel(parameterLabel);
+				if (result == null) result = caseBehaviorElement(parameterLabel);
 				if (result == null) result = caseElement(parameterLabel);
-				if (result == null) result = caseAadl2_Element(parameterLabel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -579,8 +573,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseTarget(portCountValue);
 				if (result == null) result = caseIntegerValue(portCountValue);
 				if (result == null) result = caseParameterLabel(portCountValue);
+				if (result == null) result = caseBehaviorElement(portCountValue);
 				if (result == null) result = caseElement(portCountValue);
-				if (result == null) result = caseAadl2_Element(portCountValue);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -591,8 +585,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseBasicAction(portDequeueAction);
 				if (result == null) result = caseBehaviorAction(portDequeueAction);
 				if (result == null) result = caseBehaviorActions(portDequeueAction);
+				if (result == null) result = caseBehaviorElement(portDequeueAction);
 				if (result == null) result = caseElement(portDequeueAction);
-				if (result == null) result = caseAadl2_Element(portDequeueAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -607,8 +601,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseTarget(portDequeueValue);
 				if (result == null) result = caseIntegerValue(portDequeueValue);
 				if (result == null) result = caseParameterLabel(portDequeueValue);
+				if (result == null) result = caseBehaviorElement(portDequeueValue);
 				if (result == null) result = caseElement(portDequeueValue);
-				if (result == null) result = caseAadl2_Element(portDequeueValue);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -627,8 +621,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseIntegerValueVariable(portFreezeAction);
 				if (result == null) result = caseBehaviorActions(portFreezeAction);
 				if (result == null) result = caseIntegerValue(portFreezeAction);
+				if (result == null) result = caseBehaviorElement(portFreezeAction);
 				if (result == null) result = caseElement(portFreezeAction);
-				if (result == null) result = caseAadl2_Element(portFreezeAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -643,8 +637,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseTarget(portFreshValue);
 				if (result == null) result = caseIntegerValue(portFreshValue);
 				if (result == null) result = caseParameterLabel(portFreshValue);
+				if (result == null) result = caseBehaviorElement(portFreshValue);
 				if (result == null) result = caseElement(portFreshValue);
-				if (result == null) result = caseAadl2_Element(portFreshValue);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -655,34 +649,34 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseBasicAction(portSendAction);
 				if (result == null) result = caseBehaviorAction(portSendAction);
 				if (result == null) result = caseBehaviorActions(portSendAction);
+				if (result == null) result = caseBehaviorElement(portSendAction);
 				if (result == null) result = caseElement(portSendAction);
-				if (result == null) result = caseAadl2_Element(portSendAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case AadlBaPackage.PROPERTY_CONSTANT: {
-				PropertyConstant propertyConstant = (PropertyConstant)theEObject;
-				T result = casePropertyConstant(propertyConstant);
-				if (result == null) result = caseNamedElement(propertyConstant);
-				if (result == null) result = caseValueConstant(propertyConstant);
-				if (result == null) result = caseValue(propertyConstant);
-				if (result == null) result = caseIntegerValueConstant(propertyConstant);
-				if (result == null) result = caseAadl2_Element(propertyConstant);
-				if (result == null) result = caseIntegerValue(propertyConstant);
-				if (result == null) result = caseElement(propertyConstant);
+			case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT: {
+				BehaviorPropertyConstant behaviorPropertyConstant = (BehaviorPropertyConstant)theEObject;
+				T result = caseBehaviorPropertyConstant(behaviorPropertyConstant);
+				if (result == null) result = caseBehaviorNamedElement(behaviorPropertyConstant);
+				if (result == null) result = caseValueConstant(behaviorPropertyConstant);
+				if (result == null) result = caseValue(behaviorPropertyConstant);
+				if (result == null) result = caseIntegerValueConstant(behaviorPropertyConstant);
+				if (result == null) result = caseElement(behaviorPropertyConstant);
+				if (result == null) result = caseIntegerValue(behaviorPropertyConstant);
+				if (result == null) result = caseBehaviorElement(behaviorPropertyConstant);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case AadlBaPackage.PROPERTY_VALUE: {
-				PropertyValue propertyValue = (PropertyValue)theEObject;
-				T result = casePropertyValue(propertyValue);
-				if (result == null) result = caseNamedElement(propertyValue);
-				if (result == null) result = caseValueConstant(propertyValue);
-				if (result == null) result = caseValue(propertyValue);
-				if (result == null) result = caseIntegerValueConstant(propertyValue);
-				if (result == null) result = caseAadl2_Element(propertyValue);
-				if (result == null) result = caseIntegerValue(propertyValue);
-				if (result == null) result = caseElement(propertyValue);
+			case AadlBaPackage.BEHAVIOR_PROPERTY_VALUE: {
+				BehaviorPropertyValue behaviorPropertyValue = (BehaviorPropertyValue)theEObject;
+				T result = caseBehaviorPropertyValue(behaviorPropertyValue);
+				if (result == null) result = caseBehaviorNamedElement(behaviorPropertyValue);
+				if (result == null) result = caseValueConstant(behaviorPropertyValue);
+				if (result == null) result = caseValue(behaviorPropertyValue);
+				if (result == null) result = caseIntegerValueConstant(behaviorPropertyValue);
+				if (result == null) result = caseElement(behaviorPropertyValue);
+				if (result == null) result = caseIntegerValue(behaviorPropertyValue);
+				if (result == null) result = caseBehaviorElement(behaviorPropertyValue);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -695,16 +689,16 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseValue(realLiteral);
 				if (result == null) result = caseIntegerValueConstant(realLiteral);
 				if (result == null) result = caseIntegerValue(realLiteral);
+				if (result == null) result = caseBehaviorElement(realLiteral);
 				if (result == null) result = caseElement(realLiteral);
-				if (result == null) result = caseAadl2_Element(realLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.RELATION: {
 				Relation relation = (Relation)theEObject;
 				T result = caseRelation(relation);
+				if (result == null) result = caseBehaviorElement(relation);
 				if (result == null) result = caseElement(relation);
-				if (result == null) result = caseAadl2_Element(relation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -715,16 +709,16 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseBasicAction(sharedDataAction);
 				if (result == null) result = caseBehaviorAction(sharedDataAction);
 				if (result == null) result = caseBehaviorActions(sharedDataAction);
+				if (result == null) result = caseBehaviorElement(sharedDataAction);
 				if (result == null) result = caseElement(sharedDataAction);
-				if (result == null) result = caseAadl2_Element(sharedDataAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.SIMPLE_EXPRESSION: {
 				SimpleExpression simpleExpression = (SimpleExpression)theEObject;
 				T result = caseSimpleExpression(simpleExpression);
+				if (result == null) result = caseBehaviorElement(simpleExpression);
 				if (result == null) result = caseElement(simpleExpression);
-				if (result == null) result = caseAadl2_Element(simpleExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -736,8 +730,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseValue(stringLiteral);
 				if (result == null) result = caseIntegerValueConstant(stringLiteral);
 				if (result == null) result = caseIntegerValue(stringLiteral);
+				if (result == null) result = caseBehaviorElement(stringLiteral);
 				if (result == null) result = caseElement(stringLiteral);
-				if (result == null) result = caseAadl2_Element(stringLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -748,8 +742,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseBasicAction(subprogramCallAction);
 				if (result == null) result = caseBehaviorAction(subprogramCallAction);
 				if (result == null) result = caseBehaviorActions(subprogramCallAction);
+				if (result == null) result = caseBehaviorElement(subprogramCallAction);
 				if (result == null) result = caseElement(subprogramCallAction);
-				if (result == null) result = caseAadl2_Element(subprogramCallAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -757,16 +751,16 @@ public class AadlBaSwitch<T> {
 				Target target = (Target)theEObject;
 				T result = caseTarget(target);
 				if (result == null) result = caseParameterLabel(target);
+				if (result == null) result = caseBehaviorElement(target);
 				if (result == null) result = caseElement(target);
-				if (result == null) result = caseAadl2_Element(target);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.TERM: {
 				Term term = (Term)theEObject;
 				T result = caseTerm(term);
+				if (result == null) result = caseBehaviorElement(term);
 				if (result == null) result = caseElement(term);
-				if (result == null) result = caseAadl2_Element(term);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -776,8 +770,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseBasicAction(timedAction);
 				if (result == null) result = caseBehaviorAction(timedAction);
 				if (result == null) result = caseBehaviorActions(timedAction);
+				if (result == null) result = caseBehaviorElement(timedAction);
 				if (result == null) result = caseElement(timedAction);
-				if (result == null) result = caseAadl2_Element(timedAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -787,17 +781,17 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseExecuteCondition(timeoutCatch);
 				if (result == null) result = caseDispatchTriggerCondition(timeoutCatch);
 				if (result == null) result = caseBehaviorCondition(timeoutCatch);
+				if (result == null) result = caseBehaviorElement(timeoutCatch);
 				if (result == null) result = caseElement(timeoutCatch);
-				if (result == null) result = caseAadl2_Element(timeoutCatch);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE: {
 				UniqueComponentClassifierReference uniqueComponentClassifierReference = (UniqueComponentClassifierReference)theEObject;
 				T result = caseUniqueComponentClassifierReference(uniqueComponentClassifierReference);
-				if (result == null) result = caseNamedElement(uniqueComponentClassifierReference);
+				if (result == null) result = caseBehaviorNamedElement(uniqueComponentClassifierReference);
+				if (result == null) result = caseBehaviorElement(uniqueComponentClassifierReference);
 				if (result == null) result = caseElement(uniqueComponentClassifierReference);
-				if (result == null) result = caseAadl2_Element(uniqueComponentClassifierReference);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -809,16 +803,16 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseBasicAction(unlockAction);
 				if (result == null) result = caseBehaviorAction(unlockAction);
 				if (result == null) result = caseBehaviorActions(unlockAction);
+				if (result == null) result = caseBehaviorElement(unlockAction);
 				if (result == null) result = caseElement(unlockAction);
-				if (result == null) result = caseAadl2_Element(unlockAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case AadlBaPackage.VALUE: {
 				Value value = (Value)theEObject;
 				T result = caseValue(value);
+				if (result == null) result = caseBehaviorElement(value);
 				if (result == null) result = caseElement(value);
-				if (result == null) result = caseAadl2_Element(value);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -828,8 +822,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseValue(valueConstant);
 				if (result == null) result = caseIntegerValueConstant(valueConstant);
 				if (result == null) result = caseIntegerValue(valueConstant);
+				if (result == null) result = caseBehaviorElement(valueConstant);
 				if (result == null) result = caseElement(valueConstant);
-				if (result == null) result = caseAadl2_Element(valueConstant);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -840,8 +834,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseParameterLabel(valueExpression);
 				if (result == null) result = caseExecuteCondition(valueExpression);
 				if (result == null) result = caseBehaviorCondition(valueExpression);
+				if (result == null) result = caseBehaviorElement(valueExpression);
 				if (result == null) result = caseElement(valueExpression);
-				if (result == null) result = caseAadl2_Element(valueExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -851,8 +845,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseValue(valueVariable);
 				if (result == null) result = caseIntegerValueVariable(valueVariable);
 				if (result == null) result = caseIntegerValue(valueVariable);
+				if (result == null) result = caseBehaviorElement(valueVariable);
 				if (result == null) result = caseElement(valueVariable);
-				if (result == null) result = caseAadl2_Element(valueVariable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -863,8 +857,8 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseCondStatement(whileOrDoUntilStatement);
 				if (result == null) result = caseBehaviorAction(whileOrDoUntilStatement);
 				if (result == null) result = caseBehaviorActions(whileOrDoUntilStatement);
+				if (result == null) result = caseBehaviorElement(whileOrDoUntilStatement);
 				if (result == null) result = caseElement(whileOrDoUntilStatement);
-				if (result == null) result = caseAadl2_Element(whileOrDoUntilStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -899,6 +893,36 @@ public class AadlBaSwitch<T> {
 	 * @generated
 	 */
 	public T caseBehaviorCondition(BehaviorCondition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Behavior Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Behavior Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBehaviorElement(BehaviorElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Behavior Named Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Behavior Named Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBehaviorNamedElement(BehaviorNamedElement object) {
 		return null;
 	}
 
@@ -944,21 +968,6 @@ public class AadlBaSwitch<T> {
 	 * @generated
 	 */
 	public T caseBehaviorVariable(BehaviorVariable object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Comment</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Comment</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseComment(Comment object) {
 		return null;
 	}
 
@@ -1244,36 +1253,6 @@ public class AadlBaSwitch<T> {
 	 * @generated
 	 */
 	public T caseNumericLiteral(NumericLiteral object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Property Constant</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Property Constant</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePropertyConstant(PropertyConstant object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Property Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Property Value</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePropertyValue(PropertyValue object) {
 		return null;
 	}
 
@@ -1773,6 +1752,36 @@ public class AadlBaSwitch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Behavior Property Constant</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Behavior Property Constant</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBehaviorPropertyConstant(BehaviorPropertyConstant object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Behavior Property Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Behavior Property Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBehaviorPropertyValue(BehaviorPropertyValue object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Shared Data Action</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1949,36 +1958,6 @@ public class AadlBaSwitch<T> {
 	 * @generated
 	 */
 	public T caseDispatchTriggerLogicalExpression(DispatchTriggerLogicalExpression object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Element</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAadl2_Element(edu.cmu.sei.aadl.aadl2.Element object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Named Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Named Element</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAadl2_NamedElement(edu.cmu.sei.aadl.aadl2.NamedElement object) {
 		return null;
 	}
 

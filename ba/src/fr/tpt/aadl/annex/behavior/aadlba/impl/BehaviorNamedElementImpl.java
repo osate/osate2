@@ -1,25 +1,4 @@
 /**
- * AADL-BA-FrontEnd
- * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
- * 
- * TELECOM ParisTech/LTCI
- * 
- * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
- */
-
-/**
  * <copyright>
  * </copyright>
  *
@@ -28,7 +7,7 @@
 package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
-import fr.tpt.aadl.annex.behavior.aadlba.NamedElement;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -38,21 +17,21 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Named Element</b></em>'.
+ * An implementation of the model object '<em><b>Behavior Named Element</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NamedElementImpl#getName <em>Name</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NamedElementImpl#getQualifiedName <em>Qualified Name</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NamedElementImpl#getNamespaceSeparator <em>Namespace Separator</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NamedElementImpl#getNamespace <em>Namespace</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorNamedElementImpl#getName <em>Name</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorNamedElementImpl#getQualifiedName <em>Qualified Name</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorNamedElementImpl#getNamespaceSeparator <em>Namespace Separator</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorNamedElementImpl#getNamespace <em>Namespace</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class NamedElementImpl extends ElementImpl implements NamedElement {
+public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl implements BehaviorNamedElement {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -138,7 +117,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected NamedElementImpl() {
+	protected BehaviorNamedElementImpl() {
 		super();
 	}
 
@@ -149,7 +128,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return AadlBaPackage.Literals.NAMED_ELEMENT;
+		return AadlBaPackage.Literals.BEHAVIOR_NAMED_ELEMENT;
 	}
 
 	/**
@@ -170,7 +149,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.NAMED_ELEMENT__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAME, oldName, name));
 	}
 
 	/**
@@ -191,7 +170,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		String oldQualifiedName = qualifiedName;
 		qualifiedName = newQualifiedName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.NAMED_ELEMENT__QUALIFIED_NAME, oldQualifiedName, qualifiedName));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME, oldQualifiedName, qualifiedName));
 	}
 
 	/**
@@ -212,7 +191,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		String oldNamespaceSeparator = namespaceSeparator;
 		namespaceSeparator = newNamespaceSeparator;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.NAMED_ELEMENT__NAMESPACE_SEPARATOR, oldNamespaceSeparator, namespaceSeparator));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR, oldNamespaceSeparator, namespaceSeparator));
 	}
 
 	/**
@@ -233,7 +212,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		String oldNamespace = namespace;
 		namespace = newNamespace;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.NAMED_ELEMENT__NAMESPACE, oldNamespace, namespace));
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE, oldNamespace, namespace));
 	}
 
 	/**
@@ -244,13 +223,13 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AadlBaPackage.NAMED_ELEMENT__NAME:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAME:
 				return getName();
-			case AadlBaPackage.NAMED_ELEMENT__QUALIFIED_NAME:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME:
 				return getQualifiedName();
-			case AadlBaPackage.NAMED_ELEMENT__NAMESPACE_SEPARATOR:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR:
 				return getNamespaceSeparator();
-			case AadlBaPackage.NAMED_ELEMENT__NAMESPACE:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE:
 				return getNamespace();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -264,16 +243,16 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AadlBaPackage.NAMED_ELEMENT__NAME:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAME:
 				setName((String)newValue);
 				return;
-			case AadlBaPackage.NAMED_ELEMENT__QUALIFIED_NAME:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME:
 				setQualifiedName((String)newValue);
 				return;
-			case AadlBaPackage.NAMED_ELEMENT__NAMESPACE_SEPARATOR:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR:
 				setNamespaceSeparator((String)newValue);
 				return;
-			case AadlBaPackage.NAMED_ELEMENT__NAMESPACE:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE:
 				setNamespace((String)newValue);
 				return;
 		}
@@ -288,16 +267,16 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.NAMED_ELEMENT__NAME:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case AadlBaPackage.NAMED_ELEMENT__QUALIFIED_NAME:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME:
 				setQualifiedName(QUALIFIED_NAME_EDEFAULT);
 				return;
-			case AadlBaPackage.NAMED_ELEMENT__NAMESPACE_SEPARATOR:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR:
 				setNamespaceSeparator(NAMESPACE_SEPARATOR_EDEFAULT);
 				return;
-			case AadlBaPackage.NAMED_ELEMENT__NAMESPACE:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE:
 				setNamespace(NAMESPACE_EDEFAULT);
 				return;
 		}
@@ -312,13 +291,13 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.NAMED_ELEMENT__NAME:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case AadlBaPackage.NAMED_ELEMENT__QUALIFIED_NAME:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME:
 				return QUALIFIED_NAME_EDEFAULT == null ? qualifiedName != null : !QUALIFIED_NAME_EDEFAULT.equals(qualifiedName);
-			case AadlBaPackage.NAMED_ELEMENT__NAMESPACE_SEPARATOR:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR:
 				return NAMESPACE_SEPARATOR_EDEFAULT == null ? namespaceSeparator != null : !NAMESPACE_SEPARATOR_EDEFAULT.equals(namespaceSeparator);
-			case AadlBaPackage.NAMED_ELEMENT__NAMESPACE:
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE:
 				return NAMESPACE_EDEFAULT == null ? namespace != null : !NAMESPACE_EDEFAULT.equals(namespace);
 		}
 		return super.eIsSet(featureID);
@@ -346,4 +325,4 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		return result.toString();
 	}
 
-} //NamedElementImpl
+} //BehaviorNamedElementImpl

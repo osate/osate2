@@ -1,25 +1,4 @@
 /**
- * AADL-BA-FrontEnd
- * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
- * 
- * TELECOM ParisTech/LTCI
- * 
- * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
- */
-
-/**
  * <copyright>
  * </copyright>
  *
@@ -92,7 +71,6 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 			case AadlBaPackage.BEHAVIOR_TRANSITION: return (EObject)createBehaviorTransition();
 			case AadlBaPackage.BEHAVIOR_VARIABLE: return (EObject)createBehaviorVariable();
 			case AadlBaPackage.BOOLEAN_LITERAL: return (EObject)createBooleanLiteral();
-			case AadlBaPackage.COMMENT: return (EObject)createComment();
 			case AadlBaPackage.COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH: return (EObject)createCompletionRelativeTimeoutConditionAndCatch();
 			case AadlBaPackage.DATA_COMPONENT_REFERENCE: return (EObject)createDataComponentReference();
 			case AadlBaPackage.DECLARATOR: return (EObject)createDeclarator();
@@ -116,8 +94,8 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 			case AadlBaPackage.PORT_FREEZE_ACTION: return (EObject)createPortFreezeAction();
 			case AadlBaPackage.PORT_FRESH_VALUE: return (EObject)createPortFreshValue();
 			case AadlBaPackage.PORT_SEND_ACTION: return (EObject)createPortSendAction();
-			case AadlBaPackage.PROPERTY_CONSTANT: return (EObject)createPropertyConstant();
-			case AadlBaPackage.PROPERTY_VALUE: return (EObject)createPropertyValue();
+			case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT: return (EObject)createBehaviorPropertyConstant();
+			case AadlBaPackage.BEHAVIOR_PROPERTY_VALUE: return (EObject)createBehaviorPropertyValue();
 			case AadlBaPackage.REAL_LITERAL: return (EObject)createRealLiteral();
 			case AadlBaPackage.RELATION: return (EObject)createRelation();
 			case AadlBaPackage.SIMPLE_EXPRESSION: return (EObject)createSimpleExpression();
@@ -144,8 +122,8 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case AadlBaPackage.BEHAVIOR_ANNEX_FEATURE_TYPE:
-				return createBehaviorAnnexFeatureTypeFromString(eDataType, initialValue);
+			case AadlBaPackage.BEHAVIOR_FEATURE_TYPE:
+				return createBehaviorFeatureTypeFromString(eDataType, initialValue);
 			case AadlBaPackage.BINARY_ADDING_OPERATOR:
 				return createBinaryAddingOperatorFromString(eDataType, initialValue);
 			case AadlBaPackage.BINARY_NUMERIC_OPERATOR:
@@ -187,8 +165,8 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case AadlBaPackage.BEHAVIOR_ANNEX_FEATURE_TYPE:
-				return convertBehaviorAnnexFeatureTypeToString(eDataType, instanceValue);
+			case AadlBaPackage.BEHAVIOR_FEATURE_TYPE:
+				return convertBehaviorFeatureTypeToString(eDataType, instanceValue);
 			case AadlBaPackage.BINARY_ADDING_OPERATOR:
 				return convertBinaryAddingOperatorToString(eDataType, instanceValue);
 			case AadlBaPackage.BINARY_NUMERIC_OPERATOR:
@@ -220,276 +198,6 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BehaviorAnnex createBehaviorAnnex() {
-		BehaviorAnnexImpl behaviorAnnex = new BehaviorAnnexImpl();
-		return behaviorAnnex;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BehaviorState createBehaviorState() {
-		BehaviorStateImpl behaviorState = new BehaviorStateImpl();
-		return behaviorState;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BehaviorTransition createBehaviorTransition() {
-		BehaviorTransitionImpl behaviorTransition = new BehaviorTransitionImpl();
-		return behaviorTransition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BehaviorVariable createBehaviorVariable() {
-		BehaviorVariableImpl behaviorVariable = new BehaviorVariableImpl();
-		return behaviorVariable;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Comment createComment() {
-		CommentImpl comment = new CommentImpl();
-		return comment;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Declarator createDeclarator() {
-		DeclaratorImpl declarator = new DeclaratorImpl();
-		return declarator;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Identifier createIdentifier() {
-		IdentifierImpl identifier = new IdentifierImpl();
-		return identifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Otherwise createOtherwise() {
-		OtherwiseImpl otherwise = new OtherwiseImpl();
-		return otherwise;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TimeoutCatch createTimeoutCatch() {
-		TimeoutCatchImpl timeoutCatch = new TimeoutCatchImpl();
-		return timeoutCatch;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public UniqueComponentClassifierReference createUniqueComponentClassifierReference() {
-		UniqueComponentClassifierReferenceImpl uniqueComponentClassifierReference = new UniqueComponentClassifierReferenceImpl();
-		return uniqueComponentClassifierReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BehaviorTime createBehaviorTime() {
-		BehaviorTimeImpl behaviorTime = new BehaviorTimeImpl();
-		return behaviorTime;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BooleanLiteral createBooleanLiteral() {
-		BooleanLiteralImpl booleanLiteral = new BooleanLiteralImpl();
-		return booleanLiteral;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Factor createFactor() {
-		FactorImpl factor = new FactorImpl();
-		return factor;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public IntegerLiteral createIntegerLiteral() {
-		IntegerLiteralImpl integerLiteral = new IntegerLiteralImpl();
-		return integerLiteral;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public IntegerRange createIntegerRange() {
-		IntegerRangeImpl integerRange = new IntegerRangeImpl();
-		return integerRange;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Numeral createNumeral() {
-		NumeralImpl numeral = new NumeralImpl();
-		return numeral;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PropertyConstant createPropertyConstant() {
-		PropertyConstantImpl propertyConstant = new PropertyConstantImpl();
-		return propertyConstant;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PropertyValue createPropertyValue() {
-		PropertyValueImpl propertyValue = new PropertyValueImpl();
-		return propertyValue;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PortCountValue createPortCountValue() {
-		PortCountValueImpl portCountValue = new PortCountValueImpl();
-		return portCountValue;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PortDequeueValue createPortDequeueValue() {
-		PortDequeueValueImpl portDequeueValue = new PortDequeueValueImpl();
-		return portDequeueValue;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PortFreshValue createPortFreshValue() {
-		PortFreshValueImpl portFreshValue = new PortFreshValueImpl();
-		return portFreshValue;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public RealLiteral createRealLiteral() {
-		RealLiteralImpl realLiteral = new RealLiteralImpl();
-		return realLiteral;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Relation createRelation() {
-		RelationImpl relation = new RelationImpl();
-		return relation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SimpleExpression createSimpleExpression() {
-		SimpleExpressionImpl simpleExpression = new SimpleExpressionImpl();
-		return simpleExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public StringLiteral createStringLiteral() {
-		StringLiteralImpl stringLiteral = new StringLiteralImpl();
-		return stringLiteral;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Term createTerm() {
-		TermImpl term = new TermImpl();
-		return term;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ValueExpression createValueExpression() {
-		ValueExpressionImpl valueExpression = new ValueExpressionImpl();
-		return valueExpression;
 	}
 
 	/**
@@ -537,9 +245,9 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DataComponentReference createDataComponentReference() {
-		DataComponentReferenceImpl dataComponentReference = new DataComponentReferenceImpl();
-		return dataComponentReference;
+	public BehaviorAnnex createBehaviorAnnex() {
+		BehaviorAnnexImpl behaviorAnnex = new BehaviorAnnexImpl();
+		return behaviorAnnex;
 	}
 
 	/**
@@ -547,9 +255,9 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ForOrForAllStatement createForOrForAllStatement() {
-		ForOrForAllStatementImpl forOrForAllStatement = new ForOrForAllStatementImpl();
-		return forOrForAllStatement;
+	public BehaviorState createBehaviorState() {
+		BehaviorStateImpl behaviorState = new BehaviorStateImpl();
+		return behaviorState;
 	}
 
 	/**
@@ -557,9 +265,9 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IfStatement createIfStatement() {
-		IfStatementImpl ifStatement = new IfStatementImpl();
-		return ifStatement;
+	public BehaviorTime createBehaviorTime() {
+		BehaviorTimeImpl behaviorTime = new BehaviorTimeImpl();
+		return behaviorTime;
 	}
 
 	/**
@@ -567,9 +275,9 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LockAction createLockAction() {
-		LockActionImpl lockAction = new LockActionImpl();
-		return lockAction;
+	public BehaviorTransition createBehaviorTransition() {
+		BehaviorTransitionImpl behaviorTransition = new BehaviorTransitionImpl();
+		return behaviorTransition;
 	}
 
 	/**
@@ -577,9 +285,9 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Name createName() {
-		NameImpl name = new NameImpl();
-		return name;
+	public BehaviorVariable createBehaviorVariable() {
+		BehaviorVariableImpl behaviorVariable = new BehaviorVariableImpl();
+		return behaviorVariable;
 	}
 
 	/**
@@ -587,79 +295,9 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PortDequeueAction createPortDequeueAction() {
-		PortDequeueActionImpl portDequeueAction = new PortDequeueActionImpl();
-		return portDequeueAction;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PortFreezeAction createPortFreezeAction() {
-		PortFreezeActionImpl portFreezeAction = new PortFreezeActionImpl();
-		return portFreezeAction;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PortSendAction createPortSendAction() {
-		PortSendActionImpl portSendAction = new PortSendActionImpl();
-		return portSendAction;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SubprogramCallAction createSubprogramCallAction() {
-		SubprogramCallActionImpl subprogramCallAction = new SubprogramCallActionImpl();
-		return subprogramCallAction;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Target createTarget() {
-		TargetImpl target = new TargetImpl();
-		return target;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TimedAction createTimedAction() {
-		TimedActionImpl timedAction = new TimedActionImpl();
-		return timedAction;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public UnlockAction createUnlockAction() {
-		UnlockActionImpl unlockAction = new UnlockActionImpl();
-		return unlockAction;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public WhileOrDoUntilStatement createWhileOrDoUntilStatement() {
-		WhileOrDoUntilStatementImpl whileOrDoUntilStatement = new WhileOrDoUntilStatementImpl();
-		return whileOrDoUntilStatement;
+	public BooleanLiteral createBooleanLiteral() {
+		BooleanLiteralImpl booleanLiteral = new BooleanLiteralImpl();
+		return booleanLiteral;
 	}
 
 	/**
@@ -670,6 +308,26 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	public CompletionRelativeTimeoutConditionAndCatch createCompletionRelativeTimeoutConditionAndCatch() {
 		CompletionRelativeTimeoutConditionAndCatchImpl completionRelativeTimeoutConditionAndCatch = new CompletionRelativeTimeoutConditionAndCatchImpl();
 		return completionRelativeTimeoutConditionAndCatch;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataComponentReference createDataComponentReference() {
+		DataComponentReferenceImpl dataComponentReference = new DataComponentReferenceImpl();
+		return dataComponentReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Declarator createDeclarator() {
+		DeclaratorImpl declarator = new DeclaratorImpl();
+		return declarator;
 	}
 
 	/**
@@ -717,8 +375,318 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BehaviorAnnexFeatureType createBehaviorAnnexFeatureTypeFromString(EDataType eDataType, String initialValue) {
-		BehaviorAnnexFeatureType result = BehaviorAnnexFeatureType.get(initialValue);
+	public Factor createFactor() {
+		FactorImpl factor = new FactorImpl();
+		return factor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ForOrForAllStatement createForOrForAllStatement() {
+		ForOrForAllStatementImpl forOrForAllStatement = new ForOrForAllStatementImpl();
+		return forOrForAllStatement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Identifier createIdentifier() {
+		IdentifierImpl identifier = new IdentifierImpl();
+		return identifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IfStatement createIfStatement() {
+		IfStatementImpl ifStatement = new IfStatementImpl();
+		return ifStatement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IntegerLiteral createIntegerLiteral() {
+		IntegerLiteralImpl integerLiteral = new IntegerLiteralImpl();
+		return integerLiteral;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IntegerRange createIntegerRange() {
+		IntegerRangeImpl integerRange = new IntegerRangeImpl();
+		return integerRange;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LockAction createLockAction() {
+		LockActionImpl lockAction = new LockActionImpl();
+		return lockAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Name createName() {
+		NameImpl name = new NameImpl();
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Numeral createNumeral() {
+		NumeralImpl numeral = new NumeralImpl();
+		return numeral;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Otherwise createOtherwise() {
+		OtherwiseImpl otherwise = new OtherwiseImpl();
+		return otherwise;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortCountValue createPortCountValue() {
+		PortCountValueImpl portCountValue = new PortCountValueImpl();
+		return portCountValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortDequeueAction createPortDequeueAction() {
+		PortDequeueActionImpl portDequeueAction = new PortDequeueActionImpl();
+		return portDequeueAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortDequeueValue createPortDequeueValue() {
+		PortDequeueValueImpl portDequeueValue = new PortDequeueValueImpl();
+		return portDequeueValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortFreezeAction createPortFreezeAction() {
+		PortFreezeActionImpl portFreezeAction = new PortFreezeActionImpl();
+		return portFreezeAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortFreshValue createPortFreshValue() {
+		PortFreshValueImpl portFreshValue = new PortFreshValueImpl();
+		return portFreshValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortSendAction createPortSendAction() {
+		PortSendActionImpl portSendAction = new PortSendActionImpl();
+		return portSendAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BehaviorPropertyConstant createBehaviorPropertyConstant() {
+		BehaviorPropertyConstantImpl behaviorPropertyConstant = new BehaviorPropertyConstantImpl();
+		return behaviorPropertyConstant;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BehaviorPropertyValue createBehaviorPropertyValue() {
+		BehaviorPropertyValueImpl behaviorPropertyValue = new BehaviorPropertyValueImpl();
+		return behaviorPropertyValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RealLiteral createRealLiteral() {
+		RealLiteralImpl realLiteral = new RealLiteralImpl();
+		return realLiteral;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Relation createRelation() {
+		RelationImpl relation = new RelationImpl();
+		return relation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SimpleExpression createSimpleExpression() {
+		SimpleExpressionImpl simpleExpression = new SimpleExpressionImpl();
+		return simpleExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StringLiteral createStringLiteral() {
+		StringLiteralImpl stringLiteral = new StringLiteralImpl();
+		return stringLiteral;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramCallAction createSubprogramCallAction() {
+		SubprogramCallActionImpl subprogramCallAction = new SubprogramCallActionImpl();
+		return subprogramCallAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Target createTarget() {
+		TargetImpl target = new TargetImpl();
+		return target;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Term createTerm() {
+		TermImpl term = new TermImpl();
+		return term;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TimedAction createTimedAction() {
+		TimedActionImpl timedAction = new TimedActionImpl();
+		return timedAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TimeoutCatch createTimeoutCatch() {
+		TimeoutCatchImpl timeoutCatch = new TimeoutCatchImpl();
+		return timeoutCatch;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UniqueComponentClassifierReference createUniqueComponentClassifierReference() {
+		UniqueComponentClassifierReferenceImpl uniqueComponentClassifierReference = new UniqueComponentClassifierReferenceImpl();
+		return uniqueComponentClassifierReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UnlockAction createUnlockAction() {
+		UnlockActionImpl unlockAction = new UnlockActionImpl();
+		return unlockAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ValueExpression createValueExpression() {
+		ValueExpressionImpl valueExpression = new ValueExpressionImpl();
+		return valueExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WhileOrDoUntilStatement createWhileOrDoUntilStatement() {
+		WhileOrDoUntilStatementImpl whileOrDoUntilStatement = new WhileOrDoUntilStatementImpl();
+		return whileOrDoUntilStatement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BehaviorFeatureType createBehaviorFeatureTypeFromString(EDataType eDataType, String initialValue) {
+		BehaviorFeatureType result = BehaviorFeatureType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
@@ -728,27 +696,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertBehaviorAnnexFeatureTypeToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureType createFeatureTypeFromString(EDataType eDataType, String initialValue) {
-		FeatureType result = FeatureType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertFeatureTypeToString(EDataType eDataType, Object instanceValue) {
+	public String convertBehaviorFeatureTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -809,6 +757,26 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * @generated
 	 */
 	public String convertDataRepresentationToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureType createFeatureTypeFromString(EDataType eDataType, String initialValue) {
+		FeatureType result = FeatureType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFeatureTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

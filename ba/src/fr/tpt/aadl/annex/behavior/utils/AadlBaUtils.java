@@ -173,32 +173,34 @@ public class AadlBaUtils {
    }
    
    /**
-    * Returns the data representation associated to the given property constant.
-    * object <BR><BR>
+    * Returns the data representation associated to the given behavior property
+    * constant object <BR><BR>
     * Note : {@link #getDataRepresentation(PropertyType)} to see restrictions. 
     * <BR><BR> 
-    * @param pc the given property constant object
-    * @return the data representation associated to the given property constant
-    * object
+    * @param pc the given behavior property constant object
+    * @return the data representation associated to the given behavior property
+    * constant object
     * @exception UnsupportedOperationException thrown for the unsupported types
     */
-   static public DataRepresentation getDataRepresentation(PropertyConstant pc)
+   static public DataRepresentation getDataRepresentation(
+                                                    BehaviorPropertyConstant pc)
    {
       return getDataRepresentation(((edu.cmu.sei.aadl.aadl2.PropertyConstant)
             pc.getAadlRef()).getOwnedType()) ;
    }
    
    /**
-    * Returns the data representation associated to the given property value.
-    * object <BR><BR>
+    * Returns the data representation associated to the given behavior property
+    * value object <BR><BR>
     * Note : {@link #getDataRepresentation(PropertyType)} to see restrictions. 
     * <BR><BR>
-    * @param pv the given property value object
-    * @return the data representation associated to the given property value
-    * object
+    * @param pv the given behavior property value object
+    * @return the data representation associated to the given behavior property
+    * value object
     * @exception UnsupportedOperationException thrown for the unsupported types
     */
-   static public DataRepresentation getDataRepresentation(PropertyValue pv)
+   static public DataRepresentation getDataRepresentation(
+                                                       BehaviorPropertyValue pv)
    {
       return getDataRepresentation(((Property)pv.getAadlRef()).getOwnedType()) ;
    }
@@ -216,15 +218,15 @@ public class AadlBaUtils {
     */
    static public DataRepresentation getDataRepresentation(ValueConstant v)
    {
-      if(v instanceof PropertyConstant)
+      if(v instanceof BehaviorPropertyConstant)
       {
-         return getDataRepresentation((PropertyConstant) v)  ;
+         return getDataRepresentation((BehaviorPropertyConstant) v)  ;
       }
       else 
       {
-         if(v instanceof PropertyValue)
+         if(v instanceof BehaviorPropertyValue)
          {
-            return getDataRepresentation((PropertyValue) v)  ;
+            return getDataRepresentation((BehaviorPropertyValue) v)  ;
          }
          
          if(v instanceof IntegerLiteral)
@@ -1015,7 +1017,7 @@ public class AadlBaUtils {
     * @return the linked element
     */
    public static  edu.cmu.sei.aadl.aadl2.Element getLinkedElement(
-                                   fr.tpt.aadl.annex.behavior.aadlba.Element el)
+                                                             BehaviorElement el)
    {
       edu.cmu.sei.aadl.aadl2.Element result = null ;
 
@@ -1041,14 +1043,14 @@ public class AadlBaUtils {
     * @return the given behavior annex feature's type
     * @exception UnsupportedOperationException thrown for the unsupported types
     */
-   public static BehaviorAnnexFeatureType getBehaviorAnnexFeatureType(
-             fr.tpt.aadl.annex.behavior.aadlba.Element el)
+   public static BehaviorFeatureType getBehaviorAnnexFeatureType(
+                                                             BehaviorElement el)
    {
       if(el instanceof fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable)
-         return BehaviorAnnexFeatureType.BEHAVIOR_VARIABLE ;
+         return BehaviorFeatureType.BEHAVIOR_VARIABLE ;
       else if (el instanceof fr.tpt.aadl.annex.behavior.aadlba.
                                           UniqueComponentClassifierReference)
-         return BehaviorAnnexFeatureType.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE ;
+         return BehaviorFeatureType.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE ;
       
       String errorMsg = "feature : " + el.getClass().getSimpleName()+ 
       " is not supported yet." ;
@@ -1057,20 +1059,22 @@ public class AadlBaUtils {
    }
    
    /**
-    * Returns the type of the element linked to the given behavior annex element.
+    * Returns the type of the element linked to the given behavior
+    * annex element.
     * 
     * @param el the given behavior annex element
     * @return the type of the linked element
     */
-   public static Enum<?> getType(fr.tpt.aadl.annex.behavior.aadlba.Element el)
+   public static Enum<?> getType(BehaviorElement el)
    {
       edu.cmu.sei.aadl.aadl2.Element testedEl = AadlBaUtils.getLinkedElement(el);
       
       Enum<?> result ;
       
-      if (testedEl instanceof fr.tpt.aadl.annex.behavior.aadlba.Element)
+      if (testedEl instanceof BehaviorElement)
       {
-         result = AadlBaUtils.getBehaviorAnnexFeatureType((Element)testedEl);
+         result = AadlBaUtils.getBehaviorAnnexFeatureType(
+                                                     (BehaviorElement)testedEl);
       }
       else
       {

@@ -1,25 +1,4 @@
 /**
- * AADL-BA-FrontEnd
- * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
- * 
- * TELECOM ParisTech/LTCI
- * 
- * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
- */
-
-/**
  * <copyright>
  * </copyright>
  *
@@ -45,141 +24,6 @@ public interface AadlBaFactory extends EFactory {
 	 * @generated
 	 */
 	AadlBaFactory eINSTANCE = fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaFactoryImpl.init();
-
-	/**
-	 * Returns a new object of class '<em>Behavior Annex</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Behavior Annex</em>'.
-	 * @generated
-	 */
-	BehaviorAnnex createBehaviorAnnex();
-
-	/**
-	 * Returns a new object of class '<em>Behavior State</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Behavior State</em>'.
-	 * @generated
-	 */
-	BehaviorState createBehaviorState();
-
-	/**
-	 * Returns a new object of class '<em>Behavior Transition</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Behavior Transition</em>'.
-	 * @generated
-	 */
-	BehaviorTransition createBehaviorTransition();
-
-	/**
-	 * Returns a new object of class '<em>Behavior Variable</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Behavior Variable</em>'.
-	 * @generated
-	 */
-	BehaviorVariable createBehaviorVariable();
-
-	/**
-	 * Returns a new object of class '<em>Comment</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Comment</em>'.
-	 * @generated
-	 */
-	Comment createComment();
-
-	/**
-	 * Returns a new object of class '<em>Declarator</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Declarator</em>'.
-	 * @generated
-	 */
-	Declarator createDeclarator();
-
-	/**
-	 * Returns a new object of class '<em>Identifier</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Identifier</em>'.
-	 * @generated
-	 */
-	Identifier createIdentifier();
-
-	/**
-	 * Returns a new object of class '<em>Otherwise</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Otherwise</em>'.
-	 * @generated
-	 */
-	Otherwise createOtherwise();
-
-	/**
-	 * Returns a new object of class '<em>Timeout Catch</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Timeout Catch</em>'.
-	 * @generated
-	 */
-	TimeoutCatch createTimeoutCatch();
-
-	/**
-	 * Returns a new object of class '<em>Unique Component Classifier Reference</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Unique Component Classifier Reference</em>'.
-	 * @generated
-	 */
-	UniqueComponentClassifierReference createUniqueComponentClassifierReference();
-
-	/**
-	 * Returns a new object of class '<em>Completion Relative Timeout Condition And Catch</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Completion Relative Timeout Condition And Catch</em>'.
-	 * @generated
-	 */
-	CompletionRelativeTimeoutConditionAndCatch createCompletionRelativeTimeoutConditionAndCatch();
-
-	/**
-	 * Returns a new object of class '<em>Dispatch Condition</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Dispatch Condition</em>'.
-	 * @generated
-	 */
-	DispatchCondition createDispatchCondition();
-
-	/**
-	 * Returns a new object of class '<em>Dispatch Conjunction</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Dispatch Conjunction</em>'.
-	 * @generated
-	 */
-	DispatchConjunction createDispatchConjunction();
-
-	/**
-	 * Returns a new object of class '<em>Dispatch Trigger Condition Stop</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Dispatch Trigger Condition Stop</em>'.
-	 * @generated
-	 */
-	DispatchTriggerConditionStop createDispatchTriggerConditionStop();
-
-	/**
-	 * Returns a new object of class '<em>Dispatch Trigger Logical Expression</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Dispatch Trigger Logical Expression</em>'.
-	 * @generated
-	 */
-	DispatchTriggerLogicalExpression createDispatchTriggerLogicalExpression();
 
 	/**
 	 * Returns a new object of class '<em>Assignment Action</em>'.
@@ -218,121 +62,22 @@ public interface AadlBaFactory extends EFactory {
 	BehaviorActionSet createBehaviorActionSet();
 
 	/**
-	 * Returns a new object of class '<em>Data Component Reference</em>'.
+	 * Returns a new object of class '<em>Behavior Annex</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Data Component Reference</em>'.
+	 * @return a new object of class '<em>Behavior Annex</em>'.
 	 * @generated
 	 */
-	DataComponentReference createDataComponentReference();
+	BehaviorAnnex createBehaviorAnnex();
 
 	/**
-	 * Returns a new object of class '<em>For Or For All Statement</em>'.
+	 * Returns a new object of class '<em>Behavior State</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>For Or For All Statement</em>'.
+	 * @return a new object of class '<em>Behavior State</em>'.
 	 * @generated
 	 */
-	ForOrForAllStatement createForOrForAllStatement();
-
-	/**
-	 * Returns a new object of class '<em>If Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>If Statement</em>'.
-	 * @generated
-	 */
-	IfStatement createIfStatement();
-
-	/**
-	 * Returns a new object of class '<em>Lock Action</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Lock Action</em>'.
-	 * @generated
-	 */
-	LockAction createLockAction();
-
-	/**
-	 * Returns a new object of class '<em>Name</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Name</em>'.
-	 * @generated
-	 */
-	Name createName();
-
-	/**
-	 * Returns a new object of class '<em>Port Dequeue Action</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Port Dequeue Action</em>'.
-	 * @generated
-	 */
-	PortDequeueAction createPortDequeueAction();
-
-	/**
-	 * Returns a new object of class '<em>Port Freeze Action</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Port Freeze Action</em>'.
-	 * @generated
-	 */
-	PortFreezeAction createPortFreezeAction();
-
-	/**
-	 * Returns a new object of class '<em>Port Send Action</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Port Send Action</em>'.
-	 * @generated
-	 */
-	PortSendAction createPortSendAction();
-
-	/**
-	 * Returns a new object of class '<em>Subprogram Call Action</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Subprogram Call Action</em>'.
-	 * @generated
-	 */
-	SubprogramCallAction createSubprogramCallAction();
-
-	/**
-	 * Returns a new object of class '<em>Target</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Target</em>'.
-	 * @generated
-	 */
-	Target createTarget();
-
-	/**
-	 * Returns a new object of class '<em>Timed Action</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Timed Action</em>'.
-	 * @generated
-	 */
-	TimedAction createTimedAction();
-
-	/**
-	 * Returns a new object of class '<em>Unlock Action</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Unlock Action</em>'.
-	 * @generated
-	 */
-	UnlockAction createUnlockAction();
-
-	/**
-	 * Returns a new object of class '<em>While Or Do Until Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>While Or Do Until Statement</em>'.
-	 * @generated
-	 */
-	WhileOrDoUntilStatement createWhileOrDoUntilStatement();
+	BehaviorState createBehaviorState();
 
 	/**
 	 * Returns a new object of class '<em>Behavior Time</em>'.
@@ -344,6 +89,24 @@ public interface AadlBaFactory extends EFactory {
 	BehaviorTime createBehaviorTime();
 
 	/**
+	 * Returns a new object of class '<em>Behavior Transition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior Transition</em>'.
+	 * @generated
+	 */
+	BehaviorTransition createBehaviorTransition();
+
+	/**
+	 * Returns a new object of class '<em>Behavior Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior Variable</em>'.
+	 * @generated
+	 */
+	BehaviorVariable createBehaviorVariable();
+
+	/**
 	 * Returns a new object of class '<em>Boolean Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -353,6 +116,69 @@ public interface AadlBaFactory extends EFactory {
 	BooleanLiteral createBooleanLiteral();
 
 	/**
+	 * Returns a new object of class '<em>Completion Relative Timeout Condition And Catch</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Completion Relative Timeout Condition And Catch</em>'.
+	 * @generated
+	 */
+	CompletionRelativeTimeoutConditionAndCatch createCompletionRelativeTimeoutConditionAndCatch();
+
+	/**
+	 * Returns a new object of class '<em>Data Component Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Data Component Reference</em>'.
+	 * @generated
+	 */
+	DataComponentReference createDataComponentReference();
+
+	/**
+	 * Returns a new object of class '<em>Declarator</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Declarator</em>'.
+	 * @generated
+	 */
+	Declarator createDeclarator();
+
+	/**
+	 * Returns a new object of class '<em>Dispatch Condition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dispatch Condition</em>'.
+	 * @generated
+	 */
+	DispatchCondition createDispatchCondition();
+
+	/**
+	 * Returns a new object of class '<em>Dispatch Conjunction</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dispatch Conjunction</em>'.
+	 * @generated
+	 */
+	DispatchConjunction createDispatchConjunction();
+
+	/**
+	 * Returns a new object of class '<em>Dispatch Trigger Condition Stop</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dispatch Trigger Condition Stop</em>'.
+	 * @generated
+	 */
+	DispatchTriggerConditionStop createDispatchTriggerConditionStop();
+
+	/**
+	 * Returns a new object of class '<em>Dispatch Trigger Logical Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dispatch Trigger Logical Expression</em>'.
+	 * @generated
+	 */
+	DispatchTriggerLogicalExpression createDispatchTriggerLogicalExpression();
+
+	/**
 	 * Returns a new object of class '<em>Factor</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -360,6 +186,33 @@ public interface AadlBaFactory extends EFactory {
 	 * @generated
 	 */
 	Factor createFactor();
+
+	/**
+	 * Returns a new object of class '<em>For Or For All Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>For Or For All Statement</em>'.
+	 * @generated
+	 */
+	ForOrForAllStatement createForOrForAllStatement();
+
+	/**
+	 * Returns a new object of class '<em>Identifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Identifier</em>'.
+	 * @generated
+	 */
+	Identifier createIdentifier();
+
+	/**
+	 * Returns a new object of class '<em>If Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>If Statement</em>'.
+	 * @generated
+	 */
+	IfStatement createIfStatement();
 
 	/**
 	 * Returns a new object of class '<em>Integer Literal</em>'.
@@ -380,6 +233,24 @@ public interface AadlBaFactory extends EFactory {
 	IntegerRange createIntegerRange();
 
 	/**
+	 * Returns a new object of class '<em>Lock Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Lock Action</em>'.
+	 * @generated
+	 */
+	LockAction createLockAction();
+
+	/**
+	 * Returns a new object of class '<em>Name</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Name</em>'.
+	 * @generated
+	 */
+	Name createName();
+
+	/**
 	 * Returns a new object of class '<em>Numeral</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -389,22 +260,13 @@ public interface AadlBaFactory extends EFactory {
 	Numeral createNumeral();
 
 	/**
-	 * Returns a new object of class '<em>Property Constant</em>'.
+	 * Returns a new object of class '<em>Otherwise</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Property Constant</em>'.
+	 * @return a new object of class '<em>Otherwise</em>'.
 	 * @generated
 	 */
-	PropertyConstant createPropertyConstant();
-
-	/**
-	 * Returns a new object of class '<em>Property Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Property Value</em>'.
-	 * @generated
-	 */
-	PropertyValue createPropertyValue();
+	Otherwise createOtherwise();
 
 	/**
 	 * Returns a new object of class '<em>Port Count Value</em>'.
@@ -416,6 +278,15 @@ public interface AadlBaFactory extends EFactory {
 	PortCountValue createPortCountValue();
 
 	/**
+	 * Returns a new object of class '<em>Port Dequeue Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Dequeue Action</em>'.
+	 * @generated
+	 */
+	PortDequeueAction createPortDequeueAction();
+
+	/**
 	 * Returns a new object of class '<em>Port Dequeue Value</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -425,6 +296,15 @@ public interface AadlBaFactory extends EFactory {
 	PortDequeueValue createPortDequeueValue();
 
 	/**
+	 * Returns a new object of class '<em>Port Freeze Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Freeze Action</em>'.
+	 * @generated
+	 */
+	PortFreezeAction createPortFreezeAction();
+
+	/**
 	 * Returns a new object of class '<em>Port Fresh Value</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -432,6 +312,33 @@ public interface AadlBaFactory extends EFactory {
 	 * @generated
 	 */
 	PortFreshValue createPortFreshValue();
+
+	/**
+	 * Returns a new object of class '<em>Port Send Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Send Action</em>'.
+	 * @generated
+	 */
+	PortSendAction createPortSendAction();
+
+	/**
+	 * Returns a new object of class '<em>Behavior Property Constant</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior Property Constant</em>'.
+	 * @generated
+	 */
+	BehaviorPropertyConstant createBehaviorPropertyConstant();
+
+	/**
+	 * Returns a new object of class '<em>Behavior Property Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior Property Value</em>'.
+	 * @generated
+	 */
+	BehaviorPropertyValue createBehaviorPropertyValue();
 
 	/**
 	 * Returns a new object of class '<em>Real Literal</em>'.
@@ -470,6 +377,24 @@ public interface AadlBaFactory extends EFactory {
 	StringLiteral createStringLiteral();
 
 	/**
+	 * Returns a new object of class '<em>Subprogram Call Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Subprogram Call Action</em>'.
+	 * @generated
+	 */
+	SubprogramCallAction createSubprogramCallAction();
+
+	/**
+	 * Returns a new object of class '<em>Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Target</em>'.
+	 * @generated
+	 */
+	Target createTarget();
+
+	/**
 	 * Returns a new object of class '<em>Term</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -479,6 +404,42 @@ public interface AadlBaFactory extends EFactory {
 	Term createTerm();
 
 	/**
+	 * Returns a new object of class '<em>Timed Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Timed Action</em>'.
+	 * @generated
+	 */
+	TimedAction createTimedAction();
+
+	/**
+	 * Returns a new object of class '<em>Timeout Catch</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Timeout Catch</em>'.
+	 * @generated
+	 */
+	TimeoutCatch createTimeoutCatch();
+
+	/**
+	 * Returns a new object of class '<em>Unique Component Classifier Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Unique Component Classifier Reference</em>'.
+	 * @generated
+	 */
+	UniqueComponentClassifierReference createUniqueComponentClassifierReference();
+
+	/**
+	 * Returns a new object of class '<em>Unlock Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Unlock Action</em>'.
+	 * @generated
+	 */
+	UnlockAction createUnlockAction();
+
+	/**
 	 * Returns a new object of class '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -486,6 +447,15 @@ public interface AadlBaFactory extends EFactory {
 	 * @generated
 	 */
 	ValueExpression createValueExpression();
+
+	/**
+	 * Returns a new object of class '<em>While Or Do Until Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>While Or Do Until Statement</em>'.
+	 * @generated
+	 */
+	WhileOrDoUntilStatement createWhileOrDoUntilStatement();
 
 	/**
 	 * Returns the package supported by this factory.

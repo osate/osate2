@@ -1,25 +1,4 @@
 /**
- * AADL-BA-FrontEnd
- * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
- * 
- * TELECOM ParisTech/LTCI
- * 
- * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
- */
-
-/**
  * <copyright>
  * </copyright>
  *
@@ -35,14 +14,14 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Behavior Annex Feature Type</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Behavior Feature Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnexFeatureType()
+ * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorFeatureType()
  * @model
  * @generated
  */
-public enum BehaviorAnnexFeatureType implements Enumerator {
+public enum BehaviorFeatureType implements Enumerator {
 	/**
 	 * The '<em><b>NONE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -119,35 +98,35 @@ public enum BehaviorAnnexFeatureType implements Enumerator {
 	public static final int UNIQUE_COMPONENT_CLASSIFIER_REFERENCE_VALUE = 2;
 
 	/**
-	 * An array of all the '<em><b>Behavior Annex Feature Type</b></em>' enumerators.
+	 * An array of all the '<em><b>Behavior Feature Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final BehaviorAnnexFeatureType[] VALUES_ARRAY =
-		new BehaviorAnnexFeatureType[] {
+	private static final BehaviorFeatureType[] VALUES_ARRAY =
+		new BehaviorFeatureType[] {
 			NONE,
 			BEHAVIOR_VARIABLE,
 			UNIQUE_COMPONENT_CLASSIFIER_REFERENCE,
 		};
 
 	/**
-	 * A public read-only list of all the '<em><b>Behavior Annex Feature Type</b></em>' enumerators.
+	 * A public read-only list of all the '<em><b>Behavior Feature Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<BehaviorAnnexFeatureType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<BehaviorFeatureType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Behavior Annex Feature Type</b></em>' literal with the specified literal value.
+	 * Returns the '<em><b>Behavior Feature Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static BehaviorAnnexFeatureType get(String literal) {
+	public static BehaviorFeatureType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			BehaviorAnnexFeatureType result = VALUES_ARRAY[i];
+			BehaviorFeatureType result = VALUES_ARRAY[i];
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -156,14 +135,14 @@ public enum BehaviorAnnexFeatureType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Behavior Annex Feature Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Behavior Feature Type</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static BehaviorAnnexFeatureType getByName(String name) {
+	public static BehaviorFeatureType getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			BehaviorAnnexFeatureType result = VALUES_ARRAY[i];
+			BehaviorFeatureType result = VALUES_ARRAY[i];
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -172,12 +151,12 @@ public enum BehaviorAnnexFeatureType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Behavior Annex Feature Type</b></em>' literal with the specified integer value.
+	 * Returns the '<em><b>Behavior Feature Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static BehaviorAnnexFeatureType get(int value) {
+	public static BehaviorFeatureType get(int value) {
 		switch (value) {
 			case NONE_VALUE: return NONE;
 			case BEHAVIOR_VARIABLE_VALUE: return BEHAVIOR_VARIABLE;
@@ -213,7 +192,7 @@ public enum BehaviorAnnexFeatureType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private BehaviorAnnexFeatureType(int value, String name, String literal) {
+	private BehaviorFeatureType(int value, String name, String literal) {
 		this.value = value;
 		this.name = name;
 		this.literal = literal;
@@ -257,4 +236,4 @@ public enum BehaviorAnnexFeatureType implements Enumerator {
 		return literal;
 	}
 	
-} //BehaviorAnnexFeatureType
+} //BehaviorFeatureType

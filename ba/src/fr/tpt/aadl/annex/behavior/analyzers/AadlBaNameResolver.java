@@ -997,12 +997,12 @@ public class AadlBaNameResolver
          {
             return integerValueVariableResolver((IntegerValueVariable)value);
          }
-         else // Ambiguous case : unqualified propertysets (constant or value) are
-              // parsed as name without array index.
+         else // Ambiguous case : unqualified behavior propertysets 
+              // (constant or value) are parsed as name without array index.
             
          {
-            PropertyConstant pc = AadlBaFactory.eINSTANCE
-                                                      .createPropertyConstant();
+            BehaviorPropertyConstant pc = AadlBaFactory.eINSTANCE
+                                              .createBehaviorPropertyConstant();
             pc.setName(n.getIdentifierOwned().getId()) ;
             pc.setQualifiedName(pc.getName());
             
@@ -1010,10 +1010,11 @@ public class AadlBaNameResolver
             {
                pc.setLocationReference(n.getLocationReference());
                
-               Element parentContainer = (Element) value.eContainer() ;
+               BehaviorElement parentContainer = (BehaviorElement) 
+                                                            value.eContainer() ;
                
-               // Set the property constant object instead of the name object
-               // into the parent container.
+               // Set the beahvior property constant object instead of the name
+               // object into the parent container.
                if(parentContainer instanceof BehaviorTime)
                {
                   ((BehaviorTime) parentContainer).setIntegerValueOwned(pc) ;
@@ -1352,7 +1353,7 @@ public class AadlBaNameResolver
    }
 
    // Check constant value names means to check names
-   // within property set value ones or property set constant ones.
+   // within behavior property set value ones or property set constant ones.
    /* value_constant ::=
            boolean_literal
          | numeric_literal
@@ -1361,9 +1362,9 @@ public class AadlBaNameResolver
          | property_value */
    private boolean valueConstantResolver(ValueConstant value)
    {
-      if(value instanceof PropertyConstant)
+      if(value instanceof BehaviorPropertyConstant)
       {
-         return propertyConstantResolver((PropertyConstant) value, true) ;
+         return propertyConstantResolver((BehaviorPropertyConstant) value, true);
       }
       else // Cases of Literal : they don't contain any name.
       {
@@ -1372,9 +1373,9 @@ public class AadlBaNameResolver
    }
 
    /*
-    * Checks names in a property constant and report any error.
+    * Checks names in a behavior property constant and report any error.
     */
-   private boolean propertyConstantResolver(PropertyConstant pc,
+   private boolean propertyConstantResolver(BehaviorPropertyConstant pc,
                                             boolean hasToReport)
    {
       String propertySetNamespace = pc.getNamespace();
@@ -1464,12 +1465,12 @@ public class AadlBaNameResolver
          {
             return valueVariableResolver(value, (ValueVariable)value) ;
          }
-         else // Ambiguous case : unqualified propertysets (constant or value) are
-              // parsed as name without array index.
+         else // Ambiguous case : unqualified propertysets (constant or value) 
+              // are parsed as name without array index.
             
          {
-            PropertyConstant pc = AadlBaFactory.eINSTANCE
-                                                      .createPropertyConstant();
+            BehaviorPropertyConstant pc = AadlBaFactory.eINSTANCE
+                                              .createBehaviorPropertyConstant();
             pc.setName(n.getIdentifierOwned().getId()) ;
             pc.setQualifiedName(pc.getName());
             
@@ -1530,7 +1531,7 @@ public class AadlBaNameResolver
          | data_component_reference
          | port_name ’ count
          | port_name ’ fresh */
-   private boolean valueVariableResolver(Element toBeSet,
+   private boolean valueVariableResolver(BehaviorElement toBeSet,
                                          ValueVariable value)
    {
       if(value instanceof Name)
@@ -1582,7 +1583,7 @@ public class AadlBaNameResolver
    }
 
    // TODO Provide column number.
-   private void reportNameError(Element obj, String name) 
+   private void reportNameError(BehaviorElement obj, String name) 
    {
       _errManager.error(obj, "\'" + name + "\' is not found");
    }

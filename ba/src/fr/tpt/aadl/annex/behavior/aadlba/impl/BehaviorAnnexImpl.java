@@ -1,25 +1,4 @@
 /**
- * AADL-BA-FrontEnd
- * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
- * 
- * TELECOM ParisTech/LTCI
- * 
- * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
- */
-
-/**
  * <copyright>
  * </copyright>
  *
@@ -27,14 +6,16 @@
  */
 package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
+import edu.cmu.sei.aadl.aadl2.Element;
+
 import edu.cmu.sei.aadl.aadl2.impl.AnnexSubclauseImpl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
-import fr.tpt.aadl.annex.behavior.aadlba.Element;
 
 import java.util.Collection;
 
@@ -78,7 +59,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 * @generated
 	 * @ordered
 	 */
-	protected Element baRef;
+	protected BehaviorElement baRef;
 
 	/**
 	 * The cached value of the '{@link #getAadlRef() <em>Aadl Ref</em>}' reference.
@@ -88,7 +69,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 * @generated
 	 * @ordered
 	 */
-	protected edu.cmu.sei.aadl.aadl2.Element aadlRef;
+	protected Element aadlRef;
 
 	/**
 	 * The cached value of the '{@link #getBehaviorVariables() <em>Behavior Variables</em>}' containment reference list.
@@ -144,10 +125,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Element getBaRef() {
+	public BehaviorElement getBaRef() {
 		if (baRef != null && ((EObject)baRef).eIsProxy()) {
 			InternalEObject oldBaRef = (InternalEObject)baRef;
-			baRef = (Element)eResolveProxy(oldBaRef);
+			baRef = (BehaviorElement)eResolveProxy(oldBaRef);
 			if (baRef != oldBaRef) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_ANNEX__BA_REF, oldBaRef, baRef));
@@ -161,7 +142,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Element basicGetBaRef() {
+	public BehaviorElement basicGetBaRef() {
 		return baRef;
 	}
 
@@ -170,8 +151,8 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBaRef(Element newBaRef) {
-		Element oldBaRef = baRef;
+	public void setBaRef(BehaviorElement newBaRef) {
+		BehaviorElement oldBaRef = baRef;
 		baRef = newBaRef;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ANNEX__BA_REF, oldBaRef, baRef));
@@ -182,10 +163,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public edu.cmu.sei.aadl.aadl2.Element getAadlRef() {
+	public Element getAadlRef() {
 		if (aadlRef != null && ((EObject)aadlRef).eIsProxy()) {
 			InternalEObject oldAadlRef = (InternalEObject)aadlRef;
-			aadlRef = (edu.cmu.sei.aadl.aadl2.Element)eResolveProxy(oldAadlRef);
+			aadlRef = (Element)eResolveProxy(oldAadlRef);
 			if (aadlRef != oldAadlRef) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_ANNEX__AADL_REF, oldAadlRef, aadlRef));
@@ -199,7 +180,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public edu.cmu.sei.aadl.aadl2.Element basicGetAadlRef() {
+	public Element basicGetAadlRef() {
 		return aadlRef;
 	}
 
@@ -208,8 +189,8 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAadlRef(edu.cmu.sei.aadl.aadl2.Element newAadlRef) {
-		edu.cmu.sei.aadl.aadl2.Element oldAadlRef = aadlRef;
+	public void setAadlRef(Element newAadlRef) {
+		Element oldAadlRef = aadlRef;
 		aadlRef = newAadlRef;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ANNEX__AADL_REF, oldAadlRef, aadlRef));
@@ -357,10 +338,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case AadlBaPackage.BEHAVIOR_ANNEX__BA_REF:
-				setBaRef((Element)newValue);
+				setBaRef((BehaviorElement)newValue);
 				return;
 			case AadlBaPackage.BEHAVIOR_ANNEX__AADL_REF:
-				setAadlRef((edu.cmu.sei.aadl.aadl2.Element)newValue);
+				setAadlRef((Element)newValue);
 				return;
 			case AadlBaPackage.BEHAVIOR_ANNEX__BEHAVIOR_VARIABLES:
 				getBehaviorVariables().clear();
@@ -387,10 +368,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.BEHAVIOR_ANNEX__BA_REF:
-				setBaRef((Element)null);
+				setBaRef((BehaviorElement)null);
 				return;
 			case AadlBaPackage.BEHAVIOR_ANNEX__AADL_REF:
-				setAadlRef((edu.cmu.sei.aadl.aadl2.Element)null);
+				setAadlRef((Element)null);
 				return;
 			case AadlBaPackage.BEHAVIOR_ANNEX__BEHAVIOR_VARIABLES:
 				unsetBehaviorVariables();
@@ -434,10 +415,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == Element.class) {
+		if (baseClass == BehaviorElement.class) {
 			switch (derivedFeatureID) {
-				case AadlBaPackage.BEHAVIOR_ANNEX__BA_REF: return AadlBaPackage.ELEMENT__BA_REF;
-				case AadlBaPackage.BEHAVIOR_ANNEX__AADL_REF: return AadlBaPackage.ELEMENT__AADL_REF;
+				case AadlBaPackage.BEHAVIOR_ANNEX__BA_REF: return AadlBaPackage.BEHAVIOR_ELEMENT__BA_REF;
+				case AadlBaPackage.BEHAVIOR_ANNEX__AADL_REF: return AadlBaPackage.BEHAVIOR_ELEMENT__AADL_REF;
 				default: return -1;
 			}
 		}
@@ -451,10 +432,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == Element.class) {
+		if (baseClass == BehaviorElement.class) {
 			switch (baseFeatureID) {
-				case AadlBaPackage.ELEMENT__BA_REF: return AadlBaPackage.BEHAVIOR_ANNEX__BA_REF;
-				case AadlBaPackage.ELEMENT__AADL_REF: return AadlBaPackage.BEHAVIOR_ANNEX__AADL_REF;
+				case AadlBaPackage.BEHAVIOR_ELEMENT__BA_REF: return AadlBaPackage.BEHAVIOR_ANNEX__BA_REF;
+				case AadlBaPackage.BEHAVIOR_ELEMENT__AADL_REF: return AadlBaPackage.BEHAVIOR_ANNEX__AADL_REF;
 				default: return -1;
 			}
 		}

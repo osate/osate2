@@ -804,7 +804,7 @@ public class AadlBaLegalityRulesChecker
    }
    
    // TODO Provide column number.
-   private void reportLegalityError(Element obj, String msg)
+   private void reportLegalityError(BehaviorElement obj, String msg)
    {
       _errManager.error(obj, msg + ".") ;
    }

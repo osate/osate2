@@ -1,25 +1,4 @@
 /**
- * AADL-BA-FrontEnd
- * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
- * 
- * TELECOM ParisTech/LTCI
- * 
- * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
- */
-
-/**
  * <copyright>
  * </copyright>
  *
@@ -221,7 +200,9 @@ public enum FeatureType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMPONENT_PROTOTYPE(17, "COMPONENT_PROTOTYPE", "component prototype"), /**
+	COMPONENT_PROTOTYPE(17, "COMPONENT_PROTOTYPE", "component prototype"),
+
+	/**
 	 * The '<em><b>COMPONENT PROTOTYPE BINDING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -229,7 +210,9 @@ public enum FeatureType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMPONENT_PROTOTYPE_BINDING(18, "COMPONENT_PROTOTYPE_BINDING", "component prototype binding"), /**
+	COMPONENT_PROTOTYPE_BINDING(18, "COMPONENT_PROTOTYPE_BINDING", "component prototype binding"),
+
+	/**
 	 * The '<em><b>FEATURE PROTOTYPE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -237,7 +220,9 @@ public enum FeatureType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FEATURE_PROTOTYPE(19, "FEATURE_PROTOTYPE", "feature prototype"), /**
+	FEATURE_PROTOTYPE(19, "FEATURE_PROTOTYPE", "feature prototype"),
+
+	/**
 	 * The '<em><b>FEATURE PROTOTYPE BINDING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -245,7 +230,9 @@ public enum FeatureType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FEATURE_PROTOTYPE_BINDING(20, "FEATURE_PROTOTYPE_BINDING", "feature prototype binding"), /**
+	FEATURE_PROTOTYPE_BINDING(20, "FEATURE_PROTOTYPE_BINDING", "feature prototype binding"),
+
+	/**
 	 * The '<em><b>FEATURE GROUP PROTOTYPE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -253,7 +240,9 @@ public enum FeatureType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FEATURE_GROUP_PROTOTYPE(21, "FEATURE_GROUP_PROTOTYPE", "feature group prototytpe"), /**
+	FEATURE_GROUP_PROTOTYPE(21, "FEATURE_GROUP_PROTOTYPE", "feature group prototytpe"),
+
+	/**
 	 * The '<em><b>FEATURE GROUP PROTOTYPE BINDING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -261,7 +250,9 @@ public enum FeatureType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FEATURE_GROUP_PROTOTYPE_BINDING(22, "FEATURE_GROUP_PROTOTYPE_BINDING", "feature group prototype binding"), /**
+	FEATURE_GROUP_PROTOTYPE_BINDING(22, "FEATURE_GROUP_PROTOTYPE_BINDING", "feature group prototype binding"),
+
+	/**
 	 * The '<em><b>PROVIDES DATA ACCESS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

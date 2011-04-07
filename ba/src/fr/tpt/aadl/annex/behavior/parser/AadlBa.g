@@ -1329,7 +1329,7 @@ catch [RecognitionException ex] {
 
 // uDCR ::=
 //   name | data component reference
-uDCR returns [Element uDCR]
+uDCR returns [BehaviorElement uDCR]
  @init{
    uDCR = null ;
    DataComponentReference DataCmpRef = null ;
@@ -1411,7 +1411,8 @@ fact_value returns [Value Val]
        (  
           id1=IDENT DOUBLECOLON id2=IDENT
           {
-            PropertyConstant PropertyCst = _fact.createPropertyConstant();
+            BehaviorPropertyConstant PropertyCst = _fact.
+                                               createBehaviorPropertyConstant();
                         
             PropertyCst.setNamespace(id1.getText());
             setLocationReference(PropertyCst, id1) ;
@@ -1986,9 +1987,9 @@ catch [RecognitionException ex] {
 
 // property_constant ::=
 //   [ property_set_identifier :: ] property_constant_identifier
-property_constant returns [PropertyConstant PropertyCst]
+property_constant returns [BehaviorPropertyConstant PropertyCst]
  @init{
-   PropertyCst = _fact.createPropertyConstant();
+   PropertyCst = _fact.createBehaviorPropertyConstant();
  }
   :
    (
