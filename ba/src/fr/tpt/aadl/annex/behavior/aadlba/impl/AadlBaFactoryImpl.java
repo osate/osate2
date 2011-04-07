@@ -82,55 +82,55 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case AadlBaPackage.BEHAVIOR_ANNEX: return (EObject)createBehaviorAnnex();
-			case AadlBaPackage.BEHAVIOR_STATE: return (EObject)createBehaviorState();
-			case AadlBaPackage.BEHAVIOR_TRANSITION: return (EObject)createBehaviorTransition();
-			case AadlBaPackage.BEHAVIOR_VARIABLE: return (EObject)createBehaviorVariable();
-			case AadlBaPackage.COMMENT: return (EObject)createComment();
-			case AadlBaPackage.DECLARATOR: return (EObject)createDeclarator();
-			case AadlBaPackage.IDENTIFIER: return (EObject)createIdentifier();
-			case AadlBaPackage.OTHERWISE: return (EObject)createOtherwise();
-			case AadlBaPackage.TIMEOUT_CATCH: return (EObject)createTimeoutCatch();
-			case AadlBaPackage.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE: return (EObject)createUniqueComponentClassifierReference();
-			case AadlBaPackage.BEHAVIOR_TIME: return (EObject)createBehaviorTime();
-			case AadlBaPackage.BOOLEAN_LITERAL: return (EObject)createBooleanLiteral();
-			case AadlBaPackage.FACTOR: return (EObject)createFactor();
-			case AadlBaPackage.INTEGER_LITERAL: return (EObject)createIntegerLiteral();
-			case AadlBaPackage.INTEGER_RANGE: return (EObject)createIntegerRange();
-			case AadlBaPackage.NUMERAL: return (EObject)createNumeral();
-			case AadlBaPackage.PROPERTY_CONSTANT: return (EObject)createPropertyConstant();
-			case AadlBaPackage.PROPERTY_VALUE: return (EObject)createPropertyValue();
-			case AadlBaPackage.PORT_COUNT_VALUE: return (EObject)createPortCountValue();
-			case AadlBaPackage.PORT_DEQUEUE_VALUE: return (EObject)createPortDequeueValue();
-			case AadlBaPackage.PORT_FRESH_VALUE: return (EObject)createPortFreshValue();
-			case AadlBaPackage.REAL_LITERAL: return (EObject)createRealLiteral();
-			case AadlBaPackage.RELATION: return (EObject)createRelation();
-			case AadlBaPackage.SIMPLE_EXPRESSION: return (EObject)createSimpleExpression();
-			case AadlBaPackage.STRING_LITERAL: return (EObject)createStringLiteral();
-			case AadlBaPackage.TERM: return (EObject)createTerm();
-			case AadlBaPackage.VALUE_EXPRESSION: return (EObject)createValueExpression();
 			case AadlBaPackage.ASSIGNMENT_ACTION: return (EObject)createAssignmentAction();
 			case AadlBaPackage.BEHAVIOR_ACTION_BLOCK: return (EObject)createBehaviorActionBlock();
 			case AadlBaPackage.BEHAVIOR_ACTION_SEQUENCE: return (EObject)createBehaviorActionSequence();
 			case AadlBaPackage.BEHAVIOR_ACTION_SET: return (EObject)createBehaviorActionSet();
-			case AadlBaPackage.DATA_COMPONENT_REFERENCE: return (EObject)createDataComponentReference();
-			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT: return (EObject)createForOrForAllStatement();
-			case AadlBaPackage.IF_STATEMENT: return (EObject)createIfStatement();
-			case AadlBaPackage.LOCK_ACTION: return (EObject)createLockAction();
-			case AadlBaPackage.NAME: return (EObject)createName();
-			case AadlBaPackage.PORT_DEQUEUE_ACTION: return (EObject)createPortDequeueAction();
-			case AadlBaPackage.PORT_FREEZE_ACTION: return (EObject)createPortFreezeAction();
-			case AadlBaPackage.PORT_SEND_ACTION: return (EObject)createPortSendAction();
-			case AadlBaPackage.SUBPROGRAM_CALL_ACTION: return (EObject)createSubprogramCallAction();
-			case AadlBaPackage.TARGET: return (EObject)createTarget();
-			case AadlBaPackage.TIMED_ACTION: return (EObject)createTimedAction();
-			case AadlBaPackage.UNLOCK_ACTION: return (EObject)createUnlockAction();
-			case AadlBaPackage.WHILE_OR_DO_UNTIL_STATEMENT: return (EObject)createWhileOrDoUntilStatement();
+			case AadlBaPackage.BEHAVIOR_ANNEX: return (EObject)createBehaviorAnnex();
+			case AadlBaPackage.BEHAVIOR_STATE: return (EObject)createBehaviorState();
+			case AadlBaPackage.BEHAVIOR_TIME: return (EObject)createBehaviorTime();
+			case AadlBaPackage.BEHAVIOR_TRANSITION: return (EObject)createBehaviorTransition();
+			case AadlBaPackage.BEHAVIOR_VARIABLE: return (EObject)createBehaviorVariable();
+			case AadlBaPackage.BOOLEAN_LITERAL: return (EObject)createBooleanLiteral();
+			case AadlBaPackage.COMMENT: return (EObject)createComment();
 			case AadlBaPackage.COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH: return (EObject)createCompletionRelativeTimeoutConditionAndCatch();
+			case AadlBaPackage.DATA_COMPONENT_REFERENCE: return (EObject)createDataComponentReference();
+			case AadlBaPackage.DECLARATOR: return (EObject)createDeclarator();
 			case AadlBaPackage.DISPATCH_CONDITION: return (EObject)createDispatchCondition();
 			case AadlBaPackage.DISPATCH_CONJUNCTION: return (EObject)createDispatchConjunction();
 			case AadlBaPackage.DISPATCH_TRIGGER_CONDITION_STOP: return (EObject)createDispatchTriggerConditionStop();
 			case AadlBaPackage.DISPATCH_TRIGGER_LOGICAL_EXPRESSION: return (EObject)createDispatchTriggerLogicalExpression();
+			case AadlBaPackage.FACTOR: return (EObject)createFactor();
+			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT: return (EObject)createForOrForAllStatement();
+			case AadlBaPackage.IDENTIFIER: return (EObject)createIdentifier();
+			case AadlBaPackage.IF_STATEMENT: return (EObject)createIfStatement();
+			case AadlBaPackage.INTEGER_LITERAL: return (EObject)createIntegerLiteral();
+			case AadlBaPackage.INTEGER_RANGE: return (EObject)createIntegerRange();
+			case AadlBaPackage.LOCK_ACTION: return (EObject)createLockAction();
+			case AadlBaPackage.NAME: return (EObject)createName();
+			case AadlBaPackage.NUMERAL: return (EObject)createNumeral();
+			case AadlBaPackage.OTHERWISE: return (EObject)createOtherwise();
+			case AadlBaPackage.PORT_COUNT_VALUE: return (EObject)createPortCountValue();
+			case AadlBaPackage.PORT_DEQUEUE_ACTION: return (EObject)createPortDequeueAction();
+			case AadlBaPackage.PORT_DEQUEUE_VALUE: return (EObject)createPortDequeueValue();
+			case AadlBaPackage.PORT_FREEZE_ACTION: return (EObject)createPortFreezeAction();
+			case AadlBaPackage.PORT_FRESH_VALUE: return (EObject)createPortFreshValue();
+			case AadlBaPackage.PORT_SEND_ACTION: return (EObject)createPortSendAction();
+			case AadlBaPackage.PROPERTY_CONSTANT: return (EObject)createPropertyConstant();
+			case AadlBaPackage.PROPERTY_VALUE: return (EObject)createPropertyValue();
+			case AadlBaPackage.REAL_LITERAL: return (EObject)createRealLiteral();
+			case AadlBaPackage.RELATION: return (EObject)createRelation();
+			case AadlBaPackage.SIMPLE_EXPRESSION: return (EObject)createSimpleExpression();
+			case AadlBaPackage.STRING_LITERAL: return (EObject)createStringLiteral();
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION: return (EObject)createSubprogramCallAction();
+			case AadlBaPackage.TARGET: return (EObject)createTarget();
+			case AadlBaPackage.TERM: return (EObject)createTerm();
+			case AadlBaPackage.TIMED_ACTION: return (EObject)createTimedAction();
+			case AadlBaPackage.TIMEOUT_CATCH: return (EObject)createTimeoutCatch();
+			case AadlBaPackage.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE: return (EObject)createUniqueComponentClassifierReference();
+			case AadlBaPackage.UNLOCK_ACTION: return (EObject)createUnlockAction();
+			case AadlBaPackage.VALUE_EXPRESSION: return (EObject)createValueExpression();
+			case AadlBaPackage.WHILE_OR_DO_UNTIL_STATEMENT: return (EObject)createWhileOrDoUntilStatement();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -146,12 +146,14 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 		switch (eDataType.getClassifierID()) {
 			case AadlBaPackage.BEHAVIOR_ANNEX_FEATURE_TYPE:
 				return createBehaviorAnnexFeatureTypeFromString(eDataType, initialValue);
-			case AadlBaPackage.FEATURE_TYPE:
-				return createFeatureTypeFromString(eDataType, initialValue);
 			case AadlBaPackage.BINARY_ADDING_OPERATOR:
 				return createBinaryAddingOperatorFromString(eDataType, initialValue);
 			case AadlBaPackage.BINARY_NUMERIC_OPERATOR:
 				return createBinaryNumericOperatorFromString(eDataType, initialValue);
+			case AadlBaPackage.DATA_REPRESENTATION:
+				return createDataRepresentationFromString(eDataType, initialValue);
+			case AadlBaPackage.FEATURE_TYPE:
+				return createFeatureTypeFromString(eDataType, initialValue);
 			case AadlBaPackage.LOGICAL_OPERATOR:
 				return createLogicalOperatorFromString(eDataType, initialValue);
 			case AadlBaPackage.MULTIPLYING_OPERATOR:
@@ -187,12 +189,14 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 		switch (eDataType.getClassifierID()) {
 			case AadlBaPackage.BEHAVIOR_ANNEX_FEATURE_TYPE:
 				return convertBehaviorAnnexFeatureTypeToString(eDataType, instanceValue);
-			case AadlBaPackage.FEATURE_TYPE:
-				return convertFeatureTypeToString(eDataType, instanceValue);
 			case AadlBaPackage.BINARY_ADDING_OPERATOR:
 				return convertBinaryAddingOperatorToString(eDataType, instanceValue);
 			case AadlBaPackage.BINARY_NUMERIC_OPERATOR:
 				return convertBinaryNumericOperatorToString(eDataType, instanceValue);
+			case AadlBaPackage.DATA_REPRESENTATION:
+				return convertDataRepresentationToString(eDataType, instanceValue);
+			case AadlBaPackage.FEATURE_TYPE:
+				return convertFeatureTypeToString(eDataType, instanceValue);
 			case AadlBaPackage.LOGICAL_OPERATOR:
 				return convertLogicalOperatorToString(eDataType, instanceValue);
 			case AadlBaPackage.MULTIPLYING_OPERATOR:
@@ -785,6 +789,26 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * @generated
 	 */
 	public String convertBinaryNumericOperatorToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataRepresentation createDataRepresentationFromString(EDataType eDataType, String initialValue) {
+		DataRepresentation result = DataRepresentation.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertDataRepresentationToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

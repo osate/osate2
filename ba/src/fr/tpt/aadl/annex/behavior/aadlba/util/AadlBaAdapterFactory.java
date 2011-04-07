@@ -96,162 +96,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	protected AadlBaSwitch<Adapter> modelSwitch =
 		new AadlBaSwitch<Adapter>() {
 			@Override
-			public Adapter caseBehaviorAnnex(BehaviorAnnex object) {
-				return createBehaviorAnnexAdapter();
-			}
-			@Override
-			public Adapter caseBehaviorCondition(BehaviorCondition object) {
-				return createBehaviorConditionAdapter();
-			}
-			@Override
-			public Adapter caseBehaviorState(BehaviorState object) {
-				return createBehaviorStateAdapter();
-			}
-			@Override
-			public Adapter caseBehaviorTransition(BehaviorTransition object) {
-				return createBehaviorTransitionAdapter();
-			}
-			@Override
-			public Adapter caseBehaviorVariable(BehaviorVariable object) {
-				return createBehaviorVariableAdapter();
-			}
-			@Override
-			public Adapter caseComment(Comment object) {
-				return createCommentAdapter();
-			}
-			@Override
-			public Adapter caseDeclarator(Declarator object) {
-				return createDeclaratorAdapter();
-			}
-			@Override
-			public Adapter caseElement(Element object) {
-				return createElementAdapter();
-			}
-			@Override
-			public Adapter caseExecuteCondition(ExecuteCondition object) {
-				return createExecuteConditionAdapter();
-			}
-			@Override
-			public Adapter caseIdentifier(Identifier object) {
-				return createIdentifierAdapter();
-			}
-			@Override
-			public Adapter caseNamedElement(NamedElement object) {
-				return createNamedElementAdapter();
-			}
-			@Override
-			public Adapter caseOtherwise(Otherwise object) {
-				return createOtherwiseAdapter();
-			}
-			@Override
-			public Adapter caseTimeoutCatch(TimeoutCatch object) {
-				return createTimeoutCatchAdapter();
-			}
-			@Override
-			public Adapter caseUniqueComponentClassifierReference(UniqueComponentClassifierReference object) {
-				return createUniqueComponentClassifierReferenceAdapter();
-			}
-			@Override
-			public Adapter caseBehaviorTime(BehaviorTime object) {
-				return createBehaviorTimeAdapter();
-			}
-			@Override
-			public Adapter caseBooleanLiteral(BooleanLiteral object) {
-				return createBooleanLiteralAdapter();
-			}
-			@Override
-			public Adapter caseFactor(Factor object) {
-				return createFactorAdapter();
-			}
-			@Override
-			public Adapter caseIntegerLiteral(IntegerLiteral object) {
-				return createIntegerLiteralAdapter();
-			}
-			@Override
-			public Adapter caseIntegerRange(IntegerRange object) {
-				return createIntegerRangeAdapter();
-			}
-			@Override
-			public Adapter caseIntegerValue(IntegerValue object) {
-				return createIntegerValueAdapter();
-			}
-			@Override
-			public Adapter caseIntegerValueConstant(IntegerValueConstant object) {
-				return createIntegerValueConstantAdapter();
-			}
-			@Override
-			public Adapter caseIntegerValueVariable(IntegerValueVariable object) {
-				return createIntegerValueVariableAdapter();
-			}
-			@Override
-			public Adapter caseLiteral(Literal object) {
-				return createLiteralAdapter();
-			}
-			@Override
-			public Adapter caseNumeral(Numeral object) {
-				return createNumeralAdapter();
-			}
-			@Override
-			public Adapter caseNumericLiteral(NumericLiteral object) {
-				return createNumericLiteralAdapter();
-			}
-			@Override
-			public Adapter casePropertyConstant(PropertyConstant object) {
-				return createPropertyConstantAdapter();
-			}
-			@Override
-			public Adapter casePropertyValue(PropertyValue object) {
-				return createPropertyValueAdapter();
-			}
-			@Override
-			public Adapter casePortCountValue(PortCountValue object) {
-				return createPortCountValueAdapter();
-			}
-			@Override
-			public Adapter casePortDequeueValue(PortDequeueValue object) {
-				return createPortDequeueValueAdapter();
-			}
-			@Override
-			public Adapter casePortFreshValue(PortFreshValue object) {
-				return createPortFreshValueAdapter();
-			}
-			@Override
-			public Adapter caseRealLiteral(RealLiteral object) {
-				return createRealLiteralAdapter();
-			}
-			@Override
-			public Adapter caseRelation(Relation object) {
-				return createRelationAdapter();
-			}
-			@Override
-			public Adapter caseSimpleExpression(SimpleExpression object) {
-				return createSimpleExpressionAdapter();
-			}
-			@Override
-			public Adapter caseStringLiteral(StringLiteral object) {
-				return createStringLiteralAdapter();
-			}
-			@Override
-			public Adapter caseTerm(Term object) {
-				return createTermAdapter();
-			}
-			@Override
-			public Adapter caseValue(Value object) {
-				return createValueAdapter();
-			}
-			@Override
-			public Adapter caseValueConstant(ValueConstant object) {
-				return createValueConstantAdapter();
-			}
-			@Override
-			public Adapter caseValueExpression(ValueExpression object) {
-				return createValueExpressionAdapter();
-			}
-			@Override
-			public Adapter caseValueVariable(ValueVariable object) {
-				return createValueVariableAdapter();
-			}
-			@Override
 			public Adapter caseAssignmentAction(AssignmentAction object) {
 				return createAssignmentActionAdapter();
 			}
@@ -284,8 +128,44 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createBehaviorActionSetAdapter();
 			}
 			@Override
+			public Adapter caseBehaviorAnnex(BehaviorAnnex object) {
+				return createBehaviorAnnexAdapter();
+			}
+			@Override
+			public Adapter caseBehaviorCondition(BehaviorCondition object) {
+				return createBehaviorConditionAdapter();
+			}
+			@Override
+			public Adapter caseBehaviorState(BehaviorState object) {
+				return createBehaviorStateAdapter();
+			}
+			@Override
+			public Adapter caseBehaviorTime(BehaviorTime object) {
+				return createBehaviorTimeAdapter();
+			}
+			@Override
+			public Adapter caseBehaviorTransition(BehaviorTransition object) {
+				return createBehaviorTransitionAdapter();
+			}
+			@Override
+			public Adapter caseBehaviorVariable(BehaviorVariable object) {
+				return createBehaviorVariableAdapter();
+			}
+			@Override
+			public Adapter caseBooleanLiteral(BooleanLiteral object) {
+				return createBooleanLiteralAdapter();
+			}
+			@Override
+			public Adapter caseComment(Comment object) {
+				return createCommentAdapter();
+			}
+			@Override
 			public Adapter caseCommunicationAction(CommunicationAction object) {
 				return createCommunicationActionAdapter();
+			}
+			@Override
+			public Adapter caseCompletionRelativeTimeoutConditionAndCatch(CompletionRelativeTimeoutConditionAndCatch object) {
+				return createCompletionRelativeTimeoutConditionAndCatchAdapter();
 			}
 			@Override
 			public Adapter caseCondStatement(CondStatement object) {
@@ -296,72 +176,8 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createDataComponentReferenceAdapter();
 			}
 			@Override
-			public Adapter caseElementValues(ElementValues object) {
-				return createElementValuesAdapter();
-			}
-			@Override
-			public Adapter caseForOrForAllStatement(ForOrForAllStatement object) {
-				return createForOrForAllStatementAdapter();
-			}
-			@Override
-			public Adapter caseIfStatement(IfStatement object) {
-				return createIfStatementAdapter();
-			}
-			@Override
-			public Adapter caseLockAction(LockAction object) {
-				return createLockActionAdapter();
-			}
-			@Override
-			public Adapter caseLoopStatement(LoopStatement object) {
-				return createLoopStatementAdapter();
-			}
-			@Override
-			public Adapter caseName(Name object) {
-				return createNameAdapter();
-			}
-			@Override
-			public Adapter caseParameterLabel(ParameterLabel object) {
-				return createParameterLabelAdapter();
-			}
-			@Override
-			public Adapter casePortDequeueAction(PortDequeueAction object) {
-				return createPortDequeueActionAdapter();
-			}
-			@Override
-			public Adapter casePortFreezeAction(PortFreezeAction object) {
-				return createPortFreezeActionAdapter();
-			}
-			@Override
-			public Adapter casePortSendAction(PortSendAction object) {
-				return createPortSendActionAdapter();
-			}
-			@Override
-			public Adapter caseSharedDataAction(SharedDataAction object) {
-				return createSharedDataActionAdapter();
-			}
-			@Override
-			public Adapter caseSubprogramCallAction(SubprogramCallAction object) {
-				return createSubprogramCallActionAdapter();
-			}
-			@Override
-			public Adapter caseTarget(Target object) {
-				return createTargetAdapter();
-			}
-			@Override
-			public Adapter caseTimedAction(TimedAction object) {
-				return createTimedActionAdapter();
-			}
-			@Override
-			public Adapter caseUnlockAction(UnlockAction object) {
-				return createUnlockActionAdapter();
-			}
-			@Override
-			public Adapter caseWhileOrDoUntilStatement(WhileOrDoUntilStatement object) {
-				return createWhileOrDoUntilStatementAdapter();
-			}
-			@Override
-			public Adapter caseCompletionRelativeTimeoutConditionAndCatch(CompletionRelativeTimeoutConditionAndCatch object) {
-				return createCompletionRelativeTimeoutConditionAndCatchAdapter();
+			public Adapter caseDeclarator(Declarator object) {
+				return createDeclaratorAdapter();
 			}
 			@Override
 			public Adapter caseDispatchCondition(DispatchCondition object) {
@@ -382,6 +198,190 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseDispatchTriggerLogicalExpression(DispatchTriggerLogicalExpression object) {
 				return createDispatchTriggerLogicalExpressionAdapter();
+			}
+			@Override
+			public Adapter caseElement(Element object) {
+				return createElementAdapter();
+			}
+			@Override
+			public Adapter caseElementValues(ElementValues object) {
+				return createElementValuesAdapter();
+			}
+			@Override
+			public Adapter caseExecuteCondition(ExecuteCondition object) {
+				return createExecuteConditionAdapter();
+			}
+			@Override
+			public Adapter caseFactor(Factor object) {
+				return createFactorAdapter();
+			}
+			@Override
+			public Adapter caseForOrForAllStatement(ForOrForAllStatement object) {
+				return createForOrForAllStatementAdapter();
+			}
+			@Override
+			public Adapter caseIdentifier(Identifier object) {
+				return createIdentifierAdapter();
+			}
+			@Override
+			public Adapter caseIfStatement(IfStatement object) {
+				return createIfStatementAdapter();
+			}
+			@Override
+			public Adapter caseIntegerLiteral(IntegerLiteral object) {
+				return createIntegerLiteralAdapter();
+			}
+			@Override
+			public Adapter caseIntegerRange(IntegerRange object) {
+				return createIntegerRangeAdapter();
+			}
+			@Override
+			public Adapter caseIntegerValue(IntegerValue object) {
+				return createIntegerValueAdapter();
+			}
+			@Override
+			public Adapter caseIntegerValueConstant(IntegerValueConstant object) {
+				return createIntegerValueConstantAdapter();
+			}
+			@Override
+			public Adapter caseIntegerValueVariable(IntegerValueVariable object) {
+				return createIntegerValueVariableAdapter();
+			}
+			@Override
+			public Adapter caseLiteral(Literal object) {
+				return createLiteralAdapter();
+			}
+			@Override
+			public Adapter caseLockAction(LockAction object) {
+				return createLockActionAdapter();
+			}
+			@Override
+			public Adapter caseLoopStatement(LoopStatement object) {
+				return createLoopStatementAdapter();
+			}
+			@Override
+			public Adapter caseName(Name object) {
+				return createNameAdapter();
+			}
+			@Override
+			public Adapter caseNamedElement(NamedElement object) {
+				return createNamedElementAdapter();
+			}
+			@Override
+			public Adapter caseNumeral(Numeral object) {
+				return createNumeralAdapter();
+			}
+			@Override
+			public Adapter caseNumericLiteral(NumericLiteral object) {
+				return createNumericLiteralAdapter();
+			}
+			@Override
+			public Adapter caseOtherwise(Otherwise object) {
+				return createOtherwiseAdapter();
+			}
+			@Override
+			public Adapter caseParameterLabel(ParameterLabel object) {
+				return createParameterLabelAdapter();
+			}
+			@Override
+			public Adapter casePortCountValue(PortCountValue object) {
+				return createPortCountValueAdapter();
+			}
+			@Override
+			public Adapter casePortDequeueAction(PortDequeueAction object) {
+				return createPortDequeueActionAdapter();
+			}
+			@Override
+			public Adapter casePortDequeueValue(PortDequeueValue object) {
+				return createPortDequeueValueAdapter();
+			}
+			@Override
+			public Adapter casePortFreezeAction(PortFreezeAction object) {
+				return createPortFreezeActionAdapter();
+			}
+			@Override
+			public Adapter casePortFreshValue(PortFreshValue object) {
+				return createPortFreshValueAdapter();
+			}
+			@Override
+			public Adapter casePortSendAction(PortSendAction object) {
+				return createPortSendActionAdapter();
+			}
+			@Override
+			public Adapter casePropertyConstant(PropertyConstant object) {
+				return createPropertyConstantAdapter();
+			}
+			@Override
+			public Adapter casePropertyValue(PropertyValue object) {
+				return createPropertyValueAdapter();
+			}
+			@Override
+			public Adapter caseRealLiteral(RealLiteral object) {
+				return createRealLiteralAdapter();
+			}
+			@Override
+			public Adapter caseRelation(Relation object) {
+				return createRelationAdapter();
+			}
+			@Override
+			public Adapter caseSharedDataAction(SharedDataAction object) {
+				return createSharedDataActionAdapter();
+			}
+			@Override
+			public Adapter caseSimpleExpression(SimpleExpression object) {
+				return createSimpleExpressionAdapter();
+			}
+			@Override
+			public Adapter caseStringLiteral(StringLiteral object) {
+				return createStringLiteralAdapter();
+			}
+			@Override
+			public Adapter caseSubprogramCallAction(SubprogramCallAction object) {
+				return createSubprogramCallActionAdapter();
+			}
+			@Override
+			public Adapter caseTarget(Target object) {
+				return createTargetAdapter();
+			}
+			@Override
+			public Adapter caseTerm(Term object) {
+				return createTermAdapter();
+			}
+			@Override
+			public Adapter caseTimedAction(TimedAction object) {
+				return createTimedActionAdapter();
+			}
+			@Override
+			public Adapter caseTimeoutCatch(TimeoutCatch object) {
+				return createTimeoutCatchAdapter();
+			}
+			@Override
+			public Adapter caseUniqueComponentClassifierReference(UniqueComponentClassifierReference object) {
+				return createUniqueComponentClassifierReferenceAdapter();
+			}
+			@Override
+			public Adapter caseUnlockAction(UnlockAction object) {
+				return createUnlockActionAdapter();
+			}
+			@Override
+			public Adapter caseValue(Value object) {
+				return createValueAdapter();
+			}
+			@Override
+			public Adapter caseValueConstant(ValueConstant object) {
+				return createValueConstantAdapter();
+			}
+			@Override
+			public Adapter caseValueExpression(ValueExpression object) {
+				return createValueExpressionAdapter();
+			}
+			@Override
+			public Adapter caseValueVariable(ValueVariable object) {
+				return createValueVariableAdapter();
+			}
+			@Override
+			public Adapter caseWhileOrDoUntilStatement(WhileOrDoUntilStatement object) {
+				return createWhileOrDoUntilStatementAdapter();
 			}
 			@Override
 			public Adapter caseAadl2_Element(edu.cmu.sei.aadl.aadl2.Element object) {

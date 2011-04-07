@@ -482,10 +482,10 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	private EClass dataComponentReferenceEClass = null;
 
 	  /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    private EEnum dataRepresentationEEnum = null;
 	
 	/**
@@ -1003,13 +1003,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	}
 
 	  /**
-    * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * @generated
-    */
+	 * @generated
+	 */
    public EEnum getDataRepresentation() {
-      return dataRepresentationEEnum;
-   }
+		return dataRepresentationEEnum;
+	}
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -2371,135 +2371,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		isCreated = true;
 
 		// Create classes and their features
-		behaviorAnnexEClass = createEClass(BEHAVIOR_ANNEX);
-		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__BEHAVIOR_VARIABLES);
-		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__BEHAVIOR_STATES);
-		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__BEHAVIOR_TRANSITIONS);
-
-		behaviorConditionEClass = createEClass(BEHAVIOR_CONDITION);
-
-		behaviorStateEClass = createEClass(BEHAVIOR_STATE);
-		createEReference(behaviorStateEClass, BEHAVIOR_STATE__IDENTIFIERS);
-		createEAttribute(behaviorStateEClass, BEHAVIOR_STATE__INITIAL);
-		createEAttribute(behaviorStateEClass, BEHAVIOR_STATE__COMPLETE);
-		createEAttribute(behaviorStateEClass, BEHAVIOR_STATE__FINAL);
-
-		behaviorTransitionEClass = createEClass(BEHAVIOR_TRANSITION);
-		createEReference(behaviorTransitionEClass, BEHAVIOR_TRANSITION__TRANSITION_IDENTIFIER);
-		createEReference(behaviorTransitionEClass, BEHAVIOR_TRANSITION__SOURCE_STATE_IDENTIFIERS);
-		createEReference(behaviorTransitionEClass, BEHAVIOR_TRANSITION__BEHAVIOR_CONDITION_OWNED);
-		createEReference(behaviorTransitionEClass, BEHAVIOR_TRANSITION__DESTINATION_STATE_IDENTIFIER);
-		createEReference(behaviorTransitionEClass, BEHAVIOR_TRANSITION__BEHAVIOR_ACTION_BLOCK_OWNED);
-		createEReference(behaviorTransitionEClass, BEHAVIOR_TRANSITION__BEHAVIOR_TRANSITION_PRIORITY);
-
-		behaviorVariableEClass = createEClass(BEHAVIOR_VARIABLE);
-		createEReference(behaviorVariableEClass, BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS);
-		createEReference(behaviorVariableEClass, BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE);
-
-		commentEClass = createEClass(COMMENT);
-		createEAttribute(commentEClass, COMMENT__BODY);
-
-		declaratorEClass = createEClass(DECLARATOR);
-		createEReference(declaratorEClass, DECLARATOR__IDENTIFIER_OWNED);
-		createEReference(declaratorEClass, DECLARATOR__ARRAY_SIZES);
-
-		elementEClass = createEClass(ELEMENT);
-		createEReference(elementEClass, ELEMENT__BA_REF);
-		createEReference(elementEClass, ELEMENT__AADL_REF);
-
-		executeConditionEClass = createEClass(EXECUTE_CONDITION);
-
-		identifierEClass = createEClass(IDENTIFIER);
-		createEAttribute(identifierEClass, IDENTIFIER__ID);
-
-		namedElementEClass = createEClass(NAMED_ELEMENT);
-		createEAttribute(namedElementEClass, NAMED_ELEMENT__NAME);
-		createEAttribute(namedElementEClass, NAMED_ELEMENT__QUALIFIED_NAME);
-		createEAttribute(namedElementEClass, NAMED_ELEMENT__NAMESPACE_SEPARATOR);
-		createEAttribute(namedElementEClass, NAMED_ELEMENT__NAMESPACE);
-
-		otherwiseEClass = createEClass(OTHERWISE);
-
-		timeoutCatchEClass = createEClass(TIMEOUT_CATCH);
-
-		uniqueComponentClassifierReferenceEClass = createEClass(UNIQUE_COMPONENT_CLASSIFIER_REFERENCE);
-
-		behaviorTimeEClass = createEClass(BEHAVIOR_TIME);
-		createEReference(behaviorTimeEClass, BEHAVIOR_TIME__INTEGER_VALUE_OWNED);
-		createEReference(behaviorTimeEClass, BEHAVIOR_TIME__UNIT_IDENTIFIER);
-
-		booleanLiteralEClass = createEClass(BOOLEAN_LITERAL);
-		createEAttribute(booleanLiteralEClass, BOOLEAN_LITERAL__VALUE);
-
-		factorEClass = createEClass(FACTOR);
-		createEReference(factorEClass, FACTOR__VALUE_OWNED);
-		createEReference(factorEClass, FACTOR__VALUE_SD_OWNED);
-		createEAttribute(factorEClass, FACTOR__BINARY_NUMERIC_OPERATOR_OWNED);
-		createEAttribute(factorEClass, FACTOR__UNARY_NUMERIC_OPERATOR_OWNED);
-		createEAttribute(factorEClass, FACTOR__UNARY_BOOLEAN_OPERATOR_OWNED);
-
-		integerLiteralEClass = createEClass(INTEGER_LITERAL);
-		createEAttribute(integerLiteralEClass, INTEGER_LITERAL__VALUE);
-		createEAttribute(integerLiteralEClass, INTEGER_LITERAL__BASE);
-
-		integerRangeEClass = createEClass(INTEGER_RANGE);
-		createEReference(integerRangeEClass, INTEGER_RANGE__LOWER_INTEGER_VALUE);
-		createEReference(integerRangeEClass, INTEGER_RANGE__UPPER_INTEGER_VALUE);
-
-		integerValueEClass = createEClass(INTEGER_VALUE);
-
-		integerValueConstantEClass = createEClass(INTEGER_VALUE_CONSTANT);
-
-		integerValueVariableEClass = createEClass(INTEGER_VALUE_VARIABLE);
-
-		literalEClass = createEClass(LITERAL);
-
-		numeralEClass = createEClass(NUMERAL);
-		createEAttribute(numeralEClass, NUMERAL__VALUE);
-
-		numericLiteralEClass = createEClass(NUMERIC_LITERAL);
-		createEAttribute(numericLiteralEClass, NUMERIC_LITERAL__VALUE_STRING);
-
-		propertyConstantEClass = createEClass(PROPERTY_CONSTANT);
-
-		propertyValueEClass = createEClass(PROPERTY_VALUE);
-
-		portCountValueEClass = createEClass(PORT_COUNT_VALUE);
-
-		portDequeueValueEClass = createEClass(PORT_DEQUEUE_VALUE);
-
-		portFreshValueEClass = createEClass(PORT_FRESH_VALUE);
-
-		realLiteralEClass = createEClass(REAL_LITERAL);
-		createEAttribute(realLiteralEClass, REAL_LITERAL__VALUE);
-
-		relationEClass = createEClass(RELATION);
-		createEReference(relationEClass, RELATION__SIMPLE_EXPRESSION_OWNED);
-		createEReference(relationEClass, RELATION__SIMPLE_EXPRESSION_SD_OWNED);
-		createEAttribute(relationEClass, RELATION__RELATIONAL_OPERATOR_OWNED);
-
-		simpleExpressionEClass = createEClass(SIMPLE_EXPRESSION);
-		createEAttribute(simpleExpressionEClass, SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR_OWNED);
-		createEReference(simpleExpressionEClass, SIMPLE_EXPRESSION__TERMS);
-		createEAttribute(simpleExpressionEClass, SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS);
-
-		stringLiteralEClass = createEClass(STRING_LITERAL);
-		createEAttribute(stringLiteralEClass, STRING_LITERAL__VALUE);
-
-		termEClass = createEClass(TERM);
-		createEReference(termEClass, TERM__FACTORS);
-		createEAttribute(termEClass, TERM__MULTIPLYING_OPERATORS);
-
-		valueEClass = createEClass(VALUE);
-
-		valueConstantEClass = createEClass(VALUE_CONSTANT);
-
-		valueExpressionEClass = createEClass(VALUE_EXPRESSION);
-		createEReference(valueExpressionEClass, VALUE_EXPRESSION__RELATIONS);
-		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__LOGICAL_OPERATORS);
-
-		valueVariableEClass = createEClass(VALUE_VARIABLE);
-
 		assignmentActionEClass = createEClass(ASSIGNMENT_ACTION);
 		createEReference(assignmentActionEClass, ASSIGNMENT_ACTION__TARGET_OWNED);
 		createEReference(assignmentActionEClass, ASSIGNMENT_ACTION__VALUE_EXPRESSION_OWNED);
@@ -2522,68 +2393,53 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		behaviorActionSetEClass = createEClass(BEHAVIOR_ACTION_SET);
 
+		behaviorAnnexEClass = createEClass(BEHAVIOR_ANNEX);
+		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__BEHAVIOR_VARIABLES);
+		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__BEHAVIOR_STATES);
+		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__BEHAVIOR_TRANSITIONS);
+
+		behaviorConditionEClass = createEClass(BEHAVIOR_CONDITION);
+
+		behaviorStateEClass = createEClass(BEHAVIOR_STATE);
+		createEReference(behaviorStateEClass, BEHAVIOR_STATE__IDENTIFIERS);
+		createEAttribute(behaviorStateEClass, BEHAVIOR_STATE__INITIAL);
+		createEAttribute(behaviorStateEClass, BEHAVIOR_STATE__COMPLETE);
+		createEAttribute(behaviorStateEClass, BEHAVIOR_STATE__FINAL);
+
+		behaviorTimeEClass = createEClass(BEHAVIOR_TIME);
+		createEReference(behaviorTimeEClass, BEHAVIOR_TIME__INTEGER_VALUE_OWNED);
+		createEReference(behaviorTimeEClass, BEHAVIOR_TIME__UNIT_IDENTIFIER);
+
+		behaviorTransitionEClass = createEClass(BEHAVIOR_TRANSITION);
+		createEReference(behaviorTransitionEClass, BEHAVIOR_TRANSITION__TRANSITION_IDENTIFIER);
+		createEReference(behaviorTransitionEClass, BEHAVIOR_TRANSITION__SOURCE_STATE_IDENTIFIERS);
+		createEReference(behaviorTransitionEClass, BEHAVIOR_TRANSITION__BEHAVIOR_CONDITION_OWNED);
+		createEReference(behaviorTransitionEClass, BEHAVIOR_TRANSITION__DESTINATION_STATE_IDENTIFIER);
+		createEReference(behaviorTransitionEClass, BEHAVIOR_TRANSITION__BEHAVIOR_ACTION_BLOCK_OWNED);
+		createEReference(behaviorTransitionEClass, BEHAVIOR_TRANSITION__BEHAVIOR_TRANSITION_PRIORITY);
+
+		behaviorVariableEClass = createEClass(BEHAVIOR_VARIABLE);
+		createEReference(behaviorVariableEClass, BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS);
+		createEReference(behaviorVariableEClass, BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE);
+
+		booleanLiteralEClass = createEClass(BOOLEAN_LITERAL);
+		createEAttribute(booleanLiteralEClass, BOOLEAN_LITERAL__VALUE);
+
+		commentEClass = createEClass(COMMENT);
+		createEAttribute(commentEClass, COMMENT__BODY);
+
 		communicationActionEClass = createEClass(COMMUNICATION_ACTION);
+
+		completionRelativeTimeoutConditionAndCatchEClass = createEClass(COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH);
 
 		condStatementEClass = createEClass(COND_STATEMENT);
 
 		dataComponentReferenceEClass = createEClass(DATA_COMPONENT_REFERENCE);
 		createEReference(dataComponentReferenceEClass, DATA_COMPONENT_REFERENCE__NAMES);
 
-		elementValuesEClass = createEClass(ELEMENT_VALUES);
-
-		forOrForAllStatementEClass = createEClass(FOR_OR_FOR_ALL_STATEMENT);
-		createEReference(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__ELEMENT_IDENTIFIER);
-		createEReference(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE);
-		createEReference(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED);
-		createEAttribute(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__FOR_ALL);
-
-		ifStatementEClass = createEClass(IF_STATEMENT);
-		createEAttribute(ifStatementEClass, IF_STATEMENT__HAS_ELSE);
-		createEReference(ifStatementEClass, IF_STATEMENT__LOGICAL_VALUE_EXPRESSIONS);
-		createEReference(ifStatementEClass, IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED);
-
-		lockActionEClass = createEClass(LOCK_ACTION);
-
-		loopStatementEClass = createEClass(LOOP_STATEMENT);
-		createEReference(loopStatementEClass, LOOP_STATEMENT__BEHAVIOR_ACTIONS_OWNED);
-
-		nameEClass = createEClass(NAME);
-		createEReference(nameEClass, NAME__IDENTIFIER_OWNED);
-		createEReference(nameEClass, NAME__ARRAY_INDEXES);
-
-		parameterLabelEClass = createEClass(PARAMETER_LABEL);
-
-		portDequeueActionEClass = createEClass(PORT_DEQUEUE_ACTION);
-		createEReference(portDequeueActionEClass, PORT_DEQUEUE_ACTION__PORT_NAME);
-		createEReference(portDequeueActionEClass, PORT_DEQUEUE_ACTION__TARGET_OWNED);
-
-		portFreezeActionEClass = createEClass(PORT_FREEZE_ACTION);
-
-		portSendActionEClass = createEClass(PORT_SEND_ACTION);
-		createEReference(portSendActionEClass, PORT_SEND_ACTION__PORT_NAME);
-		createEReference(portSendActionEClass, PORT_SEND_ACTION__VALUE_EXPRESSION_OWNED);
-
-		sharedDataActionEClass = createEClass(SHARED_DATA_ACTION);
-		createEReference(sharedDataActionEClass, SHARED_DATA_ACTION__DATA_ACCESS_NAME);
-
-		subprogramCallActionEClass = createEClass(SUBPROGRAM_CALL_ACTION);
-		createEReference(subprogramCallActionEClass, SUBPROGRAM_CALL_ACTION__SUBPROGRAM_NAMES);
-		createEReference(subprogramCallActionEClass, SUBPROGRAM_CALL_ACTION__SUBPROGRAM_REFERENCE);
-		createEReference(subprogramCallActionEClass, SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS);
-
-		targetEClass = createEClass(TARGET);
-
-		timedActionEClass = createEClass(TIMED_ACTION);
-		createEReference(timedActionEClass, TIMED_ACTION__LOWER_BEHAVIOR_TIME);
-		createEReference(timedActionEClass, TIMED_ACTION__UPPER_BEHAVIOR_TIME);
-
-		unlockActionEClass = createEClass(UNLOCK_ACTION);
-
-		whileOrDoUntilStatementEClass = createEClass(WHILE_OR_DO_UNTIL_STATEMENT);
-		createEReference(whileOrDoUntilStatementEClass, WHILE_OR_DO_UNTIL_STATEMENT__LOGICAL_VALUE_EXPRESSION);
-		createEAttribute(whileOrDoUntilStatementEClass, WHILE_OR_DO_UNTIL_STATEMENT__DO_UNTIL);
-
-		completionRelativeTimeoutConditionAndCatchEClass = createEClass(COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH);
+		declaratorEClass = createEClass(DECLARATOR);
+		createEReference(declaratorEClass, DECLARATOR__IDENTIFIER_OWNED);
+		createEReference(declaratorEClass, DECLARATOR__ARRAY_SIZES);
 
 		dispatchConditionEClass = createEClass(DISPATCH_CONDITION);
 		createEReference(dispatchConditionEClass, DISPATCH_CONDITION__DISPATCH_TRIGGER_CONDITION_OWNED);
@@ -2599,12 +2455,156 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		dispatchTriggerLogicalExpressionEClass = createEClass(DISPATCH_TRIGGER_LOGICAL_EXPRESSION);
 		createEReference(dispatchTriggerLogicalExpressionEClass, DISPATCH_TRIGGER_LOGICAL_EXPRESSION__DISPATCH_CONJUNCTIONS);
 
+		elementEClass = createEClass(ELEMENT);
+		createEReference(elementEClass, ELEMENT__BA_REF);
+		createEReference(elementEClass, ELEMENT__AADL_REF);
+
+		elementValuesEClass = createEClass(ELEMENT_VALUES);
+
+		executeConditionEClass = createEClass(EXECUTE_CONDITION);
+
+		factorEClass = createEClass(FACTOR);
+		createEReference(factorEClass, FACTOR__VALUE_OWNED);
+		createEReference(factorEClass, FACTOR__VALUE_SD_OWNED);
+		createEAttribute(factorEClass, FACTOR__BINARY_NUMERIC_OPERATOR_OWNED);
+		createEAttribute(factorEClass, FACTOR__UNARY_NUMERIC_OPERATOR_OWNED);
+		createEAttribute(factorEClass, FACTOR__UNARY_BOOLEAN_OPERATOR_OWNED);
+
+		forOrForAllStatementEClass = createEClass(FOR_OR_FOR_ALL_STATEMENT);
+		createEReference(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__ELEMENT_IDENTIFIER);
+		createEReference(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE);
+		createEReference(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__ELEMENT_VALUES_OWNED);
+		createEAttribute(forOrForAllStatementEClass, FOR_OR_FOR_ALL_STATEMENT__FOR_ALL);
+
+		identifierEClass = createEClass(IDENTIFIER);
+		createEAttribute(identifierEClass, IDENTIFIER__ID);
+
+		ifStatementEClass = createEClass(IF_STATEMENT);
+		createEAttribute(ifStatementEClass, IF_STATEMENT__HAS_ELSE);
+		createEReference(ifStatementEClass, IF_STATEMENT__LOGICAL_VALUE_EXPRESSIONS);
+		createEReference(ifStatementEClass, IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED);
+
+		integerLiteralEClass = createEClass(INTEGER_LITERAL);
+		createEAttribute(integerLiteralEClass, INTEGER_LITERAL__VALUE);
+		createEAttribute(integerLiteralEClass, INTEGER_LITERAL__BASE);
+
+		integerRangeEClass = createEClass(INTEGER_RANGE);
+		createEReference(integerRangeEClass, INTEGER_RANGE__LOWER_INTEGER_VALUE);
+		createEReference(integerRangeEClass, INTEGER_RANGE__UPPER_INTEGER_VALUE);
+
+		integerValueEClass = createEClass(INTEGER_VALUE);
+
+		integerValueConstantEClass = createEClass(INTEGER_VALUE_CONSTANT);
+
+		integerValueVariableEClass = createEClass(INTEGER_VALUE_VARIABLE);
+
+		literalEClass = createEClass(LITERAL);
+
+		lockActionEClass = createEClass(LOCK_ACTION);
+
+		loopStatementEClass = createEClass(LOOP_STATEMENT);
+		createEReference(loopStatementEClass, LOOP_STATEMENT__BEHAVIOR_ACTIONS_OWNED);
+
+		nameEClass = createEClass(NAME);
+		createEReference(nameEClass, NAME__IDENTIFIER_OWNED);
+		createEReference(nameEClass, NAME__ARRAY_INDEXES);
+
+		namedElementEClass = createEClass(NAMED_ELEMENT);
+		createEAttribute(namedElementEClass, NAMED_ELEMENT__NAME);
+		createEAttribute(namedElementEClass, NAMED_ELEMENT__QUALIFIED_NAME);
+		createEAttribute(namedElementEClass, NAMED_ELEMENT__NAMESPACE_SEPARATOR);
+		createEAttribute(namedElementEClass, NAMED_ELEMENT__NAMESPACE);
+
+		numeralEClass = createEClass(NUMERAL);
+		createEAttribute(numeralEClass, NUMERAL__VALUE);
+
+		numericLiteralEClass = createEClass(NUMERIC_LITERAL);
+		createEAttribute(numericLiteralEClass, NUMERIC_LITERAL__VALUE_STRING);
+
+		otherwiseEClass = createEClass(OTHERWISE);
+
+		parameterLabelEClass = createEClass(PARAMETER_LABEL);
+
+		portCountValueEClass = createEClass(PORT_COUNT_VALUE);
+
+		portDequeueActionEClass = createEClass(PORT_DEQUEUE_ACTION);
+		createEReference(portDequeueActionEClass, PORT_DEQUEUE_ACTION__PORT_NAME);
+		createEReference(portDequeueActionEClass, PORT_DEQUEUE_ACTION__TARGET_OWNED);
+
+		portDequeueValueEClass = createEClass(PORT_DEQUEUE_VALUE);
+
+		portFreezeActionEClass = createEClass(PORT_FREEZE_ACTION);
+
+		portFreshValueEClass = createEClass(PORT_FRESH_VALUE);
+
+		portSendActionEClass = createEClass(PORT_SEND_ACTION);
+		createEReference(portSendActionEClass, PORT_SEND_ACTION__PORT_NAME);
+		createEReference(portSendActionEClass, PORT_SEND_ACTION__VALUE_EXPRESSION_OWNED);
+
+		propertyConstantEClass = createEClass(PROPERTY_CONSTANT);
+
+		propertyValueEClass = createEClass(PROPERTY_VALUE);
+
+		realLiteralEClass = createEClass(REAL_LITERAL);
+		createEAttribute(realLiteralEClass, REAL_LITERAL__VALUE);
+
+		relationEClass = createEClass(RELATION);
+		createEReference(relationEClass, RELATION__SIMPLE_EXPRESSION_OWNED);
+		createEReference(relationEClass, RELATION__SIMPLE_EXPRESSION_SD_OWNED);
+		createEAttribute(relationEClass, RELATION__RELATIONAL_OPERATOR_OWNED);
+
+		sharedDataActionEClass = createEClass(SHARED_DATA_ACTION);
+		createEReference(sharedDataActionEClass, SHARED_DATA_ACTION__DATA_ACCESS_NAME);
+
+		simpleExpressionEClass = createEClass(SIMPLE_EXPRESSION);
+		createEAttribute(simpleExpressionEClass, SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR_OWNED);
+		createEReference(simpleExpressionEClass, SIMPLE_EXPRESSION__TERMS);
+		createEAttribute(simpleExpressionEClass, SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS);
+
+		stringLiteralEClass = createEClass(STRING_LITERAL);
+		createEAttribute(stringLiteralEClass, STRING_LITERAL__VALUE);
+
+		subprogramCallActionEClass = createEClass(SUBPROGRAM_CALL_ACTION);
+		createEReference(subprogramCallActionEClass, SUBPROGRAM_CALL_ACTION__SUBPROGRAM_NAMES);
+		createEReference(subprogramCallActionEClass, SUBPROGRAM_CALL_ACTION__SUBPROGRAM_REFERENCE);
+		createEReference(subprogramCallActionEClass, SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS);
+
+		targetEClass = createEClass(TARGET);
+
+		termEClass = createEClass(TERM);
+		createEReference(termEClass, TERM__FACTORS);
+		createEAttribute(termEClass, TERM__MULTIPLYING_OPERATORS);
+
+		timedActionEClass = createEClass(TIMED_ACTION);
+		createEReference(timedActionEClass, TIMED_ACTION__LOWER_BEHAVIOR_TIME);
+		createEReference(timedActionEClass, TIMED_ACTION__UPPER_BEHAVIOR_TIME);
+
+		timeoutCatchEClass = createEClass(TIMEOUT_CATCH);
+
+		uniqueComponentClassifierReferenceEClass = createEClass(UNIQUE_COMPONENT_CLASSIFIER_REFERENCE);
+
+		unlockActionEClass = createEClass(UNLOCK_ACTION);
+
+		valueEClass = createEClass(VALUE);
+
+		valueConstantEClass = createEClass(VALUE_CONSTANT);
+
+		valueExpressionEClass = createEClass(VALUE_EXPRESSION);
+		createEReference(valueExpressionEClass, VALUE_EXPRESSION__RELATIONS);
+		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__LOGICAL_OPERATORS);
+
+		valueVariableEClass = createEClass(VALUE_VARIABLE);
+
+		whileOrDoUntilStatementEClass = createEClass(WHILE_OR_DO_UNTIL_STATEMENT);
+		createEReference(whileOrDoUntilStatementEClass, WHILE_OR_DO_UNTIL_STATEMENT__LOGICAL_VALUE_EXPRESSION);
+		createEAttribute(whileOrDoUntilStatementEClass, WHILE_OR_DO_UNTIL_STATEMENT__DO_UNTIL);
+
 		// Create enums
 		behaviorAnnexFeatureTypeEEnum = createEEnum(BEHAVIOR_ANNEX_FEATURE_TYPE);
-		dataRepresentationEEnum = createEEnum(DATA_REPRESENTATION);
-		featureTypeEEnum = createEEnum(FEATURE_TYPE);
 		binaryAddingOperatorEEnum = createEEnum(BINARY_ADDING_OPERATOR);
 		binaryNumericOperatorEEnum = createEEnum(BINARY_NUMERIC_OPERATOR);
+		dataRepresentationEEnum = createEEnum(DATA_REPRESENTATION);
+		featureTypeEEnum = createEEnum(FEATURE_TYPE);
 		logicalOperatorEEnum = createEEnum(LOGICAL_OPERATOR);
 		multiplyingOperatorEEnum = createEEnum(MULTIPLYING_OPERATOR);
 		relationalOperatorEEnum = createEEnum(RELATIONAL_OPERATOR);
@@ -2650,57 +2650,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		behaviorAnnexEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
-		behaviorAnnexEClass.getESuperTypes().add(this.getElement());
-		behaviorConditionEClass.getESuperTypes().add(this.getElement());
-		behaviorStateEClass.getESuperTypes().add(this.getElement());
-		behaviorTransitionEClass.getESuperTypes().add(this.getElement());
-		behaviorVariableEClass.getESuperTypes().add(this.getElement());
-		commentEClass.getESuperTypes().add(this.getElement());
-		declaratorEClass.getESuperTypes().add(this.getElement());
-		elementEClass.getESuperTypes().add(theAadl2Package.getElement());
-		executeConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
-		identifierEClass.getESuperTypes().add(this.getElement());
-		identifierEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
-		namedElementEClass.getESuperTypes().add(this.getElement());
-		otherwiseEClass.getESuperTypes().add(this.getExecuteCondition());
-		timeoutCatchEClass.getESuperTypes().add(this.getExecuteCondition());
-		timeoutCatchEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
-		uniqueComponentClassifierReferenceEClass.getESuperTypes().add(this.getNamedElement());
-		behaviorTimeEClass.getESuperTypes().add(this.getElement());
-		booleanLiteralEClass.getESuperTypes().add(this.getLiteral());
-		factorEClass.getESuperTypes().add(this.getElement());
-		integerLiteralEClass.getESuperTypes().add(this.getNumericLiteral());
-		integerRangeEClass.getESuperTypes().add(this.getElementValues());
-		integerValueEClass.getESuperTypes().add(this.getElement());
-		integerValueConstantEClass.getESuperTypes().add(this.getIntegerValue());
-		integerValueVariableEClass.getESuperTypes().add(this.getIntegerValue());
-		literalEClass.getESuperTypes().add(this.getValueConstant());
-		numeralEClass.getESuperTypes().add(this.getElement());
-		numericLiteralEClass.getESuperTypes().add(this.getLiteral());
-		propertyConstantEClass.getESuperTypes().add(this.getNamedElement());
-		propertyConstantEClass.getESuperTypes().add(this.getValueConstant());
-		propertyValueEClass.getESuperTypes().add(this.getNamedElement());
-		propertyValueEClass.getESuperTypes().add(this.getValueConstant());
-		portCountValueEClass.getESuperTypes().add(this.getValueVariable());
-		portCountValueEClass.getESuperTypes().add(this.getName_());
-		portDequeueValueEClass.getESuperTypes().add(this.getValueVariable());
-		portDequeueValueEClass.getESuperTypes().add(this.getName_());
-		portFreshValueEClass.getESuperTypes().add(this.getValueVariable());
-		portFreshValueEClass.getESuperTypes().add(this.getName_());
-		realLiteralEClass.getESuperTypes().add(this.getNumericLiteral());
-		relationEClass.getESuperTypes().add(this.getElement());
-		simpleExpressionEClass.getESuperTypes().add(this.getElement());
-		stringLiteralEClass.getESuperTypes().add(this.getLiteral());
-		termEClass.getESuperTypes().add(this.getElement());
-		valueEClass.getESuperTypes().add(this.getElement());
-		valueConstantEClass.getESuperTypes().add(this.getValue());
-		valueConstantEClass.getESuperTypes().add(this.getIntegerValueConstant());
-		valueExpressionEClass.getESuperTypes().add(this.getValue());
-		valueExpressionEClass.getESuperTypes().add(this.getParameterLabel());
-		valueExpressionEClass.getESuperTypes().add(this.getExecuteCondition());
-		valueVariableEClass.getESuperTypes().add(this.getValue());
-		valueVariableEClass.getESuperTypes().add(this.getIntegerValueVariable());
 		assignmentActionEClass.getESuperTypes().add(this.getBasicAction());
 		basicActionEClass.getESuperTypes().add(this.getBehaviorAction());
 		behaviorActionEClass.getESuperTypes().add(this.getBehaviorActions());
@@ -2710,169 +2659,91 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		behaviorActionsEClass.getESuperTypes().add(this.getElement());
 		behaviorActionSequenceEClass.getESuperTypes().add(this.getBehaviorActionCollection());
 		behaviorActionSetEClass.getESuperTypes().add(this.getBehaviorActionCollection());
+		behaviorAnnexEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
+		behaviorAnnexEClass.getESuperTypes().add(this.getElement());
+		behaviorConditionEClass.getESuperTypes().add(this.getElement());
+		behaviorStateEClass.getESuperTypes().add(this.getElement());
+		behaviorTimeEClass.getESuperTypes().add(this.getElement());
+		behaviorTransitionEClass.getESuperTypes().add(this.getElement());
+		behaviorVariableEClass.getESuperTypes().add(this.getElement());
+		booleanLiteralEClass.getESuperTypes().add(this.getLiteral());
+		commentEClass.getESuperTypes().add(this.getElement());
 		communicationActionEClass.getESuperTypes().add(this.getBasicAction());
+		completionRelativeTimeoutConditionAndCatchEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
+		completionRelativeTimeoutConditionAndCatchEClass.getESuperTypes().add(this.getBehaviorTime());
 		condStatementEClass.getESuperTypes().add(this.getBehaviorAction());
 		dataComponentReferenceEClass.getESuperTypes().add(this.getElementValues());
 		dataComponentReferenceEClass.getESuperTypes().add(this.getTarget());
 		dataComponentReferenceEClass.getESuperTypes().add(this.getValueVariable());
-		elementValuesEClass.getESuperTypes().add(this.getElement());
-		forOrForAllStatementEClass.getESuperTypes().add(this.getLoopStatement());
-		ifStatementEClass.getESuperTypes().add(this.getCondStatement());
-		lockActionEClass.getESuperTypes().add(this.getSharedDataAction());
-		loopStatementEClass.getESuperTypes().add(this.getCondStatement());
-		nameEClass.getESuperTypes().add(this.getElementValues());
-		nameEClass.getESuperTypes().add(this.getTarget());
-		nameEClass.getESuperTypes().add(this.getValueVariable());
-		parameterLabelEClass.getESuperTypes().add(this.getElement());
-		portDequeueActionEClass.getESuperTypes().add(this.getCommunicationAction());
-		portFreezeActionEClass.getESuperTypes().add(this.getCommunicationAction());
-		portFreezeActionEClass.getESuperTypes().add(this.getName_());
-		portSendActionEClass.getESuperTypes().add(this.getCommunicationAction());
-		sharedDataActionEClass.getESuperTypes().add(this.getCommunicationAction());
-		subprogramCallActionEClass.getESuperTypes().add(this.getCommunicationAction());
-		targetEClass.getESuperTypes().add(this.getParameterLabel());
-		targetEClass.getESuperTypes().add(this.getElement());
-		timedActionEClass.getESuperTypes().add(this.getBasicAction());
-		unlockActionEClass.getESuperTypes().add(this.getSharedDataAction());
-		whileOrDoUntilStatementEClass.getESuperTypes().add(this.getLoopStatement());
-		completionRelativeTimeoutConditionAndCatchEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
-		completionRelativeTimeoutConditionAndCatchEClass.getESuperTypes().add(this.getBehaviorTime());
+		declaratorEClass.getESuperTypes().add(this.getElement());
 		dispatchConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
 		dispatchConjunctionEClass.getESuperTypes().add(this.getElement());
 		dispatchTriggerConditionEClass.getESuperTypes().add(this.getElement());
 		dispatchTriggerConditionStopEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
 		dispatchTriggerLogicalExpressionEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
+		elementEClass.getESuperTypes().add(theAadl2Package.getElement());
+		elementValuesEClass.getESuperTypes().add(this.getElement());
+		executeConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
+		factorEClass.getESuperTypes().add(this.getElement());
+		forOrForAllStatementEClass.getESuperTypes().add(this.getLoopStatement());
+		identifierEClass.getESuperTypes().add(this.getElement());
+		identifierEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
+		ifStatementEClass.getESuperTypes().add(this.getCondStatement());
+		integerLiteralEClass.getESuperTypes().add(this.getNumericLiteral());
+		integerRangeEClass.getESuperTypes().add(this.getElementValues());
+		integerValueEClass.getESuperTypes().add(this.getElement());
+		integerValueConstantEClass.getESuperTypes().add(this.getIntegerValue());
+		integerValueVariableEClass.getESuperTypes().add(this.getIntegerValue());
+		literalEClass.getESuperTypes().add(this.getValueConstant());
+		lockActionEClass.getESuperTypes().add(this.getSharedDataAction());
+		loopStatementEClass.getESuperTypes().add(this.getCondStatement());
+		nameEClass.getESuperTypes().add(this.getElementValues());
+		nameEClass.getESuperTypes().add(this.getTarget());
+		nameEClass.getESuperTypes().add(this.getValueVariable());
+		namedElementEClass.getESuperTypes().add(this.getElement());
+		numeralEClass.getESuperTypes().add(this.getElement());
+		numericLiteralEClass.getESuperTypes().add(this.getLiteral());
+		otherwiseEClass.getESuperTypes().add(this.getExecuteCondition());
+		parameterLabelEClass.getESuperTypes().add(this.getElement());
+		portCountValueEClass.getESuperTypes().add(this.getValueVariable());
+		portCountValueEClass.getESuperTypes().add(this.getName_());
+		portDequeueActionEClass.getESuperTypes().add(this.getCommunicationAction());
+		portDequeueValueEClass.getESuperTypes().add(this.getValueVariable());
+		portDequeueValueEClass.getESuperTypes().add(this.getName_());
+		portFreezeActionEClass.getESuperTypes().add(this.getCommunicationAction());
+		portFreezeActionEClass.getESuperTypes().add(this.getName_());
+		portFreshValueEClass.getESuperTypes().add(this.getValueVariable());
+		portFreshValueEClass.getESuperTypes().add(this.getName_());
+		portSendActionEClass.getESuperTypes().add(this.getCommunicationAction());
+		propertyConstantEClass.getESuperTypes().add(this.getNamedElement());
+		propertyConstantEClass.getESuperTypes().add(this.getValueConstant());
+		propertyValueEClass.getESuperTypes().add(this.getNamedElement());
+		propertyValueEClass.getESuperTypes().add(this.getValueConstant());
+		realLiteralEClass.getESuperTypes().add(this.getNumericLiteral());
+		relationEClass.getESuperTypes().add(this.getElement());
+		sharedDataActionEClass.getESuperTypes().add(this.getCommunicationAction());
+		simpleExpressionEClass.getESuperTypes().add(this.getElement());
+		stringLiteralEClass.getESuperTypes().add(this.getLiteral());
+		subprogramCallActionEClass.getESuperTypes().add(this.getCommunicationAction());
+		targetEClass.getESuperTypes().add(this.getParameterLabel());
+		targetEClass.getESuperTypes().add(this.getElement());
+		termEClass.getESuperTypes().add(this.getElement());
+		timedActionEClass.getESuperTypes().add(this.getBasicAction());
+		timeoutCatchEClass.getESuperTypes().add(this.getExecuteCondition());
+		timeoutCatchEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
+		uniqueComponentClassifierReferenceEClass.getESuperTypes().add(this.getNamedElement());
+		unlockActionEClass.getESuperTypes().add(this.getSharedDataAction());
+		valueEClass.getESuperTypes().add(this.getElement());
+		valueConstantEClass.getESuperTypes().add(this.getValue());
+		valueConstantEClass.getESuperTypes().add(this.getIntegerValueConstant());
+		valueExpressionEClass.getESuperTypes().add(this.getValue());
+		valueExpressionEClass.getESuperTypes().add(this.getParameterLabel());
+		valueExpressionEClass.getESuperTypes().add(this.getExecuteCondition());
+		valueVariableEClass.getESuperTypes().add(this.getValue());
+		valueVariableEClass.getESuperTypes().add(this.getIntegerValueVariable());
+		whileOrDoUntilStatementEClass.getESuperTypes().add(this.getLoopStatement());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(behaviorAnnexEClass, BehaviorAnnex.class, "BehaviorAnnex", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBehaviorAnnex_BehaviorVariables(), this.getBehaviorVariable(), null, "behaviorVariables", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorAnnex_BehaviorStates(), this.getBehaviorState(), null, "behaviorStates", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorAnnex_BehaviorTransitions(), this.getBehaviorTransition(), null, "behaviorTransitions", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(behaviorConditionEClass, BehaviorCondition.class, "BehaviorCondition", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(behaviorStateEClass, BehaviorState.class, "BehaviorState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBehaviorState_Identifiers(), this.getIdentifier(), null, "identifiers", null, 1, -1, BehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorState_Initial(), this.getBoolean(), "initial", "false", 1, 1, BehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorState_Complete(), this.getBoolean(), "complete", "false", 1, 1, BehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorState_Final(), this.getBoolean(), "final", "false", 1, 1, BehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(behaviorTransitionEClass, BehaviorTransition.class, "BehaviorTransition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBehaviorTransition_TransitionIdentifier(), this.getIdentifier(), null, "transitionIdentifier", null, 0, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorTransition_SourceStateIdentifiers(), this.getIdentifier(), null, "sourceStateIdentifiers", null, 1, -1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorTransition_BehaviorConditionOwned(), this.getBehaviorCondition(), null, "behaviorConditionOwned", null, 1, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorTransition_DestinationStateIdentifier(), this.getIdentifier(), null, "destinationStateIdentifier", null, 1, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorTransition_BehaviorActionBlockOwned(), this.getBehaviorActionBlock(), null, "behaviorActionBlockOwned", null, 0, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorTransition_BehaviorTransitionPriority(), this.getNumeral(), null, "behaviorTransitionPriority", null, 0, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(behaviorVariableEClass, BehaviorVariable.class, "BehaviorVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBehaviorVariable_LocalVariableDeclarators(), this.getDeclarator(), null, "LocalVariableDeclarators", null, 1, -1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorVariable_DataUniqueComponentClassifierReference(), this.getUniqueComponentClassifierReference(), null, "DataUniqueComponentClassifierReference", null, 1, 1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(commentEClass, Comment.class, "Comment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getComment_Body(), this.getString(), "body", null, 0, 1, Comment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(declaratorEClass, Declarator.class, "Declarator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDeclarator_IdentifierOwned(), this.getIdentifier(), null, "identifierOwned", null, 1, 1, Declarator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDeclarator_ArraySizes(), this.getIntegerValueConstant(), null, "arraySizes", null, 0, -1, Declarator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(elementEClass, Element.class, "Element", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getElement_BaRef(), this.getElement(), null, "baRef", null, 0, 1, Element.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getElement_AadlRef(), theAadl2Package.getElement(), null, "aadlRef", null, 0, 1, Element.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(executeConditionEClass, ExecuteCondition.class, "ExecuteCondition", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(identifierEClass, Identifier.class, "Identifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIdentifier_Id(), this.getString(), "id", null, 0, 1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(namedElementEClass, NamedElement.class, "NamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getNamedElement_Name(), this.getString(), "name", null, 1, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getNamedElement_QualifiedName(), this.getString(), "qualifiedName", null, 1, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getNamedElement_NamespaceSeparator(), this.getString(), "namespaceSeparator", null, 0, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getNamedElement_Namespace(), this.getString(), "namespace", null, 0, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(otherwiseEClass, Otherwise.class, "Otherwise", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(timeoutCatchEClass, TimeoutCatch.class, "TimeoutCatch", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(uniqueComponentClassifierReferenceEClass, UniqueComponentClassifierReference.class, "UniqueComponentClassifierReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(behaviorTimeEClass, BehaviorTime.class, "BehaviorTime", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBehaviorTime_IntegerValueOwned(), this.getIntegerValue(), null, "integerValueOwned", null, 1, 1, BehaviorTime.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorTime_UnitIdentifier(), this.getIdentifier(), null, "unitIdentifier", null, 1, 1, BehaviorTime.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(booleanLiteralEClass, BooleanLiteral.class, "BooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBooleanLiteral_Value(), this.getBoolean(), "value", "false", 0, 1, BooleanLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(factorEClass, Factor.class, "Factor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFactor_ValueOwned(), this.getValue(), null, "valueOwned", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFactor_ValueSdOwned(), this.getValue(), null, "valueSdOwned", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFactor_BinaryNumericOperatorOwned(), this.getBinaryNumericOperator(), "binaryNumericOperatorOwned", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFactor_UnaryNumericOperatorOwned(), this.getUnaryNumericOperator(), "unaryNumericOperatorOwned", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFactor_UnaryBooleanOperatorOwned(), this.getUnaryBooleanOperator(), "unaryBooleanOperatorOwned", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(integerLiteralEClass, IntegerLiteral.class, "IntegerLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIntegerLiteral_Value(), theAadl2Package.getInteger(), "value", "-1", 1, 1, IntegerLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIntegerLiteral_Base(), this.getInteger(), "base", "-1", 1, 1, IntegerLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(integerRangeEClass, IntegerRange.class, "IntegerRange", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getIntegerRange_LowerIntegerValue(), this.getIntegerValue(), null, "lowerIntegerValue", null, 1, 1, IntegerRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIntegerRange_UpperIntegerValue(), this.getIntegerValue(), null, "upperIntegerValue", null, 1, 1, IntegerRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(integerValueEClass, IntegerValue.class, "IntegerValue", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(integerValueConstantEClass, IntegerValueConstant.class, "IntegerValueConstant", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(integerValueVariableEClass, IntegerValueVariable.class, "IntegerValueVariable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(literalEClass, Literal.class, "Literal", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(numeralEClass, Numeral.class, "Numeral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getNumeral_Value(), this.getInteger(), "value", null, 0, 1, Numeral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(numericLiteralEClass, NumericLiteral.class, "NumericLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getNumericLiteral_ValueString(), this.getString(), "valueString", null, 1, 1, NumericLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(propertyConstantEClass, PropertyConstant.class, "PropertyConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(propertyValueEClass, PropertyValue.class, "PropertyValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(portCountValueEClass, PortCountValue.class, "PortCountValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(portDequeueValueEClass, PortDequeueValue.class, "PortDequeueValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(portFreshValueEClass, PortFreshValue.class, "PortFreshValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(realLiteralEClass, RealLiteral.class, "RealLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRealLiteral_Value(), this.getReal(), "value", "-1.0", 0, 1, RealLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(relationEClass, Relation.class, "Relation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRelation_SimpleExpressionOwned(), this.getSimpleExpression(), null, "simpleExpressionOwned", null, 1, 1, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRelation_SimpleExpressionSdOwned(), this.getSimpleExpression(), null, "simpleExpressionSdOwned", null, 0, 1, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRelation_RelationalOperatorOwned(), this.getRelationalOperator(), "relationalOperatorOwned", null, 0, 1, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(simpleExpressionEClass, SimpleExpression.class, "SimpleExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSimpleExpression_UnaryAddingOperatorOwned(), this.getUnaryAddingOperator(), "unaryAddingOperatorOwned", null, 0, 1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSimpleExpression_Terms(), this.getTerm(), null, "terms", null, 1, -1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSimpleExpression_BinaryAddingOperators(), this.getBinaryAddingOperator(), "binaryAddingOperators", null, 0, -1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(stringLiteralEClass, StringLiteral.class, "StringLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getStringLiteral_Value(), this.getString(), "value", null, 1, 1, StringLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(termEClass, Term.class, "Term", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTerm_Factors(), this.getFactor(), null, "factors", null, 1, -1, Term.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTerm_MultiplyingOperators(), this.getMultiplyingOperator(), "multiplyingOperators", null, 0, -1, Term.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(valueEClass, Value.class, "Value", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(valueConstantEClass, ValueConstant.class, "ValueConstant", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(valueExpressionEClass, ValueExpression.class, "ValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getValueExpression_Relations(), this.getRelation(), null, "relations", null, 1, -1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getValueExpression_LogicalOperators(), this.getLogicalOperator(), "logicalOperators", null, 0, -1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(valueVariableEClass, ValueVariable.class, "ValueVariable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(assignmentActionEClass, AssignmentAction.class, "AssignmentAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAssignmentAction_TargetOwned(), this.getTarget(), null, "targetOwned", null, 1, 1, AssignmentAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAssignmentAction_ValueExpressionOwned(), this.getValueExpression(), null, "valueExpressionOwned", null, 0, 1, AssignmentAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2895,68 +2766,53 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(behaviorActionSetEClass, BehaviorActionSet.class, "BehaviorActionSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(behaviorAnnexEClass, BehaviorAnnex.class, "BehaviorAnnex", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBehaviorAnnex_BehaviorVariables(), this.getBehaviorVariable(), null, "behaviorVariables", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorAnnex_BehaviorStates(), this.getBehaviorState(), null, "behaviorStates", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorAnnex_BehaviorTransitions(), this.getBehaviorTransition(), null, "behaviorTransitions", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(behaviorConditionEClass, BehaviorCondition.class, "BehaviorCondition", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(behaviorStateEClass, BehaviorState.class, "BehaviorState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBehaviorState_Identifiers(), this.getIdentifier(), null, "identifiers", null, 1, -1, BehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorState_Initial(), this.getBoolean(), "initial", "false", 1, 1, BehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorState_Complete(), this.getBoolean(), "complete", "false", 1, 1, BehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorState_Final(), this.getBoolean(), "final", "false", 1, 1, BehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(behaviorTimeEClass, BehaviorTime.class, "BehaviorTime", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBehaviorTime_IntegerValueOwned(), this.getIntegerValue(), null, "integerValueOwned", null, 1, 1, BehaviorTime.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorTime_UnitIdentifier(), this.getIdentifier(), null, "unitIdentifier", null, 1, 1, BehaviorTime.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(behaviorTransitionEClass, BehaviorTransition.class, "BehaviorTransition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBehaviorTransition_TransitionIdentifier(), this.getIdentifier(), null, "transitionIdentifier", null, 0, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorTransition_SourceStateIdentifiers(), this.getIdentifier(), null, "sourceStateIdentifiers", null, 1, -1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorTransition_BehaviorConditionOwned(), this.getBehaviorCondition(), null, "behaviorConditionOwned", null, 1, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorTransition_DestinationStateIdentifier(), this.getIdentifier(), null, "destinationStateIdentifier", null, 1, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorTransition_BehaviorActionBlockOwned(), this.getBehaviorActionBlock(), null, "behaviorActionBlockOwned", null, 0, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorTransition_BehaviorTransitionPriority(), this.getNumeral(), null, "behaviorTransitionPriority", null, 0, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(behaviorVariableEClass, BehaviorVariable.class, "BehaviorVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBehaviorVariable_LocalVariableDeclarators(), this.getDeclarator(), null, "LocalVariableDeclarators", null, 1, -1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorVariable_DataUniqueComponentClassifierReference(), this.getUniqueComponentClassifierReference(), null, "DataUniqueComponentClassifierReference", null, 1, 1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(booleanLiteralEClass, BooleanLiteral.class, "BooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBooleanLiteral_Value(), this.getBoolean(), "value", "false", 0, 1, BooleanLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(commentEClass, Comment.class, "Comment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getComment_Body(), this.getString(), "body", null, 0, 1, Comment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
 		initEClass(communicationActionEClass, CommunicationAction.class, "CommunicationAction", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(completionRelativeTimeoutConditionAndCatchEClass, CompletionRelativeTimeoutConditionAndCatch.class, "CompletionRelativeTimeoutConditionAndCatch", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(condStatementEClass, CondStatement.class, "CondStatement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(dataComponentReferenceEClass, DataComponentReference.class, "DataComponentReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataComponentReference_Names(), this.getName_(), null, "names", null, 1, -1, DataComponentReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(elementValuesEClass, ElementValues.class, "ElementValues", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(forOrForAllStatementEClass, ForOrForAllStatement.class, "ForOrForAllStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getForOrForAllStatement_ElementIdentifier(), this.getIdentifier(), null, "elementIdentifier", null, 1, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getForOrForAllStatement_DataUniqueComponentClassifierReference(), this.getUniqueComponentClassifierReference(), null, "dataUniqueComponentClassifierReference", null, 1, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getForOrForAllStatement_ElementValuesOwned(), this.getElementValues(), null, "elementValuesOwned", null, 1, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getForOrForAllStatement_ForAll(), this.getBoolean(), "forAll", "false", 0, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(ifStatementEClass, IfStatement.class, "IfStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIfStatement_HasElse(), this.getBoolean(), "hasElse", "false", 0, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIfStatement_LogicalValueExpressions(), this.getValueExpression(), null, "logicalValueExpressions", null, 1, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIfStatement_BehaviorActionsOwned(), this.getBehaviorActions(), null, "behaviorActionsOwned", null, 1, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(lockActionEClass, LockAction.class, "LockAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(loopStatementEClass, LoopStatement.class, "LoopStatement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLoopStatement_BehaviorActionsOwned(), this.getBehaviorActions(), null, "behaviorActionsOwned", null, 1, 1, LoopStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(nameEClass, Name.class, "Name", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getName_IdentifierOwned(), this.getIdentifier(), null, "identifierOwned", null, 1, 1, Name.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getName_ArrayIndexes(), this.getIntegerValueVariable(), null, "arrayIndexes", null, 0, -1, Name.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(parameterLabelEClass, ParameterLabel.class, "ParameterLabel", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(portDequeueActionEClass, PortDequeueAction.class, "PortDequeueAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPortDequeueAction_PortName(), this.getName_(), null, "portName", null, 1, 1, PortDequeueAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPortDequeueAction_TargetOwned(), this.getTarget(), null, "targetOwned", null, 0, 1, PortDequeueAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(portFreezeActionEClass, PortFreezeAction.class, "PortFreezeAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(portSendActionEClass, PortSendAction.class, "PortSendAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPortSendAction_PortName(), this.getName_(), null, "portName", null, 1, 1, PortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPortSendAction_ValueExpressionOwned(), this.getValueExpression(), null, "valueExpressionOwned", null, 0, 1, PortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(sharedDataActionEClass, SharedDataAction.class, "SharedDataAction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSharedDataAction_DataAccessName(), this.getName_(), null, "dataAccessName", null, 0, 1, SharedDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(subprogramCallActionEClass, SubprogramCallAction.class, "SubprogramCallAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSubprogramCallAction_SubprogramNames(), this.getName_(), null, "subprogramNames", null, 0, 2, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSubprogramCallAction_SubprogramReference(), this.getUniqueComponentClassifierReference(), null, "subprogramReference", null, 0, 1, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSubprogramCallAction_ParameterLabels(), this.getParameterLabel(), null, "parameterLabels", null, 0, -1, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(targetEClass, Target.class, "Target", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(timedActionEClass, TimedAction.class, "TimedAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTimedAction_LowerBehaviorTime(), this.getBehaviorTime(), null, "lowerBehaviorTime", null, 1, 1, TimedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTimedAction_UpperBehaviorTime(), this.getBehaviorTime(), null, "upperBehaviorTime", null, 0, 1, TimedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(unlockActionEClass, UnlockAction.class, "UnlockAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(whileOrDoUntilStatementEClass, WhileOrDoUntilStatement.class, "WhileOrDoUntilStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getWhileOrDoUntilStatement_LogicalValueExpression(), this.getValueExpression(), null, "logicalValueExpression", null, 1, 1, WhileOrDoUntilStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getWhileOrDoUntilStatement_DoUntil(), this.getBoolean(), "doUntil", "false", 0, 1, WhileOrDoUntilStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(completionRelativeTimeoutConditionAndCatchEClass, CompletionRelativeTimeoutConditionAndCatch.class, "CompletionRelativeTimeoutConditionAndCatch", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(declaratorEClass, Declarator.class, "Declarator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDeclarator_IdentifierOwned(), this.getIdentifier(), null, "identifierOwned", null, 1, 1, Declarator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDeclarator_ArraySizes(), this.getIntegerValueConstant(), null, "arraySizes", null, 0, -1, Declarator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dispatchConditionEClass, DispatchCondition.class, "DispatchCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDispatchCondition_DispatchTriggerConditionOwned(), this.getDispatchTriggerCondition(), null, "dispatchTriggerConditionOwned", null, 0, 1, DispatchCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2972,20 +2828,173 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		initEClass(dispatchTriggerLogicalExpressionEClass, DispatchTriggerLogicalExpression.class, "DispatchTriggerLogicalExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDispatchTriggerLogicalExpression_DispatchConjunctions(), this.getDispatchConjunction(), null, "dispatchConjunctions", null, 1, -1, DispatchTriggerLogicalExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(elementEClass, Element.class, "Element", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getElement_BaRef(), this.getElement(), null, "baRef", null, 0, 1, Element.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getElement_AadlRef(), theAadl2Package.getElement(), null, "aadlRef", null, 0, 1, Element.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(elementValuesEClass, ElementValues.class, "ElementValues", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(executeConditionEClass, ExecuteCondition.class, "ExecuteCondition", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(factorEClass, Factor.class, "Factor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFactor_ValueOwned(), this.getValue(), null, "valueOwned", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFactor_ValueSdOwned(), this.getValue(), null, "valueSdOwned", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFactor_BinaryNumericOperatorOwned(), this.getBinaryNumericOperator(), "binaryNumericOperatorOwned", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFactor_UnaryNumericOperatorOwned(), this.getUnaryNumericOperator(), "unaryNumericOperatorOwned", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFactor_UnaryBooleanOperatorOwned(), this.getUnaryBooleanOperator(), "unaryBooleanOperatorOwned", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(forOrForAllStatementEClass, ForOrForAllStatement.class, "ForOrForAllStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getForOrForAllStatement_ElementIdentifier(), this.getIdentifier(), null, "elementIdentifier", null, 1, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getForOrForAllStatement_DataUniqueComponentClassifierReference(), this.getUniqueComponentClassifierReference(), null, "dataUniqueComponentClassifierReference", null, 1, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getForOrForAllStatement_ElementValuesOwned(), this.getElementValues(), null, "elementValuesOwned", null, 1, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getForOrForAllStatement_ForAll(), this.getBoolean(), "forAll", "false", 0, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(identifierEClass, Identifier.class, "Identifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIdentifier_Id(), this.getString(), "id", null, 0, 1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(ifStatementEClass, IfStatement.class, "IfStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIfStatement_HasElse(), this.getBoolean(), "hasElse", "false", 0, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIfStatement_LogicalValueExpressions(), this.getValueExpression(), null, "logicalValueExpressions", null, 1, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIfStatement_BehaviorActionsOwned(), this.getBehaviorActions(), null, "behaviorActionsOwned", null, 1, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(integerLiteralEClass, IntegerLiteral.class, "IntegerLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIntegerLiteral_Value(), theAadl2Package.getInteger(), "value", "-1", 1, 1, IntegerLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIntegerLiteral_Base(), this.getInteger(), "base", "-1", 1, 1, IntegerLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(integerRangeEClass, IntegerRange.class, "IntegerRange", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getIntegerRange_LowerIntegerValue(), this.getIntegerValue(), null, "lowerIntegerValue", null, 1, 1, IntegerRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIntegerRange_UpperIntegerValue(), this.getIntegerValue(), null, "upperIntegerValue", null, 1, 1, IntegerRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(integerValueEClass, IntegerValue.class, "IntegerValue", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(integerValueConstantEClass, IntegerValueConstant.class, "IntegerValueConstant", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(integerValueVariableEClass, IntegerValueVariable.class, "IntegerValueVariable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(literalEClass, Literal.class, "Literal", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(lockActionEClass, LockAction.class, "LockAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(loopStatementEClass, LoopStatement.class, "LoopStatement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLoopStatement_BehaviorActionsOwned(), this.getBehaviorActions(), null, "behaviorActionsOwned", null, 1, 1, LoopStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(nameEClass, Name.class, "Name", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getName_IdentifierOwned(), this.getIdentifier(), null, "identifierOwned", null, 1, 1, Name.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getName_ArrayIndexes(), this.getIntegerValueVariable(), null, "arrayIndexes", null, 0, -1, Name.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(namedElementEClass, NamedElement.class, "NamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getNamedElement_Name(), this.getString(), "name", null, 1, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getNamedElement_QualifiedName(), this.getString(), "qualifiedName", null, 1, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getNamedElement_NamespaceSeparator(), this.getString(), "namespaceSeparator", null, 0, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNamedElement_Namespace(), this.getString(), "namespace", null, 0, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(numeralEClass, Numeral.class, "Numeral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getNumeral_Value(), this.getInteger(), "value", null, 0, 1, Numeral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(numericLiteralEClass, NumericLiteral.class, "NumericLiteral", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getNumericLiteral_ValueString(), this.getString(), "valueString", null, 1, 1, NumericLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(otherwiseEClass, Otherwise.class, "Otherwise", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(parameterLabelEClass, ParameterLabel.class, "ParameterLabel", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(portCountValueEClass, PortCountValue.class, "PortCountValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(portDequeueActionEClass, PortDequeueAction.class, "PortDequeueAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPortDequeueAction_PortName(), this.getName_(), null, "portName", null, 1, 1, PortDequeueAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPortDequeueAction_TargetOwned(), this.getTarget(), null, "targetOwned", null, 0, 1, PortDequeueAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(portDequeueValueEClass, PortDequeueValue.class, "PortDequeueValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(portFreezeActionEClass, PortFreezeAction.class, "PortFreezeAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(portFreshValueEClass, PortFreshValue.class, "PortFreshValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(portSendActionEClass, PortSendAction.class, "PortSendAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPortSendAction_PortName(), this.getName_(), null, "portName", null, 1, 1, PortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPortSendAction_ValueExpressionOwned(), this.getValueExpression(), null, "valueExpressionOwned", null, 0, 1, PortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(propertyConstantEClass, PropertyConstant.class, "PropertyConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(propertyValueEClass, PropertyValue.class, "PropertyValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(realLiteralEClass, RealLiteral.class, "RealLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRealLiteral_Value(), this.getReal(), "value", "-1.0", 0, 1, RealLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(relationEClass, Relation.class, "Relation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRelation_SimpleExpressionOwned(), this.getSimpleExpression(), null, "simpleExpressionOwned", null, 1, 1, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRelation_SimpleExpressionSdOwned(), this.getSimpleExpression(), null, "simpleExpressionSdOwned", null, 0, 1, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRelation_RelationalOperatorOwned(), this.getRelationalOperator(), "relationalOperatorOwned", null, 0, 1, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(sharedDataActionEClass, SharedDataAction.class, "SharedDataAction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSharedDataAction_DataAccessName(), this.getName_(), null, "dataAccessName", null, 0, 1, SharedDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(simpleExpressionEClass, SimpleExpression.class, "SimpleExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSimpleExpression_UnaryAddingOperatorOwned(), this.getUnaryAddingOperator(), "unaryAddingOperatorOwned", null, 0, 1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSimpleExpression_Terms(), this.getTerm(), null, "terms", null, 1, -1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSimpleExpression_BinaryAddingOperators(), this.getBinaryAddingOperator(), "binaryAddingOperators", null, 0, -1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stringLiteralEClass, StringLiteral.class, "StringLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStringLiteral_Value(), this.getString(), "value", null, 1, 1, StringLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(subprogramCallActionEClass, SubprogramCallAction.class, "SubprogramCallAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSubprogramCallAction_SubprogramNames(), this.getName_(), null, "subprogramNames", null, 0, 2, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSubprogramCallAction_SubprogramReference(), this.getUniqueComponentClassifierReference(), null, "subprogramReference", null, 0, 1, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSubprogramCallAction_ParameterLabels(), this.getParameterLabel(), null, "parameterLabels", null, 0, -1, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(targetEClass, Target.class, "Target", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(termEClass, Term.class, "Term", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTerm_Factors(), this.getFactor(), null, "factors", null, 1, -1, Term.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTerm_MultiplyingOperators(), this.getMultiplyingOperator(), "multiplyingOperators", null, 0, -1, Term.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(timedActionEClass, TimedAction.class, "TimedAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTimedAction_LowerBehaviorTime(), this.getBehaviorTime(), null, "lowerBehaviorTime", null, 1, 1, TimedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTimedAction_UpperBehaviorTime(), this.getBehaviorTime(), null, "upperBehaviorTime", null, 0, 1, TimedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(timeoutCatchEClass, TimeoutCatch.class, "TimeoutCatch", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(uniqueComponentClassifierReferenceEClass, UniqueComponentClassifierReference.class, "UniqueComponentClassifierReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(unlockActionEClass, UnlockAction.class, "UnlockAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(valueEClass, Value.class, "Value", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(valueConstantEClass, ValueConstant.class, "ValueConstant", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(valueExpressionEClass, ValueExpression.class, "ValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getValueExpression_Relations(), this.getRelation(), null, "relations", null, 1, -1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getValueExpression_LogicalOperators(), this.getLogicalOperator(), "logicalOperators", null, 0, -1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(valueVariableEClass, ValueVariable.class, "ValueVariable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(whileOrDoUntilStatementEClass, WhileOrDoUntilStatement.class, "WhileOrDoUntilStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getWhileOrDoUntilStatement_LogicalValueExpression(), this.getValueExpression(), null, "logicalValueExpression", null, 1, 1, WhileOrDoUntilStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWhileOrDoUntilStatement_DoUntil(), this.getBoolean(), "doUntil", "false", 0, 1, WhileOrDoUntilStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(behaviorAnnexFeatureTypeEEnum, BehaviorAnnexFeatureType.class, "BehaviorAnnexFeatureType");
 		addEEnumLiteral(behaviorAnnexFeatureTypeEEnum, BehaviorAnnexFeatureType.NONE);
 		addEEnumLiteral(behaviorAnnexFeatureTypeEEnum, BehaviorAnnexFeatureType.BEHAVIOR_VARIABLE);
 		addEEnumLiteral(behaviorAnnexFeatureTypeEEnum, BehaviorAnnexFeatureType.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE);
 
+		initEEnum(binaryAddingOperatorEEnum, BinaryAddingOperator.class, "BinaryAddingOperator");
+		addEEnumLiteral(binaryAddingOperatorEEnum, BinaryAddingOperator.NONE);
+		addEEnumLiteral(binaryAddingOperatorEEnum, BinaryAddingOperator.PLUS);
+		addEEnumLiteral(binaryAddingOperatorEEnum, BinaryAddingOperator.MINUS);
+
+		initEEnum(binaryNumericOperatorEEnum, BinaryNumericOperator.class, "BinaryNumericOperator");
+		addEEnumLiteral(binaryNumericOperatorEEnum, BinaryNumericOperator.NONE);
+		addEEnumLiteral(binaryNumericOperatorEEnum, BinaryNumericOperator.MULTIPLY_MULTIPLY);
+
 		initEEnum(dataRepresentationEEnum, DataRepresentation.class, "DataRepresentation");
-      addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.UNKNOWN);
-      addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.INTEGER);
-      addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.FLOAT);
-      addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.CHARACTER);
-      addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.BOOLEAN);
-      addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.STRING);
-		
+		addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.UNKNOWN);
+		addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.INTEGER);
+		addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.FLOAT);
+		addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.CHARACTER);
+		addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.BOOLEAN);
+		addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.STRING);
+
 		initEEnum(featureTypeEEnum, FeatureType.class, "FeatureType");
 		addEEnumLiteral(featureTypeEEnum, FeatureType.NONE);
 		addEEnumLiteral(featureTypeEEnum, FeatureType.IN_DATA_PORT);
@@ -3004,6 +3013,12 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		addEEnumLiteral(featureTypeEEnum, FeatureType.SUBPROGRAM_SUBCOMPONENT);
 		addEEnumLiteral(featureTypeEEnum, FeatureType.SUBPROGRAM_CLASSIFIER);
 		addEEnumLiteral(featureTypeEEnum, FeatureType.SUBPROGRAM_PROTOTYPE);
+		addEEnumLiteral(featureTypeEEnum, FeatureType.COMPONENT_PROTOTYPE);
+		addEEnumLiteral(featureTypeEEnum, FeatureType.COMPONENT_PROTOTYPE_BINDING);
+		addEEnumLiteral(featureTypeEEnum, FeatureType.FEATURE_PROTOTYPE);
+		addEEnumLiteral(featureTypeEEnum, FeatureType.FEATURE_PROTOTYPE_BINDING);
+		addEEnumLiteral(featureTypeEEnum, FeatureType.FEATURE_GROUP_PROTOTYPE);
+		addEEnumLiteral(featureTypeEEnum, FeatureType.FEATURE_GROUP_PROTOTYPE_BINDING);
 		addEEnumLiteral(featureTypeEEnum, FeatureType.PROVIDES_DATA_ACCESS);
 		addEEnumLiteral(featureTypeEEnum, FeatureType.REQUIRES_DATA_ACCESS);
 		addEEnumLiteral(featureTypeEEnum, FeatureType.DATA_SUBCOMPONENT);
@@ -3017,15 +3032,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		addEEnumLiteral(featureTypeEEnum, FeatureType.REQUIRES_BUS_ACCESS);
 		addEEnumLiteral(featureTypeEEnum, FeatureType.FEATURE_GROUP);
 		addEEnumLiteral(featureTypeEEnum, FeatureType.ABSTRACT_FEATURE);
-
-		initEEnum(binaryAddingOperatorEEnum, BinaryAddingOperator.class, "BinaryAddingOperator");
-		addEEnumLiteral(binaryAddingOperatorEEnum, BinaryAddingOperator.NONE);
-		addEEnumLiteral(binaryAddingOperatorEEnum, BinaryAddingOperator.PLUS);
-		addEEnumLiteral(binaryAddingOperatorEEnum, BinaryAddingOperator.MINUS);
-
-		initEEnum(binaryNumericOperatorEEnum, BinaryNumericOperator.class, "BinaryNumericOperator");
-		addEEnumLiteral(binaryNumericOperatorEEnum, BinaryNumericOperator.NONE);
-		addEEnumLiteral(binaryNumericOperatorEEnum, BinaryNumericOperator.MULTIPLY_MULTIPLY);
 
 		initEEnum(logicalOperatorEEnum, LogicalOperator.class, "LogicalOperator");
 		addEEnumLiteral(logicalOperatorEEnum, LogicalOperator.NONE);
@@ -3070,6 +3076,92 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// http://www.topcased.org/documentation
+		createDocumentationAnnotations();
+		// Documentation
+		createDocumentation_1Annotations();
+		// documentation
+		createDocumentation_2Annotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>http://www.topcased.org/documentation</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createDocumentationAnnotations() {
+		String source = "http://www.topcased.org/documentation";		
+		addAnnotation
+		  (booleanEDataType, 
+		   source, 
+		   new String[] {
+			 "documentation", "A Boolean type is used for logical expression, consisting of the predefined values true and false."
+		   });				
+		addAnnotation
+		  (getComment_Body(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Specifies a string that is the comment"
+		   });			
+		addAnnotation
+		  (integerEDataType, 
+		   source, 
+		   new String[] {
+			 "documentation", "An integer is a primitive type representing integer values."
+		   });					
+		addAnnotation
+		  (getNamedElement_Name(), 
+		   source, 
+		   new String[] {
+			 "documentation", "The name of the NamedElement."
+		   });		
+		addAnnotation
+		  (realEDataType, 
+		   source, 
+		   new String[] {
+			 "documentation", "A real is a primitive type representing real numeric values."
+		   });		
+		addAnnotation
+		  (stringEDataType, 
+		   source, 
+		   new String[] {
+			 "documentation", "A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters."
+		   });	
+	}
+
+	/**
+	 * Initializes the annotations for <b>Documentation</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createDocumentation_1Annotations() {
+		String source = "Documentation";								
+		addAnnotation
+		  (lockActionEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "A null data name means that all shared data are locked while in the critical section"
+		   });						
+	}
+
+	/**
+	 * Initializes the annotations for <b>documentation</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createDocumentation_2Annotations() {
+		String source = "documentation";														
+		addAnnotation
+		  (unlockActionEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "A null data name means that all shared data are unlocked at the end of the critical section"
+		   });
 	}
 
 } //AadlBaPackageImpl

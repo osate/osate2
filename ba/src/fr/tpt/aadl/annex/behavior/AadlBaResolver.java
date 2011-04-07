@@ -32,6 +32,7 @@ import fr.tpt.aadl.annex.behavior.analyzers.AadlBaRulesCheckersDriver ;
 import fr.tpt.aadl.annex.behavior.analyzers.AadlBaTypeChecker ;
 import fr.tpt.aadl.annex.behavior.analyzers.AdaLikeDataTypeChecker ;
 import fr.tpt.aadl.annex.behavior.analyzers.DataTypeChecker ;
+import fr.tpt.aadl.annex.behavior.unparser.AadlBaUnparser ;
 
 public class AadlBaResolver implements AnnexResolver
 {
@@ -71,6 +72,10 @@ public class AadlBaResolver implements AnnexResolver
                semanticAnalysis = new AadlBaRulesCheckersDriver(ba, errManager);
                semanticAnalysis.process(ba) ;
             }
+            
+            AadlBaUnparser unparser = new AadlBaUnparser ();
+            unparser.process(ba) ;
+            System.out.println(unparser.getOutput()) ;
          }
       }
    }
