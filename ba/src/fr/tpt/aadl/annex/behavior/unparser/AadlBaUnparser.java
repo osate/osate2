@@ -266,13 +266,6 @@ public class AadlBaUnparser {
 				return DONE;
 			}
 
-			/**
-			 * Unparse uniquecomponentclassifierreference
-			 */
-			public String caseUniqueComponentClassifierReference(UniqueComponentClassifierReference object) {
-				return caseBehaviorNamedElement(object) ;
-			}
-			
 			public String caseBehaviorNamedElement (BehaviorNamedElement object)
 			{
 				aadlbaText.addOutput(object.getQualifiedName() );
@@ -676,7 +669,7 @@ public class AadlBaUnparser {
 			/**
 			 * Unparse booleanliteral
 			 */
-			public String caseBooleanLiteral(BooleanLiteral object) {
+			public String caseBehaviorBooleanLiteral(BehaviorBooleanLiteral object) {
 				//FIXME : TODO : update location reference
 				if (object.isValue())
 					aadlbaText.addOutput("true");
@@ -688,18 +681,18 @@ public class AadlBaUnparser {
 			/**
 			 * Unparse stringliteral
 			 */
-			public String caseStringLiteral(StringLiteral object) {
+			public String caseBehaviorStringLiteral(BehaviorStringLiteral object) {
 				//FIXME : TODO : update location reference
 				aadlbaText.addOutput(object.getValue());
 				return DONE;
 			}
 			
-			public String caseRealLiteral(RealLiteral object) {
+			public String caseBehaviorRealLiteral(BehaviorRealLiteral object) {
 				aadlbaText.addOutput(String.valueOf(object.getValue())) ;
 				return DONE;
 			}
 			
-			public String caseIntegerLiteral(IntegerLiteral object) {
+			public String caseBehaviorIntegerLiteral(BehaviorIntegerLiteral object) {
 				aadlbaText.addOutput(object.getValueString()) ;
 				return DONE;
 			}

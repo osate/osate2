@@ -1538,7 +1538,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLiteral()
 	 * @generated
 	 */
-	int LITERAL = 38;
+	int LITERAL = 39;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1595,14 +1595,14 @@ public interface AadlBaPackage extends EPackage {
 	int LITERAL_FEATURE_COUNT = VALUE_CONSTANT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BooleanLiteralImpl <em>Boolean Literal</em>}' class.
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorBooleanLiteralImpl <em>Behavior Boolean Literal</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BooleanLiteralImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBooleanLiteral()
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorBooleanLiteralImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorBooleanLiteral()
 	 * @generated
 	 */
-	int BOOLEAN_LITERAL = 16;
+	int BEHAVIOR_BOOLEAN_LITERAL = 16;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1611,7 +1611,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOLEAN_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
+	int BEHAVIOR_BOOLEAN_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference.
@@ -1620,7 +1620,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOLEAN_LITERAL__OWNER = LITERAL__OWNER;
+	int BEHAVIOR_BOOLEAN_LITERAL__OWNER = LITERAL__OWNER;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1629,7 +1629,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOLEAN_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
+	int BEHAVIOR_BOOLEAN_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
@@ -1638,7 +1638,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOLEAN_LITERAL__BA_REF = LITERAL__BA_REF;
+	int BEHAVIOR_BOOLEAN_LITERAL__BA_REF = LITERAL__BA_REF;
 
 	/**
 	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
@@ -1647,7 +1647,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOLEAN_LITERAL__AADL_REF = LITERAL__AADL_REF;
+	int BEHAVIOR_BOOLEAN_LITERAL__AADL_REF = LITERAL__AADL_REF;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1656,16 +1656,89 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOLEAN_LITERAL__VALUE = LITERAL_FEATURE_COUNT + 0;
+	int BEHAVIOR_BOOLEAN_LITERAL__VALUE = LITERAL_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Boolean Literal</em>' class.
+	 * The number of structural features of the '<em>Behavior Boolean Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BOOLEAN_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
+	int BEHAVIOR_BOOLEAN_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStringLiteralImpl <em>Behavior String Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStringLiteralImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorStringLiteral()
+	 * @generated
+	 */
+	int BEHAVIOR_STRING_LITERAL = 17;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STRING_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STRING_LITERAL__OWNER = LITERAL__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STRING_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STRING_LITERAL__BA_REF = LITERAL__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STRING_LITERAL__AADL_REF = LITERAL__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STRING_LITERAL__VALUE = LITERAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Behavior String Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STRING_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction <em>Communication Action</em>}' class.
@@ -1675,7 +1748,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCommunicationAction()
 	 * @generated
 	 */
-	int COMMUNICATION_ACTION = 17;
+	int COMMUNICATION_ACTION = 18;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1739,7 +1812,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerCondition()
 	 * @generated
 	 */
-	int DISPATCH_TRIGGER_CONDITION = 24;
+	int DISPATCH_TRIGGER_CONDITION = 25;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1803,7 +1876,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCompletionRelativeTimeoutConditionAndCatch()
 	 * @generated
 	 */
-	int COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH = 18;
+	int COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH = 19;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1885,7 +1958,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCondStatement()
 	 * @generated
 	 */
-	int COND_STATEMENT = 19;
+	int COND_STATEMENT = 20;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1949,7 +2022,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getElementValues()
 	 * @generated
 	 */
-	int ELEMENT_VALUES = 27;
+	int ELEMENT_VALUES = 28;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2013,7 +2086,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDataComponentReference()
 	 * @generated
 	 */
-	int DATA_COMPONENT_REFERENCE = 20;
+	int DATA_COMPONENT_REFERENCE = 21;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2086,7 +2159,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDeclarator()
 	 * @generated
 	 */
-	int DECLARATOR = 21;
+	int DECLARATOR = 22;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2168,7 +2241,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchCondition()
 	 * @generated
 	 */
-	int DISPATCH_CONDITION = 22;
+	int DISPATCH_CONDITION = 23;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2250,7 +2323,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchConjunction()
 	 * @generated
 	 */
-	int DISPATCH_CONJUNCTION = 23;
+	int DISPATCH_CONJUNCTION = 24;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2323,7 +2396,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerConditionStop()
 	 * @generated
 	 */
-	int DISPATCH_TRIGGER_CONDITION_STOP = 25;
+	int DISPATCH_TRIGGER_CONDITION_STOP = 26;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2387,7 +2460,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerLogicalExpression()
 	 * @generated
 	 */
-	int DISPATCH_TRIGGER_LOGICAL_EXPRESSION = 26;
+	int DISPATCH_TRIGGER_LOGICAL_EXPRESSION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2460,7 +2533,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getExecuteCondition()
 	 * @generated
 	 */
-	int EXECUTE_CONDITION = 28;
+	int EXECUTE_CONDITION = 29;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2524,7 +2597,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getFactor()
 	 * @generated
 	 */
-	int FACTOR = 29;
+	int FACTOR = 30;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2633,7 +2706,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLoopStatement()
 	 * @generated
 	 */
-	int LOOP_STATEMENT = 40;
+	int LOOP_STATEMENT = 41;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2706,7 +2779,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getForOrForAllStatement()
 	 * @generated
 	 */
-	int FOR_OR_FOR_ALL_STATEMENT = 30;
+	int FOR_OR_FOR_ALL_STATEMENT = 31;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2815,7 +2888,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIdentifier()
 	 * @generated
 	 */
-	int IDENTIFIER = 31;
+	int IDENTIFIER = 32;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2888,7 +2961,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIfStatement()
 	 * @generated
 	 */
-	int IF_STATEMENT = 32;
+	int IF_STATEMENT = 33;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2972,14 +3045,14 @@ public interface AadlBaPackage extends EPackage {
 	int IF_STATEMENT_FEATURE_COUNT = COND_STATEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NumericLiteralImpl <em>Numeric Literal</em>}' class.
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral <em>Numeric Literal</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.NumericLiteralImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getNumericLiteral()
 	 * @generated
 	 */
-	int NUMERIC_LITERAL = 43;
+	int NUMERIC_LITERAL = 44;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3036,23 +3109,32 @@ public interface AadlBaPackage extends EPackage {
 	int NUMERIC_LITERAL__VALUE_STRING = LITERAL_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Unit</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMERIC_LITERAL__UNIT = LITERAL_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Numeric Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NUMERIC_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
+	int NUMERIC_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerLiteralImpl <em>Integer Literal</em>}' class.
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorIntegerLiteralImpl <em>Behavior Integer Literal</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerLiteralImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerLiteral()
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorIntegerLiteralImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorIntegerLiteral()
 	 * @generated
 	 */
-	int INTEGER_LITERAL = 33;
+	int BEHAVIOR_INTEGER_LITERAL = 34;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3061,7 +3143,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_LITERAL__OWNED_ELEMENT = NUMERIC_LITERAL__OWNED_ELEMENT;
+	int BEHAVIOR_INTEGER_LITERAL__OWNED_ELEMENT = NUMERIC_LITERAL__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference.
@@ -3070,7 +3152,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_LITERAL__OWNER = NUMERIC_LITERAL__OWNER;
+	int BEHAVIOR_INTEGER_LITERAL__OWNER = NUMERIC_LITERAL__OWNER;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -3079,7 +3161,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_LITERAL__OWNED_COMMENT = NUMERIC_LITERAL__OWNED_COMMENT;
+	int BEHAVIOR_INTEGER_LITERAL__OWNED_COMMENT = NUMERIC_LITERAL__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
@@ -3088,7 +3170,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_LITERAL__BA_REF = NUMERIC_LITERAL__BA_REF;
+	int BEHAVIOR_INTEGER_LITERAL__BA_REF = NUMERIC_LITERAL__BA_REF;
 
 	/**
 	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
@@ -3097,7 +3179,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_LITERAL__AADL_REF = NUMERIC_LITERAL__AADL_REF;
+	int BEHAVIOR_INTEGER_LITERAL__AADL_REF = NUMERIC_LITERAL__AADL_REF;
 
 	/**
 	 * The feature id for the '<em><b>Value String</b></em>' attribute.
@@ -3106,16 +3188,16 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_LITERAL__VALUE_STRING = NUMERIC_LITERAL__VALUE_STRING;
+	int BEHAVIOR_INTEGER_LITERAL__VALUE_STRING = NUMERIC_LITERAL__VALUE_STRING;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * The feature id for the '<em><b>Unit</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_LITERAL__VALUE = NUMERIC_LITERAL_FEATURE_COUNT + 0;
+	int BEHAVIOR_INTEGER_LITERAL__UNIT = NUMERIC_LITERAL__UNIT;
 
 	/**
 	 * The feature id for the '<em><b>Base</b></em>' attribute.
@@ -3124,16 +3206,25 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_LITERAL__BASE = NUMERIC_LITERAL_FEATURE_COUNT + 1;
+	int BEHAVIOR_INTEGER_LITERAL__BASE = NUMERIC_LITERAL_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Integer Literal</em>' class.
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_LITERAL_FEATURE_COUNT = NUMERIC_LITERAL_FEATURE_COUNT + 2;
+	int BEHAVIOR_INTEGER_LITERAL__VALUE = NUMERIC_LITERAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Integer Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_INTEGER_LITERAL_FEATURE_COUNT = NUMERIC_LITERAL_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerRangeImpl <em>Integer Range</em>}' class.
@@ -3143,7 +3234,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerRange()
 	 * @generated
 	 */
-	int INTEGER_RANGE = 34;
+	int INTEGER_RANGE = 35;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3225,7 +3316,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValue()
 	 * @generated
 	 */
-	int INTEGER_VALUE = 35;
+	int INTEGER_VALUE = 36;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3289,7 +3380,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValueConstant()
 	 * @generated
 	 */
-	int INTEGER_VALUE_CONSTANT = 36;
+	int INTEGER_VALUE_CONSTANT = 37;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3353,7 +3444,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValueVariable()
 	 * @generated
 	 */
-	int INTEGER_VALUE_VARIABLE = 37;
+	int INTEGER_VALUE_VARIABLE = 38;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3417,7 +3508,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getSharedDataAction()
 	 * @generated
 	 */
-	int SHARED_DATA_ACTION = 56;
+	int SHARED_DATA_ACTION = 57;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3490,7 +3581,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLockAction()
 	 * @generated
 	 */
-	int LOCK_ACTION = 39;
+	int LOCK_ACTION = 40;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3563,7 +3654,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getName_()
 	 * @generated
 	 */
-	int NAME = 41;
+	int NAME = 42;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3645,7 +3736,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getNumeral()
 	 * @generated
 	 */
-	int NUMERAL = 42;
+	int NUMERAL = 43;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3718,7 +3809,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getOtherwise()
 	 * @generated
 	 */
-	int OTHERWISE = 44;
+	int OTHERWISE = 45;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3782,7 +3873,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getParameterLabel()
 	 * @generated
 	 */
-	int PARAMETER_LABEL = 45;
+	int PARAMETER_LABEL = 46;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3910,7 +4001,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortCountValue()
 	 * @generated
 	 */
-	int PORT_COUNT_VALUE = 46;
+	int PORT_COUNT_VALUE = 47;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3992,7 +4083,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortDequeueAction()
 	 * @generated
 	 */
-	int PORT_DEQUEUE_ACTION = 47;
+	int PORT_DEQUEUE_ACTION = 48;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4074,7 +4165,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortDequeueValue()
 	 * @generated
 	 */
-	int PORT_DEQUEUE_VALUE = 48;
+	int PORT_DEQUEUE_VALUE = 49;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4156,7 +4247,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortFreezeAction()
 	 * @generated
 	 */
-	int PORT_FREEZE_ACTION = 49;
+	int PORT_FREEZE_ACTION = 50;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4238,7 +4329,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortFreshValue()
 	 * @generated
 	 */
-	int PORT_FRESH_VALUE = 50;
+	int PORT_FRESH_VALUE = 51;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4320,7 +4411,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortSendAction()
 	 * @generated
 	 */
-	int PORT_SEND_ACTION = 51;
+	int PORT_SEND_ACTION = 52;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4402,7 +4493,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorPropertyConstant()
 	 * @generated
 	 */
-	int BEHAVIOR_PROPERTY_CONSTANT = 52;
+	int BEHAVIOR_PROPERTY_CONSTANT = 53;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4502,7 +4593,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorPropertyValue()
 	 * @generated
 	 */
-	int BEHAVIOR_PROPERTY_VALUE = 53;
+	int BEHAVIOR_PROPERTY_VALUE = 54;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4595,14 +4686,14 @@ public interface AadlBaPackage extends EPackage {
 	int BEHAVIOR_PROPERTY_VALUE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RealLiteralImpl <em>Real Literal</em>}' class.
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorRealLiteralImpl <em>Behavior Real Literal</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.RealLiteralImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getRealLiteral()
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorRealLiteralImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorRealLiteral()
 	 * @generated
 	 */
-	int REAL_LITERAL = 54;
+	int BEHAVIOR_REAL_LITERAL = 55;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4611,7 +4702,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_LITERAL__OWNED_ELEMENT = NUMERIC_LITERAL__OWNED_ELEMENT;
+	int BEHAVIOR_REAL_LITERAL__OWNED_ELEMENT = NUMERIC_LITERAL__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference.
@@ -4620,7 +4711,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_LITERAL__OWNER = NUMERIC_LITERAL__OWNER;
+	int BEHAVIOR_REAL_LITERAL__OWNER = NUMERIC_LITERAL__OWNER;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -4629,7 +4720,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_LITERAL__OWNED_COMMENT = NUMERIC_LITERAL__OWNED_COMMENT;
+	int BEHAVIOR_REAL_LITERAL__OWNED_COMMENT = NUMERIC_LITERAL__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
@@ -4638,7 +4729,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_LITERAL__BA_REF = NUMERIC_LITERAL__BA_REF;
+	int BEHAVIOR_REAL_LITERAL__BA_REF = NUMERIC_LITERAL__BA_REF;
 
 	/**
 	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
@@ -4647,7 +4738,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_LITERAL__AADL_REF = NUMERIC_LITERAL__AADL_REF;
+	int BEHAVIOR_REAL_LITERAL__AADL_REF = NUMERIC_LITERAL__AADL_REF;
 
 	/**
 	 * The feature id for the '<em><b>Value String</b></em>' attribute.
@@ -4656,7 +4747,16 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_LITERAL__VALUE_STRING = NUMERIC_LITERAL__VALUE_STRING;
+	int BEHAVIOR_REAL_LITERAL__VALUE_STRING = NUMERIC_LITERAL__VALUE_STRING;
+
+	/**
+	 * The feature id for the '<em><b>Unit</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_REAL_LITERAL__UNIT = NUMERIC_LITERAL__UNIT;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -4665,16 +4765,16 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_LITERAL__VALUE = NUMERIC_LITERAL_FEATURE_COUNT + 0;
+	int BEHAVIOR_REAL_LITERAL__VALUE = NUMERIC_LITERAL_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Real Literal</em>' class.
+	 * The number of structural features of the '<em>Behavior Real Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_LITERAL_FEATURE_COUNT = NUMERIC_LITERAL_FEATURE_COUNT + 1;
+	int BEHAVIOR_REAL_LITERAL_FEATURE_COUNT = NUMERIC_LITERAL_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl <em>Relation</em>}' class.
@@ -4684,7 +4784,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getRelation()
 	 * @generated
 	 */
-	int RELATION = 55;
+	int RELATION = 56;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4775,7 +4875,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getSimpleExpression()
 	 * @generated
 	 */
-	int SIMPLE_EXPRESSION = 57;
+	int SIMPLE_EXPRESSION = 58;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4857,79 +4957,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int SIMPLE_EXPRESSION_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.StringLiteralImpl <em>String Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.StringLiteralImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getStringLiteral()
-	 * @generated
-	 */
-	int STRING_LITERAL = 58;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__OWNER = LITERAL__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__BA_REF = LITERAL__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__AADL_REF = LITERAL__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__VALUE = LITERAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>String Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SubprogramCallActionImpl <em>Subprogram Call Action</em>}' class.
@@ -6288,25 +6315,24 @@ public interface AadlBaPackage extends EPackage {
 	EReference getBehaviorVariable_DataUniqueComponentClassifierReference();
 
 	/**
-	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral <em>Boolean Literal</em>}'.
+	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorBooleanLiteral <em>Behavior Boolean Literal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Boolean Literal</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral
+	 * @return the meta object for class '<em>Behavior Boolean Literal</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorBooleanLiteral
 	 * @generated
 	 */
-	EClass getBooleanLiteral();
+	EClass getBehaviorBooleanLiteral();
 
 	/**
-	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral#isValue <em>Value</em>}'.
+	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorStringLiteral <em>Behavior String Literal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral#isValue()
-	 * @see #getBooleanLiteral()
+	 * @return the meta object for class '<em>Behavior String Literal</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorStringLiteral
 	 * @generated
 	 */
-	EAttribute getBooleanLiteral_Value();
+	EClass getBehaviorStringLiteral();
 
 	/**
 	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction <em>Communication Action</em>}'.
@@ -6689,36 +6715,14 @@ public interface AadlBaPackage extends EPackage {
 	EReference getIfStatement_BehaviorActionsOwned();
 
 	/**
-	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerLiteral <em>Integer Literal</em>}'.
+	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorIntegerLiteral <em>Behavior Integer Literal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Integer Literal</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerLiteral
+	 * @return the meta object for class '<em>Behavior Integer Literal</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorIntegerLiteral
 	 * @generated
 	 */
-	EClass getIntegerLiteral();
-
-	/**
-	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerLiteral#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerLiteral#getValue()
-	 * @see #getIntegerLiteral()
-	 * @generated
-	 */
-	EAttribute getIntegerLiteral_Value();
-
-	/**
-	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerLiteral#getBase <em>Base</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Base</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerLiteral#getBase()
-	 * @see #getIntegerLiteral()
-	 * @generated
-	 */
-	EAttribute getIntegerLiteral_Base();
+	EClass getBehaviorIntegerLiteral();
 
 	/**
 	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerRange <em>Integer Range</em>}'.
@@ -6887,17 +6891,6 @@ public interface AadlBaPackage extends EPackage {
 	EClass getNumericLiteral();
 
 	/**
-	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral#getValueString <em>Value String</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value String</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral#getValueString()
-	 * @see #getNumericLiteral()
-	 * @generated
-	 */
-	EAttribute getNumericLiteral_ValueString();
-
-	/**
 	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.Otherwise <em>Otherwise</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7042,25 +7035,14 @@ public interface AadlBaPackage extends EPackage {
 	EClass getBehaviorPropertyValue();
 
 	/**
-	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.RealLiteral <em>Real Literal</em>}'.
+	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorRealLiteral <em>Behavior Real Literal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Real Literal</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.RealLiteral
+	 * @return the meta object for class '<em>Behavior Real Literal</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorRealLiteral
 	 * @generated
 	 */
-	EClass getRealLiteral();
-
-	/**
-	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.RealLiteral#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.RealLiteral#getValue()
-	 * @see #getRealLiteral()
-	 * @generated
-	 */
-	EAttribute getRealLiteral_Value();
+	EClass getBehaviorRealLiteral();
 
 	/**
 	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.Relation <em>Relation</em>}'.
@@ -7168,27 +7150,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSimpleExpression_BinaryAddingOperators();
-
-	/**
-	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.StringLiteral <em>String Literal</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>String Literal</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.StringLiteral
-	 * @generated
-	 */
-	EClass getStringLiteral();
-
-	/**
-	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.StringLiteral#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.StringLiteral#getValue()
-	 * @see #getStringLiteral()
-	 * @generated
-	 */
-	EAttribute getStringLiteral_Value();
 
 	/**
 	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction <em>Subprogram Call Action</em>}'.
@@ -8001,22 +7962,24 @@ public interface AadlBaPackage extends EPackage {
 		EReference BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE = eINSTANCE.getBehaviorVariable_DataUniqueComponentClassifierReference();
 
 		/**
-		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BooleanLiteralImpl <em>Boolean Literal</em>}' class.
+		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorBooleanLiteralImpl <em>Behavior Boolean Literal</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BooleanLiteralImpl
-		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBooleanLiteral()
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorBooleanLiteralImpl
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorBooleanLiteral()
 		 * @generated
 		 */
-		EClass BOOLEAN_LITERAL = eINSTANCE.getBooleanLiteral();
+		EClass BEHAVIOR_BOOLEAN_LITERAL = eINSTANCE.getBehaviorBooleanLiteral();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStringLiteralImpl <em>Behavior String Literal</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStringLiteralImpl
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorStringLiteral()
 		 * @generated
 		 */
-		EAttribute BOOLEAN_LITERAL__VALUE = eINSTANCE.getBooleanLiteral_Value();
+		EClass BEHAVIOR_STRING_LITERAL = eINSTANCE.getBehaviorStringLiteral();
 
 		/**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction <em>Communication Action</em>}' class.
@@ -8339,30 +8302,14 @@ public interface AadlBaPackage extends EPackage {
 		EReference IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED = eINSTANCE.getIfStatement_BehaviorActionsOwned();
 
 		/**
-		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerLiteralImpl <em>Integer Literal</em>}' class.
+		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorIntegerLiteralImpl <em>Behavior Integer Literal</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerLiteralImpl
-		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerLiteral()
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorIntegerLiteralImpl
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorIntegerLiteral()
 		 * @generated
 		 */
-		EClass INTEGER_LITERAL = eINSTANCE.getIntegerLiteral();
-
-		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute INTEGER_LITERAL__VALUE = eINSTANCE.getIntegerLiteral_Value();
-
-		/**
-		 * The meta object literal for the '<em><b>Base</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute INTEGER_LITERAL__BASE = eINSTANCE.getIntegerLiteral_Base();
+		EClass BEHAVIOR_INTEGER_LITERAL = eINSTANCE.getBehaviorIntegerLiteral();
 
 		/**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerRangeImpl <em>Integer Range</em>}' class.
@@ -8503,22 +8450,14 @@ public interface AadlBaPackage extends EPackage {
 		EAttribute NUMERAL__VALUE = eINSTANCE.getNumeral_Value();
 
 		/**
-		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NumericLiteralImpl <em>Numeric Literal</em>}' class.
+		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral <em>Numeric Literal</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.NumericLiteralImpl
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral
 		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getNumericLiteral()
 		 * @generated
 		 */
 		EClass NUMERIC_LITERAL = eINSTANCE.getNumericLiteral();
-
-		/**
-		 * The meta object literal for the '<em><b>Value String</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute NUMERIC_LITERAL__VALUE_STRING = eINSTANCE.getNumericLiteral_ValueString();
 
 		/**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.OtherwiseImpl <em>Otherwise</em>}' class.
@@ -8653,22 +8592,14 @@ public interface AadlBaPackage extends EPackage {
 		EClass BEHAVIOR_PROPERTY_VALUE = eINSTANCE.getBehaviorPropertyValue();
 
 		/**
-		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RealLiteralImpl <em>Real Literal</em>}' class.
+		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorRealLiteralImpl <em>Behavior Real Literal</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.RealLiteralImpl
-		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getRealLiteral()
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorRealLiteralImpl
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorRealLiteral()
 		 * @generated
 		 */
-		EClass REAL_LITERAL = eINSTANCE.getRealLiteral();
-
-		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REAL_LITERAL__VALUE = eINSTANCE.getRealLiteral_Value();
+		EClass BEHAVIOR_REAL_LITERAL = eINSTANCE.getBehaviorRealLiteral();
 
 		/**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl <em>Relation</em>}' class.
@@ -8755,24 +8686,6 @@ public interface AadlBaPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS = eINSTANCE.getSimpleExpression_BinaryAddingOperators();
-
-		/**
-		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.StringLiteralImpl <em>String Literal</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.StringLiteralImpl
-		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getStringLiteral()
-		 * @generated
-		 */
-		EClass STRING_LITERAL = eINSTANCE.getStringLiteral();
-
-		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute STRING_LITERAL__VALUE = eINSTANCE.getStringLiteral_Value();
 
 		/**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SubprogramCallActionImpl <em>Subprogram Call Action</em>}' class.

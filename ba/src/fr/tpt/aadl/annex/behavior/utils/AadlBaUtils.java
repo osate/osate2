@@ -229,19 +229,19 @@ public class AadlBaUtils {
             return getDataRepresentation((BehaviorPropertyValue) v)  ;
          }
          
-         if(v instanceof IntegerLiteral)
+         if(v instanceof BehaviorIntegerLiteral)
          {
             return DataRepresentation.INTEGER ;
          }
          else
          {
-            if(v instanceof RealLiteral)
+            if(v instanceof BehaviorRealLiteral)
             {
                return DataRepresentation.FLOAT ;
             }
             else
             {
-               if (v instanceof StringLiteral)
+               if (v instanceof BehaviorStringLiteral)
                {
                   return DataRepresentation.STRING ;
                }
@@ -733,12 +733,12 @@ public class AadlBaUtils {
             IntegerValue iv1 = behT1.getIntegerValueOwned() ;
             IntegerValue iv2 = behT2.getIntegerValueOwned() ;
             
-            if(iv1 instanceof IntegerLiteral &&
-               iv2 instanceof IntegerLiteral)
+            if(iv1 instanceof BehaviorIntegerLiteral &&
+               iv2 instanceof BehaviorIntegerLiteral)
             {
-                  double d1 = new Long(((IntegerLiteral)iv1).getValue())
+                  double d1 = new Long(((BehaviorIntegerLiteral)iv1).getValue())
                                                                 .doubleValue() ;
-                  double d2 = new Long(((IntegerLiteral)iv2).getValue())
+                  double d2 = new Long(((BehaviorIntegerLiteral)iv2).getValue())
                                                                 .doubleValue() ;
                   
                   UnitLiteral unit1 = (UnitLiteral) behT1.getUnitIdentifier()

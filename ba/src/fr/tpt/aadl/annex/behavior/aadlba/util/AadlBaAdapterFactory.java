@@ -28,10 +28,17 @@
 package fr.tpt.aadl.annex.behavior.aadlba.util;
 
 import edu.cmu.sei.aadl.aadl2.AnnexSubclause;
+import edu.cmu.sei.aadl.aadl2.BooleanLiteral;
 import edu.cmu.sei.aadl.aadl2.Element;
+import edu.cmu.sei.aadl.aadl2.IntegerLiteral;
 import edu.cmu.sei.aadl.aadl2.ModalElement;
 
 import edu.cmu.sei.aadl.aadl2.NamedElement;
+import edu.cmu.sei.aadl.aadl2.NumberValue;
+import edu.cmu.sei.aadl.aadl2.PropertyExpression;
+import edu.cmu.sei.aadl.aadl2.PropertyValue;
+import edu.cmu.sei.aadl.aadl2.RealLiteral;
+import edu.cmu.sei.aadl.aadl2.StringLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.*;
 
 import org.eclipse.emf.common.notify.Adapter;
@@ -162,8 +169,12 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createBehaviorVariableAdapter();
 			}
 			@Override
-			public Adapter caseBooleanLiteral(BooleanLiteral object) {
-				return createBooleanLiteralAdapter();
+			public Adapter caseBehaviorBooleanLiteral(BehaviorBooleanLiteral object) {
+				return createBehaviorBooleanLiteralAdapter();
+			}
+			@Override
+			public Adapter caseBehaviorStringLiteral(BehaviorStringLiteral object) {
+				return createBehaviorStringLiteralAdapter();
 			}
 			@Override
 			public Adapter caseCommunicationAction(CommunicationAction object) {
@@ -230,8 +241,8 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createIfStatementAdapter();
 			}
 			@Override
-			public Adapter caseIntegerLiteral(IntegerLiteral object) {
-				return createIntegerLiteralAdapter();
+			public Adapter caseBehaviorIntegerLiteral(BehaviorIntegerLiteral object) {
+				return createBehaviorIntegerLiteralAdapter();
 			}
 			@Override
 			public Adapter caseIntegerRange(IntegerRange object) {
@@ -314,8 +325,8 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createBehaviorPropertyValueAdapter();
 			}
 			@Override
-			public Adapter caseRealLiteral(RealLiteral object) {
-				return createRealLiteralAdapter();
+			public Adapter caseBehaviorRealLiteral(BehaviorRealLiteral object) {
+				return createBehaviorRealLiteralAdapter();
 			}
 			@Override
 			public Adapter caseRelation(Relation object) {
@@ -328,10 +339,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseSimpleExpression(SimpleExpression object) {
 				return createSimpleExpressionAdapter();
-			}
-			@Override
-			public Adapter caseStringLiteral(StringLiteral object) {
-				return createStringLiteralAdapter();
 			}
 			@Override
 			public Adapter caseSubprogramCallAction(SubprogramCallAction object) {
@@ -396,6 +403,34 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseAnnexSubclause(AnnexSubclause object) {
 				return createAnnexSubclauseAdapter();
+			}
+			@Override
+			public Adapter casePropertyExpression(PropertyExpression object) {
+				return createPropertyExpressionAdapter();
+			}
+			@Override
+			public Adapter casePropertyValue(PropertyValue object) {
+				return createPropertyValueAdapter();
+			}
+			@Override
+			public Adapter caseBooleanLiteral(BooleanLiteral object) {
+				return createBooleanLiteralAdapter();
+			}
+			@Override
+			public Adapter caseStringLiteral(StringLiteral object) {
+				return createStringLiteralAdapter();
+			}
+			@Override
+			public Adapter caseNumberValue(NumberValue object) {
+				return createNumberValueAdapter();
+			}
+			@Override
+			public Adapter caseIntegerLiteral(IntegerLiteral object) {
+				return createIntegerLiteralAdapter();
+			}
+			@Override
+			public Adapter caseRealLiteral(RealLiteral object) {
+				return createRealLiteralAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -512,6 +547,34 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBehaviorVariableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorBooleanLiteral <em>Behavior Boolean Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorBooleanLiteral
+	 * @generated
+	 */
+	public Adapter createBehaviorBooleanLiteralAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorStringLiteral <em>Behavior String Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorStringLiteral
+	 * @generated
+	 */
+	public Adapter createBehaviorStringLiteralAdapter() {
 		return null;
 	}
 
@@ -642,13 +705,13 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral <em>Boolean Literal</em>}'.
+	 * Creates a new adapter for an object of class '{@link edu.cmu.sei.aadl.aadl2.BooleanLiteral <em>Boolean Literal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral
+	 * @see edu.cmu.sei.aadl.aadl2.BooleanLiteral
 	 * @generated
 	 */
 	public Adapter createBooleanLiteralAdapter() {
@@ -670,13 +733,13 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerLiteral <em>Integer Literal</em>}'.
+	 * Creates a new adapter for an object of class '{@link edu.cmu.sei.aadl.aadl2.IntegerLiteral <em>Integer Literal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerLiteral
+	 * @see edu.cmu.sei.aadl.aadl2.IntegerLiteral
 	 * @generated
 	 */
 	public Adapter createIntegerLiteralAdapter() {
@@ -824,13 +887,13 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.RealLiteral <em>Real Literal</em>}'.
+	 * Creates a new adapter for an object of class '{@link edu.cmu.sei.aadl.aadl2.RealLiteral <em>Real Literal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.RealLiteral
+	 * @see edu.cmu.sei.aadl.aadl2.RealLiteral
 	 * @generated
 	 */
 	public Adapter createRealLiteralAdapter() {
@@ -866,16 +929,30 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.StringLiteral <em>String Literal</em>}'.
+	 * Creates a new adapter for an object of class '{@link edu.cmu.sei.aadl.aadl2.StringLiteral <em>String Literal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.StringLiteral
+	 * @see edu.cmu.sei.aadl.aadl2.StringLiteral
 	 * @generated
 	 */
 	public Adapter createStringLiteralAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link edu.cmu.sei.aadl.aadl2.NumberValue <em>Number Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see edu.cmu.sei.aadl.aadl2.NumberValue
+	 * @generated
+	 */
+	public Adapter createNumberValueAdapter() {
 		return null;
 	}
 
@@ -1146,6 +1223,20 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorIntegerLiteral <em>Behavior Integer Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorIntegerLiteral
+	 * @generated
+	 */
+	public Adapter createBehaviorIntegerLiteralAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.LockAction <em>Lock Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1268,6 +1359,20 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBehaviorPropertyValueAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorRealLiteral <em>Behavior Real Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorRealLiteral
+	 * @generated
+	 */
+	public Adapter createBehaviorRealLiteralAdapter() {
 		return null;
 	}
 
@@ -1464,6 +1569,34 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAnnexSubclauseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link edu.cmu.sei.aadl.aadl2.PropertyExpression <em>Property Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see edu.cmu.sei.aadl.aadl2.PropertyExpression
+	 * @generated
+	 */
+	public Adapter createPropertyExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link edu.cmu.sei.aadl.aadl2.PropertyValue <em>Property Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see edu.cmu.sei.aadl.aadl2.PropertyValue
+	 * @generated
+	 */
+	public Adapter createPropertyValueAdapter() {
 		return null;
 	}
 

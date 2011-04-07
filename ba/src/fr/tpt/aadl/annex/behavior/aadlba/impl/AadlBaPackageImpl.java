@@ -19,19 +19,22 @@ import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionSequence;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionSet;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorBooleanLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorFeatureType;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorIntegerLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorPropertyConstant;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorPropertyValue;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorRealLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorStringLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
 import fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator;
 import fr.tpt.aadl.annex.behavior.aadlba.BinaryNumericOperator;
-import fr.tpt.aadl.annex.behavior.aadlba.BooleanLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction;
 import fr.tpt.aadl.annex.behavior.aadlba.CompletionRelativeTimeoutConditionAndCatch;
 import fr.tpt.aadl.annex.behavior.aadlba.CondStatement;
@@ -50,7 +53,6 @@ import fr.tpt.aadl.annex.behavior.aadlba.FeatureType;
 import fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.Identifier;
 import fr.tpt.aadl.annex.behavior.aadlba.IfStatement;
-import fr.tpt.aadl.annex.behavior.aadlba.IntegerLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerRange;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant;
@@ -71,12 +73,10 @@ import fr.tpt.aadl.annex.behavior.aadlba.PortDequeueValue;
 import fr.tpt.aadl.annex.behavior.aadlba.PortFreezeAction;
 import fr.tpt.aadl.annex.behavior.aadlba.PortFreshValue;
 import fr.tpt.aadl.annex.behavior.aadlba.PortSendAction;
-import fr.tpt.aadl.annex.behavior.aadlba.RealLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.Relation;
 import fr.tpt.aadl.annex.behavior.aadlba.RelationalOperator;
 import fr.tpt.aadl.annex.behavior.aadlba.SharedDataAction;
 import fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression;
-import fr.tpt.aadl.annex.behavior.aadlba.StringLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction;
 import fr.tpt.aadl.annex.behavior.aadlba.Target;
 import fr.tpt.aadl.annex.behavior.aadlba.Term;
@@ -226,7 +226,14 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass booleanLiteralEClass = null;
+	private EClass behaviorBooleanLiteralEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass behaviorStringLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -345,7 +352,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass integerLiteralEClass = null;
+	private EClass behaviorIntegerLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -492,7 +499,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass realLiteralEClass = null;
+	private EClass behaviorRealLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -514,13 +521,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	private EClass simpleExpressionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass stringLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1185,8 +1185,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getBooleanLiteral() {
-		return booleanLiteralEClass;
+	public EClass getBehaviorBooleanLiteral() {
+		return behaviorBooleanLiteralEClass;
 	}
 
 	/**
@@ -1194,8 +1194,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBooleanLiteral_Value() {
-		return (EAttribute)booleanLiteralEClass.getEStructuralFeatures().get(0);
+	public EClass getBehaviorStringLiteral() {
+		return behaviorStringLiteralEClass;
 	}
 
 	/**
@@ -1527,26 +1527,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getIntegerLiteral() {
-		return integerLiteralEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getIntegerLiteral_Value() {
-		return (EAttribute)integerLiteralEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getIntegerLiteral_Base() {
-		return (EAttribute)integerLiteralEClass.getEStructuralFeatures().get(1);
+	public EClass getBehaviorIntegerLiteral() {
+		return behaviorIntegerLiteralEClass;
 	}
 
 	/**
@@ -1698,15 +1680,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getNumericLiteral_ValueString() {
-		return (EAttribute)numericLiteralEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getOtherwise() {
 		return otherwiseEClass;
 	}
@@ -1833,17 +1806,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getRealLiteral() {
-		return realLiteralEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getRealLiteral_Value() {
-		return (EAttribute)realLiteralEClass.getEStructuralFeatures().get(0);
+	public EClass getBehaviorRealLiteral() {
+		return behaviorRealLiteralEClass;
 	}
 
 	/**
@@ -1934,24 +1898,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 */
 	public EAttribute getSimpleExpression_BinaryAddingOperators() {
 		return (EAttribute)simpleExpressionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getStringLiteral() {
-		return stringLiteralEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStringLiteral_Value() {
-		return (EAttribute)stringLiteralEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2385,8 +2331,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		createEReference(behaviorVariableEClass, BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS);
 		createEReference(behaviorVariableEClass, BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE);
 
-		booleanLiteralEClass = createEClass(BOOLEAN_LITERAL);
-		createEAttribute(booleanLiteralEClass, BOOLEAN_LITERAL__VALUE);
+		behaviorBooleanLiteralEClass = createEClass(BEHAVIOR_BOOLEAN_LITERAL);
+
+		behaviorStringLiteralEClass = createEClass(BEHAVIOR_STRING_LITERAL);
 
 		communicationActionEClass = createEClass(COMMUNICATION_ACTION);
 
@@ -2440,9 +2387,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		createEReference(ifStatementEClass, IF_STATEMENT__LOGICAL_VALUE_EXPRESSIONS);
 		createEReference(ifStatementEClass, IF_STATEMENT__BEHAVIOR_ACTIONS_OWNED);
 
-		integerLiteralEClass = createEClass(INTEGER_LITERAL);
-		createEAttribute(integerLiteralEClass, INTEGER_LITERAL__VALUE);
-		createEAttribute(integerLiteralEClass, INTEGER_LITERAL__BASE);
+		behaviorIntegerLiteralEClass = createEClass(BEHAVIOR_INTEGER_LITERAL);
 
 		integerRangeEClass = createEClass(INTEGER_RANGE);
 		createEReference(integerRangeEClass, INTEGER_RANGE__LOWER_INTEGER_VALUE);
@@ -2469,7 +2414,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		createEAttribute(numeralEClass, NUMERAL__VALUE);
 
 		numericLiteralEClass = createEClass(NUMERIC_LITERAL);
-		createEAttribute(numericLiteralEClass, NUMERIC_LITERAL__VALUE_STRING);
 
 		otherwiseEClass = createEClass(OTHERWISE);
 
@@ -2495,8 +2439,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		behaviorPropertyValueEClass = createEClass(BEHAVIOR_PROPERTY_VALUE);
 
-		realLiteralEClass = createEClass(REAL_LITERAL);
-		createEAttribute(realLiteralEClass, REAL_LITERAL__VALUE);
+		behaviorRealLiteralEClass = createEClass(BEHAVIOR_REAL_LITERAL);
 
 		relationEClass = createEClass(RELATION);
 		createEReference(relationEClass, RELATION__SIMPLE_EXPRESSION_OWNED);
@@ -2510,9 +2453,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		createEAttribute(simpleExpressionEClass, SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR_OWNED);
 		createEReference(simpleExpressionEClass, SIMPLE_EXPRESSION__TERMS);
 		createEAttribute(simpleExpressionEClass, SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS);
-
-		stringLiteralEClass = createEClass(STRING_LITERAL);
-		createEAttribute(stringLiteralEClass, STRING_LITERAL__VALUE);
 
 		subprogramCallActionEClass = createEClass(SUBPROGRAM_CALL_ACTION);
 		createEReference(subprogramCallActionEClass, SUBPROGRAM_CALL_ACTION__SUBPROGRAM_NAMES);
@@ -2618,7 +2558,10 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		behaviorTimeEClass.getESuperTypes().add(this.getBehaviorElement());
 		behaviorTransitionEClass.getESuperTypes().add(this.getBehaviorElement());
 		behaviorVariableEClass.getESuperTypes().add(this.getBehaviorElement());
-		booleanLiteralEClass.getESuperTypes().add(this.getLiteral());
+		behaviorBooleanLiteralEClass.getESuperTypes().add(this.getLiteral());
+		behaviorBooleanLiteralEClass.getESuperTypes().add(theAadl2Package.getBooleanLiteral());
+		behaviorStringLiteralEClass.getESuperTypes().add(this.getLiteral());
+		behaviorStringLiteralEClass.getESuperTypes().add(theAadl2Package.getStringLiteral());
 		communicationActionEClass.getESuperTypes().add(this.getBasicAction());
 		completionRelativeTimeoutConditionAndCatchEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
 		completionRelativeTimeoutConditionAndCatchEClass.getESuperTypes().add(this.getBehaviorTime());
@@ -2639,7 +2582,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		identifierEClass.getESuperTypes().add(this.getBehaviorElement());
 		identifierEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
 		ifStatementEClass.getESuperTypes().add(this.getCondStatement());
-		integerLiteralEClass.getESuperTypes().add(this.getNumericLiteral());
+		behaviorIntegerLiteralEClass.getESuperTypes().add(this.getNumericLiteral());
+		behaviorIntegerLiteralEClass.getESuperTypes().add(theAadl2Package.getIntegerLiteral());
 		integerRangeEClass.getESuperTypes().add(this.getElementValues());
 		integerValueEClass.getESuperTypes().add(this.getBehaviorElement());
 		integerValueConstantEClass.getESuperTypes().add(this.getIntegerValue());
@@ -2652,6 +2596,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		nameEClass.getESuperTypes().add(this.getValueVariable());
 		numeralEClass.getESuperTypes().add(this.getBehaviorElement());
 		numericLiteralEClass.getESuperTypes().add(this.getLiteral());
+		numericLiteralEClass.getESuperTypes().add(theAadl2Package.getNumberValue());
 		otherwiseEClass.getESuperTypes().add(this.getExecuteCondition());
 		parameterLabelEClass.getESuperTypes().add(this.getBehaviorElement());
 		portCountValueEClass.getESuperTypes().add(this.getValueVariable());
@@ -2668,11 +2613,11 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		behaviorPropertyConstantEClass.getESuperTypes().add(this.getValueConstant());
 		behaviorPropertyValueEClass.getESuperTypes().add(this.getBehaviorNamedElement());
 		behaviorPropertyValueEClass.getESuperTypes().add(this.getValueConstant());
-		realLiteralEClass.getESuperTypes().add(this.getNumericLiteral());
+		behaviorRealLiteralEClass.getESuperTypes().add(this.getNumericLiteral());
+		behaviorRealLiteralEClass.getESuperTypes().add(theAadl2Package.getRealLiteral());
 		relationEClass.getESuperTypes().add(this.getBehaviorElement());
 		sharedDataActionEClass.getESuperTypes().add(this.getCommunicationAction());
 		simpleExpressionEClass.getESuperTypes().add(this.getBehaviorElement());
-		stringLiteralEClass.getESuperTypes().add(this.getLiteral());
 		subprogramCallActionEClass.getESuperTypes().add(this.getCommunicationAction());
 		targetEClass.getESuperTypes().add(this.getParameterLabel());
 		targetEClass.getESuperTypes().add(this.getBehaviorElement());
@@ -2754,8 +2699,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		initEReference(getBehaviorVariable_LocalVariableDeclarators(), this.getDeclarator(), null, "LocalVariableDeclarators", null, 1, -1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorVariable_DataUniqueComponentClassifierReference(), this.getUniqueComponentClassifierReference(), null, "DataUniqueComponentClassifierReference", null, 1, 1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(booleanLiteralEClass, BooleanLiteral.class, "BooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBooleanLiteral_Value(), this.getBoolean(), "value", "false", 0, 1, BooleanLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(behaviorBooleanLiteralEClass, BehaviorBooleanLiteral.class, "BehaviorBooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(behaviorStringLiteralEClass, BehaviorStringLiteral.class, "BehaviorStringLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(communicationActionEClass, CommunicationAction.class, "CommunicationAction", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2809,9 +2755,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		initEReference(getIfStatement_LogicalValueExpressions(), this.getValueExpression(), null, "logicalValueExpressions", null, 1, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIfStatement_BehaviorActionsOwned(), this.getBehaviorActions(), null, "behaviorActionsOwned", null, 1, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(integerLiteralEClass, IntegerLiteral.class, "IntegerLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIntegerLiteral_Value(), theAadl2Package.getInteger(), "value", "-1", 1, 1, IntegerLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIntegerLiteral_Base(), this.getInteger(), "base", "-1", 1, 1, IntegerLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(behaviorIntegerLiteralEClass, BehaviorIntegerLiteral.class, "BehaviorIntegerLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(integerRangeEClass, IntegerRange.class, "IntegerRange", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIntegerRange_LowerIntegerValue(), this.getIntegerValue(), null, "lowerIntegerValue", null, 1, 1, IntegerRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2837,8 +2781,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		initEClass(numeralEClass, Numeral.class, "Numeral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNumeral_Value(), this.getInteger(), "value", null, 0, 1, Numeral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(numericLiteralEClass, NumericLiteral.class, "NumericLiteral", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getNumericLiteral_ValueString(), this.getString(), "valueString", null, 1, 1, NumericLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(numericLiteralEClass, NumericLiteral.class, "NumericLiteral", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(otherwiseEClass, Otherwise.class, "Otherwise", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2864,8 +2807,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(behaviorPropertyValueEClass, BehaviorPropertyValue.class, "BehaviorPropertyValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(realLiteralEClass, RealLiteral.class, "RealLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRealLiteral_Value(), this.getReal(), "value", "-1.0", 0, 1, RealLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(behaviorRealLiteralEClass, BehaviorRealLiteral.class, "BehaviorRealLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(relationEClass, Relation.class, "Relation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRelation_SimpleExpressionOwned(), this.getSimpleExpression(), null, "simpleExpressionOwned", null, 1, 1, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2879,9 +2821,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		initEAttribute(getSimpleExpression_UnaryAddingOperatorOwned(), this.getUnaryAddingOperator(), "unaryAddingOperatorOwned", null, 0, 1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSimpleExpression_Terms(), this.getTerm(), null, "terms", null, 1, -1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSimpleExpression_BinaryAddingOperators(), this.getBinaryAddingOperator(), "binaryAddingOperators", null, 0, -1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(stringLiteralEClass, StringLiteral.class, "StringLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getStringLiteral_Value(), this.getString(), "value", null, 1, 1, StringLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(subprogramCallActionEClass, SubprogramCallAction.class, "SubprogramCallAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSubprogramCallAction_SubprogramNames(), this.getName_(), null, "subprogramNames", null, 0, 2, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

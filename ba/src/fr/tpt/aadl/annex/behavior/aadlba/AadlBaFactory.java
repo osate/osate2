@@ -107,13 +107,22 @@ public interface AadlBaFactory extends EFactory {
 	BehaviorVariable createBehaviorVariable();
 
 	/**
-	 * Returns a new object of class '<em>Boolean Literal</em>'.
+	 * Returns a new object of class '<em>Behavior Boolean Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Boolean Literal</em>'.
+	 * @return a new object of class '<em>Behavior Boolean Literal</em>'.
 	 * @generated
 	 */
-	BooleanLiteral createBooleanLiteral();
+	BehaviorBooleanLiteral createBehaviorBooleanLiteral();
+
+	/**
+	 * Returns a new object of class '<em>Behavior String Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior String Literal</em>'.
+	 * @generated
+	 */
+	BehaviorStringLiteral createBehaviorStringLiteral();
 
 	/**
 	 * Returns a new object of class '<em>Completion Relative Timeout Condition And Catch</em>'.
@@ -215,13 +224,13 @@ public interface AadlBaFactory extends EFactory {
 	IfStatement createIfStatement();
 
 	/**
-	 * Returns a new object of class '<em>Integer Literal</em>'.
+	 * Returns a new object of class '<em>Behavior Integer Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Integer Literal</em>'.
+	 * @return a new object of class '<em>Behavior Integer Literal</em>'.
 	 * @generated
 	 */
-	IntegerLiteral createIntegerLiteral();
+	BehaviorIntegerLiteral createBehaviorIntegerLiteral();
 
 	/**
 	 * Returns a new object of class '<em>Integer Range</em>'.
@@ -341,13 +350,13 @@ public interface AadlBaFactory extends EFactory {
 	BehaviorPropertyValue createBehaviorPropertyValue();
 
 	/**
-	 * Returns a new object of class '<em>Real Literal</em>'.
+	 * Returns a new object of class '<em>Behavior Real Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Real Literal</em>'.
+	 * @return a new object of class '<em>Behavior Real Literal</em>'.
 	 * @generated
 	 */
-	RealLiteral createRealLiteral();
+	BehaviorRealLiteral createBehaviorRealLiteral();
 
 	/**
 	 * Returns a new object of class '<em>Relation</em>'.
@@ -366,15 +375,6 @@ public interface AadlBaFactory extends EFactory {
 	 * @generated
 	 */
 	SimpleExpression createSimpleExpression();
-
-	/**
-	 * Returns a new object of class '<em>String Literal</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>String Literal</em>'.
-	 * @generated
-	 */
-	StringLiteral createStringLiteral();
 
 	/**
 	 * Returns a new object of class '<em>Subprogram Call Action</em>'.

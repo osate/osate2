@@ -28,10 +28,17 @@
 package fr.tpt.aadl.annex.behavior.aadlba.util;
 
 import edu.cmu.sei.aadl.aadl2.AnnexSubclause;
+import edu.cmu.sei.aadl.aadl2.BooleanLiteral;
 import edu.cmu.sei.aadl.aadl2.Element;
+import edu.cmu.sei.aadl.aadl2.IntegerLiteral;
 import edu.cmu.sei.aadl.aadl2.ModalElement;
 
 import edu.cmu.sei.aadl.aadl2.NamedElement;
+import edu.cmu.sei.aadl.aadl2.NumberValue;
+import edu.cmu.sei.aadl.aadl2.PropertyExpression;
+import edu.cmu.sei.aadl.aadl2.PropertyValue;
+import edu.cmu.sei.aadl.aadl2.RealLiteral;
+import edu.cmu.sei.aadl.aadl2.StringLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.*;
 
 import java.util.List;
@@ -256,16 +263,35 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case AadlBaPackage.BOOLEAN_LITERAL: {
-				BooleanLiteral booleanLiteral = (BooleanLiteral)theEObject;
-				T result = caseBooleanLiteral(booleanLiteral);
-				if (result == null) result = caseLiteral(booleanLiteral);
-				if (result == null) result = caseValueConstant(booleanLiteral);
-				if (result == null) result = caseValue(booleanLiteral);
-				if (result == null) result = caseIntegerValueConstant(booleanLiteral);
-				if (result == null) result = caseIntegerValue(booleanLiteral);
-				if (result == null) result = caseBehaviorElement(booleanLiteral);
-				if (result == null) result = caseElement(booleanLiteral);
+			case AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL: {
+				BehaviorBooleanLiteral behaviorBooleanLiteral = (BehaviorBooleanLiteral)theEObject;
+				T result = caseBehaviorBooleanLiteral(behaviorBooleanLiteral);
+				if (result == null) result = caseLiteral(behaviorBooleanLiteral);
+				if (result == null) result = caseBooleanLiteral(behaviorBooleanLiteral);
+				if (result == null) result = caseValueConstant(behaviorBooleanLiteral);
+				if (result == null) result = casePropertyValue(behaviorBooleanLiteral);
+				if (result == null) result = caseValue(behaviorBooleanLiteral);
+				if (result == null) result = caseIntegerValueConstant(behaviorBooleanLiteral);
+				if (result == null) result = casePropertyExpression(behaviorBooleanLiteral);
+				if (result == null) result = caseIntegerValue(behaviorBooleanLiteral);
+				if (result == null) result = caseBehaviorElement(behaviorBooleanLiteral);
+				if (result == null) result = caseElement(behaviorBooleanLiteral);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AadlBaPackage.BEHAVIOR_STRING_LITERAL: {
+				BehaviorStringLiteral behaviorStringLiteral = (BehaviorStringLiteral)theEObject;
+				T result = caseBehaviorStringLiteral(behaviorStringLiteral);
+				if (result == null) result = caseLiteral(behaviorStringLiteral);
+				if (result == null) result = caseStringLiteral(behaviorStringLiteral);
+				if (result == null) result = caseValueConstant(behaviorStringLiteral);
+				if (result == null) result = casePropertyValue(behaviorStringLiteral);
+				if (result == null) result = caseValue(behaviorStringLiteral);
+				if (result == null) result = caseIntegerValueConstant(behaviorStringLiteral);
+				if (result == null) result = casePropertyExpression(behaviorStringLiteral);
+				if (result == null) result = caseIntegerValue(behaviorStringLiteral);
+				if (result == null) result = caseBehaviorElement(behaviorStringLiteral);
+				if (result == null) result = caseElement(behaviorStringLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -423,17 +449,21 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case AadlBaPackage.INTEGER_LITERAL: {
-				IntegerLiteral integerLiteral = (IntegerLiteral)theEObject;
-				T result = caseIntegerLiteral(integerLiteral);
-				if (result == null) result = caseNumericLiteral(integerLiteral);
-				if (result == null) result = caseLiteral(integerLiteral);
-				if (result == null) result = caseValueConstant(integerLiteral);
-				if (result == null) result = caseValue(integerLiteral);
-				if (result == null) result = caseIntegerValueConstant(integerLiteral);
-				if (result == null) result = caseIntegerValue(integerLiteral);
-				if (result == null) result = caseBehaviorElement(integerLiteral);
-				if (result == null) result = caseElement(integerLiteral);
+			case AadlBaPackage.BEHAVIOR_INTEGER_LITERAL: {
+				BehaviorIntegerLiteral behaviorIntegerLiteral = (BehaviorIntegerLiteral)theEObject;
+				T result = caseBehaviorIntegerLiteral(behaviorIntegerLiteral);
+				if (result == null) result = caseNumericLiteral(behaviorIntegerLiteral);
+				if (result == null) result = caseIntegerLiteral(behaviorIntegerLiteral);
+				if (result == null) result = caseLiteral(behaviorIntegerLiteral);
+				if (result == null) result = caseNumberValue(behaviorIntegerLiteral);
+				if (result == null) result = caseValueConstant(behaviorIntegerLiteral);
+				if (result == null) result = casePropertyValue(behaviorIntegerLiteral);
+				if (result == null) result = caseValue(behaviorIntegerLiteral);
+				if (result == null) result = caseIntegerValueConstant(behaviorIntegerLiteral);
+				if (result == null) result = casePropertyExpression(behaviorIntegerLiteral);
+				if (result == null) result = caseIntegerValue(behaviorIntegerLiteral);
+				if (result == null) result = caseBehaviorElement(behaviorIntegerLiteral);
+				if (result == null) result = caseElement(behaviorIntegerLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -535,9 +565,12 @@ public class AadlBaSwitch<T> {
 				NumericLiteral numericLiteral = (NumericLiteral)theEObject;
 				T result = caseNumericLiteral(numericLiteral);
 				if (result == null) result = caseLiteral(numericLiteral);
+				if (result == null) result = caseNumberValue(numericLiteral);
 				if (result == null) result = caseValueConstant(numericLiteral);
+				if (result == null) result = casePropertyValue(numericLiteral);
 				if (result == null) result = caseValue(numericLiteral);
 				if (result == null) result = caseIntegerValueConstant(numericLiteral);
+				if (result == null) result = casePropertyExpression(numericLiteral);
 				if (result == null) result = caseIntegerValue(numericLiteral);
 				if (result == null) result = caseBehaviorElement(numericLiteral);
 				if (result == null) result = caseElement(numericLiteral);
@@ -680,17 +713,21 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case AadlBaPackage.REAL_LITERAL: {
-				RealLiteral realLiteral = (RealLiteral)theEObject;
-				T result = caseRealLiteral(realLiteral);
-				if (result == null) result = caseNumericLiteral(realLiteral);
-				if (result == null) result = caseLiteral(realLiteral);
-				if (result == null) result = caseValueConstant(realLiteral);
-				if (result == null) result = caseValue(realLiteral);
-				if (result == null) result = caseIntegerValueConstant(realLiteral);
-				if (result == null) result = caseIntegerValue(realLiteral);
-				if (result == null) result = caseBehaviorElement(realLiteral);
-				if (result == null) result = caseElement(realLiteral);
+			case AadlBaPackage.BEHAVIOR_REAL_LITERAL: {
+				BehaviorRealLiteral behaviorRealLiteral = (BehaviorRealLiteral)theEObject;
+				T result = caseBehaviorRealLiteral(behaviorRealLiteral);
+				if (result == null) result = caseNumericLiteral(behaviorRealLiteral);
+				if (result == null) result = caseRealLiteral(behaviorRealLiteral);
+				if (result == null) result = caseLiteral(behaviorRealLiteral);
+				if (result == null) result = caseNumberValue(behaviorRealLiteral);
+				if (result == null) result = caseValueConstant(behaviorRealLiteral);
+				if (result == null) result = casePropertyValue(behaviorRealLiteral);
+				if (result == null) result = caseValue(behaviorRealLiteral);
+				if (result == null) result = caseIntegerValueConstant(behaviorRealLiteral);
+				if (result == null) result = casePropertyExpression(behaviorRealLiteral);
+				if (result == null) result = caseIntegerValue(behaviorRealLiteral);
+				if (result == null) result = caseBehaviorElement(behaviorRealLiteral);
+				if (result == null) result = caseElement(behaviorRealLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -719,19 +756,6 @@ public class AadlBaSwitch<T> {
 				T result = caseSimpleExpression(simpleExpression);
 				if (result == null) result = caseBehaviorElement(simpleExpression);
 				if (result == null) result = caseElement(simpleExpression);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case AadlBaPackage.STRING_LITERAL: {
-				StringLiteral stringLiteral = (StringLiteral)theEObject;
-				T result = caseStringLiteral(stringLiteral);
-				if (result == null) result = caseLiteral(stringLiteral);
-				if (result == null) result = caseValueConstant(stringLiteral);
-				if (result == null) result = caseValue(stringLiteral);
-				if (result == null) result = caseIntegerValueConstant(stringLiteral);
-				if (result == null) result = caseIntegerValue(stringLiteral);
-				if (result == null) result = caseBehaviorElement(stringLiteral);
-				if (result == null) result = caseElement(stringLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -968,6 +992,36 @@ public class AadlBaSwitch<T> {
 	 * @generated
 	 */
 	public T caseBehaviorVariable(BehaviorVariable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Behavior Boolean Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Behavior Boolean Literal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBehaviorBooleanLiteral(BehaviorBooleanLiteral object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Behavior String Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Behavior String Literal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBehaviorStringLiteral(BehaviorStringLiteral object) {
 		return null;
 	}
 
@@ -1362,6 +1416,21 @@ public class AadlBaSwitch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Number Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Number Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNumberValue(NumberValue object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Term</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1647,6 +1716,21 @@ public class AadlBaSwitch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Behavior Integer Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Behavior Integer Literal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBehaviorIntegerLiteral(BehaviorIntegerLiteral object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Lock Action</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1778,6 +1862,21 @@ public class AadlBaSwitch<T> {
 	 * @generated
 	 */
 	public T caseBehaviorPropertyValue(BehaviorPropertyValue object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Behavior Real Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Behavior Real Literal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBehaviorRealLiteral(BehaviorRealLiteral object) {
 		return null;
 	}
 
@@ -1988,6 +2087,36 @@ public class AadlBaSwitch<T> {
 	 * @generated
 	 */
 	public T caseAnnexSubclause(AnnexSubclause object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Property Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Property Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePropertyExpression(PropertyExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Property Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Property Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePropertyValue(PropertyValue object) {
 		return null;
 	}
 

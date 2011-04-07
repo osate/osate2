@@ -70,7 +70,8 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 			case AadlBaPackage.BEHAVIOR_TIME: return (EObject)createBehaviorTime();
 			case AadlBaPackage.BEHAVIOR_TRANSITION: return (EObject)createBehaviorTransition();
 			case AadlBaPackage.BEHAVIOR_VARIABLE: return (EObject)createBehaviorVariable();
-			case AadlBaPackage.BOOLEAN_LITERAL: return (EObject)createBooleanLiteral();
+			case AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL: return (EObject)createBehaviorBooleanLiteral();
+			case AadlBaPackage.BEHAVIOR_STRING_LITERAL: return (EObject)createBehaviorStringLiteral();
 			case AadlBaPackage.COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH: return (EObject)createCompletionRelativeTimeoutConditionAndCatch();
 			case AadlBaPackage.DATA_COMPONENT_REFERENCE: return (EObject)createDataComponentReference();
 			case AadlBaPackage.DECLARATOR: return (EObject)createDeclarator();
@@ -82,7 +83,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 			case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT: return (EObject)createForOrForAllStatement();
 			case AadlBaPackage.IDENTIFIER: return (EObject)createIdentifier();
 			case AadlBaPackage.IF_STATEMENT: return (EObject)createIfStatement();
-			case AadlBaPackage.INTEGER_LITERAL: return (EObject)createIntegerLiteral();
+			case AadlBaPackage.BEHAVIOR_INTEGER_LITERAL: return (EObject)createBehaviorIntegerLiteral();
 			case AadlBaPackage.INTEGER_RANGE: return (EObject)createIntegerRange();
 			case AadlBaPackage.LOCK_ACTION: return (EObject)createLockAction();
 			case AadlBaPackage.NAME: return (EObject)createName();
@@ -96,10 +97,9 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 			case AadlBaPackage.PORT_SEND_ACTION: return (EObject)createPortSendAction();
 			case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT: return (EObject)createBehaviorPropertyConstant();
 			case AadlBaPackage.BEHAVIOR_PROPERTY_VALUE: return (EObject)createBehaviorPropertyValue();
-			case AadlBaPackage.REAL_LITERAL: return (EObject)createRealLiteral();
+			case AadlBaPackage.BEHAVIOR_REAL_LITERAL: return (EObject)createBehaviorRealLiteral();
 			case AadlBaPackage.RELATION: return (EObject)createRelation();
 			case AadlBaPackage.SIMPLE_EXPRESSION: return (EObject)createSimpleExpression();
-			case AadlBaPackage.STRING_LITERAL: return (EObject)createStringLiteral();
 			case AadlBaPackage.SUBPROGRAM_CALL_ACTION: return (EObject)createSubprogramCallAction();
 			case AadlBaPackage.TARGET: return (EObject)createTarget();
 			case AadlBaPackage.TERM: return (EObject)createTerm();
@@ -295,9 +295,19 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BooleanLiteral createBooleanLiteral() {
-		BooleanLiteralImpl booleanLiteral = new BooleanLiteralImpl();
-		return booleanLiteral;
+	public BehaviorBooleanLiteral createBehaviorBooleanLiteral() {
+		BehaviorBooleanLiteralImpl behaviorBooleanLiteral = new BehaviorBooleanLiteralImpl();
+		return behaviorBooleanLiteral;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BehaviorStringLiteral createBehaviorStringLiteral() {
+		BehaviorStringLiteralImpl behaviorStringLiteral = new BehaviorStringLiteralImpl();
+		return behaviorStringLiteral;
 	}
 
 	/**
@@ -415,9 +425,9 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IntegerLiteral createIntegerLiteral() {
-		IntegerLiteralImpl integerLiteral = new IntegerLiteralImpl();
-		return integerLiteral;
+	public BehaviorIntegerLiteral createBehaviorIntegerLiteral() {
+		BehaviorIntegerLiteralImpl behaviorIntegerLiteral = new BehaviorIntegerLiteralImpl();
+		return behaviorIntegerLiteral;
 	}
 
 	/**
@@ -555,9 +565,9 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RealLiteral createRealLiteral() {
-		RealLiteralImpl realLiteral = new RealLiteralImpl();
-		return realLiteral;
+	public BehaviorRealLiteral createBehaviorRealLiteral() {
+		BehaviorRealLiteralImpl behaviorRealLiteral = new BehaviorRealLiteralImpl();
+		return behaviorRealLiteral;
 	}
 
 	/**
@@ -578,16 +588,6 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	public SimpleExpression createSimpleExpression() {
 		SimpleExpressionImpl simpleExpression = new SimpleExpressionImpl();
 		return simpleExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public StringLiteral createStringLiteral() {
-		StringLiteralImpl stringLiteral = new StringLiteralImpl();
-		return stringLiteral;
 	}
 
 	/**

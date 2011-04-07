@@ -1903,9 +1903,9 @@ catch [RecognitionException ex] {
 }
 
 // boolean_literal ::= true | false
-boolean_literal returns [BooleanLiteral BoolLit]
+boolean_literal returns [BehaviorBooleanLiteral BoolLit]
  @init{
-   BoolLit = _fact.createBooleanLiteral();
+   BoolLit = _fact.createBehaviorBooleanLiteral();
  }
   :
    (
@@ -2039,10 +2039,10 @@ numeric_literal returns [NumericLiteral nl]
     (realval=REAL_LIT
       {
         String str = realval.getText();
-        RealLiteral tmp = _fact.createRealLiteral();
+        BehaviorRealLiteral tmp = _fact.createBehaviorRealLiteral();
         tmp.setValueString(str);
         str = str.replaceAll("_", "") ;
-        tmp.setValue(Double.parseDouble(str));
+        tmp.setValue(str);
         setLocationReference(tmp, realval);
         nl = tmp ;
       }
@@ -2052,7 +2052,7 @@ numeric_literal returns [NumericLiteral nl]
       {
         try{
         String str = integerval.getText();
-        IntegerLiteral tmp = _fact.createIntegerLiteral();
+        BehaviorIntegerLiteral tmp = _fact.createBehaviorIntegerLiteral();
         tmp.setValueString(str);
         //str = str.replaceAll("_", "") ;
         long[] parsedInt = edu.cmu.sei.aadl.parser.AadlParseUtil.parseAadlInteger(str);
@@ -2084,9 +2084,9 @@ catch [RecognitionException ex] {
 }
 
 // string_literal ::= <refer to [AS5506A 15.5]>
-string_literal returns [StringLiteral StringLit]
+string_literal returns [BehaviorStringLiteral StringLit]
  @init{
-   StringLit = _fact.createStringLiteral();
+   StringLit = _fact.createBehaviorStringLiteral();
  }
   :
    (

@@ -123,10 +123,8 @@
       <details key="documentation" value="A Boolean type is used for logical expression, consisting of the predefined values true and false."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BooleanLiteral" eSuperTypes="#//Literal">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="#//Boolean"
-        defaultValueLiteral="false"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorBooleanLiteral" eSuperTypes="#//Literal ../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//BooleanLiteral"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorStringLiteral" eSuperTypes="#//Literal ../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//StringLiteral"/>
   <eClassifiers xsi:type="ecore:EClass" name="CommunicationAction" abstract="true"
       interface="true" eSuperTypes="#//BasicAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="CompletionRelativeTimeoutConditionAndCatch"
@@ -249,12 +247,7 @@
       <details key="documentation" value="An integer is a primitive type representing integer values."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IntegerLiteral" eSuperTypes="#//NumericLiteral">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType ../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//Integer"
-        defaultValueLiteral="-1"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="base" lowerBound="1" eType="#//Integer"
-        defaultValueLiteral="-1"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorIntegerLiteral" eSuperTypes="#//NumericLiteral ../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//IntegerLiteral"/>
   <eClassifiers xsi:type="ecore:EClass" name="IntegerRange" eSuperTypes="#//ElementValues">
     <eStructuralFeatures xsi:type="ecore:EReference" name="lowerIntegerValue" lowerBound="1"
         eType="#//IntegerValue" containment="true"/>
@@ -300,10 +293,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Numeral" eSuperTypes="#//BehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="#//Integer"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NumericLiteral" abstract="true" eSuperTypes="#//Literal">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="valueString" lowerBound="1"
-        eType="#//String"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NumericLiteral" abstract="true" interface="true"
+      eSuperTypes="#//Literal ../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//NumberValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="Otherwise" eSuperTypes="#//ExecuteCondition"/>
   <eClassifiers xsi:type="ecore:EClass" name="ParameterLabel" abstract="true" interface="true"
       eSuperTypes="#//BehaviorElement"/>
@@ -330,10 +321,7 @@
       <details key="documentation" value="A real is a primitive type representing real numeric values."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RealLiteral" eSuperTypes="#//NumericLiteral">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="#//Real"
-        defaultValueLiteral="-1.0"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorRealLiteral" eSuperTypes="#//NumericLiteral ../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//RealLiteral"/>
   <eClassifiers xsi:type="ecore:EClass" name="Relation" eSuperTypes="#//BehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="simpleExpressionOwned"
         lowerBound="1" eType="#//SimpleExpression" containment="true"/>
@@ -367,9 +355,6 @@
     <eAnnotations source="http://www.topcased.org/documentation">
       <details key="documentation" value="A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters."/>
     </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StringLiteral" eSuperTypes="#//Literal">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramCallAction" eSuperTypes="#//CommunicationAction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramNames" upperBound="2"
