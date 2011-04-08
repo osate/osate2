@@ -262,15 +262,15 @@
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_Bp1s5WHaEeC1irJ09zvmVA" routing="Rectilinear" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_Bp1s5mHaEeC1irJ09zvmVA" fontName="Sans"/>
     <element xsi:nil="true"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Bp1s52HaEeC1irJ09zvmVA" points="[-97, 0, 188, 102]$[-97, -65, 188, 37]$[-284, -65, 1, 37]$[-284, -102, 1, 0]"/>
-    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BqE9cGHaEeC1irJ09zvmVA" id="(0.497907949790795,0.0)"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Bp1s52HaEeC1irJ09zvmVA" points="[1, 0, 191, 102]$[1, -65, 191, 37]$[-189, -65, 1, 37]$[-189, -102, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BqE9cGHaEeC1irJ09zvmVA" id="(0.11857707509881422,0.0)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BqE9cWHaEeC1irJ09zvmVA" id="(0.5053191489361702,1.0)"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_Bp2T8GHaEeC1irJ09zvmVA" type="3003" source="_8uDvYGHZEeC1irJ09zvmVA" target="_8uDIUGHZEeC1irJ09zvmVA">
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_Bp2T8WHaEeC1irJ09zvmVA" routing="Rectilinear" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_Bp2T8mHaEeC1irJ09zvmVA" fontName="Sans"/>
     <element xsi:nil="true"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Bp2T82HaEeC1irJ09zvmVA" points="[-3, 12, 307, -45]$[-159, 12, 151, -45]$[-159, 113, 151, 56]$[-308, 113, 2, 56]$[-308, 76, 2, 19]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Bp2T82HaEeC1irJ09zvmVA" points="[-3, 12, 307, -45]$[-118, 12, 192, -45]$[-118, 113, 192, 56]$[-308, 113, 2, 56]$[-308, 76, 2, 19]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BqEWYmHaEeC1irJ09zvmVA" id="(0.0392156862745098,0.2549019607843137)"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_Bp2T9GHaEeC1irJ09zvmVA" type="3003" source="_BprU0GHaEeC1irJ09zvmVA" target="_8uDIUGHZEeC1irJ09zvmVA">
