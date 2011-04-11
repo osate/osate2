@@ -270,7 +270,7 @@
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_Bp2T8WHaEeC1irJ09zvmVA" routing="Rectilinear" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_Bp2T8mHaEeC1irJ09zvmVA" fontName="Sans"/>
     <element xsi:nil="true"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Bp2T82HaEeC1irJ09zvmVA" points="[-3, 12, 307, -45]$[-118, 12, 192, -45]$[-118, 113, 192, 56]$[-308, 113, 2, 56]$[-308, 76, 2, 19]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Bp2T82HaEeC1irJ09zvmVA" points="[-3, 12, 307, -47]$[-118, 12, 192, -47]$[-118, 115, 192, 56]$[-308, 115, 2, 56]$[-308, 78, 2, 19]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BqEWYmHaEeC1irJ09zvmVA" id="(0.0392156862745098,0.2549019607843137)"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_Bp2T9GHaEeC1irJ09zvmVA" type="3003" source="_BprU0GHaEeC1irJ09zvmVA" target="_8uDIUGHZEeC1irJ09zvmVA">
