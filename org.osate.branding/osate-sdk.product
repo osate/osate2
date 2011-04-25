@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.1"?>
+
+<product name="%productName" id="org.osate.branding.product" application="org.eclipse.ui.ide.workbench" useFeatures="true">
+
+   <aboutInfo>
+      <image path="icons/osateAbout_hc90.jpg"/>
+      <text>
+         %aboutText
+      </text>
+   </aboutInfo>
+
+   <configIni use="default"/>
+
+   <launcherArgs>
+   </launcherArgs>
+
+   <windowImages/>
+
+   <splash
+      location="org.osate.branding"
+      startupProgressRect="20,10,400,20" />
+   <launcher name="eclipse">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <plugins>
+      <plugin id="org.osate.branding"/>
+      <plugin id="org.eclipse.ant.core"/>
+      <plugin id="org.eclipse.core.commands"/>
+      <plugin id="org.eclipse.core.expressions"/>
+      <plugin id="org.eclipse.core.resources"/>
+      <plugin id="org.eclipse.core.resources.compatibility" fragment="true"/>
+      <plugin id="org.eclipse.core.resources.win32" fragment="true"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility"/>
+      <plugin id="org.eclipse.core.variables"/>
+      <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.jface"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.swt"/>
+      <plugin id="org.eclipse.swt.win32.win32.x86" fragment="true"/>
+      <plugin id="org.eclipse.ui"/>
+      <plugin id="org.eclipse.ui.forms"/>
+      <plugin id="org.eclipse.ui.ide"/>
+      <plugin id="org.eclipse.ui.views"/>
+      <plugin id="org.eclipse.ui.win32" fragment="true"/>
+      <plugin id="org.eclipse.ui.workbench"/>
+      <plugin id="org.eclipse.update.configurator"/>
+      <plugin id="org.eclipse.update.core"/>
+      <plugin id="org.eclipse.update.core.win32" fragment="true"/>
+      <plugin id="org.eclipse.update.ui"/>
+   </plugins>
+
+   <features>
+      <feature id="edu.cmu.sei.osate-frontend" version="1.4.0"/>
+      <feature id="edu.cmu.sei.osate-plugins" version="1.4.0"/>
+      <feature id="org.eclipse.emf" version="2.1.1"/>
+      <feature id="org.eclipse.emf.doc" version="2.1.1"/>
+      <feature id="org.eclipse.emf.ecore.sdo" version="2.1.1"/>
+      <feature id="org.eclipse.emf.ecore.sdo.doc" version="2.1.1"/>
+      <feature id="org.eclipse.emf.ecore.sdo.source" version="2.1.1"/>
+      <feature id="org.eclipse.emf.sdk" version="2.1.1"/>
+      <feature id="org.eclipse.emf.source" version="2.1.1"/>
+      <feature id="org.eclipse.jdt" version="3.1.1"/>
+      <feature id="org.eclipse.jdt.source" version="3.1.1"/>
+      <feature id="org.eclipse.pde" version="3.1.1"/>
+      <feature id="org.eclipse.pde.source" version="3.1.1"/>
+      <feature id="org.eclipse.platform" version="3.1.1"/>
+      <feature id="org.eclipse.platform.source" version="3.1.1"/>
+      <feature id="org.eclipse.rcp" version="3.1.1"/>
+      <feature id="org.eclipse.rcp.source" version="3.1.1"/>
+      <feature id="org.eclipse.sdk" version="3.1.1"/>
+      <feature id="org.eclipse.xsd" version="2.1.1"/>
+      <feature id="org.eclipse.xsd.doc" version="2.1.1"/>
+      <feature id="org.eclipse.xsd.source" version="2.1.1"/>
+   </features>
+
+</product>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="%productName" id="org.osate.branding.product" application="org.eclipse.ui.ide.workbench" useFeatures="true" includeLaunchers="true">
+
+   <aboutInfo>
+      <image path="icons/osateAbout_hc90.jpg"/>
+      <text>
+         %aboutText
+      </text>
+   </aboutInfo>
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgs>-Xmx512M</vmArgs>
+   </launcherArgs>
+
+   <windowImages/>
+
+   <splash
+      location="org.osate.branding"
+      startupProgressRect="20,10,400,20" />
+   <launcher name="eclipse">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+      <plugin id="org.osate.branding"/>
+      <plugin id="org.eclipse.ant.core"/>
+      <plugin id="org.eclipse.core.commands"/>
+      <plugin id="org.eclipse.core.expressions"/>
+      <plugin id="org.eclipse.core.resources"/>
+      <plugin id="org.eclipse.core.resources.compatibility" fragment="true"/>
+      <plugin id="org.eclipse.core.resources.win32" fragment="true"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility"/>
+      <plugin id="org.eclipse.core.variables"/>
+      <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.jface"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.swt"/>
+      <plugin id="org.eclipse.swt.win32.win32.x86" fragment="true"/>
+      <plugin id="org.eclipse.ui"/>
+      <plugin id="org.eclipse.ui.forms"/>
+      <plugin id="org.eclipse.ui.ide"/>
+      <plugin id="org.eclipse.ui.views"/>
+      <plugin id="org.eclipse.ui.win32" fragment="true"/>
+      <plugin id="org.eclipse.ui.workbench"/>
+      <plugin id="org.eclipse.update.configurator"/>
+      <plugin id="org.eclipse.update.core"/>
+      <plugin id="org.eclipse.update.core.win32" fragment="true"/>
+      <plugin id="org.eclipse.update.ui"/>
+   </plugins>
+
+   <features>
+      <feature id="edu.cmu.sei.osate-frontend" version="2.0.0"/>
+      <feature id="edu.cmu.sei.osate-plugins" version="2.0.0"/>
+      <feature id="org.eclipse.cvs" version="1.1.100.v20090514-7E79FEc9BJ99r9YFR6JOEF"/>
+      <feature id="org.eclipse.jdt" version="3.5.0.v20090527-2000-7r88FEeFJePyvYeA33DjZ_c1"/>
+      <feature id="org.eclipse.pde" version="3.5.0.v20090123-7Z7_F8NFE-z0VXhWiu-8Qb95"/>
+      <feature id="org.eclipse.platform" version="3.5.0.v20090611a-9gEeG1HFtQcmRThO4O3aR_fqSMvJR2sJ"/>
+      <feature id="org.eclipse.rcp" version="3.5.0.v20090519-9SA0FwxFv6x089WEf-TWh11"/>
+      <feature id="org.eclipse.help" version="1.1.0.v20090602-7e7eFAlFEx2XZoYqwI68e2F"/>
+      <feature id="org.eclipse.equinox.p2.user.ui" version="1.1.0.v20090605-1440-7u6Fb3FbPbJP5MjJjZgifk"/>
+      <feature id="org.eclipse.emf.common" version="2.5.0.v200906151043"/>
+      <feature id="org.eclipse.emf.common.ui" version="2.5.0.v200906151043"/>
+      <feature id="org.eclipse.emf.ecore" version="2.5.0.v200906151043"/>
+      <feature id="org.eclipse.emf.ecore.edit" version="2.5.0.v200906151043"/>
+      <feature id="org.eclipse.emf.edit" version="2.5.0.v200906151043"/>
+      <feature id="org.eclipse.emf.edit.ui" version="2.5.0.v200906151043"/>
+      <feature id="org.eclipse.ocl" version="1.3.0.v200901271800-46-9oB55V5I9P8M65"/>
+      <feature id="org.eclipse.uml2" version="3.0.0.v200906011111"/>
+      <feature id="org.eclipse.emf.codegen.ecore" version="2.5.0.v200906151043"/>
+      <feature id="org.eclipse.emf.codegen.ecore.ui" version="2.5.0.v200906151043"/>
+      <feature id="org.eclipse.emf.converter" version="2.5.0.v200906151043"/>
+      <feature id="org.eclipse.emf.codegen" version="2.5.0.v200906151043"/>
+   </features>
+
+
+</product>

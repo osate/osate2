@@ -1,0 +1,172 @@
+API Changes
+-----------
+Plug-in "org.osate.branding.resourcebudgets" now exports all its packages.
+This allows other plug-ins to extend from its classes.  (Bug 566)
+
+Added property value creation methods to
+org.osate.branding.model.properties.PropertyUtils:
+- createIntegerValue()
+- createIntegerRangeValue()
+- createRealValue()
+- createRealRangeValue()
+- createStringValue()
+- createTrueFalseValue()
+- createEnumValue()
+
+The methods loadStandardPropertySets() in AadlBuilder are now @deprecated.
+The replacement is to not call them at all, as they are now no-ops.  This is
+because the standard property sets are now treated as normal plug-in provided
+property sets.
+
+Removed isStandardPropSet() and setStandardPropSet() from CoreResourceImpl.
+There is no direct replacement because there is no longer any distinction
+between a standard property set and a plug-in provided property set.
+In OsateResourceManager, isPluginPropertySet() has been renamed to isPredeclaredResource().
+The method isPredeclaredOrPluginPropertySet() has been removed.
+
+Class PredeclaredPropertyNames is @deprecated.  It is replaced by the classes
+AadlProject and AadlProperties in package edu.cmu.sei.osate.workspace.names.
+
+
+Bug Fixes
+----------
+Fixed bug 570: Contained property associations that applied to flow specs didn't
+work propertly.  The property association showed up on the component instance
+that contained the association instead of on the named flow spec instance.
+
+"Check safety" and "Check Security" didn't work correctly when analyzing
+declarative models with modal property associations.  They were supposed to
+detect this situation, and produce warning markers, but due to changes made
+to the property lookup methods over the summer, this functionality was broken.
+The analyses would throw PropertyIsModalExceptions instead.  This has been 
+fixed and the analyses once again generate warning markers when modal property
+associations are encountered.
+
+Fixed bug 519: Data and bus access connections are now flagged if the 
+destination of the connection is a subcomponent.
+
+Fixed bug 449: The semantic checker now issues warnings if a processor 
+component does not require a bus access or contain a memory subcomponent.
+
+Fixed bugs in "Check required connections."  When checking the declarative model,
+the analysis would erroneously mark some ports has missing required connections.
+This was caused by the analysis prematurely aborting the check for that port
+due to an error in the handling of access connections.  Also, fixed bug
+596: when analyzing an instance model, only the end points of semantics 
+connections were considered; the features that the semantic connection passes
+through were ignored.
+
+Fixed bug 595: Fixed a subtle error in the property lookup that affected reference-valued
+properties.  The problem affected property lookup for property definitions
+that contained the "inherit" keyword and had reference-valued associations.
+The problem occured when instantiating a model, during the phase where 
+property associations are applied to the instance model.  When refernce values
+were inherited it became impossible to determine which instance object they
+actually reference, and an exception was thrown.  This has been fixed.
+
+Fixed Bug 593 in the flow latency analysis.
+
+
+Improvements
+------------
+"Bind Theads to Processors" now produces warning markers when a processor
+has a scheduling protocol other than EDF or RMS, and skips the processor.
+Previously it threw an exception, halting the analysis.  (Bug 571)
+
+"Check Priority Inversion" now works correctly when thread subcomponents don't 
+have thread classifiers.  Previously it threw an exception.  Now those threads
+are treated as non-periodic threads and ignored by the analysis.  (Bug 572)
+
+The parser didn't properly check range terms in property
+associations or default property values; they were only checked in property
+constants.  Thus, range tersm of the form 5 .. 10 step 0.25 (e.g., which mixed
+integer and real min, max, and delta terms) were erroneously allowed.
+(bug 584)
+
+The AADL parser now tolerates '\r' (e.g., carriage return only) as a line
+separator.  (Bug 472)
+
+Fixed bug 559: Instantiate model is now cancellable.
+
+Property lookup on declarative models can now resolve contained property 
+associations when the association applies to an immediate member of the
+component implementation.
+
+The standard property sets are no longer treated specially.  They are 
+now contributed as "plug-in property sets" by the edu.cmu.sei.osate.workspace
+plug-in.  
+
+The SEI property set is now provided as a plug-in property set by its own
+plug-in edu.cmu.sei.contributes.SEI.  This plug-in is part of the OSATE Analysis
+feature set.
+
+Plug-in property sets (including the standard property sets) can be customized
+by shadowing them with identically named property sets in the workspace.  That is,
+to customize AADL_Project
+- Create a new property set named "AADL_Project" in an AADL project in the
+  workspace
+- Open the plug-in provided "AADL_Project" by double-clicking on it's icon
+  in the "Plug-in Property Sets" area of the AADL Navigator.
+- Copy the contents of the plug-in provided "AADL_Project" 
+- Paste them into the new "AADL_Project" in the workspace.
+- Save, and rebuild the workspace.
+
+OSATE marks the shadowing property set with an info marker visible in the
+problems view.  The shadowed plug-in provided property set is marked as 
+shadowed in the AADL Navigator (This marking doesn't always update correctly,
+particularly if the shadowing is added or removed after OSATE is started.)
+
+
+
+
+Sent out in OSATE 1.4.2 (22 Sep 2006)
+=====================================
+API Changes
+-----------
+ConnectionInstance now has a
+cloneInstance(String name, List connection, List connectionContext,
+InstanceObject src, InstanceObject dst) method.  This method create a new
+ConnectionInstance of the same type as this one, with the given name,
+connections, connectionContext, src, and dst.  This is basically a factory
+method that uses the type of the receiver to determine which kind of connection
+instance to create.  The values of the features of the receiver are completely
+ignored.
+
+This method replaces the cloneInstance() method that appeared in OSATE 1.4.1.
+
+
+Bug Fixes
+----------
+Fixed Bug 560 for real.  The fix in OSATE 1.4.1 was incorrect.  It left out
+some connections and also left garbage in the meta model.  This garbage would
+not be saved in the instance model, so it could be removed by reloading the
+instance model.
+
+
+Sent out OSATE 1.4.1 (20 Sep 2006)
+==========================================
+API Changes
+-----------
+Bug 556 (Enhancement): Added the methods getUnparseName(), getReadableName(),
+getFileName() to the Enumerator classes in the AADL MetaModel:
+- AccessDirection
+- ComponentCategory
+- ConnectionTiming
+- FeatureCategory
+- ModeState
+- PortDirection
+- PropertyOwnerCategory
+- PropertyTypeComponentCategory
+- ReferableElementCategory
+
+The idea is that these methods reflect context-depedent semantic reasons for
+getting the name:
+- getUnaprseName returns a form suitable for unparsing into textual AADL
+- getReadableName returns a form suitable for human readable text messages
+- getFileName returns a form suitable for looking up icons, etc.
+
+
+Bug Fixes
+---------
+Bug 560: Fixed serious problem in the creation of instance models that caused
+memory overflows during the creation of semantic connections.

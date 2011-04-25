@@ -1,0 +1,93 @@
+property set SEI is
+  -- property to support security level analysis
+  SecurityLevel: inherit aadlinteger  applies to (thread, thread group, process, system);
+  SafetyCriticality  : aadlinteger applies to (thread, thread group, process, system);
+  -- property to support analysis of missrate propagation along flows
+  StreamMissRate: aadlreal  applies to (port);
+  -- property to support weight analysis 
+  NetWeight: aadlreal units SEI::WeightUnits applies to (system, processor, memory, bus, device);
+  GrossWeight: aadlreal units SEI::WeightUnits applies to (system, processor, memory, bus, device);
+  WeightLimit: aadlreal units SEI::WeightUnits applies to (system, processor, memory, bus, device);
+  
+  WeightUnits: type units (kg);
+
+  -- properties used in architecturee consistency checker that ensures
+  -- delta based information is communicated with guaranteed delivery
+
+  -- state data representation
+  DataRepresentation: SEI::DataRepresentationType applies to (data, port);
+  -- Data Representation types 
+  DataRepresentationType: type enumeration (State, StateDelta);
+  -- types of protocol characteristics
+  ProtocolQoSType : type enumeration (GuaranteedDelivery, SecureDelivery, OrderedDelivery);
+  -- Protocol characteristics
+  -- for connections it represent the desired QoS characteristics
+  ProtocolQoS: list of SEI::ProtocolQoSType applies to (system, bus, connection);
+
+  -- manual priority assignment for threeads
+  Priority: aadlinteger  applies to (thread);
+
+
+  -- properties to support specification of partitions and latency analysis
+  -- The partition execution rate, specified through Partition_Latency, 
+  -- contributes to flow latency on cross-partition communication
+  Partition_Latency: Time => 50 Ms applies to (system, process);
+  Is_Partition: aadlboolean  => false applies to (system, process);
+  -- properties to support adjustment of execution time according to processor speed
+  -- execution time is specified in terms of a reference processor
+  -- Its speed is specified by the property constant reference_cycle_time
+  -- The speed of processors is specified by cycle_time
+  -- Adjustments to the execution time are made according to the cycle time ratio
+  -- 1 GHz processor as default reference cycle time
+  reference_cycle_time: constant Time=> 1000 ps;
+  -- time to execute one processor cycle
+  -- Used to convert execution time into processor cycles
+  -- default cycle time of a 1 GHz processor
+  cycle_time: Time => 1000 ps applies to (processor);
+  -- If reference_proc is specified that the specified processor is used as reference processor 
+  -- instead of the above constant
+  reference_processor: inherit classifier(processor) applies to (thread, thread group, process, system, device);
+  -- processor speed scaling factor. default is assumed to be 1.
+  speed_scaling_factor : aadlreal applies to (processor, system);
+  -- conversion factor from cycle time to instruction time (default is assumed to be 1
+  cycles_per_instruction : aadlreal applies to (processor, system);
+
+  -- The next set of properties are used in the resource budgeting plug-in
+  
+  -- number of instructions that can be executed on a processor (MIPS, MIPS, GIPS)
+  MIPSCapacity: aadlreal  units SEI::Processor_Speed_Units applies to (processor, system);
+  -- number of instructions allocatetd to an application component as budget
+  -- devices may have need for execution of instructions to handle their drivers
+  MIPSBudget: aadlreal  units SEI::Processor_Speed_Units applies to (thread, thread group, process, system, device);
+  -- RAM capacity of a platform component
+  RAMCapacity: aadlreal  units Size_Units applies to (memory, system);
+  -- RAM budget of an application component.  Devices may have RAM need
+  RAMBudget: aadlreal  units Size_Units applies to (thread, thread group, process, system, device);
+  -- ROM capacity (a ROM memory component is recognized by the name of the component classifier including "ROM" in its name
+  ROMCapacity: aadlreal  units Size_Units applies to (memory, system);
+  -- ROM budget by an application component
+  ROMBudget: aadlreal  units Size_Units applies to (thread, thread group, process, system, device);
+  -- capacity of a power source
+  PowerCapacity: aadlreal  units SEI::Power_Units applies to (bus, system);
+  -- power draw (demand) of a component
+  PowerBudget: aadlreal  units SEI::Power_Units applies to (bus access);
+  -- power supply by a component
+  PowerSupply: aadlreal  units SEI::Power_Units applies to (bus access);
+  -- capacity of a bus component for transfer of data
+  BandWidthCapacity: aadlreal  units SEI::Data_Volume_Units applies to (bus, system);
+  -- demand for data transfer by a connection
+  BandWidthBudget: aadlreal  units SEI::Data_Volume_Units applies to (connection);
+  -- actual RAM requirement by application component
+  -- This number may be supplied from a compiler when compiling the source
+  -- This number is related to the Source_Code_Size and Source_Data_Size properties
+  -- Those properties do not distinguish between RAM and ROM
+  RAMActual: aadlreal  units Size_Units applies to (thread, thread group, process, system, device);
+  -- actual ROM requirement by application component
+  ROMActual: aadlreal  units Size_Units applies to (thread, thread group, process, system, device);
+  -- Speed in terms of instructions executed per second
+  Processor_Speed_Units: type units (KIPS, MIPS => KIPS * 1000, GIPS => MIPS * 1000);
+  -- Power units
+  Power_Units: type units (mW, W => mW * 1000, KW => W * 1000);
+  -- Data volume units : amount of data per second
+  Data_Volume_Units: type units (bitsps, Bps => bitsps * 8, Kbps => Bps * 1000, Mbps => Kbps * 1000, Gbps => Mbps * 1000);
+end SEI;

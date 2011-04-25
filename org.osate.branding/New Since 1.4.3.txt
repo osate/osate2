@@ -1,0 +1,172 @@
+Improvements since 2007-01-11
+-----------------------------
+Flow latency analysis: 
+Corrected problem with non-harmonic sampling threads. 
+Queuing latency on event and event data ports is now taken into account.
+Added handling of delayed connections to periodic devices.
+A document describing the details of how the latency is calculated will be available in Mid-March 2007.
+
+Thread Binding&Scheduling (Binpacker):
+Improved interface to underlying Binpacker package.  It now takes into account communication between treads.
+It attempts to group threads that communicate frequently together on the same processor to minimize bus traffic.
+Three strategy options are offered in a dialog box.
+An updated document on the capabilities of the Binpacker will be available in Mid-March 2007.
+
+Object model editor:
+Added support for navigating to source and destination of flows.
+
+Aaxl files:
+Added preference option to save AADL XML files with EMF reference format instead of XPath
+reference format. For models with long component names this can lead to significant reduction of aaxl file size.
+
+Bug fixes:
+Semantic checker now allows delayed connections with periodic devices.
+
+Semantic checker now allows a subcomponent type to be refined to one of its implementations
+even if the type was declared in another package and made visible in the package with the implementation
+through "system typename extends  origpackage::typename". Previously this was considered not acceptable
+as the type was getting replaced by an extension of the original type in the case of
+"mysys: system origpackage::typename; " and
+"mysys: refined to system implpackage::typename.implname;"
+
+Parser now allows "provides bus access" for devices (Errata). This was previously allowed for memory and processor.
+
+Enabled missrate checking on instance models. Previously it was only enabled for declarative models.
+
+Corrected problem in Resource Budget Analysis when thread resource requirement based on execution time and period was compared to allocated resource budget.
+
+Fixed internal error when port groups have no port group type.
+
+Fixed internal error caused by Bind&Schedule Threads.
+
+Fixed problem with mode-specific end-to-end flows in instance models.
+
+API: Added method SystemInstance.getInitialSystemOperationMode() to retreive
+the initial system operation mode.  This is the system operation mode whose
+ModeInstances all refer to initial modes.  Added method 
+SystemOperationMode.isIntial() as well.
+
+Fixed AADL Navigator to also show plug-in provided packages.  Plug-in provided
+packages are not allowed to be shadowed, however, because it is too hard
+to deal with in the AADL builder.
+
+Added getAllInModes()and isAllInModes() to ModeMember.  These methods account
+for the fact that refinement can alter the modes in which a component/connection/flow
+is active.
+
+Fixed bugs 446 and 476.
+
+Fixed the semantics of flow implementations.  Previous they made no sense 
+because of two conflictings behaviors: (1) The standard allows a component
+implementation to have more than one flow implementation of the same name
+as long as they are in different modes; and (2) a flow implementation could
+be refined to exist in a different mode.  The problem is that when refining
+a flow implementation, it was always possible to know which flow implementation
+declaration is being refined by the "in modes" portion of the refinement is used
+not to identify the flow impl being refined, but to modify the flow implementation.
+Also, we came to realize that flow implementations should not have property
+associations: they are are simply component and mode specific implementations 
+of a flow specification.  Thus, we changed the parser.  It no longer allows 
+flow implementations to be refined or to have property associations.  We do 
+allow flow implementations to be *redeclared* in subcomponents, which allows
+a new mode specific implementation to be described.  Added additional semantic
+checks to insure that the flow implementations still make sense when 
+connections and subcomponents are refined to exist in new modes.  
+
+API: Related to the above change in semantics, we added to new methods to
+ComponentImpl.  The first is getAllFlowImpl(FlowSpec fs, Mode m).  It returns the 
+FlowImpl (if any) that implements fs in mode m of the component.  The second is
+getAllFlowImpl(FlowSpec fs) that returns all the flow implementations that 
+implement the flow specification in the component.  It returns a java.util.Map.
+The keys to the map are all the modes that are defined in the component.  If the
+component is modeless than the single key is "null".  The Map goes from Mode to 
+FlowImpl, thus describing the flow implementation that is relevant for each
+mode in the component.
+
+API: Introduced AbstractInstanceOrDeclarativeModelReadOnlyAction and
+AbstractInstanceOrDeclarativeModelModifyAction that simplify writing analyses
+over instance models.  Specifically, they implement doAaxlAction() to 
+test whether the model is an instance or declarative model.  If it is an 
+instance model and has more than one system operation mode, then the user
+is presented with a choice to analyze the model in the intial mode, all modes,
+or in a user-specified mode.  For user-specified modes, a special system 
+operation mode creation dialog box is presented.  Analysis is delegated to the
+methods analyzeDeclarativeModel() and analyzeInstanceModel().
+
+As a result of the above change, many of the OSATE analyses now better support
+modes.
+
+API: The instance model has been made more aware of the current system 
+operation mode.  It has long been possible to project the system instance into
+a specific system operation mode by using SystemInstance.setSystemOperationMode().
+The problem was, that this was only respected by the method
+ComponentInstance.getChildren(), and not by more commonly used method such as 
+ComponentInstance.getComponentInstance() or SystemInstance.getConnectionInstance().
+This situation has now been remedied.  In addition, we have renamed
+setSystemOperationMode() to setCurrentSystemOperationMode(); the old name has
+been @deprecated.  The following methods are now sensitive to the current
+system operation mode, in that they will only return model elements that exist
+in that system operation mode:
+- SystemInstance.getConnectionInstance()
+- ModeTransitionInstance.getDstModeTransitionConnection()
+- FeatureInstance.getSrcPortConnection()
+- FeatureInstance.getDstPortConnection()
+- FeatureInstance.getSrcModeTransitionConnection()
+- FeatureInstance.getDstAccessConnection()
+- FeatureInstance.getOutgoingPortConnectionInstance()
+- FeatureInstance.getIncomingPortConnectionInstance()
+- ComponentInstance.getComponentInstance()
+- ComponentInstance.getAllComponentInstances()
+- ComponentInstance.getSrcAccessConnection()
+- ComponentInstance.getEndToEndFlowInstance()
+- ComponentInstance.findSubcomponentInstance()
+- ComponentInstance.findEndToEndFlowInstance()
+- ComponentInstance.findConnectionInstance()
+- ComponentInstance.findInstanceObject()
+
+Removed FeatureInstance.getModalOutgoingPortConnectionInstance() and
+FeatureInstance.getIncomingPortConnectionInstance() because they are now 
+redundant.
+
+Moved findConnectionInstance() from ComponentInstance to SystemInstance.
+
+Added exists() method to ConnectionInstance, ComponentInstance, and
+EndToEndFlowInstance that returns whether the instance exists in the current
+system operation mode.
+
+Removed ComponentInstance.getModeInstanceFor(Mode) because it was
+redundant with findModeInstance().
+
+
+
+Improvements in  2007-01-11 Version of 1.4.3
+---------------------------------------------
+Also fixed several bugs related to extracting information from properties while
+setting up the bin packing problem, and to handling connections between threads.
+
+
+
+Improvements in 2007-01-05 Version of 1.4.3
+---------------------------------------------
+Improved support for shadowing plug-in provided property sets: Now the
+context menu in the "AADL Navigator" contains a "Shadow Plug-in Property Set"
+action that allows you to select the project into which a copy of the property
+set will be placed.
+
+The "Bind Threads to Processors" (aka BinPacker) action has an improved results
+dialog box.  It now uses tabbed panes, which should remove much of the clutter.
+
+Improved error messages in "Check Flow Latency" to show system operation
+modes (bug 616).
+
+Fixed error in "Check Flow Latency" that was introduced in OSATE 1.4.3: the 
+analysis was supposed to retreive latency, period, and deadline property values
+in microseconds, but was actually retreiving them in milliseconds.  Thus the
+results of the analysis were inproperty rescaled back to milliseconds, typically
+resulting in a latency value of 1 ms.
+
+Fixed bug 618: Flow analysis Handles chained non-sampling port connections
+correctly now.  Also handles non-harmonic data port connections - treats them as
+independently sampling connections.  Improved messages of results.
+Added handling of queues on event and event data ports.
+

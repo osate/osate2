@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="instance"
+    nsURI="http://aadl.info/AADL/2.0/instance" nsPrefix="instance">
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureInstance" eSuperTypes="#//ConnectionInstanceEnd #//InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="srcFlowSpec" ordered="false"
+        upperBound="-1" eType="#//FlowSpecificationInstance" eOpposite="#//FlowSpecificationInstance/source"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dstFlowSpec" ordered="false"
+        upperBound="-1" eType="#//FlowSpecificationInstance" eOpposite="#//FlowSpecificationInstance/destination"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureInstance" ordered="false"
+        upperBound="-1" eType="#//FeatureInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
+        eType="#//FeatureCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
+        lowerBound="1" eType="ecore:EEnum aadl2.ecore#//DirectionType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" ordered="false"
+        lowerBound="1" eType="ecore:EClass aadl2.ecore#//Feature"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" ordered="false"
+        unique="false" upperBound="-1" eType="ecore:EDataType aadl2.ecore#//Integer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InstanceObject" abstract="true" eSuperTypes="aadl2.ecore#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectionInstanceEnd" abstract="true"
+      eSuperTypes="#//InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="srcConnectionInstance"
+        ordered="false" upperBound="-1" eType="#//ConnectionInstance" eOpposite="#//ConnectionInstance/source"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dstConnectionInstance"
+        ordered="false" upperBound="-1" eType="#//ConnectionInstance" eOpposite="#//ConnectionInstance/destination"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectionInstance" eSuperTypes="#//FlowElementInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inSystemOperationMode"
+        ordered="false" upperBound="-1" eType="#//SystemOperationMode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inModeTransitions" ordered="false"
+        upperBound="-1" eType="#//ModeTransitionInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="complete" ordered="false"
+        lowerBound="1" eType="ecore:EDataType aadl2.ecore#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
+        eType="#//ConnectionKind"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destination" ordered="false"
+        lowerBound="1" eType="#//ConnectionInstanceEnd" eOpposite="#//ConnectionInstanceEnd/dstConnectionInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connectionReference" lowerBound="1"
+        upperBound="-1" eType="#//ConnectionReference" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
+        lowerBound="1" eType="#//ConnectionInstanceEnd" eOpposite="#//ConnectionInstanceEnd/srcConnectionInstance"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FlowElementInstance" abstract="true"
+      eSuperTypes="#//InstanceObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SystemOperationMode" eSuperTypes="aadl2.ecore#//Mode">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="currentMode" upperBound="-1"
+        eType="#//ModeInstance"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeInstance" eSuperTypes="#//InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="srcModeTransition" ordered="false"
+        upperBound="-1" eType="#//ModeTransitionInstance" eOpposite="#//ModeTransitionInstance/source"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dstModeTransition" ordered="false"
+        upperBound="-1" eType="#//ModeTransitionInstance" eOpposite="#//ModeTransitionInstance/destination"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="initial" ordered="false"
+        lowerBound="1" eType="ecore:EDataType aadl2.ecore#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mode" ordered="false" lowerBound="1"
+        eType="ecore:EClass aadl2.ecore#//Mode"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeTransitionInstance" eSuperTypes="#//ConnectionInstanceEnd #//InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destination" ordered="false"
+        lowerBound="1" eType="#//ModeInstance" eOpposite="#//ModeInstance/dstModeTransition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modeTransition" ordered="false"
+        lowerBound="1" eType="ecore:EClass aadl2.ecore#//ModeTransition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
+        lowerBound="1" eType="#//ModeInstance" eOpposite="#//ModeInstance/srcModeTransition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ConnectionKind">
+    <eLiterals name="featureConnection"/>
+    <eLiterals name="accessConnection" value="1"/>
+    <eLiterals name="parameterConnection" value="2"/>
+    <eLiterals name="portConnection" value="3"/>
+    <eLiterals name="modeTransitionConnection" value="4"/>
+    <eLiterals name="featureGroupConnection" value="5"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectionReference" eSuperTypes="#//InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
+        unique="false" lowerBound="1" eType="#//ComponentInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" ordered="false"
+        unique="false" lowerBound="1" eType="ecore:EClass aadl2.ecore#//Connection"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentInstance" eSuperTypes="#//ConnectionInstanceEnd #//FlowElementInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureInstance" ordered="false"
+        upperBound="-1" eType="#//FeatureInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentInstance" upperBound="-1"
+        eType="#//ComponentInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modeInstance" ordered="false"
+        upperBound="-1" eType="#//ModeInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modeTransitionInstance"
+        ordered="false" upperBound="-1" eType="#//ModeTransitionInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
+        eType="ecore:EEnum aadl2.ecore#//ComponentCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inModes" ordered="false"
+        upperBound="-1" eType="#//ModeInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="flowSpecification" ordered="false"
+        upperBound="-1" eType="#//FlowSpecificationInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="endToEndFlow" ordered="false"
+        upperBound="-1" eType="#//EndToEndFlowInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connectionInstance" ordered="false"
+        upperBound="-1" eType="#//ConnectionInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponent" ordered="false"
+        lowerBound="1" eType="ecore:EClass aadl2.ecore#//Subcomponent"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" ordered="false"
+        unique="false" upperBound="-1" eType="ecore:EDataType aadl2.ecore#//Integer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FlowSpecificationInstance" eSuperTypes="#//FlowElementInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
+        eType="#//FeatureInstance" eOpposite="#//FeatureInstance/srcFlowSpec"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destination" ordered="false"
+        eType="#//FeatureInstance" eOpposite="#//FeatureInstance/dstFlowSpec"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="flowSpecification" ordered="false"
+        lowerBound="1" eType="ecore:EClass aadl2.ecore#//FlowSpecification"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlowInstance" eSuperTypes="#//InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="flowElement" upperBound="-1"
+        eType="#//FlowElementInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inModes" ordered="false"
+        upperBound="-1" eType="#//ModeInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inSystemOperationMode"
+        ordered="false" upperBound="-1" eType="#//SystemOperationMode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="endToEndFlow" ordered="false"
+        lowerBound="1" eType="ecore:EClass aadl2.ecore#//EndToEndFlow"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="FeatureCategory">
+    <eLiterals name="dataPort"/>
+    <eLiterals name="eventPort" value="1"/>
+    <eLiterals name="eventDataPort" value="2"/>
+    <eLiterals name="parameter" value="3"/>
+    <eLiterals name="busAccess" value="4"/>
+    <eLiterals name="dataAccess" value="5"/>
+    <eLiterals name="subprogramAccess" value="6"/>
+    <eLiterals name="subprogramGroupAccess" value="7"/>
+    <eLiterals name="featureGroup" value="8"/>
+    <eLiterals name="abstractFeature" value="9"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SystemInstance" eSuperTypes="#//ComponentInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="systemOperationMode" upperBound="-1"
+        eType="#//SystemOperationMode" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="systemImplementation" ordered="false"
+        lowerBound="1" eType="ecore:EClass aadl2.ecore#//SystemImplementation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InstanceReferenceValue" eSuperTypes="aadl2.ecore#//PropertyValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedInstanceObject"
+        ordered="false" lowerBound="1" eType="#//InstanceObject"/>
+  </eClassifiers>
+</ecore:EPackage>
