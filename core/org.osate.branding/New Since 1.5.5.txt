@@ -1,0 +1,29 @@
+Fixed race conditions with AADL builder.  
+Added toolbar buttons to explicitly invoke a rebuild and the dis/enable autobuild.
+
+Weight analysis now interprets WeightLimit, GrossWeight, and NetWeight.  
+The net weight sums of subcomponents and the component are compared to its gross weight (if specified)
+and against the weight limit.
+
+Power Analysis now interprets both PowerBudget and PowerSupply properties on bus access connections
+and compares them against the PowerCapacity of the bus. Power contributors to the bus use PowerSupply, 
+while power consumers use PowerBudget.
+
+Graphical Editor improvements were made to make it more stable. 
+Fixed problem with creating bus access connection from existing model. 
+Graphical editor now ensures that identifiers are legal & performs semantic checks.
+When double clicking on a subcomponent,the editor now tries to find the diagram 
+for the component classifier of the subcomponent instead of creating a nested instance diagram.
+
+Text editor has new commands in context menu to navigate to other parts of model.
+
+OSATE now has a special mode in which classifiers can be moved between packages 
+within once instance of the Object (Core) editor.
+It will update all references including those of the diagrams. 
+You open one .aaxl file and the editor shows all packages and their content.
+It allows for drag/drop of classifiers within the editor without loosing references.
+
+
+NOTE: Analysers use different marker types to report their results in the "Problem View" of Eclipse.
+You can get this view to sort the markers by marker type, thus, see all the markers of one analysis together.
+Use the "Group by" and "Type" feature of the Problem View from the menu on the top right of the Problem View.

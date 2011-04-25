@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="edu.cmu.sei.osate_sdk"
+      label="OSATE SDK"
+      version="2.0.0"
+      provider-name="CMU SEI">
+
+   <description url="OSATEXfer.html">
+      Source code for the OSATE Core Feature.
+   </description>
+
+   <copyright>
+      Copyright  2005-2006 by Carnegie Mellon University, all rights reserved.
+   </copyright>
+
+   <license url="OSATELicense.html">
+      Use of the Open Source AADL Tool Environment (OSATE) is subject
+to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
+   </license>
+
+   <url>
+      <update label="OSATE" url="http://la.sei.cmu.edu/aadlinfosite/OSATEUpdateSite/"/>
+   </url>
+
+   <includes
+         id="edu.cmu.sei.osate-frontend"
+         version="0.0.0"/>
+
+   <includes
+         id="edu.cmu.sei.osate-frontend.source"
+         version="0.0.0"/>
+
+   <includes
+         id="edu.cmu.sei.osate-plugins"
+         version="0.0.0"/>
+
+   <includes
+         id="edu.cmu.sei.osate-plugins.source"
+         version="0.0.0"/>
+
+</feature>

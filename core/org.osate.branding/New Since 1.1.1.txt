@@ -1,0 +1,62 @@
+Replace the "Clean up instances" action with the "Reinstantiate All Models"
+action.  This action rebuilds all the instance models in the workspace, 
+removing any whose system implemenation no longer exists.
+
+Added debugging actions: "Reload Resource Set" which forces all the XML models
+to be reloaded, and "Check For Unresolved Proxies" which looks for unresolved
+proxies (i.e., naming errors) in XML models. 
+
+In core editor added ability to jump to the AADL Source text for a particular 
+AObject.  When the AObject is an InstnaceObject, then it jumps to the instanctiated
+object in the declarative model.
+
+Added an "AADL" perspective.
+
+Added an "AADL Navigator" view that hides "." files and that decorates icons
+to indicate whether the resource has warnings or errors.
+
+Added "convert to AADL text file" as export wizard.
+
+Added "convert to MetaH" as export wizard.
+
+Fixed bug 355: Name resolver now always puts in referneces to the ports when 
+they are found in the connection.  Previously it sometimes left them off if
+the categories were wrong.  This mixed up name binding and semantic checking 
+functionality, and resulted in incomplete models.
+
+Fixed bug 356: OSATE now only generates .aaxl files for those .aadl files that
+do not have name/numeric resolution errors.  This ensures that all .aaxl files
+have legal references to other objects.
+
+Fixed bug 358: OSATE didn't property unload Resources when the paths to the
+standard property sets are changed.  This caused OSATE to still to use the 
+property set from the old path even though it does load/parse the resource 
+set from the new path.
+
+Renamed AadlEditor to AadlTextEditor to avoid confusion with 
+AADLEditor as the graphical editor.
+
+Fixed bug in parser: Parser added refined event data ports as data ports and
+refined data ports as event data ports.  This caused ClassCastExceptions.
+
+NOTE: OSATE does not always correctly resolve references to features when the 
+feature is refined in component implementation's "refines type" clause.  Much 
+of the time the clause is ignored and the feature is resolved to the feature in
+the component type.  Features refined in component type definitions *are*
+correctly referenced.
+
+Changed ParseErrorReporter to only have LocationReference-based reporting
+methods.  This means the parseError() method has been renamed to error()
+and the semanticError() method has been removed.  Instead, there is a new
+AnalysisToParseErrorReporterAdapter class that is used with AnalysisErrorReporterManagers.
+This class allows errors to be reported relative to AObjects, but actually reports
+relative to the text position in the source text file by using a ParseErrorReporter
+under the hood.  Additional changes to ParseErrorReporter and ParseErrorReporterManager 
+were also made to make them more similar in structure to AnalysisErrorReporter
+and AnalysisErrorReporterManager.  A side-effect of these changes is that resolveAnnex()
+method in AnnexResolver now takes an AnalysisErrorReporterManager instead of 
+a ParseErrorReporterManager.
+
+The above changes also mean that the resolveAnnex() method in AnnexResolver
+now takes an AnalysisErrorReporterManager instead of a ParseErrorReporterManager.
+

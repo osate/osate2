@@ -1,0 +1,1574 @@
+/**
+ * <copyright>
+ * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ *
+ * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
+ * at http://www.eclipse.org/org/documents/epl-v10.html.
+ *
+ * NO WARRANTY
+ *
+ * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
+ * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
+ * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
+ * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
+ * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
+ * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
+ * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
+ * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
+ * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
+ *
+ * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
+ * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
+ * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
+ * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
+ * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
+ * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
+ *
+ * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
+ * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
+ * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
+ * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
+ * under the contract clause at 252.227.7013.
+ * </copyright>
+ *
+ * $Id: ComponentImplementationImpl.java,v 1.62 2011-04-11 13:35:51 lwrage Exp $
+ */
+package org.osate.aadl2.impl;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.ECollections;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.BasicFeatureMap;
+import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.FeatureMap;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.uml2.common.util.CacheAdapter;
+import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AbstractSubcomponent;
+import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Connection;
+import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureConnection;
+import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.Generalization;
+import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.ParameterConnection;
+import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.ProcessorSubprogram;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PrototypeBinding;
+import org.osate.aadl2.Realization;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyAcc;
+
+/**
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Component Implementation</b></em>'. <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getGenerals <em>General</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getClassifierFeatures <em>Classifier Feature</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedMembers <em>Owned Member</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getGeneralizations <em>Generalization</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getSubcomponents <em>Subcomponents</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getConnections <em>Connections</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getFlows <em>Flows</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getExtended <em>Extended</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedFlowImplementations <em>Owned Flow Implementation</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedConnections <em>Owned Connection</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedExtension <em>Owned Extension</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedRealization <em>Owned Realization</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedEndToEndFlows <em>Owned End To End Flow</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedAbstractSubcomponents <em>Owned Abstract Subcomponent</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedAccessConnections <em>Owned Access Connection</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedParameterConnections <em>Owned Parameter Connection</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedPortConnections <em>Owned Port Connection</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedFeatureConnections <em>Owned Feature Connection</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedFeatureGroupConnections <em>Owned Feature Group Connection</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedProcessorSubprograms <em>Owned Processor Subprogram</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#isNoSubcomponents <em>No Subcomponents</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#isNoConnections <em>No Connections</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#isNoCalls <em>No Calls</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @generated
+ */
+public abstract class ComponentImplementationImpl extends ComponentClassifierImpl implements ComponentImplementation {
+	/**
+	 * The cached value of the '{@link #getSubcomponents() <em>Subcomponents</em>}' attribute list.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * @see #getSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected FeatureMap subcomponents;
+
+	/**
+	 * The cached value of the '{@link #getConnections() <em>Connections</em>}' attribute list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getConnections()
+	 * @generated
+	 * @ordered
+	 */
+	protected FeatureMap connections;
+
+	/**
+	 * The cached value of the '{@link #getFlows() <em>Flows</em>}' attribute list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getFlows()
+	 * @generated
+	 * @ordered
+	 */
+	protected FeatureMap flows;
+
+	/**
+	 * The cached value of the '{@link #getOwnedExtension() <em>Owned Extension</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedExtension()
+	 * @generated
+	 * @ordered
+	 */
+	protected ImplementationExtension ownedExtension;
+
+	/**
+	 * The cached value of the '{@link #getOwnedRealization() <em>Owned Realization</em>}' reference.
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * @see #getOwnedRealization()
+	 * @generated
+	 * @ordered
+	 */
+	protected Realization ownedRealization;
+
+	/**
+	 * The cached value of the '{@link #getOwnedProcessorSubprograms()
+	 * <em>Owned Processor Subprogram</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see #getOwnedProcessorSubprograms()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ProcessorSubprogram> ownedProcessorSubprograms;
+
+	/**
+	 * The default value of the '{@link #isNoSubcomponents() <em>No Subcomponents</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * @see #isNoSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean NO_SUBCOMPONENTS_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isNoSubcomponents() <em>No Subcomponents</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * @see #isNoSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean noSubcomponents = NO_SUBCOMPONENTS_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isNoConnections() <em>No Connections</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * @see #isNoConnections()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean NO_CONNECTIONS_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isNoConnections() <em>No Connections</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * @see #isNoConnections()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean noConnections = NO_CONNECTIONS_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isNoCalls() <em>No Calls</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #isNoCalls()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean NO_CALLS_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isNoCalls() <em>No Calls</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #isNoCalls()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean noCalls = NO_CALLS_EDEFAULT;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ComponentImplementationImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return Aadl2Package.eINSTANCE.getComponentImplementation();
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Subcomponent> getOwnedSubcomponents() {
+		CacheAdapter cache = getCacheAdapter();
+		if (cache != null) {
+			Resource eResource = eResource();
+			@SuppressWarnings("unchecked")
+			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
+			if (ownedSubcomponents == null) {
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
+						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+								Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS));
+			}
+			return ownedSubcomponents;
+		}
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<ClassifierFeature> getClassifierFeatures() {
+		CacheAdapter cache = getCacheAdapter();
+		if (cache != null) {
+			Resource eResource = eResource();
+			@SuppressWarnings("unchecked")
+			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
+			if (classifierFeatures == null) {
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(),
+						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class,
+								this, Aadl2Package.COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE,
+								CLASSIFIER_FEATURE_ESUBSETS));
+			}
+			return classifierFeatures;
+		}
+		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
+				Aadl2Package.COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<NamedElement> getOwnedMembers() {
+		CacheAdapter cache = getCacheAdapter();
+		if (cache != null) {
+			Resource eResource = eResource();
+			@SuppressWarnings("unchecked")
+			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
+			if (ownedMembers == null) {
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
+						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+								Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
+			}
+			return ownedMembers;
+		}
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<Classifier> getGenerals() {
+		CacheAdapter cache = getCacheAdapter();
+		if (cache != null) {
+			Resource eResource = eResource();
+			@SuppressWarnings("unchecked")
+			EList<Classifier> generals = (EList<Classifier>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getClassifier_General());
+			if (generals == null) {
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_General(),
+						generals = new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
+								Aadl2Package.COMPONENT_IMPLEMENTATION__GENERAL, GENERAL_ESUBSETS));
+			}
+			return generals;
+		}
+		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
+				Aadl2Package.COMPONENT_IMPLEMENTATION__GENERAL, GENERAL_ESUBSETS);
+	}
+
+	/**
+	 * The array of subset feature identifiers for the '{@link #getGenerals() <em>General</em>}' reference list.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * @see #getGenerals()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] GENERAL_ESUBSETS = new int[] { Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED };
+
+	/**
+	 * The array of subset feature identifiers for the '{@link #getOwnedSubcomponents() <em>Owned Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getOwnedSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] OWNED_SUBCOMPONENT_ESUBSETS = new int[] { Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT };
+
+	/**
+	 * The array of subset feature identifiers for the '{@link #getClassifierFeatures() <em>Classifier Feature</em>}' reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getClassifierFeatures()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] CLASSIFIER_FEATURE_ESUBSETS = new int[] {
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_MODE,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW };
+
+	/**
+	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' containment reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getOwnedMembers()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] OWNED_MEMBER_ESUBSETS = new int[] {
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ANNEX_SUBCLAUSE,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE, Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_MODE,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW };
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<Generalization> getGeneralizations() {
+		CacheAdapter cache = getCacheAdapter();
+		if (cache != null) {
+			Resource eResource = eResource();
+			@SuppressWarnings("unchecked")
+			EList<Generalization> generalizations = (EList<Generalization>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getClassifier_Generalization());
+			if (generalizations == null) {
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_Generalization(),
+						generalizations = new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
+								Aadl2Package.COMPONENT_IMPLEMENTATION__GENERALIZATION, GENERALIZATION_ESUBSETS));
+			}
+			return generalizations;
+		}
+		return new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
+				Aadl2Package.COMPONENT_IMPLEMENTATION__GENERALIZATION, GENERALIZATION_ESUBSETS);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isNoSubcomponents() {
+		return noSubcomponents;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNoSubcomponents(boolean newNoSubcomponents) {
+		boolean oldNoSubcomponents = noSubcomponents;
+		noSubcomponents = newNoSubcomponents;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS, oldNoSubcomponents, noSubcomponents));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isNoCalls() {
+		return noCalls;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNoCalls(boolean newNoCalls) {
+		boolean oldNoCalls = noCalls;
+		noCalls = newNoCalls;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS,
+					oldNoCalls, noCalls));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isNoConnections() {
+		return noConnections;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNoConnections(boolean newNoConnections) {
+		boolean oldNoConnections = noConnections;
+		noConnections = newNoConnections;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CONNECTIONS, oldNoConnections, noConnections));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentImplementation getExtended() {
+		ComponentImplementation extended = basicGetExtended();
+		return extended != null && ((EObject) extended).eIsProxy() ? (ComponentImplementation) eResolveProxy((InternalEObject) extended)
+				: extended;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public ComponentImplementation basicGetExtended() {
+		// DONE: implement this method to return the 'Extended' reference
+		ImplementationExtension extension = getOwnedExtension();
+		return extension == null ? null : ((ImplementationExtensionImpl) extension).basicGetExtended();
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExtended(ComponentImplementation newExtended) {
+		// TODO: implement this method to set the 'Extended' reference
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<FlowImplementation> getOwnedFlowImplementations() {
+		return getFlows().list(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFlowImplementation());
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FlowImplementation createOwnedFlowImplementation() {
+		FlowImplementation newOwnedFlowImplementation = (FlowImplementation) create(Aadl2Package.eINSTANCE
+				.getFlowImplementation());
+		getOwnedFlowImplementations().add(newOwnedFlowImplementation);
+		return newOwnedFlowImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public EList<Connection> getOwnedConnections() {
+		// DONE: Implemented
+		BasicInternalEList<Connection> connections = new BasicInternalEList<Connection>(Connection.class);
+		connections.addAll(getOwnedAccessConnections());
+		connections.addAll(getOwnedFeatureConnections());
+		connections.addAll(getOwnedFeatureGroupConnections());
+		connections.addAll(getOwnedParameterConnections());
+		connections.addAll(getOwnedPortConnections());
+		return connections;
+	}
+
+	/**
+	 * The array of subset feature identifiers for the '{@link #getGeneralizations() <em>Generalization</em>}' containment reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getGeneralizations()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] GENERALIZATION_ESUBSETS = new int[] {
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION };
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureMap getSubcomponents() {
+		if (subcomponents == null) {
+			subcomponents = new BasicFeatureMap(this, Aadl2Package.COMPONENT_IMPLEMENTATION__SUBCOMPONENTS);
+		}
+		return subcomponents;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureMap getConnections() {
+		if (connections == null) {
+			connections = new BasicFeatureMap(this, Aadl2Package.COMPONENT_IMPLEMENTATION__CONNECTIONS);
+		}
+		return connections;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureMap getFlows() {
+		if (flows == null) {
+			flows = new BasicFeatureMap(this, Aadl2Package.COMPONENT_IMPLEMENTATION__FLOWS);
+		}
+		return flows;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentType getType() {
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) type)
+				: type;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public ComponentType basicGetType() {
+		// DONE: implement this method to return the 'ComponentType' reference
+		Realization realization = getOwnedRealization();
+		return realization == null ? null : ((RealizationImpl) realization).basicGetImplemented();
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setType(ComponentType newType) {
+		// TODO: implement this method to set the 'Type' reference
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ImplementationExtension getOwnedExtension() {
+		if (ownedExtension != null && ((EObject) ownedExtension).eIsProxy()) {
+			InternalEObject oldOwnedExtension = (InternalEObject) ownedExtension;
+			ownedExtension = (ImplementationExtension) eResolveProxy(oldOwnedExtension);
+			if (ownedExtension != oldOwnedExtension) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION, oldOwnedExtension, ownedExtension));
+			}
+		}
+		return ownedExtension;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ImplementationExtension basicGetOwnedExtension() {
+		return ownedExtension;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOwnedExtension(ImplementationExtension newOwnedExtension) {
+		ImplementationExtension oldOwnedExtension = ownedExtension;
+		ownedExtension = newOwnedExtension;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION, oldOwnedExtension, ownedExtension));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Realization getOwnedRealization() {
+		if (ownedRealization != null && ((EObject) ownedRealization).eIsProxy()) {
+			InternalEObject oldOwnedRealization = (InternalEObject) ownedRealization;
+			ownedRealization = (Realization) eResolveProxy(oldOwnedRealization);
+			if (ownedRealization != oldOwnedRealization) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION, oldOwnedRealization,
+							ownedRealization));
+			}
+		}
+		return ownedRealization;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Realization basicGetOwnedRealization() {
+		return ownedRealization;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOwnedRealization(Realization newOwnedRealization) {
+		Realization oldOwnedRealization = ownedRealization;
+		ownedRealization = newOwnedRealization;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION, oldOwnedRealization, ownedRealization));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<AccessConnection> getOwnedAccessConnections() {
+		return getConnections().list(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAccessConnection());
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AccessConnection createOwnedAccessConnection() {
+		AccessConnection newOwnedAccessConnection = (AccessConnection) create(Aadl2Package.eINSTANCE
+				.getAccessConnection());
+		getOwnedAccessConnections().add(newOwnedAccessConnection);
+		return newOwnedAccessConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ParameterConnection> getOwnedParameterConnections() {
+		return getConnections().list(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedParameterConnection());
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ParameterConnection createOwnedParameterConnection() {
+		ParameterConnection newOwnedParameterConnection = (ParameterConnection) create(Aadl2Package.eINSTANCE
+				.getParameterConnection());
+		getOwnedParameterConnections().add(newOwnedParameterConnection);
+		return newOwnedParameterConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<PortConnection> getOwnedPortConnections() {
+		return getConnections().list(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedPortConnection());
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortConnection createOwnedPortConnection() {
+		PortConnection newOwnedPortConnection = (PortConnection) create(Aadl2Package.eINSTANCE.getPortConnection());
+		getOwnedPortConnections().add(newOwnedPortConnection);
+		return newOwnedPortConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<AbstractSubcomponent> getOwnedAbstractSubcomponents() {
+		return getSubcomponents().list(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAbstractSubcomponent());
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AbstractSubcomponent createOwnedAbstractSubcomponent() {
+		AbstractSubcomponent newOwnedAbstractSubcomponent = (AbstractSubcomponent) create(Aadl2Package.eINSTANCE
+				.getAbstractSubcomponent());
+		getOwnedAbstractSubcomponents().add(newOwnedAbstractSubcomponent);
+		return newOwnedAbstractSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<EndToEndFlow> getOwnedEndToEndFlows() {
+		return getFlows().list(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedEndToEndFlow());
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EndToEndFlow createOwnedEndToEndFlow() {
+		EndToEndFlow newOwnedEndToEndFlow = (EndToEndFlow) create(Aadl2Package.eINSTANCE.getEndToEndFlow());
+		getOwnedEndToEndFlows().add(newOwnedEndToEndFlow);
+		return newOwnedEndToEndFlow;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<FeatureConnection> getOwnedFeatureConnections() {
+		return getConnections().list(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureConnection());
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureConnection createOwnedFeatureConnection() {
+		FeatureConnection newOwnedFeatureConnection = (FeatureConnection) create(Aadl2Package.eINSTANCE
+				.getFeatureConnection());
+		getOwnedFeatureConnections().add(newOwnedFeatureConnection);
+		return newOwnedFeatureConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<FeatureGroupConnection> getOwnedFeatureGroupConnections() {
+		return getConnections().list(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureGroupConnection());
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureGroupConnection createOwnedFeatureGroupConnection() {
+		FeatureGroupConnection newOwnedFeatureGroupConnection = (FeatureGroupConnection) create(Aadl2Package.eINSTANCE
+				.getFeatureGroupConnection());
+		getOwnedFeatureGroupConnections().add(newOwnedFeatureGroupConnection);
+		return newOwnedFeatureGroupConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ProcessorSubprogram> getOwnedProcessorSubprograms() {
+		if (ownedProcessorSubprograms == null) {
+			ownedProcessorSubprograms = new EObjectContainmentEList<ProcessorSubprogram>(ProcessorSubprogram.class,
+					this, Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM);
+		}
+		return ownedProcessorSubprograms;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProcessorSubprogram createOwnedProcessorSubprogram() {
+		ProcessorSubprogram newOwnedProcessorSubprogram = (ProcessorSubprogram) create(Aadl2Package.eINSTANCE
+				.getProcessorSubprogram());
+		getOwnedProcessorSubprograms().add(newOwnedProcessorSubprogram);
+		return newOwnedProcessorSubprogram;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__SUBCOMPONENTS:
+			return ((InternalEList<?>) getSubcomponents()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__CONNECTIONS:
+			return ((InternalEList<?>) getConnections()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__FLOWS:
+			return ((InternalEList<?>) getFlows()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM:
+			return ((InternalEList<?>) getOwnedProcessorSubprograms()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
+			return getOwnedSubcomponents();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__SUBCOMPONENTS:
+			if (coreType)
+				return getSubcomponents();
+			return ((FeatureMap.Internal) getSubcomponents()).getWrapper();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__CONNECTIONS:
+			if (coreType)
+				return getConnections();
+			return ((FeatureMap.Internal) getConnections()).getWrapper();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__FLOWS:
+			if (coreType)
+				return getFlows();
+			return ((FeatureMap.Internal) getFlows()).getWrapper();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
+			if (resolve)
+				return getType();
+			return basicGetType();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED:
+			if (resolve)
+				return getExtended();
+			return basicGetExtended();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION:
+			return getOwnedFlowImplementations();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
+			return getOwnedConnections();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION:
+			if (resolve)
+				return getOwnedExtension();
+			return basicGetOwnedExtension();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION:
+			if (resolve)
+				return getOwnedRealization();
+			return basicGetOwnedRealization();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW:
+			return getOwnedEndToEndFlows();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT:
+			return getOwnedAbstractSubcomponents();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION:
+			return getOwnedAccessConnections();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION:
+			return getOwnedParameterConnections();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION:
+			return getOwnedPortConnections();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION:
+			return getOwnedFeatureConnections();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
+			return getOwnedFeatureGroupConnections();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM:
+			return getOwnedProcessorSubprograms();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS:
+			return isNoSubcomponents();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CONNECTIONS:
+			return isNoConnections();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS:
+			return isNoCalls();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__SUBCOMPONENTS:
+			((FeatureMap.Internal) getSubcomponents()).set(newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__CONNECTIONS:
+			((FeatureMap.Internal) getConnections()).set(newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__FLOWS:
+			((FeatureMap.Internal) getFlows()).set(newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
+			setType((ComponentType) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED:
+			setExtended((ComponentImplementation) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION:
+			getOwnedFlowImplementations().clear();
+			getOwnedFlowImplementations().addAll((Collection<? extends FlowImplementation>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION:
+			setOwnedExtension((ImplementationExtension) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION:
+			setOwnedRealization((Realization) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW:
+			getOwnedEndToEndFlows().clear();
+			getOwnedEndToEndFlows().addAll((Collection<? extends EndToEndFlow>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT:
+			getOwnedAbstractSubcomponents().clear();
+			getOwnedAbstractSubcomponents().addAll((Collection<? extends AbstractSubcomponent>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION:
+			getOwnedAccessConnections().clear();
+			getOwnedAccessConnections().addAll((Collection<? extends AccessConnection>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION:
+			getOwnedParameterConnections().clear();
+			getOwnedParameterConnections().addAll((Collection<? extends ParameterConnection>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION:
+			getOwnedPortConnections().clear();
+			getOwnedPortConnections().addAll((Collection<? extends PortConnection>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION:
+			getOwnedFeatureConnections().clear();
+			getOwnedFeatureConnections().addAll((Collection<? extends FeatureConnection>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
+			getOwnedFeatureGroupConnections().clear();
+			getOwnedFeatureGroupConnections().addAll((Collection<? extends FeatureGroupConnection>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM:
+			getOwnedProcessorSubprograms().clear();
+			getOwnedProcessorSubprograms().addAll((Collection<? extends ProcessorSubprogram>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS:
+			setNoSubcomponents((Boolean) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CONNECTIONS:
+			setNoConnections((Boolean) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS:
+			setNoCalls((Boolean) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__SUBCOMPONENTS:
+			getSubcomponents().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__CONNECTIONS:
+			getConnections().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__FLOWS:
+			getFlows().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
+			setType((ComponentType) null);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED:
+			setExtended((ComponentImplementation) null);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION:
+			getOwnedFlowImplementations().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION:
+			setOwnedExtension((ImplementationExtension) null);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION:
+			setOwnedRealization((Realization) null);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW:
+			getOwnedEndToEndFlows().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT:
+			getOwnedAbstractSubcomponents().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION:
+			getOwnedAccessConnections().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION:
+			getOwnedParameterConnections().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION:
+			getOwnedPortConnections().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION:
+			getOwnedFeatureConnections().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
+			getOwnedFeatureGroupConnections().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM:
+			getOwnedProcessorSubprograms().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS:
+			setNoSubcomponents(NO_SUBCOMPONENTS_EDEFAULT);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CONNECTIONS:
+			setNoConnections(NO_CONNECTIONS_EDEFAULT);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS:
+			setNoCalls(NO_CALLS_EDEFAULT);
+			return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
+			return isSetOwnedSubcomponents();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__SUBCOMPONENTS:
+			return subcomponents != null && !subcomponents.isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__CONNECTIONS:
+			return connections != null && !connections.isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__FLOWS:
+			return flows != null && !flows.isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
+			return basicGetType() != null;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED:
+			return basicGetExtended() != null;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION:
+			return !getOwnedFlowImplementations().isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
+			return !getOwnedConnections().isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION:
+			return ownedExtension != null;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION:
+			return ownedRealization != null;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW:
+			return !getOwnedEndToEndFlows().isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT:
+			return !getOwnedAbstractSubcomponents().isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION:
+			return !getOwnedAccessConnections().isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION:
+			return !getOwnedParameterConnections().isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION:
+			return !getOwnedPortConnections().isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION:
+			return !getOwnedFeatureConnections().isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
+			return !getOwnedFeatureGroupConnections().isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM:
+			return ownedProcessorSubprograms != null && !ownedProcessorSubprograms.isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS:
+			return noSubcomponents != NO_SUBCOMPONENTS_EDEFAULT;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CONNECTIONS:
+			return noConnections != NO_CONNECTIONS_EDEFAULT;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS:
+			return noCalls != NO_CALLS_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy())
+			return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (subcomponents: ");
+		result.append(subcomponents);
+		result.append(", connections: ");
+		result.append(connections);
+		result.append(", flows: ");
+		result.append(flows);
+		result.append(", noSubcomponents: ");
+		result.append(noSubcomponents);
+		result.append(", noConnections: ");
+		result.append(noConnections);
+		result.append(", noCalls: ");
+		result.append(noCalls);
+		result.append(')');
+		return result.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isSetGenerals() {
+		return super.isSetGenerals() || eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE)
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetOwnedSubcomponents() {
+		return eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isSetClassifierFeatures() {
+		return super.isSetClassifierFeatures() || isSetOwnedSubcomponents()
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION)
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION)
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isSetOwnedMembers() {
+		return super.isSetOwnedMembers() || isSetOwnedSubcomponents()
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION)
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isSetGeneralizations() {
+		return super.isSetGeneralizations() || eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION)
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION);
+	}
+
+	public void addConnection(Connection c) {
+		if (c instanceof AccessConnection) {
+			getOwnedAccessConnections().add((AccessConnection) c);
+		} else if (c instanceof FeatureConnection) {
+			getOwnedFeatureConnections().add((FeatureConnection) c);
+		} else if (c instanceof FeatureGroupConnection) {
+			getOwnedFeatureGroupConnections().add((FeatureGroupConnection) c);
+		} else if (c instanceof ParameterConnection) {
+			getOwnedParameterConnections().add((ParameterConnection) c);
+		} else if (c instanceof PortConnection) {
+			getOwnedPortConnections().add((PortConnection) c);
+		}
+	}
+
+	public String getTypeName() {
+		String n = getName();
+		int idx = n.indexOf('.');
+		if (idx < 0)
+			return n;
+		else
+			return n.substring(0, idx);
+	}
+
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	public String getImplementationName() {
+		String n = getName();
+		int idx = n.indexOf('.');
+		if (idx < 0)
+			return n;
+		else
+			return n.substring(idx + 1);
+	}
+
+	/**
+	 * get list of all connection objects of a component implementation,
+	 * including ancestor features In case of refined connections the refined
+	 * connection is returned in the list.
+	 * 
+	 * @return List of connection objects
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	public EList<Connection> getAllConnections() {
+		final EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final BasicEList<Connection> returnlist = new BasicEList<Connection>();
+		// Process from farthest ancestor to self
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+			final ComponentImplementation current = (ComponentImplementation) li.previous();
+			final EList<Connection> currentItems = current.getOwnedConnections();
+			if (currentItems != null) {
+				for (Iterator<Connection> i = currentItems.iterator(); i.hasNext();) {
+					final Connection fe = i.next();
+					final Connection rfe = fe.getRefined();
+					if (rfe != null)
+						returnlist.remove(rfe);
+					returnlist.add(fe);
+				}
+			}
+		}
+		return returnlist;
+	}
+
+	/**
+	 * get ingoing connections to subcomponents from a specified feature of the
+	 * component impl
+	 * 
+	 * @param feature component impl feature that is the source of a connection
+	 * @return EList connections with feature as source
+	 */
+	public EList<Connection> getIngoingConnections(Feature feature) {
+		EList<Connection> result = new BasicEList<Connection>();
+
+		for (Connection conn : getAllConnections()) {
+			List<Feature> features = feature.getAllFeatureRefinements();
+
+			if (features.contains(conn.getAllSource())
+					|| (conn.isBidirectional() && features.contains(conn.getAllDestination()))) {
+				result.add(conn);
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * get list of all subcomponents of a component impl, including ancestor
+	 * features In case of refined connections the refined connection is
+	 * returned in the list.
+	 * 
+	 * @return List of connections
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	public EList<Subcomponent> getAllSubcomponents() {
+		final EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
+		// Process from farthest ancestor to self
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+			final ComponentImplementation current = (ComponentImplementation) li.previous();
+			final EList<Subcomponent> currentItems = current.getOwnedSubcomponents();
+			if (currentItems != null) {
+				for (Iterator<Subcomponent> i = currentItems.iterator(); i.hasNext();) {
+					final Subcomponent fe = i.next();
+					final Subcomponent rfe = fe.getRefined();
+					if (rfe != null)
+						returnlist.remove(rfe);
+					returnlist.add(fe);
+				}
+			}
+		}
+		return returnlist;
+	}
+
+	/**
+	 * get all features including inherited features
+	 * 
+	 * @return EList of features
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	public EList<Feature> getAllFeatures() {
+		ComponentType type = getType();
+		if (type != null) {
+			EList<Feature> result = type.getAllFeatures();
+			return result;
+		} else
+			return ECollections.emptyEList();
+	}
+
+	/**
+	 * Returns all the mode objects of a given implementation, including
+	 * ancestor.
+	 * 
+	 * @return EList of all mode objects
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
+	public EList<Mode> getAllModes() {
+		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final BasicEList<Mode> returnlist = new BasicEList<Mode>();
+		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
+			final ComponentImplementation current = (ComponentImplementation) it.next();
+			returnlist.addAll(current.getOwnedModes());
+		}
+		ancestors = getType().getAllExtendPlusSelf();
+		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
+			final ComponentType current = (ComponentType) it.next();
+			returnlist.addAll(current.getOwnedModes());
+		}
+		return returnlist;
+	}
+
+	/**
+	 * Returns all the mode transition objects of a given implementation,
+	 * including ancestor.
+	 * 
+	 * @return EList of all mode transition objects
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	public EList<ModeTransition> getAllModeTransitions() {
+		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final BasicEList<ModeTransition> returnlist = new BasicEList<ModeTransition>();
+		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
+			final ComponentImplementation current = (ComponentImplementation) it.next();
+			returnlist.addAll(current.getOwnedModeTransitions());
+		}
+		ancestors = getType().getAllExtendPlusSelf();
+		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
+			final ComponentType current = (ComponentType) it.next();
+			returnlist.addAll(current.getOwnedModeTransitions());
+		}
+		return returnlist;
+	}
+
+	/**
+	 * get list of all end to end flows of a component impl, including ancestor
+	 * features In case of refined end to end flows the refined end to end flow
+	 * is returned in the list.
+	 * 
+	 * @return Lis of end to end flows
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	public EList<EndToEndFlow> getAllEndToEndFlows() {
+		final EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final BasicEList<EndToEndFlow> returnlist = new BasicEList<EndToEndFlow>();
+		// Process from farthest ancestor to self
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+			final ComponentImplementation current = (ComponentImplementation) li.previous();
+			final EList<EndToEndFlow> currentItems = current.getOwnedEndToEndFlows();
+			if (currentItems != null) {
+				for (Iterator<EndToEndFlow> i = currentItems.iterator(); i.hasNext();) {
+					final EndToEndFlow fe = i.next();
+					final EndToEndFlow rfe = fe.getRefined();
+					if (rfe != null)
+						returnlist.remove(rfe);
+					returnlist.add(fe);
+				}
+			}
+		}
+		return returnlist;
+	}
+
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	public EList<FlowImplementation> getAllFlowImplementations() {
+		final BasicEList<FlowImplementation> result = new BasicEList<FlowImplementation>();
+
+		for (Classifier current : getAllExtendPlusSelf()) {
+			result.addAll(((ComponentImplementation) current).getOwnedFlowImplementations());
+		}
+		return result;
+	}
+
+	/**
+	 * Does this component implementation descend from the given classifier? A
+	 * component implementation descends from another component implementation
+	 * if they are the same implementation, it extends the other implementation,
+	 * or it extends a descendant of the other implementation. A component
+	 * implementation descends from a component type if the implementation's
+	 * component type descends from the type.
+	 * 
+	 * @return Whether this classifier descends from the given classifier.
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
+	public final boolean isDescendentOf(Classifier c) {
+		ComponentImplementation current = this;
+		do {
+			if (current == c)
+				return true;
+			current = current.getExtended();
+			// Avoid loops by stopping if we extend ourself
+		} while (current != null && current != this);
+		// try the type hierarchy
+		return getType().isDescendentOf(c);
+	}
+
+	public void getPropertyValueInternal(Property property, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
+		// this implementation's properties subclause
+		if (pas.addLocal(this)) {
+			return;
+		}
+
+		// extended implementations
+		// avoid loops
+		ComponentImplementation currentImpl = getExtended();
+		while (currentImpl != null && currentImpl != this) {
+			if (pas.addLocal(currentImpl)) {
+				return;
+			}
+			currentImpl = currentImpl.getExtended();
+		}
+
+		// the type
+		if (this.getType() != null) {
+			this.getType().getPropertyValueInternal(property, pas, fromInstanceSlaveCall);
+		} else {
+			throw new InvalidModelException(this, "Component implementation is missing its component type reference.");
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osate.aadl2.ComponentClassifier#lookupPrototypeBinding(edu
+	 * .cmu.sei.aadl.aadl2.Prototype)
+	 */
+	public PrototypeBinding lookupPrototypeBinding(Prototype proto) {
+		PrototypeBinding pb = lookupPrototypeBindingHelper(proto);
+		if (pb == null) {
+			pb = getType().lookupPrototypeBinding(proto);
+		}
+		return pb;
+	}
+
+	protected PrototypeBinding lookupPrototypeBindingHelper(Prototype proto) {
+		PrototypeBinding result = null;
+
+		for (PrototypeBinding pb : getOwnedPrototypeBindings()) {
+			if (pb.getFormal() == proto) {
+				result = pb;
+				break;
+			}
+		}
+		if (result == null) {
+			ComponentImplementationImpl extended = (ComponentImplementationImpl) getExtended();
+
+			if (extended != null) {
+				result = extended.lookupPrototypeBindingHelper(proto);
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Returns the connection objects of a given implementation for a given mode.
+	 * 
+	 * @param mode Mode for which connections are retrieved.
+	 * @return EList of connection objects (possibly empty).
+	 */
+	public EList<Connection> getOwnedConnections(Mode mode) {
+		EList<Connection> cl = getOwnedConnections();
+		EList<Connection> result = new BasicEList<Connection>();
+		for (Connection cn : cl) {
+			EList<Mode> inModes = cn.getAllInModes();
+			if (inModes.isEmpty() || inModes.contains(mode))
+				result.add(cn);
+		}
+		return result;
+	}
+
+	/**
+	 * Get list of all connections of a component implementation in a given mode, including ancestor
+	 * implementations.  In case of refined connections the refined connection is returned in the list.
+	 * 
+	 * @param mode Mode for which connections are to be retrieved.
+	 * @return List of connections
+	 */
+	public EList<Connection> getAllConnections(Mode mode) {
+		final EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final BasicEList<Connection> returnlist = new BasicEList<Connection>();
+		//Process from farthest ancestor to self
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+			final ComponentImplementation current = (ComponentImplementation) li.previous();
+			final EList<Connection> currentItems = current.getOwnedConnections(mode);
+			for (final Connection fe : currentItems) {
+				final Connection rfe = fe.getRefined();
+				if (rfe != null)
+					returnlist.remove(rfe);
+				returnlist.add(fe);
+			}
+		}
+		return returnlist;
+	}
+
+	@Override
+	/**
+	 * According to Legality Rule 3 and Semantic Rule 9 in section 4.2 (Packages), a single component
+	 * implementation can be defined in both the public and private sections of a package.  This
+	 * specialized lookup method allows elements in the private section of a component implementation
+	 * to refer to elements in the public section of the component implementation.
+	 */
+	public NamedElement findNamedElement(String name) {
+		NamedElement searchResult = super.findNamedElement(name);
+		if (searchResult != null)
+			return searchResult;
+		//Checks if this component implementation is in a private section and a component implementation with
+		//the same name exists in the public section.  If so, search in that component implementation.
+		if (getOwner() instanceof PrivatePackageSection) {
+			PrivatePackageSection privateSection = (PrivatePackageSection) getOwner();
+			if (privateSection.getPublicSection() != null) {
+				NamedElement publicComponentImplementation = privateSection.getPublicSection().findNamedElement(
+						getName(), true);
+				if (publicComponentImplementation instanceof ComponentImplementation)
+					return ((ComponentImplementation) publicComponentImplementation).findNamedElement(name);
+			}
+		}
+		return null;
+	}
+} //ComponentImplementationImpl

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         id="ParseErrorMarker"
+         name="AADL Parse Error Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlTextMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   <extension
+         id="NameResolutionErrorMarker"
+         name="AADL Name Resolution Error Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlTextMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   <!--extension
+         id="NumericResolutionErrorMarker"
+         name="AADL Numeric Resolution Error Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="edu.cmu.sei.aadl.model.AadlTextMarker"/>
+      <persistent value="true"/>
+   </extension-->
+   
+   <extension
+         id="ModelError"
+         name="AADL Model Structure Error"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   <extension
+         id="SemanticErrorMarker"
+         name="AADL Semantic Error Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+</plugin>

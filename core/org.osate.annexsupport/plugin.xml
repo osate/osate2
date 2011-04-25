@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension-point id="parser" name="Annex Parser" schema="schema/annexparser.exsd"/>
+   <extension-point id="unparser" name="Annex Unparser" schema="schema/annexunparser.exsd"/>
+   <extension-point id="resolver" name="Annex Resolver" schema="schema/annexresolver.exsd"/>
+   <extension-point id="instantiator" name="Annex Instantiator" schema="schema/annexinstantiator.exsd"/>
+   <extension point="org.osate.annexsupport.parser">
+      <parser
+            annexName="*"
+            class="org.osate.annexsupport.DefaultAnnexParser"
+            id="org.osate.annexsupport.DefaultAnnexParser"
+			name="Built-in default annex parser"/>
+   </extension>
+   <extension point="org.osate.annexsupport.unparser">
+      <unparser
+            annexName="*"
+            class="org.osate.annexsupport.DefaultAnnexUnparser"
+            id="org.osate.annexsupport.DefaultAnnexUnparser"
+			name="Built-in default annex unparser"/>
+   </extension>
+</plugin>

@@ -1,0 +1,57 @@
+--AADL2
+--SAE Aerospace Standard AS5506A
+--Proposed Draft (2008-11-08)
+--Appendix A: Predeclared Property Sets
+
+property set AADL_Project is
+	Supported_Active_Thread_Handling_Protocols: type enumeration (stop);
+	
+	Supported_Connection_Patterns: type enumeration (One_To_One, All_To_All, One_To_All, All_To_One,
+													 Next, Previous, Cyclic_Next, Cyclic_Previous);
+	
+	Supported_Concurrency_Control_Protocols: type enumeration (None_Specified);
+	
+	Supported_Dispatch_Protocols: type enumeration (Periodic);
+	
+	Supported_Queue_Processing_Protocols: type enumeration (Fifo);
+	
+	Supported_Hardware_Source_Languages: type enumeration (VHDL);
+	
+	Supported_Connection_QoS: type enumeration (GuaranteedDelivery, OrderedDelivery, SecureDelivery);
+	
+	Supported_Scheduling_Protocols: type enumeration (FixedTimeline, Cooperative, RMS, EDF, SporadicServer, SlackServer, ARINC653);
+	
+	Supported_Source_Languages: type enumeration (Ada95, Ada2005, C, Simulink_6_5);
+	
+	Supported_Distributions: type enumeration (Fixed);
+	
+	Supported_Classifier_Substitutions: type enumeration (Classifier_Match, Type_Extension, Signature_Match);
+	
+	Data_Volume: type aadlinteger 0 bitsps .. Max_Aadlinteger
+		units (bitsps, Bytesps => bitsps * 8, KBytesps => Bytesps * 1000, MBytesps => KBytesps * 1000, GBytesps => MBytesps * 1000);
+	
+	Max_Aadlinteger: constant aadlinteger => 2#1#e32;
+	
+	Max_Target_Integer: constant aadlinteger => 2#1#e32;
+	
+	Max_Base_Address: constant aadlinteger => 2#1#e32;
+	
+	Max_Memory_Size: constant Size => 2#1#e32 Bytes;
+	
+	Max_Queue_Size: constant aadlinteger => 512;
+	
+	Max_Thread_Limit: constant aadlinteger => 32;
+	
+	Max_Time: constant Time => 1000 hr;
+	
+	Max_Urgency: constant aadlinteger => 12;
+	
+	Max_Word_Count: constant aadlinteger => 2#1#e32;
+	
+	Max_Word_Space: constant aadlinteger => 64;
+	
+	Size_Units: type units (bits, Bytes => bits * 8, KByte => Bytes * 1000, MByte => KByte * 1000,
+							GByte => MByte * 1000, TByte => GByte * 1000);
+	
+	Time_Units: type units (ps, ns => ps * 1000, us => ns * 1000, ms => us * 1000, sec => ms * 1000, min => sec * 60, hr => min * 60);
+end AADL_Project;
