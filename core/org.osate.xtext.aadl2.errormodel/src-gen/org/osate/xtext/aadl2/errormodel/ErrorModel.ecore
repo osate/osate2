@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="errorModel"
+    nsURI="http://www.osate.org/aadl2/errormodel/ErrorModel" nsPrefix="errorModel">
+  <eClassifiers xsi:type="ecore:EClass" name="EM2AnnexSubclause">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorTypeSet"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ebsm" upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorStateMachine"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ep" upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorPropagations"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ceb" upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ComponentErrorBehavior"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compeb" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//CompositeErrorBehavior"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorTypeSet">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//Feature"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorTypeSet"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="refinements" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorTypeRefinement"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subtypes" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Feature">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorTypeRefinement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subtypes" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagations">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propagations" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorPropagation"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="flows" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorFlow"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mask" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="ecore:EEnum platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//PropagationDirection"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="binding" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="appliesto" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//Feature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PropagationDirection">
+    <eLiterals name="IN" literal="in"/>
+    <eLiterals name="OUT" value="1" literal="out"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorFlow"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorSource" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorFlow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorPropagationReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorSink" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorFlow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorPropagationReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorPath" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorFlow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorPropagationReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorPropagationReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagationReference" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="binding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//Feature"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="self" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errortype" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorStateMachine">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorStateMachine"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="events" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorEvent"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorState"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorTransition"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorEvent">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorEvent" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorEvent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RepairEvent" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorEvent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorState">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="intial" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//PropertyAssociation"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorTransition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destination" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorState"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TriggeredTransition" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorTransition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="events" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorEvent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BranchTransition" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorTransition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentErrorBehavior">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitionCondition" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TransitionCondition"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propagationCondition" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//PropagationCondition"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="detectionEvent" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//DetectionEvent"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errorTransition" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggeredTransition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mask" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TriggerConditionExpression" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//StateConditionExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OrmoreExpression" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//StateConditionExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operands" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//StateConditionExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OrlessExpression" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//StateConditionExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operands" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//StateConditionExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OthersExpression" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//StateConditionExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorEventReference" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorEvent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WorkingReference" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="binding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//Feature"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="self" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="working" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropagationCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outPropagation" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mask" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="working" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//Feature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DetectionEvent">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="self" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eventPort" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//Feature"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeErrorBehavior">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//CompositeState"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeState">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//StateConditionExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StateConditionExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubcomponentStateReference" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//StateConditionExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponent" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//Feature"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errortype" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//ErrorBehaviorState"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyAssociation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//PropertyExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Literal" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//PropertyExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProbabilityValue" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//PropertyExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="distribution" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AndExpression" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operands" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OrExpression" eSuperTypes="platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operands" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore#//TriggerConditionExpression"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>
