@@ -99,7 +99,6 @@ public class ElementItemProvider extends ItemProviderAdapter implements IEditing
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getElement_OwnedComment());
 		}
 		return childrenFeatures;
@@ -141,7 +140,6 @@ public class ElementItemProvider extends ItemProviderAdapter implements IEditing
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Element.class)) {
-		case Aadl2Package.ELEMENT__OWNED_ELEMENT:
 		case Aadl2Package.ELEMENT__OWNED_COMMENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;

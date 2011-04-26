@@ -94,8 +94,8 @@
     <genDataTypes xsi:type="genmodel:GenDataType" ecoreDataType="aadl2.ecore#//Integer"/>
     <genDataTypes xsi:type="genmodel:GenDataType" ecoreDataType="aadl2.ecore#//Real"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Element">
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Element/ownedElement"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//Element/ownedElement"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
           ecoreFeature="ecore:EReference aadl2.ecore#//Element/owner"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
@@ -115,8 +115,8 @@
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Comment/body"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Namespace">
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Namespace/ownedMember"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//Namespace/ownedMember"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Namespace/member"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Namespace/members_distinguishable">
