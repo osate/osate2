@@ -6,13 +6,6 @@ import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
 
 
-//AadlSpec:
-//	(AadlPackage | PropertySet);
-
-//NamedElement returns aadl2::NamedElement:
-//	Classifier | AadlPackage | Feature | Subcomponent | Prototype;
-//
-//Namespace returns Namespace: PackageSection | PropertySet | Classifier;	
 
 AadlPackage returns aadl2::AadlPackage:
 	'package' name=PNAME
@@ -23,8 +16,6 @@ AadlPackage returns aadl2::AadlPackage:
 //	((ownedPropertyAssociation+=PropertyAssociation)+ | noProperties?=NONE))?
 	'end' ID ('::' ID)* SEMI;
 
-PackageSection returns aadl2::PackageSection:
-	PublicPackageSection | PrivatePackageSection;
 
 PublicPackageSection returns aadl2::PublicPackageSection:
 	{aadl2::PublicPackageSection}
@@ -35,7 +26,6 @@ PublicPackageSection returns aadl2::PublicPackageSection:
 	    ownedDataType+=DataType )*;
 	// currently derived: (ownedClassifier+=Classifier | ownedAnnexLibrary+=AnnexLibrary)*;
 
-//Import : AadlPackage | PropertySet;
 
 PrivatePackageSection returns aadl2::PrivatePackageSection:
 	{aadl2::PrivatePackageSection}
@@ -61,25 +51,6 @@ TypeExtension returns aadl2::TypeExtension:
 ImplementationExtension returns aadl2::ImplementationExtension:
 	'extends' extended=[aadl2::ComponentImplementation|QCREF];
 
-enum FlowKind returns aadl2::FlowKind:
-	source='source' | path='path' | sink='sink';
-
-FlowSpecification returns aadl2::FlowSpecification:
-	name=ID COLON 'flow' kind=FlowKind inFeature=[aadl2::Feature|ID]
-	(=> '->' outFeature=[aadl2::Feature|ID])? SEMI;
-
-Mode returns aadl2::Mode:
-	name=ID COLON initial?='initial'? 'mode' SEMI;
-
-ModeTransition returns aadl2::ModeTransition:
-	(name=ID COLON)?
-	source=[aadl2::Mode|ID] LTRANS
-	ownedTrigger+=TriggerPort
-	(COMMA ownedTrigger+=TriggerPort)*
-	RTRANS destination=[aadl2::Mode|ID] SEMI;
-
-TriggerPort returns aadl2::TriggerPort:
-	port=[aadl2::Port|ID];
 
 //enum ComponentCategory returns aadl2::ComponentCategory:
 //	abstract='abstract' | bus='bus' | data='data'
@@ -367,14 +338,55 @@ PortConnection returns aadl2::PortConnection:
 
 ConnectionType returns aadl2::ConnectionKind: 'access' | 'feature' | 'feature' 'group' | 'parameter' | 'port';
 
-ConnectionEnd returns aadl2::ConnectionEnd:
-	DataSubcomponent | Feature;
-
-Context returns aadl2::Context:
-	Subcomponent;//Subcomponent | ComponentType; // THE CULPRIT
 
 Connection returns aadl2::Connection:
 	PortConnection;
+
+// ******** Flows 
+
+enum FlowKind returns aadl2::FlowKind:
+	source='source' | path='path' | sink='sink';
+	
+FlowSource returns aadl2::FlowKind: 'source';
+FlowSink returns aadl2::FlowKind: 'sink';
+FlowPath returns aadl2::FlowKind: 'path';
+
+FlowSpecification returns aadl2::FlowSpecification:
+	FlowSourceSpec | FlowSinkSpec | FlowPathSpec
+//	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
+	SEMI
+	;
+
+FlowSourceSpec returns aadl2::FlowSpecification:
+	name=ID COLON 'flow' kind=FlowSource 
+	(outContext=[aadl2::Context|ID] DOT )? outFeature=[aadl2::Feature|ID]
+;
+FlowSinkSpec returns aadl2::FlowSpecification:
+	name=ID COLON 'flow' kind=FlowSink 
+	(inContext=[aadl2::Context|ID] DOT )? inFeature=[aadl2::Feature|ID]
+;
+FlowPathSpec returns aadl2::FlowSpecification:
+	name=ID COLON 'flow' kind=FlowPath 
+	(inContext=[aadl2::Context|ID] DOT )? inFeature=[aadl2::Feature|ID]
+	'->' (outContext=[aadl2::Context|ID] DOT )? outFeature=[aadl2::Feature|ID] 
+;
+
+// Modes 
+
+Mode returns aadl2::Mode:
+	name=ID COLON initial?='initial'? 'mode' SEMI;
+
+ModeTransition returns aadl2::ModeTransition:
+	(name=ID COLON)?
+	source=[aadl2::Mode|ID] LTRANS
+	ownedTrigger+=TriggerPort
+	(COMMA ownedTrigger+=TriggerPort)*
+	RTRANS destination=[aadl2::Mode|ID] SEMI;
+
+TriggerPort returns aadl2::TriggerPort:
+	port=[aadl2::Port|ID];
+
 
 
 FeatureGroupType returns aadl2::FeatureGroupType:
