@@ -486,6 +486,87 @@ rulePrivatePackageSection returns [EObject current=null]
 
 
 
+// Entry rule entryRuleFlowSource
+entryRuleFlowSource returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getFlowSourceRule()); } 
+	 iv_ruleFlowSource=ruleFlowSource 
+	 { $current=$iv_ruleFlowSource.current.getText(); }  
+	 EOF 
+;
+
+// Rule FlowSource
+ruleFlowSource returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+
+	kw='source' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getFlowSourceAccess().getSourceKeyword()); 
+    }
+
+    ;
+
+
+
+
+
+// Entry rule entryRuleFlowSink
+entryRuleFlowSink returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getFlowSinkRule()); } 
+	 iv_ruleFlowSink=ruleFlowSink 
+	 { $current=$iv_ruleFlowSink.current.getText(); }  
+	 EOF 
+;
+
+// Rule FlowSink
+ruleFlowSink returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+
+	kw='sink' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getFlowSinkAccess().getSinkKeyword()); 
+    }
+
+    ;
+
+
+
+
+
+// Entry rule entryRuleFlowPath
+entryRuleFlowPath returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getFlowPathRule()); } 
+	 iv_ruleFlowPath=ruleFlowPath 
+	 { $current=$iv_ruleFlowPath.current.getText(); }  
+	 EOF 
+;
+
+// Rule FlowPath
+ruleFlowPath returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+
+	kw='path' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getFlowPathAccess().getPathKeyword()); 
+    }
+
+    ;
+
+
+
+
+
 // Entry rule entryRuleFlowSpecification
 entryRuleFlowSpecification returns [EObject current=null] 
 	:
@@ -500,15 +581,99 @@ ruleFlowSpecification returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getFlowSpecificationAccess().getFlowSourceSpecParserRuleCall_0()); 
+    }
+    this_FlowSourceSpec_0=ruleFlowSourceSpec
+    { 
+        $current = $this_FlowSourceSpec_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getFlowSpecificationAccess().getFlowSinkSpecParserRuleCall_1()); 
+    }
+    this_FlowSinkSpec_1=ruleFlowSinkSpec
+    { 
+        $current = $this_FlowSinkSpec_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |(
+    { 
+        newCompositeNode(grammarAccess.getFlowSpecificationAccess().getFlowPathSpecParserRuleCall_2_0()); 
+    }
+    this_FlowPathSpec_2=ruleFlowPathSpec
+    { 
+        $current = $this_FlowPathSpec_2.current; 
+        afterParserOrEnumRuleCall();
+    }
+(((	'in' 
+)=>	otherlv_3='in' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getFlowSpecificationAccess().getInKeyword_2_1_0());
+    }
+)	otherlv_4='modes' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getFlowSpecificationAccess().getModesKeyword_2_1_1());
+    }
+this_LPARENS_5=RULE_LPARENS
+    { 
+    newLeafNode(this_LPARENS_5, grammarAccess.getFlowSpecificationAccess().getLPARENSTerminalRuleCall_2_1_2()); 
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSpecificationRule());
+	        }
+        }
+	otherlv_6=RULE_ID
+	{
+		newLeafNode(otherlv_6, grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_2_1_3_0()); 
+	}
+
+)
+)+this_RPARENS_7=RULE_RPARENS
+    { 
+    newLeafNode(this_RPARENS_7, grammarAccess.getFlowSpecificationAccess().getRPARENSTerminalRuleCall_2_1_4()); 
+    }
+)?this_SEMI_8=RULE_SEMI
+    { 
+    newLeafNode(this_SEMI_8, grammarAccess.getFlowSpecificationAccess().getSEMITerminalRuleCall_2_2()); 
+    }
+))
+;
+
+
+
+
+
+// Entry rule entryRuleFlowSourceSpec
+entryRuleFlowSourceSpec returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getFlowSourceSpecRule()); }
+	 iv_ruleFlowSourceSpec=ruleFlowSourceSpec 
+	 { $current=$iv_ruleFlowSourceSpec.current; } 
+	 EOF 
+;
+
+// Rule FlowSourceSpec
+ruleFlowSourceSpec returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
 ((
 (
 		lv_name_0_0=RULE_ID
 		{
-			newLeafNode(lv_name_0_0, grammarAccess.getFlowSpecificationAccess().getNameIDTerminalRuleCall_0_0()); 
+			newLeafNode(lv_name_0_0, grammarAccess.getFlowSourceSpecAccess().getNameIDTerminalRuleCall_0_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowSpecificationRule());
+	            $current = createModelElement(grammarAccess.getFlowSourceSpecRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -520,26 +685,26 @@ ruleFlowSpecification returns [EObject current=null]
 )
 )this_COLON_1=RULE_COLON
     { 
-    newLeafNode(this_COLON_1, grammarAccess.getFlowSpecificationAccess().getCOLONTerminalRuleCall_1()); 
+    newLeafNode(this_COLON_1, grammarAccess.getFlowSourceSpecAccess().getCOLONTerminalRuleCall_1()); 
     }
 	otherlv_2='flow' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getFlowSpecificationAccess().getFlowKeyword_2());
+    	newLeafNode(otherlv_2, grammarAccess.getFlowSourceSpecAccess().getFlowKeyword_2());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFlowSpecificationAccess().getKindFlowKindEnumRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getFlowSourceSpecAccess().getKindFlowSourceParserRuleCall_3_0()); 
 	    }
-		lv_kind_3_0=ruleFlowKind		{
+		lv_kind_3_0=ruleFlowSource		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getFlowSpecificationRule());
+	            $current = createModelElementForParent(grammarAccess.getFlowSourceSpecRule());
 	        }
        		set(
        			$current, 
        			"kind",
         		lv_kind_3_0, 
-        		"FlowKind");
+        		"FlowSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -548,38 +713,189 @@ ruleFlowSpecification returns [EObject current=null]
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowSpecificationRule());
+	            $current = createModelElement(grammarAccess.getFlowSourceSpecRule());
 	        }
         }
 	otherlv_4=RULE_ID
 	{
-		newLeafNode(otherlv_4, grammarAccess.getFlowSpecificationAccess().getInFeatureFeatureCrossReference_4_0()); 
+		newLeafNode(otherlv_4, grammarAccess.getFlowSourceSpecAccess().getOutFeatureFeatureCrossReference_4_0()); 
 	}
 
 )
-)(((	'->' 
-)=>	otherlv_5='->' 
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getFlowSpecificationAccess().getHyphenMinusGreaterThanSignKeyword_5_0());
+))
+;
+
+
+
+
+
+// Entry rule entryRuleFlowSinkSpec
+entryRuleFlowSinkSpec returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getFlowSinkSpecRule()); }
+	 iv_ruleFlowSinkSpec=ruleFlowSinkSpec 
+	 { $current=$iv_ruleFlowSinkSpec.current; } 
+	 EOF 
+;
+
+// Rule FlowSinkSpec
+ruleFlowSinkSpec returns [EObject current=null] 
+    @init { enterRule(); 
     }
+    @after { leaveRule(); }:
+((
+(
+		lv_name_0_0=RULE_ID
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getFlowSinkSpecAccess().getNameIDTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSinkSpecRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"ID");
+	    }
+
+)
+)this_COLON_1=RULE_COLON
+    { 
+    newLeafNode(this_COLON_1, grammarAccess.getFlowSinkSpecAccess().getCOLONTerminalRuleCall_1()); 
+    }
+	otherlv_2='flow' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getFlowSinkSpecAccess().getFlowKeyword_2());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSinkSpecAccess().getKindFlowSinkParserRuleCall_3_0()); 
+	    }
+		lv_kind_3_0=ruleFlowSink		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSinkSpecRule());
+	        }
+       		set(
+       			$current, 
+       			"kind",
+        		lv_kind_3_0, 
+        		"FlowSink");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 )(
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowSpecificationRule());
+	            $current = createModelElement(grammarAccess.getFlowSinkSpecRule());
+	        }
+        }
+	otherlv_4=RULE_ID
+	{
+		newLeafNode(otherlv_4, grammarAccess.getFlowSinkSpecAccess().getInFeatureFeatureCrossReference_4_0()); 
+	}
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleFlowPathSpec
+entryRuleFlowPathSpec returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getFlowPathSpecRule()); }
+	 iv_ruleFlowPathSpec=ruleFlowPathSpec 
+	 { $current=$iv_ruleFlowPathSpec.current; } 
+	 EOF 
+;
+
+// Rule FlowPathSpec
+ruleFlowPathSpec returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_name_0_0=RULE_ID
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getFlowPathSpecAccess().getNameIDTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowPathSpecRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"ID");
+	    }
+
+)
+)this_COLON_1=RULE_COLON
+    { 
+    newLeafNode(this_COLON_1, grammarAccess.getFlowPathSpecAccess().getCOLONTerminalRuleCall_1()); 
+    }
+	otherlv_2='flow' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getFlowPathSpecAccess().getFlowKeyword_2());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowPathSpecAccess().getKindFlowPathParserRuleCall_3_0()); 
+	    }
+		lv_kind_3_0=ruleFlowPath		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowPathSpecRule());
+	        }
+       		set(
+       			$current, 
+       			"kind",
+        		lv_kind_3_0, 
+        		"FlowPath");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowPathSpecRule());
+	        }
+        }
+	otherlv_4=RULE_ID
+	{
+		newLeafNode(otherlv_4, grammarAccess.getFlowPathSpecAccess().getInFeatureFeatureCrossReference_4_0()); 
+	}
+
+)
+)	otherlv_5='->' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getFlowPathSpecAccess().getHyphenMinusGreaterThanSignKeyword_5());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowPathSpecRule());
 	        }
         }
 	otherlv_6=RULE_ID
 	{
-		newLeafNode(otherlv_6, grammarAccess.getFlowSpecificationAccess().getOutFeatureFeatureCrossReference_5_1_0()); 
+		newLeafNode(otherlv_6, grammarAccess.getFlowPathSpecAccess().getOutFeatureFeatureCrossReference_6_0()); 
 	}
 
 )
-))?this_SEMI_7=RULE_SEMI
-    { 
-    newLeafNode(this_SEMI_7, grammarAccess.getFlowSpecificationAccess().getSEMITerminalRuleCall_6()); 
-    }
-)
+))
 ;
 
 
@@ -3674,29 +3990,6 @@ ruleQCREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 
 
 
-
-// Rule FlowKind
-ruleFlowKind returns [Enumerator current=null] 
-    @init { enterRule(); }
-    @after { leaveRule(); }:
-((	enumLiteral_0='source' 
-	{
-        $current = grammarAccess.getFlowKindAccess().getSourceEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_0, grammarAccess.getFlowKindAccess().getSourceEnumLiteralDeclaration_0()); 
-    }
-)
-    |(	enumLiteral_1='path' 
-	{
-        $current = grammarAccess.getFlowKindAccess().getPathEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_1, grammarAccess.getFlowKindAccess().getPathEnumLiteralDeclaration_1()); 
-    }
-)
-    |(	enumLiteral_2='sink' 
-	{
-        $current = grammarAccess.getFlowKindAccess().getSinkEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_2, grammarAccess.getFlowKindAccess().getSinkEnumLiteralDeclaration_2()); 
-    }
-));
 
 
 

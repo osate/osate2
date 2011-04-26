@@ -408,30 +408,130 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getExtendedComponentImplementationQCREFParserRuleCall_1_0_1() { return cExtendedComponentImplementationQCREFParserRuleCall_1_0_1; }
 	}
 
+	public class FlowSourceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FlowSource");
+		private final Keyword cSourceKeyword = (Keyword)rule.eContents().get(1);
+		
+		//FlowSource returns aadl2::FlowKind:
+		//	"source";
+		public ParserRule getRule() { return rule; }
+
+		//"source"
+		public Keyword getSourceKeyword() { return cSourceKeyword; }
+	}
+
+	public class FlowSinkElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FlowSink");
+		private final Keyword cSinkKeyword = (Keyword)rule.eContents().get(1);
+		
+		//FlowSink returns aadl2::FlowKind:
+		//	"sink";
+		public ParserRule getRule() { return rule; }
+
+		//"sink"
+		public Keyword getSinkKeyword() { return cSinkKeyword; }
+	}
+
+	public class FlowPathElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FlowPath");
+		private final Keyword cPathKeyword = (Keyword)rule.eContents().get(1);
+		
+		//FlowPath returns aadl2::FlowKind:
+		//	"path";
+		public ParserRule getRule() { return rule; }
+
+		//"path"
+		public Keyword getPathKeyword() { return cPathKeyword; }
+	}
+
 	public class FlowSpecificationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FlowSpecification");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cFlowSourceSpecParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cFlowSinkSpecParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final RuleCall cFlowPathSpecParserRuleCall_2_0 = (RuleCall)cGroup_2.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final Keyword cInKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Keyword cModesKeyword_2_1_1 = (Keyword)cGroup_2_1.eContents().get(1);
+		private final RuleCall cLPARENSTerminalRuleCall_2_1_2 = (RuleCall)cGroup_2_1.eContents().get(2);
+		private final Assignment cInModeAssignment_2_1_3 = (Assignment)cGroup_2_1.eContents().get(3);
+		private final CrossReference cInModeModeCrossReference_2_1_3_0 = (CrossReference)cInModeAssignment_2_1_3.eContents().get(0);
+		private final RuleCall cInModeModeIDTerminalRuleCall_2_1_3_0_1 = (RuleCall)cInModeModeCrossReference_2_1_3_0.eContents().get(1);
+		private final RuleCall cRPARENSTerminalRuleCall_2_1_4 = (RuleCall)cGroup_2_1.eContents().get(4);
+		private final RuleCall cSEMITerminalRuleCall_2_2 = (RuleCall)cGroup_2.eContents().get(2);
+		
+		//FlowSpecification returns aadl2::FlowSpecification:
+		//	FlowSourceSpec | FlowSinkSpec | FlowPathSpec //	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+		//	("in" "modes" LPARENS inMode+=[aadl2::Mode]+ RPARENS)? //| allModes?='all'
+		//	SEMI;
+		public ParserRule getRule() { return rule; }
+
+		//FlowSourceSpec | FlowSinkSpec | FlowPathSpec //	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+		//("in" "modes" LPARENS inMode+=[aadl2::Mode]+ RPARENS)? //| allModes?='all'
+		//SEMI
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//FlowSourceSpec
+		public RuleCall getFlowSourceSpecParserRuleCall_0() { return cFlowSourceSpecParserRuleCall_0; }
+
+		//FlowSinkSpec
+		public RuleCall getFlowSinkSpecParserRuleCall_1() { return cFlowSinkSpecParserRuleCall_1; }
+
+		//FlowPathSpec //	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+		//("in" "modes" LPARENS inMode+=[aadl2::Mode]+ RPARENS)? //| allModes?='all'
+		//SEMI
+		public Group getGroup_2() { return cGroup_2; }
+
+		//FlowPathSpec
+		public RuleCall getFlowPathSpecParserRuleCall_2_0() { return cFlowPathSpecParserRuleCall_2_0; }
+
+		//(=> "in" "modes" LPARENS inMode+=[aadl2::Mode]+ RPARENS)?
+		public Group getGroup_2_1() { return cGroup_2_1; }
+
+		//=> "in"
+		public Keyword getInKeyword_2_1_0() { return cInKeyword_2_1_0; }
+
+		//"modes"
+		public Keyword getModesKeyword_2_1_1() { return cModesKeyword_2_1_1; }
+
+		//LPARENS
+		public RuleCall getLPARENSTerminalRuleCall_2_1_2() { return cLPARENSTerminalRuleCall_2_1_2; }
+
+		//inMode+=[aadl2::Mode]+
+		public Assignment getInModeAssignment_2_1_3() { return cInModeAssignment_2_1_3; }
+
+		//[aadl2::Mode]
+		public CrossReference getInModeModeCrossReference_2_1_3_0() { return cInModeModeCrossReference_2_1_3_0; }
+
+		//ID
+		public RuleCall getInModeModeIDTerminalRuleCall_2_1_3_0_1() { return cInModeModeIDTerminalRuleCall_2_1_3_0_1; }
+
+		//RPARENS
+		public RuleCall getRPARENSTerminalRuleCall_2_1_4() { return cRPARENSTerminalRuleCall_2_1_4; }
+
+		//SEMI
+		public RuleCall getSEMITerminalRuleCall_2_2() { return cSEMITerminalRuleCall_2_2; }
+	}
+
+	public class FlowSourceSpecElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FlowSourceSpec");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final RuleCall cCOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Keyword cFlowKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cKindAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cKindFlowKindEnumRuleCall_3_0 = (RuleCall)cKindAssignment_3.eContents().get(0);
-		private final Assignment cInFeatureAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cInFeatureFeatureCrossReference_4_0 = (CrossReference)cInFeatureAssignment_4.eContents().get(0);
-		private final RuleCall cInFeatureFeatureIDTerminalRuleCall_4_0_1 = (RuleCall)cInFeatureFeatureCrossReference_4_0.eContents().get(1);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cOutFeatureAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final CrossReference cOutFeatureFeatureCrossReference_5_1_0 = (CrossReference)cOutFeatureAssignment_5_1.eContents().get(0);
-		private final RuleCall cOutFeatureFeatureIDTerminalRuleCall_5_1_0_1 = (RuleCall)cOutFeatureFeatureCrossReference_5_1_0.eContents().get(1);
-		private final RuleCall cSEMITerminalRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final RuleCall cKindFlowSourceParserRuleCall_3_0 = (RuleCall)cKindAssignment_3.eContents().get(0);
+		private final Assignment cOutFeatureAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cOutFeatureFeatureCrossReference_4_0 = (CrossReference)cOutFeatureAssignment_4.eContents().get(0);
+		private final RuleCall cOutFeatureFeatureIDTerminalRuleCall_4_0_1 = (RuleCall)cOutFeatureFeatureCrossReference_4_0.eContents().get(1);
 		
-		//FlowSpecification returns aadl2::FlowSpecification:
-		//	name=ID COLON "flow" kind=FlowKind inFeature=[aadl2::Feature] ("->" outFeature=[aadl2::Feature])? SEMI;
+		//FlowSourceSpec returns aadl2::FlowSpecification:
+		//	name=ID COLON "flow" kind=FlowSource outFeature=[aadl2::Feature];
 		public ParserRule getRule() { return rule; }
 
-		//name=ID COLON "flow" kind=FlowKind inFeature=[aadl2::Feature] ("->" outFeature=[aadl2::Feature])? SEMI
+		//name=ID COLON "flow" kind=FlowSource outFeature=[aadl2::Feature]
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -446,11 +546,111 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"flow"
 		public Keyword getFlowKeyword_2() { return cFlowKeyword_2; }
 
-		//kind=FlowKind
+		//kind=FlowSource
 		public Assignment getKindAssignment_3() { return cKindAssignment_3; }
 
-		//FlowKind
-		public RuleCall getKindFlowKindEnumRuleCall_3_0() { return cKindFlowKindEnumRuleCall_3_0; }
+		//FlowSource
+		public RuleCall getKindFlowSourceParserRuleCall_3_0() { return cKindFlowSourceParserRuleCall_3_0; }
+
+		//outFeature=[aadl2::Feature]
+		public Assignment getOutFeatureAssignment_4() { return cOutFeatureAssignment_4; }
+
+		//[aadl2::Feature]
+		public CrossReference getOutFeatureFeatureCrossReference_4_0() { return cOutFeatureFeatureCrossReference_4_0; }
+
+		//ID
+		public RuleCall getOutFeatureFeatureIDTerminalRuleCall_4_0_1() { return cOutFeatureFeatureIDTerminalRuleCall_4_0_1; }
+	}
+
+	public class FlowSinkSpecElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FlowSinkSpec");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cFlowKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cKindAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cKindFlowSinkParserRuleCall_3_0 = (RuleCall)cKindAssignment_3.eContents().get(0);
+		private final Assignment cInFeatureAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cInFeatureFeatureCrossReference_4_0 = (CrossReference)cInFeatureAssignment_4.eContents().get(0);
+		private final RuleCall cInFeatureFeatureIDTerminalRuleCall_4_0_1 = (RuleCall)cInFeatureFeatureCrossReference_4_0.eContents().get(1);
+		
+		//FlowSinkSpec returns aadl2::FlowSpecification:
+		//	name=ID COLON "flow" kind=FlowSink inFeature=[aadl2::Feature];
+		public ParserRule getRule() { return rule; }
+
+		//name=ID COLON "flow" kind=FlowSink inFeature=[aadl2::Feature]
+		public Group getGroup() { return cGroup; }
+
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1() { return cCOLONTerminalRuleCall_1; }
+
+		//"flow"
+		public Keyword getFlowKeyword_2() { return cFlowKeyword_2; }
+
+		//kind=FlowSink
+		public Assignment getKindAssignment_3() { return cKindAssignment_3; }
+
+		//FlowSink
+		public RuleCall getKindFlowSinkParserRuleCall_3_0() { return cKindFlowSinkParserRuleCall_3_0; }
+
+		//inFeature=[aadl2::Feature]
+		public Assignment getInFeatureAssignment_4() { return cInFeatureAssignment_4; }
+
+		//[aadl2::Feature]
+		public CrossReference getInFeatureFeatureCrossReference_4_0() { return cInFeatureFeatureCrossReference_4_0; }
+
+		//ID
+		public RuleCall getInFeatureFeatureIDTerminalRuleCall_4_0_1() { return cInFeatureFeatureIDTerminalRuleCall_4_0_1; }
+	}
+
+	public class FlowPathSpecElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FlowPathSpec");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cFlowKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cKindAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cKindFlowPathParserRuleCall_3_0 = (RuleCall)cKindAssignment_3.eContents().get(0);
+		private final Assignment cInFeatureAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cInFeatureFeatureCrossReference_4_0 = (CrossReference)cInFeatureAssignment_4.eContents().get(0);
+		private final RuleCall cInFeatureFeatureIDTerminalRuleCall_4_0_1 = (RuleCall)cInFeatureFeatureCrossReference_4_0.eContents().get(1);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cOutFeatureAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final CrossReference cOutFeatureFeatureCrossReference_6_0 = (CrossReference)cOutFeatureAssignment_6.eContents().get(0);
+		private final RuleCall cOutFeatureFeatureIDTerminalRuleCall_6_0_1 = (RuleCall)cOutFeatureFeatureCrossReference_6_0.eContents().get(1);
+		
+		//FlowPathSpec returns aadl2::FlowSpecification:
+		//	name=ID COLON "flow" kind=FlowPath inFeature=[aadl2::Feature] "->" outFeature=[aadl2::Feature];
+		public ParserRule getRule() { return rule; }
+
+		//name=ID COLON "flow" kind=FlowPath inFeature=[aadl2::Feature] "->" outFeature=[aadl2::Feature]
+		public Group getGroup() { return cGroup; }
+
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1() { return cCOLONTerminalRuleCall_1; }
+
+		//"flow"
+		public Keyword getFlowKeyword_2() { return cFlowKeyword_2; }
+
+		//kind=FlowPath
+		public Assignment getKindAssignment_3() { return cKindAssignment_3; }
+
+		//FlowPath
+		public RuleCall getKindFlowPathParserRuleCall_3_0() { return cKindFlowPathParserRuleCall_3_0; }
 
 		//inFeature=[aadl2::Feature]
 		public Assignment getInFeatureAssignment_4() { return cInFeatureAssignment_4; }
@@ -461,23 +661,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getInFeatureFeatureIDTerminalRuleCall_4_0_1() { return cInFeatureFeatureIDTerminalRuleCall_4_0_1; }
 
-		//(=> "->" outFeature=[aadl2::Feature])?
-		public Group getGroup_5() { return cGroup_5; }
-
-		//=> "->"
-		public Keyword getHyphenMinusGreaterThanSignKeyword_5_0() { return cHyphenMinusGreaterThanSignKeyword_5_0; }
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_5() { return cHyphenMinusGreaterThanSignKeyword_5; }
 
 		//outFeature=[aadl2::Feature]
-		public Assignment getOutFeatureAssignment_5_1() { return cOutFeatureAssignment_5_1; }
+		public Assignment getOutFeatureAssignment_6() { return cOutFeatureAssignment_6; }
 
 		//[aadl2::Feature]
-		public CrossReference getOutFeatureFeatureCrossReference_5_1_0() { return cOutFeatureFeatureCrossReference_5_1_0; }
+		public CrossReference getOutFeatureFeatureCrossReference_6_0() { return cOutFeatureFeatureCrossReference_6_0; }
 
 		//ID
-		public RuleCall getOutFeatureFeatureIDTerminalRuleCall_5_1_0_1() { return cOutFeatureFeatureIDTerminalRuleCall_5_1_0_1; }
-
-		//SEMI
-		public RuleCall getSEMITerminalRuleCall_6() { return cSEMITerminalRuleCall_6; }
+		public RuleCall getOutFeatureFeatureIDTerminalRuleCall_6_0_1() { return cOutFeatureFeatureIDTerminalRuleCall_6_0_1; }
 	}
 
 	public class ModeElements extends AbstractParserRuleElementFinder {
@@ -2622,12 +2816,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRPARENSTerminalRuleCall_4_4 = (RuleCall)cGroup_4.eContents().get(4);
 		private final RuleCall cSEMITerminalRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
-		////SubcomponentForSystem returns Subcomponent:
-		////	name=ID COLON category=SystemSubCategories 
-		//////	(refined?='refined' 'to')? // if boolean is set then we need to find the subcomponent being 'refined'
-		////	 (classifier=[ProcessorClassifier|QCREF])?
-		//////	('in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
-		////	SEMI;
 		//SystemSubcomponent returns aadl2::SystemSubcomponent:
 		//	name=ID COLON "system" //	(refined?='refined' 'to')? // if boolean is set then we need to find the subcomponent being 'refined'
 		//	//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
@@ -3045,8 +3233,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cParameterKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
 		private final Keyword cPortKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
 		
-		////enum ConnectionKind returns ConnectionKind:
-		////	ACCESS='access' | FEATURE='feature' | FEATUREGROUP = 'feature group' | PARAMETER = 'parameter' | PORT = 'port';
 		//ConnectionType returns aadl2::ConnectionKind:
 		//	"access" | "feature" | "feature" "group" | "parameter" | "port";
 		public ParserRule getRule() { return rule; }
@@ -3457,7 +3643,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private TypeExtensionElements pTypeExtension;
 	private ImplementationExtensionElements pImplementationExtension;
 	private FlowKindElements unknownRuleFlowKind;
+	private FlowSourceElements pFlowSource;
+	private FlowSinkElements pFlowSink;
+	private FlowPathElements pFlowPath;
 	private FlowSpecificationElements pFlowSpecification;
+	private FlowSourceSpecElements pFlowSourceSpec;
+	private FlowSinkSpecElements pFlowSinkSpec;
+	private FlowPathSpecElements pFlowPathSpec;
 	private ModeElements pMode;
 	private ModeTransitionElements pModeTransition;
 	private TriggerPortElements pTriggerPort;
@@ -3633,14 +3825,76 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getFlowKindAccess().getRule();
 	}
 
+	//FlowSource returns aadl2::FlowKind:
+	//	"source";
+	public FlowSourceElements getFlowSourceAccess() {
+		return (pFlowSource != null) ? pFlowSource : (pFlowSource = new FlowSourceElements());
+	}
+	
+	public ParserRule getFlowSourceRule() {
+		return getFlowSourceAccess().getRule();
+	}
+
+	//FlowSink returns aadl2::FlowKind:
+	//	"sink";
+	public FlowSinkElements getFlowSinkAccess() {
+		return (pFlowSink != null) ? pFlowSink : (pFlowSink = new FlowSinkElements());
+	}
+	
+	public ParserRule getFlowSinkRule() {
+		return getFlowSinkAccess().getRule();
+	}
+
+	//FlowPath returns aadl2::FlowKind:
+	//	"path";
+	public FlowPathElements getFlowPathAccess() {
+		return (pFlowPath != null) ? pFlowPath : (pFlowPath = new FlowPathElements());
+	}
+	
+	public ParserRule getFlowPathRule() {
+		return getFlowPathAccess().getRule();
+	}
+
 	//FlowSpecification returns aadl2::FlowSpecification:
-	//	name=ID COLON "flow" kind=FlowKind inFeature=[aadl2::Feature] ("->" outFeature=[aadl2::Feature])? SEMI;
+	//	FlowSourceSpec | FlowSinkSpec | FlowPathSpec //	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	//	("in" "modes" LPARENS inMode+=[aadl2::Mode]+ RPARENS)? //| allModes?='all'
+	//	SEMI;
 	public FlowSpecificationElements getFlowSpecificationAccess() {
 		return (pFlowSpecification != null) ? pFlowSpecification : (pFlowSpecification = new FlowSpecificationElements());
 	}
 	
 	public ParserRule getFlowSpecificationRule() {
 		return getFlowSpecificationAccess().getRule();
+	}
+
+	//FlowSourceSpec returns aadl2::FlowSpecification:
+	//	name=ID COLON "flow" kind=FlowSource outFeature=[aadl2::Feature];
+	public FlowSourceSpecElements getFlowSourceSpecAccess() {
+		return (pFlowSourceSpec != null) ? pFlowSourceSpec : (pFlowSourceSpec = new FlowSourceSpecElements());
+	}
+	
+	public ParserRule getFlowSourceSpecRule() {
+		return getFlowSourceSpecAccess().getRule();
+	}
+
+	//FlowSinkSpec returns aadl2::FlowSpecification:
+	//	name=ID COLON "flow" kind=FlowSink inFeature=[aadl2::Feature];
+	public FlowSinkSpecElements getFlowSinkSpecAccess() {
+		return (pFlowSinkSpec != null) ? pFlowSinkSpec : (pFlowSinkSpec = new FlowSinkSpecElements());
+	}
+	
+	public ParserRule getFlowSinkSpecRule() {
+		return getFlowSinkSpecAccess().getRule();
+	}
+
+	//FlowPathSpec returns aadl2::FlowSpecification:
+	//	name=ID COLON "flow" kind=FlowPath inFeature=[aadl2::Feature] "->" outFeature=[aadl2::Feature];
+	public FlowPathSpecElements getFlowPathSpecAccess() {
+		return (pFlowPathSpec != null) ? pFlowPathSpec : (pFlowPathSpec = new FlowPathSpecElements());
+	}
+	
+	public ParserRule getFlowPathSpecRule() {
+		return getFlowPathSpecAccess().getRule();
 	}
 
 	//Mode returns aadl2::Mode:
@@ -3974,12 +4228,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getModeRefAccess().getRule();
 	}
 
-	////SubcomponentForSystem returns Subcomponent:
-	////	name=ID COLON category=SystemSubCategories 
-	//////	(refined?='refined' 'to')? // if boolean is set then we need to find the subcomponent being 'refined'
-	////	 (classifier=[ProcessorClassifier|QCREF])?
-	//////	('in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
-	////	SEMI;
 	//SystemSubcomponent returns aadl2::SystemSubcomponent:
 	//	name=ID COLON "system" //	(refined?='refined' 'to')? // if boolean is set then we need to find the subcomponent being 'refined'
 	//	//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
@@ -4052,8 +4300,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getPortConnectionAccess().getRule();
 	}
 
-	////enum ConnectionKind returns ConnectionKind:
-	////	ACCESS='access' | FEATURE='feature' | FEATUREGROUP = 'feature group' | PARAMETER = 'parameter' | PORT = 'port';
 	//ConnectionType returns aadl2::ConnectionKind:
 	//	"access" | "feature" | "feature" "group" | "parameter" | "port";
 	public ConnectionTypeElements getConnectionTypeAccess() {
