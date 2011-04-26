@@ -206,9 +206,6 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_Subcomponents());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_Connections());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_Flows());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedConnection());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedRealization());
@@ -260,9 +257,6 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__SUBCOMPONENTS:
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__CONNECTIONS:
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__FLOWS:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION:
@@ -283,41 +277,6 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_Subcomponents(),
-				FeatureMapUtil.createEntry(
-						Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAbstractSubcomponent(),
-						Aadl2Factory.eINSTANCE.createAbstractSubcomponent())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_Connections(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAccessConnection(),
-						Aadl2Factory.eINSTANCE.createAccessConnection())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_Connections(),
-				FeatureMapUtil.createEntry(
-						Aadl2Package.eINSTANCE.getComponentImplementation_OwnedParameterConnection(),
-						Aadl2Factory.eINSTANCE.createParameterConnection())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_Connections(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedPortConnection(),
-						Aadl2Factory.eINSTANCE.createPortConnection())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_Connections(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureConnection(),
-						Aadl2Factory.eINSTANCE.createFeatureConnection())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_Connections(),
-				FeatureMapUtil.createEntry(
-						Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureGroupConnection(),
-						Aadl2Factory.eINSTANCE.createFeatureGroupConnection())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_Flows(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFlowImplementation(),
-						Aadl2Factory.eINSTANCE.createFlowImplementation())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_Flows(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedEndToEndFlow(),
-						Aadl2Factory.eINSTANCE.createEndToEndFlow())));
 
 		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedRealization(),

@@ -40,6 +40,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.ModeTransition;
@@ -58,6 +59,16 @@ import org.osate.aadl2.ModeTransition;
  * @generated
  */
 public abstract class ModalPathImpl extends ModalElementImpl implements ModalPath {
+	/**
+	 * The cached value of the '{@link #getInTransitions() <em>In Transition</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInTransitions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ModeTransition> inTransitions;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -83,7 +94,11 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 * @generated
 	 */
 	public EList<ModeTransition> getInTransitions() {
-		return getModesAndTransitions().list(Aadl2Package.eINSTANCE.getModalPath_InTransition());
+		if (inTransitions == null) {
+			inTransitions = new EObjectResolvingEList<ModeTransition>(ModeTransition.class, this,
+					Aadl2Package.MODAL_PATH__IN_TRANSITION);
+		}
+		return inTransitions;
 	}
 
 	/**
@@ -141,7 +156,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PATH__IN_TRANSITION:
-			return !getInTransitions().isEmpty();
+			return inTransitions != null && !inTransitions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -157,7 +157,6 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getModalElement_ModesAndTransitions());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getEndToEndFlow_OwnedSubcomponentFlow());
 		}
 		return childrenFeatures;
@@ -228,7 +227,6 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(EndToEndFlow.class)) {
-		case Aadl2Package.END_TO_END_FLOW__MODES_AND_TRANSITIONS:
 		case Aadl2Package.END_TO_END_FLOW__OWNED_SUBCOMPONENT_FLOW:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -246,11 +244,6 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalElement_ModesAndTransitions(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getModalElement_InMode(),
-						Aadl2Factory.eINSTANCE.createMode())));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getEndToEndFlow_OwnedSubcomponentFlow(),
 				Aadl2Factory.eINSTANCE.createSubcomponentFlow()));

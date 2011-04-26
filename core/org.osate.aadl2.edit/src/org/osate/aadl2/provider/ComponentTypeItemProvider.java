@@ -134,7 +134,6 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider i
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentType_Features());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentType_OwnedFlowSpecification());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentType_OwnedExtension());
@@ -183,7 +182,6 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider i
 		case Aadl2Package.COMPONENT_TYPE__NO_FEATURES:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
-		case Aadl2Package.COMPONENT_TYPE__FEATURES:
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE:
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
 		case Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION:
@@ -203,14 +201,6 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider i
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentType_Features(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getComponentType_OwnedFeatureGroup(),
-						Aadl2Factory.eINSTANCE.createFeatureGroup())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentType_Features(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getComponentType_OwnedAbstractFeature(),
-						Aadl2Factory.eINSTANCE.createAbstractFeature())));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentType_OwnedFlowSpecification(),
 				Aadl2Factory.eINSTANCE.createFlowSpecification()));

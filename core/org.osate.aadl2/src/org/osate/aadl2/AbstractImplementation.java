@@ -83,8 +83,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedBusSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<BusSubcomponent> getOwnedBusSubcomponents();
@@ -116,8 +115,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedDataSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DataSubcomponent> getOwnedDataSubcomponents();
@@ -149,8 +147,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Device Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedDeviceSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DeviceSubcomponent> getOwnedDeviceSubcomponents();
@@ -182,8 +179,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Memory Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedMemorySubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<MemorySubcomponent> getOwnedMemorySubcomponents();
@@ -215,8 +211,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Process Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedProcessSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ProcessSubcomponent> getOwnedProcessSubcomponents();
@@ -248,8 +243,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedProcessorSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ProcessorSubcomponent> getOwnedProcessorSubcomponents();
@@ -281,8 +275,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned System Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedSystemSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SystemSubcomponent> getOwnedSystemSubcomponents();
@@ -314,8 +307,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedSubprogramSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents();
@@ -347,8 +339,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedSubprogramGroupSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents();
@@ -380,8 +371,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Thread Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedThreadSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ThreadSubcomponent> getOwnedThreadSubcomponents();
@@ -413,8 +403,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Thread Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedThreadGroupSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ThreadGroupSubcomponent> getOwnedThreadGroupSubcomponents();
@@ -446,8 +435,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedVirtualBusSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents();
@@ -479,8 +467,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Virtual Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedVirtualProcessorSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents();

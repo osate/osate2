@@ -37,9 +37,13 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -74,6 +78,70 @@ import org.osate.aadl2.SystemType;
  * @generated
  */
 public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
+	/**
+	 * The cached value of the '{@link #getOwnedBusAccesses() <em>Owned Bus Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedBusAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BusAccess> ownedBusAccesses;
+	/**
+	 * The cached value of the '{@link #getOwnedDataAccesses() <em>Owned Data Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDataAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataAccess> ownedDataAccesses;
+	/**
+	 * The cached value of the '{@link #getOwnedDataPorts() <em>Owned Data Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDataPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataPort> ownedDataPorts;
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramGroupAccesses() <em>Owned Subprogram Group Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramGroupAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramGroupAccess> ownedSubprogramGroupAccesses;
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramAccesses() <em>Owned Subprogram Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramAccess> ownedSubprogramAccesses;
+	/**
+	 * The cached value of the '{@link #getOwnedEventPorts() <em>Owned Event Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedEventPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventPort> ownedEventPorts;
+	/**
+	 * The cached value of the '{@link #getOwnedEventDataPorts() <em>Owned Event Data Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedEventDataPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventDataPort> ownedEventDataPorts;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -137,7 +205,11 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	 * @generated
 	 */
 	public EList<BusAccess> getOwnedBusAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSystemType_OwnedBusAccess());
+		if (ownedBusAccesses == null) {
+			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
+					Aadl2Package.SYSTEM_TYPE__OWNED_BUS_ACCESS);
+		}
+		return ownedBusAccesses;
 	}
 
 	/**
@@ -157,7 +229,11 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	 * @generated
 	 */
 	public EList<DataAccess> getOwnedDataAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSystemType_OwnedDataAccess());
+		if (ownedDataAccesses == null) {
+			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(DataAccess.class, this,
+					Aadl2Package.SYSTEM_TYPE__OWNED_DATA_ACCESS);
+		}
+		return ownedDataAccesses;
 	}
 
 	/**
@@ -177,7 +253,11 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	 * @generated
 	 */
 	public EList<DataPort> getOwnedDataPorts() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSystemType_OwnedDataPort());
+		if (ownedDataPorts == null) {
+			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
+					Aadl2Package.SYSTEM_TYPE__OWNED_DATA_PORT);
+		}
+		return ownedDataPorts;
 	}
 
 	/**
@@ -197,7 +277,11 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	 * @generated
 	 */
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSystemType_OwnedSubprogramGroupAccess());
+		if (ownedSubprogramGroupAccesses == null) {
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
+					SubprogramGroupAccess.class, this, Aadl2Package.SYSTEM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
+		}
+		return ownedSubprogramGroupAccesses;
 	}
 
 	/**
@@ -218,7 +302,11 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	 * @generated
 	 */
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSystemType_OwnedSubprogramAccess());
+		if (ownedSubprogramAccesses == null) {
+			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
+					Aadl2Package.SYSTEM_TYPE__OWNED_SUBPROGRAM_ACCESS);
+		}
+		return ownedSubprogramAccesses;
 	}
 
 	/**
@@ -239,7 +327,11 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	 * @generated
 	 */
 	public EList<EventPort> getOwnedEventPorts() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSystemType_OwnedEventPort());
+		if (ownedEventPorts == null) {
+			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
+					Aadl2Package.SYSTEM_TYPE__OWNED_EVENT_PORT);
+		}
+		return ownedEventPorts;
 	}
 
 	/**
@@ -259,7 +351,11 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	 * @generated
 	 */
 	public EList<EventDataPort> getOwnedEventDataPorts() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSystemType_OwnedEventDataPort());
+		if (ownedEventDataPorts == null) {
+			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
+					Aadl2Package.SYSTEM_TYPE__OWNED_EVENT_DATA_PORT);
+		}
+		return ownedEventDataPorts;
 	}
 
 	/**
@@ -271,6 +367,32 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE.getEventDataPort());
 		getOwnedEventDataPorts().add(newOwnedEventDataPort);
 		return newOwnedEventDataPort;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.SYSTEM_TYPE__OWNED_BUS_ACCESS:
+			return ((InternalEList<?>) getOwnedBusAccesses()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.SYSTEM_TYPE__OWNED_DATA_ACCESS:
+			return ((InternalEList<?>) getOwnedDataAccesses()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.SYSTEM_TYPE__OWNED_DATA_PORT:
+			return ((InternalEList<?>) getOwnedDataPorts()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.SYSTEM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
+			return ((InternalEList<?>) getOwnedSubprogramGroupAccesses()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.SYSTEM_TYPE__OWNED_SUBPROGRAM_ACCESS:
+			return ((InternalEList<?>) getOwnedSubprogramAccesses()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.SYSTEM_TYPE__OWNED_EVENT_PORT:
+			return ((InternalEList<?>) getOwnedEventPorts()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.SYSTEM_TYPE__OWNED_EVENT_DATA_PORT:
+			return ((InternalEList<?>) getOwnedEventDataPorts()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -382,19 +504,19 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SYSTEM_TYPE__OWNED_BUS_ACCESS:
-			return !getOwnedBusAccesses().isEmpty();
+			return ownedBusAccesses != null && !ownedBusAccesses.isEmpty();
 		case Aadl2Package.SYSTEM_TYPE__OWNED_DATA_ACCESS:
-			return !getOwnedDataAccesses().isEmpty();
+			return ownedDataAccesses != null && !ownedDataAccesses.isEmpty();
 		case Aadl2Package.SYSTEM_TYPE__OWNED_DATA_PORT:
-			return !getOwnedDataPorts().isEmpty();
+			return ownedDataPorts != null && !ownedDataPorts.isEmpty();
 		case Aadl2Package.SYSTEM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
-			return !getOwnedSubprogramGroupAccesses().isEmpty();
+			return ownedSubprogramGroupAccesses != null && !ownedSubprogramGroupAccesses.isEmpty();
 		case Aadl2Package.SYSTEM_TYPE__OWNED_SUBPROGRAM_ACCESS:
-			return !getOwnedSubprogramAccesses().isEmpty();
+			return ownedSubprogramAccesses != null && !ownedSubprogramAccesses.isEmpty();
 		case Aadl2Package.SYSTEM_TYPE__OWNED_EVENT_PORT:
-			return !getOwnedEventPorts().isEmpty();
+			return ownedEventPorts != null && !ownedEventPorts.isEmpty();
 		case Aadl2Package.SYSTEM_TYPE__OWNED_EVENT_DATA_PORT:
-			return !getOwnedEventDataPorts().isEmpty();
+			return ownedEventDataPorts != null && !ownedEventDataPorts.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

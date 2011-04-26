@@ -2749,17 +2749,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getModalElement_ModesAndTransitions() {
-		return (EAttribute) getModalElement().getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getModalElement_InMode() {
-		return (EReference) getModalElement().getEStructuralFeatures().get(1);
+		return (EReference) getModalElement().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2962,17 +2953,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComponentType_Features() {
-		return (EAttribute) getComponentType().getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getComponentType_NoFeatures() {
-		return (EAttribute) getComponentType().getEStructuralFeatures().get(7);
+		return (EAttribute) getComponentType().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2981,7 +2963,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentType_OwnedFeature() {
-		return (EReference) getComponentType().getEStructuralFeatures().get(1);
+		return (EReference) getComponentType().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2990,7 +2972,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentType_Extended() {
-		return (EReference) getComponentType().getEStructuralFeatures().get(2);
+		return (EReference) getComponentType().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2999,7 +2981,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentType_OwnedFlowSpecification() {
-		return (EReference) getComponentType().getEStructuralFeatures().get(3);
+		return (EReference) getComponentType().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3008,7 +2990,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentType_OwnedExtension() {
-		return (EReference) getComponentType().getEStructuralFeatures().get(4);
+		return (EReference) getComponentType().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3017,7 +2999,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentType_OwnedFeatureGroup() {
-		return (EReference) getComponentType().getEStructuralFeatures().get(5);
+		return (EReference) getComponentType().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3026,7 +3008,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentType_OwnedAbstractFeature() {
-		return (EReference) getComponentType().getEStructuralFeatures().get(6);
+		return (EReference) getComponentType().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -3250,17 +3232,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureGroupType_Feature() {
-		return (EAttribute) getFeatureGroupType().getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getFeatureGroupType_OwnedFeature() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(1);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3269,7 +3242,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_Extended() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(2);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3278,7 +3251,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_Inverse() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(3);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3287,7 +3260,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_OwnedExtension() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(4);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3296,7 +3269,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_OwnedBusAccess() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(5);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3305,7 +3278,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_OwnedDataAccess() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(6);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -3314,7 +3287,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_OwnedDataPort() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(7);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -3323,7 +3296,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_OwnedEventDataPort() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(8);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -3332,7 +3305,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_OwnedEventPort() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(9);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -3341,7 +3314,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_OwnedFeatureGroup() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(10);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -3350,7 +3323,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_OwnedParameter() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(11);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -3359,7 +3332,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_OwnedSubprogramAccess() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(12);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -3368,7 +3341,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_OwnedSubprogramGroupAccess() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(13);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -3377,7 +3350,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getFeatureGroupType_OwnedAbstractFeature() {
-		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(14);
+		return (EReference) getFeatureGroupType().getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -3420,35 +3393,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComponentImplementation_Subcomponents() {
-		return (EAttribute) getComponentImplementation().getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getComponentImplementation_Connections() {
-		return (EAttribute) getComponentImplementation().getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getComponentImplementation_Flows() {
-		return (EAttribute) getComponentImplementation().getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getComponentImplementation_Type() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(3);
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3457,7 +3403,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EAttribute getComponentImplementation_NoSubcomponents() {
-		return (EAttribute) getComponentImplementation().getEStructuralFeatures().get(18);
+		return (EAttribute) getComponentImplementation().getEStructuralFeatures().get(15);
 	}
 
 	/**
@@ -3466,7 +3412,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EAttribute getComponentImplementation_NoCalls() {
-		return (EAttribute) getComponentImplementation().getEStructuralFeatures().get(20);
+		return (EAttribute) getComponentImplementation().getEStructuralFeatures().get(17);
 	}
 
 	/**
@@ -3475,7 +3421,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EAttribute getComponentImplementation_NoConnections() {
-		return (EAttribute) getComponentImplementation().getEStructuralFeatures().get(19);
+		return (EAttribute) getComponentImplementation().getEStructuralFeatures().get(16);
 	}
 
 	/**
@@ -3484,7 +3430,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentImplementation_OwnedSubcomponent() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(4);
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3493,7 +3439,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentImplementation_Extended() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(5);
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3502,7 +3448,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentImplementation_OwnedFlowImplementation() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(6);
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3511,7 +3457,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentImplementation_OwnedConnection() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(7);
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3520,7 +3466,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentImplementation_OwnedExtension() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(8);
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -3529,7 +3475,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentImplementation_OwnedRealization() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(9);
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -3538,7 +3484,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentImplementation_OwnedAccessConnection() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(12);
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -3547,33 +3493,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentImplementation_OwnedParameterConnection() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(13);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getComponentImplementation_OwnedPortConnection() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(14);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getComponentImplementation_OwnedAbstractSubcomponent() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(11);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getComponentImplementation_OwnedEndToEndFlow() {
 		return (EReference) getComponentImplementation().getEStructuralFeatures().get(10);
 	}
 
@@ -3582,8 +3501,35 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getComponentImplementation_OwnedPortConnection() {
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getComponentImplementation_OwnedAbstractSubcomponent() {
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getComponentImplementation_OwnedEndToEndFlow() {
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getComponentImplementation_OwnedFeatureConnection() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(15);
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -3592,7 +3538,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentImplementation_OwnedFeatureGroupConnection() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(16);
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -3601,7 +3547,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getComponentImplementation_OwnedProcessorSubprogram() {
-		return (EReference) getComponentImplementation().getEStructuralFeatures().get(17);
+		return (EReference) getComponentImplementation().getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -6983,35 +6929,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPackageSection_Imports() {
-		return (EAttribute) getPackageSection().getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPackageSection_Aliases() {
-		return (EAttribute) getPackageSection().getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPackageSection_Declarations() {
-		return (EAttribute) getPackageSection().getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getPackageSection_OwnedPackageRename() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(3);
+		return (EReference) getPackageSection().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -7020,7 +6939,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getPackageSection_OwnedComponentTypeRename() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(4);
+		return (EReference) getPackageSection().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -7029,7 +6948,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EAttribute getPackageSection_NoProperties() {
-		return (EAttribute) getPackageSection().getEStructuralFeatures().get(39);
+		return (EAttribute) getPackageSection().getEStructuralFeatures().get(36);
 	}
 
 	/**
@@ -7038,195 +6957,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getPackageSection_ImportedPropertySet() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(40);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPackageSection_NoAnnexes() {
-		return (EAttribute) getPackageSection().getEStructuralFeatures().get(9);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedClassifier() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedFeatureGroupTypeRename() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedAnnexLibrary() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_ImportedPackage() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(8);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedAbstractType() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(10);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedAbstractImplementation() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(11);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedBusType() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(12);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedBusImplementation() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(13);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedDataType() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(14);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedDataImplementation() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(15);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedDeviceType() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(16);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedDeviceImplementation() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(17);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedMemoryType() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(18);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedMemoryImplementation() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(19);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedProcessType() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(20);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedProcessorType() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(21);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedProcessImplementation() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(22);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedProcessorImplementation() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(23);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedFeatureGroupType() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(38);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedVirtualProcessorImplementation() {
 		return (EReference) getPackageSection().getEStructuralFeatures().get(37);
 	}
 
@@ -7235,8 +6965,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPackageSection_OwnedVirtualProcessorType() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(36);
+	public EAttribute getPackageSection_NoAnnexes() {
+		return (EAttribute) getPackageSection().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -7244,8 +6974,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPackageSection_OwnedThreadGroupImplementation() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(33);
+	public EReference getPackageSection_OwnedClassifier() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -7253,8 +6983,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPackageSection_OwnedThreadImplementation() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(31);
+	public EReference getPackageSection_OwnedFeatureGroupTypeRename() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -7262,7 +6992,160 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPackageSection_OwnedVirtualBusType() {
+	public EReference getPackageSection_OwnedAnnexLibrary() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_ImportedPackage() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedAbstractType() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedAbstractImplementation() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedBusType() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedBusImplementation() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedDataType() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedDataImplementation() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedDeviceType() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedDeviceImplementation() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedMemoryType() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedMemoryImplementation() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(16);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedProcessType() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedProcessorType() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedProcessImplementation() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedProcessorImplementation() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(20);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedFeatureGroupType() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(35);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedVirtualProcessorImplementation() {
 		return (EReference) getPackageSection().getEStructuralFeatures().get(34);
 	}
 
@@ -7271,8 +7154,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPackageSection_OwnedThreadGroupType() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(32);
+	public EReference getPackageSection_OwnedVirtualProcessorType() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(33);
 	}
 
 	/**
@@ -7280,7 +7163,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPackageSection_OwnedThreadType() {
+	public EReference getPackageSection_OwnedThreadGroupImplementation() {
 		return (EReference) getPackageSection().getEStructuralFeatures().get(30);
 	}
 
@@ -7289,7 +7172,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPackageSection_OwnedSystemType() {
+	public EReference getPackageSection_OwnedThreadImplementation() {
 		return (EReference) getPackageSection().getEStructuralFeatures().get(28);
 	}
 
@@ -7298,8 +7181,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPackageSection_OwnedSubprogramType() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(24);
+	public EReference getPackageSection_OwnedVirtualBusType() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(31);
 	}
 
 	/**
@@ -7307,16 +7190,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPackageSection_OwnedSubprogramGroupType() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(26);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPackageSection_OwnedSystemImplementation() {
+	public EReference getPackageSection_OwnedThreadGroupType() {
 		return (EReference) getPackageSection().getEStructuralFeatures().get(29);
 	}
 
@@ -7325,7 +7199,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPackageSection_OwnedSubprogramGroupImplementation() {
+	public EReference getPackageSection_OwnedThreadType() {
 		return (EReference) getPackageSection().getEStructuralFeatures().get(27);
 	}
 
@@ -7334,7 +7208,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPackageSection_OwnedSubprogramImplementation() {
+	public EReference getPackageSection_OwnedSystemType() {
 		return (EReference) getPackageSection().getEStructuralFeatures().get(25);
 	}
 
@@ -7343,8 +7217,53 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getPackageSection_OwnedSubprogramType() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(21);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedSubprogramGroupType() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(23);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedSystemImplementation() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(26);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedSubprogramGroupImplementation() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(24);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPackageSection_OwnedSubprogramImplementation() {
+		return (EReference) getPackageSection().getEStructuralFeatures().get(22);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getPackageSection_OwnedVirtualBusImplementation() {
-		return (EReference) getPackageSection().getEStructuralFeatures().get(35);
+		return (EReference) getPackageSection().getEStructuralFeatures().get(32);
 	}
 
 	/**
@@ -7551,26 +7470,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPropertySet_Imports() {
-		return (EAttribute) getPropertySet().getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPropertySet_Contents() {
-		return (EAttribute) getPropertySet().getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getPropertySet_OwnedPropertyType() {
-		return (EReference) getPropertySet().getEStructuralFeatures().get(2);
+		return (EReference) getPropertySet().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -7579,7 +7480,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getPropertySet_OwnedProperty() {
-		return (EReference) getPropertySet().getEStructuralFeatures().get(3);
+		return (EReference) getPropertySet().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -7588,7 +7489,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getPropertySet_OwnedPropertyConstant() {
-		return (EReference) getPropertySet().getEStructuralFeatures().get(4);
+		return (EReference) getPropertySet().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -7597,7 +7498,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getPropertySet_ImportedPropertySet() {
-		return (EReference) getPropertySet().getEStructuralFeatures().get(5);
+		return (EReference) getPropertySet().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -7606,7 +7507,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	public EReference getPropertySet_ImportedPackage() {
-		return (EReference) getPropertySet().getEStructuralFeatures().get(6);
+		return (EReference) getPropertySet().getEStructuralFeatures().get(4);
 	}
 
 	/**

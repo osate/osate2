@@ -74,6 +74,15 @@ import org.osate.aadl2.SubprogramSubcomponent;
 public class SubprogramGroupImplementationImpl extends ComponentImplementationImpl implements
 		SubprogramGroupImplementation {
 	/**
+	 * The cached value of the '{@link #getOwnedSubprogramSubcomponents() <em>Owned Subprogram Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramSubcomponent> ownedSubprogramSubcomponents;
+	/**
 	 * The cached value of the '{@link #getOwnedSubprogramGroupSubcomponents() <em>Owned Subprogram Group Subcomponent</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -146,8 +155,12 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * @generated
 	 */
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
-		return getSubcomponents().list(
-				Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedSubprogramSubcomponent());
+		if (ownedSubprogramSubcomponents == null) {
+			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
+					SubprogramSubcomponent.class, this,
+					Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
+		}
+		return ownedSubprogramSubcomponents;
 	}
 
 	/**
@@ -239,6 +252,8 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedSubprogramSubcomponents()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
 			return ((InternalEList<?>) getOwnedSubprogramGroupSubcomponents()).basicRemove(otherEnd, msgs);
 		}
@@ -309,7 +324,7 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
-			return !getOwnedSubprogramSubcomponents().isEmpty();
+			return ownedSubprogramSubcomponents != null && !ownedSubprogramSubcomponents.isEmpty();
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
 			return ownedSubprogramGroupSubcomponents != null && !ownedSubprogramGroupSubcomponents.isEmpty();
 		}

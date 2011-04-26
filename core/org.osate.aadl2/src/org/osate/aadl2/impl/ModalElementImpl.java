@@ -37,16 +37,13 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.util.BasicFeatureMap;
-import org.eclipse.emf.ecore.util.FeatureMap;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.operations.ModalElementOperations;
 import org.osate.aadl2.RefinableElement;
 
 /**
@@ -56,7 +53,6 @@ import org.osate.aadl2.RefinableElement;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.ModalElementImpl#getModesAndTransitions <em>Modes And Transitions</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ModalElementImpl#getInModes <em>In Mode</em>}</li>
  * </ul>
  * </p>
@@ -65,14 +61,14 @@ import org.osate.aadl2.RefinableElement;
  */
 public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	/**
-	 * The cached value of the '{@link #getModesAndTransitions() <em>Modes And Transitions</em>}' attribute list.
+	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getModesAndTransitions()
+	 * @see #getInModes()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureMap modesAndTransitions;
+	protected EList<Mode> inModes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -98,20 +94,11 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureMap getModesAndTransitions() {
-		if (modesAndTransitions == null) {
-			modesAndTransitions = new BasicFeatureMap(this, Aadl2Package.MODAL_ELEMENT__MODES_AND_TRANSITIONS);
-		}
-		return modesAndTransitions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<Mode> getInModes() {
-		return getModesAndTransitions().list(Aadl2Package.eINSTANCE.getModalElement_InMode());
+		if (inModes == null) {
+			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.MODAL_ELEMENT__IN_MODE);
+		}
+		return inModes;
 	}
 
 	/**
@@ -119,13 +106,8 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-		case Aadl2Package.MODAL_ELEMENT__MODES_AND_TRANSITIONS:
-			return ((InternalEList<?>) getModesAndTransitions()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+	public EList<Mode> getAllInModes() {
+		return ModalElementOperations.getAllInModes(this);
 	}
 
 	/**
@@ -136,10 +118,6 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.MODAL_ELEMENT__MODES_AND_TRANSITIONS:
-			if (coreType)
-				return getModesAndTransitions();
-			return ((FeatureMap.Internal) getModesAndTransitions()).getWrapper();
 		case Aadl2Package.MODAL_ELEMENT__IN_MODE:
 			return getInModes();
 		}
@@ -155,9 +133,6 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.MODAL_ELEMENT__MODES_AND_TRANSITIONS:
-			((FeatureMap.Internal) getModesAndTransitions()).set(newValue);
-			return;
 		case Aadl2Package.MODAL_ELEMENT__IN_MODE:
 			getInModes().clear();
 			getInModes().addAll((Collection<? extends Mode>) newValue);
@@ -174,9 +149,6 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.MODAL_ELEMENT__MODES_AND_TRANSITIONS:
-			getModesAndTransitions().clear();
-			return;
 		case Aadl2Package.MODAL_ELEMENT__IN_MODE:
 			getInModes().clear();
 			return;
@@ -192,52 +164,33 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.MODAL_ELEMENT__MODES_AND_TRANSITIONS:
-			return modesAndTransitions != null && !modesAndTransitions.isEmpty();
 		case Aadl2Package.MODAL_ELEMENT__IN_MODE:
-			return !getInModes().isEmpty();
+			return inModes != null && !inModes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (modesAndTransitions: ");
-		result.append(modesAndTransitions);
-		result.append(')');
-		return result.toString();
-	}
-
-	/**
-	 * returns the list of modes the modal element belongs to.
+	 * Returns the list of modes the modal element belongs to.
 	 * This may be kept with the modal element or an ancestor in the extends hierarchy.
 	 * The in modes of the closest ancestor returned.
 	 * @return EList of modes. This list may be empty of it is all modes.
 	 */
-	public EList<Mode> getAllInModes() {
-		ModalElement mm = this;
-		EList<Mode> inmodes = null;
-		// inmodes will be an empty list (all modes) if we do not find a non-empty list
-		while (mm != null) {
-			inmodes = mm.getInModes();
-			// we stop when we find the first occurrence of a non-empty inmodes list
-			if (inmodes != null && !inmodes.isEmpty())
-				return inmodes;
-			if (mm instanceof RefinableElement)
-				mm = (ModalElement) ((RefinableElement) mm).getRefinedElement();
-			else
-				mm = null;
-		}
-		return inmodes;
-	}
+	//	public EList<Mode> getAllInModes() {
+	//		ModalElement mm = this;
+	//		EList<Mode> inmodes = null;
+	//		// inmodes will be an empty list (all modes) if we do not find a non-empty list
+	//		while (mm != null) {
+	//			inmodes = mm.getInModes();
+	//			// we stop when we find the first occurrence of a non-empty inmodes list
+	//			if (inmodes != null && !inmodes.isEmpty())
+	//				return inmodes;
+	//			if (mm instanceof RefinableElement)
+	//				mm = (ModalElement) ((RefinableElement) mm).getRefinedElement();
+	//			else
+	//				mm = null;
+	//		}
+	//		return inmodes;
+	//	}
 
 } //ModalElementImpl

@@ -57,7 +57,7 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface Connection extends ModalPath, StructuralFeature, FlowElement {
+public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	/**
 	 * Returns the value of the '<em><b>Kind</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.osate.aadl2.ConnectionKind}.

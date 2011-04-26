@@ -42,13 +42,14 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.BehavioralFeature;
 import org.osate.aadl2.CallSpecification;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.aadl2.operations.ModalElementOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -57,14 +58,23 @@ import org.osate.aadl2.SubprogramCallSequence;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.SubprogramCallSequenceImpl#getFeaturingClassifiers <em>Featuring Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubprogramCallSequenceImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramCallSequenceImpl#getOwnedCallSpecifications <em>Owned Call Specification</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class SubprogramCallSequenceImpl extends ModalElementImpl implements SubprogramCallSequence {
+public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements SubprogramCallSequence {
+	/**
+	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInModes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Mode> inModes;
 	/**
 	 * The cached value of the '{@link #getOwnedCallSpecifications() <em>Owned Call Specification</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -99,10 +109,11 @@ public class SubprogramCallSequenceImpl extends ModalElementImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Classifier> getFeaturingClassifiers() {
-		// TODO: implement this method to return the 'Featuring Classifier' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public EList<Mode> getInModes() {
+		if (inModes == null) {
+			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE);
+		}
+		return inModes;
 	}
 
 	/**
@@ -134,6 +145,15 @@ public class SubprogramCallSequenceImpl extends ModalElementImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Mode> getAllInModes() {
+		return ModalElementOperations.getAllInModes(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -151,8 +171,8 @@ public class SubprogramCallSequenceImpl extends ModalElementImpl implements Subp
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__FEATURING_CLASSIFIER:
-			return getFeaturingClassifiers();
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
+			return getInModes();
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
 			return getOwnedCallSpecifications();
 		}
@@ -168,6 +188,10 @@ public class SubprogramCallSequenceImpl extends ModalElementImpl implements Subp
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
+			getInModes().clear();
+			getInModes().addAll((Collection<? extends Mode>) newValue);
+			return;
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
 			getOwnedCallSpecifications().clear();
 			getOwnedCallSpecifications().addAll((Collection<? extends CallSpecification>) newValue);
@@ -184,6 +208,9 @@ public class SubprogramCallSequenceImpl extends ModalElementImpl implements Subp
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
+			getInModes().clear();
+			return;
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
 			getOwnedCallSpecifications().clear();
 			return;
@@ -199,8 +226,8 @@ public class SubprogramCallSequenceImpl extends ModalElementImpl implements Subp
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__FEATURING_CLASSIFIER:
-			return !getFeaturingClassifiers().isEmpty();
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
+			return inModes != null && !inModes.isEmpty();
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
 			return ownedCallSpecifications != null && !ownedCallSpecifications.isEmpty();
 		}
@@ -214,16 +241,10 @@ public class SubprogramCallSequenceImpl extends ModalElementImpl implements Subp
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == ClassifierFeature.class) {
+		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__FEATURING_CLASSIFIER:
-				return Aadl2Package.CLASSIFIER_FEATURE__FEATURING_CLASSIFIER;
-			default:
-				return -1;
-			}
-		}
-		if (baseClass == BehavioralFeature.class) {
-			switch (derivedFeatureID) {
+			case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
+				return Aadl2Package.MODAL_ELEMENT__IN_MODE;
 			default:
 				return -1;
 			}
@@ -238,16 +259,10 @@ public class SubprogramCallSequenceImpl extends ModalElementImpl implements Subp
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == ClassifierFeature.class) {
+		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.CLASSIFIER_FEATURE__FEATURING_CLASSIFIER:
-				return Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__FEATURING_CLASSIFIER;
-			default:
-				return -1;
-			}
-		}
-		if (baseClass == BehavioralFeature.class) {
-			switch (baseFeatureID) {
+			case Aadl2Package.MODAL_ELEMENT__IN_MODE:
+				return Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE;
 			default:
 				return -1;
 			}

@@ -41,7 +41,6 @@ import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.SubprogramCallSequence;
 
-
 /**
  * <!-- begin-user-doc -->
  * A static utility class that provides operations related to '<em><b>Behaviored Implementation</b></em>' model objects.

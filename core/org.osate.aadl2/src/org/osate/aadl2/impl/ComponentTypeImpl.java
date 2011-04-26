@@ -48,9 +48,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
@@ -81,7 +79,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  *   <li>{@link org.osate.aadl2.impl.ComponentTypeImpl#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentTypeImpl#getGenerals <em>General</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentTypeImpl#getGeneralizations <em>Generalization</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ComponentTypeImpl#getFeatures <em>Features</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentTypeImpl#getExtended <em>Extended</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentTypeImpl#getOwnedFlowSpecifications <em>Owned Flow Specification</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentTypeImpl#getOwnedExtension <em>Owned Extension</em>}</li>
@@ -94,16 +91,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  * @generated
  */
 public abstract class ComponentTypeImpl extends ComponentClassifierImpl implements ComponentType {
-	/**
-	 * The cached value of the '{@link #getFeatures() <em>Features</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFeatures()
-	 * @generated
-	 * @ordered
-	 */
-	protected FeatureMap features;
-
 	/**
 	 * The cached value of the '{@link #getOwnedFlowSpecifications() <em>Owned Flow Specification</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -122,6 +109,26 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @ordered
 	 */
 	protected TypeExtension ownedExtension;
+
+	/**
+	 * The cached value of the '{@link #getOwnedFeatureGroups() <em>Owned Feature Group</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedFeatureGroups()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FeatureGroup> ownedFeatureGroups;
+
+	/**
+	 * The cached value of the '{@link #getOwnedAbstractFeatures() <em>Owned Abstract Feature</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedAbstractFeatures()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AbstractFeature> ownedAbstractFeatures;
 
 	/**
 	 * The default value of the '{@link #isNoFeatures() <em>No Features</em>}' attribute.
@@ -342,18 +349,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureMap getFeatures() {
-		if (features == null) {
-			features = new BasicFeatureMap(this, Aadl2Package.COMPONENT_TYPE__FEATURES);
-		}
-		return features;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isNoFeatures() {
 		return noFeatures;
 	}
@@ -477,7 +472,11 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @generated
 	 */
 	public EList<FeatureGroup> getOwnedFeatureGroups() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getComponentType_OwnedFeatureGroup());
+		if (ownedFeatureGroups == null) {
+			ownedFeatureGroups = new EObjectContainmentEList<FeatureGroup>(FeatureGroup.class, this,
+					Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP);
+		}
+		return ownedFeatureGroups;
 	}
 
 	/**
@@ -497,7 +496,11 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @generated
 	 */
 	public EList<AbstractFeature> getOwnedAbstractFeatures() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getComponentType_OwnedAbstractFeature());
+		if (ownedAbstractFeatures == null) {
+			ownedAbstractFeatures = new EObjectContainmentEList<AbstractFeature>(AbstractFeature.class, this,
+					Aadl2Package.COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE);
+		}
+		return ownedAbstractFeatures;
 	}
 
 	/**
@@ -519,10 +522,12 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Aadl2Package.COMPONENT_TYPE__FEATURES:
-			return ((InternalEList<?>) getFeatures()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
 			return ((InternalEList<?>) getOwnedFlowSpecifications()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP:
+			return ((InternalEList<?>) getOwnedFeatureGroups()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE:
+			return ((InternalEList<?>) getOwnedAbstractFeatures()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -537,10 +542,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE:
 			return getOwnedFeatures();
-		case Aadl2Package.COMPONENT_TYPE__FEATURES:
-			if (coreType)
-				return getFeatures();
-			return ((FeatureMap.Internal) getFeatures()).getWrapper();
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
 			if (resolve)
 				return getExtended();
@@ -570,9 +571,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.COMPONENT_TYPE__FEATURES:
-			((FeatureMap.Internal) getFeatures()).set(newValue);
-			return;
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
 			setExtended((ComponentType) newValue);
 			return;
@@ -606,9 +604,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.COMPONENT_TYPE__FEATURES:
-			getFeatures().clear();
-			return;
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
 			setExtended((ComponentType) null);
 			return;
@@ -641,8 +636,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE:
 			return isSetOwnedFeatures();
-		case Aadl2Package.COMPONENT_TYPE__FEATURES:
-			return features != null && !features.isEmpty();
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
 			return basicGetExtended() != null;
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
@@ -650,9 +643,9 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		case Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION:
 			return ownedExtension != null;
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP:
-			return !getOwnedFeatureGroups().isEmpty();
+			return ownedFeatureGroups != null && !ownedFeatureGroups.isEmpty();
 		case Aadl2Package.COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE:
-			return !getOwnedAbstractFeatures().isEmpty();
+			return ownedAbstractFeatures != null && !ownedAbstractFeatures.isEmpty();
 		case Aadl2Package.COMPONENT_TYPE__NO_FEATURES:
 			return noFeatures != NO_FEATURES_EDEFAULT;
 		}
@@ -670,9 +663,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (features: ");
-		result.append(features);
-		result.append(", noFeatures: ");
+		result.append(" (noFeatures: ");
 		result.append(noFeatures);
 		result.append(')');
 		return result.toString();

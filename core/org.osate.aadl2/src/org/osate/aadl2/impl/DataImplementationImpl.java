@@ -37,11 +37,14 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -69,6 +72,25 @@ import org.osate.aadl2.SubprogramSubcomponent;
  * @generated
  */
 public class DataImplementationImpl extends ComponentImplementationImpl implements DataImplementation {
+	/**
+	 * The cached value of the '{@link #getOwnedDataSubcomponents() <em>Owned Data Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDataSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataSubcomponent> ownedDataSubcomponents;
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramSubcomponents() <em>Owned Subprogram Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramSubcomponent> ownedSubprogramSubcomponents;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -131,7 +153,11 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 * @generated
 	 */
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
-		return getSubcomponents().list(Aadl2Package.eINSTANCE.getDataImplementation_OwnedDataSubcomponent());
+		if (ownedDataSubcomponents == null) {
+			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
+					Aadl2Package.DATA_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
+		}
+		return ownedDataSubcomponents;
 	}
 
 	/**
@@ -152,7 +178,11 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 * @generated
 	 */
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
-		return getSubcomponents().list(Aadl2Package.eINSTANCE.getDataImplementation_OwnedSubprogramSubcomponent());
+		if (ownedSubprogramSubcomponents == null) {
+			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
+					SubprogramSubcomponent.class, this, Aadl2Package.DATA_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
+		}
+		return ownedSubprogramSubcomponents;
 	}
 
 	/**
@@ -207,6 +237,22 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 */
 	public boolean isSetType() {
 		return basicGetType() != null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.DATA_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedDataSubcomponents()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.DATA_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedSubprogramSubcomponents()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -273,9 +319,9 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DATA_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
-			return !getOwnedDataSubcomponents().isEmpty();
+			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
 		case Aadl2Package.DATA_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
-			return !getOwnedSubprogramSubcomponents().isEmpty();
+			return ownedSubprogramSubcomponents != null && !ownedSubprogramSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -44,9 +44,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.FeatureMap;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
@@ -99,9 +98,6 @@ import org.osate.aadl2.VirtualProcessorType;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedClassifiers <em>Owned Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getImports <em>Imports</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getAliases <em>Aliases</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getDeclarations <em>Declarations</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedPackageRenames <em>Owned Package Rename</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedComponentTypeRenames <em>Owned Component Type Rename</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedFeatureGroupTypeRenames <em>Owned Feature Group Type Rename</em>}</li>
@@ -147,34 +143,34 @@ import org.osate.aadl2.VirtualProcessorType;
  */
 public abstract class PackageSectionImpl extends NamespaceImpl implements PackageSection {
 	/**
-	 * The cached value of the '{@link #getImports() <em>Imports</em>}' attribute list.
+	 * The cached value of the '{@link #getOwnedPackageRenames() <em>Owned Package Rename</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getImports()
+	 * @see #getOwnedPackageRenames()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureMap imports;
+	protected EList<PackageRename> ownedPackageRenames;
 
 	/**
-	 * The cached value of the '{@link #getAliases() <em>Aliases</em>}' attribute list.
+	 * The cached value of the '{@link #getOwnedComponentTypeRenames() <em>Owned Component Type Rename</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAliases()
+	 * @see #getOwnedComponentTypeRenames()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureMap aliases;
+	protected EList<ComponentTypeRename> ownedComponentTypeRenames;
 
 	/**
-	 * The cached value of the '{@link #getDeclarations() <em>Declarations</em>}' attribute list.
+	 * The cached value of the '{@link #getOwnedFeatureGroupTypeRenames() <em>Owned Feature Group Type Rename</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDeclarations()
+	 * @see #getOwnedFeatureGroupTypeRenames()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureMap declarations;
+	protected EList<FeatureGroupTypeRename> ownedFeatureGroupTypeRenames;
 
 	/**
 	 * The cached value of the '{@link #getOwnedAnnexLibraries() <em>Owned Annex Library</em>}' containment reference list.
@@ -185,6 +181,16 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @ordered
 	 */
 	protected EList<AnnexLibrary> ownedAnnexLibraries;
+
+	/**
+	 * The cached value of the '{@link #getImportedPackages() <em>Imported Package</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImportedPackages()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AadlPackage> importedPackages;
 
 	/**
 	 * The default value of the '{@link #isNoAnnexes() <em>No Annexes</em>}' attribute.
@@ -207,6 +213,296 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	protected boolean noAnnexes = NO_ANNEXES_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getOwnedAbstractTypes() <em>Owned Abstract Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedAbstractTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AbstractType> ownedAbstractTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedAbstractImplementations() <em>Owned Abstract Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedAbstractImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AbstractImplementation> ownedAbstractImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedBusTypes() <em>Owned Bus Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedBusTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BusType> ownedBusTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedBusImplementations() <em>Owned Bus Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedBusImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BusImplementation> ownedBusImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedDataTypes() <em>Owned Data Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDataTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataType> ownedDataTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedDataImplementations() <em>Owned Data Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDataImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataImplementation> ownedDataImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedDeviceTypes() <em>Owned Device Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDeviceTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DeviceType> ownedDeviceTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedDeviceImplementations() <em>Owned Device Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDeviceImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DeviceImplementation> ownedDeviceImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedMemoryTypes() <em>Owned Memory Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedMemoryTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<MemoryType> ownedMemoryTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedMemoryImplementations() <em>Owned Memory Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedMemoryImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<MemoryImplementation> ownedMemoryImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedProcessTypes() <em>Owned Process Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedProcessTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ProcessType> ownedProcessTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedProcessorTypes() <em>Owned Processor Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedProcessorTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ProcessorType> ownedProcessorTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedProcessImplementations() <em>Owned Process Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedProcessImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ProcessImplementation> ownedProcessImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedProcessorImplementations() <em>Owned Processor Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedProcessorImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ProcessorImplementation> ownedProcessorImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramTypes() <em>Owned Subprogram Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramType> ownedSubprogramTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramImplementations() <em>Owned Subprogram Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramImplementation> ownedSubprogramImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramGroupTypes() <em>Owned Subprogram Group Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramGroupTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramGroupType> ownedSubprogramGroupTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramGroupImplementations() <em>Owned Subprogram Group Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramGroupImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramGroupImplementation> ownedSubprogramGroupImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedSystemTypes() <em>Owned System Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSystemTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SystemType> ownedSystemTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedSystemImplementations() <em>Owned System Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSystemImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SystemImplementation> ownedSystemImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedThreadTypes() <em>Owned Thread Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedThreadTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ThreadType> ownedThreadTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedThreadImplementations() <em>Owned Thread Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedThreadImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ThreadImplementation> ownedThreadImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedThreadGroupTypes() <em>Owned Thread Group Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedThreadGroupTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ThreadGroupType> ownedThreadGroupTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedThreadGroupImplementations() <em>Owned Thread Group Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedThreadGroupImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ThreadGroupImplementation> ownedThreadGroupImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedVirtualBusTypes() <em>Owned Virtual Bus Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedVirtualBusTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VirtualBusType> ownedVirtualBusTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedVirtualBusImplementations() <em>Owned Virtual Bus Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedVirtualBusImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VirtualBusImplementation> ownedVirtualBusImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedVirtualProcessorTypes() <em>Owned Virtual Processor Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedVirtualProcessorTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VirtualProcessorType> ownedVirtualProcessorTypes;
+
+	/**
+	 * The cached value of the '{@link #getOwnedVirtualProcessorImplementations() <em>Owned Virtual Processor Implementation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedVirtualProcessorImplementations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VirtualProcessorImplementation> ownedVirtualProcessorImplementations;
+
+	/**
+	 * The cached value of the '{@link #getOwnedFeatureGroupTypes() <em>Owned Feature Group Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedFeatureGroupTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FeatureGroupType> ownedFeatureGroupTypes;
+
+	/**
 	 * The default value of the '{@link #isNoProperties() <em>No Properties</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -225,6 +521,16 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @ordered
 	 */
 	protected boolean noProperties = NO_PROPERTIES_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getImportedPropertySets() <em>Imported Property Set</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImportedPropertySets()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<PropertySet> importedPropertySets;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -343,44 +649,12 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureMap getImports() {
-		if (imports == null) {
-			imports = new BasicFeatureMap(this, Aadl2Package.PACKAGE_SECTION__IMPORTS);
-		}
-		return imports;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureMap getAliases() {
-		if (aliases == null) {
-			aliases = new BasicFeatureMap(this, Aadl2Package.PACKAGE_SECTION__ALIASES);
-		}
-		return aliases;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureMap getDeclarations() {
-		if (declarations == null) {
-			declarations = new BasicFeatureMap(this, Aadl2Package.PACKAGE_SECTION__DECLARATIONS);
-		}
-		return declarations;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<PackageRename> getOwnedPackageRenames() {
-		return getAliases().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedPackageRename());
+		if (ownedPackageRenames == null) {
+			ownedPackageRenames = new EObjectContainmentEList<PackageRename>(PackageRename.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME);
+		}
+		return ownedPackageRenames;
 	}
 
 	/**
@@ -400,7 +674,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<ComponentTypeRename> getOwnedComponentTypeRenames() {
-		return getAliases().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedComponentTypeRename());
+		if (ownedComponentTypeRenames == null) {
+			ownedComponentTypeRenames = new EObjectContainmentEList<ComponentTypeRename>(ComponentTypeRename.class,
+					this, Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME);
+		}
+		return ownedComponentTypeRenames;
 	}
 
 	/**
@@ -443,7 +721,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<PropertySet> getImportedPropertySets() {
-		return getImports().list(Aadl2Package.eINSTANCE.getPackageSection_ImportedPropertySet());
+		if (importedPropertySets == null) {
+			importedPropertySets = new EObjectResolvingEList<PropertySet>(PropertySet.class, this,
+					Aadl2Package.PACKAGE_SECTION__IMPORTED_PROPERTY_SET);
+		}
+		return importedPropertySets;
 	}
 
 	/**
@@ -474,7 +756,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<FeatureGroupTypeRename> getOwnedFeatureGroupTypeRenames() {
-		return getAliases().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedFeatureGroupTypeRename());
+		if (ownedFeatureGroupTypeRenames == null) {
+			ownedFeatureGroupTypeRenames = new EObjectContainmentEList<FeatureGroupTypeRename>(
+					FeatureGroupTypeRename.class, this, Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME);
+		}
+		return ownedFeatureGroupTypeRenames;
 	}
 
 	/**
@@ -528,7 +814,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<AadlPackage> getImportedPackages() {
-		return getImports().list(Aadl2Package.eINSTANCE.getPackageSection_ImportedPackage());
+		if (importedPackages == null) {
+			importedPackages = new EObjectResolvingEList<AadlPackage>(AadlPackage.class, this,
+					Aadl2Package.PACKAGE_SECTION__IMPORTED_PACKAGE);
+		}
+		return importedPackages;
 	}
 
 	/**
@@ -537,7 +827,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<AbstractType> getOwnedAbstractTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedAbstractType());
+		if (ownedAbstractTypes == null) {
+			ownedAbstractTypes = new EObjectContainmentEList<AbstractType>(AbstractType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_ABSTRACT_TYPE);
+		}
+		return ownedAbstractTypes;
 	}
 
 	/**
@@ -557,7 +851,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<AbstractImplementation> getOwnedAbstractImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedAbstractImplementation());
+		if (ownedAbstractImplementations == null) {
+			ownedAbstractImplementations = new EObjectContainmentEList<AbstractImplementation>(
+					AbstractImplementation.class, this, Aadl2Package.PACKAGE_SECTION__OWNED_ABSTRACT_IMPLEMENTATION);
+		}
+		return ownedAbstractImplementations;
 	}
 
 	/**
@@ -578,7 +876,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<BusType> getOwnedBusTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedBusType());
+		if (ownedBusTypes == null) {
+			ownedBusTypes = new EObjectContainmentEList<BusType>(BusType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_BUS_TYPE);
+		}
+		return ownedBusTypes;
 	}
 
 	/**
@@ -598,7 +900,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<BusImplementation> getOwnedBusImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedBusImplementation());
+		if (ownedBusImplementations == null) {
+			ownedBusImplementations = new EObjectContainmentEList<BusImplementation>(BusImplementation.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_BUS_IMPLEMENTATION);
+		}
+		return ownedBusImplementations;
 	}
 
 	/**
@@ -619,7 +925,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<DataType> getOwnedDataTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedDataType());
+		if (ownedDataTypes == null) {
+			ownedDataTypes = new EObjectContainmentEList<DataType>(DataType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_DATA_TYPE);
+		}
+		return ownedDataTypes;
 	}
 
 	/**
@@ -639,7 +949,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<DataImplementation> getOwnedDataImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedDataImplementation());
+		if (ownedDataImplementations == null) {
+			ownedDataImplementations = new EObjectContainmentEList<DataImplementation>(DataImplementation.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_DATA_IMPLEMENTATION);
+		}
+		return ownedDataImplementations;
 	}
 
 	/**
@@ -660,7 +974,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<DeviceType> getOwnedDeviceTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedDeviceType());
+		if (ownedDeviceTypes == null) {
+			ownedDeviceTypes = new EObjectContainmentEList<DeviceType>(DeviceType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_DEVICE_TYPE);
+		}
+		return ownedDeviceTypes;
 	}
 
 	/**
@@ -680,7 +998,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<DeviceImplementation> getOwnedDeviceImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedDeviceImplementation());
+		if (ownedDeviceImplementations == null) {
+			ownedDeviceImplementations = new EObjectContainmentEList<DeviceImplementation>(DeviceImplementation.class,
+					this, Aadl2Package.PACKAGE_SECTION__OWNED_DEVICE_IMPLEMENTATION);
+		}
+		return ownedDeviceImplementations;
 	}
 
 	/**
@@ -701,7 +1023,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<MemoryType> getOwnedMemoryTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedMemoryType());
+		if (ownedMemoryTypes == null) {
+			ownedMemoryTypes = new EObjectContainmentEList<MemoryType>(MemoryType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_MEMORY_TYPE);
+		}
+		return ownedMemoryTypes;
 	}
 
 	/**
@@ -721,7 +1047,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<MemoryImplementation> getOwnedMemoryImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedMemoryImplementation());
+		if (ownedMemoryImplementations == null) {
+			ownedMemoryImplementations = new EObjectContainmentEList<MemoryImplementation>(MemoryImplementation.class,
+					this, Aadl2Package.PACKAGE_SECTION__OWNED_MEMORY_IMPLEMENTATION);
+		}
+		return ownedMemoryImplementations;
 	}
 
 	/**
@@ -742,7 +1072,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<ProcessType> getOwnedProcessTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedProcessType());
+		if (ownedProcessTypes == null) {
+			ownedProcessTypes = new EObjectContainmentEList<ProcessType>(ProcessType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_PROCESS_TYPE);
+		}
+		return ownedProcessTypes;
 	}
 
 	/**
@@ -762,7 +1096,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<ProcessorType> getOwnedProcessorTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedProcessorType());
+		if (ownedProcessorTypes == null) {
+			ownedProcessorTypes = new EObjectContainmentEList<ProcessorType>(ProcessorType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_PROCESSOR_TYPE);
+		}
+		return ownedProcessorTypes;
 	}
 
 	/**
@@ -782,7 +1120,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<ProcessImplementation> getOwnedProcessImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedProcessImplementation());
+		if (ownedProcessImplementations == null) {
+			ownedProcessImplementations = new EObjectContainmentEList<ProcessImplementation>(
+					ProcessImplementation.class, this, Aadl2Package.PACKAGE_SECTION__OWNED_PROCESS_IMPLEMENTATION);
+		}
+		return ownedProcessImplementations;
 	}
 
 	/**
@@ -803,7 +1145,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<ProcessorImplementation> getOwnedProcessorImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedProcessorImplementation());
+		if (ownedProcessorImplementations == null) {
+			ownedProcessorImplementations = new EObjectContainmentEList<ProcessorImplementation>(
+					ProcessorImplementation.class, this, Aadl2Package.PACKAGE_SECTION__OWNED_PROCESSOR_IMPLEMENTATION);
+		}
+		return ownedProcessorImplementations;
 	}
 
 	/**
@@ -824,7 +1170,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<FeatureGroupType> getOwnedFeatureGroupTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedFeatureGroupType());
+		if (ownedFeatureGroupTypes == null) {
+			ownedFeatureGroupTypes = new EObjectContainmentEList<FeatureGroupType>(FeatureGroupType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE);
+		}
+		return ownedFeatureGroupTypes;
 	}
 
 	/**
@@ -845,7 +1195,12 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<VirtualProcessorImplementation> getOwnedVirtualProcessorImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedVirtualProcessorImplementation());
+		if (ownedVirtualProcessorImplementations == null) {
+			ownedVirtualProcessorImplementations = new EObjectContainmentEList<VirtualProcessorImplementation>(
+					VirtualProcessorImplementation.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_IMPLEMENTATION);
+		}
+		return ownedVirtualProcessorImplementations;
 	}
 
 	/**
@@ -866,7 +1221,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<VirtualProcessorType> getOwnedVirtualProcessorTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedVirtualProcessorType());
+		if (ownedVirtualProcessorTypes == null) {
+			ownedVirtualProcessorTypes = new EObjectContainmentEList<VirtualProcessorType>(VirtualProcessorType.class,
+					this, Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_TYPE);
+		}
+		return ownedVirtualProcessorTypes;
 	}
 
 	/**
@@ -887,7 +1246,12 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<ThreadGroupImplementation> getOwnedThreadGroupImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedThreadGroupImplementation());
+		if (ownedThreadGroupImplementations == null) {
+			ownedThreadGroupImplementations = new EObjectContainmentEList<ThreadGroupImplementation>(
+					ThreadGroupImplementation.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_GROUP_IMPLEMENTATION);
+		}
+		return ownedThreadGroupImplementations;
 	}
 
 	/**
@@ -908,7 +1272,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<ThreadImplementation> getOwnedThreadImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedThreadImplementation());
+		if (ownedThreadImplementations == null) {
+			ownedThreadImplementations = new EObjectContainmentEList<ThreadImplementation>(ThreadImplementation.class,
+					this, Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_IMPLEMENTATION);
+		}
+		return ownedThreadImplementations;
 	}
 
 	/**
@@ -929,7 +1297,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<VirtualBusType> getOwnedVirtualBusTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedVirtualBusType());
+		if (ownedVirtualBusTypes == null) {
+			ownedVirtualBusTypes = new EObjectContainmentEList<VirtualBusType>(VirtualBusType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_BUS_TYPE);
+		}
+		return ownedVirtualBusTypes;
 	}
 
 	/**
@@ -949,7 +1321,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<ThreadGroupType> getOwnedThreadGroupTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedThreadGroupType());
+		if (ownedThreadGroupTypes == null) {
+			ownedThreadGroupTypes = new EObjectContainmentEList<ThreadGroupType>(ThreadGroupType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_GROUP_TYPE);
+		}
+		return ownedThreadGroupTypes;
 	}
 
 	/**
@@ -969,7 +1345,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<ThreadType> getOwnedThreadTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedThreadType());
+		if (ownedThreadTypes == null) {
+			ownedThreadTypes = new EObjectContainmentEList<ThreadType>(ThreadType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_TYPE);
+		}
+		return ownedThreadTypes;
 	}
 
 	/**
@@ -989,7 +1369,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<SystemType> getOwnedSystemTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedSystemType());
+		if (ownedSystemTypes == null) {
+			ownedSystemTypes = new EObjectContainmentEList<SystemType>(SystemType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_SYSTEM_TYPE);
+		}
+		return ownedSystemTypes;
 	}
 
 	/**
@@ -1009,7 +1393,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<SubprogramType> getOwnedSubprogramTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedSubprogramType());
+		if (ownedSubprogramTypes == null) {
+			ownedSubprogramTypes = new EObjectContainmentEList<SubprogramType>(SubprogramType.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_TYPE);
+		}
+		return ownedSubprogramTypes;
 	}
 
 	/**
@@ -1029,7 +1417,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<SubprogramGroupType> getOwnedSubprogramGroupTypes() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedSubprogramGroupType());
+		if (ownedSubprogramGroupTypes == null) {
+			ownedSubprogramGroupTypes = new EObjectContainmentEList<SubprogramGroupType>(SubprogramGroupType.class,
+					this, Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_TYPE);
+		}
+		return ownedSubprogramGroupTypes;
 	}
 
 	/**
@@ -1050,7 +1442,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<SystemImplementation> getOwnedSystemImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedSystemImplementation());
+		if (ownedSystemImplementations == null) {
+			ownedSystemImplementations = new EObjectContainmentEList<SystemImplementation>(SystemImplementation.class,
+					this, Aadl2Package.PACKAGE_SECTION__OWNED_SYSTEM_IMPLEMENTATION);
+		}
+		return ownedSystemImplementations;
 	}
 
 	/**
@@ -1071,7 +1467,12 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<SubprogramGroupImplementation> getOwnedSubprogramGroupImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedSubprogramGroupImplementation());
+		if (ownedSubprogramGroupImplementations == null) {
+			ownedSubprogramGroupImplementations = new EObjectContainmentEList<SubprogramGroupImplementation>(
+					SubprogramGroupImplementation.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_IMPLEMENTATION);
+		}
+		return ownedSubprogramGroupImplementations;
 	}
 
 	/**
@@ -1092,7 +1493,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<SubprogramImplementation> getOwnedSubprogramImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedSubprogramImplementation());
+		if (ownedSubprogramImplementations == null) {
+			ownedSubprogramImplementations = new EObjectContainmentEList<SubprogramImplementation>(
+					SubprogramImplementation.class, this, Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_IMPLEMENTATION);
+		}
+		return ownedSubprogramImplementations;
 	}
 
 	/**
@@ -1113,7 +1518,12 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public EList<VirtualBusImplementation> getOwnedVirtualBusImplementations() {
-		return getDeclarations().list(Aadl2Package.eINSTANCE.getPackageSection_OwnedVirtualBusImplementation());
+		if (ownedVirtualBusImplementations == null) {
+			ownedVirtualBusImplementations = new EObjectContainmentEList<VirtualBusImplementation>(
+					VirtualBusImplementation.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_BUS_IMPLEMENTATION);
+		}
+		return ownedVirtualBusImplementations;
 	}
 
 	/**
@@ -1136,14 +1546,72 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Aadl2Package.PACKAGE_SECTION__IMPORTS:
-			return ((InternalEList<?>) getImports()).basicRemove(otherEnd, msgs);
-		case Aadl2Package.PACKAGE_SECTION__ALIASES:
-			return ((InternalEList<?>) getAliases()).basicRemove(otherEnd, msgs);
-		case Aadl2Package.PACKAGE_SECTION__DECLARATIONS:
-			return ((InternalEList<?>) getDeclarations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
+			return ((InternalEList<?>) getOwnedPackageRenames()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME:
+			return ((InternalEList<?>) getOwnedComponentTypeRenames()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME:
+			return ((InternalEList<?>) getOwnedFeatureGroupTypeRenames()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY:
 			return ((InternalEList<?>) getOwnedAnnexLibraries()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_ABSTRACT_TYPE:
+			return ((InternalEList<?>) getOwnedAbstractTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_ABSTRACT_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedAbstractImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_BUS_TYPE:
+			return ((InternalEList<?>) getOwnedBusTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_BUS_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedBusImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_DATA_TYPE:
+			return ((InternalEList<?>) getOwnedDataTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_DATA_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedDataImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_DEVICE_TYPE:
+			return ((InternalEList<?>) getOwnedDeviceTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_DEVICE_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedDeviceImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_MEMORY_TYPE:
+			return ((InternalEList<?>) getOwnedMemoryTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_MEMORY_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedMemoryImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_PROCESS_TYPE:
+			return ((InternalEList<?>) getOwnedProcessTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_PROCESSOR_TYPE:
+			return ((InternalEList<?>) getOwnedProcessorTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_PROCESS_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedProcessImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_PROCESSOR_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedProcessorImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_TYPE:
+			return ((InternalEList<?>) getOwnedSubprogramTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedSubprogramImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_TYPE:
+			return ((InternalEList<?>) getOwnedSubprogramGroupTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedSubprogramGroupImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_SYSTEM_TYPE:
+			return ((InternalEList<?>) getOwnedSystemTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_SYSTEM_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedSystemImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_TYPE:
+			return ((InternalEList<?>) getOwnedThreadTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedThreadImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_GROUP_TYPE:
+			return ((InternalEList<?>) getOwnedThreadGroupTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_GROUP_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedThreadGroupImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_BUS_TYPE:
+			return ((InternalEList<?>) getOwnedVirtualBusTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_BUS_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedVirtualBusImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_TYPE:
+			return ((InternalEList<?>) getOwnedVirtualProcessorTypes()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_IMPLEMENTATION:
+			return ((InternalEList<?>) getOwnedVirtualProcessorImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE:
+			return ((InternalEList<?>) getOwnedFeatureGroupTypes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1158,18 +1626,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER:
 			return getOwnedClassifiers();
-		case Aadl2Package.PACKAGE_SECTION__IMPORTS:
-			if (coreType)
-				return getImports();
-			return ((FeatureMap.Internal) getImports()).getWrapper();
-		case Aadl2Package.PACKAGE_SECTION__ALIASES:
-			if (coreType)
-				return getAliases();
-			return ((FeatureMap.Internal) getAliases()).getWrapper();
-		case Aadl2Package.PACKAGE_SECTION__DECLARATIONS:
-			if (coreType)
-				return getDeclarations();
-			return ((FeatureMap.Internal) getDeclarations()).getWrapper();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
 			return getOwnedPackageRenames();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME:
@@ -1257,15 +1713,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.PACKAGE_SECTION__IMPORTS:
-			((FeatureMap.Internal) getImports()).set(newValue);
-			return;
-		case Aadl2Package.PACKAGE_SECTION__ALIASES:
-			((FeatureMap.Internal) getAliases()).set(newValue);
-			return;
-		case Aadl2Package.PACKAGE_SECTION__DECLARATIONS:
-			((FeatureMap.Internal) getDeclarations()).set(newValue);
-			return;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
 			getOwnedPackageRenames().clear();
 			getOwnedPackageRenames().addAll((Collection<? extends PackageRename>) newValue);
@@ -1426,15 +1873,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PACKAGE_SECTION__IMPORTS:
-			getImports().clear();
-			return;
-		case Aadl2Package.PACKAGE_SECTION__ALIASES:
-			getAliases().clear();
-			return;
-		case Aadl2Package.PACKAGE_SECTION__DECLARATIONS:
-			getDeclarations().clear();
-			return;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
 			getOwnedPackageRenames().clear();
 			return;
@@ -1560,86 +1998,80 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER:
 			return isSetOwnedClassifiers();
-		case Aadl2Package.PACKAGE_SECTION__IMPORTS:
-			return imports != null && !imports.isEmpty();
-		case Aadl2Package.PACKAGE_SECTION__ALIASES:
-			return aliases != null && !aliases.isEmpty();
-		case Aadl2Package.PACKAGE_SECTION__DECLARATIONS:
-			return declarations != null && !declarations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
-			return !getOwnedPackageRenames().isEmpty();
+			return ownedPackageRenames != null && !ownedPackageRenames.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME:
-			return !getOwnedComponentTypeRenames().isEmpty();
+			return ownedComponentTypeRenames != null && !ownedComponentTypeRenames.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME:
-			return !getOwnedFeatureGroupTypeRenames().isEmpty();
+			return ownedFeatureGroupTypeRenames != null && !ownedFeatureGroupTypeRenames.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY:
 			return ownedAnnexLibraries != null && !ownedAnnexLibraries.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__IMPORTED_PACKAGE:
-			return !getImportedPackages().isEmpty();
+			return importedPackages != null && !importedPackages.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
 			return noAnnexes != NO_ANNEXES_EDEFAULT;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ABSTRACT_TYPE:
-			return !getOwnedAbstractTypes().isEmpty();
+			return ownedAbstractTypes != null && !ownedAbstractTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ABSTRACT_IMPLEMENTATION:
-			return !getOwnedAbstractImplementations().isEmpty();
+			return ownedAbstractImplementations != null && !ownedAbstractImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_BUS_TYPE:
-			return !getOwnedBusTypes().isEmpty();
+			return ownedBusTypes != null && !ownedBusTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_BUS_IMPLEMENTATION:
-			return !getOwnedBusImplementations().isEmpty();
+			return ownedBusImplementations != null && !ownedBusImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_DATA_TYPE:
-			return !getOwnedDataTypes().isEmpty();
+			return ownedDataTypes != null && !ownedDataTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_DATA_IMPLEMENTATION:
-			return !getOwnedDataImplementations().isEmpty();
+			return ownedDataImplementations != null && !ownedDataImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_DEVICE_TYPE:
-			return !getOwnedDeviceTypes().isEmpty();
+			return ownedDeviceTypes != null && !ownedDeviceTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_DEVICE_IMPLEMENTATION:
-			return !getOwnedDeviceImplementations().isEmpty();
+			return ownedDeviceImplementations != null && !ownedDeviceImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_MEMORY_TYPE:
-			return !getOwnedMemoryTypes().isEmpty();
+			return ownedMemoryTypes != null && !ownedMemoryTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_MEMORY_IMPLEMENTATION:
-			return !getOwnedMemoryImplementations().isEmpty();
+			return ownedMemoryImplementations != null && !ownedMemoryImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PROCESS_TYPE:
-			return !getOwnedProcessTypes().isEmpty();
+			return ownedProcessTypes != null && !ownedProcessTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PROCESSOR_TYPE:
-			return !getOwnedProcessorTypes().isEmpty();
+			return ownedProcessorTypes != null && !ownedProcessorTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PROCESS_IMPLEMENTATION:
-			return !getOwnedProcessImplementations().isEmpty();
+			return ownedProcessImplementations != null && !ownedProcessImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PROCESSOR_IMPLEMENTATION:
-			return !getOwnedProcessorImplementations().isEmpty();
+			return ownedProcessorImplementations != null && !ownedProcessorImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_TYPE:
-			return !getOwnedSubprogramTypes().isEmpty();
+			return ownedSubprogramTypes != null && !ownedSubprogramTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_IMPLEMENTATION:
-			return !getOwnedSubprogramImplementations().isEmpty();
+			return ownedSubprogramImplementations != null && !ownedSubprogramImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_TYPE:
-			return !getOwnedSubprogramGroupTypes().isEmpty();
+			return ownedSubprogramGroupTypes != null && !ownedSubprogramGroupTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_IMPLEMENTATION:
-			return !getOwnedSubprogramGroupImplementations().isEmpty();
+			return ownedSubprogramGroupImplementations != null && !ownedSubprogramGroupImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_SYSTEM_TYPE:
-			return !getOwnedSystemTypes().isEmpty();
+			return ownedSystemTypes != null && !ownedSystemTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_SYSTEM_IMPLEMENTATION:
-			return !getOwnedSystemImplementations().isEmpty();
+			return ownedSystemImplementations != null && !ownedSystemImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_TYPE:
-			return !getOwnedThreadTypes().isEmpty();
+			return ownedThreadTypes != null && !ownedThreadTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_IMPLEMENTATION:
-			return !getOwnedThreadImplementations().isEmpty();
+			return ownedThreadImplementations != null && !ownedThreadImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_GROUP_TYPE:
-			return !getOwnedThreadGroupTypes().isEmpty();
+			return ownedThreadGroupTypes != null && !ownedThreadGroupTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_GROUP_IMPLEMENTATION:
-			return !getOwnedThreadGroupImplementations().isEmpty();
+			return ownedThreadGroupImplementations != null && !ownedThreadGroupImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_BUS_TYPE:
-			return !getOwnedVirtualBusTypes().isEmpty();
+			return ownedVirtualBusTypes != null && !ownedVirtualBusTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_BUS_IMPLEMENTATION:
-			return !getOwnedVirtualBusImplementations().isEmpty();
+			return ownedVirtualBusImplementations != null && !ownedVirtualBusImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_TYPE:
-			return !getOwnedVirtualProcessorTypes().isEmpty();
+			return ownedVirtualProcessorTypes != null && !ownedVirtualProcessorTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_IMPLEMENTATION:
-			return !getOwnedVirtualProcessorImplementations().isEmpty();
+			return ownedVirtualProcessorImplementations != null && !ownedVirtualProcessorImplementations.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE:
-			return !getOwnedFeatureGroupTypes().isEmpty();
+			return ownedFeatureGroupTypes != null && !ownedFeatureGroupTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES:
 			return noProperties != NO_PROPERTIES_EDEFAULT;
 		case Aadl2Package.PACKAGE_SECTION__IMPORTED_PROPERTY_SET:
-			return !getImportedPropertySets().isEmpty();
+			return importedPropertySets != null && !importedPropertySets.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1655,13 +2087,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (imports: ");
-		result.append(imports);
-		result.append(", aliases: ");
-		result.append(aliases);
-		result.append(", declarations: ");
-		result.append(declarations);
-		result.append(", noAnnexes: ");
+		result.append(" (noAnnexes: ");
 		result.append(noAnnexes);
 		result.append(", noProperties: ");
 		result.append(noProperties);

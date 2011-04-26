@@ -43,7 +43,6 @@ import org.eclipse.ocl.expressions.OCLExpression;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Type;
 
-
 /**
  * <!-- begin-user-doc -->
  * A static utility class that provides operations related to '<em><b>Type</b></em>' model objects.
