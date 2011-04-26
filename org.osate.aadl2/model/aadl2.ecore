@@ -625,19 +625,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AnnexSubclause" abstract="true" eSuperTypes="#//ModalElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ModalElement" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modesAndTransitions" ordered="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="group"/>
-        <details key="namespace" value="modalElement"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inMode" upperBound="-1"
-        eType="#//Mode" volatile="true" transient="true" derived="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="modalElement#modesAndTransitions"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//Mode"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Mode" eSuperTypes="#//ModeFeature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="initial" ordered="false"
@@ -742,27 +731,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentImplementation" abstract="true"
       eSuperTypes="#//ComponentClassifier">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="subcomponents" ordered="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="group"/>
-        <details key="namespace" value="implementation"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="connections" ordered="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="group"/>
-        <details key="namespace" value="implementation"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="flows" ordered="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="group"/>
-        <details key="namespace" value="implementation"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
         lowerBound="1" eType="#//ComponentType" volatile="true" transient="true" derived="true">
       <eAnnotations source="subsets" references="#//Classifier/general"/>
@@ -778,12 +746,8 @@
       <eAnnotations source="subsets" references="#//Classifier/general"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFlowImplementation"
-        upperBound="-1" eType="#//FlowImplementation" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//FlowImplementation" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#flows"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedConnection" ordered="false"
         upperBound="-1" eType="#//Connection" changeable="false" volatile="true" transient="true"
@@ -799,56 +763,23 @@
       <eAnnotations source="subsets" references="#//Classifier/generalization"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEndToEndFlow" ordered="false"
-        upperBound="-1" eType="#//EndToEndFlow" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//EndToEndFlow" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#flows"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAbstractSubcomponent"
-        ordered="false" upperBound="-1" eType="#//AbstractSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//AbstractSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAccessConnection"
-        ordered="false" upperBound="-1" eType="#//AccessConnection" volatile="true"
-        transient="true" derived="true" containment="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#connections"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        ordered="false" upperBound="-1" eType="#//AccessConnection" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedParameterConnection"
-        ordered="false" upperBound="-1" eType="#//ParameterConnection" volatile="true"
-        transient="true" derived="true" containment="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#connections"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        ordered="false" upperBound="-1" eType="#//ParameterConnection" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPortConnection" ordered="false"
-        upperBound="-1" eType="#//PortConnection" volatile="true" transient="true"
-        derived="true" containment="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#connections"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        upperBound="-1" eType="#//PortConnection" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureConnection"
-        ordered="false" upperBound="-1" eType="#//FeatureConnection" volatile="true"
-        transient="true" derived="true" containment="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#connections"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        ordered="false" upperBound="-1" eType="#//FeatureConnection" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureGroupConnection"
-        ordered="false" upperBound="-1" eType="#//FeatureGroupConnection" volatile="true"
-        transient="true" derived="true" containment="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#connections"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        ordered="false" upperBound="-1" eType="#//FeatureGroupConnection" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessorSubprogram"
         ordered="false" upperBound="-1" eType="#//ProcessorSubprogram" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noSubcomponents" ordered="false"
@@ -936,13 +867,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorPort" eSuperTypes="#//PortConnectionEnd #//ModeTransitionTrigger"/>
   <eClassifiers xsi:type="ecore:EClass" name="InternalEvent" eSuperTypes="#//PortConnectionEnd #//ModeTransitionTrigger"/>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentType" abstract="true" eSuperTypes="#//ComponentClassifier">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="features" ordered="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="group"/>
-        <details key="namespace" value="type"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeature" ordered="false"
         upperBound="-1" eType="#//Feature" changeable="false" volatile="true" transient="true"
         derived="true" containment="true">
@@ -962,20 +886,12 @@
       <eAnnotations source="subsets" references="#//Classifier/generalization"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureGroup" ordered="false"
-        upperBound="-1" eType="#//FeatureGroup" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//FeatureGroup" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAbstractFeature" ordered="false"
-        upperBound="-1" eType="#//AbstractFeature" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//AbstractFeature" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noFeatures" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
@@ -1020,13 +936,6 @@
     <eAnnotations source="http://www.topcased.org/documentation">
       <details key="documentation" value="To be merged with AADLConstructs::Features::FeatureGroupType"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" ordered="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="group"/>
-        <details key="namespace" value="featureGroupType"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeature" upperBound="-1"
         eType="#//Feature" changeable="false" volatile="true" transient="true" derived="true"
         containment="true">
@@ -1044,84 +953,44 @@
       <eAnnotations source="subsets" references="#//Classifier/generalization"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
-        upperBound="-1" eType="#//BusAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//BusAccess" containment="true">
       <eAnnotations source="subsets" references="#//FeatureGroupType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="featureGroupType#feature"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataAccess" ordered="false"
-        upperBound="-1" eType="#//DataAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataAccess" containment="true">
       <eAnnotations source="subsets" references="#//FeatureGroupType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="featureGroupType#feature"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
-        upperBound="-1" eType="#//DataPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataPort" containment="true">
       <eAnnotations source="subsets" references="#//FeatureGroupType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="featureGroupType#feature"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
-        upperBound="-1" eType="#//EventDataPort" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//EventDataPort" containment="true">
       <eAnnotations source="subsets" references="#//FeatureGroupType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="featureGroupType#feature"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
-        upperBound="-1" eType="#//EventPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//EventPort" containment="true">
       <eAnnotations source="subsets" references="#//FeatureGroupType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="featureGroupType#feature"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureGroup" ordered="false"
-        upperBound="-1" eType="#//FeatureGroup" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//FeatureGroup" containment="true">
       <eAnnotations source="subsets" references="#//FeatureGroupType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="featureGroupType#feature"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedParameter" ordered="false"
-        upperBound="-1" eType="#//Parameter" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//Parameter" containment="true">
       <eAnnotations source="subsets" references="#//FeatureGroupType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="featureGroupType#feature"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//FeatureGroupType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="featureGroupType#feature"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//FeatureGroupType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="featureGroupType#feature"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAbstractFeature" ordered="false"
-        upperBound="-1" eType="#//AbstractFeature" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//AbstractFeature" containment="true">
       <eAnnotations source="subsets" references="#//FeatureGroupType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="featureGroupType#feature"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GroupExtension" eSuperTypes="#//Generalization">
@@ -1270,7 +1139,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AbstractClassifier" abstract="true"
       eSuperTypes="#//ComponentClassifier #//Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FlowImplementation" eSuperTypes="#//ModalPath #//StructuralFeature">
+  <eClassifiers xsi:type="ecore:EClass" name="FlowImplementation" eSuperTypes="#//StructuralFeature #//ModalPath">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
         eType="#//FlowKind" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="specification" ordered="false"
@@ -1284,11 +1153,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModalPath" abstract="true" eSuperTypes="#//ModalElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="inTransition" upperBound="-1"
-        eType="#//ModeTransition" volatile="true" transient="true" derived="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="modalElement#modesAndTransitions"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//ModeTransition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubcomponentFlow" eSuperTypes="#//FlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
@@ -1298,7 +1163,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataAccess" ordered="false"
         eType="#//DataAccess"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Connection" abstract="true" eSuperTypes="#//ModalPath #//StructuralFeature #//FlowElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Connection" abstract="true" eSuperTypes="#//StructuralFeature #//ModalPath #//FlowElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
         eType="#//ConnectionKind" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destination" ordered="false"
@@ -1432,42 +1297,13 @@
         <eAnnotations source="redefines" references="#//NamedElement/name"/>
       </contents>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="imports" ordered="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="group"/>
-        <details key="namespace" value="packageSection"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="aliases" ordered="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="group"/>
-        <details key="namespace" value="packageSection"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="declarations" ordered="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="group"/>
-        <details key="namespace" value="packageSection"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPackageRename" ordered="false"
-        upperBound="-1" eType="#//PackageRename" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//PackageRename" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#aliases"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedComponentTypeRename"
-        ordered="false" upperBound="-1" eType="#//ComponentTypeRename" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ComponentTypeRename" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#aliases"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedClassifier" ordered="false"
         upperBound="-1" eType="#//Classifier" changeable="false" volatile="true" transient="true"
@@ -1476,265 +1312,138 @@
       <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureGroupTypeRename"
-        ordered="false" upperBound="-1" eType="#//FeatureGroupTypeRename" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//FeatureGroupTypeRename" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#aliases"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAnnexLibrary" ordered="false"
         upperBound="-1" eType="#//AnnexLibrary" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedPackage" ordered="false"
-        upperBound="-1" eType="#//AadlPackage" volatile="true" transient="true" derived="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#imports"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        upperBound="-1" eType="#//AadlPackage"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noAnnexes" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAbstractType" ordered="false"
-        upperBound="-1" eType="#//AbstractType" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//AbstractType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAbstractImplementation"
-        ordered="false" upperBound="-1" eType="#//AbstractImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//AbstractImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusType" ordered="false"
-        upperBound="-1" eType="#//BusType" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//BusType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusImplementation"
-        ordered="false" upperBound="-1" eType="#//BusImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//BusImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataType" ordered="false"
-        upperBound="-1" eType="#//DataType" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataImplementation"
-        ordered="false" upperBound="-1" eType="#//DataImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//DataImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDeviceType" ordered="false"
-        upperBound="-1" eType="#//DeviceType" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DeviceType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDeviceImplementation"
-        ordered="false" upperBound="-1" eType="#//DeviceImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//DeviceImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMemoryType" ordered="false"
-        upperBound="-1" eType="#//MemoryType" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//MemoryType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMemoryImplementation"
-        ordered="false" upperBound="-1" eType="#//MemoryImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//MemoryImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessType" ordered="false"
-        upperBound="-1" eType="#//ProcessType" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//ProcessType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessorType" ordered="false"
-        upperBound="-1" eType="#//ProcessorType" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//ProcessorType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessImplementation"
-        ordered="false" upperBound="-1" eType="#//ProcessImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ProcessImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessorImplementation"
-        ordered="false" upperBound="-1" eType="#//ProcessorImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ProcessorImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramType" ordered="false"
-        upperBound="-1" eType="#//SubprogramType" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//SubprogramType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramImplementation"
-        ordered="false" upperBound="-1" eType="#//SubprogramImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupType"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupType" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupImplementation"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSystemType" ordered="false"
-        upperBound="-1" eType="#//SystemType" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//SystemType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSystemImplementation"
-        ordered="false" upperBound="-1" eType="#//SystemImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SystemImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadType" ordered="false"
-        upperBound="-1" eType="#//ThreadType" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//ThreadType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadImplementation"
-        ordered="false" upperBound="-1" eType="#//ThreadImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ThreadImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadGroupType" ordered="false"
-        upperBound="-1" eType="#//ThreadGroupType" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//ThreadGroupType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadGroupImplementation"
-        ordered="false" upperBound="-1" eType="#//ThreadGroupImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ThreadGroupImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusType" ordered="false"
-        upperBound="-1" eType="#//VirtualBusType" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//VirtualBusType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusImplementation"
-        ordered="false" upperBound="-1" eType="#//VirtualBusImplementation" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//VirtualBusImplementation" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualProcessorType"
-        ordered="false" upperBound="-1" eType="#//VirtualProcessorType" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//VirtualProcessorType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualProcessorImplementation"
         ordered="false" upperBound="-1" eType="#//VirtualProcessorImplementation"
-        volatile="true" transient="true" derived="true" containment="true">
+        containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureGroupType"
-        ordered="false" upperBound="-1" eType="#//FeatureGroupType" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//FeatureGroupType" containment="true">
       <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#declarations"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noProperties" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedPropertySet" ordered="false"
-        upperBound="-1" eType="#//PropertySet" volatile="true" transient="true" derived="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="packageSection#imports"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        upperBound="-1" eType="#//PropertySet"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PackageRename" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="renamedPackage" ordered="false"
@@ -1776,60 +1485,32 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractType" eSuperTypes="#//ComponentType #//AbstractClassifier #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
-        upperBound="-1" eType="#//BusAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//BusAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataAccess" ordered="false"
-        upperBound="-1" eType="#//DataAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
-        upperBound="-1" eType="#//DataPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
-        upperBound="-1" eType="#//EventPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//EventPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
-        upperBound="-1" eType="#//EventDataPort" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//EventDataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractImplementation" eSuperTypes="#//BehavioredImplementation #//AbstractClassifier">
@@ -1841,108 +1522,56 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusSubcomponent" ordered="false"
-        upperBound="-1" eType="#//BusSubcomponent" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//BusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
-        ordered="false" upperBound="-1" eType="#//DataSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDeviceSubcomponent"
-        ordered="false" upperBound="-1" eType="#//DeviceSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//DeviceSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMemorySubcomponent"
-        ordered="false" upperBound="-1" eType="#//MemorySubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//MemorySubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessSubcomponent"
-        ordered="false" upperBound="-1" eType="#//ProcessSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ProcessSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessorSubcomponent"
-        ordered="false" upperBound="-1" eType="#//ProcessorSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ProcessorSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSystemSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SystemSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SystemSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadSubcomponent"
-        ordered="false" upperBound="-1" eType="#//ThreadSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ThreadSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadGroupSubcomponent"
-        ordered="false" upperBound="-1" eType="#//ThreadGroupSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ThreadGroupSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusSubcomponent"
-        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualProcessorSubcomponent"
-        ordered="false" upperBound="-1" eType="#//VirtualProcessorSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//VirtualProcessorSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehavioredImplementation" abstract="true"
@@ -1963,7 +1592,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CallSpecification" abstract="true" eSuperTypes="#//BehavioralFeature"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramCallSequence" eSuperTypes="#//ModalElement #//BehavioralFeature">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramCallSequence" eSuperTypes="#//BehavioralFeature #//ModalElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedCallSpecification"
         upperBound="-1" eType="#//CallSpecification" containment="true"/>
   </eClassifiers>
@@ -2069,12 +1698,8 @@
       eSuperTypes="#//ComponentClassifier #//VirtualProcessor"/>
   <eClassifiers xsi:type="ecore:EClass" name="BusType" eSuperTypes="#//ComponentType #//BusClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
-        upperBound="-1" eType="#//BusAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//BusAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusImplementation" eSuperTypes="#//ComponentImplementation #//BusClassifier">
@@ -2086,30 +1711,18 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusSubcomponent"
-        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataType" eSuperTypes="#//ComponentType #//DataClassifier #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataImplementation" eSuperTypes="#//ComponentImplementation #//DataClassifier">
@@ -2121,70 +1734,38 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
-        ordered="false" upperBound="-1" eType="#//DataSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeviceType" eSuperTypes="#//ComponentType #//DeviceClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
-        upperBound="-1" eType="#//DataPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
-        upperBound="-1" eType="#//EventDataPort" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//EventDataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
-        upperBound="-1" eType="#//EventPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//EventPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
-        upperBound="-1" eType="#//BusAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//BusAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeviceImplementation" eSuperTypes="#//ComponentImplementation #//DeviceClassifier">
@@ -2196,12 +1777,8 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusSubcomponent" ordered="false"
-        upperBound="-1" eType="#//BusSubcomponent" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//BusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
         ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
@@ -2210,12 +1787,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemoryType" eSuperTypes="#//ComponentType #//MemoryClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
-        upperBound="-1" eType="#//BusAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//BusAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemoryImplementation" eSuperTypes="#//ComponentImplementation #//MemoryClassifier">
@@ -2227,120 +1800,64 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusSubcomponent" ordered="false"
-        upperBound="-1" eType="#//BusSubcomponent" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//BusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMemorySubcomponent"
-        ordered="false" upperBound="-1" eType="#//MemorySubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//MemorySubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessType" eSuperTypes="#//ComponentType #//ProcessClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
-        upperBound="-1" eType="#//DataPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
-        upperBound="-1" eType="#//EventDataPort" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//EventDataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
-        upperBound="-1" eType="#//EventPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//EventPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataAccess" ordered="false"
-        upperBound="-1" eType="#//DataAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorType" eSuperTypes="#//ComponentType #//ProcessorClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
-        upperBound="-1" eType="#//DataPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
-        upperBound="-1" eType="#//EventDataPort" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//EventDataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
-        upperBound="-1" eType="#//EventPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//EventPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
-        upperBound="-1" eType="#//BusAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//BusAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessImplementation" eSuperTypes="#//ComponentImplementation #//ProcessClassifier">
@@ -2352,44 +1869,24 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
-        ordered="false" upperBound="-1" eType="#//DataSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadSubcomponent"
-        ordered="false" upperBound="-1" eType="#//ThreadSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ThreadSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadGroupSubcomponent"
-        ordered="false" upperBound="-1" eType="#//ThreadGroupSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ThreadGroupSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorImplementation" eSuperTypes="#//ComponentImplementation #//ProcessorClassifier">
@@ -2401,86 +1898,46 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusSubcomponent" ordered="false"
-        upperBound="-1" eType="#//BusSubcomponent" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//BusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMemorySubcomponent"
-        ordered="false" upperBound="-1" eType="#//MemorySubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//MemorySubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusSubcomponent"
-        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualProcessorSubcomponent"
-        ordered="false" upperBound="-1" eType="#//VirtualProcessorSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//VirtualProcessorSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramType" eSuperTypes="#//ComponentType #//SubprogramClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
-        upperBound="-1" eType="#//EventDataPort" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//EventDataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
-        upperBound="-1" eType="#//EventPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//EventPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedParameter" ordered="false"
-        upperBound="-1" eType="#//Parameter" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//Parameter" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataAccess" ordered="false"
-        upperBound="-1" eType="#//DataAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramImplementation" eSuperTypes="#//BehavioredImplementation #//SubprogramClassifier">
@@ -2492,30 +1949,18 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
-        ordered="false" upperBound="-1" eType="#//DataSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupType" eSuperTypes="#//ComponentType #//SubprogramGroupClassifier #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupImplementation" eSuperTypes="#//ComponentImplementation #//SubprogramGroupClassifier">
@@ -2527,12 +1972,8 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupSubcomponent"
         ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" containment="true">
@@ -2541,60 +1982,32 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SystemType" eSuperTypes="#//ComponentType #//SystemClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
-        upperBound="-1" eType="#//BusAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//BusAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataAccess" ordered="false"
-        upperBound="-1" eType="#//DataAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
-        upperBound="-1" eType="#//DataPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
-        upperBound="-1" eType="#//EventPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//EventPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
-        upperBound="-1" eType="#//EventDataPort" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//EventDataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SystemImplementation" eSuperTypes="#//ComponentImplementation #//SystemClassifier">
@@ -2606,142 +2019,74 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusSubcomponent" ordered="false"
-        upperBound="-1" eType="#//BusSubcomponent" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//BusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
-        ordered="false" upperBound="-1" eType="#//DataSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDeviceSubcomponent"
-        ordered="false" upperBound="-1" eType="#//DeviceSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//DeviceSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMemorySubcomponent"
-        ordered="false" upperBound="-1" eType="#//MemorySubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//MemorySubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessSubcomponent"
-        ordered="false" upperBound="-1" eType="#//ProcessSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ProcessSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessorSubcomponent"
-        ordered="false" upperBound="-1" eType="#//ProcessorSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ProcessorSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSystemSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SystemSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SystemSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusSubcomponent"
-        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualProcessorSubcomponent"
-        ordered="false" upperBound="-1" eType="#//VirtualProcessorSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//VirtualProcessorSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThreadType" eSuperTypes="#//ComponentType #//ThreadClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
-        upperBound="-1" eType="#//DataPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
-        upperBound="-1" eType="#//EventDataPort" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//EventDataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
-        upperBound="-1" eType="#//EventPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//EventPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataAccess" ordered="false"
-        upperBound="-1" eType="#//DataAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThreadImplementation" eSuperTypes="#//BehavioredImplementation #//ThreadClassifier">
@@ -2753,78 +2098,42 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
-        ordered="false" upperBound="-1" eType="#//DataSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThreadGroupType" eSuperTypes="#//ComponentType #//ThreadGroupClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
-        upperBound="-1" eType="#//DataPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
-        upperBound="-1" eType="#//EventDataPort" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//EventDataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
-        upperBound="-1" eType="#//EventPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//EventPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataAccess" ordered="false"
-        upperBound="-1" eType="#//DataAccess" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThreadGroupImplementation" eSuperTypes="#//ComponentImplementation #//ThreadGroupClassifier">
@@ -2836,44 +2145,24 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
-        ordered="false" upperBound="-1" eType="#//DataSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadSubcomponent"
-        ordered="false" upperBound="-1" eType="#//ThreadSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ThreadSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadGroupSubcomponent"
-        ordered="false" upperBound="-1" eType="#//ThreadGroupSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//ThreadGroupSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBusType" eSuperTypes="#//ComponentType #//VirtualBusClassifier"/>
@@ -2886,54 +2175,30 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusSubcomponent"
-        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessorType" eSuperTypes="#//ComponentType #//VirtualProcessorClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
-        upperBound="-1" eType="#//DataPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//DataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
-        upperBound="-1" eType="#//EventDataPort" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//EventDataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
-        upperBound="-1" eType="#//EventPort" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//EventPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="type#features"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessorImplementation" eSuperTypes="#//ComponentImplementation #//VirtualProcessorClassifier">
@@ -2945,73 +2210,31 @@
       </contents>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusSubcomponent"
-        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualProcessorSubcomponent"
-        ordered="false" upperBound="-1" eType="#//VirtualProcessorSubcomponent" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//VirtualProcessorSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="implementation#subcomponents"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertySet" eSuperTypes="#//Namespace">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="imports" ordered="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="group"/>
-        <details key="namespace" value="propertySet"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="contents" ordered="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EFeatureMapEntry">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="kind" value="group"/>
-        <details key="namespace" value="propertySet"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
-        upperBound="-1" eType="#//PropertyType" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//PropertyType" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="propertySet#contents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProperty" ordered="false"
-        upperBound="-1" eType="#//Property" volatile="true" transient="true" derived="true"
-        containment="true">
+        upperBound="-1" eType="#//Property" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="propertySet#contents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyConstant"
-        ordered="false" upperBound="-1" eType="#//PropertyConstant" volatile="true"
-        transient="true" derived="true" containment="true">
+        ordered="false" upperBound="-1" eType="#//PropertyConstant" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="propertySet#contents"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedPropertySet" ordered="false"
-        upperBound="-1" eType="#//PropertySet" volatile="true" transient="true" derived="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="propertySet#imports"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        upperBound="-1" eType="#//PropertySet"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedPackage" ordered="false"
-        upperBound="-1" eType="#//AadlPackage" volatile="true" transient="true" derived="true">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="group" value="propertySet#imports"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        upperBound="-1" eType="#//AadlPackage"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyConstant" eSuperTypes="#//TypedElement">
     <eAnnotations source="duplicates">
