@@ -1,0 +1,89 @@
+grammar org.osate.xtext.aadl2.properties.Properties with org.eclipse.xtext.common.Terminals
+
+generate properties "http://www.osate.org/aadl2/properties/Properties"
+
+PropertySet:
+	'property' 'set' name=ID 'is'
+	owned+=(PropertyType | PropertyDefinition)+
+	'end' ID SEMI;
+
+PropertyType:
+	name=ID COLON 'type' SEMI;
+
+PropertyDefinition:
+	name=ID COLON type=[PropertyType] SEMI;
+
+PropertyAssociation:
+	name=ID ASSIGN value=PropertyExpression SEMI;
+
+PropertyExpression:
+	Literal | ProbabilityValue;
+
+Literal:
+	name=ID;
+
+ProbabilityValue:
+	number=REAL distribution=ID;
+
+terminal NONE:
+	'none' SEMI;
+
+terminal LTRANS:
+	'-[';
+
+terminal RTRANS:
+	']->';
+
+terminal SL_COMMENT:
+	'--' !('\n' | '\r')* ('\r'? '\n')?;
+
+terminal SEMI:
+	';';
+
+terminal COLON:
+	':';
+
+terminal COMMA:
+	',';
+
+terminal DOT:
+	'.';
+
+terminal LPARENS:
+	'(';
+
+terminal RPARENS:
+	')';
+
+terminal LBRACKET:
+	'[';
+
+terminal RBRACKET:
+	']';
+
+terminal LCURLY:
+	'{';
+
+terminal RCURLY:
+	'}';
+
+terminal ASSIGN:
+	'=>';
+
+terminal APPEND:
+	'+=>';
+
+REAL:
+	INT DOT INT;
+
+QNAME:
+	ID DOT INAME;
+
+PNAME:
+	ID ('::' ID)*;
+
+INAME:
+	ID;
+
+QCREF:
+	(ID '::')* ID (DOT ID)?;
