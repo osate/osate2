@@ -315,12 +315,6 @@ PortDirection returns aadl2::DirectionType: 'in' | 'out' |  'in' 'out';
 ModeRef returns aadl2::ModeBinding:
 	parentMode=[aadl2::Mode|ID] ('->' derivedMode=[aadl2::Mode|ID])?;
 
-//SubcomponentForSystem returns Subcomponent:
-//	name=ID COLON category=SystemSubCategories 
-////	(refined?='refined' 'to')? // if boolean is set then we need to find the subcomponent being 'refined'
-//	 (classifier=[ProcessorClassifier|QCREF])?
-////	('in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
-//	SEMI;
 
 
 SystemSubcomponent returns aadl2::SystemSubcomponent:
