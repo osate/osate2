@@ -4,7 +4,7 @@ org.eclipse.xtext.common.Terminals
 
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
-
+//testing push
 
 //AadlSpec:
 //	(AadlPackage | PropertySet);
