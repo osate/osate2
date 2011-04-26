@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <template name="Package" description="template for a Package"
+        id="org.osate.xtext.aadl2.aadl2.Package"
+        context="org.osate.xtext.aadl2.aadl2.Package"
+        enabled="true">package ${name}  
+    ${cursor}   
+end $(name) ;</template>
+    <template name="Subcomponent" description="template for a Subcomponent"
+        id="org.osate.xtext.aadl2.Aadl2.Subcomponent"
+        context="org.osate.xtext.aadl2.Aadl2.Subcomponent"
+        enabled="true">${name} : ${category('ssc')} 
+	${cursor}
+;</template>
+</templates>
