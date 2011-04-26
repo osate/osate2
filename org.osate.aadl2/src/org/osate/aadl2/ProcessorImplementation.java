@@ -74,8 +74,7 @@ public interface ProcessorImplementation extends ComponentImplementation, Proces
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorImplementation_OwnedBusSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<BusSubcomponent> getOwnedBusSubcomponents();
@@ -107,8 +106,7 @@ public interface ProcessorImplementation extends ComponentImplementation, Proces
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Memory Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorImplementation_OwnedMemorySubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<MemorySubcomponent> getOwnedMemorySubcomponents();
@@ -140,8 +138,7 @@ public interface ProcessorImplementation extends ComponentImplementation, Proces
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorImplementation_OwnedVirtualBusSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents();
@@ -173,8 +170,7 @@ public interface ProcessorImplementation extends ComponentImplementation, Proces
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Virtual Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorImplementation_OwnedVirtualProcessorSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents();

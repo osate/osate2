@@ -41,26 +41,16 @@ import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.ocl.EvaluationEnvironment;
-import org.eclipse.ocl.ParserException;
-import org.eclipse.ocl.ecore.Constraint;
-import org.eclipse.ocl.ecore.OCL;
-import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -75,7 +65,8 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Type;
-import org.osate.aadl2.util.Aadl2Validator;
+import org.osate.aadl2.operations.ClassifierOperations;
+import org.osate.aadl2.operations.TypeOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -513,26 +504,6 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	}
 
 	/**
-	 * The cached OCL expression body for the '{@link #conformsTo(org.osate.aadl2.Type) <em>Conforms To</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #conformsTo(org.osate.aadl2.Type)
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String CONFORMS_TO__TYPE__EOCL_EXP = "result = false";
-
-	/**
-	 * The cached OCL query for the '{@link #conformsTo(org.osate.aadl2.Type) <em>Conforms To</em>}' query operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #conformsTo(org.osate.aadl2.Type)
-	 * @generated
-	 * @ordered
-	 */
-	protected static OCLExpression<EClassifier> CONFORMS_TO__TYPE__EOCL_QRY;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -582,41 +553,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public boolean conformsTo(Type other) {
-		if (CONFORMS_TO__TYPE__EOCL_QRY == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getType(), Aadl2Package.eINSTANCE.getType()
-					.getEAllOperations().get(10));
-			try {
-				CONFORMS_TO__TYPE__EOCL_QRY = helper.createQuery(CONFORMS_TO__TYPE__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		OCL.Query query = EOCL_ENV.createQuery(CONFORMS_TO__TYPE__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
-		environment.add("other", other);
-		return ((Boolean) query.evaluate(this)).booleanValue();
+		return TypeOperations.conformsTo(this, other);
 	}
-
-	/**
-	 * The cached OCL expression body for the '{@link #no_cycles_in_generalization(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>No cycles in generalization</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #no_cycles_in_generalization(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NO_CYCLES_IN_GENERALIZATION__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP = "not self.allParents()->includes(self)";
-
-	/**
-	 * The cached OCL invariant for the '{@link #no_cycles_in_generalization(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>No cycles in generalization</em>}' invariant operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #no_cycles_in_generalization(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-	 * @generated
-	 * @ordered
-	 */
-	protected static Constraint NO_CYCLES_IN_GENERALIZATION__DIAGNOSTIC_CHAIN_MAP__EOCL_INV;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -624,47 +562,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public boolean no_cycles_in_generalization(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (NO_CYCLES_IN_GENERALIZATION__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setContext(Aadl2Package.eINSTANCE.getClassifier());
-			try {
-				NO_CYCLES_IN_GENERALIZATION__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
-						.createInvariant(NO_CYCLES_IN_GENERALIZATION__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		if (!EOCL_ENV.createQuery(NO_CYCLES_IN_GENERALIZATION__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
-			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.CLASSIFIER__NO_CYCLES_IN_GENERALIZATION, EcorePlugin.INSTANCE.getString(
-								"_UI_GenericInvariant_diagnostic", new Object[] { "no_cycles_in_generalization",
-										EObjectValidator.getObjectLabel(this, context) }), new Object[] { this }));
-			}
-			return false;
-		}
-		return true;
+		return ClassifierOperations.no_cycles_in_generalization(this, diagnostics, context);
 	}
-
-	/**
-	 * The cached OCL expression body for the '{@link #specialize_type(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Specialize type</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #specialize_type(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String SPECIALIZE_TYPE__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP = "self.parents()->forAll(c | self.maySpecializeType(c))";
-
-	/**
-	 * The cached OCL invariant for the '{@link #specialize_type(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Specialize type</em>}' invariant operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #specialize_type(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-	 * @generated
-	 * @ordered
-	 */
-	protected static Constraint SPECIALIZE_TYPE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -672,48 +571,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public boolean specialize_type(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (SPECIALIZE_TYPE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setContext(Aadl2Package.eINSTANCE.getClassifier());
-			try {
-				SPECIALIZE_TYPE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
-						.createInvariant(SPECIALIZE_TYPE__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		if (!EOCL_ENV.createQuery(SPECIALIZE_TYPE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
-			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.CLASSIFIER__SPECIALIZE_TYPE, EcorePlugin.INSTANCE.getString(
-								"_UI_GenericInvariant_diagnostic",
-								new Object[] { "specialize_type", EObjectValidator.getObjectLabel(this, context) }),
-						new Object[] { this }));
-			}
-			return false;
-		}
-		return true;
+		return ClassifierOperations.specialize_type(this, diagnostics, context);
 	}
-
-	/**
-	 * The cached OCL expression body for the '{@link #allFeatures() <em>All Features</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #allFeatures()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String ALL_FEATURES__EOCL_EXP = "result = member->select(oclIsKindOf(Feature))";
-
-	/**
-	 * The cached OCL query for the '{@link #allFeatures() <em>All Features</em>}' query operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #allFeatures()
-	 * @generated
-	 * @ordered
-	 */
-	protected static OCLExpression<EClassifier> ALL_FEATURES__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -721,41 +580,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public EList<ClassifierFeature> allFeatures() {
-		if (ALL_FEATURES__EOCL_QRY == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(16));
-			try {
-				ALL_FEATURES__EOCL_QRY = helper.createQuery(ALL_FEATURES__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		OCL.Query query = EOCL_ENV.createQuery(ALL_FEATURES__EOCL_QRY);
-		@SuppressWarnings("unchecked")
-		Collection<ClassifierFeature> result = (Collection<ClassifierFeature>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<ClassifierFeature>(result.size(), result.toArray());
+		return ClassifierOperations.allFeatures(this);
 	}
-
-	/**
-	 * The cached OCL expression body for the '{@link #inheritedMember() <em>Inherited Member</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #inheritedMember()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String INHERITED_MEMBER__EOCL_EXP = "result = self.inherit(self.parents()->collect(p | p.inheritableMembers(self))";
-
-	/**
-	 * The cached OCL query for the '{@link #inheritedMember() <em>Inherited Member</em>}' query operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #inheritedMember()
-	 * @generated
-	 * @ordered
-	 */
-	protected static OCLExpression<EClassifier> INHERITED_MEMBER__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -763,41 +589,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public EList<NamedElement> inheritedMember() {
-		if (INHERITED_MEMBER__EOCL_QRY == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(17));
-			try {
-				INHERITED_MEMBER__EOCL_QRY = helper.createQuery(INHERITED_MEMBER__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		OCL.Query query = EOCL_ENV.createQuery(INHERITED_MEMBER__EOCL_QRY);
-		@SuppressWarnings("unchecked")
-		Collection<NamedElement> result = (Collection<NamedElement>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<NamedElement>(result.size(), result.toArray());
+		return ClassifierOperations.inheritedMember(this);
 	}
-
-	/**
-	 * The cached OCL expression body for the '{@link #parents() <em>Parents</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #parents()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String PARENTS__EOCL_EXP = "result = general";
-
-	/**
-	 * The cached OCL query for the '{@link #parents() <em>Parents</em>}' query operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #parents()
-	 * @generated
-	 * @ordered
-	 */
-	protected static OCLExpression<EClassifier> PARENTS__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -805,41 +598,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public EList<Classifier> parents() {
-		if (PARENTS__EOCL_QRY == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(18));
-			try {
-				PARENTS__EOCL_QRY = helper.createQuery(PARENTS__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		OCL.Query query = EOCL_ENV.createQuery(PARENTS__EOCL_QRY);
-		@SuppressWarnings("unchecked")
-		Collection<Classifier> result = (Collection<Classifier>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<Classifier>(result.size(), result.toArray());
+		return ClassifierOperations.parents(this);
 	}
-
-	/**
-	 * The cached OCL expression body for the '{@link #allParents() <em>All Parents</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #allParents()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String ALL_PARENTS__EOCL_EXP = "result = self.parents()->union(self.parents()->collect(p | p.allParents())";
-
-	/**
-	 * The cached OCL query for the '{@link #allParents() <em>All Parents</em>}' query operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #allParents()
-	 * @generated
-	 * @ordered
-	 */
-	protected static OCLExpression<EClassifier> ALL_PARENTS__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -847,41 +607,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public EList<Classifier> allParents() {
-		if (ALL_PARENTS__EOCL_QRY == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(19));
-			try {
-				ALL_PARENTS__EOCL_QRY = helper.createQuery(ALL_PARENTS__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		OCL.Query query = EOCL_ENV.createQuery(ALL_PARENTS__EOCL_QRY);
-		@SuppressWarnings("unchecked")
-		Collection<Classifier> result = (Collection<Classifier>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<Classifier>(result.size(), result.toArray());
+		return ClassifierOperations.allParents(this);
 	}
-
-	/**
-	 * The cached OCL expression body for the '{@link #inheritableMembers(org.osate.aadl2.Classifier) <em>Inheritable Members</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #inheritableMembers(org.osate.aadl2.Classifier)
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String INHERITABLE_MEMBERS__CLASSIFIER__EOCL_EXP = "result = member->select(m | c.hasVisibilityOf(m))";
-
-	/**
-	 * The cached OCL query for the '{@link #inheritableMembers(org.osate.aadl2.Classifier) <em>Inheritable Members</em>}' query operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #inheritableMembers(org.osate.aadl2.Classifier)
-	 * @generated
-	 * @ordered
-	 */
-	protected static OCLExpression<EClassifier> INHERITABLE_MEMBERS__CLASSIFIER__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -889,44 +616,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public EList<NamedElement> inheritableMembers(Classifier c) {
-		if (INHERITABLE_MEMBERS__CLASSIFIER__EOCL_QRY == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(20));
-			try {
-				INHERITABLE_MEMBERS__CLASSIFIER__EOCL_QRY = helper
-						.createQuery(INHERITABLE_MEMBERS__CLASSIFIER__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		OCL.Query query = EOCL_ENV.createQuery(INHERITABLE_MEMBERS__CLASSIFIER__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
-		environment.add("c", c);
-		@SuppressWarnings("unchecked")
-		Collection<NamedElement> result = (Collection<NamedElement>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<NamedElement>(result.size(), result.toArray());
+		return ClassifierOperations.inheritableMembers(this, c);
 	}
-
-	/**
-	 * The cached OCL expression body for the '{@link #hasVisibilityOf(org.osate.aadl2.NamedElement) <em>Has Visibility Of</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #hasVisibilityOf(org.osate.aadl2.NamedElement)
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_EXP = "result = if (self.inheritedMember->includes (n)) then (n.visibility <> #private) else true";
-
-	/**
-	 * The cached OCL query for the '{@link #hasVisibilityOf(org.osate.aadl2.NamedElement) <em>Has Visibility Of</em>}' query operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #hasVisibilityOf(org.osate.aadl2.NamedElement)
-	 * @generated
-	 * @ordered
-	 */
-	protected static OCLExpression<EClassifier> HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -934,42 +625,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public boolean hasVisibilityOf(NamedElement n) {
-		if (HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_QRY == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(21));
-			try {
-				HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_QRY = helper
-						.createQuery(HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		OCL.Query query = EOCL_ENV.createQuery(HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
-		environment.add("n", n);
-		return ((Boolean) query.evaluate(this)).booleanValue();
+		return ClassifierOperations.hasVisibilityOf(this, n);
 	}
-
-	/**
-	 * The cached OCL expression body for the '{@link #inherit(org.eclipse.emf.common.util.EList) <em>Inherit</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #inherit(org.eclipse.emf.common.util.EList)
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String INHERIT__ELIST__EOCL_EXP = "result = inhs";
-
-	/**
-	 * The cached OCL query for the '{@link #inherit(org.eclipse.emf.common.util.EList) <em>Inherit</em>}' query operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #inherit(org.eclipse.emf.common.util.EList)
-	 * @generated
-	 * @ordered
-	 */
-	protected static OCLExpression<EClassifier> INHERIT__ELIST__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -977,43 +634,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public EList<NamedElement> inherit(EList<NamedElement> inhs) {
-		if (INHERIT__ELIST__EOCL_QRY == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(22));
-			try {
-				INHERIT__ELIST__EOCL_QRY = helper.createQuery(INHERIT__ELIST__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		OCL.Query query = EOCL_ENV.createQuery(INHERIT__ELIST__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
-		environment.add("inhs", inhs);
-		@SuppressWarnings("unchecked")
-		Collection<NamedElement> result = (Collection<NamedElement>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<NamedElement>(result.size(), result.toArray());
+		return ClassifierOperations.inherit(this, inhs);
 	}
-
-	/**
-	 * The cached OCL expression body for the '{@link #maySpecializeType(org.osate.aadl2.Classifier) <em>May Specialize Type</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #maySpecializeType(org.osate.aadl2.Classifier)
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_EXP = "result = self.oclIsKindOf(c.oclType)";
-
-	/**
-	 * The cached OCL query for the '{@link #maySpecializeType(org.osate.aadl2.Classifier) <em>May Specialize Type</em>}' query operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #maySpecializeType(org.osate.aadl2.Classifier)
-	 * @generated
-	 * @ordered
-	 */
-	protected static OCLExpression<EClassifier> MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1021,21 +643,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public boolean maySpecializeType(Classifier c) {
-		if (MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_QRY == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(23));
-			try {
-				MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_QRY = helper
-						.createQuery(MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		OCL.Query query = EOCL_ENV.createQuery(MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
-		environment.add("c", c);
-		return ((Boolean) query.evaluate(this)).booleanValue();
+		return ClassifierOperations.maySpecializeType(this, c);
 	}
 
 	/**

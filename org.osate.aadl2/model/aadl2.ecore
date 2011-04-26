@@ -625,6 +625,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AnnexSubclause" abstract="true" eSuperTypes="#//ModalElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ModalElement" eSuperTypes="#//NamedElement">
+    <eOperations name="getAllInModes" ordered="false" upperBound="-1" eType="#//Mode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inMode" upperBound="-1"
         eType="#//Mode"/>
   </eClassifiers>

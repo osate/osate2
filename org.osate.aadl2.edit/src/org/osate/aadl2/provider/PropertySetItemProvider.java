@@ -122,37 +122,6 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements IE
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertySet_Imports());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertySet_Contents());
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
 	 * This returns PropertySet.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -186,13 +155,6 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements IE
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(PropertySet.class)) {
-		case Aadl2Package.PROPERTY_SET__IMPORTS:
-		case Aadl2Package.PROPERTY_SET__CONTENTS:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -206,62 +168,6 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements IE
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Imports(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_ImportedPropertySet(),
-						Aadl2Factory.eINSTANCE.createPropertySet())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Imports(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_ImportedPackage(),
-						Aadl2Factory.eINSTANCE.createAadlPackage())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createAadlBoolean())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createAadlString())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createAadlInteger())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createEnumerationType())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createUnitsType())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createAadlReal())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createClassifierType())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createRangeType())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createRecordType())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createReferenceType())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedProperty(),
-						Aadl2Factory.eINSTANCE.createProperty())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyConstant(),
-						Aadl2Factory.eINSTANCE.createPropertyConstant())));
 	}
 
 }

@@ -52,7 +52,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.util.Aadl2Validator;
 
-
 /**
  * <!-- begin-user-doc -->
  * A static utility class that provides operations related to '<em><b>Element</b></em>' model objects.
@@ -137,10 +136,12 @@ public class ElementOperations {
 				diagnostics
 						.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
 								Aadl2Validator.ELEMENT__NOT_OWN_SELF, org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-										.getString("_UI_GenericInvariant_diagnostic", new Object[] {
-												"not_own_self",
-												org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(element,
-														context) }), new Object[] { element }));
+										.getString(
+												"_UI_GenericInvariant_diagnostic",
+												new Object[] {
+														"not_own_self",
+														org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(
+																element, context) }), new Object[] { element }));
 			}
 			return false;
 		}
@@ -195,10 +196,12 @@ public class ElementOperations {
 				diagnostics
 						.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
 								Aadl2Validator.ELEMENT__HAS_OWNER, org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-										.getString("_UI_GenericInvariant_diagnostic", new Object[] {
-												"has_owner",
-												org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(element,
-														context) }), new Object[] { element }));
+										.getString(
+												"_UI_GenericInvariant_diagnostic",
+												new Object[] {
+														"has_owner",
+														org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(
+																element, context) }), new Object[] { element }));
 			}
 			return false;
 		}

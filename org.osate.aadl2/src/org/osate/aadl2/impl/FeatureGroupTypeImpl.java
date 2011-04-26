@@ -47,8 +47,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.BasicFeatureMap;
-import org.eclipse.emf.ecore.util.FeatureMap;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
@@ -87,7 +86,6 @@ import org.osate.aadl2.util.Activator;
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupTypeImpl#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupTypeImpl#getGenerals <em>General</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupTypeImpl#getGeneralizations <em>Generalization</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.FeatureGroupTypeImpl#getFeatures <em>Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupTypeImpl#getExtended <em>Extended</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupTypeImpl#getInverse <em>Inverse</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupTypeImpl#getOwnedExtension <em>Owned Extension</em>}</li>
@@ -108,16 +106,6 @@ import org.osate.aadl2.util.Activator;
  */
 public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroupType {
 	/**
-	 * The cached value of the '{@link #getFeatures() <em>Feature</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFeatures()
-	 * @generated
-	 * @ordered
-	 */
-	protected FeatureMap features;
-
-	/**
 	 * The cached value of the '{@link #getInverse() <em>Inverse</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -136,6 +124,106 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @ordered
 	 */
 	protected GroupExtension ownedExtension;
+
+	/**
+	 * The cached value of the '{@link #getOwnedBusAccesses() <em>Owned Bus Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedBusAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BusAccess> ownedBusAccesses;
+
+	/**
+	 * The cached value of the '{@link #getOwnedDataAccesses() <em>Owned Data Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDataAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataAccess> ownedDataAccesses;
+
+	/**
+	 * The cached value of the '{@link #getOwnedDataPorts() <em>Owned Data Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDataPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataPort> ownedDataPorts;
+
+	/**
+	 * The cached value of the '{@link #getOwnedEventDataPorts() <em>Owned Event Data Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedEventDataPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventDataPort> ownedEventDataPorts;
+
+	/**
+	 * The cached value of the '{@link #getOwnedEventPorts() <em>Owned Event Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedEventPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventPort> ownedEventPorts;
+
+	/**
+	 * The cached value of the '{@link #getOwnedFeatureGroups() <em>Owned Feature Group</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedFeatureGroups()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FeatureGroup> ownedFeatureGroups;
+
+	/**
+	 * The cached value of the '{@link #getOwnedParameters() <em>Owned Parameter</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedParameters()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Parameter> ownedParameters;
+
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramAccesses() <em>Owned Subprogram Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramAccess> ownedSubprogramAccesses;
+
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramGroupAccesses() <em>Owned Subprogram Group Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramGroupAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramGroupAccess> ownedSubprogramGroupAccesses;
+
+	/**
+	 * The cached value of the '{@link #getOwnedAbstractFeatures() <em>Owned Abstract Feature</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedAbstractFeatures()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AbstractFeature> ownedAbstractFeatures;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -338,18 +426,6 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureMap getFeatures() {
-		if (features == null) {
-			features = new BasicFeatureMap(this, Aadl2Package.FEATURE_GROUP_TYPE__FEATURE);
-		}
-		return features;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public FeatureGroupType getExtended() {
 		FeatureGroupType extended = basicGetExtended();
 		return extended != null && ((EObject) extended).eIsProxy() ? (FeatureGroupType) eResolveProxy((InternalEObject) extended)
@@ -464,7 +540,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 */
 	public EList<BusAccess> getOwnedBusAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedBusAccess());
+		if (ownedBusAccesses == null) {
+			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
+					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_BUS_ACCESS);
+		}
+		return ownedBusAccesses;
 	}
 
 	/**
@@ -484,7 +564,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 */
 	public EList<DataAccess> getOwnedDataAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedDataAccess());
+		if (ownedDataAccesses == null) {
+			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(DataAccess.class, this,
+					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_ACCESS);
+		}
+		return ownedDataAccesses;
 	}
 
 	/**
@@ -504,7 +588,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 */
 	public EList<DataPort> getOwnedDataPorts() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedDataPort());
+		if (ownedDataPorts == null) {
+			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
+					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_PORT);
+		}
+		return ownedDataPorts;
 	}
 
 	/**
@@ -524,7 +612,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 */
 	public EList<EventDataPort> getOwnedEventDataPorts() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedEventDataPort());
+		if (ownedEventDataPorts == null) {
+			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
+					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EVENT_DATA_PORT);
+		}
+		return ownedEventDataPorts;
 	}
 
 	/**
@@ -544,7 +636,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 */
 	public EList<EventPort> getOwnedEventPorts() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedEventPort());
+		if (ownedEventPorts == null) {
+			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
+					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EVENT_PORT);
+		}
+		return ownedEventPorts;
 	}
 
 	/**
@@ -564,7 +660,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 */
 	public EList<FeatureGroup> getOwnedFeatureGroups() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedFeatureGroup());
+		if (ownedFeatureGroups == null) {
+			ownedFeatureGroups = new EObjectContainmentEList<FeatureGroup>(FeatureGroup.class, this,
+					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE_GROUP);
+		}
+		return ownedFeatureGroups;
 	}
 
 	/**
@@ -584,7 +684,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 */
 	public EList<Parameter> getOwnedParameters() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedParameter());
+		if (ownedParameters == null) {
+			ownedParameters = new EObjectContainmentEList<Parameter>(Parameter.class, this,
+					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_PARAMETER);
+		}
+		return ownedParameters;
 	}
 
 	/**
@@ -604,7 +708,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 */
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramAccess());
+		if (ownedSubprogramAccesses == null) {
+			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
+					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS);
+		}
+		return ownedSubprogramAccesses;
 	}
 
 	/**
@@ -625,7 +733,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 */
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramGroupAccess());
+		if (ownedSubprogramGroupAccesses == null) {
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
+					SubprogramGroupAccess.class, this, Aadl2Package.FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
+		}
+		return ownedSubprogramGroupAccesses;
 	}
 
 	/**
@@ -646,7 +758,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 */
 	public EList<AbstractFeature> getOwnedAbstractFeatures() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedAbstractFeature());
+		if (ownedAbstractFeatures == null) {
+			ownedAbstractFeatures = new EObjectContainmentEList<AbstractFeature>(AbstractFeature.class, this,
+					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_ABSTRACT_FEATURE);
+		}
+		return ownedAbstractFeatures;
 	}
 
 	/**
@@ -668,8 +784,26 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Aadl2Package.FEATURE_GROUP_TYPE__FEATURE:
-			return ((InternalEList<?>) getFeatures()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_BUS_ACCESS:
+			return ((InternalEList<?>) getOwnedBusAccesses()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_ACCESS:
+			return ((InternalEList<?>) getOwnedDataAccesses()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_PORT:
+			return ((InternalEList<?>) getOwnedDataPorts()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EVENT_DATA_PORT:
+			return ((InternalEList<?>) getOwnedEventDataPorts()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EVENT_PORT:
+			return ((InternalEList<?>) getOwnedEventPorts()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE_GROUP:
+			return ((InternalEList<?>) getOwnedFeatureGroups()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_PARAMETER:
+			return ((InternalEList<?>) getOwnedParameters()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS:
+			return ((InternalEList<?>) getOwnedSubprogramAccesses()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
+			return ((InternalEList<?>) getOwnedSubprogramGroupAccesses()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_ABSTRACT_FEATURE:
+			return ((InternalEList<?>) getOwnedAbstractFeatures()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -684,10 +818,6 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE:
 			return getOwnedFeatures();
-		case Aadl2Package.FEATURE_GROUP_TYPE__FEATURE:
-			if (coreType)
-				return getFeatures();
-			return ((FeatureMap.Internal) getFeatures()).getWrapper();
 		case Aadl2Package.FEATURE_GROUP_TYPE__EXTENDED:
 			if (resolve)
 				return getExtended();
@@ -733,9 +863,6 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.FEATURE_GROUP_TYPE__FEATURE:
-			((FeatureMap.Internal) getFeatures()).set(newValue);
-			return;
 		case Aadl2Package.FEATURE_GROUP_TYPE__EXTENDED:
 			setExtended((FeatureGroupType) newValue);
 			return;
@@ -797,9 +924,6 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.FEATURE_GROUP_TYPE__FEATURE:
-			getFeatures().clear();
-			return;
 		case Aadl2Package.FEATURE_GROUP_TYPE__EXTENDED:
 			setExtended((FeatureGroupType) null);
 			return;
@@ -853,8 +977,6 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE:
 			return isSetOwnedFeatures();
-		case Aadl2Package.FEATURE_GROUP_TYPE__FEATURE:
-			return features != null && !features.isEmpty();
 		case Aadl2Package.FEATURE_GROUP_TYPE__EXTENDED:
 			return basicGetExtended() != null;
 		case Aadl2Package.FEATURE_GROUP_TYPE__INVERSE:
@@ -862,44 +984,27 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION:
 			return ownedExtension != null;
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_BUS_ACCESS:
-			return !getOwnedBusAccesses().isEmpty();
+			return ownedBusAccesses != null && !ownedBusAccesses.isEmpty();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_ACCESS:
-			return !getOwnedDataAccesses().isEmpty();
+			return ownedDataAccesses != null && !ownedDataAccesses.isEmpty();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_PORT:
-			return !getOwnedDataPorts().isEmpty();
+			return ownedDataPorts != null && !ownedDataPorts.isEmpty();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EVENT_DATA_PORT:
-			return !getOwnedEventDataPorts().isEmpty();
+			return ownedEventDataPorts != null && !ownedEventDataPorts.isEmpty();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EVENT_PORT:
-			return !getOwnedEventPorts().isEmpty();
+			return ownedEventPorts != null && !ownedEventPorts.isEmpty();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE_GROUP:
-			return !getOwnedFeatureGroups().isEmpty();
+			return ownedFeatureGroups != null && !ownedFeatureGroups.isEmpty();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_PARAMETER:
-			return !getOwnedParameters().isEmpty();
+			return ownedParameters != null && !ownedParameters.isEmpty();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS:
-			return !getOwnedSubprogramAccesses().isEmpty();
+			return ownedSubprogramAccesses != null && !ownedSubprogramAccesses.isEmpty();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
-			return !getOwnedSubprogramGroupAccesses().isEmpty();
+			return ownedSubprogramGroupAccesses != null && !ownedSubprogramGroupAccesses.isEmpty();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_ABSTRACT_FEATURE:
-			return !getOwnedAbstractFeatures().isEmpty();
+			return ownedAbstractFeatures != null && !ownedAbstractFeatures.isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (feature: ");
-		result.append(features);
-		result.append(')');
-		return result.toString();
 	}
 
 	/**

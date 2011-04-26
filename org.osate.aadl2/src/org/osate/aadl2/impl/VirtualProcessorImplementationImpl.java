@@ -37,11 +37,14 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -70,6 +73,25 @@ import org.osate.aadl2.VirtualProcessorType;
  */
 public class VirtualProcessorImplementationImpl extends ComponentImplementationImpl implements
 		VirtualProcessorImplementation {
+	/**
+	 * The cached value of the '{@link #getOwnedVirtualBusSubcomponents() <em>Owned Virtual Bus Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedVirtualBusSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VirtualBusSubcomponent> ownedVirtualBusSubcomponents;
+	/**
+	 * The cached value of the '{@link #getOwnedVirtualProcessorSubcomponents() <em>Owned Virtual Processor Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedVirtualProcessorSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VirtualProcessorSubcomponent> ownedVirtualProcessorSubcomponents;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -133,8 +155,12 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 * @generated
 	 */
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
-		return getSubcomponents().list(
-				Aadl2Package.eINSTANCE.getVirtualProcessorImplementation_OwnedVirtualBusSubcomponent());
+		if (ownedVirtualBusSubcomponents == null) {
+			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
+					VirtualBusSubcomponent.class, this,
+					Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
+		}
+		return ownedVirtualBusSubcomponents;
 	}
 
 	/**
@@ -155,8 +181,12 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 * @generated
 	 */
 	public EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents() {
-		return getSubcomponents().list(
-				Aadl2Package.eINSTANCE.getVirtualProcessorImplementation_OwnedVirtualProcessorSubcomponent());
+		if (ownedVirtualProcessorSubcomponents == null) {
+			ownedVirtualProcessorSubcomponents = new EObjectContainmentEList<VirtualProcessorSubcomponent>(
+					VirtualProcessorSubcomponent.class, this,
+					Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT);
+		}
+		return ownedVirtualProcessorSubcomponents;
 	}
 
 	/**
@@ -212,6 +242,22 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 */
 	public boolean isSetType() {
 		return basicGetType() != null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedVirtualBusSubcomponents()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedVirtualProcessorSubcomponents()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -279,9 +325,9 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
-			return !getOwnedVirtualBusSubcomponents().isEmpty();
+			return ownedVirtualBusSubcomponents != null && !ownedVirtualBusSubcomponents.isEmpty();
 		case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
-			return !getOwnedVirtualProcessorSubcomponents().isEmpty();
+			return ownedVirtualProcessorSubcomponents != null && !ownedVirtualProcessorSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

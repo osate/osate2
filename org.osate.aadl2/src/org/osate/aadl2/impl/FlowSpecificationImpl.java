@@ -38,15 +38,12 @@ package org.osate.aadl2.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.BasicFeatureMap;
-import org.eclipse.emf.ecore.util.FeatureMap;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Context;
@@ -57,6 +54,7 @@ import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
+import org.osate.aadl2.operations.ModalElementOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 
@@ -67,7 +65,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getModesAndTransitions <em>Modes And Transitions</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getKind <em>Kind</em>}</li>
@@ -82,14 +79,14 @@ import org.osate.aadl2.properties.PropertyAcc;
  */
 public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification {
 	/**
-	 * The cached value of the '{@link #getModesAndTransitions() <em>Modes And Transitions</em>}' attribute list.
+	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getModesAndTransitions()
+	 * @see #getInModes()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureMap modesAndTransitions;
+	protected EList<Mode> inModes;
 
 	/**
 	 * The cached value of the '{@link #getRefined() <em>Refined</em>}' reference.
@@ -185,20 +182,11 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureMap getModesAndTransitions() {
-		if (modesAndTransitions == null) {
-			modesAndTransitions = new BasicFeatureMap(this, Aadl2Package.FLOW_SPECIFICATION__MODES_AND_TRANSITIONS);
-		}
-		return modesAndTransitions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<Mode> getInModes() {
-		return getModesAndTransitions().list(Aadl2Package.eINSTANCE.getModalElement_InMode());
+		if (inModes == null) {
+			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.FLOW_SPECIFICATION__IN_MODE);
+		}
+		return inModes;
 	}
 
 	/**
@@ -436,13 +424,8 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-		case Aadl2Package.FLOW_SPECIFICATION__MODES_AND_TRANSITIONS:
-			return ((InternalEList<?>) getModesAndTransitions()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+	public EList<Mode> getAllInModes() {
+		return ModalElementOperations.getAllInModes(this);
 	}
 
 	/**
@@ -453,10 +436,6 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_SPECIFICATION__MODES_AND_TRANSITIONS:
-			if (coreType)
-				return getModesAndTransitions();
-			return ((FeatureMap.Internal) getModesAndTransitions()).getWrapper();
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
 			return getInModes();
 		case Aadl2Package.FLOW_SPECIFICATION__REFINED:
@@ -494,9 +473,6 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_SPECIFICATION__MODES_AND_TRANSITIONS:
-			((FeatureMap.Internal) getModesAndTransitions()).set(newValue);
-			return;
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
 			getInModes().clear();
 			getInModes().addAll((Collection<? extends Mode>) newValue);
@@ -531,9 +507,6 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_SPECIFICATION__MODES_AND_TRANSITIONS:
-			getModesAndTransitions().clear();
-			return;
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
 			getInModes().clear();
 			return;
@@ -567,10 +540,8 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_SPECIFICATION__MODES_AND_TRANSITIONS:
-			return modesAndTransitions != null && !modesAndTransitions.isEmpty();
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
-			return !getInModes().isEmpty();
+			return inModes != null && !inModes.isEmpty();
 		case Aadl2Package.FLOW_SPECIFICATION__REFINED:
 			return isSetRefined();
 		case Aadl2Package.FLOW_SPECIFICATION__KIND:
@@ -596,8 +567,6 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.FLOW_SPECIFICATION__MODES_AND_TRANSITIONS:
-				return Aadl2Package.MODAL_ELEMENT__MODES_AND_TRANSITIONS;
 			case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
 				return Aadl2Package.MODAL_ELEMENT__IN_MODE;
 			default:
@@ -616,8 +585,6 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.MODAL_ELEMENT__MODES_AND_TRANSITIONS:
-				return Aadl2Package.FLOW_SPECIFICATION__MODES_AND_TRANSITIONS;
 			case Aadl2Package.MODAL_ELEMENT__IN_MODE:
 				return Aadl2Package.FLOW_SPECIFICATION__IN_MODE;
 			default:
@@ -638,9 +605,7 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (modesAndTransitions: ");
-		result.append(modesAndTransitions);
-		result.append(", kind: ");
+		result.append(" (kind: ");
 		result.append(kind);
 		result.append(')');
 		return result.toString();
@@ -673,30 +638,6 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	 */
 	public boolean isSetRefinedElement() {
 		return false;
-	}
-
-	/**
-	 * returns the list of modes the modal element belongs to.
-	 * This may be kept with the modal element or an ancestor in the extends hierarchy.
-	 * The in modes of the closest ancestor returned.
-	 * @return EList of modes. This list may be empty of it is all modes.
-	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
-	public EList<Mode> getAllInModes() {
-		ModalElement mm = this;
-		EList<Mode> inmodes = null;
-		// inmodes will be an empty list (all modes) if we do not find a non-empty list
-		while (mm != null) {
-			inmodes = mm.getInModes();
-			// we stop when we find the first occurrence of a non-empty inmodes list
-			if (inmodes != null && !inmodes.isEmpty())
-				return inmodes;
-			if (mm instanceof RefinableElement)
-				mm = (ModalElement) ((RefinableElement) mm).getRefinedElement();
-			else
-				mm = null;
-		}
-		return inmodes;
 	}
 
 	/**

@@ -59,8 +59,9 @@ import org.osate.aadl2.SubprogramCallSequence;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubprogramCallSequenceItemProvider extends ModalElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class SubprogramCallSequenceItemProvider extends BehavioralFeatureItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -82,25 +83,25 @@ public class SubprogramCallSequenceItemProvider extends ModalElementItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addFeaturingClassifierPropertyDescriptor(object);
+			addInModePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Featuring Classifier feature.
+	 * This adds a property descriptor for the In Mode feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addFeaturingClassifierPropertyDescriptor(Object object) {
+	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_ClassifierFeature_featuringClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ClassifierFeature_featuringClassifier_feature",
-						"_UI_ClassifierFeature_type"), Aadl2Package.eINSTANCE
-						.getClassifierFeature_FeaturingClassifier(), false, false, false, null, null, null));
+				getString("_UI_ModalElement_inMode_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
+						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
+				null, null, null));
 	}
 
 	/**

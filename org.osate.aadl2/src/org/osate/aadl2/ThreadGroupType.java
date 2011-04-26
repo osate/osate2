@@ -76,8 +76,7 @@ public interface ThreadGroupType extends ComponentType, ThreadGroupClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupType_OwnedDataPort()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DataPort> getOwnedDataPorts();
@@ -109,8 +108,7 @@ public interface ThreadGroupType extends ComponentType, ThreadGroupClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupType_OwnedEventDataPort()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<EventDataPort> getOwnedEventDataPorts();
@@ -142,8 +140,7 @@ public interface ThreadGroupType extends ComponentType, ThreadGroupClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupType_OwnedEventPort()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<EventPort> getOwnedEventPorts();
@@ -175,8 +172,7 @@ public interface ThreadGroupType extends ComponentType, ThreadGroupClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Data Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupType_OwnedDataAccess()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DataAccess> getOwnedDataAccesses();
@@ -208,8 +204,7 @@ public interface ThreadGroupType extends ComponentType, ThreadGroupClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupType_OwnedSubprogramAccess()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramAccess> getOwnedSubprogramAccesses();
@@ -241,8 +236,7 @@ public interface ThreadGroupType extends ComponentType, ThreadGroupClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupType_OwnedSubprogramGroupAccess()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses();

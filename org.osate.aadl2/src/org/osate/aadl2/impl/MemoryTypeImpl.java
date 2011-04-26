@@ -37,9 +37,13 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -62,6 +66,16 @@ import org.osate.aadl2.MemoryType;
  * @generated
  */
 public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
+	/**
+	 * The cached value of the '{@link #getOwnedBusAccesses() <em>Owned Bus Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedBusAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BusAccess> ownedBusAccesses;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -122,7 +136,11 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	 * @generated
 	 */
 	public EList<BusAccess> getOwnedBusAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getMemoryType_OwnedBusAccess());
+		if (ownedBusAccesses == null) {
+			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
+					Aadl2Package.MEMORY_TYPE__OWNED_BUS_ACCESS);
+		}
+		return ownedBusAccesses;
 	}
 
 	/**
@@ -134,6 +152,20 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 		BusAccess newOwnedBusAccess = (BusAccess) create(Aadl2Package.eINSTANCE.getBusAccess());
 		getOwnedBusAccesses().add(newOwnedBusAccess);
 		return newOwnedBusAccess;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.MEMORY_TYPE__OWNED_BUS_ACCESS:
+			return ((InternalEList<?>) getOwnedBusAccesses()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -191,7 +223,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MEMORY_TYPE__OWNED_BUS_ACCESS:
-			return !getOwnedBusAccesses().isEmpty();
+			return ownedBusAccesses != null && !ownedBusAccesses.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

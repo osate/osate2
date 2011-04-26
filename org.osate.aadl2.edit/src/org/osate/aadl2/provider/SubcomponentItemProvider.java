@@ -202,7 +202,6 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getModalElement_ModesAndTransitions());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getArrayableElement_ArraySpecification());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubcomponent_OwnedPrototypeBinding());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubcomponent_ModeBinding());
@@ -252,7 +251,6 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 		case Aadl2Package.SUBCOMPONENT__ALL_MODES:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
-		case Aadl2Package.SUBCOMPONENT__MODES_AND_TRANSITIONS:
 		case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
@@ -273,11 +271,6 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalElement_ModesAndTransitions(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getModalElement_InMode(),
-						Aadl2Factory.eINSTANCE.createMode())));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArrayableElement_ArraySpecification(),
 				Aadl2Factory.eINSTANCE.createArraySpecification()));

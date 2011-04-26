@@ -37,11 +37,14 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -75,6 +78,52 @@ import org.osate.aadl2.ThreadSubcomponent;
  * @generated
  */
 public class ProcessImplementationImpl extends ComponentImplementationImpl implements ProcessImplementation {
+	/**
+	 * The cached value of the '{@link #getOwnedDataSubcomponents() <em>Owned Data Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDataSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataSubcomponent> ownedDataSubcomponents;
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramSubcomponents() <em>Owned Subprogram Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramSubcomponent> ownedSubprogramSubcomponents;
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramGroupSubcomponents() <em>Owned Subprogram Group Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramGroupSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramGroupSubcomponent> ownedSubprogramGroupSubcomponents;
+	/**
+	 * The cached value of the '{@link #getOwnedThreadSubcomponents() <em>Owned Thread Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedThreadSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ThreadSubcomponent> ownedThreadSubcomponents;
+	/**
+	 * The cached value of the '{@link #getOwnedThreadGroupSubcomponents() <em>Owned Thread Group Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedThreadGroupSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ThreadGroupSubcomponent> ownedThreadGroupSubcomponents;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -140,7 +189,11 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 	 * @generated
 	 */
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
-		return getSubcomponents().list(Aadl2Package.eINSTANCE.getProcessImplementation_OwnedDataSubcomponent());
+		if (ownedDataSubcomponents == null) {
+			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
+					Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
+		}
+		return ownedDataSubcomponents;
 	}
 
 	/**
@@ -161,7 +214,12 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 	 * @generated
 	 */
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
-		return getSubcomponents().list(Aadl2Package.eINSTANCE.getProcessImplementation_OwnedSubprogramSubcomponent());
+		if (ownedSubprogramSubcomponents == null) {
+			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
+					SubprogramSubcomponent.class, this,
+					Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
+		}
+		return ownedSubprogramSubcomponents;
 	}
 
 	/**
@@ -182,8 +240,12 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 	 * @generated
 	 */
 	public EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents() {
-		return getSubcomponents().list(
-				Aadl2Package.eINSTANCE.getProcessImplementation_OwnedSubprogramGroupSubcomponent());
+		if (ownedSubprogramGroupSubcomponents == null) {
+			ownedSubprogramGroupSubcomponents = new EObjectContainmentEList<SubprogramGroupSubcomponent>(
+					SubprogramGroupSubcomponent.class, this,
+					Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT);
+		}
+		return ownedSubprogramGroupSubcomponents;
 	}
 
 	/**
@@ -204,7 +266,11 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 	 * @generated
 	 */
 	public EList<ThreadSubcomponent> getOwnedThreadSubcomponents() {
-		return getSubcomponents().list(Aadl2Package.eINSTANCE.getProcessImplementation_OwnedThreadSubcomponent());
+		if (ownedThreadSubcomponents == null) {
+			ownedThreadSubcomponents = new EObjectContainmentEList<ThreadSubcomponent>(ThreadSubcomponent.class, this,
+					Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_THREAD_SUBCOMPONENT);
+		}
+		return ownedThreadSubcomponents;
 	}
 
 	/**
@@ -225,7 +291,12 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 	 * @generated
 	 */
 	public EList<ThreadGroupSubcomponent> getOwnedThreadGroupSubcomponents() {
-		return getSubcomponents().list(Aadl2Package.eINSTANCE.getProcessImplementation_OwnedThreadGroupSubcomponent());
+		if (ownedThreadGroupSubcomponents == null) {
+			ownedThreadGroupSubcomponents = new EObjectContainmentEList<ThreadGroupSubcomponent>(
+					ThreadGroupSubcomponent.class, this,
+					Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_THREAD_GROUP_SUBCOMPONENT);
+		}
+		return ownedThreadGroupSubcomponents;
 	}
 
 	/**
@@ -280,6 +351,28 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 	 */
 	public boolean isSetType() {
 		return basicGetType() != null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedDataSubcomponents()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedSubprogramSubcomponents()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedSubprogramGroupSubcomponents()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_THREAD_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedThreadSubcomponents()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_THREAD_GROUP_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedThreadGroupSubcomponents()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -373,15 +466,15 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
-			return !getOwnedDataSubcomponents().isEmpty();
+			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
 		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
-			return !getOwnedSubprogramSubcomponents().isEmpty();
+			return ownedSubprogramSubcomponents != null && !ownedSubprogramSubcomponents.isEmpty();
 		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
-			return !getOwnedSubprogramGroupSubcomponents().isEmpty();
+			return ownedSubprogramGroupSubcomponents != null && !ownedSubprogramGroupSubcomponents.isEmpty();
 		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_THREAD_SUBCOMPONENT:
-			return !getOwnedThreadSubcomponents().isEmpty();
+			return ownedThreadSubcomponents != null && !ownedThreadSubcomponents.isEmpty();
 		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_THREAD_GROUP_SUBCOMPONENT:
-			return !getOwnedThreadGroupSubcomponents().isEmpty();
+			return ownedThreadGroupSubcomponents != null && !ownedThreadGroupSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

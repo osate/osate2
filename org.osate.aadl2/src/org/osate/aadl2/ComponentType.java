@@ -36,7 +36,6 @@
 package org.osate.aadl2;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
  * <!-- begin-user-doc -->
@@ -46,7 +45,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.ComponentType#getFeatures <em>Features</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentType#getOwnedFeatures <em>Owned Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentType#getExtended <em>Extended</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentType#getOwnedFlowSpecifications <em>Owned Flow Specification</em>}</li>
@@ -62,23 +60,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * @generated
  */
 public interface ComponentType extends ComponentClassifier {
-	/**
-	 * Returns the value of the '<em><b>Features</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Features</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Features</em>' attribute list.
-	 * @see org.osate.aadl2.Aadl2Package#getComponentType_Features()
-	 * @model dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" ordered="false"
-	 *        extendedMetaData="kind='group' namespace='type'"
-	 * @generated
-	 */
-	FeatureMap getFeatures();
-
 	/**
 	 * Returns the value of the '<em><b>No Features</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -243,8 +224,7 @@ public interface ComponentType extends ComponentClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Feature Group</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedFeatureGroup()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<FeatureGroup> getOwnedFeatureGroups();
@@ -276,8 +256,7 @@ public interface ComponentType extends ComponentClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Abstract Feature</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedAbstractFeature()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<AbstractFeature> getOwnedAbstractFeatures();

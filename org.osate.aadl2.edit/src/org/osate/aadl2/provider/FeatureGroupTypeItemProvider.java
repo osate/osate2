@@ -133,7 +133,6 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider impleme
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_Feature());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedFeature());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedExtension());
 		}
@@ -189,7 +188,6 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider impleme
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(FeatureGroupType.class)) {
-		case Aadl2Package.FEATURE_GROUP_TYPE__FEATURE:
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE:
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -208,46 +206,6 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider impleme
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_Feature(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedBusAccess(),
-						Aadl2Factory.eINSTANCE.createBusAccess())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_Feature(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedDataAccess(),
-						Aadl2Factory.eINSTANCE.createDataAccess())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_Feature(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedDataPort(),
-						Aadl2Factory.eINSTANCE.createDataPort())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_Feature(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedEventDataPort(),
-						Aadl2Factory.eINSTANCE.createEventDataPort())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_Feature(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedEventPort(),
-						Aadl2Factory.eINSTANCE.createEventPort())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_Feature(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedFeatureGroup(),
-						Aadl2Factory.eINSTANCE.createFeatureGroup())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_Feature(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedParameter(),
-						Aadl2Factory.eINSTANCE.createParameter())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_Feature(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramAccess(),
-						Aadl2Factory.eINSTANCE.createSubprogramAccess())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_Feature(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramGroupAccess(),
-						Aadl2Factory.eINSTANCE.createSubprogramGroupAccess())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_Feature(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedAbstractFeature(),
-						Aadl2Factory.eINSTANCE.createAbstractFeature())));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedExtension(),
 				Aadl2Factory.eINSTANCE.createGroupExtension()));

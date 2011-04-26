@@ -73,6 +73,15 @@ import org.osate.aadl2.Subcomponent;
  */
 public class DeviceImplementationImpl extends ComponentImplementationImpl implements DeviceImplementation {
 	/**
+	 * The cached value of the '{@link #getOwnedBusSubcomponents() <em>Owned Bus Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedBusSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BusSubcomponent> ownedBusSubcomponents;
+	/**
 	 * The cached value of the '{@link #getOwnedDataSubcomponents() <em>Owned Data Subcomponent</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -144,7 +153,11 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * @generated
 	 */
 	public EList<BusSubcomponent> getOwnedBusSubcomponents() {
-		return getSubcomponents().list(Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedBusSubcomponent());
+		if (ownedBusSubcomponents == null) {
+			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(BusSubcomponent.class, this,
+					Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT);
+		}
+		return ownedBusSubcomponents;
 	}
 
 	/**
@@ -233,6 +246,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedBusSubcomponents()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return ((InternalEList<?>) getOwnedDataSubcomponents()).basicRemove(otherEnd, msgs);
 		}
@@ -303,7 +318,7 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
-			return !getOwnedBusSubcomponents().isEmpty();
+			return ownedBusSubcomponents != null && !ownedBusSubcomponents.isEmpty();
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
 		}

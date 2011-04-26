@@ -56,7 +56,6 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.util.Aadl2Validator;
 
-
 /**
  * <!-- begin-user-doc -->
  * A static utility class that provides operations related to '<em><b>Named Element</b></em>' model objects.
@@ -134,7 +133,8 @@ public class NamedElementOperations extends ElementOperations {
 			if (diagnostics != null) {
 				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
 						Aadl2Validator.NAMED_ELEMENT__HAS_NO_QUALIFIED_NAME,
-						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic",
+						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE.getString(
+								"_UI_GenericInvariant_diagnostic",
 								new Object[] {
 										"has_no_qualified_name",
 										org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(namedElement,
@@ -197,7 +197,8 @@ public class NamedElementOperations extends ElementOperations {
 			if (diagnostics != null) {
 				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
 						Aadl2Validator.NAMED_ELEMENT__HAS_QUALIFIED_NAME,
-						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic",
+						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE.getString(
+								"_UI_GenericInvariant_diagnostic",
 								new Object[] {
 										"has_qualified_name",
 										org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(namedElement,

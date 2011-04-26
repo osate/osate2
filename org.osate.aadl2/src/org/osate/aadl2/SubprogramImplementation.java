@@ -71,8 +71,7 @@ public interface SubprogramImplementation extends BehavioredImplementation, Subp
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramImplementation_OwnedDataSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DataSubcomponent> getOwnedDataSubcomponents();

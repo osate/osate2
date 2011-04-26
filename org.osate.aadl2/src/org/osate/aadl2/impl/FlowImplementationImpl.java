@@ -45,19 +45,22 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.SubsetSupersetEObjectContainmentEList;
 import org.eclipse.uml2.common.util.SubsetSupersetEObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.RefinableElement;
-import org.osate.aadl2.StructuralFeature;
+import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.ModalPath;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.SubcomponentFlow;
+import org.osate.aadl2.operations.ModalElementOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -66,9 +69,8 @@ import org.osate.aadl2.SubcomponentFlow;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getRefinementContext <em>Refinement Context</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getRefinedElement <em>Refined Element</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getFeaturingClassifiers <em>Featuring Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getInModes <em>In Mode</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getInTransitions <em>In Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getFlowElements <em>Flow Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getSpecification <em>Specification</em>}</li>
@@ -78,27 +80,27 @@ import org.osate.aadl2.SubcomponentFlow;
  *
  * @generated
  */
-public class FlowImplementationImpl extends ModalPathImpl implements FlowImplementation {
+public class FlowImplementationImpl extends StructuralFeatureImpl implements FlowImplementation {
 
 	/**
-	 * The cached value of the '{@link #getRefinementContext() <em>Refinement Context</em>}' reference.
+	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRefinementContext()
+	 * @see #getInModes()
 	 * @generated
 	 * @ordered
 	 */
-	protected Classifier refinementContext;
+	protected EList<Mode> inModes;
 
 	/**
-	 * The cached value of the '{@link #getRefinedElement() <em>Refined Element</em>}' reference.
+	 * The cached value of the '{@link #getInTransitions() <em>In Transition</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRefinedElement()
+	 * @see #getInTransitions()
 	 * @generated
 	 * @ordered
 	 */
-	protected RefinableElement refinedElement;
+	protected EList<ModeTransition> inTransitions;
 
 	/**
 	 * The cached value of the '{@link #getFlowElements() <em>Flow Element</em>}' reference list.
@@ -174,18 +176,11 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Classifier getRefinementContext() {
-		if (refinementContext != null && ((EObject) refinementContext).eIsProxy()) {
-			InternalEObject oldRefinementContext = (InternalEObject) refinementContext;
-			refinementContext = (Classifier) eResolveProxy(oldRefinementContext);
-			if (refinementContext != oldRefinementContext) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_IMPLEMENTATION__REFINEMENT_CONTEXT, oldRefinementContext,
-							refinementContext));
-			}
+	public EList<Mode> getInModes() {
+		if (inModes == null) {
+			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE);
 		}
-		return refinementContext;
+		return inModes;
 	}
 
 	/**
@@ -193,35 +188,12 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Classifier basicGetRefinementContext() {
-		return refinementContext;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public RefinableElement getRefinedElement() {
-		if (refinedElement != null && ((EObject) refinedElement).eIsProxy()) {
-			InternalEObject oldRefinedElement = (InternalEObject) refinedElement;
-			refinedElement = (RefinableElement) eResolveProxy(oldRefinedElement);
-			if (refinedElement != oldRefinedElement) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_IMPLEMENTATION__REFINED_ELEMENT, oldRefinedElement, refinedElement));
-			}
+	public EList<ModeTransition> getInTransitions() {
+		if (inTransitions == null) {
+			inTransitions = new EObjectResolvingEList<ModeTransition>(ModeTransition.class, this,
+					Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION);
 		}
-		return refinedElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public RefinableElement basicGetRefinedElement() {
-		return refinedElement;
+		return inTransitions;
 	}
 
 	/**
@@ -299,6 +271,15 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 				.getSubcomponentFlow());
 		getOwnedSubcomponentFlows().add(newOwnedSubcomponentFlow);
 		return newOwnedSubcomponentFlow;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Mode> getAllInModes() {
+		return ModalElementOperations.getAllInModes(this);
 	}
 
 	/**
@@ -387,16 +368,10 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_IMPLEMENTATION__REFINEMENT_CONTEXT:
-			if (resolve)
-				return getRefinementContext();
-			return basicGetRefinementContext();
-		case Aadl2Package.FLOW_IMPLEMENTATION__REFINED_ELEMENT:
-			if (resolve)
-				return getRefinedElement();
-			return basicGetRefinedElement();
-		case Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER:
-			return getFeaturingClassifiers();
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
+			return getInModes();
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION:
+			return getInTransitions();
 		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
 			return getFlowElements();
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
@@ -420,6 +395,14 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
+			getInModes().clear();
+			getInModes().addAll((Collection<? extends Mode>) newValue);
+			return;
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION:
+			getInTransitions().clear();
+			getInTransitions().addAll((Collection<? extends ModeTransition>) newValue);
+			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
 			getFlowElements().clear();
 			getFlowElements().addAll((Collection<? extends FlowElement>) newValue);
@@ -446,6 +429,12 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
+			getInModes().clear();
+			return;
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION:
+			getInTransitions().clear();
+			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
 			getFlowElements().clear();
 			return;
@@ -470,12 +459,10 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_IMPLEMENTATION__REFINEMENT_CONTEXT:
-			return refinementContext != null;
-		case Aadl2Package.FLOW_IMPLEMENTATION__REFINED_ELEMENT:
-			return refinedElement != null;
-		case Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER:
-			return !getFeaturingClassifiers().isEmpty();
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
+			return inModes != null && !inModes.isEmpty();
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION:
+			return inTransitions != null && !inTransitions.isEmpty();
 		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
 			return flowElements != null && !flowElements.isEmpty();
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
@@ -495,26 +482,18 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == RefinableElement.class) {
+		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.FLOW_IMPLEMENTATION__REFINEMENT_CONTEXT:
-				return Aadl2Package.REFINABLE_ELEMENT__REFINEMENT_CONTEXT;
-			case Aadl2Package.FLOW_IMPLEMENTATION__REFINED_ELEMENT:
-				return Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT;
+			case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
+				return Aadl2Package.MODAL_ELEMENT__IN_MODE;
 			default:
 				return -1;
 			}
 		}
-		if (baseClass == ClassifierFeature.class) {
+		if (baseClass == ModalPath.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER:
-				return Aadl2Package.CLASSIFIER_FEATURE__FEATURING_CLASSIFIER;
-			default:
-				return -1;
-			}
-		}
-		if (baseClass == StructuralFeature.class) {
-			switch (derivedFeatureID) {
+			case Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION:
+				return Aadl2Package.MODAL_PATH__IN_TRANSITION;
 			default:
 				return -1;
 			}
@@ -529,26 +508,18 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == RefinableElement.class) {
+		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.REFINABLE_ELEMENT__REFINEMENT_CONTEXT:
-				return Aadl2Package.FLOW_IMPLEMENTATION__REFINEMENT_CONTEXT;
-			case Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT:
-				return Aadl2Package.FLOW_IMPLEMENTATION__REFINED_ELEMENT;
+			case Aadl2Package.MODAL_ELEMENT__IN_MODE:
+				return Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE;
 			default:
 				return -1;
 			}
 		}
-		if (baseClass == ClassifierFeature.class) {
+		if (baseClass == ModalPath.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.CLASSIFIER_FEATURE__FEATURING_CLASSIFIER:
-				return Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER;
-			default:
-				return -1;
-			}
-		}
-		if (baseClass == StructuralFeature.class) {
-			switch (baseFeatureID) {
+			case Aadl2Package.MODAL_PATH__IN_TRANSITION:
+				return Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION;
 			default:
 				return -1;
 			}
