@@ -10,6 +10,7 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ConnectionKind;
 import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.FlowKind;
 
 public class Aadl2ValueConverter extends DefaultTerminalConverters {
     @ValueConverter(rule = "INAME")
@@ -91,15 +92,41 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
         };
     }
     
-    @ValueConverter(rule = "SystemSubCategories")
-    public IValueConverter<ComponentCategory> SystemSubCategories() {
-        return new IValueConverter<ComponentCategory>() {
-            public ComponentCategory toValue(String string, INode node) {
+    @ValueConverter(rule = "FlowSource")
+    public IValueConverter<FlowKind> FlowSource() {
+        return new IValueConverter<FlowKind>() {
+            public FlowKind toValue(String string, INode node) {
             	
-				return ComponentCategory.get(string);
+				return FlowKind.get(string);
 			}
 
-            public String toString(ComponentCategory value) {
+            public String toString(FlowKind value) {
+                return value.getName();
+            }
+        };
+    }
+    @ValueConverter(rule = "FlowSink")
+    public IValueConverter<FlowKind> FlowSink() {
+        return new IValueConverter<FlowKind>() {
+            public FlowKind toValue(String string, INode node) {
+            	
+				return FlowKind.get(string);
+			}
+
+            public String toString(FlowKind value) {
+                return value.getName();
+            }
+        };
+    }
+    @ValueConverter(rule = "FlowPath")
+    public IValueConverter<FlowKind> FlowPath() {
+        return new IValueConverter<FlowKind>() {
+            public FlowKind toValue(String string, INode node) {
+            	
+				return FlowKind.get(string);
+			}
+
+            public String toString(FlowKind value) {
                 return value.getName();
             }
         };
