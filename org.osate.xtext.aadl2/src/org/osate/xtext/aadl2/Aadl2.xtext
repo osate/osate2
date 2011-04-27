@@ -4,8 +4,6 @@ org.eclipse.xtext.common.Terminals
 
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
-//testing push
-
 
 AadlPackage returns aadl2::AadlPackage:
 	'package' name=PNAME
@@ -67,7 +65,7 @@ ComponentCategoryKW returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 ////	((ownedMode+=Mode)+))?
 //	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
 ////	(=> 'properties'
-////	((ownedPropertyAssociation+=PropertyAssociation)+
+////	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 ////	| noProperties?=NONE))?
 //	(ownedAnnexSubclause+=AnnexSubclause)*
 //	'end' ID SEMI
@@ -76,7 +74,7 @@ ComponentCategoryKW returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 SystemType returns aadl2::SystemType:
 	'system' name=ID
 //	(ownedExtension=TypeExtension)?
-//	(=> 'extends' extends=[aadl2::SystemType|QCREF])?
+	(=> 'extends' extended=[aadl2::SystemType|QCREF])?
 	(=> 'prototypes' (noPrototypes?=NONE |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (noFeatures?=NONE |
@@ -88,7 +86,7 @@ SystemType returns aadl2::SystemType:
 //	((ownedMode+=Mode)+))?
 	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
 	(=> 'properties'
-	((ownedPropertyAssociation+=PropertyAssociation)+
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| noProperties?=NONE))?
 	(ownedAnnexSubclause+=AnnexSubclause)*
 	'end' ID SEMI
@@ -110,7 +108,7 @@ ProcessType returns aadl2::ProcessType:
 //	((ownedMode+=Mode)+))?
 	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
 	(=> 'properties'
-	((ownedPropertyAssociation+=PropertyAssociation)+
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| noProperties?=NONE))?
 	(ownedAnnexSubclause+=AnnexSubclause)*
 	'end' ID SEMI
@@ -132,7 +130,7 @@ ThreadType returns aadl2::ThreadType:
 //	((ownedMode+=Mode)+))?
 	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
 	(=> 'properties'
-	((ownedPropertyAssociation+=PropertyAssociation)+
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| noProperties?=NONE))?
 	(ownedAnnexSubclause+=AnnexSubclause)*
 	'end' ID SEMI
@@ -152,7 +150,7 @@ ProcessorType returns aadl2::ProcessorType:
 //	((ownedMode+=Mode)+))?
 	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
 	(=> 'properties'
-	((ownedPropertyAssociation+=PropertyAssociation)+
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| noProperties?=NONE))?
 	(ownedAnnexSubclause+=AnnexSubclause)*
 	'end' ID SEMI
@@ -173,11 +171,13 @@ DataType returns aadl2::DataType:
 //	((ownedMode+=Mode)+))?
 	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
 	(=> 'properties'
-	((ownedPropertyAssociation+=PropertyAssociation)+
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| noProperties?=NONE))?
 	(ownedAnnexSubclause+=AnnexSubclause)*
 	'end' ID SEMI
 	;
+
+// Component Implementations: add calls for threads adn subprograms
 
 
 SystemImplementation returns aadl2::SystemImplementation:
@@ -205,7 +205,7 @@ SystemImplementation returns aadl2::SystemImplementation:
 	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 	| noModes?=NONE))?
 	(=> 'properties'
-	((ownedPropertyAssociation+=PropertyAssociation)+
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| noProperties?=NONE))?
 	(ownedAnnexSubclause+=AnnexSubclause)*
 	'end' ID DOT INAME SEMI
@@ -228,7 +228,7 @@ DataImplementation returns aadl2::DataImplementation:
 	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 	| noModes?=NONE))?
 	(=> 'properties'
-	((ownedPropertyAssociation+=PropertyAssociation)+
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| noProperties?=NONE))?
 	(ownedAnnexSubclause+=AnnexSubclause)*
 	'end' ID DOT INAME SEMI
@@ -275,22 +275,26 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
 	// Could not disambiguate the following rule
 	//([SystemClassifier|QCREF]|prototype=[ComponentPrototype|ID])
-	systemClassifier=[aadl2::SystemClassifier|QCREF]
-	('in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	systemClassifier=[aadl2::SystemClassifier|QCREF] // with opt. prototype bindings
+	// array dimensions
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
 	SEMI;
 
 ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 	name=ID COLON 'processor' 
 //	(refined?='refined' 'to')? // if boolean is set then we need to find the subcomponent being 'refined'
 	 (processorClassifier=[aadl2::ProcessorClassifier|QCREF])?
-	('in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	( => 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
 	SEMI;
 
 DataSubcomponent returns aadl2::DataSubcomponent:
 	name=ID COLON 'data' 
 //	(refined?='refined' 'to')? // if boolean is set then we need to find the subcomponent being 'refined'
 	(dataClassifier=[aadl2::DataClassifier|QCREF] )?
-	('in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
 	SEMI;
 
 
@@ -299,28 +303,38 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 // ******** Features
 
 // need to do refined to: as reference vs. ID for basic
+// needs to have classifier or prototype reference
 DataPort returns aadl2::DataPort:
 	name=ID COLON direction=PortDirection 'data' 'port' (dataClassifier=[aadl2::DataType|QCREF])? 
 		// array dimensions TODO
-	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)? SEMI 
+	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
 
 EventDataPort returns aadl2::EventDataPort:
 	name=ID COLON direction=PortDirection 'event' 'data' 'port' (dataClassifier=[aadl2::DataType|QCREF])? 
 		// array dimensions TODO
-	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)? SEMI 
+	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
 
 EventPort returns aadl2::EventPort:
 	name=ID COLON direction=PortDirection 'event' 'port' 
 		// array dimensions TODO
-	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)? SEMI 
+	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
 
 FeatureGroup returns aadl2::FeatureGroup:
-	name=ID 'feature' 'group' featureGroupType=[aadl2::FeatureGroupType|QCREF] 
+		// need to set inout if no direction
+	name=ID COLON direction=InOutDirection 'feature' 'group' 
+	( inverse?='inverse' 'of')?
+	featureGroupType=[aadl2::FeatureGroupType|QCREF] // or prototype
 		// array dimensions TODO
-	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)? SEMI 
+	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
+	;
+
+Parameter returns aadl2::Parameter:
+	name=ID COLON direction=PortDirection 'parameter' (dataClassifier=[aadl2::DataType|QCREF])? 
+		// array dimensions TODO
+	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
 
 // AccessCategory not set (is encoded in type)
@@ -328,31 +342,31 @@ SubprogramAccess returns aadl2::SubprogramAccess:
 	name=ID COLON kind=AccessDirection // refined to with reference to access feature being refined.
 	'subprogram' 'access' (subprogramClassifier=[aadl2::SubprogramClassifier|QCREF])? 
 	// array dimensions TODO
-	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)? SEMI 
+	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 ;
 SubprogramGroupAccess returns aadl2::SubprogramGroupAccess: 
 	name=ID COLON kind=AccessDirection // refined to with reference to access feature being refined.
 	'subprogram' 'group' 'access' (subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF])? 
 	// array dimensions TODO
-	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)? SEMI 
+	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 ;
 BusAccess returns aadl2::BusAccess: 
 	name=ID COLON kind=AccessDirection  // refined to with reference to access feature being refined.
 	'bus' 'access' (busClassifier=[aadl2::BusClassifier|QCREF])? 
 	// array dimensions TODO
-	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)? SEMI 
+	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 ;
 DataAccess returns aadl2::DataAccess: 
 	name=ID COLON kind=AccessDirection // refined to with reference to access feature being refined.
 	'data' 'access' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
 	// array dimensions TODO
-	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)? SEMI 
+	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 ;
 AbstractFeature returns aadl2::AbstractFeature:
 	// need to set inout if no direction
 	name=ID COLON (direction=InOutDirection)? 'feature' (classifier=[aadl2::ComponentType|QCREF])? 
 	// array dimensions TODO
-	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)? SEMI 
+	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
 
 
@@ -363,19 +377,73 @@ AccessDirection returns aadl2::AccessType: 'requires' | 'provides';
 
 
 FeatureGroupType returns aadl2::FeatureGroupType:
-	'feature' 'group' name=ID 'end' ID SEMI;
+	'feature' 'group' name=ID 
+//	(ownedExtension=TypeExtension)?
+	(=> 'extends' extended=[aadl2::FeatureGroupType|QCREF])?
+	(=> 'prototypes' (noPrototypes?=NONE |
+	(ownedPrototype+=Prototype)+))?
+	(=> 'features' (// no none for FGT noFeatures?=NONE |
+	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ ) )?
+//	(ownedFeature+=(DataPort | EventPort | EventDataPort | FeatureGroup))+))? //| FeatureGroup
+	(=> 'inverse' 'of' inverse=[aadl2::FeatureGroupType|QCREF])?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID SEMI;
 
 // ********* connections 
 PortConnection returns aadl2::PortConnection:
-	name=ID COLON kind=ConnectionType (
+	name=ID COLON kind=PortConnectionKind 
+	// refined to with port as reference
+	( // 'processor' and 'self' for both source and destination
 	sourceContext=[aadl2::Context|ID] DOT)? 
 	source=[aadl2::ConnectionEnd|ID]
-	('->' | bidirectional?='<->')
+	(ARROW | bidirectional?='<->')
+	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] SEMI;
+
+AccessConnection returns aadl2::AccessConnection:
+	name=ID COLON accessCategory=AccessCategory kind=AccessConnectionKind 
+	(// 'processor' => ProcessorSubprogram as source 
+	(sourceContext=[aadl2::Context|ID] DOT)? 
+	source=[aadl2::ConnectionEnd|ID])
+	(ARROW | bidirectional?='<->')
+	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] SEMI;
+
+FeatureGroupConnection returns aadl2::FeatureGroupConnection:
+	name=ID COLON kind=FeatureGroupConnectionKind 
+	( // only regular cotnexts, no processor or self 
+	(sourceContext=[aadl2::Context|ID] DOT)? 
+	source=[aadl2::ConnectionEnd|ID])
+	( bidirectional?='<->')
+	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] SEMI;
+
+FeatureConnection returns aadl2::FeatureConnection:
+	name=ID COLON kind=FeatureConnectionKind 
+	( // only regular cotnexts, no processor or self 
+	(sourceContext=[aadl2::Context|ID] DOT)? 
+	source=[aadl2::ConnectionEnd|ID])
+	(ARROW | bidirectional?='<->')
+	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] SEMI;
+ParameterConnection returns aadl2::ParameterConnection:
+	name=ID COLON kind=ParameterConnectionKind 
+	( // only regular cotnexts, no processor or self 
+	(sourceContext=[aadl2::Context|ID] DOT)? 
+	source=[aadl2::ConnectionEnd|ID])
+	 ARROW
 	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] SEMI;
 
 
-ConnectionType returns aadl2::ConnectionKind: 'access' | 'feature' | 'feature' 'group' | 'parameter' | 'port';
 
+ConnectionKind returns aadl2::ConnectionKind: 'access' | 'feature' | 'feature' 'group' | 'parameter' | 'port';
+PortConnectionKind returns aadl2::ConnectionKind: 'port';
+AccessConnectionKind returns aadl2::ConnectionKind: 'access';
+FeatureGroupConnectionKind returns aadl2::ConnectionKind: 'feature' 'group';
+FeatureConnectionKind returns aadl2::ConnectionKind: 'feature';
+ParameterConnectionKind returns aadl2::ConnectionKind: 'parameter';
+
+AccessCategory returns aadl2::AccessCategory:
+	'bus' | 'data' | 'subprogram' | 'subprogram' 'group';
 
 Connection returns aadl2::Connection:
 	PortConnection;
@@ -390,7 +458,8 @@ FlowSink returns aadl2::FlowKind: 'sink';
 FlowPath returns aadl2::FlowKind: 'path';
 
 FlowSpecification returns aadl2::FlowSpecification:
-	FlowSourceSpec | FlowSinkSpec | FlowPathSpec
+	( FlowSourceSpec | FlowSinkSpec | FlowPathSpec
+	|FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
 	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
 	SEMI
@@ -407,28 +476,70 @@ FlowSinkSpec returns aadl2::FlowSpecification:
 FlowPathSpec returns aadl2::FlowSpecification:
 	name=ID COLON 'flow' kind=FlowPath 
 	(inContext=[aadl2::Context|ID] DOT )? inFeature=[aadl2::Feature|ID]
-	'->' (outContext=[aadl2::Context|ID] DOT )? outFeature=[aadl2::Feature|ID] 
+	ARROW (outContext=[aadl2::Context|ID] DOT )? outFeature=[aadl2::Feature|ID] 
+;
+FlowSourceSpecRefinement returns aadl2::FlowSpecification:
+	// name=ID vs. reference
+	refined=[aadl2::FlowSpecification|ID] COLON 'refined' 'to' 'flow' kind=FlowSource 
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+;
+FlowSinkSpecRefinement returns aadl2::FlowSpecification:
+	// name=ID vs. reference
+	refined=[aadl2::FlowSpecification|ID] COLON 'refined' 'to' 'flow' kind=FlowSink 
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+;
+FlowPathSpecRefinement returns aadl2::FlowSpecification:
+	// name=ID vs. reference
+	refined=[aadl2::FlowSpecification|ID] COLON 'refined' 'to' 'flow' kind=FlowPath 
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
 ;
 
+EndToEndFlow returns aadl2::EndToEndFlow: 
+    name=ID COLON 'end' 'to' 'end' 'flow'
+    ownedSubcomponentFlow+=SubcomponentFlow
+    ( ARROW flowElement+=[aadl2::Connection|ID] ARROW ownedSubcomponentFlow+=SubcomponentFlow )*
+    
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
+    SEMI
+    ;
+EndToEndFlowRefinement returns aadl2::EndToEndFlow:
+	// name=ID vs. reference
+	refined=[aadl2::EndToEndFlow|ID] COLON 'refined' 'to' 'end' 'to' 'end' 'flow'  
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
+;
+
+SubcomponentFlow returns aadl2::SubcomponentFlow:
+	context=[aadl2::Subcomponent|ID] DOT flowSpecification=[aadl2::FlowSpecification|ID]
+	// could refer to data access which is stored as dataAccess instead of flowSpec
+	// could also refere to endtoend flow
+;
 // Modes 
 
 Mode returns aadl2::Mode:
-	name=ID COLON initial?='initial'? 'mode' SEMI;
+	name=ID COLON initial?='initial'? 'mode' 
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	SEMI;
 
 ModeTransition returns aadl2::ModeTransition:
 	(name=ID COLON)?
 	source=[aadl2::Mode|ID] LTRANS
 	ownedTrigger+=TriggerPort
 	(COMMA ownedTrigger+=TriggerPort)*
-	RTRANS destination=[aadl2::Mode|ID] SEMI;
+	RTRANS destination=[aadl2::Mode|ID] 
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	SEMI;
 
 TriggerPort returns aadl2::TriggerPort:
-	port=[aadl2::Port|ID];
+	// (self?='self'|processor?='processor') vs. special object reference as context 
+	(context=[aadl2::Context|ID] DOT)? port=[aadl2::Port|ID]
+	;
 
 // NEED to add access features
 // used where component_in_modes is shown in standard grammar
 ModeRef returns aadl2::ModeBinding:
-	parentMode=[aadl2::Mode|ID] ('->' derivedMode=[aadl2::Mode|ID])?;
+	parentMode=[aadl2::Mode|ID] (ARROW derivedMode=[aadl2::Mode|ID])?;
 
 
 AnnexLibrary returns aadl2::AnnexLibrary:
@@ -460,7 +571,29 @@ terminal ANNEXTEXT:
 // Properties
 
 PropertyAssociation returns aadl2::PropertyAssociation :
-	property=[aadl2::Property|ID] ASSIGN SEMI;//ownedValue=PropertyExpression 
+	property=[aadl2::Property|ID] ASSIGN //ownedValue=PropertyExpression 
+	SEMI;
+
+ContainedPropertyAssociation returns aadl2::PropertyAssociation :
+	property=[aadl2::Property|ID] ASSIGN //ownedValue=PropertyExpression
+	(=> 'applies' 'to' appliesTo+=ContainmentPath)?
+	SEMI ; 
+	
+ContainmentPath returns aadl2::ContainedNamedElement:
+	{aadl2::ContainedNamedElement}
+	containmentPathElement+=ContainmentPathElement
+	( COMMA containmentPathElement+=ContainmentPathElement)*
+;
+
+ContainmentPathElement returns aadl2::ContainmentPathElement:
+	namedElement=[aadl2::NamedElement|ID]
+	 arrayRange+=ArrayRange
+;
+
+ArrayRange returns aadl2::ArrayRange: {aadl2::ArrayRange}
+	LBRACKET //lowerBound=INT ( upperBound=INT)? 
+	RBRACKET
+;
 //
 //PropertyExpression:
 //	Literal | ProbabilityValue;
@@ -471,6 +604,7 @@ PropertyAssociation returns aadl2::PropertyAssociation :
 //ProbabilityValue:
 //	number=REAL distribution=ID;
 
+
 terminal NONE:
 	'none' SEMI;
 
@@ -479,6 +613,8 @@ terminal LTRANS:
 
 terminal RTRANS:
 	']->';
+	
+terminal ARROW: '->';	
 
 terminal SL_COMMENT:
 	'--' !('\n' | '\r')* ('\r'? '\n')?;
