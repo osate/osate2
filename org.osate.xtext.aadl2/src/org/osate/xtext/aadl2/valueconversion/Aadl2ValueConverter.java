@@ -7,6 +7,7 @@ import org.eclipse.xtext.conversion.IValueConverter;
 import org.eclipse.xtext.conversion.ValueConverter;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
+import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ConnectionKind;
 import org.osate.aadl2.DirectionType;
@@ -59,6 +60,33 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
 			}
 
             public String toString(DirectionType value) {
+                return value.getName();
+            }
+        };
+    }
+    @ValueConverter(rule = "InOutDirection")
+    public IValueConverter<DirectionType> InOutDirection() {
+        return new IValueConverter<DirectionType>() {
+            public DirectionType toValue(String string, INode node) {
+            	
+				return DirectionType.get(string);
+			}
+
+            public String toString(DirectionType value) {
+                return value.getName();
+            }
+        };
+    }
+    
+    @ValueConverter(rule = "AccessDirection")
+    public IValueConverter<AccessType> AccessDirection() {
+        return new IValueConverter<AccessType>() {
+            public AccessType toValue(String string, INode node) {
+            	
+				return AccessType.get(string);
+			}
+
+            public String toString(AccessType value) {
                 return value.getName();
             }
         };
