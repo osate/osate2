@@ -9,6 +9,7 @@ import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.ConnectionKind;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FlowKind;
@@ -92,8 +93,73 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
         };
     }
     
-    @ValueConverter(rule = "ConnectionType")
-    public IValueConverter<ConnectionKind> ConnectionType() {
+    @ValueConverter(rule = "ConnectionKind")
+    public IValueConverter<ConnectionKind> ConnectionKind() {
+        return new IValueConverter<ConnectionKind>() {
+            public ConnectionKind toValue(String string, INode node) {
+            	
+				return ConnectionKind.get(string);
+			}
+
+            public String toString(ConnectionKind value) {
+                return value.getName();
+            }
+        };
+    }
+    @ValueConverter(rule = "PortConnectionKind")
+    public IValueConverter<ConnectionKind> PortConnectionKind() {
+        return new IValueConverter<ConnectionKind>() {
+            public ConnectionKind toValue(String string, INode node) {
+            	
+				return ConnectionKind.get(string);
+			}
+
+            public String toString(ConnectionKind value) {
+                return value.getName();
+            }
+        };
+    }
+    @ValueConverter(rule = "AccessConnectionKind")
+    public IValueConverter<ConnectionKind> AccessConnectionKind() {
+        return new IValueConverter<ConnectionKind>() {
+            public ConnectionKind toValue(String string, INode node) {
+            	
+				return ConnectionKind.get(string);
+			}
+
+            public String toString(ConnectionKind value) {
+                return value.getName();
+            }
+        };
+    }
+    @ValueConverter(rule = "FeatureGroupConnectionKind")
+    public IValueConverter<ConnectionKind> FeatureGroupConnectionKind() {
+        return new IValueConverter<ConnectionKind>() {
+            public ConnectionKind toValue(String string, INode node) {
+            	
+				return ConnectionKind.get(string);
+			}
+
+            public String toString(ConnectionKind value) {
+                return value.getName();
+            }
+        };
+    }
+    @ValueConverter(rule = "ParameterConnectionKind")
+    public IValueConverter<ConnectionKind> ParameterConnectionKind() {
+        return new IValueConverter<ConnectionKind>() {
+            public ConnectionKind toValue(String string, INode node) {
+            	
+				return ConnectionKind.get(string);
+			}
+
+            public String toString(ConnectionKind value) {
+                return value.getName();
+            }
+        };
+    }
+    @ValueConverter(rule = "FeatureConnectionKind")
+    public IValueConverter<ConnectionKind> FeatureConnectionKind() {
         return new IValueConverter<ConnectionKind>() {
             public ConnectionKind toValue(String string, INode node) {
             	
@@ -106,8 +172,8 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
         };
     }
     
-    @ValueConverter(rule = "ComponentCategoryKW")
-    public IValueConverter<ComponentCategory> ComponentCategoryKW() {
+    @ValueConverter(rule = "ComponentCategory")
+    public IValueConverter<ComponentCategory> ComponentCategory() {
         return new IValueConverter<ComponentCategory>() {
             public ComponentCategory toValue(String string, INode node) {
             	
@@ -119,7 +185,21 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
             }
         };
     }
-    
+
+    @ValueConverter(rule = "AccessCategory")
+    public IValueConverter<AccessCategory> AccessCategory() {
+        return new IValueConverter<AccessCategory>() {
+            public AccessCategory toValue(String string, INode node) {
+            	
+				return AccessCategory.get(string);
+			}
+
+            public String toString(AccessCategory value) {
+                return value.getName();
+            }
+        };
+    }
+
     @ValueConverter(rule = "FlowSource")
     public IValueConverter<FlowKind> FlowSource() {
         return new IValueConverter<FlowKind>() {
