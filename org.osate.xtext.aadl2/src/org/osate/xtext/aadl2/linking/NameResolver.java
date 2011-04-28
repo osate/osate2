@@ -587,7 +587,7 @@ public class NameResolver
 	 */
 	public static EObject findNamedElementInAadlPackage(String packageName, String elementName, Namespace context)
 	{
-		if (context instanceof PackageSection && (packageName == null || ((AadlPackage)context).getName().equalsIgnoreCase(packageName)))
+		if (context instanceof PackageSection && (packageName == null || ((AadlPackage)context.eContainer()).getName().equalsIgnoreCase(packageName)))
 			return findNamedElementInAadlPackage(elementName, (PackageSection)context);
 		else
 		{
