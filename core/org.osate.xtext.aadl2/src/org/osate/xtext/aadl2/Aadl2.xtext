@@ -74,7 +74,7 @@ ComponentCategoryKW returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 SystemType returns aadl2::SystemType:
 	'system' name=ID
 //	(ownedExtension=TypeExtension)?
-	(=> 'extends' extended=[aadl2::SystemType|QCREF])?
+//	(=> 'extends' extended=[aadl2::SystemType|QCREF])?
 	(=> 'prototypes' (noPrototypes?=NONE |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (noFeatures?=NONE |
@@ -493,6 +493,32 @@ FlowPathSpecRefinement returns aadl2::FlowSpecification:
 	refined=[aadl2::FlowSpecification|ID] COLON 'refined' 'to' 'flow' kind=FlowPath 
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
 ;
+
+FlowImplementation returns aadl2::FlowImplementation:
+	( FlowSourceImpl | FlowSinkImpl | FlowPathImpl )
+//	|FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
+	SEMI
+;
+
+FlowSourceImpl returns aadl2::FlowImplementation:
+	specification=[aadl2::FlowSpecification|ID]//name=ID 
+	COLON 'flow' kind=FlowSource 
+//	(outContext=[aadl2::Context|ID] DOT )? outFeature=[aadl2::Feature|ID]
+;
+FlowSinkImpl returns aadl2::FlowImplementation:
+	specification=[aadl2::FlowSpecification|ID]//name=ID 
+	COLON 'flow' kind=FlowSink 
+//	(inContext=[aadl2::Context|ID] DOT )? inFeature=[aadl2::Feature|ID]
+;
+FlowPathImpl returns aadl2::FlowImplementation:
+	specification=[aadl2::FlowSpecification|ID]//name=ID 
+	COLON 'flow' kind=FlowPath 
+//	(inContext=[aadl2::Context|ID] DOT )? inFeature=[aadl2::Feature|ID]
+//	ARROW (outContext=[aadl2::Context|ID] DOT )? outFeature=[aadl2::Feature|ID] 
+;
+
 
 EndToEndFlow returns aadl2::EndToEndFlow: 
     name=ID COLON 'end' 'to' 'end' 'flow'

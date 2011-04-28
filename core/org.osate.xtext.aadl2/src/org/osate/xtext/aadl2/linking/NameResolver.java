@@ -45,18 +45,22 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortConnectionEnd;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PublicPackageSection;
@@ -70,40 +74,40 @@ public class NameResolver
 	
 	
 	
-	public static Context findPortConnectionSourceContextReference(PortConnection connection, String contextName)
-	{
-		EObject searchResult = getContainingClassifier(connection).findNamedElement(contextName);
-		if (searchResult instanceof FeatureGroup || searchResult instanceof Subcomponent || searchResult instanceof DataPort ||
-				searchResult instanceof EventDataPort)
-		{
-			return((Context)searchResult);
-		}
-		return null;
-	}
-	
+//	public static Context findPortConnectionSourceContextReference(PortConnection connection, String contextName)
+//	{
+//		EObject searchResult = getContainingClassifier(connection).findNamedElement(contextName);
+//		if (searchResult instanceof FeatureGroup || searchResult instanceof Subcomponent || searchResult instanceof DataPort ||
+//				searchResult instanceof EventDataPort)
+//		{
+//			return((Context)searchResult);
+//		}
+//		return null;
+//	}
+//	
 
 	public static ConnectionEnd findPortConnectionEnd(PortConnection conn, Context cxt, String portName)
 	{
 		if (cxt == null)
 		{
-			EObject searchResult = findNamedElement(getContainingClassifier(conn),portName);
+			EObject searchResult = findNamedElement((ComponentImplementation)getContainingClassifier(conn),portName);
 			if (searchResult instanceof Port)
 				return ((ConnectionEnd)searchResult);
 		}
-//		else if (cxt instanceof FeatureGroup)
-//		{
-//			FeatureGroup featureGroup = (FeatureGroup)cxt;
-//			while (featureGroup.getFeatureGroupType() == null && featureGroup.getPrototype() == null &&
-//					featureGroup.getRefined() instanceof FeatureGroup)
-//			{
-//				featureGroup = (FeatureGroup)featureGroup.getRefined();
-//			}
-//			if (featureGroup.getFeatureGroupType() != null)
-//			{
-//				NamedElement searchResult = featureGroup.getFeatureGroupType().findNamedElement(portName);
-//				if (searchResult instanceof PortConnectionEnd)
-//					 return((PortConnectionEnd)searchResult);
-//			}
+		else if (cxt instanceof FeatureGroup)
+		{
+			FeatureGroup featureGroup = (FeatureGroup)cxt;
+			while (featureGroup.getFeatureGroupType() == null && featureGroup.getPrototype() == null &&
+					featureGroup.getRefined() instanceof FeatureGroup)
+			{
+				featureGroup = (FeatureGroup)featureGroup.getRefined();
+			}
+			if (featureGroup.getFeatureGroupType() != null)
+			{
+				NamedElement searchResult = featureGroup.getFeatureGroupType().findNamedElement(portName);
+				if (searchResult instanceof PortConnectionEnd)
+					 return((PortConnectionEnd)searchResult);
+			}
 //			else if (featureGroup.getPrototype() != null)
 //			{
 //				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(getContainingClassifier(conn),
@@ -115,12 +119,12 @@ public class NameResolver
 //						return((PortConnectionEnd)searchResult);
 //				}
 //			}
-//		}
-		else if (cxt instanceof DataSubcomponent)
+		}
+		else if (cxt instanceof Subcomponent)
 		{
-			DataSubcomponent subcomponent = (DataSubcomponent)cxt;
-//			while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null && subcomponent.getRefined() != null)
-//				subcomponent = subcomponent.getRefined();
+			Subcomponent subcomponent = (Subcomponent)cxt;
+			while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null && subcomponent.getRefined() != null)
+				subcomponent = subcomponent.getRefined();
 			if (subcomponent.getClassifier() != null)
 			{
 				EObject searchResult = findNamedElement(subcomponent.getClassifier(),portName);
@@ -139,63 +143,18 @@ public class NameResolver
 //				}
 //			}
 		}
-		else if (cxt instanceof SystemSubcomponent)
+		else if (cxt instanceof DataPort || cxt instanceof EventDataPort)
+			//connection.getContext() is a DataPort or EventDataPort
 		{
-			SystemSubcomponent subcomponent = (SystemSubcomponent)cxt;
-//			while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null && subcomponent.getRefined() != null)
-//				subcomponent = subcomponent.getRefined();
-			if (subcomponent.getClassifier() != null)
+			Feature context = (Port)cxt;
+			while (context.getClassifier() == null && context.getPrototype() == null && context.getRefined() != null)
+				context = context.getRefined();
+			if (context.getClassifier() != null)
 			{
-				EObject searchResult = findNamedElement(subcomponent.getClassifier(),portName);
-				if (searchResult instanceof ConnectionEnd)
-					return ((ConnectionEnd)searchResult);
+				NamedElement searchResult = context.getClassifier().findNamedElement(portName);
+				if (searchResult instanceof DataSubcomponent)
+					return((DataSubcomponent)searchResult);
 			}
-//			else if (subcomponent.getPrototype() != null)
-//			{
-//				ComponentClassifier classifier = findClassifierForComponentPrototype(getContainingClassifier(conn),
-//						subcomponent.getPrototype());
-//				if (classifier != null)
-//				{
-//					NamedElement searchResult = classifier.findNamedElement(portName);
-//					if (searchResult instanceof DataSubcomponent)
-//						return((DataSubcomponent)searchResult);
-//				}
-//			}
-		}
-//		else if (cxt instanceof Subcomponent)
-//		{
-//			Subcomponent subcomponent = (Subcomponent)cxt;
-////			while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null && subcomponent.getRefined() != null)
-////				subcomponent = subcomponent.getRefined();
-//			if (subcomponent.getClassifier() != null)
-//			{
-//				EObject searchResult = findNamedElement(subcomponent.getClassifier(),portName);
-//				if (searchResult instanceof Port)// || searchResult instanceof DataAccess)
-//					return((ConnectionEnd)searchResult);
-//			}
-////			else if (subcomponent.getPrototype() != null)
-////			{
-////				ComponentClassifier classifier = findClassifierForComponentPrototype(getContainingClassifier(conn),
-////						subcomponent.getPrototype());
-////				if (classifier != null)
-////				{
-////					NamedElement searchResult = classifier.findNamedElement(portName);
-////					if (searchResult instanceof Port || searchResult instanceof DataAccess)
-////						return((PortConnectionEnd)searchResult);
-////				}
-////			}
-//		}
-		else //connection.getSourceContext() is a DataPort or EventDataPort
-		{
-//			Feature sourceContext = (Port)cxt;
-//			while (sourceContext.getClassifier() == null && sourceContext.getPrototype() == null && sourceContext.getRefined() != null)
-//				sourceContext = sourceContext.getRefined();
-//			if (sourceContext.getClassifier() != null)
-//			{
-//				NamedElement searchResult = sourceContext.getClassifier().findNamedElement(portName);
-//				if (searchResult instanceof DataSubcomponent)
-//					return((DataSubcomponent)searchResult);
-//			}
 //			else if (sourceContext.getPrototype() instanceof ComponentPrototype)
 //			{
 //				ComponentClassifier classifier = findClassifierForComponentPrototype(getContainingClassifier(conn),
@@ -516,6 +475,7 @@ public class NameResolver
 			for (AadlPackage imported : ((AadlPackage)context.eContainer()).getOwnedPublicSection().getImportedPackages())
 				if (imported instanceof AadlPackage && ((AadlPackage)imported).getName().equalsIgnoreCase(name))
 					return (AadlPackage)imported;
+		// TODO need to handle public section declared in a separate package declaration
 		return null;
 	}
 	
@@ -600,11 +560,11 @@ public class NameResolver
 	 * @param context The {@link PackageSection} that contains the {@link Element} that needs the search result.
 	 * @return The {@link NamedElement} or {@code null} if it cannot be found.
 	 */
-	public static EObject findNamedElementInAadlPackage(String name, PackageSection context)
+	public static NamedElement findNamedElementInAadlPackage(String name, PackageSection context)
 	{
-		EObject result = findNamedElement(context,name);//, false);
+		NamedElement result = findNamedElement(context,name);
 		if (result == null && context instanceof PrivatePackageSection && ((AadlPackage)context.eContainer()).getOwnedPublicSection() != null)
-			result = findNamedElement(((AadlPackage)context.eContainer()).getOwnedPublicSection(),name);//, false);
+			result = findNamedElement(((AadlPackage)context.eContainer()).getOwnedPublicSection(),name);
 		return result;
 	}
 	
@@ -655,7 +615,7 @@ public class NameResolver
 	 * Dependencies:
 	 * 		If propertySetName is the name of a different, non standard property set: WithStatementReference.
 	 */
-	private static EObject findNamedElementInPropertySet(String propertySetName, String elementName, Namespace context)
+	public static EObject findNamedElementInPropertySet(String propertySetName, String elementName, Namespace context)
 	{
 		if (propertySetName == null)
 		{
@@ -830,32 +790,82 @@ public class NameResolver
 					return (PropertySet) rootObject;
 			}
 		}
+		/* load the resource from the file system */
+		Resource res= context.eResource();
+		URI uri=res.getURI().trimFileExtension().trimSegments(1).appendSegment(name).appendFileExtension("aadl2");
+		Resource xtextResource;
+		try {
+			xtextResource = context.eResource().getResourceSet().getResource(uri , true);
+		} catch (Exception e) {
+			try{
+			xtextResource = context.eResource().getResourceSet().getResource(uri , false);
+			if (xtextResource != null){
+					xtextResource.delete(null);
+				}
+			} catch (Exception ee) {
+			}
+			 return null;
+		}
+		if (xtextResource == null) return null;
+		if (!xtextResource.getContents().isEmpty()) {
+			EObject rootObject = xtextResource.getContents().get(0);
+			if ((rootObject instanceof PropertySet )
+					&& ((PropertySet) rootObject).getName()
+							.equalsIgnoreCase(name))
+				return (PropertySet) rootObject;
+		} else {
+			try {
+				xtextResource.delete(null);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return null;
 	}
 	
-	public static EObject findNamedElement(Classifier obj,String name) {
-		EObject result = findNamedElement((EObject)obj, name);
+	public static NamedElement findNamedElement(ComponentImplementation obj,String name) {
+		NamedElement result = findNamedElement((Namespace)obj, name);
 		if (result != null) return result;
-		EStructuralFeature feature = obj.eClass().getEStructuralFeature("extends");
-		if (feature == null) return result;
-		Object previous = obj.eIsSet(feature)?obj.eGet(feature):null;
+		Classifier previous = obj.getExtended();
 		while (result == null && previous !=null){
-			result = findNamedElement((EObject)previous, name);
+			result = findNamedElement((Namespace)previous, name);
 			if (result != null) return result;
-			previous = ((EObject)previous).eIsSet(feature)?obj.eGet(feature):null;
+			previous = previous.getExtended();
+		}
+		// look in type
+		result = findNamedElement(obj.getType(),name);
+		return result;
+	}
+
+	public static NamedElement findNamedElement(Classifier obj,String name) {
+		NamedElement result = findNamedElement((Namespace)obj, name);
+		if (result != null) return result;
+		Classifier previous = obj.getExtended();
+		while (result == null && previous !=null){
+			result = findNamedElement((Namespace)previous, name);
+			if (result != null) return result;
+			previous = previous.getExtended();
 		}
 		return null;
 	}
 
+	public static NamedElement findNamedElement(Namespace obj,String name) {
+		for (NamedElement ne : obj.getMembers()) {
+				if (ne.getName().equalsIgnoreCase(name))
+				return ne;
+			}
+		return null;
+	}
 
-	public static EObject findNamedElement(EObject obj,String name) {
+	public static NamedElement findNamedElement(EObject obj,String name) {
 		for (EObject ne : obj.eContents()) {
 			EStructuralFeature feature = ne.eClass().getEStructuralFeature("name");
 			if (feature == null) return null;
 			if (ne.eIsSet(feature)){ 
 				String s = ne.eGet(feature).toString();
 				if (s.equalsIgnoreCase(name))
-				return ne;
+				return (NamedElement)ne;
 			}
 		}
 		return null;
