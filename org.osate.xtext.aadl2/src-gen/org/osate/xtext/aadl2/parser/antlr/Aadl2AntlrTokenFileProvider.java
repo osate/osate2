@@ -10,6 +10,6 @@ public class Aadl2AntlrTokenFileProvider implements IAntlrTokenFileProvider {
 	
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
-    	return classLoader.getResourceAsStream("org/osate/xtext/aadl2/parser/antlr/internal/InternalAadl2.tokens");
+    	return classLoader.getResourceAsStream("org/osate/xtext/aadl2/parser/antlr/internal/InternalAadl2Parser.tokens");
 	}
 }

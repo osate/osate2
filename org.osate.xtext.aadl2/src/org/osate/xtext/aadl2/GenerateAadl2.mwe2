@@ -50,11 +50,11 @@ Workflow {
 			}
 
 			// the Antlr parser
-			fragment = parser.antlr.XtextAntlrGeneratorFragment {
-//			fragment = parser.antlr.ex.rt.AntlrGeneratorFragment {
-//    		options = {
-//        		ignoreCase = true
-//    		}
+//			fragment = parser.antlr.XtextAntlrGeneratorFragment {
+			fragment = parser.antlr.ex.rt.AntlrGeneratorFragment {
+    		options = {
+        		ignoreCase = true
+    		}
 //				options = {
 	//				classSplitting = true
 		//		}
@@ -82,7 +82,7 @@ Workflow {
 			// scoping and exporting API 
 
 			 fragment = scoping.ImportNamespacesScopingFragment {
-//		        ignoreCase = true
+		        ignoreCase = true
     			}
 			 fragment = exporting.QualifiedNamesFragment {}
 
@@ -119,11 +119,11 @@ Workflow {
 			fragment = refactoring.RefactorElementNameFragment {}
 
 			// generates a more lightweight Antlr parser and lexer tailored for content assist  
-			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {
-//			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
-//				    options = {
-//        		ignoreCase = true
-//    		}
+//			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {
+			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
+				    options = {
+        		ignoreCase = true
+    		}
 				
 			}
 

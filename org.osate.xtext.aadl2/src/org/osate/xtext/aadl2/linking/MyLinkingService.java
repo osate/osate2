@@ -37,38 +37,25 @@ import org.osate.aadl2.Subcomponent;
 			if (cl.isSuperTypeOf(requiredType) ){
 				// resolve classifier reference
 				final int idx = s.lastIndexOf("::");
-				String packname = "";
+				String packname = null;
 				String cname = s;
-				PackageSection scope=null;
-				scope = NameResolver.getContainingPackageSection(context);
+				EObject e;
+				PackageSection scope= NameResolver.getContainingPackageSection(context);
 				if (idx != -1 ){
 					packname = s.substring(0, idx);
 					cname = s.substring(idx+2);
-					AadlPackage pack = NameResolver.findImportedPackage(packname, scope);
-//					AadlPackage pack = NameResolver.findAadlPackage(scope,packname);
-					if (pack != null){
-						scope = pack.getOwnedPublicSection();
-					}
-				}
-				if (scope != null){
-					EObject e = NameResolver.findNamedElementInAadlPackage(cname,scope);
-					if(e != null) {
-//						context.eSet(reference, e);
+				} 
+				e = NameResolver.findNamedElementInAadlPackage(packname,cname,scope);
+					if(e != null && requiredType.isSuperTypeOf(e.eClass())) {
+						// the result satisfied the expected class
 						return Collections.singletonList((EObject)e);
 					}
-				}
 				return Collections.<EObject> emptyList();
 			} else if(Aadl2Package.eINSTANCE.getAadlPackage() == requiredType){
 				// Resolve package reference
 				/* find package */
 				AadlPackage pack = NameResolver.findAadlPackage(context, s);
 				if(pack != null) {
-//					if (reference.isMany()){
-//						EList<EObject> l = (EList<EObject>)context.eGet(reference);
-//						l.add(pack);
-//					} else {
-//					context.eSet(reference, pack);
-//					}
 					return Collections.singletonList((EObject)pack);
 				}
 				PropertySet ps = NameResolver.findPropertySet(context, s);
@@ -76,6 +63,7 @@ import org.osate.aadl2.Subcomponent;
 					return Collections.singletonList((EObject)ps);
 				}
 			} else if(Aadl2Package.eINSTANCE.getConnectionEnd() == requiredType){
+				// resolve connection end
 				Context cxt;
 				if (reference.getFeatureID()==Aadl2Package.PORT_CONNECTION__DESTINATION){
 					cxt = ((PortConnection)context).getDestinationContext();
@@ -84,35 +72,27 @@ import org.osate.aadl2.Subcomponent;
 				}
 				ConnectionEnd ce = NameResolver.findPortConnectionEnd((PortConnection)context, cxt, s);
 				if(ce != null) {
-//					context.eSet(reference, ce);
 					return Collections.singletonList((EObject)ce);
 				}
 			} else if(Aadl2Package.eINSTANCE.getPort()== requiredType){
-				EObject searchResult = NameResolver.findNamedElement(NameResolver.getContainingClassifier(context),s);
+				EObject searchResult = NameResolver.getContainingClassifier(context).findNamedElement(s);
 					if(searchResult != null) {
-//						context.eSet(reference, searchResult);
 						return Collections.singletonList((EObject)searchResult);
 					}
 			} else if(Aadl2Package.eINSTANCE.getFeature()== requiredType){
-				EObject searchResult = NameResolver.findNamedElement(NameResolver.getContainingClassifier(context),s);
+				EObject searchResult = NameResolver.getContainingClassifier(context).findNamedElement(s);
 					if(searchResult != null) {
-//						context.eSet(reference, searchResult);
 						return Collections.singletonList((EObject)searchResult);
 					}
 			} else if(Aadl2Package.eINSTANCE.getMode()== requiredType){
-				EObject searchResult = NameResolver.findNamedElement(NameResolver.getContainingClassifier(context),s);
+				EObject searchResult = NameResolver.getContainingClassifier(context).findNamedElement(s);
 					if(searchResult != null) {
-//						context.eSet(reference, searchResult);
 						return Collections.singletonList((EObject)searchResult);
 					}
 			} else if(Aadl2Package.eINSTANCE.getContext() == requiredType){
-				EObject searchResult = NameResolver.findNamedElement(NameResolver.getContainingClassifier(context),s);
-				if (searchResult instanceof FeatureGroup || searchResult instanceof Subcomponent || searchResult instanceof DataPort ||
-						searchResult instanceof EventDataPort){
-					if(searchResult != null) {
-//						context.eSet(reference, searchResult);
+				EObject searchResult = NameResolver.getContainingClassifier(context).findNamedElement(s);
+					if(searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
 						return Collections.singletonList((EObject)searchResult);
-					}
 				}
 			}
 
