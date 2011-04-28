@@ -66,7 +66,8 @@ import org.osate.aadl2.PrototypeBinding;
  *
  * @generated
  */
-public class ComponentReferenceImpl extends ComponentPrototypeActualImpl implements ComponentReference {
+public class ComponentReferenceImpl extends ComponentPrototypeActualImpl
+		implements ComponentReference {
 	/**
 	 * The cached value of the '{@link #getBindings() <em>Binding</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -113,7 +114,8 @@ public class ComponentReferenceImpl extends ComponentPrototypeActualImpl impleme
 	 */
 	public EList<PrototypeBinding> getBindings() {
 		if (bindings == null) {
-			bindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
+			bindings = new EObjectContainmentEList<PrototypeBinding>(
+					PrototypeBinding.class, this,
 					Aadl2Package.COMPONENT_REFERENCE__BINDING);
 		}
 		return bindings;
@@ -142,7 +144,8 @@ public class ComponentReferenceImpl extends ComponentPrototypeActualImpl impleme
 			if (classifier != oldClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.COMPONENT_REFERENCE__CLASSIFIER, oldClassifier, classifier));
+							Aadl2Package.COMPONENT_REFERENCE__CLASSIFIER,
+							oldClassifier, classifier));
 			}
 		}
 		return classifier;
@@ -166,7 +169,8 @@ public class ComponentReferenceImpl extends ComponentPrototypeActualImpl impleme
 		ComponentClassifier oldClassifier = classifier;
 		classifier = newClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_REFERENCE__CLASSIFIER,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_REFERENCE__CLASSIFIER,
 					oldClassifier, classifier));
 	}
 
@@ -176,10 +180,12 @@ public class ComponentReferenceImpl extends ComponentPrototypeActualImpl impleme
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_REFERENCE__BINDING:
-			return ((InternalEList<?>) getBindings()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getBindings()).basicRemove(otherEnd,
+					msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -213,7 +219,8 @@ public class ComponentReferenceImpl extends ComponentPrototypeActualImpl impleme
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_REFERENCE__BINDING:
 			getBindings().clear();
-			getBindings().addAll((Collection<? extends PrototypeBinding>) newValue);
+			getBindings().addAll(
+					(Collection<? extends PrototypeBinding>) newValue);
 			return;
 		case Aadl2Package.COMPONENT_REFERENCE__CLASSIFIER:
 			setClassifier((ComponentClassifier) newValue);

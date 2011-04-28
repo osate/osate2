@@ -51,7 +51,8 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface SubprogramSubcomponent extends Subcomponent, AccessConnectionEnd, Subprogram {
+public interface SubprogramSubcomponent extends Subcomponent,
+		AccessConnectionEnd, Subprogram {
 
 	/**
 	 * Returns the value of the '<em><b>Subprogram Classifier</b></em>' reference.

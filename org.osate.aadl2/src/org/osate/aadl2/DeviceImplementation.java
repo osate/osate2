@@ -54,7 +54,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface DeviceImplementation extends ComponentImplementation, DeviceClassifier {
+public interface DeviceImplementation extends ComponentImplementation,
+		DeviceClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Bus Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.BusSubcomponent}.
@@ -72,8 +73,7 @@ public interface DeviceImplementation extends ComponentImplementation, DeviceCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceImplementation_OwnedBusSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<BusSubcomponent> getOwnedBusSubcomponents();

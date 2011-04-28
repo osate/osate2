@@ -60,7 +60,8 @@ import org.osate.aadl2.ConnectionEnd;
  *
  * @generated
  */
-public class AccessConnectionImpl extends ConnectionImpl implements AccessConnection {
+public class AccessConnectionImpl extends ConnectionImpl implements
+		AccessConnection {
 	/**
 	 * The default value of the '{@link #getAccessCategory() <em>Access Category</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -116,9 +117,11 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 	 */
 	public void setAccessCategory(AccessCategory newAccessCategory) {
 		AccessCategory oldAccessCategory = accessCategory;
-		accessCategory = newAccessCategory == null ? ACCESS_CATEGORY_EDEFAULT : newAccessCategory;
+		accessCategory = newAccessCategory == null ? ACCESS_CATEGORY_EDEFAULT
+				: newAccessCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_CONNECTION__ACCESS_CATEGORY,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ACCESS_CONNECTION__ACCESS_CATEGORY,
 					oldAccessCategory, accessCategory));
 	}
 
@@ -135,7 +138,8 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.ACCESS_CONNECTION__DESTINATION, oldDestination, destination));
+							Aadl2Package.ACCESS_CONNECTION__DESTINATION,
+							oldDestination, destination));
 			}
 		}
 		return destination;
@@ -161,7 +165,8 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 		ConnectionEnd oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_CONNECTION__DESTINATION,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ACCESS_CONNECTION__DESTINATION,
 					oldDestination, destination));
 	}
 
@@ -186,8 +191,9 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 			source = (ConnectionEnd) eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.ACCESS_CONNECTION__SOURCE,
-							oldSource, source));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.ACCESS_CONNECTION__SOURCE, oldSource,
+							source));
 			}
 		}
 		return source;
@@ -213,8 +219,8 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 		ConnectionEnd oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_CONNECTION__SOURCE, oldSource,
-					source));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ACCESS_CONNECTION__SOURCE, oldSource, source));
 	}
 
 	/**

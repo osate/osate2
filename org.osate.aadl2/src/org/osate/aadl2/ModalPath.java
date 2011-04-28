@@ -66,8 +66,7 @@ public interface ModalPath extends ModalElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>In Transition</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getModalPath_InTransition()
-	 * @model transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="group='modalElement#modesAndTransitions'"
+	 * @model
 	 * @generated
 	 */
 	EList<ModeTransition> getInTransitions();

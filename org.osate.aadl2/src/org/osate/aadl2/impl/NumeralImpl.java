@@ -113,7 +113,8 @@ public class NumeralImpl extends ArraySizeImpl implements Numeral {
 		long oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMERAL__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.NUMERAL__VALUE, oldValue, value));
 	}
 
 	/**

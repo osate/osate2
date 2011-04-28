@@ -57,7 +57,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface VirtualProcessorType extends ComponentType, VirtualProcessorClassifier {
+public interface VirtualProcessorType extends ComponentType,
+		VirtualProcessorClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Data Port</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.DataPort}.
@@ -75,8 +76,7 @@ public interface VirtualProcessorType extends ComponentType, VirtualProcessorCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualProcessorType_OwnedDataPort()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DataPort> getOwnedDataPorts();
@@ -108,8 +108,7 @@ public interface VirtualProcessorType extends ComponentType, VirtualProcessorCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualProcessorType_OwnedEventDataPort()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<EventDataPort> getOwnedEventDataPorts();
@@ -141,8 +140,7 @@ public interface VirtualProcessorType extends ComponentType, VirtualProcessorCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualProcessorType_OwnedEventPort()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<EventPort> getOwnedEventPorts();
@@ -174,8 +172,7 @@ public interface VirtualProcessorType extends ComponentType, VirtualProcessorCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualProcessorType_OwnedSubprogramAccess()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramAccess> getOwnedSubprogramAccesses();
@@ -207,8 +204,7 @@ public interface VirtualProcessorType extends ComponentType, VirtualProcessorCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualProcessorType_OwnedSubprogramGroupAccess()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses();

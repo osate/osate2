@@ -53,7 +53,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface VirtualBusImplementation extends ComponentImplementation, VirtualBusClassifier {
+public interface VirtualBusImplementation extends ComponentImplementation,
+		VirtualBusClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Virtual Bus Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.VirtualBusSubcomponent}.
@@ -71,8 +72,7 @@ public interface VirtualBusImplementation extends ComponentImplementation, Virtu
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusImplementation_OwnedVirtualBusSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents();

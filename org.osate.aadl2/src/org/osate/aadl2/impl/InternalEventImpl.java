@@ -49,7 +49,8 @@ import org.osate.aadl2.InternalEvent;
  *
  * @generated
  */
-public class InternalEventImpl extends PortConnectionEndImpl implements InternalEvent {
+public class InternalEventImpl extends PortConnectionEndImpl implements
+		InternalEvent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

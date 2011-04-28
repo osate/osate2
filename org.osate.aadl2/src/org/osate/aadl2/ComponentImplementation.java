@@ -45,9 +45,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.ComponentImplementation#getSubcomponents <em>Subcomponents</em>}</li>
- *   <li>{@link org.osate.aadl2.ComponentImplementation#getConnections <em>Connections</em>}</li>
- *   <li>{@link org.osate.aadl2.ComponentImplementation#getFlows <em>Flows</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#getExtended <em>Extended</em>}</li>
@@ -74,59 +71,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * @generated
  */
 public interface ComponentImplementation extends ComponentClassifier {
-	/**
-	 * Returns the value of the '<em><b>Subcomponents</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc
-	 * -->
-	 * <p>
-	 * If the meaning of the '<em>Subcomponents</em>' attribute list isn't
-	 * clear, there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Subcomponents</em>' attribute list.
-	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_Subcomponents()
-	 * @model dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" ordered="false"
-	 *        extendedMetaData="kind='group' namespace='implementation'"
-	 * @generated
-	 */
-	FeatureMap getSubcomponents();
-
-	/**
-	 * Returns the value of the '<em><b>Connections</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc
-	 * -->
-	 * <p>
-	 * If the meaning of the '<em>Connections</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Connections</em>' attribute list.
-	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_Connections()
-	 * @model dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" ordered="false"
-	 *        extendedMetaData="kind='group' namespace='implementation'"
-	 * @generated
-	 */
-	FeatureMap getConnections();
-
-	/**
-	 * Returns the value of the '<em><b>Flows</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Flows</em>' attribute list isn't clear, there
-	 * really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Flows</em>' attribute list.
-	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_Flows()
-	 * @model dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" ordered="false"
-	 *        extendedMetaData="kind='group' namespace='implementation'"
-	 * @generated
-	 */
-	FeatureMap getFlows();
-
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * <p>
@@ -318,8 +262,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Flow Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedFlowImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="group='implementation#flows'"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<FlowImplementation> getOwnedFlowImplementations();
@@ -432,8 +375,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Access Connection</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedAccessConnection()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#connections'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<AccessConnection> getOwnedAccessConnections();
@@ -460,8 +402,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Parameter Connection</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedParameterConnection()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#connections'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ParameterConnection> getOwnedParameterConnections();
@@ -487,8 +428,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Port Connection</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedPortConnection()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#connections'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<PortConnection> getOwnedPortConnections();
@@ -520,8 +460,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Abstract Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedAbstractSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<AbstractSubcomponent> getOwnedAbstractSubcomponents();
@@ -554,8 +493,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned End To End Flow</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedEndToEndFlow()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#flows'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<EndToEndFlow> getOwnedEndToEndFlows();
@@ -581,8 +519,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Feature Connection</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedFeatureConnection()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#connections'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<FeatureConnection> getOwnedFeatureConnections();

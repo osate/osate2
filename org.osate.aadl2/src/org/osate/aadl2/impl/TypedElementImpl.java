@@ -57,7 +57,8 @@ import org.osate.aadl2.TypedElement;
  *
  * @generated
  */
-public abstract class TypedElementImpl extends NamedElementImpl implements TypedElement {
+public abstract class TypedElementImpl extends NamedElementImpl implements
+		TypedElement {
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -98,8 +99,8 @@ public abstract class TypedElementImpl extends NamedElementImpl implements Typed
 			type = (Type) eResolveProxy(oldType);
 			if (type != oldType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.TYPED_ELEMENT__TYPE,
-							oldType, type));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.TYPED_ELEMENT__TYPE, oldType, type));
 			}
 		}
 		return type;
@@ -123,7 +124,8 @@ public abstract class TypedElementImpl extends NamedElementImpl implements Typed
 		Type oldType = type;
 		type = newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.TYPED_ELEMENT__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.TYPED_ELEMENT__TYPE, oldType, type));
 	}
 
 	/**

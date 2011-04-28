@@ -46,7 +46,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.ModalElement#getModesAndTransitions <em>Modes And Transitions</em>}</li>
  *   <li>{@link org.osate.aadl2.ModalElement#getInModes <em>In Mode</em>}</li>
  * </ul>
  * </p>
@@ -56,23 +55,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * @generated
  */
 public interface ModalElement extends NamedElement {
-	/**
-	 * Returns the value of the '<em><b>Modes And Transitions</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Modes And Transitions</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Modes And Transitions</em>' attribute list.
-	 * @see org.osate.aadl2.Aadl2Package#getModalElement_ModesAndTransitions()
-	 * @model dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" ordered="false"
-	 *        extendedMetaData="kind='group' namespace='modalElement'"
-	 * @generated
-	 */
-	FeatureMap getModesAndTransitions();
-
 	/**
 	 * Returns the value of the '<em><b>In Mode</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.Mode}.
@@ -84,8 +66,7 @@ public interface ModalElement extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>In Mode</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getModalElement_InMode()
-	 * @model transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="group='modalElement#modesAndTransitions'"
+	 * @model
 	 * @generated
 	 */
 	EList<Mode> getInModes();

@@ -35,6 +35,7 @@
  */
 package org.osate.aadl2.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -42,6 +43,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
@@ -53,6 +55,10 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowElement;
+import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.ModalPath;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
@@ -67,8 +73,8 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getRefinementContext <em>Refinement Context</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getFeaturingClassifiers <em>Featuring Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getInModes <em>In Mode</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getInTransitions <em>In Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getSource <em>Source</em>}</li>
@@ -81,16 +87,27 @@ import org.osate.aadl2.properties.PropertyAcc;
  *
  * @generated
  */
-public abstract class ConnectionImpl extends ModalPathImpl implements Connection {
+public abstract class ConnectionImpl extends StructuralFeatureImpl implements
+		Connection {
 	/**
-	 * The cached value of the '{@link #getRefinementContext() <em>Refinement Context</em>}' reference.
+	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRefinementContext()
+	 * @see #getInModes()
 	 * @generated
 	 * @ordered
 	 */
-	protected Classifier refinementContext;
+	protected EList<Mode> inModes;
+
+	/**
+	 * The cached value of the '{@link #getInTransitions() <em>In Transition</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInTransitions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ModeTransition> inTransitions;
 
 	/**
 	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
@@ -203,17 +220,12 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Classifier getRefinementContext() {
-		if (refinementContext != null && ((EObject) refinementContext).eIsProxy()) {
-			InternalEObject oldRefinementContext = (InternalEObject) refinementContext;
-			refinementContext = (Classifier) eResolveProxy(oldRefinementContext);
-			if (refinementContext != oldRefinementContext) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.CONNECTION__REFINEMENT_CONTEXT, oldRefinementContext, refinementContext));
-			}
+	public EList<Mode> getInModes() {
+		if (inModes == null) {
+			inModes = new EObjectResolvingEList<Mode>(Mode.class, this,
+					Aadl2Package.CONNECTION__IN_MODE);
 		}
-		return refinementContext;
+		return inModes;
 	}
 
 	/**
@@ -221,8 +233,13 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Classifier basicGetRefinementContext() {
-		return refinementContext;
+	public EList<ModeTransition> getInTransitions() {
+		if (inTransitions == null) {
+			inTransitions = new EObjectResolvingEList<ModeTransition>(
+					ModeTransition.class, this,
+					Aadl2Package.CONNECTION__IN_TRANSITION);
+		}
+		return inTransitions;
 	}
 
 	/**
@@ -230,6 +247,7 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement getRefinedElement() {
 		return getRefined();
 	}
@@ -239,6 +257,7 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement basicGetRefinedElement() {
 		return basicGetRefined();
 	}
@@ -292,7 +311,8 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 			destination = (ConnectionEnd) eResolveProxy(oldDestination);
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.CONNECTION__DESTINATION,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.CONNECTION__DESTINATION,
 							oldDestination, destination));
 			}
 		}
@@ -317,7 +337,8 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 		ConnectionEnd oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__DESTINATION, oldDestination,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.CONNECTION__DESTINATION, oldDestination,
 					destination));
 	}
 
@@ -332,8 +353,8 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 			source = (ConnectionEnd) eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.CONNECTION__SOURCE,
-							oldSource, source));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.CONNECTION__SOURCE, oldSource, source));
 			}
 		}
 		return source;
@@ -357,7 +378,8 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 		ConnectionEnd oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__SOURCE, oldSource, source));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.CONNECTION__SOURCE, oldSource, source));
 	}
 
 	/**
@@ -366,13 +388,15 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 	 * @generated
 	 */
 	public Context getDestinationContext() {
-		if (destinationContext != null && ((EObject) destinationContext).eIsProxy()) {
+		if (destinationContext != null
+				&& ((EObject) destinationContext).eIsProxy()) {
 			InternalEObject oldDestinationContext = (InternalEObject) destinationContext;
 			destinationContext = (Context) eResolveProxy(oldDestinationContext);
 			if (destinationContext != oldDestinationContext) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.CONNECTION__DESTINATION_CONTEXT, oldDestinationContext, destinationContext));
+							Aadl2Package.CONNECTION__DESTINATION_CONTEXT,
+							oldDestinationContext, destinationContext));
 			}
 		}
 		return destinationContext;
@@ -396,7 +420,8 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 		Context oldDestinationContext = destinationContext;
 		destinationContext = newDestinationContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__DESTINATION_CONTEXT,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.CONNECTION__DESTINATION_CONTEXT,
 					oldDestinationContext, destinationContext));
 	}
 
@@ -411,7 +436,8 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 			sourceContext = (Context) eResolveProxy(oldSourceContext);
 			if (sourceContext != oldSourceContext) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.CONNECTION__SOURCE_CONTEXT,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.CONNECTION__SOURCE_CONTEXT,
 							oldSourceContext, sourceContext));
 			}
 		}
@@ -436,8 +462,9 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 		Context oldSourceContext = sourceContext;
 		sourceContext = newSourceContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__SOURCE_CONTEXT,
-					oldSourceContext, sourceContext));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.CONNECTION__SOURCE_CONTEXT, oldSourceContext,
+					sourceContext));
 	}
 
 	/**
@@ -458,8 +485,9 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 		boolean oldBidirectional = bidirectional;
 		bidirectional = newBidirectional;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__BIDIRECTIONAL,
-					oldBidirectional, bidirectional));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.CONNECTION__BIDIRECTIONAL, oldBidirectional,
+					bidirectional));
 	}
 
 	/**
@@ -473,8 +501,9 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 			refined = (Connection) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.CONNECTION__REFINED,
-							oldRefined, refined));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.CONNECTION__REFINED, oldRefined,
+							refined));
 			}
 		}
 		return refined;
@@ -498,7 +527,8 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 		Connection oldRefined = refined;
 		refined = newRefined;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__REFINED, oldRefined, refined));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.CONNECTION__REFINED, oldRefined, refined));
 	}
 
 	/**
@@ -518,16 +548,10 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.CONNECTION__REFINEMENT_CONTEXT:
-			if (resolve)
-				return getRefinementContext();
-			return basicGetRefinementContext();
-		case Aadl2Package.CONNECTION__REFINED_ELEMENT:
-			if (resolve)
-				return getRefinedElement();
-			return basicGetRefinedElement();
-		case Aadl2Package.CONNECTION__FEATURING_CLASSIFIER:
-			return getFeaturingClassifiers();
+		case Aadl2Package.CONNECTION__IN_MODE:
+			return getInModes();
+		case Aadl2Package.CONNECTION__IN_TRANSITION:
+			return getInTransitions();
 		case Aadl2Package.CONNECTION__KIND:
 			return getKind();
 		case Aadl2Package.CONNECTION__DESTINATION:
@@ -561,9 +585,19 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case Aadl2Package.CONNECTION__IN_MODE:
+			getInModes().clear();
+			getInModes().addAll((Collection<? extends Mode>) newValue);
+			return;
+		case Aadl2Package.CONNECTION__IN_TRANSITION:
+			getInTransitions().clear();
+			getInTransitions().addAll(
+					(Collection<? extends ModeTransition>) newValue);
+			return;
 		case Aadl2Package.CONNECTION__KIND:
 			setKind((ConnectionKind) newValue);
 			return;
@@ -597,6 +631,12 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.CONNECTION__IN_MODE:
+			getInModes().clear();
+			return;
+		case Aadl2Package.CONNECTION__IN_TRANSITION:
+			getInTransitions().clear();
+			return;
 		case Aadl2Package.CONNECTION__KIND:
 			setKind(KIND_EDEFAULT);
 			return;
@@ -630,12 +670,10 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.CONNECTION__REFINEMENT_CONTEXT:
-			return refinementContext != null;
-		case Aadl2Package.CONNECTION__REFINED_ELEMENT:
-			return isSetRefinedElement();
-		case Aadl2Package.CONNECTION__FEATURING_CLASSIFIER:
-			return !getFeaturingClassifiers().isEmpty();
+		case Aadl2Package.CONNECTION__IN_MODE:
+			return inModes != null && !inModes.isEmpty();
+		case Aadl2Package.CONNECTION__IN_TRANSITION:
+			return inTransitions != null && !inTransitions.isEmpty();
 		case Aadl2Package.CONNECTION__KIND:
 			return getKind() != KIND_EDEFAULT;
 		case Aadl2Package.CONNECTION__DESTINATION:
@@ -661,26 +699,18 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == RefinableElement.class) {
+		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.CONNECTION__REFINEMENT_CONTEXT:
-				return Aadl2Package.REFINABLE_ELEMENT__REFINEMENT_CONTEXT;
-			case Aadl2Package.CONNECTION__REFINED_ELEMENT:
-				return Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT;
+			case Aadl2Package.CONNECTION__IN_MODE:
+				return Aadl2Package.MODAL_ELEMENT__IN_MODE;
 			default:
 				return -1;
 			}
 		}
-		if (baseClass == ClassifierFeature.class) {
+		if (baseClass == ModalPath.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.CONNECTION__FEATURING_CLASSIFIER:
-				return Aadl2Package.CLASSIFIER_FEATURE__FEATURING_CLASSIFIER;
-			default:
-				return -1;
-			}
-		}
-		if (baseClass == StructuralFeature.class) {
-			switch (derivedFeatureID) {
+			case Aadl2Package.CONNECTION__IN_TRANSITION:
+				return Aadl2Package.MODAL_PATH__IN_TRANSITION;
 			default:
 				return -1;
 			}
@@ -707,26 +737,18 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == RefinableElement.class) {
+		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.REFINABLE_ELEMENT__REFINEMENT_CONTEXT:
-				return Aadl2Package.CONNECTION__REFINEMENT_CONTEXT;
-			case Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT:
-				return Aadl2Package.CONNECTION__REFINED_ELEMENT;
+			case Aadl2Package.MODAL_ELEMENT__IN_MODE:
+				return Aadl2Package.CONNECTION__IN_MODE;
 			default:
 				return -1;
 			}
 		}
-		if (baseClass == ClassifierFeature.class) {
+		if (baseClass == ModalPath.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.CLASSIFIER_FEATURE__FEATURING_CLASSIFIER:
-				return Aadl2Package.CONNECTION__FEATURING_CLASSIFIER;
-			default:
-				return -1;
-			}
-		}
-		if (baseClass == StructuralFeature.class) {
-			switch (baseFeatureID) {
+			case Aadl2Package.MODAL_PATH__IN_TRANSITION:
+				return Aadl2Package.CONNECTION__IN_TRANSITION;
 			default:
 				return -1;
 			}
@@ -819,8 +841,9 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	public final void getPropertyValueInternal(final Property pn, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+	public final void getPropertyValueInternal(final Property pn,
+			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
 		final ComponentImplementation partOf = (ComponentImplementation) getContainingClassifier();
 
 		// First look in the container's contained property associations
@@ -877,5 +900,28 @@ public abstract class ConnectionImpl extends ModalPathImpl implements Connection
 		}
 		return dcxt;
 	}
+	/**
+	 * returns the list of modes the modal element belongs to.
+	 * This may be kept with the modal element or an ancestor in the extends hierarchy.
+	 * The in modes of the closest ancestor returned.
+	 * @return EList of modes. This list may be empty of it is all modes.
+	 */
+	public EList<Mode> getAllInModes() {
+		ModalElement mm = this;
+		EList<Mode> inmodes = null;
+		// inmodes will be an empty list (all modes) if we do not find a non-empty list
+		while (mm != null) {
+			inmodes = mm.getInModes();
+			// we stop when we find the first occurrence of a non-empty inmodes list
+			if (inmodes != null && !inmodes.isEmpty())
+				return inmodes;
+			if (mm instanceof RefinableElement)
+				mm = (ModalElement) ((RefinableElement) mm).getRefinedElement();
+			else
+				mm = null;
+		}
+		return inmodes;
+	}
+
 
 } //ConnectionImpl

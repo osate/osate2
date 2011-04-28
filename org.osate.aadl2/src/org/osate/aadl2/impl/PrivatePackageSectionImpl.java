@@ -58,7 +58,8 @@ import org.osate.aadl2.PublicPackageSection;
  *
  * @generated
  */
-public class PrivatePackageSectionImpl extends PackageSectionImpl implements PrivatePackageSection {
+public class PrivatePackageSectionImpl extends PackageSectionImpl implements
+		PrivatePackageSection {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -137,7 +138,8 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 		return super.eIsSet(featureID);
 	}
 
-	public NamedElement findNamedElement(String name, boolean externallyVisibleElementsOnly) {
+	public NamedElement findNamedElement(String name,
+			boolean externallyVisibleElementsOnly) {
 		if (externallyVisibleElementsOnly)
 			return null;
 		else

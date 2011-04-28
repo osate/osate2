@@ -49,7 +49,8 @@ import org.osate.aadl2.ProcessorPort;
  *
  * @generated
  */
-public class ProcessorPortImpl extends PortConnectionEndImpl implements ProcessorPort {
+public class ProcessorPortImpl extends PortConnectionEndImpl implements
+		ProcessorPort {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

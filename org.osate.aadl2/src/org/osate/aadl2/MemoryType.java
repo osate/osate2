@@ -71,8 +71,7 @@ public interface MemoryType extends ComponentType, MemoryClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Bus Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryType_OwnedBusAccess()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<BusAccess> getOwnedBusAccesses();

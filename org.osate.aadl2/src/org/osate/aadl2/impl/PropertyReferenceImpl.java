@@ -62,7 +62,8 @@ import org.osate.aadl2.properties.InvalidModelException;
  *
  * @generated
  */
-public class PropertyReferenceImpl extends ArraySizeImpl implements PropertyReference {
+public class PropertyReferenceImpl extends ArraySizeImpl implements
+		PropertyReference {
 	/**
 	 * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -104,7 +105,8 @@ public class PropertyReferenceImpl extends ArraySizeImpl implements PropertyRefe
 			if (property != oldProperty) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PROPERTY_REFERENCE__PROPERTY, oldProperty, property));
+							Aadl2Package.PROPERTY_REFERENCE__PROPERTY,
+							oldProperty, property));
 			}
 		}
 		return property;
@@ -128,8 +130,9 @@ public class PropertyReferenceImpl extends ArraySizeImpl implements PropertyRefe
 		Property oldProperty = property;
 		property = newProperty;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_REFERENCE__PROPERTY,
-					oldProperty, property));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PROPERTY_REFERENCE__PROPERTY, oldProperty,
+					property));
 	}
 
 	/**
@@ -199,13 +202,16 @@ public class PropertyReferenceImpl extends ArraySizeImpl implements PropertyRefe
 	/* XXX: Must declare InvalidModelException to be thrown because
 	 * ReferenceValueImpl extends this class.
 	 */
-	public PropertyExpression instantiate(final ComponentInstance root) throws InvalidModelException {
+	public PropertyExpression instantiate(final ComponentInstance root)
+			throws InvalidModelException {
 		return this;
 	}
 
-	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
+	public EvaluatedProperty evaluate(EvaluationContext ctx)
+			throws InvalidModelException {
 		if (getProperty() == null) {
-			throw new InvalidModelException(this, "Property reference is missing the referenced property.");
+			throw new InvalidModelException(this,
+					"Property reference is missing the referenced property.");
 		}
 		return getProperty().evaluate(ctx);
 	}
@@ -215,7 +221,8 @@ public class PropertyReferenceImpl extends ArraySizeImpl implements PropertyRefe
 	 */
 	@Override
 	public boolean equals(Object other) {
-		return (other instanceof PropertyReference) && ((PropertyReference) other).getProperty() == property;
+		return (other instanceof PropertyReference)
+				&& ((PropertyReference) other).getProperty() == property;
 	}
 
 } //PropertyReferenceImpl

@@ -52,7 +52,8 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface FeatureGroupPrototypeReference extends FeatureGroupPrototypeActual {
+public interface FeatureGroupPrototypeReference extends
+		FeatureGroupPrototypeActual {
 	/**
 	 * Returns the value of the '<em><b>Prototype</b></em>' reference.
 	 * <!-- begin-user-doc -->

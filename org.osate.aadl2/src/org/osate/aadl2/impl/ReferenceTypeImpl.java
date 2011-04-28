@@ -60,7 +60,8 @@ import org.osate.aadl2.ReferenceType;
  *
  * @generated
  */
-public class ReferenceTypeImpl extends PropertyTypeImpl implements ReferenceType {
+public class ReferenceTypeImpl extends PropertyTypeImpl implements
+		ReferenceType {
 	/**
 	 * The cached value of the '{@link #getNamedElementReferences() <em>Named Element Reference</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -97,7 +98,8 @@ public class ReferenceTypeImpl extends PropertyTypeImpl implements ReferenceType
 	 */
 	public EList<MetaclassReference> getNamedElementReferences() {
 		if (namedElementReferences == null) {
-			namedElementReferences = new EObjectContainmentEList<MetaclassReference>(MetaclassReference.class, this,
+			namedElementReferences = new EObjectContainmentEList<MetaclassReference>(
+					MetaclassReference.class, this,
 					Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE);
 		}
 		return namedElementReferences;
@@ -121,10 +123,12 @@ public class ReferenceTypeImpl extends PropertyTypeImpl implements ReferenceType
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE:
-			return ((InternalEList<?>) getNamedElementReferences()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getNamedElementReferences())
+					.basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -154,7 +158,8 @@ public class ReferenceTypeImpl extends PropertyTypeImpl implements ReferenceType
 		switch (featureID) {
 		case Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE:
 			getNamedElementReferences().clear();
-			getNamedElementReferences().addAll((Collection<? extends MetaclassReference>) newValue);
+			getNamedElementReferences().addAll(
+					(Collection<? extends MetaclassReference>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -184,7 +189,8 @@ public class ReferenceTypeImpl extends PropertyTypeImpl implements ReferenceType
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE:
-			return namedElementReferences != null && !namedElementReferences.isEmpty();
+			return namedElementReferences != null
+					&& !namedElementReferences.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

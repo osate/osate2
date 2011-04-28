@@ -98,8 +98,9 @@ public class UnitValueImpl extends PropertyValueImpl implements UnitValue {
 			literal = (UnitLiteral) eResolveProxy(oldLiteral);
 			if (literal != oldLiteral) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.UNIT_VALUE__LITERAL,
-							oldLiteral, literal));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.UNIT_VALUE__LITERAL, oldLiteral,
+							literal));
 			}
 		}
 		return literal;
@@ -123,7 +124,8 @@ public class UnitValueImpl extends PropertyValueImpl implements UnitValue {
 		UnitLiteral oldLiteral = literal;
 		literal = newLiteral;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.UNIT_VALUE__LITERAL, oldLiteral, literal));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.UNIT_VALUE__LITERAL, oldLiteral, literal));
 	}
 
 	/**
@@ -191,7 +193,8 @@ public class UnitValueImpl extends PropertyValueImpl implements UnitValue {
 	 */
 	@Override
 	public boolean equals(Object other) {
-		return (other instanceof UnitValue) && ((UnitValue) other).getLiteral() == literal;
+		return (other instanceof UnitValue)
+				&& ((UnitValue) other).getLiteral() == literal;
 	}
 
 } //UnitValueImpl

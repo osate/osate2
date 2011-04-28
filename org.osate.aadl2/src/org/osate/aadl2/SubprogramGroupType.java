@@ -54,7 +54,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SubprogramGroupType extends ComponentType, SubprogramGroupClassifier, CallContext {
+public interface SubprogramGroupType extends ComponentType,
+		SubprogramGroupClassifier, CallContext {
 	/**
 	 * Returns the value of the '<em><b>Owned Subprogram Access</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramAccess}.
@@ -72,8 +73,7 @@ public interface SubprogramGroupType extends ComponentType, SubprogramGroupClass
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupType_OwnedSubprogramAccess()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramAccess> getOwnedSubprogramAccesses();
@@ -105,8 +105,7 @@ public interface SubprogramGroupType extends ComponentType, SubprogramGroupClass
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupType_OwnedSubprogramGroupAccess()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses();

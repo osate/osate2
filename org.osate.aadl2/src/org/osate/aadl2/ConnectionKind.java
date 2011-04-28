@@ -70,21 +70,21 @@ public enum ConnectionKind implements Enumerator {
 	 * @ordered
 	 */
 	FEATURE(1, "Feature", "Feature"), /**
-										* The '<em><b>Feature Group</b></em>' literal object.
-										* <!-- begin-user-doc -->
+										 * The '<em><b>Feature Group</b></em>' literal object.
+										 * <!-- begin-user-doc -->
 										 * <!-- end-user-doc -->
-										* @see #FEATURE_GROUP_VALUE
-										* @generated
-										* @ordered
-										*/
+										 * @see #FEATURE_GROUP_VALUE
+										 * @generated
+										 * @ordered
+										 */
 	FEATURE_GROUP(2, "FeatureGroup", "FeatureGroup"), /**
-														* The '<em><b>Parameter</b></em>' literal object.
-														* <!-- begin-user-doc -->
+														 * The '<em><b>Parameter</b></em>' literal object.
+														 * <!-- begin-user-doc -->
 														 * <!-- end-user-doc -->
-														* @see #PARAMETER_VALUE
-														* @generated
-														* @ordered
-														*/
+														 * @see #PARAMETER_VALUE
+														 * @generated
+														 * @ordered
+														 */
 	PARAMETER(3, "Parameter", "Parameter"),
 
 	/**
@@ -178,8 +178,8 @@ public enum ConnectionKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final ConnectionKind[] VALUES_ARRAY = new ConnectionKind[] { ACCESS, FEATURE, FEATURE_GROUP,
-			PARAMETER, PORT, };
+	private static final ConnectionKind[] VALUES_ARRAY = new ConnectionKind[] {
+			ACCESS, FEATURE, FEATURE_GROUP, PARAMETER, PORT, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Connection Kind</b></em>' enumerators.
@@ -187,7 +187,8 @@ public enum ConnectionKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<ConnectionKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ConnectionKind> VALUES = Collections
+			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Connection Kind</b></em>' literal with the specified literal value.

@@ -62,7 +62,8 @@ import org.osate.aadl2.SubcomponentFlow;
  *
  * @generated
  */
-public class SubcomponentFlowImpl extends FlowElementImpl implements SubcomponentFlow {
+public class SubcomponentFlowImpl extends FlowElementImpl implements
+		SubcomponentFlow {
 	/**
 	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -121,7 +122,8 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 			context = (Subcomponent) eResolveProxy(oldContext);
 			if (context != oldContext) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.SUBCOMPONENT_FLOW__CONTEXT,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.SUBCOMPONENT_FLOW__CONTEXT,
 							oldContext, context));
 			}
 		}
@@ -146,7 +148,8 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 		Subcomponent oldContext = context;
 		context = newContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT_FLOW__CONTEXT, oldContext,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SUBCOMPONENT_FLOW__CONTEXT, oldContext,
 					context));
 	}
 
@@ -156,13 +159,15 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	 * @generated
 	 */
 	public FlowSpecification getFlowSpecification() {
-		if (flowSpecification != null && ((EObject) flowSpecification).eIsProxy()) {
+		if (flowSpecification != null
+				&& ((EObject) flowSpecification).eIsProxy()) {
 			InternalEObject oldFlowSpecification = (InternalEObject) flowSpecification;
 			flowSpecification = (FlowSpecification) eResolveProxy(oldFlowSpecification);
 			if (flowSpecification != oldFlowSpecification) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.SUBCOMPONENT_FLOW__FLOW_SPECIFICATION, oldFlowSpecification, flowSpecification));
+							Aadl2Package.SUBCOMPONENT_FLOW__FLOW_SPECIFICATION,
+							oldFlowSpecification, flowSpecification));
 			}
 		}
 		return flowSpecification;
@@ -186,7 +191,8 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 		FlowSpecification oldFlowSpecification = flowSpecification;
 		flowSpecification = newFlowSpecification;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT_FLOW__FLOW_SPECIFICATION,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SUBCOMPONENT_FLOW__FLOW_SPECIFICATION,
 					oldFlowSpecification, flowSpecification));
 	}
 
@@ -202,7 +208,8 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 			if (dataAccess != oldDataAccess) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.SUBCOMPONENT_FLOW__DATA_ACCESS, oldDataAccess, dataAccess));
+							Aadl2Package.SUBCOMPONENT_FLOW__DATA_ACCESS,
+							oldDataAccess, dataAccess));
 			}
 		}
 		return dataAccess;
@@ -226,8 +233,9 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 		DataAccess oldDataAccess = dataAccess;
 		dataAccess = newDataAccess;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT_FLOW__DATA_ACCESS,
-					oldDataAccess, dataAccess));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SUBCOMPONENT_FLOW__DATA_ACCESS, oldDataAccess,
+					dataAccess));
 	}
 
 	/**

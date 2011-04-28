@@ -58,7 +58,8 @@ import org.osate.aadl2.SystemSubcomponent;
  *
  * @generated
  */
-public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSubcomponent {
+public class SystemSubcomponentImpl extends SubcomponentImpl implements
+		SystemSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,7 +108,8 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSu
 	 */
 	public SystemClassifier getSystemClassifier() {
 		SystemClassifier systemClassifier = basicGetSystemClassifier();
-		return systemClassifier != null && ((EObject) systemClassifier).eIsProxy() ? (SystemClassifier) eResolveProxy((InternalEObject) systemClassifier)
+		return systemClassifier != null
+				&& ((EObject) systemClassifier).eIsProxy() ? (SystemClassifier) eResolveProxy((InternalEObject) systemClassifier)
 				: systemClassifier;
 	}
 
@@ -199,7 +201,8 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSu
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_CLASSIFIER);
+		return super.isSetClassifier()
+				|| eIsSet(Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_CLASSIFIER);
 	}
 
 	public ComponentCategory getCategory() {

@@ -37,11 +37,14 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -66,7 +69,18 @@ import org.osate.aadl2.VirtualBusSubcomponent;
  *
  * @generated
  */
-public class BusImplementationImpl extends ComponentImplementationImpl implements BusImplementation {
+public class BusImplementationImpl extends ComponentImplementationImpl
+		implements BusImplementation {
+	/**
+	 * The cached value of the '{@link #getOwnedVirtualBusSubcomponents() <em>Owned Virtual Bus Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedVirtualBusSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VirtualBusSubcomponent> ownedVirtualBusSubcomponents;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -97,17 +111,26 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
+			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache
+					.get(eResource, this, Aadl2Package.eINSTANCE
+							.getComponentImplementation_OwnedSubcomponent());
 			if (ownedSubcomponents == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
-						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
-								Aadl2Package.BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE
+								.getComponentImplementation_OwnedSubcomponent(),
+						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(
+								Subcomponent.class,
+								this,
+								Aadl2Package.BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT,
+								OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
-				Aadl2Package.BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class,
+				this, Aadl2Package.BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT,
+				OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
 	/**
@@ -130,7 +153,8 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	@Override
 	public BusType getType() {
 		BusType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (BusType) eResolveProxy((InternalEObject) type) : type;
+		return type != null && ((EObject) type).eIsProxy() ? (BusType) eResolveProxy((InternalEObject) type)
+				: type;
 	}
 
 	/**
@@ -169,8 +193,30 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedVirtualBusSubcomponents())
+					.basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
-		return getSubcomponents().list(Aadl2Package.eINSTANCE.getBusImplementation_OwnedVirtualBusSubcomponent());
+		if (ownedVirtualBusSubcomponents == null) {
+			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
+					VirtualBusSubcomponent.class,
+					this,
+					Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
+		}
+		return ownedVirtualBusSubcomponents;
 	}
 
 	/**
@@ -210,7 +256,8 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 		switch (featureID) {
 		case Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
 			getOwnedVirtualBusSubcomponents().clear();
-			getOwnedVirtualBusSubcomponents().addAll((Collection<? extends VirtualBusSubcomponent>) newValue);
+			getOwnedVirtualBusSubcomponents().addAll(
+					(Collection<? extends VirtualBusSubcomponent>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -240,7 +287,8 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
-			return !getOwnedVirtualBusSubcomponents().isEmpty();
+			return ownedVirtualBusSubcomponents != null
+					&& !ownedVirtualBusSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

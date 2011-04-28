@@ -49,7 +49,8 @@ import org.osate.aadl2.FeatureGroupPrototypeActual;
  *
  * @generated
  */
-public abstract class FeatureGroupPrototypeActualImpl extends ElementImpl implements FeatureGroupPrototypeActual {
+public abstract class FeatureGroupPrototypeActualImpl extends ElementImpl
+		implements FeatureGroupPrototypeActual {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

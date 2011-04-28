@@ -37,9 +37,13 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -73,6 +77,61 @@ import org.osate.aadl2.SubprogramGroupAccess;
  */
 public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	/**
+	 * The cached value of the '{@link #getOwnedDataPorts() <em>Owned Data Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDataPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataPort> ownedDataPorts;
+	/**
+	 * The cached value of the '{@link #getOwnedEventDataPorts() <em>Owned Event Data Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedEventDataPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventDataPort> ownedEventDataPorts;
+	/**
+	 * The cached value of the '{@link #getOwnedEventPorts() <em>Owned Event Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedEventPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventPort> ownedEventPorts;
+	/**
+	 * The cached value of the '{@link #getOwnedBusAccesses() <em>Owned Bus Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedBusAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BusAccess> ownedBusAccesses;
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramAccesses() <em>Owned Subprogram Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramAccess> ownedSubprogramAccesses;
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramGroupAccesses() <em>Owned Subprogram Group Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramGroupAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramGroupAccess> ownedSubprogramGroupAccesses;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -102,17 +161,21 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(eResource, this,
+			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
 			if (ownedFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<Feature>(Feature.class, this,
-								Aadl2Package.DEVICE_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getComponentType_OwnedFeature(),
+						ownedFeatures = new DerivedUnionEObjectEList<Feature>(
+								Feature.class, this,
+								Aadl2Package.DEVICE_TYPE__OWNED_FEATURE,
+								OWNED_FEATURE_ESUBSETS));
 			}
 			return ownedFeatures;
 		}
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.DEVICE_TYPE__OWNED_FEATURE,
-				OWNED_FEATURE_ESUBSETS);
+		return new DerivedUnionEObjectEList<Feature>(Feature.class, this,
+				Aadl2Package.DEVICE_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS);
 	}
 
 	/**
@@ -123,10 +186,14 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] { Aadl2Package.DEVICE_TYPE__OWNED_FEATURE_GROUP,
-			Aadl2Package.DEVICE_TYPE__OWNED_ABSTRACT_FEATURE, Aadl2Package.DEVICE_TYPE__OWNED_DATA_PORT,
-			Aadl2Package.DEVICE_TYPE__OWNED_EVENT_DATA_PORT, Aadl2Package.DEVICE_TYPE__OWNED_EVENT_PORT,
-			Aadl2Package.DEVICE_TYPE__OWNED_BUS_ACCESS, Aadl2Package.DEVICE_TYPE__OWNED_SUBPROGRAM_ACCESS,
+	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] {
+			Aadl2Package.DEVICE_TYPE__OWNED_FEATURE_GROUP,
+			Aadl2Package.DEVICE_TYPE__OWNED_ABSTRACT_FEATURE,
+			Aadl2Package.DEVICE_TYPE__OWNED_DATA_PORT,
+			Aadl2Package.DEVICE_TYPE__OWNED_EVENT_DATA_PORT,
+			Aadl2Package.DEVICE_TYPE__OWNED_EVENT_PORT,
+			Aadl2Package.DEVICE_TYPE__OWNED_BUS_ACCESS,
+			Aadl2Package.DEVICE_TYPE__OWNED_SUBPROGRAM_ACCESS,
 			Aadl2Package.DEVICE_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS };
 
 	/**
@@ -135,7 +202,12 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	 * @generated
 	 */
 	public EList<DataPort> getOwnedDataPorts() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getDeviceType_OwnedDataPort());
+		if (ownedDataPorts == null) {
+			ownedDataPorts = new EObjectContainmentEList<DataPort>(
+					DataPort.class, this,
+					Aadl2Package.DEVICE_TYPE__OWNED_DATA_PORT);
+		}
+		return ownedDataPorts;
 	}
 
 	/**
@@ -144,7 +216,8 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	 * @generated
 	 */
 	public DataPort createOwnedDataPort() {
-		DataPort newOwnedDataPort = (DataPort) create(Aadl2Package.eINSTANCE.getDataPort());
+		DataPort newOwnedDataPort = (DataPort) create(Aadl2Package.eINSTANCE
+				.getDataPort());
 		getOwnedDataPorts().add(newOwnedDataPort);
 		return newOwnedDataPort;
 	}
@@ -155,7 +228,12 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	 * @generated
 	 */
 	public EList<EventDataPort> getOwnedEventDataPorts() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getDeviceType_OwnedEventDataPort());
+		if (ownedEventDataPorts == null) {
+			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(
+					EventDataPort.class, this,
+					Aadl2Package.DEVICE_TYPE__OWNED_EVENT_DATA_PORT);
+		}
+		return ownedEventDataPorts;
 	}
 
 	/**
@@ -164,7 +242,8 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	 * @generated
 	 */
 	public EventDataPort createOwnedEventDataPort() {
-		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE.getEventDataPort());
+		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE
+				.getEventDataPort());
 		getOwnedEventDataPorts().add(newOwnedEventDataPort);
 		return newOwnedEventDataPort;
 	}
@@ -175,7 +254,12 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	 * @generated
 	 */
 	public EList<EventPort> getOwnedEventPorts() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getDeviceType_OwnedEventPort());
+		if (ownedEventPorts == null) {
+			ownedEventPorts = new EObjectContainmentEList<EventPort>(
+					EventPort.class, this,
+					Aadl2Package.DEVICE_TYPE__OWNED_EVENT_PORT);
+		}
+		return ownedEventPorts;
 	}
 
 	/**
@@ -184,7 +268,8 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	 * @generated
 	 */
 	public EventPort createOwnedEventPort() {
-		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE.getEventPort());
+		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE
+				.getEventPort());
 		getOwnedEventPorts().add(newOwnedEventPort);
 		return newOwnedEventPort;
 	}
@@ -195,7 +280,12 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	 * @generated
 	 */
 	public EList<BusAccess> getOwnedBusAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getDeviceType_OwnedBusAccess());
+		if (ownedBusAccesses == null) {
+			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(
+					BusAccess.class, this,
+					Aadl2Package.DEVICE_TYPE__OWNED_BUS_ACCESS);
+		}
+		return ownedBusAccesses;
 	}
 
 	/**
@@ -204,7 +294,8 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	 * @generated
 	 */
 	public BusAccess createOwnedBusAccess() {
-		BusAccess newOwnedBusAccess = (BusAccess) create(Aadl2Package.eINSTANCE.getBusAccess());
+		BusAccess newOwnedBusAccess = (BusAccess) create(Aadl2Package.eINSTANCE
+				.getBusAccess());
 		getOwnedBusAccesses().add(newOwnedBusAccess);
 		return newOwnedBusAccess;
 	}
@@ -215,7 +306,12 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	 * @generated
 	 */
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getDeviceType_OwnedSubprogramAccess());
+		if (ownedSubprogramAccesses == null) {
+			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(
+					SubprogramAccess.class, this,
+					Aadl2Package.DEVICE_TYPE__OWNED_SUBPROGRAM_ACCESS);
+		}
+		return ownedSubprogramAccesses;
 	}
 
 	/**
@@ -236,7 +332,12 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	 * @generated
 	 */
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getDeviceType_OwnedSubprogramGroupAccess());
+		if (ownedSubprogramGroupAccesses == null) {
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
+					SubprogramGroupAccess.class, this,
+					Aadl2Package.DEVICE_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
+		}
+		return ownedSubprogramGroupAccesses;
 	}
 
 	/**
@@ -249,6 +350,37 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 				.getSubprogramGroupAccess());
 		getOwnedSubprogramGroupAccesses().add(newOwnedSubprogramGroupAccess);
 		return newOwnedSubprogramGroupAccess;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.DEVICE_TYPE__OWNED_DATA_PORT:
+			return ((InternalEList<?>) getOwnedDataPorts()).basicRemove(
+					otherEnd, msgs);
+		case Aadl2Package.DEVICE_TYPE__OWNED_EVENT_DATA_PORT:
+			return ((InternalEList<?>) getOwnedEventDataPorts()).basicRemove(
+					otherEnd, msgs);
+		case Aadl2Package.DEVICE_TYPE__OWNED_EVENT_PORT:
+			return ((InternalEList<?>) getOwnedEventPorts()).basicRemove(
+					otherEnd, msgs);
+		case Aadl2Package.DEVICE_TYPE__OWNED_BUS_ACCESS:
+			return ((InternalEList<?>) getOwnedBusAccesses()).basicRemove(
+					otherEnd, msgs);
+		case Aadl2Package.DEVICE_TYPE__OWNED_SUBPROGRAM_ACCESS:
+			return ((InternalEList<?>) getOwnedSubprogramAccesses())
+					.basicRemove(otherEnd, msgs);
+		case Aadl2Package.DEVICE_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
+			return ((InternalEList<?>) getOwnedSubprogramGroupAccesses())
+					.basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -286,27 +418,33 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_TYPE__OWNED_DATA_PORT:
 			getOwnedDataPorts().clear();
-			getOwnedDataPorts().addAll((Collection<? extends DataPort>) newValue);
+			getOwnedDataPorts().addAll(
+					(Collection<? extends DataPort>) newValue);
 			return;
 		case Aadl2Package.DEVICE_TYPE__OWNED_EVENT_DATA_PORT:
 			getOwnedEventDataPorts().clear();
-			getOwnedEventDataPorts().addAll((Collection<? extends EventDataPort>) newValue);
+			getOwnedEventDataPorts().addAll(
+					(Collection<? extends EventDataPort>) newValue);
 			return;
 		case Aadl2Package.DEVICE_TYPE__OWNED_EVENT_PORT:
 			getOwnedEventPorts().clear();
-			getOwnedEventPorts().addAll((Collection<? extends EventPort>) newValue);
+			getOwnedEventPorts().addAll(
+					(Collection<? extends EventPort>) newValue);
 			return;
 		case Aadl2Package.DEVICE_TYPE__OWNED_BUS_ACCESS:
 			getOwnedBusAccesses().clear();
-			getOwnedBusAccesses().addAll((Collection<? extends BusAccess>) newValue);
+			getOwnedBusAccesses().addAll(
+					(Collection<? extends BusAccess>) newValue);
 			return;
 		case Aadl2Package.DEVICE_TYPE__OWNED_SUBPROGRAM_ACCESS:
 			getOwnedSubprogramAccesses().clear();
-			getOwnedSubprogramAccesses().addAll((Collection<? extends SubprogramAccess>) newValue);
+			getOwnedSubprogramAccesses().addAll(
+					(Collection<? extends SubprogramAccess>) newValue);
 			return;
 		case Aadl2Package.DEVICE_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
 			getOwnedSubprogramGroupAccesses().clear();
-			getOwnedSubprogramGroupAccesses().addAll((Collection<? extends SubprogramGroupAccess>) newValue);
+			getOwnedSubprogramGroupAccesses().addAll(
+					(Collection<? extends SubprogramGroupAccess>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -351,17 +489,20 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_TYPE__OWNED_DATA_PORT:
-			return !getOwnedDataPorts().isEmpty();
+			return ownedDataPorts != null && !ownedDataPorts.isEmpty();
 		case Aadl2Package.DEVICE_TYPE__OWNED_EVENT_DATA_PORT:
-			return !getOwnedEventDataPorts().isEmpty();
+			return ownedEventDataPorts != null
+					&& !ownedEventDataPorts.isEmpty();
 		case Aadl2Package.DEVICE_TYPE__OWNED_EVENT_PORT:
-			return !getOwnedEventPorts().isEmpty();
+			return ownedEventPorts != null && !ownedEventPorts.isEmpty();
 		case Aadl2Package.DEVICE_TYPE__OWNED_BUS_ACCESS:
-			return !getOwnedBusAccesses().isEmpty();
+			return ownedBusAccesses != null && !ownedBusAccesses.isEmpty();
 		case Aadl2Package.DEVICE_TYPE__OWNED_SUBPROGRAM_ACCESS:
-			return !getOwnedSubprogramAccesses().isEmpty();
+			return ownedSubprogramAccesses != null
+					&& !ownedSubprogramAccesses.isEmpty();
 		case Aadl2Package.DEVICE_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
-			return !getOwnedSubprogramGroupAccesses().isEmpty();
+			return ownedSubprogramGroupAccesses != null
+					&& !ownedSubprogramGroupAccesses.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -373,7 +514,8 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 	 */
 	@Override
 	public boolean isSetOwnedFeatures() {
-		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.DEVICE_TYPE__OWNED_DATA_PORT)
+		return super.isSetOwnedFeatures()
+				|| eIsSet(Aadl2Package.DEVICE_TYPE__OWNED_DATA_PORT)
 				|| eIsSet(Aadl2Package.DEVICE_TYPE__OWNED_EVENT_DATA_PORT)
 				|| eIsSet(Aadl2Package.DEVICE_TYPE__OWNED_EVENT_PORT)
 				|| eIsSet(Aadl2Package.DEVICE_TYPE__OWNED_BUS_ACCESS)

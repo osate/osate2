@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
@@ -82,7 +83,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getModesAndTransitions <em>Modes And Transitions</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getArraySpecification <em>Array Specification</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getClassifier <em>Classifier</em>}</li>
@@ -98,16 +98,17 @@ import org.osate.aadl2.properties.PropertyAcc;
  *
  * @generated
  */
-public abstract class SubcomponentImpl extends StructuralFeatureImpl implements Subcomponent {
+public abstract class SubcomponentImpl extends StructuralFeatureImpl implements
+		Subcomponent {
 	/**
-	 * The cached value of the '{@link #getModesAndTransitions() <em>Modes And Transitions</em>}' attribute list.
+	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getModesAndTransitions()
+	 * @see #getInModes()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureMap modesAndTransitions;
+	protected EList<Mode> inModes;
 
 	/**
 	 * The cached value of the '{@link #getArraySpecification() <em>Array Specification</em>}' containment reference.
@@ -219,20 +220,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureMap getModesAndTransitions() {
-		if (modesAndTransitions == null) {
-			modesAndTransitions = new BasicFeatureMap(this, Aadl2Package.SUBCOMPONENT__MODES_AND_TRANSITIONS);
-		}
-		return modesAndTransitions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<Mode> getInModes() {
-		return getModesAndTransitions().list(Aadl2Package.eINSTANCE.getModalElement_InMode());
+		if (inModes == null) {
+			inModes = new EObjectResolvingEList<Mode>(Mode.class, this,
+					Aadl2Package.SUBCOMPONENT__IN_MODE);
+		}
+		return inModes;
 	}
 
 	/**
@@ -249,12 +242,15 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetArraySpecification(ArraySpecification newArraySpecification, NotificationChain msgs) {
+	public NotificationChain basicSetArraySpecification(
+			ArraySpecification newArraySpecification, NotificationChain msgs) {
 		ArraySpecification oldArraySpecification = arraySpecification;
 		arraySpecification = newArraySpecification;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION, oldArraySpecification, newArraySpecification);
+			ENotificationImpl notification = new ENotificationImpl(this,
+					Notification.SET,
+					Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION,
+					oldArraySpecification, newArraySpecification);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -272,16 +268,25 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		if (newArraySpecification != arraySpecification) {
 			NotificationChain msgs = null;
 			if (arraySpecification != null)
-				msgs = ((InternalEObject) arraySpecification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION, null, msgs);
+				msgs = ((InternalEObject) arraySpecification)
+						.eInverseRemove(
+								this,
+								EOPPOSITE_FEATURE_BASE
+										- Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION,
+								null, msgs);
 			if (newArraySpecification != null)
-				msgs = ((InternalEObject) newArraySpecification).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION, null, msgs);
+				msgs = ((InternalEObject) newArraySpecification)
+						.eInverseAdd(
+								this,
+								EOPPOSITE_FEATURE_BASE
+										- Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION,
+								null, msgs);
 			msgs = basicSetArraySpecification(newArraySpecification, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION,
 					newArraySpecification, newArraySpecification));
 	}
 
@@ -324,7 +329,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public EList<PrototypeBinding> getOwnedPrototypeBindings() {
 		if (ownedPrototypeBindings == null) {
-			ownedPrototypeBindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
+			ownedPrototypeBindings = new EObjectContainmentEList<PrototypeBinding>(
+					PrototypeBinding.class, this,
 					Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING);
 		}
 		return ownedPrototypeBindings;
@@ -352,8 +358,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			prototype = (ComponentPrototype) eResolveProxy(oldPrototype);
 			if (prototype != oldPrototype) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.SUBCOMPONENT__PROTOTYPE,
-							oldPrototype, prototype));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.SUBCOMPONENT__PROTOTYPE, oldPrototype,
+							prototype));
 			}
 		}
 		return prototype;
@@ -377,7 +384,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		ComponentPrototype oldPrototype = prototype;
 		prototype = newPrototype;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT__PROTOTYPE, oldPrototype,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SUBCOMPONENT__PROTOTYPE, oldPrototype,
 					prototype));
 	}
 
@@ -388,7 +396,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public EList<ModeBinding> getModeBindings() {
 		if (modeBindings == null) {
-			modeBindings = new EObjectContainmentEList<ModeBinding>(ModeBinding.class, this,
+			modeBindings = new EObjectContainmentEList<ModeBinding>(
+					ModeBinding.class, this,
 					Aadl2Package.SUBCOMPONENT__MODE_BINDING);
 		}
 		return modeBindings;
@@ -400,7 +409,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * @generated
 	 */
 	public ModeBinding createModeBinding() {
-		ModeBinding newModeBinding = (ModeBinding) create(Aadl2Package.eINSTANCE.getModeBinding());
+		ModeBinding newModeBinding = (ModeBinding) create(Aadl2Package.eINSTANCE
+				.getModeBinding());
 		getModeBindings().add(newModeBinding);
 		return newModeBinding;
 	}
@@ -423,8 +433,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		boolean oldAllModes = allModes;
 		allModes = newAllModes;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT__ALL_MODES, oldAllModes,
-					allModes));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SUBCOMPONENT__ALL_MODES, oldAllModes, allModes));
 	}
 
 	/**
@@ -435,7 +445,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public EList<ComponentImplementationReference> getImplementationReferences() {
 		if (implementationReferences == null) {
 			implementationReferences = new EObjectContainmentEList<ComponentImplementationReference>(
-					ComponentImplementationReference.class, this, Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE);
+					ComponentImplementationReference.class, this,
+					Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE);
 		}
 		return implementationReferences;
 	}
@@ -463,8 +474,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			refined = (Subcomponent) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.SUBCOMPONENT__REFINED,
-							oldRefined, refined));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.SUBCOMPONENT__REFINED, oldRefined,
+							refined));
 			}
 		}
 		return refined;
@@ -488,8 +500,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		Subcomponent oldRefined = refined;
 		refined = newRefined;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT__REFINED, oldRefined,
-					refined));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SUBCOMPONENT__REFINED, oldRefined, refined));
 	}
 
 	/**
@@ -508,7 +520,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public AbstractClassifier getAbstractClassifier() {
 		AbstractClassifier abstractClassifier = basicGetAbstractClassifier();
-		return abstractClassifier != null && ((EObject) abstractClassifier).eIsProxy() ? (AbstractClassifier) eResolveProxy((InternalEObject) abstractClassifier)
+		return abstractClassifier != null
+				&& ((EObject) abstractClassifier).eIsProxy() ? (AbstractClassifier) eResolveProxy((InternalEObject) abstractClassifier)
 				: abstractClassifier;
 	}
 
@@ -539,18 +552,20 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Aadl2Package.SUBCOMPONENT__MODES_AND_TRANSITIONS:
-			return ((InternalEList<?>) getModesAndTransitions()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:
 			return basicSetArraySpecification(null, msgs);
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
-			return ((InternalEList<?>) getOwnedPrototypeBindings()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedPrototypeBindings())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
-			return ((InternalEList<?>) getModeBindings()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getModeBindings()).basicRemove(otherEnd,
+					msgs);
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
-			return ((InternalEList<?>) getImplementationReferences()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getImplementationReferences())
+					.basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -563,10 +578,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.SUBCOMPONENT__MODES_AND_TRANSITIONS:
-			if (coreType)
-				return getModesAndTransitions();
-			return ((FeatureMap.Internal) getModesAndTransitions()).getWrapper();
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
 			return getInModes();
 		case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:
@@ -608,9 +619,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.SUBCOMPONENT__MODES_AND_TRANSITIONS:
-			((FeatureMap.Internal) getModesAndTransitions()).set(newValue);
-			return;
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
 			getInModes().clear();
 			getInModes().addAll((Collection<? extends Mode>) newValue);
@@ -620,21 +628,24 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			return;
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 			getOwnedPrototypeBindings().clear();
-			getOwnedPrototypeBindings().addAll((Collection<? extends PrototypeBinding>) newValue);
+			getOwnedPrototypeBindings().addAll(
+					(Collection<? extends PrototypeBinding>) newValue);
 			return;
 		case Aadl2Package.SUBCOMPONENT__PROTOTYPE:
 			setPrototype((ComponentPrototype) newValue);
 			return;
 		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
 			getModeBindings().clear();
-			getModeBindings().addAll((Collection<? extends ModeBinding>) newValue);
+			getModeBindings().addAll(
+					(Collection<? extends ModeBinding>) newValue);
 			return;
 		case Aadl2Package.SUBCOMPONENT__ALL_MODES:
 			setAllModes((Boolean) newValue);
 			return;
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
 			getImplementationReferences().clear();
-			getImplementationReferences().addAll((Collection<? extends ComponentImplementationReference>) newValue);
+			getImplementationReferences()
+					.addAll((Collection<? extends ComponentImplementationReference>) newValue);
 			return;
 		case Aadl2Package.SUBCOMPONENT__REFINED:
 			setRefined((Subcomponent) newValue);
@@ -654,9 +665,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBCOMPONENT__MODES_AND_TRANSITIONS:
-			getModesAndTransitions().clear();
-			return;
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
 			getInModes().clear();
 			return;
@@ -696,16 +704,15 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBCOMPONENT__MODES_AND_TRANSITIONS:
-			return modesAndTransitions != null && !modesAndTransitions.isEmpty();
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
-			return !getInModes().isEmpty();
+			return inModes != null && !inModes.isEmpty();
 		case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:
 			return arraySpecification != null;
 		case Aadl2Package.SUBCOMPONENT__CLASSIFIER:
 			return isSetClassifier();
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
-			return ownedPrototypeBindings != null && !ownedPrototypeBindings.isEmpty();
+			return ownedPrototypeBindings != null
+					&& !ownedPrototypeBindings.isEmpty();
 		case Aadl2Package.SUBCOMPONENT__PROTOTYPE:
 			return prototype != null;
 		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
@@ -713,7 +720,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__ALL_MODES:
 			return allModes != ALL_MODES_EDEFAULT;
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
-			return implementationReferences != null && !implementationReferences.isEmpty();
+			return implementationReferences != null
+					&& !implementationReferences.isEmpty();
 		case Aadl2Package.SUBCOMPONENT__REFINED:
 			return isSetRefined();
 		case Aadl2Package.SUBCOMPONENT__ABSTRACT_CLASSIFIER:
@@ -731,8 +739,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.SUBCOMPONENT__MODES_AND_TRANSITIONS:
-				return Aadl2Package.MODAL_ELEMENT__MODES_AND_TRANSITIONS;
 			case Aadl2Package.SUBCOMPONENT__IN_MODE:
 				return Aadl2Package.MODAL_ELEMENT__IN_MODE;
 			default:
@@ -777,8 +783,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.MODAL_ELEMENT__MODES_AND_TRANSITIONS:
-				return Aadl2Package.SUBCOMPONENT__MODES_AND_TRANSITIONS;
 			case Aadl2Package.MODAL_ELEMENT__IN_MODE:
 				return Aadl2Package.SUBCOMPONENT__IN_MODE;
 			default:
@@ -825,9 +829,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (modesAndTransitions: ");
-		result.append(modesAndTransitions);
-		result.append(", allModes: ");
+		result.append(" (allModes: ");
 		result.append(allModes);
 		result.append(')');
 		return result.toString();
@@ -938,8 +940,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			return false;
 	}
 
-	public final void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+	public final void getPropertyValueInternal(final Property prop,
+			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
 		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();
 
 		// local contained value
@@ -998,7 +1001,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		return inmodes;
 	}
 
-	public void getPropertyValueTest(Property prop, PropertyAcc pas, Classifier cl) {
+	public void getPropertyValueTest(Property prop, PropertyAcc pas,
+			Classifier cl) {
 		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();
 
 		if (pas.addLocalContained(this, owner)) {

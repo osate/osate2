@@ -54,7 +54,7 @@ import org.eclipse.emf.ecore.EClass;
  * @model
  * @generated
  */
-public interface SubprogramCallSequence extends ModalElement, BehavioralFeature {
+public interface SubprogramCallSequence extends BehavioralFeature, ModalElement {
 	/**
 	 * Returns the value of the '<em><b>Owned Call Specification</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.CallSpecification}.

@@ -54,7 +54,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SubprogramGroupImplementation extends ComponentImplementation, SubprogramGroupClassifier {
+public interface SubprogramGroupImplementation extends ComponentImplementation,
+		SubprogramGroupClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Subprogram Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramSubcomponent}.
@@ -72,8 +73,7 @@ public interface SubprogramGroupImplementation extends ComponentImplementation, 
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupImplementation_OwnedSubprogramSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents();

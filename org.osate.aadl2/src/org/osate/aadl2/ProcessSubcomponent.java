@@ -51,7 +51,8 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface ProcessSubcomponent extends Subcomponent, org.osate.aadl2.Process {
+public interface ProcessSubcomponent extends Subcomponent,
+		org.osate.aadl2.Process {
 
 	/**
 	 * Returns the value of the '<em><b>Process Classifier</b></em>' reference.
