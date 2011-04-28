@@ -125,7 +125,8 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 			dataClassifier = (DataClassifier) eResolveProxy(oldDataClassifier);
 			if (dataClassifier != oldDataClassifier) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PARAMETER__DATA_CLASSIFIER,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.PARAMETER__DATA_CLASSIFIER,
 							oldDataClassifier, dataClassifier));
 			}
 		}
@@ -150,8 +151,9 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 		DataClassifier oldDataClassifier = dataClassifier;
 		dataClassifier = newDataClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PARAMETER__DATA_CLASSIFIER,
-					oldDataClassifier, dataClassifier));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PARAMETER__DATA_CLASSIFIER, oldDataClassifier,
+					dataClassifier));
 	}
 
 	/**
@@ -221,7 +223,8 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.PARAMETER__DATA_CLASSIFIER);
+		return super.isSetClassifier()
+				|| eIsSet(Aadl2Package.PARAMETER__DATA_CLASSIFIER);
 	}
 
 } //ParameterImpl

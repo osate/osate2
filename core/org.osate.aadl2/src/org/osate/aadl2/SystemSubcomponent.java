@@ -51,7 +51,8 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface SystemSubcomponent extends Subcomponent, org.osate.aadl2.System {
+public interface SystemSubcomponent extends Subcomponent,
+		org.osate.aadl2.System {
 
 	/**
 	 * Returns the value of the '<em><b>System Classifier</b></em>' reference.

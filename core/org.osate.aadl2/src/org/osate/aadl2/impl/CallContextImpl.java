@@ -49,7 +49,8 @@ import org.osate.aadl2.CallContext;
  *
  * @generated
  */
-public abstract class CallContextImpl extends ElementImpl implements CallContext {
+public abstract class CallContextImpl extends ElementImpl implements
+		CallContext {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

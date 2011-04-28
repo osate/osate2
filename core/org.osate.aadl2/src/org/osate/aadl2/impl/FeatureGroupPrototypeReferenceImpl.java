@@ -58,7 +58,8 @@ import org.osate.aadl2.FeatureGroupPrototypeReference;
  *
  * @generated
  */
-public class FeatureGroupPrototypeReferenceImpl extends FeatureGroupPrototypeActualImpl implements
+public class FeatureGroupPrototypeReferenceImpl extends
+		FeatureGroupPrototypeActualImpl implements
 		FeatureGroupPrototypeReference {
 	/**
 	 * The cached value of the '{@link #getPrototype() <em>Prototype</em>}' reference.
@@ -100,8 +101,11 @@ public class FeatureGroupPrototypeReferenceImpl extends FeatureGroupPrototypeAct
 			prototype = (FeatureGroupPrototype) eResolveProxy(oldPrototype);
 			if (prototype != oldPrototype) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE__PROTOTYPE, oldPrototype, prototype));
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
+							Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE__PROTOTYPE,
+							oldPrototype, prototype));
 			}
 		}
 		return prototype;
@@ -126,7 +130,8 @@ public class FeatureGroupPrototypeReferenceImpl extends FeatureGroupPrototypeAct
 		prototype = newPrototype;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE__PROTOTYPE, oldPrototype, prototype));
+					Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE__PROTOTYPE,
+					oldPrototype, prototype));
 	}
 
 	/**

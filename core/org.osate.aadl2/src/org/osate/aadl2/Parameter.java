@@ -51,7 +51,8 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface Parameter extends DirectedFeature, Context, ParameterConnectionEnd {
+public interface Parameter extends DirectedFeature, Context,
+		ParameterConnectionEnd {
 	/**
 	 * Returns the value of the '<em><b>Data Classifier</b></em>' reference.
 	 * <p>

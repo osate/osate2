@@ -63,7 +63,8 @@ import org.osate.aadl2.properties.PropertyAcc;
  *
  * @generated
  */
-public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGroup {
+public class FeatureGroupImpl extends DirectedFeatureImpl implements
+		FeatureGroup {
 	/**
 	 * The default value of the '{@link #isInverse() <em>Inverse</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -129,8 +130,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 		boolean oldInverse = inverse;
 		inverse = newInverse;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP__INVERSE, oldInverse,
-					inverse));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FEATURE_GROUP__INVERSE, oldInverse, inverse));
 	}
 
 	/**
@@ -145,7 +146,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 			if (featureGroupType != oldFeatureGroupType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FEATURE_GROUP__FEATURE_GROUP_TYPE, oldFeatureGroupType, featureGroupType));
+							Aadl2Package.FEATURE_GROUP__FEATURE_GROUP_TYPE,
+							oldFeatureGroupType, featureGroupType));
 			}
 		}
 		return featureGroupType;
@@ -169,7 +171,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 		FeatureGroupType oldFeatureGroupType = featureGroupType;
 		featureGroupType = newFeatureGroupType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP__FEATURE_GROUP_TYPE,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FEATURE_GROUP__FEATURE_GROUP_TYPE,
 					oldFeatureGroupType, featureGroupType));
 	}
 
@@ -282,8 +285,9 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	}
 
 	@Override
-	public void getPropertyValueInternalHelper(final Property prop, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+	public void getPropertyValueInternalHelper(final Property prop,
+			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
 		// values from feature group type
 		FeatureGroupType fgt = getFeatureGroupType();
 		// TODO: Check if the property applies to the feature group type? (-> property.checkAppliesTo(NamedElement)?)
@@ -292,7 +296,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 		}
 	}
 
-	public void getPropertyValueTestHelper(Property prop, PropertyAcc pas, Classifier cl) {
+	public void getPropertyValueTestHelper(Property prop, PropertyAcc pas,
+			Classifier cl) {
 		// values from feature group type
 		FeatureGroupType fgt = getFeatureGroupType();
 		// TODO: Check if the property applies to the feature group type? (-> property.checkAppliesTo(NamedElement)?)

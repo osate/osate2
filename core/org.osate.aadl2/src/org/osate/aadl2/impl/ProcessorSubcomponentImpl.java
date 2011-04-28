@@ -58,7 +58,8 @@ import org.osate.aadl2.ProcessorSubcomponent;
  *
  * @generated
  */
-public class ProcessorSubcomponentImpl extends SubcomponentImpl implements ProcessorSubcomponent {
+public class ProcessorSubcomponentImpl extends SubcomponentImpl implements
+		ProcessorSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,7 +108,8 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 */
 	public ProcessorClassifier getProcessorClassifier() {
 		ProcessorClassifier processorClassifier = basicGetProcessorClassifier();
-		return processorClassifier != null && ((EObject) processorClassifier).eIsProxy() ? (ProcessorClassifier) eResolveProxy((InternalEObject) processorClassifier)
+		return processorClassifier != null
+				&& ((EObject) processorClassifier).eIsProxy() ? (ProcessorClassifier) eResolveProxy((InternalEObject) processorClassifier)
 				: processorClassifier;
 	}
 
@@ -128,7 +130,8 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void setProcessorClassifier(ProcessorClassifier newProcessorClassifier) {
+	public void setProcessorClassifier(
+			ProcessorClassifier newProcessorClassifier) {
 		classifier = newProcessorClassifier;
 	}
 
@@ -199,7 +202,8 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_CLASSIFIER);
+		return super.isSetClassifier()
+				|| eIsSet(Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_CLASSIFIER);
 	}
 
 	public ComponentCategory getCategory() {

@@ -54,7 +54,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface DataImplementation extends ComponentImplementation, DataClassifier {
+public interface DataImplementation extends ComponentImplementation,
+		DataClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Data Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.DataSubcomponent}.
@@ -72,8 +73,7 @@ public interface DataImplementation extends ComponentImplementation, DataClassif
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDataImplementation_OwnedDataSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DataSubcomponent> getOwnedDataSubcomponents();
@@ -105,8 +105,7 @@ public interface DataImplementation extends ComponentImplementation, DataClassif
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDataImplementation_OwnedSubprogramSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents();

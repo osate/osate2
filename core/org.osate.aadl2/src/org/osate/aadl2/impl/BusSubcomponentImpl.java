@@ -58,7 +58,8 @@ import org.osate.aadl2.ComponentClassifier;
  *
  * @generated
  */
-public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcomponent {
+public class BusSubcomponentImpl extends SubcomponentImpl implements
+		BusSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -199,7 +200,8 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.BUS_SUBCOMPONENT__BUS_CLASSIFIER);
+		return super.isSetClassifier()
+				|| eIsSet(Aadl2Package.BUS_SUBCOMPONENT__BUS_CLASSIFIER);
 	}
 
 	public ComponentCategory getCategory() {

@@ -54,7 +54,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface MemoryImplementation extends ComponentImplementation, MemoryClassifier {
+public interface MemoryImplementation extends ComponentImplementation,
+		MemoryClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Bus Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.BusSubcomponent}.
@@ -72,8 +73,7 @@ public interface MemoryImplementation extends ComponentImplementation, MemoryCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryImplementation_OwnedBusSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<BusSubcomponent> getOwnedBusSubcomponents();
@@ -105,8 +105,7 @@ public interface MemoryImplementation extends ComponentImplementation, MemoryCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Memory Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryImplementation_OwnedMemorySubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<MemorySubcomponent> getOwnedMemorySubcomponents();

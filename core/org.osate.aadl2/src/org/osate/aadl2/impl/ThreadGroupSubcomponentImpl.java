@@ -58,7 +58,8 @@ import org.osate.aadl2.ThreadGroupSubcomponent;
  *
  * @generated
  */
-public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements ThreadGroupSubcomponent {
+public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements
+		ThreadGroupSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,7 +108,8 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	 */
 	public ThreadGroupClassifier getThreadGroupClassifier() {
 		ThreadGroupClassifier threadGroupClassifier = basicGetThreadGroupClassifier();
-		return threadGroupClassifier != null && ((EObject) threadGroupClassifier).eIsProxy() ? (ThreadGroupClassifier) eResolveProxy((InternalEObject) threadGroupClassifier)
+		return threadGroupClassifier != null
+				&& ((EObject) threadGroupClassifier).eIsProxy() ? (ThreadGroupClassifier) eResolveProxy((InternalEObject) threadGroupClassifier)
 				: threadGroupClassifier;
 	}
 
@@ -128,7 +130,8 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void setThreadGroupClassifier(ThreadGroupClassifier newThreadGroupClassifier) {
+	public void setThreadGroupClassifier(
+			ThreadGroupClassifier newThreadGroupClassifier) {
 		classifier = newThreadGroupClassifier;
 	}
 
@@ -199,7 +202,8 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_CLASSIFIER);
+		return super.isSetClassifier()
+				|| eIsSet(Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_CLASSIFIER);
 	}
 
 	public ComponentCategory getCategory() {

@@ -49,7 +49,8 @@ import org.osate.aadl2.ComponentCategory;
  *
  * @generated
  */
-public class AbstractSubcomponentImpl extends SubcomponentImpl implements AbstractSubcomponent {
+public class AbstractSubcomponentImpl extends SubcomponentImpl implements
+		AbstractSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

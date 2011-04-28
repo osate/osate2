@@ -37,9 +37,13 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -71,7 +75,63 @@ import org.osate.aadl2.SubprogramType;
  *
  * @generated
  */
-public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramType {
+public class SubprogramTypeImpl extends ComponentTypeImpl implements
+		SubprogramType {
+	/**
+	 * The cached value of the '{@link #getOwnedEventDataPorts() <em>Owned Event Data Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedEventDataPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventDataPort> ownedEventDataPorts;
+	/**
+	 * The cached value of the '{@link #getOwnedEventPorts() <em>Owned Event Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedEventPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventPort> ownedEventPorts;
+	/**
+	 * The cached value of the '{@link #getOwnedParameters() <em>Owned Parameter</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedParameters()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Parameter> ownedParameters;
+	/**
+	 * The cached value of the '{@link #getOwnedDataAccesses() <em>Owned Data Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDataAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataAccess> ownedDataAccesses;
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramAccesses() <em>Owned Subprogram Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramAccess> ownedSubprogramAccesses;
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramGroupAccesses() <em>Owned Subprogram Group Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramGroupAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramGroupAccess> ownedSubprogramGroupAccesses;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -102,16 +162,21 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(eResource, this,
+			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
 			if (ownedFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<Feature>(Feature.class, this,
-								Aadl2Package.SUBPROGRAM_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getComponentType_OwnedFeature(),
+						ownedFeatures = new DerivedUnionEObjectEList<Feature>(
+								Feature.class, this,
+								Aadl2Package.SUBPROGRAM_TYPE__OWNED_FEATURE,
+								OWNED_FEATURE_ESUBSETS));
 			}
 			return ownedFeatures;
 		}
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.SUBPROGRAM_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<Feature>(Feature.class, this,
+				Aadl2Package.SUBPROGRAM_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -124,9 +189,12 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @ordered
 	 */
 	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] {
-			Aadl2Package.SUBPROGRAM_TYPE__OWNED_FEATURE_GROUP, Aadl2Package.SUBPROGRAM_TYPE__OWNED_ABSTRACT_FEATURE,
-			Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT, Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_PORT,
-			Aadl2Package.SUBPROGRAM_TYPE__OWNED_PARAMETER, Aadl2Package.SUBPROGRAM_TYPE__OWNED_DATA_ACCESS,
+			Aadl2Package.SUBPROGRAM_TYPE__OWNED_FEATURE_GROUP,
+			Aadl2Package.SUBPROGRAM_TYPE__OWNED_ABSTRACT_FEATURE,
+			Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT,
+			Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_PORT,
+			Aadl2Package.SUBPROGRAM_TYPE__OWNED_PARAMETER,
+			Aadl2Package.SUBPROGRAM_TYPE__OWNED_DATA_ACCESS,
 			Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_ACCESS,
 			Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS };
 
@@ -136,7 +204,12 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @generated
 	 */
 	public EList<EventDataPort> getOwnedEventDataPorts() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSubprogramType_OwnedEventDataPort());
+		if (ownedEventDataPorts == null) {
+			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(
+					EventDataPort.class, this,
+					Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT);
+		}
+		return ownedEventDataPorts;
 	}
 
 	/**
@@ -145,7 +218,8 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @generated
 	 */
 	public EventDataPort createOwnedEventDataPort() {
-		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE.getEventDataPort());
+		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE
+				.getEventDataPort());
 		getOwnedEventDataPorts().add(newOwnedEventDataPort);
 		return newOwnedEventDataPort;
 	}
@@ -156,7 +230,12 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @generated
 	 */
 	public EList<EventPort> getOwnedEventPorts() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSubprogramType_OwnedEventPort());
+		if (ownedEventPorts == null) {
+			ownedEventPorts = new EObjectContainmentEList<EventPort>(
+					EventPort.class, this,
+					Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_PORT);
+		}
+		return ownedEventPorts;
 	}
 
 	/**
@@ -165,7 +244,8 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @generated
 	 */
 	public EventPort createOwnedEventPort() {
-		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE.getEventPort());
+		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE
+				.getEventPort());
 		getOwnedEventPorts().add(newOwnedEventPort);
 		return newOwnedEventPort;
 	}
@@ -176,7 +256,12 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @generated
 	 */
 	public EList<Parameter> getOwnedParameters() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSubprogramType_OwnedParameter());
+		if (ownedParameters == null) {
+			ownedParameters = new EObjectContainmentEList<Parameter>(
+					Parameter.class, this,
+					Aadl2Package.SUBPROGRAM_TYPE__OWNED_PARAMETER);
+		}
+		return ownedParameters;
 	}
 
 	/**
@@ -185,7 +270,8 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @generated
 	 */
 	public Parameter createOwnedParameter() {
-		Parameter newOwnedParameter = (Parameter) create(Aadl2Package.eINSTANCE.getParameter());
+		Parameter newOwnedParameter = (Parameter) create(Aadl2Package.eINSTANCE
+				.getParameter());
 		getOwnedParameters().add(newOwnedParameter);
 		return newOwnedParameter;
 	}
@@ -196,7 +282,12 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @generated
 	 */
 	public EList<DataAccess> getOwnedDataAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSubprogramType_OwnedDataAccess());
+		if (ownedDataAccesses == null) {
+			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(
+					DataAccess.class, this,
+					Aadl2Package.SUBPROGRAM_TYPE__OWNED_DATA_ACCESS);
+		}
+		return ownedDataAccesses;
 	}
 
 	/**
@@ -205,7 +296,8 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @generated
 	 */
 	public DataAccess createOwnedDataAccess() {
-		DataAccess newOwnedDataAccess = (DataAccess) create(Aadl2Package.eINSTANCE.getDataAccess());
+		DataAccess newOwnedDataAccess = (DataAccess) create(Aadl2Package.eINSTANCE
+				.getDataAccess());
 		getOwnedDataAccesses().add(newOwnedDataAccess);
 		return newOwnedDataAccess;
 	}
@@ -216,7 +308,12 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @generated
 	 */
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSubprogramType_OwnedSubprogramAccess());
+		if (ownedSubprogramAccesses == null) {
+			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(
+					SubprogramAccess.class, this,
+					Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_ACCESS);
+		}
+		return ownedSubprogramAccesses;
 	}
 
 	/**
@@ -237,7 +334,12 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @generated
 	 */
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getSubprogramType_OwnedSubprogramGroupAccess());
+		if (ownedSubprogramGroupAccesses == null) {
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
+					SubprogramGroupAccess.class, this,
+					Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
+		}
+		return ownedSubprogramGroupAccesses;
 	}
 
 	/**
@@ -250,6 +352,37 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 				.getSubprogramGroupAccess());
 		getOwnedSubprogramGroupAccesses().add(newOwnedSubprogramGroupAccess);
 		return newOwnedSubprogramGroupAccess;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT:
+			return ((InternalEList<?>) getOwnedEventDataPorts()).basicRemove(
+					otherEnd, msgs);
+		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_PORT:
+			return ((InternalEList<?>) getOwnedEventPorts()).basicRemove(
+					otherEnd, msgs);
+		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_PARAMETER:
+			return ((InternalEList<?>) getOwnedParameters()).basicRemove(
+					otherEnd, msgs);
+		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_DATA_ACCESS:
+			return ((InternalEList<?>) getOwnedDataAccesses()).basicRemove(
+					otherEnd, msgs);
+		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_ACCESS:
+			return ((InternalEList<?>) getOwnedSubprogramAccesses())
+					.basicRemove(otherEnd, msgs);
+		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
+			return ((InternalEList<?>) getOwnedSubprogramGroupAccesses())
+					.basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -287,27 +420,33 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT:
 			getOwnedEventDataPorts().clear();
-			getOwnedEventDataPorts().addAll((Collection<? extends EventDataPort>) newValue);
+			getOwnedEventDataPorts().addAll(
+					(Collection<? extends EventDataPort>) newValue);
 			return;
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_PORT:
 			getOwnedEventPorts().clear();
-			getOwnedEventPorts().addAll((Collection<? extends EventPort>) newValue);
+			getOwnedEventPorts().addAll(
+					(Collection<? extends EventPort>) newValue);
 			return;
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_PARAMETER:
 			getOwnedParameters().clear();
-			getOwnedParameters().addAll((Collection<? extends Parameter>) newValue);
+			getOwnedParameters().addAll(
+					(Collection<? extends Parameter>) newValue);
 			return;
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_DATA_ACCESS:
 			getOwnedDataAccesses().clear();
-			getOwnedDataAccesses().addAll((Collection<? extends DataAccess>) newValue);
+			getOwnedDataAccesses().addAll(
+					(Collection<? extends DataAccess>) newValue);
 			return;
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_ACCESS:
 			getOwnedSubprogramAccesses().clear();
-			getOwnedSubprogramAccesses().addAll((Collection<? extends SubprogramAccess>) newValue);
+			getOwnedSubprogramAccesses().addAll(
+					(Collection<? extends SubprogramAccess>) newValue);
 			return;
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
 			getOwnedSubprogramGroupAccesses().clear();
-			getOwnedSubprogramGroupAccesses().addAll((Collection<? extends SubprogramGroupAccess>) newValue);
+			getOwnedSubprogramGroupAccesses().addAll(
+					(Collection<? extends SubprogramGroupAccess>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -352,17 +491,20 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT:
-			return !getOwnedEventDataPorts().isEmpty();
+			return ownedEventDataPorts != null
+					&& !ownedEventDataPorts.isEmpty();
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_PORT:
-			return !getOwnedEventPorts().isEmpty();
+			return ownedEventPorts != null && !ownedEventPorts.isEmpty();
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_PARAMETER:
-			return !getOwnedParameters().isEmpty();
+			return ownedParameters != null && !ownedParameters.isEmpty();
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_DATA_ACCESS:
-			return !getOwnedDataAccesses().isEmpty();
+			return ownedDataAccesses != null && !ownedDataAccesses.isEmpty();
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_ACCESS:
-			return !getOwnedSubprogramAccesses().isEmpty();
+			return ownedSubprogramAccesses != null
+					&& !ownedSubprogramAccesses.isEmpty();
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
-			return !getOwnedSubprogramGroupAccesses().isEmpty();
+			return ownedSubprogramGroupAccesses != null
+					&& !ownedSubprogramGroupAccesses.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -374,7 +516,8 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 */
 	@Override
 	public boolean isSetOwnedFeatures() {
-		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT)
+		return super.isSetOwnedFeatures()
+				|| eIsSet(Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT)
 				|| eIsSet(Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_PORT)
 				|| eIsSet(Aadl2Package.SUBPROGRAM_TYPE__OWNED_PARAMETER)
 				|| eIsSet(Aadl2Package.SUBPROGRAM_TYPE__OWNED_DATA_ACCESS)

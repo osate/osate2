@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -70,7 +71,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getModesAndTransitions <em>Modes And Transitions</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getInTransitions <em>In Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getFlowElements <em>Flow Element</em>}</li>
@@ -84,14 +84,24 @@ import org.osate.aadl2.properties.PropertyAcc;
 public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 
 	/**
-	 * The cached value of the '{@link #getModesAndTransitions() <em>Modes And Transitions</em>}' attribute list.
+	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getModesAndTransitions()
+	 * @see #getInModes()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureMap modesAndTransitions;
+	protected EList<Mode> inModes;
+
+	/**
+	 * The cached value of the '{@link #getInTransitions() <em>In Transition</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInTransitions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ModeTransition> inTransitions;
 
 	/**
 	 * The cached value of the '{@link #getFlowElements() <em>Flow Element</em>}' reference list.
@@ -147,20 +157,12 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureMap getModesAndTransitions() {
-		if (modesAndTransitions == null) {
-			modesAndTransitions = new BasicFeatureMap(this, Aadl2Package.END_TO_END_FLOW__MODES_AND_TRANSITIONS);
-		}
-		return modesAndTransitions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<Mode> getInModes() {
-		return getModesAndTransitions().list(Aadl2Package.eINSTANCE.getModalElement_InMode());
+		if (inModes == null) {
+			inModes = new EObjectResolvingEList<Mode>(Mode.class, this,
+					Aadl2Package.END_TO_END_FLOW__IN_MODE);
+		}
+		return inModes;
 	}
 
 	/**
@@ -169,7 +171,12 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	 * @generated
 	 */
 	public EList<ModeTransition> getInTransitions() {
-		return getModesAndTransitions().list(Aadl2Package.eINSTANCE.getModalPath_InTransition());
+		if (inTransitions == null) {
+			inTransitions = new EObjectResolvingEList<ModeTransition>(
+					ModeTransition.class, this,
+					Aadl2Package.END_TO_END_FLOW__IN_TRANSITION);
+		}
+		return inTransitions;
 	}
 
 	/**
@@ -208,8 +215,10 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	 */
 	public EList<EndToEndFlowElement> getFlowElements() {
 		if (flowElements == null) {
-			flowElements = new SubsetSupersetEObjectResolvingEList<EndToEndFlowElement>(EndToEndFlowElement.class,
-					this, Aadl2Package.END_TO_END_FLOW__FLOW_ELEMENT, null, FLOW_ELEMENT_ESUBSETS) {
+			flowElements = new SubsetSupersetEObjectResolvingEList<EndToEndFlowElement>(
+					EndToEndFlowElement.class, this,
+					Aadl2Package.END_TO_END_FLOW__FLOW_ELEMENT, null,
+					FLOW_ELEMENT_ESUBSETS) {
 				private static final long serialVersionUID = 1L;
 
 				/* (non-Javadoc)
@@ -245,8 +254,9 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 			refined = (EndToEndFlow) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.END_TO_END_FLOW__REFINED,
-							oldRefined, refined));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.END_TO_END_FLOW__REFINED, oldRefined,
+							refined));
 			}
 		}
 		return refined;
@@ -270,8 +280,8 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 		EndToEndFlow oldRefined = refined;
 		refined = newRefined;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.END_TO_END_FLOW__REFINED, oldRefined,
-					refined));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.END_TO_END_FLOW__REFINED, oldRefined, refined));
 	}
 
 	/**
@@ -291,7 +301,8 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	public EList<SubcomponentFlow> getOwnedSubcomponentFlows() {
 		if (ownedSubcomponentFlows == null) {
 			ownedSubcomponentFlows = new SubsetSupersetEObjectContainmentEList<SubcomponentFlow>(
-					SubcomponentFlow.class, this, Aadl2Package.END_TO_END_FLOW__OWNED_SUBCOMPONENT_FLOW,
+					SubcomponentFlow.class, this,
+					Aadl2Package.END_TO_END_FLOW__OWNED_SUBCOMPONENT_FLOW,
 					OWNED_SUBCOMPONENT_FLOW_ESUPERSETS, null);
 		}
 		return ownedSubcomponentFlows;
@@ -325,12 +336,12 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Aadl2Package.END_TO_END_FLOW__MODES_AND_TRANSITIONS:
-			return ((InternalEList<?>) getModesAndTransitions()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.END_TO_END_FLOW__OWNED_SUBCOMPONENT_FLOW:
-			return ((InternalEList<?>) getOwnedSubcomponentFlows()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedSubcomponentFlows())
+					.basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -343,10 +354,6 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.END_TO_END_FLOW__MODES_AND_TRANSITIONS:
-			if (coreType)
-				return getModesAndTransitions();
-			return ((FeatureMap.Internal) getModesAndTransitions()).getWrapper();
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE:
 			return getInModes();
 		case Aadl2Package.END_TO_END_FLOW__IN_TRANSITION:
@@ -372,27 +379,27 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.END_TO_END_FLOW__MODES_AND_TRANSITIONS:
-			((FeatureMap.Internal) getModesAndTransitions()).set(newValue);
-			return;
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE:
 			getInModes().clear();
 			getInModes().addAll((Collection<? extends Mode>) newValue);
 			return;
 		case Aadl2Package.END_TO_END_FLOW__IN_TRANSITION:
 			getInTransitions().clear();
-			getInTransitions().addAll((Collection<? extends ModeTransition>) newValue);
+			getInTransitions().addAll(
+					(Collection<? extends ModeTransition>) newValue);
 			return;
 		case Aadl2Package.END_TO_END_FLOW__FLOW_ELEMENT:
 			getFlowElements().clear();
-			getFlowElements().addAll((Collection<? extends EndToEndFlowElement>) newValue);
+			getFlowElements().addAll(
+					(Collection<? extends EndToEndFlowElement>) newValue);
 			return;
 		case Aadl2Package.END_TO_END_FLOW__REFINED:
 			setRefined((EndToEndFlow) newValue);
 			return;
 		case Aadl2Package.END_TO_END_FLOW__OWNED_SUBCOMPONENT_FLOW:
 			getOwnedSubcomponentFlows().clear();
-			getOwnedSubcomponentFlows().addAll((Collection<? extends SubcomponentFlow>) newValue);
+			getOwnedSubcomponentFlows().addAll(
+					(Collection<? extends SubcomponentFlow>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -406,9 +413,6 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.END_TO_END_FLOW__MODES_AND_TRANSITIONS:
-			getModesAndTransitions().clear();
-			return;
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE:
 			getInModes().clear();
 			return;
@@ -436,18 +440,17 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.END_TO_END_FLOW__MODES_AND_TRANSITIONS:
-			return modesAndTransitions != null && !modesAndTransitions.isEmpty();
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE:
-			return !getInModes().isEmpty();
+			return inModes != null && !inModes.isEmpty();
 		case Aadl2Package.END_TO_END_FLOW__IN_TRANSITION:
-			return !getInTransitions().isEmpty();
+			return inTransitions != null && !inTransitions.isEmpty();
 		case Aadl2Package.END_TO_END_FLOW__FLOW_ELEMENT:
 			return flowElements != null && !flowElements.isEmpty();
 		case Aadl2Package.END_TO_END_FLOW__REFINED:
 			return isSetRefined();
 		case Aadl2Package.END_TO_END_FLOW__OWNED_SUBCOMPONENT_FLOW:
-			return ownedSubcomponentFlows != null && !ownedSubcomponentFlows.isEmpty();
+			return ownedSubcomponentFlows != null
+					&& !ownedSubcomponentFlows.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -461,8 +464,6 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.END_TO_END_FLOW__MODES_AND_TRANSITIONS:
-				return Aadl2Package.MODAL_ELEMENT__MODES_AND_TRANSITIONS;
 			case Aadl2Package.END_TO_END_FLOW__IN_MODE:
 				return Aadl2Package.MODAL_ELEMENT__IN_MODE;
 			default:
@@ -495,8 +496,6 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.MODAL_ELEMENT__MODES_AND_TRANSITIONS:
-				return Aadl2Package.END_TO_END_FLOW__MODES_AND_TRANSITIONS;
 			case Aadl2Package.MODAL_ELEMENT__IN_MODE:
 				return Aadl2Package.END_TO_END_FLOW__IN_MODE;
 			default:
@@ -521,23 +520,6 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (modesAndTransitions: ");
-		result.append(modesAndTransitions);
-		result.append(')');
-		return result.toString();
-	}
-
-	/**
 	 * get the EndToEndFlowElement sequence taking into account refines
 	 * @return EList EndToEndFlowElement
 	 */
@@ -550,11 +532,13 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	public final void getPropertyValueInternal(final Property pn, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+	public final void getPropertyValueInternal(final Property pn,
+			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
 		final ComponentImplementation partOf = (ComponentImplementation) getContainingClassifier();
 		if (partOf == null) {
-			throw new InvalidModelException(this, "End to End Flow is not part of a component");
+			throw new InvalidModelException(this,
+					"End to End Flow is not part of a component");
 		}
 
 		// First check the container's contained property associations

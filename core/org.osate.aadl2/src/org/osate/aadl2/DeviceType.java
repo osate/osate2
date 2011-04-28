@@ -76,8 +76,7 @@ public interface DeviceType extends ComponentType, DeviceClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceType_OwnedDataPort()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DataPort> getOwnedDataPorts();
@@ -109,8 +108,7 @@ public interface DeviceType extends ComponentType, DeviceClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceType_OwnedEventDataPort()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<EventDataPort> getOwnedEventDataPorts();
@@ -142,8 +140,7 @@ public interface DeviceType extends ComponentType, DeviceClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceType_OwnedEventPort()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<EventPort> getOwnedEventPorts();
@@ -175,8 +172,7 @@ public interface DeviceType extends ComponentType, DeviceClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Bus Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceType_OwnedBusAccess()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<BusAccess> getOwnedBusAccesses();
@@ -208,8 +204,7 @@ public interface DeviceType extends ComponentType, DeviceClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceType_OwnedSubprogramAccess()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramAccess> getOwnedSubprogramAccesses();
@@ -241,8 +236,7 @@ public interface DeviceType extends ComponentType, DeviceClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceType_OwnedSubprogramGroupAccess()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='type#features'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses();

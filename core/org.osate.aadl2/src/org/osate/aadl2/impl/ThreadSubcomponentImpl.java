@@ -58,7 +58,8 @@ import org.osate.aadl2.ThreadSubcomponent;
  *
  * @generated
  */
-public class ThreadSubcomponentImpl extends SubcomponentImpl implements ThreadSubcomponent {
+public class ThreadSubcomponentImpl extends SubcomponentImpl implements
+		ThreadSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,7 +108,8 @@ public class ThreadSubcomponentImpl extends SubcomponentImpl implements ThreadSu
 	 */
 	public ThreadClassifier getThreadClassifier() {
 		ThreadClassifier threadClassifier = basicGetThreadClassifier();
-		return threadClassifier != null && ((EObject) threadClassifier).eIsProxy() ? (ThreadClassifier) eResolveProxy((InternalEObject) threadClassifier)
+		return threadClassifier != null
+				&& ((EObject) threadClassifier).eIsProxy() ? (ThreadClassifier) eResolveProxy((InternalEObject) threadClassifier)
 				: threadClassifier;
 	}
 
@@ -199,7 +201,8 @@ public class ThreadSubcomponentImpl extends SubcomponentImpl implements ThreadSu
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.THREAD_SUBCOMPONENT__THREAD_CLASSIFIER);
+		return super.isSetClassifier()
+				|| eIsSet(Aadl2Package.THREAD_SUBCOMPONENT__THREAD_CLASSIFIER);
 	}
 
 	public ComponentCategory getCategory() {

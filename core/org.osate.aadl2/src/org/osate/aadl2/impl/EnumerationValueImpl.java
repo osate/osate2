@@ -57,7 +57,8 @@ import org.osate.aadl2.EnumerationValue;
  *
  * @generated
  */
-public class EnumerationValueImpl extends PropertyValueImpl implements EnumerationValue {
+public class EnumerationValueImpl extends PropertyValueImpl implements
+		EnumerationValue {
 	/**
 	 * The cached value of the '{@link #getLiteral() <em>Literal</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -98,7 +99,8 @@ public class EnumerationValueImpl extends PropertyValueImpl implements Enumerati
 			literal = (EnumerationLiteral) eResolveProxy(oldLiteral);
 			if (literal != oldLiteral) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.ENUMERATION_VALUE__LITERAL,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.ENUMERATION_VALUE__LITERAL,
 							oldLiteral, literal));
 			}
 		}
@@ -123,7 +125,8 @@ public class EnumerationValueImpl extends PropertyValueImpl implements Enumerati
 		EnumerationLiteral oldLiteral = literal;
 		literal = newLiteral;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ENUMERATION_VALUE__LITERAL, oldLiteral,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ENUMERATION_VALUE__LITERAL, oldLiteral,
 					literal));
 	}
 
@@ -192,7 +195,8 @@ public class EnumerationValueImpl extends PropertyValueImpl implements Enumerati
 	 */
 	@Override
 	public boolean equals(Object other) {
-		return (other instanceof EnumerationValue) && ((EnumerationValue) other).getLiteral() == literal;
+		return (other instanceof EnumerationValue)
+				&& ((EnumerationValue) other).getLiteral() == literal;
 	}
 
 } //EnumerationValueImpl

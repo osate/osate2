@@ -47,9 +47,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.PackageSection#getImports <em>Imports</em>}</li>
- *   <li>{@link org.osate.aadl2.PackageSection#getAliases <em>Aliases</em>}</li>
- *   <li>{@link org.osate.aadl2.PackageSection#getDeclarations <em>Declarations</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageSection#getOwnedPackageRenames <em>Owned Package Rename</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageSection#getOwnedComponentTypeRenames <em>Owned Component Type Rename</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageSection#getOwnedClassifiers <em>Owned Classifier</em>}</li>
@@ -97,57 +94,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  */
 public interface PackageSection extends Namespace {
 	/**
-	 * Returns the value of the '<em><b>Imports</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Imports</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Imports</em>' attribute list.
-	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_Imports()
-	 * @model dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" ordered="false"
-	 *        extendedMetaData="kind='group' namespace='packageSection'"
-	 * @generated
-	 */
-	FeatureMap getImports();
-
-	/**
-	 * Returns the value of the '<em><b>Aliases</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Aliases</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Aliases</em>' attribute list.
-	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_Aliases()
-	 * @model dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" ordered="false"
-	 *        extendedMetaData="kind='group' namespace='packageSection'"
-	 * @generated
-	 */
-	FeatureMap getAliases();
-
-	/**
-	 * Returns the value of the '<em><b>Declarations</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Declarations</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Declarations</em>' attribute list.
-	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_Declarations()
-	 * @model dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" ordered="false"
-	 *        extendedMetaData="kind='group' namespace='packageSection'"
-	 * @generated
-	 */
-	FeatureMap getDeclarations();
-
-	/**
 	 * Returns the value of the '<em><b>Owned Package Rename</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.PackageRename}.
 	 * <p>
@@ -164,8 +110,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Package Rename</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedPackageRename()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#aliases'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<PackageRename> getOwnedPackageRenames();
@@ -197,8 +142,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Component Type Rename</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedComponentTypeRename()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#aliases'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ComponentTypeRename> getOwnedComponentTypeRenames();
@@ -250,8 +194,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Imported Property Set</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_ImportedPropertySet()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#imports'"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	EList<PropertySet> getImportedPropertySets();
@@ -322,8 +265,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Feature Group Type Rename</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedFeatureGroupTypeRename()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#aliases'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<FeatureGroupTypeRename> getOwnedFeatureGroupTypeRenames();
@@ -392,8 +334,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Imported Package</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_ImportedPackage()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#imports'"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	EList<AadlPackage> getImportedPackages();
@@ -415,8 +356,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Abstract Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedAbstractType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<AbstractType> getOwnedAbstractTypes();
@@ -448,8 +388,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Abstract Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedAbstractImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<AbstractImplementation> getOwnedAbstractImplementations();
@@ -481,8 +420,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Bus Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedBusType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<BusType> getOwnedBusTypes();
@@ -514,8 +452,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Bus Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedBusImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<BusImplementation> getOwnedBusImplementations();
@@ -547,8 +484,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Data Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedDataType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DataType> getOwnedDataTypes();
@@ -580,8 +516,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Data Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedDataImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DataImplementation> getOwnedDataImplementations();
@@ -613,8 +548,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Device Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedDeviceType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DeviceType> getOwnedDeviceTypes();
@@ -646,8 +580,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Device Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedDeviceImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DeviceImplementation> getOwnedDeviceImplementations();
@@ -679,8 +612,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Memory Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedMemoryType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<MemoryType> getOwnedMemoryTypes();
@@ -712,8 +644,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Memory Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedMemoryImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<MemoryImplementation> getOwnedMemoryImplementations();
@@ -745,8 +676,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Process Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedProcessType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ProcessType> getOwnedProcessTypes();
@@ -778,8 +708,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Processor Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedProcessorType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ProcessorType> getOwnedProcessorTypes();
@@ -811,8 +740,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Process Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedProcessImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ProcessImplementation> getOwnedProcessImplementations();
@@ -844,8 +772,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Processor Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedProcessorImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ProcessorImplementation> getOwnedProcessorImplementations();
@@ -877,8 +804,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Feature Group Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedFeatureGroupType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<FeatureGroupType> getOwnedFeatureGroupTypes();
@@ -910,8 +836,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Virtual Processor Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedVirtualProcessorImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<VirtualProcessorImplementation> getOwnedVirtualProcessorImplementations();
@@ -943,8 +868,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Virtual Processor Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedVirtualProcessorType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<VirtualProcessorType> getOwnedVirtualProcessorTypes();
@@ -976,8 +900,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Thread Group Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedThreadGroupImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ThreadGroupImplementation> getOwnedThreadGroupImplementations();
@@ -1009,8 +932,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Thread Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedThreadImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ThreadImplementation> getOwnedThreadImplementations();
@@ -1042,8 +964,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Virtual Bus Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedVirtualBusType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<VirtualBusType> getOwnedVirtualBusTypes();
@@ -1075,8 +996,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Thread Group Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedThreadGroupType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ThreadGroupType> getOwnedThreadGroupTypes();
@@ -1108,8 +1028,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Thread Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedThreadType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ThreadType> getOwnedThreadTypes();
@@ -1141,8 +1060,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned System Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedSystemType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SystemType> getOwnedSystemTypes();
@@ -1174,8 +1092,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedSubprogramType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramType> getOwnedSubprogramTypes();
@@ -1207,8 +1124,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedSubprogramGroupType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramGroupType> getOwnedSubprogramGroupTypes();
@@ -1240,8 +1156,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned System Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedSystemImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SystemImplementation> getOwnedSystemImplementations();
@@ -1273,8 +1188,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedSubprogramGroupImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramGroupImplementation> getOwnedSubprogramGroupImplementations();
@@ -1306,8 +1220,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedSubprogramImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramImplementation> getOwnedSubprogramImplementations();
@@ -1339,8 +1252,7 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Virtual Bus Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedVirtualBusImplementation()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='packageSection#declarations'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<VirtualBusImplementation> getOwnedVirtualBusImplementations();
@@ -1381,5 +1293,6 @@ public interface PackageSection extends Namespace {
 	 * {@code null} because there are no elements of a {@link PrivatePackageSection} that are
 	 * externally visible.
 	 */
-	NamedElement findNamedElement(String name, boolean externallyVisibleElementsOnly);
+	NamedElement findNamedElement(String name,
+			boolean externallyVisibleElementsOnly);
 } // PackageSection

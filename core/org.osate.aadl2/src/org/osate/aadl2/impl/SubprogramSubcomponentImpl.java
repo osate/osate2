@@ -58,7 +58,8 @@ import org.osate.aadl2.SubprogramSubcomponent;
  *
  * @generated
  */
-public class SubprogramSubcomponentImpl extends SubcomponentImpl implements SubprogramSubcomponent {
+public class SubprogramSubcomponentImpl extends SubcomponentImpl implements
+		SubprogramSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,7 +108,8 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 */
 	public SubprogramClassifier getSubprogramClassifier() {
 		SubprogramClassifier subprogramClassifier = basicGetSubprogramClassifier();
-		return subprogramClassifier != null && ((EObject) subprogramClassifier).eIsProxy() ? (SubprogramClassifier) eResolveProxy((InternalEObject) subprogramClassifier)
+		return subprogramClassifier != null
+				&& ((EObject) subprogramClassifier).eIsProxy() ? (SubprogramClassifier) eResolveProxy((InternalEObject) subprogramClassifier)
 				: subprogramClassifier;
 	}
 
@@ -128,7 +130,8 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void setSubprogramClassifier(SubprogramClassifier newSubprogramClassifier) {
+	public void setSubprogramClassifier(
+			SubprogramClassifier newSubprogramClassifier) {
 		classifier = newSubprogramClassifier;
 	}
 
@@ -199,7 +202,8 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_CLASSIFIER);
+		return super.isSetClassifier()
+				|| eIsSet(Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_CLASSIFIER);
 	}
 
 	public ComponentCategory getCategory() {

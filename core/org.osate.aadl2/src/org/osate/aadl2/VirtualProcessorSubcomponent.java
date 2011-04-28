@@ -51,7 +51,8 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface VirtualProcessorSubcomponent extends Subcomponent, VirtualProcessor {
+public interface VirtualProcessorSubcomponent extends Subcomponent,
+		VirtualProcessor {
 
 	/**
 	 * Returns the value of the '<em><b>Virtual Processor Classifier</b></em>' reference.

@@ -48,7 +48,8 @@ import org.osate.aadl2.VirtualBusType;
  *
  * @generated
  */
-public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusType {
+public class VirtualBusTypeImpl extends ComponentTypeImpl implements
+		VirtualBusType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -73,7 +73,8 @@ import org.osate.aadl2.properties.PropertyAcc;
  *
  * @generated
  */
-public abstract class FeatureImpl extends StructuralFeatureImpl implements Feature {
+public abstract class FeatureImpl extends StructuralFeatureImpl implements
+		Feature {
 	/*
 	 * The cached value of the '{@link #getArraySpecification() <em>Array
 	 * Specification</em>}' containment reference. <!-- begin-user-doc --> <!--
@@ -143,12 +144,15 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * 
 	 * @generated
 	 */
-	public NotificationChain basicSetArraySpecification(ArraySpecification newArraySpecification, NotificationChain msgs) {
+	public NotificationChain basicSetArraySpecification(
+			ArraySpecification newArraySpecification, NotificationChain msgs) {
 		ArraySpecification oldArraySpecification = arraySpecification;
 		arraySpecification = newArraySpecification;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE__ARRAY_SPECIFICATION, oldArraySpecification, newArraySpecification);
+			ENotificationImpl notification = new ENotificationImpl(this,
+					Notification.SET,
+					Aadl2Package.FEATURE__ARRAY_SPECIFICATION,
+					oldArraySpecification, newArraySpecification);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -166,16 +170,21 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		if (newArraySpecification != arraySpecification) {
 			NotificationChain msgs = null;
 			if (arraySpecification != null)
-				msgs = ((InternalEObject) arraySpecification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.FEATURE__ARRAY_SPECIFICATION, null, msgs);
+				msgs = ((InternalEObject) arraySpecification).eInverseRemove(
+						this, EOPPOSITE_FEATURE_BASE
+								- Aadl2Package.FEATURE__ARRAY_SPECIFICATION,
+						null, msgs);
 			if (newArraySpecification != null)
-				msgs = ((InternalEObject) newArraySpecification).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.FEATURE__ARRAY_SPECIFICATION, null, msgs);
+				msgs = ((InternalEObject) newArraySpecification).eInverseAdd(
+						this, EOPPOSITE_FEATURE_BASE
+								- Aadl2Package.FEATURE__ARRAY_SPECIFICATION,
+						null, msgs);
 			msgs = basicSetArraySpecification(newArraySpecification, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE__ARRAY_SPECIFICATION,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FEATURE__ARRAY_SPECIFICATION,
 					newArraySpecification, newArraySpecification));
 	}
 
@@ -202,8 +211,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 			prototype = (Prototype) eResolveProxy(oldPrototype);
 			if (prototype != oldPrototype) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FEATURE__PROTOTYPE,
-							oldPrototype, prototype));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.FEATURE__PROTOTYPE, oldPrototype,
+							prototype));
 			}
 		}
 		return prototype;
@@ -227,8 +237,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		Prototype oldPrototype = prototype;
 		prototype = newPrototype;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE__PROTOTYPE, oldPrototype,
-					prototype));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FEATURE__PROTOTYPE, oldPrototype, prototype));
 	}
 
 	/*
@@ -242,8 +252,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 			refined = (Feature) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FEATURE__REFINED,
-							oldRefined, refined));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.FEATURE__REFINED, oldRefined, refined));
 			}
 		}
 		return refined;
@@ -267,7 +277,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		Feature oldRefined = refined;
 		refined = newRefined;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE__REFINED, oldRefined, refined));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FEATURE__REFINED, oldRefined, refined));
 	}
 
 	/*
@@ -305,7 +316,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE__ARRAY_SPECIFICATION:
 			return basicSetArraySpecification(null, msgs);
@@ -534,7 +546,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+	public void getPropertyValueInternal(final Property prop,
+			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
 			throws InvalidModelException {
 		Classifier owner = getContainingClassifier();
 
@@ -559,14 +572,16 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 			if (owner != null) {
 				owner.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
 			} else {
-				throw new InvalidModelException(this, "Feature is not contained in a component type");
+				throw new InvalidModelException(this,
+						"Feature is not contained in a component type");
 			}
 		}
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	public void getPropertyValueInternalHelper(final Property prop, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+	public void getPropertyValueInternalHelper(final Property prop,
+			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
 		// values from classifier
 		ComponentClassifier c = getClassifier();
 		// TODO: Check if the property applies to the classifier? (-> property.checkAppliesTo(NamedElement)?)
@@ -575,7 +590,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		}
 	}
 
-	public void getPropertyValueTest(Property prop, PropertyAcc pas, Classifier cl) {
+	public void getPropertyValueTest(Property prop, PropertyAcc pas,
+			Classifier cl) {
 		Classifier owner = getContainingClassifier();
 
 		// local contained value
@@ -600,13 +616,14 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 			if (owner != null) {
 				owner.getPropertyValueInternal(prop, pas, true);
 			} else {
-				throw new InvalidModelException(this, "Feature is not contained in a component type");
+				throw new InvalidModelException(this,
+						"Feature is not contained in a component type");
 			}
 		}
 	}
 
-	public void getPropertyValueTestHelper(final Property prop, final PropertyAcc pas, Classifier cl)
-			throws InvalidModelException {
+	public void getPropertyValueTestHelper(final Property prop,
+			final PropertyAcc pas, Classifier cl) throws InvalidModelException {
 		// values from classifier
 		ComponentClassifier c = getClassifier();
 		// TODO: Check if the property applies to the classifier? (-> property.checkAppliesTo(NamedElement)?)

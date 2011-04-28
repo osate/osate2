@@ -56,7 +56,8 @@ import org.osate.aadl2.StructuralFeature;
  *
  * @generated
  */
-public abstract class StructuralFeatureImpl extends RefinableElementImpl implements StructuralFeature {
+public abstract class StructuralFeatureImpl extends RefinableElementImpl
+		implements StructuralFeature {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

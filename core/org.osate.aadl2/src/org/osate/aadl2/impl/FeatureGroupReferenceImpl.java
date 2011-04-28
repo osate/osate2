@@ -66,7 +66,8 @@ import org.osate.aadl2.PrototypeBinding;
  *
  * @generated
  */
-public class FeatureGroupReferenceImpl extends FeatureGroupPrototypeActualImpl implements FeatureGroupReference {
+public class FeatureGroupReferenceImpl extends FeatureGroupPrototypeActualImpl
+		implements FeatureGroupReference {
 	/**
 	 * The cached value of the '{@link #getBindings() <em>Binding</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -113,7 +114,8 @@ public class FeatureGroupReferenceImpl extends FeatureGroupPrototypeActualImpl i
 	 */
 	public EList<PrototypeBinding> getBindings() {
 		if (bindings == null) {
-			bindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
+			bindings = new EObjectContainmentEList<PrototypeBinding>(
+					PrototypeBinding.class, this,
 					Aadl2Package.FEATURE_GROUP_REFERENCE__BINDING);
 		}
 		return bindings;
@@ -141,9 +143,11 @@ public class FeatureGroupReferenceImpl extends FeatureGroupPrototypeActualImpl i
 			featureGroupType = (FeatureGroupType) eResolveProxy(oldFeatureGroupType);
 			if (featureGroupType != oldFeatureGroupType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FEATURE_GROUP_REFERENCE__FEATURE_GROUP_TYPE, oldFeatureGroupType,
-							featureGroupType));
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
+							Aadl2Package.FEATURE_GROUP_REFERENCE__FEATURE_GROUP_TYPE,
+							oldFeatureGroupType, featureGroupType));
 			}
 		}
 		return featureGroupType;
@@ -168,7 +172,8 @@ public class FeatureGroupReferenceImpl extends FeatureGroupPrototypeActualImpl i
 		featureGroupType = newFeatureGroupType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE_GROUP_REFERENCE__FEATURE_GROUP_TYPE, oldFeatureGroupType, featureGroupType));
+					Aadl2Package.FEATURE_GROUP_REFERENCE__FEATURE_GROUP_TYPE,
+					oldFeatureGroupType, featureGroupType));
 	}
 
 	/**
@@ -177,10 +182,12 @@ public class FeatureGroupReferenceImpl extends FeatureGroupPrototypeActualImpl i
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_REFERENCE__BINDING:
-			return ((InternalEList<?>) getBindings()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getBindings()).basicRemove(otherEnd,
+					msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -214,7 +221,8 @@ public class FeatureGroupReferenceImpl extends FeatureGroupPrototypeActualImpl i
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_REFERENCE__BINDING:
 			getBindings().clear();
-			getBindings().addAll((Collection<? extends PrototypeBinding>) newValue);
+			getBindings().addAll(
+					(Collection<? extends PrototypeBinding>) newValue);
 			return;
 		case Aadl2Package.FEATURE_GROUP_REFERENCE__FEATURE_GROUP_TYPE:
 			setFeatureGroupType((FeatureGroupType) newValue);

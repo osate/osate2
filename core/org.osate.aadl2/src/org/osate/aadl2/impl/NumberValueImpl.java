@@ -58,7 +58,8 @@ import org.osate.aadl2.UnitLiteral;
  *
  * @generated
  */
-public abstract class NumberValueImpl extends PropertyValueImpl implements NumberValue {
+public abstract class NumberValueImpl extends PropertyValueImpl implements
+		NumberValue {
 	/**
 	 * The default value of the '{@link #getValueString() <em>Value String</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -126,8 +127,9 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 		String oldValueString = valueString;
 		valueString = newValueString;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_VALUE__VALUE_STRING,
-					oldValueString, valueString));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.NUMBER_VALUE__VALUE_STRING, oldValueString,
+					valueString));
 	}
 
 	/**
@@ -141,8 +143,8 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 			unit = (UnitLiteral) eResolveProxy(oldUnit);
 			if (unit != oldUnit) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.NUMBER_VALUE__UNIT, oldUnit,
-							unit));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
 			}
 		}
 		return unit;
@@ -166,7 +168,8 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 		UnitLiteral oldUnit = unit;
 		unit = newUnit;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
 	}
 
 	/**
@@ -232,7 +235,8 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_VALUE__VALUE_STRING:
-			return VALUE_STRING_EDEFAULT == null ? valueString != null : !VALUE_STRING_EDEFAULT.equals(valueString);
+			return VALUE_STRING_EDEFAULT == null ? valueString != null
+					: !VALUE_STRING_EDEFAULT.equals(valueString);
 		case Aadl2Package.NUMBER_VALUE__UNIT:
 			return unit != null;
 		}
@@ -261,6 +265,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 */
 	@Override
 	public boolean equals(Object other) {
-		return (other instanceof NumberValue) && ((NumberValue) other).getUnit() == unit;
+		return (other instanceof NumberValue)
+				&& ((NumberValue) other).getUnit() == unit;
 	}
 } //NumberValueImpl

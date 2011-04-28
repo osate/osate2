@@ -59,7 +59,8 @@ import org.osate.aadl2.SubprogramClassifier;
  *
  * @generated
  */
-public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess {
+public class SubprogramAccessImpl extends AccessImpl implements
+		SubprogramAccess {
 	/**
 	 * The cached value of the '{@link #getSubprogramClassifier() <em>Subprogram Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -120,14 +121,17 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * @generated
 	 */
 	public SubprogramClassifier getSubprogramClassifier() {
-		if (subprogramClassifier != null && ((EObject) subprogramClassifier).eIsProxy()) {
+		if (subprogramClassifier != null
+				&& ((EObject) subprogramClassifier).eIsProxy()) {
 			InternalEObject oldSubprogramClassifier = (InternalEObject) subprogramClassifier;
 			subprogramClassifier = (SubprogramClassifier) eResolveProxy(oldSubprogramClassifier);
 			if (subprogramClassifier != oldSubprogramClassifier) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_CLASSIFIER, oldSubprogramClassifier,
-							subprogramClassifier));
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
+							Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_CLASSIFIER,
+							oldSubprogramClassifier, subprogramClassifier));
 			}
 		}
 		return subprogramClassifier;
@@ -147,13 +151,14 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSubprogramClassifier(SubprogramClassifier newSubprogramClassifier) {
+	public void setSubprogramClassifier(
+			SubprogramClassifier newSubprogramClassifier) {
 		SubprogramClassifier oldSubprogramClassifier = subprogramClassifier;
 		subprogramClassifier = newSubprogramClassifier;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_CLASSIFIER, oldSubprogramClassifier,
-					subprogramClassifier));
+					Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_CLASSIFIER,
+					oldSubprogramClassifier, subprogramClassifier));
 	}
 
 	/**
@@ -223,7 +228,8 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_CLASSIFIER);
+		return super.isSetClassifier()
+				|| eIsSet(Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_CLASSIFIER);
 	}
 
 } //SubprogramAccessImpl

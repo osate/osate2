@@ -37,9 +37,13 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -64,6 +68,25 @@ import org.osate.aadl2.SubprogramGroupAccess;
  * @generated
  */
 public class DataTypeImpl extends ComponentTypeImpl implements DataType {
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramAccesses() <em>Owned Subprogram Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramAccess> ownedSubprogramAccesses;
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramGroupAccesses() <em>Owned Subprogram Group Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramGroupAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramGroupAccess> ownedSubprogramGroupAccesses;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -94,17 +117,21 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(eResource, this,
+			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
 			if (ownedFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<Feature>(Feature.class, this,
-								Aadl2Package.DATA_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getComponentType_OwnedFeature(),
+						ownedFeatures = new DerivedUnionEObjectEList<Feature>(
+								Feature.class, this,
+								Aadl2Package.DATA_TYPE__OWNED_FEATURE,
+								OWNED_FEATURE_ESUBSETS));
 			}
 			return ownedFeatures;
 		}
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.DATA_TYPE__OWNED_FEATURE,
-				OWNED_FEATURE_ESUBSETS);
+		return new DerivedUnionEObjectEList<Feature>(Feature.class, this,
+				Aadl2Package.DATA_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS);
 	}
 
 	/**
@@ -115,8 +142,10 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] { Aadl2Package.DATA_TYPE__OWNED_FEATURE_GROUP,
-			Aadl2Package.DATA_TYPE__OWNED_ABSTRACT_FEATURE, Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS,
+	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] {
+			Aadl2Package.DATA_TYPE__OWNED_FEATURE_GROUP,
+			Aadl2Package.DATA_TYPE__OWNED_ABSTRACT_FEATURE,
+			Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS,
 			Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS };
 
 	/**
@@ -125,7 +154,12 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * @generated
 	 */
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getDataType_OwnedSubprogramAccess());
+		if (ownedSubprogramAccesses == null) {
+			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(
+					SubprogramAccess.class, this,
+					Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS);
+		}
+		return ownedSubprogramAccesses;
 	}
 
 	/**
@@ -146,7 +180,12 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * @generated
 	 */
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
-		return getFeatures().list(Aadl2Package.eINSTANCE.getDataType_OwnedSubprogramGroupAccess());
+		if (ownedSubprogramGroupAccesses == null) {
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
+					SubprogramGroupAccess.class, this,
+					Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
+		}
+		return ownedSubprogramGroupAccesses;
 	}
 
 	/**
@@ -159,6 +198,25 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 				.getSubprogramGroupAccess());
 		getOwnedSubprogramGroupAccesses().add(newOwnedSubprogramGroupAccess);
 		return newOwnedSubprogramGroupAccess;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS:
+			return ((InternalEList<?>) getOwnedSubprogramAccesses())
+					.basicRemove(otherEnd, msgs);
+		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
+			return ((InternalEList<?>) getOwnedSubprogramGroupAccesses())
+					.basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -188,11 +246,13 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 		switch (featureID) {
 		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS:
 			getOwnedSubprogramAccesses().clear();
-			getOwnedSubprogramAccesses().addAll((Collection<? extends SubprogramAccess>) newValue);
+			getOwnedSubprogramAccesses().addAll(
+					(Collection<? extends SubprogramAccess>) newValue);
 			return;
 		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
 			getOwnedSubprogramGroupAccesses().clear();
-			getOwnedSubprogramGroupAccesses().addAll((Collection<? extends SubprogramGroupAccess>) newValue);
+			getOwnedSubprogramGroupAccesses().addAll(
+					(Collection<? extends SubprogramGroupAccess>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -225,9 +285,11 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS:
-			return !getOwnedSubprogramAccesses().isEmpty();
+			return ownedSubprogramAccesses != null
+					&& !ownedSubprogramAccesses.isEmpty();
 		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
-			return !getOwnedSubprogramGroupAccesses().isEmpty();
+			return ownedSubprogramGroupAccesses != null
+					&& !ownedSubprogramGroupAccesses.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -239,7 +301,8 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 */
 	@Override
 	public boolean isSetOwnedFeatures() {
-		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS)
+		return super.isSetOwnedFeatures()
+				|| eIsSet(Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS)
 				|| eIsSet(Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 	}
 

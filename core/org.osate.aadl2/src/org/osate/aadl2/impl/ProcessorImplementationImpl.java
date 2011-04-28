@@ -37,11 +37,14 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -72,7 +75,45 @@ import org.osate.aadl2.VirtualProcessorSubcomponent;
  *
  * @generated
  */
-public class ProcessorImplementationImpl extends ComponentImplementationImpl implements ProcessorImplementation {
+public class ProcessorImplementationImpl extends ComponentImplementationImpl
+		implements ProcessorImplementation {
+	/**
+	 * The cached value of the '{@link #getOwnedBusSubcomponents() <em>Owned Bus Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedBusSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BusSubcomponent> ownedBusSubcomponents;
+	/**
+	 * The cached value of the '{@link #getOwnedMemorySubcomponents() <em>Owned Memory Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedMemorySubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<MemorySubcomponent> ownedMemorySubcomponents;
+	/**
+	 * The cached value of the '{@link #getOwnedVirtualBusSubcomponents() <em>Owned Virtual Bus Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedVirtualBusSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VirtualBusSubcomponent> ownedVirtualBusSubcomponents;
+	/**
+	 * The cached value of the '{@link #getOwnedVirtualProcessorSubcomponents() <em>Owned Virtual Processor Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedVirtualProcessorSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VirtualProcessorSubcomponent> ownedVirtualProcessorSubcomponents;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -103,17 +144,27 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
+			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache
+					.get(eResource, this, Aadl2Package.eINSTANCE
+							.getComponentImplementation_OwnedSubcomponent());
 			if (ownedSubcomponents == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
-						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
-								Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE
+								.getComponentImplementation_OwnedSubcomponent(),
+						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(
+								Subcomponent.class,
+								this,
+								Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_SUBCOMPONENT,
+								OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
-				Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class,
+				this,
+				Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_SUBCOMPONENT,
+				OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
 	/**
@@ -137,7 +188,13 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 * @generated
 	 */
 	public EList<BusSubcomponent> getOwnedBusSubcomponents() {
-		return getSubcomponents().list(Aadl2Package.eINSTANCE.getProcessorImplementation_OwnedBusSubcomponent());
+		if (ownedBusSubcomponents == null) {
+			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(
+					BusSubcomponent.class,
+					this,
+					Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT);
+		}
+		return ownedBusSubcomponents;
 	}
 
 	/**
@@ -146,7 +203,8 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 * @generated
 	 */
 	public BusSubcomponent createOwnedBusSubcomponent() {
-		BusSubcomponent newOwnedBusSubcomponent = (BusSubcomponent) create(Aadl2Package.eINSTANCE.getBusSubcomponent());
+		BusSubcomponent newOwnedBusSubcomponent = (BusSubcomponent) create(Aadl2Package.eINSTANCE
+				.getBusSubcomponent());
 		getOwnedBusSubcomponents().add(newOwnedBusSubcomponent);
 		return newOwnedBusSubcomponent;
 	}
@@ -157,7 +215,13 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 * @generated
 	 */
 	public EList<MemorySubcomponent> getOwnedMemorySubcomponents() {
-		return getSubcomponents().list(Aadl2Package.eINSTANCE.getProcessorImplementation_OwnedMemorySubcomponent());
+		if (ownedMemorySubcomponents == null) {
+			ownedMemorySubcomponents = new EObjectContainmentEList<MemorySubcomponent>(
+					MemorySubcomponent.class,
+					this,
+					Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT);
+		}
+		return ownedMemorySubcomponents;
 	}
 
 	/**
@@ -178,7 +242,13 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 * @generated
 	 */
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
-		return getSubcomponents().list(Aadl2Package.eINSTANCE.getProcessorImplementation_OwnedVirtualBusSubcomponent());
+		if (ownedVirtualBusSubcomponents == null) {
+			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
+					VirtualBusSubcomponent.class,
+					this,
+					Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
+		}
+		return ownedVirtualBusSubcomponents;
 	}
 
 	/**
@@ -199,8 +269,13 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 * @generated
 	 */
 	public EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents() {
-		return getSubcomponents().list(
-				Aadl2Package.eINSTANCE.getProcessorImplementation_OwnedVirtualProcessorSubcomponent());
+		if (ownedVirtualProcessorSubcomponents == null) {
+			ownedVirtualProcessorSubcomponents = new EObjectContainmentEList<VirtualProcessorSubcomponent>(
+					VirtualProcessorSubcomponent.class,
+					this,
+					Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT);
+		}
+		return ownedVirtualProcessorSubcomponents;
 	}
 
 	/**
@@ -211,7 +286,8 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	public VirtualProcessorSubcomponent createOwnedVirtualProcessorSubcomponent() {
 		VirtualProcessorSubcomponent newOwnedVirtualProcessorSubcomponent = (VirtualProcessorSubcomponent) create(Aadl2Package.eINSTANCE
 				.getVirtualProcessorSubcomponent());
-		getOwnedVirtualProcessorSubcomponents().add(newOwnedVirtualProcessorSubcomponent);
+		getOwnedVirtualProcessorSubcomponents().add(
+				newOwnedVirtualProcessorSubcomponent);
 		return newOwnedVirtualProcessorSubcomponent;
 	}
 
@@ -264,6 +340,31 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedBusSubcomponents()).basicRemove(
+					otherEnd, msgs);
+		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedMemorySubcomponents())
+					.basicRemove(otherEnd, msgs);
+		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedVirtualBusSubcomponents())
+					.basicRemove(otherEnd, msgs);
+		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedVirtualProcessorSubcomponents())
+					.basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
@@ -289,20 +390,23 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 		switch (featureID) {
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
 			getOwnedBusSubcomponents().clear();
-			getOwnedBusSubcomponents().addAll((Collection<? extends BusSubcomponent>) newValue);
+			getOwnedBusSubcomponents().addAll(
+					(Collection<? extends BusSubcomponent>) newValue);
 			return;
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
 			getOwnedMemorySubcomponents().clear();
-			getOwnedMemorySubcomponents().addAll((Collection<? extends MemorySubcomponent>) newValue);
+			getOwnedMemorySubcomponents().addAll(
+					(Collection<? extends MemorySubcomponent>) newValue);
 			return;
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
 			getOwnedVirtualBusSubcomponents().clear();
-			getOwnedVirtualBusSubcomponents().addAll((Collection<? extends VirtualBusSubcomponent>) newValue);
+			getOwnedVirtualBusSubcomponents().addAll(
+					(Collection<? extends VirtualBusSubcomponent>) newValue);
 			return;
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
 			getOwnedVirtualProcessorSubcomponents().clear();
-			getOwnedVirtualProcessorSubcomponents().addAll(
-					(Collection<? extends VirtualProcessorSubcomponent>) newValue);
+			getOwnedVirtualProcessorSubcomponents()
+					.addAll((Collection<? extends VirtualProcessorSubcomponent>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -341,13 +445,17 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
-			return !getOwnedBusSubcomponents().isEmpty();
+			return ownedBusSubcomponents != null
+					&& !ownedBusSubcomponents.isEmpty();
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
-			return !getOwnedMemorySubcomponents().isEmpty();
+			return ownedMemorySubcomponents != null
+					&& !ownedMemorySubcomponents.isEmpty();
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
-			return !getOwnedVirtualBusSubcomponents().isEmpty();
+			return ownedVirtualBusSubcomponents != null
+					&& !ownedVirtualBusSubcomponents.isEmpty();
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
-			return !getOwnedVirtualProcessorSubcomponents().isEmpty();
+			return ownedVirtualProcessorSubcomponents != null
+					&& !ownedVirtualProcessorSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -359,7 +467,8 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 */
 	@Override
 	public boolean isSetOwnedSubcomponents() {
-		return super.isSetOwnedSubcomponents() || eIsSet(Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT)
+		return super.isSetOwnedSubcomponents()
+				|| eIsSet(Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT)
 				|| eIsSet(Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT)
 				|| eIsSet(Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT)
 				|| eIsSet(Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT);

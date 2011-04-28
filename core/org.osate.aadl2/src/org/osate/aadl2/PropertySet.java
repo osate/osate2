@@ -47,8 +47,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.PropertySet#getImports <em>Imports</em>}</li>
- *   <li>{@link org.osate.aadl2.PropertySet#getContents <em>Contents</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertySet#getOwnedPropertyTypes <em>Owned Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertySet#getOwnedProperties <em>Owned Property</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertySet#getOwnedPropertyConstants <em>Owned Property Constant</em>}</li>
@@ -62,40 +60,6 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * @generated
  */
 public interface PropertySet extends Namespace {
-	/**
-	 * Returns the value of the '<em><b>Imports</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Imports</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Imports</em>' attribute list.
-	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_Imports()
-	 * @model dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" ordered="false"
-	 *        extendedMetaData="kind='group' namespace='propertySet'"
-	 * @generated
-	 */
-	FeatureMap getImports();
-
-	/**
-	 * Returns the value of the '<em><b>Contents</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Contents</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Contents</em>' attribute list.
-	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_Contents()
-	 * @model dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" ordered="false"
-	 *        extendedMetaData="kind='group' namespace='propertySet'"
-	 * @generated
-	 */
-	FeatureMap getContents();
-
 	/**
 	 * Returns the value of the '<em><b>Owned Property Type</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.PropertyType}.
@@ -113,8 +77,7 @@ public interface PropertySet extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Property Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_OwnedPropertyType()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='propertySet#contents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<PropertyType> getOwnedPropertyTypes();
@@ -147,8 +110,7 @@ public interface PropertySet extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Property</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_OwnedProperty()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='propertySet#contents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<Property> getOwnedProperties();
@@ -180,8 +142,7 @@ public interface PropertySet extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Property Constant</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_OwnedPropertyConstant()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='propertySet#contents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<PropertyConstant> getOwnedPropertyConstants();
@@ -207,8 +168,7 @@ public interface PropertySet extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Imported Property Set</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_ImportedPropertySet()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='propertySet#imports'"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	EList<PropertySet> getImportedPropertySets();
@@ -224,8 +184,7 @@ public interface PropertySet extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Imported Package</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_ImportedPackage()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='propertySet#imports'"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	EList<AadlPackage> getImportedPackages();

@@ -102,7 +102,8 @@ import org.osate.aadl2.util.Aadl2Validator;
  *
  * @generated
  */
-public abstract class ClassifierImpl extends NamespaceImpl implements Classifier {
+public abstract class ClassifierImpl extends NamespaceImpl implements
+		Classifier {
 	/**
 	 * The cached value of the '{@link #getOwnedAnnexSubclauses() <em>Owned Annex Subclause</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -222,16 +223,24 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
+			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache
+					.get(eResource, this, Aadl2Package.eINSTANCE
+							.getClassifier_ClassifierFeature());
 			if (classifierFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(),
-						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class,
-								this, Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE, null));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE
+								.getClassifier_ClassifierFeature(),
+						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(
+								ClassifierFeature.class, this,
+								Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE,
+								null));
 			}
 			return classifierFeatures;
 		}
-		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
+		return new DerivedUnionEObjectEList<ClassifierFeature>(
+				ClassifierFeature.class, this,
 				Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE, null);
 	}
 
@@ -245,22 +254,27 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> members = (EList<NamedElement>) cache.get(eResource, this,
+			EList<NamedElement> members = (EList<NamedElement>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_Member());
 			if (members == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_Member(),
-						members = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-								Aadl2Package.CLASSIFIER__MEMBER, MEMBER_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getNamespace_Member(),
+						members = new DerivedUnionEObjectEList<NamedElement>(
+								NamedElement.class, this,
+								Aadl2Package.CLASSIFIER__MEMBER,
+								MEMBER_ESUBSETS));
 			}
 			return members;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this, Aadl2Package.CLASSIFIER__MEMBER,
-				MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
+				this, Aadl2Package.CLASSIFIER__MEMBER, MEMBER_ESUBSETS);
 	}
 
 	@Override
 	public EList<NamedElement> getMembers() {
-		BasicEList<NamedElement> results = new BasicEList<NamedElement>(getMembersGen());
+		BasicEList<NamedElement> results = new BasicEList<NamedElement>(
+				getMembersGen());
 		results.addAll(getInheritedMembers());
 		return results;
 	}
@@ -273,8 +287,10 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] MEMBER_ESUBSETS = new int[] { Aadl2Package.CLASSIFIER__OWNED_MEMBER,
-			Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE, Aadl2Package.CLASSIFIER__INHERITED_MEMBER };
+	protected static final int[] MEMBER_ESUBSETS = new int[] {
+			Aadl2Package.CLASSIFIER__OWNED_MEMBER,
+			Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE,
+			Aadl2Package.CLASSIFIER__INHERITED_MEMBER };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -287,17 +303,21 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Element> ownedElements = (EList<Element>) cache.get(eResource, this,
+			EList<Element> ownedElements = (EList<Element>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			if (ownedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getElement_OwnedElement(),
-						ownedElements = new DerivedUnionEObjectEList<Element>(Element.class, this,
-								Aadl2Package.CLASSIFIER__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getElement_OwnedElement(),
+						ownedElements = new DerivedUnionEObjectEList<Element>(
+								Element.class, this,
+								Aadl2Package.CLASSIFIER__OWNED_ELEMENT,
+								OWNED_ELEMENT_ESUBSETS));
 			}
 			return ownedElements;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.CLASSIFIER__OWNED_ELEMENT,
-				OWNED_ELEMENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Element>(Element.class, this,
+				Aadl2Package.CLASSIFIER__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS);
 	}
 
 	/**
@@ -308,8 +328,10 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_ELEMENT_ESUBSETS = new int[] { Aadl2Package.CLASSIFIER__OWNED_COMMENT,
-			Aadl2Package.CLASSIFIER__OWNED_MEMBER, Aadl2Package.CLASSIFIER__GENERALIZATION };
+	protected static final int[] OWNED_ELEMENT_ESUBSETS = new int[] {
+			Aadl2Package.CLASSIFIER__OWNED_COMMENT,
+			Aadl2Package.CLASSIFIER__OWNED_MEMBER,
+			Aadl2Package.CLASSIFIER__GENERALIZATION };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -322,17 +344,24 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
+			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-								Aadl2Package.CLASSIFIER__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
+						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(
+								NamedElement.class, this,
+								Aadl2Package.CLASSIFIER__OWNED_MEMBER,
+								OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-				Aadl2Package.CLASSIFIER__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
+				this, Aadl2Package.CLASSIFIER__OWNED_MEMBER,
+				OWNED_MEMBER_ESUBSETS);
 	}
 
 	/**
@@ -343,7 +372,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_MEMBER_ESUBSETS = new int[] { Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE,
+	protected static final int[] OWNED_MEMBER_ESUBSETS = new int[] {
+			Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE,
 			Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE };
 
 	/**
@@ -354,7 +384,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	public EList<NamedElement> getInheritedMembers() {
 		// DONE: implemented get inherited members
-		EList<NamedElement> tmp = new BasicInternalEList<NamedElement>(NamedElement.class);
+		EList<NamedElement> tmp = new BasicInternalEList<NamedElement>(
+				NamedElement.class);
 		for (Generalization g : getGeneralizations()) {
 			if (g.getGeneral() != null) {
 				tmp.addAll(g.getGeneral().getOwnedMembers());
@@ -371,7 +402,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	public EList<Prototype> getOwnedPrototypes() {
 		if (ownedPrototypes == null) {
-			ownedPrototypes = new EObjectContainmentEList<Prototype>(Prototype.class, this,
+			ownedPrototypes = new EObjectContainmentEList<Prototype>(
+					Prototype.class, this,
 					Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE);
 		}
 		return ownedPrototypes;
@@ -395,7 +427,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	public EList<PrototypeBinding> getOwnedPrototypeBindings() {
 		if (ownedPrototypeBindings == null) {
-			ownedPrototypeBindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
+			ownedPrototypeBindings = new EObjectContainmentEList<PrototypeBinding>(
+					PrototypeBinding.class, this,
 					Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE_BINDING);
 		}
 		return ownedPrototypeBindings;
@@ -422,16 +455,22 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Generalization> generalizations = (EList<Generalization>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_Generalization());
+			EList<Generalization> generalizations = (EList<Generalization>) cache
+					.get(eResource, this, Aadl2Package.eINSTANCE
+							.getClassifier_Generalization());
 			if (generalizations == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_Generalization(),
-						generalizations = new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE.getClassifier_Generalization(),
+						generalizations = new DerivedUnionEObjectEList<Generalization>(
+								Generalization.class, this,
 								Aadl2Package.CLASSIFIER__GENERALIZATION, null));
 			}
 			return generalizations;
 		}
-		return new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
+		return new DerivedUnionEObjectEList<Generalization>(
+				Generalization.class, this,
 				Aadl2Package.CLASSIFIER__GENERALIZATION, null);
 	}
 
@@ -445,16 +484,20 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Classifier> generals = (EList<Classifier>) cache.get(eResource, this,
+			EList<Classifier> generals = (EList<Classifier>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getClassifier_General());
 			if (generals == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_General(),
-						generals = new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getClassifier_General(),
+						generals = new DerivedUnionEObjectEList<Classifier>(
+								Classifier.class, this,
 								Aadl2Package.CLASSIFIER__GENERAL, null));
 			}
 			return generals;
 		}
-		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this, Aadl2Package.CLASSIFIER__GENERAL, null);
+		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
+				Aadl2Package.CLASSIFIER__GENERAL, null);
 	}
 
 	/**
@@ -464,7 +507,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	public EList<AnnexSubclause> getOwnedAnnexSubclauses() {
 		if (ownedAnnexSubclauses == null) {
-			ownedAnnexSubclauses = new EObjectContainmentEList<AnnexSubclause>(AnnexSubclause.class, this,
+			ownedAnnexSubclauses = new EObjectContainmentEList<AnnexSubclause>(
+					AnnexSubclause.class, this,
 					Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE);
 		}
 		return ownedAnnexSubclauses;
@@ -487,7 +531,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public AnnexSubclause createOwnedAnnexSubclause() {
-		return createOwnedAnnexSubclause(Aadl2Package.eINSTANCE.getAnnexSubclause());
+		return createOwnedAnnexSubclause(Aadl2Package.eINSTANCE
+				.getAnnexSubclause());
 	}
 
 	/**
@@ -508,8 +553,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		boolean oldNoProperties = noProperties;
 		noProperties = newNoProperties;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_PROPERTIES,
-					oldNoProperties, noProperties));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.CLASSIFIER__NO_PROPERTIES, oldNoProperties,
+					noProperties));
 	}
 
 	/**
@@ -550,8 +596,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		boolean oldNoPrototypes = noPrototypes;
 		noPrototypes = newNoPrototypes;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_PROTOTYPES,
-					oldNoPrototypes, noPrototypes));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.CLASSIFIER__NO_PROTOTYPES, oldNoPrototypes,
+					noPrototypes));
 	}
 
 	/**
@@ -572,7 +619,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		boolean oldNoAnnexes = noAnnexes;
 		noAnnexes = newNoAnnexes;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_ANNEXES, oldNoAnnexes,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.CLASSIFIER__NO_ANNEXES, oldNoAnnexes,
 					noAnnexes));
 	}
 
@@ -584,16 +632,20 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public boolean conformsTo(Type other) {
 		if (CONFORMS_TO__TYPE__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getType(), Aadl2Package.eINSTANCE.getType()
-					.getEAllOperations().get(10));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getType(),
+					Aadl2Package.eINSTANCE.getType().getEAllOperations()
+							.get(10));
 			try {
-				CONFORMS_TO__TYPE__EOCL_QRY = helper.createQuery(CONFORMS_TO__TYPE__EOCL_EXP);
+				CONFORMS_TO__TYPE__EOCL_QRY = helper
+						.createQuery(CONFORMS_TO__TYPE__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
 		OCL.Query query = EOCL_ENV.createQuery(CONFORMS_TO__TYPE__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
+		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query
+				.getEvaluationEnvironment();
 		environment.add("other", other);
 		return ((Boolean) query.evaluate(this)).booleanValue();
 	}
@@ -623,7 +675,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean no_cycles_in_generalization(DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean no_cycles_in_generalization(DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (NO_CYCLES_IN_GENERALIZATION__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setContext(Aadl2Package.eINSTANCE.getClassifier());
@@ -631,15 +684,24 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 				NO_CYCLES_IN_GENERALIZATION__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
 						.createInvariant(NO_CYCLES_IN_GENERALIZATION__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
-		if (!EOCL_ENV.createQuery(NO_CYCLES_IN_GENERALIZATION__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
+		if (!EOCL_ENV.createQuery(
+				NO_CYCLES_IN_GENERALIZATION__DIAGNOSTIC_CHAIN_MAP__EOCL_INV)
+				.check(this)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.CLASSIFIER__NO_CYCLES_IN_GENERALIZATION, EcorePlugin.INSTANCE.getString(
-								"_UI_GenericInvariant_diagnostic", new Object[] { "no_cycles_in_generalization",
-										EObjectValidator.getObjectLabel(this, context) }), new Object[] { this }));
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR,
+						Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.CLASSIFIER__NO_CYCLES_IN_GENERALIZATION,
+						EcorePlugin.INSTANCE.getString(
+								"_UI_GenericInvariant_diagnostic",
+								new Object[] {
+										"no_cycles_in_generalization",
+										EObjectValidator.getObjectLabel(this,
+												context) }),
+						new Object[] { this }));
 			}
 			return false;
 		}
@@ -671,7 +733,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean specialize_type(DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean specialize_type(DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (SPECIALIZE_TYPE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setContext(Aadl2Package.eINSTANCE.getClassifier());
@@ -679,15 +742,22 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 				SPECIALIZE_TYPE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
 						.createInvariant(SPECIALIZE_TYPE__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
-		if (!EOCL_ENV.createQuery(SPECIALIZE_TYPE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
+		if (!EOCL_ENV.createQuery(
+				SPECIALIZE_TYPE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.CLASSIFIER__SPECIALIZE_TYPE, EcorePlugin.INSTANCE.getString(
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR,
+						Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.CLASSIFIER__SPECIALIZE_TYPE,
+						EcorePlugin.INSTANCE.getString(
 								"_UI_GenericInvariant_diagnostic",
-								new Object[] { "specialize_type", EObjectValidator.getObjectLabel(this, context) }),
+								new Object[] {
+										"specialize_type",
+										EObjectValidator.getObjectLabel(this,
+												context) }),
 						new Object[] { this }));
 			}
 			return false;
@@ -723,18 +793,23 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public EList<ClassifierFeature> allFeatures() {
 		if (ALL_FEATURES__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(16));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations()
+							.get(16));
 			try {
-				ALL_FEATURES__EOCL_QRY = helper.createQuery(ALL_FEATURES__EOCL_EXP);
+				ALL_FEATURES__EOCL_QRY = helper
+						.createQuery(ALL_FEATURES__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
 		OCL.Query query = EOCL_ENV.createQuery(ALL_FEATURES__EOCL_QRY);
 		@SuppressWarnings("unchecked")
-		Collection<ClassifierFeature> result = (Collection<ClassifierFeature>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<ClassifierFeature>(result.size(), result.toArray());
+		Collection<ClassifierFeature> result = (Collection<ClassifierFeature>) query
+				.evaluate(this);
+		return new BasicEList.UnmodifiableEList<ClassifierFeature>(
+				result.size(), result.toArray());
 	}
 
 	/**
@@ -765,18 +840,23 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public EList<NamedElement> inheritedMember() {
 		if (INHERITED_MEMBER__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(17));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations()
+							.get(17));
 			try {
-				INHERITED_MEMBER__EOCL_QRY = helper.createQuery(INHERITED_MEMBER__EOCL_EXP);
+				INHERITED_MEMBER__EOCL_QRY = helper
+						.createQuery(INHERITED_MEMBER__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
 		OCL.Query query = EOCL_ENV.createQuery(INHERITED_MEMBER__EOCL_QRY);
 		@SuppressWarnings("unchecked")
-		Collection<NamedElement> result = (Collection<NamedElement>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<NamedElement>(result.size(), result.toArray());
+		Collection<NamedElement> result = (Collection<NamedElement>) query
+				.evaluate(this);
+		return new BasicEList.UnmodifiableEList<NamedElement>(result.size(),
+				result.toArray());
 	}
 
 	/**
@@ -807,18 +887,22 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public EList<Classifier> parents() {
 		if (PARENTS__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(18));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations()
+							.get(18));
 			try {
 				PARENTS__EOCL_QRY = helper.createQuery(PARENTS__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
 		OCL.Query query = EOCL_ENV.createQuery(PARENTS__EOCL_QRY);
 		@SuppressWarnings("unchecked")
-		Collection<Classifier> result = (Collection<Classifier>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<Classifier>(result.size(), result.toArray());
+		Collection<Classifier> result = (Collection<Classifier>) query
+				.evaluate(this);
+		return new BasicEList.UnmodifiableEList<Classifier>(result.size(),
+				result.toArray());
 	}
 
 	/**
@@ -849,18 +933,23 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public EList<Classifier> allParents() {
 		if (ALL_PARENTS__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(19));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations()
+							.get(19));
 			try {
-				ALL_PARENTS__EOCL_QRY = helper.createQuery(ALL_PARENTS__EOCL_EXP);
+				ALL_PARENTS__EOCL_QRY = helper
+						.createQuery(ALL_PARENTS__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
 		OCL.Query query = EOCL_ENV.createQuery(ALL_PARENTS__EOCL_QRY);
 		@SuppressWarnings("unchecked")
-		Collection<Classifier> result = (Collection<Classifier>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<Classifier>(result.size(), result.toArray());
+		Collection<Classifier> result = (Collection<Classifier>) query
+				.evaluate(this);
+		return new BasicEList.UnmodifiableEList<Classifier>(result.size(),
+				result.toArray());
 	}
 
 	/**
@@ -891,21 +980,27 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public EList<NamedElement> inheritableMembers(Classifier c) {
 		if (INHERITABLE_MEMBERS__CLASSIFIER__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(20));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations()
+							.get(20));
 			try {
 				INHERITABLE_MEMBERS__CLASSIFIER__EOCL_QRY = helper
 						.createQuery(INHERITABLE_MEMBERS__CLASSIFIER__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
-		OCL.Query query = EOCL_ENV.createQuery(INHERITABLE_MEMBERS__CLASSIFIER__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
+		OCL.Query query = EOCL_ENV
+				.createQuery(INHERITABLE_MEMBERS__CLASSIFIER__EOCL_QRY);
+		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query
+				.getEvaluationEnvironment();
 		environment.add("c", c);
 		@SuppressWarnings("unchecked")
-		Collection<NamedElement> result = (Collection<NamedElement>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<NamedElement>(result.size(), result.toArray());
+		Collection<NamedElement> result = (Collection<NamedElement>) query
+				.evaluate(this);
+		return new BasicEList.UnmodifiableEList<NamedElement>(result.size(),
+				result.toArray());
 	}
 
 	/**
@@ -936,17 +1031,21 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public boolean hasVisibilityOf(NamedElement n) {
 		if (HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(21));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations()
+							.get(21));
 			try {
 				HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_QRY = helper
 						.createQuery(HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
-		OCL.Query query = EOCL_ENV.createQuery(HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
+		OCL.Query query = EOCL_ENV
+				.createQuery(HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_QRY);
+		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query
+				.getEvaluationEnvironment();
 		environment.add("n", n);
 		return ((Boolean) query.evaluate(this)).booleanValue();
 	}
@@ -979,20 +1078,26 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public EList<NamedElement> inherit(EList<NamedElement> inhs) {
 		if (INHERIT__ELIST__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(22));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations()
+							.get(22));
 			try {
-				INHERIT__ELIST__EOCL_QRY = helper.createQuery(INHERIT__ELIST__EOCL_EXP);
+				INHERIT__ELIST__EOCL_QRY = helper
+						.createQuery(INHERIT__ELIST__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
 		OCL.Query query = EOCL_ENV.createQuery(INHERIT__ELIST__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
+		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query
+				.getEvaluationEnvironment();
 		environment.add("inhs", inhs);
 		@SuppressWarnings("unchecked")
-		Collection<NamedElement> result = (Collection<NamedElement>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<NamedElement>(result.size(), result.toArray());
+		Collection<NamedElement> result = (Collection<NamedElement>) query
+				.evaluate(this);
+		return new BasicEList.UnmodifiableEList<NamedElement>(result.size(),
+				result.toArray());
 	}
 
 	/**
@@ -1023,17 +1128,21 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public boolean maySpecializeType(Classifier c) {
 		if (MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(23));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations()
+							.get(23));
 			try {
 				MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_QRY = helper
 						.createQuery(MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
-		OCL.Query query = EOCL_ENV.createQuery(MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
+		OCL.Query query = EOCL_ENV
+				.createQuery(MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_QRY);
+		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query
+				.getEvaluationEnvironment();
 		environment.add("c", c);
 		return ((Boolean) query.evaluate(this)).booleanValue();
 	}
@@ -1044,14 +1153,18 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:
-			return ((InternalEList<?>) getOwnedAnnexSubclauses()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedAnnexSubclauses()).basicRemove(
+					otherEnd, msgs);
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE:
-			return ((InternalEList<?>) getOwnedPrototypes()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedPrototypes()).basicRemove(
+					otherEnd, msgs);
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE_BINDING:
-			return ((InternalEList<?>) getOwnedPrototypeBindings()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedPrototypeBindings())
+					.basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1099,15 +1212,18 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:
 			getOwnedAnnexSubclauses().clear();
-			getOwnedAnnexSubclauses().addAll((Collection<? extends AnnexSubclause>) newValue);
+			getOwnedAnnexSubclauses().addAll(
+					(Collection<? extends AnnexSubclause>) newValue);
 			return;
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE:
 			getOwnedPrototypes().clear();
-			getOwnedPrototypes().addAll((Collection<? extends Prototype>) newValue);
+			getOwnedPrototypes().addAll(
+					(Collection<? extends Prototype>) newValue);
 			return;
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE_BINDING:
 			getOwnedPrototypeBindings().clear();
-			getOwnedPrototypeBindings().addAll((Collection<? extends PrototypeBinding>) newValue);
+			getOwnedPrototypeBindings().addAll(
+					(Collection<? extends PrototypeBinding>) newValue);
 			return;
 		case Aadl2Package.CLASSIFIER__NO_PROTOTYPES:
 			setNoPrototypes((Boolean) newValue);
@@ -1169,11 +1285,13 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		case Aadl2Package.CLASSIFIER__INHERITED_MEMBER:
 			return !getInheritedMembers().isEmpty();
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:
-			return ownedAnnexSubclauses != null && !ownedAnnexSubclauses.isEmpty();
+			return ownedAnnexSubclauses != null
+					&& !ownedAnnexSubclauses.isEmpty();
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE:
 			return ownedPrototypes != null && !ownedPrototypes.isEmpty();
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE_BINDING:
-			return ownedPrototypeBindings != null && !ownedPrototypeBindings.isEmpty();
+			return ownedPrototypeBindings != null
+					&& !ownedPrototypeBindings.isEmpty();
 		case Aadl2Package.CLASSIFIER__NO_PROTOTYPES:
 			return noPrototypes != NO_PROTOTYPES_EDEFAULT;
 		case Aadl2Package.CLASSIFIER__NO_ANNEXES:
@@ -1221,7 +1339,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	@Override
 	public boolean isSetMembers() {
-		return super.isSetMembers() || isSetClassifierFeatures() || eIsSet(Aadl2Package.CLASSIFIER__INHERITED_MEMBER);
+		return super.isSetMembers() || isSetClassifierFeatures()
+				|| eIsSet(Aadl2Package.CLASSIFIER__INHERITED_MEMBER);
 	}
 
 	/**
@@ -1259,7 +1378,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	@Override
 	public boolean isSetOwnedMembers() {
-		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE)
+		return super.isSetOwnedMembers()
+				|| eIsSet(Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE)
 				|| eIsSet(Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE);
 	}
 
@@ -1294,7 +1414,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public boolean checkAppliesToClassifier(Property property) {
-		for (Classifier appliesToClassifier : property.getAppliesToClassifiers())
+		for (Classifier appliesToClassifier : property
+				.getAppliesToClassifiers())
 			if (isDescendentOf(appliesToClassifier))
 				return true;
 		return false;
@@ -1304,7 +1425,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public EList<PropertyAssociation> getAllPropertyAssociations() {
 		final EList<PropertyAssociation> result = new BasicEList<PropertyAssociation>();
 		final EList<Classifier> classifiers = getAllExtendPlusSelf();
-		for (final ListIterator<Classifier> i = classifiers.listIterator(classifiers.size()); i.hasPrevious();) {
+		for (final ListIterator<Classifier> i = classifiers
+				.listIterator(classifiers.size()); i.hasPrevious();) {
 			final Classifier current = i.previous();
 			result.addAll(current.getOwnedPropertyAssociations());
 		}

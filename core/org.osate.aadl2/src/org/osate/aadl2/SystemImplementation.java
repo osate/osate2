@@ -63,7 +63,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SystemImplementation extends ComponentImplementation, SystemClassifier {
+public interface SystemImplementation extends ComponentImplementation,
+		SystemClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Bus Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.BusSubcomponent}.
@@ -81,8 +82,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedBusSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<BusSubcomponent> getOwnedBusSubcomponents();
@@ -114,8 +114,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedDataSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DataSubcomponent> getOwnedDataSubcomponents();
@@ -147,8 +146,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Device Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedDeviceSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<DeviceSubcomponent> getOwnedDeviceSubcomponents();
@@ -180,8 +178,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Memory Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedMemorySubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<MemorySubcomponent> getOwnedMemorySubcomponents();
@@ -213,8 +210,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Process Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedProcessSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ProcessSubcomponent> getOwnedProcessSubcomponents();
@@ -246,8 +242,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedProcessorSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<ProcessorSubcomponent> getOwnedProcessorSubcomponents();
@@ -279,8 +274,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedSubprogramSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents();
@@ -312,8 +306,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedSubprogramGroupSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents();
@@ -345,8 +338,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned System Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedSystemSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<SystemSubcomponent> getOwnedSystemSubcomponents();
@@ -378,8 +370,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedVirtualBusSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents();
@@ -411,8 +402,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Virtual Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedVirtualProcessorSubcomponent()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
-	 *        extendedMetaData="group='implementation#subcomponents'"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents();

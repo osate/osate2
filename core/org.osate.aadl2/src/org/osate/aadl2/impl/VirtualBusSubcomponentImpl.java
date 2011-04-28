@@ -58,7 +58,8 @@ import org.osate.aadl2.VirtualBusSubcomponent;
  *
  * @generated
  */
-public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements VirtualBusSubcomponent {
+public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements
+		VirtualBusSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,7 +108,8 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 */
 	public VirtualBusClassifier getVirtualBusClassifier() {
 		VirtualBusClassifier virtualBusClassifier = basicGetVirtualBusClassifier();
-		return virtualBusClassifier != null && ((EObject) virtualBusClassifier).eIsProxy() ? (VirtualBusClassifier) eResolveProxy((InternalEObject) virtualBusClassifier)
+		return virtualBusClassifier != null
+				&& ((EObject) virtualBusClassifier).eIsProxy() ? (VirtualBusClassifier) eResolveProxy((InternalEObject) virtualBusClassifier)
 				: virtualBusClassifier;
 	}
 
@@ -128,7 +130,8 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void setVirtualBusClassifier(VirtualBusClassifier newVirtualBusClassifier) {
+	public void setVirtualBusClassifier(
+			VirtualBusClassifier newVirtualBusClassifier) {
 		classifier = newVirtualBusClassifier;
 	}
 
@@ -199,7 +202,8 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_CLASSIFIER);
+		return super.isSetClassifier()
+				|| eIsSet(Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_CLASSIFIER);
 	}
 
 	public ComponentCategory getCategory() {
