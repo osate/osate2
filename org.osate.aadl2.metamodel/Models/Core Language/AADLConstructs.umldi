@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_LeCuMFfsEdyNZODle9ZrlQ">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_4DY-cEwyEd2AtbATM3PT-Q">
   <model href="AADLConstructs.uml#_0"/>
   <diagrams xmi:id="_HKg1gEdvEdyOeaOA5AULsA" position="0,0" size="100,100" name="Packages" viewport="0,0">
     <property xmi:id="_HbDL4EdvEdyOeaOA5AULsA" key="pageFormatName" value="A4"/>
@@ -414,7 +414,7 @@
         </contained>
       </contained>
     </diagrams>
-    <diagrams xmi:id="_CPrOwBUpEd2Q9aknOTIPVg" position="0,0" size="100,100" name="Component Extension" viewport="-47,0">
+    <diagrams xmi:id="_CPrOwBUpEd2Q9aknOTIPVg" position="0,0" size="100,100" name="Component Extension" viewport="0,0">
       <property xmi:id="_CSzbQBUpEd2Q9aknOTIPVg" key="pageFormatName" value="A4"/>
       <property xmi:id="_CSzbQRUpEd2Q9aknOTIPVg" key="diagramWidth" value="840"/>
       <property xmi:id="_CSzbQhUpEd2Q9aknOTIPVg" key="diagramHeight" value="1188"/>

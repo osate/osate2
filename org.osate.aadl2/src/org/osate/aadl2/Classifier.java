@@ -118,7 +118,7 @@ public interface Classifier extends Namespace, Type {
 	EList<NamedElement> getInheritedMembers();
 
 	/**
-	 * Returns the value of the '<em><b>Generalization</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Generalization</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.Generalization}.
 	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.Generalization#getSpecific <em>Specific</em>}'.
 	 * <p>
@@ -133,10 +133,10 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- begin-model-doc -->
 	 * Specifies the Generalization relationships for this Classifier. These Generalizations navigate to more general classifiers in the generalization hierarchy.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Generalization</em>' containment reference list.
+	 * @return the value of the '<em>Generalization</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getClassifier_Generalization()
 	 * @see org.osate.aadl2.Generalization#getSpecific
-	 * @model opposite="specific" containment="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model opposite="specific" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Generalization> getGeneralizations();

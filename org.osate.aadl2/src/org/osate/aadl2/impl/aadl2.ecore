@@ -260,7 +260,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="generalization" ordered="false"
         upperBound="-1" eType="#//Generalization" changeable="false" volatile="true"
-        transient="true" derived="true" containment="true" eOpposite="#//Generalization/specific">
+        transient="true" derived="true" eOpposite="#//Generalization/specific">
       <eAnnotations source="subsets" references="#//Element/ownedElement"/>
       <eAnnotations source="union"/>
     </eStructuralFeatures>
@@ -438,11 +438,11 @@
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedExtension" ordered="false"
-        eType="#//ImplementationExtension">
+        eType="#//ImplementationExtension" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/generalization"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedRealization" ordered="false"
-        lowerBound="1" eType="#//Realization">
+        lowerBound="1" eType="#//Realization" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/generalization"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEndToEndFlow" ordered="false"
@@ -565,7 +565,7 @@
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedExtension" ordered="false"
-        eType="#//TypeExtension">
+        eType="#//TypeExtension" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/generalization"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureGroup" ordered="false"

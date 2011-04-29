@@ -3016,7 +3016,7 @@ public interface Aadl2Package extends EPackage {
 	int CLASSIFIER__INHERITED_MEMBER = NAMESPACE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3349,7 +3349,7 @@ public interface Aadl2Package extends EPackage {
 	int GENERALIZATION__GENERAL = DIRECTED_RELATIONSHIP_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Specific</b></em>' container reference.
+	 * The feature id for the '<em><b>Specific</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4958,7 +4958,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_CLASSIFIER__INHERITED_MEMBER = CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5192,7 +5192,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5363,7 +5363,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5372,7 +5372,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6719,7 +6719,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_TYPE__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6872,7 +6872,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7251,7 +7251,7 @@ public interface Aadl2Package extends EPackage {
 	int TYPE_EXTENSION__GENERAL = GENERALIZATION__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Specific</b></em>' container reference.
+	 * The feature id for the '<em><b>Specific</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7657,7 +7657,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_GROUP_TYPE__INHERITED_MEMBER = CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7927,7 +7927,7 @@ public interface Aadl2Package extends EPackage {
 	int GROUP_EXTENSION__GENERAL = GENERALIZATION__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Specific</b></em>' container reference.
+	 * The feature id for the '<em><b>Specific</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8450,7 +8450,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9134,7 +9134,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10268,7 +10268,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10736,7 +10736,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11583,7 +11583,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12375,7 +12375,7 @@ public interface Aadl2Package extends EPackage {
 	int IMPLEMENTATION_EXTENSION__GENERAL = GENERALIZATION__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Specific</b></em>' container reference.
+	 * The feature id for the '<em><b>Specific</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12465,7 +12465,7 @@ public interface Aadl2Package extends EPackage {
 	int REALIZATION__GENERAL = GENERALIZATION__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Specific</b></em>' container reference.
+	 * The feature id for the '<em><b>Specific</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -15831,7 +15831,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -15984,7 +15984,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -16191,7 +16191,7 @@ public interface Aadl2Package extends EPackage {
 	int BEHAVIORED_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -16362,7 +16362,7 @@ public interface Aadl2Package extends EPackage {
 	int BEHAVIORED_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -16371,7 +16371,7 @@ public interface Aadl2Package extends EPackage {
 	int BEHAVIORED_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -16605,7 +16605,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_IMPLEMENTATION__INHERITED_MEMBER = BEHAVIORED_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -16776,7 +16776,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_IMPLEMENTATION__OWNED_CONNECTION = BEHAVIORED_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -16785,7 +16785,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_IMPLEMENTATION__OWNED_EXTENSION = BEHAVIORED_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -17982,7 +17982,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18486,7 +18486,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18990,7 +18990,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -19494,7 +19494,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -19998,7 +19998,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -20898,7 +20898,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21402,7 +21402,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21906,7 +21906,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22410,7 +22410,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22644,7 +22644,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22797,7 +22797,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22950,7 +22950,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23121,7 +23121,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23130,7 +23130,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23355,7 +23355,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23508,7 +23508,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23670,7 +23670,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23841,7 +23841,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23850,7 +23850,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24084,7 +24084,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24237,7 +24237,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24435,7 +24435,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24606,7 +24606,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24615,7 +24615,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24849,7 +24849,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25002,7 +25002,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25155,7 +25155,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25326,7 +25326,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25335,7 +25335,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25569,7 +25569,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25722,7 +25722,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25920,7 +25920,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26073,7 +26073,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26271,7 +26271,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26442,7 +26442,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26451,7 +26451,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26712,7 +26712,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26883,7 +26883,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26892,7 +26892,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27144,7 +27144,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27297,7 +27297,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27495,7 +27495,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_IMPLEMENTATION__INHERITED_MEMBER = BEHAVIORED_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27666,7 +27666,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_IMPLEMENTATION__OWNED_CONNECTION = BEHAVIORED_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27675,7 +27675,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_IMPLEMENTATION__OWNED_EXTENSION = BEHAVIORED_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27918,7 +27918,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28071,7 +28071,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28233,7 +28233,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28404,7 +28404,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28413,7 +28413,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28647,7 +28647,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28800,7 +28800,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29007,7 +29007,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29178,7 +29178,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29187,7 +29187,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29502,7 +29502,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29655,7 +29655,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29853,7 +29853,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_IMPLEMENTATION__INHERITED_MEMBER = BEHAVIORED_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30024,7 +30024,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_IMPLEMENTATION__OWNED_CONNECTION = BEHAVIORED_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30033,7 +30033,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_IMPLEMENTATION__OWNED_EXTENSION = BEHAVIORED_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30294,7 +30294,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30447,7 +30447,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30645,7 +30645,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30816,7 +30816,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30825,7 +30825,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31086,7 +31086,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31239,7 +31239,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31383,7 +31383,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31554,7 +31554,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31563,7 +31563,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31788,7 +31788,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31941,7 +31941,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32130,7 +32130,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32301,7 +32301,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32310,7 +32310,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -36629,10 +36629,10 @@ public interface Aadl2Package extends EPackage {
 	EReference getClassifier_InheritedMember();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.Classifier#getGeneralizations <em>Generalization</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.Classifier#getGeneralizations <em>Generalization</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Generalization</em>'.
+	 * @return the meta object for the reference list '<em>Generalization</em>'.
 	 * @see org.osate.aadl2.Classifier#getGeneralizations()
 	 * @see #getClassifier()
 	 * @generated
@@ -36738,10 +36738,10 @@ public interface Aadl2Package extends EPackage {
 	EReference getGeneralization_General();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.osate.aadl2.Generalization#getSpecific <em>Specific</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.Generalization#getSpecific <em>Specific</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Specific</em>'.
+	 * @return the meta object for the reference '<em>Specific</em>'.
 	 * @see org.osate.aadl2.Generalization#getSpecific()
 	 * @see #getGeneralization()
 	 * @generated
@@ -37461,10 +37461,10 @@ public interface Aadl2Package extends EPackage {
 	EReference getComponentType_OwnedFlowSpecification();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.ComponentType#getOwnedExtension <em>Owned Extension</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ComponentType#getOwnedExtension <em>Owned Extension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Owned Extension</em>'.
+	 * @return the meta object for the containment reference '<em>Owned Extension</em>'.
 	 * @see org.osate.aadl2.ComponentType#getOwnedExtension()
 	 * @see #getComponentType()
 	 * @generated
@@ -37978,10 +37978,10 @@ public interface Aadl2Package extends EPackage {
 	EReference getComponentImplementation_OwnedConnection();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.ComponentImplementation#getOwnedExtension <em>Owned Extension</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ComponentImplementation#getOwnedExtension <em>Owned Extension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Owned Extension</em>'.
+	 * @return the meta object for the containment reference '<em>Owned Extension</em>'.
 	 * @see org.osate.aadl2.ComponentImplementation#getOwnedExtension()
 	 * @see #getComponentImplementation()
 	 * @generated
@@ -37989,10 +37989,10 @@ public interface Aadl2Package extends EPackage {
 	EReference getComponentImplementation_OwnedExtension();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.ComponentImplementation#getOwnedRealization <em>Owned Realization</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ComponentImplementation#getOwnedRealization <em>Owned Realization</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Owned Realization</em>'.
+	 * @return the meta object for the containment reference '<em>Owned Realization</em>'.
 	 * @see org.osate.aadl2.ComponentImplementation#getOwnedRealization()
 	 * @see #getComponentImplementation()
 	 * @generated

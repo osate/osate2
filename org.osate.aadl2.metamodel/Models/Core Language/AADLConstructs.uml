@@ -132,7 +132,7 @@
           <subsettedProperty href="AADLInfrastructure.uml#Classifier-classifierFeature"/>
           <subsettedProperty href="AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Components-ComponentType-ownedExtension" name="ownedExtension" type="Components-TypeExtension" association="Components-A_componentType_ownedExtension">
+        <ownedAttribute xmi:id="Components-ComponentType-ownedExtension" name="ownedExtension" type="Components-TypeExtension" aggregation="composite" association="Components-A_componentType_ownedExtension">
           <ownedComment xmi:id="Components-ComponentType-ownedExtension-_ownedComment.0">
             <body>An extension relationship owned by this component type.</body>
           </ownedComment>
@@ -233,7 +233,7 @@
           <subsettedProperty href="AADLInfrastructure.uml#Classifier-classifierFeature"/>
           <subsettedProperty href="AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Components-ComponentImplementation-ownedExtension" name="ownedExtension" type="Components-ImplementationExtension" association="Components-A_componentImplementation_ownedExtension">
+        <ownedAttribute xmi:id="Components-ComponentImplementation-ownedExtension" name="ownedExtension" type="Components-ImplementationExtension" aggregation="composite" association="Components-A_componentImplementation_ownedExtension">
           <ownedComment xmi:id="Components-ComponentImplementation-ownedExtension-_ownedComment.0">
             <body>An extension owned by this component implementation.</body>
           </ownedComment>
@@ -241,7 +241,7 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-ComponentImplementation-ownedExtension-_lowerValue"/>
           <subsettedProperty href="AADLInfrastructure.uml#Classifier-generalization"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Components-ComponentImplementation-ownedRealization" name="ownedRealization" type="Components-Realization" association="Components-A_componentImplementation_ownedRealization">
+        <ownedAttribute xmi:id="Components-ComponentImplementation-ownedRealization" name="ownedRealization" type="Components-Realization" aggregation="composite" association="Components-A_componentImplementation_ownedRealization">
           <ownedComment xmi:id="Components-ComponentImplementation-ownedRealization-_ownedComment.0">
             <body>The realization owned by this component implementation.</body>
           </ownedComment>
