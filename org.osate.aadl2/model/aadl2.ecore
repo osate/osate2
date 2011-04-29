@@ -1458,11 +1458,11 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPublicSection" ordered="false"
         eType="#//PublicPackageSection" containment="true">
-      <eAnnotations source="subsets" references="#//AadlPackage/publicSection"/>
+      <eAnnotations source="subsets" references="#//AadlPackage/publicSection #//Element/ownedElement"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPrivateSection" ordered="false"
         eType="#//PrivatePackageSection" containment="true">
-      <eAnnotations source="subsets" references="#//AadlPackage/privateSection"/>
+      <eAnnotations source="subsets" references="#//AadlPackage/privateSection #//Element/ownedElement"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="publicSection" ordered="false"
         eType="#//PublicPackageSection"/>
