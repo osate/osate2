@@ -79,7 +79,7 @@ public interface Generalization extends DirectedRelationship {
 	Classifier getGeneral();
 
 	/**
-	 * Returns the value of the '<em><b>Specific</b></em>' container reference.
+	 * Returns the value of the '<em><b>Specific</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.Classifier#getGeneralizations <em>Generalization</em>}'.
 	 * <p>
 	 * This feature subsets the following features:
@@ -93,20 +93,20 @@ public interface Generalization extends DirectedRelationship {
 	 * <!-- begin-model-doc -->
 	 * References the specializing classifier in the Generalization relationship. 
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Specific</em>' container reference.
+	 * @return the value of the '<em>Specific</em>' reference.
 	 * @see #setSpecific(Classifier)
 	 * @see org.osate.aadl2.Aadl2Package#getGeneralization_Specific()
 	 * @see org.osate.aadl2.Classifier#getGeneralizations
-	 * @model opposite="generalization" required="true" volatile="true" derived="true" ordered="false"
+	 * @model opposite="generalization" required="true" transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	Classifier getSpecific();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Generalization#getSpecific <em>Specific</em>}' container reference.
+	 * Sets the value of the '{@link org.osate.aadl2.Generalization#getSpecific <em>Specific</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Specific</em>' container reference.
+	 * @param value the new value of the '<em>Specific</em>' reference.
 	 * @see #getSpecific()
 	 * @generated
 	 */

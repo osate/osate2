@@ -58,9 +58,10 @@ import org.osate.aadl2.ComponentPrototypeReference;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComponentPrototypeReferenceItemProvider extends ComponentPrototypeActualItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class ComponentPrototypeReferenceItemProvider extends
+		ComponentPrototypeActualItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,12 +96,16 @@ public class ComponentPrototypeReferenceItemProvider extends ComponentPrototypeA
 	 */
 	protected void addPrototypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentPrototypeReference_prototype_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentPrototypeReference_prototype_feature",
-						"_UI_ComponentPrototypeReference_type"), Aadl2Package.eINSTANCE
-						.getComponentPrototypeReference_Prototype(), true, false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ComponentPrototypeReference_prototype_feature",
+						"_UI_ComponentPrototypeReference_type"),
+				Aadl2Package.eINSTANCE
+						.getComponentPrototypeReference_Prototype(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -111,7 +116,10 @@ public class ComponentPrototypeReferenceItemProvider extends ComponentPrototypeA
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ComponentPrototypeReference"));
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/ComponentPrototypeReference"));
 	}
 
 	/**
@@ -122,10 +130,12 @@ public class ComponentPrototypeReferenceItemProvider extends ComponentPrototypeA
 	 */
 	@Override
 	public String getText(Object object) {
-		ComponentCategory labelValue = ((ComponentPrototypeReference) object).getCategory();
+		ComponentCategory labelValue = ((ComponentPrototypeReference) object)
+				.getCategory();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ? getString("_UI_ComponentPrototypeReference_type")
-				: getString("_UI_ComponentPrototypeReference_type") + " " + label;
+				: getString("_UI_ComponentPrototypeReference_type") + " "
+						+ label;
 	}
 
 	/**
@@ -149,7 +159,8 @@ public class ComponentPrototypeReferenceItemProvider extends ComponentPrototypeA
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

@@ -60,8 +60,9 @@ import org.osate.aadl2.ComponentPrototypeActual;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComponentPrototypeActualItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ComponentPrototypeActualItemProvider extends ElementItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,13 +97,16 @@ public class ComponentPrototypeActualItemProvider extends ElementItemProvider im
 	 */
 	protected void addCategoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentPrototypeActual_category_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentPrototypeActual_category_feature",
-						"_UI_ComponentPrototypeActual_type"), Aadl2Package.eINSTANCE
-						.getComponentPrototypeActual_Category(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ComponentPrototypeActual_category_feature",
+						"_UI_ComponentPrototypeActual_type"),
+				Aadl2Package.eINSTANCE.getComponentPrototypeActual_Category(),
+				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				null, null));
 	}
 
 	/**
@@ -113,7 +117,8 @@ public class ComponentPrototypeActualItemProvider extends ElementItemProvider im
 	 */
 	@Override
 	public String getText(Object object) {
-		ComponentCategory labelValue = ((ComponentPrototypeActual) object).getCategory();
+		ComponentCategory labelValue = ((ComponentPrototypeActual) object)
+				.getCategory();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ? getString("_UI_ComponentPrototypeActual_type")
 				: getString("_UI_ComponentPrototypeActual_type") + " " + label;
@@ -132,7 +137,8 @@ public class ComponentPrototypeActualItemProvider extends ElementItemProvider im
 
 		switch (notification.getFeatureID(ComponentPrototypeActual.class)) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -146,7 +152,8 @@ public class ComponentPrototypeActualItemProvider extends ElementItemProvider im
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

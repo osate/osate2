@@ -58,8 +58,9 @@ import org.osate.aadl2.Namespace;
  * <!-- end-user-doc -->
  * @generated
  */
-public class NamespaceItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class NamespaceItemProvider extends NamedElementItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -94,10 +95,14 @@ public class NamespaceItemProvider extends NamedElementItemProvider implements I
 	 */
 	protected void addMemberPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getResourceLocator(),
 				getString("_UI_Namespace_member_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Namespace_member_feature", "_UI_Namespace_type"),
-				Aadl2Package.eINSTANCE.getNamespace_Member(), false, false, false, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_Namespace_member_feature", "_UI_Namespace_type"),
+				Aadl2Package.eINSTANCE.getNamespace_Member(), false, false,
+				false, null, null, null));
 	}
 
 	/**
@@ -109,10 +114,12 @@ public class NamespaceItemProvider extends NamedElementItemProvider implements I
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getNamespace_OwnedMember());
 		}
 		return childrenFeatures;
 	}
@@ -139,8 +146,8 @@ public class NamespaceItemProvider extends NamedElementItemProvider implements I
 	@Override
 	public String getText(Object object) {
 		String label = ((Namespace) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Namespace_type") : getString("_UI_Namespace_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Namespace_type")
+				: getString("_UI_Namespace_type") + " " + label;
 	}
 
 	/**
@@ -156,7 +163,8 @@ public class NamespaceItemProvider extends NamedElementItemProvider implements I
 
 		switch (notification.getFeatureID(Namespace.class)) {
 		case Aadl2Package.NAMESPACE__OWNED_MEMBER:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -170,7 +178,8 @@ public class NamespaceItemProvider extends NamedElementItemProvider implements I
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

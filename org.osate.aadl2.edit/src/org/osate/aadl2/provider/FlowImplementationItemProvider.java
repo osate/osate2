@@ -66,8 +66,10 @@ import org.osate.aadl2.FlowImplementation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FlowImplementationItemProvider extends ModalPathItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class FlowImplementationItemProvider extends
+		StructuralFeatureItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -89,9 +91,8 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addRefinementContextPropertyDescriptor(object);
-			addRefinedElementPropertyDescriptor(object);
-			addFeaturingClassifierPropertyDescriptor(object);
+			addInModePropertyDescriptor(object);
+			addInTransitionPropertyDescriptor(object);
 			addKindPropertyDescriptor(object);
 			addSpecificationPropertyDescriptor(object);
 			addFlowElementPropertyDescriptor(object);
@@ -100,51 +101,41 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	}
 
 	/**
-	 * This adds a property descriptor for the Refinement Context feature.
+	 * This adds a property descriptor for the In Mode feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRefinementContextPropertyDescriptor(Object object) {
+	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_RefinableElement_refinementContext_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_RefinableElement_refinementContext_feature",
-						"_UI_RefinableElement_type"), Aadl2Package.eINSTANCE.getRefinableElement_RefinementContext(),
-				false, false, false, null, null, null));
+				getString("_UI_ModalElement_inMode_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ModalElement_inMode_feature",
+						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE
+						.getModalElement_InMode(), true, false, true, null,
+				null, null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Refined Element feature.
+	 * This adds a property descriptor for the In Transition feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRefinedElementPropertyDescriptor(Object object) {
+	protected void addInTransitionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_RefinableElement_refinedElement_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_RefinableElement_refinedElement_feature",
-						"_UI_RefinableElement_type"), Aadl2Package.eINSTANCE.getRefinableElement_RefinedElement(),
-				false, false, false, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Featuring Classifier feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFeaturingClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ClassifierFeature_featuringClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ClassifierFeature_featuringClassifier_feature",
-						"_UI_ClassifierFeature_type"), Aadl2Package.eINSTANCE
-						.getClassifierFeature_FeaturingClassifier(), false, false, false, null, null, null));
+				getString("_UI_ModalPath_inTransition_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ModalPath_inTransition_feature",
+						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE
+						.getModalPath_InTransition(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -155,12 +146,15 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 */
 	protected void addSpecificationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowImplementation_specification_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowImplementation_specification_feature",
-						"_UI_FlowImplementation_type"), Aadl2Package.eINSTANCE.getFlowImplementation_Specification(),
-				true, false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_FlowImplementation_specification_feature",
+						"_UI_FlowImplementation_type"), Aadl2Package.eINSTANCE
+						.getFlowImplementation_Specification(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -171,12 +165,15 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 */
 	protected void addFlowElementPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowImplementation_flowElement_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowImplementation_flowElement_feature",
-						"_UI_FlowImplementation_type"), Aadl2Package.eINSTANCE.getFlowImplementation_FlowElement(),
-				true, false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_FlowImplementation_flowElement_feature",
+						"_UI_FlowImplementation_type"), Aadl2Package.eINSTANCE
+						.getFlowImplementation_FlowElement(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -188,10 +185,12 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getFlowImplementation_OwnedSubcomponentFlow());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getFlowImplementation_OwnedSubcomponentFlow());
 		}
 		return childrenFeatures;
 	}
@@ -217,7 +216,8 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowImplementation"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/FlowImplementation"));
 	}
 
 	/**
@@ -228,12 +228,15 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 */
 	protected void addKindPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowImplementation_kind_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowImplementation_kind_feature",
-						"_UI_FlowImplementation_type"), Aadl2Package.eINSTANCE.getFlowImplementation_Kind(), true,
-				false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_FlowImplementation_kind_feature",
+						"_UI_FlowImplementation_type"), Aadl2Package.eINSTANCE
+						.getFlowImplementation_Kind(), true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -262,10 +265,12 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 
 		switch (notification.getFeatureID(FlowImplementation.class)) {
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -279,11 +284,12 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getFlowImplementation_OwnedSubcomponentFlow(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
+				.getFlowImplementation_OwnedSubcomponentFlow(),
 				Aadl2Factory.eINSTANCE.createSubcomponentFlow()));
 	}
 
@@ -294,14 +300,17 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 * @generated
 	 */
 	@Override
-	protected Command createAddCommand(EditingDomain domain, EObject owner, EStructuralFeature feature,
-			Collection<?> collection, int index) {
-		if (feature == Aadl2Package.eINSTANCE.getFlowImplementation_OwnedSubcomponentFlow()) {
+	protected Command createAddCommand(EditingDomain domain, EObject owner,
+			EStructuralFeature feature, Collection<?> collection, int index) {
+		if (feature == Aadl2Package.eINSTANCE
+				.getFlowImplementation_OwnedSubcomponentFlow()) {
 			return new SubsetAddCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getFlowImplementation_FlowElement() },
-					collection, index);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE
+							.getFlowImplementation_FlowElement() }, collection,
+					index);
 		}
-		return super.createAddCommand(domain, owner, feature, collection, index);
+		return super
+				.createAddCommand(domain, owner, feature, collection, index);
 	}
 
 	/**
@@ -311,11 +320,13 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 * @generated
 	 */
 	@Override
-	protected Command createRemoveCommand(EditingDomain domain, EObject owner, EStructuralFeature feature,
-			Collection<?> collection) {
-		if (feature == Aadl2Package.eINSTANCE.getFlowImplementation_FlowElement()) {
+	protected Command createRemoveCommand(EditingDomain domain, EObject owner,
+			EStructuralFeature feature, Collection<?> collection) {
+		if (feature == Aadl2Package.eINSTANCE
+				.getFlowImplementation_FlowElement()) {
 			return new SupersetRemoveCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getFlowImplementation_OwnedSubcomponentFlow() },
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE
+							.getFlowImplementation_OwnedSubcomponentFlow() },
 					collection);
 		}
 		return super.createRemoveCommand(domain, owner, feature, collection);
@@ -328,19 +339,25 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 * @generated
 	 */
 	@Override
-	protected Command createReplaceCommand(EditingDomain domain, EObject owner, EStructuralFeature feature,
-			EObject value, Collection<?> collection) {
-		if (feature == Aadl2Package.eINSTANCE.getFlowImplementation_OwnedSubcomponentFlow()) {
+	protected Command createReplaceCommand(EditingDomain domain, EObject owner,
+			EStructuralFeature feature, EObject value, Collection<?> collection) {
+		if (feature == Aadl2Package.eINSTANCE
+				.getFlowImplementation_OwnedSubcomponentFlow()) {
 			return new SubsetSupersetReplaceCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getFlowImplementation_FlowElement() }, null,
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE
+							.getFlowImplementation_FlowElement() }, null,
 					value, collection);
 		}
-		if (feature == Aadl2Package.eINSTANCE.getFlowImplementation_FlowElement()) {
-			return new SubsetSupersetReplaceCommand(domain, owner, feature, null,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getFlowImplementation_OwnedSubcomponentFlow() },
+		if (feature == Aadl2Package.eINSTANCE
+				.getFlowImplementation_FlowElement()) {
+			return new SubsetSupersetReplaceCommand(domain, owner, feature,
+					null,
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE
+							.getFlowImplementation_OwnedSubcomponentFlow() },
 					value, collection);
 		}
-		return super.createReplaceCommand(domain, owner, feature, value, collection);
+		return super.createReplaceCommand(domain, owner, feature, value,
+				collection);
 	}
 
 }

@@ -59,16 +59,18 @@ import org.osate.aadl2.FeatureGroupPrototypeBinding;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureGroupPrototypeBindingItemProvider extends PrototypeBindingItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class FeatureGroupPrototypeBindingItemProvider extends
+		PrototypeBindingItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureGroupPrototypeBindingItemProvider(AdapterFactory adapterFactory) {
+	public FeatureGroupPrototypeBindingItemProvider(
+			AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -96,10 +98,12 @@ public class FeatureGroupPrototypeBindingItemProvider extends PrototypeBindingIt
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupPrototypeBinding_Actual());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getFeatureGroupPrototypeBinding_Actual());
 		}
 		return childrenFeatures;
 	}
@@ -125,7 +129,10 @@ public class FeatureGroupPrototypeBindingItemProvider extends PrototypeBindingIt
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroupPrototypeBinding"));
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/FeatureGroupPrototypeBinding"));
 	}
 
 	/**
@@ -152,7 +159,8 @@ public class FeatureGroupPrototypeBindingItemProvider extends PrototypeBindingIt
 
 		switch (notification.getFeatureID(FeatureGroupPrototypeBinding.class)) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -166,14 +174,20 @@ public class FeatureGroupPrototypeBindingItemProvider extends PrototypeBindingIt
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupPrototypeBinding_Actual(),
-				Aadl2Factory.eINSTANCE.createFeatureGroupPrototypeReference()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE
+						.getFeatureGroupPrototypeBinding_Actual(),
+						Aadl2Factory.eINSTANCE
+								.createFeatureGroupPrototypeReference()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupPrototypeBinding_Actual(),
-				Aadl2Factory.eINSTANCE.createFeatureGroupReference()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE
+						.getFeatureGroupPrototypeBinding_Actual(),
+						Aadl2Factory.eINSTANCE.createFeatureGroupReference()));
 	}
 
 }

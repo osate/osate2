@@ -271,7 +271,7 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
-	
+
 	/**
 	 * returns the list of modes the modal element belongs to.
 	 * This may be kept with the modal element or an ancestor in the extends hierarchy.

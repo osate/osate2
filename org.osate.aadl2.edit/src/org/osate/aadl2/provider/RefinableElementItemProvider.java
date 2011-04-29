@@ -56,8 +56,9 @@ import org.osate.aadl2.RefinableElement;
  * <!-- end-user-doc -->
  * @generated
  */
-public class RefinableElementItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class RefinableElementItemProvider extends NamedElementItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -93,12 +94,15 @@ public class RefinableElementItemProvider extends NamedElementItemProvider imple
 	 */
 	protected void addRefinementContextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_RefinableElement_refinementContext_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_RefinableElement_refinementContext_feature",
-						"_UI_RefinableElement_type"), Aadl2Package.eINSTANCE.getRefinableElement_RefinementContext(),
-				false, false, false, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_RefinableElement_refinementContext_feature",
+						"_UI_RefinableElement_type"), Aadl2Package.eINSTANCE
+						.getRefinableElement_RefinementContext(), false, false,
+				false, null, null, null));
 	}
 
 	/**
@@ -109,12 +113,15 @@ public class RefinableElementItemProvider extends NamedElementItemProvider imple
 	 */
 	protected void addRefinedElementPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_RefinableElement_refinedElement_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_RefinableElement_refinedElement_feature",
-						"_UI_RefinableElement_type"), Aadl2Package.eINSTANCE.getRefinableElement_RefinedElement(),
-				false, false, false, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_RefinableElement_refinedElement_feature",
+						"_UI_RefinableElement_type"), Aadl2Package.eINSTANCE
+						.getRefinableElement_RefinedElement(), false, false,
+				false, null, null, null));
 	}
 
 	/**
@@ -151,7 +158,8 @@ public class RefinableElementItemProvider extends NamedElementItemProvider imple
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

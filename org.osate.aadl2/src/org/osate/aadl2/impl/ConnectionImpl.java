@@ -900,6 +900,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements
 		}
 		return dcxt;
 	}
+
 	/**
 	 * returns the list of modes the modal element belongs to.
 	 * This may be kept with the modal element or an ancestor in the extends hierarchy.
@@ -922,6 +923,5 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements
 		}
 		return inmodes;
 	}
-
 
 } //ConnectionImpl

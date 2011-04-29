@@ -300,7 +300,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	EList<Connection> getOwnedConnections();
 
 	/**
-	 * Returns the value of the '<em><b>Owned Extension</b></em>' reference.
+	 * Returns the value of the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -313,26 +313,36 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Extension</em>' reference.
+	 * @return the value of the '<em>Owned Extension</em>' containment reference.
 	 * @see #setOwnedExtension(ImplementationExtension)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedExtension()
-	 * @model ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	ImplementationExtension getOwnedExtension();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ComponentImplementation#getOwnedExtension <em>Owned Extension</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.ComponentImplementation#getOwnedExtension <em>Owned Extension</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Owned Extension</em>' reference.
+	 * @param value the new value of the '<em>Owned Extension</em>' containment reference.
 	 * @see #getOwnedExtension()
 	 * @generated
 	 */
 	void setOwnedExtension(ImplementationExtension value);
 
 	/**
-	 * Returns the value of the '<em><b>Owned Realization</b></em>' reference.
+	 * Creates a new {@link org.osate.aadl2.ImplementationExtension} and sets the '<em><b>Owned Extension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.ImplementationExtension}.
+	 * @see #getOwnedExtension()
+	 * @generated
+	 */
+	ImplementationExtension createOwnedExtension();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -345,23 +355,33 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Realization</em>' reference.
+	 * @return the value of the '<em>Owned Realization</em>' containment reference.
 	 * @see #setOwnedRealization(Realization)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedRealization()
-	 * @model required="true" ordered="false"
+	 * @model containment="true" required="true" ordered="false"
 	 * @generated
 	 */
 	Realization getOwnedRealization();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ComponentImplementation#getOwnedRealization <em>Owned Realization</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.ComponentImplementation#getOwnedRealization <em>Owned Realization</em>}' containment reference.
 	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Owned Realization</em>' reference.
+	 * @param value the new value of the '<em>Owned Realization</em>' containment reference.
 	 * @see #getOwnedRealization()
 	 * @generated
 	 */
 	void setOwnedRealization(Realization value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.Realization} and sets the '<em><b>Owned Realization</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.Realization}.
+	 * @see #getOwnedRealization()
+	 * @generated
+	 */
+	Realization createOwnedRealization();
 
 	/**
 	 * Returns the value of the '<em><b>Owned Access Connection</b></em>' containment reference list.

@@ -58,8 +58,9 @@ import org.osate.aadl2.Connection;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ConnectionItemProvider extends ModalPathItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ConnectionItemProvider extends StructuralFeatureItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -81,9 +82,8 @@ public class ConnectionItemProvider extends ModalPathItemProvider implements IEd
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addRefinementContextPropertyDescriptor(object);
-			addRefinedElementPropertyDescriptor(object);
-			addFeaturingClassifierPropertyDescriptor(object);
+			addInModePropertyDescriptor(object);
+			addInTransitionPropertyDescriptor(object);
 			addKindPropertyDescriptor(object);
 			addDestinationPropertyDescriptor(object);
 			addSourcePropertyDescriptor(object);
@@ -96,51 +96,41 @@ public class ConnectionItemProvider extends ModalPathItemProvider implements IEd
 	}
 
 	/**
-	 * This adds a property descriptor for the Refinement Context feature.
+	 * This adds a property descriptor for the In Mode feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRefinementContextPropertyDescriptor(Object object) {
+	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_RefinableElement_refinementContext_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_RefinableElement_refinementContext_feature",
-						"_UI_RefinableElement_type"), Aadl2Package.eINSTANCE.getRefinableElement_RefinementContext(),
-				false, false, false, null, null, null));
+				getString("_UI_ModalElement_inMode_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ModalElement_inMode_feature",
+						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE
+						.getModalElement_InMode(), true, false, true, null,
+				null, null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Refined Element feature.
+	 * This adds a property descriptor for the In Transition feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRefinedElementPropertyDescriptor(Object object) {
+	protected void addInTransitionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_RefinableElement_refinedElement_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_RefinableElement_refinedElement_feature",
-						"_UI_RefinableElement_type"), Aadl2Package.eINSTANCE.getRefinableElement_RefinedElement(),
-				false, false, false, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Featuring Classifier feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFeaturingClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ClassifierFeature_featuringClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ClassifierFeature_featuringClassifier_feature",
-						"_UI_ClassifierFeature_type"), Aadl2Package.eINSTANCE
-						.getClassifierFeature_FeaturingClassifier(), false, false, false, null, null, null));
+				getString("_UI_ModalPath_inTransition_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ModalPath_inTransition_feature",
+						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE
+						.getModalPath_InTransition(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -151,11 +141,14 @@ public class ConnectionItemProvider extends ModalPathItemProvider implements IEd
 	 */
 	protected void addKindPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getResourceLocator(),
 				getString("_UI_Connection_kind_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Connection_kind_feature", "_UI_Connection_type"),
-				Aadl2Package.eINSTANCE.getConnection_Kind(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_Connection_kind_feature", "_UI_Connection_type"),
+				Aadl2Package.eINSTANCE.getConnection_Kind(), true, false,
+				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -166,12 +159,15 @@ public class ConnectionItemProvider extends ModalPathItemProvider implements IEd
 	 */
 	protected void addDestinationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Connection_destination_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Connection_destination_feature",
-						"_UI_Connection_type"), Aadl2Package.eINSTANCE.getConnection_Destination(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_Connection_destination_feature",
+						"_UI_Connection_type"), Aadl2Package.eINSTANCE
+						.getConnection_Destination(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -183,12 +179,15 @@ public class ConnectionItemProvider extends ModalPathItemProvider implements IEd
 	protected void addSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_Connection_source_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Connection_source_feature",
-								"_UI_Connection_type"), Aadl2Package.eINSTANCE.getConnection_Source(), true, false,
-						true, null, null, null));
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_Connection_source_feature",
+								"_UI_Connection_type"), Aadl2Package.eINSTANCE
+								.getConnection_Source(), true, false, true,
+						null, null, null));
 	}
 
 	/**
@@ -199,12 +198,15 @@ public class ConnectionItemProvider extends ModalPathItemProvider implements IEd
 	 */
 	protected void addDestinationContextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Connection_destinationContext_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Connection_destinationContext_feature",
-						"_UI_Connection_type"), Aadl2Package.eINSTANCE.getConnection_DestinationContext(), true, false,
-				true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_Connection_destinationContext_feature",
+						"_UI_Connection_type"), Aadl2Package.eINSTANCE
+						.getConnection_DestinationContext(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -215,12 +217,15 @@ public class ConnectionItemProvider extends ModalPathItemProvider implements IEd
 	 */
 	protected void addSourceContextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Connection_sourceContext_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Connection_sourceContext_feature",
-						"_UI_Connection_type"), Aadl2Package.eINSTANCE.getConnection_SourceContext(), true, false,
-				true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_Connection_sourceContext_feature",
+						"_UI_Connection_type"), Aadl2Package.eINSTANCE
+						.getConnection_SourceContext(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -231,12 +236,15 @@ public class ConnectionItemProvider extends ModalPathItemProvider implements IEd
 	 */
 	protected void addBidirectionalPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Connection_bidirectional_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Connection_bidirectional_feature",
-						"_UI_Connection_type"), Aadl2Package.eINSTANCE.getConnection_Bidirectional(), true, false,
-				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_Connection_bidirectional_feature",
+						"_UI_Connection_type"), Aadl2Package.eINSTANCE
+						.getConnection_Bidirectional(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -248,12 +256,15 @@ public class ConnectionItemProvider extends ModalPathItemProvider implements IEd
 	protected void addRefinedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_Connection_refined_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Connection_refined_feature",
-								"_UI_Connection_type"), Aadl2Package.eINSTANCE.getConnection_Refined(), true, false,
-						true, null, null, null));
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_Connection_refined_feature",
+								"_UI_Connection_type"), Aadl2Package.eINSTANCE
+								.getConnection_Refined(), true, false, true,
+						null, null, null));
 	}
 
 	/**
@@ -283,7 +294,8 @@ public class ConnectionItemProvider extends ModalPathItemProvider implements IEd
 		switch (notification.getFeatureID(Connection.class)) {
 		case Aadl2Package.CONNECTION__KIND:
 		case Aadl2Package.CONNECTION__BIDIRECTIONAL:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -297,7 +309,8 @@ public class ConnectionItemProvider extends ModalPathItemProvider implements IEd
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

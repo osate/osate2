@@ -63,8 +63,9 @@ import org.osate.aadl2.RangeType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class RangeTypeItemProvider extends PropertyTypeItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class RangeTypeItemProvider extends PropertyTypeItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -99,12 +100,15 @@ public class RangeTypeItemProvider extends PropertyTypeItemProvider implements I
 	 */
 	protected void addNumberTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_RangeType_numberType_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_RangeType_numberType_feature",
-						"_UI_RangeType_type"), Aadl2Package.eINSTANCE.getRangeType_NumberType(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_RangeType_numberType_feature",
+						"_UI_RangeType_type"), Aadl2Package.eINSTANCE
+						.getRangeType_NumberType(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -116,10 +120,12 @@ public class RangeTypeItemProvider extends PropertyTypeItemProvider implements I
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getRangeType_OwnedNumberType());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getRangeType_OwnedNumberType());
 		}
 		return childrenFeatures;
 	}
@@ -145,7 +151,8 @@ public class RangeTypeItemProvider extends PropertyTypeItemProvider implements I
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/RangeType"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/RangeType"));
 	}
 
 	/**
@@ -157,8 +164,8 @@ public class RangeTypeItemProvider extends PropertyTypeItemProvider implements I
 	@Override
 	public String getText(Object object) {
 		String label = ((RangeType) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_RangeType_type") : getString("_UI_RangeType_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_RangeType_type")
+				: getString("_UI_RangeType_type") + " " + label;
 	}
 
 	/**
@@ -174,7 +181,8 @@ public class RangeTypeItemProvider extends PropertyTypeItemProvider implements I
 
 		switch (notification.getFeatureID(RangeType.class)) {
 		case Aadl2Package.RANGE_TYPE__OWNED_NUMBER_TYPE:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -188,13 +196,16 @@ public class RangeTypeItemProvider extends PropertyTypeItemProvider implements I
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeType_OwnedNumberType(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getRangeType_OwnedNumberType(),
 				Aadl2Factory.eINSTANCE.createAadlInteger()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeType_OwnedNumberType(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getRangeType_OwnedNumberType(),
 				Aadl2Factory.eINSTANCE.createAadlReal()));
 	}
 
@@ -205,14 +216,17 @@ public class RangeTypeItemProvider extends PropertyTypeItemProvider implements I
 	 * @generated
 	 */
 	@Override
-	protected Command createSetCommand(EditingDomain domain, EObject owner, EStructuralFeature feature, Object value) {
+	protected Command createSetCommand(EditingDomain domain, EObject owner,
+			EStructuralFeature feature, Object value) {
 		if (feature == Aadl2Package.eINSTANCE.getRangeType_OwnedNumberType()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getRangeType_NumberType() }, null, value);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE
+							.getRangeType_NumberType() }, null, value);
 		}
 		if (feature == Aadl2Package.eINSTANCE.getRangeType_NumberType()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature, null,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getRangeType_OwnedNumberType() }, value);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE
+							.getRangeType_OwnedNumberType() }, value);
 		}
 		return super.createSetCommand(domain, owner, feature, value);
 	}

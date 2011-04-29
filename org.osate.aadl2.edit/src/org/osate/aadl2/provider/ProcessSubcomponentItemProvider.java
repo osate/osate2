@@ -56,8 +56,9 @@ import org.osate.aadl2.ProcessSubcomponent;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProcessSubcomponentItemProvider extends SubcomponentItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ProcessSubcomponentItemProvider extends SubcomponentItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -92,12 +93,15 @@ public class ProcessSubcomponentItemProvider extends SubcomponentItemProvider im
 	 */
 	protected void addProcessClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ProcessSubcomponent_processClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ProcessSubcomponent_processClassifier_feature",
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ProcessSubcomponent_processClassifier_feature",
 						"_UI_ProcessSubcomponent_type"), Aadl2Package.eINSTANCE
-						.getProcessSubcomponent_ProcessClassifier(), true, false, true, null, null, null));
+						.getProcessSubcomponent_ProcessClassifier(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -108,7 +112,8 @@ public class ProcessSubcomponentItemProvider extends SubcomponentItemProvider im
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessSubcomponent"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/ProcessSubcomponent"));
 	}
 
 	/**
@@ -145,7 +150,8 @@ public class ProcessSubcomponentItemProvider extends SubcomponentItemProvider im
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

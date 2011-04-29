@@ -59,9 +59,10 @@ import org.osate.aadl2.ComponentPrototypeBinding;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComponentPrototypeBindingItemProvider extends PrototypeBindingItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class ComponentPrototypeBindingItemProvider extends
+		PrototypeBindingItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,10 +97,12 @@ public class ComponentPrototypeBindingItemProvider extends PrototypeBindingItemP
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentPrototypeBinding_Actual());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getComponentPrototypeBinding_Actual());
 		}
 		return childrenFeatures;
 	}
@@ -125,7 +128,10 @@ public class ComponentPrototypeBindingItemProvider extends PrototypeBindingItemP
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ComponentPrototypeBinding"));
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/ComponentPrototypeBinding"));
 	}
 
 	/**
@@ -152,7 +158,8 @@ public class ComponentPrototypeBindingItemProvider extends PrototypeBindingItemP
 
 		switch (notification.getFeatureID(ComponentPrototypeBinding.class)) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING__ACTUAL:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -166,13 +173,16 @@ public class ComponentPrototypeBindingItemProvider extends PrototypeBindingItemP
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentPrototypeBinding_Actual(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentPrototypeBinding_Actual(),
 				Aadl2Factory.eINSTANCE.createComponentPrototypeReference()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentPrototypeBinding_Actual(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentPrototypeBinding_Actual(),
 				Aadl2Factory.eINSTANCE.createComponentReference()));
 	}
 

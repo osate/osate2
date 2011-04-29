@@ -60,8 +60,9 @@ import org.osate.aadl2.PropertyAssociation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PropertyAssociationItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class PropertyAssociationItemProvider extends ElementItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -99,12 +100,15 @@ public class PropertyAssociationItemProvider extends ElementItemProvider impleme
 	 */
 	protected void addPropertyPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PropertyAssociation_property_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PropertyAssociation_property_feature",
-						"_UI_PropertyAssociation_type"), Aadl2Package.eINSTANCE.getPropertyAssociation_Property(),
-				true, false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_PropertyAssociation_property_feature",
+						"_UI_PropertyAssociation_type"), Aadl2Package.eINSTANCE
+						.getPropertyAssociation_Property(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -115,12 +119,15 @@ public class PropertyAssociationItemProvider extends ElementItemProvider impleme
 	 */
 	protected void addInBindingPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PropertyAssociation_inBinding_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PropertyAssociation_inBinding_feature",
-						"_UI_PropertyAssociation_type"), Aadl2Package.eINSTANCE.getPropertyAssociation_InBinding(),
-				true, false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_PropertyAssociation_inBinding_feature",
+						"_UI_PropertyAssociation_type"), Aadl2Package.eINSTANCE
+						.getPropertyAssociation_InBinding(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -131,12 +138,15 @@ public class PropertyAssociationItemProvider extends ElementItemProvider impleme
 	 */
 	protected void addAppendPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PropertyAssociation_append_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PropertyAssociation_append_feature",
-						"_UI_PropertyAssociation_type"), Aadl2Package.eINSTANCE.getPropertyAssociation_Append(), true,
-				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_PropertyAssociation_append_feature",
+						"_UI_PropertyAssociation_type"), Aadl2Package.eINSTANCE
+						.getPropertyAssociation_Append(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -147,12 +157,15 @@ public class PropertyAssociationItemProvider extends ElementItemProvider impleme
 	 */
 	protected void addConstantPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PropertyAssociation_constant_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PropertyAssociation_constant_feature",
-						"_UI_PropertyAssociation_type"), Aadl2Package.eINSTANCE.getPropertyAssociation_Constant(),
-				true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_PropertyAssociation_constant_feature",
+						"_UI_PropertyAssociation_type"), Aadl2Package.eINSTANCE
+						.getPropertyAssociation_Constant(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -164,11 +177,14 @@ public class PropertyAssociationItemProvider extends ElementItemProvider impleme
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertyAssociation_AppliesTo());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertyAssociation_OwnedValue());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getPropertyAssociation_AppliesTo());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getPropertyAssociation_OwnedValue());
 		}
 		return childrenFeatures;
 	}
@@ -194,7 +210,8 @@ public class PropertyAssociationItemProvider extends ElementItemProvider impleme
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PropertyAssociation"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/PropertyAssociation"));
 	}
 
 	/**
@@ -206,7 +223,8 @@ public class PropertyAssociationItemProvider extends ElementItemProvider impleme
 	@Override
 	public String getText(Object object) {
 		PropertyAssociation propertyAssociation = (PropertyAssociation) object;
-		return getString("_UI_PropertyAssociation_type") + " " + propertyAssociation.isAppend();
+		return getString("_UI_PropertyAssociation_type") + " "
+				+ propertyAssociation.isAppend();
 	}
 
 	/**
@@ -223,11 +241,13 @@ public class PropertyAssociationItemProvider extends ElementItemProvider impleme
 		switch (notification.getFeatureID(PropertyAssociation.class)) {
 		case Aadl2Package.PROPERTY_ASSOCIATION__APPEND:
 		case Aadl2Package.PROPERTY_ASSOCIATION__CONSTANT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.PROPERTY_ASSOCIATION__APPLIES_TO:
 		case Aadl2Package.PROPERTY_ASSOCIATION__OWNED_VALUE:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -241,16 +261,20 @@ public class PropertyAssociationItemProvider extends ElementItemProvider impleme
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyAssociation_AppliesTo(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getPropertyAssociation_AppliesTo(),
 				Aadl2Factory.eINSTANCE.createContainedNamedElement()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyAssociation_AppliesTo(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getPropertyAssociation_AppliesTo(),
 				Aadl2Factory.eINSTANCE.createReferenceValue()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyAssociation_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getPropertyAssociation_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createModalPropertyValue()));
 	}
 
