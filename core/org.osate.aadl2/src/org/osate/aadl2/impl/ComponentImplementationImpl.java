@@ -130,7 +130,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	protected EList<FlowImplementation> ownedFlowImplementations;
 
 	/**
-	 * The cached value of the '{@link #getOwnedExtension() <em>Owned Extension</em>}' reference.
+	 * The cached value of the '{@link #getOwnedExtension() <em>Owned Extension</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedExtension()
@@ -140,7 +140,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	protected ImplementationExtension ownedExtension;
 
 	/**
-	 * The cached value of the '{@link #getOwnedRealization() <em>Owned Realization</em>}' reference.
+	 * The cached value of the '{@link #getOwnedRealization() <em>Owned Realization</em>}' containment reference.
 	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * @see #getOwnedRealization()
@@ -601,7 +601,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getGeneralizations() <em>Generalization</em>}' containment reference list.
+	 * The array of subset feature identifiers for the '{@link #getGeneralizations() <em>Generalization</em>}' reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getGeneralizations()
 	 * @generated
@@ -647,15 +647,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @generated
 	 */
 	public ImplementationExtension getOwnedExtension() {
-		if (ownedExtension != null && ((EObject) ownedExtension).eIsProxy()) {
-			InternalEObject oldOwnedExtension = (InternalEObject) ownedExtension;
-			ownedExtension = (ImplementationExtension) eResolveProxy(oldOwnedExtension);
-			if (ownedExtension != oldOwnedExtension) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION, oldOwnedExtension, ownedExtension));
-			}
-		}
 		return ownedExtension;
 	}
 
@@ -664,8 +655,18 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ImplementationExtension basicGetOwnedExtension() {
-		return ownedExtension;
+	public NotificationChain basicSetOwnedExtension(ImplementationExtension newOwnedExtension, NotificationChain msgs) {
+		ImplementationExtension oldOwnedExtension = ownedExtension;
+		ownedExtension = newOwnedExtension;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION, oldOwnedExtension, newOwnedExtension);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -673,11 +674,32 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @generated
 	 */
 	public void setOwnedExtension(ImplementationExtension newOwnedExtension) {
-		ImplementationExtension oldOwnedExtension = ownedExtension;
-		ownedExtension = newOwnedExtension;
-		if (eNotificationRequired())
+		if (newOwnedExtension != ownedExtension) {
+			NotificationChain msgs = null;
+			if (ownedExtension != null)
+				msgs = ((InternalEObject) ownedExtension).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION, null, msgs);
+			if (newOwnedExtension != null)
+				msgs = ((InternalEObject) newOwnedExtension).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION, null, msgs);
+			msgs = basicSetOwnedExtension(newOwnedExtension, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION, oldOwnedExtension, ownedExtension));
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION, newOwnedExtension, newOwnedExtension));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ImplementationExtension createOwnedExtension() {
+		ImplementationExtension newOwnedExtension = (ImplementationExtension) create(Aadl2Package.eINSTANCE
+				.getImplementationExtension());
+		setOwnedExtension(newOwnedExtension);
+		return newOwnedExtension;
 	}
 
 	/**
@@ -685,16 +707,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @generated
 	 */
 	public Realization getOwnedRealization() {
-		if (ownedRealization != null && ((EObject) ownedRealization).eIsProxy()) {
-			InternalEObject oldOwnedRealization = (InternalEObject) ownedRealization;
-			ownedRealization = (Realization) eResolveProxy(oldOwnedRealization);
-			if (ownedRealization != oldOwnedRealization) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION, oldOwnedRealization,
-							ownedRealization));
-			}
-		}
 		return ownedRealization;
 	}
 
@@ -703,8 +715,18 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Realization basicGetOwnedRealization() {
-		return ownedRealization;
+	public NotificationChain basicSetOwnedRealization(Realization newOwnedRealization, NotificationChain msgs) {
+		Realization oldOwnedRealization = ownedRealization;
+		ownedRealization = newOwnedRealization;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION, oldOwnedRealization, newOwnedRealization);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -712,11 +734,31 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @generated
 	 */
 	public void setOwnedRealization(Realization newOwnedRealization) {
-		Realization oldOwnedRealization = ownedRealization;
-		ownedRealization = newOwnedRealization;
-		if (eNotificationRequired())
+		if (newOwnedRealization != ownedRealization) {
+			NotificationChain msgs = null;
+			if (ownedRealization != null)
+				msgs = ((InternalEObject) ownedRealization).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION, null, msgs);
+			if (newOwnedRealization != null)
+				msgs = ((InternalEObject) newOwnedRealization).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION, null, msgs);
+			msgs = basicSetOwnedRealization(newOwnedRealization, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION, oldOwnedRealization, ownedRealization));
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION, newOwnedRealization, newOwnedRealization));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Realization createOwnedRealization() {
+		Realization newOwnedRealization = (Realization) create(Aadl2Package.eINSTANCE.getRealization());
+		setOwnedRealization(newOwnedRealization);
+		return newOwnedRealization;
 	}
 
 	/**
@@ -911,6 +953,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION:
 			return ((InternalEList<?>) getOwnedFlowImplementations()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION:
+			return basicSetOwnedExtension(null, msgs);
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION:
+			return basicSetOwnedRealization(null, msgs);
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW:
 			return ((InternalEList<?>) getOwnedEndToEndFlows()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT:
@@ -953,13 +999,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
 			return getOwnedConnections();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION:
-			if (resolve)
-				return getOwnedExtension();
-			return basicGetOwnedExtension();
+			return getOwnedExtension();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION:
-			if (resolve)
-				return getOwnedRealization();
-			return basicGetOwnedRealization();
+			return getOwnedRealization();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW:
 			return getOwnedEndToEndFlows();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT:

@@ -176,7 +176,7 @@ public interface ComponentType extends ComponentClassifier {
 	FlowSpecification createOwnedFlowSpecification();
 
 	/**
-	 * Returns the value of the '<em><b>Owned Extension</b></em>' reference.
+	 * Returns the value of the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -189,23 +189,33 @@ public interface ComponentType extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Extension</em>' reference.
+	 * @return the value of the '<em>Owned Extension</em>' containment reference.
 	 * @see #setOwnedExtension(TypeExtension)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedExtension()
-	 * @model ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	TypeExtension getOwnedExtension();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ComponentType#getOwnedExtension <em>Owned Extension</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.ComponentType#getOwnedExtension <em>Owned Extension</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Owned Extension</em>' reference.
+	 * @param value the new value of the '<em>Owned Extension</em>' containment reference.
 	 * @see #getOwnedExtension()
 	 * @generated
 	 */
 	void setOwnedExtension(TypeExtension value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.TypeExtension} and sets the '<em><b>Owned Extension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.TypeExtension}.
+	 * @see #getOwnedExtension()
+	 * @generated
+	 */
+	TypeExtension createOwnedExtension();
 
 	/**
 	 * Returns the value of the '<em><b>Owned Feature Group</b></em>' containment reference list.

@@ -19,7 +19,7 @@
     <packagedElement xmi:type="uml:Class" xmi:id="Classifier" name="Classifier" isAbstract="true">
       <ownedAttribute xmi:id="Classifier-classifierFeature" name="classifierFeature" isDerived="true"/>
       <ownedAttribute xmi:id="Classifier-inheritedMember" name="inheritedMember" isDerived="true"/>
-      <ownedAttribute xmi:id="Classifier-generalization" name="generalization" isDerived="true" aggregation="composite"/>
+      <ownedAttribute xmi:id="Classifier-generalization" name="generalization" isDerived="true"/>
       <ownedAttribute xmi:id="Classifier-general" name="general" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ClassifierFeature" name="ClassifierFeature" isAbstract="true">

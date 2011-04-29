@@ -202,8 +202,20 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Classifier basicGetSpecific() {
+		// TODO: implement this method to return the 'Specific' reference
+		// -> do not perform proxy resolution
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setSpecific(Classifier newSpecific) {
-		// TODO: implement this method to set the 'Specific' container reference
+		// TODO: implement this method to set the 'Specific' reference
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
 	}
@@ -218,9 +230,6 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 		switch (eContainerFeatureID()) {
 		case Aadl2Package.GENERALIZATION__OWNER:
 			return eInternalContainer().eInverseRemove(this, Aadl2Package.ELEMENT__OWNED_ELEMENT, Element.class, msgs);
-		case Aadl2Package.GENERALIZATION__SPECIFIC:
-			return eInternalContainer().eInverseRemove(this, Aadl2Package.CLASSIFIER__GENERALIZATION, Classifier.class,
-					msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
@@ -238,7 +247,9 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 				return getGeneral();
 			return basicGetGeneral();
 		case Aadl2Package.GENERALIZATION__SPECIFIC:
-			return getSpecific();
+			if (resolve)
+				return getSpecific();
+			return basicGetSpecific();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -284,7 +295,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 		case Aadl2Package.GENERALIZATION__GENERAL:
 			return isSetGeneral();
 		case Aadl2Package.GENERALIZATION__SPECIFIC:
-			return getSpecific() != null;
+			return basicGetSpecific() != null;
 		}
 		return super.eIsSet(featureID);
 	}
