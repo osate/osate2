@@ -61,9 +61,10 @@ import org.osate.aadl2.ComponentReference;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComponentReferenceItemProvider extends ComponentPrototypeActualItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class ComponentReferenceItemProvider extends
+		ComponentPrototypeActualItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -98,12 +99,15 @@ public class ComponentReferenceItemProvider extends ComponentPrototypeActualItem
 	 */
 	protected void addClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentReference_classifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentReference_classifier_feature",
-						"_UI_ComponentReference_type"), Aadl2Package.eINSTANCE.getComponentReference_Classifier(),
-				true, false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ComponentReference_classifier_feature",
+						"_UI_ComponentReference_type"), Aadl2Package.eINSTANCE
+						.getComponentReference_Classifier(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -115,10 +119,12 @@ public class ComponentReferenceItemProvider extends ComponentPrototypeActualItem
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentReference_Binding());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getComponentReference_Binding());
 		}
 		return childrenFeatures;
 	}
@@ -144,7 +150,8 @@ public class ComponentReferenceItemProvider extends ComponentPrototypeActualItem
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ComponentReference"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/ComponentReference"));
 	}
 
 	/**
@@ -155,7 +162,8 @@ public class ComponentReferenceItemProvider extends ComponentPrototypeActualItem
 	 */
 	@Override
 	public String getText(Object object) {
-		ComponentCategory labelValue = ((ComponentReference) object).getCategory();
+		ComponentCategory labelValue = ((ComponentReference) object)
+				.getCategory();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ? getString("_UI_ComponentReference_type")
 				: getString("_UI_ComponentReference_type") + " " + label;
@@ -174,7 +182,8 @@ public class ComponentReferenceItemProvider extends ComponentPrototypeActualItem
 
 		switch (notification.getFeatureID(ComponentReference.class)) {
 		case Aadl2Package.COMPONENT_REFERENCE__BINDING:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -188,16 +197,20 @@ public class ComponentReferenceItemProvider extends ComponentPrototypeActualItem
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentReference_Binding(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentReference_Binding(),
 				Aadl2Factory.eINSTANCE.createComponentPrototypeBinding()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentReference_Binding(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentReference_Binding(),
 				Aadl2Factory.eINSTANCE.createFeatureGroupPrototypeBinding()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentReference_Binding(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentReference_Binding(),
 				Aadl2Factory.eINSTANCE.createFeaturePrototypeBinding()));
 	}
 

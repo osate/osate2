@@ -60,8 +60,9 @@ import org.osate.aadl2.PropertySet;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PropertySetItemProvider extends NamespaceItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class PropertySetItemProvider extends NamespaceItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -97,12 +98,15 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements IE
 	 */
 	protected void addImportedPropertySetPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PropertySet_importedPropertySet_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PropertySet_importedPropertySet_feature",
-						"_UI_PropertySet_type"), Aadl2Package.eINSTANCE.getPropertySet_ImportedPropertySet(), true,
-				false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_PropertySet_importedPropertySet_feature",
+						"_UI_PropertySet_type"), Aadl2Package.eINSTANCE
+						.getPropertySet_ImportedPropertySet(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -113,43 +117,15 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements IE
 	 */
 	protected void addImportedPackagePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PropertySet_importedPackage_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PropertySet_importedPackage_feature",
-						"_UI_PropertySet_type"), Aadl2Package.eINSTANCE.getPropertySet_ImportedPackage(), true, false,
-				true, null, null, null));
-	}
-
-	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertySet_Imports());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertySet_Contents());
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_PropertySet_importedPackage_feature",
+						"_UI_PropertySet_type"), Aadl2Package.eINSTANCE
+						.getPropertySet_ImportedPackage(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -160,7 +136,8 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements IE
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PropertySet"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/PropertySet"));
 	}
 
 	/**
@@ -186,13 +163,6 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements IE
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(PropertySet.class)) {
-		case Aadl2Package.PROPERTY_SET__IMPORTS:
-		case Aadl2Package.PROPERTY_SET__CONTENTS:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -204,64 +174,9 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements IE
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Imports(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_ImportedPropertySet(),
-						Aadl2Factory.eINSTANCE.createPropertySet())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Imports(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_ImportedPackage(),
-						Aadl2Factory.eINSTANCE.createAadlPackage())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createAadlBoolean())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createAadlString())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createAadlInteger())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createEnumerationType())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createUnitsType())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createAadlReal())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createClassifierType())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createRangeType())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createRecordType())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
-						Aadl2Factory.eINSTANCE.createReferenceType())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedProperty(),
-						Aadl2Factory.eINSTANCE.createProperty())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_Contents(), FeatureMapUtil
-				.createEntry(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyConstant(),
-						Aadl2Factory.eINSTANCE.createPropertyConstant())));
 	}
 
 }

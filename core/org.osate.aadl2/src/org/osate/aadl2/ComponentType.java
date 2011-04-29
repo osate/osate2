@@ -36,6 +36,7 @@
 package org.osate.aadl2;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
@@ -112,7 +113,7 @@ public interface ComponentType extends ComponentClassifier {
 	EList<Feature> getOwnedFeatures();
 
 	/**
-	 * Returns the value of the '<em><b>Extended</b></em>' reference.
+	 * Returns the value of the '<em><b>Extended</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -125,23 +126,34 @@ public interface ComponentType extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Extended</em>' reference.
+	 * @return the value of the '<em>Extended</em>' containment reference.
 	 * @see #setExtended(ComponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_Extended()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	ComponentType getExtended();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ComponentType#getExtended <em>Extended</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.ComponentType#getExtended <em>Extended</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Extended</em>' reference.
+	 * @param value the new value of the '<em>Extended</em>' containment reference.
 	 * @see #getExtended()
 	 * @generated
 	 */
 	void setExtended(ComponentType value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.ComponentType} and sets the '<em><b>Extended</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param eClass The Ecore class of the {@link org.osate.aadl2.ComponentType} to create.
+	 * @return The new {@link org.osate.aadl2.ComponentType}.
+	 * @see #getExtended()
+	 * @generated
+	 */
+	ComponentType createExtended(EClass eClass);
 
 	/**
 	 * Returns the value of the '<em><b>Owned Flow Specification</b></em>' containment reference list.
@@ -177,7 +189,7 @@ public interface ComponentType extends ComponentClassifier {
 	FlowSpecification createOwnedFlowSpecification();
 
 	/**
-	 * Returns the value of the '<em><b>Owned Extension</b></em>' reference.
+	 * Returns the value of the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -190,23 +202,33 @@ public interface ComponentType extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Extension</em>' reference.
+	 * @return the value of the '<em>Owned Extension</em>' containment reference.
 	 * @see #setOwnedExtension(TypeExtension)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedExtension()
-	 * @model ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	TypeExtension getOwnedExtension();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ComponentType#getOwnedExtension <em>Owned Extension</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.ComponentType#getOwnedExtension <em>Owned Extension</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Owned Extension</em>' reference.
+	 * @param value the new value of the '<em>Owned Extension</em>' containment reference.
 	 * @see #getOwnedExtension()
 	 * @generated
 	 */
 	void setOwnedExtension(TypeExtension value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.TypeExtension} and sets the '<em><b>Owned Extension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.TypeExtension}.
+	 * @see #getOwnedExtension()
+	 * @generated
+	 */
+	TypeExtension createOwnedExtension();
 
 	/**
 	 * Returns the value of the '<em><b>Owned Feature Group</b></em>' containment reference list.

@@ -58,8 +58,9 @@ import org.osate.aadl2.NumberValue;
  * <!-- end-user-doc -->
  * @generated
  */
-public class NumberValueItemProvider extends PropertyValueItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class NumberValueItemProvider extends PropertyValueItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,12 +96,15 @@ public class NumberValueItemProvider extends PropertyValueItemProvider implement
 	 */
 	protected void addValueStringPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_NumberValue_valueString_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_NumberValue_valueString_feature",
-						"_UI_NumberValue_type"), Aadl2Package.eINSTANCE.getNumberValue_ValueString(), true, false,
-				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_NumberValue_valueString_feature",
+						"_UI_NumberValue_type"), Aadl2Package.eINSTANCE
+						.getNumberValue_ValueString(), true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -112,12 +116,15 @@ public class NumberValueItemProvider extends PropertyValueItemProvider implement
 	protected void addUnitPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_NumberValue_unit_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_NumberValue_unit_feature",
-								"_UI_NumberValue_type"), Aadl2Package.eINSTANCE.getNumberValue_Unit(), true, false,
-						true, null, null, null));
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_NumberValue_unit_feature",
+								"_UI_NumberValue_type"), Aadl2Package.eINSTANCE
+								.getNumberValue_Unit(), true, false, true,
+						null, null, null));
 	}
 
 	/**
@@ -146,7 +153,8 @@ public class NumberValueItemProvider extends PropertyValueItemProvider implement
 
 		switch (notification.getFeatureID(NumberValue.class)) {
 		case Aadl2Package.NUMBER_VALUE__VALUE_STRING:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -160,7 +168,8 @@ public class NumberValueItemProvider extends PropertyValueItemProvider implement
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

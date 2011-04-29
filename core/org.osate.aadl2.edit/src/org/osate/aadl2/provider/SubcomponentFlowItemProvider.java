@@ -57,8 +57,9 @@ import org.osate.aadl2.SubcomponentFlow;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubcomponentFlowItemProvider extends FlowElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class SubcomponentFlowItemProvider extends FlowElementItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,12 +96,15 @@ public class SubcomponentFlowItemProvider extends FlowElementItemProvider implem
 	 */
 	protected void addContextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_SubcomponentFlow_context_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_SubcomponentFlow_context_feature",
-						"_UI_SubcomponentFlow_type"), Aadl2Package.eINSTANCE.getSubcomponentFlow_Context(), true,
-				false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_SubcomponentFlow_context_feature",
+						"_UI_SubcomponentFlow_type"), Aadl2Package.eINSTANCE
+						.getSubcomponentFlow_Context(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -111,12 +115,15 @@ public class SubcomponentFlowItemProvider extends FlowElementItemProvider implem
 	 */
 	protected void addFlowSpecificationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_SubcomponentFlow_flowSpecification_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_SubcomponentFlow_flowSpecification_feature",
-						"_UI_SubcomponentFlow_type"), Aadl2Package.eINSTANCE.getSubcomponentFlow_FlowSpecification(),
-				true, false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_SubcomponentFlow_flowSpecification_feature",
+						"_UI_SubcomponentFlow_type"), Aadl2Package.eINSTANCE
+						.getSubcomponentFlow_FlowSpecification(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -127,12 +134,15 @@ public class SubcomponentFlowItemProvider extends FlowElementItemProvider implem
 	 */
 	protected void addDataAccessPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_SubcomponentFlow_dataAccess_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_SubcomponentFlow_dataAccess_feature",
-						"_UI_SubcomponentFlow_type"), Aadl2Package.eINSTANCE.getSubcomponentFlow_DataAccess(), true,
-				false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_SubcomponentFlow_dataAccess_feature",
+						"_UI_SubcomponentFlow_type"), Aadl2Package.eINSTANCE
+						.getSubcomponentFlow_DataAccess(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -143,7 +153,8 @@ public class SubcomponentFlowItemProvider extends FlowElementItemProvider implem
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubcomponentFlow"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/SubcomponentFlow"));
 	}
 
 	/**
@@ -180,7 +191,8 @@ public class SubcomponentFlowItemProvider extends FlowElementItemProvider implem
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

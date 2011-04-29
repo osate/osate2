@@ -54,9 +54,10 @@ import org.osate.aadl2.BusImplementation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class BusImplementationItemProvider extends ComponentImplementationItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class BusImplementationItemProvider extends
+		ComponentImplementationItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -90,7 +91,8 @@ public class BusImplementationItemProvider extends ComponentImplementationItemPr
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/BusImplementation"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/BusImplementation"));
 	}
 
 	/**
@@ -127,7 +129,8 @@ public class BusImplementationItemProvider extends ComponentImplementationItemPr
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

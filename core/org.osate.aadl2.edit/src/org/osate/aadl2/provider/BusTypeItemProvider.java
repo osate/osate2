@@ -54,8 +54,9 @@ import org.osate.aadl2.BusType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class BusTypeItemProvider extends ComponentTypeItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class BusTypeItemProvider extends ComponentTypeItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -89,7 +90,8 @@ public class BusTypeItemProvider extends ComponentTypeItemProvider implements IE
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/BusType"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/BusType"));
 	}
 
 	/**
@@ -101,8 +103,8 @@ public class BusTypeItemProvider extends ComponentTypeItemProvider implements IE
 	@Override
 	public String getText(Object object) {
 		String label = ((BusType) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_BusType_type") : getString("_UI_BusType_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_BusType_type")
+				: getString("_UI_BusType_type") + " " + label;
 	}
 
 	/**
@@ -126,7 +128,8 @@ public class BusTypeItemProvider extends ComponentTypeItemProvider implements IE
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

@@ -55,8 +55,9 @@ import org.osate.aadl2.Aadl2Package;
  * <!-- end-user-doc -->
  * @generated
  */
-public class EnumerationValueItemProvider extends PropertyValueItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class EnumerationValueItemProvider extends PropertyValueItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -91,12 +92,15 @@ public class EnumerationValueItemProvider extends PropertyValueItemProvider impl
 	 */
 	protected void addLiteralPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_EnumerationValue_literal_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_EnumerationValue_literal_feature",
-						"_UI_EnumerationValue_type"), Aadl2Package.eINSTANCE.getEnumerationValue_Literal(), true,
-				false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_EnumerationValue_literal_feature",
+						"_UI_EnumerationValue_type"), Aadl2Package.eINSTANCE
+						.getEnumerationValue_Literal(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -107,7 +111,8 @@ public class EnumerationValueItemProvider extends PropertyValueItemProvider impl
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EnumerationValue"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/EnumerationValue"));
 	}
 
 	/**
@@ -142,7 +147,8 @@ public class EnumerationValueItemProvider extends PropertyValueItemProvider impl
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

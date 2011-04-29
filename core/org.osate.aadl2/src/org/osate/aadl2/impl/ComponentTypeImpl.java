@@ -104,7 +104,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	 */
 	protected EList<FlowSpecification> ownedFlowSpecifications;
 	/**
-	 * The cached value of the '{@link #getOwnedExtension() <em>Owned Extension</em>}' reference.
+	 * The cached value of the '{@link #getOwnedExtension() <em>Owned Extension</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedExtension()
@@ -378,7 +378,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getGeneralizations() <em>Generalization</em>}' containment reference list.
+	 * The array of subset feature identifiers for the '{@link #getGeneralizations() <em>Generalization</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getGeneralizations()
@@ -416,9 +416,24 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	 * @generated
 	 */
 	public ComponentType getExtended() {
-		ComponentType extended = basicGetExtended();
-		return extended != null && ((EObject) extended).eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) extended)
-				: extended;
+		// TODO: implement this method to return the 'Extended' containment reference
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetExtended(ComponentType newExtended,
+			NotificationChain msgs) {
+		// TODO: implement this method to set the contained 'Extended' containment reference
+		// -> this method is automatically invoked to keep the containment relationship in synch
+		// -> do not modify other features
+		// -> return msgs, after adding any generated Notification to it (if it is null, a NotificationChain object must be created first)
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -440,9 +455,20 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	 * @generated
 	 */
 	public void setExtended(ComponentType newExtended) {
-		// TODO: implement this method to set the 'Extended' reference
+		// TODO: implement this method to set the 'Extended' containment reference
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentType createExtended(EClass eClass) {
+		ComponentType newExtended = (ComponentType) create(eClass);
+		setExtended(newExtended);
+		return newExtended;
 	}
 
 	/**
@@ -477,16 +503,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	 * @generated
 	 */
 	public TypeExtension getOwnedExtension() {
-		if (ownedExtension != null && ((EObject) ownedExtension).eIsProxy()) {
-			InternalEObject oldOwnedExtension = (InternalEObject) ownedExtension;
-			ownedExtension = (TypeExtension) eResolveProxy(oldOwnedExtension);
-			if (ownedExtension != oldOwnedExtension) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION,
-							oldOwnedExtension, ownedExtension));
-			}
-		}
 		return ownedExtension;
 	}
 
@@ -495,8 +511,21 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeExtension basicGetOwnedExtension() {
-		return ownedExtension;
+	public NotificationChain basicSetOwnedExtension(
+			TypeExtension newOwnedExtension, NotificationChain msgs) {
+		TypeExtension oldOwnedExtension = ownedExtension;
+		ownedExtension = newOwnedExtension;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this,
+					Notification.SET,
+					Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION,
+					oldOwnedExtension, newOwnedExtension);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -505,12 +534,37 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	 * @generated
 	 */
 	public void setOwnedExtension(TypeExtension newOwnedExtension) {
-		TypeExtension oldOwnedExtension = ownedExtension;
-		ownedExtension = newOwnedExtension;
-		if (eNotificationRequired())
+		if (newOwnedExtension != ownedExtension) {
+			NotificationChain msgs = null;
+			if (ownedExtension != null)
+				msgs = ((InternalEObject) ownedExtension).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE
+								- Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION,
+						null, msgs);
+			if (newOwnedExtension != null)
+				msgs = ((InternalEObject) newOwnedExtension).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE
+								- Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION,
+						null, msgs);
+			msgs = basicSetOwnedExtension(newOwnedExtension, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION,
-					oldOwnedExtension, ownedExtension));
+					newOwnedExtension, newOwnedExtension));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeExtension createOwnedExtension() {
+		TypeExtension newOwnedExtension = (TypeExtension) create(Aadl2Package.eINSTANCE
+				.getTypeExtension());
+		setOwnedExtension(newOwnedExtension);
+		return newOwnedExtension;
 	}
 
 	/**
@@ -577,6 +631,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
 			return ((InternalEList<?>) getOwnedFlowSpecifications())
 					.basicRemove(otherEnd, msgs);
+		case Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION:
+			return basicSetOwnedExtension(null, msgs);
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP:
 			return ((InternalEList<?>) getOwnedFeatureGroups()).basicRemove(
 					otherEnd, msgs);
@@ -598,15 +654,11 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE:
 			return getOwnedFeatures();
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
-			if (resolve)
-				return getExtended();
-			return basicGetExtended();
+			return getExtended();
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
 			return getOwnedFlowSpecifications();
 		case Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION:
-			if (resolve)
-				return getOwnedExtension();
-			return basicGetOwnedExtension();
+			return getOwnedExtension();
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP:
 			return getOwnedFeatureGroups();
 		case Aadl2Package.COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE:
@@ -695,7 +747,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE:
 			return isSetOwnedFeatures();
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
-			return basicGetExtended() != null;
+			return getExtended() != null;
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
 			return ownedFlowSpecifications != null
 					&& !ownedFlowSpecifications.isEmpty();

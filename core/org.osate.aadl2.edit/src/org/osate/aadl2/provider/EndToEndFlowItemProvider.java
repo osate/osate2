@@ -66,8 +66,9 @@ import org.osate.aadl2.EndToEndFlow;
  * <!-- end-user-doc -->
  * @generated
  */
-public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class EndToEndFlowItemProvider extends FlowItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -105,12 +106,15 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 */
 	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ModalElement_inMode_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
-						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ModalElement_inMode_feature",
+						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE
+						.getModalElement_InMode(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -121,12 +125,15 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 */
 	protected void addInTransitionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ModalPath_inTransition_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalPath_inTransition_feature",
-						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE.getModalPath_InTransition(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ModalPath_inTransition_feature",
+						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE
+						.getModalPath_InTransition(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -137,12 +144,15 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 */
 	protected void addFlowElementPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_EndToEndFlow_flowElement_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_EndToEndFlow_flowElement_feature",
-						"_UI_EndToEndFlow_type"), Aadl2Package.eINSTANCE.getEndToEndFlow_FlowElement(), true, false,
-				true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_EndToEndFlow_flowElement_feature",
+						"_UI_EndToEndFlow_type"), Aadl2Package.eINSTANCE
+						.getEndToEndFlow_FlowElement(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -154,11 +164,12 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getModalElement_ModesAndTransitions());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getEndToEndFlow_OwnedSubcomponentFlow());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getEndToEndFlow_OwnedSubcomponentFlow());
 		}
 		return childrenFeatures;
 	}
@@ -184,12 +195,15 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 */
 	protected void addRefinedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_EndToEndFlow_refined_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_EndToEndFlow_refined_feature",
-						"_UI_EndToEndFlow_type"), Aadl2Package.eINSTANCE.getEndToEndFlow_Refined(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_EndToEndFlow_refined_feature",
+						"_UI_EndToEndFlow_type"), Aadl2Package.eINSTANCE
+						.getEndToEndFlow_Refined(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -200,7 +214,8 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EndToEndFlow"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/EndToEndFlow"));
 	}
 
 	/**
@@ -228,9 +243,9 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(EndToEndFlow.class)) {
-		case Aadl2Package.END_TO_END_FLOW__MODES_AND_TRANSITIONS:
 		case Aadl2Package.END_TO_END_FLOW__OWNED_SUBCOMPONENT_FLOW:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -244,15 +259,12 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalElement_ModesAndTransitions(),
-				FeatureMapUtil.createEntry(Aadl2Package.eINSTANCE.getModalElement_InMode(),
-						Aadl2Factory.eINSTANCE.createMode())));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getEndToEndFlow_OwnedSubcomponentFlow(),
+				Aadl2Package.eINSTANCE.getEndToEndFlow_OwnedSubcomponentFlow(),
 				Aadl2Factory.eINSTANCE.createSubcomponentFlow()));
 	}
 
@@ -263,14 +275,16 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 * @generated
 	 */
 	@Override
-	protected Command createAddCommand(EditingDomain domain, EObject owner, EStructuralFeature feature,
-			Collection<?> collection, int index) {
-		if (feature == Aadl2Package.eINSTANCE.getEndToEndFlow_OwnedSubcomponentFlow()) {
+	protected Command createAddCommand(EditingDomain domain, EObject owner,
+			EStructuralFeature feature, Collection<?> collection, int index) {
+		if (feature == Aadl2Package.eINSTANCE
+				.getEndToEndFlow_OwnedSubcomponentFlow()) {
 			return new SubsetAddCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getEndToEndFlow_FlowElement() }, collection,
-					index);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE
+							.getEndToEndFlow_FlowElement() }, collection, index);
 		}
-		return super.createAddCommand(domain, owner, feature, collection, index);
+		return super
+				.createAddCommand(domain, owner, feature, collection, index);
 	}
 
 	/**
@@ -280,11 +294,12 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 * @generated
 	 */
 	@Override
-	protected Command createRemoveCommand(EditingDomain domain, EObject owner, EStructuralFeature feature,
-			Collection<?> collection) {
+	protected Command createRemoveCommand(EditingDomain domain, EObject owner,
+			EStructuralFeature feature, Collection<?> collection) {
 		if (feature == Aadl2Package.eINSTANCE.getEndToEndFlow_FlowElement()) {
 			return new SupersetRemoveCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getEndToEndFlow_OwnedSubcomponentFlow() },
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE
+							.getEndToEndFlow_OwnedSubcomponentFlow() },
 					collection);
 		}
 		return super.createRemoveCommand(domain, owner, feature, collection);
@@ -297,19 +312,24 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 * @generated
 	 */
 	@Override
-	protected Command createReplaceCommand(EditingDomain domain, EObject owner, EStructuralFeature feature,
-			EObject value, Collection<?> collection) {
-		if (feature == Aadl2Package.eINSTANCE.getEndToEndFlow_OwnedSubcomponentFlow()) {
+	protected Command createReplaceCommand(EditingDomain domain, EObject owner,
+			EStructuralFeature feature, EObject value, Collection<?> collection) {
+		if (feature == Aadl2Package.eINSTANCE
+				.getEndToEndFlow_OwnedSubcomponentFlow()) {
 			return new SubsetSupersetReplaceCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getEndToEndFlow_FlowElement() }, null, value,
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE
+							.getEndToEndFlow_FlowElement() }, null, value,
 					collection);
 		}
 		if (feature == Aadl2Package.eINSTANCE.getEndToEndFlow_FlowElement()) {
-			return new SubsetSupersetReplaceCommand(domain, owner, feature, null,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getEndToEndFlow_OwnedSubcomponentFlow() }, value,
+			return new SubsetSupersetReplaceCommand(domain, owner, feature,
+					null,
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE
+							.getEndToEndFlow_OwnedSubcomponentFlow() }, value,
 					collection);
 		}
-		return super.createReplaceCommand(domain, owner, feature, value, collection);
+		return super.createReplaceCommand(domain, owner, feature, value,
+				collection);
 	}
 
 }

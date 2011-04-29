@@ -55,8 +55,9 @@ import org.osate.aadl2.Aadl2Package;
  * <!-- end-user-doc -->
  * @generated
  */
-public class RelationshipItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class RelationshipItemProvider extends ElementItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -91,12 +92,15 @@ public class RelationshipItemProvider extends ElementItemProvider implements IEd
 	 */
 	protected void addRelatedElementPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Relationship_relatedElement_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Relationship_relatedElement_feature",
-						"_UI_Relationship_type"), Aadl2Package.eINSTANCE.getRelationship_RelatedElement(), false,
-				false, false, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_Relationship_relatedElement_feature",
+						"_UI_Relationship_type"), Aadl2Package.eINSTANCE
+						.getRelationship_RelatedElement(), false, false, false,
+				null, null, null));
 	}
 
 	/**
@@ -131,7 +135,8 @@ public class RelationshipItemProvider extends ElementItemProvider implements IEd
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

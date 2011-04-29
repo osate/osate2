@@ -551,7 +551,7 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements
 		result.append(')');
 		return result.toString();
 	}
-	
+
 	/**
 	 * returns the list of modes the modal element belongs to.
 	 * This may be kept with the modal element or an ancestor in the extends hierarchy.

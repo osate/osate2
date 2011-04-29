@@ -59,8 +59,9 @@ import org.osate.aadl2.Port;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PortItemProvider extends DirectedFeatureItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class PortItemProvider extends DirectedFeatureItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,9 +96,12 @@ public class PortItemProvider extends DirectedFeatureItemProvider implements IEd
 	 */
 	protected void addCategoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getResourceLocator(),
 				getString("_UI_Port_category_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Port_category_feature", "_UI_Port_type"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_Port_category_feature", "_UI_Port_type"),
 				Aadl2Package.eINSTANCE.getPort_Category(), true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
@@ -111,8 +115,8 @@ public class PortItemProvider extends DirectedFeatureItemProvider implements IEd
 	@Override
 	public String getText(Object object) {
 		String label = ((Port) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Port_type") : getString("_UI_Port_type") + " "
-				+ label;
+		return label == null || label.length() == 0 ? getString("_UI_Port_type")
+				: getString("_UI_Port_type") + " " + label;
 	}
 
 	/**
@@ -128,7 +132,8 @@ public class PortItemProvider extends DirectedFeatureItemProvider implements IEd
 
 		switch (notification.getFeatureID(Port.class)) {
 		case Aadl2Package.PORT__CATEGORY:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -142,7 +147,8 @@ public class PortItemProvider extends DirectedFeatureItemProvider implements IEd
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

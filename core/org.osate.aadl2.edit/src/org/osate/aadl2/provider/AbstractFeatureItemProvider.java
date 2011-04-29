@@ -57,8 +57,9 @@ import org.osate.aadl2.AbstractFeature;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AbstractFeatureItemProvider extends DirectedFeatureItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class AbstractFeatureItemProvider extends DirectedFeatureItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -93,12 +94,15 @@ public class AbstractFeatureItemProvider extends DirectedFeatureItemProvider imp
 	 */
 	protected void addComponentClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_AbstractFeature_componentClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_AbstractFeature_componentClassifier_feature",
-						"_UI_AbstractFeature_type"), Aadl2Package.eINSTANCE.getAbstractFeature_ComponentClassifier(),
-				true, false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_AbstractFeature_componentClassifier_feature",
+						"_UI_AbstractFeature_type"), Aadl2Package.eINSTANCE
+						.getAbstractFeature_ComponentClassifier(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -109,7 +113,8 @@ public class AbstractFeatureItemProvider extends DirectedFeatureItemProvider imp
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractFeature"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/AbstractFeature"));
 	}
 
 	/**
@@ -146,7 +151,8 @@ public class AbstractFeatureItemProvider extends DirectedFeatureItemProvider imp
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

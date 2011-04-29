@@ -56,9 +56,10 @@ import org.osate.aadl2.SubprogramGroupSubcomponent;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubprogramGroupSubcomponentItemProvider extends SubcomponentItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class SubprogramGroupSubcomponentItemProvider extends
+		SubcomponentItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -92,15 +93,19 @@ public class SubprogramGroupSubcomponentItemProvider extends SubcomponentItemPro
 	 * @generated
 	 */
 	protected void addSubprogramGroupClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_SubprogramGroupSubcomponent_subprogramGroupClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_SubprogramGroupSubcomponent_subprogramGroupClassifier_feature",
-						"_UI_SubprogramGroupSubcomponent_type"), Aadl2Package.eINSTANCE
-						.getSubprogramGroupSubcomponent_SubprogramGroupClassifier(), true, false, true, null, null,
-				null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_SubprogramGroupSubcomponent_subprogramGroupClassifier_feature"),
+						getString(
+								"_UI_PropertyDescriptor_description",
+								"_UI_SubprogramGroupSubcomponent_subprogramGroupClassifier_feature",
+								"_UI_SubprogramGroupSubcomponent_type"),
+						Aadl2Package.eINSTANCE
+								.getSubprogramGroupSubcomponent_SubprogramGroupClassifier(),
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -111,7 +116,10 @@ public class SubprogramGroupSubcomponentItemProvider extends SubcomponentItemPro
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramGroupSubcomponent"));
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/SubprogramGroupSubcomponent"));
 	}
 
 	/**
@@ -124,7 +132,8 @@ public class SubprogramGroupSubcomponentItemProvider extends SubcomponentItemPro
 	public String getText(Object object) {
 		String label = ((SubprogramGroupSubcomponent) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_SubprogramGroupSubcomponent_type")
-				: getString("_UI_SubprogramGroupSubcomponent_type") + " " + label;
+				: getString("_UI_SubprogramGroupSubcomponent_type") + " "
+						+ label;
 	}
 
 	/**
@@ -148,7 +157,8 @@ public class SubprogramGroupSubcomponentItemProvider extends SubcomponentItemPro
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

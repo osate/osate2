@@ -55,8 +55,9 @@ import org.osate.aadl2.Aadl2Package;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ConstantValueItemProvider extends ArraySizeItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ConstantValueItemProvider extends ArraySizeItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -91,12 +92,15 @@ public class ConstantValueItemProvider extends ArraySizeItemProvider implements 
 	 */
 	protected void addConstantPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ConstantValue_constant_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ConstantValue_constant_feature",
-						"_UI_ConstantValue_type"), Aadl2Package.eINSTANCE.getConstantValue_Constant(), true, false,
-				true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ConstantValue_constant_feature",
+						"_UI_ConstantValue_type"), Aadl2Package.eINSTANCE
+						.getConstantValue_Constant(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -107,7 +111,8 @@ public class ConstantValueItemProvider extends ArraySizeItemProvider implements 
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ConstantValue"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/ConstantValue"));
 	}
 
 	/**
@@ -142,7 +147,8 @@ public class ConstantValueItemProvider extends ArraySizeItemProvider implements 
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

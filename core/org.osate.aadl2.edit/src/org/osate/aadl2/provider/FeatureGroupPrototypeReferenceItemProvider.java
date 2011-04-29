@@ -56,16 +56,18 @@ import org.osate.aadl2.Aadl2Package;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureGroupPrototypeReferenceItemProvider extends FeatureGroupPrototypeActualItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class FeatureGroupPrototypeReferenceItemProvider extends
+		FeatureGroupPrototypeActualItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureGroupPrototypeReferenceItemProvider(AdapterFactory adapterFactory) {
+	public FeatureGroupPrototypeReferenceItemProvider(
+			AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -92,13 +94,19 @@ public class FeatureGroupPrototypeReferenceItemProvider extends FeatureGroupProt
 	 * @generated
 	 */
 	protected void addPrototypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_FeatureGroupPrototypeReference_prototype_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroupPrototypeReference_prototype_feature",
-						"_UI_FeatureGroupPrototypeReference_type"), Aadl2Package.eINSTANCE
-						.getFeatureGroupPrototypeReference_Prototype(), true, false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_FeatureGroupPrototypeReference_prototype_feature"),
+						getString(
+								"_UI_PropertyDescriptor_description",
+								"_UI_FeatureGroupPrototypeReference_prototype_feature",
+								"_UI_FeatureGroupPrototypeReference_type"),
+						Aadl2Package.eINSTANCE
+								.getFeatureGroupPrototypeReference_Prototype(),
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -109,7 +117,10 @@ public class FeatureGroupPrototypeReferenceItemProvider extends FeatureGroupProt
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroupPrototypeReference"));
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/FeatureGroupPrototypeReference"));
 	}
 
 	/**
@@ -144,7 +155,8 @@ public class FeatureGroupPrototypeReferenceItemProvider extends FeatureGroupProt
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

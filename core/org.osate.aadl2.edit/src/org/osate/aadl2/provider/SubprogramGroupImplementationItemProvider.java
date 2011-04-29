@@ -58,16 +58,18 @@ import org.osate.aadl2.SubprogramGroupImplementation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubprogramGroupImplementationItemProvider extends ComponentImplementationItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class SubprogramGroupImplementationItemProvider extends
+		ComponentImplementationItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SubprogramGroupImplementationItemProvider(AdapterFactory adapterFactory) {
+	public SubprogramGroupImplementationItemProvider(
+			AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -95,11 +97,13 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent());
+			childrenFeatures
+					.add(Aadl2Package.eINSTANCE
+							.getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent());
 		}
 		return childrenFeatures;
 	}
@@ -125,7 +129,10 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramGroupImplementation"));
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/SubprogramGroupImplementation"));
 	}
 
 	/**
@@ -138,7 +145,8 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 	public String getText(Object object) {
 		String label = ((SubprogramGroupImplementation) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_SubprogramGroupImplementation_type")
-				: getString("_UI_SubprogramGroupImplementation_type") + " " + label;
+				: getString("_UI_SubprogramGroupImplementation_type") + " "
+						+ label;
 	}
 
 	/**
@@ -154,7 +162,8 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 
 		switch (notification.getFeatureID(SubprogramGroupImplementation.class)) {
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -168,12 +177,16 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent(),
-				Aadl2Factory.eINSTANCE.createSubprogramGroupSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(
+						Aadl2Package.eINSTANCE
+								.getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent(),
+						Aadl2Factory.eINSTANCE
+								.createSubprogramGroupSubcomponent()));
 	}
 
 }

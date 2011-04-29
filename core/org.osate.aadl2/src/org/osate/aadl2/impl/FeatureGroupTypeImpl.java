@@ -455,7 +455,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getGeneralizations() <em>Generalization</em>}' containment reference list.
+	 * The array of subset feature identifiers for the '{@link #getGeneralizations() <em>Generalization</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getGeneralizations()
