@@ -683,7 +683,8 @@ public abstract class ComponentImplementationImpl extends
 		// DONE: implement this method to return the 'ComponentType' reference
 		Realization realization = getOwnedRealization();
 		return realization == null ? null : ((RealizationImpl) realization)
-				.basicGetImplemented();
+				.getImplemented();
+		// phf: replaced to resolve proxy which is of type abtracttype	.basicGetImplemented();
 	}
 
 	/**
