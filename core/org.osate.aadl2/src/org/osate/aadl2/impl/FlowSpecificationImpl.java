@@ -752,5 +752,15 @@ public class FlowSpecificationImpl extends FlowImpl implements
 			}
 		}
 	}
+	/* getName needs to get it from the refined pointer if it was refined
+	 *(non-Javadoc)
+	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
+	 */
+	@Override
+	public String getName() {
+		if (name != null) 
+			return name;
+		return getRefined().getName();
+	}
 
 } //FlowSpecificationImpl
