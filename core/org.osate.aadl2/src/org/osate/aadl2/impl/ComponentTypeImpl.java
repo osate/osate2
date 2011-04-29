@@ -58,6 +58,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
@@ -413,12 +414,12 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ComponentType getExtended() {
-		// TODO: implement this method to return the 'Extended' containment reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		ComponentType extended = basicGetExtended();
+		return extended != null && ((EObject) extended).eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) extended)
+				: extended;
 	}
 
 	/**
