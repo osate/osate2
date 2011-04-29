@@ -1445,19 +1445,23 @@ For access features, the classifier specifies the type of the shared component.<
         <generalization xmi:id="Packaging-Package-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
         </generalization>
-        <ownedAttribute xmi:id="Packaging-Package-ownedPublicSection" name="ownedPublicSection" type="Packaging-PublicPackageSection" aggregation="composite" subsettedProperty="Packaging-Package-publicSection" association="Packaging-A_package_ownedPublicSection">
+        <ownedAttribute xmi:id="Packaging-Package-ownedPublicSection" name="ownedPublicSection" type="Packaging-PublicPackageSection" aggregation="composite" association="Packaging-A_package_ownedPublicSection">
           <ownedComment xmi:id="Packaging-Package-ownedPublicSection-_ownedComment.0">
             <body>Specifies a private section owned by this package.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-Package-ownedPublicSection-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-Package-ownedPublicSection-_lowerValue"/>
+          <subsettedProperty href="#Packaging-Package-publicSection"/>
+          <subsettedProperty href="AADLInfrastructure.uml#Element-ownedElement"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-Package-ownedPrivateSection" name="ownedPrivateSection" type="Packaging-PrivatePackageSection" aggregation="composite" subsettedProperty="Packaging-Package-privateSection" association="Packaging-A_package_ownedPrivateSection">
+        <ownedAttribute xmi:id="Packaging-Package-ownedPrivateSection" name="ownedPrivateSection" type="Packaging-PrivatePackageSection" aggregation="composite" association="Packaging-A_package_ownedPrivateSection">
           <ownedComment xmi:id="Packaging-Package-ownedPrivateSection-_ownedComment.0">
             <body>Specifies a public section owned by this package.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-Package-ownedPrivateSection-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-Package-ownedPrivateSection-_lowerValue"/>
+          <subsettedProperty href="#Packaging-Package-privateSection"/>
+          <subsettedProperty href="AADLInfrastructure.uml#Element-ownedElement"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Packaging-Package-publicSection" name="publicSection" type="Packaging-PublicPackageSection" association="Packaging-A_package_publicSection">
           <ownedComment xmi:id="Packaging-Package-publicSection-_ownedComment.0">

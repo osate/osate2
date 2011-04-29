@@ -38,13 +38,17 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.uml2.common.util.CacheAdapter;
+import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.PublicPackageSection;
 
@@ -55,6 +59,7 @@ import org.osate.aadl2.PublicPackageSection;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.aadl2.impl.AadlPackageImpl#getOwnedElements <em>Owned Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AadlPackageImpl#getPublicSection <em>Public Section</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AadlPackageImpl#getPrivateSection <em>Private Section</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AadlPackageImpl#getOwnedPublicSection <em>Owned Public Section</em>}</li>
@@ -123,6 +128,41 @@ public class AadlPackageImpl extends NamedElementImpl implements AadlPackage {
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAadlPackage();
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<Element> getOwnedElements() {
+		CacheAdapter cache = getCacheAdapter();
+		if (cache != null) {
+			Resource eResource = eResource();
+			@SuppressWarnings("unchecked")
+			EList<Element> ownedElements = (EList<Element>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getElement_OwnedElement());
+			if (ownedElements == null) {
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getElement_OwnedElement(),
+						ownedElements = new DerivedUnionEObjectEList<Element>(Element.class, this,
+								Aadl2Package.AADL_PACKAGE__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS));
+			}
+			return ownedElements;
+		}
+		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.AADL_PACKAGE__OWNED_ELEMENT,
+				OWNED_ELEMENT_ESUBSETS);
+	}
+
+	/**
+	 * The array of subset feature identifiers for the '{@link #getOwnedElements() <em>Owned Element</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedElements()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] OWNED_ELEMENT_ESUBSETS = new int[] { Aadl2Package.AADL_PACKAGE__OWNED_COMMENT,
+			Aadl2Package.AADL_PACKAGE__OWNED_PUBLIC_SECTION, Aadl2Package.AADL_PACKAGE__OWNED_PRIVATE_SECTION };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -464,6 +504,17 @@ public class AadlPackageImpl extends NamedElementImpl implements AadlPackage {
 			return ownedPrivateSection != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isSetOwnedElements() {
+		return super.isSetOwnedElements() || eIsSet(Aadl2Package.AADL_PACKAGE__OWNED_PUBLIC_SECTION)
+				|| eIsSet(Aadl2Package.AADL_PACKAGE__OWNED_PRIVATE_SECTION);
 	}
 
 } //AadlPackageImpl
