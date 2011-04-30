@@ -119,7 +119,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 	protected FeatureGroupType inverse;
 
 	/**
-	 * The cached value of the '{@link #getOwnedExtension() <em>Owned Extension</em>}' reference.
+	 * The cached value of the '{@link #getOwnedExtension() <em>Owned Extension</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedExtension()
@@ -484,7 +484,8 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 		// DONE: implement this method to return the 'Extended' reference
 		GroupExtension extension = getOwnedExtension();
 		return extension == null ? null : ((GroupExtensionImpl) extension)
-				.basicGetExtended();
+				.getExtended();
+// phf: replaced to resolve proxy		.basicGetExtended();
 	}
 
 	/**
@@ -546,16 +547,6 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 	 * @generated
 	 */
 	public GroupExtension getOwnedExtension() {
-		if (ownedExtension != null && ((EObject) ownedExtension).eIsProxy()) {
-			InternalEObject oldOwnedExtension = (InternalEObject) ownedExtension;
-			ownedExtension = (GroupExtension) eResolveProxy(oldOwnedExtension);
-			if (ownedExtension != oldOwnedExtension) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION,
-							oldOwnedExtension, ownedExtension));
-			}
-		}
 		return ownedExtension;
 	}
 
@@ -564,8 +555,21 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GroupExtension basicGetOwnedExtension() {
-		return ownedExtension;
+	public NotificationChain basicSetOwnedExtension(
+			GroupExtension newOwnedExtension, NotificationChain msgs) {
+		GroupExtension oldOwnedExtension = ownedExtension;
+		ownedExtension = newOwnedExtension;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this,
+					Notification.SET,
+					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION,
+					oldOwnedExtension, newOwnedExtension);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -574,12 +578,41 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 	 * @generated
 	 */
 	public void setOwnedExtension(GroupExtension newOwnedExtension) {
-		GroupExtension oldOwnedExtension = ownedExtension;
-		ownedExtension = newOwnedExtension;
-		if (eNotificationRequired())
+		if (newOwnedExtension != ownedExtension) {
+			NotificationChain msgs = null;
+			if (ownedExtension != null)
+				msgs = ((InternalEObject) ownedExtension)
+						.eInverseRemove(
+								this,
+								EOPPOSITE_FEATURE_BASE
+										- Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION,
+								null, msgs);
+			if (newOwnedExtension != null)
+				msgs = ((InternalEObject) newOwnedExtension)
+						.eInverseAdd(
+								this,
+								EOPPOSITE_FEATURE_BASE
+										- Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION,
+								null, msgs);
+			msgs = basicSetOwnedExtension(newOwnedExtension, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION,
-					oldOwnedExtension, ownedExtension));
+					newOwnedExtension, newOwnedExtension));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GroupExtension createOwnedExtension() {
+		GroupExtension newOwnedExtension = (GroupExtension) create(Aadl2Package.eINSTANCE
+				.getGroupExtension());
+		setOwnedExtension(newOwnedExtension);
+		return newOwnedExtension;
 	}
 
 	/**
@@ -852,6 +885,8 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 	public NotificationChain eInverseRemove(InternalEObject otherEnd,
 			int featureID, NotificationChain msgs) {
 		switch (featureID) {
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION:
+			return basicSetOwnedExtension(null, msgs);
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_BUS_ACCESS:
 			return ((InternalEList<?>) getOwnedBusAccesses()).basicRemove(
 					otherEnd, msgs);
@@ -905,9 +940,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 				return getInverse();
 			return basicGetInverse();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION:
-			if (resolve)
-				return getOwnedExtension();
-			return basicGetOwnedExtension();
+			return getOwnedExtension();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_BUS_ACCESS:
 			return getOwnedBusAccesses();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_ACCESS:
