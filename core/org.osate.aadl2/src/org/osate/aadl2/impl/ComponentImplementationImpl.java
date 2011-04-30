@@ -598,8 +598,7 @@ public abstract class ComponentImplementationImpl extends
 		// DONE: implement this method to return the 'Extended' reference
 		ImplementationExtension extension = getOwnedExtension();
 		return extension == null ? null
-				: ((ImplementationExtensionImpl) extension).
-				getExtended();
+				: ((ImplementationExtensionImpl) extension).getExtended();
 		// phf: replaced to resolve proxy basicGetExtended();
 	}
 

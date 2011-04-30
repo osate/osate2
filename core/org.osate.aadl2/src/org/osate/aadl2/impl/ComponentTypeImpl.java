@@ -447,8 +447,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 		if (getOwnedExtension() == null) {
 			return null;
 		}
-		return ((TypeExtensionImpl) getOwnedExtension()).
-		getExtended();
+		return ((TypeExtensionImpl) getOwnedExtension()).getExtended();
 		// phf: replaced to resolve proxy basicGetExtended();
 	}
 

@@ -7756,7 +7756,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_GROUP_TYPE__INVERSE = CLASSIFIER_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' reference.
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -37738,10 +37738,10 @@ public interface Aadl2Package extends EPackage {
 	EReference getFeatureGroupType_Inverse();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.FeatureGroupType#getOwnedExtension <em>Owned Extension</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.FeatureGroupType#getOwnedExtension <em>Owned Extension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Owned Extension</em>'.
+	 * @return the meta object for the containment reference '<em>Owned Extension</em>'.
 	 * @see org.osate.aadl2.FeatureGroupType#getOwnedExtension()
 	 * @see #getFeatureGroupType()
 	 * @generated

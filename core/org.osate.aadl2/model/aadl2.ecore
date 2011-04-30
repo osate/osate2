@@ -949,7 +949,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="inverse" ordered="false"
         eType="#//FeatureGroupType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedExtension" ordered="false"
-        eType="#//GroupExtension">
+        eType="#//GroupExtension" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/generalization"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
