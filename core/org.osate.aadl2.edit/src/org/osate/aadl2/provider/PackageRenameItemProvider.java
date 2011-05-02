@@ -58,9 +58,8 @@ import org.osate.aadl2.PackageRename;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PackageRenameItemProvider extends NamedElementItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class PackageRenameItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,15 +95,12 @@ public class PackageRenameItemProvider extends NamedElementItemProvider
 	 */
 	protected void addRenamedPackagePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PackageRename_renamedPackage_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_PackageRename_renamedPackage_feature",
-						"_UI_PackageRename_type"), Aadl2Package.eINSTANCE
-						.getPackageRename_RenamedPackage(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_PackageRename_renamedPackage_feature",
+						"_UI_PackageRename_type"), Aadl2Package.eINSTANCE.getPackageRename_RenamedPackage(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -115,15 +111,12 @@ public class PackageRenameItemProvider extends NamedElementItemProvider
 	 */
 	protected void addRenameAllPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PackageRename_renameAll_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_PackageRename_renameAll_feature",
-						"_UI_PackageRename_type"), Aadl2Package.eINSTANCE
-						.getPackageRename_RenameAll(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_PackageRename_renameAll_feature",
+						"_UI_PackageRename_type"), Aadl2Package.eINSTANCE.getPackageRename_RenameAll(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -134,8 +127,7 @@ public class PackageRenameItemProvider extends NamedElementItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/PackageRename"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PackageRename"));
 	}
 
 	/**
@@ -164,8 +156,7 @@ public class PackageRenameItemProvider extends NamedElementItemProvider
 
 		switch (notification.getFeatureID(PackageRename.class)) {
 		case Aadl2Package.PACKAGE_RENAME__RENAME_ALL:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -179,8 +170,7 @@ public class PackageRenameItemProvider extends NamedElementItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

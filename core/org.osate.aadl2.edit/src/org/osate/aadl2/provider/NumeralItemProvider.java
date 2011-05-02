@@ -59,9 +59,8 @@ import org.osate.aadl2.Numeral;
  * <!-- end-user-doc -->
  * @generated
  */
-public class NumeralItemProvider extends ArraySizeItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class NumeralItemProvider extends ArraySizeItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,12 +95,9 @@ public class NumeralItemProvider extends ArraySizeItemProvider implements
 	 */
 	protected void addValuePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Numeral_value_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Numeral_value_feature", "_UI_Numeral_type"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Numeral_value_feature", "_UI_Numeral_type"),
 				Aadl2Package.eINSTANCE.getNumeral_Value(), true, false, false,
 				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
@@ -114,8 +110,7 @@ public class NumeralItemProvider extends ArraySizeItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Numeral"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Numeral"));
 	}
 
 	/**
@@ -143,8 +138,7 @@ public class NumeralItemProvider extends ArraySizeItemProvider implements
 
 		switch (notification.getFeatureID(Numeral.class)) {
 		case Aadl2Package.NUMERAL__VALUE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -158,8 +152,7 @@ public class NumeralItemProvider extends ArraySizeItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

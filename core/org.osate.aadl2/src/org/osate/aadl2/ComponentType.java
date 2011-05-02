@@ -36,7 +36,6 @@
 package org.osate.aadl2;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
@@ -113,7 +112,7 @@ public interface ComponentType extends ComponentClassifier {
 	EList<Feature> getOwnedFeatures();
 
 	/**
-	 * Returns the value of the '<em><b>Extended</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Extended</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -126,34 +125,23 @@ public interface ComponentType extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Extended</em>' containment reference.
+	 * @return the value of the '<em>Extended</em>' reference.
 	 * @see #setExtended(ComponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_Extended()
-	 * @model containment="true" transient="true" volatile="true" derived="true" ordered="false"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	ComponentType getExtended();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ComponentType#getExtended <em>Extended</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.ComponentType#getExtended <em>Extended</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Extended</em>' containment reference.
+	 * @param value the new value of the '<em>Extended</em>' reference.
 	 * @see #getExtended()
 	 * @generated
 	 */
 	void setExtended(ComponentType value);
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.ComponentType} and sets the '<em><b>Extended</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param eClass The Ecore class of the {@link org.osate.aadl2.ComponentType} to create.
-	 * @return The new {@link org.osate.aadl2.ComponentType}.
-	 * @see #getExtended()
-	 * @generated
-	 */
-	ComponentType createExtended(EClass eClass);
 
 	/**
 	 * Returns the value of the '<em><b>Owned Flow Specification</b></em>' containment reference list.

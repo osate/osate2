@@ -56,9 +56,8 @@ import org.osate.aadl2.Prototype;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PrototypeItemProvider extends StructuralFeatureItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class PrototypeItemProvider extends StructuralFeatureItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -93,14 +92,10 @@ public class PrototypeItemProvider extends StructuralFeatureItemProvider
 	 */
 	protected void addRefinedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Prototype_refined_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Prototype_refined_feature", "_UI_Prototype_type"),
-				Aadl2Package.eINSTANCE.getPrototype_Refined(), true, false,
-				true, null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Prototype_refined_feature", "_UI_Prototype_type"),
+				Aadl2Package.eINSTANCE.getPrototype_Refined(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -112,8 +107,8 @@ public class PrototypeItemProvider extends StructuralFeatureItemProvider
 	@Override
 	public String getText(Object object) {
 		String label = ((Prototype) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Prototype_type")
-				: getString("_UI_Prototype_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Prototype_type") : getString("_UI_Prototype_type")
+				+ " " + label;
 	}
 
 	/**
@@ -137,8 +132,7 @@ public class PrototypeItemProvider extends StructuralFeatureItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

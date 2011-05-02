@@ -58,9 +58,8 @@ import org.osate.aadl2.AccessConnection;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AccessConnectionItemProvider extends ConnectionItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class AccessConnectionItemProvider extends ConnectionItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,15 +94,12 @@ public class AccessConnectionItemProvider extends ConnectionItemProvider
 	 */
 	protected void addAccessCategoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_AccessConnection_accessCategory_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_AccessConnection_accessCategory_feature",
-						"_UI_AccessConnection_type"), Aadl2Package.eINSTANCE
-						.getAccessConnection_AccessCategory(), true, false,
-				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_AccessConnection_accessCategory_feature",
+						"_UI_AccessConnection_type"), Aadl2Package.eINSTANCE.getAccessConnection_AccessCategory(),
+				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -114,8 +110,7 @@ public class AccessConnectionItemProvider extends ConnectionItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/AccessConnection"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AccessConnection"));
 	}
 
 	/**
@@ -144,8 +139,7 @@ public class AccessConnectionItemProvider extends ConnectionItemProvider
 
 		switch (notification.getFeatureID(AccessConnection.class)) {
 		case Aadl2Package.ACCESS_CONNECTION__ACCESS_CATEGORY:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -159,8 +153,7 @@ public class AccessConnectionItemProvider extends ConnectionItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

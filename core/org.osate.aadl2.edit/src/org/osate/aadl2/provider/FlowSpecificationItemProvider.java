@@ -61,9 +61,8 @@ import org.osate.aadl2.FlowSpecification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FlowSpecificationItemProvider extends FlowItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class FlowSpecificationItemProvider extends FlowItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -104,15 +103,12 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements
 	 */
 	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ModalElement_inMode_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ModalElement_inMode_feature",
-						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE
-						.getModalElement_InMode(), true, false, true, null,
-				null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
+						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -123,15 +119,12 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements
 	 */
 	protected void addInFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowSpecification_inFeature_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_FlowSpecification_inFeature_feature",
-						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE
-						.getFlowSpecification_InFeature(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_inFeature_feature",
+						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_InFeature(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -142,15 +135,12 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements
 	 */
 	protected void addOutFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowSpecification_outFeature_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_FlowSpecification_outFeature_feature",
-						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE
-						.getFlowSpecification_OutFeature(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_outFeature_feature",
+						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_OutFeature(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -161,15 +151,12 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements
 	 */
 	protected void addKindPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowSpecification_kind_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_FlowSpecification_kind_feature",
-						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE
-						.getFlowSpecification_Kind(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_kind_feature",
+						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_Kind(), true, false,
+				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -180,15 +167,12 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements
 	 */
 	protected void addRefinedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowSpecification_refined_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_FlowSpecification_refined_feature",
-						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE
-						.getFlowSpecification_Refined(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_refined_feature",
+						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_Refined(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -199,15 +183,12 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements
 	 */
 	protected void addInContextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowSpecification_inContext_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_FlowSpecification_inContext_feature",
-						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE
-						.getFlowSpecification_InContext(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_inContext_feature",
+						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_InContext(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -218,15 +199,12 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements
 	 */
 	protected void addOutContextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowSpecification_outContext_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_FlowSpecification_outContext_feature",
-						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE
-						.getFlowSpecification_OutContext(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_outContext_feature",
+						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_OutContext(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -237,8 +215,7 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/FlowSpecification"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSpecification"));
 	}
 
 	/**
@@ -267,8 +244,7 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements
 
 		switch (notification.getFeatureID(FlowSpecification.class)) {
 		case Aadl2Package.FLOW_SPECIFICATION__KIND:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -282,8 +258,7 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

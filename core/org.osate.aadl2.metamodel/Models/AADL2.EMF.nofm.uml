@@ -19,7 +19,7 @@
     <packagedElement xmi:type="uml:Class" xmi:id="Classifier" name="Classifier" isAbstract="true">
       <ownedAttribute xmi:id="Classifier-classifierFeature" name="classifierFeature" isDerived="true"/>
       <ownedAttribute xmi:id="Classifier-inheritedMember" name="inheritedMember" isDerived="true"/>
-      <ownedAttribute xmi:id="Classifier-generalization" name="generalization" isDerived="true" aggregation="composite"/>
+      <ownedAttribute xmi:id="Classifier-generalization" name="generalization" isDerived="true"/>
       <ownedAttribute xmi:id="Classifier-general" name="general" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ClassifierFeature" name="ClassifierFeature" isAbstract="true">
@@ -80,6 +80,15 @@
     <packagedElement xmi:type="uml:Class" xmi:id="Connection" name="Connection">
       <ownedAttribute xmi:id="Connection-kind" name="kind" isDerived="true"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="ModalElement" name="ModalElement">
+      <ownedOperation xmi:id="ModalElement-getAllInModes" name="getAllInModes">
+        <ownedParameter xmi:id="ModalElement-getAllInModes-_ownedParameter.0" name="" type="Mode" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalElement-getAllInModes-_ownedParameter.0-_upperValue" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalElement-getAllInModes-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Mode" name="Mode"/>
     <packagedElement xmi:type="uml:Class" xmi:id="AbstractImplementation" name="AbstractImplementation">
       <ownedAttribute xmi:id="AbstractImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
@@ -506,4 +515,6 @@
   <Ecore:EReference xmi:id="_Bm0xMFHqEd6aXqaq3cmRZw" isTransient="true" isVolatile="true" base_Property="Subcomponent-classifier"/>
   <Ecore:EReference xmi:id="_Yku3kFIPEd6K9OqcVNDX_A" isVolatile="true" base_Property="Subcomponent-abstractClassifier"/>
   <Ecore:EReference xmi:id="_FSqTkHhnEd6AFYIFq8D4AQ" isTransient="true" isVolatile="true"/>
+  <Standard:Metaclass xmi:id="_2zZsQHAmEeCG1uAXqBr-RA" base_Class="ModalElement"/>
+  <Standard:Metaclass xmi:id="_j4BVcHAoEeCG1uAXqBr-RA" base_Class="Mode"/>
 </xmi:XMI>

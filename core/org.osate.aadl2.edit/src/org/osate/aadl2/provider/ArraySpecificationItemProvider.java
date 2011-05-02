@@ -60,9 +60,8 @@ import org.osate.aadl2.ArraySpecification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ArraySpecificationItemProvider extends ElementItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ArraySpecificationItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -97,15 +96,12 @@ public class ArraySpecificationItemProvider extends ElementItemProvider
 	 */
 	protected void addDimensionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ArraySpecification_dimension_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ArraySpecification_dimension_feature",
-						"_UI_ArraySpecification_type"), Aadl2Package.eINSTANCE
-						.getArraySpecification_Dimension(), true, false, false,
-				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ArraySpecification_dimension_feature",
+						"_UI_ArraySpecification_type"), Aadl2Package.eINSTANCE.getArraySpecification_Dimension(), true,
+				false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -117,12 +113,10 @@ public class ArraySpecificationItemProvider extends ElementItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getArraySpecification_Size());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getArraySpecification_Size());
 		}
 		return childrenFeatures;
 	}
@@ -148,8 +142,7 @@ public class ArraySpecificationItemProvider extends ElementItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/ArraySpecification"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ArraySpecification"));
 	}
 
 	/**
@@ -161,8 +154,7 @@ public class ArraySpecificationItemProvider extends ElementItemProvider
 	@Override
 	public String getText(Object object) {
 		ArraySpecification arraySpecification = (ArraySpecification) object;
-		return getString("_UI_ArraySpecification_type") + " "
-				+ arraySpecification.getDimension();
+		return getString("_UI_ArraySpecification_type") + " " + arraySpecification.getDimension();
 	}
 
 	/**
@@ -178,12 +170,10 @@ public class ArraySpecificationItemProvider extends ElementItemProvider
 
 		switch (notification.getFeatureID(ArraySpecification.class)) {
 		case Aadl2Package.ARRAY_SPECIFICATION__DIMENSION:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.ARRAY_SPECIFICATION__SIZE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -197,20 +187,16 @@ public class ArraySpecificationItemProvider extends ElementItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getArraySpecification_Size(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArraySpecification_Size(),
 				Aadl2Factory.eINSTANCE.createNumeral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getArraySpecification_Size(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArraySpecification_Size(),
 				Aadl2Factory.eINSTANCE.createConstantValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getArraySpecification_Size(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArraySpecification_Size(),
 				Aadl2Factory.eINSTANCE.createPropertyReference()));
 	}
 

@@ -65,9 +65,8 @@ import org.osate.aadl2.ModeTransition;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ModeTransitionItemProvider extends ModeFeatureItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ModeTransitionItemProvider extends ModeFeatureItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -104,15 +103,12 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider
 	 */
 	protected void addSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ModeTransition_source_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ModeTransition_source_feature",
-						"_UI_ModeTransition_type"), Aadl2Package.eINSTANCE
-						.getModeTransition_Source(), true, false, true, null,
-				null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ModeTransition_source_feature",
+						"_UI_ModeTransition_type"), Aadl2Package.eINSTANCE.getModeTransition_Source(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -123,15 +119,12 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider
 	 */
 	protected void addDestinationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ModeTransition_destination_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ModeTransition_destination_feature",
-						"_UI_ModeTransition_type"), Aadl2Package.eINSTANCE
-						.getModeTransition_Destination(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ModeTransition_destination_feature",
+						"_UI_ModeTransition_type"), Aadl2Package.eINSTANCE.getModeTransition_Destination(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -142,15 +135,12 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider
 	 */
 	protected void addTriggerPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ModeTransition_trigger_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ModeTransition_trigger_feature",
-						"_UI_ModeTransition_type"), Aadl2Package.eINSTANCE
-						.getModeTransition_Trigger(), true, false, true, null,
-				null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ModeTransition_trigger_feature",
+						"_UI_ModeTransition_type"), Aadl2Package.eINSTANCE.getModeTransition_Trigger(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -162,12 +152,10 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getModeTransition_OwnedTrigger());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getModeTransition_OwnedTrigger());
 		}
 		return childrenFeatures;
 	}
@@ -193,8 +181,7 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/ModeTransition"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ModeTransition"));
 	}
 
 	/**
@@ -223,8 +210,7 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider
 
 		switch (notification.getFeatureID(ModeTransition.class)) {
 		case Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -238,12 +224,10 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModeTransition_OwnedTrigger(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModeTransition_OwnedTrigger(),
 				Aadl2Factory.eINSTANCE.createTriggerPort()));
 	}
 
@@ -254,15 +238,13 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider
 	 * @generated
 	 */
 	@Override
-	protected Command createAddCommand(EditingDomain domain, EObject owner,
-			EStructuralFeature feature, Collection<?> collection, int index) {
+	protected Command createAddCommand(EditingDomain domain, EObject owner, EStructuralFeature feature,
+			Collection<?> collection, int index) {
 		if (feature == Aadl2Package.eINSTANCE.getModeTransition_OwnedTrigger()) {
 			return new SubsetAddCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE
-							.getModeTransition_Trigger() }, collection, index);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getModeTransition_Trigger() }, collection, index);
 		}
-		return super
-				.createAddCommand(domain, owner, feature, collection, index);
+		return super.createAddCommand(domain, owner, feature, collection, index);
 	}
 
 	/**
@@ -272,12 +254,11 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider
 	 * @generated
 	 */
 	@Override
-	protected Command createRemoveCommand(EditingDomain domain, EObject owner,
-			EStructuralFeature feature, Collection<?> collection) {
+	protected Command createRemoveCommand(EditingDomain domain, EObject owner, EStructuralFeature feature,
+			Collection<?> collection) {
 		if (feature == Aadl2Package.eINSTANCE.getModeTransition_Trigger()) {
 			return new SupersetRemoveCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE
-							.getModeTransition_OwnedTrigger() }, collection);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getModeTransition_OwnedTrigger() }, collection);
 		}
 		return super.createRemoveCommand(domain, owner, feature, collection);
 	}
@@ -289,23 +270,19 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider
 	 * @generated
 	 */
 	@Override
-	protected Command createReplaceCommand(EditingDomain domain, EObject owner,
-			EStructuralFeature feature, EObject value, Collection<?> collection) {
+	protected Command createReplaceCommand(EditingDomain domain, EObject owner, EStructuralFeature feature,
+			EObject value, Collection<?> collection) {
 		if (feature == Aadl2Package.eINSTANCE.getModeTransition_OwnedTrigger()) {
 			return new SubsetSupersetReplaceCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE
-							.getModeTransition_Trigger() }, null, value,
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getModeTransition_Trigger() }, null, value,
 					collection);
 		}
 		if (feature == Aadl2Package.eINSTANCE.getModeTransition_Trigger()) {
-			return new SubsetSupersetReplaceCommand(domain, owner, feature,
-					null,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE
-							.getModeTransition_OwnedTrigger() }, value,
+			return new SubsetSupersetReplaceCommand(domain, owner, feature, null,
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getModeTransition_OwnedTrigger() }, value,
 					collection);
 		}
-		return super.createReplaceCommand(domain, owner, feature, value,
-				collection);
+		return super.createReplaceCommand(domain, owner, feature, value, collection);
 	}
 
 }

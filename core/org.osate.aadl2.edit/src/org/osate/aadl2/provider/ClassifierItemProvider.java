@@ -60,9 +60,8 @@ import org.osate.aadl2.Classifier;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ClassifierItemProvider extends NamespaceItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ClassifierItemProvider extends NamespaceItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -102,14 +101,11 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements
 	 */
 	protected void addClassifierFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Classifier_classifierFeature_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Classifier_classifierFeature_feature",
-						"_UI_Classifier_type"), Aadl2Package.eINSTANCE
-						.getClassifier_ClassifierFeature(), false, false,
+				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_classifierFeature_feature",
+						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(), false, false,
 				false, null, null, null));
 	}
 
@@ -121,15 +117,12 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements
 	 */
 	protected void addInheritedMemberPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Classifier_inheritedMember_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Classifier_inheritedMember_feature",
-						"_UI_Classifier_type"), Aadl2Package.eINSTANCE
-						.getClassifier_InheritedMember(), false, false, false,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_inheritedMember_feature",
+						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_InheritedMember(), false, false,
+				false, null, null, null));
 	}
 
 	/**
@@ -141,15 +134,12 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements
 	protected void addGeneralPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_Classifier_general_feature"),
-						getString("_UI_PropertyDescriptor_description",
-								"_UI_Classifier_general_feature",
-								"_UI_Classifier_type"), Aadl2Package.eINSTANCE
-								.getClassifier_General(), false, false, false,
-						null, null, null));
+						getString("_UI_PropertyDescriptor_description", "_UI_Classifier_general_feature",
+								"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_General(), false, false,
+						false, null, null, null));
 	}
 
 	/**
@@ -160,15 +150,12 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements
 	 */
 	protected void addNoPropertiesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Classifier_noProperties_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Classifier_noProperties_feature",
-						"_UI_Classifier_type"), Aadl2Package.eINSTANCE
-						.getClassifier_NoProperties(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_noProperties_feature",
+						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_NoProperties(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -179,15 +166,12 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements
 	 */
 	protected void addNoPrototypesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Classifier_noPrototypes_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Classifier_noPrototypes_feature",
-						"_UI_Classifier_type"), Aadl2Package.eINSTANCE
-						.getClassifier_NoPrototypes(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_noPrototypes_feature",
+						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_NoPrototypes(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -198,14 +182,11 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements
 	 */
 	protected void addNoAnnexesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Classifier_noAnnexes_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Classifier_noAnnexes_feature",
-						"_UI_Classifier_type"), Aadl2Package.eINSTANCE
-						.getClassifier_NoAnnexes(), true, false, false,
+				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_noAnnexes_feature",
+						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_NoAnnexes(), true, false, false,
 				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
@@ -218,18 +199,13 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getClassifier_Generalization());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getClassifier_OwnedAnnexSubclause());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getClassifier_OwnedPrototype());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getClassifier_OwnedPrototypeBinding());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getClassifier_Generalization());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getClassifier_OwnedAnnexSubclause());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototypeBinding());
 		}
 		return childrenFeatures;
 	}
@@ -275,15 +251,13 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements
 		case Aadl2Package.CLASSIFIER__NO_PROTOTYPES:
 		case Aadl2Package.CLASSIFIER__NO_ANNEXES:
 		case Aadl2Package.CLASSIFIER__NO_PROPERTIES:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.CLASSIFIER__GENERALIZATION:
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE:
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE_BINDING:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -297,36 +271,28 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getClassifier_OwnedAnnexSubclause(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedAnnexSubclause(),
 				Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
 				Aadl2Factory.eINSTANCE.createComponentPrototype()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
 				Aadl2Factory.eINSTANCE.createFeatureGroupPrototype()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
 				Aadl2Factory.eINSTANCE.createFeaturePrototype()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getClassifier_OwnedPrototypeBinding(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototypeBinding(),
 				Aadl2Factory.eINSTANCE.createComponentPrototypeBinding()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getClassifier_OwnedPrototypeBinding(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototypeBinding(),
 				Aadl2Factory.eINSTANCE.createFeatureGroupPrototypeBinding()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getClassifier_OwnedPrototypeBinding(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototypeBinding(),
 				Aadl2Factory.eINSTANCE.createFeaturePrototypeBinding()));
 	}
 

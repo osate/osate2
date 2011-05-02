@@ -58,9 +58,8 @@ import org.osate.aadl2.ClassifierType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ClassifierTypeItemProvider extends PropertyTypeItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ClassifierTypeItemProvider extends PropertyTypeItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,12 +94,10 @@ public class ClassifierTypeItemProvider extends PropertyTypeItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getClassifierType_ClassifierReference());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getClassifierType_ClassifierReference());
 		}
 		return childrenFeatures;
 	}
@@ -126,8 +123,7 @@ public class ClassifierTypeItemProvider extends PropertyTypeItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/ClassifierType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ClassifierType"));
 	}
 
 	/**
@@ -156,8 +152,7 @@ public class ClassifierTypeItemProvider extends PropertyTypeItemProvider
 
 		switch (notification.getFeatureID(ClassifierType.class)) {
 		case Aadl2Package.CLASSIFIER_TYPE__CLASSIFIER_REFERENCE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -171,12 +166,10 @@ public class ClassifierTypeItemProvider extends PropertyTypeItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getClassifierType_ClassifierReference(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifierType_ClassifierReference(),
 				Aadl2Factory.eINSTANCE.createMetaclassReference()));
 	}
 

@@ -54,10 +54,9 @@ import org.osate.aadl2.SubprogramGroupClassifier;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubprogramGroupClassifierItemProvider extends
-		ComponentClassifierItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider,
-		IItemLabelProvider, IItemPropertySource {
+public class SubprogramGroupClassifierItemProvider extends ComponentClassifierItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -117,8 +116,7 @@ public class SubprogramGroupClassifierItemProvider extends
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 
