@@ -36,12 +36,6 @@ PrivatePackageSection returns aadl2::PrivatePackageSection:
 	;
 
 
-//Classifier returns aadl2::Classifier:
-//	ComponentClassifier | FeatureGroupType;
-//
-//ComponentClassifier returns aadl2::ComponentClassifier:
-//	SystemClassifier | DataClassifier|ProcessorClassifier|ProcessClassifier|ThreadClassifier;
-
 
 TypeExtension returns aadl2::TypeExtension:
 	'extends' extended=[aadl2::ComponentType|QCREF];
@@ -51,35 +45,19 @@ ImplementationExtension returns aadl2::ImplementationExtension:
 
 
 
-ComponentCategoryKW returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
+ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 	| 'device' | 'memory' | 'process' | 'processor'
 	| 'subprogram' 'group' | 'system' | 'thread' 'group'
 	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
 
-// DOES NOT WORK: the other rules invoke the sub-type rule which does not do the rest.
-//ComponentType returns aadl2::ComponentType:
-//	SystemType | ProcessType | ThreadType | DataType | ProcessorType | SystemType
-//	(=> 'flows'
-//	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
-////	(=> requiresModes?='requires' 'modes'
-////	((ownedMode+=Mode)+))?
-//	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
-////	(=> 'properties'
-////	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-////	| noProperties?=NONE))?
-//	(ownedAnnexSubclause+=AnnexSubclause)*
-//	'end' ID SEMI
-//; 
 
 SystemType returns aadl2::SystemType:
 	'system' name=ID
-//	(ownedExtension=TypeExtension)?
-//	(=> 'extends' extended=[aadl2::SystemType|QCREF])?
+	(ownedExtension=TypeExtension)?
 	(=> 'prototypes' (noPrototypes?=NONE |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (noFeatures?=NONE |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ ) )?
-//	(ownedFeature+=(DataPort | EventPort | EventDataPort | FeatureGroup))+))? //| FeatureGroup
 	(=> 'flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
 //	(=> requiresModes?='requires' 'modes'
@@ -95,13 +73,11 @@ SystemType returns aadl2::SystemType:
 
 ProcessType returns aadl2::ProcessType:
 	'process' name=ID
-//	(ownedExtension=TypeExtension)?
-//	(=> 'extends' extends=[aadl2::ProcessType|QCREF])?
+	(ownedExtension=TypeExtension)?
 	(=> 'prototypes' (noPrototypes?=NONE |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (noFeatures?=NONE |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ ) )?
-//	(ownedFeature+=(DataPort | EventPort | EventDataPort))+))?
 	(=> 'flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
 //	(=> requiresModes?='requires' 'modes'
@@ -117,13 +93,11 @@ ProcessType returns aadl2::ProcessType:
 
 ThreadType returns aadl2::ThreadType:
 	'thread' name=ID
-//	(ownedExtension=TypeExtension)?
-//	(=> 'extends' extends=[aadl2::ThreadType|QCREF])?
+	(ownedExtension=TypeExtension)?
 	(=> 'prototypes' (noPrototypes?=NONE |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (noFeatures?=NONE |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ ) )?
-//	(ownedFeature+=(DataPort | EventPort | EventDataPort))+))?
 	(=> 'flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
 //	(=> requiresModes?='requires' 'modes'
@@ -139,11 +113,9 @@ ThreadType returns aadl2::ThreadType:
 
 ProcessorType returns aadl2::ProcessorType:
 	'processor' name=ID
-//	(=> 'extends' extends=[aadl2::ProcessorType|QCREF])?
-//	(ownedExtension=TypeExtension)?
+	(ownedExtension=TypeExtension)?
 	(=> 'features' (noFeatures?=NONE |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ ) )?
-//	(ownedFeature+=(DataPort | EventPort | EventDataPort))+))?
 	(=> 'flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
 //	(=> requiresModes?='requires' 'modes'
@@ -159,12 +131,10 @@ ProcessorType returns aadl2::ProcessorType:
 
 DataType returns aadl2::DataType:
 	'data' name=ID
-//	(=> 'extends' extends=[aadl2::DataType|QCREF])?
-//	(ownedExtension=TypeExtension)?
+	(ownedExtension=TypeExtension)?
 	(=> 'features' noFeatures?=NONE 
 //	| (ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ )
 	 )?
-//	(ownedFeature+=(DataPort | EventPort | EventDataPort))+))?
 	(=> 'flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
 //	(=> requiresModes?='requires' 'modes'
@@ -183,17 +153,12 @@ DataType returns aadl2::DataType:
 SystemImplementation returns aadl2::SystemImplementation:
 	{aadl2::SystemImplementation}
 	'system' 'implementation' 
-	// sealed type
-//	ownedRealization=Realization DOT name=INAME
-//	(ownedExtension=ImplementationExtension)?
-//	implemented=[aadl2::ComponentType|ID] DOT name=INAME
-//	(=> 'extends' extends=[aadl2::SystemImplementation|QCREF])?
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension)?
 	(=> 'subcomponents'
 	  ((ownedSystemSubcomponent+=SystemSubcomponent
 	  |ownedProcessorSubcomponent+=ProcessorSubcomponent
 	  |ownedDataSubcomponent+=DataSubcomponent)+
-	// ownedSubcomponent instaed of each subclass
-//	((ownedSubcomponent+=Subcomponent )+
 	| noSubcomponents?=NONE)
 	)?
 	(=> 'connections'
@@ -214,13 +179,10 @@ SystemImplementation returns aadl2::SystemImplementation:
 DataImplementation returns aadl2::DataImplementation:
 	{aadl2::DataImplementation}
 	'data' 'implementation' 
-//	implemented=[aadl2::DataType|ID] DOT name=INAME
-//	(=> 'extends' extends=[aadl2::DataImplementation|QCREF])?
-//	ownedRealization=Realization DOT name=INAME
-//	(ownedExtension=ImplementationExtension)?
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension)?
 	(=> 'subcomponents'
 	  ((ownedDataSubcomponent+=DataSubcomponent)
-//	((ownedSubcomponent+=Subcomponent )+
 	| noSubcomponents?=NONE))?
 	(=> 'flows'
 	(noFlows?=NONE))?
@@ -247,7 +209,7 @@ Prototype returns aadl2::Prototype:
 
 ComponentPrototype returns aadl2::ComponentPrototype:
 	name=ID COLON ( 'refined' 'to')?  // remember and then resolve reference. Or we always have reference when refined to
-	category=ComponentCategoryKW 
+	category=ComponentCategory 
 	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
 	( array?=LBRACKET RBRACKET)?
 	;
@@ -265,16 +227,12 @@ FeaturePrototype returns aadl2::FeaturePrototype:
 	;
 
 
-//ComponentClassifierOrPrototype returns aadl2::ComponentClassifierOrPrototype:
-//	ComponentClassifier | ComponentPrototype;
-
 
 SystemSubcomponent returns aadl2::SystemSubcomponent:
-	name=ID COLON 'system'
-//	(refined?='refined' 'to')? // if boolean is set then we need to find the subcomponent being 'refined'
+	((name=ID COLON )|
+	(refined=[aadl2::SystemSubcomponent|ID] COLON 'refined' 'to'))
+	'system'
 //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
-	// Could not disambiguate the following rule
-	//([SystemClassifier|QCREF]|prototype=[ComponentPrototype|ID])
 	systemClassifier=[aadl2::SystemClassifier|QCREF] // with opt. prototype bindings
 	// array dimensions
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
@@ -282,15 +240,18 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 	SEMI;
 
 ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
-	name=ID COLON 'processor' 
-//	(refined?='refined' 'to')? // if boolean is set then we need to find the subcomponent being 'refined'
+	((name=ID COLON )|
+	(refined=[aadl2::ProcessorSubcomponent|ID] COLON 'refined' 'to'))
+	'processor' 
 	 (processorClassifier=[aadl2::ProcessorClassifier|QCREF])?
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
 	( => 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
 	SEMI;
 
 DataSubcomponent returns aadl2::DataSubcomponent:
-	name=ID COLON 'data' 
+	((name=ID COLON )|
+	(refined=[aadl2::DataSubcomponent|ID] COLON 'refined' 'to'))
+	'data' 
 //	(refined?='refined' 'to')? // if boolean is set then we need to find the subcomponent being 'refined'
 	(dataClassifier=[aadl2::DataClassifier|QCREF] )?
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
