@@ -4,6 +4,7 @@ org.eclipse.xtext.common.Terminals
 
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
+// TODO: prototype binding, subprogram calls, array stuff
 
 AadlPackage returns aadl2::AadlPackage:
 	'package' name=PNAME
@@ -18,9 +19,13 @@ AadlPackage returns aadl2::AadlPackage:
 PublicPackageSection returns aadl2::PublicPackageSection:
 	{aadl2::PublicPackageSection}
 	'public'
-	(=> 'with' (importedPackage+=[aadl2::AadlPackage|PNAME]) //| importedPropertySet+=[props::PropertySet|ID]) 
-	(COMMA importedPackage+=[aadl2::AadlPackage|PNAME])* SEMI)*
-	    ( ownedSystemType+=SystemType| ownedSystemImplementation+=SystemImplementation| ownedProcessorType+=ProcessorType|
+	((=> 'with' (importedPackage+=[aadl2::AadlPackage|PNAME]) //| importedPropertySet+=[props::PropertySet|ID]) 
+	    (COMMA importedPackage+=[aadl2::AadlPackage|PNAME])* SEMI)
+	 | ownedPackageRename+=PackageRename | ownedPackageRename+=PackageRenameAll 
+	 | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename
+	)*
+	
+	( ownedSystemType+=SystemType| ownedSystemImplementation+=SystemImplementation| ownedProcessorType+=ProcessorType|
 	    ownedDataType+=DataType )*;
 	// currently derived: (ownedClassifier+=Classifier | ownedAnnexLibrary+=AnnexLibrary)*;
 
@@ -28,12 +33,39 @@ PublicPackageSection returns aadl2::PublicPackageSection:
 PrivatePackageSection returns aadl2::PrivatePackageSection:
 	{aadl2::PrivatePackageSection}
 	'private'
-	(=> 'with' (importedPackage+=[aadl2::AadlPackage|PNAME]) //| importedPropertySet+=[props::PropertySet|ID]) 
-	(COMMA importedPackage+=[aadl2::AadlPackage|PNAME])* SEMI)*
-    ( ownedSystemType+=SystemType| ownedSystemImplementation+=SystemImplementation| ownedProcessorType+=ProcessorType|
+	((=> 'with' (importedPackage+=[aadl2::AadlPackage|PNAME]) //| importedPropertySet+=[props::PropertySet|ID]) 
+	    (COMMA importedPackage+=[aadl2::AadlPackage|PNAME])* SEMI)
+	 | ownedPackageRename+=PackageRename | ownedPackageRename+=PackageRenameAll 
+	 | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename
+	)*
+
+   ( ownedSystemType+=SystemType| ownedSystemImplementation+=SystemImplementation| ownedProcessorType+=ProcessorType|
     ownedDataType+=DataType )*
 //	(ownedClassifier+=Classifier | ownedAnnexLibrary+=AnnexLibrary)*
 	;
+	
+PackageRename returns aadl2::PackageRename:
+	name=ID 'renames' 'package' renamedPackage=[aadl2::AadlPackage|PNAME]
+	SEMI
+;
+	
+PackageRenameAll returns aadl2::PackageRename:
+	'renames' 'package' renamedPackage=[aadl2::AadlPackage|PNAME] '::' renameAll?='all' SEMI
+	SEMI
+;
+
+	
+FGTRename returns aadl2::FeatureGroupTypeRename:
+	(name=ID)? 'renames' 'feature' 'group' renamedFeatureGroupType=[aadl2::FeatureGroupType|QCREF]
+	SEMI
+;
+
+	
+CTRename returns aadl2::ComponentTypeRename:
+	(name=ID)? 'renames' category=ComponentCategory renamedComponentType=[aadl2::ComponentType|QCREF]
+	SEMI
+;
+
 
 
 
@@ -150,7 +182,7 @@ DataType returns aadl2::DataType:
 	'end' ID SEMI
 	;
 
-// Component Implementations: add calls for threads adn subprograms
+// Component Implementations: add calls for threads and subprograms
 
 
 SystemImplementation returns aadl2::SystemImplementation:
