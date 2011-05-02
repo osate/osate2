@@ -827,30 +827,33 @@ public class AadlBaTypeChecker
    private Enum<?> nameResolver(Name n, TypeCheckRule rule)
    {
       Enum<?> result = null ;
-      IntegerValueVariable tmp, iv = null ;
+      IntegerValueVariable tmp = null ;
       boolean ivResolved = true ;
-      ListIterator<IntegerValueVariable> lit = n.getArrayIndexes().listIterator() ;
 
       // Checks the array indexes.
-      while(lit.hasNext())
+      // As nameResolver is recursive via integerValueVariableCheck, 
+      // it iterates over the internal array instead of the integer value 
+      // variables list to avoid a java.util.ConcurrentModificationException
+      // when a integer value variable of the list is replaced.
+      Object[] ivvArray = n.getArrayIndexes().toArray() ;
+      for(int i = 0 ; i < ivvArray.length ; i++)
       {
-         iv = lit.next() ;
-         tmp = integerValueVariableCheck(iv) ;
-
-         // The returned IntegerValueVariable may be different from the
-         // tested one because of semantic ambiguity resolution in
-         // integerValueVariableCheck method. So replace if needed.
-         if(tmp != null)
-         {
-            if(tmp != iv)
-            {
-               lit.set(tmp) ;
-            }
-         }
-         else
-         {
-            ivResolved = false ;
-         }
+    	  tmp = integerValueVariableCheck((IntegerValueVariable) ivvArray[i]) ;
+    	  
+    	  // The returned IntegerValueVariable may be different from the
+          // tested one because of semantic ambiguity resolution in
+          // integerValueVariableCheck method. So replace if needed.
+    	  if(tmp != null)
+          {
+             if(tmp != ivvArray[i])
+             {
+            	 ivvArray[i] = tmp ;
+             }
+          }
+          else
+          {
+             ivResolved = false ;
+          }
       }
 
       // Checks the identifier according to the given rule.
