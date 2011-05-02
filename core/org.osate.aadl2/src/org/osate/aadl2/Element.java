@@ -147,8 +147,7 @@ public interface Element extends AObject {
 	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='not self.allOwnedElements()->includes(self)'"
 	 * @generated
 	 */
-	boolean not_own_self(DiagnosticChain diagnostics,
-			Map<Object, Object> context);
+	boolean not_own_self(DiagnosticChain diagnostics, Map<Object, Object> context);
 
 	/**
 	 * <!-- begin-user-doc -->

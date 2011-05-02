@@ -69,8 +69,7 @@ import org.osate.aadl2.SubprogramType;
  *
  * @generated
  */
-public class SubprogramImplementationImpl extends BehavioredImplementationImpl
-		implements SubprogramImplementation {
+public class SubprogramImplementationImpl extends BehavioredImplementationImpl implements SubprogramImplementation {
 	/**
 	 * The cached value of the '{@link #getOwnedDataSubcomponents() <em>Owned Data Subcomponent</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -111,27 +110,20 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache
-					.get(eResource, this, Aadl2Package.eINSTANCE
-							.getComponentImplementation_OwnedSubcomponent());
+			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
 			if (ownedSubcomponents == null) {
 				cache.put(
 						eResource,
 						this,
-						Aadl2Package.eINSTANCE
-								.getComponentImplementation_OwnedSubcomponent(),
-						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(
-								Subcomponent.class,
-								this,
-								Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBCOMPONENT,
-								OWNED_SUBCOMPONENT_ESUBSETS));
+						Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
+						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+								Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class,
-				this,
-				Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBCOMPONENT,
-				OWNED_SUBCOMPONENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+				Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
 	/**
@@ -153,9 +145,7 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl
 	 */
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
-			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(
-					DataSubcomponent.class,
-					this,
+			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
 					Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
 		}
 		return ownedDataSubcomponents;
@@ -222,12 +212,10 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedDataSubcomponents())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedDataSubcomponents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -257,8 +245,7 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			getOwnedDataSubcomponents().clear();
-			getOwnedDataSubcomponents().addAll(
-					(Collection<? extends DataSubcomponent>) newValue);
+			getOwnedDataSubcomponents().addAll((Collection<? extends DataSubcomponent>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -288,8 +275,7 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
-			return ownedDataSubcomponents != null
-					&& !ownedDataSubcomponents.isEmpty();
+			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

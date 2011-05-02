@@ -65,8 +65,7 @@ import org.osate.aadl2.Generalization;
  *
  * @generated
  */
-public abstract class GeneralizationImpl extends DirectedRelationshipImpl
-		implements Generalization {
+public abstract class GeneralizationImpl extends DirectedRelationshipImpl implements Generalization {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -97,21 +96,17 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Element> targets = (EList<Element>) cache.get(eResource,
-					this,
+			EList<Element> targets = (EList<Element>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getDirectedRelationship_Target());
 			if (targets == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE
-						.getDirectedRelationship_Target(),
-						targets = new DerivedUnionEObjectEList<Element>(
-								Element.class, this,
-								Aadl2Package.GENERALIZATION__TARGET,
-								TARGET_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getDirectedRelationship_Target(),
+						targets = new DerivedUnionEObjectEList<Element>(Element.class, this,
+								Aadl2Package.GENERALIZATION__TARGET, TARGET_ESUBSETS));
 			}
 			return targets;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this,
-				Aadl2Package.GENERALIZATION__TARGET, TARGET_ESUBSETS);
+		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.GENERALIZATION__TARGET,
+				TARGET_ESUBSETS);
 	}
 
 	/**
@@ -135,21 +130,17 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Element> sources = (EList<Element>) cache.get(eResource,
-					this,
+			EList<Element> sources = (EList<Element>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getDirectedRelationship_Source());
 			if (sources == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE
-						.getDirectedRelationship_Source(),
-						sources = new DerivedUnionEObjectEList<Element>(
-								Element.class, this,
-								Aadl2Package.GENERALIZATION__SOURCE,
-								SOURCE_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getDirectedRelationship_Source(),
+						sources = new DerivedUnionEObjectEList<Element>(Element.class, this,
+								Aadl2Package.GENERALIZATION__SOURCE, SOURCE_ESUBSETS));
 			}
 			return sources;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this,
-				Aadl2Package.GENERALIZATION__SOURCE, SOURCE_ESUBSETS);
+		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.GENERALIZATION__SOURCE,
+				SOURCE_ESUBSETS);
 	}
 
 	/**
@@ -235,12 +226,10 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(
-			NotificationChain msgs) {
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 		case Aadl2Package.GENERALIZATION__OWNER:
-			return eInternalContainer().eInverseRemove(this,
-					Aadl2Package.ELEMENT__OWNED_ELEMENT, Element.class, msgs);
+			return eInternalContainer().eInverseRemove(this, Aadl2Package.ELEMENT__OWNED_ELEMENT, Element.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
@@ -337,8 +326,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl
 	 */
 	@Override
 	public boolean isSetSources() {
-		return super.isSetSources()
-				|| eIsSet(Aadl2Package.GENERALIZATION__SPECIFIC);
+		return super.isSetSources() || eIsSet(Aadl2Package.GENERALIZATION__SPECIFIC);
 	}
 
 	/**
@@ -348,8 +336,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl
 	 */
 	@Override
 	public boolean isSetOwner() {
-		return super.isSetOwner()
-				|| eIsSet(Aadl2Package.GENERALIZATION__SPECIFIC);
+		return super.isSetOwner() || eIsSet(Aadl2Package.GENERALIZATION__SPECIFIC);
 	}
 
 } //GeneralizationImpl

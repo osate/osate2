@@ -61,8 +61,7 @@ import org.osate.aadl2.PublicPackageSection;
  *
  * @generated
  */
-public class PublicPackageSectionImpl extends PackageSectionImpl implements
-		PublicPackageSection {
+public class PublicPackageSectionImpl extends PackageSectionImpl implements PublicPackageSection {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -103,7 +102,9 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements
 		return ((AadlPackage) getOwner()).getPrivateSection();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getNamespace()
 	 */
 	@Override
@@ -142,14 +143,11 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements
 		return super.eIsSet(featureID);
 	}
 
-	public NamedElement findNamedElement(String name,
-			boolean externallyVisibleElementsOnly) {
+	public NamedElement findNamedElement(String name, boolean externallyVisibleElementsOnly) {
 		if (externallyVisibleElementsOnly) {
 			for (NamedElement namedElement : getMembers()) {
-				if (namedElement.hasName()
-						&& namedElement.getName().equalsIgnoreCase(name)) {
-					if (namedElement instanceof PackageRename
-							|| namedElement instanceof ComponentTypeRename
+				if (namedElement.hasName() && namedElement.getName().equalsIgnoreCase(name)) {
+					if (namedElement instanceof PackageRename || namedElement instanceof ComponentTypeRename
 							|| namedElement instanceof FeatureGroupTypeRename)
 						return null;
 					else

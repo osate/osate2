@@ -59,8 +59,7 @@ import org.osate.aadl2.FeatureConnection;
  *
  * @generated
  */
-public class FeatureConnectionImpl extends ConnectionImpl implements
-		FeatureConnection {
+public class FeatureConnectionImpl extends ConnectionImpl implements FeatureConnection {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -92,9 +91,8 @@ public class FeatureConnectionImpl extends ConnectionImpl implements
 			source = (ConnectionEnd) eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FEATURE_CONNECTION__SOURCE, oldSource,
-							source));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FEATURE_CONNECTION__SOURCE,
+							oldSource, source));
 			}
 		}
 		return source;
@@ -120,8 +118,8 @@ public class FeatureConnectionImpl extends ConnectionImpl implements
 		ConnectionEnd oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE_CONNECTION__SOURCE, oldSource, source));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_CONNECTION__SOURCE, oldSource,
+					source));
 	}
 
 	/**
@@ -146,8 +144,7 @@ public class FeatureConnectionImpl extends ConnectionImpl implements
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FEATURE_CONNECTION__DESTINATION,
-							oldDestination, destination));
+							Aadl2Package.FEATURE_CONNECTION__DESTINATION, oldDestination, destination));
 			}
 		}
 		return destination;
@@ -173,8 +170,7 @@ public class FeatureConnectionImpl extends ConnectionImpl implements
 		ConnectionEnd oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE_CONNECTION__DESTINATION,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_CONNECTION__DESTINATION,
 					oldDestination, destination));
 	}
 

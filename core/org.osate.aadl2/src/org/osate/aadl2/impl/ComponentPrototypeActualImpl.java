@@ -56,8 +56,7 @@ import org.osate.aadl2.ComponentPrototypeActual;
  *
  * @generated
  */
-public abstract class ComponentPrototypeActualImpl extends ElementImpl
-		implements ComponentPrototypeActual {
+public abstract class ComponentPrototypeActualImpl extends ElementImpl implements ComponentPrototypeActual {
 	/**
 	 * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -115,8 +114,7 @@ public abstract class ComponentPrototypeActualImpl extends ElementImpl
 		ComponentCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY,
 					oldCategory, category));
 	}
 

@@ -58,8 +58,7 @@ import org.osate.aadl2.ProcessSubcomponent;
  *
  * @generated
  */
-public class ProcessSubcomponentImpl extends SubcomponentImpl implements
-		ProcessSubcomponent {
+public class ProcessSubcomponentImpl extends SubcomponentImpl implements ProcessSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -108,8 +107,7 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements
 	 */
 	public ProcessClassifier getProcessClassifier() {
 		ProcessClassifier processClassifier = basicGetProcessClassifier();
-		return processClassifier != null
-				&& ((EObject) processClassifier).eIsProxy() ? (ProcessClassifier) eResolveProxy((InternalEObject) processClassifier)
+		return processClassifier != null && ((EObject) processClassifier).eIsProxy() ? (ProcessClassifier) eResolveProxy((InternalEObject) processClassifier)
 				: processClassifier;
 	}
 
@@ -201,8 +199,7 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier()
-				|| eIsSet(Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_CLASSIFIER);
+		return super.isSetClassifier() || eIsSet(Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_CLASSIFIER);
 	}
 
 	public ComponentCategory getCategory() {

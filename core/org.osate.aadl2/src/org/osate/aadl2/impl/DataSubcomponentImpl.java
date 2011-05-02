@@ -58,8 +58,7 @@ import org.osate.aadl2.DataSubcomponent;
  *
  * @generated
  */
-public class DataSubcomponentImpl extends SubcomponentImpl implements
-		DataSubcomponent {
+public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -200,8 +199,7 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier()
-				|| eIsSet(Aadl2Package.DATA_SUBCOMPONENT__DATA_CLASSIFIER);
+		return super.isSetClassifier() || eIsSet(Aadl2Package.DATA_SUBCOMPONENT__DATA_CLASSIFIER);
 	}
 
 	public ComponentCategory getCategory() {

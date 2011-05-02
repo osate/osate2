@@ -49,8 +49,7 @@ import org.osate.aadl2.BehavioralFeature;
  *
  * @generated
  */
-public abstract class BehavioralFeatureImpl extends ClassifierFeatureImpl
-		implements BehavioralFeature {
+public abstract class BehavioralFeatureImpl extends ClassifierFeatureImpl implements BehavioralFeature {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

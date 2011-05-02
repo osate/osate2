@@ -76,8 +76,7 @@ import org.osate.aadl2.util.Aadl2Validator;
  *
  * @generated
  */
-public abstract class NamespaceImpl extends NamedElementImpl implements
-		Namespace {
+public abstract class NamespaceImpl extends NamedElementImpl implements Namespace {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,22 +106,17 @@ public abstract class NamespaceImpl extends NamedElementImpl implements
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> members = (EList<NamedElement>) cache.get(
-					eResource, this,
+			EList<NamedElement> members = (EList<NamedElement>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_Member());
 			if (members == null) {
-				cache.put(
-						eResource,
-						this,
-						Aadl2Package.eINSTANCE.getNamespace_Member(),
-						members = new DerivedUnionEObjectEList<NamedElement>(
-								NamedElement.class, this,
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_Member(),
+						members = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 								Aadl2Package.NAMESPACE__MEMBER, MEMBER_ESUBSETS));
 			}
 			return members;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
-				this, Aadl2Package.NAMESPACE__MEMBER, MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this, Aadl2Package.NAMESPACE__MEMBER,
+				MEMBER_ESUBSETS);
 	}
 
 	/**
@@ -135,22 +129,17 @@ public abstract class NamespaceImpl extends NamedElementImpl implements
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(
-					eResource, this,
+			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
-				cache.put(
-						eResource,
-						this,
-						Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(
-								NamedElement.class, this,
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
+						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 								Aadl2Package.NAMESPACE__OWNED_MEMBER, null));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
-				this, Aadl2Package.NAMESPACE__OWNED_MEMBER, null);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+				Aadl2Package.NAMESPACE__OWNED_MEMBER, null);
 	}
 
 	/**
@@ -164,21 +153,17 @@ public abstract class NamespaceImpl extends NamedElementImpl implements
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Element> ownedElements = (EList<Element>) cache.get(
-					eResource, this,
+			EList<Element> ownedElements = (EList<Element>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			if (ownedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE
-						.getElement_OwnedElement(),
-						ownedElements = new DerivedUnionEObjectEList<Element>(
-								Element.class, this,
-								Aadl2Package.NAMESPACE__OWNED_ELEMENT,
-								OWNED_ELEMENT_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getElement_OwnedElement(),
+						ownedElements = new DerivedUnionEObjectEList<Element>(Element.class, this,
+								Aadl2Package.NAMESPACE__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS));
 			}
 			return ownedElements;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this,
-				Aadl2Package.NAMESPACE__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.NAMESPACE__OWNED_ELEMENT,
+				OWNED_ELEMENT_ESUBSETS);
 	}
 
 	/**
@@ -189,8 +174,7 @@ public abstract class NamespaceImpl extends NamedElementImpl implements
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_ELEMENT_ESUBSETS = new int[] {
-			Aadl2Package.NAMESPACE__OWNED_COMMENT,
+	protected static final int[] OWNED_ELEMENT_ESUBSETS = new int[] { Aadl2Package.NAMESPACE__OWNED_COMMENT,
 			Aadl2Package.NAMESPACE__OWNED_MEMBER };
 	/**
 	 * The array of subset feature identifiers for the '{@link #getMembers() <em>Member</em>}' reference list.
@@ -226,8 +210,7 @@ public abstract class NamespaceImpl extends NamedElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean members_distinguishable(DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
+	public boolean members_distinguishable(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (MEMBERS_DISTINGUISHABLE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setContext(Aadl2Package.eINSTANCE.getNamespace());
@@ -235,24 +218,15 @@ public abstract class NamespaceImpl extends NamedElementImpl implements
 				MEMBERS_DISTINGUISHABLE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
 						.createInvariant(MEMBERS_DISTINGUISHABLE__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(
-						pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
 			}
 		}
-		if (!EOCL_ENV.createQuery(
-				MEMBERS_DISTINGUISHABLE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(
-				this)) {
+		if (!EOCL_ENV.createQuery(MEMBERS_DISTINGUISHABLE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR,
-						Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.NAMESPACE__MEMBERS_DISTINGUISHABLE,
-						EcorePlugin.INSTANCE.getString(
-								"_UI_GenericInvariant_diagnostic",
-								new Object[] {
-										"members_distinguishable",
-										EObjectValidator.getObjectLabel(this,
-												context) }),
-						new Object[] { this }));
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.NAMESPACE__MEMBERS_DISTINGUISHABLE, EcorePlugin.INSTANCE.getString(
+								"_UI_GenericInvariant_diagnostic", new Object[] { "members_distinguishable",
+										EObjectValidator.getObjectLabel(this, context) }), new Object[] { this }));
 			}
 			return false;
 		}
@@ -287,26 +261,21 @@ public abstract class NamespaceImpl extends NamedElementImpl implements
 	public EList<String> getNamesOfMember(NamedElement element) {
 		if (GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(),
-					Aadl2Package.eINSTANCE.getNamespace().getEAllOperations()
-							.get(11));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(), Aadl2Package.eINSTANCE.getNamespace()
+					.getEAllOperations().get(11));
 			try {
 				GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY = helper
 						.createQuery(GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(
-						pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
 			}
 		}
-		OCL.Query query = EOCL_ENV
-				.createQuery(GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query
-				.getEvaluationEnvironment();
+		OCL.Query query = EOCL_ENV.createQuery(GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY);
+		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
 		environment.add("element", element);
 		@SuppressWarnings("unchecked")
 		Collection<String> result = (Collection<String>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<String>(result.size(),
-				result.toArray());
+		return new BasicEList.UnmodifiableEList<String>(result.size(), result.toArray());
 	}
 
 	/**
@@ -336,19 +305,15 @@ public abstract class NamespaceImpl extends NamedElementImpl implements
 	public boolean membersAreDistinguishable() {
 		if (MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(),
-					Aadl2Package.eINSTANCE.getNamespace().getEAllOperations()
-							.get(12));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(), Aadl2Package.eINSTANCE.getNamespace()
+					.getEAllOperations().get(12));
 			try {
-				MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY = helper
-						.createQuery(MEMBERS_ARE_DISTINGUISHABLE__EOCL_EXP);
+				MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY = helper.createQuery(MEMBERS_ARE_DISTINGUISHABLE__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(
-						pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
 			}
 		}
-		OCL.Query query = EOCL_ENV
-				.createQuery(MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY);
+		OCL.Query query = EOCL_ENV.createQuery(MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY);
 		return ((Boolean) query.evaluate(this)).booleanValue();
 	}
 

@@ -48,8 +48,7 @@ import org.osate.aadl2.PortConnectionEnd;
  *
  * @generated
  */
-public abstract class PortConnectionEndImpl extends ConnectionEndImpl implements
-		PortConnectionEnd {
+public abstract class PortConnectionEndImpl extends ConnectionEndImpl implements PortConnectionEnd {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

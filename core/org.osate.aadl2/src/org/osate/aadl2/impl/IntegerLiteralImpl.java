@@ -58,8 +58,7 @@ import org.osate.aadl2.UnitLiteral;
  *
  * @generated
  */
-public class IntegerLiteralImpl extends NumberValueImpl implements
-		IntegerLiteral {
+public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLiteral {
 	/**
 	 * The default value of the '{@link #getBase() <em>Base</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -137,8 +136,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements
 		long oldBase = base;
 		base = newBase;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.INTEGER_LITERAL__BASE, oldBase, base));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.INTEGER_LITERAL__BASE, oldBase, base));
 	}
 
 	/**
@@ -159,8 +157,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements
 		long oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.INTEGER_LITERAL__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.INTEGER_LITERAL__VALUE, oldValue, value));
 	}
 
 	/**
@@ -262,8 +259,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements
 		// first remove all the underscores		
 		int underscorePosition = s.indexOf('_');
 		while (underscorePosition != -1) {
-			s = s.substring(0, underscorePosition)
-					+ s.substring(underscorePosition + 1, s.length());
+			s = s.substring(0, underscorePosition) + s.substring(underscorePosition + 1, s.length());
 			underscorePosition = s.indexOf('_');
 		}
 
@@ -315,8 +311,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
 	public NumberValue cloneAndInvert() {
-		final IntegerLiteral newVal = Aadl2Factory.eINSTANCE
-				.createIntegerLiteral();
+		final IntegerLiteral newVal = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		// Copy the unit information
 		newVal.setUnit(getUnit());
 
@@ -347,8 +342,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
 	public final NumberValue cloneNumber() {
-		final IntegerLiteral newVal = Aadl2Factory.eINSTANCE
-				.createIntegerLiteral();
+		final IntegerLiteral newVal = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		// Copy the unit information
 		newVal.setUnit(getUnit());
 
@@ -375,15 +369,13 @@ public class IntegerLiteralImpl extends NumberValueImpl implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.osate.aadl2.NumberValue#getScaledValue(org.osate.aadl2
+	 * @see org.osate.aadl2.NumberValue#getScaledValue(org.osate.aadl2
 	 * .UnitLiteral)
 	 */
 	public double getScaledValue(UnitLiteral target) {
 		final long value = getValue();
 		final UnitLiteral unit = getUnit();
-		final double factor = (unit == null) ? 1.0 : unit
-				.getAbsoluteFactor(target);
+		final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor(target);
 		return value * factor;
 	}
 
@@ -394,8 +386,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements
 	 */
 	@Override
 	public boolean equals(Object other) {
-		return (other instanceof IntegerLiteral)
-				&& (((IntegerLiteral) other).getValue() == value)
+		return (other instanceof IntegerLiteral) && (((IntegerLiteral) other).getValue() == value)
 				&& super.equals(other);
 	}
 

@@ -48,8 +48,7 @@ import org.osate.aadl2.FeatureGroupConnectionEnd;
  *
  * @generated
  */
-public class FeatureGroupConnectionEndImpl extends ConnectionEndImpl implements
-		FeatureGroupConnectionEnd {
+public class FeatureGroupConnectionEndImpl extends ConnectionEndImpl implements FeatureGroupConnectionEnd {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

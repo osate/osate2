@@ -69,8 +69,7 @@ import org.osate.aadl2.VirtualBusType;
  *
  * @generated
  */
-public class VirtualBusImplementationImpl extends ComponentImplementationImpl
-		implements VirtualBusImplementation {
+public class VirtualBusImplementationImpl extends ComponentImplementationImpl implements VirtualBusImplementation {
 	/**
 	 * The cached value of the '{@link #getOwnedVirtualBusSubcomponents() <em>Owned Virtual Bus Subcomponent</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -111,27 +110,18 @@ public class VirtualBusImplementationImpl extends ComponentImplementationImpl
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache
-					.get(eResource, this, Aadl2Package.eINSTANCE
-							.getComponentImplementation_OwnedSubcomponent());
+			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
 			if (ownedSubcomponents == null) {
-				cache.put(
-						eResource,
-						this,
-						Aadl2Package.eINSTANCE
-								.getComponentImplementation_OwnedSubcomponent(),
-						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(
-								Subcomponent.class,
-								this,
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
+						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
 								Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT,
 								OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class,
-				this,
-				Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT,
-				OWNED_SUBCOMPONENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+				Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
 	/**
@@ -154,8 +144,7 @@ public class VirtualBusImplementationImpl extends ComponentImplementationImpl
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
 			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
-					VirtualBusSubcomponent.class,
-					this,
+					VirtualBusSubcomponent.class, this,
 					Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 		}
 		return ownedVirtualBusSubcomponents;
@@ -222,12 +211,10 @@ public class VirtualBusImplementationImpl extends ComponentImplementationImpl
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedVirtualBusSubcomponents())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedVirtualBusSubcomponents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -257,8 +244,7 @@ public class VirtualBusImplementationImpl extends ComponentImplementationImpl
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
 			getOwnedVirtualBusSubcomponents().clear();
-			getOwnedVirtualBusSubcomponents().addAll(
-					(Collection<? extends VirtualBusSubcomponent>) newValue);
+			getOwnedVirtualBusSubcomponents().addAll((Collection<? extends VirtualBusSubcomponent>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -288,8 +274,7 @@ public class VirtualBusImplementationImpl extends ComponentImplementationImpl
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
-			return ownedVirtualBusSubcomponents != null
-					&& !ownedVirtualBusSubcomponents.isEmpty();
+			return ownedVirtualBusSubcomponents != null && !ownedVirtualBusSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

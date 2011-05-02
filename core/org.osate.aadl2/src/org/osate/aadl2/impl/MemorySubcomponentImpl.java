@@ -58,8 +58,7 @@ import org.osate.aadl2.MemorySubcomponent;
  *
  * @generated
  */
-public class MemorySubcomponentImpl extends SubcomponentImpl implements
-		MemorySubcomponent {
+public class MemorySubcomponentImpl extends SubcomponentImpl implements MemorySubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -108,8 +107,7 @@ public class MemorySubcomponentImpl extends SubcomponentImpl implements
 	 */
 	public MemoryClassifier getMemoryClassifier() {
 		MemoryClassifier memoryClassifier = basicGetMemoryClassifier();
-		return memoryClassifier != null
-				&& ((EObject) memoryClassifier).eIsProxy() ? (MemoryClassifier) eResolveProxy((InternalEObject) memoryClassifier)
+		return memoryClassifier != null && ((EObject) memoryClassifier).eIsProxy() ? (MemoryClassifier) eResolveProxy((InternalEObject) memoryClassifier)
 				: memoryClassifier;
 	}
 
@@ -201,8 +199,7 @@ public class MemorySubcomponentImpl extends SubcomponentImpl implements
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier()
-				|| eIsSet(Aadl2Package.MEMORY_SUBCOMPONENT__MEMORY_CLASSIFIER);
+		return super.isSetClassifier() || eIsSet(Aadl2Package.MEMORY_SUBCOMPONENT__MEMORY_CLASSIFIER);
 	}
 
 	public ComponentCategory getCategory() {

@@ -58,8 +58,7 @@ import org.osate.aadl2.ModeTransition;
  *
  * @generated
  */
-public abstract class ModalPathImpl extends ModalElementImpl implements
-		ModalPath {
+public abstract class ModalPathImpl extends ModalElementImpl implements ModalPath {
 	/**
 	 * The cached value of the '{@link #getInTransitions() <em>In Transition</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -96,8 +95,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements
 	 */
 	public EList<ModeTransition> getInTransitions() {
 		if (inTransitions == null) {
-			inTransitions = new EObjectResolvingEList<ModeTransition>(
-					ModeTransition.class, this,
+			inTransitions = new EObjectResolvingEList<ModeTransition>(ModeTransition.class, this,
 					Aadl2Package.MODAL_PATH__IN_TRANSITION);
 		}
 		return inTransitions;
@@ -128,8 +126,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements
 		switch (featureID) {
 		case Aadl2Package.MODAL_PATH__IN_TRANSITION:
 			getInTransitions().clear();
-			getInTransitions().addAll(
-					(Collection<? extends ModeTransition>) newValue);
+			getInTransitions().addAll((Collection<? extends ModeTransition>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

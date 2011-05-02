@@ -45,7 +45,6 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface SystemClassifier extends ComponentClassifier,
-		org.osate.aadl2.System {
+public interface SystemClassifier extends ComponentClassifier, org.osate.aadl2.System {
 
 } // SystemClassifier

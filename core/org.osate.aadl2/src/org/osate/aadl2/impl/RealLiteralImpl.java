@@ -115,8 +115,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		double oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.REAL_LITERAL__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.REAL_LITERAL__VALUE, oldValue, value));
 	}
 
 	/**
@@ -205,7 +204,9 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		setValue(Double.parseDouble(s));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
 	public NumberValue cloneAndInvert() {
@@ -231,7 +232,9 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		return newVal;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
 	public final NumberValue cloneNumber() {
@@ -246,7 +249,9 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		return newVal;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.NumberValue#getScaledValue()
 	 */
 	public final double getScaledValue() {
@@ -256,24 +261,27 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		return value * factor;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.osate.aadl2.NumberValue#getScaledValue(org.osate.aadl2.UnitLiteral)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osate.aadl2.NumberValue#getScaledValue(org.osate.aadl2.UnitLiteral)
 	 */
 	public double getScaledValue(UnitLiteral target) {
 		final double value = getValue();
 		final UnitLiteral unit = getUnit();
-		final double factor = (unit == null) ? 1.0 : unit
-				.getAbsoluteFactor(target);
+		final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor(target);
 		return value * factor;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object other) {
-		return (other instanceof RealLiteral)
-				&& (((RealLiteral) other).getValue() == value);
+		return (other instanceof RealLiteral) && (((RealLiteral) other).getValue() == value);
 	}
 
 } //RealLiteralImpl

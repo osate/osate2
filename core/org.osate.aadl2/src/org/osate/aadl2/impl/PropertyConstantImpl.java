@@ -67,8 +67,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  *
  * @generated
  */
-public class PropertyConstantImpl extends TypedElementImpl implements
-		PropertyConstant {
+public class PropertyConstantImpl extends TypedElementImpl implements PropertyConstant {
 	/**
 	 * The default value of the '{@link #getList() <em>List</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -139,8 +138,8 @@ public class PropertyConstantImpl extends TypedElementImpl implements
 			type = (Type) eResolveProxy(oldType);
 			if (type != oldType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PROPERTY_CONSTANT__TYPE, oldType, type));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PROPERTY_CONSTANT__TYPE,
+							oldType, type));
 			}
 		}
 		return type;
@@ -166,8 +165,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements
 		Type oldType = type;
 		type = newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PROPERTY_CONSTANT__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_CONSTANT__TYPE, oldType, type));
 		Resource.Internal eInternalResource = eInternalResource();
 		if (eInternalResource == null || !eInternalResource.isLoading()) {
 			if (ownedType != null && ownedType != newType) {
@@ -203,8 +201,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements
 		long oldList = list;
 		list = newList;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PROPERTY_CONSTANT__LIST, oldList, list));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_CONSTANT__LIST, oldList, list));
 	}
 
 	/**
@@ -221,15 +218,12 @@ public class PropertyConstantImpl extends TypedElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOwnedType(PropertyType newOwnedType,
-			NotificationChain msgs) {
+	public NotificationChain basicSetOwnedType(PropertyType newOwnedType, NotificationChain msgs) {
 		PropertyType oldOwnedType = ownedType;
 		ownedType = newOwnedType;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET,
-					Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE, oldOwnedType,
-					newOwnedType);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE, oldOwnedType, newOwnedType);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -255,22 +249,17 @@ public class PropertyConstantImpl extends TypedElementImpl implements
 		if (newOwnedType != ownedType) {
 			NotificationChain msgs = null;
 			if (ownedType != null)
-				msgs = ((InternalEObject) ownedType).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE,
-						null, msgs);
+				msgs = ((InternalEObject) ownedType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE, null, msgs);
 			if (newOwnedType != null)
-				msgs = ((InternalEObject) newOwnedType).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE,
-						null, msgs);
+				msgs = ((InternalEObject) newOwnedType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE, null, msgs);
 			msgs = basicSetOwnedType(newOwnedType, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE, newOwnedType,
-					newOwnedType));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE,
+					newOwnedType, newOwnedType));
 	}
 
 	/**
@@ -298,15 +287,12 @@ public class PropertyConstantImpl extends TypedElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetConstantValue(
-			PropertyExpression newConstantValue, NotificationChain msgs) {
+	public NotificationChain basicSetConstantValue(PropertyExpression newConstantValue, NotificationChain msgs) {
 		PropertyExpression oldConstantValue = constantValue;
 		constantValue = newConstantValue;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET,
-					Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE,
-					oldConstantValue, newConstantValue);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE, oldConstantValue, newConstantValue);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -324,25 +310,16 @@ public class PropertyConstantImpl extends TypedElementImpl implements
 		if (newConstantValue != constantValue) {
 			NotificationChain msgs = null;
 			if (constantValue != null)
-				msgs = ((InternalEObject) constantValue)
-						.eInverseRemove(
-								this,
-								EOPPOSITE_FEATURE_BASE
-										- Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE,
-								null, msgs);
+				msgs = ((InternalEObject) constantValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE, null, msgs);
 			if (newConstantValue != null)
-				msgs = ((InternalEObject) newConstantValue)
-						.eInverseAdd(
-								this,
-								EOPPOSITE_FEATURE_BASE
-										- Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE,
-								null, msgs);
+				msgs = ((InternalEObject) newConstantValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE, null, msgs);
 			msgs = basicSetConstantValue(newConstantValue, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE,
 					newConstantValue, newConstantValue));
 	}
 
@@ -363,8 +340,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE:
 			return basicSetOwnedType(null, msgs);
@@ -469,16 +445,14 @@ public class PropertyConstantImpl extends TypedElementImpl implements
 		return result.toString();
 	}
 
-	public EvaluatedProperty evaluate(EvaluationContext ctx)
-			throws InvalidModelException {
+	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
 		EvaluatedProperty value = getConstantValue().evaluate(ctx);
 
 		if (value.isEmpty()) {
 			throw new InvalidModelException(this, "Constant has no value");
 		}
 		if (value.size() > 1) {
-			throw new InvalidModelException(this,
-					"Constant has multiple values");
+			throw new InvalidModelException(this, "Constant has multiple values");
 		}
 		if (value.first().isModal()) {
 			throw new InvalidModelException(this, "Constant value is modal");

@@ -71,8 +71,8 @@ import org.osate.aadl2.SubprogramSubcomponent;
  *
  * @generated
  */
-public class SubprogramGroupImplementationImpl extends
-		ComponentImplementationImpl implements SubprogramGroupImplementation {
+public class SubprogramGroupImplementationImpl extends ComponentImplementationImpl implements
+		SubprogramGroupImplementation {
 	/**
 	 * The cached value of the '{@link #getOwnedSubprogramSubcomponents() <em>Owned Subprogram Subcomponent</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -122,28 +122,18 @@ public class SubprogramGroupImplementationImpl extends
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache
-					.get(eResource, this, Aadl2Package.eINSTANCE
-							.getComponentImplementation_OwnedSubcomponent());
+			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
 			if (ownedSubcomponents == null) {
-				cache.put(
-						eResource,
-						this,
-						Aadl2Package.eINSTANCE
-								.getComponentImplementation_OwnedSubcomponent(),
-						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(
-								Subcomponent.class,
-								this,
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
+						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
 								Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBCOMPONENT,
 								OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
-		return new DerivedUnionEObjectEList<Subcomponent>(
-				Subcomponent.class,
-				this,
-				Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBCOMPONENT,
-				OWNED_SUBCOMPONENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+				Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
 	/**
@@ -167,8 +157,7 @@ public class SubprogramGroupImplementationImpl extends
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
 		if (ownedSubprogramSubcomponents == null) {
 			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
-					SubprogramSubcomponent.class,
-					this,
+					SubprogramSubcomponent.class, this,
 					Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
 		}
 		return ownedSubprogramSubcomponents;
@@ -194,8 +183,7 @@ public class SubprogramGroupImplementationImpl extends
 	public EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents() {
 		if (ownedSubprogramGroupSubcomponents == null) {
 			ownedSubprogramGroupSubcomponents = new EObjectContainmentEList<SubprogramGroupSubcomponent>(
-					SubprogramGroupSubcomponent.class,
-					this,
+					SubprogramGroupSubcomponent.class, this,
 					Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT);
 		}
 		return ownedSubprogramGroupSubcomponents;
@@ -209,8 +197,7 @@ public class SubprogramGroupImplementationImpl extends
 	public SubprogramGroupSubcomponent createOwnedSubprogramGroupSubcomponent() {
 		SubprogramGroupSubcomponent newOwnedSubprogramGroupSubcomponent = (SubprogramGroupSubcomponent) create(Aadl2Package.eINSTANCE
 				.getSubprogramGroupSubcomponent());
-		getOwnedSubprogramGroupSubcomponents().add(
-				newOwnedSubprogramGroupSubcomponent);
+		getOwnedSubprogramGroupSubcomponents().add(newOwnedSubprogramGroupSubcomponent);
 		return newOwnedSubprogramGroupSubcomponent;
 	}
 
@@ -263,15 +250,12 @@ public class SubprogramGroupImplementationImpl extends
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedSubprogramSubcomponents())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedSubprogramSubcomponents()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedSubprogramGroupSubcomponents())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedSubprogramGroupSubcomponents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -303,13 +287,11 @@ public class SubprogramGroupImplementationImpl extends
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
 			getOwnedSubprogramSubcomponents().clear();
-			getOwnedSubprogramSubcomponents().addAll(
-					(Collection<? extends SubprogramSubcomponent>) newValue);
+			getOwnedSubprogramSubcomponents().addAll((Collection<? extends SubprogramSubcomponent>) newValue);
 			return;
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
 			getOwnedSubprogramGroupSubcomponents().clear();
-			getOwnedSubprogramGroupSubcomponents()
-					.addAll((Collection<? extends SubprogramGroupSubcomponent>) newValue);
+			getOwnedSubprogramGroupSubcomponents().addAll((Collection<? extends SubprogramGroupSubcomponent>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -342,11 +324,9 @@ public class SubprogramGroupImplementationImpl extends
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
-			return ownedSubprogramSubcomponents != null
-					&& !ownedSubprogramSubcomponents.isEmpty();
+			return ownedSubprogramSubcomponents != null && !ownedSubprogramSubcomponents.isEmpty();
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
-			return ownedSubprogramGroupSubcomponents != null
-					&& !ownedSubprogramGroupSubcomponents.isEmpty();
+			return ownedSubprogramGroupSubcomponents != null && !ownedSubprogramGroupSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

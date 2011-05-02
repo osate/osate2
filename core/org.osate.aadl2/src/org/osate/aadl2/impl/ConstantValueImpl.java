@@ -103,9 +103,8 @@ public class ConstantValueImpl extends ArraySizeImpl implements ConstantValue {
 			constant = (PropertyConstant) eResolveProxy(oldConstant);
 			if (constant != oldConstant) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.CONSTANT_VALUE__CONSTANT, oldConstant,
-							constant));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.CONSTANT_VALUE__CONSTANT,
+							oldConstant, constant));
 			}
 		}
 		return constant;
@@ -129,8 +128,7 @@ public class ConstantValueImpl extends ArraySizeImpl implements ConstantValue {
 		PropertyConstant oldConstant = constant;
 		constant = newConstant;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CONSTANT_VALUE__CONSTANT, oldConstant,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONSTANT_VALUE__CONSTANT, oldConstant,
 					constant));
 	}
 
@@ -194,11 +192,9 @@ public class ConstantValueImpl extends ArraySizeImpl implements ConstantValue {
 		return super.eIsSet(featureID);
 	}
 
-	public EvaluatedProperty evaluate(EvaluationContext ctx)
-			throws InvalidModelException {
+	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
 		if (getConstant() == null) {
-			throw new InvalidModelException(this,
-					"Constant reference is missing the referenced constant");
+			throw new InvalidModelException(this, "Constant reference is missing the referenced constant");
 		} else {
 			return getConstant().evaluate(ctx);
 		}
@@ -208,18 +204,18 @@ public class ConstantValueImpl extends ArraySizeImpl implements ConstantValue {
 	 * Default implementation for instantiation: simply returns itself.
 	 * Most property value do not need to be translated.
 	 */
-	public PropertyExpression instantiate(final ComponentInstance root)
-			throws InvalidModelException {
+	public PropertyExpression instantiate(final ComponentInstance root) throws InvalidModelException {
 		return this;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object other) {
-		return (other instanceof ConstantValue)
-				&& ((ConstantValue) other).getConstant() == constant;
+		return (other instanceof ConstantValue) && ((ConstantValue) other).getConstant() == constant;
 	}
 
 } //ConstantValueImpl
