@@ -411,6 +411,7 @@ FeatureGroupType returns aadl2::FeatureGroupType:
 	'end' ID SEMI;
 
 // ********* connections 
+
 PortConnection returns aadl2::PortConnection:
 	((name=ID COLON )|
 	(refined=[aadl2::PortConnection|ID] COLON 'refined' 'to'))
@@ -419,7 +420,11 @@ PortConnection returns aadl2::PortConnection:
 	sourceContext=[aadl2::Context|ID] DOT)? 
 	source=[aadl2::ConnectionEnd|ID]
 	(ARROW | bidirectional?='<->')
-	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] SEMI;
+	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] 
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
+	// also needs to refer to transitions
+	SEMI;
 
 AccessConnection returns aadl2::AccessConnection:
 	((name=ID COLON )|
@@ -429,7 +434,10 @@ AccessConnection returns aadl2::AccessConnection:
 	(sourceContext=[aadl2::Context|ID] DOT)? 
 	source=[aadl2::ConnectionEnd|ID])
 	(ARROW | bidirectional?='<->')
-	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] SEMI;
+	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] 
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
+	SEMI;
 
 FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 	((name=ID COLON )|
@@ -439,7 +447,10 @@ FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 	(sourceContext=[aadl2::Context|ID] DOT)? 
 	source=[aadl2::ConnectionEnd|ID])
 	( bidirectional?='<->')
-	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] SEMI;
+	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] 
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
+	SEMI;
 
 FeatureConnection returns aadl2::FeatureConnection:
 	((name=ID COLON )|
@@ -449,7 +460,10 @@ FeatureConnection returns aadl2::FeatureConnection:
 	(sourceContext=[aadl2::Context|ID] DOT)? 
 	source=[aadl2::ConnectionEnd|ID])
 	(ARROW | bidirectional?='<->')
-	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] SEMI;
+	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] 
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
+	SEMI;
 
 ParameterConnection returns aadl2::ParameterConnection:
 	((name=ID COLON )|
@@ -459,7 +473,10 @@ ParameterConnection returns aadl2::ParameterConnection:
 	(sourceContext=[aadl2::Context|ID] DOT)? 
 	source=[aadl2::ConnectionEnd|ID])
 	 ARROW
-	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] SEMI;
+	(destinationContext=[aadl2::Context|ID] DOT)? destination=[aadl2::ConnectionEnd] 
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
+	SEMI;
 
 
 
@@ -524,7 +541,6 @@ FlowPathSpecRefinement returns aadl2::FlowSpecification:
 
 FlowImplementation returns aadl2::FlowImplementation:
 	( FlowSourceImpl | FlowSinkImpl | FlowPathImpl )
-//	|FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
 	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
 	SEMI
@@ -533,17 +549,21 @@ FlowImplementation returns aadl2::FlowImplementation:
 FlowSourceImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	COLON 'flow' kind=FlowSource 
+    (  ownedSubcomponentFlow+=SubcomponentFlow ARROW flowElement+=[aadl2::Connection|ID] ARROW )*
 //	(outContext=[aadl2::Context|ID] DOT )? outFeature=[aadl2::Feature|ID]
 ;
 FlowSinkImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	COLON 'flow' kind=FlowSink 
 //	(inContext=[aadl2::Context|ID] DOT )? inFeature=[aadl2::Feature|ID]
+    ( ARROW flowElement+=[aadl2::Connection|ID] ARROW ownedSubcomponentFlow+=SubcomponentFlow  )*
 ;
 FlowPathImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	COLON 'flow' kind=FlowPath 
 //	(inContext=[aadl2::Context|ID] DOT )? inFeature=[aadl2::Feature|ID]
+	(  ( ARROW flowElement+=[aadl2::Connection|ID] ARROW ownedSubcomponentFlow+=SubcomponentFlow   )*
+	    ARROW flowElement+=[aadl2::Connection|ID] )?
 //	ARROW (outContext=[aadl2::Context|ID] DOT )? outFeature=[aadl2::Feature|ID] 
 ;
 
@@ -557,6 +577,7 @@ EndToEndFlow returns aadl2::EndToEndFlow:
 	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
     SEMI
     ;
+    
 EndToEndFlowRefinement returns aadl2::EndToEndFlow:
 	refined=[aadl2::EndToEndFlow|ID] COLON 'refined' 'to' 'end' 'to' 'end' 'flow'  
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
@@ -568,6 +589,8 @@ SubcomponentFlow returns aadl2::SubcomponentFlow:
 	// could refer to data access which is stored as dataAccess instead of flowSpec
 	// could also refere to endtoend flow
 ;
+
+
 // Modes 
 
 Mode returns aadl2::Mode:
