@@ -61,9 +61,8 @@ import org.osate.aadl2.Subcomponent;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubcomponentItemProvider extends StructuralFeatureItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class SubcomponentItemProvider extends StructuralFeatureItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -103,15 +102,12 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider
 	 */
 	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ModalElement_inMode_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ModalElement_inMode_feature",
-						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE
-						.getModalElement_InMode(), true, false, true, null,
-				null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
+						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -122,15 +118,12 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider
 	 */
 	protected void addClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Subcomponent_classifier_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Subcomponent_classifier_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE
-						.getSubcomponent_Classifier(), false, false, false,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_classifier_feature",
+						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_Classifier(), false, false,
+				false, null, null, null));
 	}
 
 	/**
@@ -141,15 +134,12 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider
 	 */
 	protected void addPrototypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Subcomponent_prototype_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Subcomponent_prototype_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE
-						.getSubcomponent_Prototype(), true, false, true, null,
-				null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_prototype_feature",
+						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_Prototype(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -160,15 +150,12 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider
 	 */
 	protected void addAllModesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Subcomponent_allModes_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Subcomponent_allModes_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE
-						.getSubcomponent_AllModes(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_allModes_feature",
+						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_AllModes(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -179,15 +166,12 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider
 	 */
 	protected void addRefinedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Subcomponent_refined_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Subcomponent_refined_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE
-						.getSubcomponent_Refined(), true, false, true, null,
-				null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_refined_feature",
+						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_Refined(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -198,15 +182,12 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider
 	 */
 	protected void addAbstractClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Subcomponent_abstractClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Subcomponent_abstractClassifier_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE
-						.getSubcomponent_AbstractClassifier(), true, false,
-				true, null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_abstractClassifier_feature",
+						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_AbstractClassifier(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -218,18 +199,13 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getArrayableElement_ArraySpecification());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getSubcomponent_OwnedPrototypeBinding());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getSubcomponent_ModeBinding());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getSubcomponent_ImplementationReference());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getArrayableElement_ArraySpecification());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubcomponent_OwnedPrototypeBinding());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubcomponent_ModeBinding());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubcomponent_ImplementationReference());
 		}
 		return childrenFeatures;
 	}
@@ -273,15 +249,13 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider
 
 		switch (notification.getFeatureID(Subcomponent.class)) {
 		case Aadl2Package.SUBCOMPONENT__ALL_MODES:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -295,36 +269,26 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors
-				.add(createChildParameter(Aadl2Package.eINSTANCE
-						.getArrayableElement_ArraySpecification(),
-						Aadl2Factory.eINSTANCE.createArraySpecification()));
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArrayableElement_ArraySpecification(),
+				Aadl2Factory.eINSTANCE.createArraySpecification()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubcomponent_OwnedPrototypeBinding(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getSubcomponent_OwnedPrototypeBinding(),
 				Aadl2Factory.eINSTANCE.createComponentPrototypeBinding()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubcomponent_OwnedPrototypeBinding(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getSubcomponent_OwnedPrototypeBinding(),
 				Aadl2Factory.eINSTANCE.createFeatureGroupPrototypeBinding()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubcomponent_OwnedPrototypeBinding(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getSubcomponent_OwnedPrototypeBinding(),
 				Aadl2Factory.eINSTANCE.createFeaturePrototypeBinding()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubcomponent_ModeBinding(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getSubcomponent_ModeBinding(),
 				Aadl2Factory.eINSTANCE.createModeBinding()));
 
-		newChildDescriptors
-				.add(createChildParameter(Aadl2Package.eINSTANCE
-						.getSubcomponent_ImplementationReference(),
-						Aadl2Factory.eINSTANCE
-								.createComponentImplementationReference()));
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getSubcomponent_ImplementationReference(),
+				Aadl2Factory.eINSTANCE.createComponentImplementationReference()));
 	}
 
 }

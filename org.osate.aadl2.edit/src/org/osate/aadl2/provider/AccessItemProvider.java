@@ -59,9 +59,8 @@ import org.osate.aadl2.Access;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AccessItemProvider extends FeatureItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class AccessItemProvider extends FeatureItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -97,12 +96,9 @@ public class AccessItemProvider extends FeatureItemProvider implements
 	 */
 	protected void addKindPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Access_kind_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Access_kind_feature", "_UI_Access_type"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Access_kind_feature", "_UI_Access_type"),
 				Aadl2Package.eINSTANCE.getAccess_Kind(), true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
@@ -115,14 +111,11 @@ public class AccessItemProvider extends FeatureItemProvider implements
 	 */
 	protected void addCategoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Access_category_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Access_category_feature", "_UI_Access_type"),
-				Aadl2Package.eINSTANCE.getAccess_Category(), true, false,
-				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Access_category_feature", "_UI_Access_type"),
+				Aadl2Package.eINSTANCE.getAccess_Category(), true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -134,8 +127,8 @@ public class AccessItemProvider extends FeatureItemProvider implements
 	@Override
 	public String getText(Object object) {
 		String label = ((Access) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Access_type")
-				: getString("_UI_Access_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Access_type") : getString("_UI_Access_type") + " "
+				+ label;
 	}
 
 	/**
@@ -152,8 +145,7 @@ public class AccessItemProvider extends FeatureItemProvider implements
 		switch (notification.getFeatureID(Access.class)) {
 		case Aadl2Package.ACCESS__KIND:
 		case Aadl2Package.ACCESS__CATEGORY:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -167,8 +159,7 @@ public class AccessItemProvider extends FeatureItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

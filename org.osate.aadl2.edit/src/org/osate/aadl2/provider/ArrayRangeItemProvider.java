@@ -59,9 +59,8 @@ import org.osate.aadl2.ArrayRange;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ArrayRangeItemProvider extends ElementItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ArrayRangeItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -97,14 +96,11 @@ public class ArrayRangeItemProvider extends ElementItemProvider implements
 	 */
 	protected void addLowerBoundPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ArrayRange_lowerBound_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ArrayRange_lowerBound_feature",
-						"_UI_ArrayRange_type"), Aadl2Package.eINSTANCE
-						.getArrayRange_LowerBound(), true, false, false,
+				getString("_UI_PropertyDescriptor_description", "_UI_ArrayRange_lowerBound_feature",
+						"_UI_ArrayRange_type"), Aadl2Package.eINSTANCE.getArrayRange_LowerBound(), true, false, false,
 				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
@@ -116,14 +112,11 @@ public class ArrayRangeItemProvider extends ElementItemProvider implements
 	 */
 	protected void addUpperBoundPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ArrayRange_upperBound_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ArrayRange_upperBound_feature",
-						"_UI_ArrayRange_type"), Aadl2Package.eINSTANCE
-						.getArrayRange_UpperBound(), true, false, false,
+				getString("_UI_PropertyDescriptor_description", "_UI_ArrayRange_upperBound_feature",
+						"_UI_ArrayRange_type"), Aadl2Package.eINSTANCE.getArrayRange_UpperBound(), true, false, false,
 				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
@@ -135,8 +128,7 @@ public class ArrayRangeItemProvider extends ElementItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/ArrayRange"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ArrayRange"));
 	}
 
 	/**
@@ -148,8 +140,7 @@ public class ArrayRangeItemProvider extends ElementItemProvider implements
 	@Override
 	public String getText(Object object) {
 		ArrayRange arrayRange = (ArrayRange) object;
-		return getString("_UI_ArrayRange_type") + " "
-				+ arrayRange.getLowerBound();
+		return getString("_UI_ArrayRange_type") + " " + arrayRange.getLowerBound();
 	}
 
 	/**
@@ -166,8 +157,7 @@ public class ArrayRangeItemProvider extends ElementItemProvider implements
 		switch (notification.getFeatureID(ArrayRange.class)) {
 		case Aadl2Package.ARRAY_RANGE__LOWER_BOUND:
 		case Aadl2Package.ARRAY_RANGE__UPPER_BOUND:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -181,8 +171,7 @@ public class ArrayRangeItemProvider extends ElementItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

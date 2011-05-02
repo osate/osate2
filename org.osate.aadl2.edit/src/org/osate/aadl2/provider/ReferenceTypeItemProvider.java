@@ -58,9 +58,8 @@ import org.osate.aadl2.ReferenceType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ReferenceTypeItemProvider extends PropertyTypeItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ReferenceTypeItemProvider extends PropertyTypeItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,12 +94,10 @@ public class ReferenceTypeItemProvider extends PropertyTypeItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getReferenceType_NamedElementReference());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getReferenceType_NamedElementReference());
 		}
 		return childrenFeatures;
 	}
@@ -126,8 +123,7 @@ public class ReferenceTypeItemProvider extends PropertyTypeItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/ReferenceType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ReferenceType"));
 	}
 
 	/**
@@ -156,8 +152,7 @@ public class ReferenceTypeItemProvider extends PropertyTypeItemProvider
 
 		switch (notification.getFeatureID(ReferenceType.class)) {
 		case Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -171,14 +166,11 @@ public class ReferenceTypeItemProvider extends PropertyTypeItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors
-				.add(createChildParameter(Aadl2Package.eINSTANCE
-						.getReferenceType_NamedElementReference(),
-						Aadl2Factory.eINSTANCE.createMetaclassReference()));
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getReferenceType_NamedElementReference(),
+				Aadl2Factory.eINSTANCE.createMetaclassReference()));
 	}
 
 }

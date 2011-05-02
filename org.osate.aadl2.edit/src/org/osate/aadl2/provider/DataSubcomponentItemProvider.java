@@ -56,9 +56,8 @@ import org.osate.aadl2.DataSubcomponent;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DataSubcomponentItemProvider extends SubcomponentItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class DataSubcomponentItemProvider extends SubcomponentItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -93,15 +92,12 @@ public class DataSubcomponentItemProvider extends SubcomponentItemProvider
 	 */
 	protected void addDataClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_DataSubcomponent_dataClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_DataSubcomponent_dataClassifier_feature",
-						"_UI_DataSubcomponent_type"), Aadl2Package.eINSTANCE
-						.getDataSubcomponent_DataClassifier(), true, false,
-				true, null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_DataSubcomponent_dataClassifier_feature",
+						"_UI_DataSubcomponent_type"), Aadl2Package.eINSTANCE.getDataSubcomponent_DataClassifier(),
+				true, false, true, null, null, null));
 	}
 
 	/**
@@ -112,8 +108,7 @@ public class DataSubcomponentItemProvider extends SubcomponentItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/DataSubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DataSubcomponent"));
 	}
 
 	/**
@@ -150,8 +145,7 @@ public class DataSubcomponentItemProvider extends SubcomponentItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

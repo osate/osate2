@@ -58,9 +58,8 @@ import org.osate.aadl2.Namespace;
  * <!-- end-user-doc -->
  * @generated
  */
-public class NamespaceItemProvider extends NamedElementItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class NamespaceItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,46 +94,10 @@ public class NamespaceItemProvider extends NamedElementItemProvider implements
 	 */
 	protected void addMemberPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Namespace_member_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Namespace_member_feature", "_UI_Namespace_type"),
-				Aadl2Package.eINSTANCE.getNamespace_Member(), false, false,
-				false, null, null, null));
-	}
-
-	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getNamespace_OwnedMember());
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
+				getString("_UI_PropertyDescriptor_description", "_UI_Namespace_member_feature", "_UI_Namespace_type"),
+				Aadl2Package.eINSTANCE.getNamespace_Member(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -146,8 +109,8 @@ public class NamespaceItemProvider extends NamedElementItemProvider implements
 	@Override
 	public String getText(Object object) {
 		String label = ((Namespace) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Namespace_type")
-				: getString("_UI_Namespace_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Namespace_type") : getString("_UI_Namespace_type")
+				+ " " + label;
 	}
 
 	/**
@@ -160,13 +123,6 @@ public class NamespaceItemProvider extends NamedElementItemProvider implements
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(Namespace.class)) {
-		case Aadl2Package.NAMESPACE__OWNED_MEMBER:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
-			return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -178,8 +134,7 @@ public class NamespaceItemProvider extends NamedElementItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

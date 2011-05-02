@@ -56,9 +56,8 @@ import org.osate.aadl2.SubprogramGroupAccess;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubprogramGroupAccessItemProvider extends AccessItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class SubprogramGroupAccessItemProvider extends AccessItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -94,17 +93,14 @@ public class SubprogramGroupAccessItemProvider extends AccessItemProvider
 	protected void addSubprogramGroupClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_SubprogramGroupAccess_subprogramGroupClassifier_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
+						getString("_UI_PropertyDescriptor_description",
 								"_UI_SubprogramGroupAccess_subprogramGroupClassifier_feature",
-								"_UI_SubprogramGroupAccess_type"),
-						Aadl2Package.eINSTANCE
-								.getSubprogramGroupAccess_SubprogramGroupClassifier(),
-						true, false, true, null, null, null));
+								"_UI_SubprogramGroupAccess_type"), Aadl2Package.eINSTANCE
+								.getSubprogramGroupAccess_SubprogramGroupClassifier(), true, false, true, null, null,
+						null));
 	}
 
 	/**
@@ -115,10 +111,7 @@ public class SubprogramGroupAccessItemProvider extends AccessItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/SubprogramGroupAccess"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramGroupAccess"));
 	}
 
 	/**
@@ -155,8 +148,7 @@ public class SubprogramGroupAccessItemProvider extends AccessItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

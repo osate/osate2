@@ -458,7 +458,7 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inheritedMember-_upperValue" value="*"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inheritedMember-_lowerValue"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="Classifier-generalization" name="generalization" type="Generalization" isReadOnly="true" isDerived="true" isDerivedUnion="true" aggregation="composite" subsettedProperty="Element-ownedElement" association="A_generalization_specific">
+      <ownedAttribute xmi:id="Classifier-generalization" name="generalization" type="Generalization" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="Element-ownedElement" association="A_generalization_specific">
         <ownedComment xmi:id="Classifier-generalization-_ownedComment.0" annotatedElement="Classifier-generalization">
           <eAnnotations xmi:id="Classifier-generalization-_ownedComment.0-_http2F2Fwww.topcased.org2Fdocumentation" source="http://www.topcased.org/documentation">
             <details xmi:id="Classifier-generalization-_ownedComment.0-_http2F2Fwww.topcased.org2Fdocumentation-_details.0" key="documentation" value="Specifies the Generalization relationships for this Classifier. These Generalizations navigate to more general classifiers in the generalization hierarchy."/>

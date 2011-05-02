@@ -56,9 +56,8 @@ import org.osate.aadl2.ProcessorSubcomponent;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProcessorSubcomponentItemProvider extends SubcomponentItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ProcessorSubcomponentItemProvider extends SubcomponentItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -92,19 +91,14 @@ public class ProcessorSubcomponentItemProvider extends SubcomponentItemProvider
 	 * @generated
 	 */
 	protected void addProcessorClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ProcessorSubcomponent_processorClassifier_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_ProcessorSubcomponent_processorClassifier_feature",
-								"_UI_ProcessorSubcomponent_type"),
-						Aadl2Package.eINSTANCE
-								.getProcessorSubcomponent_ProcessorClassifier(),
-						true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ProcessorSubcomponent_processorClassifier_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ProcessorSubcomponent_processorClassifier_feature", "_UI_ProcessorSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getProcessorSubcomponent_ProcessorClassifier(), true, false, true, null, null,
+				null));
 	}
 
 	/**
@@ -115,10 +109,7 @@ public class ProcessorSubcomponentItemProvider extends SubcomponentItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/ProcessorSubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessorSubcomponent"));
 	}
 
 	/**
@@ -155,8 +146,7 @@ public class ProcessorSubcomponentItemProvider extends SubcomponentItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

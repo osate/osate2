@@ -60,10 +60,9 @@ import org.osate.aadl2.FeatureGroupReference;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureGroupReferenceItemProvider extends
-		FeatureGroupPrototypeActualItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class FeatureGroupReferenceItemProvider extends FeatureGroupPrototypeActualItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -97,19 +96,13 @@ public class FeatureGroupReferenceItemProvider extends
 	 * @generated
 	 */
 	protected void addFeatureGroupTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_FeatureGroupReference_featureGroupType_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_FeatureGroupReference_featureGroupType_feature",
-								"_UI_FeatureGroupReference_type"),
-						Aadl2Package.eINSTANCE
-								.getFeatureGroupReference_FeatureGroupType(),
-						true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_FeatureGroupReference_featureGroupType_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroupReference_featureGroupType_feature",
+						"_UI_FeatureGroupReference_type"), Aadl2Package.eINSTANCE
+						.getFeatureGroupReference_FeatureGroupType(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -121,12 +114,10 @@ public class FeatureGroupReferenceItemProvider extends
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getFeatureGroupReference_Binding());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupReference_Binding());
 		}
 		return childrenFeatures;
 	}
@@ -152,10 +143,7 @@ public class FeatureGroupReferenceItemProvider extends
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/FeatureGroupReference"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroupReference"));
 	}
 
 	/**
@@ -182,8 +170,7 @@ public class FeatureGroupReferenceItemProvider extends
 
 		switch (notification.getFeatureID(FeatureGroupReference.class)) {
 		case Aadl2Package.FEATURE_GROUP_REFERENCE__BINDING:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -197,20 +184,16 @@ public class FeatureGroupReferenceItemProvider extends
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getFeatureGroupReference_Binding(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupReference_Binding(),
 				Aadl2Factory.eINSTANCE.createComponentPrototypeBinding()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getFeatureGroupReference_Binding(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupReference_Binding(),
 				Aadl2Factory.eINSTANCE.createFeatureGroupPrototypeBinding()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getFeatureGroupReference_Binding(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupReference_Binding(),
 				Aadl2Factory.eINSTANCE.createFeaturePrototypeBinding()));
 	}
 

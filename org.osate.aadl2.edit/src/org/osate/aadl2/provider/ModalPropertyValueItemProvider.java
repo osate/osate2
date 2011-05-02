@@ -59,9 +59,8 @@ import org.osate.aadl2.ModalPropertyValue;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ModalPropertyValueItemProvider extends ModalElementItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ModalPropertyValueItemProvider extends ModalElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,12 +95,10 @@ public class ModalPropertyValueItemProvider extends ModalElementItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getModalPropertyValue_OwnedValue());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue());
 		}
 		return childrenFeatures;
 	}
@@ -127,8 +124,7 @@ public class ModalPropertyValueItemProvider extends ModalElementItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/ModalPropertyValue"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ModalPropertyValue"));
 	}
 
 	/**
@@ -157,8 +153,7 @@ public class ModalPropertyValueItemProvider extends ModalElementItemProvider
 
 		switch (notification.getFeatureID(ModalPropertyValue.class)) {
 		case Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -172,68 +167,52 @@ public class ModalPropertyValueItemProvider extends ModalElementItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createEnumerationValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createUnitValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createClassifierValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createReferenceValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createBooleanLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createRangeValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createIntegerLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createConstantValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createPropertyReference()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createRecordValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createComputedValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue(),
 				Aadl2Factory.eINSTANCE.createListValue()));
 	}
 
