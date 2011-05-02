@@ -80,8 +80,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  *
  * @generated
  */
-public class FlowSpecificationImpl extends FlowImpl implements
-		FlowSpecification {
+public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification {
 	/**
 	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -188,8 +187,7 @@ public class FlowSpecificationImpl extends FlowImpl implements
 	 */
 	public EList<Mode> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<Mode>(Mode.class, this,
-					Aadl2Package.FLOW_SPECIFICATION__IN_MODE);
+			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.FLOW_SPECIFICATION__IN_MODE);
 		}
 		return inModes;
 	}
@@ -206,8 +204,7 @@ public class FlowSpecificationImpl extends FlowImpl implements
 			if (inFeature != oldInFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_SPECIFICATION__IN_FEATURE,
-							oldInFeature, inFeature));
+							Aadl2Package.FLOW_SPECIFICATION__IN_FEATURE, oldInFeature, inFeature));
 			}
 		}
 		return inFeature;
@@ -231,9 +228,8 @@ public class FlowSpecificationImpl extends FlowImpl implements
 		Feature oldInFeature = inFeature;
 		inFeature = newInFeature;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FLOW_SPECIFICATION__IN_FEATURE, oldInFeature,
-					inFeature));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__IN_FEATURE,
+					oldInFeature, inFeature));
 	}
 
 	/**
@@ -248,8 +244,7 @@ public class FlowSpecificationImpl extends FlowImpl implements
 			if (outFeature != oldOutFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_SPECIFICATION__OUT_FEATURE,
-							oldOutFeature, outFeature));
+							Aadl2Package.FLOW_SPECIFICATION__OUT_FEATURE, oldOutFeature, outFeature));
 			}
 		}
 		return outFeature;
@@ -273,8 +268,7 @@ public class FlowSpecificationImpl extends FlowImpl implements
 		Feature oldOutFeature = outFeature;
 		outFeature = newOutFeature;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FLOW_SPECIFICATION__OUT_FEATURE,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__OUT_FEATURE,
 					oldOutFeature, outFeature));
 	}
 
@@ -296,8 +290,7 @@ public class FlowSpecificationImpl extends FlowImpl implements
 		FlowKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FLOW_SPECIFICATION__KIND, oldKind, kind));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__KIND, oldKind, kind));
 	}
 
 	/**
@@ -311,8 +304,7 @@ public class FlowSpecificationImpl extends FlowImpl implements
 			refined = (FlowSpecification) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_SPECIFICATION__REFINED,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FLOW_SPECIFICATION__REFINED,
 							oldRefined, refined));
 			}
 		}
@@ -337,8 +329,7 @@ public class FlowSpecificationImpl extends FlowImpl implements
 		FlowSpecification oldRefined = refined;
 		refined = newRefined;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FLOW_SPECIFICATION__REFINED, oldRefined,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__REFINED, oldRefined,
 					refined));
 	}
 
@@ -363,8 +354,7 @@ public class FlowSpecificationImpl extends FlowImpl implements
 			if (inContext != oldInContext) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_SPECIFICATION__IN_CONTEXT,
-							oldInContext, inContext));
+							Aadl2Package.FLOW_SPECIFICATION__IN_CONTEXT, oldInContext, inContext));
 			}
 		}
 		return inContext;
@@ -388,9 +378,8 @@ public class FlowSpecificationImpl extends FlowImpl implements
 		Context oldInContext = inContext;
 		inContext = newInContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FLOW_SPECIFICATION__IN_CONTEXT, oldInContext,
-					inContext));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__IN_CONTEXT,
+					oldInContext, inContext));
 	}
 
 	/**
@@ -405,8 +394,7 @@ public class FlowSpecificationImpl extends FlowImpl implements
 			if (outContext != oldOutContext) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_SPECIFICATION__OUT_CONTEXT,
-							oldOutContext, outContext));
+							Aadl2Package.FLOW_SPECIFICATION__OUT_CONTEXT, oldOutContext, outContext));
 			}
 		}
 		return outContext;
@@ -430,8 +418,7 @@ public class FlowSpecificationImpl extends FlowImpl implements
 		Context oldOutContext = outContext;
 		outContext = newOutContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FLOW_SPECIFICATION__OUT_CONTEXT,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__OUT_CONTEXT,
 					oldOutContext, outContext));
 	}
 
@@ -723,9 +710,8 @@ public class FlowSpecificationImpl extends FlowImpl implements
 		return fs.getOutContext();
 	}
 
-	public final void getPropertyValueInternal(final Property prop,
-			final PropertyAcc paa, final boolean fromInstanceSlaveCall)
-			throws InvalidModelException {
+	public final void getPropertyValueInternal(final Property prop, final PropertyAcc paa,
+			final boolean fromInstanceSlaveCall) throws InvalidModelException {
 		final Classifier owner = getContainingClassifier();
 
 		if (paa.addLocalContained(this, owner) || paa.addLocal(this)) {
@@ -747,14 +733,15 @@ public class FlowSpecificationImpl extends FlowImpl implements
 			if (owner != null) {
 				owner.getPropertyValueInternal(prop, paa, fromInstanceSlaveCall);
 			} else {
-				throw new InvalidModelException(this,
-						"Flow specification is not part of a component");
+				throw new InvalidModelException(this, "Flow specification is not part of a component");
 			}
 		}
 	}
 
-	/* getName needs to get it from the refined pointer if it was refined
-	 *(non-Javadoc)
+	/*
+	 * getName needs to get it from the refined pointer if it was refined
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
 	 */
 	@Override

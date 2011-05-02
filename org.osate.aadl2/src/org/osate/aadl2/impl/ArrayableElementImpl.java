@@ -57,8 +57,7 @@ import org.osate.aadl2.ArrayableElement;
  *
  * @generated
  */
-public abstract class ArrayableElementImpl extends ElementImpl implements
-		ArrayableElement {
+public abstract class ArrayableElementImpl extends ElementImpl implements ArrayableElement {
 	/**
 	 * The cached value of the '{@link #getArraySpecification() <em>Array Specification</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -102,15 +101,12 @@ public abstract class ArrayableElementImpl extends ElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetArraySpecification(
-			ArraySpecification newArraySpecification, NotificationChain msgs) {
+	public NotificationChain basicSetArraySpecification(ArraySpecification newArraySpecification, NotificationChain msgs) {
 		ArraySpecification oldArraySpecification = arraySpecification;
 		arraySpecification = newArraySpecification;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET,
-					Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION,
-					oldArraySpecification, newArraySpecification);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION, oldArraySpecification, newArraySpecification);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -128,25 +124,16 @@ public abstract class ArrayableElementImpl extends ElementImpl implements
 		if (newArraySpecification != arraySpecification) {
 			NotificationChain msgs = null;
 			if (arraySpecification != null)
-				msgs = ((InternalEObject) arraySpecification)
-						.eInverseRemove(
-								this,
-								EOPPOSITE_FEATURE_BASE
-										- Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION,
-								null, msgs);
+				msgs = ((InternalEObject) arraySpecification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION, null, msgs);
 			if (newArraySpecification != null)
-				msgs = ((InternalEObject) newArraySpecification)
-						.eInverseAdd(
-								this,
-								EOPPOSITE_FEATURE_BASE
-										- Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION,
-								null, msgs);
+				msgs = ((InternalEObject) newArraySpecification).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION, null, msgs);
 			msgs = basicSetArraySpecification(newArraySpecification, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION,
 					newArraySpecification, newArraySpecification));
 	}
 
@@ -168,8 +155,7 @@ public abstract class ArrayableElementImpl extends ElementImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION:
 			return basicSetArraySpecification(null, msgs);

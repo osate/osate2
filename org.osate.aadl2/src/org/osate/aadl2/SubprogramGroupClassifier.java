@@ -45,7 +45,6 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface SubprogramGroupClassifier extends ComponentClassifier,
-		SubprogramGroup {
+public interface SubprogramGroupClassifier extends ComponentClassifier, SubprogramGroup {
 
 } // SubprogramGroupClassifier

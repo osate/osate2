@@ -48,8 +48,7 @@ import org.osate.aadl2.EndToEndFlowElement;
  *
  * @generated
  */
-public class EndToEndFlowElementImpl extends NamedElementImpl implements
-		EndToEndFlowElement {
+public class EndToEndFlowElementImpl extends NamedElementImpl implements EndToEndFlowElement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -350,8 +350,7 @@ public interface Classifier extends Namespace, Type {
 	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='not self.allParents()->includes(self)'"
 	 * @generated
 	 */
-	boolean no_cycles_in_generalization(DiagnosticChain diagnostics,
-			Map<Object, Object> context);
+	boolean no_cycles_in_generalization(DiagnosticChain diagnostics, Map<Object, Object> context);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -365,8 +364,7 @@ public interface Classifier extends Namespace, Type {
 	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='self.parents()->forAll(c | self.maySpecializeType(c))'"
 	 * @generated
 	 */
-	boolean specialize_type(DiagnosticChain diagnostics,
-			Map<Object, Object> context);
+	boolean specialize_type(DiagnosticChain diagnostics, Map<Object, Object> context);
 
 	/**
 	 * <!-- begin-user-doc -->

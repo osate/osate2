@@ -58,8 +58,7 @@ import org.osate.aadl2.VirtualProcessorSubcomponent;
  *
  * @generated
  */
-public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl
-		implements VirtualProcessorSubcomponent {
+public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implements VirtualProcessorSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -108,8 +107,7 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl
 	 */
 	public VirtualProcessorClassifier getVirtualProcessorClassifier() {
 		VirtualProcessorClassifier virtualProcessorClassifier = basicGetVirtualProcessorClassifier();
-		return virtualProcessorClassifier != null
-				&& ((EObject) virtualProcessorClassifier).eIsProxy() ? (VirtualProcessorClassifier) eResolveProxy((InternalEObject) virtualProcessorClassifier)
+		return virtualProcessorClassifier != null && ((EObject) virtualProcessorClassifier).eIsProxy() ? (VirtualProcessorClassifier) eResolveProxy((InternalEObject) virtualProcessorClassifier)
 				: virtualProcessorClassifier;
 	}
 
@@ -130,8 +128,7 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void setVirtualProcessorClassifier(
-			VirtualProcessorClassifier newVirtualProcessorClassifier) {
+	public void setVirtualProcessorClassifier(VirtualProcessorClassifier newVirtualProcessorClassifier) {
 		classifier = newVirtualProcessorClassifier;
 	}
 

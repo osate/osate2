@@ -62,8 +62,7 @@ import org.osate.aadl2.Type;
  *
  * @generated
  */
-public class BasicPropertyImpl extends TypedElementImpl implements
-		BasicProperty {
+public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty {
 	/**
 	 * The default value of the '{@link #getList() <em>List</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -127,14 +126,12 @@ public class BasicPropertyImpl extends TypedElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOwnedType(PropertyType newOwnedType,
-			NotificationChain msgs) {
+	public NotificationChain basicSetOwnedType(PropertyType newOwnedType, NotificationChain msgs) {
 		PropertyType oldOwnedType = ownedType;
 		ownedType = newOwnedType;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, Aadl2Package.BASIC_PROPERTY__OWNED_TYPE,
-					oldOwnedType, newOwnedType);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.BASIC_PROPERTY__OWNED_TYPE, oldOwnedType, newOwnedType);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -160,22 +157,17 @@ public class BasicPropertyImpl extends TypedElementImpl implements
 		if (newOwnedType != ownedType) {
 			NotificationChain msgs = null;
 			if (ownedType != null)
-				msgs = ((InternalEObject) ownedType).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.BASIC_PROPERTY__OWNED_TYPE,
-						null, msgs);
+				msgs = ((InternalEObject) ownedType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.BASIC_PROPERTY__OWNED_TYPE, null, msgs);
 			if (newOwnedType != null)
-				msgs = ((InternalEObject) newOwnedType).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.BASIC_PROPERTY__OWNED_TYPE,
-						null, msgs);
+				msgs = ((InternalEObject) newOwnedType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.BASIC_PROPERTY__OWNED_TYPE, null, msgs);
 			msgs = basicSetOwnedType(newOwnedType, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.BASIC_PROPERTY__OWNED_TYPE, newOwnedType,
-					newOwnedType));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY__OWNED_TYPE,
+					newOwnedType, newOwnedType));
 	}
 
 	/**
@@ -195,8 +187,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
 			return basicSetOwnedType(null, msgs);
@@ -216,8 +207,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements
 			type = (Type) eResolveProxy(oldType);
 			if (type != oldType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.BASIC_PROPERTY__TYPE, oldType, type));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.BASIC_PROPERTY__TYPE,
+							oldType, type));
 			}
 		}
 		return type;
@@ -243,8 +234,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements
 		Type oldType = type;
 		type = newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.BASIC_PROPERTY__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY__TYPE, oldType, type));
 		Resource.Internal eInternalResource = eInternalResource();
 		if (eInternalResource == null || !eInternalResource.isLoading()) {
 			if (ownedType != null && ownedType != newType) {
@@ -280,8 +270,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements
 		long oldList = list;
 		list = newList;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.BASIC_PROPERTY__LIST, oldList, list));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY__LIST, oldList, list));
 	}
 
 	/**
@@ -369,7 +358,9 @@ public class BasicPropertyImpl extends TypedElementImpl implements
 		return result.toString();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.BasicProperty#isList()
 	 */
 	public boolean isList() {

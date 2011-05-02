@@ -54,8 +54,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface DeviceImplementation extends ComponentImplementation,
-		DeviceClassifier {
+public interface DeviceImplementation extends ComponentImplementation, DeviceClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Bus Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.BusSubcomponent}.

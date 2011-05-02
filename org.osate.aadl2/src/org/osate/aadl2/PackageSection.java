@@ -1293,6 +1293,5 @@ public interface PackageSection extends Namespace {
 	 * {@code null} because there are no elements of a {@link PrivatePackageSection} that are
 	 * externally visible.
 	 */
-	NamedElement findNamedElement(String name,
-			boolean externallyVisibleElementsOnly);
+	NamedElement findNamedElement(String name, boolean externallyVisibleElementsOnly);
 } // PackageSection

@@ -407,10 +407,9 @@ public enum ComponentCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final ComponentCategory[] VALUES_ARRAY = new ComponentCategory[] {
-			ABSTRACT, BUS, DATA, DEVICE, MEMORY, PROCESS, PROCESSOR,
-			SUBPROGRAM, SUBPROGRAM_GROUP, SYSTEM, THREAD, THREAD_GROUP,
-			VIRTUAL_BUS, VIRTUAL_PROCESSOR, };
+	private static final ComponentCategory[] VALUES_ARRAY = new ComponentCategory[] { ABSTRACT, BUS, DATA, DEVICE,
+			MEMORY, PROCESS, PROCESSOR, SUBPROGRAM, SUBPROGRAM_GROUP, SYSTEM, THREAD, THREAD_GROUP, VIRTUAL_BUS,
+			VIRTUAL_PROCESSOR, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Component Category</b></em>' enumerators.
@@ -418,8 +417,7 @@ public enum ComponentCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<ComponentCategory> VALUES = Collections
-			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ComponentCategory> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Component Category</b></em>' literal with the specified literal value.

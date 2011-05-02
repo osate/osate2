@@ -125,8 +125,7 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 			busClassifier = (BusClassifier) eResolveProxy(oldBusClassifier);
 			if (busClassifier != oldBusClassifier) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.BUS_ACCESS__BUS_CLASSIFIER,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.BUS_ACCESS__BUS_CLASSIFIER,
 							oldBusClassifier, busClassifier));
 			}
 		}
@@ -151,9 +150,8 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 		BusClassifier oldBusClassifier = busClassifier;
 		busClassifier = newBusClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.BUS_ACCESS__BUS_CLASSIFIER, oldBusClassifier,
-					busClassifier));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BUS_ACCESS__BUS_CLASSIFIER,
+					oldBusClassifier, busClassifier));
 	}
 
 	/**
@@ -223,8 +221,7 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier()
-				|| eIsSet(Aadl2Package.BUS_ACCESS__BUS_CLASSIFIER);
+		return super.isSetClassifier() || eIsSet(Aadl2Package.BUS_ACCESS__BUS_CLASSIFIER);
 	}
 
 } //BusAccessImpl

@@ -98,8 +98,7 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 	 */
 	public EList<PropertyExpression> getOwnedListElements() {
 		if (ownedListElements == null) {
-			ownedListElements = new EObjectContainmentEList<PropertyExpression>(
-					PropertyExpression.class, this,
+			ownedListElements = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this,
 					Aadl2Package.LIST_VALUE__OWNED_LIST_ELEMENT);
 		}
 		return ownedListElements;
@@ -122,12 +121,10 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.LIST_VALUE__OWNED_LIST_ELEMENT:
-			return ((InternalEList<?>) getOwnedListElements()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedListElements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -157,8 +154,7 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 		switch (featureID) {
 		case Aadl2Package.LIST_VALUE__OWNED_LIST_ELEMENT:
 			getOwnedListElements().clear();
-			getOwnedListElements().addAll(
-					(Collection<? extends PropertyExpression>) newValue);
+			getOwnedListElements().addAll((Collection<? extends PropertyExpression>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -193,7 +189,9 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 		return super.eIsSet(featureID);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

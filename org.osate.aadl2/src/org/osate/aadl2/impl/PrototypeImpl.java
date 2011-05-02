@@ -68,8 +68,7 @@ import org.osate.aadl2.util.Aadl2Validator;
  *
  * @generated
  */
-public abstract class PrototypeImpl extends StructuralFeatureImpl implements
-		Prototype {
+public abstract class PrototypeImpl extends StructuralFeatureImpl implements Prototype {
 
 	/**
 	 * The cached value of the '{@link #getRefined() <em>Refined</em>}' reference.
@@ -111,9 +110,8 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements
 			refined = (Prototype) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PROTOTYPE__REFINED, oldRefined,
-							refined));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PROTOTYPE__REFINED,
+							oldRefined, refined));
 			}
 		}
 		return refined;
@@ -137,8 +135,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements
 		Prototype oldRefined = refined;
 		refined = newRefined;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PROTOTYPE__REFINED, oldRefined, refined));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROTOTYPE__REFINED, oldRefined, refined));
 	}
 
 	/**
@@ -174,8 +171,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean categoryConstraint(DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
+	public boolean categoryConstraint(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setContext(Aadl2Package.eINSTANCE.getPrototype());
@@ -183,24 +179,15 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements
 				CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
 						.createInvariant(CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(
-						pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
 			}
 		}
-		if (!EOCL_ENV.createQuery(
-				CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV)
-				.check(this)) {
+		if (!EOCL_ENV.createQuery(CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR,
-						Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.PROTOTYPE__CATEGORY_CONSTRAINT,
-						EcorePlugin.INSTANCE.getString(
-								"_UI_GenericInvariant_diagnostic",
-								new Object[] {
-										"categoryConstraint",
-										EObjectValidator.getObjectLabel(this,
-												context) }),
-						new Object[] { this }));
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.PROTOTYPE__CATEGORY_CONSTRAINT, EcorePlugin.INSTANCE.getString(
+								"_UI_GenericInvariant_diagnostic", new Object[] { "categoryConstraint",
+										EObjectValidator.getObjectLabel(this, context) }), new Object[] { this }));
 			}
 			return false;
 		}
@@ -295,9 +282,11 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements
 	public boolean isSetRefinedElement() {
 		return false;
 	}
-	
-	/* getName needs to get it from the refined pointer if it was refined
-	 *(non-Javadoc)
+
+	/*
+	 * getName needs to get it from the refined pointer if it was refined
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
 	 */
 	@Override

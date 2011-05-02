@@ -51,8 +51,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface SubprogramGroupSubcomponent extends Subcomponent,
-		AccessConnectionEnd, SubprogramGroup, CallContext {
+public interface SubprogramGroupSubcomponent extends Subcomponent, AccessConnectionEnd, SubprogramGroup, CallContext {
 
 	/**
 	 * Returns the value of the '<em><b>Subprogram Group Classifier</b></em>' reference.

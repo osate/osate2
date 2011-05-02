@@ -58,8 +58,7 @@ import org.osate.aadl2.SubprogramGroupSubcomponent;
  *
  * @generated
  */
-public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
-		SubprogramGroupSubcomponent {
+public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements SubprogramGroupSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -108,8 +107,7 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 */
 	public SubprogramGroupClassifier getSubprogramGroupClassifier() {
 		SubprogramGroupClassifier subprogramGroupClassifier = basicGetSubprogramGroupClassifier();
-		return subprogramGroupClassifier != null
-				&& ((EObject) subprogramGroupClassifier).eIsProxy() ? (SubprogramGroupClassifier) eResolveProxy((InternalEObject) subprogramGroupClassifier)
+		return subprogramGroupClassifier != null && ((EObject) subprogramGroupClassifier).eIsProxy() ? (SubprogramGroupClassifier) eResolveProxy((InternalEObject) subprogramGroupClassifier)
 				: subprogramGroupClassifier;
 	}
 
@@ -130,8 +128,7 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void setSubprogramGroupClassifier(
-			SubprogramGroupClassifier newSubprogramGroupClassifier) {
+	public void setSubprogramGroupClassifier(SubprogramGroupClassifier newSubprogramGroupClassifier) {
 		classifier = newSubprogramGroupClassifier;
 	}
 

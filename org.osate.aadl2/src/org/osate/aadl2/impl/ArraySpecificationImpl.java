@@ -63,8 +63,7 @@ import org.osate.aadl2.ArraySpecification;
  *
  * @generated
  */
-public class ArraySpecificationImpl extends ElementImpl implements
-		ArraySpecification {
+public class ArraySpecificationImpl extends ElementImpl implements ArraySpecification {
 	/**
 	 * The default value of the '{@link #getDimension() <em>Dimension</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -130,9 +129,8 @@ public class ArraySpecificationImpl extends ElementImpl implements
 		long oldDimension = dimension;
 		dimension = newDimension;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ARRAY_SPECIFICATION__DIMENSION, oldDimension,
-					dimension));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ARRAY_SPECIFICATION__DIMENSION,
+					oldDimension, dimension));
 	}
 
 	/**
@@ -142,8 +140,8 @@ public class ArraySpecificationImpl extends ElementImpl implements
 	 */
 	public EList<ArraySize> getSizes() {
 		if (sizes == null) {
-			sizes = new EObjectContainmentEList<ArraySize>(ArraySize.class,
-					this, Aadl2Package.ARRAY_SPECIFICATION__SIZE);
+			sizes = new EObjectContainmentEList<ArraySize>(ArraySize.class, this,
+					Aadl2Package.ARRAY_SPECIFICATION__SIZE);
 		}
 		return sizes;
 	}
@@ -165,8 +163,7 @@ public class ArraySpecificationImpl extends ElementImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_SPECIFICATION__SIZE:
 			return ((InternalEList<?>) getSizes()).basicRemove(otherEnd, msgs);

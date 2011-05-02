@@ -177,7 +177,6 @@ public interface PropertyConstant extends TypedElement {
 	 * @throws InvalidModelException Thrown if there is a problem with the
 	 * model that prevents the property value from being evaluated.
 	 */
-	EvaluatedProperty evaluate(EvaluationContext ctx)
-			throws InvalidModelException;
+	EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException;
 
 } // PropertyConstant

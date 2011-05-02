@@ -126,8 +126,7 @@ public class DataAccessImpl extends AccessImpl implements DataAccess {
 			if (dataClassifier != oldDataClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.DATA_ACCESS__DATA_CLASSIFIER,
-							oldDataClassifier, dataClassifier));
+							Aadl2Package.DATA_ACCESS__DATA_CLASSIFIER, oldDataClassifier, dataClassifier));
 			}
 		}
 		return dataClassifier;
@@ -151,8 +150,7 @@ public class DataAccessImpl extends AccessImpl implements DataAccess {
 		DataClassifier oldDataClassifier = dataClassifier;
 		dataClassifier = newDataClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.DATA_ACCESS__DATA_CLASSIFIER,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.DATA_ACCESS__DATA_CLASSIFIER,
 					oldDataClassifier, dataClassifier));
 	}
 
@@ -223,8 +221,7 @@ public class DataAccessImpl extends AccessImpl implements DataAccess {
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier()
-				|| eIsSet(Aadl2Package.DATA_ACCESS__DATA_CLASSIFIER);
+		return super.isSetClassifier() || eIsSet(Aadl2Package.DATA_ACCESS__DATA_CLASSIFIER);
 	}
 
 } //DataAccessImpl

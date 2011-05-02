@@ -68,8 +68,7 @@ import org.osate.aadl2.SubprogramCallSequence;
  *
  * @generated
  */
-public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
-		SubprogramCallSequence {
+public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements SubprogramCallSequence {
 	/**
 	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -115,8 +114,7 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 */
 	public EList<Mode> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<Mode>(Mode.class, this,
-					Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE);
+			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE);
 		}
 		return inModes;
 	}
@@ -128,9 +126,7 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 */
 	public EList<CallSpecification> getOwnedCallSpecifications() {
 		if (ownedCallSpecifications == null) {
-			ownedCallSpecifications = new EObjectContainmentEList<CallSpecification>(
-					CallSpecification.class,
-					this,
+			ownedCallSpecifications = new EObjectContainmentEList<CallSpecification>(CallSpecification.class, this,
 					Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION);
 		}
 		return ownedCallSpecifications;
@@ -153,12 +149,10 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
-			return ((InternalEList<?>) getOwnedCallSpecifications())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedCallSpecifications()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -194,8 +188,7 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 			return;
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
 			getOwnedCallSpecifications().clear();
-			getOwnedCallSpecifications().addAll(
-					(Collection<? extends CallSpecification>) newValue);
+			getOwnedCallSpecifications().addAll((Collection<? extends CallSpecification>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -230,8 +223,7 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
 			return inModes != null && !inModes.isEmpty();
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
-			return ownedCallSpecifications != null
-					&& !ownedCallSpecifications.isEmpty();
+			return ownedCallSpecifications != null && !ownedCallSpecifications.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

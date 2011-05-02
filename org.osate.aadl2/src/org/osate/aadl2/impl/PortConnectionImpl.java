@@ -58,8 +58,7 @@ import org.osate.aadl2.PortConnection;
  *
  * @generated
  */
-public class PortConnectionImpl extends ConnectionImpl implements
-		PortConnection {
+public class PortConnectionImpl extends ConnectionImpl implements PortConnection {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -92,8 +91,7 @@ public class PortConnectionImpl extends ConnectionImpl implements
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PORT_CONNECTION__DESTINATION,
-							oldDestination, destination));
+							Aadl2Package.PORT_CONNECTION__DESTINATION, oldDestination, destination));
 			}
 		}
 		return destination;
@@ -119,9 +117,8 @@ public class PortConnectionImpl extends ConnectionImpl implements
 		ConnectionEnd oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PORT_CONNECTION__DESTINATION, oldDestination,
-					destination));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_CONNECTION__DESTINATION,
+					oldDestination, destination));
 	}
 
 	/**
@@ -145,9 +142,8 @@ public class PortConnectionImpl extends ConnectionImpl implements
 			source = (ConnectionEnd) eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PORT_CONNECTION__SOURCE, oldSource,
-							source));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PORT_CONNECTION__SOURCE,
+							oldSource, source));
 			}
 		}
 		return source;
@@ -173,8 +169,8 @@ public class PortConnectionImpl extends ConnectionImpl implements
 		ConnectionEnd oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PORT_CONNECTION__SOURCE, oldSource, source));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_CONNECTION__SOURCE, oldSource,
+					source));
 	}
 
 	/**

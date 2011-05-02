@@ -123,21 +123,17 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Element> ownedElements = (EList<Element>) cache.get(
-					eResource, this,
+			EList<Element> ownedElements = (EList<Element>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			if (ownedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE
-						.getElement_OwnedElement(),
-						ownedElements = new DerivedUnionEObjectEList<Element>(
-								Element.class, this,
-								Aadl2Package.ELEMENT__OWNED_ELEMENT,
-								OWNED_ELEMENT_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getElement_OwnedElement(),
+						ownedElements = new DerivedUnionEObjectEList<Element>(Element.class, this,
+								Aadl2Package.ELEMENT__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS));
 			}
 			return ownedElements;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this,
-				Aadl2Package.ELEMENT__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.ELEMENT__OWNED_ELEMENT,
+				OWNED_ELEMENT_ESUBSETS);
 	}
 
 	/**
@@ -166,8 +162,8 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 */
 	public EList<Comment> getOwnedComments() {
 		if (ownedComments == null) {
-			ownedComments = new EObjectContainmentEList<Comment>(Comment.class,
-					this, Aadl2Package.ELEMENT__OWNED_COMMENT);
+			ownedComments = new EObjectContainmentEList<Comment>(Comment.class, this,
+					Aadl2Package.ELEMENT__OWNED_COMMENT);
 		}
 		return ownedComments;
 	}
@@ -178,8 +174,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * @generated
 	 */
 	public Comment createOwnedComment() {
-		Comment newOwnedComment = (Comment) create(Aadl2Package.eINSTANCE
-				.getComment());
+		Comment newOwnedComment = (Comment) create(Aadl2Package.eINSTANCE.getComment());
 		getOwnedComments().add(newOwnedComment);
 		return newOwnedComment;
 	}
@@ -208,8 +203,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean not_own_self(DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
+	public boolean not_own_self(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setContext(Aadl2Package.eINSTANCE.getElement());
@@ -217,22 +211,15 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 				NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
 						.createInvariant(NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(
-						pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
 			}
 		}
-		if (!EOCL_ENV.createQuery(NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV)
-				.check(this)) {
+		if (!EOCL_ENV.createQuery(NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR,
-						Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.ELEMENT__NOT_OWN_SELF,
-						EcorePlugin.INSTANCE.getString(
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.ELEMENT__NOT_OWN_SELF, EcorePlugin.INSTANCE.getString(
 								"_UI_GenericInvariant_diagnostic",
-								new Object[] {
-										"not_own_self",
-										EObjectValidator.getObjectLabel(this,
-												context) }),
+								new Object[] { "not_own_self", EObjectValidator.getObjectLabel(this, context) }),
 						new Object[] { this }));
 			}
 			return false;
@@ -264,8 +251,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean has_owner(DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
+	public boolean has_owner(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setContext(Aadl2Package.eINSTANCE.getElement());
@@ -273,23 +259,15 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 				HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
 						.createInvariant(HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(
-						pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
 			}
 		}
-		if (!EOCL_ENV.createQuery(HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV)
-				.check(this)) {
+		if (!EOCL_ENV.createQuery(HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR,
-						Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.ELEMENT__HAS_OWNER, EcorePlugin.INSTANCE
-								.getString(
-										"_UI_GenericInvariant_diagnostic",
-										new Object[] {
-												"has_owner",
-												EObjectValidator
-														.getObjectLabel(this,
-																context) }),
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.ELEMENT__HAS_OWNER, EcorePlugin.INSTANCE.getString(
+								"_UI_GenericInvariant_diagnostic",
+								new Object[] { "has_owner", EObjectValidator.getObjectLabel(this, context) }),
 						new Object[] { this }));
 			}
 			return false;
@@ -324,22 +302,18 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	public EList<Element> allOwnedElements() {
 		if (ALL_OWNED_ELEMENTS__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(),
-					Aadl2Package.eINSTANCE.getElement().getEAllOperations()
-							.get(2));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(), Aadl2Package.eINSTANCE.getElement()
+					.getEAllOperations().get(2));
 			try {
-				ALL_OWNED_ELEMENTS__EOCL_QRY = helper
-						.createQuery(ALL_OWNED_ELEMENTS__EOCL_EXP);
+				ALL_OWNED_ELEMENTS__EOCL_QRY = helper.createQuery(ALL_OWNED_ELEMENTS__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(
-						pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
 			}
 		}
 		OCL.Query query = EOCL_ENV.createQuery(ALL_OWNED_ELEMENTS__EOCL_QRY);
 		@SuppressWarnings("unchecked")
 		Collection<Element> result = (Collection<Element>) query.evaluate(this);
-		return new BasicEList.UnmodifiableEList<Element>(result.size(),
-				result.toArray());
+		return new BasicEList.UnmodifiableEList<Element>(result.size(), result.toArray());
 	}
 
 	/**
@@ -369,15 +343,12 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	public boolean mustBeOwned() {
 		if (MUST_BE_OWNED__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(),
-					Aadl2Package.eINSTANCE.getElement().getEAllOperations()
-							.get(3));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(), Aadl2Package.eINSTANCE.getElement()
+					.getEAllOperations().get(3));
 			try {
-				MUST_BE_OWNED__EOCL_QRY = helper
-						.createQuery(MUST_BE_OWNED__EOCL_EXP);
+				MUST_BE_OWNED__EOCL_QRY = helper.createQuery(MUST_BE_OWNED__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(
-						pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
 			}
 		}
 		OCL.Query query = EOCL_ENV.createQuery(MUST_BE_OWNED__EOCL_QRY);
@@ -390,12 +361,10 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ELEMENT__OWNED_COMMENT:
-			return ((InternalEList<?>) getOwnedComments()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedComments()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -406,12 +375,10 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(
-			NotificationChain msgs) {
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 		case Aadl2Package.ELEMENT__OWNER:
-			return eInternalContainer().eInverseRemove(this,
-					Aadl2Package.ELEMENT__OWNED_ELEMENT, Element.class, msgs);
+			return eInternalContainer().eInverseRemove(this, Aadl2Package.ELEMENT__OWNED_ELEMENT, Element.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
@@ -561,7 +528,9 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 		return list;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.Element#getContainingClassifier()
 	 */
 	public Classifier getContainingClassifier() {
@@ -571,7 +540,9 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 		return (Classifier) obj;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.Element#getContainingComponentImpl()
 	 */
 	public ComponentImplementation getContainingComponentImpl() {

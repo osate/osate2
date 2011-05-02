@@ -58,8 +58,7 @@ import org.osate.aadl2.DeviceSubcomponent;
  *
  * @generated
  */
-public class DeviceSubcomponentImpl extends SubcomponentImpl implements
-		DeviceSubcomponent {
+public class DeviceSubcomponentImpl extends SubcomponentImpl implements DeviceSubcomponent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -108,8 +107,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements
 	 */
 	public DeviceClassifier getDeviceClassifier() {
 		DeviceClassifier deviceClassifier = basicGetDeviceClassifier();
-		return deviceClassifier != null
-				&& ((EObject) deviceClassifier).eIsProxy() ? (DeviceClassifier) eResolveProxy((InternalEObject) deviceClassifier)
+		return deviceClassifier != null && ((EObject) deviceClassifier).eIsProxy() ? (DeviceClassifier) eResolveProxy((InternalEObject) deviceClassifier)
 				: deviceClassifier;
 	}
 
@@ -201,8 +199,7 @@ public class DeviceSubcomponentImpl extends SubcomponentImpl implements
 	 */
 	@Override
 	public boolean isSetClassifier() {
-		return super.isSetClassifier()
-				|| eIsSet(Aadl2Package.DEVICE_SUBCOMPONENT__DEVICE_CLASSIFIER);
+		return super.isSetClassifier() || eIsSet(Aadl2Package.DEVICE_SUBCOMPONENT__DEVICE_CLASSIFIER);
 	}
 
 	public ComponentCategory getCategory() {

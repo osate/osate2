@@ -58,8 +58,8 @@ import org.osate.aadl2.ComponentPrototypeReference;
  *
  * @generated
  */
-public class ComponentPrototypeReferenceImpl extends
-		ComponentPrototypeActualImpl implements ComponentPrototypeReference {
+public class ComponentPrototypeReferenceImpl extends ComponentPrototypeActualImpl implements
+		ComponentPrototypeReference {
 	/**
 	 * The cached value of the '{@link #getPrototype() <em>Prototype</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -100,11 +100,8 @@ public class ComponentPrototypeReferenceImpl extends
 			prototype = (ComponentPrototype) eResolveProxy(oldPrototype);
 			if (prototype != oldPrototype) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE__PROTOTYPE,
-							oldPrototype, prototype));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE__PROTOTYPE, oldPrototype, prototype));
 			}
 		}
 		return prototype;
@@ -129,8 +126,7 @@ public class ComponentPrototypeReferenceImpl extends
 		prototype = newPrototype;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE__PROTOTYPE,
-					oldPrototype, prototype));
+					Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE__PROTOTYPE, oldPrototype, prototype));
 	}
 
 	/**

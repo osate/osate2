@@ -61,8 +61,7 @@ import org.osate.aadl2.ComponentPrototype;
  *
  * @generated
  */
-public class ComponentPrototypeImpl extends PrototypeImpl implements
-		ComponentPrototype {
+public class ComponentPrototypeImpl extends PrototypeImpl implements ComponentPrototype {
 	/**
 	 * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -150,9 +149,8 @@ public class ComponentPrototypeImpl extends PrototypeImpl implements
 		ComponentCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_PROTOTYPE__CATEGORY, oldCategory,
-					category));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_PROTOTYPE__CATEGORY,
+					oldCategory, category));
 	}
 
 	/**
@@ -173,8 +171,8 @@ public class ComponentPrototypeImpl extends PrototypeImpl implements
 		boolean oldArray = array;
 		array = newArray;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_PROTOTYPE__ARRAY, oldArray, array));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_PROTOTYPE__ARRAY, oldArray,
+					array));
 	}
 
 	/**
@@ -183,17 +181,14 @@ public class ComponentPrototypeImpl extends PrototypeImpl implements
 	 * @generated
 	 */
 	public ComponentClassifier getConstrainingClassifier() {
-		if (constrainingClassifier != null
-				&& ((EObject) constrainingClassifier).eIsProxy()) {
+		if (constrainingClassifier != null && ((EObject) constrainingClassifier).eIsProxy()) {
 			InternalEObject oldConstrainingClassifier = (InternalEObject) constrainingClassifier;
 			constrainingClassifier = (ComponentClassifier) eResolveProxy(oldConstrainingClassifier);
 			if (constrainingClassifier != oldConstrainingClassifier) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							Aadl2Package.COMPONENT_PROTOTYPE__CONSTRAINING_CLASSIFIER,
-							oldConstrainingClassifier, constrainingClassifier));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.COMPONENT_PROTOTYPE__CONSTRAINING_CLASSIFIER, oldConstrainingClassifier,
+							constrainingClassifier));
 			}
 		}
 		return constrainingClassifier;
@@ -213,14 +208,13 @@ public class ComponentPrototypeImpl extends PrototypeImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setConstrainingClassifier(
-			ComponentClassifier newConstrainingClassifier) {
+	public void setConstrainingClassifier(ComponentClassifier newConstrainingClassifier) {
 		ComponentClassifier oldConstrainingClassifier = constrainingClassifier;
 		constrainingClassifier = newConstrainingClassifier;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_PROTOTYPE__CONSTRAINING_CLASSIFIER,
-					oldConstrainingClassifier, constrainingClassifier));
+					Aadl2Package.COMPONENT_PROTOTYPE__CONSTRAINING_CLASSIFIER, oldConstrainingClassifier,
+					constrainingClassifier));
 	}
 
 	/**

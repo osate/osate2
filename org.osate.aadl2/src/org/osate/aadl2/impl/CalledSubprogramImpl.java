@@ -48,8 +48,7 @@ import org.osate.aadl2.CalledSubprogram;
  *
  * @generated
  */
-public abstract class CalledSubprogramImpl extends ElementImpl implements
-		CalledSubprogram {
+public abstract class CalledSubprogramImpl extends ElementImpl implements CalledSubprogram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

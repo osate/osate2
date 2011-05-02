@@ -82,8 +82,7 @@ import org.osate.aadl2.SubcomponentFlow;
  *
  * @generated
  */
-public class FlowImplementationImpl extends StructuralFeatureImpl implements
-		FlowImplementation {
+public class FlowImplementationImpl extends StructuralFeatureImpl implements FlowImplementation {
 
 	/**
 	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
@@ -181,8 +180,7 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements
 	 */
 	public EList<Mode> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<Mode>(Mode.class, this,
-					Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE);
+			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE);
 		}
 		return inModes;
 	}
@@ -194,8 +192,7 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements
 	 */
 	public EList<ModeTransition> getInTransitions() {
 		if (inTransitions == null) {
-			inTransitions = new EObjectResolvingEList<ModeTransition>(
-					ModeTransition.class, this,
+			inTransitions = new EObjectResolvingEList<ModeTransition>(ModeTransition.class, this,
 					Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION);
 		}
 		return inTransitions;
@@ -224,8 +221,7 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements
 			if (specification != oldSpecification) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION,
-							oldSpecification, specification));
+							Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION, oldSpecification, specification));
 			}
 		}
 		return specification;
@@ -249,8 +245,7 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements
 		FlowSpecification oldSpecification = specification;
 		specification = newSpecification;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION,
 					oldSpecification, specification));
 	}
 
@@ -262,8 +257,7 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements
 	public EList<SubcomponentFlow> getOwnedSubcomponentFlows() {
 		if (ownedSubcomponentFlows == null) {
 			ownedSubcomponentFlows = new SubsetSupersetEObjectContainmentEList<SubcomponentFlow>(
-					SubcomponentFlow.class, this,
-					Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW,
+					SubcomponentFlow.class, this, Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW,
 					OWNED_SUBCOMPONENT_FLOW_ESUPERSETS, null);
 		}
 		return ownedSubcomponentFlows;
@@ -287,12 +281,10 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW:
-			return ((InternalEList<?>) getOwnedSubcomponentFlows())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedSubcomponentFlows()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -304,13 +296,13 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements
 	 */
 	public EList<FlowElement> getFlowElements() {
 		if (flowElements == null) {
-			flowElements = new SubsetSupersetEObjectResolvingEList<FlowElement>(
-					FlowElement.class, this,
-					Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT, null,
-					FLOW_ELEMENT_ESUBSETS) {
+			flowElements = new SubsetSupersetEObjectResolvingEList<FlowElement>(FlowElement.class, this,
+					Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT, null, FLOW_ELEMENT_ESUBSETS) {
 				private static final long serialVersionUID = 1L;
 
-				/* (non-Javadoc)
+				/*
+				 * (non-Javadoc)
+				 * 
 				 * @see org.eclipse.emf.ecore.util.EObjectEList#isUnique()
 				 */
 				@Override
@@ -360,8 +352,7 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements
 		FlowKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FLOW_IMPLEMENTATION__KIND, oldKind, kind));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__KIND, oldKind, kind));
 	}
 
 	/**
@@ -405,13 +396,11 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION:
 			getInTransitions().clear();
-			getInTransitions().addAll(
-					(Collection<? extends ModeTransition>) newValue);
+			getInTransitions().addAll((Collection<? extends ModeTransition>) newValue);
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
 			getFlowElements().clear();
-			getFlowElements().addAll(
-					(Collection<? extends FlowElement>) newValue);
+			getFlowElements().addAll((Collection<? extends FlowElement>) newValue);
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
 			setKind((FlowKind) newValue);
@@ -421,8 +410,7 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW:
 			getOwnedSubcomponentFlows().clear();
-			getOwnedSubcomponentFlows().addAll(
-					(Collection<? extends SubcomponentFlow>) newValue);
+			getOwnedSubcomponentFlows().addAll((Collection<? extends SubcomponentFlow>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -477,8 +465,7 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
 			return specification != null;
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW:
-			return ownedSubcomponentFlows != null
-					&& !ownedSubcomponentFlows.isEmpty();
+			return ownedSubcomponentFlows != null && !ownedSubcomponentFlows.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
