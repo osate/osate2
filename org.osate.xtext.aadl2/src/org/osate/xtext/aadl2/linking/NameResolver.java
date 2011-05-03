@@ -54,7 +54,11 @@ import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeBinding;
+import org.osate.aadl2.FeatureGroupReference;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.Generalization;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
@@ -63,9 +67,12 @@ import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.PortConnectionEnd;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SystemSubcomponent;
+import org.osate.aadl2.FeatureGroupPrototypeReference;
 
 
 public class NameResolver
@@ -90,7 +97,7 @@ public class NameResolver
 	{
 		if (cxt == null)
 		{
-			EObject searchResult = (ComponentImplementation)getContainingClassifier(conn).findNamedElement(portName);
+			EObject searchResult = ((ComponentImplementation)getContainingClassifier(conn)).findNamedElement(portName);
 			if (searchResult instanceof Port)
 				return ((ConnectionEnd)searchResult);
 		}
@@ -108,17 +115,17 @@ public class NameResolver
 				if (searchResult instanceof PortConnectionEnd)
 					 return((PortConnectionEnd)searchResult);
 			}
-//			else if (featureGroup.getPrototype() != null)
-//			{
-//				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(getContainingClassifier(conn),
-//						(FeatureGroupPrototype)featureGroup.getPrototype());
-//				if (featureGroupType != null)
-//				{
-//					NamedElement searchResult = featureGroupType.findNamedElement(portName);
-//					if (searchResult instanceof PortConnectionEnd)
-//						return((PortConnectionEnd)searchResult);
-//				}
-//			}
+			else if (featureGroup.getPrototype() != null)
+			{
+				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(getContainingClassifier(conn),
+						(FeatureGroupPrototype)featureGroup.getPrototype());
+				if (featureGroupType != null)
+				{
+					NamedElement searchResult = featureGroupType.findNamedElement(portName);
+					if (searchResult instanceof PortConnectionEnd)
+						return((PortConnectionEnd)searchResult);
+				}
+			}
 		}
 		else if (cxt instanceof Subcomponent)
 		{
@@ -360,35 +367,35 @@ public class NameResolver
 	 * 												   RealizationReference, FeatureGroupTypeExtendReference.
 	 */
 	//TODO: Check for circular dependencies with prototypes.
-//	private static FeatureGroupType findFeatureGroupTypeForFeatureGroupPrototype(Classifier containingClassifier,
-//			FeatureGroupPrototype prototype)
-//	{
-//		//TODO: Need to check that the prototype binding is a feature group prototype binding.  In PrototypeFormalReference,
-//		//		we should check that feature group prototypes are bound by feature group prototype bindings.
-//		FeatureGroupPrototypeBinding binding = (FeatureGroupPrototypeBinding)findPrototypeBinding(containingClassifier, prototype);
-//		if (binding != null)
-//		{
-//			if (binding.getActual() instanceof FeatureGroupReference)
-//				return ((FeatureGroupReference)binding.getActual()).getFeatureGroupType();
-//			else //It is a FeatureGroupPrototypeReference
-//			{
-//				FeatureGroupType featureGroupTypeForReferencedPrototype = findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier,
-//						((FeatureGroupPrototypeReference)binding.getActual()).getPrototype());
-//				if (featureGroupTypeForReferencedPrototype != null)
-//					return featureGroupTypeForReferencedPrototype;
-//			}
-//		}
-//		while (prototype.getConstrainingFeatureGroupType() == null && prototype.getRefined() != null)
-//		{
-//			//TODO: Need to check that the feature group prototype refines a feature group prototype.
-//			//		This should be done in FeatureGroupPrototypeRefinementReference.
-//			prototype = (FeatureGroupPrototype)prototype.getRefined();
-//		}
-//		if (prototype.getConstrainingFeatureGroupType() != null)
-//			return prototype.getConstrainingFeatureGroupType();
-//		else
-//			return null;
-//	}
+	private static FeatureGroupType findFeatureGroupTypeForFeatureGroupPrototype(Classifier containingClassifier,
+			FeatureGroupPrototype prototype)
+	{
+		//TODO: Need to check that the prototype binding is a feature group prototype binding.  In PrototypeFormalReference,
+		//		we should check that feature group prototypes are bound by feature group prototype bindings.
+		FeatureGroupPrototypeBinding binding = (FeatureGroupPrototypeBinding)findPrototypeBinding(containingClassifier, prototype);
+		if (binding != null)
+		{
+			if (binding.getActual() instanceof FeatureGroupReference)
+				return ((FeatureGroupReference)binding.getActual()).getFeatureGroupType();
+			else //It is a FeatureGroupPrototypeReference
+			{
+				FeatureGroupType featureGroupTypeForReferencedPrototype = findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier,
+						((FeatureGroupPrototypeReference)binding.getActual()).getPrototype());
+				if (featureGroupTypeForReferencedPrototype != null)
+					return featureGroupTypeForReferencedPrototype;
+			}
+		}
+		while (prototype.getConstrainingFeatureGroupType() == null && prototype.getRefined() != null)
+		{
+			//TODO: Need to check that the feature group prototype refines a feature group prototype.
+			//		This should be done in FeatureGroupPrototypeRefinementReference.
+			prototype = (FeatureGroupPrototype)prototype.getRefined();
+		}
+		if (prototype.getConstrainingFeatureGroupType() != null)
+			return prototype.getConstrainingFeatureGroupType();
+		else
+			return null;
+	}
 	
 	/**
 	 * Dependencies: PrototypeFormalReference, FeatureGroupTypeReference, PrototypeOrFeatureGroupTypeReference,
@@ -686,24 +693,24 @@ public class NameResolver
 		return (Classifier)container;
 	}
 	
-//	/**
-//	 * Dependencies: PrototypeFormalReference.
-//	 * 		Based on the type of classifier: ComponentTypeExtensionReference, ComponentImplementationExtensionReference, RealizationReference,
-//	 * 										 FeatureGroupTypeExtendReference.
-//	 */
-//	private static PrototypeBinding findPrototypeBinding(Classifier classifier, Prototype prototype)
-//	{
-//		for (PrototypeBinding binding : classifier.getOwnedPrototypeBindings())
-//			if (binding.getFormal().equals(prototype))
-//				return binding;
-//		for (Generalization generalization : classifier.getGeneralizations())
-//		{
-//			PrototypeBinding result = findPrototypeBinding(generalization.getGeneral(), prototype);
-//			if (result != null)
-//				return result;
-//		}
-//		return null;
-//	}
+	/**
+	 * Dependencies: PrototypeFormalReference.
+	 * 		Based on the type of classifier: ComponentTypeExtensionReference, ComponentImplementationExtensionReference, RealizationReference,
+	 * 										 FeatureGroupTypeExtendReference.
+	 */
+	private static PrototypeBinding findPrototypeBinding(Classifier classifier, Prototype prototype)
+	{
+		for (PrototypeBinding binding : classifier.getOwnedPrototypeBindings())
+			if (binding.getFormal().equals(prototype))
+				return binding;
+		for (Generalization generalization : classifier.getGeneralizations())
+		{
+			PrototypeBinding result = findPrototypeBinding(generalization.getGeneral(), prototype);
+			if (result != null)
+				return result;
+		}
+		return null;
+	}
 	
 //	/**
 //	 * Dependencies: PrototypeFormalReference.

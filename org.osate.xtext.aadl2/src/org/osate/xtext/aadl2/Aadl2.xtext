@@ -4,7 +4,8 @@ org.eclipse.xtext.common.Terminals
 
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
-// TODO:  array stuff, InternalEvent(SELF), ProcessorPort
+// TODO:   
+//InternalEvent(SELF), ProcessorPort: objects in mode transition instead of reference to unnamed owned in impl.
 
 AadlPackage returns aadl2::AadlPackage:
 	'package' name=PNAME
@@ -365,8 +366,12 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
 	(systemClassifier=[aadl2::SystemClassifier|QCREF] 
 	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
-	// array dimensions
-	  )?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( LBRACKET implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RBRACKET )? 
+	 )?
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
 	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
 	SEMI;
@@ -393,7 +398,31 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
 	SEMI;
 
+ArraySpecification returns aadl2::ArraySpecification:
+	// dimension is the same as the size of a list recording LBRACKET or size if we put a dummy object
+	{aadl2::ArraySpecification}(LBRACKET (size+=Numeral | size+=PropertyReference)? RBRACKET)+
+;
 
+SingleArraySpecification returns aadl2::ArraySpecification:
+	// dimension is the same as the size of a list recording LBRACKET or size if we put a dummy object
+	{aadl2::ArraySpecification}LBRACKET (size+=Numeral | size+=PropertyReference)? RBRACKET
+;
+
+
+Numeral returns aadl2::Numeral:
+	value=gINT 
+;
+
+ComponentImplementationReference returns aadl2::ComponentImplementationReference:
+	implementation=[aadl2::ComponentImplementation|QCREF] 
+;
+
+PropertyReference returns aadl2::PropertyReference:
+	property=[aadl2::Property|QPREF] 
+	// reference also could be to a property constant, which is recorded as reference in a
+	// ConstantValue object 
+	
+;
 
 
 // ******** Features
@@ -403,7 +432,7 @@ DataPort returns aadl2::DataPort:
 	((name=ID COLON )|
 	(refined=[aadl2::DataPort|ID] COLON 'refined' 'to'))
 	direction=PortDirection 'data' 'port' (dataClassifier=[aadl2::DataType|QCREF])? 
-		// array dimensions TODO
+	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
 
@@ -411,7 +440,7 @@ EventDataPort returns aadl2::EventDataPort:
 	((name=ID COLON )|
 	(refined=[aadl2::EventDataPort|ID] COLON 'refined' 'to'))
 	direction=PortDirection 'event' 'data' 'port' (dataClassifier=[aadl2::DataType|QCREF])? 
-		// array dimensions TODO
+	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
 
@@ -419,7 +448,7 @@ EventPort returns aadl2::EventPort:
 	((name=ID COLON )|
 	(refined=[aadl2::EventPort|ID] COLON 'refined' 'to'))
 	direction=PortDirection 'event' 'port' 
-		// array dimensions TODO
+	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
 
@@ -430,7 +459,7 @@ FeatureGroup returns aadl2::FeatureGroup:
 	direction=InOutDirection 'feature' 'group' 
 	( inverse?='inverse' 'of')?
 	featureGroupType=[aadl2::FeatureGroupType|QCREF] // or prototype
-		// array dimensions TODO
+	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
 
@@ -438,7 +467,7 @@ Parameter returns aadl2::Parameter:
 	((name=ID COLON )|
 	(refined=[aadl2::Parameter|ID] COLON 'refined' 'to'))
 	direction=PortDirection 'parameter' (dataClassifier=[aadl2::DataType|QCREF])? 
-		// array dimensions TODO
+	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
 
@@ -448,7 +477,7 @@ SubprogramAccess returns aadl2::SubprogramAccess:
 	(refined=[aadl2::SubprogramAccess|ID] COLON 'refined' 'to'))
 	kind=AccessDirection // refined to with reference to access feature being refined.
 	'subprogram' 'access' (subprogramClassifier=[aadl2::SubprogramClassifier|QCREF])? 
-	// array dimensions TODO
+	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 ;
 SubprogramGroupAccess returns aadl2::SubprogramGroupAccess: 
@@ -456,7 +485,7 @@ SubprogramGroupAccess returns aadl2::SubprogramGroupAccess:
 	(refined=[aadl2::SubprogramGroupAccess|ID] COLON 'refined' 'to'))
 	kind=AccessDirection // refined to with reference to access feature being refined.
 	'subprogram' 'group' 'access' (subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF])? 
-	// array dimensions TODO
+	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 ;
 BusAccess returns aadl2::BusAccess: 
@@ -464,7 +493,7 @@ BusAccess returns aadl2::BusAccess:
 	(refined=[aadl2::BusAccess|ID] COLON 'refined' 'to'))
 	kind=AccessDirection  // refined to with reference to access feature being refined.
 	'bus' 'access' (busClassifier=[aadl2::BusClassifier|QCREF])? 
-	// array dimensions TODO
+	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 ;
 DataAccess returns aadl2::DataAccess: 
@@ -472,7 +501,7 @@ DataAccess returns aadl2::DataAccess:
 	(refined=[aadl2::DataAccess|ID] COLON 'refined' 'to'))
 	kind=AccessDirection // refined to with reference to access feature being refined.
 	'data' 'access' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
-	// array dimensions TODO
+	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 ;
 AbstractFeature returns aadl2::AbstractFeature:
@@ -480,7 +509,7 @@ AbstractFeature returns aadl2::AbstractFeature:
 	((name=ID COLON )|
 	(refined=[aadl2::AbstractFeature|ID] COLON 'refined' 'to'))
 	(direction=InOutDirection)? 'feature' (classifier=[aadl2::ComponentType|QCREF])? 
-	// array dimensions TODO
+	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
 
@@ -828,10 +857,18 @@ terminal ASSIGN:
 terminal APPEND:
 	'+=>';
 
+//INTEGER returns aadl2::Integer:
+//	INT ;
+
+gINT returns aadl2::Integer:
+	INT 	
+;
+
+
 REAL:
 	INT DOT INT;
 
-QNAME:
+TINAME:
 	ID DOT INAME;
 
 PNAME:
