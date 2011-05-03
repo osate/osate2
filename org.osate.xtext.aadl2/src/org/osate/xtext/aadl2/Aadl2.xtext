@@ -4,7 +4,7 @@ org.eclipse.xtext.common.Terminals
 
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
-// TODO: prototype binding, subprogram calls, array stuff
+// TODO:  array stuff, InternalEvent(SELF), ProcessorPort
 
 AadlPackage returns aadl2::AadlPackage:
 	'package' name=PNAME
@@ -398,7 +398,6 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 
 // ******** Features
 
-// need to do refined to: as reference vs. ID for basic
 // needs to have classifier or prototype reference
 DataPort returns aadl2::DataPort:
 	((name=ID COLON )|
