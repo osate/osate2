@@ -255,5 +255,19 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
             }
         };
     }
-    
+
+    @ValueConverter(rule = "gINT")
+    public IValueConverter<Integer> gINT() {
+        return new IValueConverter<Integer>() {
+            public Integer toValue(String string, INode node) {
+            	
+				return Integer.getInteger(string);
+			}
+
+            public String toString(Integer value) {
+                return value.toString();
+            }
+        };
+    }
+
 }

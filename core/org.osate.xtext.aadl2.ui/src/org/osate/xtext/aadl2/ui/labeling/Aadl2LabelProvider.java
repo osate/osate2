@@ -64,8 +64,5 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		  return "Data Subcomponent "+ele.getName();
 		}
 	 
-//    String image(MyModel ele) {
-//      return "MyModel.gif";
-//    }
 
 }
