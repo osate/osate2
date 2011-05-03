@@ -368,9 +368,9 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
 	 )?
 	 ( arraySpecification=ArraySpecification 
-	  ( LBRACKET implementationReference+=ComponentImplementationReference  
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
 	  (COMMA implementationReference+=ComponentImplementationReference)*
-	  RBRACKET )? 
+	  RPARENS )? 
 	 )?
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
 	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
@@ -400,7 +400,8 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 
 ArraySpecification returns aadl2::ArraySpecification:
 	// dimension is the same as the size of a list recording LBRACKET or size if we put a dummy object
-	{aadl2::ArraySpecification}(LBRACKET (size+=Numeral | size+=PropertyReference)? RBRACKET)+
+	{aadl2::ArraySpecification}LBRACKET (size+=Numeral | size+=PropertyReference)? RBRACKET
+	( LBRACKET (size+=Numeral | size+=PropertyReference)? RBRACKET)*
 ;
 
 SingleArraySpecification returns aadl2::ArraySpecification:
@@ -414,7 +415,7 @@ Numeral returns aadl2::Numeral:
 ;
 
 ComponentImplementationReference returns aadl2::ComponentImplementationReference:
-	implementation=[aadl2::ComponentImplementation|QCREF] 
+	{aadl2::ComponentImplementationReference}implementation=[aadl2::ComponentImplementation|QCREF] 
 ;
 
 PropertyReference returns aadl2::PropertyReference:
