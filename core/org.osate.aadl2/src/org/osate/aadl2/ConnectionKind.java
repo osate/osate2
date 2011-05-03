@@ -56,36 +56,36 @@ public enum ConnectionKind implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #ACCESS_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	ACCESS(0, "Access", "Access"),
+	ACCESS(0, "access", "access"),
 
 	/**
 	 * The '<em><b>Feature</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #FEATURE_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	FEATURE(1, "Feature", "Feature"), /**
+	FEATURE(1, "feature", "feature"), /**
 										 * The '<em><b>Feature Group</b></em>' literal object.
 										 * <!-- begin-user-doc -->
 										 * <!-- end-user-doc -->
 										 * @see #FEATURE_GROUP_VALUE
-										 * @generated
+										 * @generated NOT
 										 * @ordered
 										 */
-	FEATURE_GROUP(2, "FeatureGroup", "FeatureGroup"), /**
+	FEATURE_GROUP(2, "feature group", "feature group"), /**
 														 * The '<em><b>Parameter</b></em>' literal object.
 														 * <!-- begin-user-doc -->
 														 * <!-- end-user-doc -->
 														 * @see #PARAMETER_VALUE
-														 * @generated
+														 * @generated NOT
 														 * @ordered
 														 */
-	PARAMETER(3, "Parameter", "Parameter"),
+	PARAMETER(3, "parameter", "parameter"),
 
 	/**
 	 * The '<em><b>Port</b></em>' literal object.
@@ -95,7 +95,7 @@ public enum ConnectionKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PORT(4, "Port", "Port");
+	PORT(4, "port", "port");
 
 	/**
 	 * The '<em><b>Access</b></em>' literal value.
