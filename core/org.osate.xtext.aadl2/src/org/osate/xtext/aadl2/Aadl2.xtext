@@ -185,6 +185,10 @@ DataType returns aadl2::DataType:
 // Component Implementations: add calls for threads and subprograms
 
 
+
+Realization returns aadl2::Realization:
+	implemented=[aadl2::SystemType|ID];
+
 SystemImplementation returns aadl2::SystemImplementation:
 	{aadl2::SystemImplementation}
 	'system' 'implementation' 
@@ -196,6 +200,10 @@ SystemImplementation returns aadl2::SystemImplementation:
 	  |ownedDataSubcomponent+=DataSubcomponent)+
 	| noSubcomponents?=NONE)
 	)?
+// for threadss and subprograms ONLY
+//	(=> 'calls'
+//	((ownedSubprogamCallSequence+=SubprogramCallSequence)+
+//	| noSequences?=NONE))?
 	(=> 'connections'
 	((ownedPortConnection+=PortConnection)+
 	| noConnections?=NONE))?
@@ -231,9 +239,28 @@ DataImplementation returns aadl2::DataImplementation:
 	'end' ID DOT INAME SEMI
 	;
 
+/* subprogram calls */
 
-Realization returns aadl2::Realization:
-	implemented=[aadl2::SystemType|ID];
+SubprogramCallSequence returns aadl2::SubprogramCallSequence:
+	name = ID LCURLY
+	( ownedCallSpecification+=CallSpecification)+
+	RCURLY
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	( => 'in' 'modes' LPARENS ((inMode+=[aadl2::Mode|ID])+ ) RPARENS)? //| allModes?='all'
+	SEMI
+;
+
+
+CallSpecification returns aadl2::CallSpecification:
+	(({aadl2::ProcessorCall}name=ID 'subprogram' 'processor' DOT subprogramAccessName=ID ) | 
+     ({aadl2::SubprogramCall}name=ID 'subprogram'(context=[aadl2::CallContext] DOT)? calledSubprogram=[aadl2::CalledSubprogram|ID]))
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?
+	SEMI
+;
+
+
+
+//******* Prototypes
 
 Prototype returns aadl2::Prototype:
 	(ComponentPrototype | FeatureGroupPrototype | FeaturePrototype)
@@ -266,6 +293,10 @@ FeaturePrototype returns aadl2::FeaturePrototype:
 	;
 
 
+
+/*
+ * Subcomponents
+ */
 
 SystemSubcomponent returns aadl2::SystemSubcomponent:
 	((name=ID COLON )|
