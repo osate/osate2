@@ -13,6 +13,7 @@ import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.ConnectionKind;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FlowKind;
+import org.osate.aadl2.PortCategory;
 
 public class Aadl2ValueConverter extends DefaultTerminalConverters {
     @ValueConverter(rule = "INAME")
@@ -51,6 +52,21 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
             }
         };
     }
+
+    @ValueConverter(rule = "PortCategory")
+    public IValueConverter<PortCategory> PortCategory() {
+        return new IValueConverter<PortCategory>() {
+            public PortCategory toValue(String string, INode node) {
+            	
+				return PortCategory.get(string);
+			}
+
+            public String toString(PortCategory value) {
+                return value.getName();
+            }
+        };
+    }
+
     
     @ValueConverter(rule = "PortDirection")
     public IValueConverter<DirectionType> PortDirection() {

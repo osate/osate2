@@ -88,7 +88,9 @@ ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 
 SystemType returns aadl2::SystemType:
 	'system' name=ID
-	(ownedExtension=TypeExtension)?
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
 	(=> 'prototypes' (noPrototypes?=NONE |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (noFeatures?=NONE |
@@ -108,7 +110,9 @@ SystemType returns aadl2::SystemType:
 
 ProcessType returns aadl2::ProcessType:
 	'process' name=ID
-	(ownedExtension=TypeExtension)?
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
 	(=> 'prototypes' (noPrototypes?=NONE |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (noFeatures?=NONE |
@@ -128,7 +132,9 @@ ProcessType returns aadl2::ProcessType:
 
 ThreadType returns aadl2::ThreadType:
 	'thread' name=ID
-	(ownedExtension=TypeExtension)?
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
 	(=> 'prototypes' (noPrototypes?=NONE |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (noFeatures?=NONE |
@@ -148,7 +154,9 @@ ThreadType returns aadl2::ThreadType:
 
 ProcessorType returns aadl2::ProcessorType:
 	'processor' name=ID
-	(ownedExtension=TypeExtension)?
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
 	(=> 'features' (noFeatures?=NONE |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ ) )?
 	(=> 'flows'
@@ -166,7 +174,9 @@ ProcessorType returns aadl2::ProcessorType:
 
 DataType returns aadl2::DataType:
 	'data' name=ID
-	(ownedExtension=TypeExtension)?
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
 	(=> 'features' noFeatures?=NONE 
 //	| (ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ )
 	 )?
@@ -193,7 +203,9 @@ SystemImplementation returns aadl2::SystemImplementation:
 	{aadl2::SystemImplementation}
 	'system' 'implementation' 
 	ownedRealization=Realization DOT name=INAME
-	(ownedExtension=ImplementationExtension)?
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
 	(=> 'subcomponents'
 	  ((ownedSystemSubcomponent+=SystemSubcomponent
 	  |ownedProcessorSubcomponent+=ProcessorSubcomponent
@@ -223,7 +235,9 @@ DataImplementation returns aadl2::DataImplementation:
 	{aadl2::DataImplementation}
 	'data' 'implementation' 
 	ownedRealization=Realization DOT name=INAME
-	(ownedExtension=ImplementationExtension)?
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
 	(=> 'subcomponents'
 	  ((ownedDataSubcomponent+=DataSubcomponent)
 	| noSubcomponents?=NONE))?
@@ -292,6 +306,52 @@ FeaturePrototype returns aadl2::FeaturePrototype:
 	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
 	;
 
+/*
+ * Prototype Bindings
+ */
+
+PrototypeBinding returns aadl2::PrototypeBinding:
+	FeatureGroupPrototypeBinding | FeaturePrototypeBinding | ComponentPrototypeBinding
+	;
+
+
+FeatureGroupPrototypeBinding returns aadl2::FeatureGroupPrototypeBinding:
+	formal=[aadl2::Prototype|ID] ASSIGN  'feature' 'group' 
+	actual=FeatureGroupTypeReference
+	;
+	
+FeatureGroupTypeReference returns aadl2::FeatureGroupReference:
+	featureGroupType=[aadl2::FeatureGroupType|QCREF]
+	;
+
+FeaturePrototypeBinding returns aadl2::FeaturePrototypeBinding:
+	formal=[aadl2::Prototype|ID] ASSIGN  'feature'  
+	actual=(PortSpecification|AccessSpecification|FeaturePrototypeReference)
+	;
+	
+PortSpecification returns aadl2::PortSpecification:
+	direction=PortDirection category=PortCategory 'port' classifier=[aadl2::ComponentClassifier|QCREF]
+	;
+	
+AccessSpecification returns aadl2::AccessSpecification:
+	kind=AccessDirection category=AccessCategory 'access' classifier=[aadl2::ComponentClassifier|QCREF]
+	;
+
+	
+FeaturePrototypeReference returns aadl2::FeaturePrototypeReference:
+	direction=InOutDirection 'feature' prototype=[aadl2::FeaturePrototype|ID]
+	;
+
+
+ComponentPrototypeBinding returns aadl2::ComponentPrototypeBinding:
+	formal=[aadl2::Prototype|ID] ASSIGN  'feature'  
+	(actual+=ComponentReference |
+	LPARENS actual+=ComponentReference (COMMA actual+=ComponentReference)* RPARENS
+	)
+	;
+ComponentReference returns aadl2::ComponentReference:
+	 category=ComponentCategory (LPARENS binding+=PrototypeBinding (COMMA binding+=PrototypeBinding)*RPARENS)?
+	;
 
 
 /*
@@ -303,8 +363,10 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 	(refined=[aadl2::SystemSubcomponent|ID] COLON 'refined' 'to'))
 	'system'
 //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
-	systemClassifier=[aadl2::SystemClassifier|QCREF] // with opt. prototype bindings
+	(systemClassifier=[aadl2::SystemClassifier|QCREF] 
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
 	// array dimensions
+	  )?
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
 	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
 	SEMI;
@@ -313,7 +375,9 @@ ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 	((name=ID COLON )|
 	(refined=[aadl2::ProcessorSubcomponent|ID] COLON 'refined' 'to'))
 	'processor' 
-	 (processorClassifier=[aadl2::ProcessorClassifier|QCREF])?
+	 (processorClassifier=[aadl2::ProcessorClassifier|QCREF]
+	 	(=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
 	( => 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
 	SEMI;
@@ -322,8 +386,9 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 	((name=ID COLON )|
 	(refined=[aadl2::DataSubcomponent|ID] COLON 'refined' 'to'))
 	'data' 
-//	(refined?='refined' 'to')? // if boolean is set then we need to find the subcomponent being 'refined'
-	(dataClassifier=[aadl2::DataClassifier|QCREF] )?
+	(dataClassifier=[aadl2::DataClassifier|QCREF] 
+	 (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
 	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
 	SEMI;
@@ -425,11 +490,14 @@ PortDirection returns aadl2::DirectionType: 'in' | 'out' |  'in' 'out';
 InOutDirection returns aadl2::DirectionType: 'in' | 'out' ;
 AccessDirection returns aadl2::AccessType: 'requires' | 'provides';
 
+PortCategory returns aadl2::PortCategory: 'data' | 'event' |  'event' 'data';
 
 
 FeatureGroupType returns aadl2::FeatureGroupType:
 	'feature' 'group' name=ID 
-	(ownedExtension=GroupExtension)?
+	(ownedExtension=GroupExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
 	(=> 'prototypes' (noPrototypes?=NONE |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (// no none for FGT noFeatures?=NONE |
