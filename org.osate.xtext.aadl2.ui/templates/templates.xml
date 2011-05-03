@@ -9,7 +9,7 @@ end $(name) ;</template>
     <template name="Subcomponent" description="template for a Subcomponent"
         id="org.osate.xtext.aadl2.Aadl2.Subcomponent"
         context="org.osate.xtext.aadl2.Aadl2.Subcomponent"
-        enabled="true">${name} : ${category('ssc')} 
+        enabled="true">${name} : ${category('ComponentCategory')} 
 	${cursor}
 ;</template>
 </templates>
