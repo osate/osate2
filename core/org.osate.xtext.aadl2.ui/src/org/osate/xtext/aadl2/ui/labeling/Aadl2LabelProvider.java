@@ -7,8 +7,11 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DataType;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.PublicPackageSection;
@@ -62,6 +65,15 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		}
 	String text(DataSubcomponent ele) {
 		  return "Data Subcomponent "+ele.getName();
+		}
+	String text(EventPort ele) {
+		  return "Event Port "+ele.getName();
+		}
+	String text(DataPort ele) {
+		  return "Data Port "+ele.getName();
+		}
+	String text(EventDataPort ele) {
+		  return "Event Data Port "+ele.getName();
 		}
 	 
 
