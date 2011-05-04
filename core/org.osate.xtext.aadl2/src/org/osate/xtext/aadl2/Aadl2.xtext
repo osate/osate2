@@ -432,7 +432,7 @@ PropertyReference returns aadl2::PropertyReference:
 DataPort returns aadl2::DataPort:
 	((name=ID COLON )|
 	(refined=[aadl2::DataPort|ID] COLON 'refined' 'to'))
-	direction=PortDirection 'data' 'port' (dataClassifier=[aadl2::DataType|QCREF])? 
+	direction=PortDirection 'data' 'port' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
 	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
@@ -440,7 +440,7 @@ DataPort returns aadl2::DataPort:
 EventDataPort returns aadl2::EventDataPort:
 	((name=ID COLON )|
 	(refined=[aadl2::EventDataPort|ID] COLON 'refined' 'to'))
-	direction=PortDirection 'event' 'data' 'port' (dataClassifier=[aadl2::DataType|QCREF])? 
+	direction=PortDirection 'event' 'data' 'port' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
 	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;
@@ -467,7 +467,7 @@ FeatureGroup returns aadl2::FeatureGroup:
 Parameter returns aadl2::Parameter:
 	((name=ID COLON )|
 	(refined=[aadl2::Parameter|ID] COLON 'refined' 'to'))
-	direction=PortDirection 'parameter' (dataClassifier=[aadl2::DataType|QCREF])? 
+	direction=PortDirection 'parameter' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
 	(arraySpecification=SingleArraySpecification)?
 	(=> LCURLY (ownedPropertyAssociation+=ContainedPropertyAssociation)+ RCURLY)? SEMI 
 	;

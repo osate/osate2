@@ -45,7 +45,13 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.ComponentPrototypeBinding;
+import org.osate.aadl2.ComponentPrototypeReference;
+
+import org.osate.aadl2.ComponentReference;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
@@ -61,6 +67,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
+import org.osate.aadl2.PackageRename;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
@@ -138,17 +145,17 @@ public class NameResolver
 				if (searchResult instanceof ConnectionEnd)
 					return ((ConnectionEnd)searchResult);
 			}
-//			else if (subcomponent.getPrototype() != null)
-//			{
-//				ComponentClassifier classifier = findClassifierForComponentPrototype(getContainingClassifier(conn),
-//						subcomponent.getPrototype());
-//				if (classifier != null)
-//				{
-//					NamedElement searchResult = classifier.findNamedElement(portName);
-//					if (searchResult instanceof DataSubcomponent)
-//						return((DataSubcomponent)searchResult);
-//				}
-//			}
+			else if (subcomponent.getPrototype() != null)
+			{
+				ComponentClassifier classifier = findClassifierForComponentPrototype(getContainingClassifier(conn),
+						subcomponent.getPrototype());
+				if (classifier != null)
+				{
+					NamedElement searchResult = classifier.findNamedElement(portName);
+					if (searchResult instanceof DataSubcomponent)
+						return((DataSubcomponent)searchResult);
+				}
+			}
 		}
 		else if (cxt instanceof DataPort || cxt instanceof EventDataPort)
 			//connection.getContext() is a DataPort or EventDataPort
@@ -162,17 +169,17 @@ public class NameResolver
 				if (searchResult instanceof DataSubcomponent)
 					return((DataSubcomponent)searchResult);
 			}
-//			else if (sourceContext.getPrototype() instanceof ComponentPrototype)
-//			{
-//				ComponentClassifier classifier = findClassifierForComponentPrototype(getContainingClassifier(conn),
-//						(ComponentPrototype)sourceContext.getPrototype());
-//				if (classifier != null)
-//				{
-//					NamedElement searchResult = classifier.findNamedElement(portName);
-//					if (searchResult instanceof DataSubcomponent)
-//						return((DataSubcomponent)searchResult);
-//				}
-//			}
+			else if (context.getPrototype() instanceof ComponentPrototype)
+			{
+				ComponentClassifier classifier = findClassifierForComponentPrototype(getContainingClassifier(conn),
+						(ComponentPrototype)context.getPrototype());
+				if (classifier != null)
+				{
+					NamedElement searchResult = classifier.findNamedElement(portName);
+					if (searchResult instanceof DataSubcomponent)
+						return((DataSubcomponent)searchResult);
+				}
+			}
 		}
 		return null;
 	}
@@ -217,34 +224,34 @@ public class NameResolver
 	 * 
 	 * This will cause a stack overflow!
 	 */
-//	private static ComponentClassifier findClassifierForComponentPrototype(Classifier containingClassifier, ComponentPrototype prototype)
-//	{
-//		//TODO: Need to check that the prototype binding is a component prototype binding.  In PrototypeFormalReference,
-//		//		we should check that component prototypes are bound by component prototype bindings.
-//		ComponentPrototypeBinding binding = (ComponentPrototypeBinding)findPrototypeBinding(containingClassifier, prototype);
-//		if (binding != null && binding.getActuals().size() >= 1)
-//		{
-//			if (binding.getActuals().get(0) instanceof ComponentReference)
-//				return ((ComponentReference)binding.getActuals().get(0)).getClassifier();
-//			else //It is a ComponentPrototypeReference
-//			{
-//				ComponentClassifier classifierForReferencedPrototype = findClassifierForComponentPrototype(containingClassifier,
-//						((ComponentPrototypeReference)binding.getActuals().get(0)).getPrototype());
-//				if (classifierForReferencedPrototype != null)
-//					return classifierForReferencedPrototype;
-//			}
-//		}
-//		while (prototype.getConstrainingClassifier() == null && prototype.getRefined() != null)
-//		{
-//			//TODO: Need to check that the component prototype refines a component prototype.
-//			//		This should be done in ComponentPrototypeRefinementReference.
-//			prototype = (ComponentPrototype)prototype.getRefined();
-//		}
-//		if (prototype.getConstrainingClassifier() != null)
-//			return prototype.getConstrainingClassifier();
-//		else
-//			return null;
-//	}
+	private static ComponentClassifier findClassifierForComponentPrototype(Classifier containingClassifier, ComponentPrototype prototype)
+	{
+		//TODO: Need to check that the prototype binding is a component prototype binding.  In PrototypeFormalReference,
+		//		we should check that component prototypes are bound by component prototype bindings.
+		ComponentPrototypeBinding binding = (ComponentPrototypeBinding)findPrototypeBinding(containingClassifier, prototype);
+		if (binding != null && binding.getActuals().size() >= 1)
+		{
+			if (binding.getActuals().get(0) instanceof ComponentReference)
+				return ((ComponentReference)binding.getActuals().get(0)).getClassifier();
+			else //It is a ComponentPrototypeReference
+			{
+				ComponentClassifier classifierForReferencedPrototype = findClassifierForComponentPrototype(containingClassifier,
+						((ComponentPrototypeReference)binding.getActuals().get(0)).getPrototype());
+				if (classifierForReferencedPrototype != null)
+					return classifierForReferencedPrototype;
+			}
+		}
+		while (prototype.getConstrainingClassifier() == null && prototype.getRefined() != null)
+		{
+			//TODO: Need to check that the component prototype refines a component prototype.
+			//		This should be done in ComponentPrototypeRefinementReference.
+			prototype = (ComponentPrototype)prototype.getRefined();
+		}
+		if (prototype.getConstrainingClassifier() != null)
+			return prototype.getConstrainingClassifier();
+		else
+			return null;
+	}
 	
 	/**
 	 * Dependencies: PrototypeFormalReference, ClassifierReference, PrototypeOrClassifierReference, ComponentPrototypeClassifierReference,
@@ -255,36 +262,36 @@ public class NameResolver
 	/*
 	 * TODO: Check for circular dependencies with prototypes.
 	 */
-//	private static ComponentClassifier findClassifierForComponentPrototype(Classifier classifierPrototypeContext,
-//			Subcomponent subcomponentPrototypeContext, ComponentPrototype prototype)
-//	{
-//		//TODO: Need to check that the prototype binding is a component prototype binding.  In PrototypeFormalReference,
-//		//		we should check that component prototypes are bound by component prototype bindings.
-//		ComponentPrototypeBinding binding = (ComponentPrototypeBinding)findPrototypeBinding(classifierPrototypeContext,
-//				subcomponentPrototypeContext, prototype);
-//		if (binding != null && binding.getActuals().size() >= 1)
-//		{
-//			if (binding.getActuals().get(0) instanceof ComponentReference)
-//				return ((ComponentReference)binding.getActuals().get(0)).getClassifier();
-//			else //It is a ComponentPrototypeReference
-//			{
-//				ComponentClassifier classifierForReferencedPrototype = findClassifierForComponentPrototype(classifierPrototypeContext,
-//						subcomponentPrototypeContext, ((ComponentPrototypeReference)binding.getActuals().get(0)).getPrototype());
-//				if (classifierForReferencedPrototype != null)
-//					return classifierForReferencedPrototype;
-//			}
-//		}
-//		while (prototype.getConstrainingClassifier() == null && prototype.getRefined() != null)
-//		{
-//			//TODO: Need to check that the component prototype refines a component prototype.
-//			//		This should be done in ComponentPrototypeRefinementReference.
-//			prototype = (ComponentPrototype)prototype.getRefined();
-//		}
-//		if (prototype.getConstrainingClassifier() != null)
-//			return prototype.getConstrainingClassifier();
-//		else
-//			return null;
-//	}
+	private static ComponentClassifier findClassifierForComponentPrototype(Classifier classifierPrototypeContext,
+			Subcomponent subcomponentPrototypeContext, ComponentPrototype prototype)
+	{
+		//TODO: Need to check that the prototype binding is a component prototype binding.  In PrototypeFormalReference,
+		//		we should check that component prototypes are bound by component prototype bindings.
+		ComponentPrototypeBinding binding = (ComponentPrototypeBinding)findPrototypeBinding(classifierPrototypeContext,
+				subcomponentPrototypeContext, prototype);
+		if (binding != null && binding.getActuals().size() >= 1)
+		{
+			if (binding.getActuals().get(0) instanceof ComponentReference)
+				return ((ComponentReference)binding.getActuals().get(0)).getClassifier();
+			else //It is a ComponentPrototypeReference
+			{
+				ComponentClassifier classifierForReferencedPrototype = findClassifierForComponentPrototype(classifierPrototypeContext,
+						subcomponentPrototypeContext, ((ComponentPrototypeReference)binding.getActuals().get(0)).getPrototype());
+				if (classifierForReferencedPrototype != null)
+					return classifierForReferencedPrototype;
+			}
+		}
+		while (prototype.getConstrainingClassifier() == null && prototype.getRefined() != null)
+		{
+			//TODO: Need to check that the component prototype refines a component prototype.
+			//		This should be done in ComponentPrototypeRefinementReference.
+			prototype = (ComponentPrototype)prototype.getRefined();
+		}
+		if (prototype.getConstrainingClassifier() != null)
+			return prototype.getConstrainingClassifier();
+		else
+			return null;
+	}
 	
 	/**
 	 * Dependencies: PrototypeFormalReference, ComponentTypeExtensionReference, ComponentImplementationExtensionReference,
@@ -602,10 +609,10 @@ public class NameResolver
 			
 			if (context instanceof PackageSection)
 			{
-//				PackageRename packageRename = findPackageRename(packageName, (PackageSection)context);
-//				if (packageRename != null)
-//					aadlPackage = packageRename.getRenamedPackage();
-//				else
+				PackageRename packageRename = findPackageRename(packageName, (PackageSection)context);
+				if (packageRename != null)
+					aadlPackage = packageRename.getRenamedPackage();
+				else
 					aadlPackage = findImportedPackage(packageName, context);
 			}
 			else
@@ -654,28 +661,28 @@ public class NameResolver
 		}
 	}
 	
-//	/**
-//	 * Search for a {@link PackageRename} in a package.  If {@code context} is a {@link PrivatePackageSection}, then
-//	 * this method will also search through the {@link PackageRename}s of the corresponding {@link PublicPackageSection}.
-//	 * The {@link PackageRename#isRenameAll() renameAll} flag of the returned {@link PackageRename} will be {@code false}.
-//	 * 
-//	 * @param name The name of the {@link PackageRename} to search for.
-//	 * @param context The {@link PackageSection} that contains the {@link Element} that needs a {@link PackageRename}.
-//	 * @return The {@link PackageRename} or {@code null} if it cannot be found.
-//	 */
-//	private static PackageRename findPackageRename(String name, PackageSection context)
-//	{
-//		NamedElement searchResult = context.findNamedElement(name, false);
-//		if (searchResult == null && context instanceof PrivatePackageSection &&
-//				((AadlPackage)context.eContainer()).getPublicSection() != null)
-//		{
-//			searchResult = ((AadlPackage)context.eContainer()).getPublicSection().findNamedElement(name, false);
-//		}
-//		if (searchResult instanceof PackageRename)
-//			return (PackageRename)searchResult;
-//		else
-//			return null;
-//	}
+	/**
+	 * Search for a {@link PackageRename} in a package.  If {@code context} is a {@link PrivatePackageSection}, then
+	 * this method will also search through the {@link PackageRename}s of the corresponding {@link PublicPackageSection}.
+	 * The {@link PackageRename#isRenameAll() renameAll} flag of the returned {@link PackageRename} will be {@code false}.
+	 * 
+	 * @param name The name of the {@link PackageRename} to search for.
+	 * @param context The {@link PackageSection} that contains the {@link Element} that needs a {@link PackageRename}.
+	 * @return The {@link PackageRename} or {@code null} if it cannot be found.
+	 */
+	private static PackageRename findPackageRename(String name, PackageSection context)
+	{
+		NamedElement searchResult = context.findNamedElement(name, false);
+		if (searchResult == null && context instanceof PrivatePackageSection &&
+				((AadlPackage)context.eContainer()).getPublicSection() != null)
+		{
+			searchResult = ((AadlPackage)context.eContainer()).getPublicSection().findNamedElement(name, false);
+		}
+		if (searchResult instanceof PackageRename)
+			return (PackageRename)searchResult;
+		else
+			return null;
+	}
 	
 	public static String getQualifiedName(String packageOrPropertySetName, String elementName)
 	{
@@ -712,28 +719,28 @@ public class NameResolver
 		return null;
 	}
 	
-//	/**
-//	 * Dependencies: PrototypeFormalReference.
-//	 * 		Based on the type of classifierPrototypeContext: ComponentTypeExtensionReference, ComponentImplementationExtensionReference,
-//	 * 														 RealizationReference, FeatureGroupTypeExtendReference.
-//	 */
-//	private static PrototypeBinding findPrototypeBinding(Classifier classifierPrototypeContext, Subcomponent subcomponentPrototypeContext,
-//			Prototype prototype)
-//	{
-//		for (PrototypeBinding binding : subcomponentPrototypeContext.getOwnedPrototypeBindings())
-//			if (binding.getFormal().equals(prototype))
-//				return binding;
-//		for (PrototypeBinding binding : classifierPrototypeContext.getOwnedPrototypeBindings())
-//			if (binding.getFormal().equals(prototype))
-//				return binding;
-//		for (Generalization generalization : classifierPrototypeContext.getGeneralizations())
-//		{
-//			PrototypeBinding result = findPrototypeBinding(generalization.getGeneral(), prototype);
-//			if (result != null)
-//				return result;
-//		}
-//		return null;
-//	}
+	/**
+	 * Dependencies: PrototypeFormalReference.
+	 * 		Based on the type of classifierPrototypeContext: ComponentTypeExtensionReference, ComponentImplementationExtensionReference,
+	 * 														 RealizationReference, FeatureGroupTypeExtendReference.
+	 */
+	private static PrototypeBinding findPrototypeBinding(Classifier classifierPrototypeContext, Subcomponent subcomponentPrototypeContext,
+			Prototype prototype)
+	{
+		for (PrototypeBinding binding : subcomponentPrototypeContext.getOwnedPrototypeBindings())
+			if (binding.getFormal().equals(prototype))
+				return binding;
+		for (PrototypeBinding binding : classifierPrototypeContext.getOwnedPrototypeBindings())
+			if (binding.getFormal().equals(prototype))
+				return binding;
+		for (Generalization generalization : classifierPrototypeContext.getGeneralizations())
+		{
+			PrototypeBinding result = findPrototypeBinding(generalization.getGeneral(), prototype);
+			if (result != null)
+				return result;
+		}
+		return null;
+	}
 	
 	public static AadlPackage findAadlPackage(EObject context, String name)
 	{
@@ -878,15 +885,15 @@ public class NameResolver
 //		return null;
 //	}
 	
-//	/**
-//	 * Dependencies: PrototypeFormalReference.
-//	 */
-//	private static PrototypeBinding findPrototypeBinding(Subcomponent subcomponent, Prototype prototype)
-//	{
-//		for (PrototypeBinding binding : subcomponent.getOwnedPrototypeBindings())
-//			if (binding.getFormal().equals(prototype))
-//				return binding;
-//		return null;
-//	}
+	/**
+	 * Dependencies: PrototypeFormalReference.
+	 */
+	private static PrototypeBinding findPrototypeBinding(Subcomponent subcomponent, Prototype prototype)
+	{
+		for (PrototypeBinding binding : subcomponent.getOwnedPrototypeBindings())
+			if (binding.getFormal().equals(prototype))
+				return binding;
+		return null;
+	}
 	
 }
