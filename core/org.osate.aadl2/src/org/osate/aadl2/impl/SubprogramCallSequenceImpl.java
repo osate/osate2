@@ -45,12 +45,9 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.BehavioralFeature;
 import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubprogramCallSequence;
 

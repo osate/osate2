@@ -85,7 +85,6 @@ public interface Generalization extends DirectedRelationship {
 	 * This feature subsets the following features:
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.DirectedRelationship#getSources() <em>Source</em>}'</li>
-	 *   <li>'{@link org.osate.aadl2.Element#getOwner() <em>Owner</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->

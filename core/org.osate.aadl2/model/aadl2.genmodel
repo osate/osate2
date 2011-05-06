@@ -96,8 +96,6 @@
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Element">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
           ecoreFeature="ecore:EReference aadl2.ecore#//Element/ownedElement"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//Element/owner"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//Element/ownedComment"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Element/not_own_self">
@@ -108,6 +106,7 @@
         <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Element/has_owner/diagnostics"/>
         <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Element/has_owner/context"/>
       </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Element/getOwner"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Element/allOwnedElements"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Element/mustBeOwned"/>
     </genClasses>
@@ -132,8 +131,6 @@
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//NamedElement/name"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
           ecoreFeature="ecore:EAttribute aadl2.ecore#//NamedElement/qualifiedName.1"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//NamedElement/namespace"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//NamedElement/ownedPropertyAssociation"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/has_no_qualified_name">
@@ -144,6 +141,7 @@
         <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NamedElement/has_qualified_name/diagnostics"/>
         <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NamedElement/has_qualified_name/context"/>
       </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/getNamespace"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/allNamespaces"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/isDistinguishableFrom">
         <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NamedElement/isDistinguishableFrom/n"/>

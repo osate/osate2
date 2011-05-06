@@ -6,11 +6,15 @@
     </packageMerge>
     <packagedElement xmi:type="uml:Class" xmi:id="Element" name="Element" isAbstract="true">
       <ownedAttribute xmi:id="Element-ownedElement" name="ownedElement" isDerived="true" aggregation="composite"/>
-      <ownedAttribute xmi:id="Element-owner" name="owner" isDerived="true"/>
+      <ownedOperation xmi:id="_bAVvYHgFEeC4Xe5PtADoMg" name="getOwner">
+        <ownedParameter xmi:id="_fUSQ0HgFEeC4Xe5PtADoMg" type="Element" direction="return"/>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="NamedElement" name="NamedElement" isAbstract="true">
       <ownedAttribute xmi:id="NamedElement-qualifiedName" name="qualifiedName" isDerived="true"/>
-      <ownedAttribute xmi:id="NamedElement-namespace" name="namespace" isDerived="true"/>
+      <ownedOperation xmi:id="_jI6ZAHgFEeC4Xe5PtADoMg" name="getNamespace">
+        <ownedParameter xmi:id="_jI6ZAXgFEeC4Xe5PtADoMg" type="Namespace" direction="return"/>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Namespace" name="Namespace" isAbstract="true">
       <ownedAttribute xmi:id="Namespace-ownedMember" name="ownedMember" isDerived="true" aggregation="composite"/>
@@ -367,9 +371,9 @@
   <Ecore:EReference xmi:id="_BDZNYFl7Ed2rAYnnAX19tA" isTransient="true" isVolatile="true" base_Property="GlobalNamespace-package"/>
   <Ecore:EReference xmi:id="_hQEeUFl9Ed2rAYnnAX19tA" isTransient="true" isVolatile="true" base_Property="GlobalNamespace-propertySet"/>
   <Ecore:EReference xmi:id="_wVAMkFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Element-ownedElement"/>
-  <Ecore:EReference xmi:id="_wVAMkVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Element-owner"/>
+  <Ecore:EReference xmi:id="_wVAMkVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EAttribute xmi:id="_wVAMklm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="NamedElement-qualifiedName"/>
-  <Ecore:EReference xmi:id="_wVAMk1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="NamedElement-namespace"/>
+  <Ecore:EReference xmi:id="_wVAMk1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVAMlFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Namespace-ownedMember"/>
   <Ecore:EReference xmi:id="_wVAMlVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Namespace-member"/>
   <Ecore:EReference xmi:id="_wVJ9kFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-classifierFeature"/>

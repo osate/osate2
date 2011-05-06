@@ -72,7 +72,7 @@ public interface InstancePackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://aadl.info/instance/2.0";
+	String eNS_URI = "http://aadl.info/AADL/2.0/instance";
 
 	/**
 	 * The package namespace name.
@@ -110,15 +110,6 @@ public interface InstancePackage extends EPackage {
 	int INSTANCE_OBJECT__OWNED_ELEMENT = Aadl2Package.NAMED_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OBJECT__OWNER = Aadl2Package.NAMED_ELEMENT__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -144,15 +135,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int INSTANCE_OBJECT__QUALIFIED_NAME = Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OBJECT__NAMESPACE = Aadl2Package.NAMED_ELEMENT__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -202,15 +184,6 @@ public interface InstancePackage extends EPackage {
 	int CONNECTION_INSTANCE_END__OWNED_ELEMENT = INSTANCE_OBJECT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_INSTANCE_END__OWNER = INSTANCE_OBJECT__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -236,15 +209,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int CONNECTION_INSTANCE_END__QUALIFIED_NAME = INSTANCE_OBJECT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_INSTANCE_END__NAMESPACE = INSTANCE_OBJECT__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -292,15 +256,6 @@ public interface InstancePackage extends EPackage {
 	int FEATURE_INSTANCE__OWNED_ELEMENT = CONNECTION_INSTANCE_END__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_INSTANCE__OWNER = CONNECTION_INSTANCE_END__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -326,15 +281,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int FEATURE_INSTANCE__QUALIFIED_NAME = CONNECTION_INSTANCE_END__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_INSTANCE__NAMESPACE = CONNECTION_INSTANCE_END__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -455,15 +401,6 @@ public interface InstancePackage extends EPackage {
 	int FLOW_ELEMENT_INSTANCE__OWNED_ELEMENT = INSTANCE_OBJECT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_ELEMENT_INSTANCE__OWNER = INSTANCE_OBJECT__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -489,15 +426,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int FLOW_ELEMENT_INSTANCE__QUALIFIED_NAME = INSTANCE_OBJECT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_ELEMENT_INSTANCE__NAMESPACE = INSTANCE_OBJECT__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -537,15 +465,6 @@ public interface InstancePackage extends EPackage {
 	int CONNECTION_INSTANCE__OWNED_ELEMENT = FLOW_ELEMENT_INSTANCE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_INSTANCE__OWNER = FLOW_ELEMENT_INSTANCE__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -571,15 +490,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int CONNECTION_INSTANCE__QUALIFIED_NAME = FLOW_ELEMENT_INSTANCE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_INSTANCE__NAMESPACE = FLOW_ELEMENT_INSTANCE__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -682,15 +592,6 @@ public interface InstancePackage extends EPackage {
 	int SYSTEM_OPERATION_MODE__OWNED_ELEMENT = Aadl2Package.MODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_OPERATION_MODE__OWNER = Aadl2Package.MODE__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -716,15 +617,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int SYSTEM_OPERATION_MODE__QUALIFIED_NAME = Aadl2Package.MODE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_OPERATION_MODE__NAMESPACE = Aadl2Package.MODE__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -800,15 +692,6 @@ public interface InstancePackage extends EPackage {
 	int MODE_INSTANCE__OWNED_ELEMENT = INSTANCE_OBJECT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_INSTANCE__OWNER = INSTANCE_OBJECT__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -834,15 +717,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int MODE_INSTANCE__QUALIFIED_NAME = INSTANCE_OBJECT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_INSTANCE__NAMESPACE = INSTANCE_OBJECT__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -918,15 +792,6 @@ public interface InstancePackage extends EPackage {
 	int MODE_TRANSITION_INSTANCE__OWNED_ELEMENT = CONNECTION_INSTANCE_END__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION_INSTANCE__OWNER = CONNECTION_INSTANCE_END__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -952,15 +817,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int MODE_TRANSITION_INSTANCE__QUALIFIED_NAME = CONNECTION_INSTANCE_END__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION_INSTANCE__NAMESPACE = CONNECTION_INSTANCE_END__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -1045,15 +901,6 @@ public interface InstancePackage extends EPackage {
 	int CONNECTION_REFERENCE__OWNED_ELEMENT = INSTANCE_OBJECT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_REFERENCE__OWNER = INSTANCE_OBJECT__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1079,15 +926,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int CONNECTION_REFERENCE__QUALIFIED_NAME = INSTANCE_OBJECT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_REFERENCE__NAMESPACE = INSTANCE_OBJECT__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -1145,15 +983,6 @@ public interface InstancePackage extends EPackage {
 	int COMPONENT_INSTANCE__OWNED_ELEMENT = CONNECTION_INSTANCE_END__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_INSTANCE__OWNER = CONNECTION_INSTANCE_END__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1179,15 +1008,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int COMPONENT_INSTANCE__QUALIFIED_NAME = CONNECTION_INSTANCE_END__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_INSTANCE__NAMESPACE = CONNECTION_INSTANCE_END__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -1344,15 +1164,6 @@ public interface InstancePackage extends EPackage {
 	int FLOW_SPECIFICATION_INSTANCE__OWNED_ELEMENT = FLOW_ELEMENT_INSTANCE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION_INSTANCE__OWNER = FLOW_ELEMENT_INSTANCE__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1378,15 +1189,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int FLOW_SPECIFICATION_INSTANCE__QUALIFIED_NAME = FLOW_ELEMENT_INSTANCE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION_INSTANCE__NAMESPACE = FLOW_ELEMENT_INSTANCE__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -1453,15 +1255,6 @@ public interface InstancePackage extends EPackage {
 	int END_TO_END_FLOW_INSTANCE__OWNED_ELEMENT = INSTANCE_OBJECT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_INSTANCE__OWNER = INSTANCE_OBJECT__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1487,15 +1280,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int END_TO_END_FLOW_INSTANCE__QUALIFIED_NAME = INSTANCE_OBJECT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_INSTANCE__NAMESPACE = INSTANCE_OBJECT__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -1571,15 +1355,6 @@ public interface InstancePackage extends EPackage {
 	int SYSTEM_INSTANCE__OWNED_ELEMENT = COMPONENT_INSTANCE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_INSTANCE__OWNER = COMPONENT_INSTANCE__OWNER;
-
-	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1605,15 +1380,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int SYSTEM_INSTANCE__QUALIFIED_NAME = COMPONENT_INSTANCE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_INSTANCE__NAMESPACE = COMPONENT_INSTANCE__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -1786,15 +1552,6 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int INSTANCE_REFERENCE_VALUE__OWNED_ELEMENT = Aadl2Package.PROPERTY_VALUE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_REFERENCE_VALUE__OWNER = Aadl2Package.PROPERTY_VALUE__OWNER;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
