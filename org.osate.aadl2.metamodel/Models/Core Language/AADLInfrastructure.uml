@@ -39,16 +39,6 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Element-ownedElement-_upperValue" value="*"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Element-ownedElement-_lowerValue"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="Element-owner" name="owner" type="Element" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_ownedElement_owner">
-        <eAnnotations xmi:id="Element-owner-_http2F2Fwww.topcased.org2Fdocumentation" source="http://www.topcased.org/documentation">
-          <details xmi:id="Element-owner-_http2F2Fwww.topcased.org2Fdocumentation-_details.0" key="documentation" value="The Element that owns this element."/>
-        </eAnnotations>
-        <ownedComment xmi:id="Element-owner-_ownedComment.0" annotatedElement="Element-owner">
-          <body>The Element that owns this element.</body>
-        </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Element-owner-_upperValue" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Element-owner-_lowerValue"/>
-      </ownedAttribute>
       <ownedAttribute xmi:id="Element-ownedComment" name="ownedComment" type="Comment" aggregation="composite" subsettedProperty="Element-ownedElement" association="A_ownedComment_owningElement">
         <eAnnotations xmi:id="Element-ownedComment-_http2F2Fwww.topcased.org2Fdocumentation" source="http://www.topcased.org/documentation">
           <details xmi:id="Element-ownedComment-_http2F2Fwww.topcased.org2Fdocumentation-_details.0" key="documentation" value="The Comments owned by this element."/>
@@ -87,7 +77,18 @@
         <ownedParameter xmi:id="Element-mustBeOwned-_ownedParameter.0" type="Boolean" direction="return"/>
       </ownedOperation>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="A_ownedElement_owner" name="A_ownedElement_owner" memberEnd="Element-ownedElement Element-owner"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_ownedElement_owner" name="A_ownedElement_owner" memberEnd="Element-ownedElement Element-owner">
+      <ownedEnd xmi:id="Element-owner" name="owner" type="Element" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_ownedElement_owner">
+        <eAnnotations xmi:id="Element-owner-_http2F2Fwww.topcased.org2Fdocumentation" source="http://www.topcased.org/documentation">
+          <details xmi:id="Element-owner-_http2F2Fwww.topcased.org2Fdocumentation-_details.0" key="documentation" value="The Element that owns this element."/>
+        </eAnnotations>
+        <ownedComment xmi:id="Element-owner-_ownedComment.0" annotatedElement="Element-owner">
+          <body>The Element that owns this element.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Element-owner-_upperValue" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Element-owner-_lowerValue"/>
+      </ownedEnd>
+    </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_ownedComment_owningElement" name="A_ownedComment_owningElement" memberEnd="Element-ownedComment A_ownedComment_owningElement-owningElement">
       <generalization xmi:id="A_ownedComment_owningElement-_generalization.0" general="A_ownedElement_owner"/>
       <ownedEnd xmi:id="A_ownedComment_owningElement-owningElement" name="owningElement" type="Element" subsettedProperty="Element-owner" association="A_ownedComment_owningElement">
@@ -153,16 +154,6 @@
         </ownedComment>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="NamedElement-qualifiedName-_upperValue" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="NamedElement-qualifiedName-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="NamedElement-namespace" name="namespace" type="Namespace" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_ownedMember_namespace">
-        <eAnnotations xmi:id="NamedElement-namespace-_http2F2Fwww.topcased.org2Fdocumentation" source="http://www.topcased.org/documentation">
-          <details xmi:id="NamedElement-namespace-_http2F2Fwww.topcased.org2Fdocumentation-_details.0" key="documentation" value="Specifies the namespace that owns the NamedElement."/>
-        </eAnnotations>
-        <ownedComment xmi:id="NamedElement-namespace-_ownedComment.0" annotatedElement="NamedElement-namespace">
-          <body>Specifies the namespace that owns the NamedElement.</body>
-        </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="NamedElement-namespace-_upperValue" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="NamedElement-namespace-_lowerValue"/>
       </ownedAttribute>
       <ownedOperation xmi:id="NamedElement-allNamespaces" name="allNamespaces" isQuery="true" bodyCondition="NamedElement-allNamespaces-spec">
         <ownedComment xmi:id="NamedElement-allNamespaces-_ownedComment.0" annotatedElement="NamedElement-allNamespaces">
@@ -284,6 +275,16 @@
     <packagedElement xmi:type="uml:Association" xmi:id="A_ownedMember_namespace" name="A_ownedMember_namespace" memberEnd="Namespace-ownedMember NamedElement-namespace">
       <generalization xmi:id="A_ownedMember_namespace-_generalization.0" general="A_ownedElement_owner"/>
       <generalization xmi:id="A_ownedMember_namespace-_generalization.1" general="A_member_namespace"/>
+      <ownedEnd xmi:id="NamedElement-namespace" name="namespace" type="Namespace" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_ownedMember_namespace">
+        <eAnnotations xmi:id="NamedElement-namespace-_http2F2Fwww.topcased.org2Fdocumentation" source="http://www.topcased.org/documentation">
+          <details xmi:id="NamedElement-namespace-_http2F2Fwww.topcased.org2Fdocumentation-_details.0" key="documentation" value="Specifies the namespace that owns the NamedElement."/>
+        </eAnnotations>
+        <ownedComment xmi:id="NamedElement-namespace-_ownedComment.0" annotatedElement="NamedElement-namespace">
+          <body>Specifies the namespace that owns the NamedElement.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="NamedElement-namespace-_upperValue" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="NamedElement-namespace-_lowerValue"/>
+      </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_member_namespace" name="A_member_namespace" memberEnd="Namespace-member A_member_namespace-namespace">
       <ownedEnd xmi:id="A_member_namespace-namespace" name="namespace" type="Namespace" association="A_member_namespace">

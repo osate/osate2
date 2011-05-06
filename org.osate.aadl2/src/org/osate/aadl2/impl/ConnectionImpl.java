@@ -36,6 +36,7 @@
 package org.osate.aadl2.impl;
 
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -46,7 +47,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
@@ -62,7 +62,6 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
-import org.osate.aadl2.StructuralFeature;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 

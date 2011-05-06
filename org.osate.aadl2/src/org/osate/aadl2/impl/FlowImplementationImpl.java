@@ -51,7 +51,6 @@ import org.eclipse.uml2.common.util.SubsetSupersetEObjectContainmentEList;
 import org.eclipse.uml2.common.util.SubsetSupersetEObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowKind;
@@ -61,7 +60,6 @@ import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.RefinableElement;
-import org.osate.aadl2.StructuralFeature;
 import org.osate.aadl2.SubcomponentFlow;
 
 /**

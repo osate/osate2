@@ -63,6 +63,7 @@ import org.osate.aadl2.util.Aadl2Validator;
  * <ul>
  *   <li>{@link org.osate.aadl2.Element#not_own_self(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Not own self</em>}</li>
  *   <li>{@link org.osate.aadl2.Element#has_owner(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has owner</em>}</li>
+ *   <li>{@link org.osate.aadl2.Element#getOwner() <em>Get Owner</em>}</li>
  *   <li>{@link org.osate.aadl2.Element#allOwnedElements() <em>All Owned Elements</em>}</li>
  *   <li>{@link org.osate.aadl2.Element#mustBeOwned() <em>Must Be Owned</em>}</li>
  * </ul>
@@ -206,6 +207,15 @@ public class ElementOperations {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public static Element getOwner(Element element) {
+		return (Element) element.eContainer();
+	}
+
+	/**
 	 * The cached OCL expression body for the '{@link #allOwnedElements(Element) <em>All Owned Elements</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -239,7 +249,7 @@ public class ElementOperations {
 		if (ALL_OWNED_ELEMENTS__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(), Aadl2Package.eINSTANCE.getElement()
-					.getEAllOperations().get(2));
+					.getEAllOperations().get(3));
 			try {
 				ALL_OWNED_ELEMENTS__EOCL_QRY = helper.createQuery(ALL_OWNED_ELEMENTS__EOCL_EXP);
 			} catch (ParserException pe) {
@@ -286,7 +296,7 @@ public class ElementOperations {
 		if (MUST_BE_OWNED__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(), Aadl2Package.eINSTANCE.getElement()
-					.getEAllOperations().get(3));
+					.getEAllOperations().get(4));
 			try {
 				MUST_BE_OWNED__EOCL_QRY = helper.createQuery(MUST_BE_OWNED__EOCL_EXP);
 			} catch (ParserException pe) {
