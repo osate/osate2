@@ -115,22 +115,6 @@ public interface NamedElement extends Element {
 	String getQualifiedName();
 
 	/**
-	 * Returns the value of the '<em><b>Namespace</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.Namespace#getOwnedMembers <em>Owned Member</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Specifies the namespace that owns the NamedElement.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Namespace</em>' container reference.
-	 * @see org.osate.aadl2.Aadl2Package#getNamedElement_Namespace()
-	 * @see org.osate.aadl2.Namespace#getOwnedMembers
-	 * @model opposite="ownedMember" changeable="false" volatile="true" derived="true" ordered="false"
-	 *        annotation="http://www.topcased.org/documentation documentation='Specifies the namespace that owns the NamedElement.'"
-	 * @generated
-	 */
-	Namespace getNamespace();
-
-	/**
 	 * Returns the value of the '<em><b>Owned Property Association</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.PropertyAssociation}.
 	 * <!-- begin-user-doc
@@ -190,6 +174,14 @@ public interface NamedElement extends Element {
 	 * @generated
 	 */
 	boolean has_qualified_name(DiagnosticChain diagnostics, Map<Object, Object> context);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true" ordered="false"
+	 * @generated
+	 */
+	Namespace getNamespace();
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->

@@ -44,7 +44,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.operations.ModalElementOperations;
-import org.osate.aadl2.RefinableElement;
 
 /**
  * <!-- begin-user-doc -->

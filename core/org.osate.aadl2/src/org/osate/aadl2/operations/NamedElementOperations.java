@@ -66,6 +66,7 @@ import org.osate.aadl2.util.Aadl2Validator;
  * <ul>
  *   <li>{@link org.osate.aadl2.NamedElement#has_no_qualified_name(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has no qualified name</em>}</li>
  *   <li>{@link org.osate.aadl2.NamedElement#has_qualified_name(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has qualified name</em>}</li>
+ *   <li>{@link org.osate.aadl2.NamedElement#getNamespace() <em>Get Namespace</em>}</li>
  *   <li>{@link org.osate.aadl2.NamedElement#allNamespaces() <em>All Namespaces</em>}</li>
  *   <li>{@link org.osate.aadl2.NamedElement#isDistinguishableFrom(org.osate.aadl2.NamedElement, org.osate.aadl2.Namespace) <em>Is Distinguishable From</em>}</li>
  *   <li>{@link org.osate.aadl2.NamedElement#separator() <em>Separator</em>}</li>
@@ -210,6 +211,16 @@ public class NamedElementOperations extends ElementOperations {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public static Namespace getNamespace(NamedElement namedElement) {
+		// DONE: implement this method
+		return (Namespace) namedElement.getOwner();
+	}
+
+	/**
 	 * The cached OCL expression body for the '{@link #allNamespaces(NamedElement) <em>All Namespaces</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -248,7 +259,7 @@ public class NamedElementOperations extends ElementOperations {
 		if (ALL_NAMESPACES__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(), Aadl2Package.eINSTANCE
-					.getNamedElement().getEAllOperations().get(6));
+					.getNamedElement().getEAllOperations().get(8));
 			try {
 				ALL_NAMESPACES__EOCL_QRY = helper.createQuery(ALL_NAMESPACES__EOCL_EXP);
 			} catch (ParserException pe) {
@@ -303,7 +314,7 @@ public class NamedElementOperations extends ElementOperations {
 		if (IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(), Aadl2Package.eINSTANCE
-					.getNamedElement().getEAllOperations().get(7));
+					.getNamedElement().getEAllOperations().get(9));
 			try {
 				IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_QRY = helper
 						.createQuery(IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_EXP);
@@ -352,7 +363,7 @@ public class NamedElementOperations extends ElementOperations {
 		if (SEPARATOR__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(), Aadl2Package.eINSTANCE
-					.getNamedElement().getEAllOperations().get(8));
+					.getNamedElement().getEAllOperations().get(10));
 			try {
 				SEPARATOR__EOCL_QRY = helper.createQuery(SEPARATOR__EOCL_EXP);
 			} catch (ParserException pe) {

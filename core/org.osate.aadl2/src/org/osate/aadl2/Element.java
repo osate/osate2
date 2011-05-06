@@ -55,7 +55,6 @@ import org.osate.aadl2.parsesupport.AObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.Element#getOwnedElements <em>Owned Element</em>}</li>
- *   <li>{@link org.osate.aadl2.Element#getOwner <em>Owner</em>}</li>
  *   <li>{@link org.osate.aadl2.Element#getOwnedComments <em>Owned Comment</em>}</li>
  * </ul>
  * </p>
@@ -69,7 +68,6 @@ public interface Element extends AObject {
 	/**
 	 * Returns the value of the '<em><b>Owned Element</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.Element}.
-	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.Element#getOwner <em>Owner</em>}'.
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -78,30 +76,11 @@ public interface Element extends AObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Element</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getElement_OwnedElement()
-	 * @see org.osate.aadl2.Element#getOwner
-	 * @model opposite="owner" containment="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model containment="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 *        annotation="http://www.topcased.org/documentation documentation='The Elements owned by this element.'"
 	 * @generated
 	 */
 	EList<Element> getOwnedElements();
-
-	/**
-	 * Returns the value of the '<em><b>Owner</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.Element#getOwnedElements <em>Owned Element</em>}'.
-	 * This feature is a derived union.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The Element that owns this element.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Owner</em>' container reference.
-	 * @see org.osate.aadl2.Aadl2Package#getElement_Owner()
-	 * @see org.osate.aadl2.Element#getOwnedElements
-	 * @model opposite="ownedElement" changeable="false" volatile="true" derived="true" ordered="false"
-	 *        annotation="http://www.topcased.org/documentation documentation='The Element that owns this element.'"
-	 * @generated
-	 */
-	Element getOwner();
 
 	/**
 	 * Returns the value of the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -166,6 +145,14 @@ public interface Element extends AObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true" ordered="false"
+	 * @generated
+	 */
+	Element getOwner();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allOwnedElements() gives all of the direct and indirect owned elements of an element.
 	 * ownedElement->union(ownedElement->collect(e | e.allOwnedElements()))
@@ -190,8 +177,8 @@ public interface Element extends AObject {
 	boolean mustBeOwned();
 
 	/**
-	 * find the root container of this element
-	 * @return Element object
+	 * Find the root container of this element
+	 * @return The root container of this element
 	 */
 	Element getElementRoot();
 
