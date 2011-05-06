@@ -21009,13 +21009,13 @@ protected class PropertyReference_PropertyAssignment extends AssignmentToken  {
  * // needs to have classifier or prototype reference
  * DataPort returns aadl2::DataPort:
  * 	(name=ID COLON | refined=[aadl2::DataPort] COLON "refined" "to") direction=PortDirection "data" "port"
- * 	dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+ * 	dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI;
  *
  **/
 
 // (name=ID COLON | refined=[aadl2::DataPort] COLON "refined" "to") direction=PortDirection "data" "port"
-// dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+// dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI
 protected class DataPort_Group extends GroupToken {
 	
@@ -21350,7 +21350,7 @@ protected class DataPort_PortKeyword_3 extends KeywordToken  {
 
 }
 
-// dataClassifier=[aadl2::DataType|QCREF]?
+// dataClassifier=[aadl2::DataClassifier|QCREF]?
 protected class DataPort_DataClassifierAssignment_4 extends AssignmentToken  {
 	
 	public DataPort_DataClassifierAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -21376,9 +21376,9 @@ protected class DataPort_DataClassifierAssignment_4 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("dataClassifier");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getDataPortAccess().getDataClassifierDataTypeCrossReference_4_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getDataPortAccess().getDataClassifierDataClassifierCrossReference_4_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getDataPortAccess().getDataClassifierDataTypeCrossReference_4_0(); 
+				element = grammarAccess.getDataPortAccess().getDataClassifierDataClassifierCrossReference_4_0(); 
 				return obj;
 			}
 		}
@@ -21583,13 +21583,13 @@ protected class DataPort_SEMITerminalRuleCall_7 extends UnassignedTextToken {
  *
  * EventDataPort returns aadl2::EventDataPort:
  * 	(name=ID COLON | refined=[aadl2::EventDataPort] COLON "refined" "to") direction=PortDirection "event" "data" "port"
- * 	dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+ * 	dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI;
  *
  **/
 
 // (name=ID COLON | refined=[aadl2::EventDataPort] COLON "refined" "to") direction=PortDirection "event" "data" "port"
-// dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+// dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI
 protected class EventDataPort_Group extends GroupToken {
 	
@@ -21946,7 +21946,7 @@ protected class EventDataPort_PortKeyword_4 extends KeywordToken  {
 
 }
 
-// dataClassifier=[aadl2::DataType|QCREF]?
+// dataClassifier=[aadl2::DataClassifier|QCREF]?
 protected class EventDataPort_DataClassifierAssignment_5 extends AssignmentToken  {
 	
 	public EventDataPort_DataClassifierAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -21972,9 +21972,9 @@ protected class EventDataPort_DataClassifierAssignment_5 extends AssignmentToken
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("dataClassifier");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getEventDataPortAccess().getDataClassifierDataTypeCrossReference_5_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getEventDataPortAccess().getDataClassifierDataClassifierCrossReference_5_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getEventDataPortAccess().getDataClassifierDataTypeCrossReference_5_0(); 
+				element = grammarAccess.getEventDataPortAccess().getDataClassifierDataClassifierCrossReference_5_0(); 
 				return obj;
 			}
 		}
@@ -23370,13 +23370,13 @@ protected class FeatureGroup_SEMITerminalRuleCall_8 extends UnassignedTextToken 
  *
  * Parameter returns aadl2::Parameter:
  * 	(name=ID COLON | refined=[aadl2::Parameter] COLON "refined" "to") direction=PortDirection "parameter"
- * 	dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+ * 	dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI;
  *
  **/
 
 // (name=ID COLON | refined=[aadl2::Parameter] COLON "refined" "to") direction=PortDirection "parameter"
-// dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+// dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI
 protected class Parameter_Group extends GroupToken {
 	
@@ -23689,7 +23689,7 @@ protected class Parameter_ParameterKeyword_2 extends KeywordToken  {
 
 }
 
-// dataClassifier=[aadl2::DataType|QCREF]?
+// dataClassifier=[aadl2::DataClassifier|QCREF]?
 protected class Parameter_DataClassifierAssignment_3 extends AssignmentToken  {
 	
 	public Parameter_DataClassifierAssignment_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -23715,9 +23715,9 @@ protected class Parameter_DataClassifierAssignment_3 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("dataClassifier");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getParameterAccess().getDataClassifierDataTypeCrossReference_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getParameterAccess().getDataClassifierDataClassifierCrossReference_3_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getParameterAccess().getDataClassifierDataTypeCrossReference_3_0(); 
+				element = grammarAccess.getParameterAccess().getDataClassifierDataClassifierCrossReference_3_0(); 
 				return obj;
 			}
 		}

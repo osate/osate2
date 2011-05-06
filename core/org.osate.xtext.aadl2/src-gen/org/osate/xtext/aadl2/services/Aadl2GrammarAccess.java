@@ -4467,8 +4467,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cDataKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Keyword cPortKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cDataClassifierAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cDataClassifierDataTypeCrossReference_4_0 = (CrossReference)cDataClassifierAssignment_4.eContents().get(0);
-		private final RuleCall cDataClassifierDataTypeQCREFParserRuleCall_4_0_1 = (RuleCall)cDataClassifierDataTypeCrossReference_4_0.eContents().get(1);
+		private final CrossReference cDataClassifierDataClassifierCrossReference_4_0 = (CrossReference)cDataClassifierAssignment_4.eContents().get(0);
+		private final RuleCall cDataClassifierDataClassifierQCREFParserRuleCall_4_0_1 = (RuleCall)cDataClassifierDataClassifierCrossReference_4_0.eContents().get(1);
 		private final Assignment cArraySpecificationAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cArraySpecificationSingleArraySpecificationParserRuleCall_5_0 = (RuleCall)cArraySpecificationAssignment_5.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
@@ -4482,12 +4482,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//// needs to have classifier or prototype reference
 		//DataPort returns aadl2::DataPort:
 		//	(name=ID COLON | refined=[aadl2::DataPort] COLON "refined" "to") direction=PortDirection "data" "port"
-		//	dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+		//	dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
 		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI;
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID COLON | refined=[aadl2::DataPort] COLON "refined" "to") direction=PortDirection "data" "port"
-		//dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+		//dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI
 		public Group getGroup() { return cGroup; }
 
@@ -4539,14 +4539,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"port"
 		public Keyword getPortKeyword_3() { return cPortKeyword_3; }
 
-		//dataClassifier=[aadl2::DataType|QCREF]?
+		//dataClassifier=[aadl2::DataClassifier|QCREF]?
 		public Assignment getDataClassifierAssignment_4() { return cDataClassifierAssignment_4; }
 
-		//[aadl2::DataType|QCREF]
-		public CrossReference getDataClassifierDataTypeCrossReference_4_0() { return cDataClassifierDataTypeCrossReference_4_0; }
+		//[aadl2::DataClassifier|QCREF]
+		public CrossReference getDataClassifierDataClassifierCrossReference_4_0() { return cDataClassifierDataClassifierCrossReference_4_0; }
 
 		//QCREF
-		public RuleCall getDataClassifierDataTypeQCREFParserRuleCall_4_0_1() { return cDataClassifierDataTypeQCREFParserRuleCall_4_0_1; }
+		public RuleCall getDataClassifierDataClassifierQCREFParserRuleCall_4_0_1() { return cDataClassifierDataClassifierQCREFParserRuleCall_4_0_1; }
 
 		//arraySpecification=SingleArraySpecification?
 		public Assignment getArraySpecificationAssignment_5() { return cArraySpecificationAssignment_5; }
@@ -4594,8 +4594,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cDataKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cPortKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cDataClassifierAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cDataClassifierDataTypeCrossReference_5_0 = (CrossReference)cDataClassifierAssignment_5.eContents().get(0);
-		private final RuleCall cDataClassifierDataTypeQCREFParserRuleCall_5_0_1 = (RuleCall)cDataClassifierDataTypeCrossReference_5_0.eContents().get(1);
+		private final CrossReference cDataClassifierDataClassifierCrossReference_5_0 = (CrossReference)cDataClassifierAssignment_5.eContents().get(0);
+		private final RuleCall cDataClassifierDataClassifierQCREFParserRuleCall_5_0_1 = (RuleCall)cDataClassifierDataClassifierCrossReference_5_0.eContents().get(1);
 		private final Assignment cArraySpecificationAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cArraySpecificationSingleArraySpecificationParserRuleCall_6_0 = (RuleCall)cArraySpecificationAssignment_6.eContents().get(0);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
@@ -4607,12 +4607,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//EventDataPort returns aadl2::EventDataPort:
 		//	(name=ID COLON | refined=[aadl2::EventDataPort] COLON "refined" "to") direction=PortDirection "event" "data" "port"
-		//	dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+		//	dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
 		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI;
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID COLON | refined=[aadl2::EventDataPort] COLON "refined" "to") direction=PortDirection "event" "data" "port"
-		//dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+		//dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI
 		public Group getGroup() { return cGroup; }
 
@@ -4667,14 +4667,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"port"
 		public Keyword getPortKeyword_4() { return cPortKeyword_4; }
 
-		//dataClassifier=[aadl2::DataType|QCREF]?
+		//dataClassifier=[aadl2::DataClassifier|QCREF]?
 		public Assignment getDataClassifierAssignment_5() { return cDataClassifierAssignment_5; }
 
-		//[aadl2::DataType|QCREF]
-		public CrossReference getDataClassifierDataTypeCrossReference_5_0() { return cDataClassifierDataTypeCrossReference_5_0; }
+		//[aadl2::DataClassifier|QCREF]
+		public CrossReference getDataClassifierDataClassifierCrossReference_5_0() { return cDataClassifierDataClassifierCrossReference_5_0; }
 
 		//QCREF
-		public RuleCall getDataClassifierDataTypeQCREFParserRuleCall_5_0_1() { return cDataClassifierDataTypeQCREFParserRuleCall_5_0_1; }
+		public RuleCall getDataClassifierDataClassifierQCREFParserRuleCall_5_0_1() { return cDataClassifierDataClassifierQCREFParserRuleCall_5_0_1; }
 
 		//arraySpecification=SingleArraySpecification?
 		public Assignment getArraySpecificationAssignment_6() { return cArraySpecificationAssignment_6; }
@@ -4979,8 +4979,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDirectionPortDirectionParserRuleCall_1_0 = (RuleCall)cDirectionAssignment_1.eContents().get(0);
 		private final Keyword cParameterKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cDataClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cDataClassifierDataTypeCrossReference_3_0 = (CrossReference)cDataClassifierAssignment_3.eContents().get(0);
-		private final RuleCall cDataClassifierDataTypeQCREFParserRuleCall_3_0_1 = (RuleCall)cDataClassifierDataTypeCrossReference_3_0.eContents().get(1);
+		private final CrossReference cDataClassifierDataClassifierCrossReference_3_0 = (CrossReference)cDataClassifierAssignment_3.eContents().get(0);
+		private final RuleCall cDataClassifierDataClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cDataClassifierDataClassifierCrossReference_3_0.eContents().get(1);
 		private final Assignment cArraySpecificationAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cArraySpecificationSingleArraySpecificationParserRuleCall_4_0 = (RuleCall)cArraySpecificationAssignment_4.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
@@ -4992,12 +4992,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Parameter returns aadl2::Parameter:
 		//	(name=ID COLON | refined=[aadl2::Parameter] COLON "refined" "to") direction=PortDirection "parameter"
-		//	dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+		//	dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
 		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI;
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID COLON | refined=[aadl2::Parameter] COLON "refined" "to") direction=PortDirection "parameter"
-		//dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+		//dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI
 		public Group getGroup() { return cGroup; }
 
@@ -5046,14 +5046,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"parameter"
 		public Keyword getParameterKeyword_2() { return cParameterKeyword_2; }
 
-		//dataClassifier=[aadl2::DataType|QCREF]?
+		//dataClassifier=[aadl2::DataClassifier|QCREF]?
 		public Assignment getDataClassifierAssignment_3() { return cDataClassifierAssignment_3; }
 
-		//[aadl2::DataType|QCREF]
-		public CrossReference getDataClassifierDataTypeCrossReference_3_0() { return cDataClassifierDataTypeCrossReference_3_0; }
+		//[aadl2::DataClassifier|QCREF]
+		public CrossReference getDataClassifierDataClassifierCrossReference_3_0() { return cDataClassifierDataClassifierCrossReference_3_0; }
 
 		//QCREF
-		public RuleCall getDataClassifierDataTypeQCREFParserRuleCall_3_0_1() { return cDataClassifierDataTypeQCREFParserRuleCall_3_0_1; }
+		public RuleCall getDataClassifierDataClassifierQCREFParserRuleCall_3_0_1() { return cDataClassifierDataClassifierQCREFParserRuleCall_3_0_1; }
 
 		//arraySpecification=SingleArraySpecification?
 		public Assignment getArraySpecificationAssignment_4() { return cArraySpecificationAssignment_4; }
@@ -9929,7 +9929,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//// needs to have classifier or prototype reference
 	//DataPort returns aadl2::DataPort:
 	//	(name=ID COLON | refined=[aadl2::DataPort] COLON "refined" "to") direction=PortDirection "data" "port"
-	//	dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+	//	dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI;
 	public DataPortElements getDataPortAccess() {
 		return (pDataPort != null) ? pDataPort : (pDataPort = new DataPortElements());
@@ -9941,7 +9941,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//EventDataPort returns aadl2::EventDataPort:
 	//	(name=ID COLON | refined=[aadl2::EventDataPort] COLON "refined" "to") direction=PortDirection "event" "data" "port"
-	//	dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+	//	dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI;
 	public EventDataPortElements getEventDataPortAccess() {
 		return (pEventDataPort != null) ? pEventDataPort : (pEventDataPort = new EventDataPortElements());
@@ -9979,7 +9979,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//Parameter returns aadl2::Parameter:
 	//	(name=ID COLON | refined=[aadl2::Parameter] COLON "refined" "to") direction=PortDirection "parameter"
-	//	dataClassifier=[aadl2::DataType|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
+	//	dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? (LCURLY
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ RCURLY)? SEMI;
 	public ParameterElements getParameterAccess() {
 		return (pParameter != null) ? pParameter : (pParameter = new ParameterElements());

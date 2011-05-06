@@ -482,9 +482,11 @@ public class NameResolver
 			imports = ((PropertySet)context).getImportedPackages();
 		else
 			imports = ((PackageSection)context).getImportedPackages();
-		for (AadlPackage imported : imports)
-			if (((AadlPackage)imported).getName().equalsIgnoreCase(name))
+		for (AadlPackage imported : imports){
+			String n = ((AadlPackage)imported).getName();
+			if (name.equalsIgnoreCase(n))
 				return (AadlPackage)imported;
+		}
 		if (context instanceof PrivatePackageSection && ((AadlPackage)context.eContainer()).getOwnedPublicSection() != null)
 			for (AadlPackage imported : ((AadlPackage)context.eContainer()).getOwnedPublicSection().getImportedPackages())
 				if (imported instanceof AadlPackage && ((AadlPackage)imported).getName().equalsIgnoreCase(name))
