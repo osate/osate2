@@ -37,7 +37,6 @@ package org.osate.aadl2.operations;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.RefinableElement;
 
 /**
  * <!-- begin-user-doc -->

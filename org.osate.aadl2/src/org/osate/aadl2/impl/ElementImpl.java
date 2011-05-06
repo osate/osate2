@@ -67,7 +67,6 @@ import org.osate.aadl2.parsesupport.AObjectImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ElementImpl#getOwnedElements <em>Owned Element</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ElementImpl#getOwner <em>Owner</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ElementImpl#getOwnedComments <em>Owned Comment</em>}</li>
  * </ul>
  * </p>
@@ -140,15 +139,6 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public Element getOwner() {
-		return (Element) eContainer();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<Comment> getOwnedComments() {
@@ -193,6 +183,15 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Element getOwner() {
+		return ElementOperations.getOwner(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Element> allOwnedElements() {
 		return ElementOperations.allOwnedElements(this);
 	}
@@ -226,26 +225,10 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID()) {
-		case Aadl2Package.ELEMENT__OWNER:
-			return eInternalContainer().eInverseRemove(this, Aadl2Package.ELEMENT__OWNED_ELEMENT, Element.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ELEMENT__OWNED_ELEMENT:
 			return getOwnedElements();
-		case Aadl2Package.ELEMENT__OWNER:
-			return getOwner();
 		case Aadl2Package.ELEMENT__OWNED_COMMENT:
 			return getOwnedComments();
 		}
@@ -294,8 +277,6 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 		switch (featureID) {
 		case Aadl2Package.ELEMENT__OWNED_ELEMENT:
 			return isSetOwnedElements();
-		case Aadl2Package.ELEMENT__OWNER:
-			return isSetOwner();
 		case Aadl2Package.ELEMENT__OWNED_COMMENT:
 			return ownedComments != null && !ownedComments.isEmpty();
 		}
@@ -332,15 +313,6 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 */
 	public boolean isSetOwnedElements() {
 		return eIsSet(Aadl2Package.ELEMENT__OWNED_COMMENT);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isSetOwner() {
-		return false;
 	}
 
 	/**

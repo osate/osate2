@@ -180,7 +180,7 @@ public class NamespaceOperations extends NamedElementOperations {
 		if (GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(), Aadl2Package.eINSTANCE.getNamespace()
-					.getEAllOperations().get(11));
+					.getEAllOperations().get(13));
 			try {
 				GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY = helper
 						.createQuery(GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_EXP);
@@ -230,7 +230,7 @@ public class NamespaceOperations extends NamedElementOperations {
 		if (MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(), Aadl2Package.eINSTANCE.getNamespace()
-					.getEAllOperations().get(12));
+					.getEAllOperations().get(14));
 			try {
 				MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY = helper.createQuery(MEMBERS_ARE_DISTINGUISHABLE__EOCL_EXP);
 			} catch (ParserException pe) {

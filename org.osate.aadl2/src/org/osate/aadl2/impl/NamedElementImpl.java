@@ -87,7 +87,6 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.NamedElementImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.NamedElementImpl#getQualifiedName <em>Qualified Name</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.NamedElementImpl#getNamespace <em>Namespace</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.NamedElementImpl#getOwnedPropertyAssociations <em>Owned Property Association</em>}</li>
  * </ul>
  * </p>
@@ -201,15 +200,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public Namespace getNamespace() {
-		return (Namespace) eContainer;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<PropertyAssociation> getOwnedPropertyAssociations() {
@@ -248,6 +238,15 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 */
 	public boolean has_qualified_name(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return NamedElementOperations.has_qualified_name(this, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Namespace getNamespace() {
+		return NamedElementOperations.getNamespace(this);
 	}
 
 	/**
@@ -306,29 +305,12 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID()) {
-		case Aadl2Package.NAMED_ELEMENT__NAMESPACE:
-			return eInternalContainer().eInverseRemove(this, Aadl2Package.NAMESPACE__OWNED_MEMBER, Namespace.class,
-					msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
 			return getName();
 		case Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME:
 			return getQualifiedName();
-		case Aadl2Package.NAMED_ELEMENT__NAMESPACE:
-			return getNamespace();
 		case Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION:
 			return getOwnedPropertyAssociations();
 		}
@@ -386,8 +368,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		case Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME:
 			return QUALIFIED_NAME_EDEFAULT == null ? getQualifiedName() != null : !QUALIFIED_NAME_EDEFAULT
 					.equals(getQualifiedName());
-		case Aadl2Package.NAMED_ELEMENT__NAMESPACE:
-			return getNamespace() != null;
 		case Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION:
 			return ownedPropertyAssociations != null && !ownedPropertyAssociations.isEmpty();
 		}

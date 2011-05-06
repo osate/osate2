@@ -1833,17 +1833,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getElement_Owner() {
-		return (EReference) getElement().getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getElement_OwnedComment() {
-		return (EReference) getElement().getEStructuralFeatures().get(2);
+		return (EReference) getElement().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1904,17 +1895,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getNamedElement_Namespace() {
-		return (EReference) getNamedElement().getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getNamedElement_OwnedPropertyAssociation() {
-		return (EReference) getNamedElement().getEStructuralFeatures().get(3);
+		return (EReference) getNamedElement().getEStructuralFeatures().get(2);
 	}
 
 	/**

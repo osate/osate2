@@ -35,7 +35,6 @@
  */
 package org.osate.aadl2.impl;
 
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -58,7 +57,6 @@ import org.osate.aadl2.Generalization;
  *   <li>{@link org.osate.aadl2.impl.GeneralizationImpl#getGeneral <em>General</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.GeneralizationImpl#getTargets <em>Target</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.GeneralizationImpl#getSources <em>Source</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.GeneralizationImpl#getOwner <em>Owner</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.GeneralizationImpl#getSpecific <em>Specific</em>}</li>
  * </ul>
  * </p>
@@ -158,20 +156,6 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public Element getOwner() {
-		Classifier specific = getSpecific();
-		if (specific != null) {
-			return specific;
-		}
-		return super.getOwner();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Classifier getGeneral() {
 		Classifier general = basicGetGeneral();
 		return general != null && ((EObject) general).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) general)
@@ -218,20 +202,6 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 		// TODO: implement this method to set the 'Specific' reference
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID()) {
-		case Aadl2Package.GENERALIZATION__OWNER:
-			return eInternalContainer().eInverseRemove(this, Aadl2Package.ELEMENT__OWNED_ELEMENT, Element.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -327,16 +297,6 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	@Override
 	public boolean isSetSources() {
 		return super.isSetSources() || eIsSet(Aadl2Package.GENERALIZATION__SPECIFIC);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean isSetOwner() {
-		return super.isSetOwner() || eIsSet(Aadl2Package.GENERALIZATION__SPECIFIC);
 	}
 
 } //GeneralizationImpl
