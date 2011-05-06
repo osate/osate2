@@ -15236,7 +15236,7 @@ public class InternalAadl2Parser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getDataPortAccess().getDataClassifierDataTypeCrossReference_4_0()); 
+                      	        newCompositeNode(grammarAccess.getDataPortAccess().getDataClassifierDataClassifierCrossReference_4_0()); 
                       	    
                     }
                     pushFollow(FOLLOW_ruleQCREF_in_ruleDataPort10241);
@@ -15721,7 +15721,7 @@ public class InternalAadl2Parser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getEventDataPortAccess().getDataClassifierDataTypeCrossReference_5_0()); 
+                      	        newCompositeNode(grammarAccess.getEventDataPortAccess().getDataClassifierDataClassifierCrossReference_5_0()); 
                       	    
                     }
                     pushFollow(FOLLOW_ruleQCREF_in_ruleEventDataPort10573);

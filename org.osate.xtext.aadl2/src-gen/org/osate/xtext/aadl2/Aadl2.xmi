@@ -1835,7 +1835,7 @@
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="dataClassifier" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataType"/>
+              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataClassifier"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.126"/>
           </terminal>
@@ -1888,7 +1888,7 @@
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="dataClassifier" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataType"/>
+              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataClassifier"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.126"/>
           </terminal>
@@ -2041,7 +2041,7 @@
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="dataClassifier" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataType"/>
+              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataClassifier"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.126"/>
           </terminal>
