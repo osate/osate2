@@ -1,29 +1,111 @@
 grammar org.osate.xtext.aadl2.properties.Properties with org.eclipse.xtext.common.Terminals
 
-generate properties "http://www.osate.org/aadl2/properties/Properties"
+//generate properties "http://www.osate.org/aadl2/properties/Properties"
 
-PropertySet:
+
+import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
+
+
+PropertySet returns aadl2::PropertySet:
 	'property' 'set' name=ID 'is'
-	owned+=(PropertyType | PropertyDefinition)+
-	'end' ID SEMI;
+	(=> 'with' (importedPropertySet+=[aadl2::PropertySet|ID]) //| importedPropertySet+=[props::PropertySet|ID]) 
+	    (COMMA importedPropertySet+=[aadl2::PropertySet|ID])* SEMI)*
+	(ownedPropertyType+=PropertyType | ownedProperty+=Property 
+	| ownedPropertyConstant+=PropertyConstant)+
+	'end' ID SEMI ;
 
-PropertyType:
-	name=ID COLON 'type' SEMI;
+PropertyType returns aadl2::PropertyType:
+	name=ID COLON 'type' 
+	UnNamedPropertyType
+	SEMI;
 
-PropertyDefinition:
-	name=ID COLON type=[PropertyType] SEMI;
+UnnamedPropertyType returns aadl2::PropertyType:
+	(BooleanType|StringType|EnumerationType|UnitsType|RealType|IntegerType|ClassifierType|ReferenceType|RecordType) 
+	;
 
-PropertyAssociation:
-	name=ID ASSIGN value=PropertyExpression SEMI;
+Property returns aadl2::Property:
+	name=ID COLON type=[aadl2::PropertyType|QPREF] SEMI;
 
-PropertyExpression:
-	Literal | ProbabilityValue;
+PropertyConstant returns aadl2::PropertyConstant:
+	name=ID COLON type=[aadl2::PropertyType|QPREF] SEMI;
 
-Literal:
+BooleanType returns aadl2::AadlBoolean:
+	{aadl2::AadlBoolean}'aadlboolean';
+
+StringType returns aadl2::AadlString:
+	{aadl2::AadlString}'aadlstring';
+
+EnumerationType returns aadl2::EnumerationType:
+	'enumeration'
+	LPARENS ownedLiteral+=EnumerationLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+
+EnumerationLiteral returns aadl2::EnumerationLiteral:
 	name=ID;
 
-ProbabilityValue:
-	number=REAL distribution=ID;
+UnitsType returns aadl2::UnitsType:
+	'units'
+	LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+
+UnitLiteral returns aadl2::UnitLiteral:
+	name=ID;
+
+UnitLiteralConversion returns aadl2::UnitLiteral:
+	name=ID ASSIGN baseUnit=[aadl2::UnitLiteral|ID] STAR factor=NumberValue
+	;
+
+RealType returns aadl2::AadlReal:
+	'aadlreal' (RealRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+	 ;
+
+IntegerType returns aadl2::AadlInteger:
+	'aadlinteger' (IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+	 ;
+
+ClassifierType returns aadl2::ClassifierType:
+	'classifier' 
+	(classifierReference+=QCReference (COMMA classifierReference+=QCReference)*)?
+	 ;
+
+QCReference returns aadl2::MetaclassReference:
+	(LCURLY STAR STAR annexName=ID STAR STAR RCURLY )?
+	metaClassName+=ID
+	 ;
+
+ReferenceType returns aadl2::ReferenceType:
+	'reference' 
+	(namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?
+	 ;
+
+RecordType returns aadl2::RecordType:
+	'record' LPARENS
+	(ownedField+=RecordField )+
+	RPARENS
+	 ;
+
+//&&&&&&& TODO list is currently a count
+RecordField returns aadl2::RecordField:
+	name=ID COLON
+	(list+='list' 'of')*
+	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
+	 ;
+
+NumberValue returns aadl2::NumberValue:
+	RealLit | IntegerLit ;
+
+RealLit returns aadl2::RealLiteral:
+	valueString+=REAL ;
+
+
+IntegerLit returns aadl2::IntegerLiteral:
+	value+=INT ;
+
+PropertyAssociation returns aadl2::Property:
+	name=ID ASSIGN value=PropertyExpression SEMI;
+
+PropertyExpression returns aadl2::Property:
+	Literal | ProbabilityValue;
+
+
 
 terminal NONE:
 	'none' SEMI;
@@ -85,5 +167,10 @@ PNAME:
 INAME:
 	ID;
 
+QPREF:
+	ID ('::' ID)?;
+
 QCREF:
 	(ID '::')* ID (DOT ID)?;
+	
+STAR : '*';
