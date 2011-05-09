@@ -524,7 +524,7 @@ PortCategory returns aadl2::PortCategory: 'data' | 'event' |  'event' 'data';
 
 FeatureGroupType returns aadl2::FeatureGroupType:
 	'feature' 'group' name=ID 
-	(ownedExtension=GroupExtension
+(// TODO	is not contined ownedExtension=GroupExtension
 	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
 	)?
 	(=> 'prototypes' (noPrototypes?=NONE |
