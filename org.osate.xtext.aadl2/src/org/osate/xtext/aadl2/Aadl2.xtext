@@ -779,13 +779,16 @@ PropertyAssociation returns aadl2::PropertyAssociation :
 
 ContainedPropertyAssociation returns aadl2::PropertyAssociation :
 	property=[aadl2::Property|ID] ASSIGN //ownedValue=PropertyExpression
-	(=> 'applies' 'to' appliesTo+=ContainmentPath)?
+	(=> 'applies' 'to' appliesTo+=ContainmentPath
+	(COMMA appliesTo+=ContainmentPath)*
+	)?
 	SEMI ; 
 	
 ContainmentPath returns aadl2::ContainedNamedElement:
+	// TODO multiple paths, each path is DOT separated IDs
 	{aadl2::ContainedNamedElement}
 	containmentPathElement+=ContainmentPathElement
-	( COMMA containmentPathElement+=ContainmentPathElement)*
+	( DOT containmentPathElement+=ContainmentPathElement)*
 ;
 
 ContainmentPathElement returns aadl2::ContainmentPathElement:
