@@ -10,24 +10,19 @@ PropertySet returns aadl2::PropertySet:
 	'property' 'set' name=ID 'is'
 	(=> 'with' (importedPropertySet+=[aadl2::PropertySet|ID]) //| importedPropertySet+=[props::PropertySet|ID]) 
 	    (COMMA importedPropertySet+=[aadl2::PropertySet|ID])* SEMI)*
-	(ownedPropertyType+=PropertyType | ownedProperty+=Property 
+	(ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition 
 	| ownedPropertyConstant+=PropertyConstant)+
 	'end' ID SEMI ;
 
 PropertyType returns aadl2::PropertyType:
 	name=ID COLON 'type' 
-	UnNamedPropertyType
+	UnnamedPropertyType
 	SEMI;
 
 UnnamedPropertyType returns aadl2::PropertyType:
 	(BooleanType|StringType|EnumerationType|UnitsType|RealType|IntegerType|ClassifierType|ReferenceType|RecordType) 
 	;
 
-Property returns aadl2::Property:
-	name=ID COLON type=[aadl2::PropertyType|QPREF] SEMI;
-
-PropertyConstant returns aadl2::PropertyConstant:
-	name=ID COLON type=[aadl2::PropertyType|QPREF] SEMI;
 
 BooleanType returns aadl2::AadlBoolean:
 	{aadl2::AadlBoolean}'aadlboolean';
@@ -89,6 +84,46 @@ RecordField returns aadl2::RecordField:
 	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
 	 ;
 
+//&&&&& Property Definition
+
+
+PropertyDefinition returns aadl2::Property:
+	name=ID COLON
+	(inherit?='inherit')?
+	(list+='list' 'of')*
+	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
+	// &&&& We set only owned or reference - not both
+	(ASSIGN defaultValue=PropertyExpression)?
+	'applies' 'to' LPARENS
+	((appliesTo+=PropertyOwner (COMMA appliesTo+=PropertyOwner)*)|
+	appliesTo+=AllReference)
+	RPARENS
+	SEMI
+	 ;
+
+AllReference returns aadl2::MetaclassReference:
+	 metaClassName+='all'  // &&&&& actually set it to NamedElement using ALL rule returning "named element" as string
+;
+
+PropertyOwner returns aadl2::PropertyOwner:
+	(QCReference|ClassifierValue)
+	 ;
+
+
+ClassifierValue returns aadl2::ClassifierValue:
+	classifier=[aadl2::ComponentClassifier|QCREF] ;
+
+PropertyConstant returns aadl2::PropertyConstant:
+	name=ID COLON 'constant'
+	(list+='list' 'of')*
+	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
+	ASSIGN defaultValue=ConstantPropertyExpression  //&&& same as PropertyExpression??
+	SEMI
+	 ;
+
+
+
+
 NumberValue returns aadl2::NumberValue:
 	RealLit | IntegerLit ;
 
@@ -99,12 +134,132 @@ RealLit returns aadl2::RealLiteral:
 IntegerLit returns aadl2::IntegerLiteral:
 	value+=INT ;
 
+
+
 PropertyAssociation returns aadl2::Property:
-	name=ID ASSIGN value=PropertyExpression SEMI;
+	// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
+	PropertyDefinition=[aadl2::Property|QPREF] // name=QPREF
+	(ASSIGN | append?=APPEND) (constant?='constant')?
+	(value+=PropertyValue |
+	LPARENS value+=ModalPropertyValue 
+	(COMMA value+=ModalPropertyValue)*
+	(COMMA value+=PropertyValue)?
+	RPARENS
+	)
+	SEMI;
 
-PropertyExpression returns aadl2::Property:
-	Literal | ProbabilityValue;
+ModalPropertyValue returns aadl2::ModalPropertyValue:
+	ownedValue=PropertyExpression 
+	'in' 'modes' LPARENS 
+	inMode+=[aadl2::Mode|ID] (COMMA inMode+=[aadl2::Mode|ID])*
+	RPARENS
+	;
 
+PropertyValue returns aadl2::ModalPropertyValue:
+	ownedValue=PropertyExpression 
+	;
+
+PropertyExpression returns aadl2::PropertyExpression:
+	BooleanTerm | StringTerm;
+
+BooleanTerm returns aadl2::PropertyExpression:
+	OrTerm ;
+
+  
+OrTerm returns aadl2::PropertyExpression:
+  AndTerm ( {aadl2::Operation.operands+=current} op=OrOp operands+=AndTerm)*;
+
+
+AndTerm returns aadl2::PropertyExpression:
+  BooleanAtom ({aadl2::Operation.operands+=current} op=AndOp operands+=BooleanAtom)*;
+
+
+NotTerm returns aadl2::Operation:
+  op=NotOp ownedPropertyExpression+=BooleanTerm;
+
+
+
+BooleanAtom returns aadl2::PropertyExpression:
+	( BooleanLiteral | NotTerm | ConstantValue
+	| (LPARENS BooleanTerm RPARENS)
+	);
+
+BooleanLiteral returns aadl2::BooleanLiteral:
+  {aadl2::BooleanLiteral}(value?='true'|'false')
+  //Assumes: default for value is false
+  ;
+
+ConstantValue returns aadl2::ConstantValue:
+  constant=[aadl2::PropertyConstant|QPREF]
+  ;
+
+ReferenceValue returns aadl2::ReferenceValue:
+  'reference' LPARENS 	
+  containmentPathElement+=ContainmentPathElement
+	( DOT containmentPathElement+=ContainmentPathElement)*
+  RPARENS
+  ;
+
+// from AADL2
+// need to add annex path element
+ContainmentPathElement returns aadl2::ContainmentPathElement:
+	((namedElement=[aadl2::NamedElement|ID]
+	 (arrayRange+=ArrayRange)?
+	 ) |
+	 'annex' namedElement=[aadl2::NamedElement|ANNEXREF]
+	)
+;
+
+ANNEXREF :
+	// check what values are ok inside ** **
+	LCURLY STAR STAR ID STAR STAR RCURLY;
+
+  
+// enum, unit, constant ref, property ref all may have just an ID
+// NameResolver knows based on type
+
+
+enum OperationKind returns aadl2::OperationKind:
+	 and='and' | or='or' | not='not';
+// Need Value Converters	
+AndOp returns aadl2::OperationKind: 'and';
+OrOp returns aadl2::OperationKind: 'or';
+NotOp returns aadl2::OperationKind: 'not';
+
+
+StringTerm returns aadl2::StringLiteral:
+	value=NoQuoteString ;
+
+
+NoQuoteString :
+	// remove quotes from string in ValueConverter
+	STRING
+;
+
+
+IntegerTerm returns aadl2::IntegerLiteral:
+	value=SignedInt (unitLiteral=[aadl2::UnitLiteral|ID])?
+	// or constant is not handled in O2 grammar
+	// valueString not set
+	;
+
+SignedInt returns aadl2::Integer:
+	// in O2 parser: minus sign handled strangely
+	// Need valueconverter
+	('+'|'-')?INT ;
+	
+// IntegerLiteral allowing underscore in teh middle of the digits
+
+RealTerm returns aadl2::RealLiteral:
+	value=SignedReal (unitLiteral=[aadl2::UnitLiteral|ID])?
+	// or constant is not handled in O2 grammar
+	// valueString not set
+	;
+
+SignedReal returns aadl2::Real:
+	// in O2 parser: minus sign handled strangely
+	// Need valueconverter
+	('+'|'-')?REAL ;
 
 
 terminal NONE:
