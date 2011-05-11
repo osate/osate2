@@ -20,7 +20,8 @@ PropertyType returns aadl2::PropertyType:
 	SEMI;
 
 UnnamedPropertyType returns aadl2::PropertyType:
-	(BooleanType|StringType|EnumerationType|UnitsType|RealType|IntegerType|ClassifierType|ReferenceType|RecordType) 
+	(BooleanType|StringType|EnumerationType|UnitsType// |RealType
+	|IntegerType|ClassifierType|ReferenceType|RecordType) 
 	;
 
 
@@ -45,25 +46,27 @@ UnitLiteral returns aadl2::UnitLiteral:
 	name=ID;
 
 UnitLiteralConversion returns aadl2::UnitLiteral:
-	name=ID ASSIGN baseUnit=[aadl2::UnitLiteral|ID] STAR factor=NumberValue
+	name=ID ASSIGN baseUnit=[aadl2::UnitLiteral|ID] STAR //factor=NumberValue
 	;
-
-RealType returns aadl2::AadlReal:
-	'aadlreal' (RealRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
-	 ;
+//
+//RealType returns aadl2::AadlReal:
+//	'aadlreal' (range+=RealRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+//	 ;
 
 IntegerType returns aadl2::AadlInteger:
-	'aadlinteger' (IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+	{aadl2::AadlInteger}
+	'aadlinteger' //(IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
 	 ;
 
 ClassifierType returns aadl2::ClassifierType:
+	{aadl2::ClassifierType}
 	'classifier' 
 	(classifierReference+=QCReference (COMMA classifierReference+=QCReference)*)?
 	 ;
 
 QCReference returns aadl2::MetaclassReference:
 	(LCURLY STAR STAR annexName=ID STAR STAR RCURLY )?
-	metaClassName+=ID
+	metaclassName+=ID
 	 ;
 
 ReferenceType returns aadl2::ReferenceType:
@@ -80,7 +83,7 @@ RecordType returns aadl2::RecordType:
 //&&&&&&& TODO list is currently a count
 RecordField returns aadl2::RecordField:
 	name=ID COLON
-	(list+='list' 'of')*
+//	(list+='list' 'of')*
 	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
 	 ;
 
@@ -90,7 +93,7 @@ RecordField returns aadl2::RecordField:
 PropertyDefinition returns aadl2::Property:
 	name=ID COLON
 	(inherit?='inherit')?
-	(list+='list' 'of')*
+//	(list+='list' 'of')*
 	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
 	// &&&& We set only owned or reference - not both
 	(ASSIGN defaultValue=PropertyExpression)?
@@ -102,7 +105,7 @@ PropertyDefinition returns aadl2::Property:
 	 ;
 
 AllReference returns aadl2::MetaclassReference:
-	 metaClassName+='all'  // &&&&& actually set it to NamedElement using ALL rule returning "named element" as string
+	 metaclassName+='all'  // &&&&& actually set it to NamedElement using ALL rule returning "named element" as string
 ;
 
 PropertyOwner returns aadl2::PropertyOwner:
@@ -115,35 +118,35 @@ ClassifierValue returns aadl2::ClassifierValue:
 
 PropertyConstant returns aadl2::PropertyConstant:
 	name=ID COLON 'constant'
-	(list+='list' 'of')*
+//	(list+='list' 'of')*
 	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
-	ASSIGN defaultValue=ConstantPropertyExpression  //&&& same as PropertyExpression??
+//	ASSIGN defaultValue=ConstantPropertyExpression  //&&& same as PropertyExpression??
 	SEMI
 	 ;
 
 
 
 
-NumberValue returns aadl2::NumberValue:
-	RealLit | IntegerLit ;
+//NumberValue returns aadl2::NumberValue:
+//	RealLit | IntegerLit ;
+//
+//RealLit returns aadl2::RealLiteral:
+//	value+=REAL ;
+//
+//
+//IntegerLit returns aadl2::IntegerLiteral:
+//	value+=INT ;
 
-RealLit returns aadl2::RealLiteral:
-	valueString+=REAL ;
 
 
-IntegerLit returns aadl2::IntegerLiteral:
-	value+=INT ;
-
-
-
-PropertyAssociation returns aadl2::Property:
+PropertyAssociation returns aadl2::PropertyAssociation:
 	// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
-	PropertyDefinition=[aadl2::Property|QPREF] // name=QPREF
+	property=[aadl2::Property|QPREF] // name=QPREF
 	(ASSIGN | append?=APPEND) (constant?='constant')?
-	(value+=PropertyValue |
-	LPARENS value+=ModalPropertyValue 
-	(COMMA value+=ModalPropertyValue)*
-	(COMMA value+=PropertyValue)?
+	(ownedValue+=PropertyValue |
+	LPARENS ownedValue+=ModalPropertyValue 
+	(COMMA ownedValue+=ModalPropertyValue)*
+	(COMMA ownedValue+=PropertyValue)?
 	RPARENS
 	)
 	SEMI;
@@ -160,18 +163,18 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	BooleanTerm | StringTerm;
+	BooleanTerm | StringTerm | ListTerm;
 
 BooleanTerm returns aadl2::PropertyExpression:
 	OrTerm ;
 
   
 OrTerm returns aadl2::PropertyExpression:
-  AndTerm ( {aadl2::Operation.operands+=current} op=OrOp operands+=AndTerm)*;
+  AndTerm ( {aadl2::Operation.ownedPropertyExpression+=current} op=OrOp ownedPropertyExpression+=AndTerm)*;
 
 
 AndTerm returns aadl2::PropertyExpression:
-  BooleanAtom ({aadl2::Operation.operands+=current} op=AndOp operands+=BooleanAtom)*;
+  BooleanAtom ({aadl2::Operation.ownedPropertyExpression+=current} op=AndOp ownedPropertyExpression+=BooleanAtom)*;
 
 
 NotTerm returns aadl2::Operation:
@@ -193,31 +196,50 @@ ConstantValue returns aadl2::ConstantValue:
   constant=[aadl2::PropertyConstant|QPREF]
   ;
 
-ReferenceValue returns aadl2::ReferenceValue:
+ReferenceTerm returns aadl2::ReferenceValue:
   'reference' LPARENS 	
   containmentPathElement+=ContainmentPathElement
 	( DOT containmentPathElement+=ContainmentPathElement)*
   RPARENS
   ;
 
-RecordValue returns aadl2::RecordValue:
+RecordTerm returns aadl2::RecordValue:
    LPARENS 	
    (ownedFieldValue+=BasicPropertyAssociation)+
   RPARENS
   ;
 
+ComputedTerm returns aadl2::ComputedValue:
+   'compute' LPARENS 	
+   function=ID
+  RPARENS
+  ;
+
+ComponentClassifierTerm returns aadl2::ClassifierValue:
+   'classifier' LPARENS 	
+   classifier=[aadl2::ComponentClassifier|QCREF]
+  RPARENS
+  ;
+
+
+ListTerm returns aadl2::ListValue:
+   LPARENS 	
+   ownedListElement+=PropertyExpression
+   (COMMA ownedListElement+=PropertyExpression)*
+  RPARENS
+  ;
 
 BasicPropertyAssociation returns aadl2::BasicPropertyAssociation:
 	property=[aadl2::RecordField|ID] // name=QPREF
 	ASSIGN 
-	ownedValue+=PropertyValue 
+	ownedValue=PropertyExpression 
 	SEMI;
 
 // from AADL2
 // need to add annex path element
 ContainmentPathElement returns aadl2::ContainmentPathElement:
 	((namedElement=[aadl2::NamedElement|ID]
-	 (arrayRange+=ArrayRange)?
+//	 (arrayRange+=ArrayRange)?
 	 ) |
 	 'annex' namedElement=[aadl2::NamedElement|ANNEXREF]
 	)
@@ -251,7 +273,7 @@ NoQuoteString :
 
 
 IntegerTerm returns aadl2::IntegerLiteral:
-	value=SignedInt (unitLiteral=[aadl2::UnitLiteral|ID])?
+	value=SignedInt (unit=[aadl2::UnitLiteral|ID])?
 	// or constant is not handled in O2 grammar
 	// valueString not set
 	;
@@ -264,7 +286,7 @@ SignedInt returns aadl2::Integer:
 // IntegerLiteral allowing underscore in teh middle of the digits
 
 RealTerm returns aadl2::RealLiteral:
-	value=SignedReal (unitLiteral=[aadl2::UnitLiteral|ID])?
+	value=SignedReal (unit=[aadl2::UnitLiteral|ID])?
 	// or constant is not handled in O2 grammar
 	// valueString not set
 	;
