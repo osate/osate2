@@ -27,9 +27,6 @@ public class PropertiesStandaloneSetupGenerated implements ISetup {
 	}
 	
 	public void register(Injector injector) {
-	if (!EPackage.Registry.INSTANCE.containsKey("http://www.osate.org/aadl2/properties/Properties")) {
-		EPackage.Registry.INSTANCE.put("http://www.osate.org/aadl2/properties/Properties", org.osate.xtext.aadl2.properties.properties.PropertiesPackage.eINSTANCE);
-	}
 
 		org.eclipse.xtext.resource.IResourceFactory resourceFactory = injector.getInstance(org.eclipse.xtext.resource.IResourceFactory.class);
 		org.eclipse.xtext.resource.IResourceServiceProvider serviceProvider = injector.getInstance(org.eclipse.xtext.resource.IResourceServiceProvider.class);

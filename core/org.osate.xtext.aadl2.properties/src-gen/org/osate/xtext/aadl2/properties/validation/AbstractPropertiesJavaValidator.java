@@ -13,7 +13,7 @@ public class AbstractPropertiesJavaValidator extends AbstractDeclarativeValidato
 	@Override
 	protected List<EPackage> getEPackages() {
 	    List<EPackage> result = new ArrayList<EPackage>();
-	    result.add(org.osate.xtext.aadl2.properties.properties.PropertiesPackage.eINSTANCE);
+	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
 		return result;
 	}
 
