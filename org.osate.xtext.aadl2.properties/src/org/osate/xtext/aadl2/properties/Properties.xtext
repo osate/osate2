@@ -200,6 +200,19 @@ ReferenceValue returns aadl2::ReferenceValue:
   RPARENS
   ;
 
+RecordValue returns aadl2::RecordValue:
+   LPARENS 	
+   (ownedFieldValue+=BasicPropertyAssociation)+
+  RPARENS
+  ;
+
+
+BasicPropertyAssociation returns aadl2::BasicPropertyAssociation:
+	property=[aadl2::RecordField|ID] // name=QPREF
+	ASSIGN 
+	ownedValue+=PropertyValue 
+	SEMI;
+
 // from AADL2
 // need to add annex path element
 ContainmentPathElement returns aadl2::ContainmentPathElement:
