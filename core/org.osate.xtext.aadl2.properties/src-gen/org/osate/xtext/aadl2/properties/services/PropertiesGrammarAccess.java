@@ -1786,38 +1786,39 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cBooleanLiteralParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cNotTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
-		private final RuleCall cLPARENSTerminalRuleCall_2_0 = (RuleCall)cGroup_2.eContents().get(0);
-		private final RuleCall cBooleanTermParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
-		private final RuleCall cRPARENSTerminalRuleCall_2_2 = (RuleCall)cGroup_2.eContents().get(2);
+		private final RuleCall cConstantValueParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
+		private final RuleCall cLPARENSTerminalRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
+		private final RuleCall cBooleanTermParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
+		private final RuleCall cRPARENSTerminalRuleCall_3_2 = (RuleCall)cGroup_3.eContents().get(2);
 		
 		//BooleanAtom returns aadl2::PropertyExpression:
-		//	BooleanLiteral | //| ConstantValue
-		//	NotTerm | LPARENS BooleanTerm RPARENS;
+		//	BooleanLiteral | NotTerm | ConstantValue | LPARENS BooleanTerm RPARENS;
 		public ParserRule getRule() { return rule; }
 
-		//BooleanLiteral | //| ConstantValue
-		//NotTerm | LPARENS BooleanTerm RPARENS
+		//BooleanLiteral | NotTerm | ConstantValue | LPARENS BooleanTerm RPARENS
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//BooleanLiteral
 		public RuleCall getBooleanLiteralParserRuleCall_0() { return cBooleanLiteralParserRuleCall_0; }
 
-		////| ConstantValue
 		//NotTerm
 		public RuleCall getNotTermParserRuleCall_1() { return cNotTermParserRuleCall_1; }
 
+		//ConstantValue
+		public RuleCall getConstantValueParserRuleCall_2() { return cConstantValueParserRuleCall_2; }
+
 		//LPARENS BooleanTerm RPARENS
-		public Group getGroup_2() { return cGroup_2; }
+		public Group getGroup_3() { return cGroup_3; }
 
 		//LPARENS
-		public RuleCall getLPARENSTerminalRuleCall_2_0() { return cLPARENSTerminalRuleCall_2_0; }
+		public RuleCall getLPARENSTerminalRuleCall_3_0() { return cLPARENSTerminalRuleCall_3_0; }
 
 		//BooleanTerm
-		public RuleCall getBooleanTermParserRuleCall_2_1() { return cBooleanTermParserRuleCall_2_1; }
+		public RuleCall getBooleanTermParserRuleCall_3_1() { return cBooleanTermParserRuleCall_3_1; }
 
 		//RPARENS
-		public RuleCall getRPARENSTerminalRuleCall_2_2() { return cRPARENSTerminalRuleCall_2_2; }
+		public RuleCall getRPARENSTerminalRuleCall_3_2() { return cRPARENSTerminalRuleCall_3_2; }
 	}
 
 	public class BooleanLiteralElements extends AbstractParserRuleElementFinder {
@@ -3134,8 +3135,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//BooleanAtom returns aadl2::PropertyExpression:
-	//	BooleanLiteral | //| ConstantValue
-	//	NotTerm | LPARENS BooleanTerm RPARENS;
+	//	BooleanLiteral | NotTerm | ConstantValue | LPARENS BooleanTerm RPARENS;
 	public BooleanAtomElements getBooleanAtomAccess() {
 		return (pBooleanAtom != null) ? pBooleanAtom : (pBooleanAtom = new BooleanAtomElements());
 	}

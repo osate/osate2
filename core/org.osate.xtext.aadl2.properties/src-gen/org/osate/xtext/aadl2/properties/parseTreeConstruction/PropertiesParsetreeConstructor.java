@@ -7599,6 +7599,7 @@ protected class PropertyExpression_Alternatives extends AlternativesToken {
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getBooleanLiteralAccess().getBooleanLiteralAction_0().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getComputedTermRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getConstantValueRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getListTermRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getNotTermRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getStringTermRule().getType().getClassifier())
@@ -7703,6 +7704,7 @@ protected class PropertyExpression_BooleanTermParserRuleCall_2 extends RuleCallT
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getBooleanLiteralAccess().getBooleanLiteralAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getConstantValueRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getNotTermRule().getType().getClassifier())
 			return null;
 		if(checkForRecursion(BooleanTerm_OrTermParserRuleCall.class, eObjectConsumer)) return null;
@@ -7904,6 +7906,7 @@ protected class BooleanTerm_OrTermParserRuleCall extends RuleCallToken {
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getBooleanLiteralAccess().getBooleanLiteralAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getConstantValueRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getNotTermRule().getType().getClassifier())
 			return null;
 		if(checkForRecursion(OrTerm_Group.class, eObjectConsumer)) return null;
@@ -7952,6 +7955,7 @@ protected class OrTerm_Group extends GroupToken {
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getBooleanLiteralAccess().getBooleanLiteralAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getConstantValueRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getNotTermRule().getType().getClassifier())
 			return null;
 		return eObjectConsumer;
@@ -8168,6 +8172,7 @@ protected class AndTerm_Group extends GroupToken {
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getBooleanLiteralAccess().getBooleanLiteralAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getConstantValueRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getNotTermRule().getType().getClassifier())
 			return null;
 		return eObjectConsumer;
@@ -8475,13 +8480,11 @@ protected class NotTerm_OwnedPropertyExpressionAssignment_1 extends AssignmentTo
 /************ begin Rule BooleanAtom ****************
  *
  * BooleanAtom returns aadl2::PropertyExpression:
- * 	BooleanLiteral | //| ConstantValue
- * 	NotTerm | LPARENS BooleanTerm RPARENS;
+ * 	BooleanLiteral | NotTerm | ConstantValue | LPARENS BooleanTerm RPARENS;
  *
  **/
 
-// BooleanLiteral | //| ConstantValue
-// NotTerm | LPARENS BooleanTerm RPARENS
+// BooleanLiteral | NotTerm | ConstantValue | LPARENS BooleanTerm RPARENS
 protected class BooleanAtom_Alternatives extends AlternativesToken {
 
 	public BooleanAtom_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -8498,7 +8501,8 @@ protected class BooleanAtom_Alternatives extends AlternativesToken {
 		switch(index) {
 			case 0: return new BooleanAtom_BooleanLiteralParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new BooleanAtom_NotTermParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new BooleanAtom_Group_2(lastRuleCallOrigin, this, 2, inst);
+			case 2: return new BooleanAtom_ConstantValueParserRuleCall_2(lastRuleCallOrigin, this, 2, inst);
+			case 3: return new BooleanAtom_Group_3(lastRuleCallOrigin, this, 3, inst);
 			default: return null;
 		}	
 	}
@@ -8506,6 +8510,7 @@ protected class BooleanAtom_Alternatives extends AlternativesToken {
     @Override
 	public IEObjectConsumer tryConsume() {
 		if(getEObject().eClass() != grammarAccess.getBooleanLiteralAccess().getBooleanLiteralAction_0().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getConstantValueRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getNotTermRule().getType().getClassifier())
 			return null;
 		return eObjectConsumer;
@@ -8549,7 +8554,6 @@ protected class BooleanAtom_BooleanLiteralParserRuleCall_0 extends RuleCallToken
 	}	
 }
 
-// //| ConstantValue
 // NotTerm
 protected class BooleanAtom_NotTermParserRuleCall_1 extends RuleCallToken {
 	
@@ -8586,22 +8590,58 @@ protected class BooleanAtom_NotTermParserRuleCall_1 extends RuleCallToken {
 	}	
 }
 
-// LPARENS BooleanTerm RPARENS
-protected class BooleanAtom_Group_2 extends GroupToken {
+// ConstantValue
+protected class BooleanAtom_ConstantValueParserRuleCall_2 extends RuleCallToken {
 	
-	public BooleanAtom_Group_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public BooleanAtom_ConstantValueParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getBooleanAtomAccess().getGroup_2();
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getBooleanAtomAccess().getConstantValueParserRuleCall_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BooleanAtom_RPARENSTerminalRuleCall_2_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ConstantValue_ConstantAssignment(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getConstantValueRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(ConstantValue_ConstantAssignment.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// LPARENS BooleanTerm RPARENS
+protected class BooleanAtom_Group_3 extends GroupToken {
+	
+	public BooleanAtom_Group_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getBooleanAtomAccess().getGroup_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new BooleanAtom_RPARENSTerminalRuleCall_3_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -8609,15 +8649,15 @@ protected class BooleanAtom_Group_2 extends GroupToken {
 }
 
 // LPARENS
-protected class BooleanAtom_LPARENSTerminalRuleCall_2_0 extends UnassignedTextToken {
+protected class BooleanAtom_LPARENSTerminalRuleCall_3_0 extends UnassignedTextToken {
 
-	public BooleanAtom_LPARENSTerminalRuleCall_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public BooleanAtom_LPARENSTerminalRuleCall_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getBooleanAtomAccess().getLPARENSTerminalRuleCall_2_0();
+		return grammarAccess.getBooleanAtomAccess().getLPARENSTerminalRuleCall_3_0();
 	}
 
     @Override
@@ -8630,15 +8670,15 @@ protected class BooleanAtom_LPARENSTerminalRuleCall_2_0 extends UnassignedTextTo
 }
 
 // BooleanTerm
-protected class BooleanAtom_BooleanTermParserRuleCall_2_1 extends RuleCallToken {
+protected class BooleanAtom_BooleanTermParserRuleCall_3_1 extends RuleCallToken {
 	
-	public BooleanAtom_BooleanTermParserRuleCall_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public BooleanAtom_BooleanTermParserRuleCall_3_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getBooleanAtomAccess().getBooleanTermParserRuleCall_2_1();
+		return grammarAccess.getBooleanAtomAccess().getBooleanTermParserRuleCall_3_1();
 	}
 
     @Override
@@ -8658,28 +8698,28 @@ protected class BooleanAtom_BooleanTermParserRuleCall_2_1 extends RuleCallToken 
     @Override
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BooleanAtom_LPARENSTerminalRuleCall_2_0(lastRuleCallOrigin, next, actIndex, inst);
+			case 0: return new BooleanAtom_LPARENSTerminalRuleCall_3_0(lastRuleCallOrigin, next, actIndex, inst);
 			default: return null;
 		}	
 	}	
 }
 
 // RPARENS
-protected class BooleanAtom_RPARENSTerminalRuleCall_2_2 extends UnassignedTextToken {
+protected class BooleanAtom_RPARENSTerminalRuleCall_3_2 extends UnassignedTextToken {
 
-	public BooleanAtom_RPARENSTerminalRuleCall_2_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public BooleanAtom_RPARENSTerminalRuleCall_3_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getBooleanAtomAccess().getRPARENSTerminalRuleCall_2_2();
+		return grammarAccess.getBooleanAtomAccess().getRPARENSTerminalRuleCall_3_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BooleanAtom_BooleanTermParserRuleCall_2_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new BooleanAtom_BooleanTermParserRuleCall_3_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
