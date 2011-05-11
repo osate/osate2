@@ -42,7 +42,6 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRecordFieldAccess().getAlternatives_2(), "rule__RecordField__Alternatives_2");
 					put(grammarAccess.getPropertyDefinitionAccess().getAlternatives_3(), "rule__PropertyDefinition__Alternatives_3");
 					put(grammarAccess.getPropertyDefinitionAccess().getAlternatives_8(), "rule__PropertyDefinition__Alternatives_8");
-					put(grammarAccess.getPropertyOwnerAccess().getAlternatives(), "rule__PropertyOwner__Alternatives");
 					put(grammarAccess.getPropertyConstantAccess().getAlternatives_3(), "rule__PropertyConstant__Alternatives_3");
 					put(grammarAccess.getPropertyAssociationAccess().getAlternatives_1(), "rule__PropertyAssociation__Alternatives_1");
 					put(grammarAccess.getPropertyAssociationAccess().getAlternatives_3(), "rule__PropertyAssociation__Alternatives_3");

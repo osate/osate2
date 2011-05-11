@@ -26,8 +26,5 @@ Export-Package: org.osate.xtext.aadl2.properties,
  org.osate.xtext.aadl2.properties.parseTreeConstruction,
  org.osate.xtext.aadl2.properties.parser.antlr,
  org.osate.xtext.aadl2.properties.parser.antlr.internal,
- org.osate.xtext.aadl2.properties.properties,
- org.osate.xtext.aadl2.properties.properties.impl,
- org.osate.xtext.aadl2.properties.properties.util,
  org.osate.xtext.aadl2.properties.services,
  org.osate.xtext.aadl2.properties.validation
