@@ -11,27 +11,41 @@ PropertySet returns aadl2::PropertySet:
 	(=> 'with' (importedPropertySet+=[aadl2::PropertySet|ID]) //| importedPropertySet+=[props::PropertySet|ID]) 
 	    (COMMA importedPropertySet+=[aadl2::PropertySet|ID])* SEMI)*
 	(ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition 
-	| ownedPropertyConstant+=PropertyConstant)+
+	| ownedPropertyConstant+=PropertyConstant)*
 	'end' ID SEMI ;
 
 PropertyType returns aadl2::PropertyType:
-	name=ID COLON 'type' 
-	UnnamedPropertyType
+	(BooleanType|StringType|EnumerationType|UnitsType// |RealType
+	|IntegerType|ClassifierType|ReferenceType|RecordType) 
 	SEMI;
 
 UnnamedPropertyType returns aadl2::PropertyType:
-	(BooleanType|StringType|EnumerationType|UnitsType// |RealType
-	|IntegerType|ClassifierType|ReferenceType|RecordType) 
+	(UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType// |UnnamedRealType
+	|UnnamedIntegerType|UnnamedClassifierType|UnnamedReferenceType|UnnamedRecordType) 
 	;
 
 
 BooleanType returns aadl2::AadlBoolean:
+	name=ID COLON 'type' 
+	{aadl2::AadlBoolean}'aadlboolean';
+
+
+UnnamedBooleanType returns aadl2::AadlBoolean:
 	{aadl2::AadlBoolean}'aadlboolean';
 
 StringType returns aadl2::AadlString:
+	name=ID COLON 'type' 
+	{aadl2::AadlString}'aadlstring';
+
+UnnamedStringType returns aadl2::AadlString:
 	{aadl2::AadlString}'aadlstring';
 
 EnumerationType returns aadl2::EnumerationType:
+	name=ID COLON 'type' 
+	'enumeration'
+	LPARENS ownedLiteral+=EnumerationLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+
+UnnamedEnumerationType returns aadl2::EnumerationType:
 	'enumeration'
 	LPARENS ownedLiteral+=EnumerationLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
 
@@ -39,6 +53,11 @@ EnumerationLiteral returns aadl2::EnumerationLiteral:
 	name=ID;
 
 UnitsType returns aadl2::UnitsType:
+	name=ID COLON 'type' 
+	'units'
+	LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+
+UnnamedUnitsType returns aadl2::UnitsType:
 	'units'
 	LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
 
@@ -50,15 +69,33 @@ UnitLiteralConversion returns aadl2::UnitLiteral:
 	;
 //
 //RealType returns aadl2::AadlReal:
+//	name=ID COLON 'type' 
+//	'aadlreal' (range+=RealRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+//	 ;
+//
+//UnnamedRealType returns aadl2::AadlReal:
 //	'aadlreal' (range+=RealRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
 //	 ;
 
 IntegerType returns aadl2::AadlInteger:
+	name=ID COLON 'type' 
+	{aadl2::AadlInteger}
+	'aadlinteger' //(IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+	 ;
+
+UnnamedIntegerType returns aadl2::AadlInteger:
 	{aadl2::AadlInteger}
 	'aadlinteger' //(IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
 	 ;
 
 ClassifierType returns aadl2::ClassifierType:
+	name=ID COLON 'type' 
+	{aadl2::ClassifierType}
+	'classifier' 
+	(classifierReference+=QCReference (COMMA classifierReference+=QCReference)*)?
+	 ;
+
+UnnamedClassifierType returns aadl2::ClassifierType:
 	{aadl2::ClassifierType}
 	'classifier' 
 	(classifierReference+=QCReference (COMMA classifierReference+=QCReference)*)?
@@ -70,11 +107,24 @@ QCReference returns aadl2::MetaclassReference:
 	 ;
 
 ReferenceType returns aadl2::ReferenceType:
+	name=ID COLON 'type' 
 	'reference' 
 	(namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?
 	 ;
 
+UnnamedReferenceType returns aadl2::ReferenceType:
+	'reference' {aadl2::ReferenceType}
+	(namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?
+	 ;
+
 RecordType returns aadl2::RecordType:
+	name=ID COLON 'type' 
+	'record' LPARENS
+	(ownedField+=RecordField )+
+	RPARENS
+	 ;
+
+UnnamedRecordType returns aadl2::RecordType:
 	'record' LPARENS
 	(ownedField+=RecordField )+
 	RPARENS
@@ -109,6 +159,7 @@ AllReference returns aadl2::MetaclassReference:
 ;
 
 PropertyOwner returns aadl2::PropertyOwner:
+	// both alternatives are identifiers
 	(QCReference)//|ClassifierValue)
 	 ;
 
@@ -143,11 +194,12 @@ PropertyAssociation returns aadl2::PropertyAssociation:
 	// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
 	property=[aadl2::Property|QPREF] // name=QPREF
 	(ASSIGN | append?=APPEND) (constant?='constant')?
-	(ownedValue+=PropertyValue |
+	(ownedValue+=PropertyValue 
+	| (
 	LPARENS ownedValue+=ModalPropertyValue 
 	(COMMA ownedValue+=ModalPropertyValue)*
 	(COMMA ownedValue+=PropertyValue)?
-	RPARENS
+	RPARENS )
 	)
 	SEMI;
 
@@ -163,7 +215,12 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	ComputedTerm | StringTerm ;//| ListTerm;
+	ComputedTerm | StringTerm | BooleanTerm| => ListTerm
+	;
+
+NoListPropertyExpression returns aadl2::PropertyExpression:
+	ComputedTerm | StringTerm //| BooleanTerm
+	;
 
 BooleanTerm returns aadl2::PropertyExpression:
 	OrTerm ;
@@ -178,12 +235,12 @@ AndTerm returns aadl2::PropertyExpression:
 
 
 NotTerm returns aadl2::Operation:
-  op=NotOp ownedPropertyExpression+=BooleanTerm;
+  op=NotOp ownedPropertyExpression+=BooleanAtom;
 
 
 
 BooleanAtom returns aadl2::PropertyExpression:
-	( BooleanLiteral | NotTerm | ConstantValue
+	( BooleanLiteral  | NotTerm //| ConstantValue
 	| (LPARENS BooleanTerm RPARENS)
 	);
 
@@ -224,8 +281,8 @@ ComponentClassifierTerm returns aadl2::ClassifierValue:
 
 ListTerm returns aadl2::ListValue:
    LPARENS 	
-   ownedListElement+=PropertyExpression
-   (COMMA ownedListElement+=PropertyExpression)*
+   ownedListElement+=(PropertyExpression)
+   (COMMA ownedListElement+=(PropertyExpression))*
   RPARENS
   ;
 

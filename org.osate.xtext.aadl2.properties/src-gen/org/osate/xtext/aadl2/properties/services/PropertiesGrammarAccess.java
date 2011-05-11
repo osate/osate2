@@ -50,12 +50,12 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//PropertySet returns aadl2::PropertySet:
 		//	"property" "set" name=ID "is" ("with" importedPropertySet+=[aadl2::PropertySet] //| importedPropertySet+=[props::PropertySet|ID]) 
 		//	(COMMA importedPropertySet+=[aadl2::PropertySet])* SEMI)* (ownedPropertyType+=PropertyType |
-		//	ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)+ "end" ID SEMI;
+		//	ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* "end" ID SEMI;
 		public ParserRule getRule() { return rule; }
 
 		//"property" "set" name=ID "is" ("with" importedPropertySet+=[aadl2::PropertySet] //| importedPropertySet+=[props::PropertySet|ID]) 
 		//(COMMA importedPropertySet+=[aadl2::PropertySet])* SEMI)* (ownedPropertyType+=PropertyType |
-		//ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)+ "end" ID SEMI
+		//ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* "end" ID SEMI
 		public Group getGroup() { return cGroup; }
 
 		//"property"
@@ -107,7 +107,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//SEMI
 		public RuleCall getSEMITerminalRuleCall_4_3() { return cSEMITerminalRuleCall_4_3; }
 
-		//(ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)+
+		//(ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)*
 		public Alternatives getAlternatives_5() { return cAlternatives_5; }
 
 		//ownedPropertyType+=PropertyType
@@ -141,18 +141,121 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	public class PropertyTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final RuleCall cBooleanTypeParserRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
+		private final RuleCall cStringTypeParserRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
+		private final RuleCall cEnumerationTypeParserRuleCall_0_2 = (RuleCall)cAlternatives_0.eContents().get(2);
+		private final RuleCall cUnitsTypeParserRuleCall_0_3 = (RuleCall)cAlternatives_0.eContents().get(3);
+		private final RuleCall cIntegerTypeParserRuleCall_0_4 = (RuleCall)cAlternatives_0.eContents().get(4);
+		private final RuleCall cClassifierTypeParserRuleCall_0_5 = (RuleCall)cAlternatives_0.eContents().get(5);
+		private final RuleCall cReferenceTypeParserRuleCall_0_6 = (RuleCall)cAlternatives_0.eContents().get(6);
+		private final RuleCall cRecordTypeParserRuleCall_0_7 = (RuleCall)cAlternatives_0.eContents().get(7);
+		private final RuleCall cSEMITerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		
+		//PropertyType returns aadl2::PropertyType:
+		//	(BooleanType | StringType | EnumerationType | // |RealType
+		//	UnitsType | IntegerType | ClassifierType | ReferenceType | RecordType) SEMI;
+		public ParserRule getRule() { return rule; }
+
+		//(BooleanType | StringType | EnumerationType | // |RealType
+		//UnitsType | IntegerType | ClassifierType | ReferenceType | RecordType) SEMI
+		public Group getGroup() { return cGroup; }
+
+		//BooleanType | StringType | EnumerationType | // |RealType
+		//UnitsType | IntegerType | ClassifierType | ReferenceType | RecordType
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//BooleanType
+		public RuleCall getBooleanTypeParserRuleCall_0_0() { return cBooleanTypeParserRuleCall_0_0; }
+
+		//StringType
+		public RuleCall getStringTypeParserRuleCall_0_1() { return cStringTypeParserRuleCall_0_1; }
+
+		//EnumerationType
+		public RuleCall getEnumerationTypeParserRuleCall_0_2() { return cEnumerationTypeParserRuleCall_0_2; }
+
+		//// |RealType
+		//UnitsType
+		public RuleCall getUnitsTypeParserRuleCall_0_3() { return cUnitsTypeParserRuleCall_0_3; }
+
+		//IntegerType
+		public RuleCall getIntegerTypeParserRuleCall_0_4() { return cIntegerTypeParserRuleCall_0_4; }
+
+		//ClassifierType
+		public RuleCall getClassifierTypeParserRuleCall_0_5() { return cClassifierTypeParserRuleCall_0_5; }
+
+		//ReferenceType
+		public RuleCall getReferenceTypeParserRuleCall_0_6() { return cReferenceTypeParserRuleCall_0_6; }
+
+		//RecordType
+		public RuleCall getRecordTypeParserRuleCall_0_7() { return cRecordTypeParserRuleCall_0_7; }
+
+		//SEMI
+		public RuleCall getSEMITerminalRuleCall_1() { return cSEMITerminalRuleCall_1; }
+	}
+
+	public class UnnamedPropertyTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnnamedPropertyType");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cUnnamedBooleanTypeParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cUnnamedStringTypeParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cUnnamedEnumerationTypeParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cUnnamedUnitsTypeParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cUnnamedIntegerTypeParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cUnnamedClassifierTypeParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cUnnamedReferenceTypeParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cUnnamedRecordTypeParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		
+		//UnnamedPropertyType returns aadl2::PropertyType:
+		//	UnnamedBooleanType | UnnamedStringType | UnnamedEnumerationType | // |UnnamedRealType
+		//	UnnamedUnitsType | UnnamedIntegerType | UnnamedClassifierType | UnnamedReferenceType | UnnamedRecordType;
+		public ParserRule getRule() { return rule; }
+
+		//UnnamedBooleanType | UnnamedStringType | UnnamedEnumerationType | // |UnnamedRealType
+		//UnnamedUnitsType | UnnamedIntegerType | UnnamedClassifierType | UnnamedReferenceType | UnnamedRecordType
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//UnnamedBooleanType
+		public RuleCall getUnnamedBooleanTypeParserRuleCall_0() { return cUnnamedBooleanTypeParserRuleCall_0; }
+
+		//UnnamedStringType
+		public RuleCall getUnnamedStringTypeParserRuleCall_1() { return cUnnamedStringTypeParserRuleCall_1; }
+
+		//UnnamedEnumerationType
+		public RuleCall getUnnamedEnumerationTypeParserRuleCall_2() { return cUnnamedEnumerationTypeParserRuleCall_2; }
+
+		//// |UnnamedRealType
+		//UnnamedUnitsType
+		public RuleCall getUnnamedUnitsTypeParserRuleCall_3() { return cUnnamedUnitsTypeParserRuleCall_3; }
+
+		//UnnamedIntegerType
+		public RuleCall getUnnamedIntegerTypeParserRuleCall_4() { return cUnnamedIntegerTypeParserRuleCall_4; }
+
+		//UnnamedClassifierType
+		public RuleCall getUnnamedClassifierTypeParserRuleCall_5() { return cUnnamedClassifierTypeParserRuleCall_5; }
+
+		//UnnamedReferenceType
+		public RuleCall getUnnamedReferenceTypeParserRuleCall_6() { return cUnnamedReferenceTypeParserRuleCall_6; }
+
+		//UnnamedRecordType
+		public RuleCall getUnnamedRecordTypeParserRuleCall_7() { return cUnnamedRecordTypeParserRuleCall_7; }
+	}
+
+	public class BooleanTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "BooleanType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final RuleCall cCOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final RuleCall cUnnamedPropertyTypeParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
-		private final RuleCall cSEMITerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Action cAadlBooleanAction_3 = (Action)cGroup.eContents().get(3);
+		private final Keyword cAadlbooleanKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//PropertyType returns aadl2::PropertyType:
-		//	name=ID COLON "type" UnnamedPropertyType SEMI;
+		//BooleanType returns aadl2::AadlBoolean:
+		//	name=ID COLON "type" {aadl2::AadlBoolean} "aadlboolean";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID COLON "type" UnnamedPropertyType SEMI
+		//name=ID COLON "type" {aadl2::AadlBoolean} "aadlboolean"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -167,67 +270,20 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//"type"
 		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
 
-		//UnnamedPropertyType
-		public RuleCall getUnnamedPropertyTypeParserRuleCall_3() { return cUnnamedPropertyTypeParserRuleCall_3; }
+		//{aadl2::AadlBoolean}
+		public Action getAadlBooleanAction_3() { return cAadlBooleanAction_3; }
 
-		//SEMI
-		public RuleCall getSEMITerminalRuleCall_4() { return cSEMITerminalRuleCall_4; }
+		//"aadlboolean"
+		public Keyword getAadlbooleanKeyword_4() { return cAadlbooleanKeyword_4; }
 	}
 
-	public class UnnamedPropertyTypeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnnamedPropertyType");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cBooleanTypeParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cStringTypeParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cEnumerationTypeParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cUnitsTypeParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cIntegerTypeParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cClassifierTypeParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cReferenceTypeParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cRecordTypeParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		
-		//UnnamedPropertyType returns aadl2::PropertyType:
-		//	BooleanType | StringType | EnumerationType | // |RealType
-		//	UnitsType | IntegerType | ClassifierType | ReferenceType | RecordType;
-		public ParserRule getRule() { return rule; }
-
-		//BooleanType | StringType | EnumerationType | // |RealType
-		//UnitsType | IntegerType | ClassifierType | ReferenceType | RecordType
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//BooleanType
-		public RuleCall getBooleanTypeParserRuleCall_0() { return cBooleanTypeParserRuleCall_0; }
-
-		//StringType
-		public RuleCall getStringTypeParserRuleCall_1() { return cStringTypeParserRuleCall_1; }
-
-		//EnumerationType
-		public RuleCall getEnumerationTypeParserRuleCall_2() { return cEnumerationTypeParserRuleCall_2; }
-
-		//// |RealType
-		//UnitsType
-		public RuleCall getUnitsTypeParserRuleCall_3() { return cUnitsTypeParserRuleCall_3; }
-
-		//IntegerType
-		public RuleCall getIntegerTypeParserRuleCall_4() { return cIntegerTypeParserRuleCall_4; }
-
-		//ClassifierType
-		public RuleCall getClassifierTypeParserRuleCall_5() { return cClassifierTypeParserRuleCall_5; }
-
-		//ReferenceType
-		public RuleCall getReferenceTypeParserRuleCall_6() { return cReferenceTypeParserRuleCall_6; }
-
-		//RecordType
-		public RuleCall getRecordTypeParserRuleCall_7() { return cRecordTypeParserRuleCall_7; }
-	}
-
-	public class BooleanTypeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "BooleanType");
+	public class UnnamedBooleanTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnnamedBooleanType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cAadlBooleanAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cAadlbooleanKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
-		//BooleanType returns aadl2::AadlBoolean:
+		//UnnamedBooleanType returns aadl2::AadlBoolean:
 		//	{aadl2::AadlBoolean} "aadlboolean";
 		public ParserRule getRule() { return rule; }
 
@@ -244,10 +300,46 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	public class StringTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "StringType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Action cAadlStringAction_3 = (Action)cGroup.eContents().get(3);
+		private final Keyword cAadlstringKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//StringType returns aadl2::AadlString:
+		//	name=ID COLON "type" {aadl2::AadlString} "aadlstring";
+		public ParserRule getRule() { return rule; }
+
+		//name=ID COLON "type" {aadl2::AadlString} "aadlstring"
+		public Group getGroup() { return cGroup; }
+
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1() { return cCOLONTerminalRuleCall_1; }
+
+		//"type"
+		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
+
+		//{aadl2::AadlString}
+		public Action getAadlStringAction_3() { return cAadlStringAction_3; }
+
+		//"aadlstring"
+		public Keyword getAadlstringKeyword_4() { return cAadlstringKeyword_4; }
+	}
+
+	public class UnnamedStringTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnnamedStringType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cAadlStringAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cAadlstringKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
-		//StringType returns aadl2::AadlString:
+		//UnnamedStringType returns aadl2::AadlString:
 		//	{aadl2::AadlString} "aadlstring";
 		public ParserRule getRule() { return rule; }
 
@@ -264,6 +356,72 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	public class EnumerationTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EnumerationType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cEnumerationKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final RuleCall cLPARENSTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Assignment cOwnedLiteralAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cOwnedLiteralEnumerationLiteralParserRuleCall_5_0 = (RuleCall)cOwnedLiteralAssignment_5.eContents().get(0);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final RuleCall cCOMMATerminalRuleCall_6_0 = (RuleCall)cGroup_6.eContents().get(0);
+		private final Assignment cOwnedLiteralAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cOwnedLiteralEnumerationLiteralParserRuleCall_6_1_0 = (RuleCall)cOwnedLiteralAssignment_6_1.eContents().get(0);
+		private final RuleCall cRPARENSTerminalRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
+		
+		//EnumerationType returns aadl2::EnumerationType:
+		//	name=ID COLON "type" "enumeration" LPARENS ownedLiteral+=EnumerationLiteral (COMMA ownedLiteral+=EnumerationLiteral)*
+		//	RPARENS;
+		public ParserRule getRule() { return rule; }
+
+		//name=ID COLON "type" "enumeration" LPARENS ownedLiteral+=EnumerationLiteral (COMMA ownedLiteral+=EnumerationLiteral)*
+		//RPARENS
+		public Group getGroup() { return cGroup; }
+
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1() { return cCOLONTerminalRuleCall_1; }
+
+		//"type"
+		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
+
+		//"enumeration"
+		public Keyword getEnumerationKeyword_3() { return cEnumerationKeyword_3; }
+
+		//LPARENS
+		public RuleCall getLPARENSTerminalRuleCall_4() { return cLPARENSTerminalRuleCall_4; }
+
+		//ownedLiteral+=EnumerationLiteral
+		public Assignment getOwnedLiteralAssignment_5() { return cOwnedLiteralAssignment_5; }
+
+		//EnumerationLiteral
+		public RuleCall getOwnedLiteralEnumerationLiteralParserRuleCall_5_0() { return cOwnedLiteralEnumerationLiteralParserRuleCall_5_0; }
+
+		//(COMMA ownedLiteral+=EnumerationLiteral)*
+		public Group getGroup_6() { return cGroup_6; }
+
+		//COMMA
+		public RuleCall getCOMMATerminalRuleCall_6_0() { return cCOMMATerminalRuleCall_6_0; }
+
+		//ownedLiteral+=EnumerationLiteral
+		public Assignment getOwnedLiteralAssignment_6_1() { return cOwnedLiteralAssignment_6_1; }
+
+		//EnumerationLiteral
+		public RuleCall getOwnedLiteralEnumerationLiteralParserRuleCall_6_1_0() { return cOwnedLiteralEnumerationLiteralParserRuleCall_6_1_0; }
+
+		//RPARENS
+		public RuleCall getRPARENSTerminalRuleCall_7() { return cRPARENSTerminalRuleCall_7; }
+	}
+
+	public class UnnamedEnumerationTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnnamedEnumerationType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cEnumerationKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final RuleCall cLPARENSTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Assignment cOwnedLiteralAssignment_2 = (Assignment)cGroup.eContents().get(2);
@@ -274,7 +432,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedLiteralEnumerationLiteralParserRuleCall_3_1_0 = (RuleCall)cOwnedLiteralAssignment_3_1.eContents().get(0);
 		private final RuleCall cRPARENSTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		
-		//EnumerationType returns aadl2::EnumerationType:
+		//UnnamedEnumerationType returns aadl2::EnumerationType:
 		//	"enumeration" LPARENS ownedLiteral+=EnumerationLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
 		public ParserRule getRule() { return rule; }
 
@@ -328,6 +486,70 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	public class UnitsTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnitsType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cUnitsKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final RuleCall cLPARENSTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Assignment cOwnedLiteralAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cOwnedLiteralUnitLiteralParserRuleCall_5_0 = (RuleCall)cOwnedLiteralAssignment_5.eContents().get(0);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final RuleCall cCOMMATerminalRuleCall_6_0 = (RuleCall)cGroup_6.eContents().get(0);
+		private final Assignment cOwnedLiteralAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cOwnedLiteralEnumerationLiteralParserRuleCall_6_1_0 = (RuleCall)cOwnedLiteralAssignment_6_1.eContents().get(0);
+		private final RuleCall cRPARENSTerminalRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
+		
+		//UnitsType returns aadl2::UnitsType:
+		//	name=ID COLON "type" "units" LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+		public ParserRule getRule() { return rule; }
+
+		//name=ID COLON "type" "units" LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS
+		public Group getGroup() { return cGroup; }
+
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1() { return cCOLONTerminalRuleCall_1; }
+
+		//"type"
+		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
+
+		//"units"
+		public Keyword getUnitsKeyword_3() { return cUnitsKeyword_3; }
+
+		//LPARENS
+		public RuleCall getLPARENSTerminalRuleCall_4() { return cLPARENSTerminalRuleCall_4; }
+
+		//ownedLiteral+=UnitLiteral
+		public Assignment getOwnedLiteralAssignment_5() { return cOwnedLiteralAssignment_5; }
+
+		//UnitLiteral
+		public RuleCall getOwnedLiteralUnitLiteralParserRuleCall_5_0() { return cOwnedLiteralUnitLiteralParserRuleCall_5_0; }
+
+		//(COMMA ownedLiteral+=EnumerationLiteral)*
+		public Group getGroup_6() { return cGroup_6; }
+
+		//COMMA
+		public RuleCall getCOMMATerminalRuleCall_6_0() { return cCOMMATerminalRuleCall_6_0; }
+
+		//ownedLiteral+=EnumerationLiteral
+		public Assignment getOwnedLiteralAssignment_6_1() { return cOwnedLiteralAssignment_6_1; }
+
+		//EnumerationLiteral
+		public RuleCall getOwnedLiteralEnumerationLiteralParserRuleCall_6_1_0() { return cOwnedLiteralEnumerationLiteralParserRuleCall_6_1_0; }
+
+		//RPARENS
+		public RuleCall getRPARENSTerminalRuleCall_7() { return cRPARENSTerminalRuleCall_7; }
+	}
+
+	public class UnnamedUnitsTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnnamedUnitsType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cUnitsKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final RuleCall cLPARENSTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Assignment cOwnedLiteralAssignment_2 = (Assignment)cGroup.eContents().get(2);
@@ -338,7 +560,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedLiteralEnumerationLiteralParserRuleCall_3_1_0 = (RuleCall)cOwnedLiteralAssignment_3_1.eContents().get(0);
 		private final RuleCall cRPARENSTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		
-		//UnitsType returns aadl2::UnitsType:
+		//UnnamedUnitsType returns aadl2::UnitsType:
 		//	"units" LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
 		public ParserRule getRule() { return rule; }
 
@@ -435,14 +657,58 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	public class IntegerTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "IntegerType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cAadlIntegerAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cAadlintegerKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Action cAadlIntegerAction_3 = (Action)cGroup.eContents().get(3);
+		private final Keyword cAadlintegerKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		////
 		////RealType returns aadl2::AadlReal:
+		////	name=ID COLON 'type' 
+		////	'aadlreal' (range+=RealRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+		////	 ;
+		////
+		////UnnamedRealType returns aadl2::AadlReal:
 		////	'aadlreal' (range+=RealRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
 		////	 ;
 		//IntegerType returns aadl2::AadlInteger:
+		//	name=ID COLON "type" {aadl2::AadlInteger} //(IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+		//	"aadlinteger";
+		public ParserRule getRule() { return rule; }
+
+		//name=ID COLON "type" {aadl2::AadlInteger} //(IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+		//"aadlinteger"
+		public Group getGroup() { return cGroup; }
+
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1() { return cCOLONTerminalRuleCall_1; }
+
+		//"type"
+		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
+
+		//{aadl2::AadlInteger}
+		public Action getAadlIntegerAction_3() { return cAadlIntegerAction_3; }
+
+		////(IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+		//"aadlinteger"
+		public Keyword getAadlintegerKeyword_4() { return cAadlintegerKeyword_4; }
+	}
+
+	public class UnnamedIntegerTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnnamedIntegerType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cAadlIntegerAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cAadlintegerKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//UnnamedIntegerType returns aadl2::AadlInteger:
 		//	{aadl2::AadlInteger} //(IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
 		//	"aadlinteger";
 		public ParserRule getRule() { return rule; }
@@ -462,6 +728,72 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	public class ClassifierTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ClassifierType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Action cClassifierTypeAction_3 = (Action)cGroup.eContents().get(3);
+		private final Keyword cClassifierKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Assignment cClassifierReferenceAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
+		private final RuleCall cClassifierReferenceQCReferenceParserRuleCall_5_0_0 = (RuleCall)cClassifierReferenceAssignment_5_0.eContents().get(0);
+		private final Group cGroup_5_1 = (Group)cGroup_5.eContents().get(1);
+		private final RuleCall cCOMMATerminalRuleCall_5_1_0 = (RuleCall)cGroup_5_1.eContents().get(0);
+		private final Assignment cClassifierReferenceAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
+		private final RuleCall cClassifierReferenceQCReferenceParserRuleCall_5_1_1_0 = (RuleCall)cClassifierReferenceAssignment_5_1_1.eContents().get(0);
+		
+		//ClassifierType returns aadl2::ClassifierType:
+		//	name=ID COLON "type" {aadl2::ClassifierType} "classifier" (classifierReference+=QCReference (COMMA
+		//	classifierReference+=QCReference)*)?;
+		public ParserRule getRule() { return rule; }
+
+		//name=ID COLON "type" {aadl2::ClassifierType} "classifier" (classifierReference+=QCReference (COMMA
+		//classifierReference+=QCReference)*)?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1() { return cCOLONTerminalRuleCall_1; }
+
+		//"type"
+		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
+
+		//{aadl2::ClassifierType}
+		public Action getClassifierTypeAction_3() { return cClassifierTypeAction_3; }
+
+		//"classifier"
+		public Keyword getClassifierKeyword_4() { return cClassifierKeyword_4; }
+
+		//(classifierReference+=QCReference (COMMA classifierReference+=QCReference)*)?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//classifierReference+=QCReference
+		public Assignment getClassifierReferenceAssignment_5_0() { return cClassifierReferenceAssignment_5_0; }
+
+		//QCReference
+		public RuleCall getClassifierReferenceQCReferenceParserRuleCall_5_0_0() { return cClassifierReferenceQCReferenceParserRuleCall_5_0_0; }
+
+		//(COMMA classifierReference+=QCReference)*
+		public Group getGroup_5_1() { return cGroup_5_1; }
+
+		//COMMA
+		public RuleCall getCOMMATerminalRuleCall_5_1_0() { return cCOMMATerminalRuleCall_5_1_0; }
+
+		//classifierReference+=QCReference
+		public Assignment getClassifierReferenceAssignment_5_1_1() { return cClassifierReferenceAssignment_5_1_1; }
+
+		//QCReference
+		public RuleCall getClassifierReferenceQCReferenceParserRuleCall_5_1_1_0() { return cClassifierReferenceQCReferenceParserRuleCall_5_1_1_0; }
+	}
+
+	public class UnnamedClassifierTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnnamedClassifierType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cClassifierTypeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cClassifierKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
@@ -472,7 +804,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cClassifierReferenceAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
 		private final RuleCall cClassifierReferenceQCReferenceParserRuleCall_2_1_1_0 = (RuleCall)cClassifierReferenceAssignment_2_1_1.eContents().get(0);
 		
-		//ClassifierType returns aadl2::ClassifierType:
+		//UnnamedClassifierType returns aadl2::ClassifierType:
 		//	{aadl2::ClassifierType} "classifier" (classifierReference+=QCReference (COMMA classifierReference+=QCReference)*)?;
 		public ParserRule getRule() { return rule; }
 
@@ -566,49 +898,161 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	public class ReferenceTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ReferenceType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cReferenceKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Assignment cNamedElementReferenceAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
-		private final RuleCall cNamedElementReferenceQCReferenceParserRuleCall_1_0_0 = (RuleCall)cNamedElementReferenceAssignment_1_0.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final RuleCall cCOMMATerminalRuleCall_1_1_0 = (RuleCall)cGroup_1_1.eContents().get(0);
-		private final Assignment cNamedElementReferenceAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
-		private final RuleCall cNamedElementReferenceQCReferenceParserRuleCall_1_1_1_0 = (RuleCall)cNamedElementReferenceAssignment_1_1_1.eContents().get(0);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cReferenceKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Assignment cNamedElementReferenceAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final RuleCall cNamedElementReferenceQCReferenceParserRuleCall_4_0_0 = (RuleCall)cNamedElementReferenceAssignment_4_0.eContents().get(0);
+		private final Group cGroup_4_1 = (Group)cGroup_4.eContents().get(1);
+		private final RuleCall cCOMMATerminalRuleCall_4_1_0 = (RuleCall)cGroup_4_1.eContents().get(0);
+		private final Assignment cNamedElementReferenceAssignment_4_1_1 = (Assignment)cGroup_4_1.eContents().get(1);
+		private final RuleCall cNamedElementReferenceQCReferenceParserRuleCall_4_1_1_0 = (RuleCall)cNamedElementReferenceAssignment_4_1_1.eContents().get(0);
 		
 		//ReferenceType returns aadl2::ReferenceType:
-		//	"reference" (namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?;
+		//	name=ID COLON "type" "reference" (namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?;
 		public ParserRule getRule() { return rule; }
 
-		//"reference" (namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?
+		//name=ID COLON "type" "reference" (namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1() { return cCOLONTerminalRuleCall_1; }
+
+		//"type"
+		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
+
+		//"reference"
+		public Keyword getReferenceKeyword_3() { return cReferenceKeyword_3; }
+
+		//(namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//namedElementReference+=QCReference
+		public Assignment getNamedElementReferenceAssignment_4_0() { return cNamedElementReferenceAssignment_4_0; }
+
+		//QCReference
+		public RuleCall getNamedElementReferenceQCReferenceParserRuleCall_4_0_0() { return cNamedElementReferenceQCReferenceParserRuleCall_4_0_0; }
+
+		//(COMMA namedElementReference+=QCReference)*
+		public Group getGroup_4_1() { return cGroup_4_1; }
+
+		//COMMA
+		public RuleCall getCOMMATerminalRuleCall_4_1_0() { return cCOMMATerminalRuleCall_4_1_0; }
+
+		//namedElementReference+=QCReference
+		public Assignment getNamedElementReferenceAssignment_4_1_1() { return cNamedElementReferenceAssignment_4_1_1; }
+
+		//QCReference
+		public RuleCall getNamedElementReferenceQCReferenceParserRuleCall_4_1_1_0() { return cNamedElementReferenceQCReferenceParserRuleCall_4_1_1_0; }
+	}
+
+	public class UnnamedReferenceTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnnamedReferenceType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cReferenceKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Action cReferenceTypeAction_1 = (Action)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cNamedElementReferenceAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cNamedElementReferenceQCReferenceParserRuleCall_2_0_0 = (RuleCall)cNamedElementReferenceAssignment_2_0.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final RuleCall cCOMMATerminalRuleCall_2_1_0 = (RuleCall)cGroup_2_1.eContents().get(0);
+		private final Assignment cNamedElementReferenceAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cNamedElementReferenceQCReferenceParserRuleCall_2_1_1_0 = (RuleCall)cNamedElementReferenceAssignment_2_1_1.eContents().get(0);
+		
+		//UnnamedReferenceType returns aadl2::ReferenceType:
+		//	"reference" {aadl2::ReferenceType} (namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?;
+		public ParserRule getRule() { return rule; }
+
+		//"reference" {aadl2::ReferenceType} (namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?
 		public Group getGroup() { return cGroup; }
 
 		//"reference"
 		public Keyword getReferenceKeyword_0() { return cReferenceKeyword_0; }
 
+		//{aadl2::ReferenceType}
+		public Action getReferenceTypeAction_1() { return cReferenceTypeAction_1; }
+
 		//(namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?
-		public Group getGroup_1() { return cGroup_1; }
+		public Group getGroup_2() { return cGroup_2; }
 
 		//namedElementReference+=QCReference
-		public Assignment getNamedElementReferenceAssignment_1_0() { return cNamedElementReferenceAssignment_1_0; }
+		public Assignment getNamedElementReferenceAssignment_2_0() { return cNamedElementReferenceAssignment_2_0; }
 
 		//QCReference
-		public RuleCall getNamedElementReferenceQCReferenceParserRuleCall_1_0_0() { return cNamedElementReferenceQCReferenceParserRuleCall_1_0_0; }
+		public RuleCall getNamedElementReferenceQCReferenceParserRuleCall_2_0_0() { return cNamedElementReferenceQCReferenceParserRuleCall_2_0_0; }
 
 		//(COMMA namedElementReference+=QCReference)*
-		public Group getGroup_1_1() { return cGroup_1_1; }
+		public Group getGroup_2_1() { return cGroup_2_1; }
 
 		//COMMA
-		public RuleCall getCOMMATerminalRuleCall_1_1_0() { return cCOMMATerminalRuleCall_1_1_0; }
+		public RuleCall getCOMMATerminalRuleCall_2_1_0() { return cCOMMATerminalRuleCall_2_1_0; }
 
 		//namedElementReference+=QCReference
-		public Assignment getNamedElementReferenceAssignment_1_1_1() { return cNamedElementReferenceAssignment_1_1_1; }
+		public Assignment getNamedElementReferenceAssignment_2_1_1() { return cNamedElementReferenceAssignment_2_1_1; }
 
 		//QCReference
-		public RuleCall getNamedElementReferenceQCReferenceParserRuleCall_1_1_1_0() { return cNamedElementReferenceQCReferenceParserRuleCall_1_1_1_0; }
+		public RuleCall getNamedElementReferenceQCReferenceParserRuleCall_2_1_1_0() { return cNamedElementReferenceQCReferenceParserRuleCall_2_1_1_0; }
 	}
 
 	public class RecordTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "RecordType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cRecordKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final RuleCall cLPARENSTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Assignment cOwnedFieldAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cOwnedFieldRecordFieldParserRuleCall_5_0 = (RuleCall)cOwnedFieldAssignment_5.eContents().get(0);
+		private final RuleCall cRPARENSTerminalRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		
+		//RecordType returns aadl2::RecordType:
+		//	name=ID COLON "type" "record" LPARENS ownedField+=RecordField+ RPARENS;
+		public ParserRule getRule() { return rule; }
+
+		//name=ID COLON "type" "record" LPARENS ownedField+=RecordField+ RPARENS
+		public Group getGroup() { return cGroup; }
+
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1() { return cCOLONTerminalRuleCall_1; }
+
+		//"type"
+		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
+
+		//"record"
+		public Keyword getRecordKeyword_3() { return cRecordKeyword_3; }
+
+		//LPARENS
+		public RuleCall getLPARENSTerminalRuleCall_4() { return cLPARENSTerminalRuleCall_4; }
+
+		//ownedField+=RecordField+
+		public Assignment getOwnedFieldAssignment_5() { return cOwnedFieldAssignment_5; }
+
+		//RecordField
+		public RuleCall getOwnedFieldRecordFieldParserRuleCall_5_0() { return cOwnedFieldRecordFieldParserRuleCall_5_0; }
+
+		//RPARENS
+		public RuleCall getRPARENSTerminalRuleCall_6() { return cRPARENSTerminalRuleCall_6; }
+	}
+
+	public class UnnamedRecordTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UnnamedRecordType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cRecordKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final RuleCall cLPARENSTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
@@ -616,7 +1060,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedFieldRecordFieldParserRuleCall_2_0 = (RuleCall)cOwnedFieldAssignment_2.eContents().get(0);
 		private final RuleCall cRPARENSTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		
-		//RecordType returns aadl2::RecordType:
+		//UnnamedRecordType returns aadl2::RecordType:
 		//	"record" LPARENS ownedField+=RecordField+ RPARENS;
 		public ParserRule getRule() { return rule; }
 
@@ -854,6 +1298,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyOwner");
 		private final RuleCall cQCReferenceParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
+		//// both alternatives are identifiers
 		////|ClassifierValue)
 		//PropertyOwner returns aadl2::PropertyOwner:
 		//	QCReference;
@@ -1170,18 +1615,48 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cComputedTermParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cStringTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cBooleanTermParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cListTermParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
-		////| ListTerm;
 		//PropertyExpression returns aadl2::PropertyExpression:
-		//	ComputedTerm | StringTerm;
+		//	ComputedTerm | StringTerm | BooleanTerm | => ListTerm;
 		public ParserRule getRule() { return rule; }
 
-		//ComputedTerm | StringTerm
+		//ComputedTerm | StringTerm | BooleanTerm | => ListTerm
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ComputedTerm
 		public RuleCall getComputedTermParserRuleCall_0() { return cComputedTermParserRuleCall_0; }
 
+		//StringTerm
+		public RuleCall getStringTermParserRuleCall_1() { return cStringTermParserRuleCall_1; }
+
+		//BooleanTerm
+		public RuleCall getBooleanTermParserRuleCall_2() { return cBooleanTermParserRuleCall_2; }
+
+		//=> ListTerm
+		public RuleCall getListTermParserRuleCall_3() { return cListTermParserRuleCall_3; }
+	}
+
+	public class NoListPropertyExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NoListPropertyExpression");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cComputedTermParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cStringTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//NoListPropertyExpression returns aadl2::PropertyExpression:
+		//	ComputedTerm | //| BooleanTerm
+		//	StringTerm;
+		public ParserRule getRule() { return rule; }
+
+		//ComputedTerm | //| BooleanTerm
+		//StringTerm
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//ComputedTerm
+		public RuleCall getComputedTermParserRuleCall_0() { return cComputedTermParserRuleCall_0; }
+
+		////| BooleanTerm
 		//StringTerm
 		public RuleCall getStringTermParserRuleCall_1() { return cStringTermParserRuleCall_1; }
 	}
@@ -1284,13 +1759,13 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOpAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cOpNotOpParserRuleCall_0_0 = (RuleCall)cOpAssignment_0.eContents().get(0);
 		private final Assignment cOwnedPropertyExpressionAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cOwnedPropertyExpressionBooleanTermParserRuleCall_1_0 = (RuleCall)cOwnedPropertyExpressionAssignment_1.eContents().get(0);
+		private final RuleCall cOwnedPropertyExpressionBooleanAtomParserRuleCall_1_0 = (RuleCall)cOwnedPropertyExpressionAssignment_1.eContents().get(0);
 		
 		//NotTerm returns aadl2::Operation:
-		//	op=NotOp ownedPropertyExpression+=BooleanTerm;
+		//	op=NotOp ownedPropertyExpression+=BooleanAtom;
 		public ParserRule getRule() { return rule; }
 
-		//op=NotOp ownedPropertyExpression+=BooleanTerm
+		//op=NotOp ownedPropertyExpression+=BooleanAtom
 		public Group getGroup() { return cGroup; }
 
 		//op=NotOp
@@ -1299,11 +1774,11 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//NotOp
 		public RuleCall getOpNotOpParserRuleCall_0_0() { return cOpNotOpParserRuleCall_0_0; }
 
-		//ownedPropertyExpression+=BooleanTerm
+		//ownedPropertyExpression+=BooleanAtom
 		public Assignment getOwnedPropertyExpressionAssignment_1() { return cOwnedPropertyExpressionAssignment_1; }
 
-		//BooleanTerm
-		public RuleCall getOwnedPropertyExpressionBooleanTermParserRuleCall_1_0() { return cOwnedPropertyExpressionBooleanTermParserRuleCall_1_0; }
+		//BooleanAtom
+		public RuleCall getOwnedPropertyExpressionBooleanAtomParserRuleCall_1_0() { return cOwnedPropertyExpressionBooleanAtomParserRuleCall_1_0; }
 	}
 
 	public class BooleanAtomElements extends AbstractParserRuleElementFinder {
@@ -1311,39 +1786,38 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cBooleanLiteralParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cNotTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cConstantValueParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
-		private final RuleCall cLPARENSTerminalRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
-		private final RuleCall cBooleanTermParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
-		private final RuleCall cRPARENSTerminalRuleCall_3_2 = (RuleCall)cGroup_3.eContents().get(2);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final RuleCall cLPARENSTerminalRuleCall_2_0 = (RuleCall)cGroup_2.eContents().get(0);
+		private final RuleCall cBooleanTermParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final RuleCall cRPARENSTerminalRuleCall_2_2 = (RuleCall)cGroup_2.eContents().get(2);
 		
 		//BooleanAtom returns aadl2::PropertyExpression:
-		//	BooleanLiteral | NotTerm | ConstantValue | LPARENS BooleanTerm RPARENS;
+		//	BooleanLiteral | //| ConstantValue
+		//	NotTerm | LPARENS BooleanTerm RPARENS;
 		public ParserRule getRule() { return rule; }
 
-		//BooleanLiteral | NotTerm | ConstantValue | LPARENS BooleanTerm RPARENS
+		//BooleanLiteral | //| ConstantValue
+		//NotTerm | LPARENS BooleanTerm RPARENS
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//BooleanLiteral
 		public RuleCall getBooleanLiteralParserRuleCall_0() { return cBooleanLiteralParserRuleCall_0; }
 
+		////| ConstantValue
 		//NotTerm
 		public RuleCall getNotTermParserRuleCall_1() { return cNotTermParserRuleCall_1; }
 
-		//ConstantValue
-		public RuleCall getConstantValueParserRuleCall_2() { return cConstantValueParserRuleCall_2; }
-
 		//LPARENS BooleanTerm RPARENS
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_2() { return cGroup_2; }
 
 		//LPARENS
-		public RuleCall getLPARENSTerminalRuleCall_3_0() { return cLPARENSTerminalRuleCall_3_0; }
+		public RuleCall getLPARENSTerminalRuleCall_2_0() { return cLPARENSTerminalRuleCall_2_0; }
 
 		//BooleanTerm
-		public RuleCall getBooleanTermParserRuleCall_3_1() { return cBooleanTermParserRuleCall_3_1; }
+		public RuleCall getBooleanTermParserRuleCall_2_1() { return cBooleanTermParserRuleCall_2_1; }
 
 		//RPARENS
-		public RuleCall getRPARENSTerminalRuleCall_3_2() { return cRPARENSTerminalRuleCall_3_2; }
+		public RuleCall getRPARENSTerminalRuleCall_2_2() { return cRPARENSTerminalRuleCall_2_2; }
 	}
 
 	public class BooleanLiteralElements extends AbstractParserRuleElementFinder {
@@ -2137,17 +2611,25 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	private PropertyTypeElements pPropertyType;
 	private UnnamedPropertyTypeElements pUnnamedPropertyType;
 	private BooleanTypeElements pBooleanType;
+	private UnnamedBooleanTypeElements pUnnamedBooleanType;
 	private StringTypeElements pStringType;
+	private UnnamedStringTypeElements pUnnamedStringType;
 	private EnumerationTypeElements pEnumerationType;
+	private UnnamedEnumerationTypeElements pUnnamedEnumerationType;
 	private EnumerationLiteralElements pEnumerationLiteral;
 	private UnitsTypeElements pUnitsType;
+	private UnnamedUnitsTypeElements pUnnamedUnitsType;
 	private UnitLiteralElements pUnitLiteral;
 	private UnitLiteralConversionElements pUnitLiteralConversion;
 	private IntegerTypeElements pIntegerType;
+	private UnnamedIntegerTypeElements pUnnamedIntegerType;
 	private ClassifierTypeElements pClassifierType;
+	private UnnamedClassifierTypeElements pUnnamedClassifierType;
 	private QCReferenceElements pQCReference;
 	private ReferenceTypeElements pReferenceType;
+	private UnnamedReferenceTypeElements pUnnamedReferenceType;
 	private RecordTypeElements pRecordType;
+	private UnnamedRecordTypeElements pUnnamedRecordType;
 	private RecordFieldElements pRecordField;
 	private PropertyDefinitionElements pPropertyDefinition;
 	private AllReferenceElements pAllReference;
@@ -2158,6 +2640,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	private ModalPropertyValueElements pModalPropertyValue;
 	private PropertyValueElements pPropertyValue;
 	private PropertyExpressionElements pPropertyExpression;
+	private NoListPropertyExpressionElements pNoListPropertyExpression;
 	private BooleanTermElements pBooleanTerm;
 	private OrTermElements pOrTerm;
 	private AndTermElements pAndTerm;
@@ -2231,7 +2714,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	//PropertySet returns aadl2::PropertySet:
 	//	"property" "set" name=ID "is" ("with" importedPropertySet+=[aadl2::PropertySet] //| importedPropertySet+=[props::PropertySet|ID]) 
 	//	(COMMA importedPropertySet+=[aadl2::PropertySet])* SEMI)* (ownedPropertyType+=PropertyType |
-	//	ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)+ "end" ID SEMI;
+	//	ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* "end" ID SEMI;
 	public PropertySetElements getPropertySetAccess() {
 		return (pPropertySet != null) ? pPropertySet : (pPropertySet = new PropertySetElements());
 	}
@@ -2241,7 +2724,8 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyType returns aadl2::PropertyType:
-	//	name=ID COLON "type" UnnamedPropertyType SEMI;
+	//	(BooleanType | StringType | EnumerationType | // |RealType
+	//	UnitsType | IntegerType | ClassifierType | ReferenceType | RecordType) SEMI;
 	public PropertyTypeElements getPropertyTypeAccess() {
 		return (pPropertyType != null) ? pPropertyType : (pPropertyType = new PropertyTypeElements());
 	}
@@ -2251,8 +2735,8 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//UnnamedPropertyType returns aadl2::PropertyType:
-	//	BooleanType | StringType | EnumerationType | // |RealType
-	//	UnitsType | IntegerType | ClassifierType | ReferenceType | RecordType;
+	//	UnnamedBooleanType | UnnamedStringType | UnnamedEnumerationType | // |UnnamedRealType
+	//	UnnamedUnitsType | UnnamedIntegerType | UnnamedClassifierType | UnnamedReferenceType | UnnamedRecordType;
 	public UnnamedPropertyTypeElements getUnnamedPropertyTypeAccess() {
 		return (pUnnamedPropertyType != null) ? pUnnamedPropertyType : (pUnnamedPropertyType = new UnnamedPropertyTypeElements());
 	}
@@ -2262,7 +2746,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//BooleanType returns aadl2::AadlBoolean:
-	//	{aadl2::AadlBoolean} "aadlboolean";
+	//	name=ID COLON "type" {aadl2::AadlBoolean} "aadlboolean";
 	public BooleanTypeElements getBooleanTypeAccess() {
 		return (pBooleanType != null) ? pBooleanType : (pBooleanType = new BooleanTypeElements());
 	}
@@ -2271,8 +2755,18 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return getBooleanTypeAccess().getRule();
 	}
 
+	//UnnamedBooleanType returns aadl2::AadlBoolean:
+	//	{aadl2::AadlBoolean} "aadlboolean";
+	public UnnamedBooleanTypeElements getUnnamedBooleanTypeAccess() {
+		return (pUnnamedBooleanType != null) ? pUnnamedBooleanType : (pUnnamedBooleanType = new UnnamedBooleanTypeElements());
+	}
+	
+	public ParserRule getUnnamedBooleanTypeRule() {
+		return getUnnamedBooleanTypeAccess().getRule();
+	}
+
 	//StringType returns aadl2::AadlString:
-	//	{aadl2::AadlString} "aadlstring";
+	//	name=ID COLON "type" {aadl2::AadlString} "aadlstring";
 	public StringTypeElements getStringTypeAccess() {
 		return (pStringType != null) ? pStringType : (pStringType = new StringTypeElements());
 	}
@@ -2281,14 +2775,35 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return getStringTypeAccess().getRule();
 	}
 
+	//UnnamedStringType returns aadl2::AadlString:
+	//	{aadl2::AadlString} "aadlstring";
+	public UnnamedStringTypeElements getUnnamedStringTypeAccess() {
+		return (pUnnamedStringType != null) ? pUnnamedStringType : (pUnnamedStringType = new UnnamedStringTypeElements());
+	}
+	
+	public ParserRule getUnnamedStringTypeRule() {
+		return getUnnamedStringTypeAccess().getRule();
+	}
+
 	//EnumerationType returns aadl2::EnumerationType:
-	//	"enumeration" LPARENS ownedLiteral+=EnumerationLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+	//	name=ID COLON "type" "enumeration" LPARENS ownedLiteral+=EnumerationLiteral (COMMA ownedLiteral+=EnumerationLiteral)*
+	//	RPARENS;
 	public EnumerationTypeElements getEnumerationTypeAccess() {
 		return (pEnumerationType != null) ? pEnumerationType : (pEnumerationType = new EnumerationTypeElements());
 	}
 	
 	public ParserRule getEnumerationTypeRule() {
 		return getEnumerationTypeAccess().getRule();
+	}
+
+	//UnnamedEnumerationType returns aadl2::EnumerationType:
+	//	"enumeration" LPARENS ownedLiteral+=EnumerationLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+	public UnnamedEnumerationTypeElements getUnnamedEnumerationTypeAccess() {
+		return (pUnnamedEnumerationType != null) ? pUnnamedEnumerationType : (pUnnamedEnumerationType = new UnnamedEnumerationTypeElements());
+	}
+	
+	public ParserRule getUnnamedEnumerationTypeRule() {
+		return getUnnamedEnumerationTypeAccess().getRule();
 	}
 
 	//EnumerationLiteral returns aadl2::EnumerationLiteral:
@@ -2302,13 +2817,23 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//UnitsType returns aadl2::UnitsType:
-	//	"units" LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+	//	name=ID COLON "type" "units" LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
 	public UnitsTypeElements getUnitsTypeAccess() {
 		return (pUnitsType != null) ? pUnitsType : (pUnitsType = new UnitsTypeElements());
 	}
 	
 	public ParserRule getUnitsTypeRule() {
 		return getUnitsTypeAccess().getRule();
+	}
+
+	//UnnamedUnitsType returns aadl2::UnitsType:
+	//	"units" LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+	public UnnamedUnitsTypeElements getUnnamedUnitsTypeAccess() {
+		return (pUnnamedUnitsType != null) ? pUnnamedUnitsType : (pUnnamedUnitsType = new UnnamedUnitsTypeElements());
+	}
+	
+	public ParserRule getUnnamedUnitsTypeRule() {
+		return getUnnamedUnitsTypeAccess().getRule();
 	}
 
 	//UnitLiteral returns aadl2::UnitLiteral:
@@ -2334,10 +2859,15 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	////
 	////RealType returns aadl2::AadlReal:
+	////	name=ID COLON 'type' 
+	////	'aadlreal' (range+=RealRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+	////	 ;
+	////
+	////UnnamedRealType returns aadl2::AadlReal:
 	////	'aadlreal' (range+=RealRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
 	////	 ;
 	//IntegerType returns aadl2::AadlInteger:
-	//	{aadl2::AadlInteger} //(IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+	//	name=ID COLON "type" {aadl2::AadlInteger} //(IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
 	//	"aadlinteger";
 	public IntegerTypeElements getIntegerTypeAccess() {
 		return (pIntegerType != null) ? pIntegerType : (pIntegerType = new IntegerTypeElements());
@@ -2347,14 +2877,36 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return getIntegerTypeAccess().getRule();
 	}
 
+	//UnnamedIntegerType returns aadl2::AadlInteger:
+	//	{aadl2::AadlInteger} //(IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+	//	"aadlinteger";
+	public UnnamedIntegerTypeElements getUnnamedIntegerTypeAccess() {
+		return (pUnnamedIntegerType != null) ? pUnnamedIntegerType : (pUnnamedIntegerType = new UnnamedIntegerTypeElements());
+	}
+	
+	public ParserRule getUnnamedIntegerTypeRule() {
+		return getUnnamedIntegerTypeAccess().getRule();
+	}
+
 	//ClassifierType returns aadl2::ClassifierType:
-	//	{aadl2::ClassifierType} "classifier" (classifierReference+=QCReference (COMMA classifierReference+=QCReference)*)?;
+	//	name=ID COLON "type" {aadl2::ClassifierType} "classifier" (classifierReference+=QCReference (COMMA
+	//	classifierReference+=QCReference)*)?;
 	public ClassifierTypeElements getClassifierTypeAccess() {
 		return (pClassifierType != null) ? pClassifierType : (pClassifierType = new ClassifierTypeElements());
 	}
 	
 	public ParserRule getClassifierTypeRule() {
 		return getClassifierTypeAccess().getRule();
+	}
+
+	//UnnamedClassifierType returns aadl2::ClassifierType:
+	//	{aadl2::ClassifierType} "classifier" (classifierReference+=QCReference (COMMA classifierReference+=QCReference)*)?;
+	public UnnamedClassifierTypeElements getUnnamedClassifierTypeAccess() {
+		return (pUnnamedClassifierType != null) ? pUnnamedClassifierType : (pUnnamedClassifierType = new UnnamedClassifierTypeElements());
+	}
+	
+	public ParserRule getUnnamedClassifierTypeRule() {
+		return getUnnamedClassifierTypeAccess().getRule();
 	}
 
 	//QCReference returns aadl2::MetaclassReference:
@@ -2368,7 +2920,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReferenceType returns aadl2::ReferenceType:
-	//	"reference" (namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?;
+	//	name=ID COLON "type" "reference" (namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?;
 	public ReferenceTypeElements getReferenceTypeAccess() {
 		return (pReferenceType != null) ? pReferenceType : (pReferenceType = new ReferenceTypeElements());
 	}
@@ -2377,14 +2929,34 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return getReferenceTypeAccess().getRule();
 	}
 
+	//UnnamedReferenceType returns aadl2::ReferenceType:
+	//	"reference" {aadl2::ReferenceType} (namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?;
+	public UnnamedReferenceTypeElements getUnnamedReferenceTypeAccess() {
+		return (pUnnamedReferenceType != null) ? pUnnamedReferenceType : (pUnnamedReferenceType = new UnnamedReferenceTypeElements());
+	}
+	
+	public ParserRule getUnnamedReferenceTypeRule() {
+		return getUnnamedReferenceTypeAccess().getRule();
+	}
+
 	//RecordType returns aadl2::RecordType:
-	//	"record" LPARENS ownedField+=RecordField+ RPARENS;
+	//	name=ID COLON "type" "record" LPARENS ownedField+=RecordField+ RPARENS;
 	public RecordTypeElements getRecordTypeAccess() {
 		return (pRecordType != null) ? pRecordType : (pRecordType = new RecordTypeElements());
 	}
 	
 	public ParserRule getRecordTypeRule() {
 		return getRecordTypeAccess().getRule();
+	}
+
+	//UnnamedRecordType returns aadl2::RecordType:
+	//	"record" LPARENS ownedField+=RecordField+ RPARENS;
+	public UnnamedRecordTypeElements getUnnamedRecordTypeAccess() {
+		return (pUnnamedRecordType != null) ? pUnnamedRecordType : (pUnnamedRecordType = new UnnamedRecordTypeElements());
+	}
+	
+	public ParserRule getUnnamedRecordTypeRule() {
+		return getUnnamedRecordTypeAccess().getRule();
 	}
 
 	////&&&&&&& TODO list is currently a count
@@ -2424,6 +2996,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return getAllReferenceAccess().getRule();
 	}
 
+	//// both alternatives are identifiers
 	////|ClassifierValue)
 	//PropertyOwner returns aadl2::PropertyOwner:
 	//	QCReference;
@@ -2499,15 +3072,25 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyValueAccess().getRule();
 	}
 
-	////| ListTerm;
 	//PropertyExpression returns aadl2::PropertyExpression:
-	//	ComputedTerm | StringTerm;
+	//	ComputedTerm | StringTerm | BooleanTerm | => ListTerm;
 	public PropertyExpressionElements getPropertyExpressionAccess() {
 		return (pPropertyExpression != null) ? pPropertyExpression : (pPropertyExpression = new PropertyExpressionElements());
 	}
 	
 	public ParserRule getPropertyExpressionRule() {
 		return getPropertyExpressionAccess().getRule();
+	}
+
+	//NoListPropertyExpression returns aadl2::PropertyExpression:
+	//	ComputedTerm | //| BooleanTerm
+	//	StringTerm;
+	public NoListPropertyExpressionElements getNoListPropertyExpressionAccess() {
+		return (pNoListPropertyExpression != null) ? pNoListPropertyExpression : (pNoListPropertyExpression = new NoListPropertyExpressionElements());
+	}
+	
+	public ParserRule getNoListPropertyExpressionRule() {
+		return getNoListPropertyExpressionAccess().getRule();
 	}
 
 	//BooleanTerm returns aadl2::PropertyExpression:
@@ -2541,7 +3124,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NotTerm returns aadl2::Operation:
-	//	op=NotOp ownedPropertyExpression+=BooleanTerm;
+	//	op=NotOp ownedPropertyExpression+=BooleanAtom;
 	public NotTermElements getNotTermAccess() {
 		return (pNotTerm != null) ? pNotTerm : (pNotTerm = new NotTermElements());
 	}
@@ -2551,7 +3134,8 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//BooleanAtom returns aadl2::PropertyExpression:
-	//	BooleanLiteral | NotTerm | ConstantValue | LPARENS BooleanTerm RPARENS;
+	//	BooleanLiteral | //| ConstantValue
+	//	NotTerm | LPARENS BooleanTerm RPARENS;
 	public BooleanAtomElements getBooleanAtomAccess() {
 		return (pBooleanAtom != null) ? pBooleanAtom : (pBooleanAtom = new BooleanAtomElements());
 	}
