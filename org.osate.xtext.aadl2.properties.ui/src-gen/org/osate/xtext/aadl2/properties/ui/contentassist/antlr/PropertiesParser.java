@@ -106,7 +106,7 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAndTermAccess().getGroup(), "rule__AndTerm__Group__0");
 					put(grammarAccess.getAndTermAccess().getGroup_1(), "rule__AndTerm__Group_1__0");
 					put(grammarAccess.getNotTermAccess().getGroup(), "rule__NotTerm__Group__0");
-					put(grammarAccess.getBooleanAtomAccess().getGroup_2(), "rule__BooleanAtom__Group_2__0");
+					put(grammarAccess.getBooleanAtomAccess().getGroup_3(), "rule__BooleanAtom__Group_3__0");
 					put(grammarAccess.getBooleanLiteralAccess().getGroup(), "rule__BooleanLiteral__Group__0");
 					put(grammarAccess.getReferenceTermAccess().getGroup(), "rule__ReferenceTerm__Group__0");
 					put(grammarAccess.getReferenceTermAccess().getGroup_3(), "rule__ReferenceTerm__Group_3__0");

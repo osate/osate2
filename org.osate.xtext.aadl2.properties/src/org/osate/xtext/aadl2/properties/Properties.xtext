@@ -240,7 +240,7 @@ NotTerm returns aadl2::Operation:
 
 
 BooleanAtom returns aadl2::PropertyExpression:
-	( BooleanLiteral  | NotTerm //| ConstantValue
+	( BooleanLiteral  | NotTerm | ConstantValue
 	| (LPARENS BooleanTerm RPARENS)
 	);
 

@@ -1074,6 +1074,32 @@ finally {
 
 
 
+// Entry rule entryRuleConstantValue
+entryRuleConstantValue 
+:
+{ before(grammarAccess.getConstantValueRule()); }
+	 ruleConstantValue
+{ after(grammarAccess.getConstantValueRule()); } 
+	 EOF 
+;
+
+// Rule ConstantValue
+ruleConstantValue
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getConstantValueAccess().getConstantAssignment()); }
+(rule__ConstantValue__ConstantAssignment)
+{ after(grammarAccess.getConstantValueAccess().getConstantAssignment()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 
 
 
@@ -1864,9 +1890,15 @@ rule__BooleanAtom__Alternatives
 )
 
     |(
-{ before(grammarAccess.getBooleanAtomAccess().getGroup_2()); }
-(rule__BooleanAtom__Group_2__0)
-{ after(grammarAccess.getBooleanAtomAccess().getGroup_2()); }
+{ before(grammarAccess.getBooleanAtomAccess().getConstantValueParserRuleCall_2()); }
+	ruleConstantValue
+{ after(grammarAccess.getBooleanAtomAccess().getConstantValueParserRuleCall_2()); }
+)
+
+    |(
+{ before(grammarAccess.getBooleanAtomAccess().getGroup_3()); }
+(rule__BooleanAtom__Group_3__0)
+{ after(grammarAccess.getBooleanAtomAccess().getGroup_3()); }
 )
 
 ;
@@ -7338,27 +7370,27 @@ finally {
 
 
 
-rule__BooleanAtom__Group_2__0
+rule__BooleanAtom__Group_3__0
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__BooleanAtom__Group_2__0__Impl
-	rule__BooleanAtom__Group_2__1
+	rule__BooleanAtom__Group_3__0__Impl
+	rule__BooleanAtom__Group_3__1
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__BooleanAtom__Group_2__0__Impl
+rule__BooleanAtom__Group_3__0__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getBooleanAtomAccess().getLPARENSTerminalRuleCall_2_0()); }
+{ before(grammarAccess.getBooleanAtomAccess().getLPARENSTerminalRuleCall_3_0()); }
 	RULE_LPARENS
-{ after(grammarAccess.getBooleanAtomAccess().getLPARENSTerminalRuleCall_2_0()); }
+{ after(grammarAccess.getBooleanAtomAccess().getLPARENSTerminalRuleCall_3_0()); }
 )
 
 ;
@@ -7367,27 +7399,27 @@ finally {
 }
 
 
-rule__BooleanAtom__Group_2__1
+rule__BooleanAtom__Group_3__1
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__BooleanAtom__Group_2__1__Impl
-	rule__BooleanAtom__Group_2__2
+	rule__BooleanAtom__Group_3__1__Impl
+	rule__BooleanAtom__Group_3__2
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__BooleanAtom__Group_2__1__Impl
+rule__BooleanAtom__Group_3__1__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getBooleanAtomAccess().getBooleanTermParserRuleCall_2_1()); }
+{ before(grammarAccess.getBooleanAtomAccess().getBooleanTermParserRuleCall_3_1()); }
 	ruleBooleanTerm
-{ after(grammarAccess.getBooleanAtomAccess().getBooleanTermParserRuleCall_2_1()); }
+{ after(grammarAccess.getBooleanAtomAccess().getBooleanTermParserRuleCall_3_1()); }
 )
 
 ;
@@ -7396,26 +7428,26 @@ finally {
 }
 
 
-rule__BooleanAtom__Group_2__2
+rule__BooleanAtom__Group_3__2
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__BooleanAtom__Group_2__2__Impl
+	rule__BooleanAtom__Group_3__2__Impl
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__BooleanAtom__Group_2__2__Impl
+rule__BooleanAtom__Group_3__2__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getBooleanAtomAccess().getRPARENSTerminalRuleCall_2_2()); }
+{ before(grammarAccess.getBooleanAtomAccess().getRPARENSTerminalRuleCall_3_2()); }
 	RULE_RPARENS
-{ after(grammarAccess.getBooleanAtomAccess().getRPARENSTerminalRuleCall_2_2()); }
+{ after(grammarAccess.getBooleanAtomAccess().getRPARENSTerminalRuleCall_3_2()); }
 )
 
 ;
@@ -9760,6 +9792,24 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__ConstantValue__ConstantAssignment
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getConstantValueAccess().getConstantPropertyConstantCrossReference_0()); }
+(
+{ before(grammarAccess.getConstantValueAccess().getConstantPropertyConstantQPREFParserRuleCall_0_1()); }
+	ruleQPREF{ after(grammarAccess.getConstantValueAccess().getConstantPropertyConstantQPREFParserRuleCall_0_1()); }
+)
+{ after(grammarAccess.getConstantValueAccess().getConstantPropertyConstantCrossReference_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 
 

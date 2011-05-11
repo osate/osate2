@@ -2545,22 +2545,32 @@ ruleBooleanAtom returns [EObject current=null]
         afterParserOrEnumRuleCall();
     }
 
-    |(this_LPARENS_2=RULE_LPARENS
+    |
     { 
-    newLeafNode(this_LPARENS_2, grammarAccess.getBooleanAtomAccess().getLPARENSTerminalRuleCall_2_0()); 
+        newCompositeNode(grammarAccess.getBooleanAtomAccess().getConstantValueParserRuleCall_2()); 
+    }
+    this_ConstantValue_2=ruleConstantValue
+    { 
+        $current = $this_ConstantValue_2.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |(this_LPARENS_3=RULE_LPARENS
+    { 
+    newLeafNode(this_LPARENS_3, grammarAccess.getBooleanAtomAccess().getLPARENSTerminalRuleCall_3_0()); 
     }
 
     { 
-        newCompositeNode(grammarAccess.getBooleanAtomAccess().getBooleanTermParserRuleCall_2_1()); 
+        newCompositeNode(grammarAccess.getBooleanAtomAccess().getBooleanTermParserRuleCall_3_1()); 
     }
-    this_BooleanTerm_3=ruleBooleanTerm
+    this_BooleanTerm_4=ruleBooleanTerm
     { 
-        $current = $this_BooleanTerm_3.current; 
+        $current = $this_BooleanTerm_4.current; 
         afterParserOrEnumRuleCall();
     }
-this_RPARENS_4=RULE_RPARENS
+this_RPARENS_5=RULE_RPARENS
     { 
-    newLeafNode(this_RPARENS_4, grammarAccess.getBooleanAtomAccess().getRPARENSTerminalRuleCall_2_2()); 
+    newLeafNode(this_RPARENS_5, grammarAccess.getBooleanAtomAccess().getRPARENSTerminalRuleCall_3_2()); 
     }
 ))
 ;
@@ -2613,6 +2623,40 @@ ruleBooleanLiteral returns [EObject current=null]
 ;
 
 
+
+
+
+// Entry rule entryRuleConstantValue
+entryRuleConstantValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getConstantValueRule()); }
+	 iv_ruleConstantValue=ruleConstantValue 
+	 { $current=$iv_ruleConstantValue.current; } 
+	 EOF 
+;
+
+// Rule ConstantValue
+ruleConstantValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConstantValueRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getConstantValueAccess().getConstantPropertyConstantCrossReference_0()); 
+	    }
+		ruleQPREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+;
 
 
 

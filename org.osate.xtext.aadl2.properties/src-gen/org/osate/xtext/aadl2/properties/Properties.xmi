@@ -764,6 +764,7 @@
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.39"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.37"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.40"/>
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:RuleCall" rule="/0/@rules.67"/>
           <elements xsi:type="xtext:RuleCall" rule="/0/@rules.34"/>
