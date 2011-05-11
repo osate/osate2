@@ -116,335 +116,328 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		mt.getTriggers().add(tp);
 	}
 
+	@Check(CheckType.FAST)
+	public void caseComponentImplementation(ComponentImplementation componentImplementation)
+	{
+		checkComponentImplementationInPackageSection(componentImplementation);
+		checkComponentImplementationModes(componentImplementation);				
+		
+	}
 	
-//	@Check
-//	public void checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.getName().charAt(0))) {
-//			warning("Name should start with a capital", MyDslPackage.GREETING__NAME);
-//		}
-//	}
-//	@Check(CheckType.FAST)
-//	public void caseComponentImplementation(ComponentImplementation componentImplementation)
-//	{
-//		checkComponentImplementationInPackageSection(componentImplementation);
-//		checkComponentImplementationModes(componentImplementation);				
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseTypeExtension(TypeExtension typeExtension)
-//	{
-//		checkTypeExtensionCategory(typeExtension);
-//		checkFeaturesOfExtendedAbstractType((ComponentType)typeExtension.getSpecific());
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseComponentType(ComponentType componentType)
-//	{
-//		checkComponentTypeModes(componentType);
-//		checkForInheritedFeatureArrays(componentType);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseImplementationExtension(ImplementationExtension implementationExtension)
-//	{
-//		checkExtensionAndRealizationHierarchy(implementationExtension);
-//		checkImplementationExtensionCategory(implementationExtension);
-//		checkSubcomponentsOfExtendedAbstractImplementation((ComponentImplementation)implementationExtension.getSpecific());
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseRealization(Realization realization)
-//	{
-//		checkRealizationCategory(realization);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseComponentTypeRename(ComponentTypeRename componentTypeRename)
-//	{
-//		checkComponentTypeRenameCategory(componentTypeRename);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseSubcomponent(Subcomponent subcomponent)
-//	{
-//		checkSubcomponentCategory(subcomponent);				
-//		checkSubcomponentRefinementCategory(subcomponent);
-//		checkSubcomponentsHierarchy(subcomponent);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseComponentPrototype(ComponentPrototype prototype)
-//	{
-//		checkComponentPrototypeCategory(prototype);
-//		checkRefinedOfComponentPrototype(prototype);
-//		checkCategoryOfRefinedComponentPrototype(prototype);
-//		checkArrayOfRefinedComponentPrototype(prototype);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseComponentPrototypeBinding(ComponentPrototypeBinding binding)
-//	{
-//		checkComponentPrototypeBindingCategory(binding);
-//		checkFormalOfComponentPrototypeBinding(binding);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseComponentReference(ComponentReference prototypeActual)
-//	{
-//		checkComponentPrototypeActualComponentCategory(prototypeActual);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseComponentPrototypeReference(ComponentPrototypeReference prototypeActual)
-//	{
-//		checkComponentPrototypeActualPrototypeCategory(prototypeActual);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseFeaturePrototypeBinding(FeaturePrototypeBinding binding)
-//	{
-//		checkFeaturePrototypeBindingDirection(binding);
-//		checkFormalOfFeaturePrototypeBinding(binding);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding binding)
-//	{
-//		checkFormalOfFeatureGroupPrototypeBinding(binding);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseFeatureGroupPrototype(FeatureGroupPrototype prototype)
-//	{
-//		checkRefinedOfFeatureGroupPrototype(prototype);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseFeaturePrototype(FeaturePrototype prototype)
-//	{
-//		checkRefinedOfFeaturePrototype(prototype);
-//		checkDirectionOfRefinedFeaturePrototype(prototype);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseDataType(DataType dataType)
-//	{
-//		checkForInheritedFlowsAndModesFromAbstractType(dataType);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseDataImplementation(DataImplementation dataImplementation)
-//	{
-//		checkForInheritedFlowsAndModesFromAbstractImplementation(dataImplementation);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseThreadGroupImplementation(ThreadGroupImplementation threadGroupImplementation)
-//	{
-//		checkForInheritedCallSequenceFromAbstractImplementation(threadGroupImplementation);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseProcessorImplementation(ProcessorImplementation processorImplementation)
-//	{
-//		checkForInheritedCallSequenceFromAbstractImplementation(processorImplementation);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseVirtualProcessorImplementation(VirtualProcessorImplementation virtualProcessorImplementation)
-//	{
-//		checkForInheritedCallSequenceFromAbstractImplementation(virtualProcessorImplementation);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseMemoryType(MemoryType memoryType)
-//	{
-//		checkForInheritedFlowsFromAbstractType(memoryType);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseMemoryImplementation(MemoryImplementation memoryImplementation)
-//	{
-//		checkForInheritedFlowsAndCallSequenceFromAbstractImplementation(memoryImplementation);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseBusType(BusType busType)
-//	{
-//		checkForInheritedFlowsFromAbstractType(busType);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseBusImplementation(BusImplementation busImplementation)
-//	{
-//		checkForInheritedConnectionsFlowsAndCallsFromAbstractImplementation(busImplementation);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseVirtualBusType(VirtualBusType virtualBusType)
-//	{
-//		checkForInheritedFlowsFromAbstractType(virtualBusType);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseVirtualBusImplementation(VirtualBusImplementation virtualBusImplementation)
-//	{
-//		checkForInheritedConnectionsFlowsAndCallsFromAbstractImplementation(virtualBusImplementation);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseDeviceImplementation(DeviceImplementation deviceImplementation)
-//	{
-//		checkForInheritedCallsFromAbstractImplementation(deviceImplementation);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseFeature(Feature feature)
-//	{
-//		checkTypeOfFeatureRefinement(feature);
-//		checkForFeatureArrays(feature);
-//		checkForArraysInRefinedFeature(feature);
-//		checkForArrayDimensionSizeInRefinedFeature(feature);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void casePortConnection(PortConnection connection)
-//	{
-//		checkPortConnectionClassifiers(connection);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseDirectedFeature(DirectedFeature feature)
-//	{
-//		checkFeatureDirectionInRefinement(feature);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseAbstractFeature(AbstractFeature feature)
-//	{
-//		checkAbstractFeatureAndPrototypeDirectionConsistency(feature);
-//		checkForAddedDirectionInAbstractFeatureRefinement(feature);
-//		checkForAddedPrototypeOrClassifierInAbstractFeatureRefinement(feature);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseFeatureGroupType(FeatureGroupType featureGroupType)
-//	{
-//		checkForChainedInverseFeatureGroupTypes(featureGroupType);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseGroupExtension(GroupExtension extension)
-//	{
-//		checkForExtendingAnInverseFeatureGroupType(extension);
-//		checkForInverseInFeatureGroupTypeExtension(extension);
-//		checkForRequiredInverseInFeatureGroupTypeExtension(extension);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseFeatureGroup(FeatureGroup featureGroup)
-//	{
-//		checkForInverseInFeatureGroup(featureGroup);
-//		checkDirectionOfFeatureGroupMembers(featureGroup);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseSubprogramAccess(SubprogramAccess subprogramAccess)
-//	{
-//		checkSubprogramAccessPrototypeReference(subprogramAccess);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseSubprogramGroupAccess(SubprogramGroupAccess subprogramGroupAccess)
-//	{
-//		checkSubprogramGroupAccessPrototypeReference(subprogramGroupAccess);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseAccess(Access access)
-//	{
-//		checkForAbstractFeatureDirectionInAccessRefinement(access);
-//		checkForAccessTypeInAccessRefinement(access);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseDataAccess(DataAccess dataAccess)
-//	{
-//		checkDataAccessPrototypeReference(dataAccess);
-//		
-//	}
-//	
-//	@SuppressWarnings("incomplete-switch")
-//	@Check(CheckType.FAST)
-//	public void caseOperation(Operation operation)
-//	{
-//		switch (operation.getOp())
-//		{
-//			case AND:
-//			case NOT:
-//			case OR:
-//				insertNecessaryListValueObjects(operation);
-//		}
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseEnumerationValue(EnumerationValue enumerationValue)
-//	{
-//		insertNecessaryListValueObjects(enumerationValue);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void caseConstantValue(ConstantValue constantValue)
-//	{
-//		insertNecessaryListValueObjects(constantValue);
-//		
-//	}
-//	
-//	@Check(CheckType.FAST)
-//	public void casePropertyReference(PropertyReference propertyReference)
-//	{
-//		insertNecessaryListValueObjects(propertyReference);
-//		
-//	}
+	@Check(CheckType.FAST)
+	public void caseTypeExtension(TypeExtension typeExtension)
+	{
+		checkTypeExtensionCategory(typeExtension);
+		checkFeaturesOfExtendedAbstractType((ComponentType)typeExtension.getSpecific());
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseComponentType(ComponentType componentType)
+	{
+		checkComponentTypeModes(componentType);
+		checkForInheritedFeatureArrays(componentType);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseImplementationExtension(ImplementationExtension implementationExtension)
+	{
+		checkExtensionAndRealizationHierarchy(implementationExtension);
+		checkImplementationExtensionCategory(implementationExtension);
+		checkSubcomponentsOfExtendedAbstractImplementation((ComponentImplementation)implementationExtension.getSpecific());
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseRealization(Realization realization)
+	{
+		checkRealizationCategory(realization);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseComponentTypeRename(ComponentTypeRename componentTypeRename)
+	{
+		checkComponentTypeRenameCategory(componentTypeRename);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseSubcomponent(Subcomponent subcomponent)
+	{
+		checkSubcomponentCategory(subcomponent);				
+		checkSubcomponentRefinementCategory(subcomponent);
+		checkSubcomponentsHierarchy(subcomponent);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseComponentPrototype(ComponentPrototype prototype)
+	{
+		checkComponentPrototypeCategory(prototype);
+		checkRefinedOfComponentPrototype(prototype);
+		checkCategoryOfRefinedComponentPrototype(prototype);
+		checkArrayOfRefinedComponentPrototype(prototype);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseComponentPrototypeBinding(ComponentPrototypeBinding binding)
+	{
+		checkComponentPrototypeBindingCategory(binding);
+		checkFormalOfComponentPrototypeBinding(binding);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseComponentReference(ComponentReference prototypeActual)
+	{
+		checkComponentPrototypeActualComponentCategory(prototypeActual);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseComponentPrototypeReference(ComponentPrototypeReference prototypeActual)
+	{
+		checkComponentPrototypeActualPrototypeCategory(prototypeActual);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseFeaturePrototypeBinding(FeaturePrototypeBinding binding)
+	{
+		checkFeaturePrototypeBindingDirection(binding);
+		checkFormalOfFeaturePrototypeBinding(binding);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding binding)
+	{
+		checkFormalOfFeatureGroupPrototypeBinding(binding);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseFeatureGroupPrototype(FeatureGroupPrototype prototype)
+	{
+		checkRefinedOfFeatureGroupPrototype(prototype);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseFeaturePrototype(FeaturePrototype prototype)
+	{
+		checkRefinedOfFeaturePrototype(prototype);
+		checkDirectionOfRefinedFeaturePrototype(prototype);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseDataType(DataType dataType)
+	{
+		checkForInheritedFlowsAndModesFromAbstractType(dataType);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseDataImplementation(DataImplementation dataImplementation)
+	{
+		checkForInheritedFlowsAndModesFromAbstractImplementation(dataImplementation);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseThreadGroupImplementation(ThreadGroupImplementation threadGroupImplementation)
+	{
+		checkForInheritedCallSequenceFromAbstractImplementation(threadGroupImplementation);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseProcessorImplementation(ProcessorImplementation processorImplementation)
+	{
+		checkForInheritedCallSequenceFromAbstractImplementation(processorImplementation);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseVirtualProcessorImplementation(VirtualProcessorImplementation virtualProcessorImplementation)
+	{
+		checkForInheritedCallSequenceFromAbstractImplementation(virtualProcessorImplementation);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseMemoryType(MemoryType memoryType)
+	{
+		checkForInheritedFlowsFromAbstractType(memoryType);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseMemoryImplementation(MemoryImplementation memoryImplementation)
+	{
+		checkForInheritedFlowsAndCallSequenceFromAbstractImplementation(memoryImplementation);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseBusType(BusType busType)
+	{
+		checkForInheritedFlowsFromAbstractType(busType);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseBusImplementation(BusImplementation busImplementation)
+	{
+		checkForInheritedConnectionsFlowsAndCallsFromAbstractImplementation(busImplementation);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseVirtualBusType(VirtualBusType virtualBusType)
+	{
+		checkForInheritedFlowsFromAbstractType(virtualBusType);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseVirtualBusImplementation(VirtualBusImplementation virtualBusImplementation)
+	{
+		checkForInheritedConnectionsFlowsAndCallsFromAbstractImplementation(virtualBusImplementation);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseDeviceImplementation(DeviceImplementation deviceImplementation)
+	{
+		checkForInheritedCallsFromAbstractImplementation(deviceImplementation);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseFeature(Feature feature)
+	{
+		checkTypeOfFeatureRefinement(feature);
+		checkForFeatureArrays(feature);
+		checkForArraysInRefinedFeature(feature);
+		checkForArrayDimensionSizeInRefinedFeature(feature);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void casePortConnection(PortConnection connection)
+	{
+		checkPortConnectionClassifiers(connection);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseDirectedFeature(DirectedFeature feature)
+	{
+		checkFeatureDirectionInRefinement(feature);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseAbstractFeature(AbstractFeature feature)
+	{
+		checkAbstractFeatureAndPrototypeDirectionConsistency(feature);
+		checkForAddedDirectionInAbstractFeatureRefinement(feature);
+		checkForAddedPrototypeOrClassifierInAbstractFeatureRefinement(feature);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseFeatureGroupType(FeatureGroupType featureGroupType)
+	{
+		checkForChainedInverseFeatureGroupTypes(featureGroupType);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseGroupExtension(GroupExtension extension)
+	{
+		checkForExtendingAnInverseFeatureGroupType(extension);
+		checkForInverseInFeatureGroupTypeExtension(extension);
+		checkForRequiredInverseInFeatureGroupTypeExtension(extension);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseFeatureGroup(FeatureGroup featureGroup)
+	{
+		checkForInverseInFeatureGroup(featureGroup);
+		checkDirectionOfFeatureGroupMembers(featureGroup);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseSubprogramAccess(SubprogramAccess subprogramAccess)
+	{
+		checkSubprogramAccessPrototypeReference(subprogramAccess);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseSubprogramGroupAccess(SubprogramGroupAccess subprogramGroupAccess)
+	{
+		checkSubprogramGroupAccessPrototypeReference(subprogramGroupAccess);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseAccess(Access access)
+	{
+		checkForAbstractFeatureDirectionInAccessRefinement(access);
+		checkForAccessTypeInAccessRefinement(access);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseDataAccess(DataAccess dataAccess)
+	{
+		checkDataAccessPrototypeReference(dataAccess);
+		
+	}
+	
+	@SuppressWarnings("incomplete-switch")
+	@Check(CheckType.FAST)
+	public void caseOperation(Operation operation)
+	{
+		switch (operation.getOp())
+		{
+			case AND:
+			case NOT:
+			case OR:
+				insertNecessaryListValueObjects(operation);
+		}
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseEnumerationValue(EnumerationValue enumerationValue)
+	{
+		insertNecessaryListValueObjects(enumerationValue);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseConstantValue(ConstantValue constantValue)
+	{
+		insertNecessaryListValueObjects(constantValue);
+		
+	}
+	
+	@Check(CheckType.FAST)
+	public void casePropertyReference(PropertyReference propertyReference)
+	{
+		insertNecessaryListValueObjects(propertyReference);
+		
+	}
 
 
 	/* supporting semantic check methods

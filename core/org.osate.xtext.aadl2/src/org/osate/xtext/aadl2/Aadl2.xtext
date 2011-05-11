@@ -26,8 +26,20 @@ PublicPackageSection returns aadl2::PublicPackageSection:
 	 | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename
 	)*
 	
-	( ownedSystemType+=SystemType| ownedSystemImplementation+=SystemImplementation| ownedProcessorType+=ProcessorType|
-	    ownedDataType+=DataType )*;
+	( ownedSystemType+=SystemType| ownedSystemImplementation+=SystemImplementation| 
+	ownedProcessorType+=ProcessorType| ownedProcessorImplementation+=ProcessorImplementation|
+	ownedProcessType+=ProcessType| ownedProcessImplementation+=ProcessImplementation|
+	ownedThreadGroupType+=ThreadGroupType| ownedThreadGroupImplementation+=ThreadGroupImplementation|
+	ownedThreadType+=ThreadType| ownedThreadImplementation+=ThreadImplementation|
+	ownedDeviceType+=DeviceType| ownedDeviceImplementation+=DeviceImplementation|
+	ownedBusType+=BusType| ownedBusImplementation+=BusImplementation|
+	ownedVirtualProcessorType+=VirtualProcessorType| ownedVirtualProcessorImplementation+=VirtualProcessorImplementation|
+	ownedVirtualBusType+=VirtualBusType| ownedVirtualBusImplementation+=VirtualBusImplementation|
+	ownedMemoryType+=MemoryType| ownedMemoryImplementation+=MemoryImplementation|
+	ownedSubprogramType+=SubprogramType| ownedSubprogramImplementation+=SubprogramImplementation|
+	ownedSubprogramGroupType+=SubprogramGroupType| ownedSubprogramGroupImplementation+=SubprogramGroupImplementation|
+	ownedAbstractType+=AbstractType| ownedAbstractImplementation+=AbstractImplementation|
+	    ownedDataType+=DataType | ownedDataImplementation+=DataImplementation)*;
 	// currently derived: (ownedClassifier+=Classifier | ownedAnnexLibrary+=AnnexLibrary)*;
 
 
@@ -40,7 +52,19 @@ PrivatePackageSection returns aadl2::PrivatePackageSection:
 	 | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename
 	)*
 
-   ( ownedSystemType+=SystemType| ownedSystemImplementation+=SystemImplementation| ownedProcessorType+=ProcessorType|
+   ( ownedSystemType+=SystemType| ownedSystemImplementation+=SystemImplementation|
+	ownedProcessorType+=ProcessorType| ownedProcessorImplementation+=ProcessorImplementation|
+	ownedProcessType+=ProcessType| ownedProcessImplementation+=ProcessImplementation|
+	ownedThreadGroupType+=ThreadGroupType| ownedThreadGroupImplementation+=ThreadGroupImplementation|
+	ownedThreadType+=ThreadType| ownedThreadImplementation+=ThreadImplementation|
+	ownedDeviceType+=DeviceType| ownedDeviceImplementation+=DeviceImplementation|
+	ownedBusType+=BusType| ownedBusImplementation+=BusImplementation|
+	ownedVirtualProcessorType+=VirtualProcessorType| ownedVirtualProcessorImplementation+=VirtualProcessorImplementation|
+	ownedVirtualBusType+=VirtualBusType| ownedVirtualBusImplementation+=VirtualBusImplementation|
+	ownedMemoryType+=MemoryType| ownedMemoryImplementation+=MemoryImplementation|
+	ownedSubprogramType+=SubprogramType| ownedSubprogramImplementation+=SubprogramImplementation|
+	ownedSubprogramGroupType+=SubprogramGroupType| ownedSubprogramGroupImplementation+=SubprogramGroupImplementation|
+	ownedAbstractType+=AbstractType| ownedAbstractImplementation+=AbstractImplementation|
     ownedDataType+=DataType )*
 //	(ownedClassifier+=Classifier | ownedAnnexLibrary+=AnnexLibrary)*
 	;
@@ -82,9 +106,36 @@ GroupExtension returns aadl2::GroupExtension:
 
 
 ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
-	| 'device' | 'memory' | 'process' | 'processor'
+	| 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
 	| 'subprogram' 'group' | 'system' | 'thread' 'group'
 	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
+
+
+
+AbstractType returns aadl2::AbstractType:
+	'abstract' name=ID
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'prototypes' (noPrototypes?=NONE |
+	(ownedPrototype+=Prototype)+))?
+	(=> 'features' (noFeatures?=NONE |
+	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
+	| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess
+	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
+	(=> 'flows'
+	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
+//	(=> requiresModes?='requires' 'modes'
+//	((ownedMode+=Mode)+))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID SEMI
+	;
 
 
 SystemType returns aadl2::SystemType:
@@ -95,7 +146,11 @@ SystemType returns aadl2::SystemType:
 	(=> 'prototypes' (noPrototypes?=NONE |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (noFeatures?=NONE |
-	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ ) )?
+	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
+		| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess
+	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
 	(=> 'flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
 //	(=> requiresModes?='requires' 'modes'
@@ -117,7 +172,11 @@ ProcessType returns aadl2::ProcessType:
 	(=> 'prototypes' (noPrototypes?=NONE |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (noFeatures?=NONE |
-	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ ) )?
+	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
+		| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess 
+	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
 	(=> 'flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
 //	(=> requiresModes?='requires' 'modes'
@@ -131,6 +190,31 @@ ProcessType returns aadl2::ProcessType:
 	;
 
 
+ThreadGroupType returns aadl2::ThreadGroupType:
+	'thread' 'group' name=ID
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'prototypes' (noPrototypes?=NONE |
+	(ownedPrototype+=Prototype)+))?
+	(=> 'features' (noFeatures?=NONE |
+	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
+		| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess 
+	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
+	(=> 'flows'
+	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
+//	(=> requiresModes?='requires' 'modes'
+//	((ownedMode+=Mode)+))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID SEMI
+	;
+
 ThreadType returns aadl2::ThreadType:
 	'thread' name=ID
 	(ownedExtension=TypeExtension
@@ -139,12 +223,63 @@ ThreadType returns aadl2::ThreadType:
 	(=> 'prototypes' (noPrototypes?=NONE |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (noFeatures?=NONE |
-	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ ) )?
+	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
+		| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess 
+	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
 	(=> 'flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
 	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID SEMI
+	;
+
+SubprogramType returns aadl2::SubprogramType:
+	'subprogram' name=ID
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'prototypes' (noPrototypes?=NONE |
+	(ownedPrototype+=Prototype)+))?
+	(=> 'features' (noFeatures?=NONE |
+	(ownedParameter+=Parameter| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
+		| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess 
+	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
+	(=> 'flows'
+	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
+//	(=> requiresModes?='requires' 'modes'
+//	((ownedMode+=Mode)+))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID SEMI
+	;
+
+SubprogramGroupType returns aadl2::SubprogramGroupType:
+	'subprogram' 'group' name=ID
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'prototypes' (noPrototypes?=NONE |
+	(ownedPrototype+=Prototype)+))?
+	(=> 'features' (noFeatures?=NONE |
+	(ownedSubprogramAccess+=SubprogramAccess
+		| ownedFeatureGroup+=FeatureGroup  
+	| ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
+	(=> 'flows'
+	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| noProperties?=NONE))?
@@ -159,7 +294,11 @@ ProcessorType returns aadl2::ProcessorType:
 	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
 	)?
 	(=> 'features' (noFeatures?=NONE |
-	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ ) )?
+	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
+		| ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess 
+	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
 	(=> 'flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
 //	(=> requiresModes?='requires' 'modes'
@@ -172,20 +311,121 @@ ProcessorType returns aadl2::ProcessorType:
 	'end' ID SEMI
 	;
 
+DeviceType returns aadl2::DeviceType:
+	'device' name=ID
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'features' (noFeatures?=NONE |
+	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
+		| ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess 
+	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
+	(=> 'flows'
+	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
+//	(=> requiresModes?='requires' 'modes'
+//	((ownedMode+=Mode)+))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID SEMI
+	;
+
+MemoryType returns aadl2::MemoryType:
+	'memory' name=ID
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'features' (noFeatures?=NONE |
+	(ownedFeatureGroup+=FeatureGroup |ownedBusAccess+=BusAccess
+	// to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
+//	(=> requiresModes?='requires' 'modes'
+//	((ownedMode+=Mode)+))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID SEMI
+	;
+
+BusType returns aadl2::BusType:
+	'bus' name=ID
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'features' (noFeatures?=NONE |
+	(ownedFeatureGroup+=FeatureGroup |ownedBusAccess+=BusAccess
+	// to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
+//	(=> requiresModes?='requires' 'modes'
+//	((ownedMode+=Mode)+))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID SEMI
+	;
+
+VirtualBusType returns aadl2::VirtualBusType:
+	'virtual' 'bus' name=ID
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+//	(=> requiresModes?='requires' 'modes'
+//	((ownedMode+=Mode)+))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID SEMI
+	;
+
+
+VirtualProcessorType returns aadl2::VirtualProcessorType:
+	'virtual' 'processor' name=ID
+	(ownedExtension=TypeExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'features' (noFeatures?=NONE |
+	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
+		| ownedFeatureGroup+=FeatureGroup  
+	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
+	(=> 'flows'
+	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
+//	(=> requiresModes?='requires' 'modes'
+//	((ownedMode+=Mode)+))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID SEMI
+	;
 
 DataType returns aadl2::DataType:
 	'data' name=ID
 	(ownedExtension=TypeExtension
 	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
 	)?
-	(=> 'features' noFeatures?=NONE 
-//	| (ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ )
+	(=> 'features' (noFeatures?=NONE 
+	| (
+	ownedFeatureGroup+=FeatureGroup| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	| ownedAbstractFeature+=AbstractFeature
+	)+ )
 	 )?
 	(=> 'flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | noFlows?=NONE))?
-//	(=> requiresModes?='requires' 'modes'
-//	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | noModes?=NONE)?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| noProperties?=NONE))?
@@ -200,28 +440,382 @@ DataType returns aadl2::DataType:
 Realization returns aadl2::Realization:
 	implemented=[aadl2::SystemType|ID];
 
-SystemImplementation returns aadl2::SystemImplementation:
-	{aadl2::SystemImplementation}
-	'system' 'implementation' 
+
+AbstractImplementation returns aadl2::AbstractImplementation:
+	'abstract' 'implementation' 
 	ownedRealization=Realization DOT name=INAME
 	(ownedExtension=ImplementationExtension
 	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
 	)?
 	(=> 'subcomponents'
 	  ((ownedSystemSubcomponent+=SystemSubcomponent
+	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
+	  | ownedThreadSubcomponent+=ThreadSubcomponent | ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent
+	  | ownedProcessSubcomponent+=ProcessSubcomponent
 	  |ownedProcessorSubcomponent+=ProcessorSubcomponent
-	  |ownedDataSubcomponent+=DataSubcomponent)+
+	  | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent 
+	  | ownedMemorySubcomponent+=MemorySubcomponent | ownedDeviceSubcomponent+=DeviceSubcomponent
+	  | ownedBusSubcomponent+=BusSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
+	  |ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
+	  )+
 	| noSubcomponents?=NONE)
 	)?
-// for threadss and subprograms ONLY
-//	(=> 'calls'
-//	((ownedSubprogamCallSequence+=SubprogramCallSequence)+
-//	| noSequences?=NONE))?
+(=> 'calls'
+	((ownedSubprogramCallSequence+=SubprogramCallSequence)+
+//	| noSequences?=NONE
+	)
+	)?
 	(=> 'connections'
-	((ownedPortConnection+=PortConnection)+
+	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	| ownedParameterConnection+=ParameterConnection
+	)+
 	| noConnections?=NONE))?
 	(=> 'flows'
 	(noFlows?=NONE))?
+	(=> 'modes'
+	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+	| noModes?=NONE))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID DOT INAME SEMI
+	;
+
+SystemImplementation returns aadl2::SystemImplementation:
+	'system' 'implementation' 
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	( 'subcomponents'
+	  ((ownedSystemSubcomponent+=SystemSubcomponent
+	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
+	  | ownedProcessSubcomponent+=ProcessSubcomponent
+	  |ownedProcessorSubcomponent+=ProcessorSubcomponent
+	  | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent 
+	  | ownedMemorySubcomponent+=MemorySubcomponent | ownedDeviceSubcomponent+=DeviceSubcomponent
+	  | ownedBusSubcomponent+=BusSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
+	  |ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
+	  )+
+	| noSubcomponents?=NONE)
+	)?
+	(=> 'connections'
+	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	)+
+	| noConnections?=NONE))?
+	(=> 'flows'
+	(noFlows?=NONE))?
+	(=> 'modes'
+	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+	| noModes?=NONE))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID DOT INAME SEMI
+	;
+
+ProcessImplementation returns aadl2::ProcessImplementation:
+	'process' 'implementation' 
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'subcomponents'
+	  ((ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | ownedThreadSubcomponent+=ThreadSubcomponent
+	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
+	  |ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
+	  )+
+	| noSubcomponents?=NONE)
+	)?
+	(=> 'connections'
+	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	)+
+	| noConnections?=NONE))?
+	(=> 'flows'
+	(noFlows?=NONE))?
+	(=> 'modes'
+	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+	| noModes?=NONE))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID DOT INAME SEMI
+	;
+
+ThreadGroupImplementation returns aadl2::ThreadGroupImplementation:
+	'thread' 'group' 'implementation' 
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'subcomponents'
+	  ((ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | ownedThreadSubcomponent+=ThreadSubcomponent
+	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
+	  |ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
+	  )+
+	| noSubcomponents?=NONE)
+	)?
+	(=> 'connections'
+	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	)+
+	| noConnections?=NONE))?
+	(=> 'flows'
+	(noFlows?=NONE))?
+	(=> 'modes'
+	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+	| noModes?=NONE))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID DOT INAME SEMI
+	;
+
+ThreadImplementation returns aadl2::ThreadImplementation:
+	'thread' 'implementation' 
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'subcomponents'
+	  ((ownedSubprogramSubcomponent+=SubprogramSubcomponent
+	  |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
+	  |ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
+	  )+
+	| noSubcomponents?=NONE)
+	)?
+	(=> 'calls'
+	((ownedSubprogramCallSequence+=SubprogramCallSequence)+
+	// | noSequences?=NONE
+	))?
+	(=> 'connections'
+	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	)+
+	| noConnections?=NONE))?
+	(=> 'flows'
+	(noFlows?=NONE))?
+	(=> 'modes'
+	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+	| noModes?=NONE))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID DOT INAME SEMI
+	;
+
+SubprogramImplementation returns aadl2::SubprogramImplementation:
+	'subprogram' 'implementation' 
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'subcomponents'
+	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
+	  |ownedDataSubcomponent+=DataSubcomponent)+
+	| noSubcomponents?=NONE)
+	)?
+	(=> 'calls'
+	((ownedSubprogramCallSequence+=SubprogramCallSequence)+
+//	| noSequences?=NONE
+	))?
+	(=> 'connections'
+	((ownedPortConnection+=PortConnection | ownedParameterConnection+=ParameterConnection | ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	)+
+	| noConnections?=NONE))?
+	(=> 'flows'
+	(noFlows?=NONE))?
+	(=> 'modes'
+	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+	| noModes?=NONE))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID DOT INAME SEMI
+	;
+
+SubprogramGroupImplementation returns aadl2::SubprogramGroupImplementation:
+	'subprogram' 'group' 'implementation' 
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'subcomponents'
+	  ((ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
+	// allow-errata:  |ownedDataSubcomponent+=DataSubcomponent | ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
+	  )+
+	| noSubcomponents?=NONE)
+	)?
+	(=> 'connections'
+	(( ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+    )+
+	| noConnections?=NONE))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID DOT INAME SEMI
+	;
+
+ProcessorImplementation returns aadl2::ProcessorImplementation:
+	'processor' 'implementation' 
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'subcomponents'
+	  ((ownedMemorySubcomponent+=MemorySubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
+	  | ownedBusSubcomponent+=BusSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
+	  | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent	  )+
+	| noSubcomponents?=NONE)
+	)?
+	(=> 'connections'
+	((// not in std: ownedPortConnection+=PortConnection | 
+	ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+    )+
+	| noConnections?=NONE))?
+	(=> 'flows'
+	(noFlows?=NONE))?
+	(=> 'modes'
+	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+	| noModes?=NONE))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID DOT INAME SEMI
+	;
+
+VirtualProcessorImplementation returns aadl2::VirtualProcessorImplementation:
+	'virtual' 'processor' 'implementation' 
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'subcomponents'
+	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
+	  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
+	  | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent
+	  )+
+	| noSubcomponents?=NONE)
+	)?
+	(=> 'flows'
+	(noFlows?=NONE))?
+	(=> 'modes'
+	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+	| noModes?=NONE))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID DOT INAME SEMI
+	;
+
+DeviceImplementation returns aadl2::DeviceImplementation:
+	'device' 'implementation' 
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'subcomponents'
+	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
+	// missing in meta model:  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
+	  | ownedBusSubcomponent+=BusSubcomponent
+	  )+
+	| noSubcomponents?=NONE)
+	)?
+	(=> 'connections'
+	((// not in std: ownedPortConnection+=PortConnection |
+	ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	)+
+	| noConnections?=NONE))?
+	(=> 'flows'
+	(noFlows?=NONE))?
+	(=> 'modes'
+	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+	| noModes?=NONE))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID DOT INAME SEMI
+	;
+
+MemoryImplementation returns aadl2::MemoryImplementation:
+	'memory' 'implementation' 
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'subcomponents'
+	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
+	  | ownedMemorySubcomponent+=MemorySubcomponent
+	  | ownedBusSubcomponent+=BusSubcomponent
+	  )+
+	| noSubcomponents?=NONE)
+	)?
+	(=> 'connections'
+	((ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	)+
+	| noConnections?=NONE))?
+	(=> 'modes'
+	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+	| noModes?=NONE))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID DOT INAME SEMI
+	;
+
+BusImplementation returns aadl2::BusImplementation:
+	'bus' 'implementation' 
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'subcomponents'
+	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
+	  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
+	  )+
+	| noSubcomponents?=NONE)
+	)?
+	(=> 'modes'
+	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+	| noModes?=NONE))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| noProperties?=NONE))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID DOT INAME SEMI
+	;
+
+VirtualBusImplementation returns aadl2::VirtualBusImplementation:
+	'virtual' 'bus' 'implementation' 
+	ownedRealization=Realization DOT name=INAME
+	(ownedExtension=ImplementationExtension
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	)?
+	(=> 'subcomponents'
+	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
+	  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
+	  )+
+	| noSubcomponents?=NONE)
+	)?
 	(=> 'modes'
 	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 	| noModes?=NONE))?
@@ -240,8 +834,15 @@ DataImplementation returns aadl2::DataImplementation:
 	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
 	)?
 	(=> 'subcomponents'
-	  ((ownedDataSubcomponent+=DataSubcomponent)
+	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
+	  | ownedDataSubcomponent+=DataSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent
+	  )+
 	| noSubcomponents?=NONE))?
+	(=> 'connections'
+	((ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	)+
+	| noConnections?=NONE))?
 	(=> 'flows'
 	(noFlows?=NONE))?
 	(=> 'modes'
@@ -359,6 +960,23 @@ ComponentReference returns aadl2::ComponentReference:
  * Subcomponents
  */
 
+AbstractSubcomponent returns aadl2::AbstractSubcomponent:
+	((name=ID COLON )|
+	(refined=[aadl2::SystemSubcomponent|ID] COLON 'refined' 'to'))
+	'abstract'
+//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+	(abstractClassifier=[aadl2::AbstractClassifier|QCREF] 
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RPARENS )? 
+	 )?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	SEMI;
+
 SystemSubcomponent returns aadl2::SystemSubcomponent:
 	((name=ID COLON )|
 	(refined=[aadl2::SystemSubcomponent|ID] COLON 'refined' 'to'))
@@ -376,12 +994,182 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
 	SEMI;
 
+ProcessSubcomponent returns aadl2::ProcessSubcomponent:
+	((name=ID COLON )|
+	(refined=[aadl2::ProcessSubcomponent|ID] COLON 'refined' 'to'))
+	'process'
+//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+	(processClassifier=[aadl2::ProcessClassifier|QCREF] 
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RPARENS )? 
+	 )?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	SEMI;
+
+ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
+	((name=ID COLON )|
+	(refined=[aadl2::ThreadGroupSubcomponent|ID] COLON 'refined' 'to'))
+	'thread' 'group'
+//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+	(threadGroupClassifier=[aadl2::ThreadGroupClassifier|QCREF] 
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RPARENS )? 
+	 )?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	SEMI;
+
+ThreadSubcomponent returns aadl2::ThreadSubcomponent:
+	((name=ID COLON )|
+	(refined=[aadl2::ThreadSubcomponent|ID] COLON 'refined' 'to'))
+	'thread'
+//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+	(threadClassifier=[aadl2::ThreadClassifier|QCREF] 
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RPARENS )? 
+	 )?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	SEMI;
+
+SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
+	((name=ID COLON )|
+	(refined=[aadl2::SubprogramSubcomponent|ID] COLON 'refined' 'to'))
+	'subprogram'
+//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+	(subprogramClassifier=[aadl2::SubprogramClassifier|QCREF] 
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RPARENS )? 
+	 )?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	SEMI;
+
+SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
+	((name=ID COLON )|
+	(refined=[aadl2::SubprogramGroupSubcomponent|ID] COLON 'refined' 'to'))
+	'subprogram' 'group'
+//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+	(subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF] 
+	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RPARENS )? 
+	 )?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	(=> 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	SEMI;
+
 ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 	((name=ID COLON )|
 	(refined=[aadl2::ProcessorSubcomponent|ID] COLON 'refined' 'to'))
 	'processor' 
 	 (processorClassifier=[aadl2::ProcessorClassifier|QCREF]
 	 	(=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RPARENS )? 
+	 )?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	( => 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	SEMI;
+
+VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
+	((name=ID COLON )|
+	(refined=[aadl2::VirtualProcessorSubcomponent|ID] COLON 'refined' 'to'))
+	'virtual' 'processor' 
+	 (virtualProcessorClassifier=[aadl2::VirtualProcessorClassifier|QCREF]
+	 	(=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RPARENS )? 
+	 )?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	( => 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	SEMI;
+
+DeviceSubcomponent returns aadl2::DeviceSubcomponent:
+	((name=ID COLON )|
+	(refined=[aadl2::DeviceSubcomponent|ID] COLON 'refined' 'to'))
+	'device' 
+	 (deviceClassifier=[aadl2::DeviceClassifier|QCREF]
+	 	(=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RPARENS )? 
+	 )?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	( => 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	SEMI;
+
+MemorySubcomponent returns aadl2::MemorySubcomponent:
+	((name=ID COLON )|
+	(refined=[aadl2::MemorySubcomponent|ID] COLON 'refined' 'to'))
+	'memory' 
+	 (memoryClassifier=[aadl2::MemoryClassifier|QCREF]
+	 	(=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RPARENS )? 
+	 )?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	( => 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	SEMI;
+
+BusSubcomponent returns aadl2::BusSubcomponent:
+	((name=ID COLON )|
+	(refined=[aadl2::BusSubcomponent|ID] COLON 'refined' 'to'))
+	'bus' 
+	 (busClassifier=[aadl2::BusClassifier|QCREF]
+	 	(=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RPARENS )? 
+	 )?
+	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
+	( => 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
+	SEMI;
+
+VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
+	((name=ID COLON )|
+	(refined=[aadl2::VirtualBusSubcomponent|ID] COLON 'refined' 'to'))
+	'virtual' 'bus' 
+	 (virtualBusClassifier=[aadl2::VirtualBusClassifier|QCREF]
+	 	(=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
+	 )?
+	 ( arraySpecification=ArraySpecification 
+	  ( => LPARENS implementationReference+=ComponentImplementationReference  
+	  (COMMA implementationReference+=ComponentImplementationReference)*
+	  RPARENS )? 
 	 )?
 	(=> LCURLY (ownedPropertyAssociation+=PropertyAssociation)+ RCURLY)?  
 	( => 'in' 'modes' LPARENS ((modeBinding+=ModeRef)+ | allModes?='all') RPARENS)?
@@ -524,7 +1312,7 @@ PortCategory returns aadl2::PortCategory: 'data' | 'event' |  'event' 'data';
 
 FeatureGroupType returns aadl2::FeatureGroupType:
 	'feature' 'group' name=ID 
-(// TODO	is not contined ownedExtension=GroupExtension
+	(  //ownedExtension=GroupExtension
 	  (=> LPARENS ownedPrototypeBinding+=PrototypeBinding (COMMA  ownedPrototypeBinding+=PrototypeBinding)* RPARENS)?
 	)?
 	(=> 'prototypes' (noPrototypes?=NONE |
@@ -779,16 +1567,13 @@ PropertyAssociation returns aadl2::PropertyAssociation :
 
 ContainedPropertyAssociation returns aadl2::PropertyAssociation :
 	property=[aadl2::Property|ID] ASSIGN //ownedValue=PropertyExpression
-	(=> 'applies' 'to' appliesTo+=ContainmentPath
-	(COMMA appliesTo+=ContainmentPath)*
-	)?
+	(=> 'applies' 'to' appliesTo+=ContainmentPath)?
 	SEMI ; 
 	
 ContainmentPath returns aadl2::ContainedNamedElement:
-	// TODO multiple paths, each path is DOT separated IDs
 	{aadl2::ContainedNamedElement}
 	containmentPathElement+=ContainmentPathElement
-	( DOT containmentPathElement+=ContainmentPathElement)*
+	( COMMA containmentPathElement+=ContainmentPathElement)*
 ;
 
 ContainmentPathElement returns aadl2::ContainmentPathElement:
