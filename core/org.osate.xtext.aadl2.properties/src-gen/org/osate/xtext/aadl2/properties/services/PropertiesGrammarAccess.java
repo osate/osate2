@@ -852,22 +852,15 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class PropertyOwnerElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyOwner");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cQCReferenceParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cClassifierValueParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cQCReferenceParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
+		////|ClassifierValue)
 		//PropertyOwner returns aadl2::PropertyOwner:
-		//	QCReference | ClassifierValue;
+		//	QCReference;
 		public ParserRule getRule() { return rule; }
 
-		//QCReference | ClassifierValue
-		public Alternatives getAlternatives() { return cAlternatives; }
-
 		//QCReference
-		public RuleCall getQCReferenceParserRuleCall_0() { return cQCReferenceParserRuleCall_0; }
-
-		//ClassifierValue
-		public RuleCall getClassifierValueParserRuleCall_1() { return cClassifierValueParserRuleCall_1; }
+		public RuleCall getQCReferenceParserRuleCall() { return cQCReferenceParserRuleCall; }
 	}
 
 	public class ClassifierValueElements extends AbstractParserRuleElementFinder {
@@ -1175,25 +1168,22 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	public class PropertyExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyExpression");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cBooleanTermParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cComputedTermParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cStringTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cListTermParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
+		////| ListTerm;
 		//PropertyExpression returns aadl2::PropertyExpression:
-		//	BooleanTerm | StringTerm | ListTerm;
+		//	ComputedTerm | StringTerm;
 		public ParserRule getRule() { return rule; }
 
-		//BooleanTerm | StringTerm | ListTerm
+		//ComputedTerm | StringTerm
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//BooleanTerm
-		public RuleCall getBooleanTermParserRuleCall_0() { return cBooleanTermParserRuleCall_0; }
+		//ComputedTerm
+		public RuleCall getComputedTermParserRuleCall_0() { return cComputedTermParserRuleCall_0; }
 
 		//StringTerm
 		public RuleCall getStringTermParserRuleCall_1() { return cStringTermParserRuleCall_1; }
-
-		//ListTerm
-		public RuleCall getListTermParserRuleCall_2() { return cListTermParserRuleCall_2; }
 	}
 
 	public class BooleanTermElements extends AbstractParserRuleElementFinder {
@@ -2434,8 +2424,9 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return getAllReferenceAccess().getRule();
 	}
 
+	////|ClassifierValue)
 	//PropertyOwner returns aadl2::PropertyOwner:
-	//	QCReference | ClassifierValue;
+	//	QCReference;
 	public PropertyOwnerElements getPropertyOwnerAccess() {
 		return (pPropertyOwner != null) ? pPropertyOwner : (pPropertyOwner = new PropertyOwnerElements());
 	}
@@ -2508,8 +2499,9 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyValueAccess().getRule();
 	}
 
+	////| ListTerm;
 	//PropertyExpression returns aadl2::PropertyExpression:
-	//	BooleanTerm | StringTerm | ListTerm;
+	//	ComputedTerm | StringTerm;
 	public PropertyExpressionElements getPropertyExpressionAccess() {
 		return (pPropertyExpression != null) ? pPropertyExpression : (pPropertyExpression = new PropertyExpressionElements());
 	}

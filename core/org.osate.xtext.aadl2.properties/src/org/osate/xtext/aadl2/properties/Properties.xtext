@@ -109,7 +109,7 @@ AllReference returns aadl2::MetaclassReference:
 ;
 
 PropertyOwner returns aadl2::PropertyOwner:
-	(QCReference|ClassifierValue)
+	(QCReference)//|ClassifierValue)
 	 ;
 
 
@@ -163,7 +163,7 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	BooleanTerm | StringTerm | ListTerm;
+	ComputedTerm | StringTerm ;//| ListTerm;
 
 BooleanTerm returns aadl2::PropertyExpression:
 	OrTerm ;
