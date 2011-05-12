@@ -1582,7 +1582,7 @@ ContainmentPathElement returns aadl2::ContainmentPathElement:
 ;
 
 ArrayRange returns aadl2::ArrayRange: {aadl2::ArrayRange}
-	LBRACKET //lowerBound=INT ( upperBound=INT)? 
+	LBRACKET lowerBound=gINT ( upperBound=gINT)? 
 	RBRACKET
 ;
 //
