@@ -91015,13 +91015,11 @@ protected class ContainmentPathElement_ArrayRangeAssignment_1 extends Assignment
 /************ begin Rule ArrayRange ****************
  *
  * ArrayRange returns aadl2::ArrayRange:
- * 	{aadl2::ArrayRange} //lowerBound=INT ( upperBound=INT)? 
- * 	LBRACKET RBRACKET;
+ * 	{aadl2::ArrayRange} LBRACKET lowerBound=gINT upperBound=gINT? RBRACKET;
  *
  **/
 
-// {aadl2::ArrayRange} //lowerBound=INT ( upperBound=INT)? 
-// LBRACKET RBRACKET
+// {aadl2::ArrayRange} LBRACKET lowerBound=gINT upperBound=gINT? RBRACKET
 protected class ArrayRange_Group extends GroupToken {
 	
 	public ArrayRange_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -91036,7 +91034,7 @@ protected class ArrayRange_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArrayRange_RBRACKETTerminalRuleCall_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ArrayRange_RBRACKETTerminalRuleCall_4(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -91076,7 +91074,6 @@ protected class ArrayRange_ArrayRangeAction_0 extends ActionToken  {
 	}
 }
 
-// //lowerBound=INT ( upperBound=INT)? 
 // LBRACKET
 protected class ArrayRange_LBRACKETTerminalRuleCall_1 extends UnassignedTextToken {
 
@@ -91099,22 +91096,91 @@ protected class ArrayRange_LBRACKETTerminalRuleCall_1 extends UnassignedTextToke
 
 }
 
-// RBRACKET
-protected class ArrayRange_RBRACKETTerminalRuleCall_2 extends UnassignedTextToken {
-
-	public ArrayRange_RBRACKETTerminalRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+// lowerBound=gINT
+protected class ArrayRange_LowerBoundAssignment_2 extends AssignmentToken  {
+	
+	public ArrayRange_LowerBoundAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getArrayRangeAccess().getRBRACKETTerminalRuleCall_2();
+	public Assignment getGrammarElement() {
+		return grammarAccess.getArrayRangeAccess().getLowerBoundAssignment_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new ArrayRange_LBRACKETTerminalRuleCall_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("lowerBound",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("lowerBound");
+		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getArrayRangeAccess().getLowerBoundGINTParserRuleCall_2_0(), value, null)) {
+			type = AssignmentType.DATATYPE_RULE_CALL;
+			element = grammarAccess.getArrayRangeAccess().getLowerBoundGINTParserRuleCall_2_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// upperBound=gINT?
+protected class ArrayRange_UpperBoundAssignment_3 extends AssignmentToken  {
+	
+	public ArrayRange_UpperBoundAssignment_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getArrayRangeAccess().getUpperBoundAssignment_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ArrayRange_LowerBoundAssignment_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("upperBound",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("upperBound");
+		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getArrayRangeAccess().getUpperBoundGINTParserRuleCall_3_0(), value, null)) {
+			type = AssignmentType.DATATYPE_RULE_CALL;
+			element = grammarAccess.getArrayRangeAccess().getUpperBoundGINTParserRuleCall_3_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// RBRACKET
+protected class ArrayRange_RBRACKETTerminalRuleCall_4 extends UnassignedTextToken {
+
+	public ArrayRange_RBRACKETTerminalRuleCall_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getArrayRangeAccess().getRBRACKETTerminalRuleCall_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ArrayRange_UpperBoundAssignment_3(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ArrayRange_LowerBoundAssignment_2(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
