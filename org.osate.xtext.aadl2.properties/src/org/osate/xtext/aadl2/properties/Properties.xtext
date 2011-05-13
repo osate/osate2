@@ -65,7 +65,7 @@ UnitLiteral returns aadl2::UnitLiteral:
 	name=ID;
 
 UnitLiteralConversion returns aadl2::UnitLiteral:
-	name=ID ASSIGN baseUnit=[aadl2::UnitLiteral|ID] STAR //factor=NumberValue
+	name=ID ASSIGN baseUnit=[aadl2::UnitLiteral|ID] STAR factor=NumberValue
 	;
 //
 //RealType returns aadl2::AadlReal:
@@ -160,33 +160,34 @@ AllReference returns aadl2::MetaclassReference:
 
 PropertyOwner returns aadl2::PropertyOwner:
 	// both alternatives are identifiers
-	(QCReference)//|ClassifierValue)
+	(QCReference|ClassifierValue)
 	 ;
 
 
 ClassifierValue returns aadl2::ClassifierValue:
-	classifier=[aadl2::ComponentClassifier|QCREF] ;
+	classifier=[aadl2::ComponentClassifier|EQCREF] ;
 
 PropertyConstant returns aadl2::PropertyConstant:
 	name=ID COLON 'constant'
 //	(list+='list' 'of')*
 	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
 //	ASSIGN defaultValue=ConstantPropertyExpression  //&&& same as PropertyExpression??
+// constant values do not work forreference types?
 	SEMI
 	 ;
 
 
 
 
-//NumberValue returns aadl2::NumberValue:
-//	RealLit | IntegerLit ;
-//
-//RealLit returns aadl2::RealLiteral:
-//	value+=REAL ;
-//
-//
-//IntegerLit returns aadl2::IntegerLiteral:
-//	value+=INT ;
+NumberValue returns aadl2::NumberValue:
+	RealLit | IntegerLit ;
+
+RealLit returns aadl2::RealLiteral:
+	value=gREAL ;
+
+
+IntegerLit returns aadl2::IntegerLiteral:
+	value=gINT ;
 
 
 
@@ -215,11 +216,9 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	ComputedTerm | StringTerm | BooleanTerm| => ListTerm
-	;
-
-NoListPropertyExpression returns aadl2::PropertyExpression:
-	ComputedTerm | StringTerm //| BooleanTerm
+	 => ListTerm
+	| ComputedTerm | StringTerm | BooleanTerm
+	| ReferenceTerm | ComponentClassifierTerm | RecordTerm
 	;
 
 BooleanTerm returns aadl2::PropertyExpression:
@@ -261,9 +260,9 @@ ReferenceTerm returns aadl2::ReferenceValue:
   ;
 
 RecordTerm returns aadl2::RecordValue:
-   LPARENS 	
+   LBRACKET 
    (ownedFieldValue+=BasicPropertyAssociation)+
-  RPARENS
+  RBRACKET
   ;
 
 ComputedTerm returns aadl2::ComputedValue:
@@ -312,11 +311,12 @@ ANNEXREF :
 
 
 enum OperationKind returns aadl2::OperationKind:
-	 and='and' | or='or' | not='not';
+	 and='and' | or='or' | not='not' | plus='+' | minus = '-';
 // Need Value Converters	
 AndOp returns aadl2::OperationKind: 'and';
 OrOp returns aadl2::OperationKind: 'or';
 NotOp returns aadl2::OperationKind: 'not';
+PlusMinus returns aadl2::OperationKind: '+' | '-';
 
 
 StringTerm returns aadl2::StringLiteral:
@@ -329,10 +329,22 @@ NoQuoteString :
 ;
 
 
+IntegerRange returns aadl2::NumericRange:
+	lowerBound=(IntegerTerm | SignedConstant | ConstantValue )
+	DOTDOT upperBound=(IntegerTerm | SignedConstant | ConstantValue )
+	;
+
+RealRange returns aadl2::NumericRange:
+	lowerBound=(RealTerm | SignedConstant | ConstantValue )
+	DOTDOT upperBound=(RealTerm | SignedConstant | ConstantValue )
+	;
+
+SignedConstant returns aadl2::Operation:
+	op=PlusMinus ownedPropertyExpression+=ConstantValue
+	;
+
 IntegerTerm returns aadl2::IntegerLiteral:
 	value=SignedInt (unit=[aadl2::UnitLiteral|ID])?
-	// or constant is not handled in O2 grammar
-	// valueString not set
 	;
 
 SignedInt returns aadl2::Integer:
@@ -378,6 +390,9 @@ terminal COMMA:
 terminal DOT:
 	'.';
 
+terminal DOTDOT:
+	'..';
+
 terminal LPARENS:
 	'(';
 
@@ -405,6 +420,14 @@ terminal APPEND:
 REAL:
 	INT DOT INT;
 
+gINT returns aadl2::Integer:
+	INT 	
+;
+
+gREAL returns aadl2::Real:
+	REAL 	
+;
+
 QNAME:
 	ID DOT INAME;
 
@@ -419,5 +442,8 @@ QPREF:
 
 QCREF:
 	(ID '::')* ID (DOT ID)?;
+
+EQCREF:
+	(ID '::')+ ID (DOT ID)?;
 	
 STAR : '*';
