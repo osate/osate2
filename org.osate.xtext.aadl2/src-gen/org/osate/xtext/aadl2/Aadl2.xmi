@@ -7358,6 +7358,12 @@
           </type>
         </elements>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.146"/>
+        <elements xsi:type="xtext:Assignment" feature="lowerBound" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.152"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="upperBound" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.152"/>
+        </elements>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.147"/>
       </alternatives>
     </rules>

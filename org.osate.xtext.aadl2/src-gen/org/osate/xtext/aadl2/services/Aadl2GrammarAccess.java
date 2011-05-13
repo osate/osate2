@@ -18967,26 +18967,39 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cArrayRangeAction_0 = (Action)cGroup.eContents().get(0);
 		private final RuleCall cLBRACKETTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final RuleCall cRBRACKETTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cLowerBoundAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cLowerBoundGINTParserRuleCall_2_0 = (RuleCall)cLowerBoundAssignment_2.eContents().get(0);
+		private final Assignment cUpperBoundAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cUpperBoundGINTParserRuleCall_3_0 = (RuleCall)cUpperBoundAssignment_3.eContents().get(0);
+		private final RuleCall cRBRACKETTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		
 		//ArrayRange returns aadl2::ArrayRange:
-		//	{aadl2::ArrayRange} //lowerBound=INT ( upperBound=INT)? 
-		//	LBRACKET RBRACKET;
+		//	{aadl2::ArrayRange} LBRACKET lowerBound=gINT upperBound=gINT? RBRACKET;
 		public ParserRule getRule() { return rule; }
 
-		//{aadl2::ArrayRange} //lowerBound=INT ( upperBound=INT)? 
-		//LBRACKET RBRACKET
+		//{aadl2::ArrayRange} LBRACKET lowerBound=gINT upperBound=gINT? RBRACKET
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::ArrayRange}
 		public Action getArrayRangeAction_0() { return cArrayRangeAction_0; }
 
-		////lowerBound=INT ( upperBound=INT)? 
 		//LBRACKET
 		public RuleCall getLBRACKETTerminalRuleCall_1() { return cLBRACKETTerminalRuleCall_1; }
 
+		//lowerBound=gINT
+		public Assignment getLowerBoundAssignment_2() { return cLowerBoundAssignment_2; }
+
+		//gINT
+		public RuleCall getLowerBoundGINTParserRuleCall_2_0() { return cLowerBoundGINTParserRuleCall_2_0; }
+
+		//upperBound=gINT?
+		public Assignment getUpperBoundAssignment_3() { return cUpperBoundAssignment_3; }
+
+		//gINT
+		public RuleCall getUpperBoundGINTParserRuleCall_3_0() { return cUpperBoundGINTParserRuleCall_3_0; }
+
 		//RBRACKET
-		public RuleCall getRBRACKETTerminalRuleCall_2() { return cRBRACKETTerminalRuleCall_2; }
+		public RuleCall getRBRACKETTerminalRuleCall_4() { return cRBRACKETTerminalRuleCall_4; }
 	}
 
 	public class GINTElements extends AbstractParserRuleElementFinder {
@@ -21174,8 +21187,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ArrayRange returns aadl2::ArrayRange:
-	//	{aadl2::ArrayRange} //lowerBound=INT ( upperBound=INT)? 
-	//	LBRACKET RBRACKET;
+	//	{aadl2::ArrayRange} LBRACKET lowerBound=gINT upperBound=gINT? RBRACKET;
 	public ArrayRangeElements getArrayRangeAccess() {
 		return (pArrayRange != null) ? pArrayRange : (pArrayRange = new ArrayRangeElements());
 	}
