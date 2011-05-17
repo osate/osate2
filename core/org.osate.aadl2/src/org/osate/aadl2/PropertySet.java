@@ -49,8 +49,7 @@ import org.eclipse.emf.ecore.EClass;
  *   <li>{@link org.osate.aadl2.PropertySet#getOwnedPropertyTypes <em>Owned Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertySet#getOwnedProperties <em>Owned Property</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertySet#getOwnedPropertyConstants <em>Owned Property Constant</em>}</li>
- *   <li>{@link org.osate.aadl2.PropertySet#getImportedPropertySets <em>Imported Property Set</em>}</li>
- *   <li>{@link org.osate.aadl2.PropertySet#getImportedPackages <em>Imported Package</em>}</li>
+ *   <li>{@link org.osate.aadl2.PropertySet#getImportedUnits <em>Imported Unit</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,7 +57,7 @@ import org.eclipse.emf.ecore.EClass;
  * @model
  * @generated
  */
-public interface PropertySet extends Namespace {
+public interface PropertySet extends Namespace, AadlUnit {
 	/**
 	 * Returns the value of the '<em><b>Owned Property Type</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.PropertyType}.
@@ -157,35 +156,19 @@ public interface PropertySet extends Namespace {
 	PropertyConstant createOwnedPropertyConstant();
 
 	/**
-	 * Returns the value of the '<em><b>Imported Property Set</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.PropertySet}.
+	 * Returns the value of the '<em><b>Imported Unit</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.AadlUnit}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Imported Property Set</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Imported Unit</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Imported Property Set</em>' reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_ImportedPropertySet()
+	 * @return the value of the '<em>Imported Unit</em>' reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_ImportedUnit()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	EList<PropertySet> getImportedPropertySets();
-
-	/**
-	 * Returns the value of the '<em><b>Imported Package</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.AadlPackage}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Imported Package</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Imported Package</em>' reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_ImportedPackage()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	EList<AadlPackage> getImportedPackages();
+	EList<AadlUnit> getImportedUnits();
 
 } // PropertySet

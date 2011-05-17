@@ -42,6 +42,238 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlBoolean;
+import org.osate.aadl2.AadlInteger;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AadlReal;
+import org.osate.aadl2.AadlString;
+import org.osate.aadl2.AadlUnit;
+import org.osate.aadl2.Abstract;
+import org.osate.aadl2.AbstractClassifier;
+import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractImplementation;
+import org.osate.aadl2.AbstractSubcomponent;
+import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessCategory;
+import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.AccessConnectionEnd;
+import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.AccessType;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.ArraySize;
+import org.osate.aadl2.ArraySpecification;
+import org.osate.aadl2.ArrayableElement;
+import org.osate.aadl2.BasicProperty;
+import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.BehavioralFeature;
+import org.osate.aadl2.BehavioredImplementation;
+import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.Bus;
+import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.BusClassifier;
+import org.osate.aadl2.BusImplementation;
+import org.osate.aadl2.BusSubcomponent;
+import org.osate.aadl2.BusType;
+import org.osate.aadl2.CallContext;
+import org.osate.aadl2.CallSpecification;
+import org.osate.aadl2.CalledSubprogram;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ClassifierType;
+import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.Comment;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentImplementationReference;
+import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.ComponentPrototypeBinding;
+import org.osate.aadl2.ComponentPrototypeReference;
+import org.osate.aadl2.ComponentReference;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ComponentTypeRename;
+import org.osate.aadl2.ComputedValue;
+import org.osate.aadl2.Connection;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.ConnectionKind;
+import org.osate.aadl2.ConstantValue;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.Context;
+import org.osate.aadl2.Data;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataClassifier;
+import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.Device;
+import org.osate.aadl2.DeviceClassifier;
+import org.osate.aadl2.DeviceImplementation;
+import org.osate.aadl2.DeviceSubcomponent;
+import org.osate.aadl2.DeviceType;
+import org.osate.aadl2.DirectedFeature;
+import org.osate.aadl2.DirectedRelationship;
+import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EndToEndFlowElement;
+import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.EnumerationValue;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureConnection;
+import org.osate.aadl2.FeatureConnectionEnd;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupConnectionEnd;
+import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
+import org.osate.aadl2.FeatureGroupPrototypeBinding;
+import org.osate.aadl2.FeatureGroupPrototypeReference;
+import org.osate.aadl2.FeatureGroupReference;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeatureGroupTypeRename;
+import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeaturePrototypeActual;
+import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeReference;
+import org.osate.aadl2.Flow;
+import org.osate.aadl2.FlowElement;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowKind;
+import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.Generalization;
+import org.osate.aadl2.GlobalNamespace;
+import org.osate.aadl2.GroupExtension;
+import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.InternalEvent;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.Memory;
+import org.osate.aadl2.MemoryClassifier;
+import org.osate.aadl2.MemoryImplementation;
+import org.osate.aadl2.MemorySubcomponent;
+import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.MetaclassReference;
+import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.ModalPath;
+import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeBinding;
+import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Namespace;
+import org.osate.aadl2.NumberType;
+import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.Numeral;
+import org.osate.aadl2.NumericRange;
+import org.osate.aadl2.Operation;
+import org.osate.aadl2.OperationKind;
+import org.osate.aadl2.PackageRename;
+import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.ParameterConnection;
+import org.osate.aadl2.ParameterConnectionEnd;
+import org.osate.aadl2.Port;
+import org.osate.aadl2.PortCategory;
+import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortConnectionEnd;
+import org.osate.aadl2.PortSpecification;
+import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.ProcessClassifier;
+import org.osate.aadl2.ProcessImplementation;
+import org.osate.aadl2.ProcessSubcomponent;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.Processor;
+import org.osate.aadl2.ProcessorCall;
+import org.osate.aadl2.ProcessorClassifier;
+import org.osate.aadl2.ProcessorImplementation;
+import org.osate.aadl2.ProcessorPort;
+import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.ProcessorSubprogram;
+import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyOwner;
+import org.osate.aadl2.PropertyReference;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PrototypeBinding;
+import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.RangeType;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.Realization;
+import org.osate.aadl2.RecordField;
+import org.osate.aadl2.RecordType;
+import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.ReferenceType;
+import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.RefinableElement;
+import org.osate.aadl2.Relationship;
+import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.StructuralFeature;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentFlow;
+import org.osate.aadl2.Subprogram;
+import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.aadl2.SubprogramClassifier;
+import org.osate.aadl2.SubprogramGroup;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupClassifier;
+import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemClassifier;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.SystemSubcomponent;
+import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadClassifier;
+import org.osate.aadl2.ThreadGroupClassifier;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadGroupSubcomponent;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadSubcomponent;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.Type;
+import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.TypedElement;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitValue;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.VirtualBus;
+import org.osate.aadl2.VirtualBusClassifier;
+import org.osate.aadl2.VirtualBusImplementation;
+import org.osate.aadl2.VirtualBusSubcomponent;
+import org.osate.aadl2.VirtualBusType;
+import org.osate.aadl2.VirtualProcessor;
+import org.osate.aadl2.VirtualProcessorClassifier;
+import org.osate.aadl2.VirtualProcessorImplementation;
+import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.*;
 
 /**
@@ -92,7 +324,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final int NAMED_ELEMENT__HAS_NO_QUALIFIED_NAME = 4;
+	public static final int NAMED_ELEMENT__HAS_NO_QUALIFIED_NAME = 3;
 
 	/**
 	 * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'Has qualified name' of 'Named Element'.
@@ -100,7 +332,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final int NAMED_ELEMENT__HAS_QUALIFIED_NAME = 5;
+	public static final int NAMED_ELEMENT__HAS_QUALIFIED_NAME = 4;
 
 	/**
 	 * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'Members distinguishable' of 'Namespace'.
@@ -108,7 +340,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final int NAMESPACE__MEMBERS_DISTINGUISHABLE = 3;
+	public static final int NAMESPACE__MEMBERS_DISTINGUISHABLE = 7;
 
 	/**
 	 * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'No cycles in generalization' of 'Classifier'.
@@ -116,7 +348,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final int CLASSIFIER__NO_CYCLES_IN_GENERALIZATION = 6;
+	public static final int CLASSIFIER__NO_CYCLES_IN_GENERALIZATION = 5;
 
 	/**
 	 * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'Specialize type' of 'Classifier'.
@@ -124,7 +356,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final int CLASSIFIER__SPECIALIZE_TYPE = 7;
+	public static final int CLASSIFIER__SPECIALIZE_TYPE = 6;
 
 	/**
 	 * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'Category Constraint' of 'Prototype'.
@@ -184,8 +416,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateElement((Element) value, diagnostics, context);
 		case Aadl2Package.COMMENT:
 			return validateComment((Comment) value, diagnostics, context);
-		case Aadl2Package.NAMESPACE:
-			return validateNamespace((Namespace) value, diagnostics, context);
+		case Aadl2Package.TYPE:
+			return validateType((Type) value, diagnostics, context);
 		case Aadl2Package.NAMED_ELEMENT:
 			return validateNamedElement((NamedElement) value, diagnostics, context);
 		case Aadl2Package.PROPERTY_ASSOCIATION:
@@ -196,8 +428,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateBasicProperty((BasicProperty) value, diagnostics, context);
 		case Aadl2Package.TYPED_ELEMENT:
 			return validateTypedElement((TypedElement) value, diagnostics, context);
-		case Aadl2Package.TYPE:
-			return validateType((Type) value, diagnostics, context);
 		case Aadl2Package.PROPERTY_TYPE:
 			return validatePropertyType((PropertyType) value, diagnostics, context);
 		case Aadl2Package.PROPERTY_EXPRESSION:
@@ -208,6 +438,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validatePropertyOwner((PropertyOwner) value, diagnostics, context);
 		case Aadl2Package.CLASSIFIER:
 			return validateClassifier((Classifier) value, diagnostics, context);
+		case Aadl2Package.NAMESPACE:
+			return validateNamespace((Namespace) value, diagnostics, context);
 		case Aadl2Package.CLASSIFIER_FEATURE:
 			return validateClassifierFeature((ClassifierFeature) value, diagnostics, context);
 		case Aadl2Package.GENERALIZATION:
@@ -397,6 +629,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validatePackageRename((PackageRename) value, diagnostics, context);
 		case Aadl2Package.AADL_PACKAGE:
 			return validateAadlPackage((AadlPackage) value, diagnostics, context);
+		case Aadl2Package.AADL_UNIT:
+			return validateAadlUnit((AadlUnit) value, diagnostics, context);
 		case Aadl2Package.PRIVATE_PACKAGE_SECTION:
 			return validatePrivatePackageSection((PrivatePackageSection) value, diagnostics, context);
 		case Aadl2Package.COMPONENT_TYPE_RENAME:
@@ -527,10 +761,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateVirtualProcessorType((VirtualProcessorType) value, diagnostics, context);
 		case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION:
 			return validateVirtualProcessorImplementation((VirtualProcessorImplementation) value, diagnostics, context);
-		case Aadl2Package.PROPERTY_SET:
-			return validatePropertySet((PropertySet) value, diagnostics, context);
-		case Aadl2Package.PROPERTY_CONSTANT:
-			return validatePropertyConstant((PropertyConstant) value, diagnostics, context);
 		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING:
 			return validateComponentPrototypeBinding((ComponentPrototypeBinding) value, diagnostics, context);
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL:
@@ -567,6 +797,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateSubprogramCall((SubprogramCall) value, diagnostics, context);
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION:
 			return validateBasicPropertyAssociation((BasicPropertyAssociation) value, diagnostics, context);
+		case Aadl2Package.PROPERTY_CONSTANT:
+			return validatePropertyConstant((PropertyConstant) value, diagnostics, context);
 		case Aadl2Package.ENUMERATION_VALUE:
 			return validateEnumerationValue((EnumerationValue) value, diagnostics, context);
 		case Aadl2Package.PROPERTY_VALUE:
@@ -605,6 +837,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateComputedValue((ComputedValue) value, diagnostics, context);
 		case Aadl2Package.LIST_VALUE:
 			return validateListValue((ListValue) value, diagnostics, context);
+		case Aadl2Package.PROPERTY_SET:
+			return validatePropertySet((PropertySet) value, diagnostics, context);
 		case Aadl2Package.GLOBAL_NAMESPACE:
 			return validateGlobalNamespace((GlobalNamespace) value, diagnostics, context);
 		case Aadl2Package.AADL_BOOLEAN:
@@ -3429,6 +3663,40 @@ public class Aadl2Validator extends EObjectValidator {
 			result &= validateNamedElement_has_no_qualified_name(aadlPackage, diagnostics, context);
 		if (result || diagnostics != null)
 			result &= validateNamedElement_has_qualified_name(aadlPackage, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAadlUnit(AadlUnit aadlUnit, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment((EObject) aadlUnit, diagnostics, context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms((EObject) aadlUnit, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms((EObject) aadlUnit, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained((EObject) aadlUnit, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) aadlUnit, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves((EObject) aadlUnit, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID((EObject) aadlUnit, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique((EObject) aadlUnit, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique((EObject) aadlUnit, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_not_own_self(aadlUnit, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_has_owner(aadlUnit, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_no_qualified_name(aadlUnit, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_qualified_name(aadlUnit, diagnostics, context);
 		return result;
 	}
 

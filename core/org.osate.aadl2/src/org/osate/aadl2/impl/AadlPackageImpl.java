@@ -69,7 +69,7 @@ import org.osate.aadl2.PublicPackageSection;
  *
  * @generated
  */
-public class AadlPackageImpl extends NamedElementImpl implements AadlPackage {
+public class AadlPackageImpl extends AadlUnitImpl implements AadlPackage {
 	/**
 	 * The cached value of the '{@link #getPublicSection() <em>Public Section</em>}' reference.
 	 * <!-- begin-user-doc -->

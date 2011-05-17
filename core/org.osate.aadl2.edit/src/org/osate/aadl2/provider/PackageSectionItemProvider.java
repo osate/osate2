@@ -84,27 +84,26 @@ public class PackageSectionItemProvider extends NamespaceItemProvider implements
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addImportedPackagePropertyDescriptor(object);
+			addImportedUnitPropertyDescriptor(object);
 			addNoAnnexesPropertyDescriptor(object);
 			addNoPropertiesPropertyDescriptor(object);
-			addImportedPropertySetPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Imported Package feature.
+	 * This adds a property descriptor for the Imported Unit feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addImportedPackagePropertyDescriptor(Object object) {
+	protected void addImportedUnitPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_PackageSection_importedPackage_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_importedPackage_feature",
-						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_ImportedPackage(), true,
+				getString("_UI_PackageSection_importedUnit_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_importedUnit_feature",
+						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(), true,
 				false, true, null, null, null));
 	}
 
@@ -122,22 +121,6 @@ public class PackageSectionItemProvider extends NamespaceItemProvider implements
 				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_noProperties_feature",
 						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_NoProperties(), true,
 				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Imported Property Set feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addImportedPropertySetPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PackageSection_importedPropertySet_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_importedPropertySet_feature",
-						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_ImportedPropertySet(),
-				true, false, true, null, null, null));
 	}
 
 	/**

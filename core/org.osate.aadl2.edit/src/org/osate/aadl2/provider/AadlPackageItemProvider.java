@@ -64,7 +64,7 @@ import org.osate.aadl2.AadlPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AadlPackageItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
+public class AadlPackageItemProvider extends AadlUnitItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.

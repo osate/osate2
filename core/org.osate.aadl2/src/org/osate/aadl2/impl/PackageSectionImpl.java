@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlUnit;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
@@ -102,7 +103,7 @@ import org.osate.aadl2.VirtualProcessorType;
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedComponentTypeRenames <em>Owned Component Type Rename</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedFeatureGroupTypeRenames <em>Owned Feature Group Type Rename</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedAnnexLibraries <em>Owned Annex Library</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getImportedPackages <em>Imported Package</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getImportedUnits <em>Imported Unit</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#isNoAnnexes <em>No Annexes</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedAbstractTypes <em>Owned Abstract Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedAbstractImplementations <em>Owned Abstract Implementation</em>}</li>
@@ -134,7 +135,6 @@ import org.osate.aadl2.VirtualProcessorType;
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedVirtualProcessorImplementations <em>Owned Virtual Processor Implementation</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedFeatureGroupTypes <em>Owned Feature Group Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#isNoProperties <em>No Properties</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getImportedPropertySets <em>Imported Property Set</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
@@ -183,14 +183,14 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	protected EList<AnnexLibrary> ownedAnnexLibraries;
 
 	/**
-	 * The cached value of the '{@link #getImportedPackages() <em>Imported Package</em>}' reference list.
+	 * The cached value of the '{@link #getImportedUnits() <em>Imported Unit</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getImportedPackages()
+	 * @see #getImportedUnits()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AadlPackage> importedPackages;
+	protected EList<AadlUnit> importedUnits;
 
 	/**
 	 * The default value of the '{@link #isNoAnnexes() <em>No Annexes</em>}' attribute.
@@ -523,16 +523,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	protected boolean noProperties = NO_PROPERTIES_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getImportedPropertySets() <em>Imported Property Set</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getImportedPropertySets()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<PropertySet> importedPropertySets;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -720,19 +710,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<PropertySet> getImportedPropertySets() {
-		if (importedPropertySets == null) {
-			importedPropertySets = new EObjectResolvingEList<PropertySet>(PropertySet.class, this,
-					Aadl2Package.PACKAGE_SECTION__IMPORTED_PROPERTY_SET);
-		}
-		return importedPropertySets;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isNoAnnexes() {
 		return noAnnexes;
 	}
@@ -813,12 +790,12 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AadlPackage> getImportedPackages() {
-		if (importedPackages == null) {
-			importedPackages = new EObjectResolvingEList<AadlPackage>(AadlPackage.class, this,
-					Aadl2Package.PACKAGE_SECTION__IMPORTED_PACKAGE);
+	public EList<AadlUnit> getImportedUnits() {
+		if (importedUnits == null) {
+			importedUnits = new EObjectResolvingEList<AadlUnit>(AadlUnit.class, this,
+					Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT);
 		}
-		return importedPackages;
+		return importedUnits;
 	}
 
 	/**
@@ -1634,8 +1611,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			return getOwnedFeatureGroupTypeRenames();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY:
 			return getOwnedAnnexLibraries();
-		case Aadl2Package.PACKAGE_SECTION__IMPORTED_PACKAGE:
-			return getImportedPackages();
+		case Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT:
+			return getImportedUnits();
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
 			return isNoAnnexes();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ABSTRACT_TYPE:
@@ -1698,8 +1675,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			return getOwnedFeatureGroupTypes();
 		case Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES:
 			return isNoProperties();
-		case Aadl2Package.PACKAGE_SECTION__IMPORTED_PROPERTY_SET:
-			return getImportedPropertySets();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1729,9 +1704,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			getOwnedAnnexLibraries().clear();
 			getOwnedAnnexLibraries().addAll((Collection<? extends AnnexLibrary>) newValue);
 			return;
-		case Aadl2Package.PACKAGE_SECTION__IMPORTED_PACKAGE:
-			getImportedPackages().clear();
-			getImportedPackages().addAll((Collection<? extends AadlPackage>) newValue);
+		case Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT:
+			getImportedUnits().clear();
+			getImportedUnits().addAll((Collection<? extends AadlUnit>) newValue);
 			return;
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
 			setNoAnnexes((Boolean) newValue);
@@ -1857,10 +1832,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		case Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES:
 			setNoProperties((Boolean) newValue);
 			return;
-		case Aadl2Package.PACKAGE_SECTION__IMPORTED_PROPERTY_SET:
-			getImportedPropertySets().clear();
-			getImportedPropertySets().addAll((Collection<? extends PropertySet>) newValue);
-			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1885,8 +1856,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY:
 			getOwnedAnnexLibraries().clear();
 			return;
-		case Aadl2Package.PACKAGE_SECTION__IMPORTED_PACKAGE:
-			getImportedPackages().clear();
+		case Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT:
+			getImportedUnits().clear();
 			return;
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
 			setNoAnnexes(NO_ANNEXES_EDEFAULT);
@@ -1981,9 +1952,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		case Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES:
 			setNoProperties(NO_PROPERTIES_EDEFAULT);
 			return;
-		case Aadl2Package.PACKAGE_SECTION__IMPORTED_PROPERTY_SET:
-			getImportedPropertySets().clear();
-			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -2006,8 +1974,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			return ownedFeatureGroupTypeRenames != null && !ownedFeatureGroupTypeRenames.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY:
 			return ownedAnnexLibraries != null && !ownedAnnexLibraries.isEmpty();
-		case Aadl2Package.PACKAGE_SECTION__IMPORTED_PACKAGE:
-			return importedPackages != null && !importedPackages.isEmpty();
+		case Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT:
+			return importedUnits != null && !importedUnits.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
 			return noAnnexes != NO_ANNEXES_EDEFAULT;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ABSTRACT_TYPE:
@@ -2070,8 +2038,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			return ownedFeatureGroupTypes != null && !ownedFeatureGroupTypes.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES:
 			return noProperties != NO_PROPERTIES_EDEFAULT;
-		case Aadl2Package.PACKAGE_SECTION__IMPORTED_PROPERTY_SET:
-			return importedPropertySets != null && !importedPropertySets.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

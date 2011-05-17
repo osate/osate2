@@ -55,7 +55,7 @@ package org.osate.aadl2;
  * @model extendedMetaData="name='Package'"
  * @generated
  */
-public interface AadlPackage extends NamedElement {
+public interface AadlPackage extends AadlUnit {
 	/**
 	 * Returns the value of the '<em><b>Owned Public Section</b></em>' containment reference.
 	 * <p>
