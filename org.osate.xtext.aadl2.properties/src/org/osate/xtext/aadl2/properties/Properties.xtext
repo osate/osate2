@@ -216,9 +216,11 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	 => ListTerm
-	| ComputedTerm | StringTerm | BooleanTerm
-	| ReferenceTerm | ComponentClassifierTerm | RecordTerm
+	 (LPARENS ID ASSIGN) => RecordTerm 
+	| ReferenceTerm | ComputedTerm | StringTerm 
+	| RealTerm | IntegerTerm 
+	 | ComponentClassifierTerm 	| BooleanTerm
+	 | ListTerm
 	;
 
 BooleanTerm returns aadl2::PropertyExpression:
@@ -260,9 +262,9 @@ ReferenceTerm returns aadl2::ReferenceValue:
   ;
 
 RecordTerm returns aadl2::RecordValue:
-   LBRACKET 
+   LPARENS
    (ownedFieldValue+=BasicPropertyAssociation)+
-  RBRACKET
+  RPARENS
   ;
 
 ComputedTerm returns aadl2::ComputedValue:
@@ -279,10 +281,10 @@ ComponentClassifierTerm returns aadl2::ClassifierValue:
 
 
 ListTerm returns aadl2::ListValue:
-   LPARENS 	
+   LBRACKET 	
    ownedListElement+=(PropertyExpression)
    (COMMA ownedListElement+=(PropertyExpression))*
-  RPARENS
+  RBRACKET
   ;
 
 BasicPropertyAssociation returns aadl2::BasicPropertyAssociation:
