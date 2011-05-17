@@ -113,19 +113,10 @@
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//Comment">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Comment/body"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Namespace">
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//Namespace/ownedMember"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
-          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Namespace/member"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Namespace/members_distinguishable">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Namespace/members_distinguishable/diagnostics"/>
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Namespace/members_distinguishable/context"/>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Type">
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Type/conformsTo">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Type/conformsTo/other"/>
       </genOperations>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Namespace/getNamesOfMember">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Namespace/getNamesOfMember/element"/>
-      </genOperations>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Namespace/membersAreDistinguishable"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//NamedElement">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//NamedElement/name"/>
@@ -183,11 +174,6 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//TypedElement/type"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Type">
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Type/conformsTo">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Type/conformsTo/other"/>
-      </genOperations>
-    </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//PropertyType"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//PropertyExpression"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//MetaclassReference">
@@ -237,6 +223,20 @@
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Classifier/maySpecializeType">
         <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Classifier/maySpecializeType/c"/>
       </genOperations>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Namespace">
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//Namespace/ownedMember"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Namespace/member"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Namespace/members_distinguishable">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Namespace/members_distinguishable/diagnostics"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Namespace/members_distinguishable/context"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Namespace/getNamesOfMember">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Namespace/getNamesOfMember/element"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Namespace/membersAreDistinguishable"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ClassifierFeature">
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
@@ -648,7 +648,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedAnnexLibrary"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/importedPackage"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/importedUnit"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PackageSection/noAnnexes"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedAbstractType"/>
@@ -709,8 +709,6 @@
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedFeatureGroupType"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PackageSection/noProperties"/>
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/importedPropertySet"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PackageRename">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -727,6 +725,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//AadlPackage/privateSection"/>
     </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//AadlUnit"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PrivatePackageSection">
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//PrivatePackageSection/publicSection"/>
@@ -1107,25 +1106,6 @@
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
           ecoreFeature="ecore:EReference aadl2.ecore#//VirtualProcessorImplementation/ownedVirtualProcessorSubcomponent"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PropertySet">
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/ownedPropertyType"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/ownedProperty"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/ownedPropertyConstant"/>
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/importedPropertySet"/>
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/importedPackage"/>
-    </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PropertyConstant">
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PropertyConstant/list"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/ownedType"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/constantValue"/>
-    </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ComponentPrototypeBinding">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentPrototypeBinding/actual"/>
@@ -1206,6 +1186,13 @@
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BasicPropertyAssociation/ownedValue"/>
     </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PropertyConstant">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PropertyConstant/list"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/ownedType"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/constantValue"/>
+    </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EnumerationValue">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//EnumerationValue/literal"/>
@@ -1276,6 +1263,16 @@
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ListValue">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ListValue/ownedListElement"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PropertySet">
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/ownedPropertyType"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/ownedProperty"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/ownedPropertyConstant"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/importedUnit"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//GlobalNamespace">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"

@@ -691,9 +691,9 @@ public class NameResolver {
 		NamedElement searchResult = OsateResourceManager
 				.findPackageOrPropertySet(importedPackageSectionOrPropertySetName);
 		if (searchResult instanceof AadlPackage)
-			packageSection.getImportedPackages().add((AadlPackage) searchResult);
+			packageSection.getImportedUnits().add((AadlPackage) searchResult);
 		else if (searchResult instanceof PropertySet)
-			packageSection.getImportedPropertySets().add((PropertySet) searchResult);
+			packageSection.getImportedUnits().add((PropertySet) searchResult);
 		else
 			//searchResult should be null.  If it is not, then OsateResourceManager.findPackageOrPropertySet() is broken.
 			errManager.error(packageSection, "Package or property set '" + importedPackageSectionOrPropertySetName
@@ -705,9 +705,9 @@ public class NameResolver {
 		NamedElement searchResult = OsateResourceManager
 				.findPackageOrPropertySet(importedPackageSectionOrPropertySetName);
 		if (searchResult instanceof AadlPackage)
-			propertySet.getImportedPackages().add((AadlPackage) searchResult);
+			propertySet.getImportedUnits().add((AadlPackage) searchResult);
 		else if (searchResult instanceof PropertySet)
-			propertySet.getImportedPropertySets().add((PropertySet) searchResult);
+			propertySet.getImportedUnits().add((PropertySet) searchResult);
 		else
 			//searchResult should be null.  If it is not, then OsateResourceManager.findPackageOrPropertySet() is broken.
 			errManager.error(propertySet, "Package or property set '" + importedPackageSectionOrPropertySetName
@@ -5168,31 +5168,31 @@ public class NameResolver {
 	}
 
 	private static AadlPackage findImportedPackage(String name, Namespace context) {
-		EList<AadlPackage> importedPackages;
+		EList<AadlUnit> importedUnits;
 		if (context instanceof PropertySet)
-			importedPackages = ((PropertySet) context).getImportedPackages();
+			importedUnits = ((PropertySet) context).getImportedUnits();
 		else
-			importedPackages = ((PackageSection) context).getImportedPackages();
-		for (AadlPackage importedPackage : importedPackages)
-			if (importedPackage.getName().equalsIgnoreCase(name))
-				return importedPackage;
+			importedUnits = ((PackageSection) context).getImportedUnits();
+		for (AadlUnit importedUnit : importedUnits)
+			if (importedUnit.getName().equalsIgnoreCase(name))
+				return (AadlPackage) importedUnit;
 		if (context instanceof PrivatePackageSection && ((AadlPackage) context.eContainer()).getPublicSection() != null)
-			for (AadlPackage importedPackage : ((AadlPackage) context.eContainer()).getPublicSection()
-					.getImportedPackages())
-				if (importedPackage.getName().equalsIgnoreCase(name))
-					return importedPackage;
+			for (AadlUnit importedUnit : ((AadlPackage) context.eContainer()).getPublicSection()
+					.getImportedUnits())
+				if (importedUnit.getName().equalsIgnoreCase(name))
+					return (AadlPackage) importedUnit;
 		return null;
 	}
 
 	private static PropertySet findImportedPropertySet(String name, Namespace context) {
-		EList<PropertySet> importedPropertySets;
+		EList<AadlUnit> importedUnits;
 		if (context instanceof PropertySet)
-			importedPropertySets = ((PropertySet) context).getImportedPropertySets();
+			importedUnits = ((PropertySet) context).getImportedUnits();
 		else
-			importedPropertySets = ((PackageSection) context).getImportedPropertySets();
-		for (PropertySet importedPropertySet : importedPropertySets)
-			if (importedPropertySet.getName().equalsIgnoreCase(name))
-				return importedPropertySet;
+			importedUnits = ((PackageSection) context).getImportedUnits();
+		for (AadlUnit importedUnit : importedUnits)
+			if (importedUnit.getName().equalsIgnoreCase(name))
+				return (PropertySet) importedUnit;
 		return null;
 	}
 

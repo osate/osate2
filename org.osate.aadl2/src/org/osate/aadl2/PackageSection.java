@@ -51,7 +51,7 @@ import org.eclipse.emf.ecore.EClass;
  *   <li>{@link org.osate.aadl2.PackageSection#getOwnedClassifiers <em>Owned Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageSection#getOwnedFeatureGroupTypeRenames <em>Owned Feature Group Type Rename</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageSection#getOwnedAnnexLibraries <em>Owned Annex Library</em>}</li>
- *   <li>{@link org.osate.aadl2.PackageSection#getImportedPackages <em>Imported Package</em>}</li>
+ *   <li>{@link org.osate.aadl2.PackageSection#getImportedUnits <em>Imported Unit</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageSection#isNoAnnexes <em>No Annexes</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageSection#getOwnedAbstractTypes <em>Owned Abstract Type</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageSection#getOwnedAbstractImplementations <em>Owned Abstract Implementation</em>}</li>
@@ -83,7 +83,6 @@ import org.eclipse.emf.ecore.EClass;
  *   <li>{@link org.osate.aadl2.PackageSection#getOwnedVirtualProcessorImplementations <em>Owned Virtual Processor Implementation</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageSection#getOwnedFeatureGroupTypes <em>Owned Feature Group Type</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageSection#isNoProperties <em>No Properties</em>}</li>
- *   <li>{@link org.osate.aadl2.PackageSection#getImportedPropertySets <em>Imported Property Set</em>}</li>
  * </ul>
  * </p>
  *
@@ -181,22 +180,6 @@ public interface PackageSection extends Namespace {
 	 * @generated
 	 */
 	void setNoProperties(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Imported Property Set</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.PropertySet}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Imported Property Set</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Imported Property Set</em>' reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_ImportedPropertySet()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	EList<PropertySet> getImportedPropertySets();
 
 	/**
 	 * Returns the value of the '<em><b>No Annexes</b></em>' attribute.
@@ -323,20 +306,20 @@ public interface PackageSection extends Namespace {
 	AnnexLibrary createOwnedAnnexLibrary();
 
 	/**
-	 * Returns the value of the '<em><b>Imported Package</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.AadlPackage}.
+	 * Returns the value of the '<em><b>Imported Unit</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.AadlUnit}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Imported Package</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Imported Unit</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Imported Package</em>' reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_ImportedPackage()
+	 * @return the value of the '<em>Imported Unit</em>' reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_ImportedUnit()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	EList<AadlPackage> getImportedPackages();
+	EList<AadlUnit> getImportedUnits();
 
 	/**
 	 * Returns the value of the '<em><b>Owned Abstract Type</b></em>' containment reference list.

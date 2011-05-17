@@ -113,72 +113,19 @@
       <details key="documentation" value="A Boolean type is used for logical expression, consisting of the predefined values true and false."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Namespace" abstract="true" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A namespace is an element in a model that contains a set of named elements that can be identified by name."/>
+      <details key="documentation" value="A type constrains the values represented by a typed element."/>
     </eAnnotations>
-    <eOperations name="members_distinguishable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="membersAreDistinguishable()"/>
-      </eAnnotations>
+    <eOperations name="conformsTo" ordered="false" lowerBound="1" eType="#//Boolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="All the members of a Namespace are distinguishable within it.&#xA;membersAreDistinguishable()"/>
-      </eAnnotations>
-      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
-        </eAnnotations>
-      </eParameters>
-      <eParameters name="context">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The cache of context-specific information."/>
-        </eAnnotations>
-        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-        </eGenericType>
-      </eParameters>
-    </eOperations>
-    <eOperations name="getNamesOfMember" ordered="false" upperBound="-1" eType="#//String">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query getNamesOfMember() gives a set of all of the names that a member would have in a Namespace. In general a member can have multiple names in a Namespace if it is imported more than once with different aliases. Those semantics are specified by overriding the getNamesOfMember operation. The specification here simply returns a set containing a single name, or the empty set if no name.&#xA;if member->includes(element) then&#xD;&#xA;  Set{}->including(element.name)&#xD;&#xA;else&#xD;&#xA;  Set{}&#xD;&#xA;endif"/>
+        <details key="documentation" value="The query conformsTo() gives true for a type that conforms to another. By default, two types do not conform to each other. This query is intended to be redefined for specific conformance situations.&#xA;result = false"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="if member->includes(element) then&#xD;&#xA;  Set{}->including(element.name)&#xD;&#xA;else&#xD;&#xA;  Set{}&#xD;&#xA;endif"/>
+        <details key="body" value="result = false"/>
       </eAnnotations>
-      <eParameters name="element" ordered="false" lowerBound="1" eType="#//NamedElement"/>
+      <eParameters name="other" ordered="false" lowerBound="1" eType="#//Type"/>
     </eOperations>
-    <eOperations name="membersAreDistinguishable" ordered="false" lowerBound="1" eType="#//Boolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The Boolean query membersAreDistinguishable() determines whether all of the namespaces members are distinguishable within it.&#xA;self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))"/>
-      </eAnnotations>
-    </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMember" ordered="false"
-        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
-        transient="true" derived="true" containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
-      </eAnnotations>
-      <eAnnotations source="subsets" references="#//Element/ownedElement #//Namespace/member"/>
-      <eAnnotations source="union"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="member" ordered="false"
-        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
-        transient="true" derived="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
-      </eAnnotations>
-      <eAnnotations source="union"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
-      </eAnnotations>
-    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true" eSuperTypes="#//Element">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -336,20 +283,6 @@
         <details key="documentation" value="The type of the TypedElement."/>
       </eAnnotations>
     </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true" eSuperTypes="#//NamedElement">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A type constrains the values represented by a typed element."/>
-    </eAnnotations>
-    <eOperations name="conformsTo" ordered="false" lowerBound="1" eType="#//Boolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query conformsTo() gives true for a type that conforms to another. By default, two types do not conform to each other. This query is intended to be redefined for specific conformance situations.&#xA;result = false"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="result = false"/>
-      </eAnnotations>
-      <eParameters name="other" ordered="false" lowerBound="1" eType="#//Type"/>
-    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Integer" instanceClassName="long">
     <eAnnotations source="http://www.topcased.org/documentation">
@@ -532,6 +465,73 @@
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noProperties" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Namespace" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A namespace is an element in a model that contains a set of named elements that can be identified by name."/>
+    </eAnnotations>
+    <eOperations name="members_distinguishable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="membersAreDistinguishable()"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="All the members of a Namespace are distinguishable within it.&#xA;membersAreDistinguishable()"/>
+      </eAnnotations>
+      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+        </eAnnotations>
+      </eParameters>
+      <eParameters name="context">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The cache of context-specific information."/>
+        </eAnnotations>
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="getNamesOfMember" ordered="false" upperBound="-1" eType="#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The query getNamesOfMember() gives a set of all of the names that a member would have in a Namespace. In general a member can have multiple names in a Namespace if it is imported more than once with different aliases. Those semantics are specified by overriding the getNamesOfMember operation. The specification here simply returns a set containing a single name, or the empty set if no name.&#xA;if member->includes(element) then&#xD;&#xA;  Set{}->including(element.name)&#xD;&#xA;else&#xD;&#xA;  Set{}&#xD;&#xA;endif"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="if member->includes(element) then&#xD;&#xA;  Set{}->including(element.name)&#xD;&#xA;else&#xD;&#xA;  Set{}&#xD;&#xA;endif"/>
+      </eAnnotations>
+      <eParameters name="element" ordered="false" lowerBound="1" eType="#//NamedElement"/>
+    </eOperations>
+    <eOperations name="membersAreDistinguishable" ordered="false" lowerBound="1" eType="#//Boolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The Boolean query membersAreDistinguishable() determines whether all of the namespaces members are distinguishable within it.&#xA;self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMember" ordered="false"
+        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
+        transient="true" derived="true" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
+      </eAnnotations>
+      <eAnnotations source="subsets" references="#//Element/ownedElement #//Namespace/member"/>
+      <eAnnotations source="union"/>
+      <eAnnotations source="http://www.topcased.org/documentation">
+        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="member" ordered="false"
+        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
+      </eAnnotations>
+      <eAnnotations source="union"/>
+      <eAnnotations source="http://www.topcased.org/documentation">
+        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ClassifierFeature" abstract="true" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1301,8 +1301,8 @@
         upperBound="-1" eType="#//AnnexLibrary" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="importedPackage" ordered="false"
-        upperBound="-1" eType="#//AadlPackage"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="importedUnit" ordered="false"
+        upperBound="-1" eType="#//AadlUnit"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noAnnexes" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAbstractType" ordered="false"
@@ -1424,8 +1424,6 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noProperties" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="importedPropertySet" ordered="false"
-        upperBound="-1" eType="#//PropertySet"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PackageRename" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="renamedPackage" ordered="false"
@@ -1433,7 +1431,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="renameAll" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AadlPackage" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="AadlPackage" eSuperTypes="#//AadlUnit">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value="Package"/>
     </eAnnotations>
@@ -1450,6 +1448,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="privateSection" ordered="false"
         eType="#//PrivatePackageSection"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AadlUnit" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="PrivatePackageSection" eSuperTypes="#//PackageSection">
     <eStructuralFeatures xsi:type="ecore:EReference" name="publicSection" ordered="false"
         eType="#//PublicPackageSection" changeable="false" volatile="true" transient="true"
@@ -2200,39 +2199,6 @@
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertySet" eSuperTypes="#//Namespace">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
-        upperBound="-1" eType="#//PropertyType" containment="true">
-      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProperty" ordered="false"
-        upperBound="-1" eType="#//Property" containment="true">
-      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyConstant"
-        ordered="false" upperBound="-1" eType="#//PropertyConstant" containment="true">
-      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="importedPropertySet" ordered="false"
-        upperBound="-1" eType="#//PropertySet"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="importedPackage" ordered="false"
-        upperBound="-1" eType="#//AadlPackage"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyConstant" eSuperTypes="#//TypedElement">
-    <eAnnotations source="duplicates">
-      <contents xsi:type="ecore:EReference" name="type" ordered="false" eType="#//Type">
-        <eAnnotations source="redefines" references="#//TypedElement/type"/>
-      </contents>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="list" ordered="false" lowerBound="1"
-        eType="#//Integer"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedType" ordered="false"
-        eType="#//PropertyType" containment="true">
-      <eAnnotations source="subsets" references="#//PropertyConstant/%duplicates%/type"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constantValue" ordered="false"
-        eType="#//PropertyExpression" containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototypeBinding" eSuperTypes="#//PrototypeBinding">
     <eAnnotations source="duplicates">
       <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
@@ -2342,6 +2308,21 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedValue" ordered="false"
         lowerBound="1" eType="#//PropertyExpression" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyConstant" eSuperTypes="#//TypedElement">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EReference" name="type" ordered="false" eType="#//Type">
+        <eAnnotations source="redefines" references="#//TypedElement/type"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="list" ordered="false" lowerBound="1"
+        eType="#//Integer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedType" ordered="false"
+        eType="#//PropertyType" containment="true">
+      <eAnnotations source="subsets" references="#//PropertyConstant/%duplicates%/type"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constantValue" ordered="false"
+        eType="#//PropertyExpression" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EnumerationValue" eSuperTypes="#//PropertyValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="literal" ordered="false"
         lowerBound="1" eType="#//EnumerationLiteral"/>
@@ -2426,6 +2407,22 @@
   <eClassifiers xsi:type="ecore:EClass" name="ListValue" eSuperTypes="#//PropertyExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedListElement" upperBound="-1"
         eType="#//PropertyExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertySet" eSuperTypes="#//Namespace #//AadlUnit">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
+        upperBound="-1" eType="#//PropertyType" containment="true">
+      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProperty" ordered="false"
+        upperBound="-1" eType="#//Property" containment="true">
+      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyConstant"
+        ordered="false" upperBound="-1" eType="#//PropertyConstant" containment="true">
+      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="importedUnit" ordered="false"
+        upperBound="-1" eType="#//AadlUnit"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GlobalNamespace" eSuperTypes="#//Namespace">
     <eStructuralFeatures xsi:type="ecore:EReference" name="package" ordered="false"

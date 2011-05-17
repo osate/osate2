@@ -3733,10 +3733,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			virtualProcessorTypeItemProvider.dispose();
 		if (virtualProcessorImplementationItemProvider != null)
 			virtualProcessorImplementationItemProvider.dispose();
-		if (propertySetItemProvider != null)
-			propertySetItemProvider.dispose();
-		if (propertyConstantItemProvider != null)
-			propertyConstantItemProvider.dispose();
 		if (componentPrototypeBindingItemProvider != null)
 			componentPrototypeBindingItemProvider.dispose();
 		if (featureGroupPrototypeItemProvider != null)
@@ -3767,6 +3763,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			subprogramCallItemProvider.dispose();
 		if (basicPropertyAssociationItemProvider != null)
 			basicPropertyAssociationItemProvider.dispose();
+		if (propertyConstantItemProvider != null)
+			propertyConstantItemProvider.dispose();
 		if (enumerationValueItemProvider != null)
 			enumerationValueItemProvider.dispose();
 		if (enumerationLiteralItemProvider != null)
@@ -3801,6 +3799,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			computedValueItemProvider.dispose();
 		if (listValueItemProvider != null)
 			listValueItemProvider.dispose();
+		if (propertySetItemProvider != null)
+			propertySetItemProvider.dispose();
 		if (globalNamespaceItemProvider != null)
 			globalNamespaceItemProvider.dispose();
 		if (aadlBooleanItemProvider != null)

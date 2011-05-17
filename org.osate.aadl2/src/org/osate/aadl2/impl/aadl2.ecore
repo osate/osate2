@@ -58,37 +58,10 @@
       <details key="documentation" value="A Boolean type is used for logical expression, consisting of the predefined values true and false."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Namespace" abstract="true" eSuperTypes="#//NamedElement">
-    <eOperations name="members_distinguishable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain"/>
-      <eParameters name="context">
-        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-        </eGenericType>
-      </eParameters>
+  <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true" eSuperTypes="#//NamedElement">
+    <eOperations name="conformsTo" ordered="false" lowerBound="1" eType="#//Boolean">
+      <eParameters name="other" ordered="false" lowerBound="1" eType="#//Type"/>
     </eOperations>
-    <eOperations name="getNamesOfMember" ordered="false" upperBound="-1" eType="#//String">
-      <eParameters name="element" ordered="false" lowerBound="1" eType="#//NamedElement"/>
-    </eOperations>
-    <eOperations name="membersAreDistinguishable" ordered="false" lowerBound="1" eType="#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMember" ordered="false"
-        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
-        transient="true" derived="true" containment="true">
-      <eAnnotations source="subsets" references="#//Element/ownedElement #//Namespace/member"/>
-      <eAnnotations source="union"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="member" ordered="false"
-        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
-        transient="true" derived="true">
-      <eAnnotations source="union"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
-      </eAnnotations>
-    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true" eSuperTypes="#//Element">
     <eOperations name="has_no_qualified_name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -179,11 +152,6 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true" eSuperTypes="#//NamedElement">
-    <eOperations name="conformsTo" ordered="false" lowerBound="1" eType="#//Boolean">
-      <eParameters name="other" ordered="false" lowerBound="1" eType="#//Type"/>
-    </eOperations>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Integer" instanceClassName="long">
     <eAnnotations source="http://www.topcased.org/documentation">
       <details key="documentation" value="An integer is a primitive type representing integer values."/>
@@ -272,6 +240,38 @@
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noProperties" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Namespace" abstract="true" eSuperTypes="#//NamedElement">
+    <eOperations name="members_distinguishable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain"/>
+      <eParameters name="context">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="getNamesOfMember" ordered="false" upperBound="-1" eType="#//String">
+      <eParameters name="element" ordered="false" lowerBound="1" eType="#//NamedElement"/>
+    </eOperations>
+    <eOperations name="membersAreDistinguishable" ordered="false" lowerBound="1" eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMember" ordered="false"
+        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
+        transient="true" derived="true" containment="true">
+      <eAnnotations source="subsets" references="#//Element/ownedElement #//Namespace/member"/>
+      <eAnnotations source="union"/>
+      <eAnnotations source="http://www.topcased.org/documentation">
+        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="member" ordered="false"
+        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="union"/>
+      <eAnnotations source="http://www.topcased.org/documentation">
+        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ClassifierFeature" abstract="true" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="featuringClassifier" ordered="false"
@@ -989,8 +989,8 @@
         upperBound="-1" eType="#//AnnexLibrary" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="importedPackage" ordered="false"
-        upperBound="-1" eType="#//AadlPackage"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="importedUnit" ordered="false"
+        upperBound="-1" eType="#//AadlUnit"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noAnnexes" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAbstractType" ordered="false"
@@ -1112,8 +1112,6 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noProperties" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="importedPropertySet" ordered="false"
-        upperBound="-1" eType="#//PropertySet"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PackageRename" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="renamedPackage" ordered="false"
@@ -1121,7 +1119,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="renameAll" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AadlPackage" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="AadlPackage" eSuperTypes="#//AadlUnit">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value="Package"/>
     </eAnnotations>
@@ -1138,6 +1136,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="privateSection" ordered="false"
         eType="#//PrivatePackageSection"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AadlUnit" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="PrivatePackageSection" eSuperTypes="#//PackageSection">
     <eStructuralFeatures xsi:type="ecore:EReference" name="publicSection" ordered="false"
         eType="#//PublicPackageSection" changeable="false" volatile="true" transient="true"
@@ -1884,39 +1883,6 @@
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertySet" eSuperTypes="#//Namespace">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
-        upperBound="-1" eType="#//PropertyType" containment="true">
-      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProperty" ordered="false"
-        upperBound="-1" eType="#//Property" containment="true">
-      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyConstant"
-        ordered="false" upperBound="-1" eType="#//PropertyConstant" containment="true">
-      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="importedPropertySet" ordered="false"
-        upperBound="-1" eType="#//PropertySet"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="importedPackage" ordered="false"
-        upperBound="-1" eType="#//AadlPackage"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyConstant" eSuperTypes="#//TypedElement">
-    <eAnnotations source="duplicates">
-      <contents xsi:type="ecore:EReference" name="type" ordered="false" eType="#//Type">
-        <eAnnotations source="redefines" references="#//TypedElement/type"/>
-      </contents>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="list" ordered="false" lowerBound="1"
-        eType="#//Integer"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedType" ordered="false"
-        eType="#//PropertyType" containment="true">
-      <eAnnotations source="subsets" references="#//PropertyConstant/%duplicates%/type"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constantValue" ordered="false"
-        eType="#//PropertyExpression" containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototypeBinding" eSuperTypes="#//PrototypeBinding">
     <eAnnotations source="duplicates">
       <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
@@ -2026,6 +1992,21 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedValue" ordered="false"
         lowerBound="1" eType="#//PropertyExpression" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyConstant" eSuperTypes="#//TypedElement">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EReference" name="type" ordered="false" eType="#//Type">
+        <eAnnotations source="redefines" references="#//TypedElement/type"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="list" ordered="false" lowerBound="1"
+        eType="#//Integer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedType" ordered="false"
+        eType="#//PropertyType" containment="true">
+      <eAnnotations source="subsets" references="#//PropertyConstant/%duplicates%/type"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constantValue" ordered="false"
+        eType="#//PropertyExpression" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EnumerationValue" eSuperTypes="#//PropertyValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="literal" ordered="false"
         lowerBound="1" eType="#//EnumerationLiteral"/>
@@ -2110,6 +2091,22 @@
   <eClassifiers xsi:type="ecore:EClass" name="ListValue" eSuperTypes="#//PropertyExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedListElement" upperBound="-1"
         eType="#//PropertyExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertySet" eSuperTypes="#//Namespace #//AadlUnit">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
+        upperBound="-1" eType="#//PropertyType" containment="true">
+      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProperty" ordered="false"
+        upperBound="-1" eType="#//Property" containment="true">
+      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyConstant"
+        ordered="false" upperBound="-1" eType="#//PropertyConstant" containment="true">
+      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="importedUnit" ordered="false"
+        upperBound="-1" eType="#//AadlUnit"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GlobalNamespace" eSuperTypes="#//Namespace">
     <eStructuralFeatures xsi:type="ecore:EReference" name="package" ordered="false"

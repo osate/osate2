@@ -9,9 +9,8 @@
         <ownedComment xmi:id="PropertySets-PropertySet-_ownedComment.0">
           <body>A property Set.</body>
         </ownedComment>
-        <generalization xmi:id="PropertySets-PropertySet-_generalization.0">
-          <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Namespace"/>
-        </generalization>
+        <generalization xmi:id="_ZP6boICtEeC4L4Ipr-wzPA" general="_SBJu4ICtEeC4L4Ipr-wzPA"/>
+        <generalization xmi:id="_F1APMIC6EeC4L4Ipr-wzPA" general="_AsQMsIC6EeC4L4Ipr-wzPA"/>
         <ownedAttribute xmi:id="PropertySets-PropertySet-ownedPropertyType" name="ownedPropertyType" type="Types-PropertyType" aggregation="composite" association="PropertySets-A_propertySet_ownedPropertyType">
           <ownedComment xmi:id="PropertySets-PropertySet-ownedPropertyType-_ownedComment.0">
             <body>Specifies the property types owned by this property set.</body>
@@ -36,19 +35,9 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySets-PropertySet-ownedPropertyConstant-_lowerValue"/>
           <subsettedProperty href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="PropertySets-PropertySetReference-referencedPropertySet" name="importedPropertySet" type="PropertySets-PropertySet" association="PropertySets-A_propertySetReference_referencedPropertySet">
-          <ownedComment xmi:id="PropertySets-PropertySetReference-referencedPropertySet-_ownedComment.0">
-            <body>References the property sets that are imported into this property set.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PropertySets-PropertySetReference-referencedPropertySet-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySets-PropertySetReference-referencedPropertySet-_lowerValue"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="_a9673x1yEd6Jzf9StwOHjA" name="importedPackage" type="_ALlRkB39Ed6do6gWQtMy3g" association="_a9672x1yEd6Jzf9StwOHjA">
-          <ownedComment xmi:id="_TQSFQB1zEd6Jzf9StwOHjA">
-            <body>References the packages that are imported into this property set.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_a9674B1yEd6Jzf9StwOHjA" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_a9674R1yEd6Jzf9StwOHjA"/>
+        <ownedAttribute xmi:id="_avt5JIC7EeC4L4Ipr-wzPA" name="importedUnit" type="_SBJu4ICtEeC4L4Ipr-wzPA" association="_avt5IIC7EeC4L4Ipr-wzPA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_avt5JYC7EeC4L4Ipr-wzPA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_avt5JoC7EeC4L4Ipr-wzPA"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="PropertySets-A_globalNamespace_propertySet" name="A_globalNamespace_propertySet" memberEnd="PropertySets-A_globalNamespace_propertySet-globalNamespace PropertySets-GlobalNamespace-propertySet">
@@ -75,15 +64,6 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySets-A_propertySet_ownedPropertyConstant-owner-_lowerValue" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="PropertySets-PackageSection" name="PackageSection" isAbstract="true">
-        <ownedComment xmi:id="PropertySets-PackageSection-_ownedComment.0">
-          <body>Package sections may import property sets.</body>
-        </ownedComment>
-        <ownedAttribute xmi:id="_1vHGbh1yEd6Jzf9StwOHjA" name="importedPropertySet" type="PropertySets-PropertySet" association="_1vHGah1yEd6Jzf9StwOHjA">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1vHGbx1yEd6Jzf9StwOHjA" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1vHGcB1yEd6Jzf9StwOHjA"/>
-        </ownedAttribute>
-      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="PropertySets-GlobalNamespace" name="GlobalNamespace" isAbstract="true">
         <ownedComment xmi:id="PropertySets-GlobalNamespace-_ownedComment.0">
           <body>The global namespace may contain property sets.</body>
@@ -97,25 +77,14 @@
           <subsettedProperty href="../Core%20Language/AADLInfrastructure.uml#Namespace-member"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="PropertySets-A_propertySetReference_referencedPropertySet" name="A_propertySet_importedPropertySet" memberEnd="PropertySets-A_propertySetReference_referencedPropertySet-propertySetReference PropertySets-PropertySetReference-referencedPropertySet">
-        <ownedEnd xmi:id="PropertySets-A_propertySetReference_referencedPropertySet-propertySetReference" name="propertySet" type="PropertySets-PropertySet" association="PropertySets-A_propertySetReference_referencedPropertySet">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PropertySets-A_propertySetReference_referencedPropertySet-propertySetReference-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySets-A_propertySetReference_referencedPropertySet-propertySetReference-_lowerValue"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_SBJu4ICtEeC4L4Ipr-wzPA" name="AadlUnit" isAbstract="true"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_AsQMsIC6EeC4L4Ipr-wzPA" name="Namespace" isAbstract="true"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_avt5IIC7EeC4L4Ipr-wzPA" name="A_propertySet_importedUnit" memberEnd="_avt5IYC7EeC4L4Ipr-wzPA _avt5JIC7EeC4L4Ipr-wzPA">
+        <ownedEnd xmi:id="_avt5IYC7EeC4L4Ipr-wzPA" name="propertySet" type="PropertySets-PropertySet" association="_avt5IIC7EeC4L4Ipr-wzPA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_avt5IoC7EeC4L4Ipr-wzPA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_avt5I4C7EeC4L4Ipr-wzPA"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_a9672x1yEd6Jzf9StwOHjA" name="A_propertySet_importedPackage" memberEnd="_a9673B1yEd6Jzf9StwOHjA _a9673x1yEd6Jzf9StwOHjA">
-        <ownedEnd xmi:id="_a9673B1yEd6Jzf9StwOHjA" name="propertySet" type="PropertySets-PropertySet" association="_a9672x1yEd6Jzf9StwOHjA">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_a9673R1yEd6Jzf9StwOHjA" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_a9673h1yEd6Jzf9StwOHjA"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_1vHGah1yEd6Jzf9StwOHjA" name="A_packageSection_importedPropertySet" memberEnd="_1vHGax1yEd6Jzf9StwOHjA _1vHGbh1yEd6Jzf9StwOHjA">
-        <ownedEnd xmi:id="_1vHGax1yEd6Jzf9StwOHjA" name="packageSection" type="PropertySets-PackageSection" association="_1vHGah1yEd6Jzf9StwOHjA">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1vHGbB1yEd6Jzf9StwOHjA" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1vHGbR1yEd6Jzf9StwOHjA"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_ALlRkB39Ed6do6gWQtMy3g" name="Package"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Types" name="Types">
       <ownedComment xmi:id="Types-_ownedComment.0">
