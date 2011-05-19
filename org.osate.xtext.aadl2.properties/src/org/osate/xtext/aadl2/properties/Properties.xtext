@@ -6,6 +6,32 @@ grammar org.osate.xtext.aadl2.properties.Properties with org.eclipse.xtext.commo
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
 
+//AadlPackage returns aadl2::AadlPackage:
+//	'package' name=PNAME
+//	ownedPublicSection=PublicPackageSection
+//	'end' ID ('::' ID)* SEMI;
+//
+//
+//PublicPackageSection returns aadl2::PublicPackageSection:
+//	{aadl2::PublicPackageSection}
+//	'public'
+//	((=> 'with' (importedPackage+=[aadl2::AadlPackage|PNAME]) //| importedPropertySet+=[props::PropertySet|ID]) 
+//	    (COMMA importedPackage+=[aadl2::AadlPackage|PNAME])* SEMI)
+//	)*
+//	( ownedSystemType+=SystemType| ownedSystemImplementation+=SystemImplementation)*; 
+//
+//SystemType returns aadl2::SystemType:
+//	'system' name=ID 'end' ID SEMI;
+//
+//SystemImplementation returns aadl2::SystemImplementation:
+//	'system' 'implementation' 
+//	ownedRealization=Realization DOT name=INAME
+//	'end' ID DOT ID SEMI
+//	;
+//
+//Realization returns aadl2::Realization:
+//	implemented=[aadl2::SystemType|ID];
+
 PropertySet returns aadl2::PropertySet:
 	'property' 'set' name=ID 'is'
 	(=> 'with' (importedPropertySet+=[aadl2::PropertySet|ID]) //| importedPropertySet+=[props::PropertySet|ID]) 
@@ -15,13 +41,13 @@ PropertySet returns aadl2::PropertySet:
 	'end' ID SEMI ;
 
 PropertyType returns aadl2::PropertyType:
-	(BooleanType|StringType|EnumerationType|UnitsType// |RealType
-	|IntegerType|ClassifierType|ReferenceType|RecordType) 
+	(BooleanType|StringType|EnumerationType|UnitsType |RealType
+	|IntegerType|RangeType|ClassifierType|ReferenceType|RecordType) 
 	SEMI;
 
 UnnamedPropertyType returns aadl2::PropertyType:
-	(UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType// |UnnamedRealType
-	|UnnamedIntegerType|UnnamedClassifierType|UnnamedReferenceType|UnnamedRecordType) 
+	(UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType |UnnamedRealType
+	|UnnamedIntegerType|UnnamedRangeType|UnnamedClassifierType|UnnamedReferenceType|UnnamedRecordType) 
 	;
 
 
@@ -55,11 +81,11 @@ EnumerationLiteral returns aadl2::EnumerationLiteral:
 UnitsType returns aadl2::UnitsType:
 	name=ID COLON 'type' 
 	'units'
-	LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+	LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=UnitLiteralConversion)* RPARENS;
 
 UnnamedUnitsType returns aadl2::UnitsType:
 	'units'
-	LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+	LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=UnitLiteralConversion)* RPARENS;
 
 UnitLiteral returns aadl2::UnitLiteral:
 	name=ID;
@@ -67,25 +93,39 @@ UnitLiteral returns aadl2::UnitLiteral:
 UnitLiteralConversion returns aadl2::UnitLiteral:
 	name=ID ASSIGN baseUnit=[aadl2::UnitLiteral|ID] STAR factor=NumberValue
 	;
-//
-//RealType returns aadl2::AadlReal:
-//	name=ID COLON 'type' 
-//	'aadlreal' (range+=RealRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
-//	 ;
-//
-//UnnamedRealType returns aadl2::AadlReal:
-//	'aadlreal' (range+=RealRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
-//	 ;
+
+RealType returns aadl2::AadlReal:
+	name=ID COLON 'type' 
+	'aadlreal' (range=RealRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
+	 ;
+
+UnnamedRealType returns aadl2::AadlReal:
+	{aadl2::AadlReal}
+	'aadlreal' (range=RealRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
+	 ;
 
 IntegerType returns aadl2::AadlInteger:
 	name=ID COLON 'type' 
-	{aadl2::AadlInteger}
-	'aadlinteger' //(IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+	'aadlinteger' (range=IntegerRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
 	 ;
 
 UnnamedIntegerType returns aadl2::AadlInteger:
 	{aadl2::AadlInteger}
-	'aadlinteger' //(IntegerRange)* ('units' (ownedUnitsType=UnitsType| UnitsType=[aadl2::UnitsType|ID]))*
+	'aadlinteger' (range=IntegerRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
+	 ;
+
+RangeType returns aadl2::RangeType:
+	name=ID COLON 'type' 
+	'range' 'of' (ownedNumberType=(UnnamedIntegerType|UnnamedRealType)
+		| numberType=[aadl2::NumberType|QPREF]
+	)
+	 ;
+
+UnnamedRangeType returns aadl2::RangeType:
+	{aadl2::RangeType}
+	'range' 'of' (ownedNumberType=(UnnamedIntegerType|UnnamedRealType)
+		| numberType=[aadl2::NumberType|QPREF]
+	)
 	 ;
 
 ClassifierType returns aadl2::ClassifierType:
@@ -102,7 +142,7 @@ UnnamedClassifierType returns aadl2::ClassifierType:
 	 ;
 
 QCReference returns aadl2::MetaclassReference:
-	(LCURLY STAR STAR annexName=ID STAR STAR RCURLY )?
+	(LCURLY  annexName=ID RCURLY STAR STAR )?
 	metaclassName+=ID
 	 ;
 
@@ -159,8 +199,8 @@ AllReference returns aadl2::MetaclassReference:
 ;
 
 PropertyOwner returns aadl2::PropertyOwner:
-	// both alternatives are identifiers
-	(QCReference|ClassifierValue)
+	// classifier value is always qualified by a package name
+	(ClassifierValue|QCReference)
 	 ;
 
 
@@ -171,8 +211,7 @@ PropertyConstant returns aadl2::PropertyConstant:
 	name=ID COLON 'constant'
 //	(list+='list' 'of')*
 	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
-//	ASSIGN defaultValue=ConstantPropertyExpression  //&&& same as PropertyExpression??
-// constant values do not work forreference types?
+	ASSIGN constantValue=ConstantPropertyExpression  
 	SEMI
 	 ;
 
@@ -210,18 +249,30 @@ ModalPropertyValue returns aadl2::ModalPropertyValue:
 	inMode+=[aadl2::Mode|ID] (COMMA inMode+=[aadl2::Mode|ID])*
 	RPARENS
 	;
+	// &&&&&&&&&& handling of in binding
 
 PropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	 (LPARENS ID ASSIGN) => RecordTerm 
+	 (LPARENS ID ASSIGN) => RecordTerm |NumericRangeTerm
 	| ReferenceTerm | ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
 	 | ComponentClassifierTerm 	| BooleanTerm
 	 | ListTerm
 	;
+
+ConstantPropertyExpression returns aadl2::PropertyExpression:
+	 (LPARENS ID ASSIGN) => RecordTerm |NumericRangeTerm
+	| ComputedTerm | StringTerm 
+	| RealTerm | IntegerTerm 
+	 | ComponentClassifierTerm 	| BooleanTerm
+	 | ListTerm //| LiteralorReferenceTerm
+	;
+
+//LiteralorReferenceTerm returns aadl2::PropertyExpression:
+//	reference=[enum, units, property, propertyConstant] ;
 
 BooleanTerm returns aadl2::PropertyExpression:
 	OrTerm ;
@@ -297,7 +348,7 @@ BasicPropertyAssociation returns aadl2::BasicPropertyAssociation:
 // need to add annex path element
 ContainmentPathElement returns aadl2::ContainmentPathElement:
 	((namedElement=[aadl2::NamedElement|ID]
-//	 (arrayRange+=ArrayRange)?
+	 (arrayRange+=ArrayRange)?
 	 ) |
 	 'annex' namedElement=[aadl2::NamedElement|ANNEXREF]
 	)
@@ -308,8 +359,6 @@ ANNEXREF :
 	LCURLY STAR STAR ID STAR STAR RCURLY;
 
   
-// enum, unit, constant ref, property ref all may have just an ID
-// NameResolver knows based on type
 
 
 enum OperationKind returns aadl2::OperationKind:
@@ -330,6 +379,11 @@ NoQuoteString :
 	STRING
 ;
 
+
+ArrayRange returns aadl2::ArrayRange: {aadl2::ArrayRange}
+	LBRACKET lowerBound=gINT (DOTDOT upperBound=gINT)? 
+	RBRACKET
+;
 
 IntegerRange returns aadl2::NumericRange:
 	lowerBound=(IntegerTerm | SignedConstant | ConstantValue )
@@ -367,6 +421,12 @@ SignedReal returns aadl2::Real:
 	// Need valueconverter
 	('+'|'-')?REAL ;
 
+
+NumericRangeTerm returns aadl2::RangeValue:
+	minimum=(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+		DOTDOT maximum=(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	('delta' delta=(RealTerm|IntegerTerm| SignedConstant | ConstantValue))?
+	;
 
 terminal NONE:
 	'none' SEMI;
