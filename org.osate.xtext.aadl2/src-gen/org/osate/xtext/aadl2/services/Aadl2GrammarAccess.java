@@ -18969,15 +18969,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cLBRACKETTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Assignment cLowerBoundAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cLowerBoundGINTParserRuleCall_2_0 = (RuleCall)cLowerBoundAssignment_2.eContents().get(0);
-		private final Assignment cUpperBoundAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cUpperBoundGINTParserRuleCall_3_0 = (RuleCall)cUpperBoundAssignment_3.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final RuleCall cDOTDOTTerminalRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
+		private final Assignment cUpperBoundAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cUpperBoundGINTParserRuleCall_3_1_0 = (RuleCall)cUpperBoundAssignment_3_1.eContents().get(0);
 		private final RuleCall cRBRACKETTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		
 		//ArrayRange returns aadl2::ArrayRange:
-		//	{aadl2::ArrayRange} LBRACKET lowerBound=gINT upperBound=gINT? RBRACKET;
+		//	{aadl2::ArrayRange} LBRACKET lowerBound=gINT (DOTDOT upperBound=gINT)? RBRACKET;
 		public ParserRule getRule() { return rule; }
 
-		//{aadl2::ArrayRange} LBRACKET lowerBound=gINT upperBound=gINT? RBRACKET
+		//{aadl2::ArrayRange} LBRACKET lowerBound=gINT (DOTDOT upperBound=gINT)? RBRACKET
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::ArrayRange}
@@ -18992,11 +18994,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//gINT
 		public RuleCall getLowerBoundGINTParserRuleCall_2_0() { return cLowerBoundGINTParserRuleCall_2_0; }
 
-		//upperBound=gINT?
-		public Assignment getUpperBoundAssignment_3() { return cUpperBoundAssignment_3; }
+		//(DOTDOT upperBound=gINT)?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//DOTDOT
+		public RuleCall getDOTDOTTerminalRuleCall_3_0() { return cDOTDOTTerminalRuleCall_3_0; }
+
+		//upperBound=gINT
+		public Assignment getUpperBoundAssignment_3_1() { return cUpperBoundAssignment_3_1; }
 
 		//gINT
-		public RuleCall getUpperBoundGINTParserRuleCall_3_0() { return cUpperBoundGINTParserRuleCall_3_0; }
+		public RuleCall getUpperBoundGINTParserRuleCall_3_1_0() { return cUpperBoundGINTParserRuleCall_3_1_0; }
 
 		//RBRACKET
 		public RuleCall getRBRACKETTerminalRuleCall_4() { return cRBRACKETTerminalRuleCall_4; }
@@ -19353,6 +19361,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tSEMI;
 	private TerminalRule tCOLON;
 	private TerminalRule tCOMMA;
+	private TerminalRule tDOTDOT;
 	private TerminalRule tDOT;
 	private TerminalRule tLPARENS;
 	private TerminalRule tRPARENS;
@@ -21187,7 +21196,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ArrayRange returns aadl2::ArrayRange:
-	//	{aadl2::ArrayRange} LBRACKET lowerBound=gINT upperBound=gINT? RBRACKET;
+	//	{aadl2::ArrayRange} LBRACKET lowerBound=gINT (DOTDOT upperBound=gINT)? RBRACKET;
 	public ArrayRangeElements getArrayRangeAccess() {
 		return (pArrayRange != null) ? pArrayRange : (pArrayRange = new ArrayRangeElements());
 	}
@@ -21251,6 +21260,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	",";
 	public TerminalRule getCOMMARule() {
 		return (tCOMMA != null) ? tCOMMA : (tCOMMA = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "COMMA"));
+	} 
+
+	//terminal DOTDOT:
+	//	"..";
+	public TerminalRule getDOTDOTRule() {
+		return (tDOTDOT != null) ? tDOTDOT : (tDOTDOT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "DOTDOT"));
 	} 
 
 	//terminal DOT:

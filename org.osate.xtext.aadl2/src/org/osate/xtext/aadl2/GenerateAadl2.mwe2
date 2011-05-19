@@ -12,7 +12,7 @@ var runtimeProject = "../${projectName}"
 Workflow {
 	bean = StandaloneSetup {
 		platformUri = "${runtimeProject}/.."
-		registerGeneratedEPackage = "org.osate.aadl2.Aadl2Package"
+	//	registerGeneratedEPackage = "org.osate.aadl2.Aadl2Package"
 	}
 
 	component = DirectoryCleaner {
@@ -39,7 +39,7 @@ Workflow {
 			// generates Java API for the generated EPackages
 			fragment = ecore.EcoreGeneratorFragment {
 			//	referencedGenModels = "platform:/resource/org.osate.xtext.aadl2.properties/src-gen/org/osate/aadl2/properties/Properties.genmodel"
-			// 		referencedGenModels = "platform:/resource/edu.cmu.sei.aadl.aadl2/model/aadl2.genmodel"
+			 		referencedGenModels = "platform:/resource/edu.cmu.sei.aadl.aadl2/model/aadl2.genmodel"
 			 }
 
 			// the serialization component
