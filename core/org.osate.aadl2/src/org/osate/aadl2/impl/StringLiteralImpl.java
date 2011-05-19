@@ -190,14 +190,29 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 		return result.toString();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
-	public boolean equals(Object other) {
-		return (other instanceof StringLiteral) && ((StringLiteral) other).getValue().equals(value);
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((value == null) ? 0 : value.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StringLiteralImpl other = (StringLiteralImpl) obj;
+		if (value == null) {
+			if (other.value != null)
+				return false;
+		} else if (!value.equals(other.value))
+			return false;
+		return true;
 	}
 
 } //StringLiteralImpl

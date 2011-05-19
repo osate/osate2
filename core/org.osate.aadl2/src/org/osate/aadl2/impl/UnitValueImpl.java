@@ -186,14 +186,29 @@ public class UnitValueImpl extends PropertyValueImpl implements UnitValue {
 		return super.eIsSet(featureID);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
-	public boolean equals(Object other) {
-		return (other instanceof UnitValue) && ((UnitValue) other).getLiteral() == literal;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((literal == null) ? 0 : literal.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UnitValueImpl other = (UnitValueImpl) obj;
+		if (literal == null) {
+			if (other.literal != null)
+				return false;
+		} else if (!literal.equals(other.literal))
+			return false;
+		return true;
 	}
 
 } //UnitValueImpl
