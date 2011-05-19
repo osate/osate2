@@ -142,6 +142,8 @@ RULE_COLON : ':';
 
 RULE_COMMA : ',';
 
+RULE_DOTDOT : '..';
+
 RULE_DOT : '.';
 
 RULE_LPARENS : '(';

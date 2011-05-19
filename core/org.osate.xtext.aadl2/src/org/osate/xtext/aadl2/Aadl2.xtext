@@ -1582,7 +1582,7 @@ ContainmentPathElement returns aadl2::ContainmentPathElement:
 ;
 
 ArrayRange returns aadl2::ArrayRange: {aadl2::ArrayRange}
-	LBRACKET lowerBound=gINT ( upperBound=gINT)? 
+	LBRACKET lowerBound=gINT (DOTDOT upperBound=gINT)? 
 	RBRACKET
 ;
 //
@@ -1618,6 +1618,8 @@ terminal COLON:
 
 terminal COMMA:
 	',';
+	
+terminal DOTDOT: '..';
 
 terminal DOT:
 	'.';

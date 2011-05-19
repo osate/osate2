@@ -26045,27 +26045,31 @@ ruleArrayRange returns [EObject current=null]
 	    }
 
 )
-)(
+)(this_DOTDOT_3=RULE_DOTDOT
+    { 
+    newLeafNode(this_DOTDOT_3, grammarAccess.getArrayRangeAccess().getDOTDOTTerminalRuleCall_3_0()); 
+    }
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArrayRangeAccess().getUpperBoundGINTParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getArrayRangeAccess().getUpperBoundGINTParserRuleCall_3_1_0()); 
 	    }
-		lv_upperBound_3_0=rulegINT		{
+		lv_upperBound_4_0=rulegINT		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getArrayRangeRule());
 	        }
        		set(
        			$current, 
        			"upperBound",
-        		lv_upperBound_3_0, 
+        		lv_upperBound_4_0, 
         		"gINT");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)?this_RBRACKET_4=RULE_RBRACKET
+))?this_RBRACKET_5=RULE_RBRACKET
     { 
-    newLeafNode(this_RBRACKET_4, grammarAccess.getArrayRangeAccess().getRBRACKETTerminalRuleCall_4()); 
+    newLeafNode(this_RBRACKET_5, grammarAccess.getArrayRangeAccess().getRBRACKETTerminalRuleCall_4()); 
     }
 )
 ;
