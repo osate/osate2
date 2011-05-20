@@ -840,52 +840,6 @@ public class NameResolver
 		return null;
 	}
 	
-//	public static NamedElement findNamedElement(ComponentImplementation obj,String name) {
-//		NamedElement result = findNamedElement((Namespace)obj, name);
-//		if (result != null) return result;
-//		Classifier previous = obj.getExtended();
-//		while (result == null && previous !=null){
-//			result = findNamedElement((Namespace)previous, name);
-//			if (result != null) return result;
-//			previous = previous.getExtended();
-//		}
-//		// look in type
-//		result = findNamedElement(obj.getType(),name);
-//		return result;
-//	}
-//
-//	public static NamedElement findNamedElement(Classifier obj,String name) {
-//		NamedElement result = findNamedElement((Namespace)obj, name);
-//		if (result != null) return result;
-//		Classifier previous = obj.getExtended();
-//		while (result == null && previous !=null){
-//			result = findNamedElement((Namespace)previous, name);
-//			if (result != null) return result;
-//			previous = previous.getExtended();
-//		}
-//		return null;
-//	}
-//
-//	public static NamedElement findNamedElement(Namespace obj,String name) {
-//		for (NamedElement ne : obj.getMembers()) {
-//				if (ne.getName().equalsIgnoreCase(name))
-//				return ne;
-//			}
-//		return null;
-//	}
-//
-//	public static NamedElement findNamedElement(EObject obj,String name) {
-//		for (EObject ne : obj.eContents()) {
-//			EStructuralFeature feature = ne.eClass().getEStructuralFeature("name");
-//			if (feature == null) return null;
-//			if (ne.eIsSet(feature)){ 
-//				String s = ne.eGet(feature).toString();
-//				if (s.equalsIgnoreCase(name))
-//				return (NamedElement)ne;
-//			}
-//		}
-//		return null;
-//	}
 	
 	/**
 	 * Dependencies: PrototypeFormalReference.
