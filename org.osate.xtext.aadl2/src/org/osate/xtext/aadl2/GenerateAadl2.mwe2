@@ -37,10 +37,10 @@ Workflow {
 			fragment = grammarAccess.GrammarAccessFragment {}
 
 			// generates Java API for the generated EPackages
-			fragment = ecore.EcoreGeneratorFragment {
-			//	referencedGenModels = "platform:/resource/org.osate.xtext.aadl2.properties/src-gen/org/osate/aadl2/properties/Properties.genmodel"
-			 		referencedGenModels = "platform:/resource/edu.cmu.sei.aadl.aadl2/model/aadl2.genmodel"
-			 }
+//			fragment = ecore.EcoreGeneratorFragment {
+//			//	referencedGenModels = "platform:/resource/org.osate.xtext.aadl2.properties/src-gen/org/osate/aadl2/properties/Properties.genmodel"
+//			 		referencedGenModels = "platform:/resource/edu.cmu.sei.aadl.aadl2/model/aadl2.genmodel"
+//			 }
 
 			// the serialization component
 			fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
@@ -56,9 +56,9 @@ Workflow {
     		options = {
         		ignoreCase = true
     		}
-//				options = {
-	//				classSplitting = true
-		//		}
+				options = {
+					classSplitting = true
+				}
 			//  options = {
 			//		backtrack = true
 			//	}
@@ -69,7 +69,7 @@ Workflow {
 
 			// java-based API for validation 
 			fragment = validation.JavaValidatorFragment {
-			 composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
+//			 composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
 			 composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
 			//	registerForImportedPackages = true
 			}
@@ -82,10 +82,10 @@ Workflow {
 
 			// scoping and exporting API 
 
-			 fragment = scoping.ImportNamespacesScopingFragment {
-		        ignoreCase = true
-    			}
-			 fragment = exporting.QualifiedNamesFragment {}
+//			 fragment = scoping.ImportNamespacesScopingFragment {
+//		        ignoreCase = true
+//    			}
+//			 fragment = exporting.QualifiedNamesFragment {}
 
 
 			fragment = builder.BuilderIntegrationFragment {}
@@ -118,14 +118,21 @@ Workflow {
 			
 			// rename refactoring  
 			fragment = refactoring.RefactorElementNameFragment {}
+			// provides a compare view
+//			fragment = compare.CompareFragment {
+//				fileExtensions = file.extensions
+//			}
 
 			// generates a more lightweight Antlr parser and lexer tailored for content assist  
-//			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
-//			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
-//				    options = {
-//        		ignoreCase = true
-//    		}
-//			}
+			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
+			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
+				    options = {
+        		ignoreCase = true
+    		}
+				options = {
+					classSplitting = true
+				}
+			}
 
 			// generates junit test support classes into Generator#pathTestProject
 //			fragment = junit.Junit4Fragment {}
