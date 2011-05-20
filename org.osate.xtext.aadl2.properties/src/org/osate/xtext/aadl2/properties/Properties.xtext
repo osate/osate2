@@ -6,44 +6,18 @@ grammar org.osate.xtext.aadl2.properties.Properties with org.eclipse.xtext.commo
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
 
-//AadlPackage returns aadl2::AadlPackage:
-//	'package' name=PNAME
-//	ownedPublicSection=PublicPackageSection
-//	'end' ID ('::' ID)* SEMI;
-//
-//
-//PublicPackageSection returns aadl2::PublicPackageSection:
-//	{aadl2::PublicPackageSection}
-//	'public'
-//	((=> 'with' (importedPackage+=[aadl2::AadlPackage|PNAME]) //| importedPropertySet+=[props::PropertySet|ID]) 
-//	    (COMMA importedPackage+=[aadl2::AadlPackage|PNAME])* SEMI)
-//	)*
-//	( ownedSystemType+=SystemType| ownedSystemImplementation+=SystemImplementation)*; 
-//
-//SystemType returns aadl2::SystemType:
-//	'system' name=ID 'end' ID SEMI;
-//
-//SystemImplementation returns aadl2::SystemImplementation:
-//	'system' 'implementation' 
-//	ownedRealization=Realization DOT name=INAME
-//	'end' ID DOT ID SEMI
-//	;
-//
-//Realization returns aadl2::Realization:
-//	implemented=[aadl2::SystemType|ID];
-
 PropertySet returns aadl2::PropertySet:
 	'property' 'set' name=ID 'is'
 	(=> 'with' (importedPropertySet+=[aadl2::PropertySet|ID]) //| importedPropertySet+=[props::PropertySet|ID]) 
-	    (COMMA importedPropertySet+=[aadl2::PropertySet|ID])* SEMI)*
+	    (',' importedPropertySet+=[aadl2::PropertySet|ID])* ';')*
 	(ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition 
 	| ownedPropertyConstant+=PropertyConstant)*
-	'end' ID SEMI ;
+	'end' ID ';' ;
 
 PropertyType returns aadl2::PropertyType:
 	(BooleanType|StringType|EnumerationType|UnitsType |RealType
 	|IntegerType|RangeType|ClassifierType|ReferenceType|RecordType) 
-	SEMI;
+	';';
 
 UnnamedPropertyType returns aadl2::PropertyType:
 	(UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType |UnnamedRealType
@@ -52,50 +26,50 @@ UnnamedPropertyType returns aadl2::PropertyType:
 
 
 BooleanType returns aadl2::AadlBoolean:
-	name=ID COLON 'type' 
-	{aadl2::AadlBoolean}'aadlboolean';
+	 name=ID ':' 'type' 
+	'aadlboolean';
 
 
 UnnamedBooleanType returns aadl2::AadlBoolean:
 	{aadl2::AadlBoolean}'aadlboolean';
 
 StringType returns aadl2::AadlString:
-	name=ID COLON 'type' 
-	{aadl2::AadlString}'aadlstring';
+	name=ID ':' 'type' 
+	'aadlstring';
 
 UnnamedStringType returns aadl2::AadlString:
 	{aadl2::AadlString}'aadlstring';
 
 EnumerationType returns aadl2::EnumerationType:
-	name=ID COLON 'type' 
+	name=ID ':' 'type' 
 	'enumeration'
-	LPARENS ownedLiteral+=EnumerationLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+	'(' ownedLiteral+=EnumerationLiteral (',' ownedLiteral+=EnumerationLiteral)* ')';
 
 UnnamedEnumerationType returns aadl2::EnumerationType:
 	'enumeration'
-	LPARENS ownedLiteral+=EnumerationLiteral (COMMA ownedLiteral+=EnumerationLiteral)* RPARENS;
+	'(' ownedLiteral+=EnumerationLiteral (',' ownedLiteral+=EnumerationLiteral)* ')';
 
 EnumerationLiteral returns aadl2::EnumerationLiteral:
 	name=ID;
 
 UnitsType returns aadl2::UnitsType:
-	name=ID COLON 'type' 
+	name=ID ':' 'type' 
 	'units'
-	LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=UnitLiteralConversion)* RPARENS;
+	'(' ownedLiteral+=UnitLiteral (',' ownedLiteral+=UnitLiteralConversion)* ')';
 
 UnnamedUnitsType returns aadl2::UnitsType:
 	'units'
-	LPARENS ownedLiteral+=UnitLiteral (COMMA ownedLiteral+=UnitLiteralConversion)* RPARENS;
+	'(' ownedLiteral+=UnitLiteral (',' ownedLiteral+=UnitLiteralConversion)* ')';
 
 UnitLiteral returns aadl2::UnitLiteral:
 	name=ID;
 
 UnitLiteralConversion returns aadl2::UnitLiteral:
-	name=ID ASSIGN baseUnit=[aadl2::UnitLiteral|ID] STAR factor=NumberValue
+	name=ID '=>' baseUnit=[aadl2::UnitLiteral|ID] STAR factor=NumberValue
 	;
 
 RealType returns aadl2::AadlReal:
-	name=ID COLON 'type' 
+	name=ID ':' 'type' 
 	'aadlreal' (range=RealRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
 	 ;
 
@@ -105,7 +79,7 @@ UnnamedRealType returns aadl2::AadlReal:
 	 ;
 
 IntegerType returns aadl2::AadlInteger:
-	name=ID COLON 'type' 
+	name=ID ':' 'type' 
 	'aadlinteger' (range=IntegerRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
 	 ;
 
@@ -115,7 +89,7 @@ UnnamedIntegerType returns aadl2::AadlInteger:
 	 ;
 
 RangeType returns aadl2::RangeType:
-	name=ID COLON 'type' 
+	name=ID ':' 'type' 
 	'range' 'of' (ownedNumberType=(UnnamedIntegerType|UnnamedRealType)
 		| numberType=[aadl2::NumberType|QPREF]
 	)
@@ -129,50 +103,49 @@ UnnamedRangeType returns aadl2::RangeType:
 	 ;
 
 ClassifierType returns aadl2::ClassifierType:
-	name=ID COLON 'type' 
-	{aadl2::ClassifierType}
+	name=ID ':' 'type' 
 	'classifier' 
-	(classifierReference+=QCReference (COMMA classifierReference+=QCReference)*)?
+	(classifierReference+=QCReference (',' classifierReference+=QCReference)*)?
 	 ;
 
 UnnamedClassifierType returns aadl2::ClassifierType:
 	{aadl2::ClassifierType}
 	'classifier' 
-	(classifierReference+=QCReference (COMMA classifierReference+=QCReference)*)?
+	(classifierReference+=QCReference (',' classifierReference+=QCReference)*)?
 	 ;
 
 QCReference returns aadl2::MetaclassReference:
-	(LCURLY  annexName=ID RCURLY STAR STAR )?
+	('{'  annexName=ID '}' STAR STAR )?
 	metaclassName+=ID
 	 ;
 
 ReferenceType returns aadl2::ReferenceType:
-	name=ID COLON 'type' 
+	name=ID ':' 'type' 
 	'reference' 
-	(namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?
+	(namedElementReference+=QCReference (',' namedElementReference+=QCReference)*)?
 	 ;
 
 UnnamedReferenceType returns aadl2::ReferenceType:
 	'reference' {aadl2::ReferenceType}
-	(namedElementReference+=QCReference (COMMA namedElementReference+=QCReference)*)?
+	(namedElementReference+=QCReference (',' namedElementReference+=QCReference)*)?
 	 ;
 
 RecordType returns aadl2::RecordType:
-	name=ID COLON 'type' 
-	'record' LPARENS
+	name=ID ':' 'type' 
+	'record' '('
 	(ownedField+=RecordField )+
-	RPARENS
+	')'
 	 ;
 
 UnnamedRecordType returns aadl2::RecordType:
-	'record' LPARENS
+	'record' '('
 	(ownedField+=RecordField )+
-	RPARENS
+	')'
 	 ;
 
 //&&&&&&& TODO list is currently a count
 RecordField returns aadl2::RecordField:
-	name=ID COLON
+	name=ID ':'
 //	(list+='list' 'of')*
 	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
 	 ;
@@ -181,17 +154,17 @@ RecordField returns aadl2::RecordField:
 
 
 PropertyDefinition returns aadl2::Property:
-	name=ID COLON
+	name=ID ':'
 	(inherit?='inherit')?
 //	(list+='list' 'of')*
 	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
 	// &&&& We set only owned or reference - not both
-	(ASSIGN defaultValue=PropertyExpression)?
-	'applies' 'to' LPARENS
-	((appliesTo+=PropertyOwner (COMMA appliesTo+=PropertyOwner)*)|
+	('=>' defaultValue=PropertyExpression)?
+	'applies' 'to' '('
+	((appliesTo+=PropertyOwner (',' appliesTo+=PropertyOwner)*)|
 	appliesTo+=AllReference)
-	RPARENS
-	SEMI
+	')'
+	';'
 	 ;
 
 AllReference returns aadl2::MetaclassReference:
@@ -208,11 +181,11 @@ ClassifierValue returns aadl2::ClassifierValue:
 	classifier=[aadl2::ComponentClassifier|EQCREF] ;
 
 PropertyConstant returns aadl2::PropertyConstant:
-	name=ID COLON 'constant'
+	name=ID ':' 'constant'
 //	(list+='list' 'of')*
 	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
-	ASSIGN constantValue=ConstantPropertyExpression  
-	SEMI
+	'=>' constantValue=ConstantPropertyExpression  
+	';'
 	 ;
 
 
@@ -233,21 +206,21 @@ IntegerLit returns aadl2::IntegerLiteral:
 PropertyAssociation returns aadl2::PropertyAssociation:
 	// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
 	property=[aadl2::Property|QPREF] // name=QPREF
-	(ASSIGN | append?=APPEND) (constant?='constant')?
+	('=>' | append?='+=>') (constant?='constant')?
 	(ownedValue+=PropertyValue 
 	| (
-	LPARENS ownedValue+=ModalPropertyValue 
-	(COMMA ownedValue+=ModalPropertyValue)*
-	(COMMA ownedValue+=PropertyValue)?
-	RPARENS )
+	'(' ownedValue+=ModalPropertyValue 
+	(',' ownedValue+=ModalPropertyValue)*
+	(',' ownedValue+=PropertyValue)?
+	')' )
 	)
-	SEMI;
+	';';
 
 ModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
-	'in' 'modes' LPARENS 
-	inMode+=[aadl2::Mode|ID] (COMMA inMode+=[aadl2::Mode|ID])*
-	RPARENS
+	'in' 'modes' '(' 
+	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
+	')'
 	;
 	// &&&&&&&&&& handling of in binding
 
@@ -256,7 +229,7 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	 (LPARENS ID ASSIGN) => RecordTerm |NumericRangeTerm
+	 ('(' ID '=>') => RecordTerm |NumericRangeTerm
 	| ReferenceTerm | ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
 	 | ComponentClassifierTerm 	| BooleanTerm
@@ -264,7 +237,7 @@ PropertyExpression returns aadl2::PropertyExpression:
 	;
 
 ConstantPropertyExpression returns aadl2::PropertyExpression:
-	 (LPARENS ID ASSIGN) => RecordTerm |NumericRangeTerm
+	 ('(' ID '=>') => RecordTerm |NumericRangeTerm
 	| ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
 	 | ComponentClassifierTerm 	| BooleanTerm
@@ -293,7 +266,7 @@ NotTerm returns aadl2::Operation:
 
 BooleanAtom returns aadl2::PropertyExpression:
 	( BooleanLiteral  | NotTerm | ConstantValue
-	| (LPARENS BooleanTerm RPARENS)
+	| ('(' BooleanTerm ')')
 	);
 
 BooleanLiteral returns aadl2::BooleanLiteral:
@@ -306,43 +279,43 @@ ConstantValue returns aadl2::ConstantValue:
   ;
 
 ReferenceTerm returns aadl2::ReferenceValue:
-  'reference' LPARENS 	
+  'reference' '(' 	
   containmentPathElement+=ContainmentPathElement
-	( DOT containmentPathElement+=ContainmentPathElement)*
-  RPARENS
+	( '.' containmentPathElement+=ContainmentPathElement)*
+  ')'
   ;
 
 RecordTerm returns aadl2::RecordValue:
-   LPARENS
+   '('
    (ownedFieldValue+=BasicPropertyAssociation)+
-  RPARENS
+  ')'
   ;
 
 ComputedTerm returns aadl2::ComputedValue:
-   'compute' LPARENS 	
+   'compute' '(' 	
    function=ID
-  RPARENS
+  ')'
   ;
 
 ComponentClassifierTerm returns aadl2::ClassifierValue:
-   'classifier' LPARENS 	
+   'classifier' '(' 	
    classifier=[aadl2::ComponentClassifier|QCREF]
-  RPARENS
+  ')'
   ;
 
 
 ListTerm returns aadl2::ListValue:
-   LBRACKET 	
+   '[' 	
    ownedListElement+=(PropertyExpression)
-   (COMMA ownedListElement+=(PropertyExpression))*
-  RBRACKET
+   (',' ownedListElement+=(PropertyExpression))*
+  ']'
   ;
 
 BasicPropertyAssociation returns aadl2::BasicPropertyAssociation:
 	property=[aadl2::RecordField|ID] // name=QPREF
-	ASSIGN 
+	'=>' 
 	ownedValue=PropertyExpression 
-	SEMI;
+	';';
 
 // from AADL2
 // need to add annex path element
@@ -356,7 +329,7 @@ ContainmentPathElement returns aadl2::ContainmentPathElement:
 
 ANNEXREF :
 	// check what values are ok inside ** **
-	LCURLY STAR STAR ID STAR STAR RCURLY;
+	'{' STAR STAR ID STAR STAR '}';
 
   
 
@@ -381,18 +354,18 @@ NoQuoteString :
 
 
 ArrayRange returns aadl2::ArrayRange: {aadl2::ArrayRange}
-	LBRACKET lowerBound=gINT (DOTDOT upperBound=gINT)? 
-	RBRACKET
+	'[' lowerBound=gINT ('.''.' upperBound=gINT)? 
+	']'
 ;
 
 IntegerRange returns aadl2::NumericRange:
 	lowerBound=(IntegerTerm | SignedConstant | ConstantValue )
-	DOTDOT upperBound=(IntegerTerm | SignedConstant | ConstantValue )
+	'.''.' upperBound=(IntegerTerm | SignedConstant | ConstantValue )
 	;
 
 RealRange returns aadl2::NumericRange:
 	lowerBound=(RealTerm | SignedConstant | ConstantValue )
-	DOTDOT upperBound=(RealTerm | SignedConstant | ConstantValue )
+	'.''.' upperBound=(RealTerm | SignedConstant | ConstantValue )
 	;
 
 SignedConstant returns aadl2::Operation:
@@ -424,63 +397,16 @@ SignedReal returns aadl2::Real:
 
 NumericRangeTerm returns aadl2::RangeValue:
 	minimum=(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-		DOTDOT maximum=(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		'.''.' maximum=(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
 	('delta' delta=(RealTerm|IntegerTerm| SignedConstant | ConstantValue))?
 	;
-
-terminal NONE:
-	'none' SEMI;
-
-terminal LTRANS:
-	'-[';
-
-terminal RTRANS:
-	']->';
 
 terminal SL_COMMENT:
 	'--' !('\n' | '\r')* ('\r'? '\n')?;
 
-terminal SEMI:
-	';';
-
-terminal COLON:
-	':';
-
-terminal COMMA:
-	',';
-
-terminal DOT:
-	'.';
-
-terminal DOTDOT:
-	'..';
-
-terminal LPARENS:
-	'(';
-
-terminal RPARENS:
-	')';
-
-terminal LBRACKET:
-	'[';
-
-terminal RBRACKET:
-	']';
-
-terminal LCURLY:
-	'{';
-
-terminal RCURLY:
-	'}';
-
-terminal ASSIGN:
-	'=>';
-
-terminal APPEND:
-	'+=>';
 
 REAL:
-	INT DOT INT;
+	INT '.' INT;
 
 gINT returns aadl2::Integer:
 	INT 	
@@ -491,7 +417,7 @@ gREAL returns aadl2::Real:
 ;
 
 QNAME:
-	ID DOT INAME;
+	ID '.' INAME;
 
 PNAME:
 	ID ('::' ID)*;
@@ -503,9 +429,9 @@ QPREF:
 	ID ('::' ID)?;
 
 QCREF:
-	(ID '::')* ID (DOT ID)?;
+	(ID '::')* ID ('.' ID)?;
 
 EQCREF:
-	(ID '::')+ ID (DOT ID)?;
+	(ID '::')+ ID ('.' ID)?;
 	
 STAR : '*';
