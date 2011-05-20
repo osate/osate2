@@ -12,26 +12,38 @@ import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.NumberType;
+import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.NumericRange;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.Prototype;
+import org.osate.aadl2.RangeType;
+import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
 
 
 	public class MyLinkingService extends DefaultLinkingService {
@@ -227,19 +239,64 @@ import org.osate.aadl2.SubprogramCall;
 				}
 				return Collections.<EObject> emptyList();
 
-			}  else if(Aadl2Package.eINSTANCE.getPropertyConstant() == requiredType ){
-				// look for property constant in property set
-				String psname = null;
-				String pname = s;
-				final int idx = s.lastIndexOf("::");
-				if (idx != -1 ){
-					psname = s.substring(0, idx);
-					pname = s.substring(idx+2);
-				} 
-				EObject e = NameResolver.findNamedElementInPropertySet(psname,pname,NameResolver.getContainingClassifier(context));
-				if(e != null && e instanceof PropertyConstant) {
-					return Collections.singletonList((EObject)e);
+			}  else if(Aadl2Package.eINSTANCE.getUnitLiteral() == requiredType ){
+				// look for unit literal pointed to by baseUnit
+			if (context instanceof UnitLiteral) {
+				UnitsType unitsType = (UnitsType) ((UnitLiteral) context)
+						.getOwner();
+				UnitLiteral baseUnit = (UnitLiteral) unitsType
+						.findNamedElement(s);
+				if (baseUnit != null) {
+					if (unitsType.getOwnedLiterals().indexOf(baseUnit) < unitsType
+							.getOwnedLiterals()
+							.indexOf(((UnitLiteral) context)))
+						return Collections.singletonList((EObject) baseUnit);
 				}
+			} else if (context instanceof NumberValue){
+				UnitsType unitsType = null;
+				NumberValue numberValue = (NumberValue) context;
+				Element owner = numberValue.getOwner();
+				while (owner instanceof ListValue)
+					owner = owner.getOwner();
+				if (owner instanceof NumericRange) //Lower bound or upper bound values of a number property type.
+					unitsType = ((NumberType) owner.getOwner()).getUnitsType();
+				else {
+					if (owner instanceof RangeValue)
+						owner = owner.getOwner();
+					PropertyType propertyType = null;
+					if (owner instanceof PropertyConstant) //Value of the property constant.
+					{
+						//TODO: Need to check that the type of the property constant is correct for the value.
+						//		We should do this when the type of the constant is resolved in PropertyTypeReference.
+						propertyType = (PropertyType) ((PropertyConstant) owner).getType();
+					} else if (owner instanceof Property) //Default value of a property definition.
+					{
+						//TODO: Need to check that the type of the property definition is correct for the value.
+						//		We should do this when the type of the definition is resolved in PropertyValuePropertyTypeReference.
+						propertyType = (PropertyType) ((Property) owner).getType();
+					} else if (owner instanceof ModalPropertyValue && owner.getOwner() instanceof PropertyAssociation) //Value of an association.
+					{
+						//TODO: Need to check that the type of the property definition is correct for the value.
+						//		We should do this when the definition of the association is resolved in PropertyDefinitionReference.
+						propertyType = (PropertyType) ((PropertyAssociation) owner.getOwner()).getProperty().getType();
+					} else if (owner instanceof BasicPropertyAssociation) //Inner value of a record value.
+					{
+						//TODO: Need to check that the type of the record field is correct for the value.
+						//		We should do this when the record field of the record value is resolved in PropertyRecordFieldReference.
+						propertyType = (PropertyType) ((BasicPropertyAssociation) owner).getProperty().getType();
+					}
+					if (propertyType instanceof NumberType)
+						unitsType = ((NumberType) propertyType).getUnitsType();
+					else if (propertyType instanceof RangeType)
+						unitsType = ((RangeType) propertyType).getNumberType().getUnitsType();
+				}
+				if (unitsType != null) {
+					UnitLiteral literal = (UnitLiteral) unitsType.findNamedElement(s);
+					if (literal != null)
+						numberValue.setUnit(literal);
+				} 
+			}
+
 				return Collections.<EObject> emptyList();
 
 			} else if(Aadl2Package.eINSTANCE.getMode() == requiredType){
