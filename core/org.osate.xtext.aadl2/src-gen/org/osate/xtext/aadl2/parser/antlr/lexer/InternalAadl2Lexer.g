@@ -16,109 +16,109 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 
 
-KEYWORD_52 : ('I'|'i')('M'|'m')('P'|'p')('L'|'l')('E'|'e')('M'|'m')('E'|'e')('N'|'n')('T'|'t')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
+KEYWORD_52 : 'implementation';
 
-KEYWORD_51 : ('S'|'s')('U'|'u')('B'|'b')('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('N'|'n')('E'|'e')('N'|'n')('T'|'t')('S'|'s');
+KEYWORD_51 : 'subcomponents';
 
-KEYWORD_50 : ('C'|'c')('O'|'o')('N'|'n')('N'|'n')('E'|'e')('C'|'c')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('S'|'s');
+KEYWORD_50 : 'connections';
 
-KEYWORD_47 : ('P'|'p')('R'|'r')('O'|'o')('P'|'p')('E'|'e')('R'|'r')('T'|'t')('I'|'i')('E'|'e')('S'|'s');
+KEYWORD_47 : 'properties';
 
-KEYWORD_48 : ('P'|'p')('R'|'r')('O'|'o')('T'|'t')('O'|'o')('T'|'t')('Y'|'y')('P'|'p')('E'|'e')('S'|'s');
+KEYWORD_48 : 'prototypes';
 
-KEYWORD_49 : ('S'|'s')('U'|'u')('B'|'b')('P'|'p')('R'|'r')('O'|'o')('G'|'g')('R'|'r')('A'|'a')('M'|'m');
+KEYWORD_49 : 'subprogram';
 
-KEYWORD_45 : ('P'|'p')('A'|'a')('R'|'r')('A'|'a')('M'|'m')('E'|'e')('T'|'t')('E'|'e')('R'|'r');
+KEYWORD_45 : 'parameter';
 
-KEYWORD_46 : ('P'|'p')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('S'|'s')('S'|'s')('O'|'o')('R'|'r');
+KEYWORD_46 : 'processor';
 
-KEYWORD_41 : ('A'|'a')('B'|'b')('S'|'s')('T'|'t')('R'|'r')('A'|'a')('C'|'c')('T'|'t');
+KEYWORD_41 : 'abstract';
 
-KEYWORD_42 : ('F'|'f')('E'|'e')('A'|'a')('T'|'t')('U'|'u')('R'|'r')('E'|'e')('S'|'s');
+KEYWORD_42 : 'features';
 
-KEYWORD_43 : ('P'|'p')('R'|'r')('O'|'o')('V'|'v')('I'|'i')('D'|'d')('E'|'e')('S'|'s');
+KEYWORD_43 : 'provides';
 
-KEYWORD_44 : ('R'|'r')('E'|'e')('Q'|'q')('U'|'u')('I'|'i')('R'|'r')('E'|'e')('S'|'s');
+KEYWORD_44 : 'requires';
 
-KEYWORD_30 : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
+KEYWORD_30 : 'applies';
 
-KEYWORD_31 : ('E'|'e')('X'|'x')('T'|'t')('E'|'e')('N'|'n')('D'|'d')('S'|'s');
+KEYWORD_31 : 'extends';
 
-KEYWORD_32 : ('F'|'f')('E'|'e')('A'|'a')('T'|'t')('U'|'u')('R'|'r')('E'|'e');
+KEYWORD_32 : 'feature';
 
-KEYWORD_33 : ('I'|'i')('N'|'n')('I'|'i')('T'|'t')('I'|'i')('A'|'a')('L'|'l');
+KEYWORD_33 : 'initial';
 
-KEYWORD_34 : ('I'|'i')('N'|'n')('V'|'v')('E'|'e')('R'|'r')('S'|'s')('E'|'e');
+KEYWORD_34 : 'inverse';
 
-KEYWORD_35 : ('P'|'p')('A'|'a')('C'|'c')('K'|'k')('A'|'a')('G'|'g')('E'|'e');
+KEYWORD_35 : 'package';
 
-KEYWORD_36 : ('P'|'p')('R'|'r')('I'|'i')('V'|'v')('A'|'a')('T'|'t')('E'|'e');
+KEYWORD_36 : 'private';
 
-KEYWORD_37 : ('P'|'p')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('S'|'s')('S'|'s');
+KEYWORD_37 : 'process';
 
-KEYWORD_38 : ('R'|'r')('E'|'e')('F'|'f')('I'|'i')('N'|'n')('E'|'e')('D'|'d');
+KEYWORD_38 : 'refined';
 
-KEYWORD_39 : ('R'|'r')('E'|'e')('N'|'n')('A'|'a')('M'|'m')('E'|'e')('S'|'s');
+KEYWORD_39 : 'renames';
 
-KEYWORD_40 : ('V'|'v')('I'|'i')('R'|'r')('T'|'t')('U'|'u')('A'|'a')('L'|'l');
+KEYWORD_40 : 'virtual';
 
-KEYWORD_23 : ('A'|'a')('C'|'c')('C'|'c')('E'|'e')('S'|'s')('S'|'s');
+KEYWORD_23 : 'access';
 
-KEYWORD_24 : ('D'|'d')('E'|'e')('V'|'v')('I'|'i')('C'|'c')('E'|'e');
+KEYWORD_24 : 'device';
 
-KEYWORD_25 : ('M'|'m')('E'|'e')('M'|'m')('O'|'o')('R'|'r')('Y'|'y');
+KEYWORD_25 : 'memory';
 
-KEYWORD_26 : ('P'|'p')('U'|'u')('B'|'b')('L'|'l')('I'|'i')('C'|'c');
+KEYWORD_26 : 'public';
 
-KEYWORD_27 : ('S'|'s')('O'|'o')('U'|'u')('R'|'r')('C'|'c')('E'|'e');
+KEYWORD_27 : 'source';
 
-KEYWORD_28 : ('S'|'s')('Y'|'y')('S'|'s')('T'|'t')('E'|'e')('M'|'m');
+KEYWORD_28 : 'system';
 
-KEYWORD_29 : ('T'|'t')('H'|'h')('R'|'r')('E'|'e')('A'|'a')('D'|'d');
+KEYWORD_29 : 'thread';
 
-KEYWORD_17 : ('A'|'a')('N'|'n')('N'|'n')('E'|'e')('X'|'x');
+KEYWORD_17 : 'annex';
 
-KEYWORD_18 : ('C'|'c')('A'|'a')('L'|'l')('L'|'l')('S'|'s');
+KEYWORD_18 : 'calls';
 
-KEYWORD_19 : ('E'|'e')('V'|'v')('E'|'e')('N'|'n')('T'|'t');
+KEYWORD_19 : 'event';
 
-KEYWORD_20 : ('F'|'f')('L'|'l')('O'|'o')('W'|'w')('S'|'s');
+KEYWORD_20 : 'flows';
 
-KEYWORD_21 : ('G'|'g')('R'|'r')('O'|'o')('U'|'u')('P'|'p');
+KEYWORD_21 : 'group';
 
-KEYWORD_22 : ('M'|'m')('O'|'o')('D'|'d')('E'|'e')('S'|'s');
+KEYWORD_22 : 'modes';
 
-KEYWORD_10 : ('D'|'d')('A'|'a')('T'|'t')('A'|'a');
+KEYWORD_10 : 'data';
 
-KEYWORD_11 : ('F'|'f')('L'|'l')('O'|'o')('W'|'w');
+KEYWORD_11 : 'flow';
 
-KEYWORD_12 : ('M'|'m')('O'|'o')('D'|'d')('E'|'e');
+KEYWORD_12 : 'mode';
 
-KEYWORD_13 : ('P'|'p')('A'|'a')('T'|'t')('H'|'h');
+KEYWORD_13 : 'path';
 
-KEYWORD_14 : ('P'|'p')('O'|'o')('R'|'r')('T'|'t');
+KEYWORD_14 : 'port';
 
-KEYWORD_15 : ('S'|'s')('I'|'i')('N'|'n')('K'|'k');
+KEYWORD_15 : 'sink';
 
-KEYWORD_16 : ('W'|'w')('I'|'i')('T'|'t')('H'|'h');
+KEYWORD_16 : 'with';
 
-KEYWORD_5 : '<''-''>';
+KEYWORD_5 : '<->';
 
-KEYWORD_6 : ('A'|'a')('L'|'l')('L'|'l');
+KEYWORD_6 : 'all';
 
-KEYWORD_7 : ('B'|'b')('U'|'u')('S'|'s');
+KEYWORD_7 : 'bus';
 
-KEYWORD_8 : ('E'|'e')('N'|'n')('D'|'d');
+KEYWORD_8 : 'end';
 
-KEYWORD_9 : ('O'|'o')('U'|'u')('T'|'t');
+KEYWORD_9 : 'out';
 
-KEYWORD_1 : ':'':';
+KEYWORD_1 : '::';
 
-KEYWORD_2 : ('I'|'i')('N'|'n');
+KEYWORD_2 : 'in';
 
-KEYWORD_3 : ('O'|'o')('F'|'f');
+KEYWORD_3 : 'of';
 
-KEYWORD_4 : ('T'|'t')('O'|'o');
+KEYWORD_4 : 'to';
 
 
 

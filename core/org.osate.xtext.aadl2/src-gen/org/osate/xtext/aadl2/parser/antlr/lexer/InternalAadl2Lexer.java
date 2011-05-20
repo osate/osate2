@@ -110,134 +110,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_52;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:19:12: ( ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:19:14: ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:19:12: ( 'implementation' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:19:14: 'implementation'
             {
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("implementation"); 
 
 
             }
@@ -255,125 +131,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:21:12: ( ( 'S' | 's' ) ( 'U' | 'u' ) ( 'B' | 'b' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:21:14: ( 'S' | 's' ) ( 'U' | 'u' ) ( 'B' | 'b' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:21:12: ( 'subcomponents' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:21:14: 'subcomponents'
             {
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("subcomponents"); 
 
 
             }
@@ -391,107 +152,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:23:12: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:23:14: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:23:12: ( 'connections' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:23:14: 'connections'
             {
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("connections"); 
 
 
             }
@@ -509,98 +173,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:25:12: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:25:14: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:25:12: ( 'properties' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:25:14: 'properties'
             {
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("properties"); 
 
 
             }
@@ -618,98 +194,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:27:12: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'T' | 't' ) ( 'O' | 'o' ) ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:27:14: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'T' | 't' ) ( 'O' | 'o' ) ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:27:12: ( 'prototypes' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:27:14: 'prototypes'
             {
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='Y'||input.LA(1)=='y' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("prototypes"); 
 
 
             }
@@ -727,98 +215,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:29:12: ( ( 'S' | 's' ) ( 'U' | 'u' ) ( 'B' | 'b' ) ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'G' | 'g' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'M' | 'm' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:29:14: ( 'S' | 's' ) ( 'U' | 'u' ) ( 'B' | 'b' ) ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'G' | 'g' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'M' | 'm' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:29:12: ( 'subprogram' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:29:14: 'subprogram'
             {
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='G'||input.LA(1)=='g' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("subprogram"); 
 
 
             }
@@ -836,89 +236,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:31:12: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:31:14: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:31:12: ( 'parameter' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:31:14: 'parameter'
             {
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("parameter"); 
 
 
             }
@@ -936,89 +257,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:33:12: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:33:14: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'O' | 'o' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:33:12: ( 'processor' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:33:14: 'processor'
             {
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("processor"); 
 
 
             }
@@ -1036,80 +278,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:35:12: ( ( 'A' | 'a' ) ( 'B' | 'b' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:35:14: ( 'A' | 'a' ) ( 'B' | 'b' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:35:12: ( 'abstract' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:35:14: 'abstract'
             {
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("abstract"); 
 
 
             }
@@ -1127,80 +299,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:37:12: ( ( 'F' | 'f' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:37:14: ( 'F' | 'f' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:37:12: ( 'features' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:37:14: 'features'
             {
-            if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("features"); 
 
 
             }
@@ -1218,80 +320,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:39:12: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'I' | 'i' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:39:14: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'I' | 'i' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:39:12: ( 'provides' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:39:14: 'provides'
             {
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("provides"); 
 
 
             }
@@ -1309,80 +341,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:41:12: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'Q' | 'q' ) ( 'U' | 'u' ) ( 'I' | 'i' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:41:14: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'Q' | 'q' ) ( 'U' | 'u' ) ( 'I' | 'i' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:41:12: ( 'requires' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:41:14: 'requires'
             {
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='Q'||input.LA(1)=='q' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("requires"); 
 
 
             }
@@ -1400,71 +362,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:43:12: ( ( 'A' | 'a' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:43:14: ( 'A' | 'a' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:43:12: ( 'applies' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:43:14: 'applies'
             {
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("applies"); 
 
 
             }
@@ -1482,71 +383,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:45:12: ( ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:45:14: ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:45:12: ( 'extends' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:45:14: 'extends'
             {
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("extends"); 
 
 
             }
@@ -1564,71 +404,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:47:12: ( ( 'F' | 'f' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:47:14: ( 'F' | 'f' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:47:12: ( 'feature' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:47:14: 'feature'
             {
-            if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("feature"); 
 
 
             }
@@ -1646,71 +425,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:49:12: ( ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'A' | 'a' ) ( 'L' | 'l' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:49:14: ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'A' | 'a' ) ( 'L' | 'l' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:49:12: ( 'initial' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:49:14: 'initial'
             {
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("initial"); 
 
 
             }
@@ -1728,71 +446,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:51:12: ( ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:51:14: ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'S' | 's' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:51:12: ( 'inverse' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:51:14: 'inverse'
             {
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("inverse"); 
 
 
             }
@@ -1810,71 +467,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:53:12: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'K' | 'k' ) ( 'A' | 'a' ) ( 'G' | 'g' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:53:14: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'K' | 'k' ) ( 'A' | 'a' ) ( 'G' | 'g' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:53:12: ( 'package' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:53:14: 'package'
             {
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='K'||input.LA(1)=='k' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='G'||input.LA(1)=='g' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("package"); 
 
 
             }
@@ -1892,71 +488,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:55:12: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'I' | 'i' ) ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:55:14: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'I' | 'i' ) ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:55:12: ( 'private' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:55:14: 'private'
             {
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("private"); 
 
 
             }
@@ -1974,71 +509,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:57:12: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:57:14: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:57:12: ( 'process' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:57:14: 'process'
             {
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("process"); 
 
 
             }
@@ -2056,71 +530,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:59:12: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'D' | 'd' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:59:14: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'D' | 'd' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:59:12: ( 'refined' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:59:14: 'refined'
             {
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("refined"); 
 
 
             }
@@ -2138,71 +551,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:61:12: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:61:14: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:61:12: ( 'renames' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:61:14: 'renames'
             {
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("renames"); 
 
 
             }
@@ -2220,71 +572,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:63:12: ( ( 'V' | 'v' ) ( 'I' | 'i' ) ( 'R' | 'r' ) ( 'T' | 't' ) ( 'U' | 'u' ) ( 'A' | 'a' ) ( 'L' | 'l' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:63:14: ( 'V' | 'v' ) ( 'I' | 'i' ) ( 'R' | 'r' ) ( 'T' | 't' ) ( 'U' | 'u' ) ( 'A' | 'a' ) ( 'L' | 'l' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:63:12: ( 'virtual' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:63:14: 'virtual'
             {
-            if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("virtual"); 
 
 
             }
@@ -2302,62 +593,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:65:12: ( ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:65:14: ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:65:12: ( 'access' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:65:14: 'access'
             {
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("access"); 
 
 
             }
@@ -2375,62 +614,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:67:12: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'I' | 'i' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:67:14: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'I' | 'i' ) ( 'C' | 'c' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:67:12: ( 'device' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:67:14: 'device'
             {
-            if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("device"); 
 
 
             }
@@ -2448,62 +635,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:69:12: ( ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:69:14: ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:69:12: ( 'memory' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:69:14: 'memory'
             {
-            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='Y'||input.LA(1)=='y' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("memory"); 
 
 
             }
@@ -2521,62 +656,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:71:12: ( ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'B' | 'b' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'C' | 'c' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:71:14: ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'B' | 'b' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'C' | 'c' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:71:12: ( 'public' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:71:14: 'public'
             {
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("public"); 
 
 
             }
@@ -2594,62 +677,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:73:12: ( ( 'S' | 's' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:73:14: ( 'S' | 's' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:73:12: ( 'source' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:73:14: 'source'
             {
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("source"); 
 
 
             }
@@ -2667,62 +698,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:75:12: ( ( 'S' | 's' ) ( 'Y' | 'y' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'M' | 'm' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:75:14: ( 'S' | 's' ) ( 'Y' | 'y' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'M' | 'm' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:75:12: ( 'system' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:75:14: 'system'
             {
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='Y'||input.LA(1)=='y' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("system"); 
 
 
             }
@@ -2740,62 +719,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:77:12: ( ( 'T' | 't' ) ( 'H' | 'h' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'D' | 'd' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:77:14: ( 'T' | 't' ) ( 'H' | 'h' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'D' | 'd' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:77:12: ( 'thread' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:77:14: 'thread'
             {
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("thread"); 
 
 
             }
@@ -2813,53 +740,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:79:12: ( ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'X' | 'x' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:79:14: ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'X' | 'x' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:79:12: ( 'annex' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:79:14: 'annex'
             {
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("annex"); 
 
 
             }
@@ -2877,53 +761,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:81:12: ( ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:81:14: ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:81:12: ( 'calls' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:81:14: 'calls'
             {
-            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("calls"); 
 
 
             }
@@ -2941,53 +782,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:83:12: ( ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:83:14: ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:83:12: ( 'event' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:83:14: 'event'
             {
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("event"); 
 
 
             }
@@ -3005,53 +803,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:85:12: ( ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'O' | 'o' ) ( 'W' | 'w' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:85:14: ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'O' | 'o' ) ( 'W' | 'w' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:85:12: ( 'flows' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:85:14: 'flows'
             {
-            if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='W'||input.LA(1)=='w' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("flows"); 
 
 
             }
@@ -3069,53 +824,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:87:12: ( ( 'G' | 'g' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'P' | 'p' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:87:14: ( 'G' | 'g' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'P' | 'p' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:87:12: ( 'group' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:87:14: 'group'
             {
-            if ( input.LA(1)=='G'||input.LA(1)=='g' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("group"); 
 
 
             }
@@ -3133,53 +845,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:89:12: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:89:14: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:89:12: ( 'modes' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:89:14: 'modes'
             {
-            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("modes"); 
 
 
             }
@@ -3197,44 +866,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_10;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:91:12: ( ( 'D' | 'd' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'A' | 'a' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:91:14: ( 'D' | 'd' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'A' | 'a' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:91:12: ( 'data' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:91:14: 'data'
             {
-            if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("data"); 
 
 
             }
@@ -3252,44 +887,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_11;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:93:12: ( ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'O' | 'o' ) ( 'W' | 'w' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:93:14: ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'O' | 'o' ) ( 'W' | 'w' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:93:12: ( 'flow' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:93:14: 'flow'
             {
-            if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='W'||input.LA(1)=='w' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("flow"); 
 
 
             }
@@ -3307,44 +908,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:95:12: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:95:14: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:95:12: ( 'mode' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:95:14: 'mode'
             {
-            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("mode"); 
 
 
             }
@@ -3362,44 +929,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:97:12: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:97:14: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:97:12: ( 'path' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:97:14: 'path'
             {
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("path"); 
 
 
             }
@@ -3417,44 +950,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:99:12: ( ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:99:14: ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:99:12: ( 'port' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:99:14: 'port'
             {
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("port"); 
 
 
             }
@@ -3472,44 +971,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:101:12: ( ( 'S' | 's' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'K' | 'k' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:101:14: ( 'S' | 's' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'K' | 'k' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:101:12: ( 'sink' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:101:14: 'sink'
             {
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='K'||input.LA(1)=='k' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("sink"); 
 
 
             }
@@ -3527,44 +992,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:103:12: ( ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:103:14: ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:103:12: ( 'with' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:103:14: 'with'
             {
-            if ( input.LA(1)=='W'||input.LA(1)=='w' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("with"); 
 
 
             }
@@ -3582,12 +1013,11 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_5;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:105:11: ( '<' '-' '>' )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:105:13: '<' '-' '>'
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:105:11: ( '<->' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:105:13: '<->'
             {
-            match('<'); 
-            match('-'); 
-            match('>'); 
+            match("<->"); 
+
 
             }
 
@@ -3604,35 +1034,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_6;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:107:11: ( ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:107:13: ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:107:11: ( 'all' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:107:13: 'all'
             {
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("all"); 
 
 
             }
@@ -3650,35 +1055,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_7;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:109:11: ( ( 'B' | 'b' ) ( 'U' | 'u' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:109:13: ( 'B' | 'b' ) ( 'U' | 'u' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:109:11: ( 'bus' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:109:13: 'bus'
             {
-            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("bus"); 
 
 
             }
@@ -3696,35 +1076,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_8;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:111:11: ( ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:111:13: ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:111:11: ( 'end' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:111:13: 'end'
             {
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("end"); 
 
 
             }
@@ -3742,35 +1097,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_9;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:113:11: ( ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:113:13: ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:113:11: ( 'out' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:113:13: 'out'
             {
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("out"); 
 
 
             }
@@ -3788,11 +1118,11 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:115:11: ( ':' ':' )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:115:13: ':' ':'
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:115:11: ( '::' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:115:13: '::'
             {
-            match(':'); 
-            match(':'); 
+            match("::"); 
+
 
             }
 
@@ -3809,26 +1139,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_2;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:117:11: ( ( 'I' | 'i' ) ( 'N' | 'n' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:117:13: ( 'I' | 'i' ) ( 'N' | 'n' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:117:11: ( 'in' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:117:13: 'in'
             {
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("in"); 
 
 
             }
@@ -3846,26 +1160,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_3;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:119:11: ( ( 'O' | 'o' ) ( 'F' | 'f' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:119:13: ( 'O' | 'o' ) ( 'F' | 'f' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:119:11: ( 'of' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:119:13: 'of'
             {
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("of"); 
 
 
             }
@@ -3883,26 +1181,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = KEYWORD_4;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:121:11: ( ( 'T' | 't' ) ( 'O' | 'o' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:121:13: ( 'T' | 't' ) ( 'O' | 'o' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:121:11: ( 'to' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:121:13: 'to'
             {
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+            match("to"); 
 
 
             }
@@ -5426,88 +2708,87 @@ public class InternalAadl2Lexer extends Lexer {
 
     protected DFA13 dfa13 = new DFA13(this);
     static final String DFA13_eotS =
-        "\1\uffff\16\53\1\50\2\53\1\120\1\53\1\122\1\53\1\50\1\130\2\uffff"+
-        "\1\134\4\uffff\3\50\2\uffff\3\50\2\uffff\1\53\1\152\1\uffff\34\53"+
-        "\1\u008c\2\53\1\uffff\2\53\1\u0091\4\uffff\1\53\23\uffff\3\53\1"+
-        "\uffff\21\53\1\u00ab\7\53\1\u00b3\7\53\1\uffff\2\53\1\u00bd\1\u00be"+
-        "\1\uffff\10\53\1\u00c7\11\53\1\u00d1\1\53\1\u00d3\4\53\1\uffff\1"+
-        "\53\1\u00da\5\53\1\uffff\3\53\1\u00e3\1\53\1\u00e6\2\53\1\u00e9"+
-        "\2\uffff\10\53\1\uffff\1\53\1\u00f3\7\53\1\uffff\1\53\1\uffff\3"+
-        "\53\1\u00ff\1\53\1\u0101\1\uffff\4\53\1\u0106\3\53\1\uffff\1\53"+
-        "\1\u010b\1\uffff\1\53\1\u010d\2\uffff\5\53\1\u0113\1\u0114\1\53"+
-        "\1\uffff\7\53\1\u011d\2\53\1\u0120\1\uffff\1\53\1\uffff\4\53\1\uffff"+
-        "\2\53\1\u0128\1\u0129\1\uffff\1\u012a\1\uffff\1\53\1\u012c\1\u012d"+
-        "\2\53\2\uffff\3\53\1\u0134\1\53\1\u0136\1\53\1\u0138\1\uffff\1\53"+
-        "\1\u013a\1\uffff\1\u013c\1\53\1\u013e\1\u013f\1\u0140\1\53\1\u0142"+
-        "\3\uffff\1\53\2\uffff\6\53\1\uffff\1\u014a\1\uffff\1\53\1\uffff"+
-        "\1\u014c\1\uffff\1\u014d\1\uffff\1\u014e\3\uffff\1\53\1\uffff\6"+
-        "\53\1\u0156\1\uffff\1\u0157\3\uffff\3\53\1\u015b\1\53\1\u015d\1"+
-        "\u015e\2\uffff\3\53\1\uffff\1\u0162\2\uffff\1\u0163\2\53\2\uffff"+
-        "\1\53\1\u0167\1\u0168\2\uffff";
+        "\1\uffff\16\52\1\47\2\52\1\117\1\121\1\52\1\47\1\127\2\uffff\1"+
+        "\133\4\uffff\3\47\2\uffff\3\47\2\uffff\1\52\1\151\1\uffff\34\52"+
+        "\1\u008b\2\52\1\uffff\2\52\1\u0090\4\uffff\1\52\23\uffff\3\52\1"+
+        "\uffff\21\52\1\u00aa\7\52\1\u00b2\7\52\1\uffff\2\52\1\u00bc\1\u00bd"+
+        "\1\uffff\10\52\1\u00c6\11\52\1\u00d0\1\52\1\u00d2\4\52\1\uffff\1"+
+        "\52\1\u00d9\5\52\1\uffff\3\52\1\u00e2\1\52\1\u00e5\2\52\1\u00e8"+
+        "\2\uffff\10\52\1\uffff\1\52\1\u00f2\7\52\1\uffff\1\52\1\uffff\3"+
+        "\52\1\u00fe\1\52\1\u0100\1\uffff\4\52\1\u0105\3\52\1\uffff\1\52"+
+        "\1\u010a\1\uffff\1\52\1\u010c\2\uffff\5\52\1\u0112\1\u0113\1\52"+
+        "\1\uffff\7\52\1\u011c\2\52\1\u011f\1\uffff\1\52\1\uffff\4\52\1\uffff"+
+        "\2\52\1\u0127\1\u0128\1\uffff\1\u0129\1\uffff\1\52\1\u012b\1\u012c"+
+        "\2\52\2\uffff\3\52\1\u0133\1\52\1\u0135\1\52\1\u0137\1\uffff\1\52"+
+        "\1\u0139\1\uffff\1\u013b\1\52\1\u013d\1\u013e\1\u013f\1\52\1\u0141"+
+        "\3\uffff\1\52\2\uffff\6\52\1\uffff\1\u0149\1\uffff\1\52\1\uffff"+
+        "\1\u014b\1\uffff\1\u014c\1\uffff\1\u014d\3\uffff\1\52\1\uffff\6"+
+        "\52\1\u0155\1\uffff\1\u0156\3\uffff\3\52\1\u015a\1\52\1\u015c\1"+
+        "\u015d\2\uffff\3\52\1\uffff\1\u0161\2\uffff\1\u0162\2\52\2\uffff"+
+        "\1\52\1\u0166\1\u0167\2\uffff";
     static final String DFA13_eofS =
-        "\u0169\uffff";
+        "\u0168\uffff";
     static final String DFA13_minS =
-        "\1\0\1\115\1\111\2\101\1\102\2\105\1\116\1\111\1\101\1\105\1\110"+
-        "\1\122\1\111\1\55\1\125\1\106\1\72\1\116\1\52\1\157\2\55\2\uffff"+
-        "\1\56\4\uffff\1\76\1\75\1\101\2\uffff\2\0\1\52\2\uffff\1\120\1\60"+
-        "\1\uffff\1\102\1\125\1\123\2\116\1\114\1\111\1\103\1\102\1\122\1"+
-        "\123\1\120\1\103\1\116\1\114\1\101\1\117\1\106\1\124\1\105\1\104"+
-        "\1\162\1\122\1\126\1\124\1\115\1\104\1\122\1\60\1\117\1\124\1\uffff"+
-        "\1\123\1\124\1\60\4\uffff\1\156\23\uffff\1\114\1\124\1\105\1\uffff"+
-        "\1\103\1\122\1\124\1\113\1\116\1\114\1\103\1\126\1\101\1\113\1\110"+
-        "\1\114\2\124\1\114\2\105\1\60\1\124\1\127\1\125\1\111\1\101\1\105"+
-        "\1\116\1\60\1\157\1\124\1\111\1\101\1\117\2\105\1\uffff\1\125\1"+
-        "\110\2\60\1\uffff\1\145\1\105\1\111\1\122\1\117\1\122\1\103\1\105"+
-        "\1\60\1\105\1\123\1\105\1\117\1\105\1\111\1\101\1\115\1\101\1\60"+
-        "\1\111\1\60\1\122\1\111\1\123\1\130\1\uffff\1\125\1\60\1\111\1\116"+
-        "\1\115\1\116\1\124\1\uffff\1\162\1\125\1\103\1\60\1\122\1\60\1\101"+
-        "\1\120\1\60\2\uffff\1\73\1\115\1\101\1\123\1\115\1\117\1\105\1\115"+
-        "\1\uffff\1\103\1\60\1\122\1\124\1\123\1\104\1\124\1\105\1\107\1"+
-        "\uffff\1\103\1\uffff\1\101\1\105\1\123\1\60\1\122\1\60\1\uffff\1"+
-        "\122\2\105\1\104\1\60\1\137\1\101\1\105\1\uffff\1\131\1\60\1\uffff"+
-        "\1\104\1\60\2\uffff\1\105\1\114\1\105\1\120\1\107\2\60\1\124\1\uffff"+
-        "\1\124\1\131\1\123\2\105\1\124\1\105\1\60\1\103\1\123\1\60\1\uffff"+
-        "\1\105\1\uffff\1\105\1\104\2\123\1\uffff\1\155\1\114\2\60\1\uffff"+
-        "\1\60\1\uffff\1\116\2\60\1\117\1\122\2\uffff\2\111\1\120\1\60\1"+
-        "\123\1\60\1\105\1\60\1\uffff\1\124\1\60\1\uffff\1\60\1\123\3\60"+
-        "\1\157\1\60\3\uffff\1\124\2\uffff\1\116\1\101\1\117\2\105\1\122"+
-        "\1\uffff\1\60\1\uffff\1\122\1\uffff\1\60\1\uffff\1\60\1\uffff\1"+
-        "\60\3\uffff\1\144\1\uffff\1\101\1\105\1\115\1\116\2\123\1\60\1\uffff"+
-        "\1\60\3\uffff\1\145\1\124\1\116\1\60\1\123\2\60\2\uffff\1\154\1"+
-        "\111\1\124\1\uffff\1\60\2\uffff\1\60\1\117\1\123\2\uffff\1\116\2"+
-        "\60\2\uffff";
+        "\1\0\1\155\1\151\2\141\1\142\2\145\1\156\1\151\1\141\1\145\1\150"+
+        "\1\162\1\151\1\55\1\165\1\146\1\72\1\52\1\157\2\55\2\uffff\1\56"+
+        "\4\uffff\1\76\1\75\1\101\2\uffff\2\0\1\52\2\uffff\1\160\1\60\1\uffff"+
+        "\1\142\1\165\1\163\2\156\1\154\1\151\1\143\1\142\1\162\1\163\1\160"+
+        "\1\143\1\156\1\154\1\141\1\157\1\146\1\164\1\145\1\144\2\162\1\166"+
+        "\1\164\1\155\1\144\1\162\1\60\1\157\1\164\1\uffff\1\163\1\164\1"+
+        "\60\4\uffff\1\156\23\uffff\1\154\1\164\1\145\1\uffff\1\143\1\162"+
+        "\1\164\1\153\1\156\1\154\1\143\1\166\1\141\1\153\1\150\1\154\2\164"+
+        "\1\154\2\145\1\60\1\164\1\167\1\165\1\151\1\141\1\145\1\156\1\60"+
+        "\1\157\1\164\1\151\1\141\1\157\2\145\1\uffff\1\165\1\150\2\60\1"+
+        "\uffff\2\145\1\151\1\162\1\157\1\162\1\143\1\145\1\60\1\145\1\163"+
+        "\1\145\1\157\1\145\1\151\1\141\1\155\1\141\1\60\1\151\1\60\1\162"+
+        "\1\151\1\163\1\170\1\uffff\1\165\1\60\1\151\1\156\1\155\1\156\1"+
+        "\164\1\uffff\1\162\1\165\1\143\1\60\1\162\1\60\1\141\1\160\1\60"+
+        "\2\uffff\1\73\1\155\1\141\1\163\1\155\1\157\1\145\1\155\1\uffff"+
+        "\1\143\1\60\1\162\1\164\1\163\1\144\1\164\1\145\1\147\1\uffff\1"+
+        "\143\1\uffff\1\141\1\145\1\163\1\60\1\162\1\60\1\uffff\1\162\2\145"+
+        "\1\144\1\60\1\137\1\141\1\145\1\uffff\1\171\1\60\1\uffff\1\144\1"+
+        "\60\2\uffff\1\145\1\154\1\145\1\160\1\147\2\60\1\164\1\uffff\1\164"+
+        "\1\171\1\163\2\145\1\164\1\145\1\60\1\143\1\163\1\60\1\uffff\1\145"+
+        "\1\uffff\1\145\1\144\2\163\1\uffff\1\155\1\154\2\60\1\uffff\1\60"+
+        "\1\uffff\1\156\2\60\1\157\1\162\2\uffff\2\151\1\160\1\60\1\163\1"+
+        "\60\1\145\1\60\1\uffff\1\164\1\60\1\uffff\1\60\1\163\3\60\1\157"+
+        "\1\60\3\uffff\1\164\2\uffff\1\156\1\141\1\157\2\145\1\162\1\uffff"+
+        "\1\60\1\uffff\1\162\1\uffff\1\60\1\uffff\1\60\1\uffff\1\60\3\uffff"+
+        "\1\144\1\uffff\1\141\1\145\1\155\1\156\2\163\1\60\1\uffff\1\60\3"+
+        "\uffff\1\145\1\164\1\156\1\60\1\163\2\60\2\uffff\1\154\1\151\1\164"+
+        "\1\uffff\1\60\2\uffff\1\60\1\157\1\163\2\uffff\1\156\2\60\2\uffff";
     static final String DFA13_maxS =
         "\1\uffff\1\156\1\171\1\157\1\165\1\160\1\154\1\145\1\170\1\151"+
-        "\1\145\2\157\1\162\1\151\1\55\2\165\1\72\1\170\1\52\1\157\1\133"+
-        "\1\55\2\uffff\1\56\4\uffff\1\76\1\75\1\172\2\uffff\2\uffff\1\52"+
-        "\2\uffff\1\160\1\172\1\uffff\1\142\1\165\1\163\2\156\1\154\1\157"+
-        "\1\164\1\142\1\162\1\163\1\160\1\143\1\156\1\154\1\141\1\157\1\161"+
-        "\1\164\1\145\1\144\2\162\1\166\1\164\1\155\1\144\1\162\1\172\1\157"+
-        "\1\164\1\uffff\1\163\1\164\1\172\4\uffff\1\156\23\uffff\1\154\1"+
-        "\164\1\145\1\uffff\1\160\1\162\1\164\1\153\1\156\1\154\2\166\1\141"+
-        "\1\153\1\150\1\154\2\164\1\154\2\145\1\172\1\164\1\167\1\165\1\151"+
-        "\1\141\1\145\1\156\1\172\1\157\1\164\1\151\1\141\1\157\2\145\1\uffff"+
-        "\1\165\1\150\2\172\1\uffff\2\145\1\151\1\162\1\157\1\162\1\143\1"+
-        "\145\1\172\1\145\1\163\1\145\1\157\1\145\1\151\1\141\1\155\1\141"+
-        "\1\172\1\151\1\172\1\162\1\151\1\163\1\170\1\uffff\1\165\1\172\1"+
-        "\151\1\156\1\155\1\156\1\164\1\uffff\1\162\1\165\1\143\1\172\1\162"+
-        "\1\172\1\141\1\160\1\172\2\uffff\1\73\1\155\1\141\1\163\1\155\1"+
-        "\157\1\145\1\155\1\uffff\1\143\1\172\1\162\1\164\1\163\1\144\1\164"+
-        "\1\145\1\147\1\uffff\1\143\1\uffff\1\141\1\145\1\163\1\172\1\162"+
-        "\1\172\1\uffff\1\162\2\145\1\144\1\172\1\137\1\141\1\145\1\uffff"+
-        "\1\171\1\172\1\uffff\1\144\1\172\2\uffff\1\145\1\154\1\145\1\160"+
-        "\1\147\2\172\1\164\1\uffff\1\164\1\171\1\163\2\145\1\164\1\145\1"+
-        "\172\1\143\1\163\1\172\1\uffff\1\145\1\uffff\1\145\1\144\2\163\1"+
-        "\uffff\1\155\1\154\2\172\1\uffff\1\172\1\uffff\1\156\2\172\1\157"+
-        "\1\162\2\uffff\2\151\1\160\1\172\1\163\1\172\1\145\1\172\1\uffff"+
-        "\1\164\1\172\1\uffff\1\172\1\163\3\172\1\157\1\172\3\uffff\1\164"+
-        "\2\uffff\1\156\1\141\1\157\2\145\1\162\1\uffff\1\172\1\uffff\1\162"+
-        "\1\uffff\1\172\1\uffff\1\172\1\uffff\1\172\3\uffff\1\144\1\uffff"+
-        "\1\141\1\145\1\155\1\156\2\163\1\172\1\uffff\1\172\3\uffff\1\145"+
-        "\1\164\1\156\1\172\1\163\2\172\2\uffff\1\154\1\151\1\164\1\uffff"+
-        "\1\172\2\uffff\1\172\1\157\1\163\2\uffff\1\156\2\172\2\uffff";
+        "\1\145\2\157\1\162\1\151\1\55\2\165\1\72\1\52\1\157\1\133\1\55\2"+
+        "\uffff\1\56\4\uffff\1\76\1\75\1\172\2\uffff\2\uffff\1\52\2\uffff"+
+        "\1\160\1\172\1\uffff\1\142\1\165\1\163\2\156\1\154\1\157\1\164\1"+
+        "\142\1\162\1\163\1\160\1\143\1\156\1\154\1\141\1\157\1\161\1\164"+
+        "\1\145\1\144\2\162\1\166\1\164\1\155\1\144\1\162\1\172\1\157\1\164"+
+        "\1\uffff\1\163\1\164\1\172\4\uffff\1\156\23\uffff\1\154\1\164\1"+
+        "\145\1\uffff\1\160\1\162\1\164\1\153\1\156\1\154\2\166\1\141\1\153"+
+        "\1\150\1\154\2\164\1\154\2\145\1\172\1\164\1\167\1\165\1\151\1\141"+
+        "\1\145\1\156\1\172\1\157\1\164\1\151\1\141\1\157\2\145\1\uffff\1"+
+        "\165\1\150\2\172\1\uffff\2\145\1\151\1\162\1\157\1\162\1\143\1\145"+
+        "\1\172\1\145\1\163\1\145\1\157\1\145\1\151\1\141\1\155\1\141\1\172"+
+        "\1\151\1\172\1\162\1\151\1\163\1\170\1\uffff\1\165\1\172\1\151\1"+
+        "\156\1\155\1\156\1\164\1\uffff\1\162\1\165\1\143\1\172\1\162\1\172"+
+        "\1\141\1\160\1\172\2\uffff\1\73\1\155\1\141\1\163\1\155\1\157\1"+
+        "\145\1\155\1\uffff\1\143\1\172\1\162\1\164\1\163\1\144\1\164\1\145"+
+        "\1\147\1\uffff\1\143\1\uffff\1\141\1\145\1\163\1\172\1\162\1\172"+
+        "\1\uffff\1\162\2\145\1\144\1\172\1\137\1\141\1\145\1\uffff\1\171"+
+        "\1\172\1\uffff\1\144\1\172\2\uffff\1\145\1\154\1\145\1\160\1\147"+
+        "\2\172\1\164\1\uffff\1\164\1\171\1\163\2\145\1\164\1\145\1\172\1"+
+        "\143\1\163\1\172\1\uffff\1\145\1\uffff\1\145\1\144\2\163\1\uffff"+
+        "\1\155\1\154\2\172\1\uffff\1\172\1\uffff\1\156\2\172\1\157\1\162"+
+        "\2\uffff\2\151\1\160\1\172\1\163\1\172\1\145\1\172\1\uffff\1\164"+
+        "\1\172\1\uffff\1\172\1\163\3\172\1\157\1\172\3\uffff\1\164\2\uffff"+
+        "\1\156\1\141\1\157\2\145\1\162\1\uffff\1\172\1\uffff\1\162\1\uffff"+
+        "\1\172\1\uffff\1\172\1\uffff\1\172\3\uffff\1\144\1\uffff\1\141\1"+
+        "\145\1\155\1\156\2\163\1\172\1\uffff\1\172\3\uffff\1\145\1\164\1"+
+        "\156\1\172\1\163\2\172\2\uffff\1\154\1\151\1\164\1\uffff\1\172\2"+
+        "\uffff\1\172\1\157\1\163\2\uffff\1\156\2\172\2\uffff";
     static final String DFA13_acceptS =
-        "\30\uffff\1\74\1\76\1\uffff\1\101\1\102\1\103\1\106\3\uffff\1\111"+
+        "\27\uffff\1\74\1\76\1\uffff\1\101\1\102\1\103\1\106\3\uffff\1\111"+
         "\1\112\3\uffff\1\115\1\116\2\uffff\1\111\37\uffff\1\54\3\uffff\1"+
         "\61\1\75\1\66\1\105\1\uffff\1\70\1\72\1\73\1\71\1\104\1\74\1\76"+
         "\1\77\1\100\1\101\1\102\1\103\1\106\1\107\1\110\1\112\1\113\1\114"+
@@ -5521,387 +2802,375 @@ public class InternalAadl2Lexer extends Lexer {
         "\7\uffff\1\13\1\uffff\1\11\1\12\1\14\7\uffff\1\10\1\7\3\uffff\1"+
         "\6\1\uffff\1\4\1\5\3\uffff\1\3\1\65\3\uffff\1\2\1\1";
     static final String DFA13_specialS =
-        "\1\2\43\uffff\1\0\1\1\u0143\uffff}>";
+        "\1\2\42\uffff\1\0\1\1\u0143\uffff}>";
     static final String[] DFA13_transitionS = {
-            "\11\50\2\47\2\50\1\47\22\50\1\47\1\50\1\44\4\50\1\45\1\33\1"+
-            "\34\1\50\1\40\1\31\1\26\1\32\1\46\12\43\1\22\1\30\1\17\1\37"+
-            "\3\50\1\5\1\20\1\3\1\12\1\23\1\6\1\15\1\42\1\1\3\42\1\13\1\42"+
-            "\1\21\1\4\1\42\1\7\1\2\1\14\1\42\1\11\1\16\3\42\1\35\1\50\1"+
-            "\27\1\41\1\42\1\50\1\5\1\20\1\3\1\12\1\10\1\6\1\15\1\42\1\1"+
-            "\3\42\1\13\1\25\1\21\1\4\1\42\1\7\1\2\1\14\1\42\1\11\1\16\3"+
-            "\42\1\24\1\50\1\36\uff82\50",
-            "\1\51\1\52\36\uffff\1\51\1\52",
-            "\1\57\5\uffff\1\55\5\uffff\1\54\3\uffff\1\56\17\uffff\1\57"+
-            "\5\uffff\1\55\5\uffff\1\54\3\uffff\1\56",
-            "\1\61\15\uffff\1\60\21\uffff\1\61\15\uffff\1\60",
-            "\1\63\15\uffff\1\65\2\uffff\1\62\2\uffff\1\64\13\uffff\1\63"+
-            "\15\uffff\1\65\2\uffff\1\62\2\uffff\1\64",
-            "\1\66\1\70\10\uffff\1\72\1\uffff\1\71\1\uffff\1\67\21\uffff"+
-            "\1\66\1\70\10\uffff\1\72\1\uffff\1\71\1\uffff\1\67",
-            "\1\73\6\uffff\1\74\30\uffff\1\73\6\uffff\1\74",
-            "\1\75\37\uffff\1\75",
-            "\1\100\7\uffff\1\77\1\uffff\1\76\25\uffff\1\100\3\uffff\1"+
-            "\101\3\uffff\1\77\1\uffff\1\76",
-            "\1\102\37\uffff\1\102",
-            "\1\104\3\uffff\1\103\33\uffff\1\104\3\uffff\1\103",
-            "\1\105\11\uffff\1\106\25\uffff\1\105\11\uffff\1\106",
-            "\1\107\6\uffff\1\110\30\uffff\1\107\6\uffff\1\110",
-            "\1\111\37\uffff\1\111",
-            "\1\112\37\uffff\1\112",
+            "\11\47\2\46\2\47\1\46\22\47\1\46\1\47\1\43\4\47\1\44\1\32\1"+
+            "\33\1\47\1\37\1\30\1\25\1\31\1\45\12\42\1\22\1\27\1\17\1\36"+
+            "\3\47\32\41\1\34\1\47\1\26\1\40\1\41\1\47\1\5\1\20\1\3\1\12"+
+            "\1\10\1\6\1\15\1\41\1\1\3\41\1\13\1\24\1\21\1\4\1\41\1\7\1\2"+
+            "\1\14\1\41\1\11\1\16\3\41\1\23\1\47\1\35\uff82\47",
+            "\1\50\1\51",
+            "\1\56\5\uffff\1\54\5\uffff\1\53\3\uffff\1\55",
+            "\1\60\15\uffff\1\57",
+            "\1\62\15\uffff\1\64\2\uffff\1\61\2\uffff\1\63",
+            "\1\65\1\67\10\uffff\1\71\1\uffff\1\70\1\uffff\1\66",
+            "\1\72\6\uffff\1\73",
+            "\1\74",
+            "\1\77\3\uffff\1\100\3\uffff\1\76\1\uffff\1\75",
+            "\1\101",
+            "\1\103\3\uffff\1\102",
+            "\1\104\11\uffff\1\105",
+            "\1\106\6\uffff\1\107",
+            "\1\110",
+            "\1\111",
+            "\1\112",
             "\1\113",
-            "\1\114\37\uffff\1\114",
-            "\1\116\16\uffff\1\115\20\uffff\1\116\16\uffff\1\115",
-            "\1\117",
-            "\1\100\7\uffff\1\77\1\uffff\1\76\25\uffff\1\100\7\uffff\1"+
-            "\77\1\uffff\1\76",
-            "\1\121",
-            "\1\123",
-            "\1\126\20\uffff\1\125\34\uffff\1\124",
-            "\1\127",
+            "\1\115\16\uffff\1\114",
+            "\1\116",
+            "\1\120",
+            "\1\122",
+            "\1\125\20\uffff\1\124\34\uffff\1\123",
+            "\1\126",
             "",
             "",
-            "\1\133",
+            "\1\132",
             "",
             "",
             "",
             "",
+            "\1\140",
             "\1\141",
-            "\1\142",
-            "\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
             "",
-            "\0\144",
-            "\0\144",
-            "\1\145",
+            "\0\143",
+            "\0\143",
+            "\1\144",
             "",
             "",
-            "\1\147\37\uffff\1\147",
-            "\12\53\7\uffff\10\53\1\150\14\53\1\151\4\53\4\uffff\1\53\1"+
-            "\uffff\10\53\1\150\14\53\1\151\4\53",
+            "\1\146",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\10\52\1\147\14\52"+
+            "\1\150\4\52",
             "",
-            "\1\153\37\uffff\1\153",
-            "\1\154\37\uffff\1\154",
-            "\1\155\37\uffff\1\155",
-            "\1\156\37\uffff\1\156",
-            "\1\157\37\uffff\1\157",
-            "\1\160\37\uffff\1\160",
-            "\1\162\5\uffff\1\161\31\uffff\1\162\5\uffff\1\161",
-            "\1\164\16\uffff\1\163\1\uffff\1\165\16\uffff\1\164\16\uffff"+
-            "\1\163\1\uffff\1\165",
-            "\1\166\37\uffff\1\166",
-            "\1\167\37\uffff\1\167",
-            "\1\170\37\uffff\1\170",
-            "\1\171\37\uffff\1\171",
-            "\1\172\37\uffff\1\172",
-            "\1\173\37\uffff\1\173",
-            "\1\174\37\uffff\1\174",
-            "\1\175\37\uffff\1\175",
-            "\1\176\37\uffff\1\176",
-            "\1\u0080\7\uffff\1\u0081\2\uffff\1\177\24\uffff\1\u0080\7"+
-            "\uffff\1\u0081\2\uffff\1\177",
-            "\1\u0082\37\uffff\1\u0082",
-            "\1\u0083\37\uffff\1\u0083",
-            "\1\u0084\37\uffff\1\u0084",
+            "\1\152",
+            "\1\153",
+            "\1\154",
+            "\1\155",
+            "\1\156",
+            "\1\157",
+            "\1\161\5\uffff\1\160",
+            "\1\163\16\uffff\1\162\1\uffff\1\164",
+            "\1\165",
+            "\1\166",
+            "\1\167",
+            "\1\170",
+            "\1\171",
+            "\1\172",
+            "\1\173",
+            "\1\174",
+            "\1\175",
+            "\1\177\7\uffff\1\u0080\2\uffff\1\176",
+            "\1\u0081",
+            "\1\u0082",
+            "\1\u0083",
+            "\1\u0084",
             "\1\u0085",
-            "\1\u0086\37\uffff\1\u0086",
-            "\1\u0087\37\uffff\1\u0087",
-            "\1\u0088\37\uffff\1\u0088",
-            "\1\u0089\37\uffff\1\u0089",
-            "\1\u008a\37\uffff\1\u008a",
-            "\1\u008b\37\uffff\1\u008b",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u008d\37\uffff\1\u008d",
-            "\1\u008e\37\uffff\1\u008e",
+            "\1\u0086",
+            "\1\u0087",
+            "\1\u0088",
+            "\1\u0089",
+            "\1\u008a",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u008c",
+            "\1\u008d",
             "",
-            "\1\u008f\37\uffff\1\u008f",
-            "\1\u0090\37\uffff\1\u0090",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\1\u008e",
+            "\1\u008f",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "",
+            "",
+            "",
+            "",
+            "\1\u0091",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "",
             "",
             "\1\u0092",
+            "\1\u0093",
+            "\1\u0094",
             "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\u0093\37\uffff\1\u0093",
-            "\1\u0094\37\uffff\1\u0094",
-            "\1\u0095\37\uffff\1\u0095",
-            "",
-            "\1\u0096\14\uffff\1\u0097\22\uffff\1\u0096\14\uffff\1\u0097",
-            "\1\u0098\37\uffff\1\u0098",
-            "\1\u0099\37\uffff\1\u0099",
-            "\1\u009a\37\uffff\1\u009a",
-            "\1\u009b\37\uffff\1\u009b",
-            "\1\u009c\37\uffff\1\u009c",
-            "\1\u009f\14\uffff\1\u009d\3\uffff\1\u009e\1\uffff\1\u00a0"+
-            "\14\uffff\1\u009f\14\uffff\1\u009d\3\uffff\1\u009e\1\uffff\1"+
-            "\u00a0",
-            "\1\u00a1\37\uffff\1\u00a1",
-            "\1\u00a2\37\uffff\1\u00a2",
-            "\1\u00a3\37\uffff\1\u00a3",
-            "\1\u00a4\37\uffff\1\u00a4",
-            "\1\u00a5\37\uffff\1\u00a5",
-            "\1\u00a6\37\uffff\1\u00a6",
-            "\1\u00a7\37\uffff\1\u00a7",
-            "\1\u00a8\37\uffff\1\u00a8",
-            "\1\u00a9\37\uffff\1\u00a9",
-            "\1\u00aa\37\uffff\1\u00aa",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u00ac\37\uffff\1\u00ac",
-            "\1\u00ad\37\uffff\1\u00ad",
-            "\1\u00ae\37\uffff\1\u00ae",
-            "\1\u00af\37\uffff\1\u00af",
-            "\1\u00b0\37\uffff\1\u00b0",
-            "\1\u00b1\37\uffff\1\u00b1",
-            "\1\u00b2\37\uffff\1\u00b2",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\1\u0095\14\uffff\1\u0096",
+            "\1\u0097",
+            "\1\u0098",
+            "\1\u0099",
+            "\1\u009a",
+            "\1\u009b",
+            "\1\u009e\14\uffff\1\u009c\3\uffff\1\u009d\1\uffff\1\u009f",
+            "\1\u00a0",
+            "\1\u00a1",
+            "\1\u00a2",
+            "\1\u00a3",
+            "\1\u00a4",
+            "\1\u00a5",
+            "\1\u00a6",
+            "\1\u00a7",
+            "\1\u00a8",
+            "\1\u00a9",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u00ab",
+            "\1\u00ac",
+            "\1\u00ad",
+            "\1\u00ae",
+            "\1\u00af",
+            "\1\u00b0",
+            "\1\u00b1",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u00b3",
             "\1\u00b4",
-            "\1\u00b5\37\uffff\1\u00b5",
-            "\1\u00b6\37\uffff\1\u00b6",
-            "\1\u00b7\37\uffff\1\u00b7",
-            "\1\u00b8\37\uffff\1\u00b8",
-            "\1\u00b9\37\uffff\1\u00b9",
-            "\1\u00ba\37\uffff\1\u00ba",
+            "\1\u00b5",
+            "\1\u00b6",
+            "\1\u00b7",
+            "\1\u00b8",
+            "\1\u00b9",
             "",
-            "\1\u00bb\37\uffff\1\u00bb",
-            "\1\u00bc\37\uffff\1\u00bc",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\1\u00ba",
+            "\1\u00bb",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
+            "\1\u00be",
             "\1\u00bf",
-            "\1\u00c0\37\uffff\1\u00c0",
-            "\1\u00c1\37\uffff\1\u00c1",
-            "\1\u00c2\37\uffff\1\u00c2",
-            "\1\u00c3\37\uffff\1\u00c3",
-            "\1\u00c4\37\uffff\1\u00c4",
-            "\1\u00c5\37\uffff\1\u00c5",
-            "\1\u00c6\37\uffff\1\u00c6",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u00c8\37\uffff\1\u00c8",
-            "\1\u00c9\37\uffff\1\u00c9",
-            "\1\u00ca\37\uffff\1\u00ca",
-            "\1\u00cb\37\uffff\1\u00cb",
-            "\1\u00cc\37\uffff\1\u00cc",
-            "\1\u00cd\37\uffff\1\u00cd",
-            "\1\u00ce\37\uffff\1\u00ce",
-            "\1\u00cf\37\uffff\1\u00cf",
-            "\1\u00d0\37\uffff\1\u00d0",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u00d2\37\uffff\1\u00d2",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u00d4\37\uffff\1\u00d4",
-            "\1\u00d5\37\uffff\1\u00d5",
-            "\1\u00d6\37\uffff\1\u00d6",
-            "\1\u00d7\37\uffff\1\u00d7",
+            "\1\u00c0",
+            "\1\u00c1",
+            "\1\u00c2",
+            "\1\u00c3",
+            "\1\u00c4",
+            "\1\u00c5",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u00c7",
+            "\1\u00c8",
+            "\1\u00c9",
+            "\1\u00ca",
+            "\1\u00cb",
+            "\1\u00cc",
+            "\1\u00cd",
+            "\1\u00ce",
+            "\1\u00cf",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u00d1",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u00d3",
+            "\1\u00d4",
+            "\1\u00d5",
+            "\1\u00d6",
             "",
-            "\1\u00d8\37\uffff\1\u00d8",
-            "\12\53\7\uffff\22\53\1\u00d9\7\53\4\uffff\1\53\1\uffff\22"+
-            "\53\1\u00d9\7\53",
-            "\1\u00db\37\uffff\1\u00db",
-            "\1\u00dc\37\uffff\1\u00dc",
-            "\1\u00dd\37\uffff\1\u00dd",
-            "\1\u00de\37\uffff\1\u00de",
-            "\1\u00df\37\uffff\1\u00df",
+            "\1\u00d7",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\22\52\1\u00d8\7"+
+            "\52",
+            "\1\u00da",
+            "\1\u00db",
+            "\1\u00dc",
+            "\1\u00dd",
+            "\1\u00de",
             "",
+            "\1\u00df",
             "\1\u00e0",
-            "\1\u00e1\37\uffff\1\u00e1",
-            "\1\u00e2\37\uffff\1\u00e2",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u00e4\37\uffff\1\u00e4",
-            "\12\53\7\uffff\22\53\1\u00e5\7\53\4\uffff\1\53\1\uffff\22"+
-            "\53\1\u00e5\7\53",
-            "\1\u00e7\37\uffff\1\u00e7",
-            "\1\u00e8\37\uffff\1\u00e8",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\1\u00e1",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u00e3",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\22\52\1\u00e4\7"+
+            "\52",
+            "\1\u00e6",
+            "\1\u00e7",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
             "",
+            "\1\u00e9",
             "\1\u00ea",
-            "\1\u00eb\37\uffff\1\u00eb",
-            "\1\u00ec\37\uffff\1\u00ec",
-            "\1\u00ed\37\uffff\1\u00ed",
-            "\1\u00ee\37\uffff\1\u00ee",
-            "\1\u00ef\37\uffff\1\u00ef",
-            "\1\u00f0\37\uffff\1\u00f0",
-            "\1\u00f1\37\uffff\1\u00f1",
+            "\1\u00eb",
+            "\1\u00ec",
+            "\1\u00ed",
+            "\1\u00ee",
+            "\1\u00ef",
+            "\1\u00f0",
             "",
-            "\1\u00f2\37\uffff\1\u00f2",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u00f4\37\uffff\1\u00f4",
-            "\1\u00f5\37\uffff\1\u00f5",
-            "\1\u00f6\37\uffff\1\u00f6",
-            "\1\u00f7\37\uffff\1\u00f7",
-            "\1\u00f8\37\uffff\1\u00f8",
-            "\1\u00f9\37\uffff\1\u00f9",
-            "\1\u00fa\37\uffff\1\u00fa",
+            "\1\u00f1",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u00f3",
+            "\1\u00f4",
+            "\1\u00f5",
+            "\1\u00f6",
+            "\1\u00f7",
+            "\1\u00f8",
+            "\1\u00f9",
             "",
-            "\1\u00fb\37\uffff\1\u00fb",
+            "\1\u00fa",
             "",
-            "\1\u00fc\37\uffff\1\u00fc",
-            "\1\u00fd\37\uffff\1\u00fd",
-            "\1\u00fe\37\uffff\1\u00fe",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u0100\37\uffff\1\u0100",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\1\u00fb",
+            "\1\u00fc",
+            "\1\u00fd",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u00ff",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
-            "\1\u0102\37\uffff\1\u0102",
-            "\1\u0103\37\uffff\1\u0103",
-            "\1\u0104\37\uffff\1\u0104",
-            "\1\u0105\37\uffff\1\u0105",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\1\u0101",
+            "\1\u0102",
+            "\1\u0103",
+            "\1\u0104",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u0106",
             "\1\u0107",
-            "\1\u0108\37\uffff\1\u0108",
-            "\1\u0109\37\uffff\1\u0109",
+            "\1\u0108",
             "",
-            "\1\u010a\37\uffff\1\u010a",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\1\u0109",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
-            "\1\u010c\37\uffff\1\u010c",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\1\u010b",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
             "",
-            "\1\u010e\37\uffff\1\u010e",
-            "\1\u010f\37\uffff\1\u010f",
-            "\1\u0110\37\uffff\1\u0110",
-            "\1\u0111\37\uffff\1\u0111",
-            "\1\u0112\37\uffff\1\u0112",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u0115\37\uffff\1\u0115",
+            "\1\u010d",
+            "\1\u010e",
+            "\1\u010f",
+            "\1\u0110",
+            "\1\u0111",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u0114",
             "",
-            "\1\u0116\37\uffff\1\u0116",
-            "\1\u0117\37\uffff\1\u0117",
-            "\1\u0118\37\uffff\1\u0118",
-            "\1\u0119\37\uffff\1\u0119",
-            "\1\u011a\37\uffff\1\u011a",
-            "\1\u011b\37\uffff\1\u011b",
-            "\1\u011c\37\uffff\1\u011c",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u011e\37\uffff\1\u011e",
-            "\1\u011f\37\uffff\1\u011f",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\1\u0115",
+            "\1\u0116",
+            "\1\u0117",
+            "\1\u0118",
+            "\1\u0119",
+            "\1\u011a",
+            "\1\u011b",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u011d",
+            "\1\u011e",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
-            "\1\u0121\37\uffff\1\u0121",
+            "\1\u0120",
             "",
-            "\1\u0122\37\uffff\1\u0122",
-            "\1\u0123\37\uffff\1\u0123",
-            "\1\u0124\37\uffff\1\u0124",
-            "\1\u0125\37\uffff\1\u0125",
+            "\1\u0121",
+            "\1\u0122",
+            "\1\u0123",
+            "\1\u0124",
             "",
+            "\1\u0125",
             "\1\u0126",
-            "\1\u0127\37\uffff\1\u0127",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
-            "\1\u012b\37\uffff\1\u012b",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u012e\37\uffff\1\u012e",
-            "\1\u012f\37\uffff\1\u012f",
-            "",
-            "",
-            "\1\u0130\37\uffff\1\u0130",
-            "\1\u0131\37\uffff\1\u0131",
-            "\1\u0132\37\uffff\1\u0132",
-            "\12\53\7\uffff\16\53\1\u0133\13\53\4\uffff\1\53\1\uffff\16"+
-            "\53\1\u0133\13\53",
-            "\1\u0135\37\uffff\1\u0135",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u0137\37\uffff\1\u0137",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "",
-            "\1\u0139\37\uffff\1\u0139",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "",
-            "\12\53\7\uffff\22\53\1\u013b\7\53\4\uffff\1\53\1\uffff\22"+
-            "\53\1\u013b\7\53",
-            "\1\u013d\37\uffff\1\u013d",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u0141",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\1\u012a",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u012d",
+            "\1\u012e",
             "",
             "",
+            "\1\u012f",
+            "\1\u0130",
+            "\1\u0131",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\16\52\1\u0132\13"+
+            "\52",
+            "\1\u0134",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u0136",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
-            "\1\u0143\37\uffff\1\u0143",
+            "\1\u0138",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\22\52\1\u013a\7"+
+            "\52",
+            "\1\u013c",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u0140",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
             "",
-            "\1\u0144\37\uffff\1\u0144",
-            "\1\u0145\37\uffff\1\u0145",
-            "\1\u0146\37\uffff\1\u0146",
-            "\1\u0147\37\uffff\1\u0147",
-            "\1\u0148\37\uffff\1\u0148",
-            "\1\u0149\37\uffff\1\u0149",
             "",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "",
-            "\1\u014b\37\uffff\1\u014b",
-            "",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\1\u0142",
             "",
             "",
+            "\1\u0143",
+            "\1\u0144",
+            "\1\u0145",
+            "\1\u0146",
+            "\1\u0147",
+            "\1\u0148",
+            "",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "",
+            "\1\u014a",
+            "",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "",
+            "",
+            "",
+            "\1\u014e",
             "",
             "\1\u014f",
+            "\1\u0150",
+            "\1\u0151",
+            "\1\u0152",
+            "\1\u0153",
+            "\1\u0154",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
-            "\1\u0150\37\uffff\1\u0150",
-            "\1\u0151\37\uffff\1\u0151",
-            "\1\u0152\37\uffff\1\u0152",
-            "\1\u0153\37\uffff\1\u0153",
-            "\1\u0154\37\uffff\1\u0154",
-            "\1\u0155\37\uffff\1\u0155",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
             "",
             "",
+            "\1\u0157",
             "\1\u0158",
-            "\1\u0159\37\uffff\1\u0159",
-            "\1\u015a\37\uffff\1\u015a",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u015c\37\uffff\1\u015c",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\1\u0159",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u015b",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
             "",
+            "\1\u015e",
             "\1\u015f",
-            "\1\u0160\37\uffff\1\u0160",
-            "\1\u0161\37\uffff\1\u0161",
+            "\1\u0160",
             "",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "",
-            "",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\1\u0164\37\uffff\1\u0164",
-            "\1\u0165\37\uffff\1\u0165",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
             "",
-            "\1\u0166\37\uffff\1\u0166",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
-            "\12\53\7\uffff\32\53\4\uffff\1\53\1\uffff\32\53",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\1\u0163",
+            "\1\u0164",
+            "",
+            "",
+            "\1\u0165",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
+            "\12\52\7\uffff\32\52\4\uffff\1\52\1\uffff\32\52",
             "",
             ""
     };
@@ -5943,22 +3212,22 @@ public class InternalAadl2Lexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA13_36 = input.LA(1);
+                        int LA13_35 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA13_36>='\u0000' && LA13_36<='\uFFFF')) ) {s = 100;}
+                        if ( ((LA13_35>='\u0000' && LA13_35<='\uFFFF')) ) {s = 99;}
 
-                        else s = 40;
+                        else s = 39;
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA13_37 = input.LA(1);
+                        int LA13_36 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA13_37>='\u0000' && LA13_37<='\uFFFF')) ) {s = 100;}
+                        if ( ((LA13_36>='\u0000' && LA13_36<='\uFFFF')) ) {s = 99;}
 
-                        else s = 40;
+                        else s = 39;
 
                         if ( s>=0 ) return s;
                         break;
@@ -5966,85 +3235,83 @@ public class InternalAadl2Lexer extends Lexer {
                         int LA13_0 = input.LA(1);
 
                         s = -1;
-                        if ( (LA13_0=='I'||LA13_0=='i') ) {s = 1;}
+                        if ( (LA13_0=='i') ) {s = 1;}
 
-                        else if ( (LA13_0=='S'||LA13_0=='s') ) {s = 2;}
+                        else if ( (LA13_0=='s') ) {s = 2;}
 
-                        else if ( (LA13_0=='C'||LA13_0=='c') ) {s = 3;}
+                        else if ( (LA13_0=='c') ) {s = 3;}
 
-                        else if ( (LA13_0=='P'||LA13_0=='p') ) {s = 4;}
+                        else if ( (LA13_0=='p') ) {s = 4;}
 
-                        else if ( (LA13_0=='A'||LA13_0=='a') ) {s = 5;}
+                        else if ( (LA13_0=='a') ) {s = 5;}
 
-                        else if ( (LA13_0=='F'||LA13_0=='f') ) {s = 6;}
+                        else if ( (LA13_0=='f') ) {s = 6;}
 
-                        else if ( (LA13_0=='R'||LA13_0=='r') ) {s = 7;}
+                        else if ( (LA13_0=='r') ) {s = 7;}
 
                         else if ( (LA13_0=='e') ) {s = 8;}
 
-                        else if ( (LA13_0=='V'||LA13_0=='v') ) {s = 9;}
+                        else if ( (LA13_0=='v') ) {s = 9;}
 
-                        else if ( (LA13_0=='D'||LA13_0=='d') ) {s = 10;}
+                        else if ( (LA13_0=='d') ) {s = 10;}
 
-                        else if ( (LA13_0=='M'||LA13_0=='m') ) {s = 11;}
+                        else if ( (LA13_0=='m') ) {s = 11;}
 
-                        else if ( (LA13_0=='T'||LA13_0=='t') ) {s = 12;}
+                        else if ( (LA13_0=='t') ) {s = 12;}
 
-                        else if ( (LA13_0=='G'||LA13_0=='g') ) {s = 13;}
+                        else if ( (LA13_0=='g') ) {s = 13;}
 
-                        else if ( (LA13_0=='W'||LA13_0=='w') ) {s = 14;}
+                        else if ( (LA13_0=='w') ) {s = 14;}
 
                         else if ( (LA13_0=='<') ) {s = 15;}
 
-                        else if ( (LA13_0=='B'||LA13_0=='b') ) {s = 16;}
+                        else if ( (LA13_0=='b') ) {s = 16;}
 
-                        else if ( (LA13_0=='O'||LA13_0=='o') ) {s = 17;}
+                        else if ( (LA13_0=='o') ) {s = 17;}
 
                         else if ( (LA13_0==':') ) {s = 18;}
 
-                        else if ( (LA13_0=='E') ) {s = 19;}
+                        else if ( (LA13_0=='{') ) {s = 19;}
 
-                        else if ( (LA13_0=='{') ) {s = 20;}
+                        else if ( (LA13_0=='n') ) {s = 20;}
 
-                        else if ( (LA13_0=='n') ) {s = 21;}
+                        else if ( (LA13_0=='-') ) {s = 21;}
 
-                        else if ( (LA13_0=='-') ) {s = 22;}
+                        else if ( (LA13_0==']') ) {s = 22;}
 
-                        else if ( (LA13_0==']') ) {s = 23;}
+                        else if ( (LA13_0==';') ) {s = 23;}
 
-                        else if ( (LA13_0==';') ) {s = 24;}
+                        else if ( (LA13_0==',') ) {s = 24;}
 
-                        else if ( (LA13_0==',') ) {s = 25;}
+                        else if ( (LA13_0=='.') ) {s = 25;}
 
-                        else if ( (LA13_0=='.') ) {s = 26;}
+                        else if ( (LA13_0=='(') ) {s = 26;}
 
-                        else if ( (LA13_0=='(') ) {s = 27;}
+                        else if ( (LA13_0==')') ) {s = 27;}
 
-                        else if ( (LA13_0==')') ) {s = 28;}
+                        else if ( (LA13_0=='[') ) {s = 28;}
 
-                        else if ( (LA13_0=='[') ) {s = 29;}
+                        else if ( (LA13_0=='}') ) {s = 29;}
 
-                        else if ( (LA13_0=='}') ) {s = 30;}
+                        else if ( (LA13_0=='=') ) {s = 30;}
 
-                        else if ( (LA13_0=='=') ) {s = 31;}
+                        else if ( (LA13_0=='+') ) {s = 31;}
 
-                        else if ( (LA13_0=='+') ) {s = 32;}
+                        else if ( (LA13_0=='^') ) {s = 32;}
 
-                        else if ( (LA13_0=='^') ) {s = 33;}
+                        else if ( ((LA13_0>='A' && LA13_0<='Z')||LA13_0=='_'||LA13_0=='h'||(LA13_0>='j' && LA13_0<='l')||LA13_0=='q'||LA13_0=='u'||(LA13_0>='x' && LA13_0<='z')) ) {s = 33;}
 
-                        else if ( (LA13_0=='H'||(LA13_0>='J' && LA13_0<='L')||LA13_0=='N'||LA13_0=='Q'||LA13_0=='U'||(LA13_0>='X' && LA13_0<='Z')||LA13_0=='_'||LA13_0=='h'||(LA13_0>='j' && LA13_0<='l')||LA13_0=='q'||LA13_0=='u'||(LA13_0>='x' && LA13_0<='z')) ) {s = 34;}
+                        else if ( ((LA13_0>='0' && LA13_0<='9')) ) {s = 34;}
 
-                        else if ( ((LA13_0>='0' && LA13_0<='9')) ) {s = 35;}
+                        else if ( (LA13_0=='\"') ) {s = 35;}
 
-                        else if ( (LA13_0=='\"') ) {s = 36;}
+                        else if ( (LA13_0=='\'') ) {s = 36;}
 
-                        else if ( (LA13_0=='\'') ) {s = 37;}
+                        else if ( (LA13_0=='/') ) {s = 37;}
 
-                        else if ( (LA13_0=='/') ) {s = 38;}
+                        else if ( ((LA13_0>='\t' && LA13_0<='\n')||LA13_0=='\r'||LA13_0==' ') ) {s = 38;}
 
-                        else if ( ((LA13_0>='\t' && LA13_0<='\n')||LA13_0=='\r'||LA13_0==' ') ) {s = 39;}
-
-                        else if ( ((LA13_0>='\u0000' && LA13_0<='\b')||(LA13_0>='\u000B' && LA13_0<='\f')||(LA13_0>='\u000E' && LA13_0<='\u001F')||LA13_0=='!'||(LA13_0>='#' && LA13_0<='&')||LA13_0=='*'||(LA13_0>='>' && LA13_0<='@')||LA13_0=='\\'||LA13_0=='`'||LA13_0=='|'||(LA13_0>='~' && LA13_0<='\uFFFF')) ) {s = 40;}
+                        else if ( ((LA13_0>='\u0000' && LA13_0<='\b')||(LA13_0>='\u000B' && LA13_0<='\f')||(LA13_0>='\u000E' && LA13_0<='\u001F')||LA13_0=='!'||(LA13_0>='#' && LA13_0<='&')||LA13_0=='*'||(LA13_0>='>' && LA13_0<='@')||LA13_0=='\\'||LA13_0=='`'||LA13_0=='|'||(LA13_0>='~' && LA13_0<='\uFFFF')) ) {s = 39;}
 
                         if ( s>=0 ) return s;
                         break;
