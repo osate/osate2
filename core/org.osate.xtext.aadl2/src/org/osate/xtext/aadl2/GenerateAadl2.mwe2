@@ -83,10 +83,10 @@ Workflow {
 
 			// scoping and exporting API 
 
-//			 fragment = scoping.ImportNamespacesScopingFragment {
-//		        ignoreCase = true
-//    			}
-//			 fragment = exporting.QualifiedNamesFragment {}
+			 fragment = scoping.ImportNamespacesScopingFragment {
+		        ignoreCase = true
+    			}
+			 fragment = exporting.QualifiedNamesFragment {}
 
 
 			fragment = builder.BuilderIntegrationFragment {}

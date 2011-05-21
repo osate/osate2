@@ -63,14 +63,14 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getContainmentPathElementAccess().getAlternatives(), "rule__ContainmentPathElement__Alternatives");
 					put(grammarAccess.getPlusMinusAccess().getAlternatives(), "rule__PlusMinus__Alternatives");
 					put(grammarAccess.getIntegerRangeAccess().getLowerBoundAlternatives_0_0(), "rule__IntegerRange__LowerBoundAlternatives_0_0");
-					put(grammarAccess.getIntegerRangeAccess().getUpperBoundAlternatives_2_0(), "rule__IntegerRange__UpperBoundAlternatives_2_0");
+					put(grammarAccess.getIntegerRangeAccess().getUpperBoundAlternatives_3_0(), "rule__IntegerRange__UpperBoundAlternatives_3_0");
 					put(grammarAccess.getRealRangeAccess().getLowerBoundAlternatives_0_0(), "rule__RealRange__LowerBoundAlternatives_0_0");
-					put(grammarAccess.getRealRangeAccess().getUpperBoundAlternatives_2_0(), "rule__RealRange__UpperBoundAlternatives_2_0");
+					put(grammarAccess.getRealRangeAccess().getUpperBoundAlternatives_3_0(), "rule__RealRange__UpperBoundAlternatives_3_0");
 					put(grammarAccess.getSignedIntAccess().getAlternatives_0(), "rule__SignedInt__Alternatives_0");
 					put(grammarAccess.getSignedRealAccess().getAlternatives_0(), "rule__SignedReal__Alternatives_0");
 					put(grammarAccess.getNumericRangeTermAccess().getMinimumAlternatives_0_0(), "rule__NumericRangeTerm__MinimumAlternatives_0_0");
-					put(grammarAccess.getNumericRangeTermAccess().getMaximumAlternatives_2_0(), "rule__NumericRangeTerm__MaximumAlternatives_2_0");
-					put(grammarAccess.getNumericRangeTermAccess().getDeltaAlternatives_3_1_0(), "rule__NumericRangeTerm__DeltaAlternatives_3_1_0");
+					put(grammarAccess.getNumericRangeTermAccess().getMaximumAlternatives_3_0(), "rule__NumericRangeTerm__MaximumAlternatives_3_0");
+					put(grammarAccess.getNumericRangeTermAccess().getDeltaAlternatives_4_1_0(), "rule__NumericRangeTerm__DeltaAlternatives_4_1_0");
 					put(grammarAccess.getOperationKindAccess().getAlternatives(), "rule__OperationKind__Alternatives");
 					put(grammarAccess.getPropertySetAccess().getGroup(), "rule__PropertySet__Group__0");
 					put(grammarAccess.getPropertySetAccess().getGroup_4(), "rule__PropertySet__Group_4__0");
@@ -100,8 +100,8 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRangeTypeAccess().getGroup(), "rule__RangeType__Group__0");
 					put(grammarAccess.getUnnamedRangeTypeAccess().getGroup(), "rule__UnnamedRangeType__Group__0");
 					put(grammarAccess.getClassifierTypeAccess().getGroup(), "rule__ClassifierType__Group__0");
-					put(grammarAccess.getClassifierTypeAccess().getGroup_5(), "rule__ClassifierType__Group_5__0");
-					put(grammarAccess.getClassifierTypeAccess().getGroup_5_1(), "rule__ClassifierType__Group_5_1__0");
+					put(grammarAccess.getClassifierTypeAccess().getGroup_4(), "rule__ClassifierType__Group_4__0");
+					put(grammarAccess.getClassifierTypeAccess().getGroup_4_1(), "rule__ClassifierType__Group_4_1__0");
 					put(grammarAccess.getUnnamedClassifierTypeAccess().getGroup(), "rule__UnnamedClassifierType__Group__0");
 					put(grammarAccess.getUnnamedClassifierTypeAccess().getGroup_2(), "rule__UnnamedClassifierType__Group_2__0");
 					put(grammarAccess.getUnnamedClassifierTypeAccess().getGroup_2_1(), "rule__UnnamedClassifierType__Group_2_1__0");
@@ -159,7 +159,7 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRealTermAccess().getGroup(), "rule__RealTerm__Group__0");
 					put(grammarAccess.getSignedRealAccess().getGroup(), "rule__SignedReal__Group__0");
 					put(grammarAccess.getNumericRangeTermAccess().getGroup(), "rule__NumericRangeTerm__Group__0");
-					put(grammarAccess.getNumericRangeTermAccess().getGroup_3(), "rule__NumericRangeTerm__Group_3__0");
+					put(grammarAccess.getNumericRangeTermAccess().getGroup_4(), "rule__NumericRangeTerm__Group_4__0");
 					put(grammarAccess.getREALAccess().getGroup(), "rule__REAL__Group__0");
 					put(grammarAccess.getQNAMEAccess().getGroup(), "rule__QNAME__Group__0");
 					put(grammarAccess.getPNAMEAccess().getGroup(), "rule__PNAME__Group__0");
@@ -215,8 +215,8 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUnnamedRangeTypeAccess().getOwnedNumberTypeAssignment_3_0(), "rule__UnnamedRangeType__OwnedNumberTypeAssignment_3_0");
 					put(grammarAccess.getUnnamedRangeTypeAccess().getNumberTypeAssignment_3_1(), "rule__UnnamedRangeType__NumberTypeAssignment_3_1");
 					put(grammarAccess.getClassifierTypeAccess().getNameAssignment_0(), "rule__ClassifierType__NameAssignment_0");
-					put(grammarAccess.getClassifierTypeAccess().getClassifierReferenceAssignment_5_0(), "rule__ClassifierType__ClassifierReferenceAssignment_5_0");
-					put(grammarAccess.getClassifierTypeAccess().getClassifierReferenceAssignment_5_1_1(), "rule__ClassifierType__ClassifierReferenceAssignment_5_1_1");
+					put(grammarAccess.getClassifierTypeAccess().getClassifierReferenceAssignment_4_0(), "rule__ClassifierType__ClassifierReferenceAssignment_4_0");
+					put(grammarAccess.getClassifierTypeAccess().getClassifierReferenceAssignment_4_1_1(), "rule__ClassifierType__ClassifierReferenceAssignment_4_1_1");
 					put(grammarAccess.getUnnamedClassifierTypeAccess().getClassifierReferenceAssignment_2_0(), "rule__UnnamedClassifierType__ClassifierReferenceAssignment_2_0");
 					put(grammarAccess.getUnnamedClassifierTypeAccess().getClassifierReferenceAssignment_2_1_1(), "rule__UnnamedClassifierType__ClassifierReferenceAssignment_2_1_1");
 					put(grammarAccess.getQCReferenceAccess().getAnnexNameAssignment_0_1(), "rule__QCReference__AnnexNameAssignment_0_1");
@@ -281,11 +281,11 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getContainmentPathElementAccess().getNamedElementAssignment_1_1(), "rule__ContainmentPathElement__NamedElementAssignment_1_1");
 					put(grammarAccess.getStringTermAccess().getValueAssignment(), "rule__StringTerm__ValueAssignment");
 					put(grammarAccess.getArrayRangeAccess().getLowerBoundAssignment_2(), "rule__ArrayRange__LowerBoundAssignment_2");
-					put(grammarAccess.getArrayRangeAccess().getUpperBoundAssignment_3_1(), "rule__ArrayRange__UpperBoundAssignment_3_1");
+					put(grammarAccess.getArrayRangeAccess().getUpperBoundAssignment_3_2(), "rule__ArrayRange__UpperBoundAssignment_3_2");
 					put(grammarAccess.getIntegerRangeAccess().getLowerBoundAssignment_0(), "rule__IntegerRange__LowerBoundAssignment_0");
-					put(grammarAccess.getIntegerRangeAccess().getUpperBoundAssignment_2(), "rule__IntegerRange__UpperBoundAssignment_2");
+					put(grammarAccess.getIntegerRangeAccess().getUpperBoundAssignment_3(), "rule__IntegerRange__UpperBoundAssignment_3");
 					put(grammarAccess.getRealRangeAccess().getLowerBoundAssignment_0(), "rule__RealRange__LowerBoundAssignment_0");
-					put(grammarAccess.getRealRangeAccess().getUpperBoundAssignment_2(), "rule__RealRange__UpperBoundAssignment_2");
+					put(grammarAccess.getRealRangeAccess().getUpperBoundAssignment_3(), "rule__RealRange__UpperBoundAssignment_3");
 					put(grammarAccess.getSignedConstantAccess().getOpAssignment_0(), "rule__SignedConstant__OpAssignment_0");
 					put(grammarAccess.getSignedConstantAccess().getOwnedPropertyExpressionAssignment_1(), "rule__SignedConstant__OwnedPropertyExpressionAssignment_1");
 					put(grammarAccess.getIntegerTermAccess().getValueAssignment_0(), "rule__IntegerTerm__ValueAssignment_0");
@@ -293,8 +293,8 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRealTermAccess().getValueAssignment_0(), "rule__RealTerm__ValueAssignment_0");
 					put(grammarAccess.getRealTermAccess().getUnitAssignment_1(), "rule__RealTerm__UnitAssignment_1");
 					put(grammarAccess.getNumericRangeTermAccess().getMinimumAssignment_0(), "rule__NumericRangeTerm__MinimumAssignment_0");
-					put(grammarAccess.getNumericRangeTermAccess().getMaximumAssignment_2(), "rule__NumericRangeTerm__MaximumAssignment_2");
-					put(grammarAccess.getNumericRangeTermAccess().getDeltaAssignment_3_1(), "rule__NumericRangeTerm__DeltaAssignment_3_1");
+					put(grammarAccess.getNumericRangeTermAccess().getMaximumAssignment_3(), "rule__NumericRangeTerm__MaximumAssignment_3");
+					put(grammarAccess.getNumericRangeTermAccess().getDeltaAssignment_4_1(), "rule__NumericRangeTerm__DeltaAssignment_4_1");
 				}
 			};
 		}
