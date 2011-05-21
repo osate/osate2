@@ -18,5 +18,9 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
 	  return Aadl2ValueConverter.class;
 	}
+//	@Override
+//	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
+//		return org.osate.xtext.aadl2.naming.MyQualifiedNameProvider.class;
+//	}
 
 }
