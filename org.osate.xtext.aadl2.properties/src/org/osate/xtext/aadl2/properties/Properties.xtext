@@ -229,7 +229,7 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	 ('(' ID '=>') => RecordTerm |NumericRangeTerm
+	  RecordTerm |NumericRangeTerm
 	| ReferenceTerm | ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
 	 | ComponentClassifierTerm 	| BooleanTerm
@@ -237,7 +237,7 @@ PropertyExpression returns aadl2::PropertyExpression:
 	;
 
 ConstantPropertyExpression returns aadl2::PropertyExpression:
-	 ('(' ID '=>') => RecordTerm |NumericRangeTerm
+	 RecordTerm |NumericRangeTerm
 	| ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
 	 | ComponentClassifierTerm 	| BooleanTerm
@@ -354,18 +354,18 @@ NoQuoteString :
 
 
 ArrayRange returns aadl2::ArrayRange: {aadl2::ArrayRange}
-	'[' lowerBound=gINT ('.''.' upperBound=gINT)? 
+	'[' lowerBound=gINT ('..' upperBound=gINT)? 
 	']'
 ;
 
 IntegerRange returns aadl2::NumericRange:
 	lowerBound=(IntegerTerm | SignedConstant | ConstantValue )
-	'.''.' upperBound=(IntegerTerm | SignedConstant | ConstantValue )
+	'..' upperBound=(IntegerTerm | SignedConstant | ConstantValue )
 	;
 
 RealRange returns aadl2::NumericRange:
 	lowerBound=(RealTerm | SignedConstant | ConstantValue )
-	'.''.' upperBound=(RealTerm | SignedConstant | ConstantValue )
+	'..' upperBound=(RealTerm | SignedConstant | ConstantValue )
 	;
 
 SignedConstant returns aadl2::Operation:
@@ -397,7 +397,7 @@ SignedReal returns aadl2::Real:
 
 NumericRangeTerm returns aadl2::RangeValue:
 	minimum=(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-		'.''.' maximum=(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		'..' maximum=(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
 	('delta' delta=(RealTerm|IntegerTerm| SignedConstant | ConstantValue))?
 	;
 
