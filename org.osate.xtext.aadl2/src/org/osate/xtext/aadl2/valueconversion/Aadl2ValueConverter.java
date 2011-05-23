@@ -81,6 +81,19 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
             }
         };
     }
+    @ValueConverter(rule = "DirectionType")
+    public IValueConverter<DirectionType> DirectionType() {
+        return new IValueConverter<DirectionType>() {
+            public DirectionType toValue(String string, INode node) {
+            	
+				return DirectionType.get(string);
+			}
+
+            public String toString(DirectionType value) {
+                return value.getName();
+            }
+        };
+    }
     @ValueConverter(rule = "InOutDirection")
     public IValueConverter<DirectionType> InOutDirection() {
         return new IValueConverter<DirectionType>() {
