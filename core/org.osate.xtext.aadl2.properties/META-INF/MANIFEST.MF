@@ -25,6 +25,7 @@ Import-Package: org.apache.log4j,
  org.eclipse.xtext.xtend2.lib
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.osate.xtext.aadl2.properties,
+ org.osate.xtext.aadl2.properties.linking,
  org.osate.xtext.aadl2.properties.parseTreeConstruction,
  org.osate.xtext.aadl2.properties.parser.antlr,
  org.osate.xtext.aadl2.properties.parser.antlr.internal,
