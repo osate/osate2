@@ -39,8 +39,11 @@ PublicPackageSection returns aadl2::PublicPackageSection:
 	ownedSubprogramType+=SubprogramType| ownedSubprogramImplementation+=SubprogramImplementation|
 	ownedSubprogramGroupType+=SubprogramGroupType| ownedSubprogramGroupImplementation+=SubprogramGroupImplementation|
 	ownedAbstractType+=AbstractType| ownedAbstractImplementation+=AbstractImplementation|
-	    ownedDataType+=DataType | ownedDataImplementation+=DataImplementation)*;
+	    ownedDataType+=DataType | ownedDataImplementation+=DataImplementation
+//    | ownedAnnexLibrary+=AnnexLibrary
+	    )*
 	// currently derived: (ownedClassifier+=Classifier | ownedAnnexLibrary+=AnnexLibrary)*;
+	;
 
 
 PrivatePackageSection returns aadl2::PrivatePackageSection:
@@ -129,7 +132,7 @@ AbstractType returns aadl2::AbstractType:
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | (noModes?='none' ';'))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -143,19 +146,24 @@ SystemType returns aadl2::SystemType:
 	(ownedExtension=TypeExtension
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'prototypes' ((noPrototypes?='none' ';') |
-	(ownedPrototype+=Prototype)+))?
-	(=> 'features' ((noFeatures?='none' ';') |
-	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
-		| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess
-	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
-	| ownedAbstractFeature+=AbstractFeature
-	)+ ) )?
+	(=> 'prototypes' 
+		(  (ownedPrototype+=Prototype)+
+		|(noPrototypes?='none' ';')
+	))?
+	(=> 'features' ( 
+			(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
+				| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess
+			| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+			| ownedAbstractFeature+=AbstractFeature
+			)+
+			| (noFeatures?='none' ';')
+ 	) )?
 	(=> 'flows'
-	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')
+	))?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | (noModes?='none' ';'))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -181,7 +189,7 @@ ProcessType returns aadl2::ProcessType:
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | (noModes?='none' ';'))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -207,7 +215,7 @@ ThreadGroupType returns aadl2::ThreadGroupType:
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | (noModes?='none' ';'))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -232,7 +240,7 @@ ThreadType returns aadl2::ThreadType:
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | (noModes?='none' ';'))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -257,7 +265,7 @@ SubprogramType returns aadl2::SubprogramType:
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | (noModes?='none' ';'))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -303,7 +311,7 @@ ProcessorType returns aadl2::ProcessorType:
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | (noModes?='none' ';'))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -326,7 +334,7 @@ DeviceType returns aadl2::DeviceType:
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | (noModes?='none' ';'))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -346,7 +354,7 @@ MemoryType returns aadl2::MemoryType:
 	)+ ) )?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | (noModes?='none' ';'))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -366,7 +374,7 @@ BusType returns aadl2::BusType:
 	)+ ) )?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | (noModes?='none' ';'))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -381,7 +389,7 @@ VirtualBusType returns aadl2::VirtualBusType:
 	)?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | (noModes?='none' ';'))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -405,7 +413,7 @@ VirtualProcessorType returns aadl2::VirtualProcessorType:
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
 //	(=> requiresModes?='requires' 'modes'
 //	((ownedMode+=Mode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+) | (noModes?='none' ';'))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -903,8 +911,8 @@ FeatureGroupPrototype returns aadl2::FeatureGroupPrototype:
 FeaturePrototype returns aadl2::FeaturePrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::FeaturePrototype|ID] ':' 'refined' 'to'))
+	(direction=InOutDirection)?  // only in or out not inout
 	'feature'
-		(direction=InOutDirection)?  // only in or out not inout
 	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
 	;
 
@@ -1218,27 +1226,36 @@ PropertyReference returns aadl2::PropertyReference:
 
 // needs to have classifier or prototype reference
 DataPort returns aadl2::DataPort:
+	{aadl2::DataPort}
 	((name=ID ':' )|
 	(refined=[aadl2::DataPort|ID] ':' 'refined' 'to'))
-	direction=PortDirection 'data' 'port' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
+	direction=PortDirection 
+	'data' 'port' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
 	(arraySpecification=SingleArraySpecification)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
+	';' 
 	;
 
 EventDataPort returns aadl2::EventDataPort:
+	{aadl2::EventDataPort}
 	((name=ID ':' )|
 	(refined=[aadl2::EventDataPort|ID] ':' 'refined' 'to'))
-	direction=PortDirection 'event' 'data' 'port' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
+	direction=PortDirection 
+	'event' 'data' 'port' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
 	(arraySpecification=SingleArraySpecification)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
+	';' 
 	;
 
 EventPort returns aadl2::EventPort:
+	{aadl2::EventPort}
 	((name=ID ':' )|
 	(refined=[aadl2::EventPort|ID] ':' 'refined' 'to'))
-	direction=PortDirection 'event' 'port' 
+	direction=PortDirection 
+	'event' 'port' 
 	(arraySpecification=SingleArraySpecification)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
+	';' 
 	;
 
 FeatureGroup returns aadl2::FeatureGroup:
@@ -1304,6 +1321,7 @@ AbstractFeature returns aadl2::AbstractFeature:
 
 
 PortDirection returns aadl2::DirectionType: 'in' | 'out' |  'in' 'out';
+//enum DirectionType returns aadl2::DirectionType: in | out | inOut = 'in out';
 InOutDirection returns aadl2::DirectionType: 'in' | 'out' ;
 AccessDirection returns aadl2::AccessType: 'requires' | 'provides';
 
