@@ -2236,10 +2236,10 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public boolean isSetName() {
-		return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+		return true;
 	}
 
 	/**
