@@ -2183,29 +2183,26 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 */
 	@Override
 	public String getName() {
-		return ((AadlPackage) eContainer()).getName();
+		return ((AadlPackage) getOwner()).getName();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_SECTION__NAME, oldName, name));
+		throw new UnsupportedOperationException("Cannot set name of package secton.");
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public boolean isSetName() {
-		return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+		return true;
 	}
 
 	/**
