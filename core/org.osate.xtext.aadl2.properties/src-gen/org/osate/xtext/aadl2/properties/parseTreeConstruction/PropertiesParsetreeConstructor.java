@@ -67,33 +67,36 @@ protected class ThisRootNode extends RootToken {
 			case 33: return new NumberValue_Alternatives(this, this, 33, inst);
 			case 34: return new RealLit_ValueAssignment(this, this, 34, inst);
 			case 35: return new IntegerLit_ValueAssignment(this, this, 35, inst);
-			case 36: return new PropertyAssociation_Group(this, this, 36, inst);
-			case 37: return new ModalPropertyValue_Group(this, this, 37, inst);
-			case 38: return new PropertyValue_OwnedValueAssignment(this, this, 38, inst);
-			case 39: return new PropertyExpression_Alternatives(this, this, 39, inst);
-			case 40: return new ConstantPropertyExpression_Alternatives(this, this, 40, inst);
-			case 41: return new BooleanTerm_OrTermParserRuleCall(this, this, 41, inst);
-			case 42: return new OrTerm_Group(this, this, 42, inst);
-			case 43: return new AndTerm_Group(this, this, 43, inst);
-			case 44: return new NotTerm_Group(this, this, 44, inst);
-			case 45: return new BooleanAtom_Alternatives(this, this, 45, inst);
-			case 46: return new BooleanLiteral_Group(this, this, 46, inst);
-			case 47: return new ConstantValue_ConstantAssignment(this, this, 47, inst);
-			case 48: return new ReferenceTerm_Group(this, this, 48, inst);
-			case 49: return new RecordTerm_Group(this, this, 49, inst);
-			case 50: return new ComputedTerm_Group(this, this, 50, inst);
-			case 51: return new ComponentClassifierTerm_Group(this, this, 51, inst);
-			case 52: return new ListTerm_Group(this, this, 52, inst);
-			case 53: return new BasicPropertyAssociation_Group(this, this, 53, inst);
-			case 54: return new ContainmentPathElement_Alternatives(this, this, 54, inst);
-			case 55: return new StringTerm_ValueAssignment(this, this, 55, inst);
-			case 56: return new ArrayRange_Group(this, this, 56, inst);
-			case 57: return new IntegerRange_Group(this, this, 57, inst);
-			case 58: return new RealRange_Group(this, this, 58, inst);
-			case 59: return new SignedConstant_Group(this, this, 59, inst);
-			case 60: return new IntegerTerm_Group(this, this, 60, inst);
-			case 61: return new RealTerm_Group(this, this, 61, inst);
-			case 62: return new NumericRangeTerm_Group(this, this, 62, inst);
+			case 36: return new BasicPropertyAssociation_Group(this, this, 36, inst);
+			case 37: return new ContainedPropertyAssociation_Group(this, this, 37, inst);
+			case 38: return new PropertyAssociation_Group(this, this, 38, inst);
+			case 39: return new ContainmentPath_Group(this, this, 39, inst);
+			case 40: return new ModalPropertyValue_Group(this, this, 40, inst);
+			case 41: return new PropertyValue_OwnedValueAssignment(this, this, 41, inst);
+			case 42: return new PropertyExpression_Alternatives(this, this, 42, inst);
+			case 43: return new ConstantPropertyExpression_Alternatives(this, this, 43, inst);
+			case 44: return new BooleanTerm_OrTermParserRuleCall(this, this, 44, inst);
+			case 45: return new OrTerm_Group(this, this, 45, inst);
+			case 46: return new AndTerm_Group(this, this, 46, inst);
+			case 47: return new NotTerm_Group(this, this, 47, inst);
+			case 48: return new BooleanAtom_Alternatives(this, this, 48, inst);
+			case 49: return new BooleanLiteral_Group(this, this, 49, inst);
+			case 50: return new ConstantValue_ConstantAssignment(this, this, 50, inst);
+			case 51: return new ReferenceTerm_Group(this, this, 51, inst);
+			case 52: return new RecordTerm_Group(this, this, 52, inst);
+			case 53: return new ComputedTerm_Group(this, this, 53, inst);
+			case 54: return new ComponentClassifierTerm_Group(this, this, 54, inst);
+			case 55: return new ListTerm_Group(this, this, 55, inst);
+			case 56: return new FieldPropertyAssociation_Group(this, this, 56, inst);
+			case 57: return new ContainmentPathElement_Alternatives(this, this, 57, inst);
+			case 58: return new StringTerm_ValueAssignment(this, this, 58, inst);
+			case 59: return new ArrayRange_Group(this, this, 59, inst);
+			case 60: return new IntegerRange_Group(this, this, 60, inst);
+			case 61: return new RealRange_Group(this, this, 61, inst);
+			case 62: return new SignedConstant_Group(this, this, 62, inst);
+			case 63: return new IntegerTerm_Group(this, this, 63, inst);
+			case 64: return new RealTerm_Group(this, this, 64, inst);
+			case 65: return new NumericRangeTerm_Group(this, this, 65, inst);
 			default: return null;
 		}	
 	}	
@@ -8527,6 +8530,882 @@ protected class IntegerLit_ValueAssignment extends AssignmentToken  {
 /************ end Rule IntegerLit ****************/
 
 
+/************ begin Rule BasicPropertyAssociation ****************
+ *
+ * BasicPropertyAssociation returns aadl2::PropertyAssociation:
+ * 	property= // name=QPREF
+ * 	[aadl2::Property|QPREF] "=>" ownedValue+=PropertyValue ";";
+ *
+ **/
+
+// property= // name=QPREF
+// [aadl2::Property|QPREF] "=>" ownedValue+=PropertyValue ";"
+protected class BasicPropertyAssociation_Group extends GroupToken {
+	
+	public BasicPropertyAssociation_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getBasicPropertyAssociationAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new BasicPropertyAssociation_SemicolonKeyword_3(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getBasicPropertyAssociationRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// property= // name=QPREF
+// [aadl2::Property|QPREF]
+protected class BasicPropertyAssociation_PropertyAssignment_0 extends AssignmentToken  {
+	
+	public BasicPropertyAssociation_PropertyAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getBasicPropertyAssociationAccess().getPropertyAssignment_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("property",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("property");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getBasicPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getBasicPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// "=>"
+protected class BasicPropertyAssociation_EqualsSignGreaterThanSignKeyword_1 extends KeywordToken  {
+	
+	public BasicPropertyAssociation_EqualsSignGreaterThanSignKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getBasicPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new BasicPropertyAssociation_PropertyAssignment_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ownedValue+=PropertyValue
+protected class BasicPropertyAssociation_OwnedValueAssignment_2 extends AssignmentToken  {
+	
+	public BasicPropertyAssociation_OwnedValueAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getBasicPropertyAssociationAccess().getOwnedValueAssignment_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new PropertyValue_OwnedValueAssignment(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedValue",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedValue");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getPropertyValueRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getBasicPropertyAssociationAccess().getOwnedValuePropertyValueParserRuleCall_2_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new BasicPropertyAssociation_EqualsSignGreaterThanSignKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ";"
+protected class BasicPropertyAssociation_SemicolonKeyword_3 extends KeywordToken  {
+	
+	public BasicPropertyAssociation_SemicolonKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getBasicPropertyAssociationAccess().getSemicolonKeyword_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new BasicPropertyAssociation_OwnedValueAssignment_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+/************ end Rule BasicPropertyAssociation ****************/
+
+
+/************ begin Rule ContainedPropertyAssociation ****************
+ *
+ * ContainedPropertyAssociation returns aadl2::PropertyAssociation: // &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
+ * 	property= // name=QPREF
+ * 	[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=PropertyValue | "("
+ * 	ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=PropertyValue)? ")") ("applies"
+ * 	"to" appliesTo+=ContainmentPath)? ";";
+ *
+ **/
+
+// // &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
+// property= // name=QPREF
+// [aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=PropertyValue | "("
+// ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=PropertyValue)? ")") ("applies"
+// "to" appliesTo+=ContainmentPath)? ";"
+protected class ContainedPropertyAssociation_Group extends GroupToken {
+	
+	public ContainedPropertyAssociation_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_SemicolonKeyword_5(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getContainedPropertyAssociationRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// // &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
+// property= // name=QPREF
+// [aadl2::Property|QPREF]
+protected class ContainedPropertyAssociation_PropertyAssignment_0 extends AssignmentToken  {
+	
+	public ContainedPropertyAssociation_PropertyAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getPropertyAssignment_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("property",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("property");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getContainedPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getContainedPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// "=>" | append?="+=>"
+protected class ContainedPropertyAssociation_Alternatives_1 extends AlternativesToken {
+
+	public ContainedPropertyAssociation_Alternatives_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getAlternatives_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_EqualsSignGreaterThanSignKeyword_1_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ContainedPropertyAssociation_AppendAssignment_1_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "=>"
+protected class ContainedPropertyAssociation_EqualsSignGreaterThanSignKeyword_1_0 extends KeywordToken  {
+	
+	public ContainedPropertyAssociation_EqualsSignGreaterThanSignKeyword_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_PropertyAssignment_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// append?="+=>"
+protected class ContainedPropertyAssociation_AppendAssignment_1_1 extends AssignmentToken  {
+	
+	public ContainedPropertyAssociation_AppendAssignment_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getAppendAssignment_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_PropertyAssignment_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("append",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("append");
+		if(Boolean.TRUE.equals(value)) { // org::eclipse::xtext::impl::KeywordImpl
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getContainedPropertyAssociationAccess().getAppendPlusSignEqualsSignGreaterThanSignKeyword_1_1_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+
+// constant?="constant"?
+protected class ContainedPropertyAssociation_ConstantAssignment_2 extends AssignmentToken  {
+	
+	public ContainedPropertyAssociation_ConstantAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getConstantAssignment_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_Alternatives_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("constant",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("constant");
+		if(Boolean.TRUE.equals(value)) { // org::eclipse::xtext::impl::KeywordImpl
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getContainedPropertyAssociationAccess().getConstantConstantKeyword_2_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// ownedValue+=PropertyValue | "(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* (","
+// ownedValue+=PropertyValue)? ")"
+protected class ContainedPropertyAssociation_Alternatives_3 extends AlternativesToken {
+
+	public ContainedPropertyAssociation_Alternatives_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getAlternatives_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_OwnedValueAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ContainedPropertyAssociation_Group_3_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ownedValue+=PropertyValue
+protected class ContainedPropertyAssociation_OwnedValueAssignment_3_0 extends AssignmentToken  {
+	
+	public ContainedPropertyAssociation_OwnedValueAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueAssignment_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new PropertyValue_OwnedValueAssignment(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedValue",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedValue");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getPropertyValueRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getContainedPropertyAssociationAccess().getOwnedValuePropertyValueParserRuleCall_3_0_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_ConstantAssignment_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new ContainedPropertyAssociation_Alternatives_1(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// "(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=PropertyValue)? ")"
+protected class ContainedPropertyAssociation_Group_3_1 extends GroupToken {
+	
+	public ContainedPropertyAssociation_Group_3_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getGroup_3_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_RightParenthesisKeyword_3_1_4(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "("
+protected class ContainedPropertyAssociation_LeftParenthesisKeyword_3_1_0 extends KeywordToken  {
+	
+	public ContainedPropertyAssociation_LeftParenthesisKeyword_3_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getLeftParenthesisKeyword_3_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_ConstantAssignment_2(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ContainedPropertyAssociation_Alternatives_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ownedValue+=ModalPropertyValue
+protected class ContainedPropertyAssociation_OwnedValueAssignment_3_1_1 extends AssignmentToken  {
+	
+	public ContainedPropertyAssociation_OwnedValueAssignment_3_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueAssignment_3_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ModalPropertyValue_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedValue",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedValue");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getModalPropertyValueRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueModalPropertyValueParserRuleCall_3_1_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_LeftParenthesisKeyword_3_1_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ("," ownedValue+=ModalPropertyValue)*
+protected class ContainedPropertyAssociation_Group_3_1_2 extends GroupToken {
+	
+	public ContainedPropertyAssociation_Group_3_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getGroup_3_1_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_OwnedValueAssignment_3_1_2_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class ContainedPropertyAssociation_CommaKeyword_3_1_2_0 extends KeywordToken  {
+	
+	public ContainedPropertyAssociation_CommaKeyword_3_1_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getCommaKeyword_3_1_2_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_Group_3_1_2(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ContainedPropertyAssociation_OwnedValueAssignment_3_1_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ownedValue+=ModalPropertyValue
+protected class ContainedPropertyAssociation_OwnedValueAssignment_3_1_2_1 extends AssignmentToken  {
+	
+	public ContainedPropertyAssociation_OwnedValueAssignment_3_1_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueAssignment_3_1_2_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ModalPropertyValue_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedValue",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedValue");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getModalPropertyValueRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueModalPropertyValueParserRuleCall_3_1_2_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_CommaKeyword_3_1_2_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+
+// ("," ownedValue+=PropertyValue)?
+protected class ContainedPropertyAssociation_Group_3_1_3 extends GroupToken {
+	
+	public ContainedPropertyAssociation_Group_3_1_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getGroup_3_1_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_OwnedValueAssignment_3_1_3_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class ContainedPropertyAssociation_CommaKeyword_3_1_3_0 extends KeywordToken  {
+	
+	public ContainedPropertyAssociation_CommaKeyword_3_1_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getCommaKeyword_3_1_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_Group_3_1_2(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ContainedPropertyAssociation_OwnedValueAssignment_3_1_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ownedValue+=PropertyValue
+protected class ContainedPropertyAssociation_OwnedValueAssignment_3_1_3_1 extends AssignmentToken  {
+	
+	public ContainedPropertyAssociation_OwnedValueAssignment_3_1_3_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueAssignment_3_1_3_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new PropertyValue_OwnedValueAssignment(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedValue",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedValue");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getPropertyValueRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getContainedPropertyAssociationAccess().getOwnedValuePropertyValueParserRuleCall_3_1_3_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_CommaKeyword_3_1_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+
+// ")"
+protected class ContainedPropertyAssociation_RightParenthesisKeyword_3_1_4 extends KeywordToken  {
+	
+	public ContainedPropertyAssociation_RightParenthesisKeyword_3_1_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getRightParenthesisKeyword_3_1_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_Group_3_1_3(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ContainedPropertyAssociation_Group_3_1_2(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new ContainedPropertyAssociation_OwnedValueAssignment_3_1_1(lastRuleCallOrigin, this, 2, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+
+// (=> "applies" "to" appliesTo+=ContainmentPath)?
+protected class ContainedPropertyAssociation_Group_4 extends GroupToken {
+	
+	public ContainedPropertyAssociation_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getGroup_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_AppliesToAssignment_4_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// => "applies"
+protected class ContainedPropertyAssociation_AppliesKeyword_4_0 extends KeywordToken  {
+	
+	public ContainedPropertyAssociation_AppliesKeyword_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getAppliesKeyword_4_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_Alternatives_3(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "to"
+protected class ContainedPropertyAssociation_ToKeyword_4_1 extends KeywordToken  {
+	
+	public ContainedPropertyAssociation_ToKeyword_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getToKeyword_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_AppliesKeyword_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// appliesTo+=ContainmentPath
+protected class ContainedPropertyAssociation_AppliesToAssignment_4_2 extends AssignmentToken  {
+	
+	public ContainedPropertyAssociation_AppliesToAssignment_4_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getAppliesToAssignment_4_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainmentPath_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("appliesTo",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("appliesTo");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getContainmentPathRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getContainedPropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_4_2_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_ToKeyword_4_1(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+
+// ";"
+protected class ContainedPropertyAssociation_SemicolonKeyword_5 extends KeywordToken  {
+	
+	public ContainedPropertyAssociation_SemicolonKeyword_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getSemicolonKeyword_5();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_Group_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ContainedPropertyAssociation_Alternatives_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+/************ end Rule ContainedPropertyAssociation ****************/
+
+
 /************ begin Rule PropertyAssociation ****************
  *
  * PropertyAssociation returns aadl2::PropertyAssociation: // &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
@@ -9116,6 +9995,213 @@ protected class PropertyAssociation_SemicolonKeyword_4 extends KeywordToken  {
 
 
 /************ end Rule PropertyAssociation ****************/
+
+
+/************ begin Rule ContainmentPath ****************
+ *
+ * ContainmentPath returns aadl2::ContainedNamedElement:
+ * 	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement (","
+ * 	containmentPathElement+=ContainmentPathElement)*;
+ *
+ **/
+
+// {aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement (","
+// containmentPathElement+=ContainmentPathElement)*
+protected class ContainmentPath_Group extends GroupToken {
+	
+	public ContainmentPath_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getContainmentPathAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainmentPath_Group_2(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ContainmentPath_ContainmentPathElementAssignment_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getContainmentPathAccess().getContainedNamedElementAction_0().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// {aadl2::ContainedNamedElement}
+protected class ContainmentPath_ContainedNamedElementAction_0 extends ActionToken  {
+
+	public ContainmentPath_ContainedNamedElementAction_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Action getGrammarElement() {
+		return grammarAccess.getContainmentPathAccess().getContainedNamedElementAction_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(!eObjectConsumer.isConsumed()) return null;
+		return eObjectConsumer;
+	}
+}
+
+// containmentPathElement+=ContainmentPathElement
+protected class ContainmentPath_ContainmentPathElementAssignment_1 extends AssignmentToken  {
+	
+	public ContainmentPath_ContainmentPathElementAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainmentPathElement_Alternatives(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("containmentPathElement",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("containmentPathElement");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getContainmentPathElementRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getContainmentPathAccess().getContainmentPathElementContainmentPathElementParserRuleCall_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new ContainmentPath_ContainedNamedElementAction_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ("," containmentPathElement+=ContainmentPathElement)*
+protected class ContainmentPath_Group_2 extends GroupToken {
+	
+	public ContainmentPath_Group_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getContainmentPathAccess().getGroup_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainmentPath_ContainmentPathElementAssignment_2_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class ContainmentPath_CommaKeyword_2_0 extends KeywordToken  {
+	
+	public ContainmentPath_CommaKeyword_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getContainmentPathAccess().getCommaKeyword_2_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainmentPath_Group_2(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ContainmentPath_ContainmentPathElementAssignment_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// containmentPathElement+=ContainmentPathElement
+protected class ContainmentPath_ContainmentPathElementAssignment_2_1 extends AssignmentToken  {
+	
+	public ContainmentPath_ContainmentPathElementAssignment_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_2_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainmentPathElement_Alternatives(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("containmentPathElement",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("containmentPathElement");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getContainmentPathElementRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getContainmentPathAccess().getContainmentPathElementContainmentPathElementParserRuleCall_2_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new ContainmentPath_CommaKeyword_2_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+
+
+/************ end Rule ContainmentPath ****************/
 
 
 /************ begin Rule ModalPropertyValue ****************
@@ -11583,11 +12669,11 @@ protected class ReferenceTerm_RightParenthesisKeyword_4 extends KeywordToken  {
 /************ begin Rule RecordTerm ****************
  *
  * RecordTerm returns aadl2::RecordValue:
- * 	"(" ownedFieldValue+=BasicPropertyAssociation+ ")";
+ * 	"(" ownedFieldValue+=FieldPropertyAssociation+ ")";
  *
  **/
 
-// "(" ownedFieldValue+=BasicPropertyAssociation+ ")"
+// "(" ownedFieldValue+=FieldPropertyAssociation+ ")"
 protected class RecordTerm_Group extends GroupToken {
 	
 	public RecordTerm_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -11637,7 +12723,7 @@ protected class RecordTerm_LeftParenthesisKeyword_0 extends KeywordToken  {
 
 }
 
-// ownedFieldValue+=BasicPropertyAssociation+
+// ownedFieldValue+=FieldPropertyAssociation+
 protected class RecordTerm_OwnedFieldValueAssignment_1 extends AssignmentToken  {
 	
 	public RecordTerm_OwnedFieldValueAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -11652,7 +12738,7 @@ protected class RecordTerm_OwnedFieldValueAssignment_1 extends AssignmentToken  
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BasicPropertyAssociation_Group(this, this, 0, inst);
+			case 0: return new FieldPropertyAssociation_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -11663,9 +12749,9 @@ protected class RecordTerm_OwnedFieldValueAssignment_1 extends AssignmentToken  
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedFieldValue");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getBasicPropertyAssociationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFieldPropertyAssociationRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getRecordTermAccess().getOwnedFieldValueBasicPropertyAssociationParserRuleCall_1_0(); 
+				element = grammarAccess.getRecordTermAccess().getOwnedFieldValueFieldPropertyAssociationParserRuleCall_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -12213,9 +13299,9 @@ protected class ListTerm_RightSquareBracketKeyword_3 extends KeywordToken  {
 /************ end Rule ListTerm ****************/
 
 
-/************ begin Rule BasicPropertyAssociation ****************
+/************ begin Rule FieldPropertyAssociation ****************
  *
- * BasicPropertyAssociation returns aadl2::BasicPropertyAssociation:
+ * FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:
  * 	property= // name=QPREF
  * 	[aadl2::RecordField] "=>" ownedValue=PropertyExpression ";";
  *
@@ -12223,28 +13309,28 @@ protected class ListTerm_RightSquareBracketKeyword_3 extends KeywordToken  {
 
 // property= // name=QPREF
 // [aadl2::RecordField] "=>" ownedValue=PropertyExpression ";"
-protected class BasicPropertyAssociation_Group extends GroupToken {
+protected class FieldPropertyAssociation_Group extends GroupToken {
 	
-	public BasicPropertyAssociation_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FieldPropertyAssociation_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Group getGrammarElement() {
-		return grammarAccess.getBasicPropertyAssociationAccess().getGroup();
+		return grammarAccess.getFieldPropertyAssociationAccess().getGroup();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BasicPropertyAssociation_SemicolonKeyword_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FieldPropertyAssociation_SemicolonKeyword_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getBasicPropertyAssociationRule().getType().getClassifier())
+		if(getEObject().eClass() != grammarAccess.getFieldPropertyAssociationRule().getType().getClassifier())
 			return null;
 		return eObjectConsumer;
 	}
@@ -12253,15 +13339,15 @@ protected class BasicPropertyAssociation_Group extends GroupToken {
 
 // property= // name=QPREF
 // [aadl2::RecordField]
-protected class BasicPropertyAssociation_PropertyAssignment_0 extends AssignmentToken  {
+protected class FieldPropertyAssociation_PropertyAssignment_0 extends AssignmentToken  {
 	
-	public BasicPropertyAssociation_PropertyAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FieldPropertyAssociation_PropertyAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getBasicPropertyAssociationAccess().getPropertyAssignment_0();
+		return grammarAccess.getFieldPropertyAssociationAccess().getPropertyAssignment_0();
 	}
 
     @Override
@@ -12277,9 +13363,9 @@ protected class BasicPropertyAssociation_PropertyAssignment_0 extends Assignment
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("property");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getBasicPropertyAssociationAccess().getPropertyRecordFieldCrossReference_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFieldPropertyAssociationAccess().getPropertyRecordFieldCrossReference_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getBasicPropertyAssociationAccess().getPropertyRecordFieldCrossReference_0_0(); 
+				element = grammarAccess.getFieldPropertyAssociationAccess().getPropertyRecordFieldCrossReference_0_0(); 
 				return obj;
 			}
 		}
@@ -12289,21 +13375,21 @@ protected class BasicPropertyAssociation_PropertyAssignment_0 extends Assignment
 }
 
 // "=>"
-protected class BasicPropertyAssociation_EqualsSignGreaterThanSignKeyword_1 extends KeywordToken  {
+protected class FieldPropertyAssociation_EqualsSignGreaterThanSignKeyword_1 extends KeywordToken  {
 	
-	public BasicPropertyAssociation_EqualsSignGreaterThanSignKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FieldPropertyAssociation_EqualsSignGreaterThanSignKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getBasicPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1();
+		return grammarAccess.getFieldPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BasicPropertyAssociation_PropertyAssignment_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FieldPropertyAssociation_PropertyAssignment_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -12311,15 +13397,15 @@ protected class BasicPropertyAssociation_EqualsSignGreaterThanSignKeyword_1 exte
 }
 
 // ownedValue=PropertyExpression
-protected class BasicPropertyAssociation_OwnedValueAssignment_2 extends AssignmentToken  {
+protected class FieldPropertyAssociation_OwnedValueAssignment_2 extends AssignmentToken  {
 	
-	public BasicPropertyAssociation_OwnedValueAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FieldPropertyAssociation_OwnedValueAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getBasicPropertyAssociationAccess().getOwnedValueAssignment_2();
+		return grammarAccess.getFieldPropertyAssociationAccess().getOwnedValueAssignment_2();
 	}
 
     @Override
@@ -12338,7 +13424,7 @@ protected class BasicPropertyAssociation_OwnedValueAssignment_2 extends Assignme
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getPropertyExpressionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getBasicPropertyAssociationAccess().getOwnedValuePropertyExpressionParserRuleCall_2_0(); 
+				element = grammarAccess.getFieldPropertyAssociationAccess().getOwnedValuePropertyExpressionParserRuleCall_2_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -12350,28 +13436,28 @@ protected class BasicPropertyAssociation_OwnedValueAssignment_2 extends Assignme
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new BasicPropertyAssociation_EqualsSignGreaterThanSignKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new FieldPropertyAssociation_EqualsSignGreaterThanSignKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
 
 // ";"
-protected class BasicPropertyAssociation_SemicolonKeyword_3 extends KeywordToken  {
+protected class FieldPropertyAssociation_SemicolonKeyword_3 extends KeywordToken  {
 	
-	public BasicPropertyAssociation_SemicolonKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FieldPropertyAssociation_SemicolonKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getBasicPropertyAssociationAccess().getSemicolonKeyword_3();
+		return grammarAccess.getFieldPropertyAssociationAccess().getSemicolonKeyword_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BasicPropertyAssociation_OwnedValueAssignment_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FieldPropertyAssociation_OwnedValueAssignment_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -12379,7 +13465,7 @@ protected class BasicPropertyAssociation_SemicolonKeyword_3 extends KeywordToken
 }
 
 
-/************ end Rule BasicPropertyAssociation ****************/
+/************ end Rule FieldPropertyAssociation ****************/
 
 
 /************ begin Rule ContainmentPathElement ****************

@@ -984,6 +984,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getModeRefAccess().getGroup_1(), "rule__ModeRef__Group_1__0");
 					put(grammarAccess.getDefaultAnnexLibraryAccess().getGroup(), "rule__DefaultAnnexLibrary__Group__0");
 					put(grammarAccess.getDefaultAnnexSubclauseAccess().getGroup(), "rule__DefaultAnnexSubclause__Group__0");
+					put(grammarAccess.getBasicPropertyAssociationAccess().getGroup(), "rule__BasicPropertyAssociation__Group__0");
 					put(grammarAccess.getPropertyAssociationAccess().getGroup(), "rule__PropertyAssociation__Group__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup(), "rule__ContainedPropertyAssociation__Group__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup_2(), "rule__ContainedPropertyAssociation__Group_2__0");
@@ -2045,6 +2046,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextAssignment_2(), "rule__DefaultAnnexLibrary__SourceTextAssignment_2");
 					put(grammarAccess.getDefaultAnnexSubclauseAccess().getNameAssignment_1(), "rule__DefaultAnnexSubclause__NameAssignment_1");
 					put(grammarAccess.getDefaultAnnexSubclauseAccess().getSourceTextAssignment_2(), "rule__DefaultAnnexSubclause__SourceTextAssignment_2");
+					put(grammarAccess.getBasicPropertyAssociationAccess().getPropertyAssignment_0(), "rule__BasicPropertyAssociation__PropertyAssignment_0");
 					put(grammarAccess.getPropertyAssociationAccess().getPropertyAssignment_0(), "rule__PropertyAssociation__PropertyAssignment_0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getPropertyAssignment_0(), "rule__ContainedPropertyAssociation__PropertyAssignment_0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToAssignment_2_2(), "rule__ContainedPropertyAssociation__AppliesToAssignment_2_2");

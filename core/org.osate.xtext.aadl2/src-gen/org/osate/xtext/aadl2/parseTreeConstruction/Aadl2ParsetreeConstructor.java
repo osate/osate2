@@ -143,11 +143,12 @@ protected class ThisRootNode extends RootToken {
 			case 109: return new DefaultAnnexLibrary_Group(this, this, 109, inst);
 			case 110: return new AnnexSubclause_DefaultAnnexSubclauseParserRuleCall(this, this, 110, inst);
 			case 111: return new DefaultAnnexSubclause_Group(this, this, 111, inst);
-			case 112: return new PropertyAssociation_Group(this, this, 112, inst);
-			case 113: return new ContainedPropertyAssociation_Group(this, this, 113, inst);
-			case 114: return new ContainmentPath_Group(this, this, 114, inst);
-			case 115: return new ContainmentPathElement_Group(this, this, 115, inst);
-			case 116: return new ArrayRange_Group(this, this, 116, inst);
+			case 112: return new BasicPropertyAssociation_Group(this, this, 112, inst);
+			case 113: return new PropertyAssociation_Group(this, this, 113, inst);
+			case 114: return new ContainedPropertyAssociation_Group(this, this, 114, inst);
+			case 115: return new ContainmentPath_Group(this, this, 115, inst);
+			case 116: return new ContainmentPathElement_Group(this, this, 116, inst);
+			case 117: return new ArrayRange_Group(this, this, 117, inst);
 			default: return null;
 		}	
 	}	
@@ -160,13 +161,13 @@ protected class ThisRootNode extends RootToken {
  * //InternalEvent(SELF), ProcessorPort: objects in mode transition instead of reference to unnamed owned in impl.
  * AadlPackage returns aadl2::AadlPackage:
  * 	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
- * 	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? //| (noProperties?='none' ';')
+ * 	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
  * 	"end" ID ("::" ID)* ";";
  *
  **/
 
 // "package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
-// ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? //| (noProperties?='none' ';')
+// ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
 // "end" ID ("::" ID)* ";"
 protected class AadlPackage_Group extends GroupToken {
 	
@@ -438,7 +439,7 @@ protected class AadlPackage_OwnedPrivateSectionAssignment_2_1 extends Assignment
 }
 
 
-// (=> "properties" ownedPropertyAssociation+=PropertyAssociation+)?
+// (=> "properties" ownedPropertyAssociation+=BasicPropertyAssociation+)?
 protected class AadlPackage_Group_3 extends GroupToken {
 	
 	public AadlPackage_Group_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -482,7 +483,7 @@ protected class AadlPackage_PropertiesKeyword_3_0 extends KeywordToken  {
 
 }
 
-// ownedPropertyAssociation+=PropertyAssociation+
+// ownedPropertyAssociation+=BasicPropertyAssociation+
 protected class AadlPackage_OwnedPropertyAssociationAssignment_3_1 extends AssignmentToken  {
 	
 	public AadlPackage_OwnedPropertyAssociationAssignment_3_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -497,7 +498,7 @@ protected class AadlPackage_OwnedPropertyAssociationAssignment_3_1 extends Assig
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new PropertyAssociation_Group(this, this, 0, inst);
+			case 0: return new BasicPropertyAssociation_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -508,9 +509,9 @@ protected class AadlPackage_OwnedPropertyAssociationAssignment_3_1 extends Assig
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedPropertyAssociation");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getPropertyAssociationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getBasicPropertyAssociationRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getAadlPackageAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0(); 
+				element = grammarAccess.getAadlPackageAccess().getOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -95808,10 +95809,114 @@ protected class DefaultAnnexSubclause_SemicolonKeyword_3 extends KeywordToken  {
 /************ end Rule DefaultAnnexSubclause ****************/
 
 
-/************ begin Rule PropertyAssociation ****************
+/************ begin Rule BasicPropertyAssociation ****************
  *
  * // **************
  * // Properties
+ * BasicPropertyAssociation returns aadl2::PropertyAssociation:
+ * 	property= // name=QPREF
+ * 	[aadl2::Property|QPREF] //ownedValue+=PropertyValue ';'
+ * 	"=>";
+ *
+ **/
+
+// property= // name=QPREF
+// [aadl2::Property|QPREF] //ownedValue+=PropertyValue ';'
+// "=>"
+protected class BasicPropertyAssociation_Group extends GroupToken {
+	
+	public BasicPropertyAssociation_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getBasicPropertyAssociationAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new BasicPropertyAssociation_EqualsSignGreaterThanSignKeyword_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getBasicPropertyAssociationRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// property= // name=QPREF
+// [aadl2::Property|QPREF]
+protected class BasicPropertyAssociation_PropertyAssignment_0 extends AssignmentToken  {
+	
+	public BasicPropertyAssociation_PropertyAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getBasicPropertyAssociationAccess().getPropertyAssignment_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("property",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("property");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getBasicPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getBasicPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0(), (EObject)value , null)) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getBasicPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// //ownedValue+=PropertyValue ';'
+// "=>"
+protected class BasicPropertyAssociation_EqualsSignGreaterThanSignKeyword_1 extends KeywordToken  {
+	
+	public BasicPropertyAssociation_EqualsSignGreaterThanSignKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getBasicPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new BasicPropertyAssociation_PropertyAssignment_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+/************ end Rule BasicPropertyAssociation ****************/
+
+
+/************ begin Rule PropertyAssociation ****************
+ *
  * PropertyAssociation returns aadl2::PropertyAssociation:
  * 	property=[aadl2::Property] //ownedValue=PropertyExpression 
  * 	"=>" ";";
@@ -95873,7 +95978,7 @@ protected class PropertyAssociation_PropertyAssignment_0 extends AssignmentToken
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("property");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0(), (EObject)value , null)) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0(); 
 				return obj;
@@ -95996,7 +96101,7 @@ protected class ContainedPropertyAssociation_PropertyAssignment_0 extends Assign
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("property");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getContainedPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getContainedPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getContainedPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0(), (EObject)value , null)) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getContainedPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0(); 
 				return obj;

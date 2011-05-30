@@ -13,7 +13,7 @@ AadlPackage returns aadl2::AadlPackage:
 	(ownedPrivateSection=PrivatePackageSection)?) |
 	ownedPrivateSection=PrivatePackageSection)
 	(=> 'properties'
-	((ownedPropertyAssociation+=PropertyAssociation)+ ))? //| (noProperties?='none' ';')
+	((ownedPropertyAssociation+=BasicPropertyAssociation)+ ))? //| (noProperties?='none' ';')
 	'end' ID ('::' ID)* ';';
 
 
@@ -1578,6 +1578,11 @@ terminal ANNEXTEXT:
 	'{**'->'**}';
 	// **************
 // Properties
+
+BasicPropertyAssociation returns aadl2::PropertyAssociation:
+	property=[aadl2::Property|QPREF] // name=QPREF
+	'=>' //ownedValue+=PropertyValue ';'
+	;
 
 PropertyAssociation returns aadl2::PropertyAssociation :
 	property=[aadl2::Property|ID] '=>' //ownedValue=PropertyExpression 

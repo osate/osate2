@@ -202,6 +202,24 @@ IntegerLit returns aadl2::IntegerLiteral:
 	value=gINT ;
 
 
+BasicPropertyAssociation returns aadl2::PropertyAssociation:
+	property=[aadl2::Property|QPREF] // name=QPREF
+	'=>' ownedValue+=PropertyValue ';'
+	;
+
+ContainedPropertyAssociation returns aadl2::PropertyAssociation:
+	// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
+	property=[aadl2::Property|QPREF] // name=QPREF
+	('=>' | append?='+=>') (constant?='constant')?
+	(ownedValue+=PropertyValue 
+	| (
+	'(' ownedValue+=ModalPropertyValue 
+	(',' ownedValue+=ModalPropertyValue)*
+	(',' ownedValue+=PropertyValue)?
+	')' )
+	)
+	(=> 'applies' 'to' appliesTo+=ContainmentPath)?
+	';';
 
 PropertyAssociation returns aadl2::PropertyAssociation:
 	// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
@@ -215,6 +233,13 @@ PropertyAssociation returns aadl2::PropertyAssociation:
 	')' )
 	)
 	';';
+
+
+ContainmentPath returns aadl2::ContainedNamedElement:
+	{aadl2::ContainedNamedElement}
+	containmentPathElement+=ContainmentPathElement
+	( ',' containmentPathElement+=ContainmentPathElement)*
+;
 
 ModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
@@ -287,7 +312,7 @@ ReferenceTerm returns aadl2::ReferenceValue:
 
 RecordTerm returns aadl2::RecordValue:
    '('
-   (ownedFieldValue+=BasicPropertyAssociation)+
+   (ownedFieldValue+=FieldPropertyAssociation)+
   ')'
   ;
 
@@ -311,7 +336,7 @@ ListTerm returns aadl2::ListValue:
   ']'
   ;
 
-BasicPropertyAssociation returns aadl2::BasicPropertyAssociation:
+FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:
 	property=[aadl2::RecordField|ID] // name=QPREF
 	'=>' 
 	ownedValue=PropertyExpression 

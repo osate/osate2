@@ -34,7 +34,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cPropertiesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cOwnedPropertyAssociationAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_3_1.eContents().get(0);
+		private final RuleCall cOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_3_1.eContents().get(0);
 		private final Keyword cEndKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final RuleCall cIDTerminalRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
@@ -46,12 +46,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		////InternalEvent(SELF), ProcessorPort: objects in mode transition instead of reference to unnamed owned in impl.
 		//AadlPackage returns aadl2::AadlPackage:
 		//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
-		//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? //| (noProperties?='none' ';')
+		//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
 		//	"end" ID ("::" ID)* ";";
 		public ParserRule getRule() { return rule; }
 
 		//"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
-		//ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? //| (noProperties?='none' ';')
+		//ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
 		//"end" ID ("::" ID)* ";"
 		public Group getGroup() { return cGroup; }
 
@@ -89,17 +89,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//PrivatePackageSection
 		public RuleCall getOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_1_0() { return cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_1_0; }
 
-		//(=> "properties" ownedPropertyAssociation+=PropertyAssociation+)?
+		//(=> "properties" ownedPropertyAssociation+=BasicPropertyAssociation+)?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//=> "properties"
 		public Keyword getPropertiesKeyword_3_0() { return cPropertiesKeyword_3_0; }
 
-		//ownedPropertyAssociation+=PropertyAssociation+
+		//ownedPropertyAssociation+=BasicPropertyAssociation+
 		public Assignment getOwnedPropertyAssociationAssignment_3_1() { return cOwnedPropertyAssociationAssignment_3_1; }
 
-		//PropertyAssociation
-		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0; }
+		//BasicPropertyAssociation
+		public RuleCall getOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_1_0() { return cOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_1_0; }
 
 		//"end"
 		public Keyword getEndKeyword_4() { return cEndKeyword_4; }
@@ -19774,6 +19774,43 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 
+	public class BasicPropertyAssociationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "BasicPropertyAssociation");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cPropertyAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cPropertyPropertyCrossReference_0_0 = (CrossReference)cPropertyAssignment_0.eContents().get(0);
+		private final RuleCall cPropertyPropertyQPREFParserRuleCall_0_0_1 = (RuleCall)cPropertyPropertyCrossReference_0_0.eContents().get(1);
+		private final Keyword cEqualsSignGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//// **************
+		//// Properties
+		//BasicPropertyAssociation returns aadl2::PropertyAssociation:
+		//	property= // name=QPREF
+		//	[aadl2::Property|QPREF] //ownedValue+=PropertyValue ';'
+		//	"=>";
+		public ParserRule getRule() { return rule; }
+
+		//property= // name=QPREF
+		//[aadl2::Property|QPREF] //ownedValue+=PropertyValue ';'
+		//"=>"
+		public Group getGroup() { return cGroup; }
+
+		//property= // name=QPREF
+		//[aadl2::Property|QPREF]
+		public Assignment getPropertyAssignment_0() { return cPropertyAssignment_0; }
+
+		//// name=QPREF
+		//[aadl2::Property|QPREF]
+		public CrossReference getPropertyPropertyCrossReference_0_0() { return cPropertyPropertyCrossReference_0_0; }
+
+		//QPREF
+		public RuleCall getPropertyPropertyQPREFParserRuleCall_0_0_1() { return cPropertyPropertyQPREFParserRuleCall_0_0_1; }
+
+		////ownedValue+=PropertyValue ';'
+		//"=>"
+		public Keyword getEqualsSignGreaterThanSignKeyword_1() { return cEqualsSignGreaterThanSignKeyword_1; }
+	}
+
 	public class PropertyAssociationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyAssociation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -19783,8 +19820,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cEqualsSignGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
-		//// **************
-		//// Properties
 		//PropertyAssociation returns aadl2::PropertyAssociation:
 		//	property=[aadl2::Property] //ownedValue=PropertyExpression 
 		//	"=>" ";";
@@ -20330,6 +20365,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private DefaultAnnexSubclauseElements pDefaultAnnexSubclause;
 	private TerminalRule tEM;
 	private TerminalRule tANNEXTEXT;
+	private BasicPropertyAssociationElements pBasicPropertyAssociation;
 	private PropertyAssociationElements pPropertyAssociation;
 	private ContainedPropertyAssociationElements pContainedPropertyAssociation;
 	private ContainmentPathElements pContainmentPath;
@@ -20369,7 +20405,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	////InternalEvent(SELF), ProcessorPort: objects in mode transition instead of reference to unnamed owned in impl.
 	//AadlPackage returns aadl2::AadlPackage:
 	//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
-	//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? //| (noProperties?='none' ';')
+	//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
 	//	"end" ID ("::" ID)* ";";
 	public AadlPackageElements getAadlPackageAccess() {
 		return (pAadlPackage != null) ? pAadlPackage : (pAadlPackage = new AadlPackageElements());
@@ -22125,6 +22161,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//// **************
 	//// Properties
+	//BasicPropertyAssociation returns aadl2::PropertyAssociation:
+	//	property= // name=QPREF
+	//	[aadl2::Property|QPREF] //ownedValue+=PropertyValue ';'
+	//	"=>";
+	public BasicPropertyAssociationElements getBasicPropertyAssociationAccess() {
+		return (pBasicPropertyAssociation != null) ? pBasicPropertyAssociation : (pBasicPropertyAssociation = new BasicPropertyAssociationElements());
+	}
+	
+	public ParserRule getBasicPropertyAssociationRule() {
+		return getBasicPropertyAssociationAccess().getRule();
+	}
+
 	//PropertyAssociation returns aadl2::PropertyAssociation:
 	//	property=[aadl2::Property] //ownedValue=PropertyExpression 
 	//	"=>" ";";
