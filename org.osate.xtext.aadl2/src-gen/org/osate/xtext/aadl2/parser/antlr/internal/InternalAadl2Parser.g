@@ -160,9 +160,9 @@ KEYWORD_62
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAadlPackageAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0()); 
+	        newCompositeNode(grammarAccess.getAadlPackageAccess().getOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_6_0=rulePropertyAssociation		{
+		lv_ownedPropertyAssociation_6_0=ruleBasicPropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAadlPackageRule());
 	        }
@@ -170,7 +170,7 @@ KEYWORD_62
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_6_0, 
-        		"PropertyAssociation");
+        		"BasicPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26834,6 +26834,47 @@ ruleDefaultAnnexSubclause returns [EObject current=null]
 	otherlv_3=KEYWORD_6
     {
     	newLeafNode(otherlv_3, grammarAccess.getDefaultAnnexSubclauseAccess().getSemicolonKeyword_3());
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleBasicPropertyAssociation
+entryRuleBasicPropertyAssociation returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getBasicPropertyAssociationRule()); }
+	 iv_ruleBasicPropertyAssociation=ruleBasicPropertyAssociation 
+	 { $current=$iv_ruleBasicPropertyAssociation.current; } 
+	 EOF 
+;
+
+// Rule BasicPropertyAssociation
+ruleBasicPropertyAssociation returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getBasicPropertyAssociationRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getBasicPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0()); 
+	    }
+		ruleQPREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+	otherlv_1=KEYWORD_14
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getBasicPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1());
     }
 )
 ;
