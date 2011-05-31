@@ -194,7 +194,7 @@ public class AadlPackageImpl extends AadlUnitImpl implements AadlPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void setPublicSection(PublicPackageSection newPublicSection) {
 		PublicPackageSection oldPublicSection = publicSection;
@@ -202,12 +202,6 @@ public class AadlPackageImpl extends AadlUnitImpl implements AadlPackage {
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.AADL_PACKAGE__PUBLIC_SECTION,
 					oldPublicSection, publicSection));
-		Resource.Internal eInternalResource = eInternalResource();
-		if (eInternalResource == null || !eInternalResource.isLoading()) {
-			if (ownedPublicSection != null && ownedPublicSection != newPublicSection) {
-				setOwnedPublicSection(null);
-			}
-		}
 	}
 
 	/**
@@ -240,7 +234,7 @@ public class AadlPackageImpl extends AadlUnitImpl implements AadlPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void setPrivateSection(PrivatePackageSection newPrivateSection) {
 		PrivatePackageSection oldPrivateSection = privateSection;
@@ -248,12 +242,6 @@ public class AadlPackageImpl extends AadlUnitImpl implements AadlPackage {
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.AADL_PACKAGE__PRIVATE_SECTION,
 					oldPrivateSection, privateSection));
-		Resource.Internal eInternalResource = eInternalResource();
-		if (eInternalResource == null || !eInternalResource.isLoading()) {
-			if (ownedPrivateSection != null && ownedPrivateSection != newPrivateSection) {
-				setOwnedPrivateSection(null);
-			}
-		}
 	}
 
 	/**
