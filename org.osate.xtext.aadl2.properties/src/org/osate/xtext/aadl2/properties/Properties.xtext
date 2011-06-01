@@ -5,7 +5,6 @@ grammar org.osate.xtext.aadl2.properties.Properties with org.eclipse.xtext.commo
 
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
-
 PropertySet returns aadl2::PropertySet:
 	'property' 'set' name=ID 'is'
 	(=> 'with' (importedPropertySet+=[aadl2::PropertySet|ID]) //| importedPropertySet+=[props::PropertySet|ID]) 
@@ -211,12 +210,12 @@ ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
 	property=[aadl2::Property|QPREF] // name=QPREF
 	('=>' | append?='+=>') (constant?='constant')?
-	(ownedValue+=PropertyValue 
-	| (
+	(( =>
 	'(' ownedValue+=ModalPropertyValue 
 	(',' ownedValue+=ModalPropertyValue)*
-	(',' ownedValue+=PropertyValue)?
+	//(',' ownedValue+=PropertyValue)?
 	')' )
+	| ownedValue+=PropertyValue
 	)
 	(=> 'applies' 'to' appliesTo+=ContainmentPath)?
 	';';
@@ -225,12 +224,12 @@ PropertyAssociation returns aadl2::PropertyAssociation:
 	// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
 	property=[aadl2::Property|QPREF] // name=QPREF
 	('=>' | append?='+=>') (constant?='constant')?
-	(ownedValue+=PropertyValue 
-	| (
+	(( =>
 	'(' ownedValue+=ModalPropertyValue 
 	(',' ownedValue+=ModalPropertyValue)*
-	(',' ownedValue+=PropertyValue)?
+//	(',' ownedValue+=PropertyValue)?
 	')' )
+	| ownedValue+=PropertyValue
 	)
 	';';
 
@@ -243,9 +242,9 @@ ContainmentPath returns aadl2::ContainedNamedElement:
 
 ModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
-	'in' 'modes' '(' 
+	('in' 'modes' '(' 
 	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
-	')'
+	')')?
 	;
 	// &&&&&&&&&& handling of in binding
 
