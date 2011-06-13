@@ -5168,16 +5168,16 @@ public class NameResolver {
 	}
 
 	private static AadlPackage findImportedPackage(String name, Namespace context) {
-		EList<AadlUnit> importedUnits;
+		EList<ModelUnit> importedUnits;
 		if (context instanceof PropertySet)
 			importedUnits = ((PropertySet) context).getImportedUnits();
 		else
 			importedUnits = ((PackageSection) context).getImportedUnits();
-		for (AadlUnit importedUnit : importedUnits)
+		for (ModelUnit importedUnit : importedUnits)
 			if (importedUnit.getName().equalsIgnoreCase(name))
 				return (AadlPackage) importedUnit;
 		if (context instanceof PrivatePackageSection && ((AadlPackage) context.eContainer()).getPublicSection() != null)
-			for (AadlUnit importedUnit : ((AadlPackage) context.eContainer()).getPublicSection()
+			for (ModelUnit importedUnit : ((AadlPackage) context.eContainer()).getPublicSection()
 					.getImportedUnits())
 				if (importedUnit.getName().equalsIgnoreCase(name))
 					return (AadlPackage) importedUnit;
@@ -5185,12 +5185,12 @@ public class NameResolver {
 	}
 
 	private static PropertySet findImportedPropertySet(String name, Namespace context) {
-		EList<AadlUnit> importedUnits;
+		EList<ModelUnit> importedUnits;
 		if (context instanceof PropertySet)
 			importedUnits = ((PropertySet) context).getImportedUnits();
 		else
 			importedUnits = ((PackageSection) context).getImportedUnits();
-		for (AadlUnit importedUnit : importedUnits)
+		for (ModelUnit importedUnit : importedUnits)
 			if (importedUnit.getName().equalsIgnoreCase(name))
 				return (PropertySet) importedUnit;
 		return null;

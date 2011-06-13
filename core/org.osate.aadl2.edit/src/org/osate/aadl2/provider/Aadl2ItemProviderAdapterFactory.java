@@ -1,14 +1,14 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- *
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
+ * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
+ * 
  * NO WARRANTY
- *
+ * 
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
+ * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
  * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
  * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
@@ -16,22 +16,21 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
+ * 
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
+ * 
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- *
- * $Id: Aadl2ItemProviderAdapterFactory.java,v 1.56 2010-04-13 17:52:43 lwrage Exp $
+ * 
  */
 package org.osate.aadl2.provider;
 
@@ -41,6 +40,7 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
+
 import org.eclipse.emf.edit.provider.ChangeNotifier;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -52,6 +52,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.INotifyChangedListener;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+
 import org.osate.aadl2.util.Aadl2AdapterFactory;
 
 /**
@@ -150,26 +151,26 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.BasicPropertyAssociation} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.Property} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BasicPropertyAssociationItemProvider basicPropertyAssociationItemProvider;
+	protected PropertyItemProvider propertyItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.BasicPropertyAssociation}.
+	 * This creates an adapter for a {@link org.osate.aadl2.Property}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createBasicPropertyAssociationAdapter() {
-		if (basicPropertyAssociationItemProvider == null) {
-			basicPropertyAssociationItemProvider = new BasicPropertyAssociationItemProvider(this);
+	public Adapter createPropertyAdapter() {
+		if (propertyItemProvider == null) {
+			propertyItemProvider = new PropertyItemProvider(this);
 		}
 
-		return basicPropertyAssociationItemProvider;
+		return propertyItemProvider;
 	}
 
 	/**
@@ -196,26 +197,72 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.Property} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.MetaclassReference} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PropertyItemProvider propertyItemProvider;
+	protected MetaclassReferenceItemProvider metaclassReferenceItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.Property}.
+	 * This creates an adapter for a {@link org.osate.aadl2.MetaclassReference}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createPropertyAdapter() {
-		if (propertyItemProvider == null) {
-			propertyItemProvider = new PropertyItemProvider(this);
+	public Adapter createMetaclassReferenceAdapter() {
+		if (metaclassReferenceItemProvider == null) {
+			metaclassReferenceItemProvider = new MetaclassReferenceItemProvider(this);
 		}
 
-		return propertyItemProvider;
+		return metaclassReferenceItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ModalElement} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ModalElementItemProvider modalElementItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ModalElement}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createModalElementAdapter() {
+		if (modalElementItemProvider == null) {
+			modalElementItemProvider = new ModalElementItemProvider(this);
+		}
+
+		return modalElementItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.Mode} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ModeItemProvider modeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.Mode}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createModeAdapter() {
+		if (modeItemProvider == null) {
+			modeItemProvider = new ModeItemProvider(this);
+		}
+
+		return modeItemProvider;
 	}
 
 	/**
@@ -239,6 +286,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return containedNamedElementItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ContainmentPathElement} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ContainmentPathElementItemProvider containmentPathElementItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ContainmentPathElement}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createContainmentPathElementAdapter() {
+		if (containmentPathElementItemProvider == null) {
+			containmentPathElementItemProvider = new ContainmentPathElementItemProvider(this);
+		}
+
+		return containmentPathElementItemProvider;
 	}
 
 	/**
@@ -288,49 +358,72 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ContainmentPathElement} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ArraySpecification} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ContainmentPathElementItemProvider containmentPathElementItemProvider;
+	protected ArraySpecificationItemProvider arraySpecificationItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ContainmentPathElement}.
+	 * This creates an adapter for a {@link org.osate.aadl2.ArraySpecification}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createContainmentPathElementAdapter() {
-		if (containmentPathElementItemProvider == null) {
-			containmentPathElementItemProvider = new ContainmentPathElementItemProvider(this);
+	public Adapter createArraySpecificationAdapter() {
+		if (arraySpecificationItemProvider == null) {
+			arraySpecificationItemProvider = new ArraySpecificationItemProvider(this);
 		}
 
-		return containmentPathElementItemProvider;
+		return arraySpecificationItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.Mode} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.Numeral} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ModeItemProvider modeItemProvider;
+	protected NumeralItemProvider numeralItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.Mode}.
+	 * This creates an adapter for a {@link org.osate.aadl2.Numeral}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createModeAdapter() {
-		if (modeItemProvider == null) {
-			modeItemProvider = new ModeItemProvider(this);
+	public Adapter createNumeralAdapter() {
+		if (numeralItemProvider == null) {
+			numeralItemProvider = new NumeralItemProvider(this);
 		}
 
-		return modeItemProvider;
+		return numeralItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ComponentImplementationReference} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ComponentImplementationReferenceItemProvider componentImplementationReferenceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ComponentImplementationReference}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createComponentImplementationReferenceAdapter() {
+		if (componentImplementationReferenceItemProvider == null) {
+			componentImplementationReferenceItemProvider = new ComponentImplementationReferenceItemProvider(this);
+		}
+
+		return componentImplementationReferenceItemProvider;
 	}
 
 	/**
@@ -380,72 +473,49 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ArraySpecification} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorPort} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ArraySpecificationItemProvider arraySpecificationItemProvider;
+	protected ProcessorPortItemProvider processorPortItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ArraySpecification}.
+	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorPort}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createArraySpecificationAdapter() {
-		if (arraySpecificationItemProvider == null) {
-			arraySpecificationItemProvider = new ArraySpecificationItemProvider(this);
+	public Adapter createProcessorPortAdapter() {
+		if (processorPortItemProvider == null) {
+			processorPortItemProvider = new ProcessorPortItemProvider(this);
 		}
 
-		return arraySpecificationItemProvider;
+		return processorPortItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ModalElement} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.InternalEvent} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ModalElementItemProvider modalElementItemProvider;
+	protected InternalEventItemProvider internalEventItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ModalElement}.
+	 * This creates an adapter for a {@link org.osate.aadl2.InternalEvent}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createModalElementAdapter() {
-		if (modalElementItemProvider == null) {
-			modalElementItemProvider = new ModalElementItemProvider(this);
+	public Adapter createInternalEventAdapter() {
+		if (internalEventItemProvider == null) {
+			internalEventItemProvider = new InternalEventItemProvider(this);
 		}
 
-		return modalElementItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.TypeExtension} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected TypeExtensionItemProvider typeExtensionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.TypeExtension}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createTypeExtensionAdapter() {
-		if (typeExtensionItemProvider == null) {
-			typeExtensionItemProvider = new TypeExtensionItemProvider(this);
-		}
-
-		return typeExtensionItemProvider;
+		return internalEventItemProvider;
 	}
 
 	/**
@@ -472,95 +542,26 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EndToEndFlowElement} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.TypeExtension} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EndToEndFlowElementItemProvider endToEndFlowElementItemProvider;
+	protected TypeExtensionItemProvider typeExtensionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.EndToEndFlowElement}.
+	 * This creates an adapter for a {@link org.osate.aadl2.TypeExtension}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createEndToEndFlowElementAdapter() {
-		if (endToEndFlowElementItemProvider == null) {
-			endToEndFlowElementItemProvider = new EndToEndFlowElementItemProvider(this);
+	public Adapter createTypeExtensionAdapter() {
+		if (typeExtensionItemProvider == null) {
+			typeExtensionItemProvider = new TypeExtensionItemProvider(this);
 		}
 
-		return endToEndFlowElementItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ModeBinding} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ModeBindingItemProvider modeBindingItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ModeBinding}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createModeBindingAdapter() {
-		if (modeBindingItemProvider == null) {
-			modeBindingItemProvider = new ModeBindingItemProvider(this);
-		}
-
-		return modeBindingItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ComponentImplementationReference} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ComponentImplementationReferenceItemProvider componentImplementationReferenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ComponentImplementationReference}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createComponentImplementationReferenceAdapter() {
-		if (componentImplementationReferenceItemProvider == null) {
-			componentImplementationReferenceItemProvider = new ComponentImplementationReferenceItemProvider(this);
-		}
-
-		return componentImplementationReferenceItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FlowImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FlowImplementationItemProvider flowImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.FlowImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFlowImplementationAdapter() {
-		if (flowImplementationItemProvider == null) {
-			flowImplementationItemProvider = new FlowImplementationItemProvider(this);
-		}
-
-		return flowImplementationItemProvider;
+		return typeExtensionItemProvider;
 	}
 
 	/**
@@ -656,26 +657,233 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AbstractSubcomponent} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.BusAccess} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected AbstractSubcomponentItemProvider abstractSubcomponentItemProvider;
+	protected BusAccessItemProvider busAccessItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.AbstractSubcomponent}.
+	 * This creates an adapter for a {@link org.osate.aadl2.BusAccess}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createAbstractSubcomponentAdapter() {
-		if (abstractSubcomponentItemProvider == null) {
-			abstractSubcomponentItemProvider = new AbstractSubcomponentItemProvider(this);
+	public Adapter createBusAccessAdapter() {
+		if (busAccessItemProvider == null) {
+			busAccessItemProvider = new BusAccessItemProvider(this);
 		}
 
-		return abstractSubcomponentItemProvider;
+		return busAccessItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DataAccess} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DataAccessItemProvider dataAccessItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.DataAccess}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDataAccessAdapter() {
+		if (dataAccessItemProvider == null) {
+			dataAccessItemProvider = new DataAccessItemProvider(this);
+		}
+
+		return dataAccessItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EndToEndFlowElement} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EndToEndFlowElementItemProvider endToEndFlowElementItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.EndToEndFlowElement}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEndToEndFlowElementAdapter() {
+		if (endToEndFlowElementItemProvider == null) {
+			endToEndFlowElementItemProvider = new EndToEndFlowElementItemProvider(this);
+		}
+
+		return endToEndFlowElementItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DataPort} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DataPortItemProvider dataPortItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.DataPort}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDataPortAdapter() {
+		if (dataPortItemProvider == null) {
+			dataPortItemProvider = new DataPortItemProvider(this);
+		}
+
+		return dataPortItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EventDataPort} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EventDataPortItemProvider eventDataPortItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.EventDataPort}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEventDataPortAdapter() {
+		if (eventDataPortItemProvider == null) {
+			eventDataPortItemProvider = new EventDataPortItemProvider(this);
+		}
+
+		return eventDataPortItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EventPort} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EventPortItemProvider eventPortItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.EventPort}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEventPortAdapter() {
+		if (eventPortItemProvider == null) {
+			eventPortItemProvider = new EventPortItemProvider(this);
+		}
+
+		return eventPortItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.Parameter} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ParameterItemProvider parameterItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.Parameter}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createParameterAdapter() {
+		if (parameterItemProvider == null) {
+			parameterItemProvider = new ParameterItemProvider(this);
+		}
+
+		return parameterItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramAccess} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramAccessItemProvider subprogramAccessItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramAccess}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramAccessAdapter() {
+		if (subprogramAccessItemProvider == null) {
+			subprogramAccessItemProvider = new SubprogramAccessItemProvider(this);
+		}
+
+		return subprogramAccessItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramGroupAccess} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramGroupAccessItemProvider subprogramGroupAccessItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramGroupAccess}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramGroupAccessAdapter() {
+		if (subprogramGroupAccessItemProvider == null) {
+			subprogramGroupAccessItemProvider = new SubprogramGroupAccessItemProvider(this);
+		}
+
+		return subprogramGroupAccessItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AbstractFeature} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AbstractFeatureItemProvider abstractFeatureItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AbstractFeature}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAbstractFeatureAdapter() {
+		if (abstractFeatureItemProvider == null) {
+			abstractFeatureItemProvider = new AbstractFeatureItemProvider(this);
+		}
+
+		return abstractFeatureItemProvider;
 	}
 
 	/**
@@ -699,6 +907,1455 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return componentPrototypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ModeBinding} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ModeBindingItemProvider modeBindingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ModeBinding}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createModeBindingAdapter() {
+		if (modeBindingItemProvider == null) {
+			modeBindingItemProvider = new ModeBindingItemProvider(this);
+		}
+
+		return modeBindingItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FlowImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FlowImplementationItemProvider flowImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.FlowImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFlowImplementationAdapter() {
+		if (flowImplementationItemProvider == null) {
+			flowImplementationItemProvider = new FlowImplementationItemProvider(this);
+		}
+
+		return flowImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubcomponentFlow} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubcomponentFlowItemProvider subcomponentFlowItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubcomponentFlow}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubcomponentFlowAdapter() {
+		if (subcomponentFlowItemProvider == null) {
+			subcomponentFlowItemProvider = new SubcomponentFlowItemProvider(this);
+		}
+
+		return subcomponentFlowItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ImplementationExtension} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ImplementationExtensionItemProvider implementationExtensionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ImplementationExtension}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createImplementationExtensionAdapter() {
+		if (implementationExtensionItemProvider == null) {
+			implementationExtensionItemProvider = new ImplementationExtensionItemProvider(this);
+		}
+
+		return implementationExtensionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.Realization} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RealizationItemProvider realizationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.Realization}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRealizationAdapter() {
+		if (realizationItemProvider == null) {
+			realizationItemProvider = new RealizationItemProvider(this);
+		}
+
+		return realizationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EndToEndFlow} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EndToEndFlowItemProvider endToEndFlowItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.EndToEndFlow}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEndToEndFlowAdapter() {
+		if (endToEndFlowItemProvider == null) {
+			endToEndFlowItemProvider = new EndToEndFlowItemProvider(this);
+		}
+
+		return endToEndFlowItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AbstractSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AbstractSubcomponentItemProvider abstractSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AbstractSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAbstractSubcomponentAdapter() {
+		if (abstractSubcomponentItemProvider == null) {
+			abstractSubcomponentItemProvider = new AbstractSubcomponentItemProvider(this);
+		}
+
+		return abstractSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AccessConnection} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AccessConnectionItemProvider accessConnectionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AccessConnection}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAccessConnectionAdapter() {
+		if (accessConnectionItemProvider == null) {
+			accessConnectionItemProvider = new AccessConnectionItemProvider(this);
+		}
+
+		return accessConnectionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ParameterConnection} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ParameterConnectionItemProvider parameterConnectionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ParameterConnection}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createParameterConnectionAdapter() {
+		if (parameterConnectionItemProvider == null) {
+			parameterConnectionItemProvider = new ParameterConnectionItemProvider(this);
+		}
+
+		return parameterConnectionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PortConnection} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PortConnectionItemProvider portConnectionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.PortConnection}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPortConnectionAdapter() {
+		if (portConnectionItemProvider == null) {
+			portConnectionItemProvider = new PortConnectionItemProvider(this);
+		}
+
+		return portConnectionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureConnection} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FeatureConnectionItemProvider featureConnectionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.FeatureConnection}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFeatureConnectionAdapter() {
+		if (featureConnectionItemProvider == null) {
+			featureConnectionItemProvider = new FeatureConnectionItemProvider(this);
+		}
+
+		return featureConnectionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupConnection} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FeatureGroupConnectionItemProvider featureGroupConnectionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupConnection}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFeatureGroupConnectionAdapter() {
+		if (featureGroupConnectionItemProvider == null) {
+			featureGroupConnectionItemProvider = new FeatureGroupConnectionItemProvider(this);
+		}
+
+		return featureGroupConnectionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorSubprogram} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProcessorSubprogramItemProvider processorSubprogramItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorSubprogram}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createProcessorSubprogramAdapter() {
+		if (processorSubprogramItemProvider == null) {
+			processorSubprogramItemProvider = new ProcessorSubprogramItemProvider(this);
+		}
+
+		return processorSubprogramItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DefaultAnnexLibrary} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DefaultAnnexLibraryItemProvider defaultAnnexLibraryItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.DefaultAnnexLibrary}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDefaultAnnexLibraryAdapter() {
+		if (defaultAnnexLibraryItemProvider == null) {
+			defaultAnnexLibraryItemProvider = new DefaultAnnexLibraryItemProvider(this);
+		}
+
+		return defaultAnnexLibraryItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DefaultAnnexSubclause} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DefaultAnnexSubclauseItemProvider defaultAnnexSubclauseItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.DefaultAnnexSubclause}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDefaultAnnexSubclauseAdapter() {
+		if (defaultAnnexSubclauseItemProvider == null) {
+			defaultAnnexSubclauseItemProvider = new DefaultAnnexSubclauseItemProvider(this);
+		}
+
+		return defaultAnnexSubclauseItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PublicPackageSection} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PublicPackageSectionItemProvider publicPackageSectionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.PublicPackageSection}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPublicPackageSectionAdapter() {
+		if (publicPackageSectionItemProvider == null) {
+			publicPackageSectionItemProvider = new PublicPackageSectionItemProvider(this);
+		}
+
+		return publicPackageSectionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PackageRename} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PackageRenameItemProvider packageRenameItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.PackageRename}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPackageRenameAdapter() {
+		if (packageRenameItemProvider == null) {
+			packageRenameItemProvider = new PackageRenameItemProvider(this);
+		}
+
+		return packageRenameItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AadlPackage} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AadlPackageItemProvider aadlPackageItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AadlPackage}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAadlPackageAdapter() {
+		if (aadlPackageItemProvider == null) {
+			aadlPackageItemProvider = new AadlPackageItemProvider(this);
+		}
+
+		return aadlPackageItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PrivatePackageSection} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PrivatePackageSectionItemProvider privatePackageSectionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.PrivatePackageSection}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPrivatePackageSectionAdapter() {
+		if (privatePackageSectionItemProvider == null) {
+			privatePackageSectionItemProvider = new PrivatePackageSectionItemProvider(this);
+		}
+
+		return privatePackageSectionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ComponentTypeRename} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ComponentTypeRenameItemProvider componentTypeRenameItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ComponentTypeRename}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createComponentTypeRenameAdapter() {
+		if (componentTypeRenameItemProvider == null) {
+			componentTypeRenameItemProvider = new ComponentTypeRenameItemProvider(this);
+		}
+
+		return componentTypeRenameItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupTypeRename} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FeatureGroupTypeRenameItemProvider featureGroupTypeRenameItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupTypeRename}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFeatureGroupTypeRenameAdapter() {
+		if (featureGroupTypeRenameItemProvider == null) {
+			featureGroupTypeRenameItemProvider = new FeatureGroupTypeRenameItemProvider(this);
+		}
+
+		return featureGroupTypeRenameItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AbstractType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AbstractTypeItemProvider abstractTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AbstractType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAbstractTypeAdapter() {
+		if (abstractTypeItemProvider == null) {
+			abstractTypeItemProvider = new AbstractTypeItemProvider(this);
+		}
+
+		return abstractTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AbstractImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AbstractImplementationItemProvider abstractImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AbstractImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAbstractImplementationAdapter() {
+		if (abstractImplementationItemProvider == null) {
+			abstractImplementationItemProvider = new AbstractImplementationItemProvider(this);
+		}
+
+		return abstractImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramCallSequence} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramCallSequenceItemProvider subprogramCallSequenceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramCallSequence}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramCallSequenceAdapter() {
+		if (subprogramCallSequenceItemProvider == null) {
+			subprogramCallSequenceItemProvider = new SubprogramCallSequenceItemProvider(this);
+		}
+
+		return subprogramCallSequenceItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.BusSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BusSubcomponentItemProvider busSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.BusSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBusSubcomponentAdapter() {
+		if (busSubcomponentItemProvider == null) {
+			busSubcomponentItemProvider = new BusSubcomponentItemProvider(this);
+		}
+
+		return busSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DataSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DataSubcomponentItemProvider dataSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.DataSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDataSubcomponentAdapter() {
+		if (dataSubcomponentItemProvider == null) {
+			dataSubcomponentItemProvider = new DataSubcomponentItemProvider(this);
+		}
+
+		return dataSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DeviceSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DeviceSubcomponentItemProvider deviceSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.DeviceSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDeviceSubcomponentAdapter() {
+		if (deviceSubcomponentItemProvider == null) {
+			deviceSubcomponentItemProvider = new DeviceSubcomponentItemProvider(this);
+		}
+
+		return deviceSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.MemorySubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MemorySubcomponentItemProvider memorySubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.MemorySubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMemorySubcomponentAdapter() {
+		if (memorySubcomponentItemProvider == null) {
+			memorySubcomponentItemProvider = new MemorySubcomponentItemProvider(this);
+		}
+
+		return memorySubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProcessSubcomponentItemProvider processSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ProcessSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createProcessSubcomponentAdapter() {
+		if (processSubcomponentItemProvider == null) {
+			processSubcomponentItemProvider = new ProcessSubcomponentItemProvider(this);
+		}
+
+		return processSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProcessorSubcomponentItemProvider processorSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createProcessorSubcomponentAdapter() {
+		if (processorSubcomponentItemProvider == null) {
+			processorSubcomponentItemProvider = new ProcessorSubcomponentItemProvider(this);
+		}
+
+		return processorSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SystemSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SystemSubcomponentItemProvider systemSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SystemSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSystemSubcomponentAdapter() {
+		if (systemSubcomponentItemProvider == null) {
+			systemSubcomponentItemProvider = new SystemSubcomponentItemProvider(this);
+		}
+
+		return systemSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramSubcomponentItemProvider subprogramSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramSubcomponentAdapter() {
+		if (subprogramSubcomponentItemProvider == null) {
+			subprogramSubcomponentItemProvider = new SubprogramSubcomponentItemProvider(this);
+		}
+
+		return subprogramSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramGroupSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramGroupSubcomponentItemProvider subprogramGroupSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramGroupSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramGroupSubcomponentAdapter() {
+		if (subprogramGroupSubcomponentItemProvider == null) {
+			subprogramGroupSubcomponentItemProvider = new SubprogramGroupSubcomponentItemProvider(this);
+		}
+
+		return subprogramGroupSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ThreadSubcomponentItemProvider threadSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ThreadSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createThreadSubcomponentAdapter() {
+		if (threadSubcomponentItemProvider == null) {
+			threadSubcomponentItemProvider = new ThreadSubcomponentItemProvider(this);
+		}
+
+		return threadSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadGroupSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ThreadGroupSubcomponentItemProvider threadGroupSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ThreadGroupSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createThreadGroupSubcomponentAdapter() {
+		if (threadGroupSubcomponentItemProvider == null) {
+			threadGroupSubcomponentItemProvider = new ThreadGroupSubcomponentItemProvider(this);
+		}
+
+		return threadGroupSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualBusSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected VirtualBusSubcomponentItemProvider virtualBusSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.VirtualBusSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createVirtualBusSubcomponentAdapter() {
+		if (virtualBusSubcomponentItemProvider == null) {
+			virtualBusSubcomponentItemProvider = new VirtualBusSubcomponentItemProvider(this);
+		}
+
+		return virtualBusSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualProcessorSubcomponent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected VirtualProcessorSubcomponentItemProvider virtualProcessorSubcomponentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.VirtualProcessorSubcomponent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createVirtualProcessorSubcomponentAdapter() {
+		if (virtualProcessorSubcomponentItemProvider == null) {
+			virtualProcessorSubcomponentItemProvider = new VirtualProcessorSubcomponentItemProvider(this);
+		}
+
+		return virtualProcessorSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.BusType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BusTypeItemProvider busTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.BusType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBusTypeAdapter() {
+		if (busTypeItemProvider == null) {
+			busTypeItemProvider = new BusTypeItemProvider(this);
+		}
+
+		return busTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.BusImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BusImplementationItemProvider busImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.BusImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBusImplementationAdapter() {
+		if (busImplementationItemProvider == null) {
+			busImplementationItemProvider = new BusImplementationItemProvider(this);
+		}
+
+		return busImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DataType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DataTypeItemProvider dataTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.DataType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDataTypeAdapter() {
+		if (dataTypeItemProvider == null) {
+			dataTypeItemProvider = new DataTypeItemProvider(this);
+		}
+
+		return dataTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DataImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DataImplementationItemProvider dataImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.DataImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDataImplementationAdapter() {
+		if (dataImplementationItemProvider == null) {
+			dataImplementationItemProvider = new DataImplementationItemProvider(this);
+		}
+
+		return dataImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DeviceType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DeviceTypeItemProvider deviceTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.DeviceType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDeviceTypeAdapter() {
+		if (deviceTypeItemProvider == null) {
+			deviceTypeItemProvider = new DeviceTypeItemProvider(this);
+		}
+
+		return deviceTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DeviceImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DeviceImplementationItemProvider deviceImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.DeviceImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDeviceImplementationAdapter() {
+		if (deviceImplementationItemProvider == null) {
+			deviceImplementationItemProvider = new DeviceImplementationItemProvider(this);
+		}
+
+		return deviceImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.MemoryType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MemoryTypeItemProvider memoryTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.MemoryType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMemoryTypeAdapter() {
+		if (memoryTypeItemProvider == null) {
+			memoryTypeItemProvider = new MemoryTypeItemProvider(this);
+		}
+
+		return memoryTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.MemoryImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MemoryImplementationItemProvider memoryImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.MemoryImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMemoryImplementationAdapter() {
+		if (memoryImplementationItemProvider == null) {
+			memoryImplementationItemProvider = new MemoryImplementationItemProvider(this);
+		}
+
+		return memoryImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProcessTypeItemProvider processTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ProcessType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createProcessTypeAdapter() {
+		if (processTypeItemProvider == null) {
+			processTypeItemProvider = new ProcessTypeItemProvider(this);
+		}
+
+		return processTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProcessorTypeItemProvider processorTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createProcessorTypeAdapter() {
+		if (processorTypeItemProvider == null) {
+			processorTypeItemProvider = new ProcessorTypeItemProvider(this);
+		}
+
+		return processorTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProcessImplementationItemProvider processImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ProcessImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createProcessImplementationAdapter() {
+		if (processImplementationItemProvider == null) {
+			processImplementationItemProvider = new ProcessImplementationItemProvider(this);
+		}
+
+		return processImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProcessorImplementationItemProvider processorImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createProcessorImplementationAdapter() {
+		if (processorImplementationItemProvider == null) {
+			processorImplementationItemProvider = new ProcessorImplementationItemProvider(this);
+		}
+
+		return processorImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramTypeItemProvider subprogramTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramTypeAdapter() {
+		if (subprogramTypeItemProvider == null) {
+			subprogramTypeItemProvider = new SubprogramTypeItemProvider(this);
+		}
+
+		return subprogramTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramImplementationItemProvider subprogramImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramImplementationAdapter() {
+		if (subprogramImplementationItemProvider == null) {
+			subprogramImplementationItemProvider = new SubprogramImplementationItemProvider(this);
+		}
+
+		return subprogramImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramGroupType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramGroupTypeItemProvider subprogramGroupTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramGroupType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramGroupTypeAdapter() {
+		if (subprogramGroupTypeItemProvider == null) {
+			subprogramGroupTypeItemProvider = new SubprogramGroupTypeItemProvider(this);
+		}
+
+		return subprogramGroupTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramGroupImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramGroupImplementationItemProvider subprogramGroupImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramGroupImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramGroupImplementationAdapter() {
+		if (subprogramGroupImplementationItemProvider == null) {
+			subprogramGroupImplementationItemProvider = new SubprogramGroupImplementationItemProvider(this);
+		}
+
+		return subprogramGroupImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SystemType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SystemTypeItemProvider systemTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SystemType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSystemTypeAdapter() {
+		if (systemTypeItemProvider == null) {
+			systemTypeItemProvider = new SystemTypeItemProvider(this);
+		}
+
+		return systemTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SystemImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SystemImplementationItemProvider systemImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SystemImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSystemImplementationAdapter() {
+		if (systemImplementationItemProvider == null) {
+			systemImplementationItemProvider = new SystemImplementationItemProvider(this);
+		}
+
+		return systemImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ThreadTypeItemProvider threadTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ThreadType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createThreadTypeAdapter() {
+		if (threadTypeItemProvider == null) {
+			threadTypeItemProvider = new ThreadTypeItemProvider(this);
+		}
+
+		return threadTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ThreadImplementationItemProvider threadImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ThreadImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createThreadImplementationAdapter() {
+		if (threadImplementationItemProvider == null) {
+			threadImplementationItemProvider = new ThreadImplementationItemProvider(this);
+		}
+
+		return threadImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadGroupType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ThreadGroupTypeItemProvider threadGroupTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ThreadGroupType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createThreadGroupTypeAdapter() {
+		if (threadGroupTypeItemProvider == null) {
+			threadGroupTypeItemProvider = new ThreadGroupTypeItemProvider(this);
+		}
+
+		return threadGroupTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadGroupImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ThreadGroupImplementationItemProvider threadGroupImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ThreadGroupImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createThreadGroupImplementationAdapter() {
+		if (threadGroupImplementationItemProvider == null) {
+			threadGroupImplementationItemProvider = new ThreadGroupImplementationItemProvider(this);
+		}
+
+		return threadGroupImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualBusType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected VirtualBusTypeItemProvider virtualBusTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.VirtualBusType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createVirtualBusTypeAdapter() {
+		if (virtualBusTypeItemProvider == null) {
+			virtualBusTypeItemProvider = new VirtualBusTypeItemProvider(this);
+		}
+
+		return virtualBusTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualBusImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected VirtualBusImplementationItemProvider virtualBusImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.VirtualBusImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createVirtualBusImplementationAdapter() {
+		if (virtualBusImplementationItemProvider == null) {
+			virtualBusImplementationItemProvider = new VirtualBusImplementationItemProvider(this);
+		}
+
+		return virtualBusImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualProcessorType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected VirtualProcessorTypeItemProvider virtualProcessorTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.VirtualProcessorType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createVirtualProcessorTypeAdapter() {
+		if (virtualProcessorTypeItemProvider == null) {
+			virtualProcessorTypeItemProvider = new VirtualProcessorTypeItemProvider(this);
+		}
+
+		return virtualProcessorTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualProcessorImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected VirtualProcessorImplementationItemProvider virtualProcessorImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.VirtualProcessorImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createVirtualProcessorImplementationAdapter() {
+		if (virtualProcessorImplementationItemProvider == null) {
+			virtualProcessorImplementationItemProvider = new VirtualProcessorImplementationItemProvider(this);
+		}
+
+		return virtualProcessorImplementationItemProvider;
 	}
 
 	/**
@@ -978,716 +2635,26 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.Numeral} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorCall} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected NumeralItemProvider numeralItemProvider;
+	protected ProcessorCallItemProvider processorCallItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.Numeral}.
+	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorCall}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createNumeralAdapter() {
-		if (numeralItemProvider == null) {
-			numeralItemProvider = new NumeralItemProvider(this);
+	public Adapter createProcessorCallAdapter() {
+		if (processorCallItemProvider == null) {
+			processorCallItemProvider = new ProcessorCallItemProvider(this);
 		}
 
-		return numeralItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EndToEndFlow} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EndToEndFlowItemProvider endToEndFlowItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.EndToEndFlow}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createEndToEndFlowAdapter() {
-		if (endToEndFlowItemProvider == null) {
-			endToEndFlowItemProvider = new EndToEndFlowItemProvider(this);
-		}
-
-		return endToEndFlowItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureConnection} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FeatureConnectionItemProvider featureConnectionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.FeatureConnection}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFeatureConnectionAdapter() {
-		if (featureConnectionItemProvider == null) {
-			featureConnectionItemProvider = new FeatureConnectionItemProvider(this);
-		}
-
-		return featureConnectionItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DataAccess} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DataAccessItemProvider dataAccessItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.DataAccess}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDataAccessAdapter() {
-		if (dataAccessItemProvider == null) {
-			dataAccessItemProvider = new DataAccessItemProvider(this);
-		}
-
-		return dataAccessItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.BusAccess} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected BusAccessItemProvider busAccessItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.BusAccess}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createBusAccessAdapter() {
-		if (busAccessItemProvider == null) {
-			busAccessItemProvider = new BusAccessItemProvider(this);
-		}
-
-		return busAccessItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramAccess} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SubprogramAccessItemProvider subprogramAccessItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramAccess}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSubprogramAccessAdapter() {
-		if (subprogramAccessItemProvider == null) {
-			subprogramAccessItemProvider = new SubprogramAccessItemProvider(this);
-		}
-
-		return subprogramAccessItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DataPort} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DataPortItemProvider dataPortItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.DataPort}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDataPortAdapter() {
-		if (dataPortItemProvider == null) {
-			dataPortItemProvider = new DataPortItemProvider(this);
-		}
-
-		return dataPortItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EventPort} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EventPortItemProvider eventPortItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.EventPort}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createEventPortAdapter() {
-		if (eventPortItemProvider == null) {
-			eventPortItemProvider = new EventPortItemProvider(this);
-		}
-
-		return eventPortItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EventDataPort} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EventDataPortItemProvider eventDataPortItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.EventDataPort}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createEventDataPortAdapter() {
-		if (eventDataPortItemProvider == null) {
-			eventDataPortItemProvider = new EventDataPortItemProvider(this);
-		}
-
-		return eventDataPortItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.Parameter} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ParameterItemProvider parameterItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.Parameter}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createParameterAdapter() {
-		if (parameterItemProvider == null) {
-			parameterItemProvider = new ParameterItemProvider(this);
-		}
-
-		return parameterItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramGroupAccess} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SubprogramGroupAccessItemProvider subprogramGroupAccessItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramGroupAccess}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSubprogramGroupAccessAdapter() {
-		if (subprogramGroupAccessItemProvider == null) {
-			subprogramGroupAccessItemProvider = new SubprogramGroupAccessItemProvider(this);
-		}
-
-		return subprogramGroupAccessItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ImplementationExtension} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ImplementationExtensionItemProvider implementationExtensionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ImplementationExtension}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createImplementationExtensionAdapter() {
-		if (implementationExtensionItemProvider == null) {
-			implementationExtensionItemProvider = new ImplementationExtensionItemProvider(this);
-		}
-
-		return implementationExtensionItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.Realization} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected RealizationItemProvider realizationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.Realization}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createRealizationAdapter() {
-		if (realizationItemProvider == null) {
-			realizationItemProvider = new RealizationItemProvider(this);
-		}
-
-		return realizationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DeviceSubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DeviceSubcomponentItemProvider deviceSubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.DeviceSubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDeviceSubcomponentAdapter() {
-		if (deviceSubcomponentItemProvider == null) {
-			deviceSubcomponentItemProvider = new DeviceSubcomponentItemProvider(this);
-		}
-
-		return deviceSubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DeviceType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DeviceTypeItemProvider deviceTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.DeviceType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDeviceTypeAdapter() {
-		if (deviceTypeItemProvider == null) {
-			deviceTypeItemProvider = new DeviceTypeItemProvider(this);
-		}
-
-		return deviceTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DeviceImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DeviceImplementationItemProvider deviceImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.DeviceImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDeviceImplementationAdapter() {
-		if (deviceImplementationItemProvider == null) {
-			deviceImplementationItemProvider = new DeviceImplementationItemProvider(this);
-		}
-
-		return deviceImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.BusSubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected BusSubcomponentItemProvider busSubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.BusSubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createBusSubcomponentAdapter() {
-		if (busSubcomponentItemProvider == null) {
-			busSubcomponentItemProvider = new BusSubcomponentItemProvider(this);
-		}
-
-		return busSubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AbstractType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AbstractTypeItemProvider abstractTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.AbstractType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAbstractTypeAdapter() {
-		if (abstractTypeItemProvider == null) {
-			abstractTypeItemProvider = new AbstractTypeItemProvider(this);
-		}
-
-		return abstractTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AbstractImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AbstractImplementationItemProvider abstractImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.AbstractImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAbstractImplementationAdapter() {
-		if (abstractImplementationItemProvider == null) {
-			abstractImplementationItemProvider = new AbstractImplementationItemProvider(this);
-		}
-
-		return abstractImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DataSubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DataSubcomponentItemProvider dataSubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.DataSubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDataSubcomponentAdapter() {
-		if (dataSubcomponentItemProvider == null) {
-			dataSubcomponentItemProvider = new DataSubcomponentItemProvider(this);
-		}
-
-		return dataSubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.MemorySubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected MemorySubcomponentItemProvider memorySubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.MemorySubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createMemorySubcomponentAdapter() {
-		if (memorySubcomponentItemProvider == null) {
-			memorySubcomponentItemProvider = new MemorySubcomponentItemProvider(this);
-		}
-
-		return memorySubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessSubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessSubcomponentItemProvider processSubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessSubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessSubcomponentAdapter() {
-		if (processSubcomponentItemProvider == null) {
-			processSubcomponentItemProvider = new ProcessSubcomponentItemProvider(this);
-		}
-
-		return processSubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorSubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessorSubcomponentItemProvider processorSubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorSubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessorSubcomponentAdapter() {
-		if (processorSubcomponentItemProvider == null) {
-			processorSubcomponentItemProvider = new ProcessorSubcomponentItemProvider(this);
-		}
-
-		return processorSubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SystemSubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SystemSubcomponentItemProvider systemSubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SystemSubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSystemSubcomponentAdapter() {
-		if (systemSubcomponentItemProvider == null) {
-			systemSubcomponentItemProvider = new SystemSubcomponentItemProvider(this);
-		}
-
-		return systemSubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramSubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SubprogramSubcomponentItemProvider subprogramSubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramSubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSubprogramSubcomponentAdapter() {
-		if (subprogramSubcomponentItemProvider == null) {
-			subprogramSubcomponentItemProvider = new SubprogramSubcomponentItemProvider(this);
-		}
-
-		return subprogramSubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramGroupSubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SubprogramGroupSubcomponentItemProvider subprogramGroupSubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramGroupSubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSubprogramGroupSubcomponentAdapter() {
-		if (subprogramGroupSubcomponentItemProvider == null) {
-			subprogramGroupSubcomponentItemProvider = new SubprogramGroupSubcomponentItemProvider(this);
-		}
-
-		return subprogramGroupSubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadSubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ThreadSubcomponentItemProvider threadSubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ThreadSubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createThreadSubcomponentAdapter() {
-		if (threadSubcomponentItemProvider == null) {
-			threadSubcomponentItemProvider = new ThreadSubcomponentItemProvider(this);
-		}
-
-		return threadSubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadGroupSubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ThreadGroupSubcomponentItemProvider threadGroupSubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ThreadGroupSubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createThreadGroupSubcomponentAdapter() {
-		if (threadGroupSubcomponentItemProvider == null) {
-			threadGroupSubcomponentItemProvider = new ThreadGroupSubcomponentItemProvider(this);
-		}
-
-		return threadGroupSubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualBusSubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected VirtualBusSubcomponentItemProvider virtualBusSubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.VirtualBusSubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createVirtualBusSubcomponentAdapter() {
-		if (virtualBusSubcomponentItemProvider == null) {
-			virtualBusSubcomponentItemProvider = new VirtualBusSubcomponentItemProvider(this);
-		}
-
-		return virtualBusSubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualProcessorSubcomponent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected VirtualProcessorSubcomponentItemProvider virtualProcessorSubcomponentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.VirtualProcessorSubcomponent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createVirtualProcessorSubcomponentAdapter() {
-		if (virtualProcessorSubcomponentItemProvider == null) {
-			virtualProcessorSubcomponentItemProvider = new VirtualProcessorSubcomponentItemProvider(this);
-		}
-
-		return virtualProcessorSubcomponentItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramCallSequence} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SubprogramCallSequenceItemProvider subprogramCallSequenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramCallSequence}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSubprogramCallSequenceAdapter() {
-		if (subprogramCallSequenceItemProvider == null) {
-			subprogramCallSequenceItemProvider = new SubprogramCallSequenceItemProvider(this);
-		}
-
-		return subprogramCallSequenceItemProvider;
+		return processorCallItemProvider;
 	}
 
 	/**
@@ -1714,992 +2681,26 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorPort} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.BasicPropertyAssociation} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ProcessorPortItemProvider processorPortItemProvider;
+	protected BasicPropertyAssociationItemProvider basicPropertyAssociationItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorPort}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessorPortAdapter() {
-		if (processorPortItemProvider == null) {
-			processorPortItemProvider = new ProcessorPortItemProvider(this);
-		}
-
-		return processorPortItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.InternalEvent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected InternalEventItemProvider internalEventItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.InternalEvent}.
+	 * This creates an adapter for a {@link org.osate.aadl2.BasicPropertyAssociation}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createInternalEventAdapter() {
-		if (internalEventItemProvider == null) {
-			internalEventItemProvider = new InternalEventItemProvider(this);
+	public Adapter createBasicPropertyAssociationAdapter() {
+		if (basicPropertyAssociationItemProvider == null) {
+			basicPropertyAssociationItemProvider = new BasicPropertyAssociationItemProvider(this);
 		}
 
-		return internalEventItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.BusType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected BusTypeItemProvider busTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.BusType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createBusTypeAdapter() {
-		if (busTypeItemProvider == null) {
-			busTypeItemProvider = new BusTypeItemProvider(this);
-		}
-
-		return busTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.BusImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected BusImplementationItemProvider busImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.BusImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createBusImplementationAdapter() {
-		if (busImplementationItemProvider == null) {
-			busImplementationItemProvider = new BusImplementationItemProvider(this);
-		}
-
-		return busImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DataType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DataTypeItemProvider dataTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.DataType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDataTypeAdapter() {
-		if (dataTypeItemProvider == null) {
-			dataTypeItemProvider = new DataTypeItemProvider(this);
-		}
-
-		return dataTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DataImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DataImplementationItemProvider dataImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.DataImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDataImplementationAdapter() {
-		if (dataImplementationItemProvider == null) {
-			dataImplementationItemProvider = new DataImplementationItemProvider(this);
-		}
-
-		return dataImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.MemoryType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected MemoryTypeItemProvider memoryTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.MemoryType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createMemoryTypeAdapter() {
-		if (memoryTypeItemProvider == null) {
-			memoryTypeItemProvider = new MemoryTypeItemProvider(this);
-		}
-
-		return memoryTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.MemoryImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected MemoryImplementationItemProvider memoryImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.MemoryImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createMemoryImplementationAdapter() {
-		if (memoryImplementationItemProvider == null) {
-			memoryImplementationItemProvider = new MemoryImplementationItemProvider(this);
-		}
-
-		return memoryImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SystemType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SystemTypeItemProvider systemTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SystemType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSystemTypeAdapter() {
-		if (systemTypeItemProvider == null) {
-			systemTypeItemProvider = new SystemTypeItemProvider(this);
-		}
-
-		return systemTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SystemImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SystemImplementationItemProvider systemImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SystemImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSystemImplementationAdapter() {
-		if (systemImplementationItemProvider == null) {
-			systemImplementationItemProvider = new SystemImplementationItemProvider(this);
-		}
-
-		return systemImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ThreadTypeItemProvider threadTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ThreadType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createThreadTypeAdapter() {
-		if (threadTypeItemProvider == null) {
-			threadTypeItemProvider = new ThreadTypeItemProvider(this);
-		}
-
-		return threadTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ThreadImplementationItemProvider threadImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ThreadImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createThreadImplementationAdapter() {
-		if (threadImplementationItemProvider == null) {
-			threadImplementationItemProvider = new ThreadImplementationItemProvider(this);
-		}
-
-		return threadImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadGroupType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ThreadGroupTypeItemProvider threadGroupTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ThreadGroupType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createThreadGroupTypeAdapter() {
-		if (threadGroupTypeItemProvider == null) {
-			threadGroupTypeItemProvider = new ThreadGroupTypeItemProvider(this);
-		}
-
-		return threadGroupTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadGroupImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ThreadGroupImplementationItemProvider threadGroupImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ThreadGroupImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createThreadGroupImplementationAdapter() {
-		if (threadGroupImplementationItemProvider == null) {
-			threadGroupImplementationItemProvider = new ThreadGroupImplementationItemProvider(this);
-		}
-
-		return threadGroupImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualBusType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected VirtualBusTypeItemProvider virtualBusTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.VirtualBusType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createVirtualBusTypeAdapter() {
-		if (virtualBusTypeItemProvider == null) {
-			virtualBusTypeItemProvider = new VirtualBusTypeItemProvider(this);
-		}
-
-		return virtualBusTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualBusImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected VirtualBusImplementationItemProvider virtualBusImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.VirtualBusImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createVirtualBusImplementationAdapter() {
-		if (virtualBusImplementationItemProvider == null) {
-			virtualBusImplementationItemProvider = new VirtualBusImplementationItemProvider(this);
-		}
-
-		return virtualBusImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualProcessorType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected VirtualProcessorTypeItemProvider virtualProcessorTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.VirtualProcessorType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createVirtualProcessorTypeAdapter() {
-		if (virtualProcessorTypeItemProvider == null) {
-			virtualProcessorTypeItemProvider = new VirtualProcessorTypeItemProvider(this);
-		}
-
-		return virtualProcessorTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualProcessorImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected VirtualProcessorImplementationItemProvider virtualProcessorImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.VirtualProcessorImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createVirtualProcessorImplementationAdapter() {
-		if (virtualProcessorImplementationItemProvider == null) {
-			virtualProcessorImplementationItemProvider = new VirtualProcessorImplementationItemProvider(this);
-		}
-
-		return virtualProcessorImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramGroupType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SubprogramGroupTypeItemProvider subprogramGroupTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramGroupType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSubprogramGroupTypeAdapter() {
-		if (subprogramGroupTypeItemProvider == null) {
-			subprogramGroupTypeItemProvider = new SubprogramGroupTypeItemProvider(this);
-		}
-
-		return subprogramGroupTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramGroupImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SubprogramGroupImplementationItemProvider subprogramGroupImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramGroupImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSubprogramGroupImplementationAdapter() {
-		if (subprogramGroupImplementationItemProvider == null) {
-			subprogramGroupImplementationItemProvider = new SubprogramGroupImplementationItemProvider(this);
-		}
-
-		return subprogramGroupImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessorTypeItemProvider processorTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessorTypeAdapter() {
-		if (processorTypeItemProvider == null) {
-			processorTypeItemProvider = new ProcessorTypeItemProvider(this);
-		}
-
-		return processorTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessorImplementationItemProvider processorImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessorImplementationAdapter() {
-		if (processorImplementationItemProvider == null) {
-			processorImplementationItemProvider = new ProcessorImplementationItemProvider(this);
-		}
-
-		return processorImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessTypeItemProvider processTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessTypeAdapter() {
-		if (processTypeItemProvider == null) {
-			processTypeItemProvider = new ProcessTypeItemProvider(this);
-		}
-
-		return processTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessImplementationItemProvider processImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessImplementationAdapter() {
-		if (processImplementationItemProvider == null) {
-			processImplementationItemProvider = new ProcessImplementationItemProvider(this);
-		}
-
-		return processImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SubprogramTypeItemProvider subprogramTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSubprogramTypeAdapter() {
-		if (subprogramTypeItemProvider == null) {
-			subprogramTypeItemProvider = new SubprogramTypeItemProvider(this);
-		}
-
-		return subprogramTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramImplementation} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SubprogramImplementationItemProvider subprogramImplementationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramImplementation}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSubprogramImplementationAdapter() {
-		if (subprogramImplementationItemProvider == null) {
-			subprogramImplementationItemProvider = new SubprogramImplementationItemProvider(this);
-		}
-
-		return subprogramImplementationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AccessConnection} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AccessConnectionItemProvider accessConnectionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.AccessConnection}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAccessConnectionAdapter() {
-		if (accessConnectionItemProvider == null) {
-			accessConnectionItemProvider = new AccessConnectionItemProvider(this);
-		}
-
-		return accessConnectionItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ParameterConnection} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ParameterConnectionItemProvider parameterConnectionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ParameterConnection}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createParameterConnectionAdapter() {
-		if (parameterConnectionItemProvider == null) {
-			parameterConnectionItemProvider = new ParameterConnectionItemProvider(this);
-		}
-
-		return parameterConnectionItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PortConnection} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected PortConnectionItemProvider portConnectionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.PortConnection}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createPortConnectionAdapter() {
-		if (portConnectionItemProvider == null) {
-			portConnectionItemProvider = new PortConnectionItemProvider(this);
-		}
-
-		return portConnectionItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupConnection} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FeatureGroupConnectionItemProvider featureGroupConnectionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupConnection}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFeatureGroupConnectionAdapter() {
-		if (featureGroupConnectionItemProvider == null) {
-			featureGroupConnectionItemProvider = new FeatureGroupConnectionItemProvider(this);
-		}
-
-		return featureGroupConnectionItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorSubprogram} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessorSubprogramItemProvider processorSubprogramItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorSubprogram}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessorSubprogramAdapter() {
-		if (processorSubprogramItemProvider == null) {
-			processorSubprogramItemProvider = new ProcessorSubprogramItemProvider(this);
-		}
-
-		return processorSubprogramItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubcomponentFlow} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SubcomponentFlowItemProvider subcomponentFlowItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SubcomponentFlow}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSubcomponentFlowAdapter() {
-		if (subcomponentFlowItemProvider == null) {
-			subcomponentFlowItemProvider = new SubcomponentFlowItemProvider(this);
-		}
-
-		return subcomponentFlowItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DefaultAnnexLibrary} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DefaultAnnexLibraryItemProvider defaultAnnexLibraryItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.DefaultAnnexLibrary}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDefaultAnnexLibraryAdapter() {
-		if (defaultAnnexLibraryItemProvider == null) {
-			defaultAnnexLibraryItemProvider = new DefaultAnnexLibraryItemProvider(this);
-		}
-
-		return defaultAnnexLibraryItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DefaultAnnexSubclause} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DefaultAnnexSubclauseItemProvider defaultAnnexSubclauseItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.DefaultAnnexSubclause}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDefaultAnnexSubclauseAdapter() {
-		if (defaultAnnexSubclauseItemProvider == null) {
-			defaultAnnexSubclauseItemProvider = new DefaultAnnexSubclauseItemProvider(this);
-		}
-
-		return defaultAnnexSubclauseItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AbstractFeature} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AbstractFeatureItemProvider abstractFeatureItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.AbstractFeature}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAbstractFeatureAdapter() {
-		if (abstractFeatureItemProvider == null) {
-			abstractFeatureItemProvider = new AbstractFeatureItemProvider(this);
-		}
-
-		return abstractFeatureItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PublicPackageSection} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected PublicPackageSectionItemProvider publicPackageSectionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.PublicPackageSection}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createPublicPackageSectionAdapter() {
-		if (publicPackageSectionItemProvider == null) {
-			publicPackageSectionItemProvider = new PublicPackageSectionItemProvider(this);
-		}
-
-		return publicPackageSectionItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PackageRename} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected PackageRenameItemProvider packageRenameItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.PackageRename}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createPackageRenameAdapter() {
-		if (packageRenameItemProvider == null) {
-			packageRenameItemProvider = new PackageRenameItemProvider(this);
-		}
-
-		return packageRenameItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AadlPackage} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AadlPackageItemProvider aadlPackageItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.AadlPackage}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAadlPackageAdapter() {
-		if (aadlPackageItemProvider == null) {
-			aadlPackageItemProvider = new AadlPackageItemProvider(this);
-		}
-
-		return aadlPackageItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PrivatePackageSection} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected PrivatePackageSectionItemProvider privatePackageSectionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.PrivatePackageSection}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createPrivatePackageSectionAdapter() {
-		if (privatePackageSectionItemProvider == null) {
-			privatePackageSectionItemProvider = new PrivatePackageSectionItemProvider(this);
-		}
-
-		return privatePackageSectionItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ComponentTypeRename} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ComponentTypeRenameItemProvider componentTypeRenameItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ComponentTypeRename}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createComponentTypeRenameAdapter() {
-		if (componentTypeRenameItemProvider == null) {
-			componentTypeRenameItemProvider = new ComponentTypeRenameItemProvider(this);
-		}
-
-		return componentTypeRenameItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupTypeRename} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FeatureGroupTypeRenameItemProvider featureGroupTypeRenameItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupTypeRename}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFeatureGroupTypeRenameAdapter() {
-		if (featureGroupTypeRenameItemProvider == null) {
-			featureGroupTypeRenameItemProvider = new FeatureGroupTypeRenameItemProvider(this);
-		}
-
-		return featureGroupTypeRenameItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.GlobalNamespace} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected GlobalNamespaceItemProvider globalNamespaceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.GlobalNamespace}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createGlobalNamespaceAdapter() {
-		if (globalNamespaceItemProvider == null) {
-			globalNamespaceItemProvider = new GlobalNamespaceItemProvider(this);
-		}
-
-		return globalNamespaceItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PropertySet} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected PropertySetItemProvider propertySetItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.PropertySet}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createPropertySetAdapter() {
-		if (propertySetItemProvider == null) {
-			propertySetItemProvider = new PropertySetItemProvider(this);
-		}
-
-		return propertySetItemProvider;
+		return basicPropertyAssociationItemProvider;
 	}
 
 	/**
@@ -2726,29 +2727,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorCall} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessorCallItemProvider processorCallItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorCall}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessorCallAdapter() {
-		if (processorCallItemProvider == null) {
-			processorCallItemProvider = new ProcessorCallItemProvider(this);
-		}
-
-		return processorCallItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EnumerationValue} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2769,144 +2747,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return enumerationValueItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AadlInteger} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AadlIntegerItemProvider aadlIntegerItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.AadlInteger}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAadlIntegerAdapter() {
-		if (aadlIntegerItemProvider == null) {
-			aadlIntegerItemProvider = new AadlIntegerItemProvider(this);
-		}
-
-		return aadlIntegerItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AadlReal} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AadlRealItemProvider aadlRealItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.AadlReal}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAadlRealAdapter() {
-		if (aadlRealItemProvider == null) {
-			aadlRealItemProvider = new AadlRealItemProvider(this);
-		}
-
-		return aadlRealItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AadlBoolean} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AadlBooleanItemProvider aadlBooleanItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.AadlBoolean}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAadlBooleanAdapter() {
-		if (aadlBooleanItemProvider == null) {
-			aadlBooleanItemProvider = new AadlBooleanItemProvider(this);
-		}
-
-		return aadlBooleanItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AadlString} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AadlStringItemProvider aadlStringItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.AadlString}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAadlStringAdapter() {
-		if (aadlStringItemProvider == null) {
-			aadlStringItemProvider = new AadlStringItemProvider(this);
-		}
-
-		return aadlStringItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EnumerationType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EnumerationTypeItemProvider enumerationTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.EnumerationType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createEnumerationTypeAdapter() {
-		if (enumerationTypeItemProvider == null) {
-			enumerationTypeItemProvider = new EnumerationTypeItemProvider(this);
-		}
-
-		return enumerationTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.NumericRange} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected NumericRangeItemProvider numericRangeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.NumericRange}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createNumericRangeAdapter() {
-		if (numericRangeItemProvider == null) {
-			numericRangeItemProvider = new NumericRangeItemProvider(this);
-		}
-
-		return numericRangeItemProvider;
 	}
 
 	/**
@@ -3278,6 +3118,121 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PropertySet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PropertySetItemProvider propertySetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.PropertySet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPropertySetAdapter() {
+		if (propertySetItemProvider == null) {
+			propertySetItemProvider = new PropertySetItemProvider(this);
+		}
+
+		return propertySetItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.GlobalNamespace} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GlobalNamespaceItemProvider globalNamespaceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.GlobalNamespace}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGlobalNamespaceAdapter() {
+		if (globalNamespaceItemProvider == null) {
+			globalNamespaceItemProvider = new GlobalNamespaceItemProvider(this);
+		}
+
+		return globalNamespaceItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AadlBoolean} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AadlBooleanItemProvider aadlBooleanItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AadlBoolean}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAadlBooleanAdapter() {
+		if (aadlBooleanItemProvider == null) {
+			aadlBooleanItemProvider = new AadlBooleanItemProvider(this);
+		}
+
+		return aadlBooleanItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AadlString} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AadlStringItemProvider aadlStringItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AadlString}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAadlStringAdapter() {
+		if (aadlStringItemProvider == null) {
+			aadlStringItemProvider = new AadlStringItemProvider(this);
+		}
+
+		return aadlStringItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AadlInteger} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AadlIntegerItemProvider aadlIntegerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AadlInteger}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAadlIntegerAdapter() {
+		if (aadlIntegerItemProvider == null) {
+			aadlIntegerItemProvider = new AadlIntegerItemProvider(this);
+		}
+
+		return aadlIntegerItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.UnitsType} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3301,6 +3256,75 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EnumerationType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EnumerationTypeItemProvider enumerationTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.EnumerationType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEnumerationTypeAdapter() {
+		if (enumerationTypeItemProvider == null) {
+			enumerationTypeItemProvider = new EnumerationTypeItemProvider(this);
+		}
+
+		return enumerationTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.NumericRange} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NumericRangeItemProvider numericRangeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.NumericRange}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNumericRangeAdapter() {
+		if (numericRangeItemProvider == null) {
+			numericRangeItemProvider = new NumericRangeItemProvider(this);
+		}
+
+		return numericRangeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AadlReal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AadlRealItemProvider aadlRealItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AadlReal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAadlRealAdapter() {
+		if (aadlRealItemProvider == null) {
+			aadlRealItemProvider = new AadlRealItemProvider(this);
+		}
+
+		return aadlRealItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ClassifierType} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3321,52 +3345,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return classifierTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.MetaclassReference} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected MetaclassReferenceItemProvider metaclassReferenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.MetaclassReference}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createMetaclassReferenceAdapter() {
-		if (metaclassReferenceItemProvider == null) {
-			metaclassReferenceItemProvider = new MetaclassReferenceItemProvider(this);
-		}
-
-		return metaclassReferenceItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ReferenceType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ReferenceTypeItemProvider referenceTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ReferenceType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createReferenceTypeAdapter() {
-		if (referenceTypeItemProvider == null) {
-			referenceTypeItemProvider = new ReferenceTypeItemProvider(this);
-		}
-
-		return referenceTypeItemProvider;
 	}
 
 	/**
@@ -3436,6 +3414,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return recordFieldItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ReferenceType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ReferenceTypeItemProvider referenceTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ReferenceType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createReferenceTypeAdapter() {
+		if (referenceTypeItemProvider == null) {
+			referenceTypeItemProvider = new ReferenceTypeItemProvider(this);
+		}
+
+		return referenceTypeItemProvider;
 	}
 
 	/**

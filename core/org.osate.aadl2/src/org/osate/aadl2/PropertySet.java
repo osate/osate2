@@ -57,7 +57,7 @@ import org.eclipse.emf.ecore.EClass;
  * @model
  * @generated
  */
-public interface PropertySet extends Namespace, AadlUnit {
+public interface PropertySet extends Namespace, ModelUnit {
 	/**
 	 * Returns the value of the '<em><b>Owned Property Type</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.PropertyType}.
@@ -157,7 +157,7 @@ public interface PropertySet extends Namespace, AadlUnit {
 
 	/**
 	 * Returns the value of the '<em><b>Imported Unit</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.AadlUnit}.
+	 * The list contents are of type {@link org.osate.aadl2.ModelUnit}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Imported Unit</em>' reference list isn't clear,
@@ -169,6 +169,6 @@ public interface PropertySet extends Namespace, AadlUnit {
 	 * @model ordered="false"
 	 * @generated
 	 */
-	EList<AadlUnit> getImportedUnits();
+	EList<ModelUnit> getImportedUnits();
 
 } // PropertySet

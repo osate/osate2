@@ -990,7 +990,7 @@
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedUnit" ordered="false"
-        upperBound="-1" eType="#//AadlUnit"/>
+        upperBound="-1" eType="#//ModelUnit"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noAnnexes" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAbstractType" ordered="false"
@@ -1119,7 +1119,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="renameAll" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AadlPackage" eSuperTypes="#//AadlUnit">
+  <eClassifiers xsi:type="ecore:EClass" name="AadlPackage" eSuperTypes="#//ModelUnit">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value="Package"/>
     </eAnnotations>
@@ -1136,7 +1136,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="privateSection" ordered="false"
         eType="#//PrivatePackageSection"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AadlUnit" abstract="true" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelUnit" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="PrivatePackageSection" eSuperTypes="#//PackageSection">
     <eStructuralFeatures xsi:type="ecore:EReference" name="publicSection" ordered="false"
         eType="#//PublicPackageSection" changeable="false" volatile="true" transient="true"
@@ -2092,7 +2092,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedListElement" upperBound="-1"
         eType="#//PropertyExpression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertySet" eSuperTypes="#//Namespace #//AadlUnit">
+  <eClassifiers xsi:type="ecore:EClass" name="PropertySet" eSuperTypes="#//Namespace #//ModelUnit">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
         upperBound="-1" eType="#//PropertyType" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
@@ -2106,7 +2106,7 @@
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedUnit" ordered="false"
-        upperBound="-1" eType="#//AadlUnit"/>
+        upperBound="-1" eType="#//ModelUnit"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GlobalNamespace" eSuperTypes="#//Namespace">
     <eStructuralFeatures xsi:type="ecore:EReference" name="package" ordered="false"

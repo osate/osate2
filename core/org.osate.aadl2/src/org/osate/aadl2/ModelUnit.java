@@ -32,40 +32,17 @@
  * </copyright>
  * 
  */
-package org.osate.aadl2.impl;
-
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlUnit;
+package org.osate.aadl2;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Aadl Unit</b></em>'.
+ * A representation of the model object '<em><b>Model Unit</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
+ *
+ * @see org.osate.aadl2.Aadl2Package#getModelUnit()
+ * @model abstract="true"
  * @generated
  */
-public abstract class AadlUnitImpl extends NamedElementImpl implements AadlUnit {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AadlUnitImpl() {
-		super();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return Aadl2Package.eINSTANCE.getAadlUnit();
-	}
-
-} //AadlUnitImpl
+public interface ModelUnit extends NamedElement {
+} // ModelUnit
