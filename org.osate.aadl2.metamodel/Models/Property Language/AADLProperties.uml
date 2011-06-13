@@ -77,7 +77,7 @@
           <subsettedProperty href="../Core%20Language/AADLInfrastructure.uml#Namespace-member"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_SBJu4ICtEeC4L4Ipr-wzPA" name="AadlUnit" isAbstract="true"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_SBJu4ICtEeC4L4Ipr-wzPA" name="ModelUnit" isAbstract="true"/>
       <packagedElement xmi:type="uml:Class" xmi:id="_AsQMsIC6EeC4L4Ipr-wzPA" name="Namespace" isAbstract="true"/>
       <packagedElement xmi:type="uml:Association" xmi:id="_avt5IIC7EeC4L4Ipr-wzPA" name="A_propertySet_importedUnit" memberEnd="_avt5IYC7EeC4L4Ipr-wzPA _avt5JIC7EeC4L4Ipr-wzPA">
         <ownedEnd xmi:id="_avt5IYC7EeC4L4Ipr-wzPA" name="propertySet" type="PropertySets-PropertySet" association="_avt5IIC7EeC4L4Ipr-wzPA">

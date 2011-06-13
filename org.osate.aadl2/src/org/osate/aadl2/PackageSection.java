@@ -307,7 +307,7 @@ public interface PackageSection extends Namespace {
 
 	/**
 	 * Returns the value of the '<em><b>Imported Unit</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.AadlUnit}.
+	 * The list contents are of type {@link org.osate.aadl2.ModelUnit}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Imported Unit</em>' reference list isn't clear,
@@ -319,7 +319,7 @@ public interface PackageSection extends Namespace {
 	 * @model ordered="false"
 	 * @generated
 	 */
-	EList<AadlUnit> getImportedUnits();
+	EList<ModelUnit> getImportedUnits();
 
 	/**
 	 * Returns the value of the '<em><b>Owned Abstract Type</b></em>' containment reference list.

@@ -50,7 +50,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlUnit;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
@@ -67,6 +66,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeatureGroupTypeRename;
 import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageRename;
 import org.osate.aadl2.PackageSection;
@@ -74,7 +74,6 @@ import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.ProcessType;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorType;
-import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.SubprogramGroupImplementation;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramImplementation;
@@ -190,7 +189,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AadlUnit> importedUnits;
+	protected EList<ModelUnit> importedUnits;
 
 	/**
 	 * The default value of the '{@link #isNoAnnexes() <em>No Annexes</em>}' attribute.
@@ -790,9 +789,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AadlUnit> getImportedUnits() {
+	public EList<ModelUnit> getImportedUnits() {
 		if (importedUnits == null) {
-			importedUnits = new EObjectResolvingEList<AadlUnit>(AadlUnit.class, this,
+			importedUnits = new EObjectResolvingEList<ModelUnit>(ModelUnit.class, this,
 					Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT);
 		}
 		return importedUnits;
@@ -1706,7 +1705,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			return;
 		case Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT:
 			getImportedUnits().clear();
-			getImportedUnits().addAll((Collection<? extends AadlUnit>) newValue);
+			getImportedUnits().addAll((Collection<? extends ModelUnit>) newValue);
 			return;
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
 			setNoAnnexes((Boolean) newValue);

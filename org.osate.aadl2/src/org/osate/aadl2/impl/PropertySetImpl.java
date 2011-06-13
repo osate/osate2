@@ -48,8 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlUnit;
-import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
@@ -112,7 +111,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AadlUnit> importedUnits;
+	protected EList<ModelUnit> importedUnits;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -246,9 +245,9 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AadlUnit> getImportedUnits() {
+	public EList<ModelUnit> getImportedUnits() {
 		if (importedUnits == null) {
-			importedUnits = new EObjectResolvingEList<AadlUnit>(AadlUnit.class, this,
+			importedUnits = new EObjectResolvingEList<ModelUnit>(ModelUnit.class, this,
 					Aadl2Package.PROPERTY_SET__IMPORTED_UNIT);
 		}
 		return importedUnits;
@@ -315,7 +314,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 			return;
 		case Aadl2Package.PROPERTY_SET__IMPORTED_UNIT:
 			getImportedUnits().clear();
-			getImportedUnits().addAll((Collection<? extends AadlUnit>) newValue);
+			getImportedUnits().addAll((Collection<? extends ModelUnit>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
