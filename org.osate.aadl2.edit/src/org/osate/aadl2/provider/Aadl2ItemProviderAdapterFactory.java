@@ -3650,12 +3650,40 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			componentTypeRenameItemProvider.dispose();
 		if (featureGroupTypeRenameItemProvider != null)
 			featureGroupTypeRenameItemProvider.dispose();
+		if (componentPrototypeBindingItemProvider != null)
+			componentPrototypeBindingItemProvider.dispose();
+		if (featureGroupPrototypeItemProvider != null)
+			featureGroupPrototypeItemProvider.dispose();
+		if (featureGroupPrototypeBindingItemProvider != null)
+			featureGroupPrototypeBindingItemProvider.dispose();
+		if (featurePrototypeItemProvider != null)
+			featurePrototypeItemProvider.dispose();
+		if (featurePrototypeBindingItemProvider != null)
+			featurePrototypeBindingItemProvider.dispose();
+		if (accessSpecificationItemProvider != null)
+			accessSpecificationItemProvider.dispose();
+		if (portSpecificationItemProvider != null)
+			portSpecificationItemProvider.dispose();
+		if (featurePrototypeReferenceItemProvider != null)
+			featurePrototypeReferenceItemProvider.dispose();
+		if (componentPrototypeReferenceItemProvider != null)
+			componentPrototypeReferenceItemProvider.dispose();
+		if (componentReferenceItemProvider != null)
+			componentReferenceItemProvider.dispose();
+		if (featureGroupPrototypeReferenceItemProvider != null)
+			featureGroupPrototypeReferenceItemProvider.dispose();
+		if (featureGroupReferenceItemProvider != null)
+			featureGroupReferenceItemProvider.dispose();
+		if (subprogramCallSequenceItemProvider != null)
+			subprogramCallSequenceItemProvider.dispose();
+		if (processorCallItemProvider != null)
+			processorCallItemProvider.dispose();
+		if (subprogramCallItemProvider != null)
+			subprogramCallItemProvider.dispose();
 		if (abstractTypeItemProvider != null)
 			abstractTypeItemProvider.dispose();
 		if (abstractImplementationItemProvider != null)
 			abstractImplementationItemProvider.dispose();
-		if (subprogramCallSequenceItemProvider != null)
-			subprogramCallSequenceItemProvider.dispose();
 		if (busSubcomponentItemProvider != null)
 			busSubcomponentItemProvider.dispose();
 		if (dataSubcomponentItemProvider != null)
@@ -3698,14 +3726,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			memoryTypeItemProvider.dispose();
 		if (memoryImplementationItemProvider != null)
 			memoryImplementationItemProvider.dispose();
-		if (processTypeItemProvider != null)
-			processTypeItemProvider.dispose();
-		if (processorTypeItemProvider != null)
-			processorTypeItemProvider.dispose();
-		if (processImplementationItemProvider != null)
-			processImplementationItemProvider.dispose();
-		if (processorImplementationItemProvider != null)
-			processorImplementationItemProvider.dispose();
 		if (subprogramTypeItemProvider != null)
 			subprogramTypeItemProvider.dispose();
 		if (subprogramImplementationItemProvider != null)
@@ -3718,6 +3738,14 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			systemTypeItemProvider.dispose();
 		if (systemImplementationItemProvider != null)
 			systemImplementationItemProvider.dispose();
+		if (processorTypeItemProvider != null)
+			processorTypeItemProvider.dispose();
+		if (processorImplementationItemProvider != null)
+			processorImplementationItemProvider.dispose();
+		if (processTypeItemProvider != null)
+			processTypeItemProvider.dispose();
+		if (processImplementationItemProvider != null)
+			processImplementationItemProvider.dispose();
 		if (threadTypeItemProvider != null)
 			threadTypeItemProvider.dispose();
 		if (threadImplementationItemProvider != null)
@@ -3734,34 +3762,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			virtualProcessorTypeItemProvider.dispose();
 		if (virtualProcessorImplementationItemProvider != null)
 			virtualProcessorImplementationItemProvider.dispose();
-		if (componentPrototypeBindingItemProvider != null)
-			componentPrototypeBindingItemProvider.dispose();
-		if (featureGroupPrototypeItemProvider != null)
-			featureGroupPrototypeItemProvider.dispose();
-		if (featureGroupPrototypeBindingItemProvider != null)
-			featureGroupPrototypeBindingItemProvider.dispose();
-		if (featurePrototypeItemProvider != null)
-			featurePrototypeItemProvider.dispose();
-		if (featurePrototypeBindingItemProvider != null)
-			featurePrototypeBindingItemProvider.dispose();
-		if (accessSpecificationItemProvider != null)
-			accessSpecificationItemProvider.dispose();
-		if (portSpecificationItemProvider != null)
-			portSpecificationItemProvider.dispose();
-		if (featurePrototypeReferenceItemProvider != null)
-			featurePrototypeReferenceItemProvider.dispose();
-		if (componentPrototypeReferenceItemProvider != null)
-			componentPrototypeReferenceItemProvider.dispose();
-		if (componentReferenceItemProvider != null)
-			componentReferenceItemProvider.dispose();
-		if (featureGroupPrototypeReferenceItemProvider != null)
-			featureGroupPrototypeReferenceItemProvider.dispose();
-		if (featureGroupReferenceItemProvider != null)
-			featureGroupReferenceItemProvider.dispose();
-		if (processorCallItemProvider != null)
-			processorCallItemProvider.dispose();
-		if (subprogramCallItemProvider != null)
-			subprogramCallItemProvider.dispose();
 		if (basicPropertyAssociationItemProvider != null)
 			basicPropertyAssociationItemProvider.dispose();
 		if (propertyConstantItemProvider != null)

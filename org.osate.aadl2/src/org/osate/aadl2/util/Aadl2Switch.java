@@ -1941,6 +1941,270 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING: {
+			ComponentPrototypeBinding componentPrototypeBinding = (ComponentPrototypeBinding) theEObject;
+			T result = caseComponentPrototypeBinding(componentPrototypeBinding);
+			if (result == null)
+				result = casePrototypeBinding(componentPrototypeBinding);
+			if (result == null)
+				result = caseElement(componentPrototypeBinding);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL: {
+			ComponentPrototypeActual componentPrototypeActual = (ComponentPrototypeActual) theEObject;
+			T result = caseComponentPrototypeActual(componentPrototypeActual);
+			if (result == null)
+				result = caseElement(componentPrototypeActual);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE: {
+			FeatureGroupPrototype featureGroupPrototype = (FeatureGroupPrototype) theEObject;
+			T result = caseFeatureGroupPrototype(featureGroupPrototype);
+			if (result == null)
+				result = casePrototype(featureGroupPrototype);
+			if (result == null)
+				result = caseStructuralFeature(featureGroupPrototype);
+			if (result == null)
+				result = caseRefinableElement(featureGroupPrototype);
+			if (result == null)
+				result = caseClassifierFeature(featureGroupPrototype);
+			if (result == null)
+				result = caseNamedElement(featureGroupPrototype);
+			if (result == null)
+				result = caseElement(featureGroupPrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING: {
+			FeatureGroupPrototypeBinding featureGroupPrototypeBinding = (FeatureGroupPrototypeBinding) theEObject;
+			T result = caseFeatureGroupPrototypeBinding(featureGroupPrototypeBinding);
+			if (result == null)
+				result = casePrototypeBinding(featureGroupPrototypeBinding);
+			if (result == null)
+				result = caseElement(featureGroupPrototypeBinding);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL: {
+			FeatureGroupPrototypeActual featureGroupPrototypeActual = (FeatureGroupPrototypeActual) theEObject;
+			T result = caseFeatureGroupPrototypeActual(featureGroupPrototypeActual);
+			if (result == null)
+				result = caseElement(featureGroupPrototypeActual);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.FEATURE_PROTOTYPE: {
+			FeaturePrototype featurePrototype = (FeaturePrototype) theEObject;
+			T result = caseFeaturePrototype(featurePrototype);
+			if (result == null)
+				result = casePrototype(featurePrototype);
+			if (result == null)
+				result = caseStructuralFeature(featurePrototype);
+			if (result == null)
+				result = caseRefinableElement(featurePrototype);
+			if (result == null)
+				result = caseClassifierFeature(featurePrototype);
+			if (result == null)
+				result = caseNamedElement(featurePrototype);
+			if (result == null)
+				result = caseElement(featurePrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.FEATURE_PROTOTYPE_BINDING: {
+			FeaturePrototypeBinding featurePrototypeBinding = (FeaturePrototypeBinding) theEObject;
+			T result = caseFeaturePrototypeBinding(featurePrototypeBinding);
+			if (result == null)
+				result = casePrototypeBinding(featurePrototypeBinding);
+			if (result == null)
+				result = caseElement(featurePrototypeBinding);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.FEATURE_PROTOTYPE_ACTUAL: {
+			FeaturePrototypeActual featurePrototypeActual = (FeaturePrototypeActual) theEObject;
+			T result = caseFeaturePrototypeActual(featurePrototypeActual);
+			if (result == null)
+				result = caseElement(featurePrototypeActual);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.ACCESS_SPECIFICATION: {
+			AccessSpecification accessSpecification = (AccessSpecification) theEObject;
+			T result = caseAccessSpecification(accessSpecification);
+			if (result == null)
+				result = caseFeaturePrototypeActual(accessSpecification);
+			if (result == null)
+				result = caseElement(accessSpecification);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PORT_SPECIFICATION: {
+			PortSpecification portSpecification = (PortSpecification) theEObject;
+			T result = casePortSpecification(portSpecification);
+			if (result == null)
+				result = caseFeaturePrototypeActual(portSpecification);
+			if (result == null)
+				result = caseElement(portSpecification);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE: {
+			FeaturePrototypeReference featurePrototypeReference = (FeaturePrototypeReference) theEObject;
+			T result = caseFeaturePrototypeReference(featurePrototypeReference);
+			if (result == null)
+				result = caseFeaturePrototypeActual(featurePrototypeReference);
+			if (result == null)
+				result = caseElement(featurePrototypeReference);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE: {
+			ComponentPrototypeReference componentPrototypeReference = (ComponentPrototypeReference) theEObject;
+			T result = caseComponentPrototypeReference(componentPrototypeReference);
+			if (result == null)
+				result = caseComponentPrototypeActual(componentPrototypeReference);
+			if (result == null)
+				result = caseElement(componentPrototypeReference);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.COMPONENT_REFERENCE: {
+			ComponentReference componentReference = (ComponentReference) theEObject;
+			T result = caseComponentReference(componentReference);
+			if (result == null)
+				result = caseComponentPrototypeActual(componentReference);
+			if (result == null)
+				result = caseElement(componentReference);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE: {
+			FeatureGroupPrototypeReference featureGroupPrototypeReference = (FeatureGroupPrototypeReference) theEObject;
+			T result = caseFeatureGroupPrototypeReference(featureGroupPrototypeReference);
+			if (result == null)
+				result = caseFeatureGroupPrototypeActual(featureGroupPrototypeReference);
+			if (result == null)
+				result = caseElement(featureGroupPrototypeReference);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.FEATURE_GROUP_REFERENCE: {
+			FeatureGroupReference featureGroupReference = (FeatureGroupReference) theEObject;
+			T result = caseFeatureGroupReference(featureGroupReference);
+			if (result == null)
+				result = caseFeatureGroupPrototypeActual(featureGroupReference);
+			if (result == null)
+				result = caseElement(featureGroupReference);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE: {
+			SubprogramCallSequence subprogramCallSequence = (SubprogramCallSequence) theEObject;
+			T result = caseSubprogramCallSequence(subprogramCallSequence);
+			if (result == null)
+				result = caseBehavioralFeature(subprogramCallSequence);
+			if (result == null)
+				result = caseModalElement(subprogramCallSequence);
+			if (result == null)
+				result = caseClassifierFeature(subprogramCallSequence);
+			if (result == null)
+				result = caseNamedElement(subprogramCallSequence);
+			if (result == null)
+				result = caseElement(subprogramCallSequence);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.CALL_SPECIFICATION: {
+			CallSpecification callSpecification = (CallSpecification) theEObject;
+			T result = caseCallSpecification(callSpecification);
+			if (result == null)
+				result = caseBehavioralFeature(callSpecification);
+			if (result == null)
+				result = caseClassifierFeature(callSpecification);
+			if (result == null)
+				result = caseNamedElement(callSpecification);
+			if (result == null)
+				result = caseElement(callSpecification);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESSOR_CALL: {
+			ProcessorCall processorCall = (ProcessorCall) theEObject;
+			T result = caseProcessorCall(processorCall);
+			if (result == null)
+				result = caseCallSpecification(processorCall);
+			if (result == null)
+				result = caseBehavioralFeature(processorCall);
+			if (result == null)
+				result = caseClassifierFeature(processorCall);
+			if (result == null)
+				result = caseNamedElement(processorCall);
+			if (result == null)
+				result = caseElement(processorCall);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.BEHAVIORED_IMPLEMENTATION: {
+			BehavioredImplementation behavioredImplementation = (BehavioredImplementation) theEObject;
+			T result = caseBehavioredImplementation(behavioredImplementation);
+			if (result == null)
+				result = caseComponentImplementation(behavioredImplementation);
+			if (result == null)
+				result = caseComponentClassifier(behavioredImplementation);
+			if (result == null)
+				result = caseClassifier(behavioredImplementation);
+			if (result == null)
+				result = caseNamespace(behavioredImplementation);
+			if (result == null)
+				result = caseType(behavioredImplementation);
+			if (result == null)
+				result = caseNamedElement(behavioredImplementation);
+			if (result == null)
+				result = caseElement(behavioredImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM_CALL: {
+			SubprogramCall subprogramCall = (SubprogramCall) theEObject;
+			T result = caseSubprogramCall(subprogramCall);
+			if (result == null)
+				result = caseCallSpecification(subprogramCall);
+			if (result == null)
+				result = caseContext(subprogramCall);
+			if (result == null)
+				result = caseBehavioralFeature(subprogramCall);
+			if (result == null)
+				result = caseClassifierFeature(subprogramCall);
+			if (result == null)
+				result = caseNamedElement(subprogramCall);
+			if (result == null)
+				result = caseElement(subprogramCall);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.ABSTRACT_TYPE: {
 			AbstractType abstractType = (AbstractType) theEObject;
 			T result = caseAbstractType(abstractType);
@@ -1991,59 +2255,6 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(abstractImplementation);
 			if (result == null)
 				result = caseElement(abstractImplementation);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.BEHAVIORED_IMPLEMENTATION: {
-			BehavioredImplementation behavioredImplementation = (BehavioredImplementation) theEObject;
-			T result = caseBehavioredImplementation(behavioredImplementation);
-			if (result == null)
-				result = caseComponentImplementation(behavioredImplementation);
-			if (result == null)
-				result = caseComponentClassifier(behavioredImplementation);
-			if (result == null)
-				result = caseClassifier(behavioredImplementation);
-			if (result == null)
-				result = caseNamespace(behavioredImplementation);
-			if (result == null)
-				result = caseType(behavioredImplementation);
-			if (result == null)
-				result = caseNamedElement(behavioredImplementation);
-			if (result == null)
-				result = caseElement(behavioredImplementation);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.CALL_SPECIFICATION: {
-			CallSpecification callSpecification = (CallSpecification) theEObject;
-			T result = caseCallSpecification(callSpecification);
-			if (result == null)
-				result = caseBehavioralFeature(callSpecification);
-			if (result == null)
-				result = caseClassifierFeature(callSpecification);
-			if (result == null)
-				result = caseNamedElement(callSpecification);
-			if (result == null)
-				result = caseElement(callSpecification);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE: {
-			SubprogramCallSequence subprogramCallSequence = (SubprogramCallSequence) theEObject;
-			T result = caseSubprogramCallSequence(subprogramCallSequence);
-			if (result == null)
-				result = caseBehavioralFeature(subprogramCallSequence);
-			if (result == null)
-				result = caseModalElement(subprogramCallSequence);
-			if (result == null)
-				result = caseClassifierFeature(subprogramCallSequence);
-			if (result == null)
-				result = caseNamedElement(subprogramCallSequence);
-			if (result == null)
-				result = caseElement(subprogramCallSequence);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2965,106 +3176,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.PROCESS_TYPE: {
-			ProcessType processType = (ProcessType) theEObject;
-			T result = caseProcessType(processType);
-			if (result == null)
-				result = caseComponentType(processType);
-			if (result == null)
-				result = caseProcessClassifier(processType);
-			if (result == null)
-				result = caseComponentClassifier(processType);
-			if (result == null)
-				result = caseProcess(processType);
-			if (result == null)
-				result = caseClassifier(processType);
-			if (result == null)
-				result = caseNamespace(processType);
-			if (result == null)
-				result = caseType(processType);
-			if (result == null)
-				result = caseNamedElement(processType);
-			if (result == null)
-				result = caseElement(processType);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.PROCESSOR_TYPE: {
-			ProcessorType processorType = (ProcessorType) theEObject;
-			T result = caseProcessorType(processorType);
-			if (result == null)
-				result = caseComponentType(processorType);
-			if (result == null)
-				result = caseProcessorClassifier(processorType);
-			if (result == null)
-				result = caseComponentClassifier(processorType);
-			if (result == null)
-				result = caseProcessor(processorType);
-			if (result == null)
-				result = caseClassifier(processorType);
-			if (result == null)
-				result = caseNamespace(processorType);
-			if (result == null)
-				result = caseType(processorType);
-			if (result == null)
-				result = caseNamedElement(processorType);
-			if (result == null)
-				result = caseElement(processorType);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.PROCESS_IMPLEMENTATION: {
-			ProcessImplementation processImplementation = (ProcessImplementation) theEObject;
-			T result = caseProcessImplementation(processImplementation);
-			if (result == null)
-				result = caseComponentImplementation(processImplementation);
-			if (result == null)
-				result = caseProcessClassifier(processImplementation);
-			if (result == null)
-				result = caseComponentClassifier(processImplementation);
-			if (result == null)
-				result = caseProcess(processImplementation);
-			if (result == null)
-				result = caseClassifier(processImplementation);
-			if (result == null)
-				result = caseNamespace(processImplementation);
-			if (result == null)
-				result = caseType(processImplementation);
-			if (result == null)
-				result = caseNamedElement(processImplementation);
-			if (result == null)
-				result = caseElement(processImplementation);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.PROCESSOR_IMPLEMENTATION: {
-			ProcessorImplementation processorImplementation = (ProcessorImplementation) theEObject;
-			T result = caseProcessorImplementation(processorImplementation);
-			if (result == null)
-				result = caseComponentImplementation(processorImplementation);
-			if (result == null)
-				result = caseProcessorClassifier(processorImplementation);
-			if (result == null)
-				result = caseComponentClassifier(processorImplementation);
-			if (result == null)
-				result = caseProcessor(processorImplementation);
-			if (result == null)
-				result = caseClassifier(processorImplementation);
-			if (result == null)
-				result = caseNamespace(processorImplementation);
-			if (result == null)
-				result = caseType(processorImplementation);
-			if (result == null)
-				result = caseNamedElement(processorImplementation);
-			if (result == null)
-				result = caseElement(processorImplementation);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.SUBPROGRAM_TYPE: {
 			SubprogramType subprogramType = (SubprogramType) theEObject;
 			T result = caseSubprogramType(subprogramType);
@@ -3219,6 +3330,106 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(systemImplementation);
 			if (result == null)
 				result = caseElement(systemImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESSOR_TYPE: {
+			ProcessorType processorType = (ProcessorType) theEObject;
+			T result = caseProcessorType(processorType);
+			if (result == null)
+				result = caseComponentType(processorType);
+			if (result == null)
+				result = caseProcessorClassifier(processorType);
+			if (result == null)
+				result = caseComponentClassifier(processorType);
+			if (result == null)
+				result = caseProcessor(processorType);
+			if (result == null)
+				result = caseClassifier(processorType);
+			if (result == null)
+				result = caseNamespace(processorType);
+			if (result == null)
+				result = caseType(processorType);
+			if (result == null)
+				result = caseNamedElement(processorType);
+			if (result == null)
+				result = caseElement(processorType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESSOR_IMPLEMENTATION: {
+			ProcessorImplementation processorImplementation = (ProcessorImplementation) theEObject;
+			T result = caseProcessorImplementation(processorImplementation);
+			if (result == null)
+				result = caseComponentImplementation(processorImplementation);
+			if (result == null)
+				result = caseProcessorClassifier(processorImplementation);
+			if (result == null)
+				result = caseComponentClassifier(processorImplementation);
+			if (result == null)
+				result = caseProcessor(processorImplementation);
+			if (result == null)
+				result = caseClassifier(processorImplementation);
+			if (result == null)
+				result = caseNamespace(processorImplementation);
+			if (result == null)
+				result = caseType(processorImplementation);
+			if (result == null)
+				result = caseNamedElement(processorImplementation);
+			if (result == null)
+				result = caseElement(processorImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESS_TYPE: {
+			ProcessType processType = (ProcessType) theEObject;
+			T result = caseProcessType(processType);
+			if (result == null)
+				result = caseComponentType(processType);
+			if (result == null)
+				result = caseProcessClassifier(processType);
+			if (result == null)
+				result = caseComponentClassifier(processType);
+			if (result == null)
+				result = caseProcess(processType);
+			if (result == null)
+				result = caseClassifier(processType);
+			if (result == null)
+				result = caseNamespace(processType);
+			if (result == null)
+				result = caseType(processType);
+			if (result == null)
+				result = caseNamedElement(processType);
+			if (result == null)
+				result = caseElement(processType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESS_IMPLEMENTATION: {
+			ProcessImplementation processImplementation = (ProcessImplementation) theEObject;
+			T result = caseProcessImplementation(processImplementation);
+			if (result == null)
+				result = caseComponentImplementation(processImplementation);
+			if (result == null)
+				result = caseProcessClassifier(processImplementation);
+			if (result == null)
+				result = caseComponentClassifier(processImplementation);
+			if (result == null)
+				result = caseProcess(processImplementation);
+			if (result == null)
+				result = caseClassifier(processImplementation);
+			if (result == null)
+				result = caseNamespace(processImplementation);
+			if (result == null)
+				result = caseType(processImplementation);
+			if (result == null)
+				result = caseNamedElement(processImplementation);
+			if (result == null)
+				result = caseElement(processImplementation);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3421,217 +3632,6 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(virtualProcessorImplementation);
 			if (result == null)
 				result = caseElement(virtualProcessorImplementation);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING: {
-			ComponentPrototypeBinding componentPrototypeBinding = (ComponentPrototypeBinding) theEObject;
-			T result = caseComponentPrototypeBinding(componentPrototypeBinding);
-			if (result == null)
-				result = casePrototypeBinding(componentPrototypeBinding);
-			if (result == null)
-				result = caseElement(componentPrototypeBinding);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL: {
-			ComponentPrototypeActual componentPrototypeActual = (ComponentPrototypeActual) theEObject;
-			T result = caseComponentPrototypeActual(componentPrototypeActual);
-			if (result == null)
-				result = caseElement(componentPrototypeActual);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE: {
-			FeatureGroupPrototype featureGroupPrototype = (FeatureGroupPrototype) theEObject;
-			T result = caseFeatureGroupPrototype(featureGroupPrototype);
-			if (result == null)
-				result = casePrototype(featureGroupPrototype);
-			if (result == null)
-				result = caseStructuralFeature(featureGroupPrototype);
-			if (result == null)
-				result = caseRefinableElement(featureGroupPrototype);
-			if (result == null)
-				result = caseClassifierFeature(featureGroupPrototype);
-			if (result == null)
-				result = caseNamedElement(featureGroupPrototype);
-			if (result == null)
-				result = caseElement(featureGroupPrototype);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING: {
-			FeatureGroupPrototypeBinding featureGroupPrototypeBinding = (FeatureGroupPrototypeBinding) theEObject;
-			T result = caseFeatureGroupPrototypeBinding(featureGroupPrototypeBinding);
-			if (result == null)
-				result = casePrototypeBinding(featureGroupPrototypeBinding);
-			if (result == null)
-				result = caseElement(featureGroupPrototypeBinding);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL: {
-			FeatureGroupPrototypeActual featureGroupPrototypeActual = (FeatureGroupPrototypeActual) theEObject;
-			T result = caseFeatureGroupPrototypeActual(featureGroupPrototypeActual);
-			if (result == null)
-				result = caseElement(featureGroupPrototypeActual);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.FEATURE_PROTOTYPE: {
-			FeaturePrototype featurePrototype = (FeaturePrototype) theEObject;
-			T result = caseFeaturePrototype(featurePrototype);
-			if (result == null)
-				result = casePrototype(featurePrototype);
-			if (result == null)
-				result = caseStructuralFeature(featurePrototype);
-			if (result == null)
-				result = caseRefinableElement(featurePrototype);
-			if (result == null)
-				result = caseClassifierFeature(featurePrototype);
-			if (result == null)
-				result = caseNamedElement(featurePrototype);
-			if (result == null)
-				result = caseElement(featurePrototype);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.FEATURE_PROTOTYPE_BINDING: {
-			FeaturePrototypeBinding featurePrototypeBinding = (FeaturePrototypeBinding) theEObject;
-			T result = caseFeaturePrototypeBinding(featurePrototypeBinding);
-			if (result == null)
-				result = casePrototypeBinding(featurePrototypeBinding);
-			if (result == null)
-				result = caseElement(featurePrototypeBinding);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.FEATURE_PROTOTYPE_ACTUAL: {
-			FeaturePrototypeActual featurePrototypeActual = (FeaturePrototypeActual) theEObject;
-			T result = caseFeaturePrototypeActual(featurePrototypeActual);
-			if (result == null)
-				result = caseElement(featurePrototypeActual);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.ACCESS_SPECIFICATION: {
-			AccessSpecification accessSpecification = (AccessSpecification) theEObject;
-			T result = caseAccessSpecification(accessSpecification);
-			if (result == null)
-				result = caseFeaturePrototypeActual(accessSpecification);
-			if (result == null)
-				result = caseElement(accessSpecification);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.PORT_SPECIFICATION: {
-			PortSpecification portSpecification = (PortSpecification) theEObject;
-			T result = casePortSpecification(portSpecification);
-			if (result == null)
-				result = caseFeaturePrototypeActual(portSpecification);
-			if (result == null)
-				result = caseElement(portSpecification);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE: {
-			FeaturePrototypeReference featurePrototypeReference = (FeaturePrototypeReference) theEObject;
-			T result = caseFeaturePrototypeReference(featurePrototypeReference);
-			if (result == null)
-				result = caseFeaturePrototypeActual(featurePrototypeReference);
-			if (result == null)
-				result = caseElement(featurePrototypeReference);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE: {
-			ComponentPrototypeReference componentPrototypeReference = (ComponentPrototypeReference) theEObject;
-			T result = caseComponentPrototypeReference(componentPrototypeReference);
-			if (result == null)
-				result = caseComponentPrototypeActual(componentPrototypeReference);
-			if (result == null)
-				result = caseElement(componentPrototypeReference);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.COMPONENT_REFERENCE: {
-			ComponentReference componentReference = (ComponentReference) theEObject;
-			T result = caseComponentReference(componentReference);
-			if (result == null)
-				result = caseComponentPrototypeActual(componentReference);
-			if (result == null)
-				result = caseElement(componentReference);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE: {
-			FeatureGroupPrototypeReference featureGroupPrototypeReference = (FeatureGroupPrototypeReference) theEObject;
-			T result = caseFeatureGroupPrototypeReference(featureGroupPrototypeReference);
-			if (result == null)
-				result = caseFeatureGroupPrototypeActual(featureGroupPrototypeReference);
-			if (result == null)
-				result = caseElement(featureGroupPrototypeReference);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.FEATURE_GROUP_REFERENCE: {
-			FeatureGroupReference featureGroupReference = (FeatureGroupReference) theEObject;
-			T result = caseFeatureGroupReference(featureGroupReference);
-			if (result == null)
-				result = caseFeatureGroupPrototypeActual(featureGroupReference);
-			if (result == null)
-				result = caseElement(featureGroupReference);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.PROCESSOR_CALL: {
-			ProcessorCall processorCall = (ProcessorCall) theEObject;
-			T result = caseProcessorCall(processorCall);
-			if (result == null)
-				result = caseCallSpecification(processorCall);
-			if (result == null)
-				result = caseBehavioralFeature(processorCall);
-			if (result == null)
-				result = caseClassifierFeature(processorCall);
-			if (result == null)
-				result = caseNamedElement(processorCall);
-			if (result == null)
-				result = caseElement(processorCall);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.SUBPROGRAM_CALL: {
-			SubprogramCall subprogramCall = (SubprogramCall) theEObject;
-			T result = caseSubprogramCall(subprogramCall);
-			if (result == null)
-				result = caseCallSpecification(subprogramCall);
-			if (result == null)
-				result = caseContext(subprogramCall);
-			if (result == null)
-				result = caseBehavioralFeature(subprogramCall);
-			if (result == null)
-				result = caseClassifierFeature(subprogramCall);
-			if (result == null)
-				result = caseNamedElement(subprogramCall);
-			if (result == null)
-				result = caseElement(subprogramCall);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;

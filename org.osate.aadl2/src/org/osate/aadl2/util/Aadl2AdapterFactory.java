@@ -657,18 +657,83 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseAbstractType(AbstractType object) {
-			return createAbstractTypeAdapter();
+		public Adapter caseComponentPrototypeBinding(ComponentPrototypeBinding object) {
+			return createComponentPrototypeBindingAdapter();
 		}
 
 		@Override
-		public Adapter caseAbstractImplementation(AbstractImplementation object) {
-			return createAbstractImplementationAdapter();
+		public Adapter caseComponentPrototypeActual(ComponentPrototypeActual object) {
+			return createComponentPrototypeActualAdapter();
 		}
 
 		@Override
-		public Adapter caseBehavioredImplementation(BehavioredImplementation object) {
-			return createBehavioredImplementationAdapter();
+		public Adapter caseFeatureGroupPrototype(FeatureGroupPrototype object) {
+			return createFeatureGroupPrototypeAdapter();
+		}
+
+		@Override
+		public Adapter caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding object) {
+			return createFeatureGroupPrototypeBindingAdapter();
+		}
+
+		@Override
+		public Adapter caseFeatureGroupPrototypeActual(FeatureGroupPrototypeActual object) {
+			return createFeatureGroupPrototypeActualAdapter();
+		}
+
+		@Override
+		public Adapter caseFeaturePrototype(FeaturePrototype object) {
+			return createFeaturePrototypeAdapter();
+		}
+
+		@Override
+		public Adapter caseFeaturePrototypeBinding(FeaturePrototypeBinding object) {
+			return createFeaturePrototypeBindingAdapter();
+		}
+
+		@Override
+		public Adapter caseFeaturePrototypeActual(FeaturePrototypeActual object) {
+			return createFeaturePrototypeActualAdapter();
+		}
+
+		@Override
+		public Adapter caseAccessSpecification(AccessSpecification object) {
+			return createAccessSpecificationAdapter();
+		}
+
+		@Override
+		public Adapter casePortSpecification(PortSpecification object) {
+			return createPortSpecificationAdapter();
+		}
+
+		@Override
+		public Adapter caseFeaturePrototypeReference(FeaturePrototypeReference object) {
+			return createFeaturePrototypeReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseComponentPrototypeReference(ComponentPrototypeReference object) {
+			return createComponentPrototypeReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseComponentReference(ComponentReference object) {
+			return createComponentReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseFeatureGroupPrototypeReference(FeatureGroupPrototypeReference object) {
+			return createFeatureGroupPrototypeReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseFeatureGroupReference(FeatureGroupReference object) {
+			return createFeatureGroupReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseSubprogramCallSequence(SubprogramCallSequence object) {
+			return createSubprogramCallSequenceAdapter();
 		}
 
 		@Override
@@ -677,8 +742,28 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSubprogramCallSequence(SubprogramCallSequence object) {
-			return createSubprogramCallSequenceAdapter();
+		public Adapter caseProcessorCall(ProcessorCall object) {
+			return createProcessorCallAdapter();
+		}
+
+		@Override
+		public Adapter caseBehavioredImplementation(BehavioredImplementation object) {
+			return createBehavioredImplementationAdapter();
+		}
+
+		@Override
+		public Adapter caseSubprogramCall(SubprogramCall object) {
+			return createSubprogramCallAdapter();
+		}
+
+		@Override
+		public Adapter caseAbstractType(AbstractType object) {
+			return createAbstractTypeAdapter();
+		}
+
+		@Override
+		public Adapter caseAbstractImplementation(AbstractImplementation object) {
+			return createAbstractImplementationAdapter();
 		}
 
 		@Override
@@ -877,26 +962,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseProcessType(ProcessType object) {
-			return createProcessTypeAdapter();
-		}
-
-		@Override
-		public Adapter caseProcessorType(ProcessorType object) {
-			return createProcessorTypeAdapter();
-		}
-
-		@Override
-		public Adapter caseProcessImplementation(ProcessImplementation object) {
-			return createProcessImplementationAdapter();
-		}
-
-		@Override
-		public Adapter caseProcessorImplementation(ProcessorImplementation object) {
-			return createProcessorImplementationAdapter();
-		}
-
-		@Override
 		public Adapter caseSubprogramType(SubprogramType object) {
 			return createSubprogramTypeAdapter();
 		}
@@ -924,6 +989,26 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseSystemImplementation(SystemImplementation object) {
 			return createSystemImplementationAdapter();
+		}
+
+		@Override
+		public Adapter caseProcessorType(ProcessorType object) {
+			return createProcessorTypeAdapter();
+		}
+
+		@Override
+		public Adapter caseProcessorImplementation(ProcessorImplementation object) {
+			return createProcessorImplementationAdapter();
+		}
+
+		@Override
+		public Adapter caseProcessType(ProcessType object) {
+			return createProcessTypeAdapter();
+		}
+
+		@Override
+		public Adapter caseProcessImplementation(ProcessImplementation object) {
+			return createProcessImplementationAdapter();
 		}
 
 		@Override
@@ -964,91 +1049,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseVirtualProcessorImplementation(VirtualProcessorImplementation object) {
 			return createVirtualProcessorImplementationAdapter();
-		}
-
-		@Override
-		public Adapter caseComponentPrototypeBinding(ComponentPrototypeBinding object) {
-			return createComponentPrototypeBindingAdapter();
-		}
-
-		@Override
-		public Adapter caseComponentPrototypeActual(ComponentPrototypeActual object) {
-			return createComponentPrototypeActualAdapter();
-		}
-
-		@Override
-		public Adapter caseFeatureGroupPrototype(FeatureGroupPrototype object) {
-			return createFeatureGroupPrototypeAdapter();
-		}
-
-		@Override
-		public Adapter caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding object) {
-			return createFeatureGroupPrototypeBindingAdapter();
-		}
-
-		@Override
-		public Adapter caseFeatureGroupPrototypeActual(FeatureGroupPrototypeActual object) {
-			return createFeatureGroupPrototypeActualAdapter();
-		}
-
-		@Override
-		public Adapter caseFeaturePrototype(FeaturePrototype object) {
-			return createFeaturePrototypeAdapter();
-		}
-
-		@Override
-		public Adapter caseFeaturePrototypeBinding(FeaturePrototypeBinding object) {
-			return createFeaturePrototypeBindingAdapter();
-		}
-
-		@Override
-		public Adapter caseFeaturePrototypeActual(FeaturePrototypeActual object) {
-			return createFeaturePrototypeActualAdapter();
-		}
-
-		@Override
-		public Adapter caseAccessSpecification(AccessSpecification object) {
-			return createAccessSpecificationAdapter();
-		}
-
-		@Override
-		public Adapter casePortSpecification(PortSpecification object) {
-			return createPortSpecificationAdapter();
-		}
-
-		@Override
-		public Adapter caseFeaturePrototypeReference(FeaturePrototypeReference object) {
-			return createFeaturePrototypeReferenceAdapter();
-		}
-
-		@Override
-		public Adapter caseComponentPrototypeReference(ComponentPrototypeReference object) {
-			return createComponentPrototypeReferenceAdapter();
-		}
-
-		@Override
-		public Adapter caseComponentReference(ComponentReference object) {
-			return createComponentReferenceAdapter();
-		}
-
-		@Override
-		public Adapter caseFeatureGroupPrototypeReference(FeatureGroupPrototypeReference object) {
-			return createFeatureGroupPrototypeReferenceAdapter();
-		}
-
-		@Override
-		public Adapter caseFeatureGroupReference(FeatureGroupReference object) {
-			return createFeatureGroupReferenceAdapter();
-		}
-
-		@Override
-		public Adapter caseProcessorCall(ProcessorCall object) {
-			return createProcessorCallAdapter();
-		}
-
-		@Override
-		public Adapter caseSubprogramCall(SubprogramCall object) {
-			return createSubprogramCallAdapter();
 		}
 
 		@Override

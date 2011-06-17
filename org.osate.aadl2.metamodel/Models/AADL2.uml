@@ -88,9 +88,6 @@
     <packageMerge xmi:id="_packageMerge.27">
       <mergedPackage href="Core%20Language/AADLDetails.uml#NoneSupport"/>
     </packageMerge>
-    <packageMerge xmi:id="_packageMerge.28">
-      <mergedPackage href="Core%20Language/AADLDetails.uml#Packaging"/>
-    </packageMerge>
     <packageMerge xmi:id="_packageMerge.29">
       <mergedPackage href="Property%20Language/AADLProperties.uml#Associations"/>
     </packageMerge>

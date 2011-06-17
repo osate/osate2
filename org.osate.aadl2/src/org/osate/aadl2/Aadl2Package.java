@@ -11355,274 +11355,13 @@ public interface Aadl2Package extends EPackage {
 	int PACKAGE_SECTION__NO_ANNEXES = NAMESPACE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Abstract Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_ABSTRACT_TYPE = NAMESPACE_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Owned Abstract Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_ABSTRACT_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Owned Bus Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_BUS_TYPE = NAMESPACE_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Owned Bus Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_BUS_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_DATA_TYPE = NAMESPACE_FEATURE_COUNT + 11;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_DATA_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 12;
-
-	/**
-	 * The feature id for the '<em><b>Owned Device Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_DEVICE_TYPE = NAMESPACE_FEATURE_COUNT + 13;
-
-	/**
-	 * The feature id for the '<em><b>Owned Device Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_DEVICE_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 14;
-
-	/**
-	 * The feature id for the '<em><b>Owned Memory Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_MEMORY_TYPE = NAMESPACE_FEATURE_COUNT + 15;
-
-	/**
-	 * The feature id for the '<em><b>Owned Memory Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_MEMORY_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 16;
-
-	/**
-	 * The feature id for the '<em><b>Owned Process Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_PROCESS_TYPE = NAMESPACE_FEATURE_COUNT + 17;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_PROCESSOR_TYPE = NAMESPACE_FEATURE_COUNT + 18;
-
-	/**
-	 * The feature id for the '<em><b>Owned Process Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_PROCESS_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 19;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_PROCESSOR_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 20;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_SUBPROGRAM_TYPE = NAMESPACE_FEATURE_COUNT + 21;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_SUBPROGRAM_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 22;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Group Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_TYPE = NAMESPACE_FEATURE_COUNT + 23;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Group Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 24;
-
-	/**
-	 * The feature id for the '<em><b>Owned System Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_SYSTEM_TYPE = NAMESPACE_FEATURE_COUNT + 25;
-
-	/**
-	 * The feature id for the '<em><b>Owned System Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_SYSTEM_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 26;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_THREAD_TYPE = NAMESPACE_FEATURE_COUNT + 27;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_THREAD_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 28;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Group Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_THREAD_GROUP_TYPE = NAMESPACE_FEATURE_COUNT + 29;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Group Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_THREAD_GROUP_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 30;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Bus Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_VIRTUAL_BUS_TYPE = NAMESPACE_FEATURE_COUNT + 31;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Bus Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_VIRTUAL_BUS_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 32;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Processor Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_TYPE = NAMESPACE_FEATURE_COUNT + 33;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Processor Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_IMPLEMENTATION = NAMESPACE_FEATURE_COUNT + 34;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Group Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE = NAMESPACE_FEATURE_COUNT + 35;
-
-	/**
 	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PACKAGE_SECTION__NO_PROPERTIES = NAMESPACE_FEATURE_COUNT + 36;
+	int PACKAGE_SECTION__NO_PROPERTIES = NAMESPACE_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of structural features of the '<em>Package Section</em>' class.
@@ -11631,7 +11370,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PACKAGE_SECTION_FEATURE_COUNT = NAMESPACE_FEATURE_COUNT + 37;
+	int PACKAGE_SECTION_FEATURE_COUNT = NAMESPACE_FEATURE_COUNT + 8;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PublicPackageSectionImpl <em>Public Package Section</em>}' class.
@@ -11768,267 +11507,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int PUBLIC_PACKAGE_SECTION__NO_ANNEXES = PACKAGE_SECTION__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Abstract Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_ABSTRACT_TYPE = PACKAGE_SECTION__OWNED_ABSTRACT_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Abstract Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_ABSTRACT_IMPLEMENTATION = PACKAGE_SECTION__OWNED_ABSTRACT_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Bus Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_BUS_TYPE = PACKAGE_SECTION__OWNED_BUS_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Bus Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_BUS_IMPLEMENTATION = PACKAGE_SECTION__OWNED_BUS_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_DATA_TYPE = PACKAGE_SECTION__OWNED_DATA_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_DATA_IMPLEMENTATION = PACKAGE_SECTION__OWNED_DATA_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Device Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_DEVICE_TYPE = PACKAGE_SECTION__OWNED_DEVICE_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Device Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_DEVICE_IMPLEMENTATION = PACKAGE_SECTION__OWNED_DEVICE_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Memory Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_MEMORY_TYPE = PACKAGE_SECTION__OWNED_MEMORY_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Memory Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_MEMORY_IMPLEMENTATION = PACKAGE_SECTION__OWNED_MEMORY_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Process Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_PROCESS_TYPE = PACKAGE_SECTION__OWNED_PROCESS_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_PROCESSOR_TYPE = PACKAGE_SECTION__OWNED_PROCESSOR_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Process Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_PROCESS_IMPLEMENTATION = PACKAGE_SECTION__OWNED_PROCESS_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_PROCESSOR_IMPLEMENTATION = PACKAGE_SECTION__OWNED_PROCESSOR_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_SUBPROGRAM_TYPE = PACKAGE_SECTION__OWNED_SUBPROGRAM_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_SUBPROGRAM_IMPLEMENTATION = PACKAGE_SECTION__OWNED_SUBPROGRAM_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Group Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_TYPE = PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Group Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_IMPLEMENTATION = PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned System Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_SYSTEM_TYPE = PACKAGE_SECTION__OWNED_SYSTEM_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned System Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_SYSTEM_IMPLEMENTATION = PACKAGE_SECTION__OWNED_SYSTEM_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_THREAD_TYPE = PACKAGE_SECTION__OWNED_THREAD_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_THREAD_IMPLEMENTATION = PACKAGE_SECTION__OWNED_THREAD_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Group Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_THREAD_GROUP_TYPE = PACKAGE_SECTION__OWNED_THREAD_GROUP_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Group Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_THREAD_GROUP_IMPLEMENTATION = PACKAGE_SECTION__OWNED_THREAD_GROUP_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Bus Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_VIRTUAL_BUS_TYPE = PACKAGE_SECTION__OWNED_VIRTUAL_BUS_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Bus Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_VIRTUAL_BUS_IMPLEMENTATION = PACKAGE_SECTION__OWNED_VIRTUAL_BUS_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Processor Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_TYPE = PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Processor Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_IMPLEMENTATION = PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Group Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUBLIC_PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE = PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
@@ -12440,267 +11918,6 @@ public interface Aadl2Package extends EPackage {
 	int PRIVATE_PACKAGE_SECTION__NO_ANNEXES = PACKAGE_SECTION__NO_ANNEXES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Abstract Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_ABSTRACT_TYPE = PACKAGE_SECTION__OWNED_ABSTRACT_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Abstract Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_ABSTRACT_IMPLEMENTATION = PACKAGE_SECTION__OWNED_ABSTRACT_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Bus Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_BUS_TYPE = PACKAGE_SECTION__OWNED_BUS_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Bus Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_BUS_IMPLEMENTATION = PACKAGE_SECTION__OWNED_BUS_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_DATA_TYPE = PACKAGE_SECTION__OWNED_DATA_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_DATA_IMPLEMENTATION = PACKAGE_SECTION__OWNED_DATA_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Device Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_DEVICE_TYPE = PACKAGE_SECTION__OWNED_DEVICE_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Device Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_DEVICE_IMPLEMENTATION = PACKAGE_SECTION__OWNED_DEVICE_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Memory Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_MEMORY_TYPE = PACKAGE_SECTION__OWNED_MEMORY_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Memory Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_MEMORY_IMPLEMENTATION = PACKAGE_SECTION__OWNED_MEMORY_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Process Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_PROCESS_TYPE = PACKAGE_SECTION__OWNED_PROCESS_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_PROCESSOR_TYPE = PACKAGE_SECTION__OWNED_PROCESSOR_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Process Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_PROCESS_IMPLEMENTATION = PACKAGE_SECTION__OWNED_PROCESS_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_PROCESSOR_IMPLEMENTATION = PACKAGE_SECTION__OWNED_PROCESSOR_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_SUBPROGRAM_TYPE = PACKAGE_SECTION__OWNED_SUBPROGRAM_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_SUBPROGRAM_IMPLEMENTATION = PACKAGE_SECTION__OWNED_SUBPROGRAM_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Group Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_TYPE = PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Group Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_IMPLEMENTATION = PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned System Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_SYSTEM_TYPE = PACKAGE_SECTION__OWNED_SYSTEM_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned System Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_SYSTEM_IMPLEMENTATION = PACKAGE_SECTION__OWNED_SYSTEM_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_THREAD_TYPE = PACKAGE_SECTION__OWNED_THREAD_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_THREAD_IMPLEMENTATION = PACKAGE_SECTION__OWNED_THREAD_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Group Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_THREAD_GROUP_TYPE = PACKAGE_SECTION__OWNED_THREAD_GROUP_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Group Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_THREAD_GROUP_IMPLEMENTATION = PACKAGE_SECTION__OWNED_THREAD_GROUP_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Bus Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_VIRTUAL_BUS_TYPE = PACKAGE_SECTION__OWNED_VIRTUAL_BUS_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Bus Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_VIRTUAL_BUS_IMPLEMENTATION = PACKAGE_SECTION__OWNED_VIRTUAL_BUS_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Processor Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_TYPE = PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Processor Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_IMPLEMENTATION = PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Group Type</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIVATE_PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE = PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE;
-
-	/**
 	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12890,349 +12107,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractType()
 	 * @generated
 	 */
-	int ABSTRACT_TYPE = 112;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_ELEMENT = COMPONENT_TYPE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_COMMENT = COMPONENT_TYPE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__NAME = COMPONENT_TYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__QUALIFIED_NAME = COMPONENT_TYPE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_MEMBER = COMPONENT_TYPE__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__MEMBER = COMPONENT_TYPE__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__CLASSIFIER_FEATURE = COMPONENT_TYPE__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__GENERALIZATION = COMPONENT_TYPE__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__GENERAL = COMPONENT_TYPE__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_ANNEX_SUBCLAUSE = COMPONENT_TYPE__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_PROTOTYPE = COMPONENT_TYPE__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_PROTOTYPE_BINDING = COMPONENT_TYPE__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__NO_PROTOTYPES = COMPONENT_TYPE__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__NO_ANNEXES = COMPONENT_TYPE__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__NO_PROPERTIES = COMPONENT_TYPE__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_MODE = COMPONENT_TYPE__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_PROCESSOR_PORT = COMPONENT_TYPE__OWNED_PROCESSOR_PORT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Internal Event</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_INTERNAL_EVENT = COMPONENT_TYPE__OWNED_INTERNAL_EVENT;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__NO_FLOWS = COMPONENT_TYPE__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_FEATURE = COMPONENT_TYPE__OWNED_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Extended</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__EXTENDED = COMPONENT_TYPE__EXTENDED;
-
-	/**
-	 * The feature id for the '<em><b>Owned Flow Specification</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_EXTENSION = COMPONENT_TYPE__OWNED_EXTENSION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Group</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_FEATURE_GROUP = COMPONENT_TYPE__OWNED_FEATURE_GROUP;
-
-	/**
-	 * The feature id for the '<em><b>Owned Abstract Feature</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_ABSTRACT_FEATURE = COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>No Features</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__NO_FEATURES = COMPONENT_TYPE__NO_FEATURES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Bus Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_BUS_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_DATA_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_SUBPROGRAM_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_DATA_PORT = COMPONENT_TYPE_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Owned Event Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_EVENT_PORT = COMPONENT_TYPE_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Owned Event Data Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_EVENT_DATA_PORT = COMPONENT_TYPE_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Group Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 6;
-
-	/**
-	 * The number of structural features of the '<em>Abstract Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 7;
+	int ABSTRACT_TYPE = 132;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BehavioredImplementationImpl <em>Behaviored Implementation</em>}' class.
@@ -13242,7 +12117,1748 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBehavioredImplementation()
 	 * @generated
 	 */
-	int BEHAVIORED_IMPLEMENTATION = 114;
+	int BEHAVIORED_IMPLEMENTATION = 130;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractImplementationImpl <em>Abstract Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractImplementation()
+	 * @generated
+	 */
+	int ABSTRACT_IMPLEMENTATION = 133;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.CallSpecificationImpl <em>Call Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.CallSpecificationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getCallSpecification()
+	 * @generated
+	 */
+	int CALL_SPECIFICATION = 128;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramCallSequenceImpl <em>Subprogram Call Sequence</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramCallSequenceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramCallSequence()
+	 * @generated
+	 */
+	int SUBPROGRAM_CALL_SEQUENCE = 127;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BusSubcomponentImpl <em>Bus Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BusSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusSubcomponent()
+	 * @generated
+	 */
+	int BUS_SUBCOMPONENT = 134;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DataSubcomponentImpl <em>Data Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DataSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataSubcomponent()
+	 * @generated
+	 */
+	int DATA_SUBCOMPONENT = 135;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceSubcomponentImpl <em>Device Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DeviceSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceSubcomponent()
+	 * @generated
+	 */
+	int DEVICE_SUBCOMPONENT = 136;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceImpl <em>Device</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DeviceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDevice()
+	 * @generated
+	 */
+	int DEVICE = 137;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceClassifierImpl <em>Device Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DeviceClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceClassifier()
+	 * @generated
+	 */
+	int DEVICE_CLASSIFIER = 138;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MemorySubcomponentImpl <em>Memory Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MemorySubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemorySubcomponent()
+	 * @generated
+	 */
+	int MEMORY_SUBCOMPONENT = 139;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryImpl <em>Memory</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MemoryImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemory()
+	 * @generated
+	 */
+	int MEMORY = 140;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryClassifierImpl <em>Memory Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MemoryClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryClassifier()
+	 * @generated
+	 */
+	int MEMORY_CLASSIFIER = 141;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessSubcomponentImpl <em>Process Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessSubcomponent()
+	 * @generated
+	 */
+	int PROCESS_SUBCOMPONENT = 142;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessImpl <em>Process</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcess()
+	 * @generated
+	 */
+	int PROCESS = 143;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessClassifierImpl <em>Process Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessClassifier()
+	 * @generated
+	 */
+	int PROCESS_CLASSIFIER = 144;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorSubcomponentImpl <em>Processor Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubcomponent()
+	 * @generated
+	 */
+	int PROCESSOR_SUBCOMPONENT = 145;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorImpl <em>Processor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessor()
+	 * @generated
+	 */
+	int PROCESSOR = 146;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorClassifierImpl <em>Processor Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorClassifier()
+	 * @generated
+	 */
+	int PROCESSOR_CLASSIFIER = 147;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemSubcomponentImpl <em>System Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SystemSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemSubcomponent()
+	 * @generated
+	 */
+	int SYSTEM_SUBCOMPONENT = 148;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemImpl <em>System</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SystemImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystem()
+	 * @generated
+	 */
+	int SYSTEM = 149;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemClassifierImpl <em>System Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SystemClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemClassifier()
+	 * @generated
+	 */
+	int SYSTEM_CLASSIFIER = 150;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramSubcomponentImpl <em>Subprogram Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramSubcomponent()
+	 * @generated
+	 */
+	int SUBPROGRAM_SUBCOMPONENT = 151;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl <em>Subprogram Group Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupSubcomponent()
+	 * @generated
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT = 152;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadSubcomponentImpl <em>Thread Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadSubcomponent()
+	 * @generated
+	 */
+	int THREAD_SUBCOMPONENT = 153;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadImpl <em>Thread</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThread()
+	 * @generated
+	 */
+	int THREAD = 154;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadClassifierImpl <em>Thread Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadClassifier()
+	 * @generated
+	 */
+	int THREAD_CLASSIFIER = 155;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupSubcomponentImpl <em>Thread Group Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadGroupSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupSubcomponent()
+	 * @generated
+	 */
+	int THREAD_GROUP_SUBCOMPONENT = 156;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupImpl <em>Thread Group</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadGroupImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroup()
+	 * @generated
+	 */
+	int THREAD_GROUP = 157;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupClassifierImpl <em>Thread Group Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadGroupClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupClassifier()
+	 * @generated
+	 */
+	int THREAD_GROUP_CLASSIFIER = 158;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusSubcomponentImpl <em>Virtual Bus Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusSubcomponent()
+	 * @generated
+	 */
+	int VIRTUAL_BUS_SUBCOMPONENT = 159;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBus()
+	 * @generated
+	 */
+	int VIRTUAL_BUS = 160;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusClassifierImpl <em>Virtual Bus Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusClassifier()
+	 * @generated
+	 */
+	int VIRTUAL_BUS_CLASSIFIER = 161;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorSubcomponentImpl <em>Virtual Processor Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualProcessorSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorSubcomponent()
+	 * @generated
+	 */
+	int VIRTUAL_PROCESSOR_SUBCOMPONENT = 162;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorImpl <em>Virtual Processor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualProcessorImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessor()
+	 * @generated
+	 */
+	int VIRTUAL_PROCESSOR = 163;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorClassifierImpl <em>Virtual Processor Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualProcessorClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorClassifier()
+	 * @generated
+	 */
+	int VIRTUAL_PROCESSOR_CLASSIFIER = 164;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BusTypeImpl <em>Bus Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BusTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusType()
+	 * @generated
+	 */
+	int BUS_TYPE = 165;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BusImplementationImpl <em>Bus Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BusImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusImplementation()
+	 * @generated
+	 */
+	int BUS_IMPLEMENTATION = 166;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DataTypeImpl <em>Data Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DataTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataType()
+	 * @generated
+	 */
+	int DATA_TYPE = 167;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DataImplementationImpl <em>Data Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DataImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataImplementation()
+	 * @generated
+	 */
+	int DATA_IMPLEMENTATION = 168;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceTypeImpl <em>Device Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DeviceTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceType()
+	 * @generated
+	 */
+	int DEVICE_TYPE = 169;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceImplementationImpl <em>Device Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DeviceImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceImplementation()
+	 * @generated
+	 */
+	int DEVICE_IMPLEMENTATION = 170;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryTypeImpl <em>Memory Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MemoryTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryType()
+	 * @generated
+	 */
+	int MEMORY_TYPE = 171;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryImplementationImpl <em>Memory Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MemoryImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryImplementation()
+	 * @generated
+	 */
+	int MEMORY_IMPLEMENTATION = 172;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessTypeImpl <em>Process Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessType()
+	 * @generated
+	 */
+	int PROCESS_TYPE = 181;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorTypeImpl <em>Processor Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorType()
+	 * @generated
+	 */
+	int PROCESSOR_TYPE = 179;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessImplementationImpl <em>Process Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessImplementation()
+	 * @generated
+	 */
+	int PROCESS_IMPLEMENTATION = 182;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorImplementationImpl <em>Processor Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorImplementation()
+	 * @generated
+	 */
+	int PROCESSOR_IMPLEMENTATION = 180;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramTypeImpl <em>Subprogram Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramType()
+	 * @generated
+	 */
+	int SUBPROGRAM_TYPE = 173;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramImplementationImpl <em>Subprogram Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramImplementation()
+	 * @generated
+	 */
+	int SUBPROGRAM_IMPLEMENTATION = 174;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupTypeImpl <em>Subprogram Group Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramGroupTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupType()
+	 * @generated
+	 */
+	int SUBPROGRAM_GROUP_TYPE = 175;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl <em>Subprogram Group Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramGroupImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupImplementation()
+	 * @generated
+	 */
+	int SUBPROGRAM_GROUP_IMPLEMENTATION = 176;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemTypeImpl <em>System Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SystemTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemType()
+	 * @generated
+	 */
+	int SYSTEM_TYPE = 177;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemImplementationImpl <em>System Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SystemImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemImplementation()
+	 * @generated
+	 */
+	int SYSTEM_IMPLEMENTATION = 178;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadTypeImpl <em>Thread Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadType()
+	 * @generated
+	 */
+	int THREAD_TYPE = 183;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadImplementationImpl <em>Thread Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadImplementation()
+	 * @generated
+	 */
+	int THREAD_IMPLEMENTATION = 184;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupTypeImpl <em>Thread Group Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadGroupTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupType()
+	 * @generated
+	 */
+	int THREAD_GROUP_TYPE = 185;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupImplementationImpl <em>Thread Group Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadGroupImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupImplementation()
+	 * @generated
+	 */
+	int THREAD_GROUP_IMPLEMENTATION = 186;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusTypeImpl <em>Virtual Bus Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusType()
+	 * @generated
+	 */
+	int VIRTUAL_BUS_TYPE = 187;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusImplementationImpl <em>Virtual Bus Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusImplementation()
+	 * @generated
+	 */
+	int VIRTUAL_BUS_IMPLEMENTATION = 188;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorTypeImpl <em>Virtual Processor Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualProcessorTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorType()
+	 * @generated
+	 */
+	int VIRTUAL_PROCESSOR_TYPE = 189;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorImplementationImpl <em>Virtual Processor Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualProcessorImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorImplementation()
+	 * @generated
+	 */
+	int VIRTUAL_PROCESSOR_IMPLEMENTATION = 190;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeBindingImpl <em>Component Prototype Binding</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ComponentPrototypeBindingImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeBinding()
+	 * @generated
+	 */
+	int COMPONENT_PROTOTYPE_BINDING = 112;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_BINDING__OWNED_ELEMENT = PROTOTYPE_BINDING__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_BINDING__OWNED_COMMENT = PROTOTYPE_BINDING__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Formal</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_BINDING__FORMAL = PROTOTYPE_BINDING__FORMAL;
+
+	/**
+	 * The feature id for the '<em><b>Actual</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_BINDING__ACTUAL = PROTOTYPE_BINDING_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Component Prototype Binding</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_BINDING_FEATURE_COUNT = PROTOTYPE_BINDING_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl <em>Component Prototype Actual</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ComponentPrototypeActualImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeActual()
+	 * @generated
+	 */
+	int COMPONENT_PROTOTYPE_ACTUAL = 113;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_ACTUAL__CATEGORY = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Component Prototype Actual</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeImpl <em>Feature Group Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototype()
+	 * @generated
+	 */
+	int FEATURE_GROUP_PROTOTYPE = 114;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__OWNED_ELEMENT = PROTOTYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__OWNED_COMMENT = PROTOTYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__NAME = PROTOTYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__QUALIFIED_NAME = PROTOTYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__OWNED_PROPERTY_ASSOCIATION = PROTOTYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__REFINEMENT_CONTEXT = PROTOTYPE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__REFINED_ELEMENT = PROTOTYPE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__FEATURING_CLASSIFIER = PROTOTYPE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__REFINED = PROTOTYPE__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Constraining Feature Group Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__CONSTRAINING_FEATURE_GROUP_TYPE = PROTOTYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Feature Group Prototype</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeBindingImpl <em>Feature Group Prototype Binding</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeBindingImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeBinding()
+	 * @generated
+	 */
+	int FEATURE_GROUP_PROTOTYPE_BINDING = 115;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_BINDING__OWNED_ELEMENT = PROTOTYPE_BINDING__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_BINDING__OWNED_COMMENT = PROTOTYPE_BINDING__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Formal</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_BINDING__FORMAL = PROTOTYPE_BINDING__FORMAL;
+
+	/**
+	 * The feature id for the '<em><b>Actual</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL = PROTOTYPE_BINDING_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Feature Group Prototype Binding</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_BINDING_FEATURE_COUNT = PROTOTYPE_BINDING_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl <em>Feature Group Prototype Actual</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeActual()
+	 * @generated
+	 */
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL = 116;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The number of structural features of the '<em>Feature Group Prototype Actual</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeImpl <em>Feature Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeaturePrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototype()
+	 * @generated
+	 */
+	int FEATURE_PROTOTYPE = 117;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__OWNED_ELEMENT = PROTOTYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__OWNED_COMMENT = PROTOTYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__NAME = PROTOTYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__QUALIFIED_NAME = PROTOTYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__OWNED_PROPERTY_ASSOCIATION = PROTOTYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__REFINEMENT_CONTEXT = PROTOTYPE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__REFINED_ELEMENT = PROTOTYPE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__FEATURING_CLASSIFIER = PROTOTYPE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__REFINED = PROTOTYPE__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__DIRECTION = PROTOTYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Constraining Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__CONSTRAINING_CLASSIFIER = PROTOTYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Feature Prototype</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeBindingImpl <em>Feature Prototype Binding</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeaturePrototypeBindingImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeBinding()
+	 * @generated
+	 */
+	int FEATURE_PROTOTYPE_BINDING = 118;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_BINDING__OWNED_ELEMENT = PROTOTYPE_BINDING__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_BINDING__OWNED_COMMENT = PROTOTYPE_BINDING__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Formal</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_BINDING__FORMAL = PROTOTYPE_BINDING__FORMAL;
+
+	/**
+	 * The feature id for the '<em><b>Actual</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_BINDING__ACTUAL = PROTOTYPE_BINDING_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Feature Prototype Binding</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_BINDING_FEATURE_COUNT = PROTOTYPE_BINDING_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeActualImpl <em>Feature Prototype Actual</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeaturePrototypeActualImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeActual()
+	 * @generated
+	 */
+	int FEATURE_PROTOTYPE_ACTUAL = 119;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The number of structural features of the '<em>Feature Prototype Actual</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessSpecificationImpl <em>Access Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AccessSpecificationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessSpecification()
+	 * @generated
+	 */
+	int ACCESS_SPECIFICATION = 120;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_SPECIFICATION__OWNED_ELEMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_SPECIFICATION__OWNED_COMMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_SPECIFICATION__KIND = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_SPECIFICATION__CATEGORY = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_SPECIFICATION__CLASSIFIER = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Access Specification</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_SPECIFICATION_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PortSpecificationImpl <em>Port Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PortSpecificationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortSpecification()
+	 * @generated
+	 */
+	int PORT_SPECIFICATION = 121;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_SPECIFICATION__OWNED_ELEMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_SPECIFICATION__OWNED_COMMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_SPECIFICATION__DIRECTION = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_SPECIFICATION__CATEGORY = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_SPECIFICATION__CLASSIFIER = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Port Specification</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_SPECIFICATION_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeReferenceImpl <em>Feature Prototype Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeaturePrototypeReferenceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeReference()
+	 * @generated
+	 */
+	int FEATURE_PROTOTYPE_REFERENCE = 122;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_REFERENCE__OWNED_ELEMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_REFERENCE__OWNED_COMMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_REFERENCE__DIRECTION = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Feature Prototype Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_REFERENCE_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeReferenceImpl <em>Component Prototype Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ComponentPrototypeReferenceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeReference()
+	 * @generated
+	 */
+	int COMPONENT_PROTOTYPE_REFERENCE = 123;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_REFERENCE__OWNED_ELEMENT = COMPONENT_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_REFERENCE__OWNED_COMMENT = COMPONENT_PROTOTYPE_ACTUAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_REFERENCE__CATEGORY = COMPONENT_PROTOTYPE_ACTUAL__CATEGORY;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_REFERENCE__PROTOTYPE = COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Component Prototype Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_REFERENCE_FEATURE_COUNT = COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentReferenceImpl <em>Component Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ComponentReferenceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentReference()
+	 * @generated
+	 */
+	int COMPONENT_REFERENCE = 124;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_REFERENCE__OWNED_ELEMENT = COMPONENT_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_REFERENCE__OWNED_COMMENT = COMPONENT_PROTOTYPE_ACTUAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_REFERENCE__CATEGORY = COMPONENT_PROTOTYPE_ACTUAL__CATEGORY;
+
+	/**
+	 * The feature id for the '<em><b>Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_REFERENCE__BINDING = COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_REFERENCE__CLASSIFIER = COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Component Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_REFERENCE_FEATURE_COUNT = COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeReferenceImpl <em>Feature Group Prototype Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeReferenceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeReference()
+	 * @generated
+	 */
+	int FEATURE_GROUP_PROTOTYPE_REFERENCE = 125;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_REFERENCE__OWNED_ELEMENT = FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_REFERENCE__OWNED_COMMENT = FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_REFERENCE__PROTOTYPE = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Feature Group Prototype Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_REFERENCE_FEATURE_COUNT = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupReferenceImpl <em>Feature Group Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupReferenceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupReference()
+	 * @generated
+	 */
+	int FEATURE_GROUP_REFERENCE = 126;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_REFERENCE__OWNED_ELEMENT = FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_REFERENCE__OWNED_COMMENT = FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_REFERENCE__BINDING = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Feature Group Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_REFERENCE__FEATURE_GROUP_TYPE = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Feature Group Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_REFERENCE_FEATURE_COUNT = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL_SEQUENCE__OWNED_ELEMENT = BEHAVIORAL_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL_SEQUENCE__OWNED_COMMENT = BEHAVIORAL_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL_SEQUENCE__NAME = BEHAVIORAL_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL_SEQUENCE__QUALIFIED_NAME = BEHAVIORAL_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL_SEQUENCE__OWNED_PROPERTY_ASSOCIATION = BEHAVIORAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL_SEQUENCE__FEATURING_CLASSIFIER = BEHAVIORAL_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL_SEQUENCE__IN_MODE = BEHAVIORAL_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Call Specification</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION = BEHAVIORAL_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram Call Sequence</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL_SEQUENCE_FEATURE_COUNT = BEHAVIORAL_FEATURE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALL_SPECIFICATION__OWNED_ELEMENT = BEHAVIORAL_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALL_SPECIFICATION__OWNED_COMMENT = BEHAVIORAL_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALL_SPECIFICATION__NAME = BEHAVIORAL_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALL_SPECIFICATION__QUALIFIED_NAME = BEHAVIORAL_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALL_SPECIFICATION__OWNED_PROPERTY_ASSOCIATION = BEHAVIORAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALL_SPECIFICATION__FEATURING_CLASSIFIER = BEHAVIORAL_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The number of structural features of the '<em>Call Specification</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALL_SPECIFICATION_FEATURE_COUNT = BEHAVIORAL_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorCallImpl <em>Processor Call</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorCallImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorCall()
+	 * @generated
+	 */
+	int PROCESSOR_CALL = 129;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_CALL__OWNED_ELEMENT = CALL_SPECIFICATION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_CALL__OWNED_COMMENT = CALL_SPECIFICATION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_CALL__NAME = CALL_SPECIFICATION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_CALL__QUALIFIED_NAME = CALL_SPECIFICATION__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_CALL__OWNED_PROPERTY_ASSOCIATION = CALL_SPECIFICATION__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_CALL__FEATURING_CLASSIFIER = CALL_SPECIFICATION__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Subprogram Access Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_CALL__SUBPROGRAM_ACCESS_NAME = CALL_SPECIFICATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Processor Call</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_CALL_FEATURE_COUNT = CALL_SPECIFICATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -13641,14 +14257,446 @@ public interface Aadl2Package extends EPackage {
 	int BEHAVIORED_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractImplementationImpl <em>Abstract Implementation</em>}' class.
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramCallImpl <em>Subprogram Call</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AbstractImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractImplementation()
+	 * @see org.osate.aadl2.impl.SubprogramCallImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramCall()
 	 * @generated
 	 */
-	int ABSTRACT_IMPLEMENTATION = 113;
+	int SUBPROGRAM_CALL = 131;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL__OWNED_ELEMENT = CALL_SPECIFICATION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL__OWNED_COMMENT = CALL_SPECIFICATION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL__NAME = CALL_SPECIFICATION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL__QUALIFIED_NAME = CALL_SPECIFICATION__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL__OWNED_PROPERTY_ASSOCIATION = CALL_SPECIFICATION__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL__FEATURING_CLASSIFIER = CALL_SPECIFICATION__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Called Subprogram</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL__CALLED_SUBPROGRAM = CALL_SPECIFICATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL__PROTOTYPE = CALL_SPECIFICATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL__CONTEXT = CALL_SPECIFICATION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram Call</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CALL_FEATURE_COUNT = CALL_SPECIFICATION_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_ELEMENT = COMPONENT_TYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_COMMENT = COMPONENT_TYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__NAME = COMPONENT_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__QUALIFIED_NAME = COMPONENT_TYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_MEMBER = COMPONENT_TYPE__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__MEMBER = COMPONENT_TYPE__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__CLASSIFIER_FEATURE = COMPONENT_TYPE__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__GENERALIZATION = COMPONENT_TYPE__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__GENERAL = COMPONENT_TYPE__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_ANNEX_SUBCLAUSE = COMPONENT_TYPE__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_PROTOTYPE = COMPONENT_TYPE__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_PROTOTYPE_BINDING = COMPONENT_TYPE__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__NO_PROTOTYPES = COMPONENT_TYPE__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__NO_ANNEXES = COMPONENT_TYPE__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__NO_PROPERTIES = COMPONENT_TYPE__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_MODE = COMPONENT_TYPE__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Processor Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_PROCESSOR_PORT = COMPONENT_TYPE__OWNED_PROCESSOR_PORT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Internal Event</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_INTERNAL_EVENT = COMPONENT_TYPE__OWNED_INTERNAL_EVENT;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__NO_FLOWS = COMPONENT_TYPE__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_FEATURE = COMPONENT_TYPE__OWNED_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Extended</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__EXTENDED = COMPONENT_TYPE__EXTENDED;
+
+	/**
+	 * The feature id for the '<em><b>Owned Flow Specification</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_EXTENSION = COMPONENT_TYPE__OWNED_EXTENSION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature Group</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_FEATURE_GROUP = COMPONENT_TYPE__OWNED_FEATURE_GROUP;
+
+	/**
+	 * The feature id for the '<em><b>Owned Abstract Feature</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_ABSTRACT_FEATURE = COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>No Features</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__NO_FEATURES = COMPONENT_TYPE__NO_FEATURES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Bus Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_BUS_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Data Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_DATA_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subprogram Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_SUBPROGRAM_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Data Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_DATA_PORT = COMPONENT_TYPE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Owned Event Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_EVENT_PORT = COMPONENT_TYPE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Event Data Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_EVENT_DATA_PORT = COMPONENT_TYPE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subprogram Group Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 6;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -14164,180 +15212,6 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_IMPLEMENTATION_FEATURE_COUNT = BEHAVIORED_IMPLEMENTATION_FEATURE_COUNT + 13;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.CallSpecificationImpl <em>Call Specification</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.CallSpecificationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getCallSpecification()
-	 * @generated
-	 */
-	int CALL_SPECIFICATION = 115;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALL_SPECIFICATION__OWNED_ELEMENT = BEHAVIORAL_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALL_SPECIFICATION__OWNED_COMMENT = BEHAVIORAL_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALL_SPECIFICATION__NAME = BEHAVIORAL_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALL_SPECIFICATION__QUALIFIED_NAME = BEHAVIORAL_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALL_SPECIFICATION__OWNED_PROPERTY_ASSOCIATION = BEHAVIORAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALL_SPECIFICATION__FEATURING_CLASSIFIER = BEHAVIORAL_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The number of structural features of the '<em>Call Specification</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALL_SPECIFICATION_FEATURE_COUNT = BEHAVIORAL_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramCallSequenceImpl <em>Subprogram Call Sequence</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramCallSequenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramCallSequence()
-	 * @generated
-	 */
-	int SUBPROGRAM_CALL_SEQUENCE = 116;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL_SEQUENCE__OWNED_ELEMENT = BEHAVIORAL_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL_SEQUENCE__OWNED_COMMENT = BEHAVIORAL_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL_SEQUENCE__NAME = BEHAVIORAL_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL_SEQUENCE__QUALIFIED_NAME = BEHAVIORAL_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL_SEQUENCE__OWNED_PROPERTY_ASSOCIATION = BEHAVIORAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL_SEQUENCE__FEATURING_CLASSIFIER = BEHAVIORAL_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL_SEQUENCE__IN_MODE = BEHAVIORAL_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Call Specification</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION = BEHAVIORAL_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram Call Sequence</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL_SEQUENCE_FEATURE_COUNT = BEHAVIORAL_FEATURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BusSubcomponentImpl <em>Bus Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BusSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusSubcomponent()
-	 * @generated
-	 */
-	int BUS_SUBCOMPONENT = 117;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14516,16 +15390,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int BUS_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DataSubcomponentImpl <em>Data Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DataSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataSubcomponent()
-	 * @generated
-	 */
-	int DATA_SUBCOMPONENT = 118;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -14708,16 +15572,6 @@ public interface Aadl2Package extends EPackage {
 	int DATA_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceSubcomponentImpl <em>Device Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DeviceSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceSubcomponent()
-	 * @generated
-	 */
-	int DEVICE_SUBCOMPONENT = 119;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14898,16 +15752,6 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceImpl <em>Device</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DeviceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDevice()
-	 * @generated
-	 */
-	int DEVICE = 120;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14960,16 +15804,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int DEVICE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceClassifierImpl <em>Device Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DeviceClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceClassifier()
-	 * @generated
-	 */
-	int DEVICE_CLASSIFIER = 121;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -15188,16 +16022,6 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MemorySubcomponentImpl <em>Memory Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MemorySubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemorySubcomponent()
-	 * @generated
-	 */
-	int MEMORY_SUBCOMPONENT = 122;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -15378,16 +16202,6 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryImpl <em>Memory</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MemoryImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemory()
-	 * @generated
-	 */
-	int MEMORY = 123;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -15440,16 +16254,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int MEMORY_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryClassifierImpl <em>Memory Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MemoryClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryClassifier()
-	 * @generated
-	 */
-	int MEMORY_CLASSIFIER = 124;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -15668,16 +16472,6 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessSubcomponentImpl <em>Process Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessSubcomponent()
-	 * @generated
-	 */
-	int PROCESS_SUBCOMPONENT = 125;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -15858,16 +16652,6 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessImpl <em>Process</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcess()
-	 * @generated
-	 */
-	int PROCESS = 126;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -15920,16 +16704,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int PROCESS_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessClassifierImpl <em>Process Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessClassifier()
-	 * @generated
-	 */
-	int PROCESS_CLASSIFIER = 127;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -16148,16 +16922,6 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorSubcomponentImpl <em>Processor Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubcomponent()
-	 * @generated
-	 */
-	int PROCESSOR_SUBCOMPONENT = 128;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16338,16 +17102,6 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorImpl <em>Processor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessor()
-	 * @generated
-	 */
-	int PROCESSOR = 129;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16400,16 +17154,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int PROCESSOR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorClassifierImpl <em>Processor Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorClassifier()
-	 * @generated
-	 */
-	int PROCESSOR_CLASSIFIER = 130;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -16628,16 +17372,6 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemSubcomponentImpl <em>System Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SystemSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemSubcomponent()
-	 * @generated
-	 */
-	int SYSTEM_SUBCOMPONENT = 131;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16818,16 +17552,6 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemImpl <em>System</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SystemImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystem()
-	 * @generated
-	 */
-	int SYSTEM = 132;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16880,16 +17604,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SYSTEM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemClassifierImpl <em>System Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SystemClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemClassifier()
-	 * @generated
-	 */
-	int SYSTEM_CLASSIFIER = 133;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -17108,16 +17822,6 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramSubcomponentImpl <em>Subprogram Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramSubcomponent()
-	 * @generated
-	 */
-	int SUBPROGRAM_SUBCOMPONENT = 134;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17296,16 +18000,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBPROGRAM_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl <em>Subprogram Group Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupSubcomponent()
-	 * @generated
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT = 135;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -17488,16 +18182,6 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadSubcomponentImpl <em>Thread Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadSubcomponent()
-	 * @generated
-	 */
-	int THREAD_SUBCOMPONENT = 136;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17678,16 +18362,6 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadImpl <em>Thread</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThread()
-	 * @generated
-	 */
-	int THREAD = 137;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17740,16 +18414,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int THREAD_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadClassifierImpl <em>Thread Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadClassifier()
-	 * @generated
-	 */
-	int THREAD_CLASSIFIER = 138;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -17968,16 +18632,6 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupSubcomponentImpl <em>Thread Group Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadGroupSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupSubcomponent()
-	 * @generated
-	 */
-	int THREAD_GROUP_SUBCOMPONENT = 139;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18158,16 +18812,6 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupImpl <em>Thread Group</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadGroupImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroup()
-	 * @generated
-	 */
-	int THREAD_GROUP = 140;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18220,16 +18864,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int THREAD_GROUP_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupClassifierImpl <em>Thread Group Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadGroupClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupClassifier()
-	 * @generated
-	 */
-	int THREAD_GROUP_CLASSIFIER = 141;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -18448,16 +19082,6 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusSubcomponentImpl <em>Virtual Bus Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualBusSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusSubcomponent()
-	 * @generated
-	 */
-	int VIRTUAL_BUS_SUBCOMPONENT = 142;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18638,16 +19262,6 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualBusImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBus()
-	 * @generated
-	 */
-	int VIRTUAL_BUS = 143;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18700,16 +19314,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_BUS_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusClassifierImpl <em>Virtual Bus Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualBusClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusClassifier()
-	 * @generated
-	 */
-	int VIRTUAL_BUS_CLASSIFIER = 144;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -18928,16 +19532,6 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorSubcomponentImpl <em>Virtual Processor Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualProcessorSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorSubcomponent()
-	 * @generated
-	 */
-	int VIRTUAL_PROCESSOR_SUBCOMPONENT = 145;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -19118,16 +19712,6 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorImpl <em>Virtual Processor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualProcessorImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessor()
-	 * @generated
-	 */
-	int VIRTUAL_PROCESSOR = 146;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -19180,16 +19764,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_PROCESSOR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorClassifierImpl <em>Virtual Processor Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualProcessorClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorClassifier()
-	 * @generated
-	 */
-	int VIRTUAL_PROCESSOR_CLASSIFIER = 147;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -19406,16 +19980,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_PROCESSOR_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BusTypeImpl <em>Bus Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BusTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusType()
-	 * @generated
-	 */
-	int BUS_TYPE = 148;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -19704,16 +20268,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int BUS_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BusImplementationImpl <em>Bus Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BusImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusImplementation()
-	 * @generated
-	 */
-	int BUS_IMPLEMENTATION = 149;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -20103,16 +20657,6 @@ public interface Aadl2Package extends EPackage {
 	int BUS_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DataTypeImpl <em>Data Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DataTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataType()
-	 * @generated
-	 */
-	int DATA_TYPE = 150;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -20408,16 +20952,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int DATA_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DataImplementationImpl <em>Data Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DataImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataImplementation()
-	 * @generated
-	 */
-	int DATA_IMPLEMENTATION = 151;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -20816,16 +21350,6 @@ public interface Aadl2Package extends EPackage {
 	int DATA_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceTypeImpl <em>Device Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DeviceTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceType()
-	 * @generated
-	 */
-	int DEVICE_TYPE = 152;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -21157,16 +21681,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int DEVICE_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceImplementationImpl <em>Device Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DeviceImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceImplementation()
-	 * @generated
-	 */
-	int DEVICE_IMPLEMENTATION = 153;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -21565,16 +22079,6 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryTypeImpl <em>Memory Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MemoryTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryType()
-	 * @generated
-	 */
-	int MEMORY_TYPE = 154;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -21861,16 +22365,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int MEMORY_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryImplementationImpl <em>Memory Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MemoryImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryImplementation()
-	 * @generated
-	 */
-	int MEMORY_IMPLEMENTATION = 155;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -22269,1559 +22763,6 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessTypeImpl <em>Process Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessType()
-	 * @generated
-	 */
-	int PROCESS_TYPE = 156;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_ELEMENT = COMPONENT_TYPE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_COMMENT = COMPONENT_TYPE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__NAME = COMPONENT_TYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__QUALIFIED_NAME = COMPONENT_TYPE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_MEMBER = COMPONENT_TYPE__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__MEMBER = COMPONENT_TYPE__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__CLASSIFIER_FEATURE = COMPONENT_TYPE__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__GENERALIZATION = COMPONENT_TYPE__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__GENERAL = COMPONENT_TYPE__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_ANNEX_SUBCLAUSE = COMPONENT_TYPE__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_PROTOTYPE = COMPONENT_TYPE__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_PROTOTYPE_BINDING = COMPONENT_TYPE__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__NO_PROTOTYPES = COMPONENT_TYPE__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__NO_ANNEXES = COMPONENT_TYPE__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__NO_PROPERTIES = COMPONENT_TYPE__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_MODE = COMPONENT_TYPE__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_PROCESSOR_PORT = COMPONENT_TYPE__OWNED_PROCESSOR_PORT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Internal Event</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_INTERNAL_EVENT = COMPONENT_TYPE__OWNED_INTERNAL_EVENT;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__NO_FLOWS = COMPONENT_TYPE__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_FEATURE = COMPONENT_TYPE__OWNED_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Extended</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__EXTENDED = COMPONENT_TYPE__EXTENDED;
-
-	/**
-	 * The feature id for the '<em><b>Owned Flow Specification</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_EXTENSION = COMPONENT_TYPE__OWNED_EXTENSION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Group</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_FEATURE_GROUP = COMPONENT_TYPE__OWNED_FEATURE_GROUP;
-
-	/**
-	 * The feature id for the '<em><b>Owned Abstract Feature</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_ABSTRACT_FEATURE = COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>No Features</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__NO_FEATURES = COMPONENT_TYPE__NO_FEATURES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_DATA_PORT = COMPONENT_TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Event Data Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_EVENT_DATA_PORT = COMPONENT_TYPE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Event Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_EVENT_PORT = COMPONENT_TYPE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_DATA_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_SUBPROGRAM_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Group Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 5;
-
-	/**
-	 * The number of structural features of the '<em>Process Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorTypeImpl <em>Processor Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorType()
-	 * @generated
-	 */
-	int PROCESSOR_TYPE = 157;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_ELEMENT = COMPONENT_TYPE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_COMMENT = COMPONENT_TYPE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__NAME = COMPONENT_TYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__QUALIFIED_NAME = COMPONENT_TYPE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_MEMBER = COMPONENT_TYPE__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__MEMBER = COMPONENT_TYPE__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__CLASSIFIER_FEATURE = COMPONENT_TYPE__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__GENERALIZATION = COMPONENT_TYPE__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__GENERAL = COMPONENT_TYPE__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_ANNEX_SUBCLAUSE = COMPONENT_TYPE__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_PROTOTYPE = COMPONENT_TYPE__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_PROTOTYPE_BINDING = COMPONENT_TYPE__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__NO_PROTOTYPES = COMPONENT_TYPE__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__NO_ANNEXES = COMPONENT_TYPE__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__NO_PROPERTIES = COMPONENT_TYPE__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_MODE = COMPONENT_TYPE__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_PROCESSOR_PORT = COMPONENT_TYPE__OWNED_PROCESSOR_PORT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Internal Event</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_INTERNAL_EVENT = COMPONENT_TYPE__OWNED_INTERNAL_EVENT;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__NO_FLOWS = COMPONENT_TYPE__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_FEATURE = COMPONENT_TYPE__OWNED_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Extended</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__EXTENDED = COMPONENT_TYPE__EXTENDED;
-
-	/**
-	 * The feature id for the '<em><b>Owned Flow Specification</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_EXTENSION = COMPONENT_TYPE__OWNED_EXTENSION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Group</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_FEATURE_GROUP = COMPONENT_TYPE__OWNED_FEATURE_GROUP;
-
-	/**
-	 * The feature id for the '<em><b>Owned Abstract Feature</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_ABSTRACT_FEATURE = COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>No Features</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__NO_FEATURES = COMPONENT_TYPE__NO_FEATURES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_DATA_PORT = COMPONENT_TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Event Data Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_EVENT_DATA_PORT = COMPONENT_TYPE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Event Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_EVENT_PORT = COMPONENT_TYPE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Bus Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_BUS_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_SUBPROGRAM_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Group Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 5;
-
-	/**
-	 * The number of structural features of the '<em>Processor Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessImplementationImpl <em>Process Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessImplementation()
-	 * @generated
-	 */
-	int PROCESS_IMPLEMENTATION = 158;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_ELEMENT = COMPONENT_IMPLEMENTATION__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_COMMENT = COMPONENT_IMPLEMENTATION__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__NAME = COMPONENT_IMPLEMENTATION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__QUALIFIED_NAME = COMPONENT_IMPLEMENTATION__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_MEMBER = COMPONENT_IMPLEMENTATION__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__MEMBER = COMPONENT_IMPLEMENTATION__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__CLASSIFIER_FEATURE = COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__GENERALIZATION = COMPONENT_IMPLEMENTATION__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__GENERAL = COMPONENT_IMPLEMENTATION__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_ANNEX_SUBCLAUSE = COMPONENT_IMPLEMENTATION__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_PROTOTYPE = COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_PROTOTYPE_BINDING = COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__NO_PROTOTYPES = COMPONENT_IMPLEMENTATION__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__NO_ANNEXES = COMPONENT_IMPLEMENTATION__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__NO_PROPERTIES = COMPONENT_IMPLEMENTATION__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_MODE = COMPONENT_IMPLEMENTATION__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_PROCESSOR_PORT = COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_PORT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Internal Event</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_INTERNAL_EVENT = COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_EVENT;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__NO_FLOWS = COMPONENT_IMPLEMENTATION__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__NO_MODES = COMPONENT_IMPLEMENTATION__NO_MODES;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_SUBCOMPONENT = COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT;
-
-	/**
-	 * The feature id for the '<em><b>Extended</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__EXTENDED = COMPONENT_IMPLEMENTATION__EXTENDED;
-
-	/**
-	 * The feature id for the '<em><b>Owned Flow Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_REALIZATION = COMPONENT_IMPLEMENTATION__OWNED_REALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned End To End Flow</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_END_TO_END_FLOW = COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW;
-
-	/**
-	 * The feature id for the '<em><b>Owned Abstract Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT = COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Access Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_ACCESS_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Parameter Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Port Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_PORT_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_FEATURE_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Group Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Subprogram</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM = COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM;
-
-	/**
-	 * The feature id for the '<em><b>No Subcomponents</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__NO_SUBCOMPONENTS = COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS;
-
-	/**
-	 * The feature id for the '<em><b>No Connections</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__NO_CONNECTIONS = COMPONENT_IMPLEMENTATION__NO_CONNECTIONS;
-
-	/**
-	 * The feature id for the '<em><b>No Calls</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__NO_CALLS = COMPONENT_IMPLEMENTATION__NO_CALLS;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Group Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_THREAD_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Owned Thread Group Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION__OWNED_THREAD_GROUP_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 4;
-
-	/**
-	 * The number of structural features of the '<em>Process Implementation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESS_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 5;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorImplementationImpl <em>Processor Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorImplementation()
-	 * @generated
-	 */
-	int PROCESSOR_IMPLEMENTATION = 159;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_ELEMENT = COMPONENT_IMPLEMENTATION__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_COMMENT = COMPONENT_IMPLEMENTATION__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__NAME = COMPONENT_IMPLEMENTATION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__QUALIFIED_NAME = COMPONENT_IMPLEMENTATION__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_MEMBER = COMPONENT_IMPLEMENTATION__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__MEMBER = COMPONENT_IMPLEMENTATION__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__CLASSIFIER_FEATURE = COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__GENERALIZATION = COMPONENT_IMPLEMENTATION__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__GENERAL = COMPONENT_IMPLEMENTATION__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_ANNEX_SUBCLAUSE = COMPONENT_IMPLEMENTATION__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_PROTOTYPE = COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_PROTOTYPE_BINDING = COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__NO_PROTOTYPES = COMPONENT_IMPLEMENTATION__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__NO_ANNEXES = COMPONENT_IMPLEMENTATION__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__NO_PROPERTIES = COMPONENT_IMPLEMENTATION__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_MODE = COMPONENT_IMPLEMENTATION__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_PROCESSOR_PORT = COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_PORT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Internal Event</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_INTERNAL_EVENT = COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_EVENT;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__NO_FLOWS = COMPONENT_IMPLEMENTATION__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__NO_MODES = COMPONENT_IMPLEMENTATION__NO_MODES;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_SUBCOMPONENT = COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT;
-
-	/**
-	 * The feature id for the '<em><b>Extended</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__EXTENDED = COMPONENT_IMPLEMENTATION__EXTENDED;
-
-	/**
-	 * The feature id for the '<em><b>Owned Flow Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_REALIZATION = COMPONENT_IMPLEMENTATION__OWNED_REALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned End To End Flow</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_END_TO_END_FLOW = COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW;
-
-	/**
-	 * The feature id for the '<em><b>Owned Abstract Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT = COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Access Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_ACCESS_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Parameter Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Port Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_PORT_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_FEATURE_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Group Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Processor Subprogram</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM = COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM;
-
-	/**
-	 * The feature id for the '<em><b>No Subcomponents</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__NO_SUBCOMPONENTS = COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS;
-
-	/**
-	 * The feature id for the '<em><b>No Connections</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__NO_CONNECTIONS = COMPONENT_IMPLEMENTATION__NO_CONNECTIONS;
-
-	/**
-	 * The feature id for the '<em><b>No Calls</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__NO_CALLS = COMPONENT_IMPLEMENTATION__NO_CALLS;
-
-	/**
-	 * The feature id for the '<em><b>Owned Bus Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Memory Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Bus Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Virtual Processor Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>Processor Implementation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 4;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramTypeImpl <em>Subprogram Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramType()
-	 * @generated
-	 */
-	int SUBPROGRAM_TYPE = 160;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -24153,16 +23094,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBPROGRAM_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramImplementationImpl <em>Subprogram Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramImplementation()
-	 * @generated
-	 */
-	int SUBPROGRAM_IMPLEMENTATION = 161;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -24570,16 +23501,6 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_IMPLEMENTATION_FEATURE_COUNT = BEHAVIORED_IMPLEMENTATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupTypeImpl <em>Subprogram Group Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramGroupTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupType()
-	 * @generated
-	 */
-	int SUBPROGRAM_GROUP_TYPE = 162;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -24875,16 +23796,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBPROGRAM_GROUP_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl <em>Subprogram Group Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramGroupImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupImplementation()
-	 * @generated
-	 */
-	int SUBPROGRAM_GROUP_IMPLEMENTATION = 163;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -25283,16 +24194,6 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemTypeImpl <em>System Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SystemTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemType()
-	 * @generated
-	 */
-	int SYSTEM_TYPE = 164;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -25633,16 +24534,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SYSTEM_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 7;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemImplementationImpl <em>System Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SystemImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemImplementation()
-	 * @generated
-	 */
-	int SYSTEM_IMPLEMENTATION = 165;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -26122,14 +25013,1507 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 11;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadTypeImpl <em>Thread Type</em>}' class.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadType()
 	 * @generated
+	 * @ordered
 	 */
-	int THREAD_TYPE = 166;
+	int PROCESSOR_TYPE__OWNED_ELEMENT = COMPONENT_TYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_COMMENT = COMPONENT_TYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__NAME = COMPONENT_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__QUALIFIED_NAME = COMPONENT_TYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_MEMBER = COMPONENT_TYPE__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__MEMBER = COMPONENT_TYPE__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__CLASSIFIER_FEATURE = COMPONENT_TYPE__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__GENERALIZATION = COMPONENT_TYPE__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__GENERAL = COMPONENT_TYPE__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_ANNEX_SUBCLAUSE = COMPONENT_TYPE__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_PROTOTYPE = COMPONENT_TYPE__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_PROTOTYPE_BINDING = COMPONENT_TYPE__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__NO_PROTOTYPES = COMPONENT_TYPE__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__NO_ANNEXES = COMPONENT_TYPE__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__NO_PROPERTIES = COMPONENT_TYPE__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_MODE = COMPONENT_TYPE__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Processor Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_PROCESSOR_PORT = COMPONENT_TYPE__OWNED_PROCESSOR_PORT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Internal Event</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_INTERNAL_EVENT = COMPONENT_TYPE__OWNED_INTERNAL_EVENT;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__NO_FLOWS = COMPONENT_TYPE__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_FEATURE = COMPONENT_TYPE__OWNED_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Extended</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__EXTENDED = COMPONENT_TYPE__EXTENDED;
+
+	/**
+	 * The feature id for the '<em><b>Owned Flow Specification</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_EXTENSION = COMPONENT_TYPE__OWNED_EXTENSION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature Group</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_FEATURE_GROUP = COMPONENT_TYPE__OWNED_FEATURE_GROUP;
+
+	/**
+	 * The feature id for the '<em><b>Owned Abstract Feature</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_ABSTRACT_FEATURE = COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>No Features</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__NO_FEATURES = COMPONENT_TYPE__NO_FEATURES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Data Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_DATA_PORT = COMPONENT_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Event Data Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_EVENT_DATA_PORT = COMPONENT_TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Event Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_EVENT_PORT = COMPONENT_TYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Bus Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_BUS_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subprogram Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_SUBPROGRAM_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subprogram Group Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 5;
+
+	/**
+	 * The number of structural features of the '<em>Processor Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_ELEMENT = COMPONENT_IMPLEMENTATION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_COMMENT = COMPONENT_IMPLEMENTATION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__NAME = COMPONENT_IMPLEMENTATION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__QUALIFIED_NAME = COMPONENT_IMPLEMENTATION__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_MEMBER = COMPONENT_IMPLEMENTATION__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__MEMBER = COMPONENT_IMPLEMENTATION__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__CLASSIFIER_FEATURE = COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__GENERALIZATION = COMPONENT_IMPLEMENTATION__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__GENERAL = COMPONENT_IMPLEMENTATION__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_ANNEX_SUBCLAUSE = COMPONENT_IMPLEMENTATION__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_PROTOTYPE = COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_PROTOTYPE_BINDING = COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__NO_PROTOTYPES = COMPONENT_IMPLEMENTATION__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__NO_ANNEXES = COMPONENT_IMPLEMENTATION__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__NO_PROPERTIES = COMPONENT_IMPLEMENTATION__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_MODE = COMPONENT_IMPLEMENTATION__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Processor Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_PROCESSOR_PORT = COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_PORT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Internal Event</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_INTERNAL_EVENT = COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_EVENT;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__NO_FLOWS = COMPONENT_IMPLEMENTATION__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__NO_MODES = COMPONENT_IMPLEMENTATION__NO_MODES;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_SUBCOMPONENT = COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT;
+
+	/**
+	 * The feature id for the '<em><b>Extended</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__EXTENDED = COMPONENT_IMPLEMENTATION__EXTENDED;
+
+	/**
+	 * The feature id for the '<em><b>Owned Flow Implementation</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_REALIZATION = COMPONENT_IMPLEMENTATION__OWNED_REALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned End To End Flow</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_END_TO_END_FLOW = COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW;
+
+	/**
+	 * The feature id for the '<em><b>Owned Abstract Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT = COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Access Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_ACCESS_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Parameter Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Port Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_PORT_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_FEATURE_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature Group Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Processor Subprogram</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM = COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM;
+
+	/**
+	 * The feature id for the '<em><b>No Subcomponents</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__NO_SUBCOMPONENTS = COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS;
+
+	/**
+	 * The feature id for the '<em><b>No Connections</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__NO_CONNECTIONS = COMPONENT_IMPLEMENTATION__NO_CONNECTIONS;
+
+	/**
+	 * The feature id for the '<em><b>No Calls</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__NO_CALLS = COMPONENT_IMPLEMENTATION__NO_CALLS;
+
+	/**
+	 * The feature id for the '<em><b>Owned Bus Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Memory Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Virtual Bus Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Virtual Processor Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Processor Implementation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_ELEMENT = COMPONENT_TYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_COMMENT = COMPONENT_TYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__NAME = COMPONENT_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__QUALIFIED_NAME = COMPONENT_TYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_MEMBER = COMPONENT_TYPE__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__MEMBER = COMPONENT_TYPE__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__CLASSIFIER_FEATURE = COMPONENT_TYPE__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__INHERITED_MEMBER = COMPONENT_TYPE__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__GENERALIZATION = COMPONENT_TYPE__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__GENERAL = COMPONENT_TYPE__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_ANNEX_SUBCLAUSE = COMPONENT_TYPE__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_PROTOTYPE = COMPONENT_TYPE__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_PROTOTYPE_BINDING = COMPONENT_TYPE__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__NO_PROTOTYPES = COMPONENT_TYPE__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__NO_ANNEXES = COMPONENT_TYPE__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__NO_PROPERTIES = COMPONENT_TYPE__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_MODE = COMPONENT_TYPE__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Processor Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_PROCESSOR_PORT = COMPONENT_TYPE__OWNED_PROCESSOR_PORT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Internal Event</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_INTERNAL_EVENT = COMPONENT_TYPE__OWNED_INTERNAL_EVENT;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__NO_FLOWS = COMPONENT_TYPE__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_FEATURE = COMPONENT_TYPE__OWNED_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Extended</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__EXTENDED = COMPONENT_TYPE__EXTENDED;
+
+	/**
+	 * The feature id for the '<em><b>Owned Flow Specification</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_EXTENSION = COMPONENT_TYPE__OWNED_EXTENSION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature Group</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_FEATURE_GROUP = COMPONENT_TYPE__OWNED_FEATURE_GROUP;
+
+	/**
+	 * The feature id for the '<em><b>Owned Abstract Feature</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_ABSTRACT_FEATURE = COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>No Features</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__NO_FEATURES = COMPONENT_TYPE__NO_FEATURES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Data Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_DATA_PORT = COMPONENT_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Event Data Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_EVENT_DATA_PORT = COMPONENT_TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Event Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_EVENT_PORT = COMPONENT_TYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Data Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_DATA_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subprogram Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_SUBPROGRAM_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subprogram Group Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 5;
+
+	/**
+	 * The number of structural features of the '<em>Process Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_ELEMENT = COMPONENT_IMPLEMENTATION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_COMMENT = COMPONENT_IMPLEMENTATION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__NAME = COMPONENT_IMPLEMENTATION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__QUALIFIED_NAME = COMPONENT_IMPLEMENTATION__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_MEMBER = COMPONENT_IMPLEMENTATION__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__MEMBER = COMPONENT_IMPLEMENTATION__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__CLASSIFIER_FEATURE = COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_IMPLEMENTATION__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__GENERALIZATION = COMPONENT_IMPLEMENTATION__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__GENERAL = COMPONENT_IMPLEMENTATION__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_ANNEX_SUBCLAUSE = COMPONENT_IMPLEMENTATION__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_PROTOTYPE = COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_PROTOTYPE_BINDING = COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__NO_PROTOTYPES = COMPONENT_IMPLEMENTATION__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__NO_ANNEXES = COMPONENT_IMPLEMENTATION__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__NO_PROPERTIES = COMPONENT_IMPLEMENTATION__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_MODE = COMPONENT_IMPLEMENTATION__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Processor Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_PROCESSOR_PORT = COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_PORT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Internal Event</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_INTERNAL_EVENT = COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_EVENT;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__NO_FLOWS = COMPONENT_IMPLEMENTATION__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__NO_MODES = COMPONENT_IMPLEMENTATION__NO_MODES;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_SUBCOMPONENT = COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT;
+
+	/**
+	 * The feature id for the '<em><b>Extended</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__EXTENDED = COMPONENT_IMPLEMENTATION__EXTENDED;
+
+	/**
+	 * The feature id for the '<em><b>Owned Flow Implementation</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_CONNECTION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_IMPLEMENTATION__OWNED_EXTENSION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_REALIZATION = COMPONENT_IMPLEMENTATION__OWNED_REALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned End To End Flow</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_END_TO_END_FLOW = COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW;
+
+	/**
+	 * The feature id for the '<em><b>Owned Abstract Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT = COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Access Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_ACCESS_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Parameter Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Port Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_PORT_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_FEATURE_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature Group Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION = COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Processor Subprogram</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM = COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM;
+
+	/**
+	 * The feature id for the '<em><b>No Subcomponents</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__NO_SUBCOMPONENTS = COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS;
+
+	/**
+	 * The feature id for the '<em><b>No Connections</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__NO_CONNECTIONS = COMPONENT_IMPLEMENTATION__NO_CONNECTIONS;
+
+	/**
+	 * The feature id for the '<em><b>No Calls</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__NO_CALLS = COMPONENT_IMPLEMENTATION__NO_CALLS;
+
+	/**
+	 * The feature id for the '<em><b>Owned Data Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subprogram Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subprogram Group Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Thread Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_THREAD_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Owned Thread Group Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__OWNED_THREAD_GROUP_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 4;
+
+	/**
+	 * The number of structural features of the '<em>Process Implementation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -26463,16 +26847,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int THREAD_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadImplementationImpl <em>Thread Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadImplementation()
-	 * @generated
-	 */
-	int THREAD_IMPLEMENTATION = 167;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -26898,16 +27272,6 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_IMPLEMENTATION_FEATURE_COUNT = BEHAVIORED_IMPLEMENTATION_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupTypeImpl <em>Thread Group Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadGroupTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupType()
-	 * @generated
-	 */
-	int THREAD_GROUP_TYPE = 168;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -27239,16 +27603,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int THREAD_GROUP_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupImplementationImpl <em>Thread Group Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadGroupImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupImplementation()
-	 * @generated
-	 */
-	int THREAD_GROUP_IMPLEMENTATION = 169;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -27674,16 +28028,6 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 5;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusTypeImpl <em>Virtual Bus Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualBusTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusType()
-	 * @generated
-	 */
-	int VIRTUAL_BUS_TYPE = 170;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -27961,16 +28305,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_BUS_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusImplementationImpl <em>Virtual Bus Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualBusImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusImplementation()
-	 * @generated
-	 */
-	int VIRTUAL_BUS_IMPLEMENTATION = 171;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -28360,16 +28694,6 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorTypeImpl <em>Virtual Processor Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualProcessorTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorType()
-	 * @generated
-	 */
-	int VIRTUAL_PROCESSOR_TYPE = 172;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -28692,16 +29016,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_PROCESSOR_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 5;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorImplementationImpl <em>Virtual Processor Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualProcessorImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorImplementation()
-	 * @generated
-	 */
-	int VIRTUAL_PROCESSOR_IMPLEMENTATION = 173;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -29098,1103 +29412,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_PROCESSOR_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeBindingImpl <em>Component Prototype Binding</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ComponentPrototypeBindingImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeBinding()
-	 * @generated
-	 */
-	int COMPONENT_PROTOTYPE_BINDING = 174;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_BINDING__OWNED_ELEMENT = PROTOTYPE_BINDING__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_BINDING__OWNED_COMMENT = PROTOTYPE_BINDING__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Formal</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_BINDING__FORMAL = PROTOTYPE_BINDING__FORMAL;
-
-	/**
-	 * The feature id for the '<em><b>Actual</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_BINDING__ACTUAL = PROTOTYPE_BINDING_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Component Prototype Binding</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_BINDING_FEATURE_COUNT = PROTOTYPE_BINDING_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl <em>Component Prototype Actual</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ComponentPrototypeActualImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeActual()
-	 * @generated
-	 */
-	int COMPONENT_PROTOTYPE_ACTUAL = 175;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_ACTUAL__CATEGORY = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Component Prototype Actual</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeImpl <em>Feature Group Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototype()
-	 * @generated
-	 */
-	int FEATURE_GROUP_PROTOTYPE = 176;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__OWNED_ELEMENT = PROTOTYPE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__OWNED_COMMENT = PROTOTYPE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__NAME = PROTOTYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__QUALIFIED_NAME = PROTOTYPE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__OWNED_PROPERTY_ASSOCIATION = PROTOTYPE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__REFINEMENT_CONTEXT = PROTOTYPE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__REFINED_ELEMENT = PROTOTYPE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__FEATURING_CLASSIFIER = PROTOTYPE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__REFINED = PROTOTYPE__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Constraining Feature Group Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__CONSTRAINING_FEATURE_GROUP_TYPE = PROTOTYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Feature Group Prototype</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeBindingImpl <em>Feature Group Prototype Binding</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeBindingImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeBinding()
-	 * @generated
-	 */
-	int FEATURE_GROUP_PROTOTYPE_BINDING = 177;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_BINDING__OWNED_ELEMENT = PROTOTYPE_BINDING__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_BINDING__OWNED_COMMENT = PROTOTYPE_BINDING__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Formal</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_BINDING__FORMAL = PROTOTYPE_BINDING__FORMAL;
-
-	/**
-	 * The feature id for the '<em><b>Actual</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL = PROTOTYPE_BINDING_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Feature Group Prototype Binding</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_BINDING_FEATURE_COUNT = PROTOTYPE_BINDING_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl <em>Feature Group Prototype Actual</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeActual()
-	 * @generated
-	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL = 178;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Feature Group Prototype Actual</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeImpl <em>Feature Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeaturePrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototype()
-	 * @generated
-	 */
-	int FEATURE_PROTOTYPE = 179;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE__OWNED_ELEMENT = PROTOTYPE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE__OWNED_COMMENT = PROTOTYPE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE__NAME = PROTOTYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE__QUALIFIED_NAME = PROTOTYPE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE__OWNED_PROPERTY_ASSOCIATION = PROTOTYPE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE__REFINEMENT_CONTEXT = PROTOTYPE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE__REFINED_ELEMENT = PROTOTYPE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE__FEATURING_CLASSIFIER = PROTOTYPE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE__REFINED = PROTOTYPE__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Direction</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE__DIRECTION = PROTOTYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Constraining Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE__CONSTRAINING_CLASSIFIER = PROTOTYPE_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Feature Prototype</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeBindingImpl <em>Feature Prototype Binding</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeaturePrototypeBindingImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeBinding()
-	 * @generated
-	 */
-	int FEATURE_PROTOTYPE_BINDING = 180;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_BINDING__OWNED_ELEMENT = PROTOTYPE_BINDING__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_BINDING__OWNED_COMMENT = PROTOTYPE_BINDING__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Formal</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_BINDING__FORMAL = PROTOTYPE_BINDING__FORMAL;
-
-	/**
-	 * The feature id for the '<em><b>Actual</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_BINDING__ACTUAL = PROTOTYPE_BINDING_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Feature Prototype Binding</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_BINDING_FEATURE_COUNT = PROTOTYPE_BINDING_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeActualImpl <em>Feature Prototype Actual</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeaturePrototypeActualImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeActual()
-	 * @generated
-	 */
-	int FEATURE_PROTOTYPE_ACTUAL = 181;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Feature Prototype Actual</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessSpecificationImpl <em>Access Specification</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AccessSpecificationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessSpecification()
-	 * @generated
-	 */
-	int ACCESS_SPECIFICATION = 182;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_SPECIFICATION__OWNED_ELEMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_SPECIFICATION__OWNED_COMMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_SPECIFICATION__KIND = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_SPECIFICATION__CATEGORY = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_SPECIFICATION__CLASSIFIER = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of structural features of the '<em>Access Specification</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_SPECIFICATION_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 3;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PortSpecificationImpl <em>Port Specification</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PortSpecificationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortSpecification()
-	 * @generated
-	 */
-	int PORT_SPECIFICATION = 183;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_SPECIFICATION__OWNED_ELEMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_SPECIFICATION__OWNED_COMMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Direction</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_SPECIFICATION__DIRECTION = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_SPECIFICATION__CATEGORY = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_SPECIFICATION__CLASSIFIER = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of structural features of the '<em>Port Specification</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_SPECIFICATION_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 3;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeReferenceImpl <em>Feature Prototype Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeaturePrototypeReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeReference()
-	 * @generated
-	 */
-	int FEATURE_PROTOTYPE_REFERENCE = 184;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_REFERENCE__OWNED_ELEMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_REFERENCE__OWNED_COMMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Direction</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_REFERENCE__DIRECTION = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Feature Prototype Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_REFERENCE_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeReferenceImpl <em>Component Prototype Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ComponentPrototypeReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeReference()
-	 * @generated
-	 */
-	int COMPONENT_PROTOTYPE_REFERENCE = 185;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_REFERENCE__OWNED_ELEMENT = COMPONENT_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_REFERENCE__OWNED_COMMENT = COMPONENT_PROTOTYPE_ACTUAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_REFERENCE__CATEGORY = COMPONENT_PROTOTYPE_ACTUAL__CATEGORY;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_REFERENCE__PROTOTYPE = COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Component Prototype Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_REFERENCE_FEATURE_COUNT = COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentReferenceImpl <em>Component Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ComponentReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentReference()
-	 * @generated
-	 */
-	int COMPONENT_REFERENCE = 186;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_REFERENCE__OWNED_ELEMENT = COMPONENT_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_REFERENCE__OWNED_COMMENT = COMPONENT_PROTOTYPE_ACTUAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_REFERENCE__CATEGORY = COMPONENT_PROTOTYPE_ACTUAL__CATEGORY;
-
-	/**
-	 * The feature id for the '<em><b>Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_REFERENCE__BINDING = COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_REFERENCE__CLASSIFIER = COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Component Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_REFERENCE_FEATURE_COUNT = COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeReferenceImpl <em>Feature Group Prototype Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeReference()
-	 * @generated
-	 */
-	int FEATURE_GROUP_PROTOTYPE_REFERENCE = 187;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_REFERENCE__OWNED_ELEMENT = FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_REFERENCE__OWNED_COMMENT = FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_REFERENCE__PROTOTYPE = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Feature Group Prototype Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_REFERENCE_FEATURE_COUNT = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupReferenceImpl <em>Feature Group Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupReference()
-	 * @generated
-	 */
-	int FEATURE_GROUP_REFERENCE = 188;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_REFERENCE__OWNED_ELEMENT = FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_REFERENCE__OWNED_COMMENT = FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_REFERENCE__BINDING = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Feature Group Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_REFERENCE__FEATURE_GROUP_TYPE = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Feature Group Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_REFERENCE_FEATURE_COUNT = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorCallImpl <em>Processor Call</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorCallImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorCall()
-	 * @generated
-	 */
-	int PROCESSOR_CALL = 189;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_CALL__OWNED_ELEMENT = CALL_SPECIFICATION__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_CALL__OWNED_COMMENT = CALL_SPECIFICATION__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_CALL__NAME = CALL_SPECIFICATION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_CALL__QUALIFIED_NAME = CALL_SPECIFICATION__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_CALL__OWNED_PROPERTY_ASSOCIATION = CALL_SPECIFICATION__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_CALL__FEATURING_CLASSIFIER = CALL_SPECIFICATION__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Subprogram Access Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_CALL__SUBPROGRAM_ACCESS_NAME = CALL_SPECIFICATION_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Processor Call</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_CALL_FEATURE_COUNT = CALL_SPECIFICATION_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramCallImpl <em>Subprogram Call</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramCallImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramCall()
-	 * @generated
-	 */
-	int SUBPROGRAM_CALL = 190;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL__OWNED_ELEMENT = CALL_SPECIFICATION__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL__OWNED_COMMENT = CALL_SPECIFICATION__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL__NAME = CALL_SPECIFICATION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL__QUALIFIED_NAME = CALL_SPECIFICATION__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL__OWNED_PROPERTY_ASSOCIATION = CALL_SPECIFICATION__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL__FEATURING_CLASSIFIER = CALL_SPECIFICATION__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Called Subprogram</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL__CALLED_SUBPROGRAM = CALL_SPECIFICATION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL__PROTOTYPE = CALL_SPECIFICATION_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL__CONTEXT = CALL_SPECIFICATION_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram Call</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL_FEATURE_COUNT = CALL_SPECIFICATION_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BasicPropertyAssociationImpl <em>Basic Property Association</em>}' class.
@@ -35773,325 +34990,6 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPackageSection_NoAnnexes();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedAbstractTypes <em>Owned Abstract Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Abstract Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedAbstractTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedAbstractType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedAbstractImplementations <em>Owned Abstract Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Abstract Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedAbstractImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedAbstractImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedBusTypes <em>Owned Bus Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Bus Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedBusTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedBusType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedBusImplementations <em>Owned Bus Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Bus Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedBusImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedBusImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedDataTypes <em>Owned Data Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Data Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedDataTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedDataType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedDataImplementations <em>Owned Data Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Data Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedDataImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedDataImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedDeviceTypes <em>Owned Device Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Device Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedDeviceTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedDeviceType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedDeviceImplementations <em>Owned Device Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Device Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedDeviceImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedDeviceImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedMemoryTypes <em>Owned Memory Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Memory Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedMemoryTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedMemoryType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedMemoryImplementations <em>Owned Memory Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Memory Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedMemoryImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedMemoryImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedProcessTypes <em>Owned Process Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Process Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedProcessTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedProcessType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedProcessorTypes <em>Owned Processor Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Processor Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedProcessorTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedProcessorType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedProcessImplementations <em>Owned Process Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Process Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedProcessImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedProcessImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedProcessorImplementations <em>Owned Processor Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Processor Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedProcessorImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedProcessorImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedSubprogramTypes <em>Owned Subprogram Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Subprogram Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedSubprogramTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedSubprogramType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedSubprogramImplementations <em>Owned Subprogram Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Subprogram Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedSubprogramImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedSubprogramImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedSubprogramGroupTypes <em>Owned Subprogram Group Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Subprogram Group Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedSubprogramGroupTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedSubprogramGroupType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedSubprogramGroupImplementations <em>Owned Subprogram Group Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Subprogram Group Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedSubprogramGroupImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedSubprogramGroupImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedSystemTypes <em>Owned System Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned System Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedSystemTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedSystemType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedSystemImplementations <em>Owned System Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned System Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedSystemImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedSystemImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedThreadTypes <em>Owned Thread Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Thread Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedThreadTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedThreadType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedThreadImplementations <em>Owned Thread Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Thread Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedThreadImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedThreadImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedThreadGroupTypes <em>Owned Thread Group Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Thread Group Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedThreadGroupTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedThreadGroupType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedThreadGroupImplementations <em>Owned Thread Group Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Thread Group Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedThreadGroupImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedThreadGroupImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedVirtualBusTypes <em>Owned Virtual Bus Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Virtual Bus Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedVirtualBusTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedVirtualBusType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedVirtualBusImplementations <em>Owned Virtual Bus Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Virtual Bus Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedVirtualBusImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedVirtualBusImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedVirtualProcessorTypes <em>Owned Virtual Processor Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Virtual Processor Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedVirtualProcessorTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedVirtualProcessorType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedVirtualProcessorImplementations <em>Owned Virtual Processor Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Virtual Processor Implementation</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedVirtualProcessorImplementations()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedVirtualProcessorImplementation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PackageSection#getOwnedFeatureGroupTypes <em>Owned Feature Group Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Feature Group Type</em>'.
-	 * @see org.osate.aadl2.PackageSection#getOwnedFeatureGroupTypes()
-	 * @see #getPackageSection()
-	 * @generated
-	 */
-	EReference getPackageSection_OwnedFeatureGroupType();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.aadl2.PackageSection#isNoProperties <em>No Properties</em>}'.

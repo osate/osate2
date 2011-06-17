@@ -405,16 +405,50 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateComponentTypeRename((ComponentTypeRename) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP_TYPE_RENAME:
 			return validateFeatureGroupTypeRename((FeatureGroupTypeRename) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING:
+			return validateComponentPrototypeBinding((ComponentPrototypeBinding) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL:
+			return validateComponentPrototypeActual((ComponentPrototypeActual) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
+			return validateFeatureGroupPrototype((FeatureGroupPrototype) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
+			return validateFeatureGroupPrototypeBinding((FeatureGroupPrototypeBinding) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL:
+			return validateFeatureGroupPrototypeActual((FeatureGroupPrototypeActual) value, diagnostics, context);
+		case Aadl2Package.FEATURE_PROTOTYPE:
+			return validateFeaturePrototype((FeaturePrototype) value, diagnostics, context);
+		case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
+			return validateFeaturePrototypeBinding((FeaturePrototypeBinding) value, diagnostics, context);
+		case Aadl2Package.FEATURE_PROTOTYPE_ACTUAL:
+			return validateFeaturePrototypeActual((FeaturePrototypeActual) value, diagnostics, context);
+		case Aadl2Package.ACCESS_SPECIFICATION:
+			return validateAccessSpecification((AccessSpecification) value, diagnostics, context);
+		case Aadl2Package.PORT_SPECIFICATION:
+			return validatePortSpecification((PortSpecification) value, diagnostics, context);
+		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
+			return validateFeaturePrototypeReference((FeaturePrototypeReference) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE:
+			return validateComponentPrototypeReference((ComponentPrototypeReference) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_REFERENCE:
+			return validateComponentReference((ComponentReference) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE:
+			return validateFeatureGroupPrototypeReference((FeatureGroupPrototypeReference) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_REFERENCE:
+			return validateFeatureGroupReference((FeatureGroupReference) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
+			return validateSubprogramCallSequence((SubprogramCallSequence) value, diagnostics, context);
+		case Aadl2Package.CALL_SPECIFICATION:
+			return validateCallSpecification((CallSpecification) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_CALL:
+			return validateProcessorCall((ProcessorCall) value, diagnostics, context);
+		case Aadl2Package.BEHAVIORED_IMPLEMENTATION:
+			return validateBehavioredImplementation((BehavioredImplementation) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_CALL:
+			return validateSubprogramCall((SubprogramCall) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_TYPE:
 			return validateAbstractType((AbstractType) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION:
 			return validateAbstractImplementation((AbstractImplementation) value, diagnostics, context);
-		case Aadl2Package.BEHAVIORED_IMPLEMENTATION:
-			return validateBehavioredImplementation((BehavioredImplementation) value, diagnostics, context);
-		case Aadl2Package.CALL_SPECIFICATION:
-			return validateCallSpecification((CallSpecification) value, diagnostics, context);
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
-			return validateSubprogramCallSequence((SubprogramCallSequence) value, diagnostics, context);
 		case Aadl2Package.BUS_SUBCOMPONENT:
 			return validateBusSubcomponent((BusSubcomponent) value, diagnostics, context);
 		case Aadl2Package.DATA_SUBCOMPONENT:
@@ -493,14 +527,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateMemoryType((MemoryType) value, diagnostics, context);
 		case Aadl2Package.MEMORY_IMPLEMENTATION:
 			return validateMemoryImplementation((MemoryImplementation) value, diagnostics, context);
-		case Aadl2Package.PROCESS_TYPE:
-			return validateProcessType((ProcessType) value, diagnostics, context);
-		case Aadl2Package.PROCESSOR_TYPE:
-			return validateProcessorType((ProcessorType) value, diagnostics, context);
-		case Aadl2Package.PROCESS_IMPLEMENTATION:
-			return validateProcessImplementation((ProcessImplementation) value, diagnostics, context);
-		case Aadl2Package.PROCESSOR_IMPLEMENTATION:
-			return validateProcessorImplementation((ProcessorImplementation) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_TYPE:
 			return validateSubprogramType((SubprogramType) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION:
@@ -513,6 +539,14 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateSystemType((SystemType) value, diagnostics, context);
 		case Aadl2Package.SYSTEM_IMPLEMENTATION:
 			return validateSystemImplementation((SystemImplementation) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_TYPE:
+			return validateProcessorType((ProcessorType) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_IMPLEMENTATION:
+			return validateProcessorImplementation((ProcessorImplementation) value, diagnostics, context);
+		case Aadl2Package.PROCESS_TYPE:
+			return validateProcessType((ProcessType) value, diagnostics, context);
+		case Aadl2Package.PROCESS_IMPLEMENTATION:
+			return validateProcessImplementation((ProcessImplementation) value, diagnostics, context);
 		case Aadl2Package.THREAD_TYPE:
 			return validateThreadType((ThreadType) value, diagnostics, context);
 		case Aadl2Package.THREAD_IMPLEMENTATION:
@@ -529,40 +563,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateVirtualProcessorType((VirtualProcessorType) value, diagnostics, context);
 		case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION:
 			return validateVirtualProcessorImplementation((VirtualProcessorImplementation) value, diagnostics, context);
-		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING:
-			return validateComponentPrototypeBinding((ComponentPrototypeBinding) value, diagnostics, context);
-		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL:
-			return validateComponentPrototypeActual((ComponentPrototypeActual) value, diagnostics, context);
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
-			return validateFeatureGroupPrototype((FeatureGroupPrototype) value, diagnostics, context);
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
-			return validateFeatureGroupPrototypeBinding((FeatureGroupPrototypeBinding) value, diagnostics, context);
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL:
-			return validateFeatureGroupPrototypeActual((FeatureGroupPrototypeActual) value, diagnostics, context);
-		case Aadl2Package.FEATURE_PROTOTYPE:
-			return validateFeaturePrototype((FeaturePrototype) value, diagnostics, context);
-		case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
-			return validateFeaturePrototypeBinding((FeaturePrototypeBinding) value, diagnostics, context);
-		case Aadl2Package.FEATURE_PROTOTYPE_ACTUAL:
-			return validateFeaturePrototypeActual((FeaturePrototypeActual) value, diagnostics, context);
-		case Aadl2Package.ACCESS_SPECIFICATION:
-			return validateAccessSpecification((AccessSpecification) value, diagnostics, context);
-		case Aadl2Package.PORT_SPECIFICATION:
-			return validatePortSpecification((PortSpecification) value, diagnostics, context);
-		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
-			return validateFeaturePrototypeReference((FeaturePrototypeReference) value, diagnostics, context);
-		case Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE:
-			return validateComponentPrototypeReference((ComponentPrototypeReference) value, diagnostics, context);
-		case Aadl2Package.COMPONENT_REFERENCE:
-			return validateComponentReference((ComponentReference) value, diagnostics, context);
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE:
-			return validateFeatureGroupPrototypeReference((FeatureGroupPrototypeReference) value, diagnostics, context);
-		case Aadl2Package.FEATURE_GROUP_REFERENCE:
-			return validateFeatureGroupReference((FeatureGroupReference) value, diagnostics, context);
-		case Aadl2Package.PROCESSOR_CALL:
-			return validateProcessorCall((ProcessorCall) value, diagnostics, context);
-		case Aadl2Package.SUBPROGRAM_CALL:
-			return validateSubprogramCall((SubprogramCall) value, diagnostics, context);
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION:
 			return validateBasicPropertyAssociation((BasicPropertyAssociation) value, diagnostics, context);
 		case Aadl2Package.PROPERTY_CONSTANT:
