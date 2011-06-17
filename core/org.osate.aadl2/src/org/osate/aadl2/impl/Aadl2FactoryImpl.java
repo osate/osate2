@@ -198,12 +198,40 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createComponentTypeRename();
 		case Aadl2Package.FEATURE_GROUP_TYPE_RENAME:
 			return (EObject) createFeatureGroupTypeRename();
+		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING:
+			return (EObject) createComponentPrototypeBinding();
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
+			return (EObject) createFeatureGroupPrototype();
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
+			return (EObject) createFeatureGroupPrototypeBinding();
+		case Aadl2Package.FEATURE_PROTOTYPE:
+			return (EObject) createFeaturePrototype();
+		case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
+			return (EObject) createFeaturePrototypeBinding();
+		case Aadl2Package.ACCESS_SPECIFICATION:
+			return (EObject) createAccessSpecification();
+		case Aadl2Package.PORT_SPECIFICATION:
+			return (EObject) createPortSpecification();
+		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
+			return (EObject) createFeaturePrototypeReference();
+		case Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE:
+			return (EObject) createComponentPrototypeReference();
+		case Aadl2Package.COMPONENT_REFERENCE:
+			return (EObject) createComponentReference();
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE:
+			return (EObject) createFeatureGroupPrototypeReference();
+		case Aadl2Package.FEATURE_GROUP_REFERENCE:
+			return (EObject) createFeatureGroupReference();
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
+			return (EObject) createSubprogramCallSequence();
+		case Aadl2Package.PROCESSOR_CALL:
+			return (EObject) createProcessorCall();
+		case Aadl2Package.SUBPROGRAM_CALL:
+			return (EObject) createSubprogramCall();
 		case Aadl2Package.ABSTRACT_TYPE:
 			return (EObject) createAbstractType();
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION:
 			return (EObject) createAbstractImplementation();
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
-			return (EObject) createSubprogramCallSequence();
 		case Aadl2Package.BUS_SUBCOMPONENT:
 			return (EObject) createBusSubcomponent();
 		case Aadl2Package.DATA_SUBCOMPONENT:
@@ -246,14 +274,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createMemoryType();
 		case Aadl2Package.MEMORY_IMPLEMENTATION:
 			return (EObject) createMemoryImplementation();
-		case Aadl2Package.PROCESS_TYPE:
-			return (EObject) createProcessType();
-		case Aadl2Package.PROCESSOR_TYPE:
-			return (EObject) createProcessorType();
-		case Aadl2Package.PROCESS_IMPLEMENTATION:
-			return (EObject) createProcessImplementation();
-		case Aadl2Package.PROCESSOR_IMPLEMENTATION:
-			return (EObject) createProcessorImplementation();
 		case Aadl2Package.SUBPROGRAM_TYPE:
 			return (EObject) createSubprogramType();
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION:
@@ -266,6 +286,14 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createSystemType();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION:
 			return (EObject) createSystemImplementation();
+		case Aadl2Package.PROCESSOR_TYPE:
+			return (EObject) createProcessorType();
+		case Aadl2Package.PROCESSOR_IMPLEMENTATION:
+			return (EObject) createProcessorImplementation();
+		case Aadl2Package.PROCESS_TYPE:
+			return (EObject) createProcessType();
+		case Aadl2Package.PROCESS_IMPLEMENTATION:
+			return (EObject) createProcessImplementation();
 		case Aadl2Package.THREAD_TYPE:
 			return (EObject) createThreadType();
 		case Aadl2Package.THREAD_IMPLEMENTATION:
@@ -282,34 +310,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createVirtualProcessorType();
 		case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION:
 			return (EObject) createVirtualProcessorImplementation();
-		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING:
-			return (EObject) createComponentPrototypeBinding();
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
-			return (EObject) createFeatureGroupPrototype();
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
-			return (EObject) createFeatureGroupPrototypeBinding();
-		case Aadl2Package.FEATURE_PROTOTYPE:
-			return (EObject) createFeaturePrototype();
-		case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
-			return (EObject) createFeaturePrototypeBinding();
-		case Aadl2Package.ACCESS_SPECIFICATION:
-			return (EObject) createAccessSpecification();
-		case Aadl2Package.PORT_SPECIFICATION:
-			return (EObject) createPortSpecification();
-		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
-			return (EObject) createFeaturePrototypeReference();
-		case Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE:
-			return (EObject) createComponentPrototypeReference();
-		case Aadl2Package.COMPONENT_REFERENCE:
-			return (EObject) createComponentReference();
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE:
-			return (EObject) createFeatureGroupPrototypeReference();
-		case Aadl2Package.FEATURE_GROUP_REFERENCE:
-			return (EObject) createFeatureGroupReference();
-		case Aadl2Package.PROCESSOR_CALL:
-			return (EObject) createProcessorCall();
-		case Aadl2Package.SUBPROGRAM_CALL:
-			return (EObject) createSubprogramCall();
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION:
 			return (EObject) createBasicPropertyAssociation();
 		case Aadl2Package.PROPERTY_CONSTANT:

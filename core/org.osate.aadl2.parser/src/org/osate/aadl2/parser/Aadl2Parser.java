@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:45:30 /home/lw/projects/osate2-dev-ws/core/org.osate.aadl2.parser/src/org/osate/aadl2/parser/Aadl2.g 2011-04-25 10:12:30
+// $ANTLR 3.3 Nov 30, 2010 12:45:30 /home/lw/projects/osate2-dev-ws/core/org.osate.aadl2.parser/src/org/osate/aadl2/parser/Aadl2.g 2011-06-17 15:16:14
 	
 	package org.osate.aadl2.parser;
 	
@@ -1649,7 +1649,7 @@ public class Aadl2Parser extends Parser {
                       				if(section.findNamedElement(cd.getName()) != null) 
                       					errReporter.error(cd.getLocationReference(),"Duplicate component classifier");
                       				
-                                   	section.addClassifier(cd);
+                                   	section.getOwnedClassifiers().add(cd);
                                    }
                               
                     }
