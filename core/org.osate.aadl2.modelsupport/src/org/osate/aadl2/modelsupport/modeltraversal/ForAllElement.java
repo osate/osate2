@@ -47,7 +47,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.uml2.uml.internal.impl.ComponentImpl;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
@@ -123,7 +122,7 @@ public class ForAllElement implements IProcessingMethod {
 
 	/**
 	 * Constant indicating the default traversal method is
-	 * {@link #processBottomUpComponentImpl(ComponentImpl)}.
+	 * {@link #processBottomUpComponentImpl(ComponentImplementation)}.
 	 */
 	public static final int PROCESS_BOTTOM_UP_COMPONENT_IMPL = 1;
 
@@ -141,13 +140,13 @@ public class ForAllElement implements IProcessingMethod {
 
 	/**
 	 * Constant indicating the default traversal method is
-	 * {@link #processTopDownComponentClassifier(ComponentImpl)}.
+	 * {@link #processTopDownComponentClassifier(ComponentImplementation)}.
 	 */
 	public static final int PROCESS_TOP_DOWN_COMPONENT_CLASSIFIER = 4;
 
 	/**
 	 * Constant indicating the default traversal method is
-	 * {@link #processTopDownComponentImpl(ComponentImpl)}.
+	 * {@link #processTopDownComponentImpl(ComponentImplementation)}.
 	 */
 	public static final int PROCESS_TOP_DOWN_COMPONENT_IMPL = 5;
 
@@ -873,7 +872,7 @@ public class ForAllElement implements IProcessingMethod {
 	/**
 	 * Process all declarative AADL models in the AadlWorkspace according to the
 	 * top-down component-classifier ordering; see
-	 * {@link #processTopDownComponentClassifier(ComponentImpl)} for more
+	 * {@link #processTopDownComponentClassifier(ComponentImplementation)} for more
 	 * information.
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
@@ -925,7 +924,7 @@ public class ForAllElement implements IProcessingMethod {
 	/**
 	 * Process all declarative AADL models in the AadlWorkspace according to the
 	 * top-down component implementation ordering; see
-	 * {@link #processTopDownComponentImpl(ComponentImpl)} for more information.
+	 * {@link #processTopDownComponentImpl(ComponentImplementation)} for more information.
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
