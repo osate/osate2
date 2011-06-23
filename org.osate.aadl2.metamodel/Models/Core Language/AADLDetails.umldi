@@ -39,6 +39,11 @@
         <element href="AADLDetails.uml#_JK-Ssh-jEd6oIu99HumgeA"/>
       </semanticModel>
     </contained>
+    <contained xsi:type="di:GraphNode" xmi:id="_WyLR4J3NEeCdSYIh9KA8Hg" position="269,83" size="95,50">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_WyLR4Z3NEeCdSYIh9KA8Hg" presentation="default">
+        <element href="AADLDetails.uml#NoneSupport"/>
+      </semanticModel>
+    </contained>
   </diagrams>
   <subdiagrams xmi:id="_tyEo0HA6EdyCUOsiX56NUw">
     <model href="AADLDetails.uml#Components"/>
