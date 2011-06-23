@@ -505,7 +505,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DirectedFeature" abstract="true" eSuperTypes="#//Feature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType"/>
+        lowerBound="1" eType="#//DirectionType" defaultValueLiteral="inOut"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Feature" abstract="true" eSuperTypes="#//StructuralFeature #//FeatureConnectionEnd #//ArrayableElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
