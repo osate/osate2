@@ -5,6 +5,10 @@ grammar org.osate.xtext.aadl2.properties.Properties with org.eclipse.xtext.commo
 
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
+PModel returns aadl2::Element:
+	PropertySet | BasicPropertyAssociation | PropertyAssociation | ContainedPropertyAssociation
+;
+
 PropertySet returns aadl2::PropertySet:
 	'property' 'set' name=ID 'is'
 	(=> 'with' (importedPropertySet+=[aadl2::PropertySet|ID]) //| importedPropertySet+=[props::PropertySet|ID]) 
@@ -290,7 +294,7 @@ NotTerm returns aadl2::Operation:
 
 BooleanAtom returns aadl2::PropertyExpression:
 	( BooleanLiteral  | NotTerm | ConstantValue
-	| ('(' BooleanTerm ')')
+	| ('[' BooleanTerm ']')
 	);
 
 BooleanLiteral returns aadl2::BooleanLiteral:
@@ -329,10 +333,10 @@ ComponentClassifierTerm returns aadl2::ClassifierValue:
 
 
 ListTerm returns aadl2::ListValue:
-   '[' 	
+   '(' 	
    ownedListElement+=(PropertyExpression)
    (',' ownedListElement+=(PropertyExpression))*
-  ']'
+  ')'
   ;
 
 FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:

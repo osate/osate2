@@ -17,6 +17,34 @@ import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
 public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
+	public class PModelElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PModel");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cPropertySetParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cBasicPropertyAssociationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cPropertyAssociationParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cContainedPropertyAssociationParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		
+		//PModel returns aadl2::Element:
+		//	PropertySet | BasicPropertyAssociation | PropertyAssociation | ContainedPropertyAssociation;
+		public ParserRule getRule() { return rule; }
+
+		//PropertySet | BasicPropertyAssociation | PropertyAssociation | ContainedPropertyAssociation
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//PropertySet
+		public RuleCall getPropertySetParserRuleCall_0() { return cPropertySetParserRuleCall_0; }
+
+		//BasicPropertyAssociation
+		public RuleCall getBasicPropertyAssociationParserRuleCall_1() { return cBasicPropertyAssociationParserRuleCall_1; }
+
+		//PropertyAssociation
+		public RuleCall getPropertyAssociationParserRuleCall_2() { return cPropertyAssociationParserRuleCall_2; }
+
+		//ContainedPropertyAssociation
+		public RuleCall getContainedPropertyAssociationParserRuleCall_3() { return cContainedPropertyAssociationParserRuleCall_3; }
+	}
+
 	public class PropertySetElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertySet");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -2436,15 +2464,15 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNotTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cConstantValueParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
-		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final RuleCall cBooleanTermParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
+		private final Keyword cRightSquareBracketKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
 		
 		//BooleanAtom returns aadl2::PropertyExpression:
-		//	BooleanLiteral | NotTerm | ConstantValue | "(" BooleanTerm ")";
+		//	BooleanLiteral | NotTerm | ConstantValue | "[" BooleanTerm "]";
 		public ParserRule getRule() { return rule; }
 
-		//BooleanLiteral | NotTerm | ConstantValue | "(" BooleanTerm ")"
+		//BooleanLiteral | NotTerm | ConstantValue | "[" BooleanTerm "]"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//BooleanLiteral
@@ -2456,17 +2484,17 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//ConstantValue
 		public RuleCall getConstantValueParserRuleCall_2() { return cConstantValueParserRuleCall_2; }
 
-		//"(" BooleanTerm ")"
+		//"[" BooleanTerm "]"
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"("
-		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
+		//"["
+		public Keyword getLeftSquareBracketKeyword_3_0() { return cLeftSquareBracketKeyword_3_0; }
 
 		//BooleanTerm
 		public RuleCall getBooleanTermParserRuleCall_3_1() { return cBooleanTermParserRuleCall_3_1; }
 
-		//")"
-		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
+		//"]"
+		public Keyword getRightSquareBracketKeyword_3_2() { return cRightSquareBracketKeyword_3_2; }
 	}
 
 	public class BooleanLiteralElements extends AbstractParserRuleElementFinder {
@@ -2670,24 +2698,24 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	public class ListTermElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ListTerm");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cOwnedListElementAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cOwnedListElementPropertyExpressionParserRuleCall_1_0 = (RuleCall)cOwnedListElementAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cCommaKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cOwnedListElementAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final RuleCall cOwnedListElementPropertyExpressionParserRuleCall_2_1_0 = (RuleCall)cOwnedListElementAssignment_2_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//ListTerm returns aadl2::ListValue:
-		//	"[" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* "]";
+		//	"(" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* ")";
 		public ParserRule getRule() { return rule; }
 
-		//"[" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* "]"
+		//"(" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* ")"
 		public Group getGroup() { return cGroup; }
 
-		//"["
-		public Keyword getLeftSquareBracketKeyword_0() { return cLeftSquareBracketKeyword_0; }
+		//"("
+		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
 
 		//ownedListElement+=PropertyExpression
 		public Assignment getOwnedListElementAssignment_1() { return cOwnedListElementAssignment_1; }
@@ -2707,8 +2735,8 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//PropertyExpression
 		public RuleCall getOwnedListElementPropertyExpressionParserRuleCall_2_1_0() { return cOwnedListElementPropertyExpressionParserRuleCall_2_1_0; }
 
-		//"]"
-		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
+		//")"
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
 	}
 
 	public class FieldPropertyAssociationElements extends AbstractParserRuleElementFinder {
@@ -3648,6 +3676,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getMinusHyphenMinusKeyword_4_0() { return cMinusHyphenMinusKeyword_4_0; }
 	}
 	
+	private PModelElements pPModel;
 	private PropertySetElements pPropertySet;
 	private PropertyTypeElements pPropertyType;
 	private UnnamedPropertyTypeElements pUnnamedPropertyType;
@@ -3756,6 +3785,16 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
+	//PModel returns aadl2::Element:
+	//	PropertySet | BasicPropertyAssociation | PropertyAssociation | ContainedPropertyAssociation;
+	public PModelElements getPModelAccess() {
+		return (pPModel != null) ? pPModel : (pPModel = new PModelElements());
+	}
+	
+	public ParserRule getPModelRule() {
+		return getPModelAccess().getRule();
+	}
+
 	//PropertySet returns aadl2::PropertySet:
 	//	"property" "set" name=ID "is" ("with" importedPropertySet+=[aadl2::PropertySet] //| importedPropertySet+=[props::PropertySet|ID]) 
 	//	("," importedPropertySet+=[aadl2::PropertySet])* ";")* (ownedPropertyType+=PropertyType |
@@ -4268,7 +4307,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//BooleanAtom returns aadl2::PropertyExpression:
-	//	BooleanLiteral | NotTerm | ConstantValue | "(" BooleanTerm ")";
+	//	BooleanLiteral | NotTerm | ConstantValue | "[" BooleanTerm "]";
 	public BooleanAtomElements getBooleanAtomAccess() {
 		return (pBooleanAtom != null) ? pBooleanAtom : (pBooleanAtom = new BooleanAtomElements());
 	}
@@ -4340,7 +4379,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ListTerm returns aadl2::ListValue:
-	//	"[" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* "]";
+	//	"(" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* ")";
 	public ListTermElements getListTermAccess() {
 		return (pListTerm != null) ? pListTerm : (pListTerm = new ListTermElements());
 	}
