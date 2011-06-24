@@ -31,77 +31,266 @@ protected class ThisRootNode extends RootToken {
 	@Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new PropertySet_Group(this, this, 0, inst);
-			case 1: return new PropertyType_Group(this, this, 1, inst);
-			case 2: return new UnnamedPropertyType_Alternatives(this, this, 2, inst);
-			case 3: return new BooleanType_Group(this, this, 3, inst);
-			case 4: return new UnnamedBooleanType_Group(this, this, 4, inst);
-			case 5: return new StringType_Group(this, this, 5, inst);
-			case 6: return new UnnamedStringType_Group(this, this, 6, inst);
-			case 7: return new EnumerationType_Group(this, this, 7, inst);
-			case 8: return new UnnamedEnumerationType_Group(this, this, 8, inst);
-			case 9: return new EnumerationLiteral_NameAssignment(this, this, 9, inst);
-			case 10: return new UnitsType_Group(this, this, 10, inst);
-			case 11: return new UnnamedUnitsType_Group(this, this, 11, inst);
-			case 12: return new UnitLiteral_NameAssignment(this, this, 12, inst);
-			case 13: return new UnitLiteralConversion_Group(this, this, 13, inst);
-			case 14: return new RealType_Group(this, this, 14, inst);
-			case 15: return new UnnamedRealType_Group(this, this, 15, inst);
-			case 16: return new IntegerType_Group(this, this, 16, inst);
-			case 17: return new UnnamedIntegerType_Group(this, this, 17, inst);
-			case 18: return new RangeType_Group(this, this, 18, inst);
-			case 19: return new UnnamedRangeType_Group(this, this, 19, inst);
-			case 20: return new ClassifierType_Group(this, this, 20, inst);
-			case 21: return new UnnamedClassifierType_Group(this, this, 21, inst);
-			case 22: return new QCReference_Group(this, this, 22, inst);
-			case 23: return new ReferenceType_Group(this, this, 23, inst);
-			case 24: return new UnnamedReferenceType_Group(this, this, 24, inst);
-			case 25: return new RecordType_Group(this, this, 25, inst);
-			case 26: return new UnnamedRecordType_Group(this, this, 26, inst);
-			case 27: return new RecordField_Group(this, this, 27, inst);
-			case 28: return new PropertyDefinition_Group(this, this, 28, inst);
-			case 29: return new AllReference_MetaclassNameAssignment(this, this, 29, inst);
-			case 30: return new PropertyOwner_Alternatives(this, this, 30, inst);
-			case 31: return new ClassifierValue_ClassifierAssignment(this, this, 31, inst);
-			case 32: return new PropertyConstant_Group(this, this, 32, inst);
-			case 33: return new NumberValue_Alternatives(this, this, 33, inst);
-			case 34: return new RealLit_ValueAssignment(this, this, 34, inst);
-			case 35: return new IntegerLit_ValueAssignment(this, this, 35, inst);
-			case 36: return new BasicPropertyAssociation_Group(this, this, 36, inst);
-			case 37: return new ContainedPropertyAssociation_Group(this, this, 37, inst);
-			case 38: return new PropertyAssociation_Group(this, this, 38, inst);
-			case 39: return new ContainmentPath_Group(this, this, 39, inst);
-			case 40: return new ModalPropertyValue_Group(this, this, 40, inst);
-			case 41: return new PropertyValue_OwnedValueAssignment(this, this, 41, inst);
-			case 42: return new PropertyExpression_Alternatives(this, this, 42, inst);
-			case 43: return new ConstantPropertyExpression_Alternatives(this, this, 43, inst);
-			case 44: return new BooleanTerm_OrTermParserRuleCall(this, this, 44, inst);
-			case 45: return new OrTerm_Group(this, this, 45, inst);
-			case 46: return new AndTerm_Group(this, this, 46, inst);
-			case 47: return new NotTerm_Group(this, this, 47, inst);
-			case 48: return new BooleanAtom_Alternatives(this, this, 48, inst);
-			case 49: return new BooleanLiteral_Group(this, this, 49, inst);
-			case 50: return new ConstantValue_ConstantAssignment(this, this, 50, inst);
-			case 51: return new ReferenceTerm_Group(this, this, 51, inst);
-			case 52: return new RecordTerm_Group(this, this, 52, inst);
-			case 53: return new ComputedTerm_Group(this, this, 53, inst);
-			case 54: return new ComponentClassifierTerm_Group(this, this, 54, inst);
-			case 55: return new ListTerm_Group(this, this, 55, inst);
-			case 56: return new FieldPropertyAssociation_Group(this, this, 56, inst);
-			case 57: return new ContainmentPathElement_Alternatives(this, this, 57, inst);
-			case 58: return new StringTerm_ValueAssignment(this, this, 58, inst);
-			case 59: return new ArrayRange_Group(this, this, 59, inst);
-			case 60: return new IntegerRange_Group(this, this, 60, inst);
-			case 61: return new RealRange_Group(this, this, 61, inst);
-			case 62: return new SignedConstant_Group(this, this, 62, inst);
-			case 63: return new IntegerTerm_Group(this, this, 63, inst);
-			case 64: return new RealTerm_Group(this, this, 64, inst);
-			case 65: return new NumericRangeTerm_Group(this, this, 65, inst);
+			case 0: return new PModel_Alternatives(this, this, 0, inst);
+			case 1: return new PropertySet_Group(this, this, 1, inst);
+			case 2: return new PropertyType_Group(this, this, 2, inst);
+			case 3: return new UnnamedPropertyType_Alternatives(this, this, 3, inst);
+			case 4: return new BooleanType_Group(this, this, 4, inst);
+			case 5: return new UnnamedBooleanType_Group(this, this, 5, inst);
+			case 6: return new StringType_Group(this, this, 6, inst);
+			case 7: return new UnnamedStringType_Group(this, this, 7, inst);
+			case 8: return new EnumerationType_Group(this, this, 8, inst);
+			case 9: return new UnnamedEnumerationType_Group(this, this, 9, inst);
+			case 10: return new EnumerationLiteral_NameAssignment(this, this, 10, inst);
+			case 11: return new UnitsType_Group(this, this, 11, inst);
+			case 12: return new UnnamedUnitsType_Group(this, this, 12, inst);
+			case 13: return new UnitLiteral_NameAssignment(this, this, 13, inst);
+			case 14: return new UnitLiteralConversion_Group(this, this, 14, inst);
+			case 15: return new RealType_Group(this, this, 15, inst);
+			case 16: return new UnnamedRealType_Group(this, this, 16, inst);
+			case 17: return new IntegerType_Group(this, this, 17, inst);
+			case 18: return new UnnamedIntegerType_Group(this, this, 18, inst);
+			case 19: return new RangeType_Group(this, this, 19, inst);
+			case 20: return new UnnamedRangeType_Group(this, this, 20, inst);
+			case 21: return new ClassifierType_Group(this, this, 21, inst);
+			case 22: return new UnnamedClassifierType_Group(this, this, 22, inst);
+			case 23: return new QCReference_Group(this, this, 23, inst);
+			case 24: return new ReferenceType_Group(this, this, 24, inst);
+			case 25: return new UnnamedReferenceType_Group(this, this, 25, inst);
+			case 26: return new RecordType_Group(this, this, 26, inst);
+			case 27: return new UnnamedRecordType_Group(this, this, 27, inst);
+			case 28: return new RecordField_Group(this, this, 28, inst);
+			case 29: return new PropertyDefinition_Group(this, this, 29, inst);
+			case 30: return new AllReference_MetaclassNameAssignment(this, this, 30, inst);
+			case 31: return new PropertyOwner_Alternatives(this, this, 31, inst);
+			case 32: return new ClassifierValue_ClassifierAssignment(this, this, 32, inst);
+			case 33: return new PropertyConstant_Group(this, this, 33, inst);
+			case 34: return new NumberValue_Alternatives(this, this, 34, inst);
+			case 35: return new RealLit_ValueAssignment(this, this, 35, inst);
+			case 36: return new IntegerLit_ValueAssignment(this, this, 36, inst);
+			case 37: return new BasicPropertyAssociation_Group(this, this, 37, inst);
+			case 38: return new ContainedPropertyAssociation_Group(this, this, 38, inst);
+			case 39: return new PropertyAssociation_Group(this, this, 39, inst);
+			case 40: return new ContainmentPath_Group(this, this, 40, inst);
+			case 41: return new ModalPropertyValue_Group(this, this, 41, inst);
+			case 42: return new PropertyValue_OwnedValueAssignment(this, this, 42, inst);
+			case 43: return new PropertyExpression_Alternatives(this, this, 43, inst);
+			case 44: return new ConstantPropertyExpression_Alternatives(this, this, 44, inst);
+			case 45: return new BooleanTerm_OrTermParserRuleCall(this, this, 45, inst);
+			case 46: return new OrTerm_Group(this, this, 46, inst);
+			case 47: return new AndTerm_Group(this, this, 47, inst);
+			case 48: return new NotTerm_Group(this, this, 48, inst);
+			case 49: return new BooleanAtom_Alternatives(this, this, 49, inst);
+			case 50: return new BooleanLiteral_Group(this, this, 50, inst);
+			case 51: return new ConstantValue_ConstantAssignment(this, this, 51, inst);
+			case 52: return new ReferenceTerm_Group(this, this, 52, inst);
+			case 53: return new RecordTerm_Group(this, this, 53, inst);
+			case 54: return new ComputedTerm_Group(this, this, 54, inst);
+			case 55: return new ComponentClassifierTerm_Group(this, this, 55, inst);
+			case 56: return new ListTerm_Group(this, this, 56, inst);
+			case 57: return new FieldPropertyAssociation_Group(this, this, 57, inst);
+			case 58: return new ContainmentPathElement_Alternatives(this, this, 58, inst);
+			case 59: return new StringTerm_ValueAssignment(this, this, 59, inst);
+			case 60: return new ArrayRange_Group(this, this, 60, inst);
+			case 61: return new IntegerRange_Group(this, this, 61, inst);
+			case 62: return new RealRange_Group(this, this, 62, inst);
+			case 63: return new SignedConstant_Group(this, this, 63, inst);
+			case 64: return new IntegerTerm_Group(this, this, 64, inst);
+			case 65: return new RealTerm_Group(this, this, 65, inst);
+			case 66: return new NumericRangeTerm_Group(this, this, 66, inst);
 			default: return null;
 		}	
 	}	
 }
 	
+
+/************ begin Rule PModel ****************
+ *
+ * PModel returns aadl2::Element:
+ * 	PropertySet | BasicPropertyAssociation | PropertyAssociation | ContainedPropertyAssociation;
+ *
+ **/
+
+// PropertySet | BasicPropertyAssociation | PropertyAssociation | ContainedPropertyAssociation
+protected class PModel_Alternatives extends AlternativesToken {
+
+	public PModel_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getPModelAccess().getAlternatives();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new PModel_PropertySetParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new PModel_BasicPropertyAssociationParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new PModel_PropertyAssociationParserRuleCall_2(lastRuleCallOrigin, this, 2, inst);
+			case 3: return new PModel_ContainedPropertyAssociationParserRuleCall_3(lastRuleCallOrigin, this, 3, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getContainedPropertyAssociationRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getPropertySetRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// PropertySet
+protected class PModel_PropertySetParserRuleCall_0 extends RuleCallToken {
+	
+	public PModel_PropertySetParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getPModelAccess().getPropertySetParserRuleCall_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new PropertySet_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getPropertySetRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(PropertySet_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// BasicPropertyAssociation
+protected class PModel_BasicPropertyAssociationParserRuleCall_1 extends RuleCallToken {
+	
+	public PModel_BasicPropertyAssociationParserRuleCall_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new BasicPropertyAssociation_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getBasicPropertyAssociationRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(BasicPropertyAssociation_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// PropertyAssociation
+protected class PModel_PropertyAssociationParserRuleCall_2 extends RuleCallToken {
+	
+	public PModel_PropertyAssociationParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new PropertyAssociation_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getPropertyAssociationRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(PropertyAssociation_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// ContainedPropertyAssociation
+protected class PModel_ContainedPropertyAssociationParserRuleCall_3 extends RuleCallToken {
+	
+	public PModel_ContainedPropertyAssociationParserRuleCall_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getContainedPropertyAssociationRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(ContainedPropertyAssociation_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+
+/************ end Rule PModel ****************/
+
 
 /************ begin Rule PropertySet ****************
  *
@@ -11819,11 +12008,11 @@ protected class NotTerm_OwnedPropertyExpressionAssignment_1 extends AssignmentTo
 /************ begin Rule BooleanAtom ****************
  *
  * BooleanAtom returns aadl2::PropertyExpression:
- * 	BooleanLiteral | NotTerm | ConstantValue | "(" BooleanTerm ")";
+ * 	BooleanLiteral | NotTerm | ConstantValue | "[" BooleanTerm "]";
  *
  **/
 
-// BooleanLiteral | NotTerm | ConstantValue | "(" BooleanTerm ")"
+// BooleanLiteral | NotTerm | ConstantValue | "[" BooleanTerm "]"
 protected class BooleanAtom_Alternatives extends AlternativesToken {
 
 	public BooleanAtom_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -11965,7 +12154,7 @@ protected class BooleanAtom_ConstantValueParserRuleCall_2 extends RuleCallToken 
 	}	
 }
 
-// "(" BooleanTerm ")"
+// "[" BooleanTerm "]"
 protected class BooleanAtom_Group_3 extends GroupToken {
 	
 	public BooleanAtom_Group_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -11980,23 +12169,23 @@ protected class BooleanAtom_Group_3 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BooleanAtom_RightParenthesisKeyword_3_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new BooleanAtom_RightSquareBracketKeyword_3_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// "("
-protected class BooleanAtom_LeftParenthesisKeyword_3_0 extends KeywordToken  {
+// "["
+protected class BooleanAtom_LeftSquareBracketKeyword_3_0 extends KeywordToken  {
 	
-	public BooleanAtom_LeftParenthesisKeyword_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public BooleanAtom_LeftSquareBracketKeyword_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getBooleanAtomAccess().getLeftParenthesisKeyword_3_0();
+		return grammarAccess.getBooleanAtomAccess().getLeftSquareBracketKeyword_3_0();
 	}
 
     @Override
@@ -12037,22 +12226,22 @@ protected class BooleanAtom_BooleanTermParserRuleCall_3_1 extends RuleCallToken 
     @Override
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BooleanAtom_LeftParenthesisKeyword_3_0(lastRuleCallOrigin, next, actIndex, inst);
+			case 0: return new BooleanAtom_LeftSquareBracketKeyword_3_0(lastRuleCallOrigin, next, actIndex, inst);
 			default: return null;
 		}	
 	}	
 }
 
-// ")"
-protected class BooleanAtom_RightParenthesisKeyword_3_2 extends KeywordToken  {
+// "]"
+protected class BooleanAtom_RightSquareBracketKeyword_3_2 extends KeywordToken  {
 	
-	public BooleanAtom_RightParenthesisKeyword_3_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public BooleanAtom_RightSquareBracketKeyword_3_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getBooleanAtomAccess().getRightParenthesisKeyword_3_2();
+		return grammarAccess.getBooleanAtomAccess().getRightSquareBracketKeyword_3_2();
 	}
 
     @Override
@@ -12924,11 +13113,11 @@ protected class ComponentClassifierTerm_RightParenthesisKeyword_3 extends Keywor
 /************ begin Rule ListTerm ****************
  *
  * ListTerm returns aadl2::ListValue:
- * 	"[" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* "]";
+ * 	"(" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* ")";
  *
  **/
 
-// "[" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* "]"
+// "(" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* ")"
 protected class ListTerm_Group extends GroupToken {
 	
 	public ListTerm_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -12943,7 +13132,7 @@ protected class ListTerm_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ListTerm_RightSquareBracketKeyword_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ListTerm_RightParenthesisKeyword_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -12957,16 +13146,16 @@ protected class ListTerm_Group extends GroupToken {
 
 }
 
-// "["
-protected class ListTerm_LeftSquareBracketKeyword_0 extends KeywordToken  {
+// "("
+protected class ListTerm_LeftParenthesisKeyword_0 extends KeywordToken  {
 	
-	public ListTerm_LeftSquareBracketKeyword_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ListTerm_LeftParenthesisKeyword_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getListTermAccess().getLeftSquareBracketKeyword_0();
+		return grammarAccess.getListTermAccess().getLeftParenthesisKeyword_0();
 	}
 
     @Override
@@ -13018,7 +13207,7 @@ protected class ListTerm_OwnedListElementAssignment_1 extends AssignmentToken  {
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new ListTerm_LeftSquareBracketKeyword_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new ListTerm_LeftParenthesisKeyword_0(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -13116,16 +13305,16 @@ protected class ListTerm_OwnedListElementAssignment_2_1 extends AssignmentToken 
 }
 
 
-// "]"
-protected class ListTerm_RightSquareBracketKeyword_3 extends KeywordToken  {
+// ")"
+protected class ListTerm_RightParenthesisKeyword_3 extends KeywordToken  {
 	
-	public ListTerm_RightSquareBracketKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ListTerm_RightParenthesisKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getListTermAccess().getRightSquareBracketKeyword_3();
+		return grammarAccess.getListTermAccess().getRightParenthesisKeyword_3();
 	}
 
     @Override

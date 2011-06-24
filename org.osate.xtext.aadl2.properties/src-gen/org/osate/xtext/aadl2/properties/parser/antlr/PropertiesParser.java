@@ -25,7 +25,7 @@ public class PropertiesParser extends org.eclipse.xtext.parser.antlr.AbstractAnt
 	
 	@Override 
 	protected String getDefaultRuleName() {
-		return "PropertySet";
+		return "PModel";
 	}
 	
 	public PropertiesGrammarAccess getGrammarAccess() {

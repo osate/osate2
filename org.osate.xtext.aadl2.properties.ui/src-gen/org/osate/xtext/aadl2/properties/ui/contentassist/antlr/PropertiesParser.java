@@ -37,6 +37,7 @@ public class PropertiesParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
+					put(grammarAccess.getPModelAccess().getAlternatives(), "rule__PModel__Alternatives");
 					put(grammarAccess.getPropertySetAccess().getAlternatives_5(), "rule__PropertySet__Alternatives_5");
 					put(grammarAccess.getPropertyTypeAccess().getAlternatives_0(), "rule__PropertyType__Alternatives_0");
 					put(grammarAccess.getUnnamedPropertyTypeAccess().getAlternatives(), "rule__UnnamedPropertyType__Alternatives");
@@ -320,7 +321,7 @@ public class PropertiesParser extends AbstractContentAssistParser {
 	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
 		try {
 			org.osate.xtext.aadl2.properties.ui.contentassist.antlr.internal.InternalPropertiesParser typedParser = (org.osate.xtext.aadl2.properties.ui.contentassist.antlr.internal.InternalPropertiesParser) parser;
-			typedParser.entryRulePropertySet();
+			typedParser.entryRulePModel();
 			return typedParser.getFollowElements();
 		} catch(RecognitionException ex) {
 			throw new RuntimeException(ex);
