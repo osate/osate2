@@ -3,8 +3,11 @@
  */
 package org.osate.xtext.aadl2.formatting;
 
+import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
+import org.eclipse.xtext.util.Pair;
+import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
 /**
  * This class contains custom formatting description.
@@ -18,10 +21,61 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 	
 	@Override
 	protected void configureFormatting(FormattingConfig c) {
+		Aadl2GrammarAccess f = (Aadl2GrammarAccess) getGrammarAccess();
+	    c.setAutoLinewrap(120);
+	    
+	    // find common keywords an specify formatting for them
+	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("(", ")")) {
+		      c.setNoSpace().after(pair.getFirst());
+		      c.setNoSpace().before(pair.getSecond());
+		    }
+	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("{", "}")) {
+		      c.setIndentationIncrement().after(pair.getFirst());
+		      c.setLinewrap().after(pair.getFirst());
+		      c.setIndentationDecrement().before(pair.getSecond());
+		      c.setLinewrap().before(pair.getSecond());
+		    }
+	    for (Keyword comma : f.findKeywords(",")) {
+		      c.setNoSpace().before(comma);
+		    }
+	    for (Keyword semi : f.findKeywords(";")) {
+		      c.setLinewrap().after(semi);
+		    }
+	    for (Keyword fea : f.findKeywords("features")) {
+		      c.setLinewrap().around(fea);
+		      c.setIndentationDecrement().before(fea);
+		      c.setIndentationIncrement().after(fea);
+		    }
+	    for (Keyword sub : f.findKeywords("subcomponents")) {
+		      c.setLinewrap().around(sub);
+		      c.setIndentationDecrement().before(sub);
+		      c.setIndentationIncrement().after(sub);
+		    }
+	    for (Keyword modes : f.findKeywords("modes")) {
+		      c.setLinewrap().around(modes);
+		      c.setIndentationDecrement().before(modes);
+		      c.setIndentationIncrement().after(modes);
+		    }
+	    for (Keyword end : f.findKeywords("end")) {
+		      c.setIndentationDecrement().before(end);
+		      c.setLinewrap().before(end);
+		    }
+	      c.setLinewrap().before(f.getPublicPackageSectionRule());
+	      c.setIndentationIncrement().before(f.getSystemTypeRule());
+	      c.setIndentationDecrement().after(f.getSystemTypeRule());
+	      c.setIndentationIncrement().after(f.getSystemTypeAccess().getSystemKeyword_0());
+	      c.setIndentationIncrement().before(f.getSystemImplementationRule());
+	      c.setIndentationDecrement().after(f.getSystemImplementationRule());
+	      c.setIndentationIncrement().after(f.getSystemImplementationAccess().getSystemKeyword_0());
+
+	      c.setLinewrap().before(f.getPublicPackageSectionAccess().getWithKeyword_2_0_0());
+
+
 // It's usually a good idea to activate the following three statements.
 // They will add and preserve newlines around comments
-//		c.setLinewrap(0, 1, 2).before(getGrammarAccess().getSL_COMMENTRule());
-//		c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
-//		c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
+		c.setLinewrap(0, 1, 2).before(f.getSL_COMMENTRule());
+		c.setLinewrap(0, 1, 2).before(f.getML_COMMENTRule());
+		c.setLinewrap(0, 1, 1).after(f.getML_COMMENTRule());
+
 	}
 }

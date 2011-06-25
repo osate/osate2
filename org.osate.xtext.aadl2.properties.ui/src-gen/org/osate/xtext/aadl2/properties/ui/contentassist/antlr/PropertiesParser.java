@@ -167,9 +167,6 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getNumericRangeTermAccess().getGroup(), "rule__NumericRangeTerm__Group__0");
 					put(grammarAccess.getNumericRangeTermAccess().getGroup_3(), "rule__NumericRangeTerm__Group_3__0");
 					put(grammarAccess.getREALAccess().getGroup(), "rule__REAL__Group__0");
-					put(grammarAccess.getQNAMEAccess().getGroup(), "rule__QNAME__Group__0");
-					put(grammarAccess.getPNAMEAccess().getGroup(), "rule__PNAME__Group__0");
-					put(grammarAccess.getPNAMEAccess().getGroup_1(), "rule__PNAME__Group_1__0");
 					put(grammarAccess.getQPREFAccess().getGroup(), "rule__QPREF__Group__0");
 					put(grammarAccess.getQPREFAccess().getGroup_1(), "rule__QPREF__Group_1__0");
 					put(grammarAccess.getQCREFAccess().getGroup(), "rule__QCREF__Group__0");

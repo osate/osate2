@@ -1,5 +1,5 @@
-grammar org.osate.xtext.aadl2.Aadl2 with //org.osate.xtext.aadl2.properties.Properties
-org.eclipse.xtext.common.Terminals
+grammar org.osate.xtext.aadl2.Aadl2 with org.osate.xtext.aadl2.properties.Properties
+//org.eclipse.xtext.common.Terminals
 //generate aadl2 "http://www.osate.org/aadl2/Aadl2"
 
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
@@ -1569,85 +1569,28 @@ DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
 	';';
 
 
-terminal EM:
-	'error_model';
-
-
 
 terminal ANNEXTEXT:
 	'{**'->'**}';
 	// **************
-// Properties
 
-BasicPropertyAssociation returns aadl2::PropertyAssociation:
-	property=[aadl2::Property|QPREF] // name=QPREF
-	'=>' //ownedValue+=PropertyValue ';'
-	;
 
-PropertyAssociation returns aadl2::PropertyAssociation :
-	property=[aadl2::Property|ID] '=>' //ownedValue=PropertyExpression 
-	';';
-
-ContainedPropertyAssociation returns aadl2::PropertyAssociation :
-	property=[aadl2::Property|ID] '=>' //ownedValue=PropertyExpression
-	(=> 'applies' 'to' appliesTo+=ContainmentPath)?
-	';' ; 
-	
-ContainmentPath returns aadl2::ContainedNamedElement:
-	{aadl2::ContainedNamedElement}
-	containmentPathElement+=ContainmentPathElement
-	( ',' containmentPathElement+=ContainmentPathElement)*
-;
-
-ContainmentPathElement returns aadl2::ContainmentPathElement:
-	namedElement=[aadl2::NamedElement|ID]
-	 arrayRange+=ArrayRange
-;
-
-ArrayRange returns aadl2::ArrayRange: {aadl2::ArrayRange}
-	'[' lowerBound=gINT ('.''.' upperBound=gINT)? 
-	']'
-;
 //
-//PropertyExpression:
-//	Literal | ProbabilityValue;
 //
-//Literal:
-//	name=ID;
-//
-//ProbabilityValue:
-//	number=REAL distribution=ID;
+//terminal SL_COMMENT:
+//	'--' !('\n' | '\r')* ('\r'? '\n')?;
 
 
-
-
-terminal SL_COMMENT:
-	'--' !('\n' | '\r')* ('\r'? '\n')?;
-
-
-//INTEGER returns aadl2::Integer:
-//	INT ;
-
-gINT returns aadl2::Integer:
-	INT 	
-;
-
-
-REAL:
-	INT '.' INT;
-
-TINAME:
-	ID '.' INAME;
 
 PNAME:
 	ID ('::' ID)*;
 
-QPREF:
-	ID ('::' ID)?;
-
+//QPREF:
+//	ID ('::' ID)?;
+//
 INAME:
 	ID;
 
-QCREF:
-	(ID '::')* ID ('.' ID)?;
+//QCREF:
+//	(ID '::')* ID ('.' ID)?;
 	

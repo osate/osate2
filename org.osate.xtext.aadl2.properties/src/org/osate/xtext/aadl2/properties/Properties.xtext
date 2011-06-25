@@ -443,14 +443,6 @@ gREAL returns aadl2::Real:
 	REAL 	
 ;
 
-QNAME:
-	ID '.' INAME;
-
-PNAME:
-	ID ('::' ID)*;
-
-INAME:
-	ID;
 
 QPREF:
 	ID ('::' ID)?;

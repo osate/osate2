@@ -5964,38 +5964,6 @@ rulegREAL returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 
 
 
-
-
-
-
-// Entry rule entryRuleINAME
-entryRuleINAME returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getINAMERule()); } 
-	 iv_ruleINAME=ruleINAME 
-	 { $current=$iv_ruleINAME.current.getText(); }  
-	 EOF 
-;
-
-// Rule INAME
-ruleINAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getINAMEAccess().getIDTerminalRuleCall()); 
-    }
-
-    ;
-
-
-
-
-
 // Entry rule entryRuleQPREF
 entryRuleQPREF returns [String current=null] 
 	:
