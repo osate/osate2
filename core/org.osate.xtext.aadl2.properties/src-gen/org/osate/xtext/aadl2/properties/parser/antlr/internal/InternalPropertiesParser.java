@@ -167,26 +167,26 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePModel"
-    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:83:1: rulePModel returns [EObject current=null] : (this_PropertySet_0= rulePropertySet | this_BasicPropertyAssociation_1= ruleBasicPropertyAssociation | this_PropertyAssociation_2= rulePropertyAssociation | this_ContainedPropertyAssociation_3= ruleContainedPropertyAssociation ) ;
+    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:83:1: rulePModel returns [EObject current=null] : (this_PropertySet_0= rulePropertySet | this_ContainedPropertyAssociation_1= ruleContainedPropertyAssociation | this_BasicPropertyAssociation_2= ruleBasicPropertyAssociation | this_PropertyAssociation_3= rulePropertyAssociation ) ;
     public final EObject rulePModel() throws RecognitionException {
         EObject current = null;
 
         EObject this_PropertySet_0 = null;
 
-        EObject this_BasicPropertyAssociation_1 = null;
+        EObject this_ContainedPropertyAssociation_1 = null;
 
-        EObject this_PropertyAssociation_2 = null;
+        EObject this_BasicPropertyAssociation_2 = null;
 
-        EObject this_ContainedPropertyAssociation_3 = null;
+        EObject this_PropertyAssociation_3 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:86:28: ( (this_PropertySet_0= rulePropertySet | this_BasicPropertyAssociation_1= ruleBasicPropertyAssociation | this_PropertyAssociation_2= rulePropertyAssociation | this_ContainedPropertyAssociation_3= ruleContainedPropertyAssociation ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:87:1: (this_PropertySet_0= rulePropertySet | this_BasicPropertyAssociation_1= ruleBasicPropertyAssociation | this_PropertyAssociation_2= rulePropertyAssociation | this_ContainedPropertyAssociation_3= ruleContainedPropertyAssociation )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:86:28: ( (this_PropertySet_0= rulePropertySet | this_ContainedPropertyAssociation_1= ruleContainedPropertyAssociation | this_BasicPropertyAssociation_2= ruleBasicPropertyAssociation | this_PropertyAssociation_3= rulePropertyAssociation ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:87:1: (this_PropertySet_0= rulePropertySet | this_ContainedPropertyAssociation_1= ruleContainedPropertyAssociation | this_BasicPropertyAssociation_2= ruleBasicPropertyAssociation | this_PropertyAssociation_3= rulePropertyAssociation )
             {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:87:1: (this_PropertySet_0= rulePropertySet | this_BasicPropertyAssociation_1= ruleBasicPropertyAssociation | this_PropertyAssociation_2= rulePropertyAssociation | this_ContainedPropertyAssociation_3= ruleContainedPropertyAssociation )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:87:1: (this_PropertySet_0= rulePropertySet | this_ContainedPropertyAssociation_1= ruleContainedPropertyAssociation | this_BasicPropertyAssociation_2= ruleBasicPropertyAssociation | this_PropertyAssociation_3= rulePropertyAssociation )
             int alt1=4;
             int LA1_0 = input.LA(1);
 
@@ -249,7 +249,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:101:2: this_BasicPropertyAssociation_1= ruleBasicPropertyAssociation
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:101:2: this_ContainedPropertyAssociation_1= ruleContainedPropertyAssociation
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -258,17 +258,17 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_1()); 
+                              newCompositeNode(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleBasicPropertyAssociation_in_rulePModel171);
-                    this_BasicPropertyAssociation_1=ruleBasicPropertyAssociation();
+                    pushFollow(FOLLOW_ruleContainedPropertyAssociation_in_rulePModel171);
+                    this_ContainedPropertyAssociation_1=ruleContainedPropertyAssociation();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_BasicPropertyAssociation_1; 
+                              current = this_ContainedPropertyAssociation_1; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -276,7 +276,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:114:2: this_PropertyAssociation_2= rulePropertyAssociation
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:114:2: this_BasicPropertyAssociation_2= ruleBasicPropertyAssociation
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -285,17 +285,17 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_2()); 
+                              newCompositeNode(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_2()); 
                           
                     }
-                    pushFollow(FOLLOW_rulePropertyAssociation_in_rulePModel201);
-                    this_PropertyAssociation_2=rulePropertyAssociation();
+                    pushFollow(FOLLOW_ruleBasicPropertyAssociation_in_rulePModel201);
+                    this_BasicPropertyAssociation_2=ruleBasicPropertyAssociation();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_PropertyAssociation_2; 
+                              current = this_BasicPropertyAssociation_2; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -303,7 +303,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:127:2: this_ContainedPropertyAssociation_3= ruleContainedPropertyAssociation
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:127:2: this_PropertyAssociation_3= rulePropertyAssociation
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -312,17 +312,17 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_3()); 
+                              newCompositeNode(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_3()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleContainedPropertyAssociation_in_rulePModel231);
-                    this_ContainedPropertyAssociation_3=ruleContainedPropertyAssociation();
+                    pushFollow(FOLLOW_rulePropertyAssociation_in_rulePModel231);
+                    this_PropertyAssociation_3=rulePropertyAssociation();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_ContainedPropertyAssociation_3; 
+                              current = this_PropertyAssociation_3; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -17553,19 +17553,19 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred2_InternalProperties
     public final void synpred2_InternalProperties_fragment() throws RecognitionException {   
-        EObject this_BasicPropertyAssociation_1 = null;
+        EObject this_ContainedPropertyAssociation_1 = null;
 
 
-        // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:101:2: (this_BasicPropertyAssociation_1= ruleBasicPropertyAssociation )
-        // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:101:2: this_BasicPropertyAssociation_1= ruleBasicPropertyAssociation
+        // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:101:2: (this_ContainedPropertyAssociation_1= ruleContainedPropertyAssociation )
+        // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:101:2: this_ContainedPropertyAssociation_1= ruleContainedPropertyAssociation
         {
         if ( state.backtracking==0 ) {
            
           	  /* */ 
           	
         }
-        pushFollow(FOLLOW_ruleBasicPropertyAssociation_in_synpred2_InternalProperties171);
-        this_BasicPropertyAssociation_1=ruleBasicPropertyAssociation();
+        pushFollow(FOLLOW_ruleContainedPropertyAssociation_in_synpred2_InternalProperties171);
+        this_ContainedPropertyAssociation_1=ruleContainedPropertyAssociation();
 
         state._fsp--;
         if (state.failed) return ;
@@ -17576,19 +17576,19 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred3_InternalProperties
     public final void synpred3_InternalProperties_fragment() throws RecognitionException {   
-        EObject this_PropertyAssociation_2 = null;
+        EObject this_BasicPropertyAssociation_2 = null;
 
 
-        // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:114:2: (this_PropertyAssociation_2= rulePropertyAssociation )
-        // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:114:2: this_PropertyAssociation_2= rulePropertyAssociation
+        // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:114:2: (this_BasicPropertyAssociation_2= ruleBasicPropertyAssociation )
+        // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:114:2: this_BasicPropertyAssociation_2= ruleBasicPropertyAssociation
         {
         if ( state.backtracking==0 ) {
            
           	  /* */ 
           	
         }
-        pushFollow(FOLLOW_rulePropertyAssociation_in_synpred3_InternalProperties201);
-        this_PropertyAssociation_2=rulePropertyAssociation();
+        pushFollow(FOLLOW_ruleBasicPropertyAssociation_in_synpred3_InternalProperties201);
+        this_BasicPropertyAssociation_2=ruleBasicPropertyAssociation();
 
         state._fsp--;
         if (state.failed) return ;
@@ -18269,9 +18269,9 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_rulePModel_in_entryRulePModel81 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRulePModel91 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rulePropertySet_in_rulePModel141 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBasicPropertyAssociation_in_rulePModel171 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyAssociation_in_rulePModel201 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleContainedPropertyAssociation_in_rulePModel231 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleContainedPropertyAssociation_in_rulePModel171 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBasicPropertyAssociation_in_rulePModel201 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePropertyAssociation_in_rulePModel231 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rulePropertySet_in_entryRulePropertySet266 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRulePropertySet276 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_11_in_rulePropertySet313 = new BitSet(new long[]{0x0000000000001000L});
@@ -18820,8 +18820,8 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleSTAR_in_entryRuleSTAR13819 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleSTAR13830 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_59_in_ruleSTAR13867 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBasicPropertyAssociation_in_synpred2_InternalProperties171 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyAssociation_in_synpred3_InternalProperties201 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleContainedPropertyAssociation_in_synpred2_InternalProperties171 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBasicPropertyAssociation_in_synpred3_InternalProperties201 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_23_in_synpred72_InternalProperties6974 = new BitSet(new long[]{0x00E2D00480800070L});
     public static final BitSet FOLLOW_ruleModalPropertyValue_in_synpred72_InternalProperties6996 = new BitSet(new long[]{0x0000000001008000L});
     public static final BitSet FOLLOW_15_in_synpred72_InternalProperties7009 = new BitSet(new long[]{0x00E2D00480800070L});

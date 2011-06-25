@@ -2409,21 +2409,21 @@ rule__PModel__Alternatives
 )
 
     |(
-{ before(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_1()); }
-	ruleBasicPropertyAssociation
-{ after(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_1()); }
-)
-
-    |(
-{ before(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_2()); }
-	rulePropertyAssociation
-{ after(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_2()); }
-)
-
-    |(
-{ before(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_3()); }
+{ before(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_1()); }
 	ruleContainedPropertyAssociation
-{ after(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_3()); }
+{ after(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_1()); }
+)
+
+    |(
+{ before(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_2()); }
+	ruleBasicPropertyAssociation
+{ after(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_2()); }
+)
+
+    |(
+{ before(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_3()); }
+	rulePropertyAssociation
+{ after(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_3()); }
 )
 
 ;

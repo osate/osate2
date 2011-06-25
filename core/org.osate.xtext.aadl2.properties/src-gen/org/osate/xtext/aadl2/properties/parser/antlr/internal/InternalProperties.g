@@ -102,11 +102,11 @@ rulePModel returns [EObject current=null]
 	  /* */ 
 	}
     { 
-        newCompositeNode(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_1()); 
     }
-    this_BasicPropertyAssociation_1=ruleBasicPropertyAssociation
+    this_ContainedPropertyAssociation_1=ruleContainedPropertyAssociation
     { 
-        $current = $this_BasicPropertyAssociation_1.current; 
+        $current = $this_ContainedPropertyAssociation_1.current; 
         afterParserOrEnumRuleCall();
     }
 
@@ -115,11 +115,11 @@ rulePModel returns [EObject current=null]
 	  /* */ 
 	}
     { 
-        newCompositeNode(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_2()); 
     }
-    this_PropertyAssociation_2=rulePropertyAssociation
+    this_BasicPropertyAssociation_2=ruleBasicPropertyAssociation
     { 
-        $current = $this_PropertyAssociation_2.current; 
+        $current = $this_BasicPropertyAssociation_2.current; 
         afterParserOrEnumRuleCall();
     }
 
@@ -128,11 +128,11 @@ rulePModel returns [EObject current=null]
 	  /* */ 
 	}
     { 
-        newCompositeNode(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_3()); 
     }
-    this_ContainedPropertyAssociation_3=ruleContainedPropertyAssociation
+    this_PropertyAssociation_3=rulePropertyAssociation
     { 
-        $current = $this_ContainedPropertyAssociation_3.current; 
+        $current = $this_PropertyAssociation_3.current; 
         afterParserOrEnumRuleCall();
     }
 )
