@@ -3441,70 +3441,6 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getREALParserRuleCall() { return cREALParserRuleCall; }
 	}
 
-	public class QNAMEElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QNAME");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cINAMEParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
-		
-		//QNAME:
-		//	ID "." INAME;
-		public ParserRule getRule() { return rule; }
-
-		//ID "." INAME
-		public Group getGroup() { return cGroup; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
-
-		//"."
-		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
-
-		//INAME
-		public RuleCall getINAMEParserRuleCall_2() { return cINAMEParserRuleCall_2; }
-	}
-
-	public class PNAMEElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PNAME");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cColonColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
-		
-		//PNAME:
-		//	ID ("::" ID)*;
-		public ParserRule getRule() { return rule; }
-
-		//ID ("::" ID)*
-		public Group getGroup() { return cGroup; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
-
-		//("::" ID)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"::"
-		public Keyword getColonColonKeyword_1_0() { return cColonColonKeyword_1_0; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
-	}
-
-	public class INAMEElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "INAME");
-		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
-		
-		//INAME:
-		//	ID;
-		public ParserRule getRule() { return rule; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
-	}
-
 	public class QPREFElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QPREF");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -3758,9 +3694,6 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	private REALElements pREAL;
 	private GINTElements pGINT;
 	private GREALElements pGREAL;
-	private QNAMEElements pQNAME;
-	private PNAMEElements pPNAME;
-	private INAMEElements pINAME;
 	private QPREFElements pQPREF;
 	private QCREFElements pQCREF;
 	private EQCREFElements pEQCREF;
@@ -4628,36 +4561,6 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getGREALRule() {
 		return getGREALAccess().getRule();
-	}
-
-	//QNAME:
-	//	ID "." INAME;
-	public QNAMEElements getQNAMEAccess() {
-		return (pQNAME != null) ? pQNAME : (pQNAME = new QNAMEElements());
-	}
-	
-	public ParserRule getQNAMERule() {
-		return getQNAMEAccess().getRule();
-	}
-
-	//PNAME:
-	//	ID ("::" ID)*;
-	public PNAMEElements getPNAMEAccess() {
-		return (pPNAME != null) ? pPNAME : (pPNAME = new PNAMEElements());
-	}
-	
-	public ParserRule getPNAMERule() {
-		return getPNAMEAccess().getRule();
-	}
-
-	//INAME:
-	//	ID;
-	public INAMEElements getINAMEAccess() {
-		return (pINAME != null) ? pINAME : (pINAME = new INAMEElements());
-	}
-	
-	public ParserRule getINAMERule() {
-		return getINAMEAccess().getRule();
 	}
 
 	//QPREF:

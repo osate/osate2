@@ -2248,38 +2248,6 @@ finally {
 
 
 
-
-
-
-
-// Entry rule entryRuleINAME
-entryRuleINAME 
-:
-{ before(grammarAccess.getINAMERule()); }
-	 ruleINAME
-{ after(grammarAccess.getINAMERule()); } 
-	 EOF 
-;
-
-// Rule INAME
-ruleINAME
-    @init {
-		int stackSize = keepStackSize();
-    }
-	:
-(
-{ before(grammarAccess.getINAMEAccess().getIDTerminalRuleCall()); }
-	RULE_ID
-{ after(grammarAccess.getINAMEAccess().getIDTerminalRuleCall()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
 // Entry rule entryRuleQPREF
 entryRuleQPREF 
 :
@@ -13527,9 +13495,6 @@ rule__REAL__Group__2__Impl
 finally {
 	restoreStackSize(stackSize);
 }
-
-
-
 
 
 
