@@ -6,8 +6,7 @@ grammar org.osate.xtext.aadl2.properties.Properties with org.eclipse.xtext.commo
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
 PModel returns aadl2::Element:
-	PropertySet | BasicPropertyAssociation | PropertyAssociation | ContainedPropertyAssociation
-;
+	PropertySet | ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation;
 
 PropertySet returns aadl2::PropertySet:
 	'property' 'set' name=ID 'is'
@@ -204,7 +203,6 @@ RealLit returns aadl2::RealLiteral:
 IntegerLit returns aadl2::IntegerLiteral:
 	value=gINT ;
 
-
 BasicPropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] // name=QPREF
 	'=>' ownedValue+=PropertyValue ';'
@@ -246,6 +244,7 @@ ContainmentPath returns aadl2::ContainedNamedElement:
 
 ModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
+	// phf made this optional: need to check separately that only the last one is optional
 	('in' 'modes' '(' 
 	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 	')')?

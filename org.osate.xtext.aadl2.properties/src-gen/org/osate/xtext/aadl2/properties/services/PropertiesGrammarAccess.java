@@ -21,28 +21,28 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PModel");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cPropertySetParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cBasicPropertyAssociationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cPropertyAssociationParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cContainedPropertyAssociationParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cContainedPropertyAssociationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cBasicPropertyAssociationParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cPropertyAssociationParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//PModel returns aadl2::Element:
-		//	PropertySet | BasicPropertyAssociation | PropertyAssociation | ContainedPropertyAssociation;
+		//	PropertySet | ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation;
 		public ParserRule getRule() { return rule; }
 
-		//PropertySet | BasicPropertyAssociation | PropertyAssociation | ContainedPropertyAssociation
+		//PropertySet | ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//PropertySet
 		public RuleCall getPropertySetParserRuleCall_0() { return cPropertySetParserRuleCall_0; }
 
+		//ContainedPropertyAssociation
+		public RuleCall getContainedPropertyAssociationParserRuleCall_1() { return cContainedPropertyAssociationParserRuleCall_1; }
+
 		//BasicPropertyAssociation
-		public RuleCall getBasicPropertyAssociationParserRuleCall_1() { return cBasicPropertyAssociationParserRuleCall_1; }
+		public RuleCall getBasicPropertyAssociationParserRuleCall_2() { return cBasicPropertyAssociationParserRuleCall_2; }
 
 		//PropertyAssociation
-		public RuleCall getPropertyAssociationParserRuleCall_2() { return cPropertyAssociationParserRuleCall_2; }
-
-		//ContainedPropertyAssociation
-		public RuleCall getContainedPropertyAssociationParserRuleCall_3() { return cContainedPropertyAssociationParserRuleCall_3; }
+		public RuleCall getPropertyAssociationParserRuleCall_3() { return cPropertyAssociationParserRuleCall_3; }
 	}
 
 	public class PropertySetElements extends AbstractParserRuleElementFinder {
@@ -2159,10 +2159,12 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_1_5 = (Keyword)cGroup_1.eContents().get(5);
 		
 		//ModalPropertyValue returns aadl2::ModalPropertyValue:
-		//	ownedValue=PropertyExpression ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
+		//	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
+		//	("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
 		public ParserRule getRule() { return rule; }
 
-		//ownedValue=PropertyExpression ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+		//ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
+		//("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
 		public Group getGroup() { return cGroup; }
 
 		//ownedValue=PropertyExpression
@@ -3786,7 +3788,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//PModel returns aadl2::Element:
-	//	PropertySet | BasicPropertyAssociation | PropertyAssociation | ContainedPropertyAssociation;
+	//	PropertySet | ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation;
 	public PModelElements getPModelAccess() {
 		return (pPModel != null) ? pPModel : (pPModel = new PModelElements());
 	}
@@ -4221,7 +4223,8 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ModalPropertyValue returns aadl2::ModalPropertyValue:
-	//	ownedValue=PropertyExpression ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
+	//	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
+	//	("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
 	public ModalPropertyValueElements getModalPropertyValueAccess() {
 		return (pModalPropertyValue != null) ? pModalPropertyValue : (pModalPropertyValue = new ModalPropertyValueElements());
 	}

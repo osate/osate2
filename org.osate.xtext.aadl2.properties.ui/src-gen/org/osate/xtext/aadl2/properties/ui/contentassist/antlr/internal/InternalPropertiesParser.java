@@ -7095,13 +7095,13 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__PModel__Alternatives"
-    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2400:1: rule__PModel__Alternatives : ( ( rulePropertySet ) | ( ruleBasicPropertyAssociation ) | ( rulePropertyAssociation ) | ( ruleContainedPropertyAssociation ) );
+    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2400:1: rule__PModel__Alternatives : ( ( rulePropertySet ) | ( ruleContainedPropertyAssociation ) | ( ruleBasicPropertyAssociation ) | ( rulePropertyAssociation ) );
     public final void rule__PModel__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2404:1: ( ( rulePropertySet ) | ( ruleBasicPropertyAssociation ) | ( rulePropertyAssociation ) | ( ruleContainedPropertyAssociation ) )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2404:1: ( ( rulePropertySet ) | ( ruleContainedPropertyAssociation ) | ( ruleBasicPropertyAssociation ) | ( rulePropertyAssociation ) )
             int alt1=4;
             int LA1_0 = input.LA(1);
 
@@ -7160,21 +7160,21 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2411:6: ( ruleBasicPropertyAssociation )
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2411:6: ( ruleContainedPropertyAssociation )
                     {
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2411:6: ( ruleBasicPropertyAssociation )
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2412:1: ruleBasicPropertyAssociation
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2411:6: ( ruleContainedPropertyAssociation )
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2412:1: ruleContainedPropertyAssociation
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_1()); 
+                       before(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_1()); 
                     }
-                    pushFollow(FOLLOW_ruleBasicPropertyAssociation_in_rule__PModel__Alternatives5082);
-                    ruleBasicPropertyAssociation();
+                    pushFollow(FOLLOW_ruleContainedPropertyAssociation_in_rule__PModel__Alternatives5082);
+                    ruleContainedPropertyAssociation();
 
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_1()); 
+                       after(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_1()); 
                     }
 
                     }
@@ -7183,21 +7183,21 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
                     }
                     break;
                 case 3 :
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2417:6: ( rulePropertyAssociation )
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2417:6: ( ruleBasicPropertyAssociation )
                     {
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2417:6: ( rulePropertyAssociation )
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2418:1: rulePropertyAssociation
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2417:6: ( ruleBasicPropertyAssociation )
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2418:1: ruleBasicPropertyAssociation
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_2()); 
+                       before(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_2()); 
                     }
-                    pushFollow(FOLLOW_rulePropertyAssociation_in_rule__PModel__Alternatives5099);
-                    rulePropertyAssociation();
+                    pushFollow(FOLLOW_ruleBasicPropertyAssociation_in_rule__PModel__Alternatives5099);
+                    ruleBasicPropertyAssociation();
 
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_2()); 
+                       after(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_2()); 
                     }
 
                     }
@@ -7206,21 +7206,21 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
                     }
                     break;
                 case 4 :
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2423:6: ( ruleContainedPropertyAssociation )
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2423:6: ( rulePropertyAssociation )
                     {
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2423:6: ( ruleContainedPropertyAssociation )
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2424:1: ruleContainedPropertyAssociation
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2423:6: ( rulePropertyAssociation )
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2424:1: rulePropertyAssociation
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_3()); 
+                       before(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_3()); 
                     }
-                    pushFollow(FOLLOW_ruleContainedPropertyAssociation_in_rule__PModel__Alternatives5116);
-                    ruleContainedPropertyAssociation();
+                    pushFollow(FOLLOW_rulePropertyAssociation_in_rule__PModel__Alternatives5116);
+                    rulePropertyAssociation();
 
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_3()); 
+                       after(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_3()); 
                     }
 
                     }
@@ -46798,17 +46798,17 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
 
     // $ANTLR start synpred2_InternalProperties
     public final void synpred2_InternalProperties_fragment() throws RecognitionException {   
-        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2411:6: ( ( ruleBasicPropertyAssociation ) )
-        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2411:6: ( ruleBasicPropertyAssociation )
+        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2411:6: ( ( ruleContainedPropertyAssociation ) )
+        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2411:6: ( ruleContainedPropertyAssociation )
         {
-        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2411:6: ( ruleBasicPropertyAssociation )
-        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2412:1: ruleBasicPropertyAssociation
+        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2411:6: ( ruleContainedPropertyAssociation )
+        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2412:1: ruleContainedPropertyAssociation
         {
         if ( state.backtracking==0 ) {
-           before(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_1()); 
+           before(grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_1()); 
         }
-        pushFollow(FOLLOW_ruleBasicPropertyAssociation_in_synpred2_InternalProperties5082);
-        ruleBasicPropertyAssociation();
+        pushFollow(FOLLOW_ruleContainedPropertyAssociation_in_synpred2_InternalProperties5082);
+        ruleContainedPropertyAssociation();
 
         state._fsp--;
         if (state.failed) return ;
@@ -46822,17 +46822,17 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
 
     // $ANTLR start synpred3_InternalProperties
     public final void synpred3_InternalProperties_fragment() throws RecognitionException {   
-        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2417:6: ( ( rulePropertyAssociation ) )
-        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2417:6: ( rulePropertyAssociation )
+        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2417:6: ( ( ruleBasicPropertyAssociation ) )
+        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2417:6: ( ruleBasicPropertyAssociation )
         {
-        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2417:6: ( rulePropertyAssociation )
-        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2418:1: rulePropertyAssociation
+        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2417:6: ( ruleBasicPropertyAssociation )
+        // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:2418:1: ruleBasicPropertyAssociation
         {
         if ( state.backtracking==0 ) {
-           before(grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_2()); 
+           before(grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_2()); 
         }
-        pushFollow(FOLLOW_rulePropertyAssociation_in_synpred3_InternalProperties5099);
-        rulePropertyAssociation();
+        pushFollow(FOLLOW_ruleBasicPropertyAssociation_in_synpred3_InternalProperties5099);
+        ruleBasicPropertyAssociation();
 
         state._fsp--;
         if (state.failed) return ;
@@ -47624,9 +47624,9 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
     public static final BitSet FOLLOW_EOF_in_entryRuleSTAR4999 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_14_in_ruleSTAR5026 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rulePropertySet_in_rule__PModel__Alternatives5065 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBasicPropertyAssociation_in_rule__PModel__Alternatives5082 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyAssociation_in_rule__PModel__Alternatives5099 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleContainedPropertyAssociation_in_rule__PModel__Alternatives5116 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleContainedPropertyAssociation_in_rule__PModel__Alternatives5082 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBasicPropertyAssociation_in_rule__PModel__Alternatives5099 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePropertyAssociation_in_rule__PModel__Alternatives5116 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PropertySet__OwnedPropertyTypeAssignment_5_0_in_rule__PropertySet__Alternatives_55148 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PropertySet__OwnedPropertyAssignment_5_1_in_rule__PropertySet__Alternatives_55166 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PropertySet__OwnedPropertyConstantAssignment_5_2_in_rule__PropertySet__Alternatives_55184 = new BitSet(new long[]{0x0000000000000002L});
@@ -48770,8 +48770,8 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
     public static final BitSet FOLLOW_rule__NumericRangeTerm__MinimumAlternatives_0_0_in_rule__NumericRangeTerm__MinimumAssignment_032870 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__NumericRangeTerm__MaximumAlternatives_2_0_in_rule__NumericRangeTerm__MaximumAssignment_232903 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__NumericRangeTerm__DeltaAlternatives_3_1_0_in_rule__NumericRangeTerm__DeltaAssignment_3_132936 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBasicPropertyAssociation_in_synpred2_InternalProperties5082 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyAssociation_in_synpred3_InternalProperties5099 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleContainedPropertyAssociation_in_synpred2_InternalProperties5082 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBasicPropertyAssociation_in_synpred3_InternalProperties5099 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_3_0__0_in_synpred39_InternalProperties6346 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PropertyAssociation__Group_3_0__0_in_synpred41_InternalProperties6450 = new BitSet(new long[]{0x0000000000000002L});
 

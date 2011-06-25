@@ -107,11 +107,11 @@ protected class ThisRootNode extends RootToken {
 /************ begin Rule PModel ****************
  *
  * PModel returns aadl2::Element:
- * 	PropertySet | BasicPropertyAssociation | PropertyAssociation | ContainedPropertyAssociation;
+ * 	PropertySet | ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation;
  *
  **/
 
-// PropertySet | BasicPropertyAssociation | PropertyAssociation | ContainedPropertyAssociation
+// PropertySet | ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation
 protected class PModel_Alternatives extends AlternativesToken {
 
 	public PModel_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -127,16 +127,16 @@ protected class PModel_Alternatives extends AlternativesToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new PModel_PropertySetParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new PModel_BasicPropertyAssociationParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new PModel_PropertyAssociationParserRuleCall_2(lastRuleCallOrigin, this, 2, inst);
-			case 3: return new PModel_ContainedPropertyAssociationParserRuleCall_3(lastRuleCallOrigin, this, 3, inst);
+			case 1: return new PModel_ContainedPropertyAssociationParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new PModel_BasicPropertyAssociationParserRuleCall_2(lastRuleCallOrigin, this, 2, inst);
+			case 3: return new PModel_PropertyAssociationParserRuleCall_3(lastRuleCallOrigin, this, 3, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getContainedPropertyAssociationRule().getType().getClassifier() && 
+		if(getEObject().eClass() != grammarAccess.getPropertyAssociationRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getPropertySetRule().getType().getClassifier())
 			return null;
 		return eObjectConsumer;
@@ -180,16 +180,52 @@ protected class PModel_PropertySetParserRuleCall_0 extends RuleCallToken {
 	}	
 }
 
-// BasicPropertyAssociation
-protected class PModel_BasicPropertyAssociationParserRuleCall_1 extends RuleCallToken {
+// ContainedPropertyAssociation
+protected class PModel_ContainedPropertyAssociationParserRuleCall_1 extends RuleCallToken {
 	
-	public PModel_BasicPropertyAssociationParserRuleCall_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PModel_ContainedPropertyAssociationParserRuleCall_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_1();
+		return grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getContainedPropertyAssociationRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(ContainedPropertyAssociation_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// BasicPropertyAssociation
+protected class PModel_BasicPropertyAssociationParserRuleCall_2 extends RuleCallToken {
+	
+	public PModel_BasicPropertyAssociationParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getPModelAccess().getBasicPropertyAssociationParserRuleCall_2();
 	}
 
     @Override
@@ -217,15 +253,15 @@ protected class PModel_BasicPropertyAssociationParserRuleCall_1 extends RuleCall
 }
 
 // PropertyAssociation
-protected class PModel_PropertyAssociationParserRuleCall_2 extends RuleCallToken {
+protected class PModel_PropertyAssociationParserRuleCall_3 extends RuleCallToken {
 	
-	public PModel_PropertyAssociationParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PModel_PropertyAssociationParserRuleCall_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_2();
+		return grammarAccess.getPModelAccess().getPropertyAssociationParserRuleCall_3();
 	}
 
     @Override
@@ -241,42 +277,6 @@ protected class PModel_PropertyAssociationParserRuleCall_2 extends RuleCallToken
 		if(getEObject().eClass() != grammarAccess.getPropertyAssociationRule().getType().getClassifier())
 			return null;
 		if(checkForRecursion(PropertyAssociation_Group.class, eObjectConsumer)) return null;
-		return eObjectConsumer;
-	}
-	
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
-		}	
-	}	
-}
-
-// ContainedPropertyAssociation
-protected class PModel_ContainedPropertyAssociationParserRuleCall_3 extends RuleCallToken {
-	
-	public PModel_ContainedPropertyAssociationParserRuleCall_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getPModelAccess().getContainedPropertyAssociationParserRuleCall_3();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new ContainedPropertyAssociation_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getContainedPropertyAssociationRule().getType().getClassifier())
-			return null;
-		if(checkForRecursion(ContainedPropertyAssociation_Group.class, eObjectConsumer)) return null;
 		return eObjectConsumer;
 	}
 	
@@ -10216,11 +10216,13 @@ protected class ContainmentPath_ContainmentPathElementAssignment_2_1 extends Ass
 /************ begin Rule ModalPropertyValue ****************
  *
  * ModalPropertyValue returns aadl2::ModalPropertyValue:
- * 	ownedValue=PropertyExpression ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
+ * 	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
+ * 	("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
  *
  **/
 
-// ownedValue=PropertyExpression ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+// ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
+// ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
 protected class ModalPropertyValue_Group extends GroupToken {
 	
 	public ModalPropertyValue_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
