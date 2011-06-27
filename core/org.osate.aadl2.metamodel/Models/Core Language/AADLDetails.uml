@@ -665,6 +665,11 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_L2gTwnMdEd-Dn6vSwaGWGg"/>
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
           </ownedAttribute>
+          <ownedAttribute xmi:id="_B_SVsJ5lEeCP66JzwOyEVA" name="ownedVirtualBusSubcomponent" type="Components-VirtualBus-VirtualBusSubcomponent" aggregation="composite" association="_CAFm8J5lEeCP66JzwOyEVA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_B_SVsZ5lEeCP66JzwOyEVA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_B_SVsp5lEeCP66JzwOyEVA"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="Components-Device-A_deviceImplementation_deviceType" name="A_deviceImplementation_deviceType" memberEnd="Components-Device-A_deviceImplementation_deviceType-implementation Components-Device-DeviceImplementation-type" isDerived="true">
           <ownedEnd xmi:id="Components-Device-A_deviceImplementation_deviceType-implementation" name="implementation" type="Components-Device-DeviceImplementation" association="Components-Device-A_deviceImplementation_deviceType">
@@ -724,6 +729,12 @@
           <ownedEnd xmi:id="_L2gTz3MdEd-Dn6vSwaGWGg" name="owner" type="Components-Device-DeviceImplementation" association="_L2gTznMdEd-Dn6vSwaGWGg">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_L2gT0HMdEd-Dn6vSwaGWGg" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_L2gT0XMdEd-Dn6vSwaGWGg"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_CAFm8J5lEeCP66JzwOyEVA" name="A_&lt;deviceImplementation>_&lt;virtualBusSubcomponent>" memberEnd="_CAFm8Z5lEeCP66JzwOyEVA _B_SVsJ5lEeCP66JzwOyEVA">
+          <ownedEnd xmi:id="_CAFm8Z5lEeCP66JzwOyEVA" name="owner" type="Components-Device-DeviceImplementation" association="_CAFm8J5lEeCP66JzwOyEVA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CAFm8p5lEeCP66JzwOyEVA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CAFm855lEeCP66JzwOyEVA"/>
           </ownedEnd>
         </packagedElement>
       </packagedElement>
@@ -2418,6 +2429,7 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedAccessConnection-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedAccessConnection-_lowerValue"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="Connections-ComponentImplementation-ownedAccessConnection-_defaultValue" value=""/>
+          <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedParameterConnection" name="ownedParameterConnection" type="Connections-ParameterConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedParameterConnection">
           <ownedComment xmi:id="Connections-ComponentImplementation-ownedParameterConnection-_ownedComment.0">
@@ -2425,6 +2437,7 @@
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedParameterConnection-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedParameterConnection-_lowerValue"/>
+          <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedPortConnection" name="ownedPortConnection" type="Connections-PortConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedPortConnection">
           <ownedComment xmi:id="Connections-ComponentImplementation-ownedPortConnection-_ownedComment.0">
@@ -2432,6 +2445,7 @@
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedPortConnection-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedPortConnection-_lowerValue"/>
+          <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedFeatureConnection" name="ownedFeatureConnection" type="Connections-FeatureConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedFeatureConnection">
           <ownedComment xmi:id="Connections-ComponentImplementation-ownedFeatureConnection-_ownedComment.0">
@@ -2439,6 +2453,7 @@
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedFeatureConnection-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedFeatureConnection-_lowerValue"/>
+          <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedFeatureGroupConnection" name="ownedFeatureGroupConnection" type="Connections-FeatureGroupConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedFeatureGroupConnection">
           <ownedComment xmi:id="Connections-ComponentImplementation-ownedFeatureGroupConnection-_ownedComment.0">
@@ -2446,6 +2461,7 @@
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedFeatureGroupConnection-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedFeatureGroupConnection-_lowerValue"/>
+          <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedProcessorSubprogram" name="ownedProcessorSubprogram" type="Connections-ProcessorSubprogram" aggregation="composite" association="Connections-A_accessConnection_processorSubprogramAccess">
           <ownedComment xmi:id="_pf-oMByPEd6lOswgW78e2g">

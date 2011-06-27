@@ -423,6 +423,7 @@
         upperBound="-1" eType="#//Connection" changeable="false" volatile="true" transient="true"
         derived="true" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedExtension" ordered="false"
         eType="#//ImplementationExtension" containment="true">
@@ -441,15 +442,25 @@
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAccessConnection"
-        ordered="false" upperBound="-1" eType="#//AccessConnection" containment="true"/>
+        ordered="false" upperBound="-1" eType="#//AccessConnection" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedConnection"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedParameterConnection"
-        ordered="false" upperBound="-1" eType="#//ParameterConnection" containment="true"/>
+        ordered="false" upperBound="-1" eType="#//ParameterConnection" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedConnection"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPortConnection" ordered="false"
-        upperBound="-1" eType="#//PortConnection" containment="true"/>
+        upperBound="-1" eType="#//PortConnection" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedConnection"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureConnection"
-        ordered="false" upperBound="-1" eType="#//FeatureConnection" containment="true"/>
+        ordered="false" upperBound="-1" eType="#//FeatureConnection" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedConnection"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureGroupConnection"
-        ordered="false" upperBound="-1" eType="#//FeatureGroupConnection" containment="true"/>
+        ordered="false" upperBound="-1" eType="#//FeatureGroupConnection" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedConnection"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessorSubprogram"
         ordered="false" upperBound="-1" eType="#//ProcessorSubprogram" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noSubcomponents" ordered="false"
@@ -1431,6 +1442,10 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
         ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusSubcomponent"
+        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
     </eStructuralFeatures>
   </eClassifiers>
