@@ -22070,13 +22070,22 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Owned Virtual Bus Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Device Implementation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEVICE_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
+	int DEVICE_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -36141,6 +36150,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getDeviceImplementation_OwnedDataSubcomponent();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.DeviceImplementation#getOwnedVirtualBusSubcomponents <em>Owned Virtual Bus Subcomponent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Owned Virtual Bus Subcomponent</em>'.
+	 * @see org.osate.aadl2.DeviceImplementation#getOwnedVirtualBusSubcomponents()
+	 * @see #getDeviceImplementation()
+	 * @generated
+	 */
+	EReference getDeviceImplementation_OwnedVirtualBusSubcomponent();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.MemoryType <em>Memory Type</em>}'.

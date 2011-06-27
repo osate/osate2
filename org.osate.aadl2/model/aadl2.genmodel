@@ -920,6 +920,8 @@
           ecoreFeature="ecore:EReference aadl2.ecore#//DeviceImplementation/ownedBusSubcomponent"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//DeviceImplementation/ownedDataSubcomponent"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//DeviceImplementation/ownedVirtualBusSubcomponent"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//MemoryType">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
