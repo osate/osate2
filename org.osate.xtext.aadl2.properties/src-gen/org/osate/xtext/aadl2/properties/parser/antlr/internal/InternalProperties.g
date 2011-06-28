@@ -3911,11 +3911,11 @@ ruleConstantPropertyExpression returns [EObject current=null]
 	  /* */ 
 	}
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_7()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_7()); 
     }
-    this_BooleanTerm_7=ruleBooleanTerm
+    this_ListTerm_7=ruleListTerm
     { 
-        $current = $this_BooleanTerm_7.current; 
+        $current = $this_ListTerm_7.current; 
         afterParserOrEnumRuleCall();
     }
 
@@ -3924,11 +3924,11 @@ ruleConstantPropertyExpression returns [EObject current=null]
 	  /* */ 
 	}
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_8()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_8()); 
     }
-    this_ListTerm_8=ruleListTerm
+    this_BooleanTerm_8=ruleBooleanTerm
     { 
-        $current = $this_ListTerm_8.current; 
+        $current = $this_BooleanTerm_8.current; 
         afterParserOrEnumRuleCall();
     }
 )

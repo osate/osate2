@@ -3085,15 +3085,15 @@ rule__ConstantPropertyExpression__Alternatives
 )
 
     |(
-{ before(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_7()); }
-	ruleBooleanTerm
-{ after(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_7()); }
+{ before(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_7()); }
+	ruleListTerm
+{ after(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_7()); }
 )
 
     |(
-{ before(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_8()); }
-	ruleListTerm
-{ after(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_8()); }
+{ before(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_8()); }
+	ruleBooleanTerm
+{ after(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_8()); }
 )
 
 ;

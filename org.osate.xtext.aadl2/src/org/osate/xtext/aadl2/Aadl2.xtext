@@ -523,7 +523,7 @@ SystemImplementation returns aadl2::SystemImplementation:
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
 	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+	'end' ID '.' ID ';'
 	;
 
 ProcessImplementation returns aadl2::ProcessImplementation:
@@ -1574,6 +1574,7 @@ terminal ANNEXTEXT:
 	'{**'->'**}';
 	// **************
 
+CINAME: ID '.' ID;
 
 //
 //

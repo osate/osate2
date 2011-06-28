@@ -9947,13 +9947,13 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ConstantPropertyExpression__Alternatives"
-    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3040:1: rule__ConstantPropertyExpression__Alternatives : ( ( ruleRecordTerm ) | ( ruleNumericRangeTerm ) | ( ruleComputedTerm ) | ( ruleStringTerm ) | ( ruleRealTerm ) | ( ruleIntegerTerm ) | ( ruleComponentClassifierTerm ) | ( ruleBooleanTerm ) | ( ruleListTerm ) );
+    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3040:1: rule__ConstantPropertyExpression__Alternatives : ( ( ruleRecordTerm ) | ( ruleNumericRangeTerm ) | ( ruleComputedTerm ) | ( ruleStringTerm ) | ( ruleRealTerm ) | ( ruleIntegerTerm ) | ( ruleComponentClassifierTerm ) | ( ruleListTerm ) | ( ruleBooleanTerm ) );
     public final void rule__ConstantPropertyExpression__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3044:1: ( ( ruleRecordTerm ) | ( ruleNumericRangeTerm ) | ( ruleComputedTerm ) | ( ruleStringTerm ) | ( ruleRealTerm ) | ( ruleIntegerTerm ) | ( ruleComponentClassifierTerm ) | ( ruleBooleanTerm ) | ( ruleListTerm ) )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3044:1: ( ( ruleRecordTerm ) | ( ruleNumericRangeTerm ) | ( ruleComputedTerm ) | ( ruleStringTerm ) | ( ruleRealTerm ) | ( ruleIntegerTerm ) | ( ruleComponentClassifierTerm ) | ( ruleListTerm ) | ( ruleBooleanTerm ) )
             int alt24=9;
             alt24 = dfa24.predict(input);
             switch (alt24) {
@@ -10119,21 +10119,21 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
                     }
                     break;
                 case 8 :
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3087:6: ( ruleBooleanTerm )
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3087:6: ( ruleListTerm )
                     {
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3087:6: ( ruleBooleanTerm )
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3088:1: ruleBooleanTerm
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3087:6: ( ruleListTerm )
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3088:1: ruleListTerm
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_7()); 
+                       before(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_7()); 
                     }
-                    pushFollow(FOLLOW_ruleBooleanTerm_in_rule__ConstantPropertyExpression__Alternatives6742);
-                    ruleBooleanTerm();
+                    pushFollow(FOLLOW_ruleListTerm_in_rule__ConstantPropertyExpression__Alternatives6742);
+                    ruleListTerm();
 
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_7()); 
+                       after(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_7()); 
                     }
 
                     }
@@ -10142,21 +10142,21 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
                     }
                     break;
                 case 9 :
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3093:6: ( ruleListTerm )
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3093:6: ( ruleBooleanTerm )
                     {
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3093:6: ( ruleListTerm )
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3094:1: ruleListTerm
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3093:6: ( ruleBooleanTerm )
+                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3094:1: ruleBooleanTerm
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_8()); 
+                       before(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_8()); 
                     }
-                    pushFollow(FOLLOW_ruleListTerm_in_rule__ConstantPropertyExpression__Alternatives6759);
-                    ruleListTerm();
+                    pushFollow(FOLLOW_ruleBooleanTerm_in_rule__ConstantPropertyExpression__Alternatives6759);
+                    ruleBooleanTerm();
 
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_8()); 
+                       after(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_8()); 
                     }
 
                     }
@@ -47232,7 +47232,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
         "\2\73\2\6\1\65\1\67\5\uffff\1\67\1\uffff\1\5\1\65\1\uffff\1\6\1"+
         "\uffff\3\65\1\uffff";
     static final String DFA24_acceptS =
-        "\6\uffff\1\3\1\4\1\7\1\10\1\11\1\uffff\1\2\2\uffff\1\6\1\uffff"+
+        "\6\uffff\1\3\1\4\1\7\1\11\1\10\1\uffff\1\2\2\uffff\1\6\1\uffff"+
         "\1\1\3\uffff\1\5";
     static final String DFA24_specialS =
         "\26\uffff}>";
@@ -47294,7 +47294,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             this.transition = DFA24_transition;
         }
         public String getDescription() {
-            return "3040:1: rule__ConstantPropertyExpression__Alternatives : ( ( ruleRecordTerm ) | ( ruleNumericRangeTerm ) | ( ruleComputedTerm ) | ( ruleStringTerm ) | ( ruleRealTerm ) | ( ruleIntegerTerm ) | ( ruleComponentClassifierTerm ) | ( ruleBooleanTerm ) | ( ruleListTerm ) );";
+            return "3040:1: rule__ConstantPropertyExpression__Alternatives : ( ( ruleRecordTerm ) | ( ruleNumericRangeTerm ) | ( ruleComputedTerm ) | ( ruleStringTerm ) | ( ruleRealTerm ) | ( ruleIntegerTerm ) | ( ruleComponentClassifierTerm ) | ( ruleListTerm ) | ( ruleBooleanTerm ) );";
         }
     }
  
@@ -47625,8 +47625,8 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
     public static final BitSet FOLLOW_ruleRealTerm_in_rule__ConstantPropertyExpression__Alternatives6691 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleIntegerTerm_in_rule__ConstantPropertyExpression__Alternatives6708 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleComponentClassifierTerm_in_rule__ConstantPropertyExpression__Alternatives6725 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBooleanTerm_in_rule__ConstantPropertyExpression__Alternatives6742 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleListTerm_in_rule__ConstantPropertyExpression__Alternatives6759 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleListTerm_in_rule__ConstantPropertyExpression__Alternatives6742 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBooleanTerm_in_rule__ConstantPropertyExpression__Alternatives6759 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleBooleanLiteral_in_rule__BooleanAtom__Alternatives6791 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNotTerm_in_rule__BooleanAtom__Alternatives6808 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleConstantValue_in_rule__BooleanAtom__Alternatives6825 = new BitSet(new long[]{0x0000000000000002L});

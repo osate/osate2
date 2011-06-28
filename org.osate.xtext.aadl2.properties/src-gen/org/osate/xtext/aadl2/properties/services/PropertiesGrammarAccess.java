@@ -2294,18 +2294,17 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRealTermParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cIntegerTermParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cComponentClassifierTermParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cBooleanTermParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cListTermParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cListTermParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cBooleanTermParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
 		
+		////| LiteralorReferenceTerm
 		//ConstantPropertyExpression returns aadl2::PropertyExpression:
 		//	RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
-		//	BooleanTerm | //| LiteralorReferenceTerm
-		//	ListTerm;
+		//	ListTerm | BooleanTerm;
 		public ParserRule getRule() { return rule; }
 
-		//RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
-		//BooleanTerm | //| LiteralorReferenceTerm
-		//ListTerm
+		//RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm | ListTerm
+		//| BooleanTerm
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//RecordTerm
@@ -2329,12 +2328,11 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//ComponentClassifierTerm
 		public RuleCall getComponentClassifierTermParserRuleCall_6() { return cComponentClassifierTermParserRuleCall_6; }
 
-		//BooleanTerm
-		public RuleCall getBooleanTermParserRuleCall_7() { return cBooleanTermParserRuleCall_7; }
-
-		////| LiteralorReferenceTerm
 		//ListTerm
-		public RuleCall getListTermParserRuleCall_8() { return cListTermParserRuleCall_8; }
+		public RuleCall getListTermParserRuleCall_7() { return cListTermParserRuleCall_7; }
+
+		//BooleanTerm
+		public RuleCall getBooleanTermParserRuleCall_8() { return cBooleanTermParserRuleCall_8; }
 	}
 
 	public class BooleanTermElements extends AbstractParserRuleElementFinder {
@@ -2343,6 +2341,14 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		
 		////LiteralorReferenceTerm returns aadl2::PropertyExpression:
 		////	reference=[enum, units, property, propertyConstant] ;
+		////ActualBooleanTerm returns aadl2::PropertyExpression:
+		////	ActualOrTerm | ActualAndTerm | BooleanLiteral  | NotTerm | ConstantValue;
+		////
+		////ActualOrTerm returns aadl2::Operation:
+		////  ownedPropertyExpression+=AndTerm  op=OrOp ownedPropertyExpression+=AndTerm (  op=OrOp ownedPropertyExpression+=AndTerm)*;
+		////
+		////ActualAndTerm returns aadl2::Operation:
+		////  ownedPropertyExpression+=BooleanAtom  op=AndOp ownedPropertyExpression+=BooleanAtom ( op=AndOp ownedPropertyExpression+=BooleanAtom)*;
 		//BooleanTerm returns aadl2::PropertyExpression:
 		//	OrTerm;
 		public ParserRule getRule() { return rule; }
@@ -4188,10 +4194,10 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyExpressionAccess().getRule();
 	}
 
+	////| LiteralorReferenceTerm
 	//ConstantPropertyExpression returns aadl2::PropertyExpression:
 	//	RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
-	//	BooleanTerm | //| LiteralorReferenceTerm
-	//	ListTerm;
+	//	ListTerm | BooleanTerm;
 	public ConstantPropertyExpressionElements getConstantPropertyExpressionAccess() {
 		return (pConstantPropertyExpression != null) ? pConstantPropertyExpression : (pConstantPropertyExpression = new ConstantPropertyExpressionElements());
 	}
@@ -4202,6 +4208,14 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	////LiteralorReferenceTerm returns aadl2::PropertyExpression:
 	////	reference=[enum, units, property, propertyConstant] ;
+	////ActualBooleanTerm returns aadl2::PropertyExpression:
+	////	ActualOrTerm | ActualAndTerm | BooleanLiteral  | NotTerm | ConstantValue;
+	////
+	////ActualOrTerm returns aadl2::Operation:
+	////  ownedPropertyExpression+=AndTerm  op=OrOp ownedPropertyExpression+=AndTerm (  op=OrOp ownedPropertyExpression+=AndTerm)*;
+	////
+	////ActualAndTerm returns aadl2::Operation:
+	////  ownedPropertyExpression+=BooleanAtom  op=AndOp ownedPropertyExpression+=BooleanAtom ( op=AndOp ownedPropertyExpression+=BooleanAtom)*;
 	//BooleanTerm returns aadl2::PropertyExpression:
 	//	OrTerm;
 	public BooleanTermElements getBooleanTermAccess() {

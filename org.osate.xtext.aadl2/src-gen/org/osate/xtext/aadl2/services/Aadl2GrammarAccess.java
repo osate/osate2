@@ -6347,7 +6347,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cEndKeyword_12 = (Keyword)cGroup.eContents().get(12);
 		private final RuleCall cIDTerminalRuleCall_13 = (RuleCall)cGroup.eContents().get(13);
 		private final Keyword cFullStopKeyword_14 = (Keyword)cGroup.eContents().get(14);
-		private final RuleCall cINAMEParserRuleCall_15 = (RuleCall)cGroup.eContents().get(15);
+		private final RuleCall cIDTerminalRuleCall_15 = (RuleCall)cGroup.eContents().get(15);
 		private final Keyword cSemicolonKeyword_16 = (Keyword)cGroup.eContents().get(16);
 		
 		//SystemImplementation returns aadl2::SystemImplementation:
@@ -6364,7 +6364,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	noConnections?="none" ";"))? ("flows" (noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode |
 		//	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
-		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID "." INAME ";";
+		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID "." ID ";";
 		public ParserRule getRule() { return rule; }
 
 		//"system" "implementation" ownedRealization=Realization "." name=INAME (ownedExtension=ImplementationExtension ("("
@@ -6380,7 +6380,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//noConnections?="none" ";"))? ("flows" (noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode |
 		//ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
-		//ownedAnnexSubclause+=AnnexSubclause* "end" ID "." INAME ";"
+		//ownedAnnexSubclause+=AnnexSubclause* "end" ID "." ID ";"
 		public Group getGroup() { return cGroup; }
 
 		//"system"
@@ -6703,8 +6703,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"."
 		public Keyword getFullStopKeyword_14() { return cFullStopKeyword_14; }
 
-		//INAME
-		public RuleCall getINAMEParserRuleCall_15() { return cINAMEParserRuleCall_15; }
+		//ID
+		public RuleCall getIDTerminalRuleCall_15() { return cIDTerminalRuleCall_15; }
 
 		//";"
 		public Keyword getSemicolonKeyword_16() { return cSemicolonKeyword_16; }
@@ -19774,6 +19774,31 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 
+	public class CINAMEElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CINAME");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		
+		//// **************
+		//CINAME:
+		//	ID "." ID;
+		public ParserRule getRule() { return rule; }
+
+		//ID "." ID
+		public Group getGroup() { return cGroup; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+
+		//"."
+		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+	}
+
 	public class PNAMEElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PNAME");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -19782,7 +19807,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
-		//// **************
 		////
 		////
 		////terminal SL_COMMENT:
@@ -19993,6 +20017,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private AnnexSubclauseElements pAnnexSubclause;
 	private DefaultAnnexSubclauseElements pDefaultAnnexSubclause;
 	private TerminalRule tANNEXTEXT;
+	private CINAMEElements pCINAME;
 	private PNAMEElements pPNAME;
 	private INAMEElements pINAME;
 	
@@ -20472,7 +20497,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	noConnections?="none" ";"))? ("flows" (noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode |
 	//	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
-	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID "." INAME ";";
+	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID "." ID ";";
 	public SystemImplementationElements getSystemImplementationAccess() {
 		return (pSystemImplementation != null) ? pSystemImplementation : (pSystemImplementation = new SystemImplementationElements());
 	}
@@ -21770,6 +21795,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//// **************
+	//CINAME:
+	//	ID "." ID;
+	public CINAMEElements getCINAMEAccess() {
+		return (pCINAME != null) ? pCINAME : (pCINAME = new CINAMEElements());
+	}
+	
+	public ParserRule getCINAMERule() {
+		return getCINAMEAccess().getRule();
+	}
+
 	////
 	////
 	////terminal SL_COMMENT:
@@ -22267,10 +22302,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyExpressionAccess().getRule();
 	}
 
+	////| LiteralorReferenceTerm
 	//ConstantPropertyExpression returns aadl2::PropertyExpression:
 	//	RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
-	//	BooleanTerm | //| LiteralorReferenceTerm
-	//	ListTerm;
+	//	ListTerm | BooleanTerm;
 	public PropertiesGrammarAccess.ConstantPropertyExpressionElements getConstantPropertyExpressionAccess() {
 		return gaProperties.getConstantPropertyExpressionAccess();
 	}
@@ -22281,6 +22316,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	////LiteralorReferenceTerm returns aadl2::PropertyExpression:
 	////	reference=[enum, units, property, propertyConstant] ;
+	////ActualBooleanTerm returns aadl2::PropertyExpression:
+	////	ActualOrTerm | ActualAndTerm | BooleanLiteral  | NotTerm | ConstantValue;
+	////
+	////ActualOrTerm returns aadl2::Operation:
+	////  ownedPropertyExpression+=AndTerm  op=OrOp ownedPropertyExpression+=AndTerm (  op=OrOp ownedPropertyExpression+=AndTerm)*;
+	////
+	////ActualAndTerm returns aadl2::Operation:
+	////  ownedPropertyExpression+=BooleanAtom  op=AndOp ownedPropertyExpression+=BooleanAtom ( op=AndOp ownedPropertyExpression+=BooleanAtom)*;
 	//BooleanTerm returns aadl2::PropertyExpression:
 	//	OrTerm;
 	public PropertiesGrammarAccess.BooleanTermElements getBooleanTermAccess() {
