@@ -1291,6 +1291,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	public String getTypeName() {
+		ComponentType ct = getType();
+		if (ct != null) return ct.getName();
 		String n = getName();
 		int idx = n.indexOf('.');
 		if (idx < 0)
