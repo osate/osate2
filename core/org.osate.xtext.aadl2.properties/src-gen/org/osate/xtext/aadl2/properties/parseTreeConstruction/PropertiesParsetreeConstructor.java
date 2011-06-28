@@ -11017,16 +11017,15 @@ protected class PropertyExpression_ListTermParserRuleCall_9 extends RuleCallToke
 
 /************ begin Rule ConstantPropertyExpression ****************
  *
+ * //| LiteralorReferenceTerm
  * ConstantPropertyExpression returns aadl2::PropertyExpression:
  * 	RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
- * 	BooleanTerm | //| LiteralorReferenceTerm
- * 	ListTerm;
+ * 	ListTerm | BooleanTerm;
  *
  **/
 
-// RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
-// BooleanTerm | //| LiteralorReferenceTerm
-// ListTerm
+// RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm | ListTerm
+// | BooleanTerm
 protected class ConstantPropertyExpression_Alternatives extends AlternativesToken {
 
 	public ConstantPropertyExpression_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -11048,8 +11047,8 @@ protected class ConstantPropertyExpression_Alternatives extends AlternativesToke
 			case 4: return new ConstantPropertyExpression_RealTermParserRuleCall_4(lastRuleCallOrigin, this, 4, inst);
 			case 5: return new ConstantPropertyExpression_IntegerTermParserRuleCall_5(lastRuleCallOrigin, this, 5, inst);
 			case 6: return new ConstantPropertyExpression_ComponentClassifierTermParserRuleCall_6(lastRuleCallOrigin, this, 6, inst);
-			case 7: return new ConstantPropertyExpression_BooleanTermParserRuleCall_7(lastRuleCallOrigin, this, 7, inst);
-			case 8: return new ConstantPropertyExpression_ListTermParserRuleCall_8(lastRuleCallOrigin, this, 8, inst);
+			case 7: return new ConstantPropertyExpression_ListTermParserRuleCall_7(lastRuleCallOrigin, this, 7, inst);
+			case 8: return new ConstantPropertyExpression_BooleanTermParserRuleCall_8(lastRuleCallOrigin, this, 8, inst);
 			default: return null;
 		}	
 	}
@@ -11325,16 +11324,52 @@ protected class ConstantPropertyExpression_ComponentClassifierTermParserRuleCall
 	}	
 }
 
-// BooleanTerm
-protected class ConstantPropertyExpression_BooleanTermParserRuleCall_7 extends RuleCallToken {
+// ListTerm
+protected class ConstantPropertyExpression_ListTermParserRuleCall_7 extends RuleCallToken {
 	
-	public ConstantPropertyExpression_BooleanTermParserRuleCall_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ConstantPropertyExpression_ListTermParserRuleCall_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_7();
+		return grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_7();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ListTerm_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getListTermRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(ListTerm_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// BooleanTerm
+protected class ConstantPropertyExpression_BooleanTermParserRuleCall_8 extends RuleCallToken {
+	
+	public ConstantPropertyExpression_BooleanTermParserRuleCall_8(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_8();
 	}
 
     @Override
@@ -11363,43 +11398,6 @@ protected class ConstantPropertyExpression_BooleanTermParserRuleCall_7 extends R
 	}	
 }
 
-// //| LiteralorReferenceTerm
-// ListTerm
-protected class ConstantPropertyExpression_ListTermParserRuleCall_8 extends RuleCallToken {
-	
-	public ConstantPropertyExpression_ListTermParserRuleCall_8(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_8();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new ListTerm_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getListTermRule().getType().getClassifier())
-			return null;
-		if(checkForRecursion(ListTerm_Group.class, eObjectConsumer)) return null;
-		return eObjectConsumer;
-	}
-	
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
-		}	
-	}	
-}
-
 
 /************ end Rule ConstantPropertyExpression ****************/
 
@@ -11408,6 +11406,14 @@ protected class ConstantPropertyExpression_ListTermParserRuleCall_8 extends Rule
  *
  * //LiteralorReferenceTerm returns aadl2::PropertyExpression:
  * //	reference=[enum, units, property, propertyConstant] ;
+ * //ActualBooleanTerm returns aadl2::PropertyExpression:
+ * //	ActualOrTerm | ActualAndTerm | BooleanLiteral  | NotTerm | ConstantValue;
+ * //
+ * //ActualOrTerm returns aadl2::Operation:
+ * //  ownedPropertyExpression+=AndTerm  op=OrOp ownedPropertyExpression+=AndTerm (  op=OrOp ownedPropertyExpression+=AndTerm)*;
+ * //
+ * //ActualAndTerm returns aadl2::Operation:
+ * //  ownedPropertyExpression+=BooleanAtom  op=AndOp ownedPropertyExpression+=BooleanAtom ( op=AndOp ownedPropertyExpression+=BooleanAtom)*;
  * BooleanTerm returns aadl2::PropertyExpression:
  * 	OrTerm;
  *

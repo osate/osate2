@@ -9950,13 +9950,9 @@ this_ID_47=RULE_ID
     {
     	newLeafNode(otherlv_48, grammarAccess.getSystemImplementationAccess().getFullStopKeyword_14());
     }
-
+this_ID_49=RULE_ID
     { 
-        newCompositeNode(grammarAccess.getSystemImplementationAccess().getINAMEParserRuleCall_15()); 
-    }
-ruleINAME
-    {
-        afterParserOrEnumRuleCall();
+    newLeafNode(this_ID_49, grammarAccess.getSystemImplementationAccess().getIDTerminalRuleCall_15()); 
     }
 
 	otherlv_50=KEYWORD_9
@@ -26842,6 +26838,8 @@ ruleDefaultAnnexSubclause returns [EObject current=null]
 
 
 
+
+
 // Entry rule entryRulePNAME
 entryRulePNAME returns [String current=null] 
 :
@@ -30592,21 +30590,21 @@ ruleConstantPropertyExpression returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_7()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_7()); 
     }
-    this_BooleanTerm_7=ruleBooleanTerm
+    this_ListTerm_7=ruleListTerm
     {
-        $current = $this_BooleanTerm_7.current;
+        $current = $this_ListTerm_7.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_8()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_8()); 
     }
-    this_ListTerm_8=ruleListTerm
+    this_BooleanTerm_8=ruleBooleanTerm
     {
-        $current = $this_ListTerm_8.current;
+        $current = $this_BooleanTerm_8.current;
         afterParserOrEnumRuleCall();
     }
 )

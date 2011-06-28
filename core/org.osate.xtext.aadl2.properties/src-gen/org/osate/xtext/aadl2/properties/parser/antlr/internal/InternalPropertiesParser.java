@@ -10559,7 +10559,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleConstantPropertyExpression"
-    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:3814:1: ruleConstantPropertyExpression returns [EObject current=null] : (this_RecordTerm_0= ruleRecordTerm | this_NumericRangeTerm_1= ruleNumericRangeTerm | this_ComputedTerm_2= ruleComputedTerm | this_StringTerm_3= ruleStringTerm | this_RealTerm_4= ruleRealTerm | this_IntegerTerm_5= ruleIntegerTerm | this_ComponentClassifierTerm_6= ruleComponentClassifierTerm | this_BooleanTerm_7= ruleBooleanTerm | this_ListTerm_8= ruleListTerm ) ;
+    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:3814:1: ruleConstantPropertyExpression returns [EObject current=null] : (this_RecordTerm_0= ruleRecordTerm | this_NumericRangeTerm_1= ruleNumericRangeTerm | this_ComputedTerm_2= ruleComputedTerm | this_StringTerm_3= ruleStringTerm | this_RealTerm_4= ruleRealTerm | this_IntegerTerm_5= ruleIntegerTerm | this_ComponentClassifierTerm_6= ruleComponentClassifierTerm | this_ListTerm_7= ruleListTerm | this_BooleanTerm_8= ruleBooleanTerm ) ;
     public final EObject ruleConstantPropertyExpression() throws RecognitionException {
         EObject current = null;
 
@@ -10577,18 +10577,18 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
 
         EObject this_ComponentClassifierTerm_6 = null;
 
-        EObject this_BooleanTerm_7 = null;
+        EObject this_ListTerm_7 = null;
 
-        EObject this_ListTerm_8 = null;
+        EObject this_BooleanTerm_8 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:3817:28: ( (this_RecordTerm_0= ruleRecordTerm | this_NumericRangeTerm_1= ruleNumericRangeTerm | this_ComputedTerm_2= ruleComputedTerm | this_StringTerm_3= ruleStringTerm | this_RealTerm_4= ruleRealTerm | this_IntegerTerm_5= ruleIntegerTerm | this_ComponentClassifierTerm_6= ruleComponentClassifierTerm | this_BooleanTerm_7= ruleBooleanTerm | this_ListTerm_8= ruleListTerm ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:3818:1: (this_RecordTerm_0= ruleRecordTerm | this_NumericRangeTerm_1= ruleNumericRangeTerm | this_ComputedTerm_2= ruleComputedTerm | this_StringTerm_3= ruleStringTerm | this_RealTerm_4= ruleRealTerm | this_IntegerTerm_5= ruleIntegerTerm | this_ComponentClassifierTerm_6= ruleComponentClassifierTerm | this_BooleanTerm_7= ruleBooleanTerm | this_ListTerm_8= ruleListTerm )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:3817:28: ( (this_RecordTerm_0= ruleRecordTerm | this_NumericRangeTerm_1= ruleNumericRangeTerm | this_ComputedTerm_2= ruleComputedTerm | this_StringTerm_3= ruleStringTerm | this_RealTerm_4= ruleRealTerm | this_IntegerTerm_5= ruleIntegerTerm | this_ComponentClassifierTerm_6= ruleComponentClassifierTerm | this_ListTerm_7= ruleListTerm | this_BooleanTerm_8= ruleBooleanTerm ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:3818:1: (this_RecordTerm_0= ruleRecordTerm | this_NumericRangeTerm_1= ruleNumericRangeTerm | this_ComputedTerm_2= ruleComputedTerm | this_StringTerm_3= ruleStringTerm | this_RealTerm_4= ruleRealTerm | this_IntegerTerm_5= ruleIntegerTerm | this_ComponentClassifierTerm_6= ruleComponentClassifierTerm | this_ListTerm_7= ruleListTerm | this_BooleanTerm_8= ruleBooleanTerm )
             {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:3818:1: (this_RecordTerm_0= ruleRecordTerm | this_NumericRangeTerm_1= ruleNumericRangeTerm | this_ComputedTerm_2= ruleComputedTerm | this_StringTerm_3= ruleStringTerm | this_RealTerm_4= ruleRealTerm | this_IntegerTerm_5= ruleIntegerTerm | this_ComponentClassifierTerm_6= ruleComponentClassifierTerm | this_BooleanTerm_7= ruleBooleanTerm | this_ListTerm_8= ruleListTerm )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:3818:1: (this_RecordTerm_0= ruleRecordTerm | this_NumericRangeTerm_1= ruleNumericRangeTerm | this_ComputedTerm_2= ruleComputedTerm | this_StringTerm_3= ruleStringTerm | this_RealTerm_4= ruleRealTerm | this_IntegerTerm_5= ruleIntegerTerm | this_ComponentClassifierTerm_6= ruleComponentClassifierTerm | this_ListTerm_7= ruleListTerm | this_BooleanTerm_8= ruleBooleanTerm )
             int alt60=9;
             alt60 = dfa60.predict(input);
             switch (alt60) {
@@ -10782,7 +10782,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:3910:2: this_BooleanTerm_7= ruleBooleanTerm
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:3910:2: this_ListTerm_7= ruleListTerm
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -10791,17 +10791,17 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_7()); 
+                              newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_7()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleBooleanTerm_in_ruleConstantPropertyExpression8563);
-                    this_BooleanTerm_7=ruleBooleanTerm();
+                    pushFollow(FOLLOW_ruleListTerm_in_ruleConstantPropertyExpression8563);
+                    this_ListTerm_7=ruleListTerm();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_BooleanTerm_7; 
+                              current = this_ListTerm_7; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -10809,7 +10809,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 9 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:3923:2: this_ListTerm_8= ruleListTerm
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.g:3923:2: this_BooleanTerm_8= ruleBooleanTerm
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -10818,17 +10818,17 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_8()); 
+                              newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getBooleanTermParserRuleCall_8()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleListTerm_in_ruleConstantPropertyExpression8593);
-                    this_ListTerm_8=ruleListTerm();
+                    pushFollow(FOLLOW_ruleBooleanTerm_in_ruleConstantPropertyExpression8593);
+                    this_BooleanTerm_8=ruleBooleanTerm();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_ListTerm_8; 
+                              current = this_BooleanTerm_8; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -18116,7 +18116,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
         "\2\67\2\6\1\70\1\72\5\uffff\1\72\1\uffff\1\70\1\6\1\uffff\1\4\1"+
         "\uffff\3\70\1\uffff";
     static final String DFA60_acceptS =
-        "\6\uffff\1\3\1\4\1\7\1\10\1\11\1\uffff\1\2\2\uffff\1\6\1\uffff"+
+        "\6\uffff\1\3\1\4\1\7\1\11\1\10\1\uffff\1\2\2\uffff\1\6\1\uffff"+
         "\1\1\3\uffff\1\5";
     static final String DFA60_specialS =
         "\26\uffff}>";
@@ -18178,7 +18178,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
             this.transition = DFA60_transition;
         }
         public String getDescription() {
-            return "3818:1: (this_RecordTerm_0= ruleRecordTerm | this_NumericRangeTerm_1= ruleNumericRangeTerm | this_ComputedTerm_2= ruleComputedTerm | this_StringTerm_3= ruleStringTerm | this_RealTerm_4= ruleRealTerm | this_IntegerTerm_5= ruleIntegerTerm | this_ComponentClassifierTerm_6= ruleComponentClassifierTerm | this_BooleanTerm_7= ruleBooleanTerm | this_ListTerm_8= ruleListTerm )";
+            return "3818:1: (this_RecordTerm_0= ruleRecordTerm | this_NumericRangeTerm_1= ruleNumericRangeTerm | this_ComputedTerm_2= ruleComputedTerm | this_StringTerm_3= ruleStringTerm | this_RealTerm_4= ruleRealTerm | this_IntegerTerm_5= ruleIntegerTerm | this_ComponentClassifierTerm_6= ruleComponentClassifierTerm | this_ListTerm_7= ruleListTerm | this_BooleanTerm_8= ruleBooleanTerm )";
         }
     }
  
@@ -18532,8 +18532,8 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleRealTerm_in_ruleConstantPropertyExpression8473 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleIntegerTerm_in_ruleConstantPropertyExpression8503 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleComponentClassifierTerm_in_ruleConstantPropertyExpression8533 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBooleanTerm_in_ruleConstantPropertyExpression8563 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleListTerm_in_ruleConstantPropertyExpression8593 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleListTerm_in_ruleConstantPropertyExpression8563 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBooleanTerm_in_ruleConstantPropertyExpression8593 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleBooleanTerm_in_entryRuleBooleanTerm8628 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleBooleanTerm8638 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOrTerm_in_ruleBooleanTerm8687 = new BitSet(new long[]{0x0000000000000002L});

@@ -267,12 +267,23 @@ ConstantPropertyExpression returns aadl2::PropertyExpression:
 	 RecordTerm |NumericRangeTerm
 	| ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
-	 | ComponentClassifierTerm 	| BooleanTerm
-	 | ListTerm //| LiteralorReferenceTerm
+	 | ComponentClassifierTerm 	| ListTerm | BooleanTerm
+	  //| LiteralorReferenceTerm
 	;
 
 //LiteralorReferenceTerm returns aadl2::PropertyExpression:
 //	reference=[enum, units, property, propertyConstant] ;
+
+//ActualBooleanTerm returns aadl2::PropertyExpression:
+//	ActualOrTerm | ActualAndTerm | BooleanLiteral  | NotTerm | ConstantValue;
+//
+//ActualOrTerm returns aadl2::Operation:
+//  ownedPropertyExpression+=AndTerm  op=OrOp ownedPropertyExpression+=AndTerm (  op=OrOp ownedPropertyExpression+=AndTerm)*;
+//
+//ActualAndTerm returns aadl2::Operation:
+//  ownedPropertyExpression+=BooleanAtom  op=AndOp ownedPropertyExpression+=BooleanAtom ( op=AndOp ownedPropertyExpression+=BooleanAtom)*;
+
+
 
 BooleanTerm returns aadl2::PropertyExpression:
 	OrTerm ;
