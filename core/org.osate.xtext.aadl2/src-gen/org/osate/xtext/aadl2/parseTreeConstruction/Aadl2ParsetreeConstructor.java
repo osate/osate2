@@ -670,8 +670,7 @@ protected class AadlPackage_SemicolonKeyword_7 extends KeywordToken  {
  * 	{aadl2::PublicPackageSection} "public" ("with" importedPackage+=[aadl2::AadlPackage|PNAME] //| importedPropertySet+=[props::PropertySet|ID]) 
  * 	("," importedPackage+=[aadl2::AadlPackage|PNAME])* ";" | ownedPackageRename+=PackageRename |
  * 	ownedPackageRename+=PackageRenameAll | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)*
- * 	(ownedSystemType+=SystemType //    | ownedAnnexLibrary+=AnnexLibrary
- * 	| ownedSystemImplementation+=SystemImplementation | ownedProcessorType+=ProcessorType |
+ * 	(ownedSystemType+=SystemType | ownedSystemImplementation+=SystemImplementation | ownedProcessorType+=ProcessorType |
  * 	ownedProcessorImplementation+=ProcessorImplementation | ownedProcessType+=ProcessType |
  * 	ownedProcessImplementation+=ProcessImplementation | ownedThreadGroupType+=ThreadGroupType |
  * 	ownedThreadGroupImplementation+=ThreadGroupImplementation | ownedThreadType+=ThreadType |
@@ -683,15 +682,14 @@ protected class AadlPackage_SemicolonKeyword_7 extends KeywordToken  {
  * 	ownedSubprogramImplementation+=SubprogramImplementation | ownedSubprogramGroupType+=SubprogramGroupType |
  * 	ownedSubprogramGroupImplementation+=SubprogramGroupImplementation | ownedAbstractType+=AbstractType |
  * 	ownedAbstractImplementation+=AbstractImplementation | ownedDataType+=DataType |
- * 	ownedDataImplementation+=DataImplementation)*;
+ * 	ownedDataImplementation+=DataImplementation | ownedAnnexLibrary+=AnnexLibrary)*;
  *
  **/
 
 // {aadl2::PublicPackageSection} "public" ("with" importedPackage+=[aadl2::AadlPackage|PNAME] //| importedPropertySet+=[props::PropertySet|ID]) 
 // ("," importedPackage+=[aadl2::AadlPackage|PNAME])* ";" | ownedPackageRename+=PackageRename |
 // ownedPackageRename+=PackageRenameAll | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)*
-// (ownedSystemType+=SystemType //    | ownedAnnexLibrary+=AnnexLibrary
-// | ownedSystemImplementation+=SystemImplementation | ownedProcessorType+=ProcessorType |
+// (ownedSystemType+=SystemType | ownedSystemImplementation+=SystemImplementation | ownedProcessorType+=ProcessorType |
 // ownedProcessorImplementation+=ProcessorImplementation | ownedProcessType+=ProcessType |
 // ownedProcessImplementation+=ProcessImplementation | ownedThreadGroupType+=ThreadGroupType |
 // ownedThreadGroupImplementation+=ThreadGroupImplementation | ownedThreadType+=ThreadType |
@@ -703,7 +701,7 @@ protected class AadlPackage_SemicolonKeyword_7 extends KeywordToken  {
 // ownedSubprogramImplementation+=SubprogramImplementation | ownedSubprogramGroupType+=SubprogramGroupType |
 // ownedSubprogramGroupImplementation+=SubprogramGroupImplementation | ownedAbstractType+=AbstractType |
 // ownedAbstractImplementation+=AbstractImplementation | ownedDataType+=DataType |
-// ownedDataImplementation+=DataImplementation)*
+// ownedDataImplementation+=DataImplementation | ownedAnnexLibrary+=AnnexLibrary)*
 protected class PublicPackageSection_Group extends GroupToken {
 	
 	public PublicPackageSection_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1189,8 +1187,7 @@ protected class PublicPackageSection_OwnedComponentTypeRenameAssignment_2_4 exte
 }
 
 
-// (ownedSystemType+=SystemType //    | ownedAnnexLibrary+=AnnexLibrary
-// | ownedSystemImplementation+=SystemImplementation | ownedProcessorType+=ProcessorType |
+// (ownedSystemType+=SystemType | ownedSystemImplementation+=SystemImplementation | ownedProcessorType+=ProcessorType |
 // ownedProcessorImplementation+=ProcessorImplementation | ownedProcessType+=ProcessType |
 // ownedProcessImplementation+=ProcessImplementation | ownedThreadGroupType+=ThreadGroupType |
 // ownedThreadGroupImplementation+=ThreadGroupImplementation | ownedThreadType+=ThreadType |
@@ -1202,7 +1199,7 @@ protected class PublicPackageSection_OwnedComponentTypeRenameAssignment_2_4 exte
 // ownedSubprogramImplementation+=SubprogramImplementation | ownedSubprogramGroupType+=SubprogramGroupType |
 // ownedSubprogramGroupImplementation+=SubprogramGroupImplementation | ownedAbstractType+=AbstractType |
 // ownedAbstractImplementation+=AbstractImplementation | ownedDataType+=DataType |
-// ownedDataImplementation+=DataImplementation)*
+// ownedDataImplementation+=DataImplementation | ownedAnnexLibrary+=AnnexLibrary)*
 protected class PublicPackageSection_Alternatives_3 extends AlternativesToken {
 
 	public PublicPackageSection_Alternatives_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1245,6 +1242,7 @@ protected class PublicPackageSection_Alternatives_3 extends AlternativesToken {
 			case 25: return new PublicPackageSection_OwnedAbstractImplementationAssignment_3_25(lastRuleCallOrigin, this, 25, inst);
 			case 26: return new PublicPackageSection_OwnedDataTypeAssignment_3_26(lastRuleCallOrigin, this, 26, inst);
 			case 27: return new PublicPackageSection_OwnedDataImplementationAssignment_3_27(lastRuleCallOrigin, this, 27, inst);
+			case 28: return new PublicPackageSection_OwnedAnnexLibraryAssignment_3_28(lastRuleCallOrigin, this, 28, inst);
 			default: return null;
 		}	
 	}
@@ -2595,6 +2593,54 @@ protected class PublicPackageSection_OwnedDataImplementationAssignment_3_27 exte
 	}	
 }
 
+// ownedAnnexLibrary+=AnnexLibrary
+protected class PublicPackageSection_OwnedAnnexLibraryAssignment_3_28 extends AssignmentToken  {
+	
+	public PublicPackageSection_OwnedAnnexLibraryAssignment_3_28(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getPublicPackageSectionAccess().getOwnedAnnexLibraryAssignment_3_28();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AnnexLibrary_DefaultAnnexLibraryParserRuleCall(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedAnnexLibrary",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedAnnexLibrary");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getAnnexLibraryRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getPublicPackageSectionAccess().getOwnedAnnexLibraryAnnexLibraryParserRuleCall_3_28_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new PublicPackageSection_Alternatives_3(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new PublicPackageSection_Alternatives_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new PublicPackageSection_PublicKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
 
 
 /************ end Rule PublicPackageSection ****************/
@@ -2618,7 +2664,8 @@ protected class PublicPackageSection_OwnedDataImplementationAssignment_3_27 exte
  * 	ownedMemoryType+=MemoryType | ownedMemoryImplementation+=MemoryImplementation | ownedSubprogramType+=SubprogramType |
  * 	ownedSubprogramImplementation+=SubprogramImplementation | ownedSubprogramGroupType+=SubprogramGroupType |
  * 	ownedSubprogramGroupImplementation+=SubprogramGroupImplementation | ownedAbstractType+=AbstractType |
- * 	ownedAbstractImplementation+=AbstractImplementation | ownedDataType+=DataType)*;
+ * 	ownedAbstractImplementation+=AbstractImplementation | ownedDataType+=DataType |
+ * 	ownedDataImplementation+=DataImplementation | ownedAnnexLibrary+=AnnexLibrary)*;
  *
  **/
 
@@ -2636,7 +2683,8 @@ protected class PublicPackageSection_OwnedDataImplementationAssignment_3_27 exte
 // ownedMemoryType+=MemoryType | ownedMemoryImplementation+=MemoryImplementation | ownedSubprogramType+=SubprogramType |
 // ownedSubprogramImplementation+=SubprogramImplementation | ownedSubprogramGroupType+=SubprogramGroupType |
 // ownedSubprogramGroupImplementation+=SubprogramGroupImplementation | ownedAbstractType+=AbstractType |
-// ownedAbstractImplementation+=AbstractImplementation | ownedDataType+=DataType)*
+// ownedAbstractImplementation+=AbstractImplementation | ownedDataType+=DataType |
+// ownedDataImplementation+=DataImplementation | ownedAnnexLibrary+=AnnexLibrary)*
 protected class PrivatePackageSection_Group extends GroupToken {
 	
 	public PrivatePackageSection_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -3133,7 +3181,8 @@ protected class PrivatePackageSection_OwnedComponentTypeRenameAssignment_2_4 ext
 // ownedMemoryType+=MemoryType | ownedMemoryImplementation+=MemoryImplementation | ownedSubprogramType+=SubprogramType |
 // ownedSubprogramImplementation+=SubprogramImplementation | ownedSubprogramGroupType+=SubprogramGroupType |
 // ownedSubprogramGroupImplementation+=SubprogramGroupImplementation | ownedAbstractType+=AbstractType |
-// ownedAbstractImplementation+=AbstractImplementation | ownedDataType+=DataType)*
+// ownedAbstractImplementation+=AbstractImplementation | ownedDataType+=DataType |
+// ownedDataImplementation+=DataImplementation | ownedAnnexLibrary+=AnnexLibrary)*
 protected class PrivatePackageSection_Alternatives_3 extends AlternativesToken {
 
 	public PrivatePackageSection_Alternatives_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -3175,6 +3224,8 @@ protected class PrivatePackageSection_Alternatives_3 extends AlternativesToken {
 			case 24: return new PrivatePackageSection_OwnedAbstractTypeAssignment_3_24(lastRuleCallOrigin, this, 24, inst);
 			case 25: return new PrivatePackageSection_OwnedAbstractImplementationAssignment_3_25(lastRuleCallOrigin, this, 25, inst);
 			case 26: return new PrivatePackageSection_OwnedDataTypeAssignment_3_26(lastRuleCallOrigin, this, 26, inst);
+			case 27: return new PrivatePackageSection_OwnedDataImplementationAssignment_3_27(lastRuleCallOrigin, this, 27, inst);
+			case 28: return new PrivatePackageSection_OwnedAnnexLibraryAssignment_3_28(lastRuleCallOrigin, this, 28, inst);
 			default: return null;
 		}	
 	}
@@ -4458,6 +4509,102 @@ protected class PrivatePackageSection_OwnedDataTypeAssignment_3_26 extends Assig
 			if(param.isInstanceOf(grammarAccess.getDataTypeRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
 				element = grammarAccess.getPrivatePackageSectionAccess().getOwnedDataTypeDataTypeParserRuleCall_3_26_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new PrivatePackageSection_Alternatives_3(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new PrivatePackageSection_Alternatives_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new PrivatePackageSection_PrivateKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ownedDataImplementation+=DataImplementation
+protected class PrivatePackageSection_OwnedDataImplementationAssignment_3_27 extends AssignmentToken  {
+	
+	public PrivatePackageSection_OwnedDataImplementationAssignment_3_27(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getPrivatePackageSectionAccess().getOwnedDataImplementationAssignment_3_27();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DataImplementation_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedDataImplementation",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedDataImplementation");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getDataImplementationRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getPrivatePackageSectionAccess().getOwnedDataImplementationDataImplementationParserRuleCall_3_27_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new PrivatePackageSection_Alternatives_3(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new PrivatePackageSection_Alternatives_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new PrivatePackageSection_PrivateKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ownedAnnexLibrary+=AnnexLibrary
+protected class PrivatePackageSection_OwnedAnnexLibraryAssignment_3_28 extends AssignmentToken  {
+	
+	public PrivatePackageSection_OwnedAnnexLibraryAssignment_3_28(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getPrivatePackageSectionAccess().getOwnedAnnexLibraryAssignment_3_28();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AnnexLibrary_DefaultAnnexLibraryParserRuleCall(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedAnnexLibrary",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedAnnexLibrary");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getAnnexLibraryRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getPrivatePackageSectionAccess().getOwnedAnnexLibraryAnnexLibraryParserRuleCall_3_28_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -28937,8 +29084,8 @@ protected class Realization_ImplementedAssignment extends AssignmentToken  {
  * 	ownedMemorySubcomponent+=MemorySubcomponent | ownedDeviceSubcomponent+=DeviceSubcomponent |
  * 	ownedBusSubcomponent+=BusSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent |
  * 	ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent)+ | noSubcomponents?="none"
- * 	";"))? ("calls" ownedSubprogramCallSequence+=SubprogramCallSequence+ //	| noSequences?=NONE
- * )? ("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+ * 	";"))? ("calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))? ("connections"
+ * 	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
  * 	ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection |
  * 	ownedParameterConnection+=ParameterConnection)+ | noConnections?="none" ";"))? ("flows" (noFlows?="none" ";"))?
  * 	("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
@@ -28956,8 +29103,8 @@ protected class Realization_ImplementedAssignment extends AssignmentToken  {
 // ownedMemorySubcomponent+=MemorySubcomponent | ownedDeviceSubcomponent+=DeviceSubcomponent |
 // ownedBusSubcomponent+=BusSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent |
 // ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent)+ | noSubcomponents?="none"
-// ";"))? ("calls" ownedSubprogramCallSequence+=SubprogramCallSequence+ //	| noSequences?=NONE
-// )? ("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+// ";"))? ("calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))? ("connections"
+// ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 // ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection |
 // ownedParameterConnection+=ParameterConnection)+ | noConnections?="none" ";"))? ("flows" (noFlows?="none" ";"))?
 // ("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
@@ -30276,8 +30423,7 @@ protected class AbstractImplementation_SemicolonKeyword_6_1_1_1 extends KeywordT
 
 
 
-// (=> "calls" ownedSubprogramCallSequence+=SubprogramCallSequence+ //	| noSequences?=NONE
-// )?
+// (=> "calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))?
 protected class AbstractImplementation_Group_7 extends GroupToken {
 	
 	public AbstractImplementation_Group_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -30292,7 +30438,7 @@ protected class AbstractImplementation_Group_7 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new AbstractImplementation_OwnedSubprogramCallSequenceAssignment_7_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new AbstractImplementation_Alternatives_7_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -30323,16 +30469,39 @@ protected class AbstractImplementation_CallsKeyword_7_0 extends KeywordToken  {
 
 }
 
-// ownedSubprogramCallSequence+=SubprogramCallSequence+
-protected class AbstractImplementation_OwnedSubprogramCallSequenceAssignment_7_1 extends AssignmentToken  {
+// ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"
+protected class AbstractImplementation_Alternatives_7_1 extends AlternativesToken {
+
+	public AbstractImplementation_Alternatives_7_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public AbstractImplementation_OwnedSubprogramCallSequenceAssignment_7_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getAbstractImplementationAccess().getAlternatives_7_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AbstractImplementation_OwnedSubprogramCallSequenceAssignment_7_1_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new AbstractImplementation_Group_7_1_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ownedSubprogramCallSequence+=SubprogramCallSequence+
+protected class AbstractImplementation_OwnedSubprogramCallSequenceAssignment_7_1_0 extends AssignmentToken  {
+	
+	public AbstractImplementation_OwnedSubprogramCallSequenceAssignment_7_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getAbstractImplementationAccess().getOwnedSubprogramCallSequenceAssignment_7_1();
+		return grammarAccess.getAbstractImplementationAccess().getOwnedSubprogramCallSequenceAssignment_7_1_0();
 	}
 
     @Override
@@ -30345,13 +30514,13 @@ protected class AbstractImplementation_OwnedSubprogramCallSequenceAssignment_7_1
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("ownedSubprogramCallSequence",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("ownedSubprogramCallSequence",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedSubprogramCallSequence");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getSubprogramCallSequenceRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getAbstractImplementationAccess().getOwnedSubprogramCallSequenceSubprogramCallSequenceParserRuleCall_7_1_0(); 
+				element = grammarAccess.getAbstractImplementationAccess().getOwnedSubprogramCallSequenceSubprogramCallSequenceParserRuleCall_7_1_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -30363,12 +30532,92 @@ protected class AbstractImplementation_OwnedSubprogramCallSequenceAssignment_7_1
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new AbstractImplementation_OwnedSubprogramCallSequenceAssignment_7_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new AbstractImplementation_OwnedSubprogramCallSequenceAssignment_7_1_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new AbstractImplementation_CallsKeyword_7_0(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
+// noCalls?="none" ";"
+protected class AbstractImplementation_Group_7_1_1 extends GroupToken {
+	
+	public AbstractImplementation_Group_7_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getAbstractImplementationAccess().getGroup_7_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AbstractImplementation_SemicolonKeyword_7_1_1_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// noCalls?="none"
+protected class AbstractImplementation_NoCallsAssignment_7_1_1_0 extends AssignmentToken  {
+	
+	public AbstractImplementation_NoCallsAssignment_7_1_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getAbstractImplementationAccess().getNoCallsAssignment_7_1_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AbstractImplementation_CallsKeyword_7_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("noCalls",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("noCalls");
+		if(Boolean.TRUE.equals(value)) { // org::eclipse::xtext::impl::KeywordImpl
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getAbstractImplementationAccess().getNoCallsNoneKeyword_7_1_1_0_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// ";"
+protected class AbstractImplementation_SemicolonKeyword_7_1_1_1 extends KeywordToken  {
+	
+	public AbstractImplementation_SemicolonKeyword_7_1_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getAbstractImplementationAccess().getSemicolonKeyword_7_1_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AbstractImplementation_NoCallsAssignment_7_1_1_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
 
 
 // (=> "connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
@@ -38153,8 +38402,8 @@ protected class ThreadGroupImplementation_SemicolonKeyword_17 extends KeywordTok
  * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("subcomponents"
  * 	((ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
  * 	| ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent)+ |
- * 	noSubcomponents?="none" ";"))? ("calls" ownedSubprogramCallSequence+=SubprogramCallSequence+ // | noSequences?=NONE
- * )? ("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+ * 	noSubcomponents?="none" ";"))? ("calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))?
+ * 	("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
  * 	ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ |
  * 	noConnections?="none" ";"))? ("flows" (noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode |
  * 	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
@@ -38167,8 +38416,8 @@ protected class ThreadGroupImplementation_SemicolonKeyword_17 extends KeywordTok
 // ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("subcomponents"
 // ((ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent |
 // ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent)+ | noSubcomponents?="none"
-// ";"))? ("calls" ownedSubprogramCallSequence+=SubprogramCallSequence+ // | noSequences?=NONE
-// )? ("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+// ";"))? ("calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))? ("connections"
+// ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 // ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ |
 // noConnections?="none" ";"))? ("flows" (noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode |
 // ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
@@ -38992,8 +39241,7 @@ protected class ThreadImplementation_SemicolonKeyword_6_1_1_1 extends KeywordTok
 
 
 
-// (=> "calls" ownedSubprogramCallSequence+=SubprogramCallSequence+ // | noSequences?=NONE
-// )?
+// (=> "calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))?
 protected class ThreadImplementation_Group_7 extends GroupToken {
 	
 	public ThreadImplementation_Group_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -39008,7 +39256,7 @@ protected class ThreadImplementation_Group_7 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ThreadImplementation_OwnedSubprogramCallSequenceAssignment_7_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ThreadImplementation_Alternatives_7_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -39039,16 +39287,39 @@ protected class ThreadImplementation_CallsKeyword_7_0 extends KeywordToken  {
 
 }
 
-// ownedSubprogramCallSequence+=SubprogramCallSequence+
-protected class ThreadImplementation_OwnedSubprogramCallSequenceAssignment_7_1 extends AssignmentToken  {
+// ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"
+protected class ThreadImplementation_Alternatives_7_1 extends AlternativesToken {
+
+	public ThreadImplementation_Alternatives_7_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public ThreadImplementation_OwnedSubprogramCallSequenceAssignment_7_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getThreadImplementationAccess().getAlternatives_7_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ThreadImplementation_OwnedSubprogramCallSequenceAssignment_7_1_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ThreadImplementation_Group_7_1_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ownedSubprogramCallSequence+=SubprogramCallSequence+
+protected class ThreadImplementation_OwnedSubprogramCallSequenceAssignment_7_1_0 extends AssignmentToken  {
+	
+	public ThreadImplementation_OwnedSubprogramCallSequenceAssignment_7_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getThreadImplementationAccess().getOwnedSubprogramCallSequenceAssignment_7_1();
+		return grammarAccess.getThreadImplementationAccess().getOwnedSubprogramCallSequenceAssignment_7_1_0();
 	}
 
     @Override
@@ -39061,13 +39332,13 @@ protected class ThreadImplementation_OwnedSubprogramCallSequenceAssignment_7_1 e
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("ownedSubprogramCallSequence",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("ownedSubprogramCallSequence",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedSubprogramCallSequence");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getSubprogramCallSequenceRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getThreadImplementationAccess().getOwnedSubprogramCallSequenceSubprogramCallSequenceParserRuleCall_7_1_0(); 
+				element = grammarAccess.getThreadImplementationAccess().getOwnedSubprogramCallSequenceSubprogramCallSequenceParserRuleCall_7_1_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -39079,12 +39350,92 @@ protected class ThreadImplementation_OwnedSubprogramCallSequenceAssignment_7_1 e
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new ThreadImplementation_OwnedSubprogramCallSequenceAssignment_7_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new ThreadImplementation_OwnedSubprogramCallSequenceAssignment_7_1_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new ThreadImplementation_CallsKeyword_7_0(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
+// noCalls?="none" ";"
+protected class ThreadImplementation_Group_7_1_1 extends GroupToken {
+	
+	public ThreadImplementation_Group_7_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getThreadImplementationAccess().getGroup_7_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ThreadImplementation_SemicolonKeyword_7_1_1_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// noCalls?="none"
+protected class ThreadImplementation_NoCallsAssignment_7_1_1_0 extends AssignmentToken  {
+	
+	public ThreadImplementation_NoCallsAssignment_7_1_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getThreadImplementationAccess().getNoCallsAssignment_7_1_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ThreadImplementation_CallsKeyword_7_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("noCalls",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("noCalls");
+		if(Boolean.TRUE.equals(value)) { // org::eclipse::xtext::impl::KeywordImpl
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getThreadImplementationAccess().getNoCallsNoneKeyword_7_1_1_0_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// ";"
+protected class ThreadImplementation_SemicolonKeyword_7_1_1_1 extends KeywordToken  {
+	
+	public ThreadImplementation_SemicolonKeyword_7_1_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getThreadImplementationAccess().getSemicolonKeyword_7_1_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ThreadImplementation_NoCallsAssignment_7_1_1_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
 
 
 // (=> "connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
@@ -40239,8 +40590,8 @@ protected class ThreadImplementation_SemicolonKeyword_17 extends KeywordToken  {
  * 	"subprogram" "implementation" ownedRealization=Realization "." name=INAME (ownedExtension=ImplementationExtension ("("
  * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("subcomponents"
  * 	((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent)+ |
- * 	noSubcomponents?="none" ";"))? ("calls" ownedSubprogramCallSequence+=SubprogramCallSequence+ //	| noSequences?=NONE
- * )? ("connections" ((ownedPortConnection+=PortConnection | ownedParameterConnection+=ParameterConnection |
+ * 	noSubcomponents?="none" ";"))? ("calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))?
+ * 	("connections" ((ownedPortConnection+=PortConnection | ownedParameterConnection+=ParameterConnection |
  * 	ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
  * 	ownedFeatureConnection+=FeatureConnection)+ | noConnections?="none" ";"))? ("flows" (noFlows?="none" ";"))? ("modes"
  * 	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
@@ -40252,8 +40603,8 @@ protected class ThreadImplementation_SemicolonKeyword_17 extends KeywordToken  {
 // "subprogram" "implementation" ownedRealization=Realization "." name=INAME (ownedExtension=ImplementationExtension ("("
 // ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("subcomponents"
 // ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent)+ | noSubcomponents?="none"
-// ";"))? ("calls" ownedSubprogramCallSequence+=SubprogramCallSequence+ //	| noSequences?=NONE
-// )? ("connections" ((ownedPortConnection+=PortConnection | ownedParameterConnection+=ParameterConnection |
+// ";"))? ("calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))? ("connections"
+// ((ownedPortConnection+=PortConnection | ownedParameterConnection+=ParameterConnection |
 // ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
 // ownedFeatureConnection+=FeatureConnection)+ | noConnections?="none" ";"))? ("flows" (noFlows?="none" ";"))? ("modes"
 // ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
@@ -40978,8 +41329,7 @@ protected class SubprogramImplementation_SemicolonKeyword_6_1_1_1 extends Keywor
 
 
 
-// (=> "calls" ownedSubprogramCallSequence+=SubprogramCallSequence+ //	| noSequences?=NONE
-// )?
+// (=> "calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))?
 protected class SubprogramImplementation_Group_7 extends GroupToken {
 	
 	public SubprogramImplementation_Group_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -40994,7 +41344,7 @@ protected class SubprogramImplementation_Group_7 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubprogramImplementation_OwnedSubprogramCallSequenceAssignment_7_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SubprogramImplementation_Alternatives_7_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -41025,16 +41375,39 @@ protected class SubprogramImplementation_CallsKeyword_7_0 extends KeywordToken  
 
 }
 
-// ownedSubprogramCallSequence+=SubprogramCallSequence+
-protected class SubprogramImplementation_OwnedSubprogramCallSequenceAssignment_7_1 extends AssignmentToken  {
+// ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"
+protected class SubprogramImplementation_Alternatives_7_1 extends AlternativesToken {
+
+	public SubprogramImplementation_Alternatives_7_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public SubprogramImplementation_OwnedSubprogramCallSequenceAssignment_7_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getSubprogramImplementationAccess().getAlternatives_7_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SubprogramImplementation_OwnedSubprogramCallSequenceAssignment_7_1_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new SubprogramImplementation_Group_7_1_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ownedSubprogramCallSequence+=SubprogramCallSequence+
+protected class SubprogramImplementation_OwnedSubprogramCallSequenceAssignment_7_1_0 extends AssignmentToken  {
+	
+	public SubprogramImplementation_OwnedSubprogramCallSequenceAssignment_7_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramCallSequenceAssignment_7_1();
+		return grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramCallSequenceAssignment_7_1_0();
 	}
 
     @Override
@@ -41047,13 +41420,13 @@ protected class SubprogramImplementation_OwnedSubprogramCallSequenceAssignment_7
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("ownedSubprogramCallSequence",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("ownedSubprogramCallSequence",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedSubprogramCallSequence");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getSubprogramCallSequenceRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramCallSequenceSubprogramCallSequenceParserRuleCall_7_1_0(); 
+				element = grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramCallSequenceSubprogramCallSequenceParserRuleCall_7_1_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -41065,12 +41438,92 @@ protected class SubprogramImplementation_OwnedSubprogramCallSequenceAssignment_7
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new SubprogramImplementation_OwnedSubprogramCallSequenceAssignment_7_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new SubprogramImplementation_OwnedSubprogramCallSequenceAssignment_7_1_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new SubprogramImplementation_CallsKeyword_7_0(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
+// noCalls?="none" ";"
+protected class SubprogramImplementation_Group_7_1_1 extends GroupToken {
+	
+	public SubprogramImplementation_Group_7_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getSubprogramImplementationAccess().getGroup_7_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SubprogramImplementation_SemicolonKeyword_7_1_1_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// noCalls?="none"
+protected class SubprogramImplementation_NoCallsAssignment_7_1_1_0 extends AssignmentToken  {
+	
+	public SubprogramImplementation_NoCallsAssignment_7_1_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getSubprogramImplementationAccess().getNoCallsAssignment_7_1_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SubprogramImplementation_CallsKeyword_7_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("noCalls",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("noCalls");
+		if(Boolean.TRUE.equals(value)) { // org::eclipse::xtext::impl::KeywordImpl
+			type = AssignmentType.KEYWORD;
+			element = grammarAccess.getSubprogramImplementationAccess().getNoCallsNoneKeyword_7_1_1_0_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+// ";"
+protected class SubprogramImplementation_SemicolonKeyword_7_1_1_1 extends KeywordToken  {
+	
+	public SubprogramImplementation_SemicolonKeyword_7_1_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getSubprogramImplementationAccess().getSemicolonKeyword_7_1_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SubprogramImplementation_NoCallsAssignment_7_1_1_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
 
 
 // (=> "connections" ((ownedPortConnection+=PortConnection | ownedParameterConnection+=ParameterConnection |
