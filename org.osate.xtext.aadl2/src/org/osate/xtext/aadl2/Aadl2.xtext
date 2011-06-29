@@ -40,7 +40,7 @@ PublicPackageSection returns aadl2::PublicPackageSection:
 	ownedSubprogramGroupType+=SubprogramGroupType| ownedSubprogramGroupImplementation+=SubprogramGroupImplementation|
 	ownedAbstractType+=AbstractType| ownedAbstractImplementation+=AbstractImplementation|
 	    ownedDataType+=DataType | ownedDataImplementation+=DataImplementation
-//    | ownedAnnexLibrary+=AnnexLibrary
+    | ownedAnnexLibrary+=AnnexLibrary
 	    )*
 	// currently derived: (ownedClassifier+=Classifier | ownedAnnexLibrary+=AnnexLibrary)*;
 	;
@@ -68,7 +68,9 @@ PrivatePackageSection returns aadl2::PrivatePackageSection:
 	ownedSubprogramType+=SubprogramType| ownedSubprogramImplementation+=SubprogramImplementation|
 	ownedSubprogramGroupType+=SubprogramGroupType| ownedSubprogramGroupImplementation+=SubprogramGroupImplementation|
 	ownedAbstractType+=AbstractType| ownedAbstractImplementation+=AbstractImplementation|
-    ownedDataType+=DataType )*
+	    ownedDataType+=DataType | ownedDataImplementation+=DataImplementation
+    | ownedAnnexLibrary+=AnnexLibrary
+     )*
 //	(ownedClassifier+=Classifier | ownedAnnexLibrary+=AnnexLibrary)*
 	;
 	
@@ -470,7 +472,7 @@ AbstractImplementation returns aadl2::AbstractImplementation:
 	)?
 (=> 'calls'
 	((ownedSubprogramCallSequence+=SubprogramCallSequence)+
-//	| noSequences?=NONE
+	| noCalls?='none' ';'
 	)
 	)?
 	(=> 'connections'
@@ -601,7 +603,7 @@ ThreadImplementation returns aadl2::ThreadImplementation:
 	)?
 	(=> 'calls'
 	((ownedSubprogramCallSequence+=SubprogramCallSequence)+
-	// | noSequences?=NONE
+	 | noCalls?='none' ';'
 	))?
 	(=> 'connections'
 	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
@@ -633,7 +635,7 @@ SubprogramImplementation returns aadl2::SubprogramImplementation:
 	)?
 	(=> 'calls'
 	((ownedSubprogramCallSequence+=SubprogramCallSequence)+
-//	| noSequences?=NONE
+	 | noCalls?='none' ';'
 	))?
 	(=> 'connections'
 	((ownedPortConnection+=PortConnection | ownedParameterConnection+=ParameterConnection | ownedAccessConnection+=AccessConnection
