@@ -424,12 +424,12 @@ public class AadlBaLegalityRulesChecker
             // If the ba's parent container is not a Thread, the return value
             // list will be empty.
 
-            EList<edu.cmu.sei.aadl.aadl2.PropertyValue> vl ;
-            vl = AadlBaGetProperties.getPropertyValue(_baParentContainer,
+            EList<edu.cmu.sei.aadl.aadl2.PropertyExpression> vl ;
+            vl = AadlBaGetProperties.getPropertyExpression(_baParentContainer,
                   ThreadProperties.DISPATCH_PROTOCOL) ;
             if(vl.size() > 0)
             {
-               edu.cmu.sei.aadl.aadl2.PropertyValue value = 
+               edu.cmu.sei.aadl.aadl2.PropertyExpression value = 
                   vl.get(vl.size()-1) ;
 
                if(value instanceof edu.cmu.sei.aadl.aadl2.EnumerationValue)

@@ -1,8 +1,8 @@
 -- AADL-BA-FrontEnd
  
--- Copyright © 2011 TELECOM ParisTech and CNRS
+-- Copyright © 2011 Télécom ParisTech and CNRS
  
--- TELECOM ParisTech/LTCI
+-- Télécom ParisTech/LTCI
 
 -- Authors: see AUTHORS
  
@@ -279,7 +279,8 @@ transitions
  a -[]-> a { {x := 1 + x} } ;
  a -[]-> a { {tmp :=any} } ;
  a -[]-> a { {tmp4 :=subData1} } ;
-
+ a -[]-> a { tab[x] := 1 } ;
+ 
  -- Control structures tests --
  
  a -[]-> a { if(bool1) tmp := 1 end if} ;
@@ -391,7 +392,7 @@ transitions
  a -[]-> a {float := 12.0 ; float := 0.0 ; float := 0.456 ; float := 3.14159_26 ; float := 1.0E-6 ; float := 1.0E+6} ;
  a -[]-> a {tmp := 2#1111_1111# ; tmp := 16#FF# ; tmp := 016#0ff# ; tmp := 16#0A#E+2} ;
  a -[]-> a {tmp := 2#1110_0000# ; tmp := 16#E#E1 ; tmp := 8#340#} ;
-               
+                
 **};  
 
 end thread1.impl;

@@ -141,11 +141,16 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="DataRepresentation">
     <eLiterals name="Unknown" literal="unknown"/>
-    <eLiterals name="Integer" value="1" literal="universal integer"/>
-    <eLiterals name="Float" value="2" literal="universal real"/>
+    <eLiterals name="Array" value="1" literal="array"/>
+    <eLiterals name="Boolean" value="2" literal="standard boolean"/>
     <eLiterals name="Character" value="3" literal="standard character"/>
-    <eLiterals name="Boolean" value="4" literal="standard boolean"/>
-    <eLiterals name="String" value="5" literal="standard string"/>
+    <eLiterals name="Enum" value="4" literal="enumeration"/>
+    <eLiterals name="Fixed" value="5" literal="fixed point real"/>
+    <eLiterals name="Float" value="6" literal="universal real"/>
+    <eLiterals name="Integer" value="7" literal="universal integer"/>
+    <eLiterals name="String" value="8" literal="standard string"/>
+    <eLiterals name="Struct" value="9" literal="structure"/>
+    <eLiterals name="Union" value="10" literal="union"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Declarator" eSuperTypes="#//BehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="identifierOwned" lowerBound="1"
@@ -222,7 +227,11 @@
     <eLiterals name="PROVIDES_BUS_ACCESS" value="32" literal="provides bus access"/>
     <eLiterals name="REQUIRES_BUS_ACCESS" value="33" literal="requires bus access"/>
     <eLiterals name="FEATURE_GROUP" value="34" literal="feature group"/>
-    <eLiterals name="ABSTRACT_FEATURE" value="35" literal="abstract feature"/>
+    <eLiterals name="CLASSIFIER_VALUE" value="35" literal="classifier value"/>
+    <eLiterals name="ABSTRACT_FEATURE" value="36" literal="abstract feature"/>
+    <eLiterals name="IN_FEATURE_PROTOTYPE" value="37" literal="in feature prototype"/>
+    <eLiterals name="OUT_FEATURE_PROTOTYPE" value="38" literal="out feature prototype"/>
+    <eLiterals name="IN_OUT_FEATURE_PROTOTYPE" value="39" literal="in out feature prototype"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ForOrForAllStatement" eSuperTypes="#//LoopStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="elementIdentifier" lowerBound="1"
@@ -291,7 +300,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="identifierOwned" lowerBound="1"
         eType="#//Identifier" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="arrayIndexes" upperBound="-1"
-        eType="#//IntegerValueVariable" unsettable="true" containment="true"/>
+        eType="#//IntegerValue" unsettable="true" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Numeral" eSuperTypes="#//BehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="#//Integer"/>

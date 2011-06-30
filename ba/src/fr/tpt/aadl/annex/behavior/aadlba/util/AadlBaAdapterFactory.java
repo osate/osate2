@@ -143,12 +143,32 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createBehaviorElementAdapter();
 			}
 			@Override
+			public Adapter caseBehaviorIntegerLiteral(BehaviorIntegerLiteral object) {
+				return createBehaviorIntegerLiteralAdapter();
+			}
+			@Override
 			public Adapter caseBehaviorNamedElement(BehaviorNamedElement object) {
 				return createBehaviorNamedElementAdapter();
 			}
 			@Override
+			public Adapter caseBehaviorPropertyConstant(BehaviorPropertyConstant object) {
+				return createBehaviorPropertyConstantAdapter();
+			}
+			@Override
+			public Adapter caseBehaviorPropertyValue(BehaviorPropertyValue object) {
+				return createBehaviorPropertyValueAdapter();
+			}
+			@Override
+			public Adapter caseBehaviorRealLiteral(BehaviorRealLiteral object) {
+				return createBehaviorRealLiteralAdapter();
+			}
+			@Override
 			public Adapter caseBehaviorState(BehaviorState object) {
 				return createBehaviorStateAdapter();
+			}
+			@Override
+			public Adapter caseBehaviorStringLiteral(BehaviorStringLiteral object) {
+				return createBehaviorStringLiteralAdapter();
 			}
 			@Override
 			public Adapter caseBehaviorTime(BehaviorTime object) {
@@ -165,10 +185,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseBehaviorBooleanLiteral(BehaviorBooleanLiteral object) {
 				return createBehaviorBooleanLiteralAdapter();
-			}
-			@Override
-			public Adapter caseBehaviorStringLiteral(BehaviorStringLiteral object) {
-				return createBehaviorStringLiteralAdapter();
 			}
 			@Override
 			public Adapter caseCommunicationAction(CommunicationAction object) {
@@ -233,10 +249,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseIfStatement(IfStatement object) {
 				return createIfStatementAdapter();
-			}
-			@Override
-			public Adapter caseBehaviorIntegerLiteral(BehaviorIntegerLiteral object) {
-				return createBehaviorIntegerLiteralAdapter();
 			}
 			@Override
 			public Adapter caseIntegerRange(IntegerRange object) {
@@ -309,18 +321,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter casePortSendAction(PortSendAction object) {
 				return createPortSendActionAdapter();
-			}
-			@Override
-			public Adapter caseBehaviorPropertyConstant(BehaviorPropertyConstant object) {
-				return createBehaviorPropertyConstantAdapter();
-			}
-			@Override
-			public Adapter caseBehaviorPropertyValue(BehaviorPropertyValue object) {
-				return createBehaviorPropertyValueAdapter();
-			}
-			@Override
-			public Adapter caseBehaviorRealLiteral(BehaviorRealLiteral object) {
-				return createBehaviorRealLiteralAdapter();
 			}
 			@Override
 			public Adapter caseRelation(Relation object) {
@@ -407,14 +407,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createPropertyValueAdapter();
 			}
 			@Override
-			public Adapter caseBooleanLiteral(BooleanLiteral object) {
-				return createBooleanLiteralAdapter();
-			}
-			@Override
-			public Adapter caseStringLiteral(StringLiteral object) {
-				return createStringLiteralAdapter();
-			}
-			@Override
 			public Adapter caseNumberValue(NumberValue object) {
 				return createNumberValueAdapter();
 			}
@@ -425,6 +417,14 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseRealLiteral(RealLiteral object) {
 				return createRealLiteralAdapter();
+			}
+			@Override
+			public Adapter caseStringLiteral(StringLiteral object) {
+				return createStringLiteralAdapter();
+			}
+			@Override
+			public Adapter caseBooleanLiteral(BooleanLiteral object) {
+				return createBooleanLiteralAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {

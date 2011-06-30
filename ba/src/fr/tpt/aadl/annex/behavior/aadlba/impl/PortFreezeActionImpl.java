@@ -81,7 +81,7 @@ public class PortFreezeActionImpl extends BehaviorElementImpl implements PortFre
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<IntegerValueVariable> arrayIndexes;
+	protected EList<IntegerValue> arrayIndexes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -150,9 +150,9 @@ public class PortFreezeActionImpl extends BehaviorElementImpl implements PortFre
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<IntegerValueVariable> getArrayIndexes() {
+	public EList<IntegerValue> getArrayIndexes() {
 		if (arrayIndexes == null) {
-			arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValueVariable>(IntegerValueVariable.class, this, AadlBaPackage.PORT_FREEZE_ACTION__ARRAY_INDEXES);
+			arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.PORT_FREEZE_ACTION__ARRAY_INDEXES);
 		}
 		return arrayIndexes;
 	}
@@ -221,7 +221,7 @@ public class PortFreezeActionImpl extends BehaviorElementImpl implements PortFre
 				return;
 			case AadlBaPackage.PORT_FREEZE_ACTION__ARRAY_INDEXES:
 				getArrayIndexes().clear();
-				getArrayIndexes().addAll((Collection<? extends IntegerValueVariable>)newValue);
+				getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

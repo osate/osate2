@@ -54,7 +54,7 @@ transitions
 -- Errors: 
 --          _ transitions out of complete states must have dispatch conditions.
 --          _ only transition out of execution states or states that are initial
-              only may have execution condition.
+--            only may have execution condition.
   compState -[]-> finalState ;
 
 -- Errors : 

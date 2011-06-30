@@ -21,6 +21,9 @@
 
 package fr.tpt.aadl.annex.behavior.utils ;
 
+import java.util.LinkedHashSet ;
+import java.util.Set ;
+
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.ecore.EObject ;
@@ -32,6 +35,7 @@ import edu.cmu.sei.aadl.aadl2.ComponentImplementation ;
 import edu.cmu.sei.aadl.aadl2.ComponentType ;
 import edu.cmu.sei.aadl.aadl2.Feature ;
 import edu.cmu.sei.aadl.aadl2.FeatureGroupType ;
+import edu.cmu.sei.aadl.aadl2.NamedElement ;
 import edu.cmu.sei.aadl.aadl2.Namespace ;
 import edu.cmu.sei.aadl.aadl2.PackageRename ;
 import edu.cmu.sei.aadl.aadl2.PackageSection ;
@@ -116,6 +120,7 @@ public class AadlBaVisitors
          }
       }
       
+      // Recursive call for component implementation.
       if(result == null && c instanceof ComponentImplementation)
       {
          ComponentImplementation ci = (ComponentImplementation) c ;
@@ -123,6 +128,7 @@ public class AadlBaVisitors
          result = findPrototypeBindingInComponent(ci.getType(), prototypeName);
       }
       
+      // Recursive call for parent component.
       if(result == null && c.getExtended() != null)
       {
          result = findPrototypeBindingInComponent(c.getExtended(),
@@ -385,7 +391,8 @@ public class AadlBaVisitors
    /**
     * Returns the list of members within a given name space (inherit members
     * included) witch type matches with the specified one. If no members is
-    * found, the returned list is a empty list. 
+    * found, the returned list is a empty list. The members order is kept.
+    * The returned list is free from duplicated members (due to inheritance).
     * 
     * @param <T> the specified type
     * @param ns the given name space
@@ -394,11 +401,11 @@ public class AadlBaVisitors
     */
    @SuppressWarnings("unchecked")
    public static <T> EList<T> getElementsInNamespace(Namespace ns,
-         Class<T> klass)
-         {
-      EList<edu.cmu.sei.aadl.aadl2.NamedElement> lne = getMembers(ns) ;
+                                                     Class<T> klass)
+   {
+      Set<NamedElement> lne = getMembers(ns) ;
       EList<T> result = new BasicEList<T>(lne.size()) ;
-      for(edu.cmu.sei.aadl.aadl2.NamedElement ne : lne)
+      for(NamedElement ne : lne)
       {
          if(klass.isAssignableFrom(ne.getClass()))
          {
@@ -406,7 +413,7 @@ public class AadlBaVisitors
          }
       }
       return result ;
-         }
+   }
 
    /**
     * Returns the behavior annex's parent component.
@@ -421,14 +428,17 @@ public class AadlBaVisitors
 
    /**
     * Get all members, inherit members included, of a given name space.
+    * Member order is kept. Using LinkedHashSet avoids duplicated members
+    * introduced by inheritance.
     * 
     * @param ns the given name space
-    * @return the component's members list
+    * @return the component's members LinkedHashSet
     */
-   public static EList<edu.cmu.sei.aadl.aadl2.NamedElement> getMembers(
-		                                                           Namespace ns)
+   public static LinkedHashSet<NamedElement> getMembers(Namespace ns)
    {
-      return ns.getMembers() ;
+      LinkedHashSet<NamedElement> result = new LinkedHashSet<NamedElement>() ;
+      result.addAll(ns.getMembers()) ;
+      return result ;
    }
 
    /********** Copied from edu.cmu.sei.aadl.parser.NameResolver ***************/
@@ -471,17 +481,17 @@ public class AadlBaVisitors
     * Dependencies:
     *       If propertySetName is the name of a different, non standard property set: WithStatementReference.
     */
-   public static edu.cmu.sei.aadl.aadl2.NamedElement 
+   public static NamedElement 
                            findNamedElementInPropertySet(String propertySetName,
-                        	                             String elementName,
-                        		                         Namespace context)
+                        	                              String elementName,
+                        		                           Namespace context)
    {
       if (propertySetName == null)
       {
          for (PropertySet predeclaredPropertySet : OsateResourceManager.
         		                                   getPredeclaredPropertySets())
          {
-            edu.cmu.sei.aadl.aadl2.NamedElement searchResult = 
+            NamedElement searchResult = 
             	           predeclaredPropertySet.findNamedElement(elementName);
             if (searchResult != null)
                return searchResult;
@@ -548,10 +558,9 @@ public class AadlBaVisitors
     * specified {@link Element}.
     * @return The {@link NamedElement} or {@code null} if it cannot be found.
     */
-   public static edu.cmu.sei.aadl.aadl2.NamedElement 
-                               findNamedElementInAadlPackage(String packageName,
-                                                             String elementName,
-                                                             Namespace context)
+   public static NamedElement findNamedElementInAadlPackage(String packageName,
+                                                            String elementName,
+                                                            Namespace context)
    {
       if(context instanceof PackageSection
             && (packageName == null || context.getName().equalsIgnoreCase(
@@ -606,17 +615,16 @@ public class AadlBaVisitors
     * {@link Element} that needs the search result.
     * @return The {@link NamedElement} or {@code null} if it cannot be found.
     */
-   private static edu.cmu.sei.aadl.aadl2.NamedElement 
-                                      findNamedElementInAadlPackage(String name,
+   private static NamedElement findNamedElementInAadlPackage(String name,
                                                          PackageSection context)
    {
-      edu.cmu.sei.aadl.aadl2.NamedElement result = context.findNamedElement(
+      NamedElement result = context.findNamedElement(
     		                                                      name, false) ;
       if(result == null && context instanceof PrivatePackageSection
             && ((AadlPackage) context.eContainer()).getPublicSection() != null)
          result =
             ((AadlPackage) context.eContainer()).getPublicSection()
-            .findNamedElement(name, false) ;
+               .findNamedElement(name, false) ;
       return result ;
    }
 
@@ -636,8 +644,7 @@ public class AadlBaVisitors
    private static PackageRename findPackageRename(String name,
                                                   PackageSection context)
    {
-      edu.cmu.sei.aadl.aadl2.NamedElement searchResult = context.
-                                                 findNamedElement(name, false) ;
+      NamedElement searchResult = context.findNamedElement(name, false) ;
       if(searchResult == null && context instanceof PrivatePackageSection
             && ((AadlPackage) context.eContainer()).getPublicSection() != null)
       {

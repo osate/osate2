@@ -69,7 +69,7 @@ public interface Name extends ElementValues, Target, ValueVariable {
 
 	/**
 	 * Returns the value of the '<em><b>Array Indexes</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable}.
+	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValue}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Array Indexes</em>' containment reference list isn't clear,
@@ -83,7 +83,7 @@ public interface Name extends ElementValues, Target, ValueVariable {
 	 * @model containment="true" unsettable="true"
 	 * @generated
 	 */
-	EList<IntegerValueVariable> getArrayIndexes();
+	EList<IntegerValue> getArrayIndexes();
 
 	/**
 	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Name#getArrayIndexes <em>Array Indexes</em>}' containment reference list.

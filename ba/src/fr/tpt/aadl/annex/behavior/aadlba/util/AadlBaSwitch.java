@@ -217,6 +217,24 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case AadlBaPackage.BEHAVIOR_INTEGER_LITERAL: {
+				BehaviorIntegerLiteral behaviorIntegerLiteral = (BehaviorIntegerLiteral)theEObject;
+				T result = caseBehaviorIntegerLiteral(behaviorIntegerLiteral);
+				if (result == null) result = caseNumericLiteral(behaviorIntegerLiteral);
+				if (result == null) result = caseIntegerLiteral(behaviorIntegerLiteral);
+				if (result == null) result = caseLiteral(behaviorIntegerLiteral);
+				if (result == null) result = caseNumberValue(behaviorIntegerLiteral);
+				if (result == null) result = caseValueConstant(behaviorIntegerLiteral);
+				if (result == null) result = casePropertyValue(behaviorIntegerLiteral);
+				if (result == null) result = caseValue(behaviorIntegerLiteral);
+				if (result == null) result = caseIntegerValueConstant(behaviorIntegerLiteral);
+				if (result == null) result = casePropertyExpression(behaviorIntegerLiteral);
+				if (result == null) result = caseIntegerValue(behaviorIntegerLiteral);
+				if (result == null) result = caseBehaviorElement(behaviorIntegerLiteral);
+				if (result == null) result = caseElement(behaviorIntegerLiteral);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT: {
 				BehaviorNamedElement behaviorNamedElement = (BehaviorNamedElement)theEObject;
 				T result = caseBehaviorNamedElement(behaviorNamedElement);
@@ -225,11 +243,71 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT: {
+				BehaviorPropertyConstant behaviorPropertyConstant = (BehaviorPropertyConstant)theEObject;
+				T result = caseBehaviorPropertyConstant(behaviorPropertyConstant);
+				if (result == null) result = caseBehaviorNamedElement(behaviorPropertyConstant);
+				if (result == null) result = caseValueConstant(behaviorPropertyConstant);
+				if (result == null) result = caseValue(behaviorPropertyConstant);
+				if (result == null) result = caseIntegerValueConstant(behaviorPropertyConstant);
+				if (result == null) result = caseElement(behaviorPropertyConstant);
+				if (result == null) result = caseIntegerValue(behaviorPropertyConstant);
+				if (result == null) result = caseBehaviorElement(behaviorPropertyConstant);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AadlBaPackage.BEHAVIOR_PROPERTY_VALUE: {
+				BehaviorPropertyValue behaviorPropertyValue = (BehaviorPropertyValue)theEObject;
+				T result = caseBehaviorPropertyValue(behaviorPropertyValue);
+				if (result == null) result = caseBehaviorNamedElement(behaviorPropertyValue);
+				if (result == null) result = caseValueConstant(behaviorPropertyValue);
+				if (result == null) result = caseValue(behaviorPropertyValue);
+				if (result == null) result = caseIntegerValueConstant(behaviorPropertyValue);
+				if (result == null) result = caseElement(behaviorPropertyValue);
+				if (result == null) result = caseIntegerValue(behaviorPropertyValue);
+				if (result == null) result = caseBehaviorElement(behaviorPropertyValue);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AadlBaPackage.BEHAVIOR_REAL_LITERAL: {
+				BehaviorRealLiteral behaviorRealLiteral = (BehaviorRealLiteral)theEObject;
+				T result = caseBehaviorRealLiteral(behaviorRealLiteral);
+				if (result == null) result = caseNumericLiteral(behaviorRealLiteral);
+				if (result == null) result = caseRealLiteral(behaviorRealLiteral);
+				if (result == null) result = caseLiteral(behaviorRealLiteral);
+				if (result == null) result = caseNumberValue(behaviorRealLiteral);
+				if (result == null) result = caseValueConstant(behaviorRealLiteral);
+				if (result == null) result = casePropertyValue(behaviorRealLiteral);
+				if (result == null) result = caseValue(behaviorRealLiteral);
+				if (result == null) result = caseIntegerValueConstant(behaviorRealLiteral);
+				if (result == null) result = casePropertyExpression(behaviorRealLiteral);
+				if (result == null) result = caseIntegerValue(behaviorRealLiteral);
+				if (result == null) result = caseBehaviorElement(behaviorRealLiteral);
+				if (result == null) result = caseElement(behaviorRealLiteral);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case AadlBaPackage.BEHAVIOR_STATE: {
 				BehaviorState behaviorState = (BehaviorState)theEObject;
 				T result = caseBehaviorState(behaviorState);
 				if (result == null) result = caseBehaviorElement(behaviorState);
 				if (result == null) result = caseElement(behaviorState);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AadlBaPackage.BEHAVIOR_STRING_LITERAL: {
+				BehaviorStringLiteral behaviorStringLiteral = (BehaviorStringLiteral)theEObject;
+				T result = caseBehaviorStringLiteral(behaviorStringLiteral);
+				if (result == null) result = caseLiteral(behaviorStringLiteral);
+				if (result == null) result = caseStringLiteral(behaviorStringLiteral);
+				if (result == null) result = caseValueConstant(behaviorStringLiteral);
+				if (result == null) result = casePropertyValue(behaviorStringLiteral);
+				if (result == null) result = caseValue(behaviorStringLiteral);
+				if (result == null) result = caseIntegerValueConstant(behaviorStringLiteral);
+				if (result == null) result = casePropertyExpression(behaviorStringLiteral);
+				if (result == null) result = caseIntegerValue(behaviorStringLiteral);
+				if (result == null) result = caseBehaviorElement(behaviorStringLiteral);
+				if (result == null) result = caseElement(behaviorStringLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -270,22 +348,6 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseIntegerValue(behaviorBooleanLiteral);
 				if (result == null) result = caseBehaviorElement(behaviorBooleanLiteral);
 				if (result == null) result = caseElement(behaviorBooleanLiteral);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case AadlBaPackage.BEHAVIOR_STRING_LITERAL: {
-				BehaviorStringLiteral behaviorStringLiteral = (BehaviorStringLiteral)theEObject;
-				T result = caseBehaviorStringLiteral(behaviorStringLiteral);
-				if (result == null) result = caseLiteral(behaviorStringLiteral);
-				if (result == null) result = caseStringLiteral(behaviorStringLiteral);
-				if (result == null) result = caseValueConstant(behaviorStringLiteral);
-				if (result == null) result = casePropertyValue(behaviorStringLiteral);
-				if (result == null) result = caseValue(behaviorStringLiteral);
-				if (result == null) result = caseIntegerValueConstant(behaviorStringLiteral);
-				if (result == null) result = casePropertyExpression(behaviorStringLiteral);
-				if (result == null) result = caseIntegerValue(behaviorStringLiteral);
-				if (result == null) result = caseBehaviorElement(behaviorStringLiteral);
-				if (result == null) result = caseElement(behaviorStringLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -440,24 +502,6 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseBehaviorActions(ifStatement);
 				if (result == null) result = caseBehaviorElement(ifStatement);
 				if (result == null) result = caseElement(ifStatement);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case AadlBaPackage.BEHAVIOR_INTEGER_LITERAL: {
-				BehaviorIntegerLiteral behaviorIntegerLiteral = (BehaviorIntegerLiteral)theEObject;
-				T result = caseBehaviorIntegerLiteral(behaviorIntegerLiteral);
-				if (result == null) result = caseNumericLiteral(behaviorIntegerLiteral);
-				if (result == null) result = caseIntegerLiteral(behaviorIntegerLiteral);
-				if (result == null) result = caseLiteral(behaviorIntegerLiteral);
-				if (result == null) result = caseNumberValue(behaviorIntegerLiteral);
-				if (result == null) result = caseValueConstant(behaviorIntegerLiteral);
-				if (result == null) result = casePropertyValue(behaviorIntegerLiteral);
-				if (result == null) result = caseValue(behaviorIntegerLiteral);
-				if (result == null) result = caseIntegerValueConstant(behaviorIntegerLiteral);
-				if (result == null) result = casePropertyExpression(behaviorIntegerLiteral);
-				if (result == null) result = caseIntegerValue(behaviorIntegerLiteral);
-				if (result == null) result = caseBehaviorElement(behaviorIntegerLiteral);
-				if (result == null) result = caseElement(behaviorIntegerLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -678,50 +722,6 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseBehaviorActions(portSendAction);
 				if (result == null) result = caseBehaviorElement(portSendAction);
 				if (result == null) result = caseElement(portSendAction);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT: {
-				BehaviorPropertyConstant behaviorPropertyConstant = (BehaviorPropertyConstant)theEObject;
-				T result = caseBehaviorPropertyConstant(behaviorPropertyConstant);
-				if (result == null) result = caseBehaviorNamedElement(behaviorPropertyConstant);
-				if (result == null) result = caseValueConstant(behaviorPropertyConstant);
-				if (result == null) result = caseValue(behaviorPropertyConstant);
-				if (result == null) result = caseIntegerValueConstant(behaviorPropertyConstant);
-				if (result == null) result = caseElement(behaviorPropertyConstant);
-				if (result == null) result = caseIntegerValue(behaviorPropertyConstant);
-				if (result == null) result = caseBehaviorElement(behaviorPropertyConstant);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case AadlBaPackage.BEHAVIOR_PROPERTY_VALUE: {
-				BehaviorPropertyValue behaviorPropertyValue = (BehaviorPropertyValue)theEObject;
-				T result = caseBehaviorPropertyValue(behaviorPropertyValue);
-				if (result == null) result = caseBehaviorNamedElement(behaviorPropertyValue);
-				if (result == null) result = caseValueConstant(behaviorPropertyValue);
-				if (result == null) result = caseValue(behaviorPropertyValue);
-				if (result == null) result = caseIntegerValueConstant(behaviorPropertyValue);
-				if (result == null) result = caseElement(behaviorPropertyValue);
-				if (result == null) result = caseIntegerValue(behaviorPropertyValue);
-				if (result == null) result = caseBehaviorElement(behaviorPropertyValue);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case AadlBaPackage.BEHAVIOR_REAL_LITERAL: {
-				BehaviorRealLiteral behaviorRealLiteral = (BehaviorRealLiteral)theEObject;
-				T result = caseBehaviorRealLiteral(behaviorRealLiteral);
-				if (result == null) result = caseNumericLiteral(behaviorRealLiteral);
-				if (result == null) result = caseRealLiteral(behaviorRealLiteral);
-				if (result == null) result = caseLiteral(behaviorRealLiteral);
-				if (result == null) result = caseNumberValue(behaviorRealLiteral);
-				if (result == null) result = caseValueConstant(behaviorRealLiteral);
-				if (result == null) result = casePropertyValue(behaviorRealLiteral);
-				if (result == null) result = caseValue(behaviorRealLiteral);
-				if (result == null) result = caseIntegerValueConstant(behaviorRealLiteral);
-				if (result == null) result = casePropertyExpression(behaviorRealLiteral);
-				if (result == null) result = caseIntegerValue(behaviorRealLiteral);
-				if (result == null) result = caseBehaviorElement(behaviorRealLiteral);
-				if (result == null) result = caseElement(behaviorRealLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

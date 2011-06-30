@@ -1385,7 +1385,7 @@ catch [RecognitionException ex] {
 
 
 // name ::= identifier { array_index }*
-// array_index :: [ integer_value_variable ]
+// array_index :: [ integer_value ]
 name returns [Name EltName]
  @init{
    EltName = _fact.createName();
@@ -1397,7 +1397,7 @@ name returns [Name EltName]
                       setLocationReference(Id, identifier); 
                       setLocationReference(EltName, identifier) ;
                     } 
-   ( identifier=LBRACK Val=value_variable RBRACK
+   ( identifier=LBRACK Val=integer_value RBRACK
      {
        EltName.getArrayIndexes().add(Val);
      }

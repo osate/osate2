@@ -79,7 +79,7 @@ public class PortFreshValueImpl extends BehaviorElementImpl implements PortFresh
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<IntegerValueVariable> arrayIndexes;
+	protected EList<IntegerValue> arrayIndexes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -148,9 +148,9 @@ public class PortFreshValueImpl extends BehaviorElementImpl implements PortFresh
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<IntegerValueVariable> getArrayIndexes() {
+	public EList<IntegerValue> getArrayIndexes() {
 		if (arrayIndexes == null) {
-			arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValueVariable>(IntegerValueVariable.class, this, AadlBaPackage.PORT_FRESH_VALUE__ARRAY_INDEXES);
+			arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.PORT_FRESH_VALUE__ARRAY_INDEXES);
 		}
 		return arrayIndexes;
 	}
@@ -219,7 +219,7 @@ public class PortFreshValueImpl extends BehaviorElementImpl implements PortFresh
 				return;
 			case AadlBaPackage.PORT_FRESH_VALUE__ARRAY_INDEXES:
 				getArrayIndexes().clear();
-				getArrayIndexes().addAll((Collection<? extends IntegerValueVariable>)newValue);
+				getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

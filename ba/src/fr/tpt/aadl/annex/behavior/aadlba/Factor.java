@@ -54,7 +54,7 @@ public interface Factor extends BehaviorElement {
 	 * @return the value of the '<em>Value Owned</em>' containment reference.
 	 * @see #setValueOwned(Value)
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getFactor_ValueOwned()
-	 * @model containment="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Value getValueOwned();

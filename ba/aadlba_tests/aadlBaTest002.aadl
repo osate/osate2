@@ -1,8 +1,8 @@
 -- AADL-BA-FrontEnd
  
--- Copyright © 2011 TELECOM ParisTech and CNRS
+-- Copyright © 2011 Télécom ParisTech and CNRS
  
--- TELECOM ParisTech/LTCI
+-- Télécom ParisTech/LTCI
 
 -- Authors: see AUTHORS
  
@@ -32,6 +32,23 @@ subprogram mystruct_addition
 
 end mystruct_addition;
 
+data MyFixedPoint
+
+ properties
+   Data_Model::Data_Representation => Fixed ;
+   Data_Model::Data_Digits => 5 ;
+   Data_Model::Data_Scale => 2 ;
+
+end MyFixedPoint ;
+
+data AnOtherFixedPoint
+
+ properties
+   Data_Model::Data_Representation => Fixed ;
+   Data_Model::Data_Digits => 5 ;
+   Data_Model::Data_Scale => 2 ;
+
+end AnOtherFixedPoint ;
 
 data MyStructure 
  
@@ -118,7 +135,8 @@ thread abstractThread
   inPortB : in event data port MyInteger ;
   outPortA : out event data port Base_Types::Float ;
   outPortB : out event data port MyFloat ;
-  myStructAccess : requires data access MyStructure ;
+  myStructAccess : requires data access MyStructure.impl ;
+  myIntegerAccess : requires data access MyInteger ;
   requiredSpg1 : requires subprogram access spg_with_parameters ;
 
 end abstractThread ;
@@ -130,8 +148,9 @@ thread implementation abstractThread.impl
    dummyProto : feature ;
 
  subcomponents
-   myStruct1 : data MyStructure.impl ;
-   myStruct2 : data MyStructure.impl ;
+   subMyStruct1 : data MyStructure.impl ;
+   subMyStruct2 : data MyStructure.impl ;
+   subInt : data Base_Types::Integer ;
 
 end abstractThread.impl ;
 
@@ -160,7 +179,7 @@ variables
  bool1, bool2, bool3 : Base_Types::Boolean ;
  myBool1, myBool2, myBool3 : MyBoolean ;
  
- int1, int2, int3 : Base_Types::Integer ;
+ int1, int2, int3, tab[10] : Base_Types::Integer ;
  nat1, nat2, nat3 : Base_Types::Natural ;
  int1_8, int2_8, int3_8 : Base_Types::Integer_8 ;
  int1_16, int2_16, int3_16 : Base_Types::Integer_16 ;
@@ -177,7 +196,10 @@ variables
  
  string1, string2, string3 : Base_Types::String ;
  
- opaque1, opaque2 : Dummy::Types::Opaque ; 
+ opaque1, opaque2 : Dummy::Types::Opaque ;
+ 
+ fixed1, fixed2, fixed3 : MyFixedPoint ;
+ anOtherFixed : AnOtherFixedPoint ; 
   
 --  *** STATES ***
  
@@ -191,56 +213,82 @@ transitions
 
  -- Valid tests
 
-   -- Assignement action tests --
+   -- array and integer value tests --
+
+     -- integer value varibale 
+      
+ a -[]-> a {tab[int1] := 1};
+ a -[]-> a {tab[inPortA ?] := 1};
+ a -[]-> a {tab[outPortA'count] := 1};
+ a -[]-> a {tab[subMyStruct1.int1] := 1};
+ a -[]-> a {tab[subInt] := 1};
+ a -[]-> a {tab[myStructAccess.int1] := 1};
+ a -[]-> a {tab[myIntegerAccess] := 1};
  
-  a -[]-> a {opaque1 := any} ;
-  a -[]-> a {opaque1 := opaque2} ;
-  a -[]-> a {int1 := int2};
-  a -[]-> a {int1 := 0};
-  a -[]-> a {int1 := DummyPropertySet::aIntegerConstant} ;
-  a -[]-> a {float1 := DummyPropertySet::aFloatConstant} ;
-  a -[]-> a {bool1 := DummyPropertySet::aBooleanConstant} ;
-  a -[]-> a {string1 := DummyPropertySet::aStringConstant} ;
-  a -[]-> a {int1 := DummyPropertySet::aValue} ;
-  a -[]-> a {myStruct1.int1 := int1} ;
-  a -[]-> a {myStruct1.float1 := 1.0E-6} ;
+ 
+ a -[]-> a { bool1 := outPortA'fresh } ;
+ a -[]-> a { int1 := inPortA ? } ;
+ a -[]-> a { int1 := inPortA'count } ;
+
+    -- integer value constant
+
+ a -[]-> a {tab[0] := 1};
+ a -[]-> a {tab[DummyPropertySet::aIntegerConstant] := 1};
+ a -[]-> a {tab[DummyPropertySet::aValue] := 1};
+    
+   -- Assignement action tests --
+ a -[]-> a {opaque1 := any} ;
+ a -[]-> a {opaque1 := opaque2} ;
+ a -[]-> a {int1 := int2};
+ a -[]-> a {int1 := 0};
+ a -[]-> a {int1 := DummyPropertySet::aIntegerConstant} ;
+ a -[]-> a {float1 := DummyPropertySet::aFloatConstant} ;
+ a -[]-> a {bool1 := DummyPropertySet::aBooleanConstant} ;
+ a -[]-> a {string1 := DummyPropertySet::aStringConstant} ;
+ a -[]-> a {int1 := DummyPropertySet::aValue} ;
+ a -[]-> a {subMyStruct1.int1 := int1} ;
+ a -[]-> a {subMyStruct1.float1 := 1.0E-6} ;
+ a -[]-> a {fixed1 := fixed2} ;
+ a -[]-> a {fixed1 := 1.1} ;
+ a -[]-> a {fixed1 := 1234.0} ;
+  
       
     -- Subprogram call action tests --
    
-  a -[]-> a {proto1 ! (int1, float1)} ;
-  a -[]-> a {proto1 ! (DummyPropertySet::aIntegerConstant, float1)} ;
-  a -[]-> a {proto1 ! (myStruct1.int1, myStruct1.float1)} ;
-  a -[]-> a {proto1 ! (1, float1)} ;
-  a -[]-> a {proto2 ! } ; 
-  a -[]-> a {definedProto ! (int1, float1)} ;
-  a -[]-> a {myStructAccess.addition ! (myStruct1, myStruct2)} ;
-  a -[]-> a {requiredSpg1 ! (int1, float1)} ;
-  a -[]-> a {subSpg1 ! (int1, float1)} ;
+ a -[]-> a {proto1 ! (int1, float1)} ;
+ a -[]-> a {proto1 ! (DummyPropertySet::aIntegerConstant, float1)} ;
+ a -[]-> a {proto1 ! (subMyStruct1.int1, subMyStruct1.float1)} ;
+ a -[]-> a {proto1 ! (1, float1)} ;
+ a -[]-> a {proto2 ! } ; 
+ a -[]-> a {definedProto ! (int1, float1)} ;
+ a -[]-> a {myStructAccess.addition ! (subMyStruct1, subMyStruct2)} ;
+ a -[]-> a {requiredSpg1 ! (int1, float1)} ;
+ a -[]-> a {subSpg1 ! (int1, float1)} ;
   
   
    -- For/ForAll structure tests
 
-  a -[]-> a {for(i : Base_Types::Integer in 0 .. 9) {int1 := 1}} ;
-  a -[]-> a {for(i : MyNatural in 0 .. myNat1) {int1 := 1}} ;
-  a -[]-> a {for(i : MyInteger in 0 .. 9) {int1 := 1}} ;
-  a -[]-> a {if (int1 <= int2) 
+ a -[]-> a {for(i : Base_Types::Integer in 0 .. 9) {int1 := 1}} ;
+ a -[]-> a {for(i : MyNatural in 0 .. myNat1) {int1 := 1}} ;
+ a -[]-> a {for(i : MyInteger in 0 .. 9) {int1 := 1}} ;
+ a -[]-> a {if (int1 <= int2) 
                 for(i : Base_Types::Integer in int1 .. int2) {int3 := 1}
              end if} ;
-  a -[]-> a {if (DummyPropertySet::aIntegerConstant <= myStruct1.int1) 
-                for(i : Base_Types::Integer in DummyPropertySet::aIntegerConstant .. myStruct1.int1) {int1 := 1}
+ a -[]-> a {if (DummyPropertySet::aIntegerConstant <= subMyStruct1.int1) 
+                for(i : Base_Types::Integer in DummyPropertySet::aIntegerConstant .. subMyStruct1.int1) {int1 := 1}
              end if} ;             
 
    -- Port send
   
-  a -[]-> a {outPortA ! (1.0 + float1)} ;
-  a -[]-> a {outPortA ! (myStruct1.float1)} ;
-  a -[]-> a {outPortB ! (myFloat1)} ;
+ a -[]-> a {outPortA ! (1.0 + float1)} ;
+ a -[]-> a {outPortA ! (subMyStruct1.float1)} ;
+ a -[]-> a {outPortB ! (myFloat1)} ;
 
    -- Dequeue action
 
-  a -[]-> a {inPortA ? (int1)} ; 
-  a -[]-> a {inPortA ? (myStruct1.int1)} ; 
-  a -[]-> a {inPortB ? (myInt1)} ;
+ a -[]-> a {inPortA ? (int1)} ; 
+ a -[]-> a {inPortA ? (subMyStruct1.int1)} ; 
+ a -[]-> a {inPortB ? (myInt1)} ;
   
    -- Value expression tests --
 
@@ -281,12 +329,13 @@ transitions
  a -[]-> a {int3 := abs DummyPropertySet::aIntegerConstant} ;
  a -[]-> a {int3_16 := abs int1_16} ;
  a -[]-> a {myInt3 := abs myInt1} ;
- 
+  
  a -[]-> a {float3 := abs float1} ;
  a -[]-> a {float3 := abs 1.0} ;
  a -[]-> a {float3 := abs DummyPropertySet::aFloatConstant} ;
  a -[]-> a {float3_32 := abs float1_32} ;
  a -[]-> a {myFloat3 := abs myFloat1} ;
+ a -[]-> a {fixed1 := abs fixed2} ; 
  
  a -[]-> a {bool3 := not bool1} ; 
  a -[]-> a {myBool3 := not myBool1} ;
@@ -346,7 +395,19 @@ transitions
  a -[]-> a {myfloat3 := myfloat1 * myfloat2 * myfloat3} ;  
  a -[]-> a {myfloat3 := myfloat1 / myfloat2 / myfloat3} ;
  a -[]-> a {myfloat3 := myfloat1 * myfloat2 / myfloat3} ;
-  
+ 
+ a -[]-> a {fixed3 := fixed1 * fixed2 * fixed3} ;  
+ a -[]-> a {fixed3 := fixed1 / fixed2 / fixed3} ; 
+ a -[]-> a {fixed3 := fixed1 / fixed2 * fixed3} ;
+ 
+ a -[]-> a {fixed3 := fixed1 * 1.0} ;
+ a -[]-> a {fixed3 := fixed1 * 0.123456} ;
+ a -[]-> a {fixed3 := fixed1 * 123456.0} ;  
+   
+ a -[]-> a {fixed3 := fixed1 / 1.0} ;
+ a -[]-> a {fixed3 := fixed1 / 0.123456} ;
+ a -[]-> a {fixed3 := fixed1 / 123456.0} ;
+   
    -- simple expression tests --
  
  a -[]-> a {int1 := +int1 + int1 + int1} ;
@@ -375,9 +436,21 @@ transitions
 
  a -[]-> a {myFloat3 := +myFloat1 + myFloat2 + myFloat3} ;
  a -[]-> a {myFloat3 := -myFloat1 - myFloat2 - myFloat3} ;
- a -[]-> a {myFloat3 := +myFloat1 - myFloat2 + myFloat3} ;  
+ a -[]-> a {myFloat3 := +myFloat1 - myFloat2 + myFloat3} ;
   
+ a -[]-> a {fixed3 := +fixed1 + fixed2 + fixed3} ;
+ a -[]-> a {fixed3 := -fixed1 - fixed2 - fixed3} ;
+ a -[]-> a {fixed3 := +fixed1 - fixed2 + fixed3} ;
+ 
+ a -[]-> a {fixed3 := +fixed1 + 1.0} ;
+ a -[]-> a {fixed3 := -fixed1 - 1.0} ;
+ a -[]-> a {fixed3 := +fixed1 - 1.0} ;   
+ a -[]-> a {fixed3 := fixed1 + 123456.0} ; 
+ 
    -- relation tests --
+
+ a -[]-> a {bool3 := opaque1 = opaque2 } ;
+ a -[]-> a {bool3 := opaque1 != opaque2 } ;
 
  a -[]-> a {bool3 := bool2 = true } ;  
  a -[]-> a {bool3 := bool2 != true } ;
@@ -453,6 +526,20 @@ transitions
  a -[]-> a {bool3 := myFloat1 < myFloat2 } ;
  a -[]-> a {bool3 := myFloat1 >= myFloat2 } ;
  a -[]-> a {bool3 := myFloat1 <= myFloat2 } ;
+ 
+ a -[]-> a {bool3 := fixed1 = fixed2 } ;
+ a -[]-> a {bool3 := fixed1 != fixed2 } ;
+ a -[]-> a {bool3 := fixed1 > fixed2 } ;
+ a -[]-> a {bool3 := fixed1 < fixed2 } ;
+ a -[]-> a {bool3 := fixed1 >= fixed2 } ;
+ a -[]-> a {bool3 := fixed1 <= fixed2 } ;
+ 
+ a -[]-> a {bool3 := fixed1 = 1.0 } ;
+ a -[]-> a {bool3 := fixed1 != 1.0 } ;
+ a -[]-> a {bool3 := fixed1 > 1.0 } ;
+ a -[]-> a {bool3 := fixed1 < 1.0 } ;
+ a -[]-> a {bool3 := fixed1 >= 1.0 } ;
+ a -[]-> a {bool3 := fixed1 <= 1.0 } ;
 
  a -[]-> a {bool3 := char1 = char2 } ;
  a -[]-> a {bool3 := char1 != char2 } ;
@@ -492,40 +579,45 @@ transitions
  a -[]-> a {float3 := 1} ;
  a -[]-> a {int3 := DummyPropertySet::aFloatConstant} ;
  a -[]-> a {float3 := DummyPropertySet::aIntegerConstant} ;
- a -[]-> a {myStruct1.int1 := 1.0} ;
- a -[]-> a {myStruct1.float1 := 1E+6} ;
-    
+ a -[]-> a {subMyStruct1.int1 := 1.0} ;
+ a -[]-> a {subMyStruct1.float1 := 1E+6} ;
+ a -[]-> a {fixed1 := float1} ;
+ a -[]-> a {fixed1 := 1} ;
+ a -[]-> a {fixed1 := anOtherFixed} ; 
+-- a -[]-> a {fixed1 := 123456.0} ; [TODO] not implemented yet
+-- a -[]-> a {fixed1 := 0.123} ; [TODO] not implemented yet
+   
     -- Subprogram call action tests --
    
  a -[]-> a {proto1 ! (1, 1.0)} ;
- a -[]-> a {proto1 ! (myStruct1.float1, myStruct1.int1)} ;
+ a -[]-> a {proto1 ! (subMyStruct1.float1, subMyStruct1.int1)} ;
  a -[]-> a {proto1 ! } ;
  a -[]-> a {proto2 ! (int1, float1)} ;
  a -[]-> a {undefinedProto ! (int1, float1)} ;
  a -[]-> a {definedProto ! } ;
  a -[]-> a {dummyProto ! } ;
- a -[]-> a {myStructAccess.addition ! (myStruct1, int1)} ;
+ a -[]-> a {myStructAccess.addition ! (subMyStruct1, int1)} ;
  a -[]-> a {requiredSpg1 ! (1.0, float1)} ;
  a -[]-> a {subSpg1 ! (int1, 0)} ;
 
    -- For/ForAll structure tests
 
-  a -[]-> a {for(i : Base_Types::Integer in 0 .. 9.0) {int1 := 1}} ;
-  a -[]-> a {for(i : Base_Types::Integer in 0 .. myStruct1.float1) {int1 := 1}} ;
-  a -[]-> a {for(i : MyNatural in 0 .. int1) {int1 := 1}} ;
-  a -[]-> a {for(i : Base_Types::Integer in int1 .. float1) {int3 := 1}} ;
+ a -[]-> a {for(i : Base_Types::Integer in 0 .. 9.0) {int1 := 1}} ;
+ a -[]-> a {for(i : Base_Types::Integer in 0 .. subMyStruct1.float1) {int1 := 1}} ;
+ a -[]-> a {for(i : MyNatural in 0 .. int1) {int1 := 1}} ;
+ a -[]-> a {for(i : Base_Types::Integer in int1 .. float1) {int3 := 1}} ;
 
    -- Port send
   
-  a -[]-> a {outPortA ! (1)} ;
-  a -[]-> a {outPortA ! (myStruct1.int1)} ;
-  a -[]-> a {outPortA ! (myFloat1)} ;
+ a -[]-> a {outPortA ! (1)} ;
+ a -[]-> a {outPortA ! (subMyStruct1.int1)} ;
+ a -[]-> a {outPortA ! (myFloat1)} ;
 
    -- Dequeue action
 
-  a -[]-> a {inPortA ? (float1)} ; 
-  a -[]-> a {inPortA ? (myInt1)} ;
-  a -[]-> a {inPortA ? (myStruct1.float1)} ;
+ a -[]-> a {inPortA ? (float1)} ; 
+ a -[]-> a {inPortA ? (myInt1)} ;
+ a -[]-> a {inPortA ? (subMyStruct1.float1)} ;
    
    -- Value expression tests --
 
@@ -534,6 +626,10 @@ transitions
  
  a -[]-> a {bool3 := bool1 > bool2} ;
  a -[]-> a {bool3 := int1 <= float1} ;  
+ a -[]-> a {bool3 := opaque1 > opaque2 } ;
+ a -[]-> a {bool3 := fixed1 > float1 } ; 
+-- a -[]-> a {bool3 := fixed1 > 123456.0 } ; -- [TODO] not implemented yet
+-- a -[]-> a {bool3 := fixed1 = 0.123 } ; -- [TODO] not implemented yet
    
  a -[]-> a {int3 := opaque1 + int1} ;
  a -[]-> a {int3 := 1 + int2 + int1_8} ;
@@ -542,15 +638,20 @@ transitions
  a -[]-> a {float3 := 1 + float2} ;
  a -[]-> a {int3 := -char1 + int1} ;
  a -[]-> a {string3 := string1 + string2} ;
+-- a -[]-> a {fixed3 := fixed1 + 0.123} ; -- [TODO] not implemented yet
  
  a -[]-> a {float3 := float1 * int1} ;
+ a -[]-> a {float3 := float1 * fixed1} ;
+ a -[]-> a {float3 := float1 / fixed1} ;
  a -[]-> a {float3 := float1 + int1} ;
+ a -[]-> a {float3 := float1 + fixed1} ;
  a -[]-> a {int3_16 := int1_8 / int2} ;
  a -[]-> a {int1 := float1 mod float2} ;
  a -[]-> a {int1 := float1 rem float2} ;
 
  a -[]-> a {float3 := abs 1} ;
  a -[]-> a {float3 := abs char1} ;
+ a -[]-> a {float1 := abs fixed2} ;
  a -[]-> a {myBool3 := not bool1} ;
  a -[]-> a {bool3 := not myBool1} ;
  a -[]-> a {float3 := not 1} ;
@@ -564,6 +665,7 @@ transitions
  a -[]-> a {int3 := int1 ** float1} ;
  a -[]-> a {int3 := int1 ** int1} ;
  a -[]-> a {int3 := int1 ** DummyPropertySet::aValue} ; -- Warning : can't check if a property value is natural (>=0).
+ a -[]-> a {fixed2 := fixed1 ** nat1} ;
  
 **};  
 

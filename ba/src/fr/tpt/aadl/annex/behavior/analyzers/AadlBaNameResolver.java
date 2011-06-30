@@ -28,22 +28,28 @@ import java.util.Set ;
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
 
+import edu.cmu.sei.aadl.aadl2.ClassifierValue;
 import edu.cmu.sei.aadl.aadl2.ComponentClassifier ;
 import edu.cmu.sei.aadl.aadl2.Data ;
 import edu.cmu.sei.aadl.aadl2.DataAccess ;
-import edu.cmu.sei.aadl.aadl2.DataSubcomponent ;
+import edu.cmu.sei.aadl.aadl2.DataClassifier;
+import edu.cmu.sei.aadl.aadl2.Element;
 import edu.cmu.sei.aadl.aadl2.Feature ;
+import edu.cmu.sei.aadl.aadl2.ListValue;
 import edu.cmu.sei.aadl.aadl2.Mode ;
 import edu.cmu.sei.aadl.aadl2.Namespace ;
 import edu.cmu.sei.aadl.aadl2.PackageSection ;
-import edu.cmu.sei.aadl.aadl2.Parameter;
 import edu.cmu.sei.aadl.aadl2.Prototype ;
 import edu.cmu.sei.aadl.aadl2.PrototypeBinding ;
+import edu.cmu.sei.aadl.aadl2.StringLiteral;
 import edu.cmu.sei.aadl.aadl2.Subcomponent ;
 import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import edu.cmu.sei.aadl.aadl2.PropertyExpression ;
 
 import fr.tpt.aadl.annex.behavior.aadlba.*;
 
+import fr.tpt.aadl.annex.behavior.names.DataModelProperties;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaGetProperties;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors ;
 
@@ -563,8 +569,7 @@ public class AadlBaNameResolver
       {
          ComponentClassifier parentComponent = null ;
          
-         edu.cmu.sei.aadl.aadl2.Element nameId = n1.getIdentifierOwned()
-                                                    .getAadlRef() ;
+         Element nameId = n1.getIdentifierOwned().getAadlRef() ;
          // the first name should represent a required data access.
          if(nameId instanceof DataAccess)
          {
@@ -661,6 +666,7 @@ public class AadlBaNameResolver
             uccr.setName(name.toString()) ;
             uccr.setQualifiedName(uccr.getName());
             
+            // Try name.name as a unique component classifier reference.
             if(uniqueComponentClassifierRefResolver(uccr, false))
             {
                sca.unsetSubprogramNames();
@@ -668,7 +674,7 @@ public class AadlBaNameResolver
                sca.setSubprogramReference(uccr);
                result = true ;
             }
-            else
+            else // Try name.name as a subprogram call.
             {
                result = subprogramCallNamesResolver(n1, n2) ;
             }
@@ -694,92 +700,87 @@ public class AadlBaNameResolver
 
    private boolean dataComponentRefResolver(DataComponentReference dcr)
    {
-      boolean result ;
-      
-      EList<Name> nameList = dcr.getNames() ;
-      
-      Iterator<Name> it = nameList.iterator() ;
-      
-      Name componentName = it.next() ;
-      
-      // Check the dcr's first name which can be a subcomponent name or an 
-      // access feature name. 
-      
-      result = nameResolver(componentName) ;
-      
-      // Then set parentComponent for the next dcr's name.
-      if(result)
-      {
-         if(it.hasNext())
-         {
-            ComponentClassifier parentComponent = null ;
-            
-            edu.cmu.sei.aadl.aadl2.Element ref = componentName.getIdentifierOwned()
-                                                       .getAadlRef() ;
-            // the dcr's first name represents a data access feature or parameter.
-            if(ref instanceof DataAccess || ref instanceof Parameter)
-            {
-               // May be null.
-               parentComponent = ((Feature) ref).getClassifier() ;
-            }
-            else
-            {
-               // or the dcr's first name represents a data subcomponent.
-               if (ref instanceof DataSubcomponent)
-               {
-                  // May be null.
-                  parentComponent = ((DataSubcomponent) ref).getClassifier() ; 
-               }
-               else
-               {
-                  // report error then return
-                  reportNameError(componentName.getIdentifierOwned(),
-                        componentName.getIdentifierOwned().getId() +
-                           " (as a data access feature, a data subcomponent or"+
-                           " a parameter)") ;
-                  return false ;
-               }
-            }
-            
-            // For the other dcr's names :
-            while(it.hasNext())
-            {
-               componentName = it.next() ;
-               
-               // Check the name within his parent component's namespace.
-               result = nameResolver(parentComponent, componentName) ;
-               
-               ref = componentName.getIdentifierOwned().getAadlRef() ;
-               
-               if(result)
-               {
-                  // Get the parent component and set it for the next dcr's name.               
-                  if(ref instanceof DataSubcomponent)
-                  {
-                     parentComponent = ((DataSubcomponent) ref).getClassifier(); 
-                  }
-                  else
-                  {
-                     // Report error then return.
-                     reportNameError(componentName.getIdentifierOwned(),
-                           componentName.getIdentifierOwned().getId() +
-                               " (as a data subcomponent)");
-                     return false;
-                  }
-               }
-               else
-               {
-                  // Error has already been reported.
-                  return false ;
-               }
-            }
-         }// End of second if.
-         
-         // Link data component reference object with its last name's aadl ref.
-         dcr.setAadlRef(nameList.get(nameList.size()-1).getAadlRef()) ;
-         
-      }// End of first if.
-      return result ;
+	   boolean result = false ;
+	   
+	   DataClassifier parentComponent = null ;
+	   
+	   EList<Name> nameList = dcr.getNames() ;
+	      
+	   Iterator<Name> it = nameList.iterator() ;
+	      
+	   Name currentName = it.next() ;
+	   Name precedentName = currentName ;
+	      
+	   // Check the dcr's first name which can be a subcomponent name or an 
+	   // access feature name. 
+	   
+	   result = nameResolver(currentName) ;
+	   
+	   if (result)
+	   {
+		   while(it.hasNext())
+		   {
+			   currentName = it.next() ;
+			   
+			   // Unresolved data prototype returns null.
+			   parentComponent = AadlBaUtils.getDataClassifier(precedentName) ;
+			   
+			   if(parentComponent == null)
+			   {
+				   reportNameError(currentName,
+						           currentName.getIdentifierOwned().getId()) ;
+				   result = false ;
+				   break ;
+			   }
+			   
+			   result = dataSubcomponentNameResolver(currentName,
+					                                 parentComponent) ;
+			   if(! result)
+			   {
+				   break ;
+			   }
+			   else
+			   {
+				   precedentName = currentName ;
+				   continue ;
+			   }
+		   }
+		   
+		   if (result)
+		   {
+			   dcr.setAadlRef(currentName.getAadlRef()) ;
+			   dcr.setBaRef(currentName.getBaRef()) ;
+		   }
+	   }
+	   
+	   return result ;
+   }
+   
+   private boolean dataSubcomponentNameResolver(Name name,
+		                                          DataClassifier component)
+   {
+	   boolean result = false ;
+	   
+	   Identifier id = name.getIdentifierOwned() ;
+	   
+	   result = subcomponentIdResolver(id, component, false) ;
+	   
+	   if(! result)
+	   {
+		   result = structOrUnionIdResolver(id, component, true) ;
+	   }
+	   
+	   name.setAadlRef(id.getAadlRef()) ;
+	   name.setBaRef(id.getBaRef()) ;
+	   
+	   // Check array indexes names.
+	   for (IntegerValue index : name.getArrayIndexes())
+	   {
+	       // Recursive call.
+	       result &= integerValueResolver(index);
+	   }
+	   
+	   return result ;
    }
    
    /* dispatch_condition ::=
@@ -849,7 +850,8 @@ public class AadlBaNameResolver
       {
          for(Identifier trigg : dc.getDispatchTriggers())
          {
-            result &= identifierResolver(_baParentContainer, trigg) ;
+            result &= identifierComponentResolver(trigg, _baParentContainer,
+            		                              true) ;
          }
       }
       
@@ -900,55 +902,160 @@ public class AadlBaNameResolver
       }
    }
    
-   private boolean identifierResolver(ComponentClassifier parentContainer,
-                                      Identifier id)
+   // Resolves identifier within the behavior variables and iterative variables.
+   private boolean identifierBaResolver(Identifier id, boolean hasToReport)
    {
-      // Case of a Behavior annex component.
-      if(parentContainer == _baParentContainer)
+	  // First try to resolve within ba's variables names but 
+      // don't report any error.
+      if(baVariableResolver(id, false))
       {
-         // First try to resolve within ba's variables names but 
-         // don't report any error.
-         if(baVariableResolver(id, false))
+         return true ;
+      }
+      else
+      {
+         // Second try to resolve within iterative variable scope handler.
+         if(iterativeVariableResolver(id, false))
          {
             return true ;
          }
          else
          {
-            // Second try to resolve within iterative variable scope handler.
-            if(iterativeVariableResolver(id, false))
-            {
-               return true ;
-            }
-            else
-            {
-               // Third try to resolve a prototype name.
-               if(prototypeResolver(id, false))
-               {
-                  return true;
-               }
-            }
-         } //End of first else.
-      }
-      
-      // Fourthly try to resolve within the given parent container features names.
-      if(featureResolver(parentContainer, id, false))
-      {
-         return true ;  
-      }
-      else
-      {
-         // At last try to resolve a subcomponent name within given parent
-         // container.
-         return subcomponentResolver(parentContainer, id, true) ;
+       	     // Report error.
+        	 if (hasToReport)
+             {
+                reportNameError(id, id.getId());
+             }
+        	  
+        	 return false ;
+         }
       }
    }
    
-   private boolean prototypeResolver(Identifier id, boolean hasToReport)
+   // Resolves identifier within the prototypes, features and subcomponent of
+   // the given component.
+   private boolean identifierComponentResolver(Identifier id,                                 
+		    								   ComponentClassifier component,
+		    								   boolean hasToReport)
+   {
+	  // Resolves within the given component features names.
+	  if(featureResolver(component, id, false))
+	  {
+	     return true ;  
+	  }
+	  else
+	  {
+	     // Resolves within the given component subcomponent names.
+	     if(subcomponentIdResolver(id,component, false))
+	     {
+	   	     return true ;
+	     }
+	     else
+	     {
+	         //Resolves within the given component feature prototypes.
+	    	 if(featurePrototypeResolver(id, component, false))
+	    	 {
+	    		 return true ;
+	    	 }
+	    	 else
+	    	 {
+	    		 // At last try to resolve within the 
+	    		 // property Data_Model::Element Names
+	    		 if (component instanceof DataClassifier)
+	    		 {
+	    			 return structOrUnionIdResolver(id,
+	    					                        (DataClassifier) component,
+	    					                        true) ;
+	    		 }
+	    		 else
+	    		 {
+	    			// Report error.
+	            	 if (hasToReport)
+	                 {
+	                    reportNameError(id, id.getId());
+	                 }
+	            	  
+	            	 return false ;
+	    		 }
+	    	 }
+	     }
+	  }
+   }
+   
+   // Resolves the given identifier within the property Data_Model::Element Names
+   // of a declared struct or union component (event if element names is set).
+   // If the given component is not declared as a struct or union, it returns
+   // false and reports error according to the hasToReport flag.
+   private boolean structOrUnionIdResolver(Identifier id,
+		                                   DataClassifier component,
+		                                   boolean hasToReport)
+   {
+	  boolean result = false ;
+	  
+	  DataRepresentation rep = AadlBaUtils.getDataRepresentation(component);
+	  
+	  if(rep == DataRepresentation.STRUCT || rep == DataRepresentation.UNION)
+	  {
+		  EList<PropertyExpression> lpv = 
+                            AadlBaGetProperties.getPropertyExpression(component,
+             		              DataModelProperties.ELEMENT_NAMES) ;
+		  ListValue lv = null ;
+		  StringLiteral sl = null ;
+		  int index1 = 0 ;
+		  int index2 = 0 ;
+		  
+		  for1:
+		  for(PropertyExpression pe : lpv)
+		  {
+			  lv = (ListValue) pe ;
+			  
+			  for(PropertyExpression pex : lv.getOwnedListElements())
+			  {
+				  sl = (StringLiteral) pex ;
+				  
+				  if(id.getId().equalsIgnoreCase(sl.getValue()))
+				  {
+					  result = true ;
+					  break for1 ;
+				  }
+				  
+				  index2++ ;
+			  }
+			  
+			  index1++ ;
+		  }
+		  
+		  // Binds the element name's base type.
+		  if (result)
+		  {
+			  EList<PropertyExpression> lpv2 = 
+                  AadlBaGetProperties.getPropertyExpression(component,
+   		              DataModelProperties.BASE_TYPE) ;
+			  
+			  ClassifierValue cv ;
+			  
+			  cv = (ClassifierValue ) ((ListValue) lpv2.get(index1)).
+			                               getOwnedListElements().get(index2) ;
+			  
+			  id.setAadlRef(cv) ;
+		  }
+	  }
+	  
+	  if(! result && hasToReport)
+	  {
+		  reportNameError(id, id.getId()) ;
+	  }
+	  
+	  return result ;
+   }
+
+   private boolean featurePrototypeResolver(Identifier id,
+		                             ComponentClassifier component,
+		                             boolean hasToReport)
    {
       String nameToFind = id.getId() ;
 
       PrototypeBinding pb = AadlBaVisitors.findPrototypeBindingInComponent
-            (_baParentContainer, nameToFind);
+            (component, nameToFind);
       
       // first: try to find any prototype binding that matches the given
       // identifier.
@@ -961,7 +1068,7 @@ public class AadlBaNameResolver
            // a matching prototype declaration. 
       {
          Prototype proto = AadlBaVisitors.findPrototypeInComponent
-                                               (_baParentContainer, nameToFind);
+                                               (component, nameToFind);
          if (proto != null)
          {
             id.setAadlRef(proto);
@@ -1013,7 +1120,7 @@ public class AadlBaNameResolver
                BehaviorElement parentContainer = (BehaviorElement) 
                                                             value.eContainer() ;
                
-               // Set the beahvior property constant object instead of the name
+               // Set the behavior property constant object instead of the name
                // object into the parent container.
                if(parentContainer instanceof BehaviorTime)
                {
@@ -1104,31 +1211,38 @@ public class AadlBaNameResolver
    // name ::= identifier { array_index }*
    // array_index :: [ integer_value_variable ]
    private boolean nameResolver(ComponentClassifier parentContainer,
-                                   Name nameObj)
+                                Name nameObj)
    {
       boolean result = false ;
       
       // Check Identifier name.
-      result = identifierResolver(parentContainer, nameObj.getIdentifierOwned()) ;
+      Identifier id = nameObj.getIdentifierOwned() ;
       
-      nameObj.setAadlRef(nameObj.getIdentifierOwned()
-                                                    .getAadlRef());
-      nameObj.setBaRef(nameObj.getIdentifierOwned()
-                                                      .getBaRef());
+      if(parentContainer == _baParentContainer)
+      {
+    	  result = identifierBaResolver(id, false) ;
+      }
       
+      if (! result)
+      {
+    	  result = identifierComponentResolver(id, parentContainer, true) ;
+      }
+      
+      nameObj.setAadlRef(id.getAadlRef());
+      nameObj.setBaRef(id.getBaRef());
       
       // Check array indexes names.
-      for (IntegerValueVariable index : nameObj.getArrayIndexes())
+      for (IntegerValue index : nameObj.getArrayIndexes())
       {
          // Recursive call.
-         result &= integerValueVariableResolver(index);
+         result &= integerValueResolver(index);
       }
       return result ;
    }
 
    /**
     * Check behavior annex's sub component uniqueness within behavior annex's
-    * parent component scope. Conflits are reported.
+    * parent component scope. Conflicts are reported.
     */
    private boolean parentComponentIdentifiersUniquenessCheck()
    {
@@ -1214,8 +1328,9 @@ public class AadlBaNameResolver
       return result ;
    }
 
-   private boolean subcomponentResolver(ComponentClassifier parentComponent,
-                                         Identifier id, boolean hasToReport)
+   private boolean subcomponentIdResolver(Identifier id,
+		                                  ComponentClassifier parentComponent,
+		                                  boolean hasToReport)
    {
       String nameToFind = id.getId() ;
       

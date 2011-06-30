@@ -63,13 +63,13 @@ public class AadlBaResolver implements AnnexResolver
             // failed. 
             if (result)
             {
-               
                typeChecker = new AadlBaTypeChecker(ba, dataTypeChecker,
                                                        errManager) ;
                typeChecker.checkTypes() ;
-                  
+                 
                semanticAnalysis = new AadlBaRulesCheckersDriver(ba, errManager);
                semanticAnalysis.process(ba) ;
+               
             }
          }
       }

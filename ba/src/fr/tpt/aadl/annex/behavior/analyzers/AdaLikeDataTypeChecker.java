@@ -41,6 +41,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.UnaryAddingOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.UnaryBooleanOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.UnaryNumericOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.Value ;
+import fr.tpt.aadl.annex.behavior.names.DataModelProperties;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaGetProperties ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 
@@ -48,8 +49,16 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
 {
    private AnalysisErrorReporterManager _errManager ;
    
-   // Expected data representation for numerics in value expression checking.
+   // Expected data representation for numerics in value expression checking,
+   // excepted for operator **
    private final static DataRepresentation[] _numTypes = 
+      new DataRepresentation[]{DataRepresentation.INTEGER,
+                               DataRepresentation.FLOAT,
+                               DataRepresentation.FIXED};
+   
+   // Expected data representation for numerics in operator ** 
+   // expression checking.
+   private final static DataRepresentation[] _numTypesWithoutFixed = 
       new DataRepresentation[]{DataRepresentation.INTEGER,
                                DataRepresentation.FLOAT};
    
@@ -58,18 +67,10 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
    private final static DataRepresentation[] _alphaNumTypes = 
       new DataRepresentation[]{DataRepresentation.INTEGER,
                                DataRepresentation.FLOAT,
+                               DataRepresentation.FIXED,
                                DataRepresentation.CHARACTER,
                                DataRepresentation.STRING};
    
-   // Expected data representation for alphanumeric + boolean in value
-   // expression checking.
-   private final static DataRepresentation[] _alphaNumBoolTypes = 
-      new DataRepresentation[]{DataRepresentation.INTEGER,
-                               DataRepresentation.FLOAT,
-                               DataRepresentation.CHARACTER,
-                               DataRepresentation.STRING,
-                               DataRepresentation.BOOLEAN};
-
    public AdaLikeDataTypeChecker(AnalysisErrorReporterManager errManager)
    {
       _errManager = errManager ;
@@ -88,21 +89,37 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
       {
          result = false ;
       }
-      // The types are not consistency when their data representation are not
-      // the same.
-      else if(! type1.dataRep.equals(type2.dataRep))
+      else 
       {
-         result = false ;
-      }
-      // If both type have a classifier, their classifier's name must match.
-      // Note that data structure are accepted as their data representation are
-      // DataRepresentation.UNKNOWN .
-      else if(type1.klass != null && type2.klass != null)
-      {
-         result = type1.klass.getQualifiedName().equalsIgnoreCase(
+        // The types are not consistency when their data representation are not
+        // the same, excepted Fixed point and universal float.
+        if(  (
+                type1.dataRep.equals(DataRepresentation.FLOAT) &&
+                type1.klass == null &&
+                type2.dataRep.equals(DataRepresentation.FIXED)
+             )  ||
+             (
+                type2.dataRep.equals(DataRepresentation.FLOAT) &&
+                type2.klass == null &&
+                type1.dataRep.equals(DataRepresentation.FIXED)
+             )
+           )
+        {
+           result = true ;
+        }
+        else if(! type1.dataRep.equals(type2.dataRep) ||
+              type1.dimension != type2.dimension)
+    	  {
+        	 result = false ;
+    	  }
+        else if(type1.klass != null && type2.klass != null)
+        {
+      	 // If both type have a classifier, their classifier's name must match.
+      	 result = type1.klass.getQualifiedName().equalsIgnoreCase(
                                                 type2.klass.getQualifiedName());
+        }
       }
-      
+
       return result ;
    }
    
@@ -155,15 +172,14 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
          RelationalOperator rop = (RelationalOperator) operator ;
          DataRepresentation[] expectedTypes = null ;
          
+         // Operators = and != are defined for all coherent types.
          if(rop == RelationalOperator.EQUAL ||
             rop == RelationalOperator.NOT_EQUAL)
          {
-            expectedTypes = _alphaNumBoolTypes ;
+            return new TypeHolder(DataRepresentation.BOOLEAN, null) ;
          }
-         else
-         {
-            expectedTypes = _alphaNumTypes ; 
-         }
+         
+         expectedTypes = _alphaNumTypes ; 
          
          if (AadlBaUtils.contains(operand1.dataRep, expectedTypes))
          {
@@ -229,7 +245,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
       else if(operator instanceof BinaryNumericOperator)
       {
          // Checks operands consistency:
-         if(AadlBaUtils.contains(operand1.dataRep, _numTypes))
+         if(AadlBaUtils.contains(operand1.dataRep, _numTypesWithoutFixed))
          {
             boolean reportError = false ;
             
@@ -238,9 +254,9 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                // Datatyped operand case : checks if operand2 is a natural.
                if(operand2.klass != null)
                {
-                  EList<edu.cmu.sei.aadl.aadl2.PropertyValue> l = 
-                     AadlBaGetProperties.getPropertyValue(operand2.klass,
-                                            AadlBaGetProperties.INTEGER_RANGE) ;
+                  EList<edu.cmu.sei.aadl.aadl2.PropertyExpression> l = 
+                     AadlBaGetProperties.getPropertyExpression(operand2.klass,
+                    		                DataModelProperties.INTEGER_RANGE) ;
                   if(l.size() > 0)
                   {
                      RangeValue rv = (RangeValue) l.get(l.size()-1) ;

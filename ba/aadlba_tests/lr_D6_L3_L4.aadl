@@ -67,7 +67,7 @@ transitions
  s1 -[]-> s2 {a := 1};
  s1 -[]-> s2 {{a := 1}};
  s1 -[]-> s2 { a := 1 & b := 2 } ;
- s1 -[]-> s2 { portA := 1 & portB := 2 };
+ s1 -[]-> s2 { outPortA := 1 & outPortB := 2 };
  s1 -[]-> s2 { x[a] := 1 & y := 2 };
  s1 -[]-> s2 { fakeData.a[a] := 1 & fakeData.b := 2 };
  s1 -[]-> s2 {
@@ -163,7 +163,7 @@ transitions
                                         else
                                         {
 -- Error fakeData.b can not assigned to in different actions of an action set.                                        
-                                           fakeData.b[a] := 2
+                                           fakeData.b := 2
                                         }
                                         end if
                                      }

@@ -39,6 +39,14 @@ public class TypeHolder
     * Holds a DataClassifier.
     */
    public DataClassifier klass ;
+
+   
+   /**
+    * Holds the dimension of the type. Default dimension is zero.
+    */
+   public int dimension = 0;
+   
+   private final static String ARRAY_DIMENSION_TOKEN = "[]" ;
    
    /**
     * Builds a TypeHolder object with uninitialized attributes ({@code null}).
@@ -60,9 +68,18 @@ public class TypeHolder
    @Override
    public String toString()
    {
+      StringBuilder result = new StringBuilder();
+      
       if(klass != null)
-         return klass.getQualifiedName() ;
+         result.append(klass.getQualifiedName()) ;
       else
-         return dataRep.getLiteral() ;
+         result.append(dataRep.getLiteral()) ;
+      
+      for(int i = 0 ; i < dimension ; i++)
+      {
+         result.append(ARRAY_DIMENSION_TOKEN) ;
+      }
+      
+      return result.toString() ;
    }
 }

@@ -31,12 +31,17 @@ import org.eclipse.emf.ecore.EObject ;
 
 import edu.cmu.sei.aadl.aadl2.ArrayableElement ;
 import edu.cmu.sei.aadl.aadl2.CalledSubprogram ;
+import edu.cmu.sei.aadl.aadl2.Classifier ;
+import edu.cmu.sei.aadl.aadl2.ClassifierValue;
 import edu.cmu.sei.aadl.aadl2.ComponentCategory ;
+import edu.cmu.sei.aadl.aadl2.ComponentClassifier;
 import edu.cmu.sei.aadl.aadl2.ComponentPrototype ;
 import edu.cmu.sei.aadl.aadl2.ComponentPrototypeActual ;
 import edu.cmu.sei.aadl.aadl2.ComponentPrototypeBinding ;
 import edu.cmu.sei.aadl.aadl2.ComponentReference ;
 import edu.cmu.sei.aadl.aadl2.DirectionType ;
+import edu.cmu.sei.aadl.aadl2.Element;
+import edu.cmu.sei.aadl.aadl2.FeaturePrototypeBinding;
 import edu.cmu.sei.aadl.aadl2.Parameter ;
 import edu.cmu.sei.aadl.aadl2.SubprogramAccess ;
 import edu.cmu.sei.aadl.aadl2.SubprogramImplementation ;
@@ -48,6 +53,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.*;
 
 import fr.tpt.aadl.annex.behavior.unparser.AadlBaUnparser;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors;
 
 /**
  * AADL Behavior annex feature's type and data representation checker.
@@ -60,6 +66,8 @@ public class AadlBaTypeChecker
 {
 
    private BehaviorAnnex _ba ;
+   
+   private ComponentClassifier _baParentContainer ;
 
    private AnalysisErrorReporterManager _errManager ;
    
@@ -81,6 +89,7 @@ public class AadlBaTypeChecker
                             AnalysisErrorReporterManager errManager)
    {
       _ba = ba ;
+      _baParentContainer = AadlBaVisitors.getParentComponent(ba) ;
       _dataChecker = dataChecker ;
       _errManager = errManager ;
    }
@@ -763,7 +772,8 @@ public class AadlBaTypeChecker
          {
             if(v instanceof DataComponentReference)
             {
-               tmp = dataComponentReferenceCheck((DataComponentReference) v)?
+               tmp = dataComponentReferenceCheck((DataComponentReference) v,
+            		   TypeCheckRule.VV_COMPONENT_REFERENCE_FIRST_NAME)?
                             v : null ;
             }
             else // Ambiguous case between name and unqualified data component
@@ -808,6 +818,7 @@ public class AadlBaTypeChecker
             result.setLocationReference(n.getLocationReference()) ;
             result.getNames().add(n) ;
             result.setAadlRef(n.getAadlRef()) ;
+            result.setBaRef(n.getBaRef()) ;
 
             return result ;
          }
@@ -827,7 +838,7 @@ public class AadlBaTypeChecker
    private Enum<?> nameResolver(Name n, TypeCheckRule rule)
    {
       Enum<?> result = null ;
-      IntegerValueVariable tmp = null ;
+      IntegerValue tmp = null ;
       boolean ivResolved = true ;
 
       // Checks the array indexes.
@@ -835,19 +846,19 @@ public class AadlBaTypeChecker
       // it iterates over the internal array instead of the integer value 
       // variables list to avoid a java.util.ConcurrentModificationException
       // when a integer value variable of the list is replaced.
-      Object[] ivvArray = n.getArrayIndexes().toArray() ;
-      for(int i = 0 ; i < ivvArray.length ; i++)
+      Object[] ivArray = n.getArrayIndexes().toArray() ;
+      for(int i = 0 ; i < ivArray.length ; i++)
       {
-    	  tmp = integerValueVariableCheck((IntegerValueVariable) ivvArray[i]) ;
+    	  tmp = integerValueCheck((IntegerValue) ivArray[i]) ;
     	  
     	  // The returned IntegerValueVariable may be different from the
           // tested one because of semantic ambiguity resolution in
           // integerValueVariableCheck method. So replace if needed.
     	  if(tmp != null)
           {
-             if(tmp != ivvArray[i])
+             if(tmp != ivArray[i])
              {
-            	 ivvArray[i] = tmp ;
+            	 ivArray[i] = tmp ;
              }
           }
           else
@@ -863,22 +874,51 @@ public class AadlBaTypeChecker
       return (ivResolved) ? result : null ;
    }
 
-   private boolean dataComponentReferenceCheck(DataComponentReference dcr)
+   private boolean dataComponentReferenceCheck(DataComponentReference dcr,
+		                                       TypeCheckRule drcFirstNameRule)
    {
-      boolean result ;
+      boolean result, tmp = true ;
+      Name n ;
 
       Name firstName = dcr.getNames().get(0) ;
+      result = nameResolver(firstName, drcFirstNameRule) != null ;
       
-      result = nameResolver(firstName,
-            TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME) != null ;
-      
-      Name n ;
-      
-      for(int i = 1 ; i < dcr.getNames().size() ; i++)
+      if(result)
       {
-         n = dcr.getNames().get(i) ;
-         result &= nameResolver(n,
-            TypeCheckRule.DATA_COMPONENT_REFERENCE_OTHER_NAMES) != null ;
+    	  for(int i = 1 ; i < dcr.getNames().size() ; i++)
+          {
+             n = dcr.getNames().get(i) ;
+             
+             Enum<?> type = nameResolver(n,
+                     TypeCheckRule.DATA_COMPONENT_REFERENCE_OTHER_NAMES) ;
+             
+             // Checks Data subcomponentNess for the structure or union members.
+             if(type == FeatureType.CLASSIFIER_VALUE)
+             {
+            	 ClassifierValue cv = (ClassifierValue) n.getAadlRef() ;
+            	 
+            	 FeatureType typeFound = AadlBaUtils.getFeatureType(
+            			                                   cv.getClassifier()) ;
+            	 FeatureType expectedType = FeatureType.DATA_CLASSIFIER ;
+            	 
+            	 tmp &= expectedType == typeFound ;
+            	 
+            	 if (! tmp)
+            	 {
+            		 reportTypeError(n, n.getIdentifierOwned().getId(),
+            				         expectedType.toString(),
+            				         typeFound.toString()) ;
+            	 }
+            	 
+            	 result &= tmp ;
+            	 
+            	 tmp = true ;
+             }
+             else
+             {
+            	 result &= type != null ;
+             }
+          }
       }
 
       return result;
@@ -1112,7 +1152,7 @@ public class AadlBaTypeChecker
       else
       {
          ElementValues result = null ;
-        ForOrForAllStatement parentStat = (ForOrForAllStatement) ev.eContainer() ;
+         ForOrForAllStatement parentStat = (ForOrForAllStatement) ev.eContainer() ;
          
          if(ev instanceof Name)
          {
@@ -1130,7 +1170,8 @@ public class AadlBaTypeChecker
          else // Data component reference case.
          {
             DataComponentReference dcr = (DataComponentReference) ev ;
-            if(dataComponentReferenceCheck(dcr))
+            if(dataComponentReferenceCheck(dcr,
+            		TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME))
             {
                result = ev ;
             }
@@ -1161,13 +1202,14 @@ public class AadlBaTypeChecker
    
    // Checks the arrayness of the given data component reference.
    // Returns true if the dcr is an array, false otherwise.
-   // Can't report error because dcr's EObject attributes may not be initialized.
+   // Can't report error because dcr's binded object may not have been
+   // initialized.
    private boolean dataComponentReferenceArraynessCheck(
                                                      DataComponentReference dcr)
    {
       boolean result = false ;
       
-      edu.cmu.sei.aadl.aadl2.Element el = dcr.getAadlRef() ;
+      Element el = AadlBaUtils.getBindedElement(dcr) ;
       
       if(el instanceof ArrayableElement)
       {
@@ -1175,11 +1217,13 @@ public class AadlBaTypeChecker
          
          result = ae.getArraySpecification() != null ;
       }
-      else // The binded element is not arrayable.
+      else
       {
-         result = false ;
+    	  DataRepresentation dr = AadlBaUtils.getDataRepresentation(dcr) ;
+    	  
+    	  result = DataRepresentation.ARRAY == dr ;
       }
-      
+
       return result ;
    }
 
@@ -1349,7 +1393,7 @@ public class AadlBaTypeChecker
          result &= behaviorTimeCheck(ta.getUpperBehaviorTime()) ;
       }
 
-      return false ;
+      return result ;
    }
 
    // This method checks the given object and returns a communication action
@@ -1609,12 +1653,22 @@ public class AadlBaTypeChecker
       // Event if the subprogram call action doesn't have any parameter labels,
       // the subprogram type may have and vice versa : 
       // subprogramParameterListCheck is also design for these cases. 
-      // Binds the subprogram type found to the subprogram call action. 
-      if(subprogType != null && subprogramParameterListCheck(sc,
-            sc.getParameterLabels(), subprogType.getOwnedParameters()))
+      // It also binds the subprogram type found to the subprogram call action. 
+      if(subprogType != null)
       {
-         sc.setAadlRef(subprogType) ;
-         result = sc ;
+         
+         // Can't use this method because it doesn't return inherited parameters
+         //EList<Parameter> subprogParams = subprogType.getOwnedParameters() ;
+         
+         EList<Parameter> subprogParams = 
+            AadlBaVisitors.getElementsInNamespace(subprogType, Parameter.class);
+         
+         if (subprogramParameterListCheck(sc, sc.getParameterLabels(),
+                                          subprogParams))
+         {
+            sc.setAadlRef(subprogType) ;
+            result = sc ;
+         }
       }
       else
       {
@@ -1666,6 +1720,7 @@ public class AadlBaTypeChecker
       }
       else 
       {
+         // Case of required data access name . provided subprogram access name 
          if(sca.getSubprogramNames().size() == 1)
          {
             el = sca.getSubprogramNames().get(0).getAadlRef() ;
@@ -1684,6 +1739,7 @@ public class AadlBaTypeChecker
       {
          ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) el ;
          
+         // Takes the last binding.
          ComponentPrototypeActual cpa = cpb.getActuals().
                                                get(cpb.getActuals().size() -1) ;
          
@@ -1753,7 +1809,7 @@ public class AadlBaTypeChecker
                                                 EList<ParameterLabel> callParams,
                                                 EList<Parameter> subprogParams)
    {
-      // Matching the parameter labels with the subprogram prototype.
+      // Matching the parameter labels with the subprogram signature.
       // Resolves ambiguity between target and value expression :
       // value expression are for in parameter, target are for out parameter.
       
@@ -1796,6 +1852,8 @@ public class AadlBaTypeChecker
          direction = param.getDirection() ;
          expectedDirections.add(direction) ;
          
+         Classifier klass = AadlBaUtils.getClassifier(param,_baParentContainer);
+
          // ValueExpression case.
          if(direction.equals(DirectionType.IN))
          {
@@ -1803,7 +1861,7 @@ public class AadlBaTypeChecker
             
             if(vth != null)
             {
-               t1 = AadlBaUtils.getTypeHolder(param.getDataClassifier()) ;
+               t1 = AadlBaUtils.getTypeHolder(klass) ;
                t2 = vth.typeHolder ;
                expectedTypes.add(t1) ;
                typesFound.add(t2) ;
@@ -1833,7 +1891,7 @@ public class AadlBaTypeChecker
                
                if(tar != null)
                {
-                  t1 = AadlBaUtils.getTypeHolder(param.getDataClassifier()) ;
+                  t1 = AadlBaUtils.getTypeHolder(klass) ;
                   t2 = AadlBaUtils.getTypeHolder(tar) ;
                   expectedTypes.add(t1) ;
                   typesFound.add(t2) ;
@@ -1880,7 +1938,7 @@ public class AadlBaTypeChecker
                
                if(vth != null)
                {
-                  t1 = AadlBaUtils.getTypeHolder(param.getDataClassifier()) ;
+                  t1 = AadlBaUtils.getTypeHolder(klass) ;
                   t2 = vth.typeHolder ;
                   expectedTypes.add(t1) ;
                   typesFound.add(t2) ;
@@ -2033,7 +2091,8 @@ public class AadlBaTypeChecker
       }
       else
       {
-         return (dataComponentReferenceCheck((DataComponentReference) tar)) ?
+         return (dataComponentReferenceCheck((DataComponentReference) tar,
+        		    TypeCheckRule.TARGET_COMPONENT_REFERENCE_FIRST_NAME)) ?
                tar : null ;
       }
    }
@@ -2075,22 +2134,31 @@ public class AadlBaTypeChecker
     * within the given rule's expected types. Returns the
     * matching type or {@code null} otherwise. Reports any error.
     *
-    * @param e the behavior element to be checked
+    * @param bel the behavior element to be checked
     * @param name the behavior element's name
     * @param rule the checking rule that contains the expected types
     * @return the matching type or {@code null}
     */
-   private Enum<?> typeCheck(BehaviorElement el, String name, TypeCheckRule rule)
+   private Enum<?> typeCheck(BehaviorElement bel, String name, TypeCheckRule rule)
    {
-      Enum<?> testedEnum = AadlBaUtils.getType(el) ;
-      
-      Enum<?> result = rule.test(testedEnum) ;
+      Enum<?> result = rule.test(bel, _baParentContainer) ;
       
       if(result == null)
       {
-         String expectedTypes = rule.getExpectedTypes(STRING_TYPE_SEPARATOR) ;
+    	 
+         Enum<?> testedEnum = AadlBaUtils.getType(bel) ;
+    	 
+         // Resolves feature prototype binding.
+         if(testedEnum == FeatureType.FEATURE_PROTOTYPE_BINDING)
+         {
+        	 Element el = AadlBaUtils.getBindedElement(bel) ;
+        	 testedEnum = AadlBaUtils.getFeatPrototypeType(
+        			                             (FeaturePrototypeBinding) el) ;
+         }
+        	 
+    	   String expectedTypes = rule.getExpectedTypes(STRING_TYPE_SEPARATOR) ;
          String typeFound = ((Enumerator) testedEnum).getLiteral();
-         reportTypeError(el, name, expectedTypes, typeFound) ;
+         reportTypeError(bel, name, expectedTypes, typeFound) ;
       }
          
       return result ;
@@ -2196,26 +2264,36 @@ public class AadlBaTypeChecker
       // because data subcomponent and data access are very high level types.
       DATA_COMPONENT_REFERENCE_FIRST_NAME("data subcomponent" +
             STRING_TYPE_SEPARATOR + "data access" + STRING_TYPE_SEPARATOR +
-            "parameter",
+            "parameter" + STRING_TYPE_SEPARATOR + "behavior variable" +
+            STRING_TYPE_SEPARATOR + "data access feature prototype",
          new Enum[] {
             FeatureType.DATA_SUBCOMPONENT,
             TypeCheckRule.DATA_ACCESS,
-            TypeCheckRule.PARAMETER}),
-                                 
+            BehaviorFeatureType.BEHAVIOR_VARIABLE}),
+            
       DATA_COMPONENT_REFERENCE_OTHER_NAMES("data subcomponent",
          new Enum[]{
-            FeatureType.DATA_SUBCOMPONENT}),
+            FeatureType.DATA_SUBCOMPONENT,
+            FeatureType.CLASSIFIER_VALUE}),
       
       
       LOCAL_VARIABLE ("local variable", new Enum[] {
             BehaviorFeatureType.BEHAVIOR_VARIABLE,
             BehaviorFeatureType.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE}),
-                        
+      
+      // Always include at the end of an array:
+      // because data subcomponent and data access are very high level types.
+      VV_COMPONENT_REFERENCE_FIRST_NAME(
+       		DATA_COMPONENT_REFERENCE_FIRST_NAME._literal + 
+          	STRING_TYPE_SEPARATOR + "in parameter",
+            new Enum[] {
+               TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME,
+               TypeCheckRule.IN_PARAMETER}), 
+      
       VALUE_VARIABLE ("value variable", new Enum[] {
             TypeCheckRule.IN_PORT,
-            TypeCheckRule.IN_PARAMETER,
             TypeCheckRule.LOCAL_VARIABLE,
-            TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME}),
+            TypeCheckRule.VV_COMPONENT_REFERENCE_FIRST_NAME}),
                                  
       PROPERTY ("property", new Enum[]{
             FeatureType.PROPERTY_CONSTANT,
@@ -2231,12 +2309,20 @@ public class AadlBaTypeChecker
             TypeCheckRule.EVENT_DATA_PORT,
             TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME}),    
 
+      // Always include at the end of an array:
+      // because data subcomponent and data access are very high level types.
+      TARGET_COMPONENT_REFERENCE_FIRST_NAME(
+    		  DATA_COMPONENT_REFERENCE_FIRST_NAME._literal + 
+    		  STRING_TYPE_SEPARATOR + "out parameter",
+            new Enum[] {
+               TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME,
+               TypeCheckRule.OUT_PARAMETER}), 
+      
       TARGET ("target", new Enum[] {
             TypeCheckRule.OUT_PORT,
-            TypeCheckRule.OUT_PARAMETER,
             BehaviorFeatureType.BEHAVIOR_VARIABLE,
-            TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME}),
-                                
+            TypeCheckRule.TARGET_COMPONENT_REFERENCE_FIRST_NAME}),
+            
       SHARED_DATA_ACTION ("shared data action", new Enum[] {
             FeatureType.REQUIRES_DATA_ACCESS}),
             
@@ -2302,16 +2388,35 @@ public class AadlBaTypeChecker
          return AadlBaUtils.concatenateString(typeSeparator, sa) ;
       }
       
-      // Returns the matching feature type or behavior annex feature type
-      // otherwise null.
-      // Test is recursive.
-      public Enum<?> test(Enum<?> other)
+      /**
+       * Returns the rule's matching feature type or behavior annex feature type
+       * of the given BehaviorElement object. If there is no matching, it 
+       * returns {@code null}. This test is recursive.
+       * @param bel the given BehaviorElement object
+       * @param baParentContainer behavior parent component
+       * @return the rule's matching feature type or {@code null}
+       */
+      public Enum<?> test(BehaviorElement bel,
+    		              ComponentClassifier baParentContainer)
       {
+         Enum<?> testedEnum = AadlBaUtils.getType(bel) ;
+         
+         
+         
+         // Resolves feature prototype binding in order to compare the rule
+         // to the resolved feature prototype.
+         if(testedEnum.equals(FeatureType.FEATURE_PROTOTYPE_BINDING))
+         {
+        	 FeaturePrototypeBinding fpb = (FeaturePrototypeBinding) 
+        	                                 AadlBaUtils.getBindedElement(bel) ;
+        	 testedEnum = AadlBaUtils.getFeatPrototypeType(fpb) ;
+         }
+         
          for(Enum<?> e : _acceptableTypes)
          {
             if(e instanceof TypeCheckRule)
             {
-               if (testTypeCheckRule((TypeCheckRule)e, other) != null)
+               if (testTypeCheckRule((TypeCheckRule)e, testedEnum) != null)
                {
                   return e ;
                }
@@ -2322,7 +2427,7 @@ public class AadlBaTypeChecker
             }
             else
             {
-               if (e.equals(other))
+               if (e.equals(testedEnum))
                {
                   return e ;
                }

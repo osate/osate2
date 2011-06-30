@@ -23,7 +23,7 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.Identifier;
-import fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable;
+import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue;
 import fr.tpt.aadl.annex.behavior.aadlba.Name;
 
 import java.util.Collection;
@@ -74,7 +74,7 @@ public class NameImpl extends BehaviorElementImpl implements Name {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<IntegerValueVariable> arrayIndexes;
+	protected EList<IntegerValue> arrayIndexes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -143,9 +143,9 @@ public class NameImpl extends BehaviorElementImpl implements Name {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<IntegerValueVariable> getArrayIndexes() {
+	public EList<IntegerValue> getArrayIndexes() {
 		if (arrayIndexes == null) {
-			arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValueVariable>(IntegerValueVariable.class, this, AadlBaPackage.NAME__ARRAY_INDEXES);
+			arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.NAME__ARRAY_INDEXES);
 		}
 		return arrayIndexes;
 	}
@@ -214,7 +214,7 @@ public class NameImpl extends BehaviorElementImpl implements Name {
 				return;
 			case AadlBaPackage.NAME__ARRAY_INDEXES:
 				getArrayIndexes().clear();
-				getArrayIndexes().addAll((Collection<? extends IntegerValueVariable>)newValue);
+				getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

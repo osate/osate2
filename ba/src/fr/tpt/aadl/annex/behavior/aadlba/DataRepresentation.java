@@ -48,36 +48,14 @@ public enum DataRepresentation implements Enumerator {
 	UNKNOWN(0, "Unknown", "unknown"),
 
 	/**
-	 * The '<em><b>Integer</b></em>' literal object.
+	 * The '<em><b>Array</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #INTEGER_VALUE
+	 * @see #ARRAY_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	INTEGER(1, "Integer", "universal integer"),
-
-	/**
-	 * The '<em><b>Float</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #FLOAT_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	FLOAT(2, "Float", "universal real"),
-
-	/**
-	 * The '<em><b>Character</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CHARACTER_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	CHARACTER(3, "Character", "standard character"),
-
-	/**
+	ARRAY(1, "Array", "array"), /**
 	 * The '<em><b>Boolean</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -85,7 +63,47 @@ public enum DataRepresentation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BOOLEAN(4, "Boolean", "standard boolean"),
+	BOOLEAN(2, "Boolean", "standard boolean"), /**
+	 * The '<em><b>Character</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CHARACTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CHARACTER(3, "Character", "standard character"), /**
+	 * The '<em><b>Enum</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ENUM_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ENUM(4, "Enum", "enumeration"), /**
+	 * The '<em><b>Fixed</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FIXED_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	FIXED(5, "Fixed", "fixed point real"), /**
+	 * The '<em><b>Float</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FLOAT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	FLOAT(6, "Float", "universal real"), /**
+	 * The '<em><b>Integer</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #INTEGER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	INTEGER(7, "Integer", "universal integer"),
 
 	/**
 	 * The '<em><b>String</b></em>' literal object.
@@ -95,7 +113,23 @@ public enum DataRepresentation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	STRING(5, "String", "standard string");
+	STRING(8, "String", "standard string"), /**
+	 * The '<em><b>Struct</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #STRUCT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	STRUCT(9, "Struct", "structure"), /**
+	 * The '<em><b>Union</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UNION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UNION(10, "Union", "union");
 
 	/**
 	 * The '<em><b>Unknown</b></em>' literal value.
@@ -113,34 +147,34 @@ public enum DataRepresentation implements Enumerator {
 	public static final int UNKNOWN_VALUE = 0;
 
 	/**
-	 * The '<em><b>Integer</b></em>' literal value.
+	 * The '<em><b>Array</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Integer</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Array</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #INTEGER
-	 * @model name="Integer" literal="universal integer"
+	 * @see #ARRAY
+	 * @model name="Array" literal="array"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int INTEGER_VALUE = 1;
+	public static final int ARRAY_VALUE = 1;
 
 	/**
-	 * The '<em><b>Float</b></em>' literal value.
+	 * The '<em><b>Boolean</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Float</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Boolean</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #FLOAT
-	 * @model name="Float" literal="universal real"
+	 * @see #BOOLEAN
+	 * @model name="Boolean" literal="standard boolean"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FLOAT_VALUE = 2;
+	public static final int BOOLEAN_VALUE = 2;
 
 	/**
 	 * The '<em><b>Character</b></em>' literal value.
@@ -158,19 +192,64 @@ public enum DataRepresentation implements Enumerator {
 	public static final int CHARACTER_VALUE = 3;
 
 	/**
-	 * The '<em><b>Boolean</b></em>' literal value.
+	 * The '<em><b>Enum</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Boolean</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Enum</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #BOOLEAN
-	 * @model name="Boolean" literal="standard boolean"
+	 * @see #ENUM
+	 * @model name="Enum" literal="enumeration"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int BOOLEAN_VALUE = 4;
+	public static final int ENUM_VALUE = 4;
+
+	/**
+	 * The '<em><b>Fixed</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Fixed</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #FIXED
+	 * @model name="Fixed" literal="fixed point real"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int FIXED_VALUE = 5;
+
+	/**
+	 * The '<em><b>Float</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Float</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #FLOAT
+	 * @model name="Float" literal="universal real"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int FLOAT_VALUE = 6;
+
+	/**
+	 * The '<em><b>Integer</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Integer</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #INTEGER
+	 * @model name="Integer" literal="universal integer"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int INTEGER_VALUE = 7;
 
 	/**
 	 * The '<em><b>String</b></em>' literal value.
@@ -185,7 +264,37 @@ public enum DataRepresentation implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int STRING_VALUE = 5;
+	public static final int STRING_VALUE = 8;
+
+	/**
+	 * The '<em><b>Struct</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Struct</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #STRUCT
+	 * @model name="Struct" literal="structure"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int STRUCT_VALUE = 9;
+
+	/**
+	 * The '<em><b>Union</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Union</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #UNION
+	 * @model name="Union" literal="union"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UNION_VALUE = 10;
 
 	/**
 	 * An array of all the '<em><b>Data Representation</b></em>' enumerators.
@@ -196,11 +305,16 @@ public enum DataRepresentation implements Enumerator {
 	private static final DataRepresentation[] VALUES_ARRAY =
 		new DataRepresentation[] {
 			UNKNOWN,
-			INTEGER,
-			FLOAT,
-			CHARACTER,
+			ARRAY,
 			BOOLEAN,
+			CHARACTER,
+			ENUM,
+			FIXED,
+			FLOAT,
+			INTEGER,
 			STRING,
+			STRUCT,
+			UNION,
 		};
 
 	/**
@@ -252,11 +366,16 @@ public enum DataRepresentation implements Enumerator {
 	public static DataRepresentation get(int value) {
 		switch (value) {
 			case UNKNOWN_VALUE: return UNKNOWN;
-			case INTEGER_VALUE: return INTEGER;
-			case FLOAT_VALUE: return FLOAT;
-			case CHARACTER_VALUE: return CHARACTER;
+			case ARRAY_VALUE: return ARRAY;
 			case BOOLEAN_VALUE: return BOOLEAN;
+			case CHARACTER_VALUE: return CHARACTER;
+			case ENUM_VALUE: return ENUM;
+			case FIXED_VALUE: return FIXED;
+			case FLOAT_VALUE: return FLOAT;
+			case INTEGER_VALUE: return INTEGER;
 			case STRING_VALUE: return STRING;
+			case STRUCT_VALUE: return STRUCT;
+			case UNION_VALUE: return UNION;
 		}
 		return null;
 	}

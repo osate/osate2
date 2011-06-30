@@ -943,97 +943,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorNamedElement()
 	 * @generated
 	 */
-	int BEHAVIOR_NAMED_ELEMENT = 11;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__OWNER = BEHAVIOR_ELEMENT__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__NAME = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__NAMESPACE = BEHAVIOR_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>Behavior Named Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 4;
+	int BEHAVIOR_NAMED_ELEMENT = 12;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStateImpl <em>Behavior State</em>}' class.
@@ -1043,97 +953,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorState()
 	 * @generated
 	 */
-	int BEHAVIOR_STATE = 12;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_STATE__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_STATE__OWNER = BEHAVIOR_ELEMENT__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_STATE__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_STATE__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_STATE__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Identifiers</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_STATE__IDENTIFIERS = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Initial</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_STATE__INITIAL = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Complete</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_STATE__COMPLETE = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Final</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_STATE__FINAL = BEHAVIOR_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>Behavior State</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_STATE_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 4;
+	int BEHAVIOR_STATE = 16;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorTimeImpl <em>Behavior Time</em>}' class.
@@ -1143,79 +963,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorTime()
 	 * @generated
 	 */
-	int BEHAVIOR_TIME = 13;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TIME__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TIME__OWNER = BEHAVIOR_ELEMENT__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TIME__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TIME__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TIME__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Integer Value Owned</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TIME__INTEGER_VALUE_OWNED = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Unit Identifier</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TIME__UNIT_IDENTIFIER = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Behavior Time</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TIME_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
+	int BEHAVIOR_TIME = 18;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorTransitionImpl <em>Behavior Transition</em>}' class.
@@ -1225,115 +973,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorTransition()
 	 * @generated
 	 */
-	int BEHAVIOR_TRANSITION = 14;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TRANSITION__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TRANSITION__OWNER = BEHAVIOR_ELEMENT__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TRANSITION__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TRANSITION__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TRANSITION__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Transition Identifier</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TRANSITION__TRANSITION_IDENTIFIER = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Source State Identifiers</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TRANSITION__SOURCE_STATE_IDENTIFIERS = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Behavior Condition Owned</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TRANSITION__BEHAVIOR_CONDITION_OWNED = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Destination State Identifier</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TRANSITION__DESTINATION_STATE_IDENTIFIER = BEHAVIOR_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Behavior Action Block Owned</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TRANSITION__BEHAVIOR_ACTION_BLOCK_OWNED = BEHAVIOR_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Behavior Transition Priority</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TRANSITION__BEHAVIOR_TRANSITION_PRIORITY = BEHAVIOR_ELEMENT_FEATURE_COUNT + 5;
-
-	/**
-	 * The number of structural features of the '<em>Behavior Transition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_TRANSITION_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 6;
+	int BEHAVIOR_TRANSITION = 19;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorVariableImpl <em>Behavior Variable</em>}' class.
@@ -1343,79 +983,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorVariable()
 	 * @generated
 	 */
-	int BEHAVIOR_VARIABLE = 15;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_VARIABLE__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_VARIABLE__OWNER = BEHAVIOR_ELEMENT__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_VARIABLE__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_VARIABLE__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_VARIABLE__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Local Variable Declarators</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Data Unique Component Classifier Reference</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Behavior Variable</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_VARIABLE_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
+	int BEHAVIOR_VARIABLE = 20;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.Value <em>Value</em>}' class.
@@ -1553,7 +1121,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLiteral()
 	 * @generated
 	 */
-	int LITERAL = 39;
+	int LITERAL = 42;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1617,70 +1185,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorBooleanLiteral()
 	 * @generated
 	 */
-	int BEHAVIOR_BOOLEAN_LITERAL = 16;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL__OWNER = LITERAL__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL__BA_REF = LITERAL__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL__AADL_REF = LITERAL__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL__VALUE = LITERAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Behavior Boolean Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
+	int BEHAVIOR_BOOLEAN_LITERAL = 21;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStringLiteralImpl <em>Behavior String Literal</em>}' class.
@@ -1691,6 +1196,999 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 */
 	int BEHAVIOR_STRING_LITERAL = 17;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction <em>Communication Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCommunicationAction()
+	 * @generated
+	 */
+	int COMMUNICATION_ACTION = 22;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerCondition <em>Dispatch Trigger Condition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerCondition
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerCondition()
+	 * @generated
+	 */
+	int DISPATCH_TRIGGER_CONDITION = 29;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.CompletionRelativeTimeoutConditionAndCatchImpl <em>Completion Relative Timeout Condition And Catch</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.CompletionRelativeTimeoutConditionAndCatchImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCompletionRelativeTimeoutConditionAndCatch()
+	 * @generated
+	 */
+	int COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH = 23;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.CondStatement <em>Cond Statement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.CondStatement
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCondStatement()
+	 * @generated
+	 */
+	int COND_STATEMENT = 24;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ElementValues <em>Element Values</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.ElementValues
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getElementValues()
+	 * @generated
+	 */
+	int ELEMENT_VALUES = 32;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DataComponentReferenceImpl <em>Data Component Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.DataComponentReferenceImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDataComponentReference()
+	 * @generated
+	 */
+	int DATA_COMPONENT_REFERENCE = 25;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DeclaratorImpl <em>Declarator</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.DeclaratorImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDeclarator()
+	 * @generated
+	 */
+	int DECLARATOR = 26;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchConditionImpl <em>Dispatch Condition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchConditionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchCondition()
+	 * @generated
+	 */
+	int DISPATCH_CONDITION = 27;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchConjunctionImpl <em>Dispatch Conjunction</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchConjunctionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchConjunction()
+	 * @generated
+	 */
+	int DISPATCH_CONJUNCTION = 28;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchTriggerConditionStopImpl <em>Dispatch Trigger Condition Stop</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchTriggerConditionStopImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerConditionStop()
+	 * @generated
+	 */
+	int DISPATCH_TRIGGER_CONDITION_STOP = 30;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchTriggerLogicalExpressionImpl <em>Dispatch Trigger Logical Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchTriggerLogicalExpressionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerLogicalExpression()
+	 * @generated
+	 */
+	int DISPATCH_TRIGGER_LOGICAL_EXPRESSION = 31;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ExecuteCondition <em>Execute Condition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.ExecuteCondition
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getExecuteCondition()
+	 * @generated
+	 */
+	int EXECUTE_CONDITION = 33;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.FactorImpl <em>Factor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.FactorImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getFactor()
+	 * @generated
+	 */
+	int FACTOR = 34;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.LoopStatementImpl <em>Loop Statement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.LoopStatementImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLoopStatement()
+	 * @generated
+	 */
+	int LOOP_STATEMENT = 44;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl <em>For Or For All Statement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getForOrForAllStatement()
+	 * @generated
+	 */
+	int FOR_OR_FOR_ALL_STATEMENT = 35;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IdentifierImpl <em>Identifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.IdentifierImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIdentifier()
+	 * @generated
+	 */
+	int IDENTIFIER = 36;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IfStatementImpl <em>If Statement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.IfStatementImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIfStatement()
+	 * @generated
+	 */
+	int IF_STATEMENT = 37;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral <em>Numeric Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getNumericLiteral()
+	 * @generated
+	 */
+	int NUMERIC_LITERAL = 47;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMERIC_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMERIC_LITERAL__OWNER = LITERAL__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMERIC_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMERIC_LITERAL__BA_REF = LITERAL__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMERIC_LITERAL__AADL_REF = LITERAL__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Value String</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMERIC_LITERAL__VALUE_STRING = LITERAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Unit</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMERIC_LITERAL__UNIT = LITERAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Numeric Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMERIC_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorIntegerLiteralImpl <em>Behavior Integer Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorIntegerLiteralImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorIntegerLiteral()
+	 * @generated
+	 */
+	int BEHAVIOR_INTEGER_LITERAL = 11;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_INTEGER_LITERAL__OWNED_ELEMENT = NUMERIC_LITERAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_INTEGER_LITERAL__OWNER = NUMERIC_LITERAL__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_INTEGER_LITERAL__OWNED_COMMENT = NUMERIC_LITERAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_INTEGER_LITERAL__BA_REF = NUMERIC_LITERAL__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_INTEGER_LITERAL__AADL_REF = NUMERIC_LITERAL__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Value String</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_INTEGER_LITERAL__VALUE_STRING = NUMERIC_LITERAL__VALUE_STRING;
+
+	/**
+	 * The feature id for the '<em><b>Unit</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_INTEGER_LITERAL__UNIT = NUMERIC_LITERAL__UNIT;
+
+	/**
+	 * The feature id for the '<em><b>Base</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_INTEGER_LITERAL__BASE = NUMERIC_LITERAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_INTEGER_LITERAL__VALUE = NUMERIC_LITERAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Integer Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_INTEGER_LITERAL_FEATURE_COUNT = NUMERIC_LITERAL_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__OWNER = BEHAVIOR_ELEMENT__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__NAME = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__NAMESPACE = BEHAVIOR_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Named Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerRangeImpl <em>Integer Range</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerRangeImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerRange()
+	 * @generated
+	 */
+	int INTEGER_RANGE = 38;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValue <em>Integer Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerValue
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValue()
+	 * @generated
+	 */
+	int INTEGER_VALUE = 39;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant <em>Integer Value Constant</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValueConstant()
+	 * @generated
+	 */
+	int INTEGER_VALUE_CONSTANT = 40;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable <em>Integer Value Variable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValueVariable()
+	 * @generated
+	 */
+	int INTEGER_VALUE_VARIABLE = 41;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SharedDataActionImpl <em>Shared Data Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.SharedDataActionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getSharedDataAction()
+	 * @generated
+	 */
+	int SHARED_DATA_ACTION = 57;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.LockActionImpl <em>Lock Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.LockActionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLockAction()
+	 * @generated
+	 */
+	int LOCK_ACTION = 43;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NameImpl <em>Name</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.NameImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getName_()
+	 * @generated
+	 */
+	int NAME = 45;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NumeralImpl <em>Numeral</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.NumeralImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getNumeral()
+	 * @generated
+	 */
+	int NUMERAL = 46;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.OtherwiseImpl <em>Otherwise</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.OtherwiseImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getOtherwise()
+	 * @generated
+	 */
+	int OTHERWISE = 48;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel <em>Parameter Label</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getParameterLabel()
+	 * @generated
+	 */
+	int PARAMETER_LABEL = 49;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueVariable <em>Value Variable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.ValueVariable
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getValueVariable()
+	 * @generated
+	 */
+	int VALUE_VARIABLE = 69;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortCountValueImpl <em>Port Count Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortCountValueImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortCountValue()
+	 * @generated
+	 */
+	int PORT_COUNT_VALUE = 50;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueActionImpl <em>Port Dequeue Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueActionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortDequeueAction()
+	 * @generated
+	 */
+	int PORT_DEQUEUE_ACTION = 51;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueValueImpl <em>Port Dequeue Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueValueImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortDequeueValue()
+	 * @generated
+	 */
+	int PORT_DEQUEUE_VALUE = 52;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreezeActionImpl <em>Port Freeze Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreezeActionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortFreezeAction()
+	 * @generated
+	 */
+	int PORT_FREEZE_ACTION = 53;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreshValueImpl <em>Port Fresh Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreshValueImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortFreshValue()
+	 * @generated
+	 */
+	int PORT_FRESH_VALUE = 54;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortSendActionImpl <em>Port Send Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortSendActionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortSendAction()
+	 * @generated
+	 */
+	int PORT_SEND_ACTION = 55;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyConstantImpl <em>Behavior Property Constant</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyConstantImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorPropertyConstant()
+	 * @generated
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT = 13;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT__OWNED_ELEMENT = BEHAVIOR_NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT__OWNER = BEHAVIOR_NAMED_ELEMENT__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT__OWNED_COMMENT = BEHAVIOR_NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT__BA_REF = BEHAVIOR_NAMED_ELEMENT__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT__AADL_REF = BEHAVIOR_NAMED_ELEMENT__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT__NAME = BEHAVIOR_NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT__QUALIFIED_NAME = BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT__NAMESPACE_SEPARATOR = BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT__NAMESPACE = BEHAVIOR_NAMED_ELEMENT__NAMESPACE;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Property Constant</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyValueImpl <em>Behavior Property Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyValueImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorPropertyValue()
+	 * @generated
+	 */
+	int BEHAVIOR_PROPERTY_VALUE = 14;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_VALUE__OWNED_ELEMENT = BEHAVIOR_NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_VALUE__OWNER = BEHAVIOR_NAMED_ELEMENT__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_VALUE__OWNED_COMMENT = BEHAVIOR_NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_VALUE__BA_REF = BEHAVIOR_NAMED_ELEMENT__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_VALUE__AADL_REF = BEHAVIOR_NAMED_ELEMENT__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_VALUE__NAME = BEHAVIOR_NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_VALUE__QUALIFIED_NAME = BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_VALUE__NAMESPACE_SEPARATOR = BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_VALUE__NAMESPACE = BEHAVIOR_NAMED_ELEMENT__NAMESPACE;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Property Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_VALUE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorRealLiteralImpl <em>Behavior Real Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorRealLiteralImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorRealLiteral()
+	 * @generated
+	 */
+	int BEHAVIOR_REAL_LITERAL = 15;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_REAL_LITERAL__OWNED_ELEMENT = NUMERIC_LITERAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_REAL_LITERAL__OWNER = NUMERIC_LITERAL__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_REAL_LITERAL__OWNED_COMMENT = NUMERIC_LITERAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_REAL_LITERAL__BA_REF = NUMERIC_LITERAL__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_REAL_LITERAL__AADL_REF = NUMERIC_LITERAL__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Value String</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_REAL_LITERAL__VALUE_STRING = NUMERIC_LITERAL__VALUE_STRING;
+
+	/**
+	 * The feature id for the '<em><b>Unit</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_REAL_LITERAL__UNIT = NUMERIC_LITERAL__UNIT;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_REAL_LITERAL__VALUE = NUMERIC_LITERAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Real Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_REAL_LITERAL_FEATURE_COUNT = NUMERIC_LITERAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STATE__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STATE__OWNER = BEHAVIOR_ELEMENT__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STATE__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STATE__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STATE__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Identifiers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STATE__IDENTIFIERS = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Initial</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STATE__INITIAL = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Complete</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STATE__COMPLETE = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Final</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STATE__FINAL = BEHAVIOR_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Behavior State</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_STATE_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1756,14 +2254,319 @@ public interface AadlBaPackage extends EPackage {
 	int BEHAVIOR_STRING_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction <em>Communication Action</em>}' class.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCommunicationAction()
 	 * @generated
+	 * @ordered
 	 */
-	int COMMUNICATION_ACTION = 18;
+	int BEHAVIOR_TIME__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TIME__OWNER = BEHAVIOR_ELEMENT__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TIME__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TIME__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TIME__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Integer Value Owned</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TIME__INTEGER_VALUE_OWNED = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Unit Identifier</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TIME__UNIT_IDENTIFIER = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Time</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TIME_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TRANSITION__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TRANSITION__OWNER = BEHAVIOR_ELEMENT__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TRANSITION__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TRANSITION__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TRANSITION__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Transition Identifier</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TRANSITION__TRANSITION_IDENTIFIER = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Source State Identifiers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TRANSITION__SOURCE_STATE_IDENTIFIERS = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Behavior Condition Owned</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TRANSITION__BEHAVIOR_CONDITION_OWNED = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Destination State Identifier</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TRANSITION__DESTINATION_STATE_IDENTIFIER = BEHAVIOR_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Behavior Action Block Owned</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TRANSITION__BEHAVIOR_ACTION_BLOCK_OWNED = BEHAVIOR_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Behavior Transition Priority</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TRANSITION__BEHAVIOR_TRANSITION_PRIORITY = BEHAVIOR_ELEMENT_FEATURE_COUNT + 5;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Transition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_TRANSITION_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_VARIABLE__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_VARIABLE__OWNER = BEHAVIOR_ELEMENT__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_VARIABLE__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_VARIABLE__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_VARIABLE__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Local Variable Declarators</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Data Unique Component Classifier Reference</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Variable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_VARIABLE_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL__OWNER = LITERAL__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL__BA_REF = LITERAL__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL__AADL_REF = LITERAL__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL__VALUE = LITERAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Boolean Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1820,16 +2623,6 @@ public interface AadlBaPackage extends EPackage {
 	int COMMUNICATION_ACTION_FEATURE_COUNT = BASIC_ACTION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerCondition <em>Dispatch Trigger Condition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerCondition
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerCondition()
-	 * @generated
-	 */
-	int DISPATCH_TRIGGER_CONDITION = 25;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1882,16 +2675,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int DISPATCH_TRIGGER_CONDITION_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.CompletionRelativeTimeoutConditionAndCatchImpl <em>Completion Relative Timeout Condition And Catch</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.CompletionRelativeTimeoutConditionAndCatchImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCompletionRelativeTimeoutConditionAndCatch()
-	 * @generated
-	 */
-	int COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH = 19;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1966,16 +2749,6 @@ public interface AadlBaPackage extends EPackage {
 	int COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH_FEATURE_COUNT = DISPATCH_TRIGGER_CONDITION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.CondStatement <em>Cond Statement</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.CondStatement
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCondStatement()
-	 * @generated
-	 */
-	int COND_STATEMENT = 20;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2030,16 +2803,6 @@ public interface AadlBaPackage extends EPackage {
 	int COND_STATEMENT_FEATURE_COUNT = BEHAVIOR_ACTION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ElementValues <em>Element Values</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.ElementValues
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getElementValues()
-	 * @generated
-	 */
-	int ELEMENT_VALUES = 28;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2092,16 +2855,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int ELEMENT_VALUES_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DataComponentReferenceImpl <em>Data Component Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.DataComponentReferenceImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDataComponentReference()
-	 * @generated
-	 */
-	int DATA_COMPONENT_REFERENCE = 21;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2165,16 +2918,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int DATA_COMPONENT_REFERENCE_FEATURE_COUNT = ELEMENT_VALUES_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DeclaratorImpl <em>Declarator</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.DeclaratorImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDeclarator()
-	 * @generated
-	 */
-	int DECLARATOR = 22;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2249,16 +2992,6 @@ public interface AadlBaPackage extends EPackage {
 	int DECLARATOR_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchConditionImpl <em>Dispatch Condition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchConditionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchCondition()
-	 * @generated
-	 */
-	int DISPATCH_CONDITION = 23;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2331,16 +3064,6 @@ public interface AadlBaPackage extends EPackage {
 	int DISPATCH_CONDITION_FEATURE_COUNT = BEHAVIOR_CONDITION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchConjunctionImpl <em>Dispatch Conjunction</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchConjunctionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchConjunction()
-	 * @generated
-	 */
-	int DISPATCH_CONJUNCTION = 24;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2404,16 +3127,6 @@ public interface AadlBaPackage extends EPackage {
 	int DISPATCH_CONJUNCTION_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchTriggerConditionStopImpl <em>Dispatch Trigger Condition Stop</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchTriggerConditionStopImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerConditionStop()
-	 * @generated
-	 */
-	int DISPATCH_TRIGGER_CONDITION_STOP = 26;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2466,16 +3179,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int DISPATCH_TRIGGER_CONDITION_STOP_FEATURE_COUNT = DISPATCH_TRIGGER_CONDITION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchTriggerLogicalExpressionImpl <em>Dispatch Trigger Logical Expression</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchTriggerLogicalExpressionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerLogicalExpression()
-	 * @generated
-	 */
-	int DISPATCH_TRIGGER_LOGICAL_EXPRESSION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2541,16 +3244,6 @@ public interface AadlBaPackage extends EPackage {
 	int DISPATCH_TRIGGER_LOGICAL_EXPRESSION_FEATURE_COUNT = DISPATCH_TRIGGER_CONDITION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ExecuteCondition <em>Execute Condition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.ExecuteCondition
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getExecuteCondition()
-	 * @generated
-	 */
-	int EXECUTE_CONDITION = 29;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2603,16 +3296,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXECUTE_CONDITION_FEATURE_COUNT = BEHAVIOR_CONDITION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.FactorImpl <em>Factor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.FactorImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getFactor()
-	 * @generated
-	 */
-	int FACTOR = 30;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2714,16 +3397,6 @@ public interface AadlBaPackage extends EPackage {
 	int FACTOR_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.LoopStatementImpl <em>Loop Statement</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.LoopStatementImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLoopStatement()
-	 * @generated
-	 */
-	int LOOP_STATEMENT = 41;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2785,16 +3458,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int LOOP_STATEMENT_FEATURE_COUNT = COND_STATEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl <em>For Or For All Statement</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getForOrForAllStatement()
-	 * @generated
-	 */
-	int FOR_OR_FOR_ALL_STATEMENT = 31;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2896,16 +3559,6 @@ public interface AadlBaPackage extends EPackage {
 	int FOR_OR_FOR_ALL_STATEMENT_FEATURE_COUNT = LOOP_STATEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IdentifierImpl <em>Identifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.IdentifierImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIdentifier()
-	 * @generated
-	 */
-	int IDENTIFIER = 32;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2967,16 +3620,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int IDENTIFIER_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IfStatementImpl <em>If Statement</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.IfStatementImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIfStatement()
-	 * @generated
-	 */
-	int IF_STATEMENT = 33;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3060,198 +3703,6 @@ public interface AadlBaPackage extends EPackage {
 	int IF_STATEMENT_FEATURE_COUNT = COND_STATEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral <em>Numeric Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getNumericLiteral()
-	 * @generated
-	 */
-	int NUMERIC_LITERAL = 44;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERIC_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERIC_LITERAL__OWNER = LITERAL__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERIC_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERIC_LITERAL__BA_REF = LITERAL__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERIC_LITERAL__AADL_REF = LITERAL__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Value String</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERIC_LITERAL__VALUE_STRING = LITERAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Unit</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERIC_LITERAL__UNIT = LITERAL_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Numeric Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERIC_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorIntegerLiteralImpl <em>Behavior Integer Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorIntegerLiteralImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorIntegerLiteral()
-	 * @generated
-	 */
-	int BEHAVIOR_INTEGER_LITERAL = 34;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_INTEGER_LITERAL__OWNED_ELEMENT = NUMERIC_LITERAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_INTEGER_LITERAL__OWNER = NUMERIC_LITERAL__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_INTEGER_LITERAL__OWNED_COMMENT = NUMERIC_LITERAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_INTEGER_LITERAL__BA_REF = NUMERIC_LITERAL__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_INTEGER_LITERAL__AADL_REF = NUMERIC_LITERAL__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Value String</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_INTEGER_LITERAL__VALUE_STRING = NUMERIC_LITERAL__VALUE_STRING;
-
-	/**
-	 * The feature id for the '<em><b>Unit</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_INTEGER_LITERAL__UNIT = NUMERIC_LITERAL__UNIT;
-
-	/**
-	 * The feature id for the '<em><b>Base</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_INTEGER_LITERAL__BASE = NUMERIC_LITERAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_INTEGER_LITERAL__VALUE = NUMERIC_LITERAL_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Behavior Integer Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_INTEGER_LITERAL_FEATURE_COUNT = NUMERIC_LITERAL_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerRangeImpl <em>Integer Range</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerRangeImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerRange()
-	 * @generated
-	 */
-	int INTEGER_RANGE = 35;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3324,16 +3775,6 @@ public interface AadlBaPackage extends EPackage {
 	int INTEGER_RANGE_FEATURE_COUNT = ELEMENT_VALUES_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValue <em>Integer Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerValue
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValue()
-	 * @generated
-	 */
-	int INTEGER_VALUE = 36;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3386,16 +3827,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int INTEGER_VALUE_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant <em>Integer Value Constant</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValueConstant()
-	 * @generated
-	 */
-	int INTEGER_VALUE_CONSTANT = 37;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3452,16 +3883,6 @@ public interface AadlBaPackage extends EPackage {
 	int INTEGER_VALUE_CONSTANT_FEATURE_COUNT = INTEGER_VALUE_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable <em>Integer Value Variable</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValueVariable()
-	 * @generated
-	 */
-	int INTEGER_VALUE_VARIABLE = 38;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3514,16 +3935,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int INTEGER_VALUE_VARIABLE_FEATURE_COUNT = INTEGER_VALUE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SharedDataActionImpl <em>Shared Data Action</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.SharedDataActionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getSharedDataAction()
-	 * @generated
-	 */
-	int SHARED_DATA_ACTION = 57;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3589,16 +4000,6 @@ public interface AadlBaPackage extends EPackage {
 	int SHARED_DATA_ACTION_FEATURE_COUNT = COMMUNICATION_ACTION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.LockActionImpl <em>Lock Action</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.LockActionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLockAction()
-	 * @generated
-	 */
-	int LOCK_ACTION = 40;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3660,16 +4061,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int LOCK_ACTION_FEATURE_COUNT = SHARED_DATA_ACTION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NameImpl <em>Name</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.NameImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getName_()
-	 * @generated
-	 */
-	int NAME = 42;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3744,16 +4135,6 @@ public interface AadlBaPackage extends EPackage {
 	int NAME_FEATURE_COUNT = ELEMENT_VALUES_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NumeralImpl <em>Numeral</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.NumeralImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getNumeral()
-	 * @generated
-	 */
-	int NUMERAL = 43;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3817,16 +4198,6 @@ public interface AadlBaPackage extends EPackage {
 	int NUMERAL_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.OtherwiseImpl <em>Otherwise</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.OtherwiseImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getOtherwise()
-	 * @generated
-	 */
-	int OTHERWISE = 45;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3879,16 +4250,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int OTHERWISE_FEATURE_COUNT = EXECUTE_CONDITION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel <em>Parameter Label</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getParameterLabel()
-	 * @generated
-	 */
-	int PARAMETER_LABEL = 46;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3945,16 +4306,6 @@ public interface AadlBaPackage extends EPackage {
 	int PARAMETER_LABEL_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueVariable <em>Value Variable</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.ValueVariable
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getValueVariable()
-	 * @generated
-	 */
-	int VALUE_VARIABLE = 69;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4007,16 +4358,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int VALUE_VARIABLE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortCountValueImpl <em>Port Count Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortCountValueImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortCountValue()
-	 * @generated
-	 */
-	int PORT_COUNT_VALUE = 47;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4091,16 +4432,6 @@ public interface AadlBaPackage extends EPackage {
 	int PORT_COUNT_VALUE_FEATURE_COUNT = VALUE_VARIABLE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueActionImpl <em>Port Dequeue Action</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueActionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortDequeueAction()
-	 * @generated
-	 */
-	int PORT_DEQUEUE_ACTION = 48;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4171,16 +4502,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int PORT_DEQUEUE_ACTION_FEATURE_COUNT = COMMUNICATION_ACTION_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueValueImpl <em>Port Dequeue Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueValueImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortDequeueValue()
-	 * @generated
-	 */
-	int PORT_DEQUEUE_VALUE = 49;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4255,16 +4576,6 @@ public interface AadlBaPackage extends EPackage {
 	int PORT_DEQUEUE_VALUE_FEATURE_COUNT = VALUE_VARIABLE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreezeActionImpl <em>Port Freeze Action</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreezeActionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortFreezeAction()
-	 * @generated
-	 */
-	int PORT_FREEZE_ACTION = 50;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4335,16 +4646,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int PORT_FREEZE_ACTION_FEATURE_COUNT = COMMUNICATION_ACTION_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreshValueImpl <em>Port Fresh Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreshValueImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortFreshValue()
-	 * @generated
-	 */
-	int PORT_FRESH_VALUE = 51;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4419,16 +4720,6 @@ public interface AadlBaPackage extends EPackage {
 	int PORT_FRESH_VALUE_FEATURE_COUNT = VALUE_VARIABLE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortSendActionImpl <em>Port Send Action</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortSendActionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortSendAction()
-	 * @generated
-	 */
-	int PORT_SEND_ACTION = 52;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4499,297 +4790,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int PORT_SEND_ACTION_FEATURE_COUNT = COMMUNICATION_ACTION_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyConstantImpl <em>Behavior Property Constant</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyConstantImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorPropertyConstant()
-	 * @generated
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT = 53;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT__OWNED_ELEMENT = BEHAVIOR_NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT__OWNER = BEHAVIOR_NAMED_ELEMENT__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT__OWNED_COMMENT = BEHAVIOR_NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT__BA_REF = BEHAVIOR_NAMED_ELEMENT__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT__AADL_REF = BEHAVIOR_NAMED_ELEMENT__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT__NAME = BEHAVIOR_NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT__QUALIFIED_NAME = BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT__NAMESPACE_SEPARATOR = BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT__NAMESPACE = BEHAVIOR_NAMED_ELEMENT__NAMESPACE;
-
-	/**
-	 * The number of structural features of the '<em>Behavior Property Constant</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyValueImpl <em>Behavior Property Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyValueImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorPropertyValue()
-	 * @generated
-	 */
-	int BEHAVIOR_PROPERTY_VALUE = 54;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_VALUE__OWNED_ELEMENT = BEHAVIOR_NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_VALUE__OWNER = BEHAVIOR_NAMED_ELEMENT__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_VALUE__OWNED_COMMENT = BEHAVIOR_NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_VALUE__BA_REF = BEHAVIOR_NAMED_ELEMENT__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_VALUE__AADL_REF = BEHAVIOR_NAMED_ELEMENT__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_VALUE__NAME = BEHAVIOR_NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_VALUE__QUALIFIED_NAME = BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_VALUE__NAMESPACE_SEPARATOR = BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_VALUE__NAMESPACE = BEHAVIOR_NAMED_ELEMENT__NAMESPACE;
-
-	/**
-	 * The number of structural features of the '<em>Behavior Property Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_VALUE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorRealLiteralImpl <em>Behavior Real Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorRealLiteralImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorRealLiteral()
-	 * @generated
-	 */
-	int BEHAVIOR_REAL_LITERAL = 55;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_REAL_LITERAL__OWNED_ELEMENT = NUMERIC_LITERAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_REAL_LITERAL__OWNER = NUMERIC_LITERAL__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_REAL_LITERAL__OWNED_COMMENT = NUMERIC_LITERAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_REAL_LITERAL__BA_REF = NUMERIC_LITERAL__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_REAL_LITERAL__AADL_REF = NUMERIC_LITERAL__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Value String</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_REAL_LITERAL__VALUE_STRING = NUMERIC_LITERAL__VALUE_STRING;
-
-	/**
-	 * The feature id for the '<em><b>Unit</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_REAL_LITERAL__UNIT = NUMERIC_LITERAL__UNIT;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_REAL_LITERAL__VALUE = NUMERIC_LITERAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Behavior Real Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_REAL_LITERAL_FEATURE_COUNT = NUMERIC_LITERAL_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl <em>Relation</em>}' class.

@@ -551,12 +551,12 @@ public class AadlBaUnparser {
 			/**
 			 * Unparse arrayindex
 			 */
-			public String caseArrayIndex(EList<IntegerValueVariable> object) {
+			public String caseArrayIndex(EList<IntegerValue> object) {
 				//FIXME : TODO : update location reference
-				for(IntegerValueVariable ivv : object)
+				for(IntegerValue iv : object)
 				{
 					aadlbaText.addOutput("[");
-					process(ivv);
+					process(iv);
 					aadlbaText.addOutput("]");
 				}
 				return DONE;

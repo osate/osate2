@@ -388,6 +388,14 @@ public enum FeatureType implements Enumerator {
 	FEATURE_GROUP(34, "FEATURE_GROUP", "feature group"),
 
 	/**
+	 * The '<em><b>CLASSIFIER VALUE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CLASSIFIER_VALUE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CLASSIFIER_VALUE(35, "CLASSIFIER_VALUE", "classifier value"), /**
 	 * The '<em><b>ABSTRACT FEATURE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -395,7 +403,31 @@ public enum FeatureType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ABSTRACT_FEATURE(35, "ABSTRACT_FEATURE", "abstract feature");
+	ABSTRACT_FEATURE(36, "ABSTRACT_FEATURE", "abstract feature"), /**
+	 * The '<em><b>IN FEATURE PROTOTYPE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #IN_FEATURE_PROTOTYPE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	IN_FEATURE_PROTOTYPE(37, "IN_FEATURE_PROTOTYPE", "in feature prototype"), /**
+	 * The '<em><b>OUT FEATURE PROTOTYPE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OUT_FEATURE_PROTOTYPE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OUT_FEATURE_PROTOTYPE(38, "OUT_FEATURE_PROTOTYPE", "out feature prototype"), /**
+	 * The '<em><b>IN OUT FEATURE PROTOTYPE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #IN_OUT_FEATURE_PROTOTYPE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	IN_OUT_FEATURE_PROTOTYPE(39, "IN_OUT_FEATURE_PROTOTYPE", "in out feature prototype");
 
 	/**
 	 * The '<em><b>NONE</b></em>' literal value.
@@ -923,6 +955,21 @@ public enum FeatureType implements Enumerator {
 	public static final int FEATURE_GROUP_VALUE = 34;
 
 	/**
+	 * The '<em><b>CLASSIFIER VALUE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>CLASSIFIER VALUE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #CLASSIFIER_VALUE
+	 * @model literal="classifier value"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CLASSIFIER_VALUE_VALUE = 35;
+
+	/**
 	 * The '<em><b>ABSTRACT FEATURE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -935,7 +982,52 @@ public enum FeatureType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ABSTRACT_FEATURE_VALUE = 35;
+	public static final int ABSTRACT_FEATURE_VALUE = 36;
+
+	/**
+	 * The '<em><b>IN FEATURE PROTOTYPE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>IN FEATURE PROTOTYPE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #IN_FEATURE_PROTOTYPE
+	 * @model literal="in feature prototype"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int IN_FEATURE_PROTOTYPE_VALUE = 37;
+
+	/**
+	 * The '<em><b>OUT FEATURE PROTOTYPE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OUT FEATURE PROTOTYPE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OUT_FEATURE_PROTOTYPE
+	 * @model literal="out feature prototype"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OUT_FEATURE_PROTOTYPE_VALUE = 38;
+
+	/**
+	 * The '<em><b>IN OUT FEATURE PROTOTYPE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>IN OUT FEATURE PROTOTYPE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #IN_OUT_FEATURE_PROTOTYPE
+	 * @model literal="in out feature prototype"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int IN_OUT_FEATURE_PROTOTYPE_VALUE = 39;
 
 	/**
 	 * An array of all the '<em><b>Feature Type</b></em>' enumerators.
@@ -980,7 +1072,11 @@ public enum FeatureType implements Enumerator {
 			PROVIDES_BUS_ACCESS,
 			REQUIRES_BUS_ACCESS,
 			FEATURE_GROUP,
+			CLASSIFIER_VALUE,
 			ABSTRACT_FEATURE,
+			IN_FEATURE_PROTOTYPE,
+			OUT_FEATURE_PROTOTYPE,
+			IN_OUT_FEATURE_PROTOTYPE,
 		};
 
 	/**
@@ -1066,7 +1162,11 @@ public enum FeatureType implements Enumerator {
 			case PROVIDES_BUS_ACCESS_VALUE: return PROVIDES_BUS_ACCESS;
 			case REQUIRES_BUS_ACCESS_VALUE: return REQUIRES_BUS_ACCESS;
 			case FEATURE_GROUP_VALUE: return FEATURE_GROUP;
+			case CLASSIFIER_VALUE_VALUE: return CLASSIFIER_VALUE;
 			case ABSTRACT_FEATURE_VALUE: return ABSTRACT_FEATURE;
+			case IN_FEATURE_PROTOTYPE_VALUE: return IN_FEATURE_PROTOTYPE;
+			case OUT_FEATURE_PROTOTYPE_VALUE: return OUT_FEATURE_PROTOTYPE;
+			case IN_OUT_FEATURE_PROTOTYPE_VALUE: return IN_OUT_FEATURE_PROTOTYPE;
 		}
 		return null;
 	}
