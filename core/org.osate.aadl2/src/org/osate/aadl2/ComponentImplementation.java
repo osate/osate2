@@ -286,6 +286,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
 	 * </p>
+	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Connection</em>' containment reference
@@ -386,6 +387,12 @@ public interface ComponentImplementation extends ComponentClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Access Connection</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.AccessConnection}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Access Connection</em>' containment
@@ -412,6 +419,12 @@ public interface ComponentImplementation extends ComponentClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Parameter Connection</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.ParameterConnection}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc
 	 * -->
 	 * <p>
@@ -439,6 +452,12 @@ public interface ComponentImplementation extends ComponentClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Port Connection</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.PortConnection}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Port Connection</em>' containment
@@ -530,6 +549,12 @@ public interface ComponentImplementation extends ComponentClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Feature Connection</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.FeatureConnection}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Feature Connection</em>' containment

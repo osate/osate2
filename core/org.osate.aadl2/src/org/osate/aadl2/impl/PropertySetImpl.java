@@ -48,7 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
@@ -66,8 +66,7 @@ import org.osate.aadl2.PropertyType;
  *   <li>{@link org.osate.aadl2.impl.PropertySetImpl#getOwnedPropertyTypes <em>Owned Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertySetImpl#getOwnedProperties <em>Owned Property</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertySetImpl#getOwnedPropertyConstants <em>Owned Property Constant</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.PropertySetImpl#getImportedPropertySets <em>Imported Property Set</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.PropertySetImpl#getImportedPackages <em>Imported Package</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.PropertySetImpl#getImportedUnits <em>Imported Unit</em>}</li>
  * </ul>
  * </p>
  *
@@ -105,24 +104,14 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	protected EList<PropertyConstant> ownedPropertyConstants;
 
 	/**
-	 * The cached value of the '{@link #getImportedPropertySets() <em>Imported Property Set</em>}' reference list.
+	 * The cached value of the '{@link #getImportedUnits() <em>Imported Unit</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getImportedPropertySets()
+	 * @see #getImportedUnits()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<PropertySet> importedPropertySets;
-
-	/**
-	 * The cached value of the '{@link #getImportedPackages() <em>Imported Package</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getImportedPackages()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<AadlPackage> importedPackages;
+	protected EList<ModelUnit> importedUnits;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -256,25 +245,12 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<PropertySet> getImportedPropertySets() {
-		if (importedPropertySets == null) {
-			importedPropertySets = new EObjectResolvingEList<PropertySet>(PropertySet.class, this,
-					Aadl2Package.PROPERTY_SET__IMPORTED_PROPERTY_SET);
+	public EList<ModelUnit> getImportedUnits() {
+		if (importedUnits == null) {
+			importedUnits = new EObjectResolvingEList<ModelUnit>(ModelUnit.class, this,
+					Aadl2Package.PROPERTY_SET__IMPORTED_UNIT);
 		}
-		return importedPropertySets;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<AadlPackage> getImportedPackages() {
-		if (importedPackages == null) {
-			importedPackages = new EObjectResolvingEList<AadlPackage>(AadlPackage.class, this,
-					Aadl2Package.PROPERTY_SET__IMPORTED_PACKAGE);
-		}
-		return importedPackages;
+		return importedUnits;
 	}
 
 	/**
@@ -309,10 +285,8 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 			return getOwnedProperties();
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_CONSTANT:
 			return getOwnedPropertyConstants();
-		case Aadl2Package.PROPERTY_SET__IMPORTED_PROPERTY_SET:
-			return getImportedPropertySets();
-		case Aadl2Package.PROPERTY_SET__IMPORTED_PACKAGE:
-			return getImportedPackages();
+		case Aadl2Package.PROPERTY_SET__IMPORTED_UNIT:
+			return getImportedUnits();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -338,13 +312,9 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 			getOwnedPropertyConstants().clear();
 			getOwnedPropertyConstants().addAll((Collection<? extends PropertyConstant>) newValue);
 			return;
-		case Aadl2Package.PROPERTY_SET__IMPORTED_PROPERTY_SET:
-			getImportedPropertySets().clear();
-			getImportedPropertySets().addAll((Collection<? extends PropertySet>) newValue);
-			return;
-		case Aadl2Package.PROPERTY_SET__IMPORTED_PACKAGE:
-			getImportedPackages().clear();
-			getImportedPackages().addAll((Collection<? extends AadlPackage>) newValue);
+		case Aadl2Package.PROPERTY_SET__IMPORTED_UNIT:
+			getImportedUnits().clear();
+			getImportedUnits().addAll((Collection<? extends ModelUnit>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -367,11 +337,8 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_CONSTANT:
 			getOwnedPropertyConstants().clear();
 			return;
-		case Aadl2Package.PROPERTY_SET__IMPORTED_PROPERTY_SET:
-			getImportedPropertySets().clear();
-			return;
-		case Aadl2Package.PROPERTY_SET__IMPORTED_PACKAGE:
-			getImportedPackages().clear();
+		case Aadl2Package.PROPERTY_SET__IMPORTED_UNIT:
+			getImportedUnits().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -391,10 +358,8 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 			return ownedProperties != null && !ownedProperties.isEmpty();
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_CONSTANT:
 			return ownedPropertyConstants != null && !ownedPropertyConstants.isEmpty();
-		case Aadl2Package.PROPERTY_SET__IMPORTED_PROPERTY_SET:
-			return importedPropertySets != null && !importedPropertySets.isEmpty();
-		case Aadl2Package.PROPERTY_SET__IMPORTED_PACKAGE:
-			return importedPackages != null && !importedPackages.isEmpty();
+		case Aadl2Package.PROPERTY_SET__IMPORTED_UNIT:
+			return importedUnits != null && !importedUnits.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

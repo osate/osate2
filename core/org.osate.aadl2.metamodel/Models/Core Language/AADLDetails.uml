@@ -665,6 +665,11 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_L2gTwnMdEd-Dn6vSwaGWGg"/>
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
           </ownedAttribute>
+          <ownedAttribute xmi:id="_B_SVsJ5lEeCP66JzwOyEVA" name="ownedVirtualBusSubcomponent" type="Components-VirtualBus-VirtualBusSubcomponent" aggregation="composite" association="_CAFm8J5lEeCP66JzwOyEVA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_B_SVsZ5lEeCP66JzwOyEVA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_B_SVsp5lEeCP66JzwOyEVA"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="Components-Device-A_deviceImplementation_deviceType" name="A_deviceImplementation_deviceType" memberEnd="Components-Device-A_deviceImplementation_deviceType-implementation Components-Device-DeviceImplementation-type" isDerived="true">
           <ownedEnd xmi:id="Components-Device-A_deviceImplementation_deviceType-implementation" name="implementation" type="Components-Device-DeviceImplementation" association="Components-Device-A_deviceImplementation_deviceType">
@@ -724,6 +729,12 @@
           <ownedEnd xmi:id="_L2gTz3MdEd-Dn6vSwaGWGg" name="owner" type="Components-Device-DeviceImplementation" association="_L2gTznMdEd-Dn6vSwaGWGg">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_L2gT0HMdEd-Dn6vSwaGWGg" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_L2gT0XMdEd-Dn6vSwaGWGg"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_CAFm8J5lEeCP66JzwOyEVA" name="A_&lt;deviceImplementation>_&lt;virtualBusSubcomponent>" memberEnd="_CAFm8Z5lEeCP66JzwOyEVA _B_SVsJ5lEeCP66JzwOyEVA">
+          <ownedEnd xmi:id="_CAFm8Z5lEeCP66JzwOyEVA" name="owner" type="Components-Device-DeviceImplementation" association="_CAFm8J5lEeCP66JzwOyEVA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CAFm8p5lEeCP66JzwOyEVA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CAFm855lEeCP66JzwOyEVA"/>
           </ownedEnd>
         </packagedElement>
       </packagedElement>
@@ -2418,6 +2429,7 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedAccessConnection-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedAccessConnection-_lowerValue"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="Connections-ComponentImplementation-ownedAccessConnection-_defaultValue" value=""/>
+          <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedParameterConnection" name="ownedParameterConnection" type="Connections-ParameterConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedParameterConnection">
           <ownedComment xmi:id="Connections-ComponentImplementation-ownedParameterConnection-_ownedComment.0">
@@ -2425,6 +2437,7 @@
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedParameterConnection-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedParameterConnection-_lowerValue"/>
+          <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedPortConnection" name="ownedPortConnection" type="Connections-PortConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedPortConnection">
           <ownedComment xmi:id="Connections-ComponentImplementation-ownedPortConnection-_ownedComment.0">
@@ -2432,6 +2445,7 @@
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedPortConnection-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedPortConnection-_lowerValue"/>
+          <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedFeatureConnection" name="ownedFeatureConnection" type="Connections-FeatureConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedFeatureConnection">
           <ownedComment xmi:id="Connections-ComponentImplementation-ownedFeatureConnection-_ownedComment.0">
@@ -2439,6 +2453,7 @@
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedFeatureConnection-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedFeatureConnection-_lowerValue"/>
+          <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedFeatureGroupConnection" name="ownedFeatureGroupConnection" type="Connections-FeatureGroupConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedFeatureGroupConnection">
           <ownedComment xmi:id="Connections-ComponentImplementation-ownedFeatureGroupConnection-_ownedComment.0">
@@ -2446,6 +2461,7 @@
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedFeatureGroupConnection-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedFeatureGroupConnection-_lowerValue"/>
+          <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedProcessorSubprogram" name="ownedProcessorSubprogram" type="Connections-ProcessorSubprogram" aggregation="composite" association="Connections-A_accessConnection_processorSubprogramAccess">
           <ownedComment xmi:id="_pf-oMByPEd6lOswgW78e2g">
@@ -2815,332 +2831,6 @@
         <ownedAttribute xmi:id="NoneSupport-ComponentClassifier-noModes" name="noModes">
           <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Boolean"/>
         </ownedAttribute>
-      </packagedElement>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="Packaging" name="Packaging">
-      <packagedElement xmi:type="uml:Class" xmi:id="Packaging-PackageSection" name="PackageSection" isAbstract="true">
-        <ownedComment xmi:id="Packaging-PackageSection-_ownedComment.0">
-          <body>To be merged with AADLConstructs::Packaging::PackageSection</body>
-        </ownedComment>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedAbstractType" name="ownedAbstractType" type="Components-Abstract-AbstractType" aggregation="composite" association="Packaging-A_packageSection_ownedAbstractType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedAbstractType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedAbstractType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedAbstractImplementation" name="ownedAbstractImplementation" type="Components-Abstract-AbstractImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedAbstractImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedAbstractImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedAbstractImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedBusType" name="ownedBusType" type="Components-Bus-BusType" aggregation="composite" association="Packaging-A_packageSection_ownedBusType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedBusType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedBusType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedBusImplementation" name="ownedBusImplementation" type="Components-Bus-BusImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedBusImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedBusImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedBusImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedDataType" name="ownedDataType" type="Components-Data-DataType" aggregation="composite" association="Packaging-A_packageSection_ownedDataType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedDataType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedDataType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedDataImplementation" name="ownedDataImplementation" type="Components-Data-DataImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedDataImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedDataImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedDataImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedDeviceType" name="ownedDeviceType" type="Components-Device-DeviceType" aggregation="composite" association="Packaging-A_packageSection_ownedDeviceType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedDeviceType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedDeviceType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedDeviceImplementation" name="ownedDeviceImplementation" type="Components-Device-DeviceImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedDeviceImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedDeviceImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedDeviceImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedMemoryType" name="ownedMemoryType" type="Components-Memory-MemoryType" aggregation="composite" association="Packaging-A_packageSection_ownedMemoryType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedMemoryType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedMemoryType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedMemoryImplementation" name="ownedMemoryImplementation" type="Components-Memory-MemoryImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedMemoryImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedMemoryImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedMemoryImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedProcessType" name="ownedProcessType" type="Components-Process-ProcessType" aggregation="composite" association="Packaging-A_packageSection_ownedProcessType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedProcessType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedProcessType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedProcessorType" name="ownedProcessorType" type="Components-Processor-ProcessorType" aggregation="composite" association="Packaging-A_packageSection_ownedProcessorType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedProcessorType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedProcessorType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedProcessImplementation" name="ownedProcessImplementation" type="Components-Process-ProcessImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedProcessImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedProcessImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedProcessImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedProcessorImplementation" name="ownedProcessorImplementation" type="Components-Processor-ProcessorImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedProcessorImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedProcessorImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedProcessorImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedSubprogramType" name="ownedSubprogramType" type="Components-Subprogram-SubprogramType" aggregation="composite" association="Packaging-A_packageSection_ownedSubprogramType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedSubprogramType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedSubprogramType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedSubprogramImplementation" name="ownedSubprogramImplementation" type="Components-Subprogram-SubprogramImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedSubprogramImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedSubprogramImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedSubprogramImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedSubprogramGroupType" name="ownedSubprogramGroupType" type="Components-SubprogramGroup-SubprogramGroupType" aggregation="composite" association="Packaging-A_packageSection_ownedSubprogramGroupType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedSubprogramGroupType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedSubprogramGroupType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedSubprogramGroupImplementation" name="ownedSubprogramGroupImplementation" type="Components-SubprogramGroup-SubprogramGroupImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedSubprogramGroupImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedSubprogramGroupImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedSubprogramGroupImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedSystemType" name="ownedSystemType" type="Components-System-SystemType" aggregation="composite" association="Packaging-A_packageSection_ownedSystemType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedSystemType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedSystemType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedSystemImplementation" name="ownedSystemImplementation" type="Components-System-SystemImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedSystemImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedSystemImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedSystemImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedThreadType" name="ownedThreadType" type="Components-Thread-ThreadType" aggregation="composite" association="Packaging-A_packageSection_ownedThreadType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedThreadType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedThreadType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedThreadImplementation" name="ownedThreadImplementation" type="Components-Thread-ThreadImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedThreadImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedThreadImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedThreadImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedThreadGroupType" name="ownedThreadGroupType" type="Components-ThreadGroup-ThreadGroupType" aggregation="composite" association="Packaging-A_packageSection_ownedThreadGroupType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedThreadGroupType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedThreadGroupType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedThreadGroupImplementation" name="ownedThreadGroupImplementation" type="Components-ThreadGroup-ThreadGroupImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedThreadGroupImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedThreadGroupImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedThreadGroupImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedVirtualBusType" name="ownedVirtualBusType" type="Components-VirtualBus-VirtualBusType" aggregation="composite" association="Packaging-A_packageSection_ownedVirtualBusType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedVirtualBusType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedVirtualBusType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedVirtualBusImplementation" name="ownedVirtualBusImplementation" type="Components-VirtualBus-VirtualBusImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedVirtualBusImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedVirtualBusImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedVirtualBusImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedVirtualProcessorType" name="ownedVirtualProcessorType" type="Components-VirtualProcessor-VirtualProcessorType" aggregation="composite" association="Packaging-A_packageSection_ownedVirtualProcessorType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedVirtualProcessorType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedVirtualProcessorType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedVirtualProcessorImplementation" name="ownedVirtualProcessorImplementation" type="Components-VirtualProcessor-VirtualProcessorImplementation" aggregation="composite" association="Packaging-A_packageSection_ownedVirtualProcessorImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedVirtualProcessorImplementation-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedVirtualProcessorImplementation-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedFeatureGroupType" name="ownedFeatureGroupType" type="Features-FeatureGroupType" aggregation="composite" association="Packaging-A_packageSection_ownedFeatureGroupType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageSection-ownedFeatureGroupType-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedFeatureGroupType-_lowerValue"/>
-          <subsettedProperty href="AADLConstructs.uml#Packaging-PackageSection-ownedClassifier"/>
-        </ownedAttribute>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedAbstractType" name="A_packageSection_ownedAbstractType" memberEnd="Packaging-A_packageSection_ownedAbstractType-owner Packaging-PackageSection-ownedAbstractType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedAbstractType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedAbstractType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedAbstractType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedAbstractType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedAbstractImplementation" name="A_packageSection_ownedAbstractImplementation" memberEnd="Packaging-A_packageSection_ownedAbstractImplementation-owner Packaging-PackageSection-ownedAbstractImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedAbstractImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedAbstractImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedAbstractImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedAbstractImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedBusType" name="A_packageSection_ownedBusType" memberEnd="Packaging-A_packageSection_ownedBusType-owner Packaging-PackageSection-ownedBusType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedBusType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedBusType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedBusType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedBusType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedBusImplementation" name="A_packageSection_ownedBusImplementation" memberEnd="Packaging-A_packageSection_ownedBusImplementation-owner Packaging-PackageSection-ownedBusImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedBusImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedBusImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedBusImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedBusImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedDataType" name="A_packageSection_ownedDataType" memberEnd="Packaging-A_packageSection_ownedDataType-owner Packaging-PackageSection-ownedDataType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedDataType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedDataType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedDataType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedDataType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedDataImplementation" name="A_packageSection_ownedDataImplementation" memberEnd="Packaging-A_packageSection_ownedDataImplementation-owner Packaging-PackageSection-ownedDataImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedDataImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedDataImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedDataImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedDataImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedDeviceType" name="A_packageSection_ownedDeviceType" memberEnd="Packaging-A_packageSection_ownedDeviceType-owner Packaging-PackageSection-ownedDeviceType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedDeviceType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedDeviceType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedDeviceType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedDeviceType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedDeviceImplementation" name="A_packageSection_ownedDeviceImplementation" memberEnd="Packaging-A_packageSection_ownedDeviceImplementation-owner Packaging-PackageSection-ownedDeviceImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedDeviceImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedDeviceImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedDeviceImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedDeviceImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedMemoryType" name="A_packageSection_ownedMemoryType" memberEnd="Packaging-A_packageSection_ownedMemoryType-owner Packaging-PackageSection-ownedMemoryType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedMemoryType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedMemoryType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedMemoryType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedMemoryType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedMemoryImplementation" name="A_packageSection_ownedMemoryImplementation" memberEnd="Packaging-A_packageSection_ownedMemoryImplementation-owner Packaging-PackageSection-ownedMemoryImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedMemoryImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedMemoryImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedMemoryImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedMemoryImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedProcessType" name="A_packageSection_ownedProcessType" memberEnd="Packaging-A_packageSection_ownedProcessType-owner Packaging-PackageSection-ownedProcessType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedProcessType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedProcessType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedProcessType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedProcessType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedProcessorType" name="A_packageSection_ownedProcessorType" memberEnd="Packaging-A_packageSection_ownedProcessorType-owner Packaging-PackageSection-ownedProcessorType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedProcessorType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedProcessorType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedProcessorType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedProcessorType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedProcessImplementation" name="A_packageSection_ownedProcessImplementation" memberEnd="Packaging-A_packageSection_ownedProcessImplementation-owner Packaging-PackageSection-ownedProcessImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedProcessImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedProcessImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedProcessImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedProcessImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedProcessorImplementation" name="A_packageSection_ownedProcessorImplementation" memberEnd="Packaging-A_packageSection_ownedProcessorImplementation-owner Packaging-PackageSection-ownedProcessorImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedProcessorImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedProcessorImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedProcessorImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedProcessorImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedSubprogramType" name="A_packageSection_ownedSubprogramType" memberEnd="Packaging-A_packageSection_ownedSubprogramType-owner Packaging-PackageSection-ownedSubprogramType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedSubprogramType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedSubprogramType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedSubprogramType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedSubprogramType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedSubprogramImplementation" name="A_packageSection_ownedSubprogramImplementation" memberEnd="Packaging-A_packageSection_ownedSubprogramImplementation-owner Packaging-PackageSection-ownedSubprogramImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedSubprogramImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedSubprogramImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedSubprogramImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedSubprogramImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedSubprogramGroupType" name="A_packageSection_ownedSubprogramGroupType" memberEnd="Packaging-A_packageSection_ownedSubprogramGroupType-owner Packaging-PackageSection-ownedSubprogramGroupType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedSubprogramGroupType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedSubprogramGroupType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedSubprogramGroupType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedSubprogramGroupType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedSubprogramGroupImplementation" name="A_packageSection_ownedSubprogramGroupImplementation" memberEnd="Packaging-A_packageSection_ownedSubprogramGroupImplementation-owner Packaging-PackageSection-ownedSubprogramGroupImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedSubprogramGroupImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedSubprogramGroupImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedSubprogramGroupImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedSubprogramGroupImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedSystemType" name="A_packageSection_ownedSystemType" memberEnd="Packaging-A_packageSection_ownedSystemType-owner Packaging-PackageSection-ownedSystemType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedSystemType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedSystemType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedSystemType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedSystemType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedSystemImplementation" name="A_packageSection_ownedSystemImplementation" memberEnd="Packaging-A_packageSection_ownedSystemImplementation-owner Packaging-PackageSection-ownedSystemImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedSystemImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedSystemImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedSystemImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedSystemImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedThreadType" name="A_packageSection_ownedThreadType" memberEnd="Packaging-A_packageSection_ownedThreadType-owner Packaging-PackageSection-ownedThreadType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedThreadType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedThreadType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedThreadType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedThreadType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedThreadImplementation" name="A_packageSection_ownedThreadImplementation" memberEnd="Packaging-A_packageSection_ownedThreadImplementation-owner Packaging-PackageSection-ownedThreadImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedThreadImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedThreadImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedThreadImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedThreadImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedThreadGroupImplementation" name="A_packageSection_ownedThreadGroupImplementation" memberEnd="Packaging-A_packageSection_ownedThreadGroupImplementation-owner Packaging-PackageSection-ownedThreadGroupImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedThreadGroupImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedThreadGroupImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedThreadGroupImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedThreadGroupImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedThreadGroupType" name="A_packageSection_ownedThreadGroupType" memberEnd="Packaging-A_packageSection_ownedThreadGroupType-owner Packaging-PackageSection-ownedThreadGroupType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedThreadGroupType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedThreadGroupType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedThreadGroupType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedThreadGroupType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedVirtualBusType" name="A_packageSection_ownedVirtualBusType" memberEnd="Packaging-A_packageSection_ownedVirtualBusType-owner Packaging-PackageSection-ownedVirtualBusType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedVirtualBusType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedVirtualBusType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedVirtualBusType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedVirtualBusType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedVirtualBusImplementation" name="A_packageSection_ownedVirtualBusImplementation" memberEnd="Packaging-A_packageSection_ownedVirtualBusImplementation-owner Packaging-PackageSection-ownedVirtualBusImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedVirtualBusImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedVirtualBusImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedVirtualBusImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedVirtualBusImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedVirtualProcessorType" name="A_packageSection_ownedVirtualProcessorType" memberEnd="Packaging-A_packageSection_ownedVirtualProcessorType-owner Packaging-PackageSection-ownedVirtualProcessorType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedVirtualProcessorType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedVirtualProcessorType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedVirtualProcessorType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedVirtualProcessorType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedVirtualProcessorImplementation" name="A_packageSection_ownedVirtualProcessorImplementation" memberEnd="Packaging-A_packageSection_ownedVirtualProcessorImplementation-owner Packaging-PackageSection-ownedVirtualProcessorImplementation">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedVirtualProcessorImplementation-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedVirtualProcessorImplementation">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedVirtualProcessorImplementation-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedVirtualProcessorImplementation-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageSection_ownedFeatureGroupType" name="A_packageSection_ownedFeatureGroupType" memberEnd="Packaging-A_packageSection_ownedFeatureGroupType-owner Packaging-PackageSection-ownedFeatureGroupType">
-        <ownedEnd xmi:id="Packaging-A_packageSection_ownedFeatureGroupType-owner" name="owner" type="Packaging-PackageSection" association="Packaging-A_packageSection_ownedFeatureGroupType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageSection_ownedFeatureGroupType-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageSection_ownedFeatureGroupType-owner-_lowerValue" value="1"/>
-        </ownedEnd>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_JK-Ssh-jEd6oIu99HumgeA" name="Flows">

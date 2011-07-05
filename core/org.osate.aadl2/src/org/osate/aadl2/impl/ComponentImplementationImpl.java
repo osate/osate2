@@ -95,11 +95,11 @@ import org.osate.aadl2.properties.PropertyAcc;
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getClassifierFeatures <em>Classifier Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedMembers <em>Owned Member</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedConnections <em>Owned Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getGeneralizations <em>Generalization</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getExtended <em>Extended</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedFlowImplementations <em>Owned Flow Implementation</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedConnections <em>Owned Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedExtension <em>Owned Extension</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedRealization <em>Owned Realization</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedEndToEndFlows <em>Owned End To End Flow</em>}</li>
@@ -602,6 +602,21 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
+	 * The array of subset feature identifiers for the '{@link #getOwnedConnections() <em>Owned Connection</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedConnections()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] OWNED_CONNECTION_ESUBSETS = new int[] {
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION };
+
+	/**
 	 * The array of subset feature identifiers for the '{@link #getGeneralizations() <em>Generalization</em>}' reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getGeneralizations()
@@ -988,6 +1003,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
 			return getOwnedSubcomponents();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
+			return getOwnedConnections();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
 			if (resolve)
 				return getType();
@@ -998,8 +1015,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			return basicGetExtended();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION:
 			return getOwnedFlowImplementations();
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
-			return getOwnedConnections();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION:
 			return getOwnedExtension();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION:
@@ -1167,14 +1182,14 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
 			return isSetOwnedSubcomponents();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
+			return isSetOwnedConnections();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
 			return basicGetType() != null;
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED:
 			return basicGetExtended() != null;
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION:
 			return ownedFlowImplementations != null && !ownedFlowImplementations.isEmpty();
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
-			return !getOwnedConnections().isEmpty();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION:
 			return ownedExtension != null;
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION:
@@ -1250,8 +1265,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	@Override
 	public boolean isSetClassifierFeatures() {
 		return super.isSetClassifierFeatures() || isSetOwnedSubcomponents()
-				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION)
-				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION)
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION) || isSetOwnedConnections()
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW);
 	}
 
@@ -1261,9 +1275,21 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 */
 	@Override
 	public boolean isSetOwnedMembers() {
-		return super.isSetOwnedMembers() || isSetOwnedSubcomponents()
-				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION)
+		return super.isSetOwnedMembers() || isSetOwnedSubcomponents() || isSetOwnedConnections()
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetOwnedConnections() {
+		return eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION)
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION)
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION)
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION)
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION);
 	}
 
 	/**

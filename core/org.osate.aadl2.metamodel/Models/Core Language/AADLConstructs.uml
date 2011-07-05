@@ -1347,6 +1347,7 @@ For access features, the classifier specifies the type of the shared component.<
           <ownedComment xmi:id="Features-PortFeature-direction-_ownedComment.0">
             <body>Specifies the direction of the port.</body>
           </ownedComment>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_tq3g4J3NEeCdSYIh9KA8Hg" name="inOut" type="Features-DirectionType" value="inOut"/>
         </ownedAttribute>
       </packagedElement>
     </packagedElement>
@@ -1442,9 +1443,7 @@ For access features, the classifier specifies the type of the shared component.<
         <ownedComment xmi:id="Packaging-Package-_ownedComment.0">
           <body>An AADL package. </body>
         </ownedComment>
-        <generalization xmi:id="Packaging-Package-_generalization.0">
-          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
-        </generalization>
+        <generalization xmi:id="_0lmUAIClEeC4L4Ipr-wzPA" general="_uawiYIClEeC4L4Ipr-wzPA"/>
         <ownedAttribute xmi:id="Packaging-Package-ownedPublicSection" name="ownedPublicSection" type="Packaging-PublicPackageSection" aggregation="composite" association="Packaging-A_package_ownedPublicSection">
           <ownedComment xmi:id="Packaging-Package-ownedPublicSection-_ownedComment.0">
             <body>Specifies a private section owned by this package.</body>
@@ -1545,12 +1544,9 @@ For access features, the classifier specifies the type of the shared component.<
           <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#String"/>
           <redefinedProperty href="AADLInfrastructure.uml#NamedElement-name"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageReference-referencedPackage" name="importedPackage" type="Packaging-Package" association="Packaging-A_packageReference_referencedPackage">
-          <ownedComment xmi:id="Packaging-PackageReference-referencedPackage-_ownedComment.0">
-            <body>The package referenced </body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-PackageReference-referencedPackage-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageReference-referencedPackage-_lowerValue"/>
+        <ownedAttribute xmi:id="_hh4uVICsEeC4L4Ipr-wzPA" name="importedUnit" type="_uawiYIClEeC4L4Ipr-wzPA" association="_hh4uUICsEeC4L4Ipr-wzPA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hh4uVYCsEeC4L4Ipr-wzPA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hh4uVoCsEeC4L4Ipr-wzPA"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Packaging-PrivatePackageSection" name="PrivatePackageSection">
@@ -1589,12 +1585,6 @@ For access features, the classifier specifies the type of the shared component.<
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_public_private" name="A_public_private" memberEnd="Packaging-PrivatePackageSection-publicSection Packaging-PublicPackageSection-privateSection"/>
-      <packagedElement xmi:type="uml:Association" xmi:id="Packaging-A_packageReference_referencedPackage" name="A_packageSection_referencedPackage" memberEnd="Packaging-A_packageReference_referencedPackage-packageReference Packaging-PackageReference-referencedPackage">
-        <ownedEnd xmi:id="Packaging-A_packageReference_referencedPackage-packageReference" name="packageSection" type="Packaging-PackageSection" association="Packaging-A_packageReference_referencedPackage">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_packageReference_referencedPackage-packageReference-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_packageReference_referencedPackage-packageReference-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Packaging-FeatureGroupTypeRename" name="FeatureGroupTypeRename">
         <ownedComment xmi:id="Packaging-FeatureGroupTypeRename-_ownedComment.0">
           <body>The specification of local name for a feature group type contained in another package.</body>
@@ -1632,6 +1622,17 @@ For access features, the classifier specifies the type of the shared component.<
         <ownedEnd xmi:id="Packaging-A_package_privateSection-package" name="package" type="Packaging-Package" association="Packaging-A_package_privateSection">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Packaging-A_package_privateSection-package-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-A_package_privateSection-package-_lowerValue" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_uawiYIClEeC4L4Ipr-wzPA" name="ModelUnit" isAbstract="true">
+        <generalization xmi:id="_HpxvkICmEeC4L4Ipr-wzPA">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
+        </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_hh4uUICsEeC4L4Ipr-wzPA" name="A_packageSection_importedUnit" memberEnd="_hh4uUYCsEeC4L4Ipr-wzPA _hh4uVICsEeC4L4Ipr-wzPA">
+        <ownedEnd xmi:id="_hh4uUYCsEeC4L4Ipr-wzPA" name="packageSection" type="Packaging-PackageSection" association="_hh4uUICsEeC4L4Ipr-wzPA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hh4uUoCsEeC4L4Ipr-wzPA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hh4uU4CsEeC4L4Ipr-wzPA"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

@@ -99,6 +99,7 @@ public class DeviceImplementationItemProvider extends ComponentImplementationIte
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedDataSubcomponent());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedVirtualBusSubcomponent());
 		}
 		return childrenFeatures;
 	}
@@ -153,6 +154,7 @@ public class DeviceImplementationItemProvider extends ComponentImplementationIte
 
 		switch (notification.getFeatureID(DeviceImplementation.class)) {
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
+		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -173,6 +175,10 @@ public class DeviceImplementationItemProvider extends ComponentImplementationIte
 		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedDataSubcomponent(),
 				Aadl2Factory.eINSTANCE.createDataSubcomponent()));
+
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedVirtualBusSubcomponent(),
+				Aadl2Factory.eINSTANCE.createVirtualBusSubcomponent()));
 	}
 
 }

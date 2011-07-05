@@ -113,72 +113,19 @@
       <details key="documentation" value="A Boolean type is used for logical expression, consisting of the predefined values true and false."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Namespace" abstract="true" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A namespace is an element in a model that contains a set of named elements that can be identified by name."/>
+      <details key="documentation" value="A type constrains the values represented by a typed element."/>
     </eAnnotations>
-    <eOperations name="members_distinguishable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="membersAreDistinguishable()"/>
-      </eAnnotations>
+    <eOperations name="conformsTo" ordered="false" lowerBound="1" eType="#//Boolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="All the members of a Namespace are distinguishable within it.&#xA;membersAreDistinguishable()"/>
-      </eAnnotations>
-      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
-        </eAnnotations>
-      </eParameters>
-      <eParameters name="context">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The cache of context-specific information."/>
-        </eAnnotations>
-        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-        </eGenericType>
-      </eParameters>
-    </eOperations>
-    <eOperations name="getNamesOfMember" ordered="false" upperBound="-1" eType="#//String">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query getNamesOfMember() gives a set of all of the names that a member would have in a Namespace. In general a member can have multiple names in a Namespace if it is imported more than once with different aliases. Those semantics are specified by overriding the getNamesOfMember operation. The specification here simply returns a set containing a single name, or the empty set if no name.&#xA;if member->includes(element) then&#xD;&#xA;  Set{}->including(element.name)&#xD;&#xA;else&#xD;&#xA;  Set{}&#xD;&#xA;endif"/>
+        <details key="documentation" value="The query conformsTo() gives true for a type that conforms to another. By default, two types do not conform to each other. This query is intended to be redefined for specific conformance situations.&#xA;result = false"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="if member->includes(element) then&#xD;&#xA;  Set{}->including(element.name)&#xD;&#xA;else&#xD;&#xA;  Set{}&#xD;&#xA;endif"/>
+        <details key="body" value="result = false"/>
       </eAnnotations>
-      <eParameters name="element" ordered="false" lowerBound="1" eType="#//NamedElement"/>
+      <eParameters name="other" ordered="false" lowerBound="1" eType="#//Type"/>
     </eOperations>
-    <eOperations name="membersAreDistinguishable" ordered="false" lowerBound="1" eType="#//Boolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The Boolean query membersAreDistinguishable() determines whether all of the namespaces members are distinguishable within it.&#xA;self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))"/>
-      </eAnnotations>
-    </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMember" ordered="false"
-        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
-        transient="true" derived="true" containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
-      </eAnnotations>
-      <eAnnotations source="subsets" references="#//Element/ownedElement #//Namespace/member"/>
-      <eAnnotations source="union"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="member" ordered="false"
-        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
-        transient="true" derived="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
-      </eAnnotations>
-      <eAnnotations source="union"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
-      </eAnnotations>
-    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true" eSuperTypes="#//Element">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -336,20 +283,6 @@
         <details key="documentation" value="The type of the TypedElement."/>
       </eAnnotations>
     </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true" eSuperTypes="#//NamedElement">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A type constrains the values represented by a typed element."/>
-    </eAnnotations>
-    <eOperations name="conformsTo" ordered="false" lowerBound="1" eType="#//Boolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query conformsTo() gives true for a type that conforms to another. By default, two types do not conform to each other. This query is intended to be redefined for specific conformance situations.&#xA;result = false"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="result = false"/>
-      </eAnnotations>
-      <eParameters name="other" ordered="false" lowerBound="1" eType="#//Type"/>
-    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Integer" instanceClassName="long">
     <eAnnotations source="http://www.topcased.org/documentation">
@@ -532,6 +465,73 @@
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noProperties" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Namespace" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A namespace is an element in a model that contains a set of named elements that can be identified by name."/>
+    </eAnnotations>
+    <eOperations name="members_distinguishable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="membersAreDistinguishable()"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="All the members of a Namespace are distinguishable within it.&#xA;membersAreDistinguishable()"/>
+      </eAnnotations>
+      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+        </eAnnotations>
+      </eParameters>
+      <eParameters name="context">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The cache of context-specific information."/>
+        </eAnnotations>
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="getNamesOfMember" ordered="false" upperBound="-1" eType="#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The query getNamesOfMember() gives a set of all of the names that a member would have in a Namespace. In general a member can have multiple names in a Namespace if it is imported more than once with different aliases. Those semantics are specified by overriding the getNamesOfMember operation. The specification here simply returns a set containing a single name, or the empty set if no name.&#xA;if member->includes(element) then&#xD;&#xA;  Set{}->including(element.name)&#xD;&#xA;else&#xD;&#xA;  Set{}&#xD;&#xA;endif"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="if member->includes(element) then&#xD;&#xA;  Set{}->including(element.name)&#xD;&#xA;else&#xD;&#xA;  Set{}&#xD;&#xA;endif"/>
+      </eAnnotations>
+      <eParameters name="element" ordered="false" lowerBound="1" eType="#//NamedElement"/>
+    </eOperations>
+    <eOperations name="membersAreDistinguishable" ordered="false" lowerBound="1" eType="#//Boolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The Boolean query membersAreDistinguishable() determines whether all of the namespaces members are distinguishable within it.&#xA;self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
+        <details key="body" value="self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMember" ordered="false"
+        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
+        transient="true" derived="true" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
+      </eAnnotations>
+      <eAnnotations source="subsets" references="#//Element/ownedElement #//Namespace/member"/>
+      <eAnnotations source="union"/>
+      <eAnnotations source="http://www.topcased.org/documentation">
+        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="member" ordered="false"
+        upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
+      </eAnnotations>
+      <eAnnotations source="union"/>
+      <eAnnotations source="http://www.topcased.org/documentation">
+        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ClassifierFeature" abstract="true" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -735,6 +735,7 @@
         upperBound="-1" eType="#//Connection" changeable="false" volatile="true" transient="true"
         derived="true" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedExtension" ordered="false"
         eType="#//ImplementationExtension" containment="true">
@@ -753,15 +754,25 @@
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAccessConnection"
-        ordered="false" upperBound="-1" eType="#//AccessConnection" containment="true"/>
+        ordered="false" upperBound="-1" eType="#//AccessConnection" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedConnection"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedParameterConnection"
-        ordered="false" upperBound="-1" eType="#//ParameterConnection" containment="true"/>
+        ordered="false" upperBound="-1" eType="#//ParameterConnection" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedConnection"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPortConnection" ordered="false"
-        upperBound="-1" eType="#//PortConnection" containment="true"/>
+        upperBound="-1" eType="#//PortConnection" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedConnection"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureConnection"
-        ordered="false" upperBound="-1" eType="#//FeatureConnection" containment="true"/>
+        ordered="false" upperBound="-1" eType="#//FeatureConnection" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedConnection"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureGroupConnection"
-        ordered="false" upperBound="-1" eType="#//FeatureGroupConnection" containment="true"/>
+        ordered="false" upperBound="-1" eType="#//FeatureGroupConnection" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedConnection"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessorSubprogram"
         ordered="false" upperBound="-1" eType="#//ProcessorSubprogram" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noSubcomponents" ordered="false"
@@ -817,7 +828,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DirectedFeature" abstract="true" eSuperTypes="#//Feature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType"/>
+        lowerBound="1" eType="#//DirectionType" defaultValueLiteral="inOut"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Feature" abstract="true" eSuperTypes="#//StructuralFeature #//FeatureConnectionEnd #//ArrayableElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
@@ -1288,10 +1299,8 @@
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedClassifier" ordered="false"
-        upperBound="-1" eType="#//Classifier" changeable="false" volatile="true" transient="true"
-        derived="true" containment="true">
+        upperBound="-1" eType="#//Classifier" changeable="false" derived="true" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-      <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureGroupTypeRename"
         ordered="false" upperBound="-1" eType="#//FeatureGroupTypeRename" containment="true">
@@ -1301,131 +1310,12 @@
         upperBound="-1" eType="#//AnnexLibrary" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="importedPackage" ordered="false"
-        upperBound="-1" eType="#//AadlPackage"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="importedUnit" ordered="false"
+        upperBound="-1" eType="#//ModelUnit"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noAnnexes" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAbstractType" ordered="false"
-        upperBound="-1" eType="#//AbstractType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAbstractImplementation"
-        ordered="false" upperBound="-1" eType="#//AbstractImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusType" ordered="false"
-        upperBound="-1" eType="#//BusType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusImplementation"
-        ordered="false" upperBound="-1" eType="#//BusImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataType" ordered="false"
-        upperBound="-1" eType="#//DataType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataImplementation"
-        ordered="false" upperBound="-1" eType="#//DataImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDeviceType" ordered="false"
-        upperBound="-1" eType="#//DeviceType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDeviceImplementation"
-        ordered="false" upperBound="-1" eType="#//DeviceImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMemoryType" ordered="false"
-        upperBound="-1" eType="#//MemoryType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMemoryImplementation"
-        ordered="false" upperBound="-1" eType="#//MemoryImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessType" ordered="false"
-        upperBound="-1" eType="#//ProcessType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessorType" ordered="false"
-        upperBound="-1" eType="#//ProcessorType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessImplementation"
-        ordered="false" upperBound="-1" eType="#//ProcessImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessorImplementation"
-        ordered="false" upperBound="-1" eType="#//ProcessorImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramType" ordered="false"
-        upperBound="-1" eType="#//SubprogramType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramImplementation"
-        ordered="false" upperBound="-1" eType="#//SubprogramImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupType"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupImplementation"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSystemType" ordered="false"
-        upperBound="-1" eType="#//SystemType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSystemImplementation"
-        ordered="false" upperBound="-1" eType="#//SystemImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadType" ordered="false"
-        upperBound="-1" eType="#//ThreadType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadImplementation"
-        ordered="false" upperBound="-1" eType="#//ThreadImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadGroupType" ordered="false"
-        upperBound="-1" eType="#//ThreadGroupType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadGroupImplementation"
-        ordered="false" upperBound="-1" eType="#//ThreadGroupImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusType" ordered="false"
-        upperBound="-1" eType="#//VirtualBusType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusImplementation"
-        ordered="false" upperBound="-1" eType="#//VirtualBusImplementation" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualProcessorType"
-        ordered="false" upperBound="-1" eType="#//VirtualProcessorType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualProcessorImplementation"
-        ordered="false" upperBound="-1" eType="#//VirtualProcessorImplementation"
-        containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureGroupType"
-        ordered="false" upperBound="-1" eType="#//FeatureGroupType" containment="true">
-      <eAnnotations source="subsets" references="#//PackageSection/ownedClassifier"/>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noProperties" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="importedPropertySet" ordered="false"
-        upperBound="-1" eType="#//PropertySet"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PackageRename" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="renamedPackage" ordered="false"
@@ -1433,7 +1323,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="renameAll" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AadlPackage" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="AadlPackage" eSuperTypes="#//ModelUnit">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value="Package"/>
     </eAnnotations>
@@ -1450,6 +1340,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="privateSection" ordered="false"
         eType="#//PrivatePackageSection"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelUnit" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="PrivatePackageSection" eSuperTypes="#//PackageSection">
     <eStructuralFeatures xsi:type="ecore:EReference" name="publicSection" ordered="false"
         eType="#//PublicPackageSection" changeable="false" volatile="true" transient="true"
@@ -1464,6 +1355,131 @@
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupTypeRename" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="renamedFeatureGroupType"
         ordered="false" lowerBound="1" eType="#//FeatureGroupType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototypeBinding" eSuperTypes="#//PrototypeBinding">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
+          eType="#//Prototype">
+        <eAnnotations source="redefines" references="#//PrototypeBinding/formal"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" lowerBound="1"
+        upperBound="-1" eType="#//ComponentPrototypeActual" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototypeActual" abstract="true"
+      eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
+        lowerBound="1" eType="#//ComponentCategory"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototype" eSuperTypes="#//Prototype">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingFeatureGroupType"
+        ordered="false" eType="#//FeatureGroupType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeBinding" eSuperTypes="#//PrototypeBinding">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
+          eType="#//Prototype">
+        <eAnnotations source="redefines" references="#//PrototypeBinding/formal"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" ordered="false"
+        lowerBound="1" eType="#//FeatureGroupPrototypeActual" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeActual" abstract="true"
+      eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototype" eSuperTypes="#//Prototype">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
+        lowerBound="1" eType="#//DirectionType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingClassifier"
+        ordered="false" eType="#//ComponentClassifier"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeBinding" eSuperTypes="#//PrototypeBinding">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
+          eType="#//Prototype">
+        <eAnnotations source="redefines" references="#//PrototypeBinding/formal"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" ordered="false"
+        lowerBound="1" eType="#//FeaturePrototypeActual" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeActual" abstract="true"
+      eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AccessSpecification" eSuperTypes="#//FeaturePrototypeActual">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
+        eType="#//AccessType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
+        lowerBound="1" eType="#//AccessCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
+        eType="#//ComponentClassifier"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PortSpecification" eSuperTypes="#//FeaturePrototypeActual">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
+        lowerBound="1" eType="#//DirectionType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
+        lowerBound="1" eType="#//PortCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
+        eType="#//ComponentClassifier"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeReference" eSuperTypes="#//FeaturePrototypeActual">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
+        lowerBound="1" eType="#//DirectionType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
+        lowerBound="1" eType="#//FeaturePrototype"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototypeReference" eSuperTypes="#//ComponentPrototypeActual">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
+        lowerBound="1" eType="#//ComponentPrototype"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentReference" eSuperTypes="#//ComponentPrototypeActual">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="binding" ordered="false"
+        upperBound="-1" eType="#//PrototypeBinding" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
+        lowerBound="1" eType="#//ComponentClassifier"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeReference" eSuperTypes="#//FeatureGroupPrototypeActual">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
+        lowerBound="1" eType="#//FeatureGroupPrototype"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupReference" eSuperTypes="#//FeatureGroupPrototypeActual">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="binding" ordered="false"
+        upperBound="-1" eType="#//PrototypeBinding" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureGroupType" ordered="false"
+        lowerBound="1" eType="#//FeatureGroupType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramCallSequence" eSuperTypes="#//BehavioralFeature #//ModalElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedCallSpecification"
+        upperBound="-1" eType="#//CallSpecification" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CallSpecification" abstract="true" eSuperTypes="#//BehavioralFeature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessorCall" eSuperTypes="#//CallSpecification">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="subprogramAccessName" ordered="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehavioredImplementation" abstract="true"
+      eSuperTypes="#//ComponentImplementation">
+    <eOperations name="callSpecifications" ordered="false" upperBound="-1" eType="#//CallSpecification">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Get all calls owned by owned call sequences."/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="callSpecification" ordered="false"
+        upperBound="-1" eType="#//CallSpecification" volatile="true" transient="true"
+        derived="true">
+      <eAnnotations source="subsets" references="#//Namespace/member"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramCallSequence"
+        ordered="false" upperBound="-1" eType="#//SubprogramCallSequence" containment="true">
+      <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramCall" eSuperTypes="#//CallSpecification #//Context">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="calledSubprogram" ordered="false"
+        eType="#//CalledSubprogram"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
+        eType="#//Prototype"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
+        eType="#//CallContext"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractType" eSuperTypes="#//ComponentType #//AbstractClassifier #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
@@ -1555,28 +1571,6 @@
         ordered="false" upperBound="-1" eType="#//VirtualProcessorSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
     </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BehavioredImplementation" abstract="true"
-      eSuperTypes="#//ComponentImplementation">
-    <eOperations name="callSpecifications" ordered="false" upperBound="-1" eType="#//CallSpecification">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Get all calls owned by owned call sequences."/>
-      </eAnnotations>
-    </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="callSpecification" ordered="false"
-        upperBound="-1" eType="#//CallSpecification" volatile="true" transient="true"
-        derived="true">
-      <eAnnotations source="subsets" references="#//Namespace/member"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramCallSequence"
-        ordered="false" upperBound="-1" eType="#//SubprogramCallSequence" containment="true">
-      <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CallSpecification" abstract="true" eSuperTypes="#//BehavioralFeature"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramCallSequence" eSuperTypes="#//BehavioralFeature #//ModalElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedCallSpecification"
-        upperBound="-1" eType="#//CallSpecification" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusSubcomponent" eSuperTypes="#//Subcomponent #//AccessConnectionEnd #//Bus">
     <eStructuralFeatures xsi:type="ecore:EReference" name="busClassifier" ordered="false"
@@ -1766,6 +1760,10 @@
         ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusSubcomponent"
+        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemoryType" eSuperTypes="#//ComponentType #//MemoryClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
@@ -1787,112 +1785,6 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMemorySubcomponent"
         ordered="false" upperBound="-1" eType="#//MemorySubcomponent" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessType" eSuperTypes="#//ComponentType #//ProcessClassifier">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
-        upperBound="-1" eType="#//DataPort" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
-        upperBound="-1" eType="#//EventDataPort" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
-        upperBound="-1" eType="#//EventPort" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataAccess" ordered="false"
-        upperBound="-1" eType="#//DataAccess" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorType" eSuperTypes="#//ComponentType #//ProcessorClassifier">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
-        upperBound="-1" eType="#//DataPort" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
-        upperBound="-1" eType="#//EventDataPort" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
-        upperBound="-1" eType="#//EventPort" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
-        upperBound="-1" eType="#//BusAccess" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessImplementation" eSuperTypes="#//ComponentImplementation #//ProcessClassifier">
-    <eAnnotations source="duplicates">
-      <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
-          lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
-          derived="true">
-        <eAnnotations source="redefines" references="#//ComponentImplementation/type"/>
-      </contents>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
-        ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupSubcomponent"
-        ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadSubcomponent"
-        ordered="false" upperBound="-1" eType="#//ThreadSubcomponent" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadGroupSubcomponent"
-        ordered="false" upperBound="-1" eType="#//ThreadGroupSubcomponent" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorImplementation" eSuperTypes="#//ComponentImplementation #//ProcessorClassifier">
-    <eAnnotations source="duplicates">
-      <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
-          lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
-          derived="true">
-        <eAnnotations source="redefines" references="#//ComponentImplementation/type"/>
-      </contents>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusSubcomponent" ordered="false"
-        upperBound="-1" eType="#//BusSubcomponent" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMemorySubcomponent"
-        ordered="false" upperBound="-1" eType="#//MemorySubcomponent" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusSubcomponent"
-        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" containment="true">
-      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualProcessorSubcomponent"
-        ordered="false" upperBound="-1" eType="#//VirtualProcessorSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
     </eStructuralFeatures>
   </eClassifiers>
@@ -2042,6 +1934,112 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualProcessorSubcomponent"
         ordered="false" upperBound="-1" eType="#//VirtualProcessorSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessorType" eSuperTypes="#//ComponentType #//ProcessorClassifier">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
+        upperBound="-1" eType="#//DataPort" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
+        upperBound="-1" eType="#//EventDataPort" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
+        upperBound="-1" eType="#//EventPort" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
+        upperBound="-1" eType="#//BusAccess" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessorImplementation" eSuperTypes="#//ComponentImplementation #//ProcessorClassifier">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
+          lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
+          derived="true">
+        <eAnnotations source="redefines" references="#//ComponentImplementation/type"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusSubcomponent" ordered="false"
+        upperBound="-1" eType="#//BusSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMemorySubcomponent"
+        ordered="false" upperBound="-1" eType="#//MemorySubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualBusSubcomponent"
+        ordered="false" upperBound="-1" eType="#//VirtualBusSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedVirtualProcessorSubcomponent"
+        ordered="false" upperBound="-1" eType="#//VirtualProcessorSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessType" eSuperTypes="#//ComponentType #//ProcessClassifier">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataPort" ordered="false"
+        upperBound="-1" eType="#//DataPort" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
+        upperBound="-1" eType="#//EventDataPort" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventPort" ordered="false"
+        upperBound="-1" eType="#//EventPort" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataAccess" ordered="false"
+        upperBound="-1" eType="#//DataAccess" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
+        ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessImplementation" eSuperTypes="#//ComponentImplementation #//ProcessClassifier">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
+          lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
+          derived="true">
+        <eAnnotations source="redefines" references="#//ComponentImplementation/type"/>
+      </contents>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
+        ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramSubcomponent"
+        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupSubcomponent"
+        ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadSubcomponent"
+        ordered="false" upperBound="-1" eType="#//ThreadSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreadGroupSubcomponent"
+        ordered="false" upperBound="-1" eType="#//ThreadGroupSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
     </eStructuralFeatures>
   </eClassifiers>
@@ -2200,23 +2198,11 @@
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertySet" eSuperTypes="#//Namespace">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
-        upperBound="-1" eType="#//PropertyType" containment="true">
-      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProperty" ordered="false"
-        upperBound="-1" eType="#//Property" containment="true">
-      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyConstant"
-        ordered="false" upperBound="-1" eType="#//PropertyConstant" containment="true">
-      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="importedPropertySet" ordered="false"
-        upperBound="-1" eType="#//PropertySet"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="importedPackage" ordered="false"
-        upperBound="-1" eType="#//AadlPackage"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BasicPropertyAssociation" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" ordered="false"
+        lowerBound="1" eType="#//BasicProperty"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedValue" ordered="false"
+        lowerBound="1" eType="#//PropertyExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyConstant" eSuperTypes="#//TypedElement">
     <eAnnotations source="duplicates">
@@ -2232,115 +2218,6 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constantValue" ordered="false"
         eType="#//PropertyExpression" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototypeBinding" eSuperTypes="#//PrototypeBinding">
-    <eAnnotations source="duplicates">
-      <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
-          eType="#//Prototype">
-        <eAnnotations source="redefines" references="#//PrototypeBinding/formal"/>
-      </contents>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" lowerBound="1"
-        upperBound="-1" eType="#//ComponentPrototypeActual" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototypeActual" abstract="true"
-      eSuperTypes="#//Element">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
-        lowerBound="1" eType="#//ComponentCategory"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototype" eSuperTypes="#//Prototype">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingFeatureGroupType"
-        ordered="false" eType="#//FeatureGroupType"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeBinding" eSuperTypes="#//PrototypeBinding">
-    <eAnnotations source="duplicates">
-      <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
-          eType="#//Prototype">
-        <eAnnotations source="redefines" references="#//PrototypeBinding/formal"/>
-      </contents>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" ordered="false"
-        lowerBound="1" eType="#//FeatureGroupPrototypeActual" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeActual" abstract="true"
-      eSuperTypes="#//Element"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototype" eSuperTypes="#//Prototype">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingClassifier"
-        ordered="false" eType="#//ComponentClassifier"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeBinding" eSuperTypes="#//PrototypeBinding">
-    <eAnnotations source="duplicates">
-      <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
-          eType="#//Prototype">
-        <eAnnotations source="redefines" references="#//PrototypeBinding/formal"/>
-      </contents>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" ordered="false"
-        lowerBound="1" eType="#//FeaturePrototypeActual" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeActual" abstract="true"
-      eSuperTypes="#//Element"/>
-  <eClassifiers xsi:type="ecore:EClass" name="AccessSpecification" eSuperTypes="#//FeaturePrototypeActual">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
-        eType="#//AccessType"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
-        lowerBound="1" eType="#//AccessCategory"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
-        eType="#//ComponentClassifier"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PortSpecification" eSuperTypes="#//FeaturePrototypeActual">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
-        lowerBound="1" eType="#//PortCategory"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
-        eType="#//ComponentClassifier"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeReference" eSuperTypes="#//FeaturePrototypeActual">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
-        lowerBound="1" eType="#//FeaturePrototype"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototypeReference" eSuperTypes="#//ComponentPrototypeActual">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
-        lowerBound="1" eType="#//ComponentPrototype"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComponentReference" eSuperTypes="#//ComponentPrototypeActual">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="binding" ordered="false"
-        upperBound="-1" eType="#//PrototypeBinding" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
-        lowerBound="1" eType="#//ComponentClassifier"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeReference" eSuperTypes="#//FeatureGroupPrototypeActual">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
-        lowerBound="1" eType="#//FeatureGroupPrototype"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupReference" eSuperTypes="#//FeatureGroupPrototypeActual">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="binding" ordered="false"
-        upperBound="-1" eType="#//PrototypeBinding" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="featureGroupType" ordered="false"
-        lowerBound="1" eType="#//FeatureGroupType"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorCall" eSuperTypes="#//CallSpecification">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="subprogramAccessName" ordered="false"
-        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramCall" eSuperTypes="#//CallSpecification #//Context">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="calledSubprogram" ordered="false"
-        eType="#//CalledSubprogram"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
-        eType="#//Prototype"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
-        eType="#//CallContext"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BasicPropertyAssociation" eSuperTypes="#//Element">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="property" ordered="false"
-        lowerBound="1" eType="#//BasicProperty"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedValue" ordered="false"
-        lowerBound="1" eType="#//PropertyExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EnumerationValue" eSuperTypes="#//PropertyValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="literal" ordered="false"
@@ -2426,6 +2303,22 @@
   <eClassifiers xsi:type="ecore:EClass" name="ListValue" eSuperTypes="#//PropertyExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedListElement" upperBound="-1"
         eType="#//PropertyExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertySet" eSuperTypes="#//Namespace #//ModelUnit">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
+        upperBound="-1" eType="#//PropertyType" containment="true">
+      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProperty" ordered="false"
+        upperBound="-1" eType="#//Property" containment="true">
+      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyConstant"
+        ordered="false" upperBound="-1" eType="#//PropertyConstant" containment="true">
+      <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="importedUnit" ordered="false"
+        upperBound="-1" eType="#//ModelUnit"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GlobalNamespace" eSuperTypes="#//Namespace">
     <eStructuralFeatures xsi:type="ecore:EReference" name="package" ordered="false"
