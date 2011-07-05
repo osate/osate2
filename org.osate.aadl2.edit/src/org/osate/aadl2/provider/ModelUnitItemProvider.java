@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,56 +31,93 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: DirectedFeature.java,v 1.1 2009-09-08 23:19:16 lwrage Exp $
  */
-package org.osate.aadl2;
+package org.osate.aadl2.provider;
+
+import java.util.Collection;
+import java.util.List;
+
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+
+import org.osate.aadl2.ModelUnit;
 
 /**
+ * This is the item provider adapter for a {@link org.osate.aadl2.ModelUnit} object.
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Directed Feature</b></em>'.
  * <!-- end-user-doc -->
- *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.osate.aadl2.DirectedFeature#getDirection <em>Direction</em>}</li>
- * </ul>
- * </p>
- *
- * @see org.osate.aadl2.Aadl2Package#getDirectedFeature()
- * @model abstract="true"
  * @generated
  */
-public interface DirectedFeature extends Feature {
+public class ModelUnitItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
-	 * Returns the value of the '<em><b>Direction</b></em>' attribute.
-	 * The default value is <code>"inOut"</code>.
-	 * The literals are from the enumeration {@link org.osate.aadl2.DirectionType}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Direction</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Direction</em>' attribute.
-	 * @see org.osate.aadl2.DirectionType
-	 * @see #setDirection(DirectionType)
-	 * @see org.osate.aadl2.Aadl2Package#getDirectedFeature_Direction()
-	 * @model default="inOut" required="true" ordered="false"
-	 * @generated
-	 */
-	DirectionType getDirection();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.DirectedFeature#getDirection <em>Direction</em>}' attribute.
+	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Direction</em>' attribute.
-	 * @see org.osate.aadl2.DirectionType
-	 * @see #getDirection()
 	 * @generated
 	 */
-	void setDirection(DirectionType value);
+	public ModelUnitItemProvider(AdapterFactory adapterFactory) {
+		super(adapterFactory);
+	}
 
-} // DirectedFeature
+	/**
+	 * This returns the property descriptors for the adapted class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
+		if (itemPropertyDescriptors == null) {
+			super.getPropertyDescriptors(object);
+
+		}
+		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This returns the label text for the adapted class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getText(Object object) {
+		String label = ((ModelUnit) object).getName();
+		return label == null || label.length() == 0 ? getString("_UI_ModelUnit_type") : getString("_UI_ModelUnit_type")
+				+ " " + label;
+	}
+
+	/**
+	 * This handles model notifications by calling {@link #updateChildren} to update any cached
+	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void notifyChanged(Notification notification) {
+		updateChildren(notification);
+		super.notifyChanged(notification);
+	}
+
+	/**
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+	 * that can be created under this object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
+
+}

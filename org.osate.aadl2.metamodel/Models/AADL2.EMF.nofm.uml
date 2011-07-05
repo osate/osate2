@@ -45,12 +45,6 @@
       <ownedAttribute xmi:id="GlobalNamespace-propertySet" name="propertySet"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Package" name="Package"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="PackageSection" name="PackageSection" isAbstract="true">
-      <ownedComment xmi:id="PackageSection-_ownedComment.0">
-        <body>Minimal skeleton for introducing feature map</body>
-      </ownedComment>
-      <ownedAttribute xmi:id="PackageSection-ownedClassifier" name="ownedClassifier" isDerived="true" aggregation="composite"/>
-    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="PublicPackageSection" name="PublicPackageSection">
       <ownedAttribute xmi:id="PublicPackageSection-privateSection" name="privateSection" isDerived="true"/>
     </packagedElement>
@@ -391,7 +385,7 @@
   <Ecore:EReference xmi:id="_wVTuk1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVTulFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="PublicPackageSection-privateSection"/>
   <Ecore:EReference xmi:id="_wVTulVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="PrivatePackageSection-publicSection"/>
-  <Ecore:EReference xmi:id="_wVc4gFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedClassifier"/>
+  <Ecore:EReference xmi:id="_wVc4gFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVc4gVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentType-ownedFeature"/>
   <Ecore:EReference xmi:id="_wVc4glm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentType-extended"/>
   <Ecore:EReference xmi:id="_wVc4g1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-type"/>
@@ -415,7 +409,7 @@
   <Standard:Metaclass xmi:id="_NFPxqlprEd2djcltMkYjuA" base_Class="Connection"/>
   <Standard:Metaclass xmi:id="_NFPxq1prEd2djcltMkYjuA" base_Class="PublicPackageSection"/>
   <Standard:Metaclass xmi:id="_NFPxrFprEd2djcltMkYjuA" base_Class="PrivatePackageSection"/>
-  <Standard:Metaclass xmi:id="_NFPxrVprEd2djcltMkYjuA" base_Class="PackageSection"/>
+  <Standard:Metaclass xmi:id="_NFPxrVprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFiskFprEd2djcltMkYjuA" base_Class="ComponentType"/>
   <Standard:Metaclass xmi:id="_NFiskVprEd2djcltMkYjuA" base_Class="ComponentImplementation"/>
   <Standard:Metaclass xmi:id="_NFisklprEd2djcltMkYjuA"/>

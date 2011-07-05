@@ -1,14 +1,14 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- *
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
+ * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
+ * 
  * NO WARRANTY
- *
+ * 
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
+ * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
  * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
  * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
@@ -16,22 +16,21 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
+ * 
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
+ * 
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- *
- * $Id: Aadl2FactoryImpl.java,v 1.78 2011-04-11 13:35:55 lwrage Exp $
+ * 
  */
 package org.osate.aadl2.impl;
 
@@ -41,6 +40,161 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlBoolean;
+import org.osate.aadl2.AadlInteger;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AadlReal;
+import org.osate.aadl2.AadlString;
+import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractImplementation;
+import org.osate.aadl2.AbstractSubcomponent;
+import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.AccessCategory;
+import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.AccessType;
+import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.ArraySpecification;
+import org.osate.aadl2.BasicProperty;
+import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.BusImplementation;
+import org.osate.aadl2.BusSubcomponent;
+import org.osate.aadl2.BusType;
+import org.osate.aadl2.ClassifierType;
+import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.Comment;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentImplementationReference;
+import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.ComponentPrototypeBinding;
+import org.osate.aadl2.ComponentPrototypeReference;
+import org.osate.aadl2.ComponentReference;
+import org.osate.aadl2.ComponentTypeRename;
+import org.osate.aadl2.ComputedValue;
+import org.osate.aadl2.ConnectionKind;
+import org.osate.aadl2.ConstantValue;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.DeviceImplementation;
+import org.osate.aadl2.DeviceSubcomponent;
+import org.osate.aadl2.DeviceType;
+import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EndToEndFlowElement;
+import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.EnumerationValue;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
+import org.osate.aadl2.FeatureConnection;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupConnectionEnd;
+import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeBinding;
+import org.osate.aadl2.FeatureGroupPrototypeReference;
+import org.osate.aadl2.FeatureGroupReference;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeatureGroupTypeRename;
+import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeReference;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowKind;
+import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.GlobalNamespace;
+import org.osate.aadl2.GroupExtension;
+import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.InternalEvent;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.MemoryImplementation;
+import org.osate.aadl2.MemorySubcomponent;
+import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.MetaclassReference;
+import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeBinding;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.Numeral;
+import org.osate.aadl2.NumericRange;
+import org.osate.aadl2.Operation;
+import org.osate.aadl2.OperationKind;
+import org.osate.aadl2.PackageRename;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.ParameterConnection;
+import org.osate.aadl2.PortCategory;
+import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortSpecification;
+import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.ProcessImplementation;
+import org.osate.aadl2.ProcessSubcomponent;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.ProcessorCall;
+import org.osate.aadl2.ProcessorImplementation;
+import org.osate.aadl2.ProcessorPort;
+import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.ProcessorSubprogram;
+import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyReference;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.RangeType;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.Realization;
+import org.osate.aadl2.RecordField;
+import org.osate.aadl2.RecordType;
+import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.ReferenceType;
+import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.SubcomponentFlow;
+import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.SystemSubcomponent;
+import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadGroupSubcomponent;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadSubcomponent;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitValue;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.VirtualBusImplementation;
+import org.osate.aadl2.VirtualBusSubcomponent;
+import org.osate.aadl2.VirtualBusType;
+import org.osate.aadl2.VirtualProcessorImplementation;
+import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.*;
 
 /**
@@ -199,12 +353,40 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createComponentTypeRename();
 		case Aadl2Package.FEATURE_GROUP_TYPE_RENAME:
 			return (EObject) createFeatureGroupTypeRename();
+		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING:
+			return (EObject) createComponentPrototypeBinding();
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
+			return (EObject) createFeatureGroupPrototype();
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
+			return (EObject) createFeatureGroupPrototypeBinding();
+		case Aadl2Package.FEATURE_PROTOTYPE:
+			return (EObject) createFeaturePrototype();
+		case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
+			return (EObject) createFeaturePrototypeBinding();
+		case Aadl2Package.ACCESS_SPECIFICATION:
+			return (EObject) createAccessSpecification();
+		case Aadl2Package.PORT_SPECIFICATION:
+			return (EObject) createPortSpecification();
+		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
+			return (EObject) createFeaturePrototypeReference();
+		case Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE:
+			return (EObject) createComponentPrototypeReference();
+		case Aadl2Package.COMPONENT_REFERENCE:
+			return (EObject) createComponentReference();
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE:
+			return (EObject) createFeatureGroupPrototypeReference();
+		case Aadl2Package.FEATURE_GROUP_REFERENCE:
+			return (EObject) createFeatureGroupReference();
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
+			return (EObject) createSubprogramCallSequence();
+		case Aadl2Package.PROCESSOR_CALL:
+			return (EObject) createProcessorCall();
+		case Aadl2Package.SUBPROGRAM_CALL:
+			return (EObject) createSubprogramCall();
 		case Aadl2Package.ABSTRACT_TYPE:
 			return (EObject) createAbstractType();
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION:
 			return (EObject) createAbstractImplementation();
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
-			return (EObject) createSubprogramCallSequence();
 		case Aadl2Package.BUS_SUBCOMPONENT:
 			return (EObject) createBusSubcomponent();
 		case Aadl2Package.DATA_SUBCOMPONENT:
@@ -247,14 +429,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createMemoryType();
 		case Aadl2Package.MEMORY_IMPLEMENTATION:
 			return (EObject) createMemoryImplementation();
-		case Aadl2Package.PROCESS_TYPE:
-			return (EObject) createProcessType();
-		case Aadl2Package.PROCESSOR_TYPE:
-			return (EObject) createProcessorType();
-		case Aadl2Package.PROCESS_IMPLEMENTATION:
-			return (EObject) createProcessImplementation();
-		case Aadl2Package.PROCESSOR_IMPLEMENTATION:
-			return (EObject) createProcessorImplementation();
 		case Aadl2Package.SUBPROGRAM_TYPE:
 			return (EObject) createSubprogramType();
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION:
@@ -267,6 +441,14 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createSystemType();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION:
 			return (EObject) createSystemImplementation();
+		case Aadl2Package.PROCESSOR_TYPE:
+			return (EObject) createProcessorType();
+		case Aadl2Package.PROCESSOR_IMPLEMENTATION:
+			return (EObject) createProcessorImplementation();
+		case Aadl2Package.PROCESS_TYPE:
+			return (EObject) createProcessType();
+		case Aadl2Package.PROCESS_IMPLEMENTATION:
+			return (EObject) createProcessImplementation();
 		case Aadl2Package.THREAD_TYPE:
 			return (EObject) createThreadType();
 		case Aadl2Package.THREAD_IMPLEMENTATION:
@@ -283,40 +465,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createVirtualProcessorType();
 		case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION:
 			return (EObject) createVirtualProcessorImplementation();
-		case Aadl2Package.PROPERTY_SET:
-			return (EObject) createPropertySet();
-		case Aadl2Package.PROPERTY_CONSTANT:
-			return (EObject) createPropertyConstant();
-		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING:
-			return (EObject) createComponentPrototypeBinding();
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
-			return (EObject) createFeatureGroupPrototype();
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
-			return (EObject) createFeatureGroupPrototypeBinding();
-		case Aadl2Package.FEATURE_PROTOTYPE:
-			return (EObject) createFeaturePrototype();
-		case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
-			return (EObject) createFeaturePrototypeBinding();
-		case Aadl2Package.ACCESS_SPECIFICATION:
-			return (EObject) createAccessSpecification();
-		case Aadl2Package.PORT_SPECIFICATION:
-			return (EObject) createPortSpecification();
-		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
-			return (EObject) createFeaturePrototypeReference();
-		case Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE:
-			return (EObject) createComponentPrototypeReference();
-		case Aadl2Package.COMPONENT_REFERENCE:
-			return (EObject) createComponentReference();
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE:
-			return (EObject) createFeatureGroupPrototypeReference();
-		case Aadl2Package.FEATURE_GROUP_REFERENCE:
-			return (EObject) createFeatureGroupReference();
-		case Aadl2Package.PROCESSOR_CALL:
-			return (EObject) createProcessorCall();
-		case Aadl2Package.SUBPROGRAM_CALL:
-			return (EObject) createSubprogramCall();
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION:
 			return (EObject) createBasicPropertyAssociation();
+		case Aadl2Package.PROPERTY_CONSTANT:
+			return (EObject) createPropertyConstant();
 		case Aadl2Package.ENUMERATION_VALUE:
 			return (EObject) createEnumerationValue();
 		case Aadl2Package.ENUMERATION_LITERAL:
@@ -351,6 +503,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createComputedValue();
 		case Aadl2Package.LIST_VALUE:
 			return (EObject) createListValue();
+		case Aadl2Package.PROPERTY_SET:
+			return (EObject) createPropertySet();
 		case Aadl2Package.GLOBAL_NAMESPACE:
 			return (EObject) createGlobalNamespace();
 		case Aadl2Package.AADL_BOOLEAN:
@@ -481,9 +635,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BasicPropertyAssociation createBasicPropertyAssociation() {
-		BasicPropertyAssociationImpl basicPropertyAssociation = new BasicPropertyAssociationImpl();
-		return basicPropertyAssociation;
+	public Property createProperty() {
+		PropertyImpl property = new PropertyImpl();
+		return property;
 	}
 
 	/**
@@ -501,9 +655,29 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Property createProperty() {
-		PropertyImpl property = new PropertyImpl();
-		return property;
+	public MetaclassReference createMetaclassReference() {
+		MetaclassReferenceImpl metaclassReference = new MetaclassReferenceImpl();
+		return metaclassReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ModalElement createModalElement() {
+		ModalElementImpl modalElement = new ModalElementImpl();
+		return modalElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Mode createMode() {
+		ModeImpl mode = new ModeImpl();
+		return mode;
 	}
 
 	/**
@@ -514,6 +688,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public ContainedNamedElement createContainedNamedElement() {
 		ContainedNamedElementImpl containedNamedElement = new ContainedNamedElementImpl();
 		return containedNamedElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ContainmentPathElement createContainmentPathElement() {
+		ContainmentPathElementImpl containmentPathElement = new ContainmentPathElementImpl();
+		return containmentPathElement;
 	}
 
 	/**
@@ -541,9 +725,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ContainmentPathElement createContainmentPathElement() {
-		ContainmentPathElementImpl containmentPathElement = new ContainmentPathElementImpl();
-		return containmentPathElement;
+	public ArraySpecification createArraySpecification() {
+		ArraySpecificationImpl arraySpecification = new ArraySpecificationImpl();
+		return arraySpecification;
 	}
 
 	/**
@@ -551,9 +735,19 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Mode createMode() {
-		ModeImpl mode = new ModeImpl();
-		return mode;
+	public Numeral createNumeral() {
+		NumeralImpl numeral = new NumeralImpl();
+		return numeral;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentImplementationReference createComponentImplementationReference() {
+		ComponentImplementationReferenceImpl componentImplementationReference = new ComponentImplementationReferenceImpl();
+		return componentImplementationReference;
 	}
 
 	/**
@@ -581,9 +775,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ArraySpecification createArraySpecification() {
-		ArraySpecificationImpl arraySpecification = new ArraySpecificationImpl();
-		return arraySpecification;
+	public ProcessorPort createProcessorPort() {
+		ProcessorPortImpl processorPort = new ProcessorPortImpl();
+		return processorPort;
 	}
 
 	/**
@@ -591,19 +785,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ModalElement createModalElement() {
-		ModalElementImpl modalElement = new ModalElementImpl();
-		return modalElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TypeExtension createTypeExtension() {
-		TypeExtensionImpl typeExtension = new TypeExtensionImpl();
-		return typeExtension;
+	public InternalEvent createInternalEvent() {
+		InternalEventImpl internalEvent = new InternalEventImpl();
+		return internalEvent;
 	}
 
 	/**
@@ -621,39 +805,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EndToEndFlowElement createEndToEndFlowElement() {
-		EndToEndFlowElementImpl endToEndFlowElement = new EndToEndFlowElementImpl();
-		return endToEndFlowElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ModeBinding createModeBinding() {
-		ModeBindingImpl modeBinding = new ModeBindingImpl();
-		return modeBinding;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ComponentImplementationReference createComponentImplementationReference() {
-		ComponentImplementationReferenceImpl componentImplementationReference = new ComponentImplementationReferenceImpl();
-		return componentImplementationReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FlowImplementation createFlowImplementation() {
-		FlowImplementationImpl flowImplementation = new FlowImplementationImpl();
-		return flowImplementation;
+	public TypeExtension createTypeExtension() {
+		TypeExtensionImpl typeExtension = new TypeExtensionImpl();
+		return typeExtension;
 	}
 
 	/**
@@ -701,9 +855,99 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractSubcomponent createAbstractSubcomponent() {
-		AbstractSubcomponentImpl abstractSubcomponent = new AbstractSubcomponentImpl();
-		return abstractSubcomponent;
+	public BusAccess createBusAccess() {
+		BusAccessImpl busAccess = new BusAccessImpl();
+		return busAccess;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataAccess createDataAccess() {
+		DataAccessImpl dataAccess = new DataAccessImpl();
+		return dataAccess;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EndToEndFlowElement createEndToEndFlowElement() {
+		EndToEndFlowElementImpl endToEndFlowElement = new EndToEndFlowElementImpl();
+		return endToEndFlowElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataPort createDataPort() {
+		DataPortImpl dataPort = new DataPortImpl();
+		return dataPort;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EventDataPort createEventDataPort() {
+		EventDataPortImpl eventDataPort = new EventDataPortImpl();
+		return eventDataPort;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EventPort createEventPort() {
+		EventPortImpl eventPort = new EventPortImpl();
+		return eventPort;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Parameter createParameter() {
+		ParameterImpl parameter = new ParameterImpl();
+		return parameter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramAccess createSubprogramAccess() {
+		SubprogramAccessImpl subprogramAccess = new SubprogramAccessImpl();
+		return subprogramAccess;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramGroupAccess createSubprogramGroupAccess() {
+		SubprogramGroupAccessImpl subprogramGroupAccess = new SubprogramGroupAccessImpl();
+		return subprogramGroupAccess;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AbstractFeature createAbstractFeature() {
+		AbstractFeatureImpl abstractFeature = new AbstractFeatureImpl();
+		return abstractFeature;
 	}
 
 	/**
@@ -714,6 +958,636 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public ComponentPrototype createComponentPrototype() {
 		ComponentPrototypeImpl componentPrototype = new ComponentPrototypeImpl();
 		return componentPrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ModeBinding createModeBinding() {
+		ModeBindingImpl modeBinding = new ModeBindingImpl();
+		return modeBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FlowImplementation createFlowImplementation() {
+		FlowImplementationImpl flowImplementation = new FlowImplementationImpl();
+		return flowImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubcomponentFlow createSubcomponentFlow() {
+		SubcomponentFlowImpl subcomponentFlow = new SubcomponentFlowImpl();
+		return subcomponentFlow;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ImplementationExtension createImplementationExtension() {
+		ImplementationExtensionImpl implementationExtension = new ImplementationExtensionImpl();
+		return implementationExtension;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Realization createRealization() {
+		RealizationImpl realization = new RealizationImpl();
+		return realization;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EndToEndFlow createEndToEndFlow() {
+		EndToEndFlowImpl endToEndFlow = new EndToEndFlowImpl();
+		return endToEndFlow;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AbstractSubcomponent createAbstractSubcomponent() {
+		AbstractSubcomponentImpl abstractSubcomponent = new AbstractSubcomponentImpl();
+		return abstractSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AccessConnection createAccessConnection() {
+		AccessConnectionImpl accessConnection = new AccessConnectionImpl();
+		return accessConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ParameterConnection createParameterConnection() {
+		ParameterConnectionImpl parameterConnection = new ParameterConnectionImpl();
+		return parameterConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortConnection createPortConnection() {
+		PortConnectionImpl portConnection = new PortConnectionImpl();
+		return portConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureConnection createFeatureConnection() {
+		FeatureConnectionImpl featureConnection = new FeatureConnectionImpl();
+		return featureConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureGroupConnection createFeatureGroupConnection() {
+		FeatureGroupConnectionImpl featureGroupConnection = new FeatureGroupConnectionImpl();
+		return featureGroupConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProcessorSubprogram createProcessorSubprogram() {
+		ProcessorSubprogramImpl processorSubprogram = new ProcessorSubprogramImpl();
+		return processorSubprogram;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DefaultAnnexLibrary createDefaultAnnexLibrary() {
+		DefaultAnnexLibraryImpl defaultAnnexLibrary = new DefaultAnnexLibraryImpl();
+		return defaultAnnexLibrary;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DefaultAnnexSubclause createDefaultAnnexSubclause() {
+		DefaultAnnexSubclauseImpl defaultAnnexSubclause = new DefaultAnnexSubclauseImpl();
+		return defaultAnnexSubclause;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PublicPackageSection createPublicPackageSection() {
+		PublicPackageSectionImpl publicPackageSection = new PublicPackageSectionImpl();
+		return publicPackageSection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PackageRename createPackageRename() {
+		PackageRenameImpl packageRename = new PackageRenameImpl();
+		return packageRename;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AadlPackage createAadlPackage() {
+		AadlPackageImpl aadlPackage = new AadlPackageImpl();
+		return aadlPackage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PrivatePackageSection createPrivatePackageSection() {
+		PrivatePackageSectionImpl privatePackageSection = new PrivatePackageSectionImpl();
+		return privatePackageSection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentTypeRename createComponentTypeRename() {
+		ComponentTypeRenameImpl componentTypeRename = new ComponentTypeRenameImpl();
+		return componentTypeRename;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureGroupTypeRename createFeatureGroupTypeRename() {
+		FeatureGroupTypeRenameImpl featureGroupTypeRename = new FeatureGroupTypeRenameImpl();
+		return featureGroupTypeRename;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AbstractType createAbstractType() {
+		AbstractTypeImpl abstractType = new AbstractTypeImpl();
+		return abstractType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AbstractImplementation createAbstractImplementation() {
+		AbstractImplementationImpl abstractImplementation = new AbstractImplementationImpl();
+		return abstractImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramCallSequence createSubprogramCallSequence() {
+		SubprogramCallSequenceImpl subprogramCallSequence = new SubprogramCallSequenceImpl();
+		return subprogramCallSequence;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BusSubcomponent createBusSubcomponent() {
+		BusSubcomponentImpl busSubcomponent = new BusSubcomponentImpl();
+		return busSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataSubcomponent createDataSubcomponent() {
+		DataSubcomponentImpl dataSubcomponent = new DataSubcomponentImpl();
+		return dataSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DeviceSubcomponent createDeviceSubcomponent() {
+		DeviceSubcomponentImpl deviceSubcomponent = new DeviceSubcomponentImpl();
+		return deviceSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MemorySubcomponent createMemorySubcomponent() {
+		MemorySubcomponentImpl memorySubcomponent = new MemorySubcomponentImpl();
+		return memorySubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProcessSubcomponent createProcessSubcomponent() {
+		ProcessSubcomponentImpl processSubcomponent = new ProcessSubcomponentImpl();
+		return processSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProcessorSubcomponent createProcessorSubcomponent() {
+		ProcessorSubcomponentImpl processorSubcomponent = new ProcessorSubcomponentImpl();
+		return processorSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SystemSubcomponent createSystemSubcomponent() {
+		SystemSubcomponentImpl systemSubcomponent = new SystemSubcomponentImpl();
+		return systemSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramSubcomponent createSubprogramSubcomponent() {
+		SubprogramSubcomponentImpl subprogramSubcomponent = new SubprogramSubcomponentImpl();
+		return subprogramSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramGroupSubcomponent createSubprogramGroupSubcomponent() {
+		SubprogramGroupSubcomponentImpl subprogramGroupSubcomponent = new SubprogramGroupSubcomponentImpl();
+		return subprogramGroupSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ThreadSubcomponent createThreadSubcomponent() {
+		ThreadSubcomponentImpl threadSubcomponent = new ThreadSubcomponentImpl();
+		return threadSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ThreadGroupSubcomponent createThreadGroupSubcomponent() {
+		ThreadGroupSubcomponentImpl threadGroupSubcomponent = new ThreadGroupSubcomponentImpl();
+		return threadGroupSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VirtualBusSubcomponent createVirtualBusSubcomponent() {
+		VirtualBusSubcomponentImpl virtualBusSubcomponent = new VirtualBusSubcomponentImpl();
+		return virtualBusSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VirtualProcessorSubcomponent createVirtualProcessorSubcomponent() {
+		VirtualProcessorSubcomponentImpl virtualProcessorSubcomponent = new VirtualProcessorSubcomponentImpl();
+		return virtualProcessorSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BusType createBusType() {
+		BusTypeImpl busType = new BusTypeImpl();
+		return busType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BusImplementation createBusImplementation() {
+		BusImplementationImpl busImplementation = new BusImplementationImpl();
+		return busImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataType createDataType() {
+		DataTypeImpl dataType = new DataTypeImpl();
+		return dataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataImplementation createDataImplementation() {
+		DataImplementationImpl dataImplementation = new DataImplementationImpl();
+		return dataImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DeviceType createDeviceType() {
+		DeviceTypeImpl deviceType = new DeviceTypeImpl();
+		return deviceType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DeviceImplementation createDeviceImplementation() {
+		DeviceImplementationImpl deviceImplementation = new DeviceImplementationImpl();
+		return deviceImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MemoryType createMemoryType() {
+		MemoryTypeImpl memoryType = new MemoryTypeImpl();
+		return memoryType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MemoryImplementation createMemoryImplementation() {
+		MemoryImplementationImpl memoryImplementation = new MemoryImplementationImpl();
+		return memoryImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProcessType createProcessType() {
+		ProcessTypeImpl processType = new ProcessTypeImpl();
+		return processType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProcessorType createProcessorType() {
+		ProcessorTypeImpl processorType = new ProcessorTypeImpl();
+		return processorType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProcessImplementation createProcessImplementation() {
+		ProcessImplementationImpl processImplementation = new ProcessImplementationImpl();
+		return processImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProcessorImplementation createProcessorImplementation() {
+		ProcessorImplementationImpl processorImplementation = new ProcessorImplementationImpl();
+		return processorImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramType createSubprogramType() {
+		SubprogramTypeImpl subprogramType = new SubprogramTypeImpl();
+		return subprogramType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramImplementation createSubprogramImplementation() {
+		SubprogramImplementationImpl subprogramImplementation = new SubprogramImplementationImpl();
+		return subprogramImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramGroupType createSubprogramGroupType() {
+		SubprogramGroupTypeImpl subprogramGroupType = new SubprogramGroupTypeImpl();
+		return subprogramGroupType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramGroupImplementation createSubprogramGroupImplementation() {
+		SubprogramGroupImplementationImpl subprogramGroupImplementation = new SubprogramGroupImplementationImpl();
+		return subprogramGroupImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SystemType createSystemType() {
+		SystemTypeImpl systemType = new SystemTypeImpl();
+		return systemType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SystemImplementation createSystemImplementation() {
+		SystemImplementationImpl systemImplementation = new SystemImplementationImpl();
+		return systemImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ThreadType createThreadType() {
+		ThreadTypeImpl threadType = new ThreadTypeImpl();
+		return threadType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ThreadImplementation createThreadImplementation() {
+		ThreadImplementationImpl threadImplementation = new ThreadImplementationImpl();
+		return threadImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ThreadGroupType createThreadGroupType() {
+		ThreadGroupTypeImpl threadGroupType = new ThreadGroupTypeImpl();
+		return threadGroupType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ThreadGroupImplementation createThreadGroupImplementation() {
+		ThreadGroupImplementationImpl threadGroupImplementation = new ThreadGroupImplementationImpl();
+		return threadGroupImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VirtualBusType createVirtualBusType() {
+		VirtualBusTypeImpl virtualBusType = new VirtualBusTypeImpl();
+		return virtualBusType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VirtualBusImplementation createVirtualBusImplementation() {
+		VirtualBusImplementationImpl virtualBusImplementation = new VirtualBusImplementationImpl();
+		return virtualBusImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VirtualProcessorType createVirtualProcessorType() {
+		VirtualProcessorTypeImpl virtualProcessorType = new VirtualProcessorTypeImpl();
+		return virtualProcessorType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VirtualProcessorImplementation createVirtualProcessorImplementation() {
+		VirtualProcessorImplementationImpl virtualProcessorImplementation = new VirtualProcessorImplementationImpl();
+		return virtualProcessorImplementation;
 	}
 
 	/**
@@ -841,309 +1715,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Numeral createNumeral() {
-		NumeralImpl numeral = new NumeralImpl();
-		return numeral;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EndToEndFlow createEndToEndFlow() {
-		EndToEndFlowImpl endToEndFlow = new EndToEndFlowImpl();
-		return endToEndFlow;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureConnection createFeatureConnection() {
-		FeatureConnectionImpl featureConnection = new FeatureConnectionImpl();
-		return featureConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DataAccess createDataAccess() {
-		DataAccessImpl dataAccess = new DataAccessImpl();
-		return dataAccess;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BusAccess createBusAccess() {
-		BusAccessImpl busAccess = new BusAccessImpl();
-		return busAccess;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SubprogramAccess createSubprogramAccess() {
-		SubprogramAccessImpl subprogramAccess = new SubprogramAccessImpl();
-		return subprogramAccess;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DataPort createDataPort() {
-		DataPortImpl dataPort = new DataPortImpl();
-		return dataPort;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EventPort createEventPort() {
-		EventPortImpl eventPort = new EventPortImpl();
-		return eventPort;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EventDataPort createEventDataPort() {
-		EventDataPortImpl eventDataPort = new EventDataPortImpl();
-		return eventDataPort;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Parameter createParameter() {
-		ParameterImpl parameter = new ParameterImpl();
-		return parameter;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SubprogramGroupAccess createSubprogramGroupAccess() {
-		SubprogramGroupAccessImpl subprogramGroupAccess = new SubprogramGroupAccessImpl();
-		return subprogramGroupAccess;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ImplementationExtension createImplementationExtension() {
-		ImplementationExtensionImpl implementationExtension = new ImplementationExtensionImpl();
-		return implementationExtension;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Realization createRealization() {
-		RealizationImpl realization = new RealizationImpl();
-		return realization;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DeviceSubcomponent createDeviceSubcomponent() {
-		DeviceSubcomponentImpl deviceSubcomponent = new DeviceSubcomponentImpl();
-		return deviceSubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DeviceType createDeviceType() {
-		DeviceTypeImpl deviceType = new DeviceTypeImpl();
-		return deviceType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DeviceImplementation createDeviceImplementation() {
-		DeviceImplementationImpl deviceImplementation = new DeviceImplementationImpl();
-		return deviceImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BusSubcomponent createBusSubcomponent() {
-		BusSubcomponentImpl busSubcomponent = new BusSubcomponentImpl();
-		return busSubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AbstractType createAbstractType() {
-		AbstractTypeImpl abstractType = new AbstractTypeImpl();
-		return abstractType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AbstractImplementation createAbstractImplementation() {
-		AbstractImplementationImpl abstractImplementation = new AbstractImplementationImpl();
-		return abstractImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DataSubcomponent createDataSubcomponent() {
-		DataSubcomponentImpl dataSubcomponent = new DataSubcomponentImpl();
-		return dataSubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public MemorySubcomponent createMemorySubcomponent() {
-		MemorySubcomponentImpl memorySubcomponent = new MemorySubcomponentImpl();
-		return memorySubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ProcessSubcomponent createProcessSubcomponent() {
-		ProcessSubcomponentImpl processSubcomponent = new ProcessSubcomponentImpl();
-		return processSubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ProcessorSubcomponent createProcessorSubcomponent() {
-		ProcessorSubcomponentImpl processorSubcomponent = new ProcessorSubcomponentImpl();
-		return processorSubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SystemSubcomponent createSystemSubcomponent() {
-		SystemSubcomponentImpl systemSubcomponent = new SystemSubcomponentImpl();
-		return systemSubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SubprogramSubcomponent createSubprogramSubcomponent() {
-		SubprogramSubcomponentImpl subprogramSubcomponent = new SubprogramSubcomponentImpl();
-		return subprogramSubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SubprogramGroupSubcomponent createSubprogramGroupSubcomponent() {
-		SubprogramGroupSubcomponentImpl subprogramGroupSubcomponent = new SubprogramGroupSubcomponentImpl();
-		return subprogramGroupSubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ThreadSubcomponent createThreadSubcomponent() {
-		ThreadSubcomponentImpl threadSubcomponent = new ThreadSubcomponentImpl();
-		return threadSubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ThreadGroupSubcomponent createThreadGroupSubcomponent() {
-		ThreadGroupSubcomponentImpl threadGroupSubcomponent = new ThreadGroupSubcomponentImpl();
-		return threadGroupSubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public VirtualBusSubcomponent createVirtualBusSubcomponent() {
-		VirtualBusSubcomponentImpl virtualBusSubcomponent = new VirtualBusSubcomponentImpl();
-		return virtualBusSubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public VirtualProcessorSubcomponent createVirtualProcessorSubcomponent() {
-		VirtualProcessorSubcomponentImpl virtualProcessorSubcomponent = new VirtualProcessorSubcomponentImpl();
-		return virtualProcessorSubcomponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SubprogramCallSequence createSubprogramCallSequence() {
-		SubprogramCallSequenceImpl subprogramCallSequence = new SubprogramCallSequenceImpl();
-		return subprogramCallSequence;
+	public ProcessorCall createProcessorCall() {
+		ProcessorCallImpl processorCall = new ProcessorCallImpl();
+		return processorCall;
 	}
 
 	/**
@@ -1161,429 +1735,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ProcessorPort createProcessorPort() {
-		ProcessorPortImpl processorPort = new ProcessorPortImpl();
-		return processorPort;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public InternalEvent createInternalEvent() {
-		InternalEventImpl internalEvent = new InternalEventImpl();
-		return internalEvent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BusType createBusType() {
-		BusTypeImpl busType = new BusTypeImpl();
-		return busType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BusImplementation createBusImplementation() {
-		BusImplementationImpl busImplementation = new BusImplementationImpl();
-		return busImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DataType createDataType() {
-		DataTypeImpl dataType = new DataTypeImpl();
-		return dataType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DataImplementation createDataImplementation() {
-		DataImplementationImpl dataImplementation = new DataImplementationImpl();
-		return dataImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public MemoryType createMemoryType() {
-		MemoryTypeImpl memoryType = new MemoryTypeImpl();
-		return memoryType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public MemoryImplementation createMemoryImplementation() {
-		MemoryImplementationImpl memoryImplementation = new MemoryImplementationImpl();
-		return memoryImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SystemType createSystemType() {
-		SystemTypeImpl systemType = new SystemTypeImpl();
-		return systemType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SystemImplementation createSystemImplementation() {
-		SystemImplementationImpl systemImplementation = new SystemImplementationImpl();
-		return systemImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ThreadType createThreadType() {
-		ThreadTypeImpl threadType = new ThreadTypeImpl();
-		return threadType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ThreadImplementation createThreadImplementation() {
-		ThreadImplementationImpl threadImplementation = new ThreadImplementationImpl();
-		return threadImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ThreadGroupType createThreadGroupType() {
-		ThreadGroupTypeImpl threadGroupType = new ThreadGroupTypeImpl();
-		return threadGroupType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ThreadGroupImplementation createThreadGroupImplementation() {
-		ThreadGroupImplementationImpl threadGroupImplementation = new ThreadGroupImplementationImpl();
-		return threadGroupImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public VirtualBusType createVirtualBusType() {
-		VirtualBusTypeImpl virtualBusType = new VirtualBusTypeImpl();
-		return virtualBusType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public VirtualBusImplementation createVirtualBusImplementation() {
-		VirtualBusImplementationImpl virtualBusImplementation = new VirtualBusImplementationImpl();
-		return virtualBusImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public VirtualProcessorType createVirtualProcessorType() {
-		VirtualProcessorTypeImpl virtualProcessorType = new VirtualProcessorTypeImpl();
-		return virtualProcessorType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public VirtualProcessorImplementation createVirtualProcessorImplementation() {
-		VirtualProcessorImplementationImpl virtualProcessorImplementation = new VirtualProcessorImplementationImpl();
-		return virtualProcessorImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SubprogramGroupType createSubprogramGroupType() {
-		SubprogramGroupTypeImpl subprogramGroupType = new SubprogramGroupTypeImpl();
-		return subprogramGroupType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SubprogramGroupImplementation createSubprogramGroupImplementation() {
-		SubprogramGroupImplementationImpl subprogramGroupImplementation = new SubprogramGroupImplementationImpl();
-		return subprogramGroupImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ProcessorType createProcessorType() {
-		ProcessorTypeImpl processorType = new ProcessorTypeImpl();
-		return processorType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ProcessorImplementation createProcessorImplementation() {
-		ProcessorImplementationImpl processorImplementation = new ProcessorImplementationImpl();
-		return processorImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ProcessType createProcessType() {
-		ProcessTypeImpl processType = new ProcessTypeImpl();
-		return processType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ProcessImplementation createProcessImplementation() {
-		ProcessImplementationImpl processImplementation = new ProcessImplementationImpl();
-		return processImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SubprogramType createSubprogramType() {
-		SubprogramTypeImpl subprogramType = new SubprogramTypeImpl();
-		return subprogramType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SubprogramImplementation createSubprogramImplementation() {
-		SubprogramImplementationImpl subprogramImplementation = new SubprogramImplementationImpl();
-		return subprogramImplementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AccessConnection createAccessConnection() {
-		AccessConnectionImpl accessConnection = new AccessConnectionImpl();
-		return accessConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ParameterConnection createParameterConnection() {
-		ParameterConnectionImpl parameterConnection = new ParameterConnectionImpl();
-		return parameterConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PortConnection createPortConnection() {
-		PortConnectionImpl portConnection = new PortConnectionImpl();
-		return portConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureGroupConnection createFeatureGroupConnection() {
-		FeatureGroupConnectionImpl featureGroupConnection = new FeatureGroupConnectionImpl();
-		return featureGroupConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ProcessorSubprogram createProcessorSubprogram() {
-		ProcessorSubprogramImpl processorSubprogram = new ProcessorSubprogramImpl();
-		return processorSubprogram;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SubcomponentFlow createSubcomponentFlow() {
-		SubcomponentFlowImpl subcomponentFlow = new SubcomponentFlowImpl();
-		return subcomponentFlow;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DefaultAnnexLibrary createDefaultAnnexLibrary() {
-		DefaultAnnexLibraryImpl defaultAnnexLibrary = new DefaultAnnexLibraryImpl();
-		return defaultAnnexLibrary;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DefaultAnnexSubclause createDefaultAnnexSubclause() {
-		DefaultAnnexSubclauseImpl defaultAnnexSubclause = new DefaultAnnexSubclauseImpl();
-		return defaultAnnexSubclause;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AbstractFeature createAbstractFeature() {
-		AbstractFeatureImpl abstractFeature = new AbstractFeatureImpl();
-		return abstractFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PublicPackageSection createPublicPackageSection() {
-		PublicPackageSectionImpl publicPackageSection = new PublicPackageSectionImpl();
-		return publicPackageSection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PackageRename createPackageRename() {
-		PackageRenameImpl packageRename = new PackageRenameImpl();
-		return packageRename;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AadlPackage createAadlPackage() {
-		AadlPackageImpl aadlPackage = new AadlPackageImpl();
-		return aadlPackage;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PrivatePackageSection createPrivatePackageSection() {
-		PrivatePackageSectionImpl privatePackageSection = new PrivatePackageSectionImpl();
-		return privatePackageSection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ComponentTypeRename createComponentTypeRename() {
-		ComponentTypeRenameImpl componentTypeRename = new ComponentTypeRenameImpl();
-		return componentTypeRename;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureGroupTypeRename createFeatureGroupTypeRename() {
-		FeatureGroupTypeRenameImpl featureGroupTypeRename = new FeatureGroupTypeRenameImpl();
-		return featureGroupTypeRename;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GlobalNamespace createGlobalNamespace() {
-		GlobalNamespaceImpl globalNamespace = new GlobalNamespaceImpl();
-		return globalNamespace;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PropertySet createPropertySet() {
-		PropertySetImpl propertySet = new PropertySetImpl();
-		return propertySet;
+	public BasicPropertyAssociation createBasicPropertyAssociation() {
+		BasicPropertyAssociationImpl basicPropertyAssociation = new BasicPropertyAssociationImpl();
+		return basicPropertyAssociation;
 	}
 
 	/**
@@ -1601,79 +1755,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ProcessorCall createProcessorCall() {
-		ProcessorCallImpl processorCall = new ProcessorCallImpl();
-		return processorCall;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EnumerationValue createEnumerationValue() {
 		EnumerationValueImpl enumerationValue = new EnumerationValueImpl();
 		return enumerationValue;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AadlInteger createAadlInteger() {
-		AadlIntegerImpl aadlInteger = new AadlIntegerImpl();
-		return aadlInteger;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AadlReal createAadlReal() {
-		AadlRealImpl aadlReal = new AadlRealImpl();
-		return aadlReal;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AadlBoolean createAadlBoolean() {
-		AadlBooleanImpl aadlBoolean = new AadlBooleanImpl();
-		return aadlBoolean;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AadlString createAadlString() {
-		AadlStringImpl aadlString = new AadlStringImpl();
-		return aadlString;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EnumerationType createEnumerationType() {
-		EnumerationTypeImpl enumerationType = new EnumerationTypeImpl();
-		return enumerationType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NumericRange createNumericRange() {
-		NumericRangeImpl numericRange = new NumericRangeImpl();
-		return numericRange;
 	}
 
 	/**
@@ -1841,6 +1925,56 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public PropertySet createPropertySet() {
+		PropertySetImpl propertySet = new PropertySetImpl();
+		return propertySet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GlobalNamespace createGlobalNamespace() {
+		GlobalNamespaceImpl globalNamespace = new GlobalNamespaceImpl();
+		return globalNamespace;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AadlBoolean createAadlBoolean() {
+		AadlBooleanImpl aadlBoolean = new AadlBooleanImpl();
+		return aadlBoolean;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AadlString createAadlString() {
+		AadlStringImpl aadlString = new AadlStringImpl();
+		return aadlString;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AadlInteger createAadlInteger() {
+		AadlIntegerImpl aadlInteger = new AadlIntegerImpl();
+		return aadlInteger;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public UnitsType createUnitsType() {
 		UnitsTypeImpl unitsType = new UnitsTypeImpl();
 		return unitsType;
@@ -1851,29 +1985,39 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EnumerationType createEnumerationType() {
+		EnumerationTypeImpl enumerationType = new EnumerationTypeImpl();
+		return enumerationType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NumericRange createNumericRange() {
+		NumericRangeImpl numericRange = new NumericRangeImpl();
+		return numericRange;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AadlReal createAadlReal() {
+		AadlRealImpl aadlReal = new AadlRealImpl();
+		return aadlReal;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ClassifierType createClassifierType() {
 		ClassifierTypeImpl classifierType = new ClassifierTypeImpl();
 		return classifierType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public MetaclassReference createMetaclassReference() {
-		MetaclassReferenceImpl metaclassReference = new MetaclassReferenceImpl();
-		return metaclassReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ReferenceType createReferenceType() {
-		ReferenceTypeImpl referenceType = new ReferenceTypeImpl();
-		return referenceType;
 	}
 
 	/**
@@ -1911,109 +2055,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ComponentCategory createComponentCategoryFromString(EDataType eDataType, String initialValue) {
-		ComponentCategory result = ComponentCategory.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertComponentCategoryToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FlowKind createFlowKindFromString(EDataType eDataType, String initialValue) {
-		FlowKind result = FlowKind.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertFlowKindToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ConnectionKind createConnectionKindFromString(EDataType eDataType, String initialValue) {
-		ConnectionKind result = ConnectionKind.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertConnectionKindToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AccessCategory createAccessCategoryFromString(EDataType eDataType, String initialValue) {
-		AccessCategory result = AccessCategory.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertAccessCategoryToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AccessType createAccessTypeFromString(EDataType eDataType, String initialValue) {
-		AccessType result = AccessType.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertAccessTypeToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
+	public ReferenceType createReferenceType() {
+		ReferenceTypeImpl referenceType = new ReferenceTypeImpl();
+		return referenceType;
 	}
 
 	/**
@@ -2057,6 +2101,116 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * @generated
 	 */
 	public String convertPortCategoryToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FlowKind createFlowKindFromString(EDataType eDataType, String initialValue) {
+		FlowKind result = FlowKind.get(initialValue);
+		if (result == null)
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFlowKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AccessType createAccessTypeFromString(EDataType eDataType, String initialValue) {
+		AccessType result = AccessType.get(initialValue);
+		if (result == null)
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAccessTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AccessCategory createAccessCategoryFromString(EDataType eDataType, String initialValue) {
+		AccessCategory result = AccessCategory.get(initialValue);
+		if (result == null)
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAccessCategoryToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentCategory createComponentCategoryFromString(EDataType eDataType, String initialValue) {
+		ComponentCategory result = ComponentCategory.get(initialValue);
+		if (result == null)
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertComponentCategoryToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConnectionKind createConnectionKindFromString(EDataType eDataType, String initialValue) {
+		ConnectionKind result = ConnectionKind.get(initialValue);
+		if (result == null)
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertConnectionKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

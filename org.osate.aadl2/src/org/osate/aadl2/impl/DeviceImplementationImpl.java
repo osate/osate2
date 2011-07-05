@@ -54,6 +54,7 @@ import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DeviceType;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.VirtualBusSubcomponent;
 
 /**
  * <!-- begin-user-doc -->
@@ -65,6 +66,7 @@ import org.osate.aadl2.Subcomponent;
  *   <li>{@link org.osate.aadl2.impl.DeviceImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DeviceImplementationImpl#getOwnedBusSubcomponents <em>Owned Bus Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DeviceImplementationImpl#getOwnedDataSubcomponents <em>Owned Data Subcomponent</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.DeviceImplementationImpl#getOwnedVirtualBusSubcomponents <em>Owned Virtual Bus Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DeviceImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
@@ -90,6 +92,16 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * @ordered
 	 */
 	protected EList<DataSubcomponent> ownedDataSubcomponents;
+
+	/**
+	 * The cached value of the '{@link #getOwnedVirtualBusSubcomponents() <em>Owned Virtual Bus Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedVirtualBusSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VirtualBusSubcomponent> ownedVirtualBusSubcomponents;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -145,7 +157,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	protected static final int[] OWNED_SUBCOMPONENT_ESUBSETS = new int[] {
 			Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT,
 			Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT,
-			Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT };
+			Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT,
+			Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -194,6 +207,32 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 				.getDataSubcomponent());
 		getOwnedDataSubcomponents().add(newOwnedDataSubcomponent);
 		return newOwnedDataSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
+		if (ownedVirtualBusSubcomponents == null) {
+			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
+					VirtualBusSubcomponent.class, this,
+					Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
+		}
+		return ownedVirtualBusSubcomponents;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
+		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(Aadl2Package.eINSTANCE
+				.getVirtualBusSubcomponent());
+		getOwnedVirtualBusSubcomponents().add(newOwnedVirtualBusSubcomponent);
+		return newOwnedVirtualBusSubcomponent;
 	}
 
 	/**
@@ -250,6 +289,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 			return ((InternalEList<?>) getOwnedBusSubcomponents()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return ((InternalEList<?>) getOwnedDataSubcomponents()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedVirtualBusSubcomponents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -266,6 +307,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 			return getOwnedBusSubcomponents();
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return getOwnedDataSubcomponents();
+		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			return getOwnedVirtualBusSubcomponents();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -287,6 +330,10 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 			getOwnedDataSubcomponents().clear();
 			getOwnedDataSubcomponents().addAll((Collection<? extends DataSubcomponent>) newValue);
 			return;
+		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			getOwnedVirtualBusSubcomponents().clear();
+			getOwnedVirtualBusSubcomponents().addAll((Collection<? extends VirtualBusSubcomponent>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -305,6 +352,9 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			getOwnedDataSubcomponents().clear();
 			return;
+		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			getOwnedVirtualBusSubcomponents().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -321,6 +371,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 			return ownedBusSubcomponents != null && !ownedBusSubcomponents.isEmpty();
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
+		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
+			return ownedVirtualBusSubcomponents != null && !ownedVirtualBusSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -333,7 +385,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	@Override
 	public boolean isSetOwnedSubcomponents() {
 		return super.isSetOwnedSubcomponents() || eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT)
-				|| eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
+				|| eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT)
+				|| eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 	}
 
 	public String getCategory() {

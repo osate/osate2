@@ -227,7 +227,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setType(Type newType) {
@@ -235,12 +235,6 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 		type = newType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY__TYPE, oldType, type));
-		Resource.Internal eInternalResource = eInternalResource();
-		if (eInternalResource == null || !eInternalResource.isLoading()) {
-			if (ownedType != null && ownedType != newType) {
-				setOwnedType(null);
-			}
-		}
 	}
 
 	/**

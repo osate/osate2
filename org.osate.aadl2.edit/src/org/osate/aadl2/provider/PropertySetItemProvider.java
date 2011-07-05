@@ -83,41 +83,24 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements IE
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addImportedPropertySetPropertyDescriptor(object);
-			addImportedPackagePropertyDescriptor(object);
+			addImportedUnitPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Imported Property Set feature.
+	 * This adds a property descriptor for the Imported Unit feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addImportedPropertySetPropertyDescriptor(Object object) {
+	protected void addImportedUnitPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_PropertySet_importedPropertySet_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PropertySet_importedPropertySet_feature",
-						"_UI_PropertySet_type"), Aadl2Package.eINSTANCE.getPropertySet_ImportedPropertySet(), true,
-				false, true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Imported Package feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addImportedPackagePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PropertySet_importedPackage_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PropertySet_importedPackage_feature",
-						"_UI_PropertySet_type"), Aadl2Package.eINSTANCE.getPropertySet_ImportedPackage(), true, false,
+				getString("_UI_PropertySet_importedUnit_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PropertySet_importedUnit_feature",
+						"_UI_PropertySet_type"), Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit(), true, false,
 				true, null, null, null));
 	}
 

@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,56 +31,40 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: DirectedFeature.java,v 1.1 2009-09-08 23:19:16 lwrage Exp $
  */
-package org.osate.aadl2;
+package org.osate.aadl2.impl;
+
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ModelUnit;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Directed Feature</b></em>'.
+ * An implementation of the model object '<em><b>Model Unit</b></em>'.
  * <!-- end-user-doc -->
- *
  * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.osate.aadl2.DirectedFeature#getDirection <em>Direction</em>}</li>
- * </ul>
  * </p>
  *
- * @see org.osate.aadl2.Aadl2Package#getDirectedFeature()
- * @model abstract="true"
  * @generated
  */
-public interface DirectedFeature extends Feature {
+public abstract class ModelUnitImpl extends NamedElementImpl implements ModelUnit {
 	/**
-	 * Returns the value of the '<em><b>Direction</b></em>' attribute.
-	 * The default value is <code>"inOut"</code>.
-	 * The literals are from the enumeration {@link org.osate.aadl2.DirectionType}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Direction</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Direction</em>' attribute.
-	 * @see org.osate.aadl2.DirectionType
-	 * @see #setDirection(DirectionType)
-	 * @see org.osate.aadl2.Aadl2Package#getDirectedFeature_Direction()
-	 * @model default="inOut" required="true" ordered="false"
-	 * @generated
-	 */
-	DirectionType getDirection();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.DirectedFeature#getDirection <em>Direction</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Direction</em>' attribute.
-	 * @see org.osate.aadl2.DirectionType
-	 * @see #getDirection()
 	 * @generated
 	 */
-	void setDirection(DirectionType value);
+	protected ModelUnitImpl() {
+		super();
+	}
 
-} // DirectedFeature
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return Aadl2Package.eINSTANCE.getModelUnit();
+	}
+
+} //ModelUnitImpl

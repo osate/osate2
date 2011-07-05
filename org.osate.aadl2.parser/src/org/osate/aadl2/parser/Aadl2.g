@@ -932,7 +932,7 @@ package_item [PackageSection section]
 				if(section.findNamedElement(cd.getName()) != null) 
 					errReporter.error(cd.getLocationReference(),"Duplicate component classifier");
 				
-             	section.addClassifier(cd);
+             	section.getOwnedClassifiers.add(cd);
              }
         } 
 	;

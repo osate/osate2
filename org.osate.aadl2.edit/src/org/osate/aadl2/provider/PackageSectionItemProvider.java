@@ -84,27 +84,26 @@ public class PackageSectionItemProvider extends NamespaceItemProvider implements
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addImportedPackagePropertyDescriptor(object);
+			addImportedUnitPropertyDescriptor(object);
 			addNoAnnexesPropertyDescriptor(object);
 			addNoPropertiesPropertyDescriptor(object);
-			addImportedPropertySetPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Imported Package feature.
+	 * This adds a property descriptor for the Imported Unit feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addImportedPackagePropertyDescriptor(Object object) {
+	protected void addImportedUnitPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_PackageSection_importedPackage_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_importedPackage_feature",
-						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_ImportedPackage(), true,
+				getString("_UI_PackageSection_importedUnit_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_importedUnit_feature",
+						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(), true,
 				false, true, null, null, null));
 	}
 
@@ -122,22 +121,6 @@ public class PackageSectionItemProvider extends NamespaceItemProvider implements
 				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_noProperties_feature",
 						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_NoProperties(), true,
 				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Imported Property Set feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addImportedPropertySetPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PackageSection_importedPropertySet_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_importedPropertySet_feature",
-						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_ImportedPropertySet(),
-				true, false, true, null, null, null));
 	}
 
 	/**
@@ -169,35 +152,6 @@ public class PackageSectionItemProvider extends NamespaceItemProvider implements
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedAnnexLibrary());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedAbstractType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedAbstractImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedBusType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedBusImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedDataType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedDataImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedDeviceType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedDeviceImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedMemoryType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedMemoryImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedProcessType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedProcessorType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedProcessImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedProcessorImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedSubprogramType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedSubprogramImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedSubprogramGroupType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedSubprogramGroupImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedSystemType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedSystemImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedThreadType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedThreadImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedThreadGroupType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedThreadGroupImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedVirtualBusType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedVirtualBusImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedVirtualProcessorType());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedVirtualProcessorImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPackageSection_OwnedFeatureGroupType());
 		}
 		return childrenFeatures;
 	}
@@ -245,35 +199,6 @@ public class PackageSectionItemProvider extends NamespaceItemProvider implements
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_ABSTRACT_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_ABSTRACT_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_BUS_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_BUS_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_DATA_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_DATA_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_DEVICE_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_DEVICE_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_MEMORY_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_MEMORY_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_PROCESS_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_PROCESSOR_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_PROCESS_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_PROCESSOR_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_SUBPROGRAM_GROUP_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_SYSTEM_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_SYSTEM_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_GROUP_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_THREAD_GROUP_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_BUS_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_BUS_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_TYPE:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_VIRTUAL_PROCESSOR_IMPLEMENTATION:
-		case Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -293,108 +218,6 @@ public class PackageSectionItemProvider extends NamespaceItemProvider implements
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedAnnexLibrary(),
 				Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedAbstractType(),
-				Aadl2Factory.eINSTANCE.createAbstractType()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedAbstractImplementation(),
-				Aadl2Factory.eINSTANCE.createAbstractImplementation()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedBusType(),
-				Aadl2Factory.eINSTANCE.createBusType()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedBusImplementation(),
-				Aadl2Factory.eINSTANCE.createBusImplementation()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedDataType(),
-				Aadl2Factory.eINSTANCE.createDataType()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedDataImplementation(),
-				Aadl2Factory.eINSTANCE.createDataImplementation()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedDeviceType(),
-				Aadl2Factory.eINSTANCE.createDeviceType()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedDeviceImplementation(),
-				Aadl2Factory.eINSTANCE.createDeviceImplementation()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedMemoryType(),
-				Aadl2Factory.eINSTANCE.createMemoryType()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedMemoryImplementation(),
-				Aadl2Factory.eINSTANCE.createMemoryImplementation()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedProcessType(),
-				Aadl2Factory.eINSTANCE.createProcessType()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedProcessorType(),
-				Aadl2Factory.eINSTANCE.createProcessorType()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedProcessImplementation(),
-				Aadl2Factory.eINSTANCE.createProcessImplementation()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedProcessorImplementation(),
-				Aadl2Factory.eINSTANCE.createProcessorImplementation()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedSubprogramType(),
-				Aadl2Factory.eINSTANCE.createSubprogramType()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedSubprogramImplementation(),
-				Aadl2Factory.eINSTANCE.createSubprogramImplementation()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedSubprogramGroupType(),
-				Aadl2Factory.eINSTANCE.createSubprogramGroupType()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedSubprogramGroupImplementation(),
-				Aadl2Factory.eINSTANCE.createSubprogramGroupImplementation()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedSystemType(),
-				Aadl2Factory.eINSTANCE.createSystemType()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedSystemImplementation(),
-				Aadl2Factory.eINSTANCE.createSystemImplementation()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedThreadType(),
-				Aadl2Factory.eINSTANCE.createThreadType()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedThreadImplementation(),
-				Aadl2Factory.eINSTANCE.createThreadImplementation()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedThreadGroupType(),
-				Aadl2Factory.eINSTANCE.createThreadGroupType()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedThreadGroupImplementation(),
-				Aadl2Factory.eINSTANCE.createThreadGroupImplementation()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedVirtualBusType(),
-				Aadl2Factory.eINSTANCE.createVirtualBusType()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedVirtualBusImplementation(),
-				Aadl2Factory.eINSTANCE.createVirtualBusImplementation()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedVirtualProcessorType(),
-				Aadl2Factory.eINSTANCE.createVirtualProcessorType()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedVirtualProcessorImplementation(),
-				Aadl2Factory.eINSTANCE.createVirtualProcessorImplementation()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedFeatureGroupType(),
-				Aadl2Factory.eINSTANCE.createFeatureGroupType()));
 	}
 
 }
