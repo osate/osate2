@@ -127,6 +127,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDataTypeAccess().getAlternatives_5_1(), "rule__DataType__Alternatives_5_1");
 					put(grammarAccess.getAbstractImplementationAccess().getAlternatives_6_1(), "rule__AbstractImplementation__Alternatives_6_1");
 					put(grammarAccess.getAbstractImplementationAccess().getAlternatives_6_1_0(), "rule__AbstractImplementation__Alternatives_6_1_0");
+					put(grammarAccess.getAbstractImplementationAccess().getAlternatives_7_1(), "rule__AbstractImplementation__Alternatives_7_1");
 					put(grammarAccess.getAbstractImplementationAccess().getAlternatives_8_1(), "rule__AbstractImplementation__Alternatives_8_1");
 					put(grammarAccess.getAbstractImplementationAccess().getAlternatives_8_1_0(), "rule__AbstractImplementation__Alternatives_8_1_0");
 					put(grammarAccess.getAbstractImplementationAccess().getAlternatives_10_1(), "rule__AbstractImplementation__Alternatives_10_1");
@@ -155,6 +156,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getThreadGroupImplementationAccess().getAlternatives_11_1(), "rule__ThreadGroupImplementation__Alternatives_11_1");
 					put(grammarAccess.getThreadImplementationAccess().getAlternatives_6_1(), "rule__ThreadImplementation__Alternatives_6_1");
 					put(grammarAccess.getThreadImplementationAccess().getAlternatives_6_1_0(), "rule__ThreadImplementation__Alternatives_6_1_0");
+					put(grammarAccess.getThreadImplementationAccess().getAlternatives_7_1(), "rule__ThreadImplementation__Alternatives_7_1");
 					put(grammarAccess.getThreadImplementationAccess().getAlternatives_8_1(), "rule__ThreadImplementation__Alternatives_8_1");
 					put(grammarAccess.getThreadImplementationAccess().getAlternatives_8_1_0(), "rule__ThreadImplementation__Alternatives_8_1_0");
 					put(grammarAccess.getThreadImplementationAccess().getAlternatives_10_1(), "rule__ThreadImplementation__Alternatives_10_1");
@@ -162,6 +164,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getThreadImplementationAccess().getAlternatives_11_1(), "rule__ThreadImplementation__Alternatives_11_1");
 					put(grammarAccess.getSubprogramImplementationAccess().getAlternatives_6_1(), "rule__SubprogramImplementation__Alternatives_6_1");
 					put(grammarAccess.getSubprogramImplementationAccess().getAlternatives_6_1_0(), "rule__SubprogramImplementation__Alternatives_6_1_0");
+					put(grammarAccess.getSubprogramImplementationAccess().getAlternatives_7_1(), "rule__SubprogramImplementation__Alternatives_7_1");
 					put(grammarAccess.getSubprogramImplementationAccess().getAlternatives_8_1(), "rule__SubprogramImplementation__Alternatives_8_1");
 					put(grammarAccess.getSubprogramImplementationAccess().getAlternatives_8_1_0(), "rule__SubprogramImplementation__Alternatives_8_1_0");
 					put(grammarAccess.getSubprogramImplementationAccess().getAlternatives_10_1(), "rule__SubprogramImplementation__Alternatives_10_1");
@@ -520,6 +523,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getAbstractImplementationAccess().getGroup_6(), "rule__AbstractImplementation__Group_6__0");
 					put(grammarAccess.getAbstractImplementationAccess().getGroup_6_1_1(), "rule__AbstractImplementation__Group_6_1_1__0");
 					put(grammarAccess.getAbstractImplementationAccess().getGroup_7(), "rule__AbstractImplementation__Group_7__0");
+					put(grammarAccess.getAbstractImplementationAccess().getGroup_7_1_1(), "rule__AbstractImplementation__Group_7_1_1__0");
 					put(grammarAccess.getAbstractImplementationAccess().getGroup_8(), "rule__AbstractImplementation__Group_8__0");
 					put(grammarAccess.getAbstractImplementationAccess().getGroup_8_1_1(), "rule__AbstractImplementation__Group_8_1_1__0");
 					put(grammarAccess.getAbstractImplementationAccess().getGroup_9(), "rule__AbstractImplementation__Group_9__0");
@@ -577,6 +581,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getThreadImplementationAccess().getGroup_6(), "rule__ThreadImplementation__Group_6__0");
 					put(grammarAccess.getThreadImplementationAccess().getGroup_6_1_1(), "rule__ThreadImplementation__Group_6_1_1__0");
 					put(grammarAccess.getThreadImplementationAccess().getGroup_7(), "rule__ThreadImplementation__Group_7__0");
+					put(grammarAccess.getThreadImplementationAccess().getGroup_7_1_1(), "rule__ThreadImplementation__Group_7_1_1__0");
 					put(grammarAccess.getThreadImplementationAccess().getGroup_8(), "rule__ThreadImplementation__Group_8__0");
 					put(grammarAccess.getThreadImplementationAccess().getGroup_8_1_1(), "rule__ThreadImplementation__Group_8_1_1__0");
 					put(grammarAccess.getThreadImplementationAccess().getGroup_9(), "rule__ThreadImplementation__Group_9__0");
@@ -592,6 +597,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramImplementationAccess().getGroup_6(), "rule__SubprogramImplementation__Group_6__0");
 					put(grammarAccess.getSubprogramImplementationAccess().getGroup_6_1_1(), "rule__SubprogramImplementation__Group_6_1_1__0");
 					put(grammarAccess.getSubprogramImplementationAccess().getGroup_7(), "rule__SubprogramImplementation__Group_7__0");
+					put(grammarAccess.getSubprogramImplementationAccess().getGroup_7_1_1(), "rule__SubprogramImplementation__Group_7_1_1__0");
 					put(grammarAccess.getSubprogramImplementationAccess().getGroup_8(), "rule__SubprogramImplementation__Group_8__0");
 					put(grammarAccess.getSubprogramImplementationAccess().getGroup_8_1_1(), "rule__SubprogramImplementation__Group_8_1_1__0");
 					put(grammarAccess.getSubprogramImplementationAccess().getGroup_9(), "rule__SubprogramImplementation__Group_9__0");
@@ -1164,6 +1170,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getPublicPackageSectionAccess().getOwnedAbstractImplementationAssignment_3_25(), "rule__PublicPackageSection__OwnedAbstractImplementationAssignment_3_25");
 					put(grammarAccess.getPublicPackageSectionAccess().getOwnedDataTypeAssignment_3_26(), "rule__PublicPackageSection__OwnedDataTypeAssignment_3_26");
 					put(grammarAccess.getPublicPackageSectionAccess().getOwnedDataImplementationAssignment_3_27(), "rule__PublicPackageSection__OwnedDataImplementationAssignment_3_27");
+					put(grammarAccess.getPublicPackageSectionAccess().getOwnedAnnexLibraryAssignment_3_28(), "rule__PublicPackageSection__OwnedAnnexLibraryAssignment_3_28");
 					put(grammarAccess.getPrivatePackageSectionAccess().getImportedPackageAssignment_2_0_1(), "rule__PrivatePackageSection__ImportedPackageAssignment_2_0_1");
 					put(grammarAccess.getPrivatePackageSectionAccess().getImportedPackageAssignment_2_0_2_1(), "rule__PrivatePackageSection__ImportedPackageAssignment_2_0_2_1");
 					put(grammarAccess.getPrivatePackageSectionAccess().getOwnedPackageRenameAssignment_2_1(), "rule__PrivatePackageSection__OwnedPackageRenameAssignment_2_1");
@@ -1197,6 +1204,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getPrivatePackageSectionAccess().getOwnedAbstractTypeAssignment_3_24(), "rule__PrivatePackageSection__OwnedAbstractTypeAssignment_3_24");
 					put(grammarAccess.getPrivatePackageSectionAccess().getOwnedAbstractImplementationAssignment_3_25(), "rule__PrivatePackageSection__OwnedAbstractImplementationAssignment_3_25");
 					put(grammarAccess.getPrivatePackageSectionAccess().getOwnedDataTypeAssignment_3_26(), "rule__PrivatePackageSection__OwnedDataTypeAssignment_3_26");
+					put(grammarAccess.getPrivatePackageSectionAccess().getOwnedDataImplementationAssignment_3_27(), "rule__PrivatePackageSection__OwnedDataImplementationAssignment_3_27");
+					put(grammarAccess.getPrivatePackageSectionAccess().getOwnedAnnexLibraryAssignment_3_28(), "rule__PrivatePackageSection__OwnedAnnexLibraryAssignment_3_28");
 					put(grammarAccess.getPackageRenameAccess().getNameAssignment_0(), "rule__PackageRename__NameAssignment_0");
 					put(grammarAccess.getPackageRenameAccess().getRenamedPackageAssignment_3(), "rule__PackageRename__RenamedPackageAssignment_3");
 					put(grammarAccess.getPackageRenameAllAccess().getRenamedPackageAssignment_2(), "rule__PackageRenameAll__RenamedPackageAssignment_2");
@@ -1500,7 +1509,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getAbstractImplementationAccess().getOwnedDataSubcomponentAssignment_6_1_0_12(), "rule__AbstractImplementation__OwnedDataSubcomponentAssignment_6_1_0_12");
 					put(grammarAccess.getAbstractImplementationAccess().getOwnedAbstractSubcomponentAssignment_6_1_0_13(), "rule__AbstractImplementation__OwnedAbstractSubcomponentAssignment_6_1_0_13");
 					put(grammarAccess.getAbstractImplementationAccess().getNoSubcomponentsAssignment_6_1_1_0(), "rule__AbstractImplementation__NoSubcomponentsAssignment_6_1_1_0");
-					put(grammarAccess.getAbstractImplementationAccess().getOwnedSubprogramCallSequenceAssignment_7_1(), "rule__AbstractImplementation__OwnedSubprogramCallSequenceAssignment_7_1");
+					put(grammarAccess.getAbstractImplementationAccess().getOwnedSubprogramCallSequenceAssignment_7_1_0(), "rule__AbstractImplementation__OwnedSubprogramCallSequenceAssignment_7_1_0");
+					put(grammarAccess.getAbstractImplementationAccess().getNoCallsAssignment_7_1_1_0(), "rule__AbstractImplementation__NoCallsAssignment_7_1_1_0");
 					put(grammarAccess.getAbstractImplementationAccess().getOwnedPortConnectionAssignment_8_1_0_0(), "rule__AbstractImplementation__OwnedPortConnectionAssignment_8_1_0_0");
 					put(grammarAccess.getAbstractImplementationAccess().getOwnedAccessConnectionAssignment_8_1_0_1(), "rule__AbstractImplementation__OwnedAccessConnectionAssignment_8_1_0_1");
 					put(grammarAccess.getAbstractImplementationAccess().getOwnedFeatureGroupConnectionAssignment_8_1_0_2(), "rule__AbstractImplementation__OwnedFeatureGroupConnectionAssignment_8_1_0_2");
@@ -1602,7 +1612,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getThreadImplementationAccess().getOwnedDataSubcomponentAssignment_6_1_0_2(), "rule__ThreadImplementation__OwnedDataSubcomponentAssignment_6_1_0_2");
 					put(grammarAccess.getThreadImplementationAccess().getOwnedAbstractSubcomponentAssignment_6_1_0_3(), "rule__ThreadImplementation__OwnedAbstractSubcomponentAssignment_6_1_0_3");
 					put(grammarAccess.getThreadImplementationAccess().getNoSubcomponentsAssignment_6_1_1_0(), "rule__ThreadImplementation__NoSubcomponentsAssignment_6_1_1_0");
-					put(grammarAccess.getThreadImplementationAccess().getOwnedSubprogramCallSequenceAssignment_7_1(), "rule__ThreadImplementation__OwnedSubprogramCallSequenceAssignment_7_1");
+					put(grammarAccess.getThreadImplementationAccess().getOwnedSubprogramCallSequenceAssignment_7_1_0(), "rule__ThreadImplementation__OwnedSubprogramCallSequenceAssignment_7_1_0");
+					put(grammarAccess.getThreadImplementationAccess().getNoCallsAssignment_7_1_1_0(), "rule__ThreadImplementation__NoCallsAssignment_7_1_1_0");
 					put(grammarAccess.getThreadImplementationAccess().getOwnedPortConnectionAssignment_8_1_0_0(), "rule__ThreadImplementation__OwnedPortConnectionAssignment_8_1_0_0");
 					put(grammarAccess.getThreadImplementationAccess().getOwnedAccessConnectionAssignment_8_1_0_1(), "rule__ThreadImplementation__OwnedAccessConnectionAssignment_8_1_0_1");
 					put(grammarAccess.getThreadImplementationAccess().getOwnedFeatureGroupConnectionAssignment_8_1_0_2(), "rule__ThreadImplementation__OwnedFeatureGroupConnectionAssignment_8_1_0_2");
@@ -1623,7 +1634,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramImplementationAccess().getOwnedAbstractSubcomponentAssignment_6_1_0_0(), "rule__SubprogramImplementation__OwnedAbstractSubcomponentAssignment_6_1_0_0");
 					put(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentAssignment_6_1_0_1(), "rule__SubprogramImplementation__OwnedDataSubcomponentAssignment_6_1_0_1");
 					put(grammarAccess.getSubprogramImplementationAccess().getNoSubcomponentsAssignment_6_1_1_0(), "rule__SubprogramImplementation__NoSubcomponentsAssignment_6_1_1_0");
-					put(grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramCallSequenceAssignment_7_1(), "rule__SubprogramImplementation__OwnedSubprogramCallSequenceAssignment_7_1");
+					put(grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramCallSequenceAssignment_7_1_0(), "rule__SubprogramImplementation__OwnedSubprogramCallSequenceAssignment_7_1_0");
+					put(grammarAccess.getSubprogramImplementationAccess().getNoCallsAssignment_7_1_1_0(), "rule__SubprogramImplementation__NoCallsAssignment_7_1_1_0");
 					put(grammarAccess.getSubprogramImplementationAccess().getOwnedPortConnectionAssignment_8_1_0_0(), "rule__SubprogramImplementation__OwnedPortConnectionAssignment_8_1_0_0");
 					put(grammarAccess.getSubprogramImplementationAccess().getOwnedParameterConnectionAssignment_8_1_0_1(), "rule__SubprogramImplementation__OwnedParameterConnectionAssignment_8_1_0_1");
 					put(grammarAccess.getSubprogramImplementationAccess().getOwnedAccessConnectionAssignment_8_1_0_2(), "rule__SubprogramImplementation__OwnedAccessConnectionAssignment_8_1_0_2");
