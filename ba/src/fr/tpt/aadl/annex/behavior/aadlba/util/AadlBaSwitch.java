@@ -202,6 +202,22 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL: {
+				BehaviorBooleanLiteral behaviorBooleanLiteral = (BehaviorBooleanLiteral)theEObject;
+				T result = caseBehaviorBooleanLiteral(behaviorBooleanLiteral);
+				if (result == null) result = caseLiteral(behaviorBooleanLiteral);
+				if (result == null) result = caseBooleanLiteral(behaviorBooleanLiteral);
+				if (result == null) result = caseValueConstant(behaviorBooleanLiteral);
+				if (result == null) result = casePropertyValue(behaviorBooleanLiteral);
+				if (result == null) result = caseValue(behaviorBooleanLiteral);
+				if (result == null) result = caseIntegerValueConstant(behaviorBooleanLiteral);
+				if (result == null) result = casePropertyExpression(behaviorBooleanLiteral);
+				if (result == null) result = caseIntegerValue(behaviorBooleanLiteral);
+				if (result == null) result = caseBehaviorElement(behaviorBooleanLiteral);
+				if (result == null) result = caseElement(behaviorBooleanLiteral);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case AadlBaPackage.BEHAVIOR_CONDITION: {
 				BehaviorCondition behaviorCondition = (BehaviorCondition)theEObject;
 				T result = caseBehaviorCondition(behaviorCondition);
@@ -214,6 +230,20 @@ public class AadlBaSwitch<T> {
 				BehaviorElement behaviorElement = (BehaviorElement)theEObject;
 				T result = caseBehaviorElement(behaviorElement);
 				if (result == null) result = caseElement(behaviorElement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL: {
+				BehaviorEnumerationLiteral behaviorEnumerationLiteral = (BehaviorEnumerationLiteral)theEObject;
+				T result = caseBehaviorEnumerationLiteral(behaviorEnumerationLiteral);
+				if (result == null) result = caseComponentPropertyValue(behaviorEnumerationLiteral);
+				if (result == null) result = caseBehaviorNamedElement(behaviorEnumerationLiteral);
+				if (result == null) result = caseValueConstant(behaviorEnumerationLiteral);
+				if (result == null) result = caseValue(behaviorEnumerationLiteral);
+				if (result == null) result = caseIntegerValueConstant(behaviorEnumerationLiteral);
+				if (result == null) result = caseElement(behaviorEnumerationLiteral);
+				if (result == null) result = caseIntegerValue(behaviorEnumerationLiteral);
+				if (result == null) result = caseBehaviorElement(behaviorEnumerationLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -335,22 +365,6 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL: {
-				BehaviorBooleanLiteral behaviorBooleanLiteral = (BehaviorBooleanLiteral)theEObject;
-				T result = caseBehaviorBooleanLiteral(behaviorBooleanLiteral);
-				if (result == null) result = caseLiteral(behaviorBooleanLiteral);
-				if (result == null) result = caseBooleanLiteral(behaviorBooleanLiteral);
-				if (result == null) result = caseValueConstant(behaviorBooleanLiteral);
-				if (result == null) result = casePropertyValue(behaviorBooleanLiteral);
-				if (result == null) result = caseValue(behaviorBooleanLiteral);
-				if (result == null) result = caseIntegerValueConstant(behaviorBooleanLiteral);
-				if (result == null) result = casePropertyExpression(behaviorBooleanLiteral);
-				if (result == null) result = caseIntegerValue(behaviorBooleanLiteral);
-				if (result == null) result = caseBehaviorElement(behaviorBooleanLiteral);
-				if (result == null) result = caseElement(behaviorBooleanLiteral);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case AadlBaPackage.COMMUNICATION_ACTION: {
 				CommunicationAction communicationAction = (CommunicationAction)theEObject;
 				T result = caseCommunicationAction(communicationAction);
@@ -369,6 +383,19 @@ public class AadlBaSwitch<T> {
 				if (result == null) result = caseBehaviorTime(completionRelativeTimeoutConditionAndCatch);
 				if (result == null) result = caseBehaviorElement(completionRelativeTimeoutConditionAndCatch);
 				if (result == null) result = caseElement(completionRelativeTimeoutConditionAndCatch);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AadlBaPackage.COMPONENT_PROPERTY_VALUE: {
+				ComponentPropertyValue componentPropertyValue = (ComponentPropertyValue)theEObject;
+				T result = caseComponentPropertyValue(componentPropertyValue);
+				if (result == null) result = caseBehaviorNamedElement(componentPropertyValue);
+				if (result == null) result = caseValueConstant(componentPropertyValue);
+				if (result == null) result = caseValue(componentPropertyValue);
+				if (result == null) result = caseIntegerValueConstant(componentPropertyValue);
+				if (result == null) result = caseElement(componentPropertyValue);
+				if (result == null) result = caseIntegerValue(componentPropertyValue);
+				if (result == null) result = caseBehaviorElement(componentPropertyValue);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -926,6 +953,21 @@ public class AadlBaSwitch<T> {
 	 * @generated
 	 */
 	public T caseBehaviorElement(BehaviorElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Behavior Enumeration Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Behavior Enumeration Literal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBehaviorEnumerationLiteral(BehaviorEnumerationLiteral object) {
 		return null;
 	}
 
@@ -1976,6 +2018,21 @@ public class AadlBaSwitch<T> {
 	 * @generated
 	 */
 	public T caseCompletionRelativeTimeoutConditionAndCatch(CompletionRelativeTimeoutConditionAndCatch object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Component Property Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Component Property Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseComponentPropertyValue(ComponentPropertyValue object) {
 		return null;
 	}
 

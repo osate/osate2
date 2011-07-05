@@ -81,6 +81,8 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 			case AadlBaPackage.BEHAVIOR_ACTION_SEQUENCE: return (EObject)createBehaviorActionSequence();
 			case AadlBaPackage.BEHAVIOR_ACTION_SET: return (EObject)createBehaviorActionSet();
 			case AadlBaPackage.BEHAVIOR_ANNEX: return (EObject)createBehaviorAnnex();
+			case AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL: return (EObject)createBehaviorBooleanLiteral();
+			case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL: return (EObject)createBehaviorEnumerationLiteral();
 			case AadlBaPackage.BEHAVIOR_INTEGER_LITERAL: return (EObject)createBehaviorIntegerLiteral();
 			case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT: return (EObject)createBehaviorPropertyConstant();
 			case AadlBaPackage.BEHAVIOR_PROPERTY_VALUE: return (EObject)createBehaviorPropertyValue();
@@ -90,7 +92,6 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 			case AadlBaPackage.BEHAVIOR_TIME: return (EObject)createBehaviorTime();
 			case AadlBaPackage.BEHAVIOR_TRANSITION: return (EObject)createBehaviorTransition();
 			case AadlBaPackage.BEHAVIOR_VARIABLE: return (EObject)createBehaviorVariable();
-			case AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL: return (EObject)createBehaviorBooleanLiteral();
 			case AadlBaPackage.COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH: return (EObject)createCompletionRelativeTimeoutConditionAndCatch();
 			case AadlBaPackage.DATA_COMPONENT_REFERENCE: return (EObject)createDataComponentReference();
 			case AadlBaPackage.DECLARATOR: return (EObject)createDeclarator();
@@ -313,6 +314,16 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	public BehaviorBooleanLiteral createBehaviorBooleanLiteral() {
 		BehaviorBooleanLiteralImpl behaviorBooleanLiteral = new BehaviorBooleanLiteralImpl();
 		return behaviorBooleanLiteral;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BehaviorEnumerationLiteral createBehaviorEnumerationLiteral() {
+		BehaviorEnumerationLiteralImpl behaviorEnumerationLiteral = new BehaviorEnumerationLiteralImpl();
+		return behaviorEnumerationLiteral;
 	}
 
 	/**

@@ -333,6 +333,12 @@ SEMICOLON      : ';' ;
 DOUBLECOLON    : '::';
 HASH           : '#';
 
+// XXX enumeration literal temporary implementation
+
+ENUMERATOR     : 'enumerators' ;
+
+
+
 //  Grammar
 
 //---------------------------------------------------------
@@ -395,16 +401,14 @@ catch [RecognitionException ex] {
   input.consume();
 }
 
-  
-// unique_component_classifier_reference ::= 
+// behavior_named_element ::= 
 //   { package_identifier :: }* component_type_identifier
 //   [ . component_implementation_identifier ]
-unique_component_classifier_reference returns [UniqueComponentClassifierReference DataClassRef]
+behavior_named_element [BehaviorNamedElement bne]
  @init{
-   DataClassRef = _fact.createUniqueComponentClassifierReference();
-   String id1 = "";
-   String id2 = "";
- }
+        String id1 = "";
+        String id2 = "";
+      }
   :
    (
     ( identifier1=IDENT DOUBLECOLON { id1=id1+(id1.length() == 0 ? "":"::")+identifier1.getText(); } )*
@@ -412,20 +416,50 @@ unique_component_classifier_reference returns [UniqueComponentClassifierReferenc
     ( DOT identifier3=IDENT { id2=id2+"."+identifier3.getText(); } )?
    )
    {
-    DataClassRef.setName(id2);
+     Identifier nameId = _fact.createIdentifier();
+     nameId.setId(id2);
+     setLocationReference(nameId, identifier2); 
+     bne.setName(nameId);
     
-    if (! id1.equals(""))
-    {
-      DataClassRef.setNamespace(id1);
-      DataClassRef.setQualifiedName(id1+"::"+id2);
-      DataClassRef.setNamespaceSeparator("::");
-    }
-    else
-    {
-      DataClassRef.setQualifiedName(id2);
-    } 
-    setLocationReference(DataClassRef, identifier2); 
+     if (! id1.equals(""))
+     {
+       Identifier nameSpaceId = _fact.createIdentifier();
+       nameSpaceId.setId(id1);
+       setLocationReference(nameSpaceId, identifier1); 
+       bne.setNamespace(nameSpaceId);
+      
+       Identifier qualifiedNameId = _fact.createIdentifier();
+       qualifiedNameId.setId(id1+"::"+id2);
+       setLocationReference(qualifiedNameId, identifier1);
+       bne.setQualifiedName(qualifiedNameId);
+      
+       bne.setNamespaceSeparator("::");
+       setLocationReference(bne, identifier1);
+     }
+     else
+     {
+       bne.setQualifiedName(bne.getName());
+       setLocationReference(bne, identifier2);
+     }
    }
+;
+catch [RecognitionException ex] {
+  reportError(ex);
+  consumeUntil(input,SEMICOLON);
+  input.consume();
+}
+  
+// unique_component_classifier_reference ::= 
+//   { package_identifier :: }* component_type_identifier
+//   [ . component_implementation_identifier ]
+unique_component_classifier_reference returns [UniqueComponentClassifierReference DataClassRef]
+ @init{
+   DataClassRef = _fact.createUniqueComponentClassifierReference();
+ }
+  :
+   (
+     behavior_named_element[DataClassRef]
+   )
 ;
 catch [RecognitionException ex] {
   reportError(ex);
@@ -1435,15 +1469,26 @@ fact_value returns [Value Val]
             BehaviorPropertyConstant PropertyCst = _fact.
                                                createBehaviorPropertyConstant();
                         
-            PropertyCst.setNamespace(id1.getText());
+            Identifier nameSpaceId = _fact.createIdentifier();
+            nameSpaceId.setId(id1.getText());
+            setLocationReference(nameSpaceId, id1);
+            PropertyCst.setNamespace(nameSpaceId);
+            
             setLocationReference(PropertyCst, id1) ;
             PropertyCst.setNamespaceSeparator("::");
             
-            PropertyCst.setName(id2.getText());
+            Identifier nameId = _fact.createIdentifier();
+            nameId.setId(id2.getText());
+            setLocationReference(nameId, id2);
+            PropertyCst.setName(nameId);
             
-            String qName = PropertyCst.getNamespace() + 
-              PropertyCst.getNamespaceSeparator() + PropertyCst.getName() ;
-            PropertyCst.setQualifiedName(qName) ;
+            String qName = PropertyCst.getNamespace().getId() + 
+            PropertyCst.getNamespaceSeparator() + PropertyCst.getName().getId();
+         
+            Identifier qualifiedNameId = _fact.createIdentifier();
+            qualifiedNameId.setId(qName);
+            qualifiedNameId.setLocationReference(PropertyCst.getNamespace().getLocationReference());
+            PropertyCst.setQualifiedName(qualifiedNameId) ;
 
             Val = PropertyCst ;
           }
@@ -1457,6 +1502,8 @@ fact_value returns [Value Val]
        nl=numeric_literal { Val = nl;}
      |
        st=string_literal  { Val = st;}
+     |
+       lit=behavior_enumeration_literal { Val = lit ;}    
    )
 ;
 catch [RecognitionException ex] {
@@ -1570,7 +1617,8 @@ catch [RecognitionException ex] {
 // value_constant ::= 
 //   boolean_literal
 // | numeric_literal 
-// | string_literal 
+// | string_literal
+// | behavior_enumeration_literal 
 // | property_constant
 // | property_value
 value_constant returns [ValueConstant ValueCons]
@@ -1584,6 +1632,8 @@ value_constant returns [ValueConstant ValueCons]
        nl=numeric_literal { ValueCons = nl; }
      |
        st=string_literal { ValueCons = st; }
+     |
+       lit=behavior_enumeration_literal { ValueCons = lit ;}
      |
        // Ambiguous case.
        ProperCst=property_constant {ValueCons = ProperCst;}
@@ -2016,23 +2066,36 @@ property_constant returns [BehaviorPropertyConstant PropertyCst]
    (
      ( PropertySetId=IDENT DOUBLECOLON
        {
-         PropertyCst.setNamespace(PropertySetId.getText());
+         Identifier nameSpaceId = _fact.createIdentifier();
+         nameSpaceId.setId(PropertySetId.getText());
+         setLocationReference(nameSpaceId, PropertySetId); 
+         PropertyCst.setNamespace(nameSpaceId);
          setLocationReference(PropertyCst, PropertySetId) ;
          PropertyCst.setNamespaceSeparator("::");
        }
      )?
        
      PropertyCstId=IDENT
-     { PropertyCst.setName(PropertyCstId.getText());
+     { 
+       Identifier nameId = _fact.createIdentifier();
+       nameId.setId(PropertyCstId.getText());
+       setLocationReference(nameId, PropertyCstId); 
+       PropertyCst.setName(nameId);
+       
        if(PropertyCst.getNamespace() == null)
        {
          PropertyCst.setQualifiedName(PropertyCst.getName());
        }
        else
        {
-         String qName = PropertyCst.getNamespace() + 
-           PropertyCst.getNamespaceSeparator() + PropertyCst.getName() ;
-         PropertyCst.setQualifiedName(qName) ;
+         String qName = PropertyCst.getNamespace().getId() + 
+           PropertyCst.getNamespaceSeparator() + PropertyCst.getName().getId() ;
+         
+         Identifier qualifiedNameId = _fact.createIdentifier();
+         qualifiedNameId.setId(qName);
+         qualifiedNameId.setLocationReference(PropertyCst.getNamespace().getLocationReference());
+         
+         PropertyCst.setQualifiedName(qualifiedNameId) ;
        }
        
        if (PropertyCst.getLocationReference() == null )  
@@ -2047,6 +2110,41 @@ catch [RecognitionException ex] {
   consumeUntil(input,SEMICOLON);
   input.consume();
 }
+
+// enumeration_literal ::= 
+//   { package_identifier :: }* component_type_identifier
+//   [ . component_implementation_identifier ]
+//   . enumerator_property_identifier
+//   # enumeration_literal_identifier
+behavior_enumeration_literal returns [BehaviorEnumerationLiteral bel]
+  @init {
+          bel = _fact.createBehaviorEnumerationLiteral() ;
+        }
+  :
+  (
+     behavior_named_element[bel]
+     
+     DOT id1=ENUMERATOR HASH id2=IDENT
+     {
+       Identifier elListId = _fact.createIdentifier() ;
+       elListId.setId(id2.getText());
+       setLocationReference(elListId, id2) ;
+       
+       Identifier enumId = _fact.createIdentifier() ;
+       enumId.setId(id1.getText());
+       setLocationReference(enumId, id1) ;
+       
+       bel.setPropertyIdentifier(enumId);
+       bel.setElementListIdentifier(elListId);
+       // bel's location reference is already set, see behavior_named_element.       
+     }
+  )
+;
+catch [RecognitionException ex] {
+  reportError(ex);
+  consumeUntil(input,SEMICOLON);
+  input.consume();
+}       
 
 // numeric_literal ::= <refer to [AS5506A 15.4]>
 // numeric literal without optional sign and unit

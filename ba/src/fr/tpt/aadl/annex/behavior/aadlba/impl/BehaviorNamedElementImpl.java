@@ -24,10 +24,14 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement;
 
+import fr.tpt.aadl.annex.behavior.aadlba.Identifier;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -39,8 +43,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorNamedElementImpl#getName <em>Name</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorNamedElementImpl#getQualifiedName <em>Qualified Name</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorNamedElementImpl#getNamespaceSeparator <em>Namespace Separator</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorNamedElementImpl#getNamespace <em>Namespace</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorNamedElementImpl#getNamespaceSeparator <em>Namespace Separator</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,44 +52,34 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl implements BehaviorNamedElement {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The cached value of the '{@link #getName() <em>Name</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String NAME_EDEFAULT = null;
+	protected Identifier name;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getQualifiedName() <em>Qualified Name</em>}' attribute.
+	 * The cached value of the '{@link #getQualifiedName() <em>Qualified Name</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getQualifiedName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String QUALIFIED_NAME_EDEFAULT = null;
+	protected Identifier qualifiedName;
 
 	/**
-	 * The cached value of the '{@link #getQualifiedName() <em>Qualified Name</em>}' attribute.
+	 * The cached value of the '{@link #getNamespace() <em>Namespace</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getQualifiedName()
+	 * @see #getNamespace()
 	 * @generated
 	 * @ordered
 	 */
-	protected String qualifiedName = QUALIFIED_NAME_EDEFAULT;
+	protected Identifier namespace;
 
 	/**
 	 * The default value of the '{@link #getNamespaceSeparator() <em>Namespace Separator</em>}' attribute.
@@ -106,26 +100,6 @@ public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl imple
 	 * @ordered
 	 */
 	protected String namespaceSeparator = NAMESPACE_SEPARATOR_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getNamespace() <em>Namespace</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getNamespace()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NAMESPACE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getNamespace() <em>Namespace</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getNamespace()
-	 * @generated
-	 * @ordered
-	 */
-	protected String namespace = NAMESPACE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -151,7 +125,15 @@ public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getName() {
+	public Identifier getName() {
+		if (name != null && ((EObject)name).eIsProxy()) {
+			InternalEObject oldName = (InternalEObject)name;
+			name = (Identifier)eResolveProxy(oldName);
+			if (name != oldName) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAME, oldName, name));
+			}
+		}
 		return name;
 	}
 
@@ -160,8 +142,17 @@ public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setName(String newName) {
-		String oldName = name;
+	public Identifier basicGetName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(Identifier newName) {
+		Identifier oldName = name;
 		name = newName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAME, oldName, name));
@@ -172,7 +163,15 @@ public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getQualifiedName() {
+	public Identifier getQualifiedName() {
+		if (qualifiedName != null && ((EObject)qualifiedName).eIsProxy()) {
+			InternalEObject oldQualifiedName = (InternalEObject)qualifiedName;
+			qualifiedName = (Identifier)eResolveProxy(oldQualifiedName);
+			if (qualifiedName != oldQualifiedName) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME, oldQualifiedName, qualifiedName));
+			}
+		}
 		return qualifiedName;
 	}
 
@@ -181,11 +180,63 @@ public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setQualifiedName(String newQualifiedName) {
-		String oldQualifiedName = qualifiedName;
+	public Identifier basicGetQualifiedName() {
+		return qualifiedName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setQualifiedName(Identifier newQualifiedName) {
+		Identifier oldQualifiedName = qualifiedName;
 		qualifiedName = newQualifiedName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME, oldQualifiedName, qualifiedName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Identifier getNamespace() {
+		return namespace;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetNamespace(Identifier newNamespace, NotificationChain msgs) {
+		Identifier oldNamespace = namespace;
+		namespace = newNamespace;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE, oldNamespace, newNamespace);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNamespace(Identifier newNamespace) {
+		if (newNamespace != namespace) {
+			NotificationChain msgs = null;
+			if (namespace != null)
+				msgs = ((InternalEObject)namespace).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE, null, msgs);
+			if (newNamespace != null)
+				msgs = ((InternalEObject)newNamespace).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE, null, msgs);
+			msgs = basicSetNamespace(newNamespace, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE, newNamespace, newNamespace));
 	}
 
 	/**
@@ -214,20 +265,13 @@ public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getNamespace() {
-		return namespace;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setNamespace(String newNamespace) {
-		String oldNamespace = namespace;
-		namespace = newNamespace;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE, oldNamespace, namespace));
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE:
+				return basicSetNamespace(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -239,13 +283,15 @@ public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl imple
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAME:
-				return getName();
+				if (resolve) return getName();
+				return basicGetName();
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME:
-				return getQualifiedName();
-			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR:
-				return getNamespaceSeparator();
+				if (resolve) return getQualifiedName();
+				return basicGetQualifiedName();
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE:
 				return getNamespace();
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR:
+				return getNamespaceSeparator();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -259,16 +305,16 @@ public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl imple
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAME:
-				setName((String)newValue);
+				setName((Identifier)newValue);
 				return;
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME:
-				setQualifiedName((String)newValue);
+				setQualifiedName((Identifier)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE:
+				setNamespace((Identifier)newValue);
 				return;
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR:
 				setNamespaceSeparator((String)newValue);
-				return;
-			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE:
-				setNamespace((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -283,16 +329,16 @@ public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl imple
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAME:
-				setName(NAME_EDEFAULT);
+				setName((Identifier)null);
 				return;
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME:
-				setQualifiedName(QUALIFIED_NAME_EDEFAULT);
+				setQualifiedName((Identifier)null);
+				return;
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE:
+				setNamespace((Identifier)null);
 				return;
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR:
 				setNamespaceSeparator(NAMESPACE_SEPARATOR_EDEFAULT);
-				return;
-			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE:
-				setNamespace(NAMESPACE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -307,13 +353,13 @@ public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl imple
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+				return name != null;
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME:
-				return QUALIFIED_NAME_EDEFAULT == null ? qualifiedName != null : !QUALIFIED_NAME_EDEFAULT.equals(qualifiedName);
+				return qualifiedName != null;
+			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE:
+				return namespace != null;
 			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR:
 				return NAMESPACE_SEPARATOR_EDEFAULT == null ? namespaceSeparator != null : !NAMESPACE_SEPARATOR_EDEFAULT.equals(namespaceSeparator);
-			case AadlBaPackage.BEHAVIOR_NAMED_ELEMENT__NAMESPACE:
-				return NAMESPACE_EDEFAULT == null ? namespace != null : !NAMESPACE_EDEFAULT.equals(namespace);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -328,14 +374,8 @@ public abstract class BehaviorNamedElementImpl extends BehaviorElementImpl imple
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(", qualifiedName: ");
-		result.append(qualifiedName);
-		result.append(", namespaceSeparator: ");
+		result.append(" (namespaceSeparator: ");
 		result.append(namespaceSeparator);
-		result.append(", namespace: ");
-		result.append(namespace);
 		result.append(')');
 		return result.toString();
 	}

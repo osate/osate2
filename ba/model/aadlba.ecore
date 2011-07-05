@@ -39,6 +39,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviorTransitions" upperBound="-1"
         eType="#//BehaviorTransition" unsettable="true" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorBooleanLiteral" eSuperTypes="#//Literal ../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//BooleanLiteral"/>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorCondition" abstract="true" interface="true"
       eSuperTypes="#//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorElement" abstract="true" eSuperTypes="../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//Element">
@@ -49,6 +50,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="aadlRef" unique="false"
         eType="ecore:EClass ../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//Element"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorEnumerationLiteral" eSuperTypes="#//ComponentPropertyValue"/>
   <eClassifiers xsi:type="ecore:EEnum" name="BehaviorFeatureType">
     <eLiterals name="NONE" literal="unknown behavior annex feature"/>
     <eLiterals name="BEHAVIOR_VARIABLE" value="1" literal="behavior variable"/>
@@ -60,19 +62,12 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A named element is an element in a model that may have a name."/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" ordered="false" lowerBound="1"
-        eType="#//String">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The name of the NamedElement."/>
-      </eAnnotations>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="The name of the NamedElement."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedName" ordered="false"
-        lowerBound="1" eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//Identifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="qualifiedName" lowerBound="1"
+        eType="#//Identifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="namespace" eType="#//Identifier"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="namespaceSeparator" eType="#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="namespace" eType="#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorPropertyConstant" eSuperTypes="#//BehaviorNamedElement #//ValueConstant"/>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorPropertyValue" eSuperTypes="#//BehaviorNamedElement #//ValueConstant"/>
@@ -128,11 +123,17 @@
       <details key="documentation" value="A Boolean type is used for logical expression, consisting of the predefined values true and false."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BehaviorBooleanLiteral" eSuperTypes="#//Literal ../../edu.cmu.sei.aadl.aadl2/model/aadl2.ecore#//BooleanLiteral"/>
   <eClassifiers xsi:type="ecore:EClass" name="CommunicationAction" abstract="true"
       interface="true" eSuperTypes="#//BasicAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="CompletionRelativeTimeoutConditionAndCatch"
       eSuperTypes="#//DispatchTriggerCondition #//BehaviorTime"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentPropertyValue" abstract="true"
+      eSuperTypes="#//BehaviorNamedElement #//ValueConstant">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyIdentifier" lowerBound="1"
+        eType="#//Identifier" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elementListIdentifier"
+        eType="#//Identifier" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CondStatement" abstract="true" interface="true"
       eSuperTypes="#//BehaviorAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataComponentReference" eSuperTypes="#//ElementValues #//Target #//ValueVariable">

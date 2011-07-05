@@ -131,6 +131,15 @@ public interface AadlBaFactory extends EFactory {
 	BehaviorBooleanLiteral createBehaviorBooleanLiteral();
 
 	/**
+	 * Returns a new object of class '<em>Behavior Enumeration Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior Enumeration Literal</em>'.
+	 * @generated
+	 */
+	BehaviorEnumerationLiteral createBehaviorEnumerationLiteral();
+
+	/**
 	 * Returns a new object of class '<em>Behavior String Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

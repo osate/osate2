@@ -193,7 +193,6 @@ thread implementation abstractThread.impl
 
  subcomponents
    subMyStruct_B : data MyStruct_B ;
-   subMyEnum : data MyEnum   ;
    subDataProtoA : data dataProto ;
    subDataProtoB : data definedDataProto ;
    undefinedSubData : data undefinedDataProto ;
@@ -235,6 +234,8 @@ variables
  localMyIntegerArray_B : MyIntegerArray_B ;
  localMyIntegerArray_C[10][10] : MyIntegerArray_B ;
  localOtherMyIntegerArray_B[10][10][10] : MyIntegerArray_A ;
+ localMyEnum : MyEnum ;
+ localDay : Dummy::Types::Days.v1 ;
  
 states
  
@@ -357,8 +358,8 @@ transitions
                                        
    -- enumeration tests --
    
- a -[]-> a {subMyEnum_A := subMyEnum_B} ;                                       
-                                       
+ a -[]-> a {subMyEnum_A := subMyEnum_B} ;                                 
+ a -[]-> a {subMyEnum_A := MyEnum.enumerators#monday} ;                                      
  
  -- Error tests
 
@@ -378,11 +379,12 @@ transitions
 --              definedOutFeatProto.myStruct_A.int := any
 --            } ;
 
--- enum literal are not implemented yet  
---  a -[]-> a {
---              localMyEnum1 := Dummy::Types::Days.monday ;
---              localDay := MyEnum1.monday
---            } ;
+-- Enumeration literal  
+ a -[]-> a {
+             localMyEnum := Dummy::Types::Days.v1.enumerators#monday ;
+             localDay := MyEnum.enumerators#monday ;
+             localMyEnum := localDay
+           } ;
 
        -- port feature prototype
 

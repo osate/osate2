@@ -36,8 +36,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * <ul>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getName <em>Name</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getQualifiedName <em>Qualified Name</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getNamespaceSeparator <em>Namespace Separator</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getNamespace <em>Namespace</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getNamespaceSeparator <em>Namespace Separator</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,56 +47,78 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  */
 public interface BehaviorNamedElement extends BehaviorElement {
 	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * Returns the value of the '<em><b>Name</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The name of the NamedElement.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
+	 * @return the value of the '<em>Name</em>' reference.
+	 * @see #setName(Identifier)
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorNamedElement_Name()
-	 * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.String" required="true" ordered="false"
-	 *        annotation="http://www.topcased.org/documentation documentation='The name of the NamedElement.'"
+	 * @model required="true"
 	 * @generated
 	 */
-	String getName();
+	Identifier getName();
 
 	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getName <em>Name</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @param value the new value of the '<em>Name</em>' reference.
 	 * @see #getName()
 	 * @generated
 	 */
-	void setName(String value);
+	void setName(Identifier value);
 
 	/**
-	 * Returns the value of the '<em><b>Qualified Name</b></em>' attribute.
+	 * Returns the value of the '<em><b>Qualified Name</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Qualified Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Qualified Name</em>' attribute.
-	 * @see #setQualifiedName(String)
+	 * @return the value of the '<em>Qualified Name</em>' reference.
+	 * @see #setQualifiedName(Identifier)
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorNamedElement_QualifiedName()
-	 * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.String" required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
-	String getQualifiedName();
+	Identifier getQualifiedName();
 
 	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getQualifiedName <em>Qualified Name</em>}' attribute.
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getQualifiedName <em>Qualified Name</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Qualified Name</em>' attribute.
+	 * @param value the new value of the '<em>Qualified Name</em>' reference.
 	 * @see #getQualifiedName()
 	 * @generated
 	 */
-	void setQualifiedName(String value);
+	void setQualifiedName(Identifier value);
+
+	/**
+	 * Returns the value of the '<em><b>Namespace</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Namespace</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Namespace</em>' containment reference.
+	 * @see #setNamespace(Identifier)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorNamedElement_Namespace()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Identifier getNamespace();
+
+	/**
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getNamespace <em>Namespace</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Namespace</em>' containment reference.
+	 * @see #getNamespace()
+	 * @generated
+	 */
+	void setNamespace(Identifier value);
 
 	/**
 	 * Returns the value of the '<em><b>Namespace Separator</b></em>' attribute.
@@ -123,31 +145,5 @@ public interface BehaviorNamedElement extends BehaviorElement {
 	 * @generated
 	 */
 	void setNamespaceSeparator(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Namespace</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Namespace</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Namespace</em>' attribute.
-	 * @see #setNamespace(String)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorNamedElement_Namespace()
-	 * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.String"
-	 * @generated
-	 */
-	String getNamespace();
-
-	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getNamespace <em>Namespace</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Namespace</em>' attribute.
-	 * @see #getNamespace()
-	 * @generated
-	 */
-	void setNamespace(String value);
 
 } // BehaviorNamedElement

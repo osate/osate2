@@ -150,7 +150,7 @@ public class AadlBaTypeChecker
          
          // The bv's unique component classifier reference type has to be a 
          // data classifier.
-         result &= typeCheck(uccr, uccr.getQualifiedName(),
+         result &= typeCheck(uccr, uccr.getQualifiedName().getId(),
                TypeCheckRule.DATA_UCCR) != null ;
       }
 
@@ -949,7 +949,7 @@ public class AadlBaTypeChecker
          BehaviorPropertyConstant pc = (BehaviorPropertyConstant) v ;
 
          // Namespace doens't need to be checked as namespace has no type.
-         Enum<?> e = typeCheck(pc, pc.getName(),
+         Enum<?> e = typeCheck(pc, pc.getName().getId(),
                                               TypeCheckRule.PROPERTY) ;
          if (e != null)
          {
@@ -1082,7 +1082,7 @@ public class AadlBaTypeChecker
       
       // The statement's unique component reference reference has to be   
       // data classifier.
-      if(typeCheck(uccr, uccr.getQualifiedName(),
+      if(typeCheck(uccr, uccr.getQualifiedName().getId(),
             TypeCheckRule.DATA_UCCR) == null)
       {
          uccr = null ;
@@ -1293,7 +1293,7 @@ public class AadlBaTypeChecker
    {
       if(ba instanceof AssignmentAction)
       {
-         return assignementActionCheck((AssignmentAction) ba) ;
+         return assignmentActionCheck((AssignmentAction) ba) ;
       }
       else
       {
@@ -1531,7 +1531,7 @@ public class AadlBaTypeChecker
                                    .createUniqueComponentClassifierReference() ;
                      
                      tmp.setAadlRef(firstName.getAadlRef()) ;
-                     tmp.setName(firstName.getIdentifierOwned().getId()) ;
+                     tmp.setName(firstName.getIdentifierOwned()) ;
                      tmp.setQualifiedName(tmp.getName()) ;
                      tmp.setLocationReference(firstName.getLocationReference());
                      
@@ -1639,7 +1639,7 @@ public class AadlBaTypeChecker
       } // End of first if.
       else // Checks uccr and reports any error.
       {
-         if(typeCheck(uccr, uccr.getQualifiedName(),
+         if(typeCheck(uccr, uccr.getQualifiedName().getId(),
                TypeCheckRule.SUBPROGRAM_UCCR) == null)
          {
             return null ;
@@ -2029,7 +2029,7 @@ public class AadlBaTypeChecker
     * Object : Check legality rule D.6.(L1) 
     * Keys : assignment action value expression target match type consistency
     */
-   private boolean assignementActionCheck(AssignmentAction aa)
+   private boolean assignmentActionCheck(AssignmentAction aa)
    {
       Target tmp = targetCheck(aa.getTargetOwned()) ;
 
@@ -2066,7 +2066,7 @@ public class AadlBaTypeChecker
             result = _dataChecker.conformsTo(tarType, expType) ;
             if(! result)
             {
-               reportTypeError(vth.value, "assignement",
+               reportTypeError(vth.value, "assignment",
                                        tarType.toString(), expType.toString()) ;
             }
          }

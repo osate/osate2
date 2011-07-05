@@ -86,7 +86,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorElement()
 	 * @generated
 	 */
-	int BEHAVIOR_ELEMENT = 10;
+	int BEHAVIOR_ELEMENT = 11;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -879,61 +879,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorCondition()
 	 * @generated
 	 */
-	int BEHAVIOR_CONDITION = 9;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_CONDITION__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_CONDITION__OWNER = BEHAVIOR_ELEMENT__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_CONDITION__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_CONDITION__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_CONDITION__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
-
-	/**
-	 * The number of structural features of the '<em>Behavior Condition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_CONDITION_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+	int BEHAVIOR_CONDITION = 10;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorNamedElementImpl <em>Behavior Named Element</em>}' class.
@@ -943,7 +889,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorNamedElement()
 	 * @generated
 	 */
-	int BEHAVIOR_NAMED_ELEMENT = 12;
+	int BEHAVIOR_NAMED_ELEMENT = 14;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStateImpl <em>Behavior State</em>}' class.
@@ -953,7 +899,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorState()
 	 * @generated
 	 */
-	int BEHAVIOR_STATE = 16;
+	int BEHAVIOR_STATE = 18;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorTimeImpl <em>Behavior Time</em>}' class.
@@ -963,7 +909,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorTime()
 	 * @generated
 	 */
-	int BEHAVIOR_TIME = 18;
+	int BEHAVIOR_TIME = 20;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorTransitionImpl <em>Behavior Transition</em>}' class.
@@ -973,7 +919,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorTransition()
 	 * @generated
 	 */
-	int BEHAVIOR_TRANSITION = 19;
+	int BEHAVIOR_TRANSITION = 21;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorVariableImpl <em>Behavior Variable</em>}' class.
@@ -983,7 +929,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorVariable()
 	 * @generated
 	 */
-	int BEHAVIOR_VARIABLE = 20;
+	int BEHAVIOR_VARIABLE = 22;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.Value <em>Value</em>}' class.
@@ -993,7 +939,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getValue()
 	 * @generated
 	 */
-	int VALUE = 66;
+	int VALUE = 68;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1057,7 +1003,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getValueConstant()
 	 * @generated
 	 */
-	int VALUE_CONSTANT = 67;
+	int VALUE_CONSTANT = 69;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1121,7 +1067,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLiteral()
 	 * @generated
 	 */
-	int LITERAL = 42;
+	int LITERAL = 44;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1185,7 +1131,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorBooleanLiteral()
 	 * @generated
 	 */
-	int BEHAVIOR_BOOLEAN_LITERAL = 21;
+	int BEHAVIOR_BOOLEAN_LITERAL = 9;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStringLiteralImpl <em>Behavior String Literal</em>}' class.
@@ -1195,7 +1141,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorStringLiteral()
 	 * @generated
 	 */
-	int BEHAVIOR_STRING_LITERAL = 17;
+	int BEHAVIOR_STRING_LITERAL = 19;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction <em>Communication Action</em>}' class.
@@ -1205,7 +1151,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCommunicationAction()
 	 * @generated
 	 */
-	int COMMUNICATION_ACTION = 22;
+	int COMMUNICATION_ACTION = 23;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerCondition <em>Dispatch Trigger Condition</em>}' class.
@@ -1215,7 +1161,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerCondition()
 	 * @generated
 	 */
-	int DISPATCH_TRIGGER_CONDITION = 29;
+	int DISPATCH_TRIGGER_CONDITION = 31;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.CompletionRelativeTimeoutConditionAndCatchImpl <em>Completion Relative Timeout Condition And Catch</em>}' class.
@@ -1225,7 +1171,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCompletionRelativeTimeoutConditionAndCatch()
 	 * @generated
 	 */
-	int COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH = 23;
+	int COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH = 24;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.CondStatement <em>Cond Statement</em>}' class.
@@ -1235,7 +1181,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getCondStatement()
 	 * @generated
 	 */
-	int COND_STATEMENT = 24;
+	int COND_STATEMENT = 26;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ElementValues <em>Element Values</em>}' class.
@@ -1245,7 +1191,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getElementValues()
 	 * @generated
 	 */
-	int ELEMENT_VALUES = 32;
+	int ELEMENT_VALUES = 34;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DataComponentReferenceImpl <em>Data Component Reference</em>}' class.
@@ -1255,7 +1201,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDataComponentReference()
 	 * @generated
 	 */
-	int DATA_COMPONENT_REFERENCE = 25;
+	int DATA_COMPONENT_REFERENCE = 27;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DeclaratorImpl <em>Declarator</em>}' class.
@@ -1265,7 +1211,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDeclarator()
 	 * @generated
 	 */
-	int DECLARATOR = 26;
+	int DECLARATOR = 28;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchConditionImpl <em>Dispatch Condition</em>}' class.
@@ -1275,7 +1221,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchCondition()
 	 * @generated
 	 */
-	int DISPATCH_CONDITION = 27;
+	int DISPATCH_CONDITION = 29;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchConjunctionImpl <em>Dispatch Conjunction</em>}' class.
@@ -1285,7 +1231,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchConjunction()
 	 * @generated
 	 */
-	int DISPATCH_CONJUNCTION = 28;
+	int DISPATCH_CONJUNCTION = 30;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchTriggerConditionStopImpl <em>Dispatch Trigger Condition Stop</em>}' class.
@@ -1295,7 +1241,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerConditionStop()
 	 * @generated
 	 */
-	int DISPATCH_TRIGGER_CONDITION_STOP = 30;
+	int DISPATCH_TRIGGER_CONDITION_STOP = 32;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DispatchTriggerLogicalExpressionImpl <em>Dispatch Trigger Logical Expression</em>}' class.
@@ -1305,7 +1251,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerLogicalExpression()
 	 * @generated
 	 */
-	int DISPATCH_TRIGGER_LOGICAL_EXPRESSION = 31;
+	int DISPATCH_TRIGGER_LOGICAL_EXPRESSION = 33;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ExecuteCondition <em>Execute Condition</em>}' class.
@@ -1315,7 +1261,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getExecuteCondition()
 	 * @generated
 	 */
-	int EXECUTE_CONDITION = 33;
+	int EXECUTE_CONDITION = 35;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.FactorImpl <em>Factor</em>}' class.
@@ -1325,7 +1271,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getFactor()
 	 * @generated
 	 */
-	int FACTOR = 34;
+	int FACTOR = 36;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.LoopStatementImpl <em>Loop Statement</em>}' class.
@@ -1335,7 +1281,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLoopStatement()
 	 * @generated
 	 */
-	int LOOP_STATEMENT = 44;
+	int LOOP_STATEMENT = 46;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ForOrForAllStatementImpl <em>For Or For All Statement</em>}' class.
@@ -1345,7 +1291,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getForOrForAllStatement()
 	 * @generated
 	 */
-	int FOR_OR_FOR_ALL_STATEMENT = 35;
+	int FOR_OR_FOR_ALL_STATEMENT = 37;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IdentifierImpl <em>Identifier</em>}' class.
@@ -1355,7 +1301,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIdentifier()
 	 * @generated
 	 */
-	int IDENTIFIER = 36;
+	int IDENTIFIER = 38;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IfStatementImpl <em>If Statement</em>}' class.
@@ -1365,7 +1311,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIfStatement()
 	 * @generated
 	 */
-	int IF_STATEMENT = 37;
+	int IF_STATEMENT = 39;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.NumericLiteral <em>Numeric Literal</em>}' class.
@@ -1375,7 +1321,660 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getNumericLiteral()
 	 * @generated
 	 */
-	int NUMERIC_LITERAL = 47;
+	int NUMERIC_LITERAL = 49;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorIntegerLiteralImpl <em>Behavior Integer Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorIntegerLiteralImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorIntegerLiteral()
+	 * @generated
+	 */
+	int BEHAVIOR_INTEGER_LITERAL = 13;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ComponentPropertyValueImpl <em>Component Property Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.ComponentPropertyValueImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getComponentPropertyValue()
+	 * @generated
+	 */
+	int COMPONENT_PROPERTY_VALUE = 25;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorEnumerationLiteralImpl <em>Behavior Enumeration Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorEnumerationLiteralImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorEnumerationLiteral()
+	 * @generated
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL = 12;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerRangeImpl <em>Integer Range</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerRangeImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerRange()
+	 * @generated
+	 */
+	int INTEGER_RANGE = 40;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValue <em>Integer Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerValue
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValue()
+	 * @generated
+	 */
+	int INTEGER_VALUE = 41;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant <em>Integer Value Constant</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValueConstant()
+	 * @generated
+	 */
+	int INTEGER_VALUE_CONSTANT = 42;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable <em>Integer Value Variable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValueVariable()
+	 * @generated
+	 */
+	int INTEGER_VALUE_VARIABLE = 43;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SharedDataActionImpl <em>Shared Data Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.SharedDataActionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getSharedDataAction()
+	 * @generated
+	 */
+	int SHARED_DATA_ACTION = 59;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.LockActionImpl <em>Lock Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.LockActionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLockAction()
+	 * @generated
+	 */
+	int LOCK_ACTION = 45;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NameImpl <em>Name</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.NameImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getName_()
+	 * @generated
+	 */
+	int NAME = 47;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NumeralImpl <em>Numeral</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.NumeralImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getNumeral()
+	 * @generated
+	 */
+	int NUMERAL = 48;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.OtherwiseImpl <em>Otherwise</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.OtherwiseImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getOtherwise()
+	 * @generated
+	 */
+	int OTHERWISE = 50;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel <em>Parameter Label</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getParameterLabel()
+	 * @generated
+	 */
+	int PARAMETER_LABEL = 51;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueVariable <em>Value Variable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.ValueVariable
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getValueVariable()
+	 * @generated
+	 */
+	int VALUE_VARIABLE = 71;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortCountValueImpl <em>Port Count Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortCountValueImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortCountValue()
+	 * @generated
+	 */
+	int PORT_COUNT_VALUE = 52;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueActionImpl <em>Port Dequeue Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueActionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortDequeueAction()
+	 * @generated
+	 */
+	int PORT_DEQUEUE_ACTION = 53;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueValueImpl <em>Port Dequeue Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueValueImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortDequeueValue()
+	 * @generated
+	 */
+	int PORT_DEQUEUE_VALUE = 54;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreezeActionImpl <em>Port Freeze Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreezeActionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortFreezeAction()
+	 * @generated
+	 */
+	int PORT_FREEZE_ACTION = 55;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreshValueImpl <em>Port Fresh Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreshValueImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortFreshValue()
+	 * @generated
+	 */
+	int PORT_FRESH_VALUE = 56;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortSendActionImpl <em>Port Send Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortSendActionImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortSendAction()
+	 * @generated
+	 */
+	int PORT_SEND_ACTION = 57;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyConstantImpl <em>Behavior Property Constant</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyConstantImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorPropertyConstant()
+	 * @generated
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT = 15;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyValueImpl <em>Behavior Property Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyValueImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorPropertyValue()
+	 * @generated
+	 */
+	int BEHAVIOR_PROPERTY_VALUE = 16;
+
+	/**
+	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorRealLiteralImpl <em>Behavior Real Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorRealLiteralImpl
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorRealLiteral()
+	 * @generated
+	 */
+	int BEHAVIOR_REAL_LITERAL = 17;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL__OWNER = LITERAL__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL__BA_REF = LITERAL__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL__AADL_REF = LITERAL__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL__VALUE = LITERAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Boolean Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_BOOLEAN_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_CONDITION__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_CONDITION__OWNER = BEHAVIOR_ELEMENT__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_CONDITION__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_CONDITION__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_CONDITION__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Condition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_CONDITION_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__OWNER = BEHAVIOR_ELEMENT__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__NAME = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__NAMESPACE = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR = BEHAVIOR_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Named Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROPERTY_VALUE__OWNED_ELEMENT = BEHAVIOR_NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROPERTY_VALUE__OWNER = BEHAVIOR_NAMED_ELEMENT__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROPERTY_VALUE__OWNED_COMMENT = BEHAVIOR_NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROPERTY_VALUE__BA_REF = BEHAVIOR_NAMED_ELEMENT__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROPERTY_VALUE__AADL_REF = BEHAVIOR_NAMED_ELEMENT__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROPERTY_VALUE__NAME = BEHAVIOR_NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROPERTY_VALUE__QUALIFIED_NAME = BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROPERTY_VALUE__NAMESPACE = BEHAVIOR_NAMED_ELEMENT__NAMESPACE;
+
+	/**
+	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROPERTY_VALUE__NAMESPACE_SEPARATOR = BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR;
+
+	/**
+	 * The feature id for the '<em><b>Property Identifier</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROPERTY_VALUE__PROPERTY_IDENTIFIER = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Element List Identifier</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROPERTY_VALUE__ELEMENT_LIST_IDENTIFIER = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Component Property Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROPERTY_VALUE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL__OWNED_ELEMENT = COMPONENT_PROPERTY_VALUE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL__OWNER = COMPONENT_PROPERTY_VALUE__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL__OWNED_COMMENT = COMPONENT_PROPERTY_VALUE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL__BA_REF = COMPONENT_PROPERTY_VALUE__BA_REF;
+
+	/**
+	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL__AADL_REF = COMPONENT_PROPERTY_VALUE__AADL_REF;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL__NAME = COMPONENT_PROPERTY_VALUE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL__QUALIFIED_NAME = COMPONENT_PROPERTY_VALUE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL__NAMESPACE = COMPONENT_PROPERTY_VALUE__NAMESPACE;
+
+	/**
+	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL__NAMESPACE_SEPARATOR = COMPONENT_PROPERTY_VALUE__NAMESPACE_SEPARATOR;
+
+	/**
+	 * The feature id for the '<em><b>Property Identifier</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL__PROPERTY_IDENTIFIER = COMPONENT_PROPERTY_VALUE__PROPERTY_IDENTIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Element List Identifier</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL__ELEMENT_LIST_IDENTIFIER = COMPONENT_PROPERTY_VALUE__ELEMENT_LIST_IDENTIFIER;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Enumeration Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ENUMERATION_LITERAL_FEATURE_COUNT = COMPONENT_PROPERTY_VALUE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1448,16 +2047,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int NUMERIC_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorIntegerLiteralImpl <em>Behavior Integer Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorIntegerLiteralImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorIntegerLiteral()
-	 * @generated
-	 */
-	int BEHAVIOR_INTEGER_LITERAL = 11;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1556,276 +2145,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR_NAMED_ELEMENT__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__OWNER = BEHAVIOR_ELEMENT__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__BA_REF = BEHAVIOR_ELEMENT__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__AADL_REF = BEHAVIOR_ELEMENT__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__NAME = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT__NAMESPACE = BEHAVIOR_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>Behavior Named Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerRangeImpl <em>Integer Range</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.IntegerRangeImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerRange()
-	 * @generated
-	 */
-	int INTEGER_RANGE = 38;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValue <em>Integer Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerValue
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValue()
-	 * @generated
-	 */
-	int INTEGER_VALUE = 39;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant <em>Integer Value Constant</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValueConstant()
-	 * @generated
-	 */
-	int INTEGER_VALUE_CONSTANT = 40;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable <em>Integer Value Variable</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getIntegerValueVariable()
-	 * @generated
-	 */
-	int INTEGER_VALUE_VARIABLE = 41;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SharedDataActionImpl <em>Shared Data Action</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.SharedDataActionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getSharedDataAction()
-	 * @generated
-	 */
-	int SHARED_DATA_ACTION = 57;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.LockActionImpl <em>Lock Action</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.LockActionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLockAction()
-	 * @generated
-	 */
-	int LOCK_ACTION = 43;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NameImpl <em>Name</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.NameImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getName_()
-	 * @generated
-	 */
-	int NAME = 45;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.NumeralImpl <em>Numeral</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.NumeralImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getNumeral()
-	 * @generated
-	 */
-	int NUMERAL = 46;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.OtherwiseImpl <em>Otherwise</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.OtherwiseImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getOtherwise()
-	 * @generated
-	 */
-	int OTHERWISE = 48;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel <em>Parameter Label</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getParameterLabel()
-	 * @generated
-	 */
-	int PARAMETER_LABEL = 49;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueVariable <em>Value Variable</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.ValueVariable
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getValueVariable()
-	 * @generated
-	 */
-	int VALUE_VARIABLE = 69;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortCountValueImpl <em>Port Count Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortCountValueImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortCountValue()
-	 * @generated
-	 */
-	int PORT_COUNT_VALUE = 50;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueActionImpl <em>Port Dequeue Action</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueActionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortDequeueAction()
-	 * @generated
-	 */
-	int PORT_DEQUEUE_ACTION = 51;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueValueImpl <em>Port Dequeue Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortDequeueValueImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortDequeueValue()
-	 * @generated
-	 */
-	int PORT_DEQUEUE_VALUE = 52;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreezeActionImpl <em>Port Freeze Action</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreezeActionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortFreezeAction()
-	 * @generated
-	 */
-	int PORT_FREEZE_ACTION = 53;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreshValueImpl <em>Port Fresh Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortFreshValueImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortFreshValue()
-	 * @generated
-	 */
-	int PORT_FRESH_VALUE = 54;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.PortSendActionImpl <em>Port Send Action</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.PortSendActionImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getPortSendAction()
-	 * @generated
-	 */
-	int PORT_SEND_ACTION = 55;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyConstantImpl <em>Behavior Property Constant</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyConstantImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorPropertyConstant()
-	 * @generated
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT = 13;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
 	int BEHAVIOR_PROPERTY_CONSTANT__OWNED_ELEMENT = BEHAVIOR_NAMED_ELEMENT__OWNED_ELEMENT;
 
 	/**
@@ -1865,7 +2184,7 @@ public interface AadlBaPackage extends EPackage {
 	int BEHAVIOR_PROPERTY_CONSTANT__AADL_REF = BEHAVIOR_NAMED_ELEMENT__AADL_REF;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Name</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1874,13 +2193,22 @@ public interface AadlBaPackage extends EPackage {
 	int BEHAVIOR_PROPERTY_CONSTANT__NAME = BEHAVIOR_NAMED_ELEMENT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Qualified Name</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int BEHAVIOR_PROPERTY_CONSTANT__QUALIFIED_NAME = BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_CONSTANT__NAMESPACE = BEHAVIOR_NAMED_ELEMENT__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
@@ -1892,15 +2220,6 @@ public interface AadlBaPackage extends EPackage {
 	int BEHAVIOR_PROPERTY_CONSTANT__NAMESPACE_SEPARATOR = BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_CONSTANT__NAMESPACE = BEHAVIOR_NAMED_ELEMENT__NAMESPACE;
-
-	/**
 	 * The number of structural features of the '<em>Behavior Property Constant</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1908,16 +2227,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int BEHAVIOR_PROPERTY_CONSTANT_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyValueImpl <em>Behavior Property Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorPropertyValueImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorPropertyValue()
-	 * @generated
-	 */
-	int BEHAVIOR_PROPERTY_VALUE = 14;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1965,7 +2274,7 @@ public interface AadlBaPackage extends EPackage {
 	int BEHAVIOR_PROPERTY_VALUE__AADL_REF = BEHAVIOR_NAMED_ELEMENT__AADL_REF;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Name</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1974,13 +2283,22 @@ public interface AadlBaPackage extends EPackage {
 	int BEHAVIOR_PROPERTY_VALUE__NAME = BEHAVIOR_NAMED_ELEMENT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Qualified Name</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int BEHAVIOR_PROPERTY_VALUE__QUALIFIED_NAME = BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_PROPERTY_VALUE__NAMESPACE = BEHAVIOR_NAMED_ELEMENT__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
@@ -1992,15 +2310,6 @@ public interface AadlBaPackage extends EPackage {
 	int BEHAVIOR_PROPERTY_VALUE__NAMESPACE_SEPARATOR = BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_PROPERTY_VALUE__NAMESPACE = BEHAVIOR_NAMED_ELEMENT__NAMESPACE;
-
-	/**
 	 * The number of structural features of the '<em>Behavior Property Value</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2008,16 +2317,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int BEHAVIOR_PROPERTY_VALUE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorRealLiteralImpl <em>Behavior Real Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorRealLiteralImpl
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorRealLiteral()
-	 * @generated
-	 */
-	int BEHAVIOR_REAL_LITERAL = 15;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2504,69 +2803,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int BEHAVIOR_VARIABLE_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL__OWNER = LITERAL__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL__BA_REF = LITERAL__BA_REF;
-
-	/**
-	 * The feature id for the '<em><b>Aadl Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL__AADL_REF = LITERAL__AADL_REF;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL__VALUE = LITERAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Behavior Boolean Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_BOOLEAN_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4799,7 +5035,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getRelation()
 	 * @generated
 	 */
-	int RELATION = 56;
+	int RELATION = 58;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4890,7 +5126,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getSimpleExpression()
 	 * @generated
 	 */
-	int SIMPLE_EXPRESSION = 58;
+	int SIMPLE_EXPRESSION = 60;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4981,7 +5217,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getSubprogramCallAction()
 	 * @generated
 	 */
-	int SUBPROGRAM_CALL_ACTION = 59;
+	int SUBPROGRAM_CALL_ACTION = 61;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -5072,7 +5308,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getTarget()
 	 * @generated
 	 */
-	int TARGET = 60;
+	int TARGET = 62;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -5136,7 +5372,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getTerm()
 	 * @generated
 	 */
-	int TERM = 61;
+	int TERM = 63;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -5218,7 +5454,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getTimedAction()
 	 * @generated
 	 */
-	int TIMED_ACTION = 62;
+	int TIMED_ACTION = 64;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -5300,7 +5536,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getTimeoutCatch()
 	 * @generated
 	 */
-	int TIMEOUT_CATCH = 63;
+	int TIMEOUT_CATCH = 65;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -5364,7 +5600,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getUniqueComponentClassifierReference()
 	 * @generated
 	 */
-	int UNIQUE_COMPONENT_CLASSIFIER_REFERENCE = 64;
+	int UNIQUE_COMPONENT_CLASSIFIER_REFERENCE = 66;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -5412,7 +5648,7 @@ public interface AadlBaPackage extends EPackage {
 	int UNIQUE_COMPONENT_CLASSIFIER_REFERENCE__AADL_REF = BEHAVIOR_NAMED_ELEMENT__AADL_REF;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Name</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5421,13 +5657,22 @@ public interface AadlBaPackage extends EPackage {
 	int UNIQUE_COMPONENT_CLASSIFIER_REFERENCE__NAME = BEHAVIOR_NAMED_ELEMENT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Qualified Name</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int UNIQUE_COMPONENT_CLASSIFIER_REFERENCE__QUALIFIED_NAME = BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNIQUE_COMPONENT_CLASSIFIER_REFERENCE__NAMESPACE = BEHAVIOR_NAMED_ELEMENT__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Namespace Separator</b></em>' attribute.
@@ -5437,15 +5682,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int UNIQUE_COMPONENT_CLASSIFIER_REFERENCE__NAMESPACE_SEPARATOR = BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_COMPONENT_CLASSIFIER_REFERENCE__NAMESPACE = BEHAVIOR_NAMED_ELEMENT__NAMESPACE;
 
 	/**
 	 * The number of structural features of the '<em>Unique Component Classifier Reference</em>' class.
@@ -5464,7 +5700,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getUnlockAction()
 	 * @generated
 	 */
-	int UNLOCK_ACTION = 65;
+	int UNLOCK_ACTION = 67;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -5537,7 +5773,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getValueExpression()
 	 * @generated
 	 */
-	int VALUE_EXPRESSION = 68;
+	int VALUE_EXPRESSION = 70;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -5619,7 +5855,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getWhileOrDoUntilStatement()
 	 * @generated
 	 */
-	int WHILE_OR_DO_UNTIL_STATEMENT = 70;
+	int WHILE_OR_DO_UNTIL_STATEMENT = 72;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -5710,7 +5946,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorFeatureType()
 	 * @generated
 	 */
-	int BEHAVIOR_FEATURE_TYPE = 71;
+	int BEHAVIOR_FEATURE_TYPE = 73;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator <em>Binary Adding Operator</em>}' enum.
@@ -5720,7 +5956,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBinaryAddingOperator()
 	 * @generated
 	 */
-	int BINARY_ADDING_OPERATOR = 72;
+	int BINARY_ADDING_OPERATOR = 74;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.BinaryNumericOperator <em>Binary Numeric Operator</em>}' enum.
@@ -5730,7 +5966,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBinaryNumericOperator()
 	 * @generated
 	 */
-	int BINARY_NUMERIC_OPERATOR = 73;
+	int BINARY_NUMERIC_OPERATOR = 75;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.DataRepresentation <em>Data Representation</em>}' enum.
@@ -5740,7 +5976,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getDataRepresentation()
 	 * @generated
 	 */
-	int DATA_REPRESENTATION = 74;
+	int DATA_REPRESENTATION = 76;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.FeatureType <em>Feature Type</em>}' enum.
@@ -5750,7 +5986,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getFeatureType()
 	 * @generated
 	 */
-	int FEATURE_TYPE = 75;
+	int FEATURE_TYPE = 77;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -5760,7 +5996,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getLogicalOperator()
 	 * @generated
 	 */
-	int LOGICAL_OPERATOR = 76;
+	int LOGICAL_OPERATOR = 78;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator <em>Multiplying Operator</em>}' enum.
@@ -5770,7 +6006,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getMultiplyingOperator()
 	 * @generated
 	 */
-	int MULTIPLYING_OPERATOR = 77;
+	int MULTIPLYING_OPERATOR = 79;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.RelationalOperator <em>Relational Operator</em>}' enum.
@@ -5780,7 +6016,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getRelationalOperator()
 	 * @generated
 	 */
-	int RELATIONAL_OPERATOR = 78;
+	int RELATIONAL_OPERATOR = 80;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.UnaryAddingOperator <em>Unary Adding Operator</em>}' enum.
@@ -5790,7 +6026,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getUnaryAddingOperator()
 	 * @generated
 	 */
-	int UNARY_ADDING_OPERATOR = 79;
+	int UNARY_ADDING_OPERATOR = 81;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.UnaryBooleanOperator <em>Unary Boolean Operator</em>}' enum.
@@ -5800,7 +6036,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getUnaryBooleanOperator()
 	 * @generated
 	 */
-	int UNARY_BOOLEAN_OPERATOR = 80;
+	int UNARY_BOOLEAN_OPERATOR = 82;
 
 	/**
 	 * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.UnaryNumericOperator <em>Unary Numeric Operator</em>}' enum.
@@ -5810,7 +6046,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getUnaryNumericOperator()
 	 * @generated
 	 */
-	int UNARY_NUMERIC_OPERATOR = 81;
+	int UNARY_NUMERIC_OPERATOR = 83;
 
 	/**
 	 * The meta object id for the '<em>Boolean</em>' data type.
@@ -5819,7 +6055,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBoolean()
 	 * @generated
 	 */
-	int BOOLEAN = 82;
+	int BOOLEAN = 84;
 
 	/**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -5828,7 +6064,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 83;
+	int INTEGER = 85;
 
 	/**
 	 * The meta object id for the '<em>Real</em>' data type.
@@ -5837,7 +6073,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getReal()
 	 * @generated
 	 */
-	int REAL = 84;
+	int REAL = 86;
 
 	/**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -5847,7 +6083,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getString()
 	 * @generated
 	 */
-	int STRING = 85;
+	int STRING = 87;
 
 
 	/**
@@ -6082,6 +6318,16 @@ public interface AadlBaPackage extends EPackage {
 	EReference getBehaviorElement_AadlRef();
 
 	/**
+	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral <em>Behavior Enumeration Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Behavior Enumeration Literal</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral
+	 * @generated
+	 */
+	EClass getBehaviorEnumerationLiteral();
+
+	/**
 	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement <em>Behavior Named Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6092,26 +6338,37 @@ public interface AadlBaPackage extends EPackage {
 	EClass getBehaviorNamedElement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getName <em>Name</em>}'.
+	 * Returns the meta object for the reference '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @return the meta object for the reference '<em>Name</em>'.
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getName()
 	 * @see #getBehaviorNamedElement()
 	 * @generated
 	 */
-	EAttribute getBehaviorNamedElement_Name();
+	EReference getBehaviorNamedElement_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getQualifiedName <em>Qualified Name</em>}'.
+	 * Returns the meta object for the reference '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getQualifiedName <em>Qualified Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Qualified Name</em>'.
+	 * @return the meta object for the reference '<em>Qualified Name</em>'.
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getQualifiedName()
 	 * @see #getBehaviorNamedElement()
 	 * @generated
 	 */
-	EAttribute getBehaviorNamedElement_QualifiedName();
+	EReference getBehaviorNamedElement_QualifiedName();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getNamespace <em>Namespace</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Namespace</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getNamespace()
+	 * @see #getBehaviorNamedElement()
+	 * @generated
+	 */
+	EReference getBehaviorNamedElement_Namespace();
 
 	/**
 	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getNamespaceSeparator <em>Namespace Separator</em>}'.
@@ -6123,17 +6380,6 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBehaviorNamedElement_NamespaceSeparator();
-
-	/**
-	 * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getNamespace <em>Namespace</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Namespace</em>'.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement#getNamespace()
-	 * @see #getBehaviorNamedElement()
-	 * @generated
-	 */
-	EAttribute getBehaviorNamedElement_Namespace();
 
 	/**
 	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorState <em>Behavior State</em>}'.
@@ -6368,6 +6614,38 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getCompletionRelativeTimeoutConditionAndCatch();
+
+	/**
+	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.ComponentPropertyValue <em>Component Property Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Component Property Value</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.ComponentPropertyValue
+	 * @generated
+	 */
+	EClass getComponentPropertyValue();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.aadlba.ComponentPropertyValue#getPropertyIdentifier <em>Property Identifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Property Identifier</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.ComponentPropertyValue#getPropertyIdentifier()
+	 * @see #getComponentPropertyValue()
+	 * @generated
+	 */
+	EReference getComponentPropertyValue_PropertyIdentifier();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.aadlba.ComponentPropertyValue#getElementListIdentifier <em>Element List Identifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Element List Identifier</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.ComponentPropertyValue#getElementListIdentifier()
+	 * @see #getComponentPropertyValue()
+	 * @generated
+	 */
+	EReference getComponentPropertyValue_ElementListIdentifier();
 
 	/**
 	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.CondStatement <em>Cond Statement</em>}'.
@@ -7783,6 +8061,16 @@ public interface AadlBaPackage extends EPackage {
 		EReference BEHAVIOR_ELEMENT__AADL_REF = eINSTANCE.getBehaviorElement_AadlRef();
 
 		/**
+		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorEnumerationLiteralImpl <em>Behavior Enumeration Literal</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorEnumerationLiteralImpl
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getBehaviorEnumerationLiteral()
+		 * @generated
+		 */
+		EClass BEHAVIOR_ENUMERATION_LITERAL = eINSTANCE.getBehaviorEnumerationLiteral();
+
+		/**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorNamedElementImpl <em>Behavior Named Element</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -7793,20 +8081,28 @@ public interface AadlBaPackage extends EPackage {
 		EClass BEHAVIOR_NAMED_ELEMENT = eINSTANCE.getBehaviorNamedElement();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Name</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BEHAVIOR_NAMED_ELEMENT__NAME = eINSTANCE.getBehaviorNamedElement_Name();
+		EReference BEHAVIOR_NAMED_ELEMENT__NAME = eINSTANCE.getBehaviorNamedElement_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Qualified Name</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Qualified Name</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME = eINSTANCE.getBehaviorNamedElement_QualifiedName();
+		EReference BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME = eINSTANCE.getBehaviorNamedElement_QualifiedName();
+
+		/**
+		 * The meta object literal for the '<em><b>Namespace</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BEHAVIOR_NAMED_ELEMENT__NAMESPACE = eINSTANCE.getBehaviorNamedElement_Namespace();
 
 		/**
 		 * The meta object literal for the '<em><b>Namespace Separator</b></em>' attribute feature.
@@ -7815,14 +8111,6 @@ public interface AadlBaPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR = eINSTANCE.getBehaviorNamedElement_NamespaceSeparator();
-
-		/**
-		 * The meta object literal for the '<em><b>Namespace</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute BEHAVIOR_NAMED_ELEMENT__NAMESPACE = eINSTANCE.getBehaviorNamedElement_Namespace();
 
 		/**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorStateImpl <em>Behavior State</em>}' class.
@@ -8015,6 +8303,32 @@ public interface AadlBaPackage extends EPackage {
 		 * @generated
 		 */
 		EClass COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH = eINSTANCE.getCompletionRelativeTimeoutConditionAndCatch();
+
+		/**
+		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ComponentPropertyValueImpl <em>Component Property Value</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.ComponentPropertyValueImpl
+		 * @see fr.tpt.aadl.annex.behavior.aadlba.impl.AadlBaPackageImpl#getComponentPropertyValue()
+		 * @generated
+		 */
+		EClass COMPONENT_PROPERTY_VALUE = eINSTANCE.getComponentPropertyValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Property Identifier</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPONENT_PROPERTY_VALUE__PROPERTY_IDENTIFIER = eINSTANCE.getComponentPropertyValue_PropertyIdentifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Element List Identifier</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPONENT_PROPERTY_VALUE__ELEMENT_LIST_IDENTIFIER = eINSTANCE.getComponentPropertyValue_ElementListIdentifier();
 
 		/**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.CondStatement <em>Cond Statement</em>}' class.

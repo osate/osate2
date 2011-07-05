@@ -135,12 +135,20 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createBehaviorAnnexAdapter();
 			}
 			@Override
+			public Adapter caseBehaviorBooleanLiteral(BehaviorBooleanLiteral object) {
+				return createBehaviorBooleanLiteralAdapter();
+			}
+			@Override
 			public Adapter caseBehaviorCondition(BehaviorCondition object) {
 				return createBehaviorConditionAdapter();
 			}
 			@Override
 			public Adapter caseBehaviorElement(BehaviorElement object) {
 				return createBehaviorElementAdapter();
+			}
+			@Override
+			public Adapter caseBehaviorEnumerationLiteral(BehaviorEnumerationLiteral object) {
+				return createBehaviorEnumerationLiteralAdapter();
 			}
 			@Override
 			public Adapter caseBehaviorIntegerLiteral(BehaviorIntegerLiteral object) {
@@ -183,16 +191,16 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createBehaviorVariableAdapter();
 			}
 			@Override
-			public Adapter caseBehaviorBooleanLiteral(BehaviorBooleanLiteral object) {
-				return createBehaviorBooleanLiteralAdapter();
-			}
-			@Override
 			public Adapter caseCommunicationAction(CommunicationAction object) {
 				return createCommunicationActionAdapter();
 			}
 			@Override
 			public Adapter caseCompletionRelativeTimeoutConditionAndCatch(CompletionRelativeTimeoutConditionAndCatch object) {
 				return createCompletionRelativeTimeoutConditionAndCatchAdapter();
+			}
+			@Override
+			public Adapter caseComponentPropertyValue(ComponentPropertyValue object) {
+				return createComponentPropertyValueAdapter();
 			}
 			@Override
 			public Adapter caseCondStatement(CondStatement object) {
@@ -407,6 +415,10 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 				return createPropertyValueAdapter();
 			}
 			@Override
+			public Adapter caseBooleanLiteral(BooleanLiteral object) {
+				return createBooleanLiteralAdapter();
+			}
+			@Override
 			public Adapter caseNumberValue(NumberValue object) {
 				return createNumberValueAdapter();
 			}
@@ -421,10 +433,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseStringLiteral(StringLiteral object) {
 				return createStringLiteralAdapter();
-			}
-			@Override
-			public Adapter caseBooleanLiteral(BooleanLiteral object) {
-				return createBooleanLiteralAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -485,6 +493,20 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBehaviorElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral <em>Behavior Enumeration Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral
+	 * @generated
+	 */
+	public Adapter createBehaviorEnumerationLiteralAdapter() {
 		return null;
 	}
 
@@ -1465,6 +1487,20 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCompletionRelativeTimeoutConditionAndCatchAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ComponentPropertyValue <em>Component Property Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.ComponentPropertyValue
+	 * @generated
+	 */
+	public Adapter createComponentPropertyValueAdapter() {
 		return null;
 	}
 

@@ -268,8 +268,22 @@ public class AadlBaUnparser {
 
 			public String caseBehaviorNamedElement (BehaviorNamedElement object)
 			{
-				aadlbaText.addOutput(object.getQualifiedName() );
+				caseIdentifier(object.getQualifiedName());
 				return DONE;
+			}
+			
+			public String caseComponentPropertyValue(ComponentPropertyValue object)
+			{
+				caseBehaviorNamedElement(object);
+				aadlbaText.addOutput(".");
+				caseIdentifier(object.getPropertyIdentifier());
+				if (object.getElementListIdentifier() != null)
+				{
+					aadlbaText.addOutput("#");
+					caseIdentifier(object.getElementListIdentifier()) ;
+				}
+				
+				return DONE ;
 			}
 
 			/**

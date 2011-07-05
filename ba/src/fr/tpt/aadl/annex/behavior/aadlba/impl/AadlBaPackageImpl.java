@@ -37,6 +37,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorBooleanLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorFeatureType;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorIntegerLiteral;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorNamedElement;
@@ -52,6 +53,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator;
 import fr.tpt.aadl.annex.behavior.aadlba.BinaryNumericOperator;
 import fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction;
 import fr.tpt.aadl.annex.behavior.aadlba.CompletionRelativeTimeoutConditionAndCatch;
+import fr.tpt.aadl.annex.behavior.aadlba.ComponentPropertyValue;
 import fr.tpt.aadl.annex.behavior.aadlba.CondStatement;
 import fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference;
 import fr.tpt.aadl.annex.behavior.aadlba.DataRepresentation;
@@ -206,6 +208,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass behaviorEnumerationLiteralEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass behaviorNamedElementEClass = null;
 
 	/**
@@ -263,6 +272,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	private EClass completionRelativeTimeoutConditionAndCatchEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass componentPropertyValueEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -993,6 +1009,15 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getBehaviorEnumerationLiteral() {
+		return behaviorEnumerationLiteralEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getBehaviorNamedElement() {
 		return behaviorNamedElementEClass;
 	}
@@ -1002,8 +1027,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBehaviorNamedElement_Name() {
-		return (EAttribute)behaviorNamedElementEClass.getEStructuralFeatures().get(0);
+	public EReference getBehaviorNamedElement_Name() {
+		return (EReference)behaviorNamedElementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1011,8 +1036,17 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBehaviorNamedElement_QualifiedName() {
-		return (EAttribute)behaviorNamedElementEClass.getEStructuralFeatures().get(1);
+	public EReference getBehaviorNamedElement_QualifiedName() {
+		return (EReference)behaviorNamedElementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBehaviorNamedElement_Namespace() {
+		return (EReference)behaviorNamedElementEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1021,15 +1055,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	public EAttribute getBehaviorNamedElement_NamespaceSeparator() {
-		return (EAttribute)behaviorNamedElementEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getBehaviorNamedElement_Namespace() {
 		return (EAttribute)behaviorNamedElementEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1229,6 +1254,33 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 */
 	public EClass getCompletionRelativeTimeoutConditionAndCatch() {
 		return completionRelativeTimeoutConditionAndCatchEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getComponentPropertyValue() {
+		return componentPropertyValueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getComponentPropertyValue_PropertyIdentifier() {
+		return (EReference)componentPropertyValueEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getComponentPropertyValue_ElementListIdentifier() {
+		return (EReference)componentPropertyValueEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2312,19 +2364,23 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__BEHAVIOR_STATES);
 		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__BEHAVIOR_TRANSITIONS);
 
+		behaviorBooleanLiteralEClass = createEClass(BEHAVIOR_BOOLEAN_LITERAL);
+
 		behaviorConditionEClass = createEClass(BEHAVIOR_CONDITION);
 
 		behaviorElementEClass = createEClass(BEHAVIOR_ELEMENT);
 		createEReference(behaviorElementEClass, BEHAVIOR_ELEMENT__BA_REF);
 		createEReference(behaviorElementEClass, BEHAVIOR_ELEMENT__AADL_REF);
 
+		behaviorEnumerationLiteralEClass = createEClass(BEHAVIOR_ENUMERATION_LITERAL);
+
 		behaviorIntegerLiteralEClass = createEClass(BEHAVIOR_INTEGER_LITERAL);
 
 		behaviorNamedElementEClass = createEClass(BEHAVIOR_NAMED_ELEMENT);
-		createEAttribute(behaviorNamedElementEClass, BEHAVIOR_NAMED_ELEMENT__NAME);
-		createEAttribute(behaviorNamedElementEClass, BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME);
+		createEReference(behaviorNamedElementEClass, BEHAVIOR_NAMED_ELEMENT__NAME);
+		createEReference(behaviorNamedElementEClass, BEHAVIOR_NAMED_ELEMENT__QUALIFIED_NAME);
+		createEReference(behaviorNamedElementEClass, BEHAVIOR_NAMED_ELEMENT__NAMESPACE);
 		createEAttribute(behaviorNamedElementEClass, BEHAVIOR_NAMED_ELEMENT__NAMESPACE_SEPARATOR);
-		createEAttribute(behaviorNamedElementEClass, BEHAVIOR_NAMED_ELEMENT__NAMESPACE);
 
 		behaviorPropertyConstantEClass = createEClass(BEHAVIOR_PROPERTY_CONSTANT);
 
@@ -2356,11 +2412,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		createEReference(behaviorVariableEClass, BEHAVIOR_VARIABLE__LOCAL_VARIABLE_DECLARATORS);
 		createEReference(behaviorVariableEClass, BEHAVIOR_VARIABLE__DATA_UNIQUE_COMPONENT_CLASSIFIER_REFERENCE);
 
-		behaviorBooleanLiteralEClass = createEClass(BEHAVIOR_BOOLEAN_LITERAL);
-
 		communicationActionEClass = createEClass(COMMUNICATION_ACTION);
 
 		completionRelativeTimeoutConditionAndCatchEClass = createEClass(COMPLETION_RELATIVE_TIMEOUT_CONDITION_AND_CATCH);
+
+		componentPropertyValueEClass = createEClass(COMPONENT_PROPERTY_VALUE);
+		createEReference(componentPropertyValueEClass, COMPONENT_PROPERTY_VALUE__PROPERTY_IDENTIFIER);
+		createEReference(componentPropertyValueEClass, COMPONENT_PROPERTY_VALUE__ELEMENT_LIST_IDENTIFIER);
 
 		condStatementEClass = createEClass(COND_STATEMENT);
 
@@ -2566,8 +2624,11 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		behaviorActionSetEClass.getESuperTypes().add(this.getBehaviorActionCollection());
 		behaviorAnnexEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
 		behaviorAnnexEClass.getESuperTypes().add(this.getBehaviorElement());
+		behaviorBooleanLiteralEClass.getESuperTypes().add(this.getLiteral());
+		behaviorBooleanLiteralEClass.getESuperTypes().add(theAadl2Package.getBooleanLiteral());
 		behaviorConditionEClass.getESuperTypes().add(this.getBehaviorElement());
 		behaviorElementEClass.getESuperTypes().add(theAadl2Package.getElement());
+		behaviorEnumerationLiteralEClass.getESuperTypes().add(this.getComponentPropertyValue());
 		behaviorIntegerLiteralEClass.getESuperTypes().add(this.getNumericLiteral());
 		behaviorIntegerLiteralEClass.getESuperTypes().add(theAadl2Package.getIntegerLiteral());
 		behaviorNamedElementEClass.getESuperTypes().add(this.getBehaviorElement());
@@ -2583,11 +2644,11 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		behaviorTimeEClass.getESuperTypes().add(this.getBehaviorElement());
 		behaviorTransitionEClass.getESuperTypes().add(this.getBehaviorElement());
 		behaviorVariableEClass.getESuperTypes().add(this.getBehaviorElement());
-		behaviorBooleanLiteralEClass.getESuperTypes().add(this.getLiteral());
-		behaviorBooleanLiteralEClass.getESuperTypes().add(theAadl2Package.getBooleanLiteral());
 		communicationActionEClass.getESuperTypes().add(this.getBasicAction());
 		completionRelativeTimeoutConditionAndCatchEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
 		completionRelativeTimeoutConditionAndCatchEClass.getESuperTypes().add(this.getBehaviorTime());
+		componentPropertyValueEClass.getESuperTypes().add(this.getBehaviorNamedElement());
+		componentPropertyValueEClass.getESuperTypes().add(this.getValueConstant());
 		condStatementEClass.getESuperTypes().add(this.getBehaviorAction());
 		dataComponentReferenceEClass.getESuperTypes().add(this.getElementValues());
 		dataComponentReferenceEClass.getESuperTypes().add(this.getTarget());
@@ -2680,19 +2741,23 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		initEReference(getBehaviorAnnex_BehaviorStates(), this.getBehaviorState(), null, "behaviorStates", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorAnnex_BehaviorTransitions(), this.getBehaviorTransition(), null, "behaviorTransitions", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(behaviorBooleanLiteralEClass, BehaviorBooleanLiteral.class, "BehaviorBooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(behaviorConditionEClass, BehaviorCondition.class, "BehaviorCondition", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(behaviorElementEClass, BehaviorElement.class, "BehaviorElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBehaviorElement_BaRef(), this.getBehaviorElement(), null, "baRef", null, 0, 1, BehaviorElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorElement_AadlRef(), theAadl2Package.getElement(), null, "aadlRef", null, 0, 1, BehaviorElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(behaviorEnumerationLiteralEClass, BehaviorEnumerationLiteral.class, "BehaviorEnumerationLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(behaviorIntegerLiteralEClass, BehaviorIntegerLiteral.class, "BehaviorIntegerLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(behaviorNamedElementEClass, BehaviorNamedElement.class, "BehaviorNamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBehaviorNamedElement_Name(), this.getString(), "name", null, 1, 1, BehaviorNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getBehaviorNamedElement_QualifiedName(), this.getString(), "qualifiedName", null, 1, 1, BehaviorNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getBehaviorNamedElement_Name(), this.getIdentifier(), null, "name", null, 1, 1, BehaviorNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorNamedElement_QualifiedName(), this.getIdentifier(), null, "qualifiedName", null, 1, 1, BehaviorNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorNamedElement_Namespace(), this.getIdentifier(), null, "namespace", null, 0, 1, BehaviorNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBehaviorNamedElement_NamespaceSeparator(), this.getString(), "namespaceSeparator", null, 0, 1, BehaviorNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorNamedElement_Namespace(), this.getString(), "namespace", null, 0, 1, BehaviorNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(behaviorPropertyConstantEClass, BehaviorPropertyConstant.class, "BehaviorPropertyConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2724,11 +2789,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		initEReference(getBehaviorVariable_LocalVariableDeclarators(), this.getDeclarator(), null, "LocalVariableDeclarators", null, 1, -1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorVariable_DataUniqueComponentClassifierReference(), this.getUniqueComponentClassifierReference(), null, "DataUniqueComponentClassifierReference", null, 1, 1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(behaviorBooleanLiteralEClass, BehaviorBooleanLiteral.class, "BehaviorBooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(communicationActionEClass, CommunicationAction.class, "CommunicationAction", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(completionRelativeTimeoutConditionAndCatchEClass, CompletionRelativeTimeoutConditionAndCatch.class, "CompletionRelativeTimeoutConditionAndCatch", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(componentPropertyValueEClass, ComponentPropertyValue.class, "ComponentPropertyValue", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getComponentPropertyValue_PropertyIdentifier(), this.getIdentifier(), null, "propertyIdentifier", null, 1, 1, ComponentPropertyValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComponentPropertyValue_ElementListIdentifier(), this.getIdentifier(), null, "elementListIdentifier", null, 0, 1, ComponentPropertyValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(condStatementEClass, CondStatement.class, "CondStatement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3002,13 +3069,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	protected void createDocumentationAnnotations() {
-		String source = "http://www.topcased.org/documentation";					
-		addAnnotation
-		  (getBehaviorNamedElement_Name(), 
-		   source, 
-		   new String[] {
-			 "documentation", "The name of the NamedElement."
-		   });		
+		String source = "http://www.topcased.org/documentation";				
 		addAnnotation
 		  (booleanEDataType, 
 		   source, 
@@ -3042,7 +3103,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	protected void createDocumentation_1Annotations() {
-		String source = "Documentation";								
+		String source = "Documentation";						
 		addAnnotation
 		  (lockActionEClass, 
 		   source, 
@@ -3058,7 +3119,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	protected void createDocumentation_2Annotations() {
-		String source = "documentation";											
+		String source = "documentation";									
 		addAnnotation
 		  (unlockActionEClass, 
 		   source, 

@@ -28,6 +28,7 @@ import java.util.Set ;
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
 
+import edu.cmu.sei.aadl.aadl2.Classifier;
 import edu.cmu.sei.aadl.aadl2.ClassifierValue;
 import edu.cmu.sei.aadl.aadl2.ComponentClassifier ;
 import edu.cmu.sei.aadl.aadl2.Data ;
@@ -37,6 +38,7 @@ import edu.cmu.sei.aadl.aadl2.Element;
 import edu.cmu.sei.aadl.aadl2.Feature ;
 import edu.cmu.sei.aadl.aadl2.ListValue;
 import edu.cmu.sei.aadl.aadl2.Mode ;
+import edu.cmu.sei.aadl.aadl2.NamedElement;
 import edu.cmu.sei.aadl.aadl2.Namespace ;
 import edu.cmu.sei.aadl.aadl2.PackageSection ;
 import edu.cmu.sei.aadl.aadl2.Prototype ;
@@ -663,7 +665,10 @@ public class AadlBaNameResolver
             UniqueComponentClassifierReference uccr = 
             	AadlBaFactory.eINSTANCE
                       .createUniqueComponentClassifierReference();
-            uccr.setName(name.toString()) ;
+            
+            Identifier nameId = AadlBaFactory.eINSTANCE.createIdentifier();
+            nameId.setId(name.toString()) ;
+            uccr.setName(nameId) ;
             uccr.setQualifiedName(uccr.getName());
             
             // Try name.name as a unique component classifier reference.
@@ -1110,7 +1115,7 @@ public class AadlBaNameResolver
          {
             BehaviorPropertyConstant pc = AadlBaFactory.eINSTANCE
                                               .createBehaviorPropertyConstant();
-            pc.setName(n.getIdentifierOwned().getId()) ;
+            pc.setName(n.getIdentifierOwned()) ;
             pc.setQualifiedName(pc.getName());
             
             if(propertyConstantResolver(pc, false))
@@ -1432,39 +1437,58 @@ public class AadlBaNameResolver
       }
    }
 
+   private boolean behaviorNamedElement(BehaviorNamedElement bne,
+		                                boolean hasToReport)
+   {
+	   String packageName = null ;
+	   NamedElement ne ;
+	   boolean hasNamespace = bne.getNamespace() != null ; 
+	      
+	   if(hasNamespace)
+	   {
+	      packageName = bne.getNamespace().getId() ;
+	   }
+
+	   // Now check the type in each current package's sections.
+	   for(Namespace ns: _contextsTab)
+	   {
+	      // If namespace is null than the element must be declared in the
+	      // current package.
+	      ne = AadlBaVisitors.findNamedElementInAadlPackage(packageName,
+	    		                                    bne.getName().getId(), ns) ;
+	         
+	      // An element is found.
+	      if(ne != null)
+	      {
+	           // Link unique component classifier reference with
+	           // named element found.
+	    	  bne.setAadlRef(ne) ;
+	    	  bne.getName().setAadlRef(ne);
+	    	  bne.getQualifiedName().setAadlRef(ne) ;
+	          if(hasNamespace)
+	          {
+	        	 bne.getNamespace().setAadlRef(ne.getNamespace()) ;
+	          }
+	                              
+	          return true ;
+	      }
+	   }
+	      
+	   // The element is not found.
+	   if(hasToReport)
+	   {
+	      reportNameError(bne, bne.getQualifiedName().getId()) ;
+	   }
+	      
+	   return false ;
+   }
+   
+   
    private boolean uniqueComponentClassifierRefResolver(
                                          UniqueComponentClassifierReference ucr,
                                          boolean hasToReport)
-                                                          
    {
-      String packageName = ucr.getNamespace() ;
-      edu.cmu.sei.aadl.aadl2.NamedElement ne ;
-
-      // Now check the type in each current package's sections.
-      for(Namespace ns: _contextsTab)
-      {
-         // If qualified name is null than the element must be declared in the
-         // current package.
-         ne = AadlBaVisitors.findNamedElementInAadlPackage(packageName,
-                                                         ucr.getName(), ns) ;
-         
-         // An element is found.
-         if(ne != null)
-         {
-               // Link unique component classifier reference with
-               // named element found.
-               ucr.setAadlRef(ne) ;
-               return true ;
-         }
-      }
-      
-      // The element is not found.
-      if(hasToReport)
-      {
-         reportNameError(ucr, ucr.getQualifiedName()) ;
-      }
-      
-      return false ;
+      return behaviorNamedElement(ucr, hasToReport) ;
    }
 
    // Check constant value names means to check names
@@ -1481,10 +1505,65 @@ public class AadlBaNameResolver
       {
          return propertyConstantResolver((BehaviorPropertyConstant) value, true);
       }
-      else // Cases of Literal : they don't contain any name.
+      if(value instanceof BehaviorEnumerationLiteral)
+      {
+    	  return behaviorEnumLiteralResolver((BehaviorEnumerationLiteral)value);
+      }
+      else // Other literals : they don't contain any name.
       {
          return true ;
       }
+   }
+
+   private boolean behaviorEnumLiteralResolver(BehaviorEnumerationLiteral bel)
+   {
+	  boolean result = behaviorNamedElement(bel, true) ;
+	  
+	  if(result)
+	  {
+		  Classifier c = (Classifier) bel.getAadlRef() ;
+		  
+		  Identifier propertyName = bel.getPropertyIdentifier() ; 
+		  
+		  EList<PropertyExpression> pel = 
+		     AadlBaGetProperties.getPropertyExpression(c, propertyName.getId());
+		  
+		  Identifier wrongId = null ;
+		  
+		  if(! pel.isEmpty())
+		  {
+			  ListValue lv = (ListValue) pel.get(0) ;
+			  propertyName.setAadlRef(lv) ;
+			  
+			  StringLiteral sl ;
+			  Identifier enumLiteral = bel.getElementListIdentifier();
+			  
+			  for(PropertyExpression pe : lv.getOwnedListElements())
+			  {
+				  sl = (StringLiteral) pe ;
+				  if(sl.getValue().equalsIgnoreCase(enumLiteral.getId()))
+				  {
+					  enumLiteral.setAadlRef(sl) ;
+					  bel.setAadlRef(sl) ;
+					  return true ;
+				  }
+			  }
+			  
+			// Matching has failed. Set report variables.
+			wrongId = enumLiteral ;
+		  }
+		  else // Property enumerators is not found.
+		  {
+			  wrongId= propertyName ;
+		  }
+		  
+		  // At this point, resolution has failed. Reports error and returns
+		  // false.
+		  reportNameError(wrongId, wrongId.getId()) ;
+		  result = false ;
+	  }
+
+	  return result ;
    }
 
    /*
@@ -1493,33 +1572,47 @@ public class AadlBaNameResolver
    private boolean propertyConstantResolver(BehaviorPropertyConstant pc,
                                             boolean hasToReport)
    {
-      String propertySetNamespace = pc.getNamespace();
-      PackageSection[] contextsTab =AadlBaVisitors.getBaPackageSections(_ba);
-      edu.cmu.sei.aadl.aadl2.NamedElement ne ;
-
-      // If qualified name is null than the property must be declared in the
-      // current package.
-      if(propertySetNamespace == null)
+	  NamedElement ne ;
+	  String propertySetNamespace = null ;
+      
+	  PackageSection[] contextsTab =AadlBaVisitors.getBaPackageSections(_ba);
+	  
+	  boolean hasNamespace = pc.getNamespace() != null ;
+      if (hasNamespace)
       {
-         propertySetNamespace = contextsTab[0].getName() ;
+    	  propertySetNamespace = pc.getNamespace().getId() ;
+      }
+      else 
+      {
+    	  // If qualified name is null than the property must be declared in the
+          // current package.
+    	  propertySetNamespace = contextsTab[0].getName() ;
       }
 
       // Now check the type in each current package's sections.
       for(Namespace ns: contextsTab)
       {
          ne = AadlBaVisitors.findNamedElementInPropertySet(propertySetNamespace,
-                                              pc.getName(), ns);
-         // A element is found.
+                                                      pc.getName().getId(), ns);
+         // An element is found.
          if(ne != null)
          {
             pc.setAadlRef(ne) ;
+            pc.getName().setAadlRef(ne);
+            pc.getQualifiedName().setAadlRef(ne) ;
+            
+            if(hasNamespace)
+            {
+            	pc.getNamespace().setAadlRef(ne.getNamespace()) ;
+            }
+            
             return true ;
          }
       }
       // The element is not found.
       if(hasToReport) 
       {
-         reportNameError(pc, pc.getQualifiedName()) ;
+         reportNameError(pc, pc.getQualifiedName().getId()) ;
       }
       return false ; 
    }
@@ -1586,7 +1679,7 @@ public class AadlBaNameResolver
          {
             BehaviorPropertyConstant pc = AadlBaFactory.eINSTANCE
                                               .createBehaviorPropertyConstant();
-            pc.setName(n.getIdentifierOwned().getId()) ;
+            pc.setName(n.getIdentifierOwned()) ;
             pc.setQualifiedName(pc.getName());
             
             if(propertyConstantResolver(pc, false))

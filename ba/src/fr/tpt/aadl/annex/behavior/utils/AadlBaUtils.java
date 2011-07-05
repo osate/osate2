@@ -241,35 +241,29 @@ public class AadlBaUtils {
       {
          return getDataRepresentation((BehaviorPropertyConstant) v)  ;
       }
-      else 
+      else if (v instanceof BehaviorPropertyValue) 
       {
-         if(v instanceof BehaviorPropertyValue)
-         {
-            return getDataRepresentation((BehaviorPropertyValue) v)  ;
-         }
-         
-         if(v instanceof BehaviorIntegerLiteral)
-         {
-            return DataRepresentation.INTEGER ;
-         }
-         else
-         {
-            if(v instanceof BehaviorRealLiteral)
-            {
-               return DataRepresentation.FLOAT ;
-            }
-            else
-            {
-               if (v instanceof BehaviorStringLiteral)
-               {
-                  return DataRepresentation.STRING ;
-               }
-               else
-               {
-                  return DataRepresentation.BOOLEAN ;
-               }
-            }
-         }
+    	  return getDataRepresentation((BehaviorPropertyValue) v)  ;
+      }   
+      else if(v instanceof BehaviorIntegerLiteral)
+      {
+         return DataRepresentation.INTEGER ;
+      }
+      else if(v instanceof BehaviorRealLiteral)
+      {
+         return DataRepresentation.FLOAT ;
+      }
+      else if (v instanceof BehaviorStringLiteral)
+      {
+         return DataRepresentation.STRING ;
+      }
+      else if (v instanceof BehaviorBooleanLiteral)
+      {
+         return DataRepresentation.BOOLEAN ;
+      }
+      else // Behavior enumeration literal case. 
+      {
+    	 return DataRepresentation.ENUM ;  
       }
    }
    
@@ -456,7 +450,7 @@ public class AadlBaUtils {
     * object types.
     */
    public static Classifier getClassifier(Element el,
-		                                    ComponentClassifier baParentContainer)
+		                                  ComponentClassifier baParentContainer)
    {
 	  Classifier result = null ;
 	   
@@ -629,25 +623,42 @@ public class AadlBaUtils {
 
    /**
     * Returns the DataClassifier of the element binded to the given 
-    * ValueVariable object. A target instance can be given to this method as 
+    * Value object. A target instance can be given to this method as 
     * Target instance can be cast into ValueVariable reference.
     * <BR><BR>
-    *  NOTE : {@link #getClassifier(Element, ComponentClassifier)} 
-    *  to see the restrictions
+    *  NOTE : <BR><BR>
+    *  <BR>_ ValueVariable : {@link #getClassifier(Element, ComponentClassifier)} 
+    *                                 to see the restrictions.
+    *  <BR>_ ValueConstant : only ComponentPropertyValue has a data classifier.
+    *  <BR><BR>
     * 
-    * @param vv the given ValueVariable object
+    * @param v the given Value object
     * @return the binded component's DataClassifier object
     * @exception UnsupportedOperationException thrown for unsupported binded 
     * object types.
     */
-   public static DataClassifier getDataClassifier(ValueVariable vv)
+   public static DataClassifier getDataClassifier(Value v)
    {
-      Element el = AadlBaUtils.getBindedElement(vv) ;
+	  
+	  
+	  if(v instanceof ValueVariable)
+      {
+		  Element el = AadlBaUtils.getBindedElement(v) ;
+		  ComponentClassifier baParentComponent = (ComponentClassifier) 
+                                                   v.getContainingClassifier() ;
 
-      ComponentClassifier baParentComponent = (ComponentClassifier) 
-                                                  vv.getContainingClassifier() ;
-      
-      return (DataClassifier) getClassifier(el, baParentComponent) ;
+		  return (DataClassifier) getClassifier(el, baParentComponent) ;
+      }
+	  else if (v instanceof ComponentPropertyValue)
+	  {
+		 ComponentPropertyValue cpv = (ComponentPropertyValue) v ;
+		 
+		 return (DataClassifier) AadlBaUtils.getBindedElement(cpv.getName()) ;
+	  }
+	  else
+	  {
+		  return null ;
+	  }
    }
    
    private static TypeHolder getTypeHolder(DataClassifier klass)
@@ -689,9 +700,14 @@ public class AadlBaUtils {
            (! (v instanceof PortCountValue || v instanceof PortFreshValue))
         )
       {
-         result.klass = getDataClassifier((ValueVariable) v) ;
+         result.klass = getDataClassifier(v) ;
       }
-      // Else : ValueConstant doesn't have any Classifier.
+      else if (v instanceof BehaviorEnumerationLiteral) 
+      {
+    	 // ValueConstant doesn't have any Classifier, excepted the
+         // behavior enumeration literal.
+    	 result.klass = getDataClassifier(v) ;
+      }
      
       return result ;
    }
@@ -1732,7 +1748,7 @@ public class AadlBaUtils {
       
       if(sca.getSubprogramReference() != null)
       {
-         result = sca.getSubprogramReference().getQualifiedName() ; 
+         result = sca.getSubprogramReference().getQualifiedName().getId() ; 
       }
       else
       {
