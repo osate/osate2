@@ -79,25 +79,25 @@ public class BusSubcomponentItemProvider extends SubcomponentItemProvider implem
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addBusClassifierPropertyDescriptor(object);
+			addBusSubcomponentTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Bus Classifier feature.
+	 * This adds a property descriptor for the Bus Subcomponent Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addBusClassifierPropertyDescriptor(Object object) {
+	protected void addBusSubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_BusSubcomponent_busClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_BusSubcomponent_busClassifier_feature",
-						"_UI_BusSubcomponent_type"), Aadl2Package.eINSTANCE.getBusSubcomponent_BusClassifier(), true,
-				false, true, null, null, null));
+				getString("_UI_BusSubcomponent_busSubcomponentType_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_BusSubcomponent_busSubcomponentType_feature",
+						"_UI_BusSubcomponent_type"), Aadl2Package.eINSTANCE.getBusSubcomponent_BusSubcomponentType(),
+				true, false, true, null, null, null));
 	}
 
 	/**

@@ -429,6 +429,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			return ((InternalEList<?>) getOwnedPackageRenames()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME:
 			return ((InternalEList<?>) getOwnedComponentTypeRenames()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER:
+			return ((InternalEList<?>) getOwnedClassifiers()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME:
 			return ((InternalEList<?>) getOwnedFeatureGroupTypeRenames()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY:

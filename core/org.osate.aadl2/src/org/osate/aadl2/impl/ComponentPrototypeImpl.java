@@ -45,6 +45,8 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.Type;
+import org.osate.aadl2.operations.TypeOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -215,6 +217,15 @@ public class ComponentPrototypeImpl extends PrototypeImpl implements ComponentPr
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_PROTOTYPE__CONSTRAINING_CLASSIFIER, oldConstrainingClassifier,
 					constrainingClassifier));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean conformsTo(Type other) {
+		return TypeOperations.conformsTo(this, other);
 	}
 
 	/**

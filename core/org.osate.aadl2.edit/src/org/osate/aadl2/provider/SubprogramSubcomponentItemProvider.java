@@ -79,26 +79,26 @@ public class SubprogramSubcomponentItemProvider extends SubcomponentItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addSubprogramClassifierPropertyDescriptor(object);
+			addSubprogramSubcomponentTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Subprogram Classifier feature.
+	 * This adds a property descriptor for the Subprogram Subcomponent Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addSubprogramClassifierPropertyDescriptor(Object object) {
+	protected void addSubprogramSubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_SubprogramSubcomponent_subprogramClassifier_feature"),
+				getString("_UI_SubprogramSubcomponent_subprogramSubcomponentType_feature"),
 				getString("_UI_PropertyDescriptor_description",
-						"_UI_SubprogramSubcomponent_subprogramClassifier_feature", "_UI_SubprogramSubcomponent_type"),
-				Aadl2Package.eINSTANCE.getSubprogramSubcomponent_SubprogramClassifier(), true, false, true, null, null,
-				null));
+						"_UI_SubprogramSubcomponent_subprogramSubcomponentType_feature",
+						"_UI_SubprogramSubcomponent_type"), Aadl2Package.eINSTANCE
+						.getSubprogramSubcomponent_SubprogramSubcomponentType(), true, false, true, null, null, null));
 	}
 
 	/**

@@ -81,6 +81,7 @@
         <generalization xmi:id="Components-ComponentClassifier-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Classifier"/>
         </generalization>
+        <generalization xmi:id="_5JIH0KcsEeCYEIHXYlP5sg" general="_qfELUKclEeCYEIHXYlP5sg"/>
         <ownedAttribute xmi:id="Components-ComponentClassifier-ownedMode" name="ownedMode" type="Modes-Mode" aggregation="composite" association="Components-A_componentClassifier_ownedMode">
           <ownedComment xmi:id="Components-ComponentClassifier-ownedMode-_ownedComment.0">
             <body>Modes owned by the classifier.</body>
@@ -309,7 +310,7 @@
         <generalization xmi:id="Components-Subcomponent-_generalization.2" general="Connections-Context"/>
         <generalization xmi:id="Components-Subcomponent-_generalization.3" general="Flows-FlowElement"/>
         <generalization xmi:id="Components-Subcomponent-_generalization.4" general="Modes-ModalElement"/>
-        <ownedAttribute xmi:id="Components-Subcomponent-classifier" name="classifier" type="Components-ComponentClassifier" isOrdered="true" isUnique="false" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="Components-A_subcomponent_classifier">
+        <ownedAttribute xmi:id="Components-Subcomponent-classifier" name="subcomponentType" type="_qfELUKclEeCYEIHXYlP5sg" isUnique="false" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="Components-A_subcomponent_classifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Subcomponent-classifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Subcomponent-classifier-_lowerValue"/>
         </ownedAttribute>
@@ -320,7 +321,7 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Subcomponent-ownedPrototypeBinding-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Subcomponent-ownedPrototypeBinding-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Components-Subcomponent-prototype" name="prototype" type="Templates-ComponentPrototype" association="Templates-A_subcomponent_prototype">
+        <ownedAttribute xmi:id="Components-Subcomponent-prototype" name="prototype" type="Templates-ComponentPrototype" isDerived="true" subsettedProperty="Components-Subcomponent-classifier" association="Templates-A_subcomponent_prototype">
           <ownedComment xmi:id="Components-Subcomponent-prototype-_ownedComment.0">
             <body>References a prototype whose  binding determines the subcomponent's type. This is allowed only if the subcomponent does not reference a classifier.</body>
           </ownedComment>
@@ -346,8 +347,12 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Subcomponent-refined-_lowerValue"/>
           <redefinedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_ps-i5KcsEeCYEIHXYlP5sg" name="classifier" type="Components-ComponentClassifier" isDerived="true" subsettedProperty="Components-Subcomponent-classifier" association="_ps-i4KcsEeCYEIHXYlP5sg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ps-i5acsEeCYEIHXYlP5sg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ps-i5qcsEeCYEIHXYlP5sg"/>
+        </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Components-A_subcomponent_classifier" name="A_subcomponent_classifier" memberEnd="Components-A_subcomponent_classifier-subcomponent Components-Subcomponent-classifier">
+      <packagedElement xmi:type="uml:Association" xmi:id="Components-A_subcomponent_classifier" name="A_subcomponent_subcomponentType" memberEnd="Components-A_subcomponent_classifier-subcomponent Components-Subcomponent-classifier">
         <ownedEnd xmi:id="Components-A_subcomponent_classifier-subcomponent" name="subcomponent" type="Components-Subcomponent" association="Components-A_subcomponent_classifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-A_subcomponent_classifier-subcomponent-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-A_subcomponent_classifier-subcomponent-_lowerValue"/>
@@ -395,6 +400,17 @@
         <ownedLiteral xmi:id="Components-ComponentCategory-threadGroup" name="threadGroup"/>
         <ownedLiteral xmi:id="Components-ComponentCategory-virtualBus" name="virtualBus"/>
         <ownedLiteral xmi:id="Components-ComponentCategory-virtualProcessor" name="virtualProcessor"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_qfELUKclEeCYEIHXYlP5sg" name="SubcomponentType">
+        <generalization xmi:id="_nB-VMKcsEeCYEIHXYlP5sg">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Type"/>
+        </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_ps-i4KcsEeCYEIHXYlP5sg" name="A_subcomponent_classifier" memberEnd="_ps-i4acsEeCYEIHXYlP5sg _ps-i5KcsEeCYEIHXYlP5sg">
+        <ownedEnd xmi:id="_ps-i4acsEeCYEIHXYlP5sg" name="subcomponent" type="Components-Subcomponent" association="_ps-i4KcsEeCYEIHXYlP5sg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ps-i4qcsEeCYEIHXYlP5sg" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ps-i46csEeCYEIHXYlP5sg"/>
+        </ownedEnd>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Templates" name="Templates">
@@ -499,6 +515,7 @@
           <body>A prototype that can be bound to a component classifier.</body>
         </ownedComment>
         <generalization xmi:id="Templates-ComponentPrototype-_generalization.0" general="Templates-Prototype"/>
+        <generalization xmi:id="_S7p8oKcrEeCYEIHXYlP5sg" general="_qfELUKclEeCYEIHXYlP5sg"/>
         <ownedAttribute xmi:id="Templates-ComponentPrototype-category" name="category" type="Components-ComponentCategory">
           <ownedComment xmi:id="Templates-ComponentPrototype-category-_ownedComment.0">
             <body>Constrains any binding of this prototype to a classifier of the specified category.</body>
@@ -1512,7 +1529,7 @@ For access features, the classifier specifies the type of the shared component.<
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedComponentTypeRename-_lowerValue"/>
           <subsettedProperty href="AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedClassifier" name="ownedClassifier" isReadOnly="true" isDerived="true" isDerivedUnion="true" aggregation="composite" association="Packaging-A_packageSection_ownedClassifier">
+        <ownedAttribute xmi:id="Packaging-PackageSection-ownedClassifier" name="ownedClassifier" isReadOnly="true" aggregation="composite" association="Packaging-A_packageSection_ownedClassifier">
           <ownedComment xmi:id="Packaging-PackageSection-ownedClassifier-_ownedComment.0">
             <body>The classifiers owned by this section.</body>
           </ownedComment>

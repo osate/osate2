@@ -79,25 +79,26 @@ public class SystemSubcomponentItemProvider extends SubcomponentItemProvider imp
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addSystemClassifierPropertyDescriptor(object);
+			addSystemSubcomponentTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the System Classifier feature.
+	 * This adds a property descriptor for the System Subcomponent Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addSystemClassifierPropertyDescriptor(Object object) {
+	protected void addSystemSubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_SystemSubcomponent_systemClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_SystemSubcomponent_systemClassifier_feature",
-						"_UI_SystemSubcomponent_type"),
-				Aadl2Package.eINSTANCE.getSystemSubcomponent_SystemClassifier(), true, false, true, null, null, null));
+				getString("_UI_SystemSubcomponent_systemSubcomponentType_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_SystemSubcomponent_systemSubcomponentType_feature", "_UI_SystemSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getSystemSubcomponent_SystemSubcomponentType(), true, false, true, null, null,
+				null));
 	}
 
 	/**

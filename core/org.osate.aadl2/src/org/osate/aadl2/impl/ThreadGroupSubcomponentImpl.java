@@ -35,14 +35,18 @@
  */
 package org.osate.aadl2.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ThreadGroupClassifier;
 import org.osate.aadl2.ThreadGroupSubcomponent;
+import org.osate.aadl2.ThreadGroupSubcomponentType;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,14 +55,24 @@ import org.osate.aadl2.ThreadGroupSubcomponent;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.ThreadGroupSubcomponentImpl#getClassifier <em>Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ThreadGroupSubcomponentImpl#getThreadGroupClassifier <em>Thread Group Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ThreadGroupSubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ThreadGroupSubcomponentImpl#getThreadGroupSubcomponentType <em>Thread Group Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements ThreadGroupSubcomponent {
+	/**
+	 * The cached value of the '{@link #getThreadGroupSubcomponentType() <em>Thread Group Subcomponent Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getThreadGroupSubcomponentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ThreadGroupSubcomponentType threadGroupSubcomponentType;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -84,20 +98,10 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public ComponentClassifier basicGetClassifier() {
-		return classifier;
+	public SubcomponentType getSubcomponentType() {
+		SubcomponentType subcomponentType = basicGetSubcomponentType();
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+				: subcomponentType;
 	}
 
 	/**
@@ -105,31 +109,54 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ThreadGroupClassifier getThreadGroupClassifier() {
-		ThreadGroupClassifier threadGroupClassifier = basicGetThreadGroupClassifier();
-		return threadGroupClassifier != null && ((EObject) threadGroupClassifier).eIsProxy() ? (ThreadGroupClassifier) eResolveProxy((InternalEObject) threadGroupClassifier)
-				: threadGroupClassifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public ThreadGroupClassifier basicGetThreadGroupClassifier() {
-		if (classifier instanceof ThreadGroupClassifier) {
-			return (ThreadGroupClassifier) classifier;
+	@Override
+	public SubcomponentType basicGetSubcomponentType() {
+		if (eIsSet(Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_SUBCOMPONENT_TYPE)) {
+			return basicGetThreadGroupSubcomponentType();
 		}
-		return null;
+		return super.basicGetSubcomponentType();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	public void setThreadGroupClassifier(ThreadGroupClassifier newThreadGroupClassifier) {
-		classifier = newThreadGroupClassifier;
+	public ThreadGroupSubcomponentType getThreadGroupSubcomponentType() {
+		if (threadGroupSubcomponentType != null && ((EObject) threadGroupSubcomponentType).eIsProxy()) {
+			InternalEObject oldThreadGroupSubcomponentType = (InternalEObject) threadGroupSubcomponentType;
+			threadGroupSubcomponentType = (ThreadGroupSubcomponentType) eResolveProxy(oldThreadGroupSubcomponentType);
+			if (threadGroupSubcomponentType != oldThreadGroupSubcomponentType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_SUBCOMPONENT_TYPE,
+							oldThreadGroupSubcomponentType, threadGroupSubcomponentType));
+			}
+		}
+		return threadGroupSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ThreadGroupSubcomponentType basicGetThreadGroupSubcomponentType() {
+		return threadGroupSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setThreadGroupSubcomponentType(ThreadGroupSubcomponentType newThreadGroupSubcomponentType) {
+		ThreadGroupSubcomponentType oldThreadGroupSubcomponentType = threadGroupSubcomponentType;
+		threadGroupSubcomponentType = newThreadGroupSubcomponentType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_SUBCOMPONENT_TYPE,
+					oldThreadGroupSubcomponentType, threadGroupSubcomponentType));
 	}
 
 	/**
@@ -140,10 +167,10 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_CLASSIFIER:
+		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_SUBCOMPONENT_TYPE:
 			if (resolve)
-				return getThreadGroupClassifier();
-			return basicGetThreadGroupClassifier();
+				return getThreadGroupSubcomponentType();
+			return basicGetThreadGroupSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,8 +183,8 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_CLASSIFIER:
-			setThreadGroupClassifier((ThreadGroupClassifier) newValue);
+		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_SUBCOMPONENT_TYPE:
+			setThreadGroupSubcomponentType((ThreadGroupSubcomponentType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -171,8 +198,8 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_CLASSIFIER:
-			setThreadGroupClassifier((ThreadGroupClassifier) null);
+		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_SUBCOMPONENT_TYPE:
+			setThreadGroupSubcomponentType((ThreadGroupSubcomponentType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -186,8 +213,8 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_CLASSIFIER:
-			return basicGetThreadGroupClassifier() != null;
+		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_SUBCOMPONENT_TYPE:
+			return threadGroupSubcomponentType != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -198,8 +225,9 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	 * @generated
 	 */
 	@Override
-	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_CLASSIFIER);
+	public boolean isSetSubcomponentType() {
+		return super.isSetSubcomponentType()
+				|| eIsSet(Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_SUBCOMPONENT_TYPE);
 	}
 
 	public ComponentCategory getCategory() {

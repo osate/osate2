@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.ThreadSubcomponent#getThreadClassifier <em>Thread Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.ThreadSubcomponent#getThreadSubcomponentType <em>Thread Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,35 +54,35 @@ package org.osate.aadl2;
 public interface ThreadSubcomponent extends Subcomponent, org.osate.aadl2.Thread {
 
 	/**
-	 * Returns the value of the '<em><b>Thread Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Thread Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Thread Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Thread Subcomponent Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Thread Classifier</em>' reference.
-	 * @see #setThreadClassifier(ThreadClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getThreadSubcomponent_ThreadClassifier()
-	 * @model volatile="true" ordered="false"
+	 * @return the value of the '<em>Thread Subcomponent Type</em>' reference.
+	 * @see #setThreadSubcomponentType(ThreadSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getThreadSubcomponent_ThreadSubcomponentType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	ThreadClassifier getThreadClassifier();
+	ThreadSubcomponentType getThreadSubcomponentType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ThreadSubcomponent#getThreadClassifier <em>Thread Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.ThreadSubcomponent#getThreadSubcomponentType <em>Thread Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Thread Classifier</em>' reference.
-	 * @see #getThreadClassifier()
+	 * @param value the new value of the '<em>Thread Subcomponent Type</em>' reference.
+	 * @see #getThreadSubcomponentType()
 	 * @generated
 	 */
-	void setThreadClassifier(ThreadClassifier value);
+	void setThreadSubcomponentType(ThreadSubcomponentType value);
 
 } // ThreadSubcomponent

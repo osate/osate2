@@ -79,25 +79,26 @@ public class MemorySubcomponentItemProvider extends SubcomponentItemProvider imp
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addMemoryClassifierPropertyDescriptor(object);
+			addMemorySubcomponentTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Memory Classifier feature.
+	 * This adds a property descriptor for the Memory Subcomponent Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addMemoryClassifierPropertyDescriptor(Object object) {
+	protected void addMemorySubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_MemorySubcomponent_memoryClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_MemorySubcomponent_memoryClassifier_feature",
-						"_UI_MemorySubcomponent_type"),
-				Aadl2Package.eINSTANCE.getMemorySubcomponent_MemoryClassifier(), true, false, true, null, null, null));
+				getString("_UI_MemorySubcomponent_memorySubcomponentType_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_MemorySubcomponent_memorySubcomponentType_feature", "_UI_MemorySubcomponent_type"),
+				Aadl2Package.eINSTANCE.getMemorySubcomponent_MemorySubcomponentType(), true, false, true, null, null,
+				null));
 	}
 
 	/**

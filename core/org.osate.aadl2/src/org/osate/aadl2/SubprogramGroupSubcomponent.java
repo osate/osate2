@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.SubprogramGroupSubcomponent#getSubprogramGroupClassifier <em>Subprogram Group Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.SubprogramGroupSubcomponent#getSubprogramGroupSubcomponentType <em>Subprogram Group Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,35 +54,35 @@ package org.osate.aadl2;
 public interface SubprogramGroupSubcomponent extends Subcomponent, AccessConnectionEnd, SubprogramGroup, CallContext {
 
 	/**
-	 * Returns the value of the '<em><b>Subprogram Group Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Subprogram Group Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Subprogram Group Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Subprogram Group Subcomponent Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Subprogram Group Classifier</em>' reference.
-	 * @see #setSubprogramGroupClassifier(SubprogramGroupClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupSubcomponent_SubprogramGroupClassifier()
-	 * @model volatile="true" ordered="false"
+	 * @return the value of the '<em>Subprogram Group Subcomponent Type</em>' reference.
+	 * @see #setSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupSubcomponent_SubprogramGroupSubcomponentType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	SubprogramGroupClassifier getSubprogramGroupClassifier();
+	SubprogramGroupSubcomponentType getSubprogramGroupSubcomponentType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.SubprogramGroupSubcomponent#getSubprogramGroupClassifier <em>Subprogram Group Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.SubprogramGroupSubcomponent#getSubprogramGroupSubcomponentType <em>Subprogram Group Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Subprogram Group Classifier</em>' reference.
-	 * @see #getSubprogramGroupClassifier()
+	 * @param value the new value of the '<em>Subprogram Group Subcomponent Type</em>' reference.
+	 * @see #getSubprogramGroupSubcomponentType()
 	 * @generated
 	 */
-	void setSubprogramGroupClassifier(SubprogramGroupClassifier value);
+	void setSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType value);
 
 } // SubprogramGroupSubcomponent

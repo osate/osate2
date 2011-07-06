@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.SubprogramSubcomponent#getSubprogramClassifier <em>Subprogram Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.SubprogramSubcomponent#getSubprogramSubcomponentType <em>Subprogram Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,35 +54,35 @@ package org.osate.aadl2;
 public interface SubprogramSubcomponent extends Subcomponent, AccessConnectionEnd, Subprogram {
 
 	/**
-	 * Returns the value of the '<em><b>Subprogram Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Subprogram Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Subprogram Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Subprogram Subcomponent Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Subprogram Classifier</em>' reference.
-	 * @see #setSubprogramClassifier(SubprogramClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getSubprogramSubcomponent_SubprogramClassifier()
-	 * @model volatile="true" ordered="false"
+	 * @return the value of the '<em>Subprogram Subcomponent Type</em>' reference.
+	 * @see #setSubprogramSubcomponentType(SubprogramSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getSubprogramSubcomponent_SubprogramSubcomponentType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	SubprogramClassifier getSubprogramClassifier();
+	SubprogramSubcomponentType getSubprogramSubcomponentType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.SubprogramSubcomponent#getSubprogramClassifier <em>Subprogram Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.SubprogramSubcomponent#getSubprogramSubcomponentType <em>Subprogram Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Subprogram Classifier</em>' reference.
-	 * @see #getSubprogramClassifier()
+	 * @param value the new value of the '<em>Subprogram Subcomponent Type</em>' reference.
+	 * @see #getSubprogramSubcomponentType()
 	 * @generated
 	 */
-	void setSubprogramClassifier(SubprogramClassifier value);
+	void setSubprogramSubcomponentType(SubprogramSubcomponentType value);
 
 } // SubprogramSubcomponent
