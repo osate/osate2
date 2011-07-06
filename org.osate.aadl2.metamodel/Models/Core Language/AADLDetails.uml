@@ -240,7 +240,7 @@
           </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Abstract-AbstractClassifier" name="AbstractClassifier" isAbstract="true">
-          <generalization xmi:id="Components-Abstract-AbstractClassifier-_generalization.0" general="Components-Abstract-Abstract"/>
+          <generalization xmi:id="Components-Abstract-AbstractClassifier-_generalization.0" general="_fTRw4Kc8EeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-Abstract-AbstractClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -393,18 +393,43 @@
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-Abstract-A_abstractSubcomponent_abstractClassifier" name="A_subcomponent_abstractClassifier" memberEnd="Components-Abstract-A_abstractSubcomponent_abstractClassifier-subcomponent Components-Abstract-AbstractSubcomponent-abstractClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-Abstract-A_abstractSubcomponent_abstractClassifier" name="A_subcomponent_abstractSubcomponentType" memberEnd="Components-Abstract-A_abstractSubcomponent_abstractClassifier-subcomponent Components-Abstract-AbstractSubcomponent-abstractClassifier">
           <ownedEnd xmi:id="Components-Abstract-A_abstractSubcomponent_abstractClassifier-subcomponent" name="subcomponent" type="_yHZjsCq2Ed60yPuDwJXa_g" association="Components-Abstract-A_abstractSubcomponent_abstractClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Abstract-A_abstractSubcomponent_abstractClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Abstract-A_abstractSubcomponent_abstractClassifier-subcomponent-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_yHZjsCq2Ed60yPuDwJXa_g" name="Subcomponent" isAbstract="true">
-          <ownedAttribute xmi:id="Components-Abstract-AbstractSubcomponent-abstractClassifier" name="abstractClassifier" type="Components-Abstract-AbstractClassifier" association="Components-Abstract-A_abstractSubcomponent_abstractClassifier">
+          <ownedAttribute xmi:id="Components-Abstract-AbstractSubcomponent-abstractClassifier" name="abstractSubcomponentType" type="_fTRw4Kc8EeCYEIHXYlP5sg" association="Components-Abstract-A_abstractSubcomponent_abstractClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Abstract-AbstractSubcomponent-abstractClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Abstract-AbstractSubcomponent-abstractClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
           </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_fTRw4Kc8EeCYEIHXYlP5sg" name="AbstractSubcomponentType" isAbstract="true">
+          <generalization xmi:id="_lCjo0Kf1EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+          <generalization xmi:id="_LM9nAKf5EeCYEIHXYlP5sg" general="Components-Abstract-Abstract"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_j713cKc8EeCYEIHXYlP5sg" name="AbstractPrototype">
+          <generalization xmi:id="_tZufcKdCEeCYEIHXYlP5sg" general="_9O0w4Kc3EeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_dTsakKdDEeCYEIHXYlP5sg" general="_0HeJ0KdCEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_-wT7UKdDEeCYEIHXYlP5sg" general="_yOYr0KdDEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_xVLcYKfGEeCYEIHXYlP5sg" general="_TgY98KfGEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_QhZAwKfHEeCYEIHXYlP5sg" general="_DoCvwKfHEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_E3iMQKfIEeCYEIHXYlP5sg" general="_mRbloKfHEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_gycX8KfIEeCYEIHXYlP5sg" general="_M2iDIKfIEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_JqzKIKfMEeCYEIHXYlP5sg" general="_5fL3IKfLEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_jOtpQKfMEeCYEIHXYlP5sg" general="_UmL5oKfMEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_-IQpUKfyEeCYEIHXYlP5sg" general="_t5WKsKfyEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_XZLT8KfzEeCYEIHXYlP5sg" general="_EHpY4KfzEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_zO754KfzEeCYEIHXYlP5sg" general="_hHzVYKfzEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_FQ3OQKf0EeCYEIHXYlP5sg" general="_5cLfQKfzEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_Sqzq4Kf0EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+          <generalization xmi:id="_KoluoKf5EeCYEIHXYlP5sg" general="_fTRw4Kc8EeCYEIHXYlP5sg"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Bus" name="Bus">
@@ -414,7 +439,7 @@
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Bus-BusClassifier" name="BusClassifier" isAbstract="true">
-          <generalization xmi:id="Components-Bus-BusClassifier-_generalization.0" general="Components-Bus-Bus"/>
+          <generalization xmi:id="Components-Bus-BusClassifier-_generalization.0" general="_9O0w4Kc3EeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-Bus-BusClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -425,7 +450,7 @@
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
           <generalization xmi:id="Components-Bus-BusSubcomponent-_generalization.2" general="Connections-AccessConnectionEnd"/>
-          <ownedAttribute xmi:id="Components-Bus-BusSubcomponent-busClassifier" name="busClassifier" type="Components-Bus-BusClassifier" association="Components-Bus-A_busSubcomponent_busClassifier">
+          <ownedAttribute xmi:id="Components-Bus-BusSubcomponent-busClassifier" name="busSubcomponentType" type="_9O0w4Kc3EeCYEIHXYlP5sg" association="Components-Bus-A_busSubcomponent_busClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Bus-BusSubcomponent-busClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Bus-BusSubcomponent-busClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
@@ -465,7 +490,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Bus-A_busImplementation_busType-implementation-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-Bus-A_busSubcomponent_busClassifier" name="A_busSubcomponent_busClassifier" memberEnd="Components-Bus-A_busSubcomponent_busClassifier-subcomponent Components-Bus-BusSubcomponent-busClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-Bus-A_busSubcomponent_busClassifier" name="A_busSubcomponent_busSubcomponentType" memberEnd="Components-Bus-A_busSubcomponent_busClassifier-subcomponent Components-Bus-BusSubcomponent-busClassifier">
           <ownedEnd xmi:id="Components-Bus-A_busSubcomponent_busClassifier-subcomponent" name="subcomponent" type="Components-Bus-BusSubcomponent" association="Components-Bus-A_busSubcomponent_busClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Bus-A_busSubcomponent_busClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Bus-A_busSubcomponent_busClassifier-subcomponent-_lowerValue"/>
@@ -483,6 +508,18 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Bus-A_busImplementation_ownedVirtualBusSubcomponent-owner-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_9O0w4Kc3EeCYEIHXYlP5sg" name="BusSubcomponentType" isAbstract="true">
+          <generalization xmi:id="_Rk214Kc4EeCYEIHXYlP5sg" general="Components-Bus-Bus"/>
+          <generalization xmi:id="_SKEe8Kc8EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_a1vLYKc4EeCYEIHXYlP5sg" name="BusPrototype">
+          <generalization xmi:id="_fvCcoKc4EeCYEIHXYlP5sg" general="_9O0w4Kc3EeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_U-cEAKc8EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Data" name="Data">
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Data-DataSubcomponent" name="DataSubcomponent">
@@ -493,14 +530,14 @@
           <generalization xmi:id="Components-Data-DataSubcomponent-_generalization.2" general="Connections-ParameterConnectionEnd"/>
           <generalization xmi:id="Components-Data-DataSubcomponent-_generalization.3" general="Connections-PortConnectionEnd"/>
           <generalization xmi:id="Components-Data-DataSubcomponent-_generalization.4" general="Connections-AccessConnectionEnd"/>
-          <ownedAttribute xmi:id="Components-Data-DataSubcomponent-dataClassifier" name="dataClassifier" type="Components-Data-DataClassifier" association="Components-Data-A_dataSubcomponent_dataClassifier">
+          <ownedAttribute xmi:id="Components-Data-DataSubcomponent-dataClassifier" name="dataSubcomponentType" type="_5cLfQKfzEeCYEIHXYlP5sg" association="Components-Data-A_dataSubcomponent_dataClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Data-DataSubcomponent-dataClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Data-DataSubcomponent-dataClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
           </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Data-DataClassifier" name="DataClassifier" isAbstract="true">
-          <generalization xmi:id="Components-Data-DataClassifier-_generalization.0" general="Components-Data-Data"/>
+          <generalization xmi:id="Components-Data-DataClassifier-_generalization.0" general="_5cLfQKfzEeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-Data-DataClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -548,7 +585,7 @@
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-Data-A_dataSubcomponent_dataClassifier" name="A_dataSubcomponent_dataClassifier" memberEnd="Components-Data-A_dataSubcomponent_dataClassifier-subcomponent Components-Data-DataSubcomponent-dataClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-Data-A_dataSubcomponent_dataClassifier" name="A_dataSubcomponent_dataSubcomponentType" memberEnd="Components-Data-A_dataSubcomponent_dataClassifier-subcomponent Components-Data-DataSubcomponent-dataClassifier">
           <ownedEnd xmi:id="Components-Data-A_dataSubcomponent_dataClassifier-subcomponent" name="subcomponent" type="Components-Data-DataSubcomponent" association="Components-Data-A_dataSubcomponent_dataClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Data-A_dataSubcomponent_dataClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Data-A_dataSubcomponent_dataClassifier-subcomponent-_lowerValue"/>
@@ -584,6 +621,18 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Data-A_dataImplementation_ownedSubprogramSubcomponent-owner-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_5cLfQKfzEeCYEIHXYlP5sg" name="DataSubcomponentType" isAbstract="true">
+          <generalization xmi:id="_EilL8Kf0EeCYEIHXYlP5sg" general="Components-Data-Data"/>
+          <generalization xmi:id="_5xadgKf1EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_5tUSkKfzEeCYEIHXYlP5sg" name="DataPrototype">
+          <generalization xmi:id="_E4zTkKf0EeCYEIHXYlP5sg" general="_5cLfQKfzEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_Z3OOQKf0EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Device" name="Device">
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Device-Device" name="Device" isAbstract="true">
@@ -592,7 +641,7 @@
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Device-DeviceClassifier" name="DeviceClassifier" isAbstract="true">
-          <generalization xmi:id="Components-Device-DeviceClassifier-_generalization.0" general="Components-Device-Device"/>
+          <generalization xmi:id="Components-Device-DeviceClassifier-_generalization.0" general="_hHzVYKfzEeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-Device-DeviceClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -602,7 +651,7 @@
           <generalization xmi:id="Components-Device-DeviceSubcomponent-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
-          <ownedAttribute xmi:id="Components-Device-DeviceSubcomponent-deviceClassifier" name="deviceClassifier" type="Components-Device-DeviceClassifier" association="Components-Device-A_deviceSubcomponent_deviceClassifier">
+          <ownedAttribute xmi:id="Components-Device-DeviceSubcomponent-deviceClassifier" name="deviceSubcomponentType" type="_hHzVYKfzEeCYEIHXYlP5sg" association="Components-Device-A_deviceSubcomponent_deviceClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Device-DeviceSubcomponent-deviceClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Device-DeviceSubcomponent-deviceClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
@@ -677,7 +726,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Device-A_deviceImplementation_deviceType-implementation-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-Device-A_deviceSubcomponent_deviceClassifier" name="A_deviceSubcomponent_deviceClassifier" memberEnd="Components-Device-A_deviceSubcomponent_deviceClassifier-subcomponent Components-Device-DeviceSubcomponent-deviceClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-Device-A_deviceSubcomponent_deviceClassifier" name="A_deviceSubcomponent_deviceSubcomponentType" memberEnd="Components-Device-A_deviceSubcomponent_deviceClassifier-subcomponent Components-Device-DeviceSubcomponent-deviceClassifier">
           <ownedEnd xmi:id="Components-Device-A_deviceSubcomponent_deviceClassifier-subcomponent" name="subcomponent" type="Components-Device-DeviceSubcomponent" association="Components-Device-A_deviceSubcomponent_deviceClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Device-A_deviceSubcomponent_deviceClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Device-A_deviceSubcomponent_deviceClassifier-subcomponent-_lowerValue"/>
@@ -737,6 +786,18 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CAFm855lEeCP66JzwOyEVA"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_hHzVYKfzEeCYEIHXYlP5sg" name="DeviceSubcomponentType" isAbstract="true">
+          <generalization xmi:id="_ymA4sKfzEeCYEIHXYlP5sg" general="Components-Device-Device"/>
+          <generalization xmi:id="_6V64wKf1EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_hcqyIKfzEeCYEIHXYlP5sg" name="DevicePrototype">
+          <generalization xmi:id="_y44xYKfzEeCYEIHXYlP5sg" general="_hHzVYKfzEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_aRnrQKf0EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Memory" name="Memory">
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Memory-Memory" name="Memory" isAbstract="true">
@@ -745,7 +806,7 @@
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Memory-MemoryClassifier" name="MemoryClassifier" isAbstract="true">
-          <generalization xmi:id="Components-Memory-MemoryClassifier-_generalization.0" general="Components-Memory-Memory"/>
+          <generalization xmi:id="Components-Memory-MemoryClassifier-_generalization.0" general="_EHpY4KfzEeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-Memory-MemoryClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -766,7 +827,7 @@
           <generalization xmi:id="Components-Memory-MemorySubcomponent-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
-          <ownedAttribute xmi:id="Components-Memory-MemorySubcomponent-memoryClassifier" name="memoryClassifier" type="Components-Memory-MemoryClassifier" association="Components-Memory-A_memorySubcomponent_memoryClassifier">
+          <ownedAttribute xmi:id="Components-Memory-MemorySubcomponent-memoryClassifier" name="memorySubcomponentType" type="_EHpY4KfzEeCYEIHXYlP5sg" association="Components-Memory-A_memorySubcomponent_memoryClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Memory-MemorySubcomponent-memoryClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Memory-MemorySubcomponent-memoryClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
@@ -799,7 +860,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Memory-A_memoryImplementation_memoryType-implementation-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-Memory-A_memorySubcomponent_memoryClassifier" name="A_memorySubcomponent_memoryClassifier" memberEnd="Components-Memory-A_memorySubcomponent_memoryClassifier-subcomponent Components-Memory-MemorySubcomponent-memoryClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-Memory-A_memorySubcomponent_memoryClassifier" name="A_memorySubcomponent_memorySubcomponentType" memberEnd="Components-Memory-A_memorySubcomponent_memoryClassifier-subcomponent Components-Memory-MemorySubcomponent-memoryClassifier">
           <ownedEnd xmi:id="Components-Memory-A_memorySubcomponent_memoryClassifier-subcomponent" name="subcomponent" type="Components-Memory-MemorySubcomponent" association="Components-Memory-A_memorySubcomponent_memoryClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Memory-A_memorySubcomponent_memoryClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Memory-A_memorySubcomponent_memoryClassifier-subcomponent-_lowerValue"/>
@@ -823,6 +884,18 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Memory-A_memoryType_ownedBusAccess-owner-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_D3igUKfzEeCYEIHXYlP5sg" name="MemoryPrototype">
+          <generalization xmi:id="_W1jpgKfzEeCYEIHXYlP5sg" general="_EHpY4KfzEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_i5ccsKf0EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_EHpY4KfzEeCYEIHXYlP5sg" name="MemorySubcomponentType" isAbstract="true">
+          <generalization xmi:id="_Wcvg4KfzEeCYEIHXYlP5sg" general="Components-Memory-Memory"/>
+          <generalization xmi:id="_67uUgKf1EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Process" name="Process">
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Process-Process" name="Process" isAbstract="true">
@@ -831,7 +904,7 @@
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Process-ProcessClassifier" name="ProcessClassifier" isAbstract="true">
-          <generalization xmi:id="Components-Process-ProcessClassifier-_generalization.0" general="Components-Process-Process"/>
+          <generalization xmi:id="Components-Process-ProcessClassifier-_generalization.0" general="_t5WKsKfyEeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-Process-ProcessClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -877,7 +950,7 @@
           <generalization xmi:id="Components-Process-ProcessSubcomponent-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
-          <ownedAttribute xmi:id="Components-Process-ProcessSubcomponent-processClassifier" name="processClassifier" type="Components-Process-ProcessClassifier" association="Components-Process-A_processSubcomponent_processClassifier">
+          <ownedAttribute xmi:id="Components-Process-ProcessSubcomponent-processClassifier" name="processSubcomponentType" type="_t5WKsKfyEeCYEIHXYlP5sg" association="Components-Process-A_processSubcomponent_processClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Process-ProcessSubcomponent-processClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Process-ProcessSubcomponent-processClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
@@ -919,7 +992,7 @@
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-Process-A_processSubcomponent_processClassifier" name="A_processSubcomponent_processClassifier" memberEnd="Components-Process-A_processSubcomponent_processClassifier-subcomponent Components-Process-ProcessSubcomponent-processClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-Process-A_processSubcomponent_processClassifier" name="A_processSubcomponent_processSubcomponentType" memberEnd="Components-Process-A_processSubcomponent_processClassifier-subcomponent Components-Process-ProcessSubcomponent-processClassifier">
           <ownedEnd xmi:id="Components-Process-A_processSubcomponent_processClassifier-subcomponent" name="subcomponent" type="Components-Process-ProcessSubcomponent" association="Components-Process-A_processSubcomponent_processClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Process-A_processSubcomponent_processClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Process-A_processSubcomponent_processClassifier-subcomponent-_lowerValue"/>
@@ -997,6 +1070,18 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Process-A_processType_ownedSubprogramGroupAccess-owner-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_t5WKsKfyEeCYEIHXYlP5sg" name="ProcessSubcomponentType" isAbstract="true">
+          <generalization xmi:id="__sElcKfyEeCYEIHXYlP5sg" general="Components-Process-Process"/>
+          <generalization xmi:id="_GRMX8Kf2EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_uMODYKfyEeCYEIHXYlP5sg" name="ProcessPrototype">
+          <generalization xmi:id="_9jXzkKfyEeCYEIHXYlP5sg" general="_t5WKsKfyEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_jSAtsKf0EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Processor" name="Processor">
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Processor-Processor" name="Processor" isAbstract="true">
@@ -1005,7 +1090,7 @@
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Processor-ProcessorClassifier" name="ProcessorClassifier" isAbstract="true">
-          <generalization xmi:id="Components-Processor-ProcessorClassifier-_generalization.0" general="Components-Processor-Processor"/>
+          <generalization xmi:id="Components-Processor-ProcessorClassifier-_generalization.0" general="_UmL5oKfMEeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-Processor-ProcessorClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -1051,7 +1136,7 @@
           <generalization xmi:id="Components-Processor-ProcessorSubcomponent-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
-          <ownedAttribute xmi:id="Components-Processor-ProcessorSubcomponent-processorClassifier" name="processorClassifier" type="Components-Processor-ProcessorClassifier" association="Components-Processor-A_processorSubcomponent_processorClassifier">
+          <ownedAttribute xmi:id="Components-Processor-ProcessorSubcomponent-processorClassifier" name="processorSubcomponentType" type="_UmL5oKfMEeCYEIHXYlP5sg" association="Components-Processor-A_processorSubcomponent_processorClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Processor-ProcessorSubcomponent-processorClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Processor-ProcessorSubcomponent-processorClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
@@ -1088,7 +1173,7 @@
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-Processor-A_processorSubcomponent_processorClassifier" name="A_processorSubcomponent_processorClassifier" memberEnd="Components-Processor-A_processorSubcomponent_processorClassifier-subcomponent Components-Processor-ProcessorSubcomponent-processorClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-Processor-A_processorSubcomponent_processorClassifier" name="A_processorSubcomponent_processorSubcomponentType" memberEnd="Components-Processor-A_processorSubcomponent_processorClassifier-subcomponent Components-Processor-ProcessorSubcomponent-processorClassifier">
           <ownedEnd xmi:id="Components-Processor-A_processorSubcomponent_processorClassifier-subcomponent" name="subcomponent" type="Components-Processor-ProcessorSubcomponent" association="Components-Processor-A_processorSubcomponent_processorClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Processor-A_processorSubcomponent_processorClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Processor-A_processorSubcomponent_processorClassifier-subcomponent-_lowerValue"/>
@@ -1160,6 +1245,18 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Processor-A_processorType_ownedSubprogramGroupAccess-owner-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_UmL5oKfMEeCYEIHXYlP5sg" name="ProcessorSubcomponentType" isAbstract="true">
+          <generalization xmi:id="_h3y5oKfMEeCYEIHXYlP5sg" general="Components-Processor-Processor"/>
+          <generalization xmi:id="_MgMQ0Kf2EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_U2YRwKfMEeCYEIHXYlP5sg" name="ProcessorPrototype">
+          <generalization xmi:id="_ivsyAKfMEeCYEIHXYlP5sg" general="_UmL5oKfMEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_jvWJ8Kf0EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Subprogram" name="Subprogram">
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Subprogram-Subprogram" name="Subprogram" isAbstract="true">
@@ -1169,7 +1266,7 @@
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Subprogram-SubprogramClassifier" name="SubprogramClassifier" isAbstract="true">
-          <generalization xmi:id="Components-Subprogram-SubprogramClassifier-_generalization.0" general="Components-Subprogram-Subprogram"/>
+          <generalization xmi:id="Components-Subprogram-SubprogramClassifier-_generalization.0" general="_5fL3IKfLEeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-Subprogram-SubprogramClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -1183,7 +1280,7 @@
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
           <generalization xmi:id="Components-Subprogram-SubprogramSubcomponent-_generalization.2" general="Connections-AccessConnectionEnd"/>
-          <ownedAttribute xmi:id="Components-Subprogram-SubprogramSubcomponent-subprogramClassifier" name="subprogramClassifier" type="Components-Subprogram-SubprogramClassifier" association="Components-Subprogram-A_subprogramSubcomponent_subprogramClassifier">
+          <ownedAttribute xmi:id="Components-Subprogram-SubprogramSubcomponent-subprogramClassifier" name="subprogramSubcomponentType" type="_5fL3IKfLEeCYEIHXYlP5sg" association="Components-Subprogram-A_subprogramSubcomponent_subprogramClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Subprogram-SubprogramSubcomponent-subprogramClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Subprogram-SubprogramSubcomponent-subprogramClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
@@ -1239,7 +1336,7 @@
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-Subprogram-A_subprogramSubcomponent_subprogramClassifier" name="A_subprogramSubcomponent_subprogramClassifier" memberEnd="Components-Subprogram-A_subprogramSubcomponent_subprogramClassifier-subcomponent Components-Subprogram-SubprogramSubcomponent-subprogramClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-Subprogram-A_subprogramSubcomponent_subprogramClassifier" name="A_subprogramSubcomponent_subprogramSubcomponentType" memberEnd="Components-Subprogram-A_subprogramSubcomponent_subprogramClassifier-subcomponent Components-Subprogram-SubprogramSubcomponent-subprogramClassifier">
           <ownedEnd xmi:id="Components-Subprogram-A_subprogramSubcomponent_subprogramClassifier-subcomponent" name="subcomponent" type="Components-Subprogram-SubprogramSubcomponent" association="Components-Subprogram-A_subprogramSubcomponent_subprogramClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Subprogram-A_subprogramSubcomponent_subprogramClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Subprogram-A_subprogramSubcomponent_subprogramClassifier-subcomponent-_lowerValue"/>
@@ -1293,6 +1390,18 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Subprogram-A_subprogramType_ownedSubprogramGroupAccess-owner-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_5fL3IKfLEeCYEIHXYlP5sg" name="SubprogramSubcomponentType" isAbstract="true">
+          <generalization xmi:id="_KYJ_YKfMEeCYEIHXYlP5sg" general="Components-Subprogram-Subprogram"/>
+          <generalization xmi:id="_ViuoUKf2EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_5u9YgKfLEeCYEIHXYlP5sg" name="SubprogramPrototype">
+          <generalization xmi:id="_JIu-4KfMEeCYEIHXYlP5sg" general="_5fL3IKfLEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_5aAfkKf0EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-SubprogramGroup" name="SubprogramGroup">
         <packagedElement xmi:type="uml:Class" xmi:id="Components-SubprogramGroup-SubprogramGroup" name="SubprogramGroup" isAbstract="true">
@@ -1301,7 +1410,7 @@
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-SubprogramGroup-SubprogramGroupClassifier" name="SubprogramGroupClassifier" isAbstract="true">
-          <generalization xmi:id="Components-SubprogramGroup-SubprogramGroupClassifier-_generalization.0" general="Components-SubprogramGroup-SubprogramGroup"/>
+          <generalization xmi:id="Components-SubprogramGroup-SubprogramGroupClassifier-_generalization.0" general="_0HeJ0KdCEeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-SubprogramGroup-SubprogramGroupClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -1330,7 +1439,7 @@
           </generalization>
           <generalization xmi:id="Components-SubprogramGroup-SubprogramGroupSubcomponent-_generalization.2" general="Calls-CallContext"/>
           <generalization xmi:id="Components-SubprogramGroup-SubprogramGroupSubcomponent-_generalization.3" general="Connections-AccessConnectionEnd"/>
-          <ownedAttribute xmi:id="Components-SubprogramGroup-SubprogramGroupSubcomponent-subprogramGroupClassifier" name="subprogramGroupClassifier" type="Components-SubprogramGroup-SubprogramGroupClassifier" association="Components-SubprogramGroup-A_subprogramGroupSubcomponent_subprogramGroupClassifier">
+          <ownedAttribute xmi:id="Components-SubprogramGroup-SubprogramGroupSubcomponent-subprogramGroupClassifier" name="subprogramGroupSubcomponentType" type="_0HeJ0KdCEeCYEIHXYlP5sg" association="Components-SubprogramGroup-A_subprogramGroupSubcomponent_subprogramGroupClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-SubprogramGroup-SubprogramGroupSubcomponent-subprogramGroupClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-SubprogramGroup-SubprogramGroupSubcomponent-subprogramGroupClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
@@ -1363,7 +1472,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-SubprogramGroup-A_subprogramGroupImplementation_subprogramGroupType-implementation-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-SubprogramGroup-A_subprogramGroupSubcomponent_subprogramGroupClassifier" name="A_subprogramGroupSubcomponent_subprogramGroupClassifier" memberEnd="Components-SubprogramGroup-A_subprogramGroupSubcomponent_subprogramGroupClassifier-subcomponent Components-SubprogramGroup-SubprogramGroupSubcomponent-subprogramGroupClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-SubprogramGroup-A_subprogramGroupSubcomponent_subprogramGroupClassifier" name="A_subprogramGroupSubcomponent_subprogramSubcomponentType" memberEnd="Components-SubprogramGroup-A_subprogramGroupSubcomponent_subprogramGroupClassifier-subcomponent Components-SubprogramGroup-SubprogramGroupSubcomponent-subprogramGroupClassifier">
           <ownedEnd xmi:id="Components-SubprogramGroup-A_subprogramGroupSubcomponent_subprogramGroupClassifier-subcomponent" name="subcomponent" type="Components-SubprogramGroup-SubprogramGroupSubcomponent" association="Components-SubprogramGroup-A_subprogramGroupSubcomponent_subprogramGroupClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-SubprogramGroup-A_subprogramGroupSubcomponent_subprogramGroupClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-SubprogramGroup-A_subprogramGroupSubcomponent_subprogramGroupClassifier-subcomponent-_lowerValue"/>
@@ -1393,6 +1502,18 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6ZanTnMbEd-Dn6vSwaGWGg"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_0HeJ0KdCEeCYEIHXYlP5sg" name="SubprogramGroupSubcomponentType" isAbstract="true">
+          <generalization xmi:id="_K1KpwKdDEeCYEIHXYlP5sg" general="Components-SubprogramGroup-SubprogramGroup"/>
+          <generalization xmi:id="_UOq_cKf2EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_6GcCoKdCEeCYEIHXYlP5sg" name="SubprogramGroupPrototype">
+          <generalization xmi:id="_MzsL8KdDEeCYEIHXYlP5sg" general="_0HeJ0KdCEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_4_wMgKf0EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-System" name="System">
         <packagedElement xmi:type="uml:Class" xmi:id="Components-System-System" name="System" isAbstract="true">
@@ -1401,7 +1522,7 @@
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-System-SystemClassifier" name="SystemClassifier" isAbstract="true">
-          <generalization xmi:id="Components-System-SystemClassifier-_generalization.0" general="Components-System-System"/>
+          <generalization xmi:id="Components-System-SystemClassifier-_generalization.0" general="_M2iDIKfIEeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-System-SystemClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -1452,7 +1573,7 @@
           <generalization xmi:id="Components-System-SystemSubcomponent-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
-          <ownedAttribute xmi:id="Components-System-SystemSubcomponent-systemClassifier" name="systemClassifier" type="Components-System-SystemClassifier" association="Components-System-A_systemSubcomponent_systemClassifier">
+          <ownedAttribute xmi:id="Components-System-SystemSubcomponent-systemClassifier" name="systemSubcomponentType" type="_M2iDIKfIEeCYEIHXYlP5sg" association="Components-System-A_systemSubcomponent_systemClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-System-SystemSubcomponent-systemClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-System-SystemSubcomponent-systemClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
@@ -1524,7 +1645,7 @@
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-System-A_systemSubcomponent_systemClassifier" name="A_systemSubcomponent_systemClassifier" memberEnd="Components-System-A_systemSubcomponent_systemClassifier-subcomponent Components-System-SystemSubcomponent-systemClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-System-A_systemSubcomponent_systemClassifier" name="A_systemSubcomponent_systemSubcomponentType" memberEnd="Components-System-A_systemSubcomponent_systemClassifier-subcomponent Components-System-SystemSubcomponent-systemClassifier">
           <ownedEnd xmi:id="Components-System-A_systemSubcomponent_systemClassifier-subcomponent" name="subcomponent" type="Components-System-SystemSubcomponent" association="Components-System-A_systemSubcomponent_systemClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-System-A_systemSubcomponent_systemClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-System-A_systemSubcomponent_systemClassifier-subcomponent-_lowerValue"/>
@@ -1644,6 +1765,18 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-System-A_systemType_ownedEventDataPort-owner-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_M2iDIKfIEeCYEIHXYlP5sg" name="SystemSubcomponentType" isAbstract="true">
+          <generalization xmi:id="_gM73IKfIEeCYEIHXYlP5sg" general="Components-System-System"/>
+          <generalization xmi:id="_eeuS8Kf2EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_NIadUKfIEeCYEIHXYlP5sg" name="SystemPrototype">
+          <generalization xmi:id="_eu-EUKfIEeCYEIHXYlP5sg" general="_M2iDIKfIEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_557VwKf0EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Thread" name="Thread">
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Thread-Thread" name="Thread" isAbstract="true">
@@ -1652,7 +1785,7 @@
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Thread-ThreadClassifier" name="ThreadClassifier" isAbstract="true">
-          <generalization xmi:id="Components-Thread-ThreadClassifier-_generalization.0" general="Components-Thread-Thread"/>
+          <generalization xmi:id="Components-Thread-ThreadClassifier-_generalization.0" general="_mRbloKfHEeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-Thread-ThreadClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -1698,7 +1831,7 @@
           <generalization xmi:id="Components-Thread-ThreadSubcomponent-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
-          <ownedAttribute xmi:id="Components-Thread-ThreadSubcomponent-threadClassifier" name="threadClassifier" type="Components-Thread-ThreadClassifier" association="Components-Thread-A_threadSubcomponent_threadClassifier">
+          <ownedAttribute xmi:id="Components-Thread-ThreadSubcomponent-threadClassifier" name="threadSubcomponentType" type="_mRbloKfHEeCYEIHXYlP5sg" association="Components-Thread-A_threadSubcomponent_threadClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Thread-ThreadSubcomponent-threadClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Thread-ThreadSubcomponent-threadClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
@@ -1734,7 +1867,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Thread-A_threadImplementation_threadType-implementation-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-Thread-A_threadSubcomponent_threadClassifier" name="A_threadSubcomponent_threadClassifier" memberEnd="Components-Thread-A_threadSubcomponent_threadClassifier-subcomponent Components-Thread-ThreadSubcomponent-threadClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-Thread-A_threadSubcomponent_threadClassifier" name="A_threadSubcomponent_threadSubcomponentType" memberEnd="Components-Thread-A_threadSubcomponent_threadClassifier-subcomponent Components-Thread-ThreadSubcomponent-threadClassifier">
           <ownedEnd xmi:id="Components-Thread-A_threadSubcomponent_threadClassifier-subcomponent" name="subcomponent" type="Components-Thread-ThreadSubcomponent" association="Components-Thread-A_threadSubcomponent_threadClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Thread-A_threadSubcomponent_threadClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Thread-A_threadSubcomponent_threadClassifier-subcomponent-_lowerValue"/>
@@ -1794,6 +1927,18 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Thread-A_threadType_ownedSubprogramGroupAccess-owner-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_mRbloKfHEeCYEIHXYlP5sg" name="ThreadSubcomponentType" isAbstract="true">
+          <generalization xmi:id="_FdVA8KfIEeCYEIHXYlP5sg" general="Components-Thread-Thread"/>
+          <generalization xmi:id="_e23tMKf2EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_mm6tcKfHEeCYEIHXYlP5sg" name="ThreadPrototype">
+          <generalization xmi:id="_EeVCEKfIEeCYEIHXYlP5sg" general="_mRbloKfHEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_6WRTgKf0EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-ThreadGroup" name="ThreadGroup">
         <packagedElement xmi:type="uml:Class" xmi:id="Components-ThreadGroup-ThreadGroup" name="ThreadGroup" isAbstract="true">
@@ -1802,7 +1947,7 @@
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-ThreadGroup-ThreadGroupClassifier" name="ThreadGroupClassifier" isAbstract="true">
-          <generalization xmi:id="Components-ThreadGroup-ThreadGroupClassifier-_generalization.0" general="Components-ThreadGroup-ThreadGroup"/>
+          <generalization xmi:id="Components-ThreadGroup-ThreadGroupClassifier-_generalization.0" general="_DoCvwKfHEeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-ThreadGroup-ThreadGroupClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -1848,7 +1993,7 @@
           <generalization xmi:id="Components-ThreadGroup-ThreadGroupSubcomponent-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
-          <ownedAttribute xmi:id="Components-ThreadGroup-ThreadGroupSubcomponent-threadGroupClassifier" name="threadGroupClassifier" type="Components-ThreadGroup-ThreadGroupClassifier" association="Components-ThreadGroup-A_threadGroupSubcomponent_threadGroupClassifier">
+          <ownedAttribute xmi:id="Components-ThreadGroup-ThreadGroupSubcomponent-threadGroupClassifier" name="threadGroupSubcomponentType" type="_DoCvwKfHEeCYEIHXYlP5sg" association="Components-ThreadGroup-A_threadGroupSubcomponent_threadGroupClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-ThreadGroup-ThreadGroupSubcomponent-threadGroupClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-ThreadGroup-ThreadGroupSubcomponent-threadGroupClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
@@ -1890,7 +2035,7 @@
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-ThreadGroup-A_threadGroupSubcomponent_threadGroupClassifier" name="A_threadGroupSubcomponent_threadGroupClassifier" memberEnd="Components-ThreadGroup-A_threadGroupSubcomponent_threadGroupClassifier-subcomponent Components-ThreadGroup-ThreadGroupSubcomponent-threadGroupClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-ThreadGroup-A_threadGroupSubcomponent_threadGroupClassifier" name="A_threadGroupSubcomponent_threadGroupSubcomponentType" memberEnd="Components-ThreadGroup-A_threadGroupSubcomponent_threadGroupClassifier-subcomponent Components-ThreadGroup-ThreadGroupSubcomponent-threadGroupClassifier">
           <ownedEnd xmi:id="Components-ThreadGroup-A_threadGroupSubcomponent_threadGroupClassifier-subcomponent" name="subcomponent" type="Components-ThreadGroup-ThreadGroupSubcomponent" association="Components-ThreadGroup-A_threadGroupSubcomponent_threadGroupClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-ThreadGroup-A_threadGroupSubcomponent_threadGroupClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-ThreadGroup-A_threadGroupSubcomponent_threadGroupClassifier-subcomponent-_lowerValue"/>
@@ -1968,6 +2113,18 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-ThreadGroup-A_threadGroupType_ownedSubprogramGroupAccess-owner-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_DoCvwKfHEeCYEIHXYlP5sg" name="ThreadGroupSubcomponentType" isAbstract="true">
+          <generalization xmi:id="_Q7uMUKfHEeCYEIHXYlP5sg" general="Components-ThreadGroup-ThreadGroup"/>
+          <generalization xmi:id="_fN-loKf2EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_D2iewKfHEeCYEIHXYlP5sg" name="ThreadGroupPrototype">
+          <generalization xmi:id="_QLQ_wKfHEeCYEIHXYlP5sg" general="_DoCvwKfHEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_6vY-IKf0EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-VirtualBus" name="VirtualBus">
         <packagedElement xmi:type="uml:Class" xmi:id="Components-VirtualBus-VirtualBus" name="VirtualBus" isAbstract="true">
@@ -1976,7 +2133,7 @@
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-VirtualBus-VirtualBusClassifier" name="VirtualBusClassifier" isAbstract="true">
-          <generalization xmi:id="Components-VirtualBus-VirtualBusClassifier-_generalization.0" general="Components-VirtualBus-VirtualBus"/>
+          <generalization xmi:id="Components-VirtualBus-VirtualBusClassifier-_generalization.0" general="_TgY98KfGEeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-VirtualBus-VirtualBusClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -1992,7 +2149,7 @@
           <generalization xmi:id="Components-VirtualBus-VirtualBusSubcomponent-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
-          <ownedAttribute xmi:id="Components-VirtualBus-VirtualBusSubcomponent-virtualBusClassifier" name="virtualBusClassifier" type="Components-VirtualBus-VirtualBusClassifier" association="Components-VirtualBus-A_virtualBusSubcomponent_virtualBusClassifier">
+          <ownedAttribute xmi:id="Components-VirtualBus-VirtualBusSubcomponent-virtualBusClassifier" name="virtualBusSubcomponentType" type="_TgY98KfGEeCYEIHXYlP5sg" association="Components-VirtualBus-A_virtualBusSubcomponent_virtualBusClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-VirtualBus-VirtualBusSubcomponent-virtualBusClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-VirtualBus-VirtualBusSubcomponent-virtualBusClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
@@ -2020,7 +2177,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-VirtualBus-A_virtualBusImplementation_virtualBusType-implementation-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-VirtualBus-A_virtualBusSubcomponent_virtualBusClassifier" name="A_virtualBusSubcomponent_virtualBusClassifier" memberEnd="Components-VirtualBus-A_virtualBusSubcomponent_virtualBusClassifier-subcomponent Components-VirtualBus-VirtualBusSubcomponent-virtualBusClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-VirtualBus-A_virtualBusSubcomponent_virtualBusClassifier" name="A_virtualBusSubcomponent_virtualBusSubcomponentType" memberEnd="Components-VirtualBus-A_virtualBusSubcomponent_virtualBusClassifier-subcomponent Components-VirtualBus-VirtualBusSubcomponent-virtualBusClassifier">
           <ownedEnd xmi:id="Components-VirtualBus-A_virtualBusSubcomponent_virtualBusClassifier-subcomponent" name="subcomponent" type="Components-VirtualBus-VirtualBusSubcomponent" association="Components-VirtualBus-A_virtualBusSubcomponent_virtualBusClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-VirtualBus-A_virtualBusSubcomponent_virtualBusClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-VirtualBus-A_virtualBusSubcomponent_virtualBusClassifier-subcomponent-_lowerValue"/>
@@ -2032,6 +2189,18 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-VirtualBus-A_virtualBusImplementation_ownedVirtualBusSubcomponent-owner-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_T7K1cKfGEeCYEIHXYlP5sg" name="VirtualBusPrototype">
+          <generalization xmi:id="_w7i0YKfGEeCYEIHXYlP5sg" general="_TgY98KfGEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_IFmKQKf1EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_TgY98KfGEeCYEIHXYlP5sg" name="VitualBusSubcomponentType" isAbstract="true">
+          <generalization xmi:id="_x3thsKfGEeCYEIHXYlP5sg" general="Components-VirtualBus-VirtualBus"/>
+          <generalization xmi:id="_ovkQoKf2EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-VirtualProcessor" name="VirtualProcessor">
         <packagedElement xmi:type="uml:Class" xmi:id="Components-VirtualProcessor-VirtualProcessor" name="VirtualProcessor" isAbstract="true">
@@ -2040,7 +2209,7 @@
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-VirtualProcessor-VirtualProcessorClassifier" name="VirtualProcessorClassifier" isAbstract="true">
-          <generalization xmi:id="Components-VirtualProcessor-VirtualProcessorClassifier-_generalization.0" general="Components-VirtualProcessor-VirtualProcessor"/>
+          <generalization xmi:id="Components-VirtualProcessor-VirtualProcessorClassifier-_generalization.0" general="_yOYr0KdDEeCYEIHXYlP5sg"/>
           <generalization xmi:id="Components-VirtualProcessor-VirtualProcessorClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
@@ -2050,7 +2219,7 @@
           <generalization xmi:id="Components-VirtualProcessor-VirtualProcessorSubcomponent-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
-          <ownedAttribute xmi:id="Components-VirtualProcessor-VirtualProcessorSubcomponent-virtualProcessorClassifier" name="virtualProcessorClassifier" type="Components-VirtualProcessor-VirtualProcessorClassifier" association="Components-VirtualProcessor-A_virtualProcessorSubcomponent_virtualProcessorClassifier">
+          <ownedAttribute xmi:id="Components-VirtualProcessor-VirtualProcessorSubcomponent-virtualProcessorClassifier" name="virtualProcessorSubcomponentType" type="_yOYr0KdDEeCYEIHXYlP5sg" association="Components-VirtualProcessor-A_virtualProcessorSubcomponent_virtualProcessorClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-VirtualProcessor-VirtualProcessorSubcomponent-virtualProcessorClassifier-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-VirtualProcessor-VirtualProcessorSubcomponent-virtualProcessorClassifier-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
@@ -2161,6 +2330,18 @@
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-VirtualProcessor-A_virtualProcessorImplementation_ownedVirtualProcessorSubcomponent-owner-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-VirtualProcessor-A_virtualProcessorImplementation_ownedVirtualProcessorSubcomponent-owner-_lowerValue"/>
           </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_yOYr0KdDEeCYEIHXYlP5sg" name="VirtualProcessorSubcomponentType" isAbstract="true">
+          <generalization xmi:id="_-QsAEKdDEeCYEIHXYlP5sg" general="Components-VirtualProcessor-VirtualProcessor"/>
+          <generalization xmi:id="_pNkbQKf2EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_2Y9O0KdDEeCYEIHXYlP5sg" name="VirtualProcessorPrototype">
+          <generalization xmi:id="_97gaQKdDEeCYEIHXYlP5sg" general="_yOYr0KdDEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_IdTfoKf1EeCYEIHXYlP5sg">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
+          </generalization>
         </packagedElement>
       </packagedElement>
     </packagedElement>

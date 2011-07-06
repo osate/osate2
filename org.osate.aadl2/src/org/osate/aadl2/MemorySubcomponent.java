@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.MemorySubcomponent#getMemoryClassifier <em>Memory Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.MemorySubcomponent#getMemorySubcomponentType <em>Memory Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,35 +54,35 @@ package org.osate.aadl2;
 public interface MemorySubcomponent extends Subcomponent, Memory {
 
 	/**
-	 * Returns the value of the '<em><b>Memory Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Memory Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Memory Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Memory Subcomponent Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Memory Classifier</em>' reference.
-	 * @see #setMemoryClassifier(MemoryClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getMemorySubcomponent_MemoryClassifier()
-	 * @model volatile="true" ordered="false"
+	 * @return the value of the '<em>Memory Subcomponent Type</em>' reference.
+	 * @see #setMemorySubcomponentType(MemorySubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getMemorySubcomponent_MemorySubcomponentType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	MemoryClassifier getMemoryClassifier();
+	MemorySubcomponentType getMemorySubcomponentType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.MemorySubcomponent#getMemoryClassifier <em>Memory Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.MemorySubcomponent#getMemorySubcomponentType <em>Memory Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Memory Classifier</em>' reference.
-	 * @see #getMemoryClassifier()
+	 * @param value the new value of the '<em>Memory Subcomponent Type</em>' reference.
+	 * @see #getMemorySubcomponentType()
 	 * @generated
 	 */
-	void setMemoryClassifier(MemoryClassifier value);
+	void setMemorySubcomponentType(MemorySubcomponentType value);
 
 } // MemorySubcomponent

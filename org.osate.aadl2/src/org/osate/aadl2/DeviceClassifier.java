@@ -45,6 +45,6 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface DeviceClassifier extends ComponentClassifier, Device {
+public interface DeviceClassifier extends ComponentClassifier, DeviceSubcomponentType {
 
 } // DeviceClassifier

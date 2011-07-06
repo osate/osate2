@@ -1024,55 +1024,55 @@ public class NameResolver {
 		NamedElement searchResult = findNamedElementInAadlPackage(packageName, classifierName,
 				getContainingPackageSection(subcomponent));
 		if (searchResult instanceof AbstractClassifier)
-			subcomponent.setAbstractClassifier((AbstractClassifier) searchResult);
+			subcomponent.setAbstractSubcomponentType((AbstractClassifier) searchResult);
 		else if (searchResult instanceof ComponentClassifier) {
 			String classifierCategory = ((ComponentClassifier) searchResult).getCategory();
 			String subcomponentCategory = subcomponent.getCategory().getName();
 			if (subcomponentCategory.equals(classifierCategory)) {
 				switch (subcomponent.getCategory()) {
 				case BUS:
-					((BusSubcomponent) subcomponent).setBusClassifier((BusClassifier) searchResult);
+					((BusSubcomponent) subcomponent).setBusSubcomponentType((BusClassifier) searchResult);
 					break;
 				case DATA:
-					((DataSubcomponent) subcomponent).setDataClassifier((DataClassifier) searchResult);
+					((DataSubcomponent) subcomponent).setDataSubcomponentType((DataClassifier) searchResult);
 					break;
 				case DEVICE:
-					((DeviceSubcomponent) subcomponent).setDeviceClassifier((DeviceClassifier) searchResult);
+					((DeviceSubcomponent) subcomponent).setDeviceSubcomponentType((DeviceClassifier) searchResult);
 					break;
 				case MEMORY:
-					((MemorySubcomponent) subcomponent).setMemoryClassifier((MemoryClassifier) searchResult);
+					((MemorySubcomponent) subcomponent).setMemorySubcomponentType((MemoryClassifier) searchResult);
 					break;
 				case PROCESS:
-					((ProcessSubcomponent) subcomponent).setProcessClassifier((ProcessClassifier) searchResult);
+					((ProcessSubcomponent) subcomponent).setProcessSubcomponentType((ProcessClassifier) searchResult);
 					break;
 				case PROCESSOR:
-					((ProcessorSubcomponent) subcomponent).setProcessorClassifier((ProcessorClassifier) searchResult);
+					((ProcessorSubcomponent) subcomponent).setProcessorSubcomponentType((ProcessorClassifier) searchResult);
 					break;
 				case SUBPROGRAM:
 					((SubprogramSubcomponent) subcomponent)
-							.setSubprogramClassifier((SubprogramClassifier) searchResult);
+							.setSubprogramSubcomponentType((SubprogramClassifier) searchResult);
 					break;
 				case SUBPROGRAM_GROUP:
 					((SubprogramGroupSubcomponent) subcomponent)
-							.setSubprogramGroupClassifier((SubprogramGroupClassifier) searchResult);
+							.setSubprogramGroupSubcomponentType((SubprogramGroupClassifier) searchResult);
 					break;
 				case SYSTEM:
-					((SystemSubcomponent) subcomponent).setSystemClassifier((SystemClassifier) searchResult);
+					((SystemSubcomponent) subcomponent).setSystemSubcomponentType((SystemClassifier) searchResult);
 					break;
 				case THREAD:
-					((ThreadSubcomponent) subcomponent).setThreadClassifier((ThreadClassifier) searchResult);
+					((ThreadSubcomponent) subcomponent).setThreadSubcomponentType((ThreadClassifier) searchResult);
 					break;
 				case THREAD_GROUP:
 					((ThreadGroupSubcomponent) subcomponent)
-							.setThreadGroupClassifier((ThreadGroupClassifier) searchResult);
+							.setThreadGroupSubcomponentType((ThreadGroupClassifier) searchResult);
 					break;
 				case VIRTUAL_BUS:
 					((VirtualBusSubcomponent) subcomponent)
-							.setVirtualBusClassifier((VirtualBusClassifier) searchResult);
+							.setVirtualBusSubcomponentType((VirtualBusClassifier) searchResult);
 					break;
 				case VIRTUAL_PROCESSOR:
 					((VirtualProcessorSubcomponent) subcomponent)
-							.setVirtualProcessorClassifier((VirtualProcessorClassifier) searchResult);
+							.setVirtualProcessorSubcomponentType((VirtualProcessorClassifier) searchResult);
 					break;
 				//Should not be Abstract.
 				default:

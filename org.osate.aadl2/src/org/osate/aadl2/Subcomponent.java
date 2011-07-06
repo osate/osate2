@@ -46,14 +46,15 @@ import org.eclipse.emf.ecore.EClass;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.Subcomponent#getClassifier <em>Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.Subcomponent#getSubcomponentType <em>Subcomponent Type</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getOwnedPrototypeBindings <em>Owned Prototype Binding</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getPrototype <em>Prototype</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getModeBindings <em>Mode Binding</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#isAllModes <em>All Modes</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getImplementationReferences <em>Implementation Reference</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getRefined <em>Refined</em>}</li>
- *   <li>{@link org.osate.aadl2.Subcomponent#getAbstractClassifier <em>Abstract Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.Subcomponent#getClassifier <em>Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.Subcomponent#getAbstractSubcomponentType <em>Abstract Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,8 +64,29 @@ import org.eclipse.emf.ecore.EClass;
  */
 public interface Subcomponent extends StructuralFeature, ModalElement, Context, FlowElement, ArrayableElement {
 	/**
-	 * Returns the value of the '<em><b>Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Subcomponent Type</b></em>' reference.
 	 * This feature is a derived union.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Subcomponent Type</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Subcomponent Type</em>' reference.
+	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_SubcomponentType()
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @generated
+	 */
+	SubcomponentType getSubcomponentType();
+
+	/**
+	 * Returns the value of the '<em><b>Classifier</b></em>' reference.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Classifier</em>' reference isn't clear,
@@ -72,11 +94,54 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Classifier</em>' reference.
+	 * @see #setClassifier(ComponentClassifier)
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_Classifier()
-	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	ComponentClassifier getClassifier();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.Subcomponent#getClassifier <em>Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Classifier</em>' reference.
+	 * @see #getClassifier()
+	 * @generated
+	 */
+	void setClassifier(ComponentClassifier value);
+
+	/**
+	 * Returns the value of the '<em><b>Abstract Subcomponent Type</b></em>' reference.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Abstract Subcomponent Type</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Abstract Subcomponent Type</em>' reference.
+	 * @see #setAbstractSubcomponentType(AbstractSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_AbstractSubcomponentType()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	AbstractSubcomponentType getAbstractSubcomponentType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.Subcomponent#getAbstractSubcomponentType <em>Abstract Subcomponent Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Abstract Subcomponent Type</em>' reference.
+	 * @see #getAbstractSubcomponentType()
+	 * @generated
+	 */
+	void setAbstractSubcomponentType(AbstractSubcomponentType value);
 
 	/**
 	 * Returns the value of the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
@@ -107,6 +172,12 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 
 	/**
 	 * Returns the value of the '<em><b>Prototype</b></em>' reference.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Prototype</em>' reference isn't clear,
@@ -116,7 +187,7 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * @return the value of the '<em>Prototype</em>' reference.
 	 * @see #setPrototype(ComponentPrototype)
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_Prototype()
-	 * @model ordered="false"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	ComponentPrototype getPrototype();
@@ -240,38 +311,6 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * @generated
 	 */
 	void setRefined(Subcomponent value);
-
-	/**
-	 * Returns the value of the '<em><b>Abstract Classifier</b></em>' reference.
-	 * <p>
-	 * This feature subsets the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
-	 * </ul>
-	 * </p>
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Abstract Classifier</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Abstract Classifier</em>' reference.
-	 * @see #setAbstractClassifier(AbstractClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_AbstractClassifier()
-	 * @model volatile="true" ordered="false"
-	 * @generated
-	 */
-	AbstractClassifier getAbstractClassifier();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Subcomponent#getAbstractClassifier <em>Abstract Classifier</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Abstract Classifier</em>' reference.
-	 * @see #getAbstractClassifier()
-	 * @generated
-	 */
-	void setAbstractClassifier(AbstractClassifier value);
 
 	/**
 	 * Returns the category ("abstract", "bus", "data", "device", etc.) for the subcomponent.

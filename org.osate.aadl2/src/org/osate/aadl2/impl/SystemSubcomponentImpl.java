@@ -35,14 +35,18 @@
  */
 package org.osate.aadl2.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.SystemClassifier;
 import org.osate.aadl2.SystemSubcomponent;
+import org.osate.aadl2.SystemSubcomponentType;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,14 +55,24 @@ import org.osate.aadl2.SystemSubcomponent;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.SystemSubcomponentImpl#getClassifier <em>Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.SystemSubcomponentImpl#getSystemClassifier <em>System Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SystemSubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SystemSubcomponentImpl#getSystemSubcomponentType <em>System Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSubcomponent {
+	/**
+	 * The cached value of the '{@link #getSystemSubcomponentType() <em>System Subcomponent Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSystemSubcomponentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected SystemSubcomponentType systemSubcomponentType;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -84,20 +98,10 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSu
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public ComponentClassifier basicGetClassifier() {
-		return classifier;
+	public SubcomponentType getSubcomponentType() {
+		SubcomponentType subcomponentType = basicGetSubcomponentType();
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+				: subcomponentType;
 	}
 
 	/**
@@ -105,31 +109,54 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SystemClassifier getSystemClassifier() {
-		SystemClassifier systemClassifier = basicGetSystemClassifier();
-		return systemClassifier != null && ((EObject) systemClassifier).eIsProxy() ? (SystemClassifier) eResolveProxy((InternalEObject) systemClassifier)
-				: systemClassifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public SystemClassifier basicGetSystemClassifier() {
-		if (classifier instanceof SystemClassifier) {
-			return (SystemClassifier) classifier;
+	@Override
+	public SubcomponentType basicGetSubcomponentType() {
+		if (eIsSet(Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_SUBCOMPONENT_TYPE)) {
+			return basicGetSystemSubcomponentType();
 		}
-		return null;
+		return super.basicGetSubcomponentType();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	public void setSystemClassifier(SystemClassifier newSystemClassifier) {
-		classifier = newSystemClassifier;
+	public SystemSubcomponentType getSystemSubcomponentType() {
+		if (systemSubcomponentType != null && ((EObject) systemSubcomponentType).eIsProxy()) {
+			InternalEObject oldSystemSubcomponentType = (InternalEObject) systemSubcomponentType;
+			systemSubcomponentType = (SystemSubcomponentType) eResolveProxy(oldSystemSubcomponentType);
+			if (systemSubcomponentType != oldSystemSubcomponentType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_SUBCOMPONENT_TYPE, oldSystemSubcomponentType,
+							systemSubcomponentType));
+			}
+		}
+		return systemSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SystemSubcomponentType basicGetSystemSubcomponentType() {
+		return systemSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSystemSubcomponentType(SystemSubcomponentType newSystemSubcomponentType) {
+		SystemSubcomponentType oldSystemSubcomponentType = systemSubcomponentType;
+		systemSubcomponentType = newSystemSubcomponentType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_SUBCOMPONENT_TYPE, oldSystemSubcomponentType,
+					systemSubcomponentType));
 	}
 
 	/**
@@ -140,10 +167,10 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSu
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_CLASSIFIER:
+		case Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_SUBCOMPONENT_TYPE:
 			if (resolve)
-				return getSystemClassifier();
-			return basicGetSystemClassifier();
+				return getSystemSubcomponentType();
+			return basicGetSystemSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,8 +183,8 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSu
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_CLASSIFIER:
-			setSystemClassifier((SystemClassifier) newValue);
+		case Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_SUBCOMPONENT_TYPE:
+			setSystemSubcomponentType((SystemSubcomponentType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -171,8 +198,8 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSu
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_CLASSIFIER:
-			setSystemClassifier((SystemClassifier) null);
+		case Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_SUBCOMPONENT_TYPE:
+			setSystemSubcomponentType((SystemSubcomponentType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -186,8 +213,8 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSu
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_CLASSIFIER:
-			return basicGetSystemClassifier() != null;
+		case Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_SUBCOMPONENT_TYPE:
+			return systemSubcomponentType != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -198,8 +225,8 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSu
 	 * @generated
 	 */
 	@Override
-	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_CLASSIFIER);
+	public boolean isSetSubcomponentType() {
+		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_SUBCOMPONENT_TYPE);
 	}
 
 	public ComponentCategory getCategory() {

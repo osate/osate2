@@ -79,25 +79,26 @@ public class ProcessSubcomponentItemProvider extends SubcomponentItemProvider im
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addProcessClassifierPropertyDescriptor(object);
+			addProcessSubcomponentTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Process Classifier feature.
+	 * This adds a property descriptor for the Process Subcomponent Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addProcessClassifierPropertyDescriptor(Object object) {
+	protected void addProcessSubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_ProcessSubcomponent_processClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ProcessSubcomponent_processClassifier_feature",
-						"_UI_ProcessSubcomponent_type"), Aadl2Package.eINSTANCE
-						.getProcessSubcomponent_ProcessClassifier(), true, false, true, null, null, null));
+				getString("_UI_ProcessSubcomponent_processSubcomponentType_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ProcessSubcomponent_processSubcomponentType_feature", "_UI_ProcessSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getProcessSubcomponent_ProcessSubcomponentType(), true, false, true, null, null,
+				null));
 	}
 
 	/**

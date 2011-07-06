@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.BusSubcomponent#getBusClassifier <em>Bus Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.BusSubcomponent#getBusSubcomponentType <em>Bus Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,35 +54,35 @@ package org.osate.aadl2;
 public interface BusSubcomponent extends Subcomponent, AccessConnectionEnd, Bus {
 
 	/**
-	 * Returns the value of the '<em><b>Bus Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Bus Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Bus Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Bus Subcomponent Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Bus Classifier</em>' reference.
-	 * @see #setBusClassifier(BusClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getBusSubcomponent_BusClassifier()
-	 * @model volatile="true" ordered="false"
+	 * @return the value of the '<em>Bus Subcomponent Type</em>' reference.
+	 * @see #setBusSubcomponentType(BusSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getBusSubcomponent_BusSubcomponentType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	BusClassifier getBusClassifier();
+	BusSubcomponentType getBusSubcomponentType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.BusSubcomponent#getBusClassifier <em>Bus Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.BusSubcomponent#getBusSubcomponentType <em>Bus Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Bus Classifier</em>' reference.
-	 * @see #getBusClassifier()
+	 * @param value the new value of the '<em>Bus Subcomponent Type</em>' reference.
+	 * @see #getBusSubcomponentType()
 	 * @generated
 	 */
-	void setBusClassifier(BusClassifier value);
+	void setBusSubcomponentType(BusSubcomponentType value);
 
 } // BusSubcomponent
