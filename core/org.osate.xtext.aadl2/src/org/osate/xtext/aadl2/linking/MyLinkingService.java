@@ -41,6 +41,11 @@ import org.osate.xtext.aadl2.properties.linking.NameResolver;
 		public List<EObject> getLinkedObjects(EObject context, EReference reference, INode node)
 		throws IllegalNodeException
 		{
+//			List<EObject> l = super.getLinkedObjects(context, reference, node);
+//			if (!l.isEmpty()) 
+//			{
+//				return l;
+//			}
 			final EClass requiredType = reference.getEReferenceType();
 			if (requiredType == null)
 				return Collections.<EObject> emptyList();
