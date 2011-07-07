@@ -643,18 +643,18 @@
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//PublicPackageSection/privateSection"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//PackageSection">
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedPackageRename"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedComponentTypeRename"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedClassifier"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedFeatureGroupTypeRename"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedPackageRename"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedComponentTypeRename"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedClassifier"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedFeatureGroupTypeRename"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedAnnexLibrary"/>
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/importedUnit"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/importedUnit"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PackageSection/noAnnexes"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PackageSection/noProperties"/>
     </genClasses>

@@ -195,10 +195,21 @@ public interface PackageSection extends Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Classifier</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedClassifier()
-	 * @model containment="true" changeable="false" ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<Classifier> getOwnedClassifiers();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.Classifier} and appends it to the '<em><b>Owned Classifier</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param eClass The Ecore class of the {@link org.osate.aadl2.Classifier} to create.
+	 * @return The new {@link org.osate.aadl2.Classifier}.
+	 * @see #getOwnedClassifiers()
+	 * @generated
+	 */
+	Classifier createOwnedClassifier(EClass eClass);
 
 	/**
 	 * Returns the value of the '<em><b>Owned Feature Group Type Rename</b></em>' containment reference list.

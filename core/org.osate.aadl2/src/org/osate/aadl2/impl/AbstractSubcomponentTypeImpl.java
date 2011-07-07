@@ -35,11 +35,9 @@
 package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractSubcomponentType;
 import org.osate.aadl2.Type;
-
 import org.osate.aadl2.operations.TypeOperations;
 
 /**

@@ -51,7 +51,6 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractSubcomponentType;
-import org.osate.aadl2.AbstractClassifier;
 import org.osate.aadl2.ArraySpecification;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
@@ -334,7 +333,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public ComponentClassifier basicGetClassifier() {
 		// DONE: implement this method to return the 'Classifier' reference
 		SubcomponentType st = basicGetSubcomponentType();
-		
+
 		return st instanceof ComponentClassifier ? (ComponentClassifier) st : null;
 	}
 
@@ -434,7 +433,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public ComponentPrototype basicGetPrototype() {
 		// DONE: implement this method to return the 'Prototype' reference
 		SubcomponentType st = basicGetSubcomponentType();
-		
+
 		return st instanceof ComponentPrototype ? (ComponentPrototype) st : null;
 	}
 
