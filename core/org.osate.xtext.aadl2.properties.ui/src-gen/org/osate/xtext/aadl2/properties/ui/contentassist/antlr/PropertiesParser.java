@@ -176,8 +176,8 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEQCREFAccess().getGroup_0(), "rule__EQCREF__Group_0__0");
 					put(grammarAccess.getEQCREFAccess().getGroup_2(), "rule__EQCREF__Group_2__0");
 					put(grammarAccess.getPropertySetAccess().getNameAssignment_2(), "rule__PropertySet__NameAssignment_2");
-					put(grammarAccess.getPropertySetAccess().getImportedPropertySetAssignment_4_1(), "rule__PropertySet__ImportedPropertySetAssignment_4_1");
-					put(grammarAccess.getPropertySetAccess().getImportedPropertySetAssignment_4_2_1(), "rule__PropertySet__ImportedPropertySetAssignment_4_2_1");
+					put(grammarAccess.getPropertySetAccess().getImportedUnitAssignment_4_1(), "rule__PropertySet__ImportedUnitAssignment_4_1");
+					put(grammarAccess.getPropertySetAccess().getImportedUnitAssignment_4_2_1(), "rule__PropertySet__ImportedUnitAssignment_4_2_1");
 					put(grammarAccess.getPropertySetAccess().getOwnedPropertyTypeAssignment_5_0(), "rule__PropertySet__OwnedPropertyTypeAssignment_5_0");
 					put(grammarAccess.getPropertySetAccess().getOwnedPropertyAssignment_5_1(), "rule__PropertySet__OwnedPropertyAssignment_5_1");
 					put(grammarAccess.getPropertySetAccess().getOwnedPropertyConstantAssignment_5_2(), "rule__PropertySet__OwnedPropertyConstantAssignment_5_2");

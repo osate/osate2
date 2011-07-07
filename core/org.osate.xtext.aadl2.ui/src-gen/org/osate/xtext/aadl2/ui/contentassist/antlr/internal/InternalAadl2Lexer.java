@@ -1054,10 +1054,11 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:55:7: ( '(' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:55:9: '('
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:55:7: ( 'flows' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:55:9: 'flows'
             {
-            match('('); 
+            match("flows"); 
+
 
             }
 
@@ -1074,10 +1075,11 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:56:7: ( ')' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:56:9: ')'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:56:7: ( 'modes' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:56:9: 'modes'
             {
-            match(')'); 
+            match("modes"); 
+
 
             }
 
@@ -1094,11 +1096,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:57:7: ( 'prototypes' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:57:9: 'prototypes'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:57:7: ( '(' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:57:9: '('
             {
-            match("prototypes"); 
-
+            match('('); 
 
             }
 
@@ -1115,11 +1116,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__59;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:58:7: ( 'features' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:58:9: 'features'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:58:7: ( ')' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:58:9: ')'
             {
-            match("features"); 
-
+            match(')'); 
 
             }
 
@@ -1136,10 +1136,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__60;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:59:7: ( 'flows' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:59:9: 'flows'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:59:7: ( 'prototypes' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:59:9: 'prototypes'
             {
-            match("flows"); 
+            match("prototypes"); 
 
 
             }
@@ -1157,10 +1157,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__61;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:60:7: ( 'modes' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:60:9: 'modes'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:60:7: ( 'features' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:60:9: 'features'
             {
-            match("modes"); 
+            match("features"); 
 
 
             }
@@ -1178,11 +1178,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:61:7: ( 'implementation' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:61:9: 'implementation'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:61:7: ( '.' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:61:9: '.'
             {
-            match("implementation"); 
-
+            match('.'); 
 
             }
 
@@ -1199,10 +1198,11 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__63;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:62:7: ( '.' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:62:9: '.'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:62:7: ( 'connections' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:62:9: 'connections'
             {
-            match('.'); 
+            match("connections"); 
+
 
             }
 
@@ -1219,10 +1219,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__64;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:63:7: ( 'subcomponents' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:63:9: 'subcomponents'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:63:7: ( 'implementation' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:63:9: 'implementation'
             {
-            match("subcomponents"); 
+            match("implementation"); 
 
 
             }
@@ -1240,10 +1240,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__65;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:64:7: ( 'calls' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:64:9: 'calls'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:64:7: ( 'subcomponents' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:64:9: 'subcomponents'
             {
-            match("calls"); 
+            match("subcomponents"); 
 
 
             }
@@ -1261,10 +1261,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__66;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:65:7: ( 'connections' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:65:9: 'connections'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:65:7: ( 'calls' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:65:9: 'calls'
             {
-            match("connections"); 
+            match("calls"); 
 
 
             }
@@ -1445,10 +1445,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__75;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:74:7: ( 'flow' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:74:9: 'flow'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:74:7: ( 'inverse' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:74:9: 'inverse'
             {
-            match("flow"); 
+            match("inverse"); 
 
 
             }
@@ -1466,10 +1466,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__76;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:75:7: ( 'mode' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:75:9: 'mode'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:75:7: ( 'flow' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:75:9: 'flow'
             {
-            match("mode"); 
+            match("flow"); 
 
 
             }
@@ -1487,10 +1487,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__77;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:76:7: ( '-[' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:76:9: '-['
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:76:7: ( 'mode' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:76:9: 'mode'
             {
-            match("-["); 
+            match("mode"); 
 
 
             }
@@ -1508,10 +1508,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__78;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:77:7: ( ']->' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:77:9: ']->'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:77:7: ( '-[' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:77:9: '-['
             {
-            match("]->"); 
+            match("-["); 
 
 
             }
@@ -1529,10 +1529,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__79;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:78:7: ( 'annex' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:78:9: 'annex'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:78:7: ( ']->' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:78:9: ']->'
             {
-            match("annex"); 
+            match("]->"); 
 
 
             }
@@ -1550,10 +1550,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__80;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:79:7: ( 'property' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:79:9: 'property'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:79:7: ( 'annex' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:79:9: 'annex'
             {
-            match("property"); 
+            match("annex"); 
 
 
             }
@@ -1571,10 +1571,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__81;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:80:7: ( 'set' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:80:9: 'set'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:80:7: ( 'property' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:80:9: 'property'
             {
-            match("set"); 
+            match("property"); 
 
 
             }
@@ -1592,10 +1592,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__82;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:81:7: ( 'is' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:81:9: 'is'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:81:7: ( 'set' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:81:9: 'set'
             {
-            match("is"); 
+            match("set"); 
 
 
             }
@@ -1613,10 +1613,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__83;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:82:7: ( 'type' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:82:9: 'type'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:82:7: ( 'is' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:82:9: 'is'
             {
-            match("type"); 
+            match("is"); 
 
 
             }
@@ -1634,10 +1634,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__84;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:83:7: ( 'aadlboolean' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:83:9: 'aadlboolean'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:83:7: ( 'type' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:83:9: 'type'
             {
-            match("aadlboolean"); 
+            match("type"); 
 
 
             }
@@ -1655,10 +1655,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__85;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:84:7: ( 'aadlstring' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:84:9: 'aadlstring'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:84:7: ( 'aadlboolean' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:84:9: 'aadlboolean'
             {
-            match("aadlstring"); 
+            match("aadlboolean"); 
 
 
             }
@@ -1676,10 +1676,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__86;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:85:7: ( 'enumeration' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:85:9: 'enumeration'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:85:7: ( 'aadlstring' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:85:9: 'aadlstring'
             {
-            match("enumeration"); 
+            match("aadlstring"); 
 
 
             }
@@ -1697,10 +1697,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__87;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:86:7: ( 'units' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:86:9: 'units'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:86:7: ( 'enumeration' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:86:9: 'enumeration'
             {
-            match("units"); 
+            match("enumeration"); 
 
 
             }
@@ -1718,10 +1718,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__88;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:87:7: ( 'aadlreal' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:87:9: 'aadlreal'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:87:7: ( 'units' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:87:9: 'units'
             {
-            match("aadlreal"); 
+            match("units"); 
 
 
             }
@@ -1739,10 +1739,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__89;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:88:7: ( 'aadlinteger' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:88:9: 'aadlinteger'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:88:7: ( 'aadlreal' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:88:9: 'aadlreal'
             {
-            match("aadlinteger"); 
+            match("aadlreal"); 
 
 
             }
@@ -1760,10 +1760,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__90;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:89:7: ( 'range' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:89:9: 'range'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:89:7: ( 'aadlinteger' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:89:9: 'aadlinteger'
             {
-            match("range"); 
+            match("aadlinteger"); 
 
 
             }
@@ -1781,10 +1781,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__91;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:90:7: ( 'classifier' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:90:9: 'classifier'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:90:7: ( 'range' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:90:9: 'range'
             {
-            match("classifier"); 
+            match("range"); 
 
 
             }
@@ -1802,10 +1802,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__92;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:91:7: ( 'reference' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:91:9: 'reference'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:91:7: ( 'classifier' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:91:9: 'classifier'
             {
-            match("reference"); 
+            match("classifier"); 
 
 
             }
@@ -1823,10 +1823,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__93;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:92:7: ( 'record' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:92:9: 'record'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:92:7: ( 'reference' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:92:9: 'reference'
             {
-            match("record"); 
+            match("reference"); 
 
 
             }
@@ -1844,10 +1844,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__94;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:93:7: ( 'applies' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:93:9: 'applies'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:93:7: ( 'record' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:93:9: 'record'
             {
-            match("applies"); 
+            match("record"); 
 
 
             }
@@ -1865,10 +1865,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__95;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94:7: ( 'constant' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94:9: 'constant'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94:7: ( 'applies' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94:9: 'applies'
             {
-            match("constant"); 
+            match("applies"); 
 
 
             }
@@ -1886,10 +1886,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__96;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:95:7: ( 'compute' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:95:9: 'compute'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:95:7: ( 'constant' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:95:9: 'constant'
             {
-            match("compute"); 
+            match("constant"); 
 
 
             }
@@ -1907,10 +1907,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__97;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:96:7: ( '..' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:96:9: '..'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:96:7: ( 'compute' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:96:9: 'compute'
             {
-            match(".."); 
+            match("compute"); 
 
 
             }
@@ -1928,10 +1928,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__98;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:97:7: ( 'delta' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:97:9: 'delta'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:97:7: ( '..' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:97:9: '..'
             {
-            match("delta"); 
+            match(".."); 
 
 
             }
@@ -1949,10 +1949,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__99;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:98:7: ( 'all' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:98:9: 'all'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:98:7: ( 'delta' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:98:9: 'delta'
             {
-            match("all"); 
+            match("delta"); 
 
 
             }
@@ -1970,10 +1970,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__100;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:99:8: ( 'none' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:99:10: 'none'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:99:8: ( 'all' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:99:10: 'all'
             {
-            match("none"); 
+            match("all"); 
 
 
             }
@@ -1991,10 +1991,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = T__101;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:100:8: ( 'inverse' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:100:10: 'inverse'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:100:8: ( 'none' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:100:10: 'none'
             {
-            match("inverse"); 
+            match("none"); 
 
 
             }
@@ -2117,12 +2117,12 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = RULE_ANNEXTEXT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117062:16: ( '{**' ( options {greedy=false; } : . )* '**}' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117062:18: '{**' ( options {greedy=false; } : . )* '**}'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94925:16: ( '{**' ( options {greedy=false; } : . )* '**}' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94925:18: '{**' ( options {greedy=false; } : . )* '**}'
             {
             match("{**"); 
 
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117062:24: ( options {greedy=false; } : . )*
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94925:24: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -2156,7 +2156,7 @@ public class InternalAadl2Lexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117062:52: .
+            	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94925:52: .
             	    {
             	    matchAny(); 
 
@@ -2186,12 +2186,12 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117064:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117064:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94927:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94927:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("--"); 
 
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117064:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94927:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop2:
             do {
                 int alt2=2;
@@ -2204,7 +2204,7 @@ public class InternalAadl2Lexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117064:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94927:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2224,7 +2224,7 @@ public class InternalAadl2Lexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117064:40: ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94927:40: ( ( '\\r' )? '\\n' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -2233,9 +2233,9 @@ public class InternalAadl2Lexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117064:41: ( '\\r' )? '\\n'
+                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94927:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117064:41: ( '\\r' )?
+                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94927:41: ( '\\r' )?
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -2244,7 +2244,7 @@ public class InternalAadl2Lexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117064:41: '\\r'
+                            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94927:41: '\\r'
                             {
                             match('\r'); 
 
@@ -2276,10 +2276,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117066:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117066:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94929:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94929:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117066:11: ( '^' )?
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94929:11: ( '^' )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -2288,7 +2288,7 @@ public class InternalAadl2Lexer extends Lexer {
             }
             switch (alt5) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117066:11: '^'
+                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94929:11: '^'
                     {
                     match('^'); 
 
@@ -2306,7 +2306,7 @@ public class InternalAadl2Lexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117066:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94929:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop6:
             do {
                 int alt6=2;
@@ -2355,10 +2355,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117068:10: ( ( '0' .. '9' )+ )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117068:12: ( '0' .. '9' )+
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94931:10: ( ( '0' .. '9' )+ )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94931:12: ( '0' .. '9' )+
             {
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117068:12: ( '0' .. '9' )+
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94931:12: ( '0' .. '9' )+
             int cnt7=0;
             loop7:
             do {
@@ -2372,7 +2372,7 @@ public class InternalAadl2Lexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117068:13: '0' .. '9'
+            	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94931:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -2404,10 +2404,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117070:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117070:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94933:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94933:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117070:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94933:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -2425,10 +2425,10 @@ public class InternalAadl2Lexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117070:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94933:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117070:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94933:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop8:
                     do {
                         int alt8=3;
@@ -2444,7 +2444,7 @@ public class InternalAadl2Lexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117070:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94933:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2460,7 +2460,7 @@ public class InternalAadl2Lexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117070:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94933:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2485,10 +2485,10 @@ public class InternalAadl2Lexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117070:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94933:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117070:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94933:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop9:
                     do {
                         int alt9=3;
@@ -2504,7 +2504,7 @@ public class InternalAadl2Lexer extends Lexer {
 
                         switch (alt9) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117070:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94933:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2520,7 +2520,7 @@ public class InternalAadl2Lexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117070:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94933:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2563,12 +2563,12 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117072:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117072:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94935:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94935:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117072:24: ( options {greedy=false; } : . )*
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94935:24: ( options {greedy=false; } : . )*
             loop11:
             do {
                 int alt11=2;
@@ -2593,7 +2593,7 @@ public class InternalAadl2Lexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117072:52: .
+            	    // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94935:52: .
             	    {
             	    matchAny(); 
 
@@ -2623,10 +2623,10 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117074:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117074:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94937:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94937:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117074:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94937:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt12=0;
             loop12:
             do {
@@ -2680,8 +2680,8 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117076:16: ( . )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:117076:18: .
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94939:16: ( . )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/internal/InternalAadl2.g:94939:18: .
             {
             matchAny(); 
 
@@ -3441,10 +3441,10 @@ public class InternalAadl2Lexer extends Lexer {
         "\1\56\1\u0110\1\u0111\13\56\1\uffff\2\56\1\u011f\10\56\1\uffff\1"+
         "\56\1\uffff\10\56\1\u0131\7\56\1\u0139\1\u013a\1\uffff\1\56\1\uffff"+
         "\3\56\2\uffff\1\56\1\u0140\1\56\1\u0142\1\uffff\1\56\2\uffff\11"+
-        "\56\1\u014d\1\u014e\2\56\1\uffff\1\u0151\1\56\1\u0153\4\56\1\u0158"+
+        "\56\1\u014d\1\u014e\2\56\1\uffff\1\u0151\4\56\1\u0156\1\56\1\u0158"+
         "\7\56\1\u0160\1\u0161\1\uffff\7\56\2\uffff\1\u0169\2\56\1\u016c"+
         "\1\u016d\1\uffff\1\u016e\1\uffff\1\u016f\10\56\1\u0178\2\uffff\2"+
-        "\56\1\uffff\1\56\1\uffff\4\56\1\uffff\1\56\1\u0181\1\u0183\3\56"+
+        "\56\1\uffff\4\56\1\uffff\1\56\1\uffff\1\56\1\u0181\1\u0183\3\56"+
         "\1\u0188\2\uffff\5\56\1\u018e\1\u0190\1\uffff\2\56\4\uffff\1\u0193"+
         "\1\u0194\1\u0195\2\56\1\u0198\1\u0199\1\56\1\uffff\1\56\1\u019c"+
         "\1\u019d\2\56\1\u01a0\2\56\1\uffff\1\56\1\uffff\1\u01a4\1\56\1\u01a6"+
@@ -3466,27 +3466,27 @@ public class InternalAadl2Lexer extends Lexer {
         "\1\142\1\163\1\164\1\60\1\164\1\60\1\156\1\uffff\1\163\1\164\1\154"+
         "\1\155\1\144\1\162\1\60\1\160\1\165\1\60\1\160\1\60\1\143\1\156"+
         "\1\145\1\144\1\164\12\uffff\1\164\1\uffff\1\157\1\162\4\uffff\1"+
-        "\154\1\155\1\141\6\uffff\1\151\5\uffff\1\164\1\141\1\150\1\153\1"+
+        "\155\1\154\1\141\6\uffff\1\151\5\uffff\1\164\1\141\1\150\1\153\1"+
         "\143\1\166\1\154\1\145\1\60\1\145\1\164\2\154\1\60\1\164\1\163\1"+
         "\167\1\162\1\153\1\143\1\164\1\60\1\uffff\1\60\1\uffff\1\60\1\145"+
         "\1\60\1\141\1\151\1\164\1\157\2\145\1\uffff\3\145\1\164\1\145\1"+
         "\uffff\1\154\1\uffff\1\165\1\141\1\145\1\157\1\147\1\156\1\60\1"+
-        "\155\1\145\1\150\1\165\1\164\1\154\1\156\1\160\1\163\1\164\1\60"+
+        "\155\1\145\1\150\1\165\1\164\1\156\1\160\1\154\1\163\1\164\1\60"+
         "\1\155\1\60\1\141\1\145\1\151\1\145\1\157\1\141\1\151\1\163\1\uffff"+
         "\1\170\1\162\1\142\1\151\1\uffff\1\165\1\145\1\60\1\143\1\60\1\162"+
         "\1\157\1\145\3\uffff\1\60\1\uffff\1\60\1\143\1\141\1\162\1\60\1"+
         "\141\2\60\1\162\1\151\1\162\1\145\1\151\1\155\1\156\2\162\1\145"+
-        "\1\164\1\uffff\1\145\1\156\1\60\1\160\1\165\1\163\1\145\1\164\1"+
-        "\165\2\163\1\uffff\1\145\1\uffff\1\147\1\163\1\144\1\162\2\164\1"+
-        "\143\1\163\1\60\1\141\1\157\1\164\1\145\1\156\1\145\1\162\2\60\1"+
-        "\uffff\1\145\1\uffff\1\157\2\155\2\uffff\1\145\1\60\1\171\1\60\1"+
-        "\uffff\1\144\2\uffff\1\163\1\141\1\151\1\155\1\162\3\145\1\144\2"+
-        "\60\1\162\1\144\1\uffff\1\60\1\141\1\60\1\143\1\141\1\164\1\151"+
-        "\1\60\1\164\1\145\1\163\1\145\1\164\1\171\1\145\2\60\1\uffff\1\143"+
-        "\1\157\1\162\1\141\1\164\1\163\1\145\2\uffff\1\60\1\147\1\160\2"+
-        "\60\1\uffff\1\60\1\uffff\1\60\1\145\1\154\1\164\2\145\1\163\1\144"+
-        "\1\156\1\60\2\uffff\1\141\1\163\1\uffff\1\154\1\uffff\1\164\1\156"+
-        "\1\145\1\146\1\uffff\1\145\2\60\1\163\1\151\1\160\1\60\2\uffff\1"+
+        "\1\164\1\uffff\1\145\1\156\1\60\1\160\1\165\1\145\1\164\1\165\3"+
+        "\163\1\uffff\1\145\1\uffff\1\147\1\163\1\144\1\162\2\164\1\143\1"+
+        "\163\1\60\1\141\1\157\1\164\1\145\1\156\1\145\1\162\2\60\1\uffff"+
+        "\1\145\1\uffff\1\157\2\155\2\uffff\1\145\1\60\1\171\1\60\1\uffff"+
+        "\1\144\2\uffff\1\163\1\141\1\151\1\155\1\162\3\145\1\144\2\60\1"+
+        "\162\1\144\1\uffff\1\60\1\141\1\143\1\141\1\164\1\60\1\151\1\60"+
+        "\1\164\1\145\1\163\1\145\1\164\1\171\1\145\2\60\1\uffff\1\143\1"+
+        "\157\1\162\1\141\1\164\1\163\1\145\2\uffff\1\60\1\147\1\160\2\60"+
+        "\1\uffff\1\60\1\uffff\1\60\1\145\1\154\1\164\2\145\1\163\1\144\1"+
+        "\156\1\60\2\uffff\1\141\1\163\1\uffff\1\154\1\164\1\156\1\145\1"+
+        "\uffff\1\146\1\uffff\1\145\2\60\1\163\1\151\1\160\1\60\2\uffff\1"+
         "\164\1\154\1\151\1\154\1\145\2\60\1\uffff\1\162\1\157\4\uffff\3"+
         "\60\1\156\1\163\2\60\1\143\1\uffff\1\164\2\60\1\151\1\164\1\60\1"+
         "\151\1\162\1\uffff\1\162\1\uffff\1\60\1\145\1\60\1\145\1\uffff\1"+
@@ -3506,57 +3506,57 @@ public class InternalAadl2Lexer extends Lexer {
         "\157\1\165\1\156\1\142\1\163\1\164\1\172\1\164\1\172\1\164\1\uffff"+
         "\1\163\1\164\1\166\1\155\1\144\1\162\1\172\1\160\1\165\1\172\1\160"+
         "\1\172\1\161\1\156\1\145\1\165\1\164\12\uffff\1\164\1\uffff\1\157"+
-        "\1\162\4\uffff\1\154\1\156\1\141\6\uffff\1\151\5\uffff\1\164\1\141"+
+        "\1\162\4\uffff\1\156\1\154\1\141\6\uffff\1\151\5\uffff\1\164\1\141"+
         "\1\150\1\153\2\166\1\154\1\145\1\172\1\145\1\164\2\154\1\172\1\164"+
         "\1\163\1\167\1\162\1\153\1\160\1\164\1\172\1\uffff\1\172\1\uffff"+
         "\1\172\1\145\1\172\1\141\1\151\1\164\1\157\2\145\1\uffff\3\145\1"+
         "\164\1\145\1\uffff\1\154\1\uffff\1\165\1\141\1\151\1\157\1\147\1"+
-        "\156\1\172\1\155\1\145\1\150\1\165\1\164\1\154\1\163\1\160\1\163"+
+        "\156\1\172\1\155\1\145\1\150\1\165\1\164\1\163\1\160\1\154\1\163"+
         "\1\164\1\172\1\155\1\172\1\141\1\145\1\151\1\145\1\157\1\141\1\151"+
         "\1\163\1\uffff\1\170\1\162\1\163\1\151\1\uffff\1\165\1\145\1\172"+
         "\1\143\1\172\1\162\1\157\1\145\3\uffff\1\172\1\uffff\1\172\1\143"+
         "\1\141\1\162\1\172\1\141\2\172\1\162\1\151\1\162\1\145\1\151\1\155"+
         "\1\156\2\162\1\145\1\164\1\uffff\1\145\1\156\1\172\1\160\1\165\1"+
-        "\163\1\145\1\164\1\165\2\163\1\uffff\1\145\1\uffff\1\147\1\163\1"+
-        "\144\1\162\2\164\1\143\1\163\1\172\1\141\1\157\1\164\1\145\1\156"+
-        "\1\145\1\162\2\172\1\uffff\1\145\1\uffff\1\157\2\155\2\uffff\1\145"+
-        "\1\172\1\171\1\172\1\uffff\1\144\2\uffff\1\163\1\141\1\151\1\155"+
-        "\1\162\3\145\1\144\2\172\1\162\1\144\1\uffff\1\172\1\141\1\172\1"+
-        "\143\1\141\1\164\1\151\1\172\1\164\1\145\1\163\1\145\1\164\1\171"+
-        "\1\145\2\172\1\uffff\1\143\1\157\1\162\1\141\1\164\1\163\1\145\2"+
-        "\uffff\1\172\1\147\1\160\2\172\1\uffff\1\172\1\uffff\1\172\1\145"+
-        "\1\154\1\164\2\145\1\163\1\144\1\156\1\172\2\uffff\1\141\1\163\1"+
-        "\uffff\1\154\1\uffff\1\164\1\156\1\145\1\146\1\uffff\1\145\2\172"+
-        "\1\163\1\171\1\160\1\172\2\uffff\1\164\1\154\1\151\1\154\1\145\2"+
-        "\172\1\uffff\1\162\1\157\4\uffff\3\172\1\156\1\163\2\172\1\143\1"+
-        "\uffff\1\164\2\172\1\151\1\164\1\172\1\151\1\162\1\uffff\1\162\1"+
-        "\uffff\1\172\1\145\1\172\1\145\1\uffff\1\172\1\145\1\156\1\172\1"+
-        "\147\1\uffff\1\172\1\uffff\1\141\1\156\3\uffff\1\164\1\172\2\uffff"+
-        "\1\145\1\151\2\uffff\1\157\1\172\1\uffff\1\145\2\172\1\uffff\1\163"+
-        "\1\uffff\1\163\1\uffff\1\141\1\147\1\uffff\1\145\1\uffff\1\155\1"+
-        "\145\1\141\1\uffff\1\172\1\157\1\156\1\uffff\1\162\2\uffff\2\172"+
-        "\1\156\1\172\1\162\1\172\1\156\1\164\1\uffff\1\156\1\163\1\172\2"+
-        "\uffff\1\172\1\uffff\1\172\1\uffff\1\164\1\151\2\172\3\uffff\1\163"+
-        "\1\157\2\uffff\1\172\1\156\1\uffff\1\172\1\uffff";
+        "\145\1\164\1\165\3\163\1\uffff\1\145\1\uffff\1\147\1\163\1\144\1"+
+        "\162\2\164\1\143\1\163\1\172\1\141\1\157\1\164\1\145\1\156\1\145"+
+        "\1\162\2\172\1\uffff\1\145\1\uffff\1\157\2\155\2\uffff\1\145\1\172"+
+        "\1\171\1\172\1\uffff\1\144\2\uffff\1\163\1\141\1\151\1\155\1\162"+
+        "\3\145\1\144\2\172\1\162\1\144\1\uffff\1\172\1\141\1\143\1\141\1"+
+        "\164\1\172\1\151\1\172\1\164\1\145\1\163\1\145\1\164\1\171\1\145"+
+        "\2\172\1\uffff\1\143\1\157\1\162\1\141\1\164\1\163\1\145\2\uffff"+
+        "\1\172\1\147\1\160\2\172\1\uffff\1\172\1\uffff\1\172\1\145\1\154"+
+        "\1\164\2\145\1\163\1\144\1\156\1\172\2\uffff\1\141\1\163\1\uffff"+
+        "\1\154\1\164\1\156\1\145\1\uffff\1\146\1\uffff\1\145\2\172\1\163"+
+        "\1\171\1\160\1\172\2\uffff\1\164\1\154\1\151\1\154\1\145\2\172\1"+
+        "\uffff\1\162\1\157\4\uffff\3\172\1\156\1\163\2\172\1\143\1\uffff"+
+        "\1\164\2\172\1\151\1\164\1\172\1\151\1\162\1\uffff\1\162\1\uffff"+
+        "\1\172\1\145\1\172\1\145\1\uffff\1\172\1\145\1\156\1\172\1\147\1"+
+        "\uffff\1\172\1\uffff\1\141\1\156\3\uffff\1\164\1\172\2\uffff\1\145"+
+        "\1\151\2\uffff\1\157\1\172\1\uffff\1\145\2\172\1\uffff\1\163\1\uffff"+
+        "\1\163\1\uffff\1\141\1\147\1\uffff\1\145\1\uffff\1\155\1\145\1\141"+
+        "\1\uffff\1\172\1\157\1\156\1\uffff\1\162\2\uffff\2\172\1\156\1\172"+
+        "\1\162\1\172\1\156\1\164\1\uffff\1\156\1\163\1\172\2\uffff\1\172"+
+        "\1\uffff\1\172\1\uffff\1\164\1\151\2\172\3\uffff\1\163\1\157\2\uffff"+
+        "\1\172\1\156\1\uffff\1\172\1\uffff";
     static final String DFA13_acceptS =
-        "\7\uffff\1\13\12\uffff\1\42\2\uffff\1\47\2\uffff\1\55\1\56\3\uffff"+
+        "\7\uffff\1\13\12\uffff\1\42\2\uffff\1\47\2\uffff\1\57\1\60\3\uffff"+
         "\1\71\1\uffff\1\76\3\uffff\1\142\1\143\3\uffff\1\146\1\147\4\uffff"+
-        "\1\142\22\uffff\1\13\21\uffff\1\33\1\102\1\141\1\37\1\34\1\136\1"+
-        "\36\1\42\1\44\1\72\1\uffff\1\47\2\uffff\1\55\1\56\1\126\1\64\3\uffff"+
-        "\1\140\1\70\1\71\1\103\1\75\1\76\1\uffff\1\133\1\143\1\144\1\145"+
+        "\1\142\22\uffff\1\13\21\uffff\1\33\1\103\1\141\1\37\1\34\1\136\1"+
+        "\36\1\42\1\44\1\72\1\uffff\1\47\2\uffff\1\57\1\60\1\127\1\63\3\uffff"+
+        "\1\140\1\70\1\71\1\104\1\75\1\76\1\uffff\1\133\1\143\1\144\1\145"+
         "\1\146\26\uffff\1\11\1\uffff\1\77\11\uffff\1\74\5\uffff\1\26\1\uffff"+
-        "\1\107\34\uffff\1\10\4\uffff\1\130\10\uffff\1\106\1\27\1\12\1\uffff"+
-        "\1\15\23\uffff\1\41\13\uffff\1\1\1\uffff\1\7\22\uffff\1\100\1\uffff"+
-        "\1\6\3\uffff\1\131\1\16\4\uffff\1\101\1\uffff\1\110\1\137\15\uffff"+
-        "\1\46\21\uffff\1\104\7\uffff\1\35\1\61\5\uffff\1\127\1\uffff\1\62"+
-        "\12\uffff\1\117\1\32\2\uffff\1\52\1\uffff\1\66\4\uffff\1\114\7\uffff"+
-        "\1\45\1\2\7\uffff\1\5\2\uffff\1\24\1\17\1\20\1\25\10\uffff\1\122"+
-        "\10\uffff\1\40\1\uffff\1\21\4\uffff\1\50\5\uffff\1\123\1\uffff\1"+
-        "\3\2\uffff\1\132\1\134\1\135\2\uffff\1\51\1\73\2\uffff\1\53\1\54"+
-        "\2\uffff\1\125\3\uffff\1\31\1\uffff\1\105\1\uffff\1\14\2\uffff\1"+
-        "\115\1\uffff\1\60\3\uffff\1\30\3\uffff\1\124\1\uffff\1\4\1\22\10"+
-        "\uffff\1\121\3\uffff\1\43\1\57\1\uffff\1\112\1\uffff\1\23\4\uffff"+
-        "\1\120\1\111\1\116\2\uffff\1\113\1\67\2\uffff\1\65\1\uffff\1\63";
+        "\1\110\34\uffff\1\10\4\uffff\1\131\10\uffff\1\107\1\27\1\12\1\uffff"+
+        "\1\15\23\uffff\1\41\13\uffff\1\1\1\uffff\1\7\22\uffff\1\101\1\uffff"+
+        "\1\6\3\uffff\1\132\1\16\4\uffff\1\102\1\uffff\1\111\1\137\15\uffff"+
+        "\1\46\21\uffff\1\105\7\uffff\1\35\1\55\5\uffff\1\130\1\uffff\1\56"+
+        "\12\uffff\1\120\1\32\2\uffff\1\52\4\uffff\1\67\1\uffff\1\115\7\uffff"+
+        "\1\45\1\2\7\uffff\1\5\2\uffff\1\24\1\17\1\20\1\25\10\uffff\1\123"+
+        "\10\uffff\1\40\1\uffff\1\21\4\uffff\1\50\5\uffff\1\124\1\uffff\1"+
+        "\3\2\uffff\1\100\1\134\1\135\2\uffff\1\51\1\73\2\uffff\1\53\1\54"+
+        "\2\uffff\1\126\3\uffff\1\31\1\uffff\1\106\1\uffff\1\14\2\uffff\1"+
+        "\116\1\uffff\1\62\3\uffff\1\30\3\uffff\1\125\1\uffff\1\4\1\22\10"+
+        "\uffff\1\122\3\uffff\1\43\1\61\1\uffff\1\113\1\uffff\1\23\4\uffff"+
+        "\1\121\1\112\1\117\2\uffff\1\114\1\64\2\uffff\1\66\1\uffff\1\65";
     static final String DFA13_specialS =
         "\1\2\44\uffff\1\1\1\0\u01b4\uffff}>";
     static final String[] DFA13_transitionS = {
@@ -3591,7 +3591,7 @@ public class InternalAadl2Lexer extends Lexer {
             "",
             "",
             "\1\143",
-            "\1\145\12\uffff\1\147\2\uffff\1\146",
+            "\1\146\12\uffff\1\147\2\uffff\1\145",
             "\1\150",
             "",
             "\1\153",
@@ -3666,8 +3666,8 @@ public class InternalAadl2Lexer extends Lexer {
             "",
             "",
             "",
-            "\1\u00ab",
-            "\1\u00ad\1\u00ac",
+            "\1\u00ac\1\u00ab",
+            "\1\u00ad",
             "\1\u00ae",
             "",
             "",
@@ -3736,8 +3736,8 @@ public class InternalAadl2Lexer extends Lexer {
             "\1\u00e4",
             "\1\u00e5",
             "\1\u00e6",
-            "\1\u00e7",
-            "\1\u00e8\4\uffff\1\u00e9",
+            "\1\u00e7\4\uffff\1\u00e8",
+            "\1\u00e9",
             "\1\u00ea",
             "\1\u00eb",
             "\1\u00ec",
@@ -3857,10 +3857,10 @@ public class InternalAadl2Lexer extends Lexer {
             "",
             "\12\56\7\uffff\32\56\4\uffff\1\56\1\uffff\32\56",
             "\1\u0152",
-            "\12\56\7\uffff\32\56\4\uffff\1\56\1\uffff\32\56",
+            "\1\u0153",
             "\1\u0154",
             "\1\u0155",
-            "\1\u0156",
+            "\12\56\7\uffff\32\56\4\uffff\1\56\1\uffff\32\56",
             "\1\u0157",
             "\12\56\7\uffff\32\56\4\uffff\1\56\1\uffff\32\56",
             "\1\u0159",
@@ -3906,10 +3906,10 @@ public class InternalAadl2Lexer extends Lexer {
             "\1\u017a",
             "",
             "\1\u017b",
-            "",
             "\1\u017c",
             "\1\u017d",
             "\1\u017e",
+            "",
             "\1\u017f",
             "",
             "\1\u0180",

@@ -12928,26 +12928,26 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__PropertySet__Group_4__1__Impl"
-    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3810:1: rule__PropertySet__Group_4__1__Impl : ( ( rule__PropertySet__ImportedPropertySetAssignment_4_1 ) ) ;
+    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3810:1: rule__PropertySet__Group_4__1__Impl : ( ( rule__PropertySet__ImportedUnitAssignment_4_1 ) ) ;
     public final void rule__PropertySet__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3814:1: ( ( ( rule__PropertySet__ImportedPropertySetAssignment_4_1 ) ) )
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3815:1: ( ( rule__PropertySet__ImportedPropertySetAssignment_4_1 ) )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3814:1: ( ( ( rule__PropertySet__ImportedUnitAssignment_4_1 ) ) )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3815:1: ( ( rule__PropertySet__ImportedUnitAssignment_4_1 ) )
             {
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3815:1: ( ( rule__PropertySet__ImportedPropertySetAssignment_4_1 ) )
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3816:1: ( rule__PropertySet__ImportedPropertySetAssignment_4_1 )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3815:1: ( ( rule__PropertySet__ImportedUnitAssignment_4_1 ) )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3816:1: ( rule__PropertySet__ImportedUnitAssignment_4_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertySetAccess().getImportedPropertySetAssignment_4_1()); 
+               before(grammarAccess.getPropertySetAccess().getImportedUnitAssignment_4_1()); 
             }
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3817:1: ( rule__PropertySet__ImportedPropertySetAssignment_4_1 )
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3817:2: rule__PropertySet__ImportedPropertySetAssignment_4_1
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3817:1: ( rule__PropertySet__ImportedUnitAssignment_4_1 )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3817:2: rule__PropertySet__ImportedUnitAssignment_4_1
             {
-            pushFollow(FOLLOW_rule__PropertySet__ImportedPropertySetAssignment_4_1_in_rule__PropertySet__Group_4__1__Impl8316);
-            rule__PropertySet__ImportedPropertySetAssignment_4_1();
+            pushFollow(FOLLOW_rule__PropertySet__ImportedUnitAssignment_4_1_in_rule__PropertySet__Group_4__1__Impl8316);
+            rule__PropertySet__ImportedUnitAssignment_4_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -12955,7 +12955,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPropertySetAccess().getImportedPropertySetAssignment_4_1()); 
+               after(grammarAccess.getPropertySetAccess().getImportedUnitAssignment_4_1()); 
             }
 
             }
@@ -13272,26 +13272,26 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__PropertySet__Group_4_2__1__Impl"
-    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3936:1: rule__PropertySet__Group_4_2__1__Impl : ( ( rule__PropertySet__ImportedPropertySetAssignment_4_2_1 ) ) ;
+    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3936:1: rule__PropertySet__Group_4_2__1__Impl : ( ( rule__PropertySet__ImportedUnitAssignment_4_2_1 ) ) ;
     public final void rule__PropertySet__Group_4_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3940:1: ( ( ( rule__PropertySet__ImportedPropertySetAssignment_4_2_1 ) ) )
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3941:1: ( ( rule__PropertySet__ImportedPropertySetAssignment_4_2_1 ) )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3940:1: ( ( ( rule__PropertySet__ImportedUnitAssignment_4_2_1 ) ) )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3941:1: ( ( rule__PropertySet__ImportedUnitAssignment_4_2_1 ) )
             {
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3941:1: ( ( rule__PropertySet__ImportedPropertySetAssignment_4_2_1 ) )
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3942:1: ( rule__PropertySet__ImportedPropertySetAssignment_4_2_1 )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3941:1: ( ( rule__PropertySet__ImportedUnitAssignment_4_2_1 ) )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3942:1: ( rule__PropertySet__ImportedUnitAssignment_4_2_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertySetAccess().getImportedPropertySetAssignment_4_2_1()); 
+               before(grammarAccess.getPropertySetAccess().getImportedUnitAssignment_4_2_1()); 
             }
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3943:1: ( rule__PropertySet__ImportedPropertySetAssignment_4_2_1 )
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3943:2: rule__PropertySet__ImportedPropertySetAssignment_4_2_1
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3943:1: ( rule__PropertySet__ImportedUnitAssignment_4_2_1 )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:3943:2: rule__PropertySet__ImportedUnitAssignment_4_2_1
             {
-            pushFollow(FOLLOW_rule__PropertySet__ImportedPropertySetAssignment_4_2_1_in_rule__PropertySet__Group_4_2__1__Impl8563);
-            rule__PropertySet__ImportedPropertySetAssignment_4_2_1();
+            pushFollow(FOLLOW_rule__PropertySet__ImportedUnitAssignment_4_2_1_in_rule__PropertySet__Group_4_2__1__Impl8563);
+            rule__PropertySet__ImportedUnitAssignment_4_2_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -13299,7 +13299,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPropertySetAccess().getImportedPropertySetAssignment_4_2_1()); 
+               after(grammarAccess.getPropertySetAccess().getImportedUnitAssignment_4_2_1()); 
             }
 
             }
@@ -40500,9 +40500,9 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__PropertySet__NameAssignment_2"
 
 
-    // $ANTLR start "rule__PropertySet__ImportedPropertySetAssignment_4_1"
-    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:14089:1: rule__PropertySet__ImportedPropertySetAssignment_4_1 : ( ( RULE_ID ) ) ;
-    public final void rule__PropertySet__ImportedPropertySetAssignment_4_1() throws RecognitionException {
+    // $ANTLR start "rule__PropertySet__ImportedUnitAssignment_4_1"
+    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:14089:1: rule__PropertySet__ImportedUnitAssignment_4_1 : ( ( RULE_ID ) ) ;
+    public final void rule__PropertySet__ImportedUnitAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -40514,23 +40514,23 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:14095:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetCrossReference_4_1_0()); 
+               before(grammarAccess.getPropertySetAccess().getImportedUnitPropertySetCrossReference_4_1_0()); 
             }
             // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:14096:1: ( RULE_ID )
             // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:14097:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetIDTerminalRuleCall_4_1_0_1()); 
+               before(grammarAccess.getPropertySetAccess().getImportedUnitPropertySetIDTerminalRuleCall_4_1_0_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__PropertySet__ImportedPropertySetAssignment_4_128506); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__PropertySet__ImportedUnitAssignment_4_128506); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetIDTerminalRuleCall_4_1_0_1()); 
+               after(grammarAccess.getPropertySetAccess().getImportedUnitPropertySetIDTerminalRuleCall_4_1_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetCrossReference_4_1_0()); 
+               after(grammarAccess.getPropertySetAccess().getImportedUnitPropertySetCrossReference_4_1_0()); 
             }
 
             }
@@ -40550,12 +40550,12 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__PropertySet__ImportedPropertySetAssignment_4_1"
+    // $ANTLR end "rule__PropertySet__ImportedUnitAssignment_4_1"
 
 
-    // $ANTLR start "rule__PropertySet__ImportedPropertySetAssignment_4_2_1"
-    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:14108:1: rule__PropertySet__ImportedPropertySetAssignment_4_2_1 : ( ( RULE_ID ) ) ;
-    public final void rule__PropertySet__ImportedPropertySetAssignment_4_2_1() throws RecognitionException {
+    // $ANTLR start "rule__PropertySet__ImportedUnitAssignment_4_2_1"
+    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:14108:1: rule__PropertySet__ImportedUnitAssignment_4_2_1 : ( ( RULE_ID ) ) ;
+    public final void rule__PropertySet__ImportedUnitAssignment_4_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -40567,23 +40567,23 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:14114:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetCrossReference_4_2_1_0()); 
+               before(grammarAccess.getPropertySetAccess().getImportedUnitPropertySetCrossReference_4_2_1_0()); 
             }
             // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:14115:1: ( RULE_ID )
             // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalProperties.g:14116:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetIDTerminalRuleCall_4_2_1_0_1()); 
+               before(grammarAccess.getPropertySetAccess().getImportedUnitPropertySetIDTerminalRuleCall_4_2_1_0_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__PropertySet__ImportedPropertySetAssignment_4_2_128545); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__PropertySet__ImportedUnitAssignment_4_2_128545); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetIDTerminalRuleCall_4_2_1_0_1()); 
+               after(grammarAccess.getPropertySetAccess().getImportedUnitPropertySetIDTerminalRuleCall_4_2_1_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetCrossReference_4_2_1_0()); 
+               after(grammarAccess.getPropertySetAccess().getImportedUnitPropertySetCrossReference_4_2_1_0()); 
             }
 
             }
@@ -40603,7 +40603,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__PropertySet__ImportedPropertySetAssignment_4_2_1"
+    // $ANTLR end "rule__PropertySet__ImportedUnitAssignment_4_2_1"
 
 
     // $ANTLR start "rule__PropertySet__OwnedPropertyTypeAssignment_5_0"
@@ -47696,7 +47696,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
     public static final BitSet FOLLOW_24_in_rule__PropertySet__Group_4__0__Impl8254 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PropertySet__Group_4__1__Impl_in_rule__PropertySet__Group_4__18286 = new BitSet(new long[]{0x0000000002800000L});
     public static final BitSet FOLLOW_rule__PropertySet__Group_4__2_in_rule__PropertySet__Group_4__18289 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PropertySet__ImportedPropertySetAssignment_4_1_in_rule__PropertySet__Group_4__1__Impl8316 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PropertySet__ImportedUnitAssignment_4_1_in_rule__PropertySet__Group_4__1__Impl8316 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PropertySet__Group_4__2__Impl_in_rule__PropertySet__Group_4__28346 = new BitSet(new long[]{0x0000000002800000L});
     public static final BitSet FOLLOW_rule__PropertySet__Group_4__3_in_rule__PropertySet__Group_4__28349 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PropertySet__Group_4_2__0_in_rule__PropertySet__Group_4__2__Impl8376 = new BitSet(new long[]{0x0000000002000002L});
@@ -47706,7 +47706,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
     public static final BitSet FOLLOW_rule__PropertySet__Group_4_2__1_in_rule__PropertySet__Group_4_2__08477 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_25_in_rule__PropertySet__Group_4_2__0__Impl8505 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PropertySet__Group_4_2__1__Impl_in_rule__PropertySet__Group_4_2__18536 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PropertySet__ImportedPropertySetAssignment_4_2_1_in_rule__PropertySet__Group_4_2__1__Impl8563 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PropertySet__ImportedUnitAssignment_4_2_1_in_rule__PropertySet__Group_4_2__1__Impl8563 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PropertyType__Group__0__Impl_in_rule__PropertyType__Group__08597 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_rule__PropertyType__Group__1_in_rule__PropertyType__Group__08600 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PropertyType__Alternatives_0_in_rule__PropertyType__Group__0__Impl8627 = new BitSet(new long[]{0x0000000000000002L});
@@ -48560,8 +48560,8 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
     public static final BitSet FOLLOW_rule__EQCREF__Group_2__1__Impl_in_rule__EQCREF__Group_2__128406 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__EQCREF__Group_2__1__Impl28433 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__PropertySet__NameAssignment_228471 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__PropertySet__ImportedPropertySetAssignment_4_128506 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__PropertySet__ImportedPropertySetAssignment_4_2_128545 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__PropertySet__ImportedUnitAssignment_4_128506 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__PropertySet__ImportedUnitAssignment_4_2_128545 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rulePropertyType_in_rule__PropertySet__OwnedPropertyTypeAssignment_5_028580 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rulePropertyDefinition_in_rule__PropertySet__OwnedPropertyAssignment_5_128611 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rulePropertyConstant_in_rule__PropertySet__OwnedPropertyConstantAssignment_5_228642 = new BitSet(new long[]{0x0000000000000002L});
