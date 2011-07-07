@@ -295,15 +295,15 @@ protected class PModel_PropertyAssociationParserRuleCall_3 extends RuleCallToken
 /************ begin Rule PropertySet ****************
  *
  * PropertySet returns aadl2::PropertySet:
- * 	"property" "set" name=ID "is" ("with" importedPropertySet+=[aadl2::PropertySet] //| importedPropertySet+=[props::PropertySet|ID]) 
- * 	("," importedPropertySet+=[aadl2::PropertySet])* ";")* (ownedPropertyType+=PropertyType |
- * 	ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* "end" ID ";";
+ * 	"property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])*
+ * 	";")* (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)*
+ * 	"end" ID ";";
  *
  **/
 
-// "property" "set" name=ID "is" ("with" importedPropertySet+=[aadl2::PropertySet] //| importedPropertySet+=[props::PropertySet|ID]) 
-// ("," importedPropertySet+=[aadl2::PropertySet])* ";")* (ownedPropertyType+=PropertyType |
-// ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* "end" ID ";"
+// "property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])* ";")*
+// (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* "end"
+// ID ";"
 protected class PropertySet_Group extends GroupToken {
 	
 	public PropertySet_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -431,8 +431,7 @@ protected class PropertySet_IsKeyword_3 extends KeywordToken  {
 
 }
 
-// (=> "with" importedPropertySet+=[aadl2::PropertySet] //| importedPropertySet+=[props::PropertySet|ID]) 
-// ("," importedPropertySet+=[aadl2::PropertySet])* ";")*
+// (=> "with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])* ";")*
 protected class PropertySet_Group_4 extends GroupToken {
 	
 	public PropertySet_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -477,16 +476,16 @@ protected class PropertySet_WithKeyword_4_0 extends KeywordToken  {
 
 }
 
-// importedPropertySet+=[aadl2::PropertySet]
-protected class PropertySet_ImportedPropertySetAssignment_4_1 extends AssignmentToken  {
+// importedUnit+=[aadl2::PropertySet]
+protected class PropertySet_ImportedUnitAssignment_4_1 extends AssignmentToken  {
 	
-	public PropertySet_ImportedPropertySetAssignment_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PropertySet_ImportedUnitAssignment_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getPropertySetAccess().getImportedPropertySetAssignment_4_1();
+		return grammarAccess.getPropertySetAccess().getImportedUnitAssignment_4_1();
 	}
 
     @Override
@@ -499,13 +498,13 @@ protected class PropertySet_ImportedPropertySetAssignment_4_1 extends Assignment
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("importedPropertySet",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("importedPropertySet");
+		if((value = eObjectConsumer.getConsumable("importedUnit",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("importedUnit");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetCrossReference_4_1_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getPropertySetAccess().getImportedUnitPropertySetCrossReference_4_1_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetCrossReference_4_1_0(); 
+				element = grammarAccess.getPropertySetAccess().getImportedUnitPropertySetCrossReference_4_1_0(); 
 				return obj;
 			}
 		}
@@ -514,7 +513,7 @@ protected class PropertySet_ImportedPropertySetAssignment_4_1 extends Assignment
 
 }
 
-// ("," importedPropertySet+=[aadl2::PropertySet])*
+// ("," importedUnit+=[aadl2::PropertySet])*
 protected class PropertySet_Group_4_2 extends GroupToken {
 	
 	public PropertySet_Group_4_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -529,7 +528,7 @@ protected class PropertySet_Group_4_2 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new PropertySet_ImportedPropertySetAssignment_4_2_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new PropertySet_ImportedUnitAssignment_4_2_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -552,23 +551,23 @@ protected class PropertySet_CommaKeyword_4_2_0 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new PropertySet_Group_4_2(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new PropertySet_ImportedPropertySetAssignment_4_1(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new PropertySet_ImportedUnitAssignment_4_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// importedPropertySet+=[aadl2::PropertySet]
-protected class PropertySet_ImportedPropertySetAssignment_4_2_1 extends AssignmentToken  {
+// importedUnit+=[aadl2::PropertySet]
+protected class PropertySet_ImportedUnitAssignment_4_2_1 extends AssignmentToken  {
 	
-	public PropertySet_ImportedPropertySetAssignment_4_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PropertySet_ImportedUnitAssignment_4_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getPropertySetAccess().getImportedPropertySetAssignment_4_2_1();
+		return grammarAccess.getPropertySetAccess().getImportedUnitAssignment_4_2_1();
 	}
 
     @Override
@@ -581,13 +580,13 @@ protected class PropertySet_ImportedPropertySetAssignment_4_2_1 extends Assignme
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("importedPropertySet",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("importedPropertySet");
+		if((value = eObjectConsumer.getConsumable("importedUnit",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("importedUnit");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetCrossReference_4_2_1_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getPropertySetAccess().getImportedUnitPropertySetCrossReference_4_2_1_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetCrossReference_4_2_1_0(); 
+				element = grammarAccess.getPropertySetAccess().getImportedUnitPropertySetCrossReference_4_2_1_0(); 
 				return obj;
 			}
 		}
@@ -613,7 +612,7 @@ protected class PropertySet_SemicolonKeyword_4_3 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new PropertySet_Group_4_2(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new PropertySet_ImportedPropertySetAssignment_4_1(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new PropertySet_ImportedUnitAssignment_4_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}

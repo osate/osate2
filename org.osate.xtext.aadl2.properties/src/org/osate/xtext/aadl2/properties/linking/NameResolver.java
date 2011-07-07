@@ -82,6 +82,7 @@ import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.NumberType;
@@ -137,11 +138,19 @@ public class NameResolver
 					return Collections.singletonList((EObject)e);
 				}
 			return Collections.<EObject> emptyList();
+		} else if(Aadl2Package.eINSTANCE.getModelUnit() == requiredType){
+			AadlPackage pack = NameResolver.findAadlPackage(context, s);
+			if(pack != null) {
+				return Collections.singletonList((EObject)pack);
+			}
+			PropertySet ps = NameResolver.findPropertySet(context, s);
+			if (ps != null) {
+				return Collections.singletonList((EObject)ps);
+			}
+			return Collections.<EObject> emptyList();
+
 
 		} else if(Aadl2Package.eINSTANCE.getAadlPackage() == requiredType){
-//		} else if(Aadl2Package.eINSTANCE.getPublicPackageSection() == requiredType){
-			// Resolve package reference
-			/* find package */
 			AadlPackage pack = NameResolver.findAadlPackage(context, s);
 			if(pack != null) {
 				return Collections.singletonList((EObject)pack);
@@ -883,18 +892,20 @@ public class NameResolver
 	
 	public static AadlPackage findImportedPackage(String name, EObject context)
 	{
-		EList<AadlPackage> imports;
+		EList<ModelUnit> imports;
 		if (context instanceof PropertySet)
-			imports = ((PropertySet)context).getImportedPackages();
+			imports = ((PropertySet)context).getImportedUnits();
 		else
-			imports = ((PackageSection)context).getImportedPackages();
-		for (AadlPackage imported : imports){
-			String n = ((AadlPackage)imported).getName();
-			if (name.equalsIgnoreCase(n))
-				return (AadlPackage)imported;
+			imports = ((PackageSection)context).getImportedUnits();
+		for (ModelUnit imported : imports) {
+			if (imported instanceof AadlPackage) {
+				String n = ((AadlPackage) imported).getName();
+				if (name.equalsIgnoreCase(n))
+					return (AadlPackage) imported;
+			}
 		}
 		if (context instanceof PrivatePackageSection && ((AadlPackage)context.eContainer()).getOwnedPublicSection() != null)
-			for (AadlPackage imported : ((AadlPackage)context.eContainer()).getOwnedPublicSection().getImportedPackages())
+			for (ModelUnit imported : ((AadlPackage)context.eContainer()).getOwnedPublicSection().getImportedUnits())
 				if (imported instanceof AadlPackage && ((AadlPackage)imported).getName().equalsIgnoreCase(name))
 					return (AadlPackage)imported;
 		// TODO need to handle public section declared in a separate package declaration
@@ -903,12 +914,12 @@ public class NameResolver
 	
 	private static PropertySet findImportedPropertySet(String name, EObject context)
 	{
-		EList<PropertySet> importedPropertySets;
+		EList<ModelUnit> importedPropertySets;
 		if (context instanceof PropertySet)
-			importedPropertySets = ((PropertySet)context).getImportedPropertySets();
+			importedPropertySets = ((PropertySet)context).getImportedUnits();
 		else
-			importedPropertySets = ((PackageSection)context).getImportedPropertySets();
-		for (PropertySet importedPropertySet : importedPropertySets)
+			importedPropertySets = ((PackageSection)context).getImportedUnits();
+		for (ModelUnit importedPropertySet : importedPropertySets)
 			if (importedPropertySet instanceof PropertySet&&((PropertySet)importedPropertySet).getName().equalsIgnoreCase(name))
 				return (PropertySet)importedPropertySet;
 		return null;

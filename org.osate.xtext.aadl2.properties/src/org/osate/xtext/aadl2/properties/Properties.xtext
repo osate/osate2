@@ -10,8 +10,8 @@ PModel returns aadl2::Element:
 
 PropertySet returns aadl2::PropertySet:
 	'property' 'set' name=ID 'is'
-	(=> 'with' (importedPropertySet+=[aadl2::PropertySet|ID]) //| importedPropertySet+=[props::PropertySet|ID]) 
-	    (',' importedPropertySet+=[aadl2::PropertySet|ID])* ';')*
+	(=> 'with' (importedUnit+=[aadl2::PropertySet|ID])  
+	    (',' importedUnit+=[aadl2::PropertySet|ID])* ';')*
 	(ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition 
 	| ownedPropertyConstant+=PropertyConstant)*
 	'end' ID ';' ;
