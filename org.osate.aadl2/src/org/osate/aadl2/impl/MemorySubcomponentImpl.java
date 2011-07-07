@@ -42,8 +42,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.MemoryClassifier;
 import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.MemorySubcomponentType;
 import org.osate.aadl2.SubcomponentType;

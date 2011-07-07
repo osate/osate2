@@ -1002,7 +1002,7 @@
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedClassifier" ordered="false"
-        upperBound="-1" eType="#//Classifier" changeable="false" containment="true">
+        upperBound="-1" eType="#//Classifier" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeatureGroupTypeRename"

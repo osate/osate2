@@ -1529,7 +1529,7 @@ For access features, the classifier specifies the type of the shared component.<
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Packaging-PackageSection-ownedComponentTypeRename-_lowerValue"/>
           <subsettedProperty href="AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Packaging-PackageSection-ownedClassifier" name="ownedClassifier" isReadOnly="true" aggregation="composite" association="Packaging-A_packageSection_ownedClassifier">
+        <ownedAttribute xmi:id="Packaging-PackageSection-ownedClassifier" name="ownedClassifier" aggregation="composite" association="Packaging-A_packageSection_ownedClassifier">
           <ownedComment xmi:id="Packaging-PackageSection-ownedClassifier-_ownedComment.0">
             <body>The classifiers owned by this section.</body>
           </ownedComment>
