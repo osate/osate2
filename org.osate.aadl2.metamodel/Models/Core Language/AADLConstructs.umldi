@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_zbC1kKcqEeCYEIHXYlP5sg">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_zxoH8B4gEd68T5xsdP2ekQ">
   <model href="AADLConstructs.uml#_0"/>
   <diagrams xmi:id="_HKg1gEdvEdyOeaOA5AULsA" position="0,0" size="100,100" name="Packages" viewport="0,0">
     <property xmi:id="_HbDL4EdvEdyOeaOA5AULsA" key="pageFormatName" value="A4"/>
@@ -5095,7 +5095,7 @@
         </contained>
       </contained>
     </diagrams>
-    <diagrams xmi:id="_EVStEIyVEdyToqxDyTEFvQ" position="0,0" size="100,100" name="Mode Containment" viewport="0,0">
+    <diagrams xmi:id="_EVStEIyVEdyToqxDyTEFvQ" position="0,0" size="100,100" name="Mode Containment" viewport="-17,0">
       <property xmi:id="_EWVO4IyVEdyToqxDyTEFvQ" key="pageFormatName" value="A4"/>
       <property xmi:id="_EWVO4YyVEdyToqxDyTEFvQ" key="diagramWidth" value="840"/>
       <property xmi:id="_EWVO4oyVEdyToqxDyTEFvQ" key="diagramHeight" value="1188"/>
@@ -5108,7 +5108,7 @@
       <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_EVStEYyVEdyToqxDyTEFvQ" presentation="org.topcased.modeler.uml.classdiagram">
         <element href="AADLConstructs.uml#Modes"/>
       </semanticModel>
-      <contained xsi:type="di:GraphNode" xmi:id="_GRt9gIyVEdyToqxDyTEFvQ" position="111,155" size="145,-1">
+      <contained xsi:type="di:GraphNode" xmi:id="_GRt9gIyVEdyToqxDyTEFvQ" position="193,11" size="145,-1">
         <anchorage xmi:id="_trBfIIyVEdyToqxDyTEFvQ" graphEdge="_trBfIoyVEdyToqxDyTEFvQ _uMje4IyVEdyToqxDyTEFvQ"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_GRt9gYyVEdyToqxDyTEFvQ" presentation="default">
           <element href="AADLConstructs.uml#Components-ComponentClassifier"/>
@@ -5126,7 +5126,7 @@
           </semanticModel>
         </contained>
       </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_pDFqsIyVEdyToqxDyTEFvQ" position="130,7" size="107,-1">
+      <contained xsi:type="di:GraphNode" xmi:id="_pDFqsIyVEdyToqxDyTEFvQ" position="95,169" size="107,-1">
         <anchorage xmi:id="_trBfIYyVEdyToqxDyTEFvQ" graphEdge="_trBfIoyVEdyToqxDyTEFvQ"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_pDFqsYyVEdyToqxDyTEFvQ" presentation="default">
           <element href="AADLConstructs.uml#Modes-Mode"/>
@@ -5144,7 +5144,7 @@
           </semanticModel>
         </contained>
       </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_qLgEQIyVEdyToqxDyTEFvQ" position="133,325" size="102,-1">
+      <contained xsi:type="di:GraphNode" xmi:id="_qLgEQIyVEdyToqxDyTEFvQ" position="337,169" size="102,-1">
         <anchorage xmi:id="_uMZt4IyVEdyToqxDyTEFvQ" graphEdge="_uMje4IyVEdyToqxDyTEFvQ"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_qLgEQYyVEdyToqxDyTEFvQ" presentation="default">
           <element href="AADLConstructs.uml#Modes-ModeTransition"/>
@@ -5173,6 +5173,7 @@
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_trBfJ4yVEdyToqxDyTEFvQ" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_trBfKIyVEdyToqxDyTEFvQ" visible="false" id="middleNameEdgeObject" offset="45,11"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_trBfKYyVEdyToqxDyTEFvQ" id="stereotypeEdgeObject" offset="0,-10"/>
+        <waypoints>[-125, 0, 0, -150]</waypoints>
       </contained>
       <contained xsi:type="di:GraphEdge" xmi:id="_uMje4IyVEdyToqxDyTEFvQ" anchor="_trBfIIyVEdyToqxDyTEFvQ _uMZt4IyVEdyToqxDyTEFvQ">
         <property xmi:id="_xM7foIyVEdyToqxDyTEFvQ" key="router" value="Oblique"/>
@@ -5185,6 +5186,7 @@
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_uMje5YyVEdyToqxDyTEFvQ" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_uMje5oyVEdyToqxDyTEFvQ" visible="false" id="middleNameEdgeObject" offset="0,10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_uMje54yVEdyToqxDyTEFvQ" id="stereotypeEdgeObject" offset="0,-10"/>
+        <waypoints>[129, 0, 6, -150]</waypoints>
       </contained>
     </diagrams>
     <diagrams xmi:id="_F8_HkERIEd2bLYOu_OHnOw" position="0,0" size="100,100" name="Modal Elements" viewport="0,0">
