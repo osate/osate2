@@ -35,14 +35,16 @@
  */
 package org.osate.aadl2.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.BusClassifier;
 import org.osate.aadl2.BusSubcomponent;
+import org.osate.aadl2.BusSubcomponentType;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.SubcomponentType;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,14 +53,24 @@ import org.osate.aadl2.ComponentClassifier;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.BusSubcomponentImpl#getClassifier <em>Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.BusSubcomponentImpl#getBusClassifier <em>Bus Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.BusSubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.BusSubcomponentImpl#getBusSubcomponentType <em>Bus Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcomponent {
+	/**
+	 * The cached value of the '{@link #getBusSubcomponentType() <em>Bus Subcomponent Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBusSubcomponentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected BusSubcomponentType busSubcomponentType;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -84,20 +96,10 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public ComponentClassifier basicGetClassifier() {
-		return classifier;
+	public SubcomponentType getSubcomponentType() {
+		SubcomponentType subcomponentType = basicGetSubcomponentType();
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+				: subcomponentType;
 	}
 
 	/**
@@ -105,31 +107,53 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BusClassifier getBusClassifier() {
-		BusClassifier busClassifier = basicGetBusClassifier();
-		return busClassifier != null && ((EObject) busClassifier).eIsProxy() ? (BusClassifier) eResolveProxy((InternalEObject) busClassifier)
-				: busClassifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public BusClassifier basicGetBusClassifier() {
-		if (classifier instanceof BusClassifier) {
-			return (BusClassifier) classifier;
+	@Override
+	public SubcomponentType basicGetSubcomponentType() {
+		if (eIsSet(Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE)) {
+			return basicGetBusSubcomponentType();
 		}
-		return null;
+		return super.basicGetSubcomponentType();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	public void setBusClassifier(BusClassifier newBusClassifier) {
-		classifier = newBusClassifier;
+	public BusSubcomponentType getBusSubcomponentType() {
+		if (busSubcomponentType != null && ((EObject) busSubcomponentType).eIsProxy()) {
+			InternalEObject oldBusSubcomponentType = (InternalEObject) busSubcomponentType;
+			busSubcomponentType = (BusSubcomponentType) eResolveProxy(oldBusSubcomponentType);
+			if (busSubcomponentType != oldBusSubcomponentType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE, oldBusSubcomponentType,
+							busSubcomponentType));
+			}
+		}
+		return busSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BusSubcomponentType basicGetBusSubcomponentType() {
+		return busSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBusSubcomponentType(BusSubcomponentType newBusSubcomponentType) {
+		BusSubcomponentType oldBusSubcomponentType = busSubcomponentType;
+		busSubcomponentType = newBusSubcomponentType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE,
+					oldBusSubcomponentType, busSubcomponentType));
 	}
 
 	/**
@@ -140,10 +164,10 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.BUS_SUBCOMPONENT__BUS_CLASSIFIER:
+		case Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE:
 			if (resolve)
-				return getBusClassifier();
-			return basicGetBusClassifier();
+				return getBusSubcomponentType();
+			return basicGetBusSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,8 +180,8 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.BUS_SUBCOMPONENT__BUS_CLASSIFIER:
-			setBusClassifier((BusClassifier) newValue);
+		case Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE:
+			setBusSubcomponentType((BusSubcomponentType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -171,8 +195,8 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.BUS_SUBCOMPONENT__BUS_CLASSIFIER:
-			setBusClassifier((BusClassifier) null);
+		case Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE:
+			setBusSubcomponentType((BusSubcomponentType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -186,8 +210,8 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.BUS_SUBCOMPONENT__BUS_CLASSIFIER:
-			return basicGetBusClassifier() != null;
+		case Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE:
+			return busSubcomponentType != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -198,8 +222,8 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	 * @generated
 	 */
 	@Override
-	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.BUS_SUBCOMPONENT__BUS_CLASSIFIER);
+	public boolean isSetSubcomponentType() {
+		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE);
 	}
 
 	public ComponentCategory getCategory() {

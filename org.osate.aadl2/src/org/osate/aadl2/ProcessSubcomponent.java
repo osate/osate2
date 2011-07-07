@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.ProcessSubcomponent#getProcessClassifier <em>Process Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.ProcessSubcomponent#getProcessSubcomponentType <em>Process Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,35 +54,35 @@ package org.osate.aadl2;
 public interface ProcessSubcomponent extends Subcomponent, org.osate.aadl2.Process {
 
 	/**
-	 * Returns the value of the '<em><b>Process Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Process Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Process Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Process Subcomponent Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Process Classifier</em>' reference.
-	 * @see #setProcessClassifier(ProcessClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getProcessSubcomponent_ProcessClassifier()
-	 * @model volatile="true" ordered="false"
+	 * @return the value of the '<em>Process Subcomponent Type</em>' reference.
+	 * @see #setProcessSubcomponentType(ProcessSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getProcessSubcomponent_ProcessSubcomponentType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	ProcessClassifier getProcessClassifier();
+	ProcessSubcomponentType getProcessSubcomponentType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ProcessSubcomponent#getProcessClassifier <em>Process Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.ProcessSubcomponent#getProcessSubcomponentType <em>Process Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Process Classifier</em>' reference.
-	 * @see #getProcessClassifier()
+	 * @param value the new value of the '<em>Process Subcomponent Type</em>' reference.
+	 * @see #getProcessSubcomponentType()
 	 * @generated
 	 */
-	void setProcessClassifier(ProcessClassifier value);
+	void setProcessSubcomponentType(ProcessSubcomponentType value);
 
 } // ProcessSubcomponent

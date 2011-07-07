@@ -39,230 +39,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlBoolean;
-import org.osate.aadl2.AadlInteger;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AadlReal;
-import org.osate.aadl2.AadlString;
-import org.osate.aadl2.Abstract;
-import org.osate.aadl2.AbstractClassifier;
-import org.osate.aadl2.AbstractFeature;
-import org.osate.aadl2.AbstractImplementation;
-import org.osate.aadl2.AbstractSubcomponent;
-import org.osate.aadl2.AbstractType;
-import org.osate.aadl2.Access;
-import org.osate.aadl2.AccessConnection;
-import org.osate.aadl2.AccessConnectionEnd;
-import org.osate.aadl2.AccessSpecification;
-import org.osate.aadl2.AnnexLibrary;
-import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.ArrayRange;
-import org.osate.aadl2.ArraySize;
-import org.osate.aadl2.ArraySpecification;
-import org.osate.aadl2.ArrayableElement;
-import org.osate.aadl2.BasicProperty;
-import org.osate.aadl2.BasicPropertyAssociation;
-import org.osate.aadl2.BehavioralFeature;
-import org.osate.aadl2.BehavioredImplementation;
-import org.osate.aadl2.BooleanLiteral;
-import org.osate.aadl2.Bus;
-import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.BusClassifier;
-import org.osate.aadl2.BusImplementation;
-import org.osate.aadl2.BusSubcomponent;
-import org.osate.aadl2.BusType;
-import org.osate.aadl2.CallContext;
-import org.osate.aadl2.CallSpecification;
-import org.osate.aadl2.CalledSubprogram;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ClassifierFeature;
-import org.osate.aadl2.ClassifierType;
-import org.osate.aadl2.ClassifierValue;
-import org.osate.aadl2.Comment;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentImplementationReference;
-import org.osate.aadl2.ComponentPrototype;
-import org.osate.aadl2.ComponentPrototypeActual;
-import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentPrototypeReference;
-import org.osate.aadl2.ComponentReference;
-import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ComponentTypeRename;
-import org.osate.aadl2.ComputedValue;
-import org.osate.aadl2.Connection;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.ConstantValue;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.ContainmentPathElement;
-import org.osate.aadl2.Context;
-import org.osate.aadl2.Data;
-import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.DataClassifier;
-import org.osate.aadl2.DataImplementation;
-import org.osate.aadl2.DataPort;
-import org.osate.aadl2.DataSubcomponent;
-import org.osate.aadl2.DataType;
-import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.Device;
-import org.osate.aadl2.DeviceClassifier;
-import org.osate.aadl2.DeviceImplementation;
-import org.osate.aadl2.DeviceSubcomponent;
-import org.osate.aadl2.DeviceType;
-import org.osate.aadl2.DirectedFeature;
-import org.osate.aadl2.DirectedRelationship;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.EndToEndFlow;
-import org.osate.aadl2.EndToEndFlowElement;
-import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.EnumerationType;
-import org.osate.aadl2.EnumerationValue;
-import org.osate.aadl2.EventDataPort;
-import org.osate.aadl2.EventPort;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureConnection;
-import org.osate.aadl2.FeatureConnectionEnd;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupConnection;
-import org.osate.aadl2.FeatureGroupConnectionEnd;
-import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupPrototypeActual;
-import org.osate.aadl2.FeatureGroupPrototypeBinding;
-import org.osate.aadl2.FeatureGroupPrototypeReference;
-import org.osate.aadl2.FeatureGroupReference;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeatureGroupTypeRename;
-import org.osate.aadl2.FeaturePrototype;
-import org.osate.aadl2.FeaturePrototypeActual;
-import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.FeaturePrototypeReference;
-import org.osate.aadl2.Flow;
-import org.osate.aadl2.FlowElement;
-import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.Generalization;
-import org.osate.aadl2.GlobalNamespace;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.InternalEvent;
-import org.osate.aadl2.ListValue;
-import org.osate.aadl2.Memory;
-import org.osate.aadl2.MemoryClassifier;
-import org.osate.aadl2.MemoryImplementation;
-import org.osate.aadl2.MemorySubcomponent;
-import org.osate.aadl2.MemoryType;
-import org.osate.aadl2.MetaclassReference;
-import org.osate.aadl2.ModalElement;
-import org.osate.aadl2.ModalPath;
-import org.osate.aadl2.ModalPropertyValue;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeBinding;
-import org.osate.aadl2.ModeFeature;
-import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.ModelUnit;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Namespace;
-import org.osate.aadl2.NumberType;
-import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.Numeral;
-import org.osate.aadl2.NumericRange;
-import org.osate.aadl2.Operation;
-import org.osate.aadl2.PackageRename;
-import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.Parameter;
-import org.osate.aadl2.ParameterConnection;
-import org.osate.aadl2.ParameterConnectionEnd;
-import org.osate.aadl2.Port;
-import org.osate.aadl2.PortConnection;
-import org.osate.aadl2.PortConnectionEnd;
-import org.osate.aadl2.PortSpecification;
-import org.osate.aadl2.PrivatePackageSection;
-import org.osate.aadl2.ProcessClassifier;
-import org.osate.aadl2.ProcessImplementation;
-import org.osate.aadl2.ProcessSubcomponent;
-import org.osate.aadl2.ProcessType;
-import org.osate.aadl2.Processor;
-import org.osate.aadl2.ProcessorCall;
-import org.osate.aadl2.ProcessorClassifier;
-import org.osate.aadl2.ProcessorImplementation;
-import org.osate.aadl2.ProcessorPort;
-import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.ProcessorSubprogram;
-import org.osate.aadl2.ProcessorType;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.PropertyOwner;
-import org.osate.aadl2.PropertyReference;
-import org.osate.aadl2.PropertySet;
-import org.osate.aadl2.PropertyType;
-import org.osate.aadl2.PropertyValue;
-import org.osate.aadl2.Prototype;
-import org.osate.aadl2.PrototypeBinding;
-import org.osate.aadl2.PublicPackageSection;
-import org.osate.aadl2.RangeType;
-import org.osate.aadl2.RangeValue;
-import org.osate.aadl2.RealLiteral;
-import org.osate.aadl2.Realization;
-import org.osate.aadl2.RecordField;
-import org.osate.aadl2.RecordType;
-import org.osate.aadl2.RecordValue;
-import org.osate.aadl2.ReferenceType;
-import org.osate.aadl2.ReferenceValue;
-import org.osate.aadl2.RefinableElement;
-import org.osate.aadl2.Relationship;
-import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.StructuralFeature;
-import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SubcomponentFlow;
-import org.osate.aadl2.Subprogram;
-import org.osate.aadl2.SubprogramAccess;
-import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.aadl2.SubprogramClassifier;
-import org.osate.aadl2.SubprogramGroup;
-import org.osate.aadl2.SubprogramGroupAccess;
-import org.osate.aadl2.SubprogramGroupClassifier;
-import org.osate.aadl2.SubprogramGroupImplementation;
-import org.osate.aadl2.SubprogramGroupSubcomponent;
-import org.osate.aadl2.SubprogramGroupType;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.SubprogramType;
-import org.osate.aadl2.SystemClassifier;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.SystemSubcomponent;
-import org.osate.aadl2.SystemType;
-import org.osate.aadl2.ThreadClassifier;
-import org.osate.aadl2.ThreadGroupClassifier;
-import org.osate.aadl2.ThreadGroupImplementation;
-import org.osate.aadl2.ThreadGroupSubcomponent;
-import org.osate.aadl2.ThreadGroupType;
-import org.osate.aadl2.ThreadImplementation;
-import org.osate.aadl2.ThreadSubcomponent;
-import org.osate.aadl2.ThreadType;
-import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.Type;
-import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.TypedElement;
-import org.osate.aadl2.UnitLiteral;
-import org.osate.aadl2.UnitValue;
-import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.VirtualBus;
-import org.osate.aadl2.VirtualBusClassifier;
-import org.osate.aadl2.VirtualBusImplementation;
-import org.osate.aadl2.VirtualBusSubcomponent;
-import org.osate.aadl2.VirtualBusType;
-import org.osate.aadl2.VirtualProcessor;
-import org.osate.aadl2.VirtualProcessorClassifier;
-import org.osate.aadl2.VirtualProcessorImplementation;
-import org.osate.aadl2.VirtualProcessorSubcomponent;
-import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.*;
 
 /**
@@ -743,6 +519,8 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseClassifier(componentImplementation);
 			if (result == null)
+				result = caseSubcomponentType(componentImplementation);
+			if (result == null)
 				result = caseNamespace(componentImplementation);
 			if (result == null)
 				result = caseType(componentImplementation);
@@ -760,6 +538,8 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseClassifier(componentClassifier);
 			if (result == null)
+				result = caseSubcomponentType(componentClassifier);
+			if (result == null)
 				result = caseNamespace(componentClassifier);
 			if (result == null)
 				result = caseType(componentClassifier);
@@ -767,6 +547,19 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(componentClassifier);
 			if (result == null)
 				result = caseElement(componentClassifier);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBCOMPONENT_TYPE: {
+			SubcomponentType subcomponentType = (SubcomponentType) theEObject;
+			T result = caseSubcomponentType(subcomponentType);
+			if (result == null)
+				result = caseType(subcomponentType);
+			if (result == null)
+				result = caseNamedElement(subcomponentType);
+			if (result == null)
+				result = caseElement(subcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -972,6 +765,8 @@ public class Aadl2Switch<T> {
 				result = caseComponentClassifier(componentType);
 			if (result == null)
 				result = caseClassifier(componentType);
+			if (result == null)
+				result = caseSubcomponentType(componentType);
 			if (result == null)
 				result = caseNamespace(componentType);
 			if (result == null)
@@ -1199,9 +994,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(busClassifier);
 			if (result == null)
-				result = caseBus(busClassifier);
+				result = caseBusSubcomponentType(busClassifier);
 			if (result == null)
 				result = caseClassifier(busClassifier);
+			if (result == null)
+				result = caseSubcomponentType(busClassifier);
+			if (result == null)
+				result = caseBus(busClassifier);
 			if (result == null)
 				result = caseNamespace(busClassifier);
 			if (result == null)
@@ -1210,6 +1009,23 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(busClassifier);
 			if (result == null)
 				result = caseElement(busClassifier);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.BUS_SUBCOMPONENT_TYPE: {
+			BusSubcomponentType busSubcomponentType = (BusSubcomponentType) theEObject;
+			T result = caseBusSubcomponentType(busSubcomponentType);
+			if (result == null)
+				result = caseBus(busSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(busSubcomponentType);
+			if (result == null)
+				result = caseType(busSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(busSubcomponentType);
+			if (result == null)
+				result = caseElement(busSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1305,9 +1121,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(dataClassifier);
 			if (result == null)
-				result = caseData(dataClassifier);
+				result = caseDataSubcomponentType(dataClassifier);
 			if (result == null)
 				result = caseClassifier(dataClassifier);
+			if (result == null)
+				result = caseSubcomponentType(dataClassifier);
+			if (result == null)
+				result = caseData(dataClassifier);
 			if (result == null)
 				result = caseNamespace(dataClassifier);
 			if (result == null)
@@ -1316,6 +1136,23 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(dataClassifier);
 			if (result == null)
 				result = caseElement(dataClassifier);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.DATA_SUBCOMPONENT_TYPE: {
+			DataSubcomponentType dataSubcomponentType = (DataSubcomponentType) theEObject;
+			T result = caseDataSubcomponentType(dataSubcomponentType);
+			if (result == null)
+				result = caseData(dataSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(dataSubcomponentType);
+			if (result == null)
+				result = caseType(dataSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(dataSubcomponentType);
+			if (result == null)
+				result = caseElement(dataSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1509,19 +1346,42 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(subprogramClassifier);
 			if (result == null)
-				result = caseSubprogram(subprogramClassifier);
+				result = caseSubprogramSubcomponentType(subprogramClassifier);
 			if (result == null)
 				result = caseClassifier(subprogramClassifier);
 			if (result == null)
-				result = caseCalledSubprogram(subprogramClassifier);
+				result = caseSubcomponentType(subprogramClassifier);
+			if (result == null)
+				result = caseSubprogram(subprogramClassifier);
 			if (result == null)
 				result = caseNamespace(subprogramClassifier);
 			if (result == null)
 				result = caseType(subprogramClassifier);
 			if (result == null)
+				result = caseCalledSubprogram(subprogramClassifier);
+			if (result == null)
 				result = caseNamedElement(subprogramClassifier);
 			if (result == null)
 				result = caseElement(subprogramClassifier);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT_TYPE: {
+			SubprogramSubcomponentType subprogramSubcomponentType = (SubprogramSubcomponentType) theEObject;
+			T result = caseSubprogramSubcomponentType(subprogramSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(subprogramSubcomponentType);
+			if (result == null)
+				result = caseSubprogram(subprogramSubcomponentType);
+			if (result == null)
+				result = caseType(subprogramSubcomponentType);
+			if (result == null)
+				result = caseCalledSubprogram(subprogramSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(subprogramSubcomponentType);
+			if (result == null)
+				result = caseElement(subprogramSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1576,9 +1436,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(subprogramGroupClassifier);
 			if (result == null)
-				result = caseSubprogramGroup(subprogramGroupClassifier);
+				result = caseSubprogramGroupSubcomponentType(subprogramGroupClassifier);
 			if (result == null)
 				result = caseClassifier(subprogramGroupClassifier);
+			if (result == null)
+				result = caseSubcomponentType(subprogramGroupClassifier);
+			if (result == null)
+				result = caseSubprogramGroup(subprogramGroupClassifier);
 			if (result == null)
 				result = caseNamespace(subprogramGroupClassifier);
 			if (result == null)
@@ -1587,6 +1451,23 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(subprogramGroupClassifier);
 			if (result == null)
 				result = caseElement(subprogramGroupClassifier);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE: {
+			SubprogramGroupSubcomponentType subprogramGroupSubcomponentType = (SubprogramGroupSubcomponentType) theEObject;
+			T result = caseSubprogramGroupSubcomponentType(subprogramGroupSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(subprogramGroupSubcomponentType);
+			if (result == null)
+				result = caseSubprogramGroup(subprogramGroupSubcomponentType);
+			if (result == null)
+				result = caseType(subprogramGroupSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(subprogramGroupSubcomponentType);
+			if (result == null)
+				result = caseElement(subprogramGroupSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1662,7 +1543,11 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = casePrototype(componentPrototype);
 			if (result == null)
+				result = caseSubcomponentType(componentPrototype);
+			if (result == null)
 				result = caseStructuralFeature(componentPrototype);
+			if (result == null)
+				result = caseType(componentPrototype);
 			if (result == null)
 				result = caseRefinableElement(componentPrototype);
 			if (result == null)
@@ -1684,23 +1569,19 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.ABSTRACT_CLASSIFIER: {
-			AbstractClassifier abstractClassifier = (AbstractClassifier) theEObject;
-			T result = caseAbstractClassifier(abstractClassifier);
+		case Aadl2Package.ABSTRACT_SUBCOMPONENT_TYPE: {
+			AbstractSubcomponentType abstractSubcomponentType = (AbstractSubcomponentType) theEObject;
+			T result = caseAbstractSubcomponentType(abstractSubcomponentType);
 			if (result == null)
-				result = caseComponentClassifier(abstractClassifier);
+				result = caseAbstract(abstractSubcomponentType);
 			if (result == null)
-				result = caseAbstract(abstractClassifier);
+				result = caseSubcomponentType(abstractSubcomponentType);
 			if (result == null)
-				result = caseClassifier(abstractClassifier);
+				result = caseType(abstractSubcomponentType);
 			if (result == null)
-				result = caseNamespace(abstractClassifier);
+				result = caseNamedElement(abstractSubcomponentType);
 			if (result == null)
-				result = caseType(abstractClassifier);
-			if (result == null)
-				result = caseNamedElement(abstractClassifier);
-			if (result == null)
-				result = caseElement(abstractClassifier);
+				result = caseElement(abstractSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2399,6 +2280,8 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseClassifier(behavioredImplementation);
 			if (result == null)
+				result = caseSubcomponentType(behavioredImplementation);
+			if (result == null)
 				result = caseNamespace(behavioredImplementation);
 			if (result == null)
 				result = caseType(behavioredImplementation);
@@ -2441,9 +2324,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(abstractType);
 			if (result == null)
-				result = caseAbstract(abstractType);
+				result = caseAbstractSubcomponentType(abstractType);
 			if (result == null)
 				result = caseClassifier(abstractType);
+			if (result == null)
+				result = caseSubcomponentType(abstractType);
+			if (result == null)
+				result = caseAbstract(abstractType);
 			if (result == null)
 				result = caseNamespace(abstractType);
 			if (result == null)
@@ -2452,6 +2339,31 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(abstractType);
 			if (result == null)
 				result = caseElement(abstractType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.ABSTRACT_CLASSIFIER: {
+			AbstractClassifier abstractClassifier = (AbstractClassifier) theEObject;
+			T result = caseAbstractClassifier(abstractClassifier);
+			if (result == null)
+				result = caseComponentClassifier(abstractClassifier);
+			if (result == null)
+				result = caseAbstractSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseClassifier(abstractClassifier);
+			if (result == null)
+				result = caseSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseAbstract(abstractClassifier);
+			if (result == null)
+				result = caseNamespace(abstractClassifier);
+			if (result == null)
+				result = caseType(abstractClassifier);
+			if (result == null)
+				result = caseNamedElement(abstractClassifier);
+			if (result == null)
+				result = caseElement(abstractClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2466,11 +2378,15 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentImplementation(abstractImplementation);
 			if (result == null)
-				result = caseAbstract(abstractImplementation);
+				result = caseAbstractSubcomponentType(abstractImplementation);
 			if (result == null)
 				result = caseComponentClassifier(abstractImplementation);
 			if (result == null)
+				result = caseAbstract(abstractImplementation);
+			if (result == null)
 				result = caseClassifier(abstractImplementation);
+			if (result == null)
+				result = caseSubcomponentType(abstractImplementation);
 			if (result == null)
 				result = caseNamespace(abstractImplementation);
 			if (result == null)
@@ -2599,23 +2515,19 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.DEVICE_CLASSIFIER: {
-			DeviceClassifier deviceClassifier = (DeviceClassifier) theEObject;
-			T result = caseDeviceClassifier(deviceClassifier);
+		case Aadl2Package.DEVICE_SUBCOMPONENT_TYPE: {
+			DeviceSubcomponentType deviceSubcomponentType = (DeviceSubcomponentType) theEObject;
+			T result = caseDeviceSubcomponentType(deviceSubcomponentType);
 			if (result == null)
-				result = caseComponentClassifier(deviceClassifier);
+				result = caseDevice(deviceSubcomponentType);
 			if (result == null)
-				result = caseDevice(deviceClassifier);
+				result = caseSubcomponentType(deviceSubcomponentType);
 			if (result == null)
-				result = caseClassifier(deviceClassifier);
+				result = caseType(deviceSubcomponentType);
 			if (result == null)
-				result = caseNamespace(deviceClassifier);
+				result = caseNamedElement(deviceSubcomponentType);
 			if (result == null)
-				result = caseType(deviceClassifier);
-			if (result == null)
-				result = caseNamedElement(deviceClassifier);
-			if (result == null)
-				result = caseElement(deviceClassifier);
+				result = caseElement(deviceSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2662,23 +2574,19 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.MEMORY_CLASSIFIER: {
-			MemoryClassifier memoryClassifier = (MemoryClassifier) theEObject;
-			T result = caseMemoryClassifier(memoryClassifier);
+		case Aadl2Package.MEMORY_SUBCOMPONENT_TYPE: {
+			MemorySubcomponentType memorySubcomponentType = (MemorySubcomponentType) theEObject;
+			T result = caseMemorySubcomponentType(memorySubcomponentType);
 			if (result == null)
-				result = caseComponentClassifier(memoryClassifier);
+				result = caseMemory(memorySubcomponentType);
 			if (result == null)
-				result = caseMemory(memoryClassifier);
+				result = caseSubcomponentType(memorySubcomponentType);
 			if (result == null)
-				result = caseClassifier(memoryClassifier);
+				result = caseType(memorySubcomponentType);
 			if (result == null)
-				result = caseNamespace(memoryClassifier);
+				result = caseNamedElement(memorySubcomponentType);
 			if (result == null)
-				result = caseType(memoryClassifier);
-			if (result == null)
-				result = caseNamedElement(memoryClassifier);
-			if (result == null)
-				result = caseElement(memoryClassifier);
+				result = caseElement(memorySubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2725,23 +2633,19 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.PROCESS_CLASSIFIER: {
-			ProcessClassifier processClassifier = (ProcessClassifier) theEObject;
-			T result = caseProcessClassifier(processClassifier);
+		case Aadl2Package.PROCESS_SUBCOMPONENT_TYPE: {
+			ProcessSubcomponentType processSubcomponentType = (ProcessSubcomponentType) theEObject;
+			T result = caseProcessSubcomponentType(processSubcomponentType);
 			if (result == null)
-				result = caseComponentClassifier(processClassifier);
+				result = caseProcess(processSubcomponentType);
 			if (result == null)
-				result = caseProcess(processClassifier);
+				result = caseSubcomponentType(processSubcomponentType);
 			if (result == null)
-				result = caseClassifier(processClassifier);
+				result = caseType(processSubcomponentType);
 			if (result == null)
-				result = caseNamespace(processClassifier);
+				result = caseNamedElement(processSubcomponentType);
 			if (result == null)
-				result = caseType(processClassifier);
-			if (result == null)
-				result = caseNamedElement(processClassifier);
-			if (result == null)
-				result = caseElement(processClassifier);
+				result = caseElement(processSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2788,23 +2692,19 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.PROCESSOR_CLASSIFIER: {
-			ProcessorClassifier processorClassifier = (ProcessorClassifier) theEObject;
-			T result = caseProcessorClassifier(processorClassifier);
+		case Aadl2Package.PROCESSOR_SUBCOMPONENT_TYPE: {
+			ProcessorSubcomponentType processorSubcomponentType = (ProcessorSubcomponentType) theEObject;
+			T result = caseProcessorSubcomponentType(processorSubcomponentType);
 			if (result == null)
-				result = caseComponentClassifier(processorClassifier);
+				result = caseProcessor(processorSubcomponentType);
 			if (result == null)
-				result = caseProcessor(processorClassifier);
+				result = caseSubcomponentType(processorSubcomponentType);
 			if (result == null)
-				result = caseClassifier(processorClassifier);
+				result = caseType(processorSubcomponentType);
 			if (result == null)
-				result = caseNamespace(processorClassifier);
+				result = caseNamedElement(processorSubcomponentType);
 			if (result == null)
-				result = caseType(processorClassifier);
-			if (result == null)
-				result = caseNamedElement(processorClassifier);
-			if (result == null)
-				result = caseElement(processorClassifier);
+				result = caseElement(processorSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2851,23 +2751,19 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.SYSTEM_CLASSIFIER: {
-			SystemClassifier systemClassifier = (SystemClassifier) theEObject;
-			T result = caseSystemClassifier(systemClassifier);
+		case Aadl2Package.SYSTEM_SUBCOMPONENT_TYPE: {
+			SystemSubcomponentType systemSubcomponentType = (SystemSubcomponentType) theEObject;
+			T result = caseSystemSubcomponentType(systemSubcomponentType);
 			if (result == null)
-				result = caseComponentClassifier(systemClassifier);
+				result = caseSubcomponentType(systemSubcomponentType);
 			if (result == null)
-				result = caseSystem(systemClassifier);
+				result = caseSystem(systemSubcomponentType);
 			if (result == null)
-				result = caseClassifier(systemClassifier);
+				result = caseType(systemSubcomponentType);
 			if (result == null)
-				result = caseNamespace(systemClassifier);
+				result = caseNamedElement(systemSubcomponentType);
 			if (result == null)
-				result = caseType(systemClassifier);
-			if (result == null)
-				result = caseNamedElement(systemClassifier);
-			if (result == null)
-				result = caseElement(systemClassifier);
+				result = caseElement(systemSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2988,23 +2884,19 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.THREAD_CLASSIFIER: {
-			ThreadClassifier threadClassifier = (ThreadClassifier) theEObject;
-			T result = caseThreadClassifier(threadClassifier);
+		case Aadl2Package.THREAD_SUBCOMPONENT_TYPE: {
+			ThreadSubcomponentType threadSubcomponentType = (ThreadSubcomponentType) theEObject;
+			T result = caseThreadSubcomponentType(threadSubcomponentType);
 			if (result == null)
-				result = caseComponentClassifier(threadClassifier);
+				result = caseSubcomponentType(threadSubcomponentType);
 			if (result == null)
-				result = caseThread(threadClassifier);
+				result = caseThread(threadSubcomponentType);
 			if (result == null)
-				result = caseClassifier(threadClassifier);
+				result = caseType(threadSubcomponentType);
 			if (result == null)
-				result = caseNamespace(threadClassifier);
+				result = caseNamedElement(threadSubcomponentType);
 			if (result == null)
-				result = caseType(threadClassifier);
-			if (result == null)
-				result = caseNamedElement(threadClassifier);
-			if (result == null)
-				result = caseElement(threadClassifier);
+				result = caseElement(threadSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3051,23 +2943,19 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.THREAD_GROUP_CLASSIFIER: {
-			ThreadGroupClassifier threadGroupClassifier = (ThreadGroupClassifier) theEObject;
-			T result = caseThreadGroupClassifier(threadGroupClassifier);
+		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT_TYPE: {
+			ThreadGroupSubcomponentType threadGroupSubcomponentType = (ThreadGroupSubcomponentType) theEObject;
+			T result = caseThreadGroupSubcomponentType(threadGroupSubcomponentType);
 			if (result == null)
-				result = caseComponentClassifier(threadGroupClassifier);
+				result = caseSubcomponentType(threadGroupSubcomponentType);
 			if (result == null)
-				result = caseThreadGroup(threadGroupClassifier);
+				result = caseThreadGroup(threadGroupSubcomponentType);
 			if (result == null)
-				result = caseClassifier(threadGroupClassifier);
+				result = caseType(threadGroupSubcomponentType);
 			if (result == null)
-				result = caseNamespace(threadGroupClassifier);
+				result = caseNamedElement(threadGroupSubcomponentType);
 			if (result == null)
-				result = caseType(threadGroupClassifier);
-			if (result == null)
-				result = caseNamedElement(threadGroupClassifier);
-			if (result == null)
-				result = caseElement(threadGroupClassifier);
+				result = caseElement(threadGroupSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3114,23 +3002,19 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.VIRTUAL_BUS_CLASSIFIER: {
-			VirtualBusClassifier virtualBusClassifier = (VirtualBusClassifier) theEObject;
-			T result = caseVirtualBusClassifier(virtualBusClassifier);
+		case Aadl2Package.VITUAL_BUS_SUBCOMPONENT_TYPE: {
+			VitualBusSubcomponentType vitualBusSubcomponentType = (VitualBusSubcomponentType) theEObject;
+			T result = caseVitualBusSubcomponentType(vitualBusSubcomponentType);
 			if (result == null)
-				result = caseComponentClassifier(virtualBusClassifier);
+				result = caseSubcomponentType(vitualBusSubcomponentType);
 			if (result == null)
-				result = caseVirtualBus(virtualBusClassifier);
+				result = caseVirtualBus(vitualBusSubcomponentType);
 			if (result == null)
-				result = caseClassifier(virtualBusClassifier);
+				result = caseType(vitualBusSubcomponentType);
 			if (result == null)
-				result = caseNamespace(virtualBusClassifier);
+				result = caseNamedElement(vitualBusSubcomponentType);
 			if (result == null)
-				result = caseType(virtualBusClassifier);
-			if (result == null)
-				result = caseNamedElement(virtualBusClassifier);
-			if (result == null)
-				result = caseElement(virtualBusClassifier);
+				result = caseElement(vitualBusSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3177,23 +3061,102 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.VIRTUAL_PROCESSOR_CLASSIFIER: {
-			VirtualProcessorClassifier virtualProcessorClassifier = (VirtualProcessorClassifier) theEObject;
-			T result = caseVirtualProcessorClassifier(virtualProcessorClassifier);
+		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE: {
+			VirtualProcessorSubcomponentType virtualProcessorSubcomponentType = (VirtualProcessorSubcomponentType) theEObject;
+			T result = caseVirtualProcessorSubcomponentType(virtualProcessorSubcomponentType);
 			if (result == null)
-				result = caseComponentClassifier(virtualProcessorClassifier);
+				result = caseSubcomponentType(virtualProcessorSubcomponentType);
 			if (result == null)
-				result = caseVirtualProcessor(virtualProcessorClassifier);
+				result = caseVirtualProcessor(virtualProcessorSubcomponentType);
 			if (result == null)
-				result = caseClassifier(virtualProcessorClassifier);
+				result = caseType(virtualProcessorSubcomponentType);
 			if (result == null)
-				result = caseNamespace(virtualProcessorClassifier);
+				result = caseNamedElement(virtualProcessorSubcomponentType);
 			if (result == null)
-				result = caseType(virtualProcessorClassifier);
+				result = caseElement(virtualProcessorSubcomponentType);
 			if (result == null)
-				result = caseNamedElement(virtualProcessorClassifier);
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.ABSTRACT_PROTOTYPE: {
+			AbstractPrototype abstractPrototype = (AbstractPrototype) theEObject;
+			T result = caseAbstractPrototype(abstractPrototype);
 			if (result == null)
-				result = caseElement(virtualProcessorClassifier);
+				result = caseComponentPrototype(abstractPrototype);
+			if (result == null)
+				result = caseAbstractSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseBusSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseDataSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseDeviceSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseMemorySubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseProcessorSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseProcessSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseSubprogramGroupSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseSubprogramSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseSystemSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseThreadGroupSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseThreadSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseVirtualProcessorSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseVitualBusSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = casePrototype(abstractPrototype);
+			if (result == null)
+				result = caseSubcomponentType(abstractPrototype);
+			if (result == null)
+				result = caseAbstract(abstractPrototype);
+			if (result == null)
+				result = caseBus(abstractPrototype);
+			if (result == null)
+				result = caseData(abstractPrototype);
+			if (result == null)
+				result = caseDevice(abstractPrototype);
+			if (result == null)
+				result = caseMemory(abstractPrototype);
+			if (result == null)
+				result = caseProcessor(abstractPrototype);
+			if (result == null)
+				result = caseProcess(abstractPrototype);
+			if (result == null)
+				result = caseSubprogramGroup(abstractPrototype);
+			if (result == null)
+				result = caseSubprogram(abstractPrototype);
+			if (result == null)
+				result = caseSystem(abstractPrototype);
+			if (result == null)
+				result = caseThreadGroup(abstractPrototype);
+			if (result == null)
+				result = caseThread(abstractPrototype);
+			if (result == null)
+				result = caseVirtualProcessor(abstractPrototype);
+			if (result == null)
+				result = caseVirtualBus(abstractPrototype);
+			if (result == null)
+				result = caseStructuralFeature(abstractPrototype);
+			if (result == null)
+				result = caseType(abstractPrototype);
+			if (result == null)
+				result = caseCalledSubprogram(abstractPrototype);
+			if (result == null)
+				result = caseRefinableElement(abstractPrototype);
+			if (result == null)
+				result = caseClassifierFeature(abstractPrototype);
+			if (result == null)
+				result = caseNamedElement(abstractPrototype);
+			if (result == null)
+				result = caseElement(abstractPrototype);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3208,9 +3171,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(busType);
 			if (result == null)
-				result = caseBus(busType);
+				result = caseBusSubcomponentType(busType);
 			if (result == null)
 				result = caseClassifier(busType);
+			if (result == null)
+				result = caseSubcomponentType(busType);
+			if (result == null)
+				result = caseBus(busType);
 			if (result == null)
 				result = caseNamespace(busType);
 			if (result == null)
@@ -3233,9 +3200,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(busImplementation);
 			if (result == null)
-				result = caseBus(busImplementation);
+				result = caseBusSubcomponentType(busImplementation);
 			if (result == null)
 				result = caseClassifier(busImplementation);
+			if (result == null)
+				result = caseSubcomponentType(busImplementation);
+			if (result == null)
+				result = caseBus(busImplementation);
 			if (result == null)
 				result = caseNamespace(busImplementation);
 			if (result == null)
@@ -3244,6 +3215,35 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(busImplementation);
 			if (result == null)
 				result = caseElement(busImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.BUS_PROTOTYPE: {
+			BusPrototype busPrototype = (BusPrototype) theEObject;
+			T result = caseBusPrototype(busPrototype);
+			if (result == null)
+				result = caseComponentPrototype(busPrototype);
+			if (result == null)
+				result = caseBusSubcomponentType(busPrototype);
+			if (result == null)
+				result = casePrototype(busPrototype);
+			if (result == null)
+				result = caseSubcomponentType(busPrototype);
+			if (result == null)
+				result = caseBus(busPrototype);
+			if (result == null)
+				result = caseStructuralFeature(busPrototype);
+			if (result == null)
+				result = caseType(busPrototype);
+			if (result == null)
+				result = caseRefinableElement(busPrototype);
+			if (result == null)
+				result = caseClassifierFeature(busPrototype);
+			if (result == null)
+				result = caseNamedElement(busPrototype);
+			if (result == null)
+				result = caseElement(busPrototype);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3260,9 +3260,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(dataType);
 			if (result == null)
-				result = caseData(dataType);
+				result = caseDataSubcomponentType(dataType);
 			if (result == null)
 				result = caseClassifier(dataType);
+			if (result == null)
+				result = caseSubcomponentType(dataType);
+			if (result == null)
+				result = caseData(dataType);
 			if (result == null)
 				result = caseNamespace(dataType);
 			if (result == null)
@@ -3285,9 +3289,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(dataImplementation);
 			if (result == null)
-				result = caseData(dataImplementation);
+				result = caseDataSubcomponentType(dataImplementation);
 			if (result == null)
 				result = caseClassifier(dataImplementation);
+			if (result == null)
+				result = caseSubcomponentType(dataImplementation);
+			if (result == null)
+				result = caseData(dataImplementation);
 			if (result == null)
 				result = caseNamespace(dataImplementation);
 			if (result == null)
@@ -3296,6 +3304,60 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(dataImplementation);
 			if (result == null)
 				result = caseElement(dataImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.DATA_PROTOTYPE: {
+			DataPrototype dataPrototype = (DataPrototype) theEObject;
+			T result = caseDataPrototype(dataPrototype);
+			if (result == null)
+				result = caseComponentPrototype(dataPrototype);
+			if (result == null)
+				result = caseDataSubcomponentType(dataPrototype);
+			if (result == null)
+				result = casePrototype(dataPrototype);
+			if (result == null)
+				result = caseSubcomponentType(dataPrototype);
+			if (result == null)
+				result = caseData(dataPrototype);
+			if (result == null)
+				result = caseStructuralFeature(dataPrototype);
+			if (result == null)
+				result = caseType(dataPrototype);
+			if (result == null)
+				result = caseRefinableElement(dataPrototype);
+			if (result == null)
+				result = caseClassifierFeature(dataPrototype);
+			if (result == null)
+				result = caseNamedElement(dataPrototype);
+			if (result == null)
+				result = caseElement(dataPrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.DEVICE_CLASSIFIER: {
+			DeviceClassifier deviceClassifier = (DeviceClassifier) theEObject;
+			T result = caseDeviceClassifier(deviceClassifier);
+			if (result == null)
+				result = caseComponentClassifier(deviceClassifier);
+			if (result == null)
+				result = caseDeviceSubcomponentType(deviceClassifier);
+			if (result == null)
+				result = caseClassifier(deviceClassifier);
+			if (result == null)
+				result = caseSubcomponentType(deviceClassifier);
+			if (result == null)
+				result = caseDevice(deviceClassifier);
+			if (result == null)
+				result = caseNamespace(deviceClassifier);
+			if (result == null)
+				result = caseType(deviceClassifier);
+			if (result == null)
+				result = caseNamedElement(deviceClassifier);
+			if (result == null)
+				result = caseElement(deviceClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3310,9 +3372,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(deviceType);
 			if (result == null)
-				result = caseDevice(deviceType);
+				result = caseDeviceSubcomponentType(deviceType);
 			if (result == null)
 				result = caseClassifier(deviceType);
+			if (result == null)
+				result = caseSubcomponentType(deviceType);
+			if (result == null)
+				result = caseDevice(deviceType);
 			if (result == null)
 				result = caseNamespace(deviceType);
 			if (result == null)
@@ -3335,9 +3401,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(deviceImplementation);
 			if (result == null)
-				result = caseDevice(deviceImplementation);
+				result = caseDeviceSubcomponentType(deviceImplementation);
 			if (result == null)
 				result = caseClassifier(deviceImplementation);
+			if (result == null)
+				result = caseSubcomponentType(deviceImplementation);
+			if (result == null)
+				result = caseDevice(deviceImplementation);
 			if (result == null)
 				result = caseNamespace(deviceImplementation);
 			if (result == null)
@@ -3346,6 +3416,60 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(deviceImplementation);
 			if (result == null)
 				result = caseElement(deviceImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.DEVICE_PROTOTYPE: {
+			DevicePrototype devicePrototype = (DevicePrototype) theEObject;
+			T result = caseDevicePrototype(devicePrototype);
+			if (result == null)
+				result = caseComponentPrototype(devicePrototype);
+			if (result == null)
+				result = caseDeviceSubcomponentType(devicePrototype);
+			if (result == null)
+				result = casePrototype(devicePrototype);
+			if (result == null)
+				result = caseSubcomponentType(devicePrototype);
+			if (result == null)
+				result = caseDevice(devicePrototype);
+			if (result == null)
+				result = caseStructuralFeature(devicePrototype);
+			if (result == null)
+				result = caseType(devicePrototype);
+			if (result == null)
+				result = caseRefinableElement(devicePrototype);
+			if (result == null)
+				result = caseClassifierFeature(devicePrototype);
+			if (result == null)
+				result = caseNamedElement(devicePrototype);
+			if (result == null)
+				result = caseElement(devicePrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.MEMORY_CLASSIFIER: {
+			MemoryClassifier memoryClassifier = (MemoryClassifier) theEObject;
+			T result = caseMemoryClassifier(memoryClassifier);
+			if (result == null)
+				result = caseComponentClassifier(memoryClassifier);
+			if (result == null)
+				result = caseMemorySubcomponentType(memoryClassifier);
+			if (result == null)
+				result = caseClassifier(memoryClassifier);
+			if (result == null)
+				result = caseSubcomponentType(memoryClassifier);
+			if (result == null)
+				result = caseMemory(memoryClassifier);
+			if (result == null)
+				result = caseNamespace(memoryClassifier);
+			if (result == null)
+				result = caseType(memoryClassifier);
+			if (result == null)
+				result = caseNamedElement(memoryClassifier);
+			if (result == null)
+				result = caseElement(memoryClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3360,9 +3484,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(memoryType);
 			if (result == null)
-				result = caseMemory(memoryType);
+				result = caseMemorySubcomponentType(memoryType);
 			if (result == null)
 				result = caseClassifier(memoryType);
+			if (result == null)
+				result = caseSubcomponentType(memoryType);
+			if (result == null)
+				result = caseMemory(memoryType);
 			if (result == null)
 				result = caseNamespace(memoryType);
 			if (result == null)
@@ -3385,9 +3513,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(memoryImplementation);
 			if (result == null)
-				result = caseMemory(memoryImplementation);
+				result = caseMemorySubcomponentType(memoryImplementation);
 			if (result == null)
 				result = caseClassifier(memoryImplementation);
+			if (result == null)
+				result = caseSubcomponentType(memoryImplementation);
+			if (result == null)
+				result = caseMemory(memoryImplementation);
 			if (result == null)
 				result = caseNamespace(memoryImplementation);
 			if (result == null)
@@ -3396,6 +3528,35 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(memoryImplementation);
 			if (result == null)
 				result = caseElement(memoryImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.MEMORY_PROTOTYPE: {
+			MemoryPrototype memoryPrototype = (MemoryPrototype) theEObject;
+			T result = caseMemoryPrototype(memoryPrototype);
+			if (result == null)
+				result = caseComponentPrototype(memoryPrototype);
+			if (result == null)
+				result = caseMemorySubcomponentType(memoryPrototype);
+			if (result == null)
+				result = casePrototype(memoryPrototype);
+			if (result == null)
+				result = caseSubcomponentType(memoryPrototype);
+			if (result == null)
+				result = caseMemory(memoryPrototype);
+			if (result == null)
+				result = caseStructuralFeature(memoryPrototype);
+			if (result == null)
+				result = caseType(memoryPrototype);
+			if (result == null)
+				result = caseRefinableElement(memoryPrototype);
+			if (result == null)
+				result = caseClassifierFeature(memoryPrototype);
+			if (result == null)
+				result = caseNamedElement(memoryPrototype);
+			if (result == null)
+				result = caseElement(memoryPrototype);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3410,15 +3571,19 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(subprogramType);
 			if (result == null)
-				result = caseSubprogram(subprogramType);
+				result = caseSubprogramSubcomponentType(subprogramType);
 			if (result == null)
 				result = caseClassifier(subprogramType);
 			if (result == null)
-				result = caseCalledSubprogram(subprogramType);
+				result = caseSubcomponentType(subprogramType);
+			if (result == null)
+				result = caseSubprogram(subprogramType);
 			if (result == null)
 				result = caseNamespace(subprogramType);
 			if (result == null)
 				result = caseType(subprogramType);
+			if (result == null)
+				result = caseCalledSubprogram(subprogramType);
 			if (result == null)
 				result = caseNamedElement(subprogramType);
 			if (result == null)
@@ -3437,13 +3602,17 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentImplementation(subprogramImplementation);
 			if (result == null)
-				result = caseSubprogram(subprogramImplementation);
+				result = caseSubprogramSubcomponentType(subprogramImplementation);
 			if (result == null)
 				result = caseComponentClassifier(subprogramImplementation);
 			if (result == null)
-				result = caseCalledSubprogram(subprogramImplementation);
+				result = caseSubprogram(subprogramImplementation);
 			if (result == null)
 				result = caseClassifier(subprogramImplementation);
+			if (result == null)
+				result = caseSubcomponentType(subprogramImplementation);
+			if (result == null)
+				result = caseCalledSubprogram(subprogramImplementation);
 			if (result == null)
 				result = caseNamespace(subprogramImplementation);
 			if (result == null)
@@ -3452,6 +3621,37 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(subprogramImplementation);
 			if (result == null)
 				result = caseElement(subprogramImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM_PROTOTYPE: {
+			SubprogramPrototype subprogramPrototype = (SubprogramPrototype) theEObject;
+			T result = caseSubprogramPrototype(subprogramPrototype);
+			if (result == null)
+				result = caseComponentPrototype(subprogramPrototype);
+			if (result == null)
+				result = caseSubprogramSubcomponentType(subprogramPrototype);
+			if (result == null)
+				result = casePrototype(subprogramPrototype);
+			if (result == null)
+				result = caseSubcomponentType(subprogramPrototype);
+			if (result == null)
+				result = caseSubprogram(subprogramPrototype);
+			if (result == null)
+				result = caseStructuralFeature(subprogramPrototype);
+			if (result == null)
+				result = caseType(subprogramPrototype);
+			if (result == null)
+				result = caseCalledSubprogram(subprogramPrototype);
+			if (result == null)
+				result = caseRefinableElement(subprogramPrototype);
+			if (result == null)
+				result = caseClassifierFeature(subprogramPrototype);
+			if (result == null)
+				result = caseNamedElement(subprogramPrototype);
+			if (result == null)
+				result = caseElement(subprogramPrototype);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3468,9 +3668,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(subprogramGroupType);
 			if (result == null)
-				result = caseSubprogramGroup(subprogramGroupType);
+				result = caseSubprogramGroupSubcomponentType(subprogramGroupType);
 			if (result == null)
 				result = caseClassifier(subprogramGroupType);
+			if (result == null)
+				result = caseSubcomponentType(subprogramGroupType);
+			if (result == null)
+				result = caseSubprogramGroup(subprogramGroupType);
 			if (result == null)
 				result = caseNamespace(subprogramGroupType);
 			if (result == null)
@@ -3493,9 +3697,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(subprogramGroupImplementation);
 			if (result == null)
-				result = caseSubprogramGroup(subprogramGroupImplementation);
+				result = caseSubprogramGroupSubcomponentType(subprogramGroupImplementation);
 			if (result == null)
 				result = caseClassifier(subprogramGroupImplementation);
+			if (result == null)
+				result = caseSubcomponentType(subprogramGroupImplementation);
+			if (result == null)
+				result = caseSubprogramGroup(subprogramGroupImplementation);
 			if (result == null)
 				result = caseNamespace(subprogramGroupImplementation);
 			if (result == null)
@@ -3504,6 +3712,60 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(subprogramGroupImplementation);
 			if (result == null)
 				result = caseElement(subprogramGroupImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM_GROUP_PROTOTYPE: {
+			SubprogramGroupPrototype subprogramGroupPrototype = (SubprogramGroupPrototype) theEObject;
+			T result = caseSubprogramGroupPrototype(subprogramGroupPrototype);
+			if (result == null)
+				result = caseComponentPrototype(subprogramGroupPrototype);
+			if (result == null)
+				result = caseSubprogramGroupSubcomponentType(subprogramGroupPrototype);
+			if (result == null)
+				result = casePrototype(subprogramGroupPrototype);
+			if (result == null)
+				result = caseSubcomponentType(subprogramGroupPrototype);
+			if (result == null)
+				result = caseSubprogramGroup(subprogramGroupPrototype);
+			if (result == null)
+				result = caseStructuralFeature(subprogramGroupPrototype);
+			if (result == null)
+				result = caseType(subprogramGroupPrototype);
+			if (result == null)
+				result = caseRefinableElement(subprogramGroupPrototype);
+			if (result == null)
+				result = caseClassifierFeature(subprogramGroupPrototype);
+			if (result == null)
+				result = caseNamedElement(subprogramGroupPrototype);
+			if (result == null)
+				result = caseElement(subprogramGroupPrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SYSTEM_CLASSIFIER: {
+			SystemClassifier systemClassifier = (SystemClassifier) theEObject;
+			T result = caseSystemClassifier(systemClassifier);
+			if (result == null)
+				result = caseComponentClassifier(systemClassifier);
+			if (result == null)
+				result = caseSystemSubcomponentType(systemClassifier);
+			if (result == null)
+				result = caseClassifier(systemClassifier);
+			if (result == null)
+				result = caseSubcomponentType(systemClassifier);
+			if (result == null)
+				result = caseSystem(systemClassifier);
+			if (result == null)
+				result = caseNamespace(systemClassifier);
+			if (result == null)
+				result = caseType(systemClassifier);
+			if (result == null)
+				result = caseNamedElement(systemClassifier);
+			if (result == null)
+				result = caseElement(systemClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3518,9 +3780,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(systemType);
 			if (result == null)
-				result = caseSystem(systemType);
+				result = caseSystemSubcomponentType(systemType);
 			if (result == null)
 				result = caseClassifier(systemType);
+			if (result == null)
+				result = caseSubcomponentType(systemType);
+			if (result == null)
+				result = caseSystem(systemType);
 			if (result == null)
 				result = caseNamespace(systemType);
 			if (result == null)
@@ -3543,9 +3809,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(systemImplementation);
 			if (result == null)
-				result = caseSystem(systemImplementation);
+				result = caseSystemSubcomponentType(systemImplementation);
 			if (result == null)
 				result = caseClassifier(systemImplementation);
+			if (result == null)
+				result = caseSubcomponentType(systemImplementation);
+			if (result == null)
+				result = caseSystem(systemImplementation);
 			if (result == null)
 				result = caseNamespace(systemImplementation);
 			if (result == null)
@@ -3554,6 +3824,60 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(systemImplementation);
 			if (result == null)
 				result = caseElement(systemImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SYSTEM_PROTOTYPE: {
+			SystemPrototype systemPrototype = (SystemPrototype) theEObject;
+			T result = caseSystemPrototype(systemPrototype);
+			if (result == null)
+				result = caseComponentPrototype(systemPrototype);
+			if (result == null)
+				result = caseSystemSubcomponentType(systemPrototype);
+			if (result == null)
+				result = casePrototype(systemPrototype);
+			if (result == null)
+				result = caseSubcomponentType(systemPrototype);
+			if (result == null)
+				result = caseSystem(systemPrototype);
+			if (result == null)
+				result = caseStructuralFeature(systemPrototype);
+			if (result == null)
+				result = caseType(systemPrototype);
+			if (result == null)
+				result = caseRefinableElement(systemPrototype);
+			if (result == null)
+				result = caseClassifierFeature(systemPrototype);
+			if (result == null)
+				result = caseNamedElement(systemPrototype);
+			if (result == null)
+				result = caseElement(systemPrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESSOR_CLASSIFIER: {
+			ProcessorClassifier processorClassifier = (ProcessorClassifier) theEObject;
+			T result = caseProcessorClassifier(processorClassifier);
+			if (result == null)
+				result = caseComponentClassifier(processorClassifier);
+			if (result == null)
+				result = caseProcessorSubcomponentType(processorClassifier);
+			if (result == null)
+				result = caseClassifier(processorClassifier);
+			if (result == null)
+				result = caseSubcomponentType(processorClassifier);
+			if (result == null)
+				result = caseProcessor(processorClassifier);
+			if (result == null)
+				result = caseNamespace(processorClassifier);
+			if (result == null)
+				result = caseType(processorClassifier);
+			if (result == null)
+				result = caseNamedElement(processorClassifier);
+			if (result == null)
+				result = caseElement(processorClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3568,9 +3892,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(processorType);
 			if (result == null)
-				result = caseProcessor(processorType);
+				result = caseProcessorSubcomponentType(processorType);
 			if (result == null)
 				result = caseClassifier(processorType);
+			if (result == null)
+				result = caseSubcomponentType(processorType);
+			if (result == null)
+				result = caseProcessor(processorType);
 			if (result == null)
 				result = caseNamespace(processorType);
 			if (result == null)
@@ -3593,9 +3921,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(processorImplementation);
 			if (result == null)
-				result = caseProcessor(processorImplementation);
+				result = caseProcessorSubcomponentType(processorImplementation);
 			if (result == null)
 				result = caseClassifier(processorImplementation);
+			if (result == null)
+				result = caseSubcomponentType(processorImplementation);
+			if (result == null)
+				result = caseProcessor(processorImplementation);
 			if (result == null)
 				result = caseNamespace(processorImplementation);
 			if (result == null)
@@ -3604,6 +3936,60 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(processorImplementation);
 			if (result == null)
 				result = caseElement(processorImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESSOR_PROTOTYPE: {
+			ProcessorPrototype processorPrototype = (ProcessorPrototype) theEObject;
+			T result = caseProcessorPrototype(processorPrototype);
+			if (result == null)
+				result = caseComponentPrototype(processorPrototype);
+			if (result == null)
+				result = caseProcessorSubcomponentType(processorPrototype);
+			if (result == null)
+				result = casePrototype(processorPrototype);
+			if (result == null)
+				result = caseSubcomponentType(processorPrototype);
+			if (result == null)
+				result = caseProcessor(processorPrototype);
+			if (result == null)
+				result = caseStructuralFeature(processorPrototype);
+			if (result == null)
+				result = caseType(processorPrototype);
+			if (result == null)
+				result = caseRefinableElement(processorPrototype);
+			if (result == null)
+				result = caseClassifierFeature(processorPrototype);
+			if (result == null)
+				result = caseNamedElement(processorPrototype);
+			if (result == null)
+				result = caseElement(processorPrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESS_CLASSIFIER: {
+			ProcessClassifier processClassifier = (ProcessClassifier) theEObject;
+			T result = caseProcessClassifier(processClassifier);
+			if (result == null)
+				result = caseComponentClassifier(processClassifier);
+			if (result == null)
+				result = caseProcessSubcomponentType(processClassifier);
+			if (result == null)
+				result = caseClassifier(processClassifier);
+			if (result == null)
+				result = caseSubcomponentType(processClassifier);
+			if (result == null)
+				result = caseProcess(processClassifier);
+			if (result == null)
+				result = caseNamespace(processClassifier);
+			if (result == null)
+				result = caseType(processClassifier);
+			if (result == null)
+				result = caseNamedElement(processClassifier);
+			if (result == null)
+				result = caseElement(processClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3618,9 +4004,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(processType);
 			if (result == null)
-				result = caseProcess(processType);
+				result = caseProcessSubcomponentType(processType);
 			if (result == null)
 				result = caseClassifier(processType);
+			if (result == null)
+				result = caseSubcomponentType(processType);
+			if (result == null)
+				result = caseProcess(processType);
 			if (result == null)
 				result = caseNamespace(processType);
 			if (result == null)
@@ -3643,9 +4033,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(processImplementation);
 			if (result == null)
-				result = caseProcess(processImplementation);
+				result = caseProcessSubcomponentType(processImplementation);
 			if (result == null)
 				result = caseClassifier(processImplementation);
+			if (result == null)
+				result = caseSubcomponentType(processImplementation);
+			if (result == null)
+				result = caseProcess(processImplementation);
 			if (result == null)
 				result = caseNamespace(processImplementation);
 			if (result == null)
@@ -3654,6 +4048,60 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(processImplementation);
 			if (result == null)
 				result = caseElement(processImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESS_PROTOTYPE: {
+			ProcessPrototype processPrototype = (ProcessPrototype) theEObject;
+			T result = caseProcessPrototype(processPrototype);
+			if (result == null)
+				result = caseComponentPrototype(processPrototype);
+			if (result == null)
+				result = caseProcessSubcomponentType(processPrototype);
+			if (result == null)
+				result = casePrototype(processPrototype);
+			if (result == null)
+				result = caseSubcomponentType(processPrototype);
+			if (result == null)
+				result = caseProcess(processPrototype);
+			if (result == null)
+				result = caseStructuralFeature(processPrototype);
+			if (result == null)
+				result = caseType(processPrototype);
+			if (result == null)
+				result = caseRefinableElement(processPrototype);
+			if (result == null)
+				result = caseClassifierFeature(processPrototype);
+			if (result == null)
+				result = caseNamedElement(processPrototype);
+			if (result == null)
+				result = caseElement(processPrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.THREAD_CLASSIFIER: {
+			ThreadClassifier threadClassifier = (ThreadClassifier) theEObject;
+			T result = caseThreadClassifier(threadClassifier);
+			if (result == null)
+				result = caseComponentClassifier(threadClassifier);
+			if (result == null)
+				result = caseThreadSubcomponentType(threadClassifier);
+			if (result == null)
+				result = caseClassifier(threadClassifier);
+			if (result == null)
+				result = caseSubcomponentType(threadClassifier);
+			if (result == null)
+				result = caseThread(threadClassifier);
+			if (result == null)
+				result = caseNamespace(threadClassifier);
+			if (result == null)
+				result = caseType(threadClassifier);
+			if (result == null)
+				result = caseNamedElement(threadClassifier);
+			if (result == null)
+				result = caseElement(threadClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3668,9 +4116,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(threadType);
 			if (result == null)
-				result = caseThread(threadType);
+				result = caseThreadSubcomponentType(threadType);
 			if (result == null)
 				result = caseClassifier(threadType);
+			if (result == null)
+				result = caseSubcomponentType(threadType);
+			if (result == null)
+				result = caseThread(threadType);
 			if (result == null)
 				result = caseNamespace(threadType);
 			if (result == null)
@@ -3693,11 +4145,15 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentImplementation(threadImplementation);
 			if (result == null)
-				result = caseThread(threadImplementation);
+				result = caseThreadSubcomponentType(threadImplementation);
 			if (result == null)
 				result = caseComponentClassifier(threadImplementation);
 			if (result == null)
+				result = caseThread(threadImplementation);
+			if (result == null)
 				result = caseClassifier(threadImplementation);
+			if (result == null)
+				result = caseSubcomponentType(threadImplementation);
 			if (result == null)
 				result = caseNamespace(threadImplementation);
 			if (result == null)
@@ -3706,6 +4162,60 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(threadImplementation);
 			if (result == null)
 				result = caseElement(threadImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.THREAD_PROTOTYPE: {
+			ThreadPrototype threadPrototype = (ThreadPrototype) theEObject;
+			T result = caseThreadPrototype(threadPrototype);
+			if (result == null)
+				result = caseComponentPrototype(threadPrototype);
+			if (result == null)
+				result = caseThreadSubcomponentType(threadPrototype);
+			if (result == null)
+				result = casePrototype(threadPrototype);
+			if (result == null)
+				result = caseSubcomponentType(threadPrototype);
+			if (result == null)
+				result = caseThread(threadPrototype);
+			if (result == null)
+				result = caseStructuralFeature(threadPrototype);
+			if (result == null)
+				result = caseType(threadPrototype);
+			if (result == null)
+				result = caseRefinableElement(threadPrototype);
+			if (result == null)
+				result = caseClassifierFeature(threadPrototype);
+			if (result == null)
+				result = caseNamedElement(threadPrototype);
+			if (result == null)
+				result = caseElement(threadPrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.THREAD_GROUP_CLASSIFIER: {
+			ThreadGroupClassifier threadGroupClassifier = (ThreadGroupClassifier) theEObject;
+			T result = caseThreadGroupClassifier(threadGroupClassifier);
+			if (result == null)
+				result = caseComponentClassifier(threadGroupClassifier);
+			if (result == null)
+				result = caseThreadGroupSubcomponentType(threadGroupClassifier);
+			if (result == null)
+				result = caseClassifier(threadGroupClassifier);
+			if (result == null)
+				result = caseSubcomponentType(threadGroupClassifier);
+			if (result == null)
+				result = caseThreadGroup(threadGroupClassifier);
+			if (result == null)
+				result = caseNamespace(threadGroupClassifier);
+			if (result == null)
+				result = caseType(threadGroupClassifier);
+			if (result == null)
+				result = caseNamedElement(threadGroupClassifier);
+			if (result == null)
+				result = caseElement(threadGroupClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3720,9 +4230,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(threadGroupType);
 			if (result == null)
-				result = caseThreadGroup(threadGroupType);
+				result = caseThreadGroupSubcomponentType(threadGroupType);
 			if (result == null)
 				result = caseClassifier(threadGroupType);
+			if (result == null)
+				result = caseSubcomponentType(threadGroupType);
+			if (result == null)
+				result = caseThreadGroup(threadGroupType);
 			if (result == null)
 				result = caseNamespace(threadGroupType);
 			if (result == null)
@@ -3745,9 +4259,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(threadGroupImplementation);
 			if (result == null)
-				result = caseThreadGroup(threadGroupImplementation);
+				result = caseThreadGroupSubcomponentType(threadGroupImplementation);
 			if (result == null)
 				result = caseClassifier(threadGroupImplementation);
+			if (result == null)
+				result = caseSubcomponentType(threadGroupImplementation);
+			if (result == null)
+				result = caseThreadGroup(threadGroupImplementation);
 			if (result == null)
 				result = caseNamespace(threadGroupImplementation);
 			if (result == null)
@@ -3756,6 +4274,60 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(threadGroupImplementation);
 			if (result == null)
 				result = caseElement(threadGroupImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.THREAD_GROUP_PROTOTYPE: {
+			ThreadGroupPrototype threadGroupPrototype = (ThreadGroupPrototype) theEObject;
+			T result = caseThreadGroupPrototype(threadGroupPrototype);
+			if (result == null)
+				result = caseComponentPrototype(threadGroupPrototype);
+			if (result == null)
+				result = caseThreadGroupSubcomponentType(threadGroupPrototype);
+			if (result == null)
+				result = casePrototype(threadGroupPrototype);
+			if (result == null)
+				result = caseSubcomponentType(threadGroupPrototype);
+			if (result == null)
+				result = caseThreadGroup(threadGroupPrototype);
+			if (result == null)
+				result = caseStructuralFeature(threadGroupPrototype);
+			if (result == null)
+				result = caseType(threadGroupPrototype);
+			if (result == null)
+				result = caseRefinableElement(threadGroupPrototype);
+			if (result == null)
+				result = caseClassifierFeature(threadGroupPrototype);
+			if (result == null)
+				result = caseNamedElement(threadGroupPrototype);
+			if (result == null)
+				result = caseElement(threadGroupPrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.VIRTUAL_BUS_CLASSIFIER: {
+			VirtualBusClassifier virtualBusClassifier = (VirtualBusClassifier) theEObject;
+			T result = caseVirtualBusClassifier(virtualBusClassifier);
+			if (result == null)
+				result = caseComponentClassifier(virtualBusClassifier);
+			if (result == null)
+				result = caseVitualBusSubcomponentType(virtualBusClassifier);
+			if (result == null)
+				result = caseClassifier(virtualBusClassifier);
+			if (result == null)
+				result = caseSubcomponentType(virtualBusClassifier);
+			if (result == null)
+				result = caseVirtualBus(virtualBusClassifier);
+			if (result == null)
+				result = caseNamespace(virtualBusClassifier);
+			if (result == null)
+				result = caseType(virtualBusClassifier);
+			if (result == null)
+				result = caseNamedElement(virtualBusClassifier);
+			if (result == null)
+				result = caseElement(virtualBusClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3770,9 +4342,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(virtualBusType);
 			if (result == null)
-				result = caseVirtualBus(virtualBusType);
+				result = caseVitualBusSubcomponentType(virtualBusType);
 			if (result == null)
 				result = caseClassifier(virtualBusType);
+			if (result == null)
+				result = caseSubcomponentType(virtualBusType);
+			if (result == null)
+				result = caseVirtualBus(virtualBusType);
 			if (result == null)
 				result = caseNamespace(virtualBusType);
 			if (result == null)
@@ -3795,9 +4371,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(virtualBusImplementation);
 			if (result == null)
-				result = caseVirtualBus(virtualBusImplementation);
+				result = caseVitualBusSubcomponentType(virtualBusImplementation);
 			if (result == null)
 				result = caseClassifier(virtualBusImplementation);
+			if (result == null)
+				result = caseSubcomponentType(virtualBusImplementation);
+			if (result == null)
+				result = caseVirtualBus(virtualBusImplementation);
 			if (result == null)
 				result = caseNamespace(virtualBusImplementation);
 			if (result == null)
@@ -3806,6 +4386,60 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(virtualBusImplementation);
 			if (result == null)
 				result = caseElement(virtualBusImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.VIRTUAL_BUS_PROTOTYPE: {
+			VirtualBusPrototype virtualBusPrototype = (VirtualBusPrototype) theEObject;
+			T result = caseVirtualBusPrototype(virtualBusPrototype);
+			if (result == null)
+				result = caseComponentPrototype(virtualBusPrototype);
+			if (result == null)
+				result = caseVitualBusSubcomponentType(virtualBusPrototype);
+			if (result == null)
+				result = casePrototype(virtualBusPrototype);
+			if (result == null)
+				result = caseSubcomponentType(virtualBusPrototype);
+			if (result == null)
+				result = caseVirtualBus(virtualBusPrototype);
+			if (result == null)
+				result = caseStructuralFeature(virtualBusPrototype);
+			if (result == null)
+				result = caseType(virtualBusPrototype);
+			if (result == null)
+				result = caseRefinableElement(virtualBusPrototype);
+			if (result == null)
+				result = caseClassifierFeature(virtualBusPrototype);
+			if (result == null)
+				result = caseNamedElement(virtualBusPrototype);
+			if (result == null)
+				result = caseElement(virtualBusPrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.VIRTUAL_PROCESSOR_CLASSIFIER: {
+			VirtualProcessorClassifier virtualProcessorClassifier = (VirtualProcessorClassifier) theEObject;
+			T result = caseVirtualProcessorClassifier(virtualProcessorClassifier);
+			if (result == null)
+				result = caseComponentClassifier(virtualProcessorClassifier);
+			if (result == null)
+				result = caseVirtualProcessorSubcomponentType(virtualProcessorClassifier);
+			if (result == null)
+				result = caseClassifier(virtualProcessorClassifier);
+			if (result == null)
+				result = caseSubcomponentType(virtualProcessorClassifier);
+			if (result == null)
+				result = caseVirtualProcessor(virtualProcessorClassifier);
+			if (result == null)
+				result = caseNamespace(virtualProcessorClassifier);
+			if (result == null)
+				result = caseType(virtualProcessorClassifier);
+			if (result == null)
+				result = caseNamedElement(virtualProcessorClassifier);
+			if (result == null)
+				result = caseElement(virtualProcessorClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3820,9 +4454,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(virtualProcessorType);
 			if (result == null)
-				result = caseVirtualProcessor(virtualProcessorType);
+				result = caseVirtualProcessorSubcomponentType(virtualProcessorType);
 			if (result == null)
 				result = caseClassifier(virtualProcessorType);
+			if (result == null)
+				result = caseSubcomponentType(virtualProcessorType);
+			if (result == null)
+				result = caseVirtualProcessor(virtualProcessorType);
 			if (result == null)
 				result = caseNamespace(virtualProcessorType);
 			if (result == null)
@@ -3845,9 +4483,13 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseComponentClassifier(virtualProcessorImplementation);
 			if (result == null)
-				result = caseVirtualProcessor(virtualProcessorImplementation);
+				result = caseVirtualProcessorSubcomponentType(virtualProcessorImplementation);
 			if (result == null)
 				result = caseClassifier(virtualProcessorImplementation);
+			if (result == null)
+				result = caseSubcomponentType(virtualProcessorImplementation);
+			if (result == null)
+				result = caseVirtualProcessor(virtualProcessorImplementation);
 			if (result == null)
 				result = caseNamespace(virtualProcessorImplementation);
 			if (result == null)
@@ -3856,6 +4498,35 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(virtualProcessorImplementation);
 			if (result == null)
 				result = caseElement(virtualProcessorImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.VIRTUAL_PROCESSOR_PROTOTYPE: {
+			VirtualProcessorPrototype virtualProcessorPrototype = (VirtualProcessorPrototype) theEObject;
+			T result = caseVirtualProcessorPrototype(virtualProcessorPrototype);
+			if (result == null)
+				result = caseComponentPrototype(virtualProcessorPrototype);
+			if (result == null)
+				result = caseVirtualProcessorSubcomponentType(virtualProcessorPrototype);
+			if (result == null)
+				result = casePrototype(virtualProcessorPrototype);
+			if (result == null)
+				result = caseSubcomponentType(virtualProcessorPrototype);
+			if (result == null)
+				result = caseVirtualProcessor(virtualProcessorPrototype);
+			if (result == null)
+				result = caseStructuralFeature(virtualProcessorPrototype);
+			if (result == null)
+				result = caseType(virtualProcessorPrototype);
+			if (result == null)
+				result = caseRefinableElement(virtualProcessorPrototype);
+			if (result == null)
+				result = caseClassifierFeature(virtualProcessorPrototype);
+			if (result == null)
+				result = caseNamedElement(virtualProcessorPrototype);
+			if (result == null)
+				result = caseElement(virtualProcessorPrototype);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -4623,6 +5294,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSubcomponentType(SubcomponentType object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Mode</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -4859,6 +5545,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseModeBinding(ModeBinding object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractSubcomponentType(AbstractSubcomponentType object) {
 		return null;
 	}
 
@@ -6018,6 +6719,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Data Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Data Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDataSubcomponentType(DataSubcomponentType object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Data</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -6078,6 +6794,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Bus Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Bus Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBusSubcomponentType(BusSubcomponentType object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Bus</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -6134,6 +6865,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseSubprogramClassifier(SubprogramClassifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Subprogram Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Subprogram Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSubprogramSubcomponentType(SubprogramSubcomponentType object) {
 		return null;
 	}
 
@@ -6243,6 +6989,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Subprogram Group Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Subprogram Group Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Subprogram Group</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -6284,6 +7045,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseDevice(Device object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Device Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Device Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDeviceSubcomponentType(DeviceSubcomponentType object) {
 		return null;
 	}
 
@@ -6344,6 +7120,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseDeviceImplementation(DeviceImplementation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Device Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Device Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDevicePrototype(DevicePrototype object) {
 		return null;
 	}
 
@@ -6468,6 +7259,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Memory Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Memory Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMemorySubcomponentType(MemorySubcomponentType object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Memory Classifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -6509,6 +7315,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseProcess(org.osate.aadl2.Process object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Process Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Process Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseProcessSubcomponentType(ProcessSubcomponentType object) {
 		return null;
 	}
 
@@ -6558,6 +7379,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Processor Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Processor Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseProcessorSubcomponentType(ProcessorSubcomponentType object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Processor Classifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -6599,6 +7435,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseSystem(org.osate.aadl2.System object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>System Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>System Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSystemSubcomponentType(SystemSubcomponentType object) {
 		return null;
 	}
 
@@ -6678,6 +7529,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Thread Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Thread Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseThreadSubcomponentType(ThreadSubcomponentType object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Thread Classifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -6719,6 +7585,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseThreadGroup(org.osate.aadl2.ThreadGroup object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Thread Group Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Thread Group Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseThreadGroupSubcomponentType(ThreadGroupSubcomponentType object) {
 		return null;
 	}
 
@@ -6768,6 +7649,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Vitual Bus Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Vitual Bus Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseVitualBusSubcomponentType(VitualBusSubcomponentType object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Virtual Bus Classifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -6809,6 +7705,36 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseVirtualProcessor(VirtualProcessor object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Virtual Processor Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Virtual Processor Subcomponent Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractPrototype(AbstractPrototype object) {
 		return null;
 	}
 
@@ -6918,6 +7844,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Bus Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Bus Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBusPrototype(BusPrototype object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Data Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -6944,6 +7885,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseDataImplementation(DataImplementation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Data Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Data Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDataPrototype(DataPrototype object) {
 		return null;
 	}
 
@@ -6978,6 +7934,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Memory Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Memory Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMemoryPrototype(MemoryPrototype object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>System Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -7004,6 +7975,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseSystemImplementation(SystemImplementation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>System Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>System Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSystemPrototype(SystemPrototype object) {
 		return null;
 	}
 
@@ -7038,6 +8024,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Thread Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Thread Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseThreadPrototype(ThreadPrototype object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Thread Group Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -7064,6 +8065,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseThreadGroupImplementation(ThreadGroupImplementation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Thread Group Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Thread Group Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseThreadGroupPrototype(ThreadGroupPrototype object) {
 		return null;
 	}
 
@@ -7098,6 +8114,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Virtual Bus Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Virtual Bus Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseVirtualBusPrototype(VirtualBusPrototype object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Virtual Processor Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -7124,6 +8155,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseVirtualProcessorImplementation(VirtualProcessorImplementation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Virtual Processor Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Virtual Processor Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseVirtualProcessorPrototype(VirtualProcessorPrototype object) {
 		return null;
 	}
 
@@ -7158,6 +8204,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Subprogram Group Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Subprogram Group Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSubprogramGroupPrototype(SubprogramGroupPrototype object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Processor Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -7184,6 +8245,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseProcessorImplementation(ProcessorImplementation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Processor Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Processor Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseProcessorPrototype(ProcessorPrototype object) {
 		return null;
 	}
 
@@ -7218,6 +8294,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Process Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Process Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseProcessPrototype(ProcessPrototype object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Subprogram Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -7244,6 +8335,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseSubprogramImplementation(SubprogramImplementation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Subprogram Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Subprogram Prototype</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSubprogramPrototype(SubprogramPrototype object) {
 		return null;
 	}
 

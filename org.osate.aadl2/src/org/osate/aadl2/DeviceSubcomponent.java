@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.DeviceSubcomponent#getDeviceClassifier <em>Device Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.DeviceSubcomponent#getDeviceSubcomponentType <em>Device Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,35 +54,35 @@ package org.osate.aadl2;
 public interface DeviceSubcomponent extends Subcomponent, Device {
 
 	/**
-	 * Returns the value of the '<em><b>Device Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Device Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Device Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Device Subcomponent Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Device Classifier</em>' reference.
-	 * @see #setDeviceClassifier(DeviceClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getDeviceSubcomponent_DeviceClassifier()
-	 * @model volatile="true" ordered="false"
+	 * @return the value of the '<em>Device Subcomponent Type</em>' reference.
+	 * @see #setDeviceSubcomponentType(DeviceSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getDeviceSubcomponent_DeviceSubcomponentType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	DeviceClassifier getDeviceClassifier();
+	DeviceSubcomponentType getDeviceSubcomponentType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.DeviceSubcomponent#getDeviceClassifier <em>Device Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.DeviceSubcomponent#getDeviceSubcomponentType <em>Device Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Device Classifier</em>' reference.
-	 * @see #getDeviceClassifier()
+	 * @param value the new value of the '<em>Device Subcomponent Type</em>' reference.
+	 * @see #getDeviceSubcomponentType()
 	 * @generated
 	 */
-	void setDeviceClassifier(DeviceClassifier value);
+	void setDeviceSubcomponentType(DeviceSubcomponentType value);
 
 } // DeviceSubcomponent

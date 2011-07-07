@@ -1308,7 +1308,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getComponentReferenceAccess().getBindingAssignment_1_2_1(), "rule__ComponentReference__BindingAssignment_1_2_1");
 					put(grammarAccess.getAbstractSubcomponentAccess().getNameAssignment_0_0_0(), "rule__AbstractSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getAbstractSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__AbstractSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getAbstractSubcomponentAccess().getAbstractClassifierAssignment_2_0(), "rule__AbstractSubcomponent__AbstractClassifierAssignment_2_0");
+					put(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAssignment_2_0(), "rule__AbstractSubcomponent__AbstractSubcomponentTypeAssignment_2_0");
 					put(grammarAccess.getAbstractSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_1(), "rule__AbstractSubcomponent__OwnedPrototypeBindingAssignment_2_1_1");
 					put(grammarAccess.getAbstractSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_2_1(), "rule__AbstractSubcomponent__OwnedPrototypeBindingAssignment_2_1_2_1");
 					put(grammarAccess.getAbstractSubcomponentAccess().getArraySpecificationAssignment_3_0(), "rule__AbstractSubcomponent__ArraySpecificationAssignment_3_0");
@@ -1319,7 +1319,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getAbstractSubcomponentAccess().getAllModesAssignment_5_3_1(), "rule__AbstractSubcomponent__AllModesAssignment_5_3_1");
 					put(grammarAccess.getSystemSubcomponentAccess().getNameAssignment_0_0_0(), "rule__SystemSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getSystemSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__SystemSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getSystemSubcomponentAccess().getSystemClassifierAssignment_2_0(), "rule__SystemSubcomponent__SystemClassifierAssignment_2_0");
+					put(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeAssignment_2_0(), "rule__SystemSubcomponent__SystemSubcomponentTypeAssignment_2_0");
 					put(grammarAccess.getSystemSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_1(), "rule__SystemSubcomponent__OwnedPrototypeBindingAssignment_2_1_1");
 					put(grammarAccess.getSystemSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_2_1(), "rule__SystemSubcomponent__OwnedPrototypeBindingAssignment_2_1_2_1");
 					put(grammarAccess.getSystemSubcomponentAccess().getArraySpecificationAssignment_3_0(), "rule__SystemSubcomponent__ArraySpecificationAssignment_3_0");
@@ -1330,7 +1330,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSystemSubcomponentAccess().getAllModesAssignment_5_3_1(), "rule__SystemSubcomponent__AllModesAssignment_5_3_1");
 					put(grammarAccess.getProcessSubcomponentAccess().getNameAssignment_0_0_0(), "rule__ProcessSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getProcessSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__ProcessSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getProcessSubcomponentAccess().getProcessClassifierAssignment_2_0(), "rule__ProcessSubcomponent__ProcessClassifierAssignment_2_0");
+					put(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeAssignment_2_0(), "rule__ProcessSubcomponent__ProcessSubcomponentTypeAssignment_2_0");
 					put(grammarAccess.getProcessSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_1(), "rule__ProcessSubcomponent__OwnedPrototypeBindingAssignment_2_1_1");
 					put(grammarAccess.getProcessSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_2_1(), "rule__ProcessSubcomponent__OwnedPrototypeBindingAssignment_2_1_2_1");
 					put(grammarAccess.getProcessSubcomponentAccess().getArraySpecificationAssignment_3_0(), "rule__ProcessSubcomponent__ArraySpecificationAssignment_3_0");
@@ -1341,7 +1341,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getProcessSubcomponentAccess().getAllModesAssignment_5_3_1(), "rule__ProcessSubcomponent__AllModesAssignment_5_3_1");
 					put(grammarAccess.getThreadGroupSubcomponentAccess().getNameAssignment_0_0_0(), "rule__ThreadGroupSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getThreadGroupSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__ThreadGroupSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupClassifierAssignment_3_0(), "rule__ThreadGroupSubcomponent__ThreadGroupClassifierAssignment_3_0");
+					put(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeAssignment_3_0(), "rule__ThreadGroupSubcomponent__ThreadGroupSubcomponentTypeAssignment_3_0");
 					put(grammarAccess.getThreadGroupSubcomponentAccess().getOwnedPrototypeBindingAssignment_3_1_1(), "rule__ThreadGroupSubcomponent__OwnedPrototypeBindingAssignment_3_1_1");
 					put(grammarAccess.getThreadGroupSubcomponentAccess().getOwnedPrototypeBindingAssignment_3_1_2_1(), "rule__ThreadGroupSubcomponent__OwnedPrototypeBindingAssignment_3_1_2_1");
 					put(grammarAccess.getThreadGroupSubcomponentAccess().getArraySpecificationAssignment_4_0(), "rule__ThreadGroupSubcomponent__ArraySpecificationAssignment_4_0");
@@ -1352,7 +1352,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getThreadGroupSubcomponentAccess().getAllModesAssignment_6_3_1(), "rule__ThreadGroupSubcomponent__AllModesAssignment_6_3_1");
 					put(grammarAccess.getThreadSubcomponentAccess().getNameAssignment_0_0_0(), "rule__ThreadSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getThreadSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__ThreadSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getThreadSubcomponentAccess().getThreadClassifierAssignment_2_0(), "rule__ThreadSubcomponent__ThreadClassifierAssignment_2_0");
+					put(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeAssignment_2_0(), "rule__ThreadSubcomponent__ThreadSubcomponentTypeAssignment_2_0");
 					put(grammarAccess.getThreadSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_1(), "rule__ThreadSubcomponent__OwnedPrototypeBindingAssignment_2_1_1");
 					put(grammarAccess.getThreadSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_2_1(), "rule__ThreadSubcomponent__OwnedPrototypeBindingAssignment_2_1_2_1");
 					put(grammarAccess.getThreadSubcomponentAccess().getArraySpecificationAssignment_3_0(), "rule__ThreadSubcomponent__ArraySpecificationAssignment_3_0");
@@ -1363,7 +1363,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getThreadSubcomponentAccess().getAllModesAssignment_5_3_1(), "rule__ThreadSubcomponent__AllModesAssignment_5_3_1");
 					put(grammarAccess.getSubprogramSubcomponentAccess().getNameAssignment_0_0_0(), "rule__SubprogramSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getSubprogramSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__SubprogramSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramClassifierAssignment_2_0(), "rule__SubprogramSubcomponent__SubprogramClassifierAssignment_2_0");
+					put(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeAssignment_2_0(), "rule__SubprogramSubcomponent__SubprogramSubcomponentTypeAssignment_2_0");
 					put(grammarAccess.getSubprogramSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_1(), "rule__SubprogramSubcomponent__OwnedPrototypeBindingAssignment_2_1_1");
 					put(grammarAccess.getSubprogramSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_2_1(), "rule__SubprogramSubcomponent__OwnedPrototypeBindingAssignment_2_1_2_1");
 					put(grammarAccess.getSubprogramSubcomponentAccess().getArraySpecificationAssignment_3_0(), "rule__SubprogramSubcomponent__ArraySpecificationAssignment_3_0");
@@ -1374,7 +1374,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramSubcomponentAccess().getAllModesAssignment_5_3_1(), "rule__SubprogramSubcomponent__AllModesAssignment_5_3_1");
 					put(grammarAccess.getSubprogramGroupSubcomponentAccess().getNameAssignment_0_0_0(), "rule__SubprogramGroupSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getSubprogramGroupSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__SubprogramGroupSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupClassifierAssignment_3_0(), "rule__SubprogramGroupSubcomponent__SubprogramGroupClassifierAssignment_3_0");
+					put(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeAssignment_3_0(), "rule__SubprogramGroupSubcomponent__SubprogramGroupSubcomponentTypeAssignment_3_0");
 					put(grammarAccess.getSubprogramGroupSubcomponentAccess().getOwnedPrototypeBindingAssignment_3_1_1(), "rule__SubprogramGroupSubcomponent__OwnedPrototypeBindingAssignment_3_1_1");
 					put(grammarAccess.getSubprogramGroupSubcomponentAccess().getOwnedPrototypeBindingAssignment_3_1_2_1(), "rule__SubprogramGroupSubcomponent__OwnedPrototypeBindingAssignment_3_1_2_1");
 					put(grammarAccess.getSubprogramGroupSubcomponentAccess().getArraySpecificationAssignment_4_0(), "rule__SubprogramGroupSubcomponent__ArraySpecificationAssignment_4_0");
@@ -1385,7 +1385,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramGroupSubcomponentAccess().getAllModesAssignment_6_3_1(), "rule__SubprogramGroupSubcomponent__AllModesAssignment_6_3_1");
 					put(grammarAccess.getProcessorSubcomponentAccess().getNameAssignment_0_0_0(), "rule__ProcessorSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getProcessorSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__ProcessorSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getProcessorSubcomponentAccess().getProcessorClassifierAssignment_2_0(), "rule__ProcessorSubcomponent__ProcessorClassifierAssignment_2_0");
+					put(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeAssignment_2_0(), "rule__ProcessorSubcomponent__ProcessorSubcomponentTypeAssignment_2_0");
 					put(grammarAccess.getProcessorSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_1(), "rule__ProcessorSubcomponent__OwnedPrototypeBindingAssignment_2_1_1");
 					put(grammarAccess.getProcessorSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_2_1(), "rule__ProcessorSubcomponent__OwnedPrototypeBindingAssignment_2_1_2_1");
 					put(grammarAccess.getProcessorSubcomponentAccess().getArraySpecificationAssignment_3_0(), "rule__ProcessorSubcomponent__ArraySpecificationAssignment_3_0");
@@ -1396,7 +1396,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getProcessorSubcomponentAccess().getAllModesAssignment_5_3_1(), "rule__ProcessorSubcomponent__AllModesAssignment_5_3_1");
 					put(grammarAccess.getVirtualProcessorSubcomponentAccess().getNameAssignment_0_0_0(), "rule__VirtualProcessorSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getVirtualProcessorSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__VirtualProcessorSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorClassifierAssignment_3_0(), "rule__VirtualProcessorSubcomponent__VirtualProcessorClassifierAssignment_3_0");
+					put(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeAssignment_3_0(), "rule__VirtualProcessorSubcomponent__VirtualProcessorSubcomponentTypeAssignment_3_0");
 					put(grammarAccess.getVirtualProcessorSubcomponentAccess().getOwnedPrototypeBindingAssignment_3_1_1(), "rule__VirtualProcessorSubcomponent__OwnedPrototypeBindingAssignment_3_1_1");
 					put(grammarAccess.getVirtualProcessorSubcomponentAccess().getOwnedPrototypeBindingAssignment_3_1_2_1(), "rule__VirtualProcessorSubcomponent__OwnedPrototypeBindingAssignment_3_1_2_1");
 					put(grammarAccess.getVirtualProcessorSubcomponentAccess().getArraySpecificationAssignment_4_0(), "rule__VirtualProcessorSubcomponent__ArraySpecificationAssignment_4_0");
@@ -1407,7 +1407,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getVirtualProcessorSubcomponentAccess().getAllModesAssignment_6_3_1(), "rule__VirtualProcessorSubcomponent__AllModesAssignment_6_3_1");
 					put(grammarAccess.getDeviceSubcomponentAccess().getNameAssignment_0_0_0(), "rule__DeviceSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getDeviceSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__DeviceSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getDeviceSubcomponentAccess().getDeviceClassifierAssignment_2_0(), "rule__DeviceSubcomponent__DeviceClassifierAssignment_2_0");
+					put(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeAssignment_2_0(), "rule__DeviceSubcomponent__DeviceSubcomponentTypeAssignment_2_0");
 					put(grammarAccess.getDeviceSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_1(), "rule__DeviceSubcomponent__OwnedPrototypeBindingAssignment_2_1_1");
 					put(grammarAccess.getDeviceSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_2_1(), "rule__DeviceSubcomponent__OwnedPrototypeBindingAssignment_2_1_2_1");
 					put(grammarAccess.getDeviceSubcomponentAccess().getArraySpecificationAssignment_3_0(), "rule__DeviceSubcomponent__ArraySpecificationAssignment_3_0");
@@ -1418,7 +1418,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDeviceSubcomponentAccess().getAllModesAssignment_5_3_1(), "rule__DeviceSubcomponent__AllModesAssignment_5_3_1");
 					put(grammarAccess.getMemorySubcomponentAccess().getNameAssignment_0_0_0(), "rule__MemorySubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getMemorySubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__MemorySubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getMemorySubcomponentAccess().getMemoryClassifierAssignment_2_0(), "rule__MemorySubcomponent__MemoryClassifierAssignment_2_0");
+					put(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeAssignment_2_0(), "rule__MemorySubcomponent__MemorySubcomponentTypeAssignment_2_0");
 					put(grammarAccess.getMemorySubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_1(), "rule__MemorySubcomponent__OwnedPrototypeBindingAssignment_2_1_1");
 					put(grammarAccess.getMemorySubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_2_1(), "rule__MemorySubcomponent__OwnedPrototypeBindingAssignment_2_1_2_1");
 					put(grammarAccess.getMemorySubcomponentAccess().getArraySpecificationAssignment_3_0(), "rule__MemorySubcomponent__ArraySpecificationAssignment_3_0");
@@ -1429,7 +1429,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getMemorySubcomponentAccess().getAllModesAssignment_5_3_1(), "rule__MemorySubcomponent__AllModesAssignment_5_3_1");
 					put(grammarAccess.getBusSubcomponentAccess().getNameAssignment_0_0_0(), "rule__BusSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getBusSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__BusSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getBusSubcomponentAccess().getBusClassifierAssignment_2_0(), "rule__BusSubcomponent__BusClassifierAssignment_2_0");
+					put(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeAssignment_2_0(), "rule__BusSubcomponent__BusSubcomponentTypeAssignment_2_0");
 					put(grammarAccess.getBusSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_1(), "rule__BusSubcomponent__OwnedPrototypeBindingAssignment_2_1_1");
 					put(grammarAccess.getBusSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_2_1(), "rule__BusSubcomponent__OwnedPrototypeBindingAssignment_2_1_2_1");
 					put(grammarAccess.getBusSubcomponentAccess().getArraySpecificationAssignment_3_0(), "rule__BusSubcomponent__ArraySpecificationAssignment_3_0");
@@ -1440,7 +1440,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getBusSubcomponentAccess().getAllModesAssignment_5_3_1(), "rule__BusSubcomponent__AllModesAssignment_5_3_1");
 					put(grammarAccess.getVirtualBusSubcomponentAccess().getNameAssignment_0_0_0(), "rule__VirtualBusSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getVirtualBusSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__VirtualBusSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getVirtualBusSubcomponentAccess().getVirtualBusClassifierAssignment_3_0(), "rule__VirtualBusSubcomponent__VirtualBusClassifierAssignment_3_0");
+					put(grammarAccess.getVirtualBusSubcomponentAccess().getVirtualBusSubcomponentTypeAssignment_3_0(), "rule__VirtualBusSubcomponent__VirtualBusSubcomponentTypeAssignment_3_0");
 					put(grammarAccess.getVirtualBusSubcomponentAccess().getOwnedPrototypeBindingAssignment_3_1_1(), "rule__VirtualBusSubcomponent__OwnedPrototypeBindingAssignment_3_1_1");
 					put(grammarAccess.getVirtualBusSubcomponentAccess().getOwnedPrototypeBindingAssignment_3_1_2_1(), "rule__VirtualBusSubcomponent__OwnedPrototypeBindingAssignment_3_1_2_1");
 					put(grammarAccess.getVirtualBusSubcomponentAccess().getArraySpecificationAssignment_4_0(), "rule__VirtualBusSubcomponent__ArraySpecificationAssignment_4_0");
@@ -1451,7 +1451,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getVirtualBusSubcomponentAccess().getAllModesAssignment_6_3_1(), "rule__VirtualBusSubcomponent__AllModesAssignment_6_3_1");
 					put(grammarAccess.getDataSubcomponentAccess().getNameAssignment_0_0_0(), "rule__DataSubcomponent__NameAssignment_0_0_0");
 					put(grammarAccess.getDataSubcomponentAccess().getRefinedAssignment_0_1_0(), "rule__DataSubcomponent__RefinedAssignment_0_1_0");
-					put(grammarAccess.getDataSubcomponentAccess().getDataClassifierAssignment_2_0(), "rule__DataSubcomponent__DataClassifierAssignment_2_0");
+					put(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeAssignment_2_0(), "rule__DataSubcomponent__DataSubcomponentTypeAssignment_2_0");
 					put(grammarAccess.getDataSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_1(), "rule__DataSubcomponent__OwnedPrototypeBindingAssignment_2_1_1");
 					put(grammarAccess.getDataSubcomponentAccess().getOwnedPrototypeBindingAssignment_2_1_2_1(), "rule__DataSubcomponent__OwnedPrototypeBindingAssignment_2_1_2_1");
 					put(grammarAccess.getDataSubcomponentAccess().getOwnedPropertyAssociationAssignment_3_1(), "rule__DataSubcomponent__OwnedPropertyAssociationAssignment_3_1");

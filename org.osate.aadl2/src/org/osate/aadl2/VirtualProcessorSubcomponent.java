@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.VirtualProcessorSubcomponent#getVirtualProcessorClassifier <em>Virtual Processor Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.VirtualProcessorSubcomponent#getVirtualProcessorSubcomponentType <em>Virtual Processor Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,35 +54,35 @@ package org.osate.aadl2;
 public interface VirtualProcessorSubcomponent extends Subcomponent, VirtualProcessor {
 
 	/**
-	 * Returns the value of the '<em><b>Virtual Processor Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Virtual Processor Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Virtual Processor Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Virtual Processor Subcomponent Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Virtual Processor Classifier</em>' reference.
-	 * @see #setVirtualProcessorClassifier(VirtualProcessorClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getVirtualProcessorSubcomponent_VirtualProcessorClassifier()
-	 * @model volatile="true" ordered="false"
+	 * @return the value of the '<em>Virtual Processor Subcomponent Type</em>' reference.
+	 * @see #setVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getVirtualProcessorSubcomponent_VirtualProcessorSubcomponentType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	VirtualProcessorClassifier getVirtualProcessorClassifier();
+	VirtualProcessorSubcomponentType getVirtualProcessorSubcomponentType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.VirtualProcessorSubcomponent#getVirtualProcessorClassifier <em>Virtual Processor Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.VirtualProcessorSubcomponent#getVirtualProcessorSubcomponentType <em>Virtual Processor Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Virtual Processor Classifier</em>' reference.
-	 * @see #getVirtualProcessorClassifier()
+	 * @param value the new value of the '<em>Virtual Processor Subcomponent Type</em>' reference.
+	 * @see #getVirtualProcessorSubcomponentType()
 	 * @generated
 	 */
-	void setVirtualProcessorClassifier(VirtualProcessorClassifier value);
+	void setVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType value);
 
 } // VirtualProcessorSubcomponent

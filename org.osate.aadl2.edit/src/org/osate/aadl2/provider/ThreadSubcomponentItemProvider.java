@@ -79,25 +79,26 @@ public class ThreadSubcomponentItemProvider extends SubcomponentItemProvider imp
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addThreadClassifierPropertyDescriptor(object);
+			addThreadSubcomponentTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Thread Classifier feature.
+	 * This adds a property descriptor for the Thread Subcomponent Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addThreadClassifierPropertyDescriptor(Object object) {
+	protected void addThreadSubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_ThreadSubcomponent_threadClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ThreadSubcomponent_threadClassifier_feature",
-						"_UI_ThreadSubcomponent_type"),
-				Aadl2Package.eINSTANCE.getThreadSubcomponent_ThreadClassifier(), true, false, true, null, null, null));
+				getString("_UI_ThreadSubcomponent_threadSubcomponentType_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ThreadSubcomponent_threadSubcomponentType_feature", "_UI_ThreadSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getThreadSubcomponent_ThreadSubcomponentType(), true, false, true, null, null,
+				null));
 	}
 
 	/**

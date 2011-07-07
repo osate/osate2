@@ -40,7 +40,6 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.edit.provider.ChangeNotifier;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -52,7 +51,6 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.INotifyChangedListener;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-
 import org.osate.aadl2.util.Aadl2AdapterFactory;
 
 /**
@@ -424,6 +422,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return componentImplementationReferenceItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubcomponentType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubcomponentTypeItemProvider subcomponentTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubcomponentType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubcomponentTypeAdapter() {
+		if (subcomponentTypeItemProvider == null) {
+			subcomponentTypeItemProvider = new SubcomponentTypeItemProvider(this);
+		}
+
+		return subcomponentTypeItemProvider;
 	}
 
 	/**
@@ -1761,6 +1782,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AbstractPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AbstractPrototypeItemProvider abstractPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AbstractPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAbstractPrototypeAdapter() {
+		if (abstractPrototypeItemProvider == null) {
+			abstractPrototypeItemProvider = new AbstractPrototypeItemProvider(this);
+		}
+
+		return abstractPrototypeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.BusType} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1804,6 +1848,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return busImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.BusPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BusPrototypeItemProvider busPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.BusPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBusPrototypeAdapter() {
+		if (busPrototypeItemProvider == null) {
+			busPrototypeItemProvider = new BusPrototypeItemProvider(this);
+		}
+
+		return busPrototypeItemProvider;
 	}
 
 	/**
@@ -1853,6 +1920,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DataPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DataPrototypeItemProvider dataPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.DataPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDataPrototypeAdapter() {
+		if (dataPrototypeItemProvider == null) {
+			dataPrototypeItemProvider = new DataPrototypeItemProvider(this);
+		}
+
+		return dataPrototypeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DeviceType} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1899,6 +1989,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DevicePrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DevicePrototypeItemProvider devicePrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.DevicePrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDevicePrototypeAdapter() {
+		if (devicePrototypeItemProvider == null) {
+			devicePrototypeItemProvider = new DevicePrototypeItemProvider(this);
+		}
+
+		return devicePrototypeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.MemoryType} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1942,6 +2055,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return memoryImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.MemoryPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MemoryPrototypeItemProvider memoryPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.MemoryPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMemoryPrototypeAdapter() {
+		if (memoryPrototypeItemProvider == null) {
+			memoryPrototypeItemProvider = new MemoryPrototypeItemProvider(this);
+		}
+
+		return memoryPrototypeItemProvider;
 	}
 
 	/**
@@ -2014,6 +2150,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProcessPrototypeItemProvider processPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ProcessPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createProcessPrototypeAdapter() {
+		if (processPrototypeItemProvider == null) {
+			processPrototypeItemProvider = new ProcessPrototypeItemProvider(this);
+		}
+
+		return processPrototypeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorImplementation} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2034,6 +2193,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return processorImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProcessorPrototypeItemProvider processorPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createProcessorPrototypeAdapter() {
+		if (processorPrototypeItemProvider == null) {
+			processorPrototypeItemProvider = new ProcessorPrototypeItemProvider(this);
+		}
+
+		return processorPrototypeItemProvider;
 	}
 
 	/**
@@ -2083,6 +2265,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramPrototypeItemProvider subprogramPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramPrototypeAdapter() {
+		if (subprogramPrototypeItemProvider == null) {
+			subprogramPrototypeItemProvider = new SubprogramPrototypeItemProvider(this);
+		}
+
+		return subprogramPrototypeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramGroupType} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2126,6 +2331,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return subprogramGroupImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramGroupPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramGroupPrototypeItemProvider subprogramGroupPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramGroupPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramGroupPrototypeAdapter() {
+		if (subprogramGroupPrototypeItemProvider == null) {
+			subprogramGroupPrototypeItemProvider = new SubprogramGroupPrototypeItemProvider(this);
+		}
+
+		return subprogramGroupPrototypeItemProvider;
 	}
 
 	/**
@@ -2175,6 +2403,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SystemPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SystemPrototypeItemProvider systemPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SystemPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSystemPrototypeAdapter() {
+		if (systemPrototypeItemProvider == null) {
+			systemPrototypeItemProvider = new SystemPrototypeItemProvider(this);
+		}
+
+		return systemPrototypeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadType} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2218,6 +2469,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return threadImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ThreadPrototypeItemProvider threadPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ThreadPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createThreadPrototypeAdapter() {
+		if (threadPrototypeItemProvider == null) {
+			threadPrototypeItemProvider = new ThreadPrototypeItemProvider(this);
+		}
+
+		return threadPrototypeItemProvider;
 	}
 
 	/**
@@ -2267,6 +2541,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ThreadGroupPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ThreadGroupPrototypeItemProvider threadGroupPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ThreadGroupPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createThreadGroupPrototypeAdapter() {
+		if (threadGroupPrototypeItemProvider == null) {
+			threadGroupPrototypeItemProvider = new ThreadGroupPrototypeItemProvider(this);
+		}
+
+		return threadGroupPrototypeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualBusType} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2313,6 +2610,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualBusPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected VirtualBusPrototypeItemProvider virtualBusPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.VirtualBusPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createVirtualBusPrototypeAdapter() {
+		if (virtualBusPrototypeItemProvider == null) {
+			virtualBusPrototypeItemProvider = new VirtualBusPrototypeItemProvider(this);
+		}
+
+		return virtualBusPrototypeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualProcessorType} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2356,6 +2676,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return virtualProcessorImplementationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.VirtualProcessorPrototype} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected VirtualProcessorPrototypeItemProvider virtualProcessorPrototypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.VirtualProcessorPrototype}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createVirtualProcessorPrototypeAdapter() {
+		if (virtualProcessorPrototypeItemProvider == null) {
+			virtualProcessorPrototypeItemProvider = new VirtualProcessorPrototypeItemProvider(this);
+		}
+
+		return virtualProcessorPrototypeItemProvider;
 	}
 
 	/**
@@ -3566,6 +3909,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			numeralItemProvider.dispose();
 		if (componentImplementationReferenceItemProvider != null)
 			componentImplementationReferenceItemProvider.dispose();
+		if (subcomponentTypeItemProvider != null)
+			subcomponentTypeItemProvider.dispose();
 		if (modeTransitionItemProvider != null)
 			modeTransitionItemProvider.dispose();
 		if (triggerPortItemProvider != null)
@@ -3710,58 +4055,86 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			virtualBusSubcomponentItemProvider.dispose();
 		if (virtualProcessorSubcomponentItemProvider != null)
 			virtualProcessorSubcomponentItemProvider.dispose();
+		if (abstractPrototypeItemProvider != null)
+			abstractPrototypeItemProvider.dispose();
 		if (busTypeItemProvider != null)
 			busTypeItemProvider.dispose();
 		if (busImplementationItemProvider != null)
 			busImplementationItemProvider.dispose();
+		if (busPrototypeItemProvider != null)
+			busPrototypeItemProvider.dispose();
 		if (dataTypeItemProvider != null)
 			dataTypeItemProvider.dispose();
 		if (dataImplementationItemProvider != null)
 			dataImplementationItemProvider.dispose();
+		if (dataPrototypeItemProvider != null)
+			dataPrototypeItemProvider.dispose();
 		if (deviceTypeItemProvider != null)
 			deviceTypeItemProvider.dispose();
 		if (deviceImplementationItemProvider != null)
 			deviceImplementationItemProvider.dispose();
+		if (devicePrototypeItemProvider != null)
+			devicePrototypeItemProvider.dispose();
 		if (memoryTypeItemProvider != null)
 			memoryTypeItemProvider.dispose();
 		if (memoryImplementationItemProvider != null)
 			memoryImplementationItemProvider.dispose();
+		if (memoryPrototypeItemProvider != null)
+			memoryPrototypeItemProvider.dispose();
 		if (subprogramTypeItemProvider != null)
 			subprogramTypeItemProvider.dispose();
 		if (subprogramImplementationItemProvider != null)
 			subprogramImplementationItemProvider.dispose();
+		if (subprogramPrototypeItemProvider != null)
+			subprogramPrototypeItemProvider.dispose();
 		if (subprogramGroupTypeItemProvider != null)
 			subprogramGroupTypeItemProvider.dispose();
 		if (subprogramGroupImplementationItemProvider != null)
 			subprogramGroupImplementationItemProvider.dispose();
+		if (subprogramGroupPrototypeItemProvider != null)
+			subprogramGroupPrototypeItemProvider.dispose();
 		if (systemTypeItemProvider != null)
 			systemTypeItemProvider.dispose();
 		if (systemImplementationItemProvider != null)
 			systemImplementationItemProvider.dispose();
+		if (systemPrototypeItemProvider != null)
+			systemPrototypeItemProvider.dispose();
 		if (processorTypeItemProvider != null)
 			processorTypeItemProvider.dispose();
 		if (processorImplementationItemProvider != null)
 			processorImplementationItemProvider.dispose();
+		if (processorPrototypeItemProvider != null)
+			processorPrototypeItemProvider.dispose();
 		if (processTypeItemProvider != null)
 			processTypeItemProvider.dispose();
 		if (processImplementationItemProvider != null)
 			processImplementationItemProvider.dispose();
+		if (processPrototypeItemProvider != null)
+			processPrototypeItemProvider.dispose();
 		if (threadTypeItemProvider != null)
 			threadTypeItemProvider.dispose();
 		if (threadImplementationItemProvider != null)
 			threadImplementationItemProvider.dispose();
+		if (threadPrototypeItemProvider != null)
+			threadPrototypeItemProvider.dispose();
 		if (threadGroupTypeItemProvider != null)
 			threadGroupTypeItemProvider.dispose();
 		if (threadGroupImplementationItemProvider != null)
 			threadGroupImplementationItemProvider.dispose();
+		if (threadGroupPrototypeItemProvider != null)
+			threadGroupPrototypeItemProvider.dispose();
 		if (virtualBusTypeItemProvider != null)
 			virtualBusTypeItemProvider.dispose();
 		if (virtualBusImplementationItemProvider != null)
 			virtualBusImplementationItemProvider.dispose();
+		if (virtualBusPrototypeItemProvider != null)
+			virtualBusPrototypeItemProvider.dispose();
 		if (virtualProcessorTypeItemProvider != null)
 			virtualProcessorTypeItemProvider.dispose();
 		if (virtualProcessorImplementationItemProvider != null)
 			virtualProcessorImplementationItemProvider.dispose();
+		if (virtualProcessorPrototypeItemProvider != null)
+			virtualProcessorPrototypeItemProvider.dispose();
 		if (basicPropertyAssociationItemProvider != null)
 			basicPropertyAssociationItemProvider.dispose();
 		if (propertyConstantItemProvider != null)

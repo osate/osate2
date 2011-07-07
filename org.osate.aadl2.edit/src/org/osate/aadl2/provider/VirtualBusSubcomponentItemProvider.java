@@ -79,26 +79,26 @@ public class VirtualBusSubcomponentItemProvider extends SubcomponentItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addVirtualBusClassifierPropertyDescriptor(object);
+			addVirtualBusSubcomponentTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Virtual Bus Classifier feature.
+	 * This adds a property descriptor for the Virtual Bus Subcomponent Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addVirtualBusClassifierPropertyDescriptor(Object object) {
+	protected void addVirtualBusSubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_VirtualBusSubcomponent_virtualBusClassifier_feature"),
+				getString("_UI_VirtualBusSubcomponent_virtualBusSubcomponentType_feature"),
 				getString("_UI_PropertyDescriptor_description",
-						"_UI_VirtualBusSubcomponent_virtualBusClassifier_feature", "_UI_VirtualBusSubcomponent_type"),
-				Aadl2Package.eINSTANCE.getVirtualBusSubcomponent_VirtualBusClassifier(), true, false, true, null, null,
-				null));
+						"_UI_VirtualBusSubcomponent_virtualBusSubcomponentType_feature",
+						"_UI_VirtualBusSubcomponent_type"), Aadl2Package.eINSTANCE
+						.getVirtualBusSubcomponent_VirtualBusSubcomponentType(), true, false, true, null, null, null));
 	}
 
 	/**

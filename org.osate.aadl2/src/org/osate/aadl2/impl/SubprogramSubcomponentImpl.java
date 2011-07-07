@@ -35,14 +35,16 @@
  */
 package org.osate.aadl2.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.SubprogramClassifier;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.aadl2.SubprogramSubcomponentType;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,14 +53,24 @@ import org.osate.aadl2.SubprogramSubcomponent;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.SubprogramSubcomponentImpl#getClassifier <em>Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.SubprogramSubcomponentImpl#getSubprogramClassifier <em>Subprogram Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubprogramSubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubprogramSubcomponentImpl#getSubprogramSubcomponentType <em>Subprogram Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class SubprogramSubcomponentImpl extends SubcomponentImpl implements SubprogramSubcomponent {
+	/**
+	 * The cached value of the '{@link #getSubprogramSubcomponentType() <em>Subprogram Subcomponent Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSubprogramSubcomponentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected SubprogramSubcomponentType subprogramSubcomponentType;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -84,20 +96,10 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public ComponentClassifier basicGetClassifier() {
-		return classifier;
+	public SubcomponentType getSubcomponentType() {
+		SubcomponentType subcomponentType = basicGetSubcomponentType();
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+				: subcomponentType;
 	}
 
 	/**
@@ -105,31 +107,54 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SubprogramClassifier getSubprogramClassifier() {
-		SubprogramClassifier subprogramClassifier = basicGetSubprogramClassifier();
-		return subprogramClassifier != null && ((EObject) subprogramClassifier).eIsProxy() ? (SubprogramClassifier) eResolveProxy((InternalEObject) subprogramClassifier)
-				: subprogramClassifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public SubprogramClassifier basicGetSubprogramClassifier() {
-		if (classifier instanceof SubprogramClassifier) {
-			return (SubprogramClassifier) classifier;
+	@Override
+	public SubcomponentType basicGetSubcomponentType() {
+		if (eIsSet(Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE)) {
+			return basicGetSubprogramSubcomponentType();
 		}
-		return null;
+		return super.basicGetSubcomponentType();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	public void setSubprogramClassifier(SubprogramClassifier newSubprogramClassifier) {
-		classifier = newSubprogramClassifier;
+	public SubprogramSubcomponentType getSubprogramSubcomponentType() {
+		if (subprogramSubcomponentType != null && ((EObject) subprogramSubcomponentType).eIsProxy()) {
+			InternalEObject oldSubprogramSubcomponentType = (InternalEObject) subprogramSubcomponentType;
+			subprogramSubcomponentType = (SubprogramSubcomponentType) eResolveProxy(oldSubprogramSubcomponentType);
+			if (subprogramSubcomponentType != oldSubprogramSubcomponentType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE,
+							oldSubprogramSubcomponentType, subprogramSubcomponentType));
+			}
+		}
+		return subprogramSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramSubcomponentType basicGetSubprogramSubcomponentType() {
+		return subprogramSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSubprogramSubcomponentType(SubprogramSubcomponentType newSubprogramSubcomponentType) {
+		SubprogramSubcomponentType oldSubprogramSubcomponentType = subprogramSubcomponentType;
+		subprogramSubcomponentType = newSubprogramSubcomponentType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE, oldSubprogramSubcomponentType,
+					subprogramSubcomponentType));
 	}
 
 	/**
@@ -140,10 +165,10 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_CLASSIFIER:
+		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE:
 			if (resolve)
-				return getSubprogramClassifier();
-			return basicGetSubprogramClassifier();
+				return getSubprogramSubcomponentType();
+			return basicGetSubprogramSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,8 +181,8 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_CLASSIFIER:
-			setSubprogramClassifier((SubprogramClassifier) newValue);
+		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE:
+			setSubprogramSubcomponentType((SubprogramSubcomponentType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -171,8 +196,8 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_CLASSIFIER:
-			setSubprogramClassifier((SubprogramClassifier) null);
+		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE:
+			setSubprogramSubcomponentType((SubprogramSubcomponentType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -186,8 +211,8 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_CLASSIFIER:
-			return basicGetSubprogramClassifier() != null;
+		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE:
+			return subprogramSubcomponentType != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -198,8 +223,9 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * @generated
 	 */
 	@Override
-	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_CLASSIFIER);
+	public boolean isSetSubcomponentType() {
+		return super.isSetSubcomponentType()
+				|| eIsSet(Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE);
 	}
 
 	public ComponentCategory getCategory() {

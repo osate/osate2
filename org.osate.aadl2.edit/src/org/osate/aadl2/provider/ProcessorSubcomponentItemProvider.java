@@ -79,26 +79,28 @@ public class ProcessorSubcomponentItemProvider extends SubcomponentItemProvider 
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addProcessorClassifierPropertyDescriptor(object);
+			addProcessorSubcomponentTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Processor Classifier feature.
+	 * This adds a property descriptor for the Processor Subcomponent Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addProcessorClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ProcessorSubcomponent_processorClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ProcessorSubcomponent_processorClassifier_feature", "_UI_ProcessorSubcomponent_type"),
-				Aadl2Package.eINSTANCE.getProcessorSubcomponent_ProcessorClassifier(), true, false, true, null, null,
-				null));
+	protected void addProcessorSubcomponentTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_ProcessorSubcomponent_processorSubcomponentType_feature"),
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_ProcessorSubcomponent_processorSubcomponentType_feature",
+								"_UI_ProcessorSubcomponent_type"), Aadl2Package.eINSTANCE
+								.getProcessorSubcomponent_ProcessorSubcomponentType(), true, false, true, null, null,
+						null));
 	}
 
 	/**

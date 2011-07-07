@@ -35,14 +35,16 @@
  */
 package org.osate.aadl2.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DataSubcomponentType;
+import org.osate.aadl2.SubcomponentType;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,14 +53,24 @@ import org.osate.aadl2.DataSubcomponent;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.DataSubcomponentImpl#getClassifier <em>Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.DataSubcomponentImpl#getDataClassifier <em>Data Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.DataSubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.DataSubcomponentImpl#getDataSubcomponentType <em>Data Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcomponent {
+	/**
+	 * The cached value of the '{@link #getDataSubcomponentType() <em>Data Subcomponent Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSubcomponentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataSubcomponentType dataSubcomponentType;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -84,20 +96,10 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public ComponentClassifier basicGetClassifier() {
-		return classifier;
+	public SubcomponentType getSubcomponentType() {
+		SubcomponentType subcomponentType = basicGetSubcomponentType();
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+				: subcomponentType;
 	}
 
 	/**
@@ -105,31 +107,54 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DataClassifier getDataClassifier() {
-		DataClassifier dataClassifier = basicGetDataClassifier();
-		return dataClassifier != null && ((EObject) dataClassifier).eIsProxy() ? (DataClassifier) eResolveProxy((InternalEObject) dataClassifier)
-				: dataClassifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public DataClassifier basicGetDataClassifier() {
-		if (classifier instanceof DataClassifier) {
-			return (DataClassifier) classifier;
+	@Override
+	public SubcomponentType basicGetSubcomponentType() {
+		if (eIsSet(Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE)) {
+			return basicGetDataSubcomponentType();
 		}
-		return null;
+		return super.basicGetSubcomponentType();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	public void setDataClassifier(DataClassifier newDataClassifier) {
-		classifier = newDataClassifier;
+	public DataSubcomponentType getDataSubcomponentType() {
+		if (dataSubcomponentType != null && ((EObject) dataSubcomponentType).eIsProxy()) {
+			InternalEObject oldDataSubcomponentType = (InternalEObject) dataSubcomponentType;
+			dataSubcomponentType = (DataSubcomponentType) eResolveProxy(oldDataSubcomponentType);
+			if (dataSubcomponentType != oldDataSubcomponentType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE, oldDataSubcomponentType,
+							dataSubcomponentType));
+			}
+		}
+		return dataSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataSubcomponentType basicGetDataSubcomponentType() {
+		return dataSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataSubcomponentType(DataSubcomponentType newDataSubcomponentType) {
+		DataSubcomponentType oldDataSubcomponentType = dataSubcomponentType;
+		dataSubcomponentType = newDataSubcomponentType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE, oldDataSubcomponentType,
+					dataSubcomponentType));
 	}
 
 	/**
@@ -140,10 +165,10 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.DATA_SUBCOMPONENT__DATA_CLASSIFIER:
+		case Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE:
 			if (resolve)
-				return getDataClassifier();
-			return basicGetDataClassifier();
+				return getDataSubcomponentType();
+			return basicGetDataSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,8 +181,8 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.DATA_SUBCOMPONENT__DATA_CLASSIFIER:
-			setDataClassifier((DataClassifier) newValue);
+		case Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE:
+			setDataSubcomponentType((DataSubcomponentType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -171,8 +196,8 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.DATA_SUBCOMPONENT__DATA_CLASSIFIER:
-			setDataClassifier((DataClassifier) null);
+		case Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE:
+			setDataSubcomponentType((DataSubcomponentType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -186,8 +211,8 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.DATA_SUBCOMPONENT__DATA_CLASSIFIER:
-			return basicGetDataClassifier() != null;
+		case Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE:
+			return dataSubcomponentType != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -198,8 +223,8 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 	 * @generated
 	 */
 	@Override
-	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.DATA_SUBCOMPONENT__DATA_CLASSIFIER);
+	public boolean isSetSubcomponentType() {
+		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE);
 	}
 
 	public ComponentCategory getCategory() {
