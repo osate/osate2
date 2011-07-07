@@ -1144,9 +1144,9 @@
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Boolean"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Associations-PackageSection" name="PackageSection" isAbstract="true">
+      <packagedElement xmi:type="uml:Class" xmi:id="Associations-PackageSection" name="Package" isAbstract="true">
         <ownedComment xmi:id="Associations-PackageSection-_ownedComment.0">
-          <body>Package section is extended with the ability to specify that it cannot contain property associations.</body>
+          <body>Package is extended with the ability to specify that it cannot contain property associations.</body>
         </ownedComment>
         <ownedAttribute xmi:id="Associations-PackageSection-noProperties" name="noProperties">
           <ownedComment xmi:id="Associations-PackageSection-noProperties-_ownedComment.0">
