@@ -2146,20 +2146,12 @@ For access features, the classifier specifies the type of the shared component.<
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-ModeTransition-destination-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-ModeTransition-destination-_lowerValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Modes-ModeTransition-trigger" name="trigger" type="Modes-ModeTransitionTrigger" isOrdered="true" association="Modes-A_modeTransition_trigger">
-          <ownedComment xmi:id="Modes-ModeTransition-trigger-_ownedComment.0">
-            <body>Specifies what triggers the transition.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-ModeTransition-trigger-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-ModeTransition-trigger-_lowerValue" value="1"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Modes-ModeTransition-ownedTrigger" name="ownedTrigger" type="Modes-TriggerPort" aggregation="composite" subsettedProperty="Modes-ModeTransition-trigger" association="Modes-A_modeTransition_ownedTrigger">
+        <ownedAttribute xmi:id="Modes-ModeTransition-ownedTrigger" name="ownedTrigger" type="Modes-ModeTransitionTrigger" aggregation="composite" association="Modes-A_modeTransition_ownedTrigger">
           <ownedComment xmi:id="Modes-ModeTransition-ownedTrigger-_ownedComment.0">
             <body>===TBD===</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-ModeTransition-ownedTrigger-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-ModeTransition-ownedTrigger-_lowerValue"/>
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="Modes-ModeTransition-ownedTrigger-_defaultValue" value=""/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-ModeTransition-ownedTrigger-_lowerValue" value="1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Modes-A_modeTransition_source" name="A_modeTransition_source" memberEnd="Modes-A_modeTransition_source-transition Modes-ModeTransition-source">
@@ -2181,12 +2173,6 @@ For access features, the classifier specifies the type of the shared component.<
         <generalization xmi:id="Modes-ModeTransitionTrigger-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Modes-A_modeTransition_trigger" name="A_modeTransition_trigger" memberEnd="Modes-A_modeTransition_trigger-transition Modes-ModeTransition-trigger">
-        <ownedEnd xmi:id="Modes-A_modeTransition_trigger-transition" name="transition" type="Modes-ModeTransition" association="Modes-A_modeTransition_trigger">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-A_modeTransition_trigger-transition-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-A_modeTransition_trigger-transition-_lowerValue"/>
-        </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Modes-A_modalElement_inMode" name="A_modalElement_inMode" memberEnd="Modes-A_modalElement_inMode-modalElement Modes-ModalElement-inMode">
         <ownedEnd xmi:id="Modes-A_modalElement_inMode-modalElement" name="modalElement" type="Modes-ModalElement" association="Modes-A_modalElement_inMode">
@@ -2315,12 +2301,18 @@ For access features, the classifier specifies the type of the shared component.<
           <body>A proxy for a port feature of the processor to which the component containing this proxy is bound.</body>
         </ownedComment>
         <generalization xmi:id="_xWT8Ui6YEd6ny48XOOF3LA" general="Modes-ModeTransitionTrigger"/>
+        <generalization xmi:id="_xFNdIKjLEeCoIp43xtd66A">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
+        </generalization>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_xWT8VC6YEd6ny48XOOF3LA" name="InternalEvent">
         <ownedComment xmi:id="_xWT8VS6YEd6ny48XOOF3LA">
           <body>An event that originates inside the component that owns this proxy.</body>
         </ownedComment>
         <generalization xmi:id="_xWT8Vi6YEd6ny48XOOF3LA" general="Modes-ModeTransitionTrigger"/>
+        <generalization xmi:id="_xl1d8KjLEeCoIp43xtd66A">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
+        </generalization>
       </packagedElement>
     </packagedElement>
     <profileApplication xmi:id="_profileApplication.0">
