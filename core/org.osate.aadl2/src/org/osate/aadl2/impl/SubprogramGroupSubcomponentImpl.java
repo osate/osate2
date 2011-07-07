@@ -35,14 +35,16 @@
  */
 package org.osate.aadl2.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.SubprogramGroupClassifier;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramGroupSubcomponentType;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,14 +53,24 @@ import org.osate.aadl2.SubprogramGroupSubcomponent;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl#getClassifier <em>Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl#getSubprogramGroupClassifier <em>Subprogram Group Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl#getSubprogramGroupSubcomponentType <em>Subprogram Group Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements SubprogramGroupSubcomponent {
+	/**
+	 * The cached value of the '{@link #getSubprogramGroupSubcomponentType() <em>Subprogram Group Subcomponent Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSubprogramGroupSubcomponentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected SubprogramGroupSubcomponentType subprogramGroupSubcomponentType;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -84,20 +96,10 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public ComponentClassifier basicGetClassifier() {
-		return classifier;
+	public SubcomponentType getSubcomponentType() {
+		SubcomponentType subcomponentType = basicGetSubcomponentType();
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+				: subcomponentType;
 	}
 
 	/**
@@ -105,31 +107,54 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SubprogramGroupClassifier getSubprogramGroupClassifier() {
-		SubprogramGroupClassifier subprogramGroupClassifier = basicGetSubprogramGroupClassifier();
-		return subprogramGroupClassifier != null && ((EObject) subprogramGroupClassifier).eIsProxy() ? (SubprogramGroupClassifier) eResolveProxy((InternalEObject) subprogramGroupClassifier)
-				: subprogramGroupClassifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public SubprogramGroupClassifier basicGetSubprogramGroupClassifier() {
-		if (classifier instanceof SubprogramGroupClassifier) {
-			return (SubprogramGroupClassifier) classifier;
+	@Override
+	public SubcomponentType basicGetSubcomponentType() {
+		if (eIsSet(Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE)) {
+			return basicGetSubprogramGroupSubcomponentType();
 		}
-		return null;
+		return super.basicGetSubcomponentType();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	public void setSubprogramGroupClassifier(SubprogramGroupClassifier newSubprogramGroupClassifier) {
-		classifier = newSubprogramGroupClassifier;
+	public SubprogramGroupSubcomponentType getSubprogramGroupSubcomponentType() {
+		if (subprogramGroupSubcomponentType != null && ((EObject) subprogramGroupSubcomponentType).eIsProxy()) {
+			InternalEObject oldSubprogramGroupSubcomponentType = (InternalEObject) subprogramGroupSubcomponentType;
+			subprogramGroupSubcomponentType = (SubprogramGroupSubcomponentType) eResolveProxy(oldSubprogramGroupSubcomponentType);
+			if (subprogramGroupSubcomponentType != oldSubprogramGroupSubcomponentType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE,
+							oldSubprogramGroupSubcomponentType, subprogramGroupSubcomponentType));
+			}
+		}
+		return subprogramGroupSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramGroupSubcomponentType basicGetSubprogramGroupSubcomponentType() {
+		return subprogramGroupSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType newSubprogramGroupSubcomponentType) {
+		SubprogramGroupSubcomponentType oldSubprogramGroupSubcomponentType = subprogramGroupSubcomponentType;
+		subprogramGroupSubcomponentType = newSubprogramGroupSubcomponentType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE,
+					oldSubprogramGroupSubcomponentType, subprogramGroupSubcomponentType));
 	}
 
 	/**
@@ -140,10 +165,10 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_CLASSIFIER:
+		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE:
 			if (resolve)
-				return getSubprogramGroupClassifier();
-			return basicGetSubprogramGroupClassifier();
+				return getSubprogramGroupSubcomponentType();
+			return basicGetSubprogramGroupSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,8 +181,8 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_CLASSIFIER:
-			setSubprogramGroupClassifier((SubprogramGroupClassifier) newValue);
+		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE:
+			setSubprogramGroupSubcomponentType((SubprogramGroupSubcomponentType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -171,8 +196,8 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_CLASSIFIER:
-			setSubprogramGroupClassifier((SubprogramGroupClassifier) null);
+		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE:
+			setSubprogramGroupSubcomponentType((SubprogramGroupSubcomponentType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -186,8 +211,8 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_CLASSIFIER:
-			return basicGetSubprogramGroupClassifier() != null;
+		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE:
+			return subprogramGroupSubcomponentType != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -198,9 +223,9 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * @generated
 	 */
 	@Override
-	public boolean isSetClassifier() {
-		return super.isSetClassifier()
-				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_CLASSIFIER);
+	public boolean isSetSubcomponentType() {
+		return super.isSetSubcomponentType()
+				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE);
 	}
 
 	public ComponentCategory getCategory() {

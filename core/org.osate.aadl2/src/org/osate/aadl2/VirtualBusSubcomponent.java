@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.VirtualBusSubcomponent#getVirtualBusClassifier <em>Virtual Bus Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.VirtualBusSubcomponent#getVirtualBusSubcomponentType <em>Virtual Bus Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,35 +54,35 @@ package org.osate.aadl2;
 public interface VirtualBusSubcomponent extends Subcomponent, VirtualBus {
 
 	/**
-	 * Returns the value of the '<em><b>Virtual Bus Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Virtual Bus Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Virtual Bus Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Virtual Bus Subcomponent Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Virtual Bus Classifier</em>' reference.
-	 * @see #setVirtualBusClassifier(VirtualBusClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusSubcomponent_VirtualBusClassifier()
-	 * @model volatile="true" ordered="false"
+	 * @return the value of the '<em>Virtual Bus Subcomponent Type</em>' reference.
+	 * @see #setVirtualBusSubcomponentType(VitualBusSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusSubcomponent_VirtualBusSubcomponentType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	VirtualBusClassifier getVirtualBusClassifier();
+	VitualBusSubcomponentType getVirtualBusSubcomponentType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.VirtualBusSubcomponent#getVirtualBusClassifier <em>Virtual Bus Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.VirtualBusSubcomponent#getVirtualBusSubcomponentType <em>Virtual Bus Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Virtual Bus Classifier</em>' reference.
-	 * @see #getVirtualBusClassifier()
+	 * @param value the new value of the '<em>Virtual Bus Subcomponent Type</em>' reference.
+	 * @see #getVirtualBusSubcomponentType()
 	 * @generated
 	 */
-	void setVirtualBusClassifier(VirtualBusClassifier value);
+	void setVirtualBusSubcomponentType(VitualBusSubcomponentType value);
 
 } // VirtualBusSubcomponent

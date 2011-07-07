@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.DataSubcomponent#getDataClassifier <em>Data Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.DataSubcomponent#getDataSubcomponentType <em>Data Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,35 +55,35 @@ public interface DataSubcomponent extends Subcomponent, AccessConnectionEnd, Dat
 		PortConnectionEnd {
 
 	/**
-	 * Returns the value of the '<em><b>Data Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Data Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Data Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Data Subcomponent Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Data Classifier</em>' reference.
-	 * @see #setDataClassifier(DataClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getDataSubcomponent_DataClassifier()
-	 * @model volatile="true" ordered="false"
+	 * @return the value of the '<em>Data Subcomponent Type</em>' reference.
+	 * @see #setDataSubcomponentType(DataSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getDataSubcomponent_DataSubcomponentType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	DataClassifier getDataClassifier();
+	DataSubcomponentType getDataSubcomponentType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.DataSubcomponent#getDataClassifier <em>Data Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.DataSubcomponent#getDataSubcomponentType <em>Data Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Data Classifier</em>' reference.
-	 * @see #getDataClassifier()
+	 * @param value the new value of the '<em>Data Subcomponent Type</em>' reference.
+	 * @see #getDataSubcomponentType()
 	 * @generated
 	 */
-	void setDataClassifier(DataClassifier value);
+	void setDataSubcomponentType(DataSubcomponentType value);
 
 } // DataSubcomponent

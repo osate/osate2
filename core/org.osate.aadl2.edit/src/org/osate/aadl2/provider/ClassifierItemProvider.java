@@ -286,6 +286,48 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements IEd
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
 				Aadl2Factory.eINSTANCE.createFeaturePrototype()));
 
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createAbstractPrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createBusPrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createDataPrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createDevicePrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createMemoryPrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createSubprogramPrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createSubprogramGroupPrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createSystemPrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createProcessorPrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createProcessPrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createThreadPrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createThreadGroupPrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createVirtualBusPrototype()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
+				Aadl2Factory.eINSTANCE.createVirtualProcessorPrototype()));
+
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototypeBinding(),
 				Aadl2Factory.eINSTANCE.createComponentPrototypeBinding()));
 

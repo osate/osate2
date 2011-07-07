@@ -70,7 +70,8 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Subcomponent" name="Subcomponent" isAbstract="true">
       <ownedAttribute xmi:id="Subcomponent-classifier" name="classifier" isDerived="true"/>
-      <ownedAttribute xmi:id="Subcomponent-abstractClassifier" name="abstractClassifier"/>
+      <ownedAttribute xmi:id="_mN5IoKf3EeCYEIHXYlP5sg" name="prototype" isDerived="true"/>
+      <ownedAttribute xmi:id="_XImKMKgHEeCYEIHXYlP5sg" name="subcomponentType" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BehavioredImplementation" name="BehavioredImplementation" isAbstract="true">
       <ownedAttribute xmi:id="BehavioredImplementation-callSpecification" name="callSpecification" isDerived="true"/>
@@ -128,45 +129,6 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="VirtualProcessorImplementation" name="VirtualProcessorImplementation">
       <ownedAttribute xmi:id="VirtualProcessorImplementation-type" name="type" isDerived="true"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="BusSubcomponent" name="BusSubcomponent">
-      <ownedAttribute xmi:id="BusSubcomponent-busClassifier" name="busClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="DataSubcomponent" name="DataSubcomponent">
-      <ownedAttribute xmi:id="DataSubcomponent-dataClassifier" name="dataClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="DeviceSubcomponent" name="DeviceSubcomponent">
-      <ownedAttribute xmi:id="DeviceSubcomponent-deviceClassifier" name="deviceClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="MemorySubcomponent" name="MemorySubcomponent">
-      <ownedAttribute xmi:id="MemorySubcomponent-memoryClassifier" name="memoryClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ProcessSubcomponent" name="ProcessSubcomponent">
-      <ownedAttribute xmi:id="ProcessSubcomponent-processClassifier" name="processClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ProcessorSubcomponent" name="ProcessorSubcomponent">
-      <ownedAttribute xmi:id="ProcessorSubcomponent-processorClassifier" name="processorClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="SystemSubcomponent" name="SystemSubcomponent">
-      <ownedAttribute xmi:id="SystemSubcomponent-systemClassifier" name="systemClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="SubprogramSubcomponent" name="SubprogramSubcomponent">
-      <ownedAttribute xmi:id="SubprogramSubcomponent-subprogramClassifier" name="subprogramClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="SubprogramGroupSubcomponent" name="SubprogramGroupSubcomponent">
-      <ownedAttribute xmi:id="SubprogramGroupSubcomponent-subprogramGroupClassifier" name="subprogramGroupClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ThreadSubcomponent" name="ThreadSubcomponent">
-      <ownedAttribute xmi:id="ThreadSubcomponent-threadClassifier" name="threadClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ThreadGroupSubcomponent" name="ThreadGroupSubcomponent">
-      <ownedAttribute xmi:id="ThreadGroupSubcomponent-threadGroupClassifier" name="threadGroupClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="VirtualBusSubcomponent" name="VirtualBusSubcomponent">
-      <ownedAttribute xmi:id="VirtualBusSubcomponent-virtualBusClassifier" name="virtualBusClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="VirtualProcessorSubcomponent" name="VirtualProcessorSubcomponent">
-      <ownedAttribute xmi:id="VirtualProcessorSubcomponent-virtualProcessorClassifier" name="virtualProcessorClassifier"/>
     </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Boolean" name="Boolean">
       <eAnnotations xmi:id="Boolean-_http2F2Fwww.topcased.org2Fdocumentation" source="http://www.topcased.org/documentation">
@@ -464,32 +426,32 @@
   <Ecore:EReference xmi:id="_FaWeEF_zEd2sjtVCXhtQ3w" isTransient="true" isVolatile="true"/>
   <Ecore:EClass xmi:id="__CwukGhxEd21g9MLLnbMJw" xmlName="Package" base_Class="Package" className="AadlPackage"/>
   <Standard:Metaclass xmi:id="_KGjzMGhyEd21g9MLLnbMJw" base_Class="Package"/>
-  <Standard:Metaclass xmi:id="_DPzkMHOeEd2C5ocZYg6E4Q" base_Class="BusSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci8HOeEd2C5ocZYg6E4Q" base_Class="DataSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci8XOeEd2C5ocZYg6E4Q" base_Class="DeviceSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci8nOeEd2C5ocZYg6E4Q" base_Class="MemorySubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci83OeEd2C5ocZYg6E4Q" base_Class="ProcessSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci9HOeEd2C5ocZYg6E4Q" base_Class="ProcessorSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci9XOeEd2C5ocZYg6E4Q" base_Class="SystemSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci9nOeEd2C5ocZYg6E4Q" base_Class="SubprogramSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci93OeEd2C5ocZYg6E4Q" base_Class="SubprogramGroupSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci-HOeEd2C5ocZYg6E4Q" base_Class="ThreadSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci-XOeEd2C5ocZYg6E4Q" base_Class="ThreadGroupSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci-nOeEd2C5ocZYg6E4Q" base_Class="VirtualBusSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci-3OeEd2C5ocZYg6E4Q" base_Class="VirtualProcessorSubcomponent"/>
-  <Ecore:EReference xmi:id="_KjsokHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="BusSubcomponent-busClassifier"/>
-  <Ecore:EReference xmi:id="_RosVUHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="DataSubcomponent-dataClassifier"/>
-  <Ecore:EReference xmi:id="_SlVjwHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="DeviceSubcomponent-deviceClassifier"/>
-  <Ecore:EReference xmi:id="_Tfv9kHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="MemorySubcomponent-memoryClassifier"/>
-  <Ecore:EReference xmi:id="_XY5ZYHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="ProcessSubcomponent-processClassifier"/>
-  <Ecore:EReference xmi:id="_YQxckHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="ProcessorSubcomponent-processorClassifier"/>
-  <Ecore:EReference xmi:id="_ZDmAoHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="SystemSubcomponent-systemClassifier"/>
-  <Ecore:EReference xmi:id="_bC17kHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="VirtualProcessorSubcomponent-virtualProcessorClassifier"/>
-  <Ecore:EReference xmi:id="_cA--0HOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="VirtualBusSubcomponent-virtualBusClassifier"/>
-  <Ecore:EReference xmi:id="_dCsTcHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="ThreadGroupSubcomponent-threadGroupClassifier"/>
-  <Ecore:EReference xmi:id="_dyFJAHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="ThreadSubcomponent-threadClassifier"/>
-  <Ecore:EReference xmi:id="_efYT4HOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="SubprogramGroupSubcomponent-subprogramGroupClassifier"/>
-  <Ecore:EReference xmi:id="_ffdQ0HOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="SubprogramSubcomponent-subprogramClassifier"/>
+  <Standard:Metaclass xmi:id="_DPzkMHOeEd2C5ocZYg6E4Q"/>
+  <Standard:Metaclass xmi:id="_DRci8HOeEd2C5ocZYg6E4Q"/>
+  <Standard:Metaclass xmi:id="_DRci8XOeEd2C5ocZYg6E4Q"/>
+  <Standard:Metaclass xmi:id="_DRci8nOeEd2C5ocZYg6E4Q"/>
+  <Standard:Metaclass xmi:id="_DRci83OeEd2C5ocZYg6E4Q"/>
+  <Standard:Metaclass xmi:id="_DRci9HOeEd2C5ocZYg6E4Q"/>
+  <Standard:Metaclass xmi:id="_DRci9XOeEd2C5ocZYg6E4Q"/>
+  <Standard:Metaclass xmi:id="_DRci9nOeEd2C5ocZYg6E4Q"/>
+  <Standard:Metaclass xmi:id="_DRci93OeEd2C5ocZYg6E4Q"/>
+  <Standard:Metaclass xmi:id="_DRci-HOeEd2C5ocZYg6E4Q"/>
+  <Standard:Metaclass xmi:id="_DRci-XOeEd2C5ocZYg6E4Q"/>
+  <Standard:Metaclass xmi:id="_DRci-nOeEd2C5ocZYg6E4Q"/>
+  <Standard:Metaclass xmi:id="_DRci-3OeEd2C5ocZYg6E4Q"/>
+  <Ecore:EReference xmi:id="_KjsokHOeEd2C5ocZYg6E4Q" isTransient="true" isVolatile="true"/>
+  <Ecore:EReference xmi:id="_RosVUHOeEd2C5ocZYg6E4Q" isTransient="true" isVolatile="true"/>
+  <Ecore:EReference xmi:id="_SlVjwHOeEd2C5ocZYg6E4Q" isTransient="true" isVolatile="true"/>
+  <Ecore:EReference xmi:id="_Tfv9kHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
+  <Ecore:EReference xmi:id="_XY5ZYHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
+  <Ecore:EReference xmi:id="_YQxckHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
+  <Ecore:EReference xmi:id="_ZDmAoHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
+  <Ecore:EReference xmi:id="_bC17kHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
+  <Ecore:EReference xmi:id="_cA--0HOeEd2C5ocZYg6E4Q" isVolatile="true"/>
+  <Ecore:EReference xmi:id="_dCsTcHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
+  <Ecore:EReference xmi:id="_dyFJAHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
+  <Ecore:EReference xmi:id="_efYT4HOeEd2C5ocZYg6E4Q" isVolatile="true"/>
+  <Ecore:EReference xmi:id="_ffdQ0HOeEd2C5ocZYg6E4Q" isVolatile="true"/>
   <Ecore:EReference xmi:id="_uo2KQNBCEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_v2oMANBCEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_BvJswNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
@@ -511,8 +473,11 @@
   <Standard:Metaclass xmi:id="_lVhj0P3sEd2Ro5zjTxEQsg" base_Class="Feature"/>
   <Standard:Metaclass xmi:id="_4SVHAFHpEd6aXqaq3cmRZw" base_Class="Subcomponent"/>
   <Ecore:EReference xmi:id="_Bm0xMFHqEd6aXqaq3cmRZw" isTransient="true" isVolatile="true" base_Property="Subcomponent-classifier"/>
-  <Ecore:EReference xmi:id="_Yku3kFIPEd6K9OqcVNDX_A" isVolatile="true" base_Property="Subcomponent-abstractClassifier"/>
+  <Ecore:EReference xmi:id="_Yku3kFIPEd6K9OqcVNDX_A" isVolatile="true"/>
   <Ecore:EReference xmi:id="_FSqTkHhnEd6AFYIFq8D4AQ" isTransient="true" isVolatile="true"/>
   <Standard:Metaclass xmi:id="_2zZsQHAmEeCG1uAXqBr-RA" base_Class="ModalElement"/>
   <Standard:Metaclass xmi:id="_j4BVcHAoEeCG1uAXqBr-RA" base_Class="Mode"/>
+  <Ecore:EReference xmi:id="_q4X6wKf3EeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="_mN5IoKf3EeCYEIHXYlP5sg"/>
+  <Ecore:EReference xmi:id="_O1p14KgCEeCYEIHXYlP5sg"/>
+  <Ecore:EReference xmi:id="_fexyAKgHEeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="_XImKMKgHEeCYEIHXYlP5sg"/>
 </xmi:XMI>

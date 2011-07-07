@@ -40,161 +40,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlBoolean;
-import org.osate.aadl2.AadlInteger;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AadlReal;
-import org.osate.aadl2.AadlString;
-import org.osate.aadl2.AbstractFeature;
-import org.osate.aadl2.AbstractImplementation;
-import org.osate.aadl2.AbstractSubcomponent;
-import org.osate.aadl2.AbstractType;
-import org.osate.aadl2.AccessCategory;
-import org.osate.aadl2.AccessConnection;
-import org.osate.aadl2.AccessSpecification;
-import org.osate.aadl2.AccessType;
-import org.osate.aadl2.ArrayRange;
-import org.osate.aadl2.ArraySpecification;
-import org.osate.aadl2.BasicProperty;
-import org.osate.aadl2.BasicPropertyAssociation;
-import org.osate.aadl2.BooleanLiteral;
-import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.BusImplementation;
-import org.osate.aadl2.BusSubcomponent;
-import org.osate.aadl2.BusType;
-import org.osate.aadl2.ClassifierType;
-import org.osate.aadl2.ClassifierValue;
-import org.osate.aadl2.Comment;
-import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentImplementationReference;
-import org.osate.aadl2.ComponentPrototype;
-import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentPrototypeReference;
-import org.osate.aadl2.ComponentReference;
-import org.osate.aadl2.ComponentTypeRename;
-import org.osate.aadl2.ComputedValue;
-import org.osate.aadl2.ConnectionKind;
-import org.osate.aadl2.ConstantValue;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.ContainmentPathElement;
-import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.DataImplementation;
-import org.osate.aadl2.DataPort;
-import org.osate.aadl2.DataSubcomponent;
-import org.osate.aadl2.DataType;
-import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.DeviceImplementation;
-import org.osate.aadl2.DeviceSubcomponent;
-import org.osate.aadl2.DeviceType;
-import org.osate.aadl2.DirectionType;
-import org.osate.aadl2.EndToEndFlow;
-import org.osate.aadl2.EndToEndFlowElement;
-import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.EnumerationType;
-import org.osate.aadl2.EnumerationValue;
-import org.osate.aadl2.EventDataPort;
-import org.osate.aadl2.EventPort;
-import org.osate.aadl2.FeatureConnection;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupConnection;
-import org.osate.aadl2.FeatureGroupConnectionEnd;
-import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupPrototypeBinding;
-import org.osate.aadl2.FeatureGroupPrototypeReference;
-import org.osate.aadl2.FeatureGroupReference;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeatureGroupTypeRename;
-import org.osate.aadl2.FeaturePrototype;
-import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.FeaturePrototypeReference;
-import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.FlowKind;
-import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.GlobalNamespace;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.InternalEvent;
-import org.osate.aadl2.ListValue;
-import org.osate.aadl2.MemoryImplementation;
-import org.osate.aadl2.MemorySubcomponent;
-import org.osate.aadl2.MemoryType;
-import org.osate.aadl2.MetaclassReference;
-import org.osate.aadl2.ModalElement;
-import org.osate.aadl2.ModalPropertyValue;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeBinding;
-import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.Numeral;
-import org.osate.aadl2.NumericRange;
-import org.osate.aadl2.Operation;
-import org.osate.aadl2.OperationKind;
-import org.osate.aadl2.PackageRename;
-import org.osate.aadl2.Parameter;
-import org.osate.aadl2.ParameterConnection;
-import org.osate.aadl2.PortCategory;
-import org.osate.aadl2.PortConnection;
-import org.osate.aadl2.PortSpecification;
-import org.osate.aadl2.PrivatePackageSection;
-import org.osate.aadl2.ProcessImplementation;
-import org.osate.aadl2.ProcessSubcomponent;
-import org.osate.aadl2.ProcessType;
-import org.osate.aadl2.ProcessorCall;
-import org.osate.aadl2.ProcessorImplementation;
-import org.osate.aadl2.ProcessorPort;
-import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.ProcessorSubprogram;
-import org.osate.aadl2.ProcessorType;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertyReference;
-import org.osate.aadl2.PropertySet;
-import org.osate.aadl2.PublicPackageSection;
-import org.osate.aadl2.RangeType;
-import org.osate.aadl2.RangeValue;
-import org.osate.aadl2.RealLiteral;
-import org.osate.aadl2.Realization;
-import org.osate.aadl2.RecordField;
-import org.osate.aadl2.RecordType;
-import org.osate.aadl2.RecordValue;
-import org.osate.aadl2.ReferenceType;
-import org.osate.aadl2.ReferenceValue;
-import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.SubcomponentFlow;
-import org.osate.aadl2.SubprogramAccess;
-import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.aadl2.SubprogramGroupAccess;
-import org.osate.aadl2.SubprogramGroupImplementation;
-import org.osate.aadl2.SubprogramGroupSubcomponent;
-import org.osate.aadl2.SubprogramGroupType;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.SubprogramType;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.SystemSubcomponent;
-import org.osate.aadl2.SystemType;
-import org.osate.aadl2.ThreadGroupImplementation;
-import org.osate.aadl2.ThreadGroupSubcomponent;
-import org.osate.aadl2.ThreadGroupType;
-import org.osate.aadl2.ThreadImplementation;
-import org.osate.aadl2.ThreadSubcomponent;
-import org.osate.aadl2.ThreadType;
-import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.UnitLiteral;
-import org.osate.aadl2.UnitValue;
-import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.VirtualBusImplementation;
-import org.osate.aadl2.VirtualBusSubcomponent;
-import org.osate.aadl2.VirtualBusType;
-import org.osate.aadl2.VirtualProcessorImplementation;
-import org.osate.aadl2.VirtualProcessorSubcomponent;
-import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.*;
 
 /**
@@ -269,6 +114,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createNumeral();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE:
 			return (EObject) createComponentImplementationReference();
+		case Aadl2Package.SUBCOMPONENT_TYPE:
+			return (EObject) createSubcomponentType();
 		case Aadl2Package.MODE_TRANSITION:
 			return (EObject) createModeTransition();
 		case Aadl2Package.TRIGGER_PORT:
@@ -413,58 +260,86 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createVirtualBusSubcomponent();
 		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT:
 			return (EObject) createVirtualProcessorSubcomponent();
+		case Aadl2Package.ABSTRACT_PROTOTYPE:
+			return (EObject) createAbstractPrototype();
 		case Aadl2Package.BUS_TYPE:
 			return (EObject) createBusType();
 		case Aadl2Package.BUS_IMPLEMENTATION:
 			return (EObject) createBusImplementation();
+		case Aadl2Package.BUS_PROTOTYPE:
+			return (EObject) createBusPrototype();
 		case Aadl2Package.DATA_TYPE:
 			return (EObject) createDataType();
 		case Aadl2Package.DATA_IMPLEMENTATION:
 			return (EObject) createDataImplementation();
+		case Aadl2Package.DATA_PROTOTYPE:
+			return (EObject) createDataPrototype();
 		case Aadl2Package.DEVICE_TYPE:
 			return (EObject) createDeviceType();
 		case Aadl2Package.DEVICE_IMPLEMENTATION:
 			return (EObject) createDeviceImplementation();
+		case Aadl2Package.DEVICE_PROTOTYPE:
+			return (EObject) createDevicePrototype();
 		case Aadl2Package.MEMORY_TYPE:
 			return (EObject) createMemoryType();
 		case Aadl2Package.MEMORY_IMPLEMENTATION:
 			return (EObject) createMemoryImplementation();
+		case Aadl2Package.MEMORY_PROTOTYPE:
+			return (EObject) createMemoryPrototype();
 		case Aadl2Package.SUBPROGRAM_TYPE:
 			return (EObject) createSubprogramType();
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION:
 			return (EObject) createSubprogramImplementation();
+		case Aadl2Package.SUBPROGRAM_PROTOTYPE:
+			return (EObject) createSubprogramPrototype();
 		case Aadl2Package.SUBPROGRAM_GROUP_TYPE:
 			return (EObject) createSubprogramGroupType();
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION:
 			return (EObject) createSubprogramGroupImplementation();
+		case Aadl2Package.SUBPROGRAM_GROUP_PROTOTYPE:
+			return (EObject) createSubprogramGroupPrototype();
 		case Aadl2Package.SYSTEM_TYPE:
 			return (EObject) createSystemType();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION:
 			return (EObject) createSystemImplementation();
+		case Aadl2Package.SYSTEM_PROTOTYPE:
+			return (EObject) createSystemPrototype();
 		case Aadl2Package.PROCESSOR_TYPE:
 			return (EObject) createProcessorType();
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION:
 			return (EObject) createProcessorImplementation();
+		case Aadl2Package.PROCESSOR_PROTOTYPE:
+			return (EObject) createProcessorPrototype();
 		case Aadl2Package.PROCESS_TYPE:
 			return (EObject) createProcessType();
 		case Aadl2Package.PROCESS_IMPLEMENTATION:
 			return (EObject) createProcessImplementation();
+		case Aadl2Package.PROCESS_PROTOTYPE:
+			return (EObject) createProcessPrototype();
 		case Aadl2Package.THREAD_TYPE:
 			return (EObject) createThreadType();
 		case Aadl2Package.THREAD_IMPLEMENTATION:
 			return (EObject) createThreadImplementation();
+		case Aadl2Package.THREAD_PROTOTYPE:
+			return (EObject) createThreadPrototype();
 		case Aadl2Package.THREAD_GROUP_TYPE:
 			return (EObject) createThreadGroupType();
 		case Aadl2Package.THREAD_GROUP_IMPLEMENTATION:
 			return (EObject) createThreadGroupImplementation();
+		case Aadl2Package.THREAD_GROUP_PROTOTYPE:
+			return (EObject) createThreadGroupPrototype();
 		case Aadl2Package.VIRTUAL_BUS_TYPE:
 			return (EObject) createVirtualBusType();
 		case Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION:
 			return (EObject) createVirtualBusImplementation();
+		case Aadl2Package.VIRTUAL_BUS_PROTOTYPE:
+			return (EObject) createVirtualBusPrototype();
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE:
 			return (EObject) createVirtualProcessorType();
 		case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION:
 			return (EObject) createVirtualProcessorImplementation();
+		case Aadl2Package.VIRTUAL_PROCESSOR_PROTOTYPE:
+			return (EObject) createVirtualProcessorPrototype();
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION:
 			return (EObject) createBasicPropertyAssociation();
 		case Aadl2Package.PROPERTY_CONSTANT:
@@ -748,6 +623,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public ComponentImplementationReference createComponentImplementationReference() {
 		ComponentImplementationReferenceImpl componentImplementationReference = new ComponentImplementationReferenceImpl();
 		return componentImplementationReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubcomponentType createSubcomponentType() {
+		SubcomponentTypeImpl subcomponentType = new SubcomponentTypeImpl();
+		return subcomponentType;
 	}
 
 	/**
@@ -1335,6 +1220,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AbstractPrototype createAbstractPrototype() {
+		AbstractPrototypeImpl abstractPrototype = new AbstractPrototypeImpl();
+		return abstractPrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public BusType createBusType() {
 		BusTypeImpl busType = new BusTypeImpl();
 		return busType;
@@ -1348,6 +1243,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public BusImplementation createBusImplementation() {
 		BusImplementationImpl busImplementation = new BusImplementationImpl();
 		return busImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BusPrototype createBusPrototype() {
+		BusPrototypeImpl busPrototype = new BusPrototypeImpl();
+		return busPrototype;
 	}
 
 	/**
@@ -1375,6 +1280,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DataPrototype createDataPrototype() {
+		DataPrototypeImpl dataPrototype = new DataPrototypeImpl();
+		return dataPrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public DeviceType createDeviceType() {
 		DeviceTypeImpl deviceType = new DeviceTypeImpl();
 		return deviceType;
@@ -1395,6 +1310,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DevicePrototype createDevicePrototype() {
+		DevicePrototypeImpl devicePrototype = new DevicePrototypeImpl();
+		return devicePrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public MemoryType createMemoryType() {
 		MemoryTypeImpl memoryType = new MemoryTypeImpl();
 		return memoryType;
@@ -1408,6 +1333,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public MemoryImplementation createMemoryImplementation() {
 		MemoryImplementationImpl memoryImplementation = new MemoryImplementationImpl();
 		return memoryImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MemoryPrototype createMemoryPrototype() {
+		MemoryPrototypeImpl memoryPrototype = new MemoryPrototypeImpl();
+		return memoryPrototype;
 	}
 
 	/**
@@ -1445,9 +1380,29 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ProcessPrototype createProcessPrototype() {
+		ProcessPrototypeImpl processPrototype = new ProcessPrototypeImpl();
+		return processPrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ProcessorImplementation createProcessorImplementation() {
 		ProcessorImplementationImpl processorImplementation = new ProcessorImplementationImpl();
 		return processorImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProcessorPrototype createProcessorPrototype() {
+		ProcessorPrototypeImpl processorPrototype = new ProcessorPrototypeImpl();
+		return processorPrototype;
 	}
 
 	/**
@@ -1475,6 +1430,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SubprogramPrototype createSubprogramPrototype() {
+		SubprogramPrototypeImpl subprogramPrototype = new SubprogramPrototypeImpl();
+		return subprogramPrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SubprogramGroupType createSubprogramGroupType() {
 		SubprogramGroupTypeImpl subprogramGroupType = new SubprogramGroupTypeImpl();
 		return subprogramGroupType;
@@ -1488,6 +1453,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public SubprogramGroupImplementation createSubprogramGroupImplementation() {
 		SubprogramGroupImplementationImpl subprogramGroupImplementation = new SubprogramGroupImplementationImpl();
 		return subprogramGroupImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramGroupPrototype createSubprogramGroupPrototype() {
+		SubprogramGroupPrototypeImpl subprogramGroupPrototype = new SubprogramGroupPrototypeImpl();
+		return subprogramGroupPrototype;
 	}
 
 	/**
@@ -1515,6 +1490,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SystemPrototype createSystemPrototype() {
+		SystemPrototypeImpl systemPrototype = new SystemPrototypeImpl();
+		return systemPrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ThreadType createThreadType() {
 		ThreadTypeImpl threadType = new ThreadTypeImpl();
 		return threadType;
@@ -1528,6 +1513,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public ThreadImplementation createThreadImplementation() {
 		ThreadImplementationImpl threadImplementation = new ThreadImplementationImpl();
 		return threadImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ThreadPrototype createThreadPrototype() {
+		ThreadPrototypeImpl threadPrototype = new ThreadPrototypeImpl();
+		return threadPrototype;
 	}
 
 	/**
@@ -1555,6 +1550,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ThreadGroupPrototype createThreadGroupPrototype() {
+		ThreadGroupPrototypeImpl threadGroupPrototype = new ThreadGroupPrototypeImpl();
+		return threadGroupPrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public VirtualBusType createVirtualBusType() {
 		VirtualBusTypeImpl virtualBusType = new VirtualBusTypeImpl();
 		return virtualBusType;
@@ -1575,6 +1580,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public VirtualBusPrototype createVirtualBusPrototype() {
+		VirtualBusPrototypeImpl virtualBusPrototype = new VirtualBusPrototypeImpl();
+		return virtualBusPrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public VirtualProcessorType createVirtualProcessorType() {
 		VirtualProcessorTypeImpl virtualProcessorType = new VirtualProcessorTypeImpl();
 		return virtualProcessorType;
@@ -1588,6 +1603,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public VirtualProcessorImplementation createVirtualProcessorImplementation() {
 		VirtualProcessorImplementationImpl virtualProcessorImplementation = new VirtualProcessorImplementationImpl();
 		return virtualProcessorImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VirtualProcessorPrototype createVirtualProcessorPrototype() {
+		VirtualProcessorPrototypeImpl virtualProcessorPrototype = new VirtualProcessorPrototypeImpl();
+		return virtualProcessorPrototype;
 	}
 
 	/**

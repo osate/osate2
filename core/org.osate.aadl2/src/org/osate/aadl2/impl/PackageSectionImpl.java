@@ -258,6 +258,17 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Classifier createOwnedClassifier(EClass eClass) {
+		Classifier newOwnedClassifier = (Classifier) create(eClass);
+		getOwnedClassifiers().add(newOwnedClassifier);
+		return newOwnedClassifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<PackageRename> getOwnedPackageRenames() {
 		if (ownedPackageRenames == null) {
 			ownedPackageRenames = new EObjectContainmentEList<PackageRename>(PackageRename.class, this,
@@ -429,6 +440,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			return ((InternalEList<?>) getOwnedPackageRenames()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME:
 			return ((InternalEList<?>) getOwnedComponentTypeRenames()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER:
+			return ((InternalEList<?>) getOwnedClassifiers()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME:
 			return ((InternalEList<?>) getOwnedFeatureGroupTypeRenames()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY:
@@ -482,6 +495,10 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			getOwnedComponentTypeRenames().clear();
 			getOwnedComponentTypeRenames().addAll((Collection<? extends ComponentTypeRename>) newValue);
 			return;
+		case Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER:
+			getOwnedClassifiers().clear();
+			getOwnedClassifiers().addAll((Collection<? extends Classifier>) newValue);
+			return;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME:
 			getOwnedFeatureGroupTypeRenames().clear();
 			getOwnedFeatureGroupTypeRenames().addAll((Collection<? extends FeatureGroupTypeRename>) newValue);
@@ -517,6 +534,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			return;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME:
 			getOwnedComponentTypeRenames().clear();
+			return;
+		case Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER:
+			getOwnedClassifiers().clear();
 			return;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME:
 			getOwnedFeatureGroupTypeRenames().clear();

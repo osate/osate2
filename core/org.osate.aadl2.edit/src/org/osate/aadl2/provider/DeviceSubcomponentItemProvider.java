@@ -79,25 +79,26 @@ public class DeviceSubcomponentItemProvider extends SubcomponentItemProvider imp
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDeviceClassifierPropertyDescriptor(object);
+			addDeviceSubcomponentTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Device Classifier feature.
+	 * This adds a property descriptor for the Device Subcomponent Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDeviceClassifierPropertyDescriptor(Object object) {
+	protected void addDeviceSubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_DeviceSubcomponent_deviceClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_DeviceSubcomponent_deviceClassifier_feature",
-						"_UI_DeviceSubcomponent_type"),
-				Aadl2Package.eINSTANCE.getDeviceSubcomponent_DeviceClassifier(), true, false, true, null, null, null));
+				getString("_UI_DeviceSubcomponent_deviceSubcomponentType_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_DeviceSubcomponent_deviceSubcomponentType_feature", "_UI_DeviceSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getDeviceSubcomponent_DeviceSubcomponentType(), true, false, true, null, null,
+				null));
 	}
 
 	/**

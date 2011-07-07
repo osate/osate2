@@ -45,6 +45,6 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface ProcessorClassifier extends ComponentClassifier, Processor {
+public interface ProcessorClassifier extends ComponentClassifier, ProcessorSubcomponentType {
 
 } // ProcessorClassifier

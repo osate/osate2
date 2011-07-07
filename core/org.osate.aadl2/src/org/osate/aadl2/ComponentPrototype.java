@@ -54,7 +54,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface ComponentPrototype extends Prototype {
+public interface ComponentPrototype extends Prototype, SubcomponentType {
 	/**
 	 * Returns the value of the '<em><b>Category</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.osate.aadl2.ComponentCategory}.

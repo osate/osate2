@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.ThreadGroupSubcomponent#getThreadGroupClassifier <em>Thread Group Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.ThreadGroupSubcomponent#getThreadGroupSubcomponentType <em>Thread Group Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,35 +54,35 @@ package org.osate.aadl2;
 public interface ThreadGroupSubcomponent extends Subcomponent, org.osate.aadl2.ThreadGroup {
 
 	/**
-	 * Returns the value of the '<em><b>Thread Group Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Thread Group Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Thread Group Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Thread Group Subcomponent Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Thread Group Classifier</em>' reference.
-	 * @see #setThreadGroupClassifier(ThreadGroupClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupSubcomponent_ThreadGroupClassifier()
-	 * @model volatile="true" ordered="false"
+	 * @return the value of the '<em>Thread Group Subcomponent Type</em>' reference.
+	 * @see #setThreadGroupSubcomponentType(ThreadGroupSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupSubcomponent_ThreadGroupSubcomponentType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	ThreadGroupClassifier getThreadGroupClassifier();
+	ThreadGroupSubcomponentType getThreadGroupSubcomponentType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ThreadGroupSubcomponent#getThreadGroupClassifier <em>Thread Group Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.ThreadGroupSubcomponent#getThreadGroupSubcomponentType <em>Thread Group Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Thread Group Classifier</em>' reference.
-	 * @see #getThreadGroupClassifier()
+	 * @param value the new value of the '<em>Thread Group Subcomponent Type</em>' reference.
+	 * @see #getThreadGroupSubcomponentType()
 	 * @generated
 	 */
-	void setThreadGroupClassifier(ThreadGroupClassifier value);
+	void setThreadGroupSubcomponentType(ThreadGroupSubcomponentType value);
 
 } // ThreadGroupSubcomponent

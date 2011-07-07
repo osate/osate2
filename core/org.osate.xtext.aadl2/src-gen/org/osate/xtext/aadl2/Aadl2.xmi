@@ -2839,7 +2839,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="abstract"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="abstractClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="abstractSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//AbstractClassifier"/>
@@ -2931,7 +2931,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="system"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="systemClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="systemSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//SystemClassifier"/>
@@ -3023,7 +3023,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="process"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="processClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="processSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ProcessClassifier"/>
@@ -3116,7 +3116,7 @@
         <elements xsi:type="xtext:Keyword" value="thread"/>
         <elements xsi:type="xtext:Keyword" value="group"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="threadGroupClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="threadGroupSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ThreadGroupClassifier"/>
@@ -3208,7 +3208,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="thread"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="threadClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="threadSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ThreadClassifier"/>
@@ -3300,7 +3300,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="subprogram"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="subprogramClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="subprogramSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//SubprogramClassifier"/>
@@ -3393,7 +3393,7 @@
         <elements xsi:type="xtext:Keyword" value="subprogram"/>
         <elements xsi:type="xtext:Keyword" value="group"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="subprogramGroupClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="subprogramGroupSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//SubprogramGroupClassifier"/>
@@ -3485,7 +3485,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="processor"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="processorClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="processorSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ProcessorClassifier"/>
@@ -3578,7 +3578,7 @@
         <elements xsi:type="xtext:Keyword" value="virtual"/>
         <elements xsi:type="xtext:Keyword" value="processor"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="virtualProcessorClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="virtualProcessorSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//VirtualProcessorClassifier"/>
@@ -3670,7 +3670,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="device"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="deviceClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="deviceSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DeviceClassifier"/>
@@ -3762,7 +3762,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="memory"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="memoryClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="memorySubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//MemoryClassifier"/>
@@ -3854,7 +3854,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="bus"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="busClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="busSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//BusClassifier"/>
@@ -3947,7 +3947,7 @@
         <elements xsi:type="xtext:Keyword" value="virtual"/>
         <elements xsi:type="xtext:Keyword" value="bus"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="virtualBusClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="virtualBusSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//VirtualBusClassifier"/>
@@ -4039,7 +4039,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="data"/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="dataClassifier" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="dataSubcomponentType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataClassifier"/>

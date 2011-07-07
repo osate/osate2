@@ -180,6 +180,15 @@ public interface Aadl2Factory extends EFactory {
 	ComponentImplementationReference createComponentImplementationReference();
 
 	/**
+	 * Returns a new object of class '<em>Subcomponent Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Subcomponent Type</em>'.
+	 * @generated
+	 */
+	SubcomponentType createSubcomponentType();
+
+	/**
 	 * Returns a new object of class '<em>Mode Transition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -702,6 +711,15 @@ public interface Aadl2Factory extends EFactory {
 	VirtualProcessorSubcomponent createVirtualProcessorSubcomponent();
 
 	/**
+	 * Returns a new object of class '<em>Abstract Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Abstract Prototype</em>'.
+	 * @generated
+	 */
+	AbstractPrototype createAbstractPrototype();
+
+	/**
 	 * Returns a new object of class '<em>Bus Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -718,6 +736,15 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	BusImplementation createBusImplementation();
+
+	/**
+	 * Returns a new object of class '<em>Bus Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Bus Prototype</em>'.
+	 * @generated
+	 */
+	BusPrototype createBusPrototype();
 
 	/**
 	 * Returns a new object of class '<em>Data Type</em>'.
@@ -738,6 +765,15 @@ public interface Aadl2Factory extends EFactory {
 	DataImplementation createDataImplementation();
 
 	/**
+	 * Returns a new object of class '<em>Data Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Data Prototype</em>'.
+	 * @generated
+	 */
+	DataPrototype createDataPrototype();
+
+	/**
 	 * Returns a new object of class '<em>Device Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -756,6 +792,15 @@ public interface Aadl2Factory extends EFactory {
 	DeviceImplementation createDeviceImplementation();
 
 	/**
+	 * Returns a new object of class '<em>Device Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Device Prototype</em>'.
+	 * @generated
+	 */
+	DevicePrototype createDevicePrototype();
+
+	/**
 	 * Returns a new object of class '<em>Memory Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -772,6 +817,15 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	MemoryImplementation createMemoryImplementation();
+
+	/**
+	 * Returns a new object of class '<em>Memory Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Memory Prototype</em>'.
+	 * @generated
+	 */
+	MemoryPrototype createMemoryPrototype();
 
 	/**
 	 * Returns a new object of class '<em>Process Type</em>'.
@@ -801,6 +855,15 @@ public interface Aadl2Factory extends EFactory {
 	ProcessImplementation createProcessImplementation();
 
 	/**
+	 * Returns a new object of class '<em>Process Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Process Prototype</em>'.
+	 * @generated
+	 */
+	ProcessPrototype createProcessPrototype();
+
+	/**
 	 * Returns a new object of class '<em>Processor Implementation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -808,6 +871,15 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	ProcessorImplementation createProcessorImplementation();
+
+	/**
+	 * Returns a new object of class '<em>Processor Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Processor Prototype</em>'.
+	 * @generated
+	 */
+	ProcessorPrototype createProcessorPrototype();
 
 	/**
 	 * Returns a new object of class '<em>Subprogram Type</em>'.
@@ -828,6 +900,15 @@ public interface Aadl2Factory extends EFactory {
 	SubprogramImplementation createSubprogramImplementation();
 
 	/**
+	 * Returns a new object of class '<em>Subprogram Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Subprogram Prototype</em>'.
+	 * @generated
+	 */
+	SubprogramPrototype createSubprogramPrototype();
+
+	/**
 	 * Returns a new object of class '<em>Subprogram Group Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -844,6 +925,15 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	SubprogramGroupImplementation createSubprogramGroupImplementation();
+
+	/**
+	 * Returns a new object of class '<em>Subprogram Group Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Subprogram Group Prototype</em>'.
+	 * @generated
+	 */
+	SubprogramGroupPrototype createSubprogramGroupPrototype();
 
 	/**
 	 * Returns a new object of class '<em>System Type</em>'.
@@ -864,6 +954,15 @@ public interface Aadl2Factory extends EFactory {
 	SystemImplementation createSystemImplementation();
 
 	/**
+	 * Returns a new object of class '<em>System Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>System Prototype</em>'.
+	 * @generated
+	 */
+	SystemPrototype createSystemPrototype();
+
+	/**
 	 * Returns a new object of class '<em>Thread Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -880,6 +979,15 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	ThreadImplementation createThreadImplementation();
+
+	/**
+	 * Returns a new object of class '<em>Thread Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Thread Prototype</em>'.
+	 * @generated
+	 */
+	ThreadPrototype createThreadPrototype();
 
 	/**
 	 * Returns a new object of class '<em>Thread Group Type</em>'.
@@ -900,6 +1008,15 @@ public interface Aadl2Factory extends EFactory {
 	ThreadGroupImplementation createThreadGroupImplementation();
 
 	/**
+	 * Returns a new object of class '<em>Thread Group Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Thread Group Prototype</em>'.
+	 * @generated
+	 */
+	ThreadGroupPrototype createThreadGroupPrototype();
+
+	/**
 	 * Returns a new object of class '<em>Virtual Bus Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -918,6 +1035,15 @@ public interface Aadl2Factory extends EFactory {
 	VirtualBusImplementation createVirtualBusImplementation();
 
 	/**
+	 * Returns a new object of class '<em>Virtual Bus Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Virtual Bus Prototype</em>'.
+	 * @generated
+	 */
+	VirtualBusPrototype createVirtualBusPrototype();
+
+	/**
 	 * Returns a new object of class '<em>Virtual Processor Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -934,6 +1060,15 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	VirtualProcessorImplementation createVirtualProcessorImplementation();
+
+	/**
+	 * Returns a new object of class '<em>Virtual Processor Prototype</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Virtual Processor Prototype</em>'.
+	 * @generated
+	 */
+	VirtualProcessorPrototype createVirtualProcessorPrototype();
 
 	/**
 	 * Returns a new object of class '<em>Component Prototype Binding</em>'.

@@ -41,7 +41,6 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -85,11 +84,12 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 			super.getPropertyDescriptors(object);
 
 			addInModePropertyDescriptor(object);
-			addClassifierPropertyDescriptor(object);
+			addSubcomponentTypePropertyDescriptor(object);
 			addPrototypePropertyDescriptor(object);
 			addAllModesPropertyDescriptor(object);
 			addRefinedPropertyDescriptor(object);
-			addAbstractClassifierPropertyDescriptor(object);
+			addClassifierPropertyDescriptor(object);
+			addAbstractSubcomponentTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -111,6 +111,22 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 	}
 
 	/**
+	 * This adds a property descriptor for the Subcomponent Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSubcomponentTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_Subcomponent_subcomponentType_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_subcomponentType_feature",
+						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_SubcomponentType(), false,
+				false, false, null, null, null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Classifier feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -124,6 +140,22 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_classifier_feature",
 						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_Classifier(), false, false,
 				false, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Abstract Subcomponent Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAbstractSubcomponentTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_Subcomponent_abstractSubcomponentType_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_abstractSubcomponentType_feature",
+						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_AbstractSubcomponentType(),
+				true, false, false, null, null, null));
 	}
 
 	/**
@@ -172,22 +204,6 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_refined_feature",
 						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_Refined(), true, false, true,
 				null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Abstract Classifier feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addAbstractClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Subcomponent_abstractClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_abstractClassifier_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_AbstractClassifier(), true,
-				false, true, null, null, null));
 	}
 
 	/**
@@ -249,6 +265,7 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 
 		switch (notification.getFeatureID(Subcomponent.class)) {
 		case Aadl2Package.SUBCOMPONENT__ALL_MODES:
+		case Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:

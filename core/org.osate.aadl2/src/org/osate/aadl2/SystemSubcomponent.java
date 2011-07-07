@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.SystemSubcomponent#getSystemClassifier <em>System Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.SystemSubcomponent#getSystemSubcomponentType <em>System Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,35 +54,35 @@ package org.osate.aadl2;
 public interface SystemSubcomponent extends Subcomponent, org.osate.aadl2.System {
 
 	/**
-	 * Returns the value of the '<em><b>System Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>System Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>System Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>System Subcomponent Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>System Classifier</em>' reference.
-	 * @see #setSystemClassifier(SystemClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getSystemSubcomponent_SystemClassifier()
-	 * @model volatile="true" ordered="false"
+	 * @return the value of the '<em>System Subcomponent Type</em>' reference.
+	 * @see #setSystemSubcomponentType(SystemSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getSystemSubcomponent_SystemSubcomponentType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	SystemClassifier getSystemClassifier();
+	SystemSubcomponentType getSystemSubcomponentType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.SystemSubcomponent#getSystemClassifier <em>System Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.SystemSubcomponent#getSystemSubcomponentType <em>System Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>System Classifier</em>' reference.
-	 * @see #getSystemClassifier()
+	 * @param value the new value of the '<em>System Subcomponent Type</em>' reference.
+	 * @see #getSystemSubcomponentType()
 	 * @generated
 	 */
-	void setSystemClassifier(SystemClassifier value);
+	void setSystemSubcomponentType(SystemSubcomponentType value);
 
 } // SystemSubcomponent

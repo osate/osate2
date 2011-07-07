@@ -45,6 +45,6 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface AbstractClassifier extends ComponentClassifier, Abstract {
+public interface AbstractClassifier extends ComponentClassifier, AbstractSubcomponentType {
 
 } // AbstractClassifier

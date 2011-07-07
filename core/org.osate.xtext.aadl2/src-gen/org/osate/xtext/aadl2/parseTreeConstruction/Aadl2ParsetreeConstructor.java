@@ -37199,7 +37199,7 @@ protected class ComponentReference_RightParenthesisKeyword_1_3 extends KeywordTo
  *  * Subcomponents
  *  * / AbstractSubcomponent returns aadl2::AbstractSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::SystemSubcomponent] ":" "refined" "to") "abstract" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
- * 	(abstractClassifier=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+ * 	(abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -37209,7 +37209,7 @@ protected class ComponentReference_RightParenthesisKeyword_1_3 extends KeywordTo
  **/
 
 // (name=ID ":" | refined=[aadl2::SystemSubcomponent] ":" "refined" "to") "abstract" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
-// (abstractClassifier=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -37491,7 +37491,7 @@ protected class AbstractSubcomponent_AbstractKeyword_1 extends KeywordToken  {
 
 }
 
-// (abstractClassifier=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class AbstractSubcomponent_Group_2 extends GroupToken {
 	
@@ -37508,23 +37508,23 @@ protected class AbstractSubcomponent_Group_2 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new AbstractSubcomponent_Group_2_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new AbstractSubcomponent_AbstractClassifierAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new AbstractSubcomponent_AbstractSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// abstractClassifier=[aadl2::AbstractClassifier|QCREF]
-protected class AbstractSubcomponent_AbstractClassifierAssignment_2_0 extends AssignmentToken  {
+// abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF]
+protected class AbstractSubcomponent_AbstractSubcomponentTypeAssignment_2_0 extends AssignmentToken  {
 	
-	public AbstractSubcomponent_AbstractClassifierAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public AbstractSubcomponent_AbstractSubcomponentTypeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getAbstractSubcomponentAccess().getAbstractClassifierAssignment_2_0();
+		return grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAssignment_2_0();
 	}
 
     @Override
@@ -37537,13 +37537,13 @@ protected class AbstractSubcomponent_AbstractClassifierAssignment_2_0 extends As
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("abstractClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("abstractClassifier");
+		if((value = eObjectConsumer.getConsumable("abstractSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("abstractSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getAbstractSubcomponentAccess().getAbstractClassifierAbstractClassifierCrossReference_2_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractClassifierCrossReference_2_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getAbstractSubcomponentAccess().getAbstractClassifierAbstractClassifierCrossReference_2_0_0(); 
+				element = grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractClassifierCrossReference_2_0_0(); 
 				return obj;
 			}
 		}
@@ -37589,7 +37589,7 @@ protected class AbstractSubcomponent_LeftParenthesisKeyword_2_1_0 extends Keywor
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new AbstractSubcomponent_AbstractClassifierAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new AbstractSubcomponent_AbstractSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -38406,8 +38406,8 @@ protected class AbstractSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 /************ begin Rule SystemSubcomponent ****************
  *
  * SystemSubcomponent returns aadl2::SystemSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::SystemSubcomponent] ":" "refined" "to") "system" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
- * 	(systemClassifier=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+ * 	(name=ID ":" | refined=[aadl2::SystemSubcomponent] ":" "refined" "to") "system"
+ * 	(systemSubcomponentType=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -38416,8 +38416,8 @@ protected class AbstractSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::SystemSubcomponent] ":" "refined" "to") "system" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
-// (systemClassifier=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (name=ID ":" | refined=[aadl2::SystemSubcomponent] ":" "refined" "to") "system"
+// (systemSubcomponentType=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -38699,7 +38699,7 @@ protected class SystemSubcomponent_SystemKeyword_1 extends KeywordToken  {
 
 }
 
-// (systemClassifier=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (systemSubcomponentType=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class SystemSubcomponent_Group_2 extends GroupToken {
 	
@@ -38716,23 +38716,23 @@ protected class SystemSubcomponent_Group_2 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new SystemSubcomponent_Group_2_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new SystemSubcomponent_SystemClassifierAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new SystemSubcomponent_SystemSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// systemClassifier=[aadl2::SystemClassifier|QCREF]
-protected class SystemSubcomponent_SystemClassifierAssignment_2_0 extends AssignmentToken  {
+// systemSubcomponentType=[aadl2::SystemClassifier|QCREF]
+protected class SystemSubcomponent_SystemSubcomponentTypeAssignment_2_0 extends AssignmentToken  {
 	
-	public SystemSubcomponent_SystemClassifierAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SystemSubcomponent_SystemSubcomponentTypeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSystemSubcomponentAccess().getSystemClassifierAssignment_2_0();
+		return grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeAssignment_2_0();
 	}
 
     @Override
@@ -38745,13 +38745,13 @@ protected class SystemSubcomponent_SystemClassifierAssignment_2_0 extends Assign
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("systemClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("systemClassifier");
+		if((value = eObjectConsumer.getConsumable("systemSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("systemSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSystemSubcomponentAccess().getSystemClassifierSystemClassifierCrossReference_2_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemClassifierCrossReference_2_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getSystemSubcomponentAccess().getSystemClassifierSystemClassifierCrossReference_2_0_0(); 
+				element = grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemClassifierCrossReference_2_0_0(); 
 				return obj;
 			}
 		}
@@ -38797,7 +38797,7 @@ protected class SystemSubcomponent_LeftParenthesisKeyword_2_1_0 extends KeywordT
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SystemSubcomponent_SystemClassifierAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SystemSubcomponent_SystemSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -39615,7 +39615,7 @@ protected class SystemSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  * ProcessSubcomponent returns aadl2::ProcessSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::ProcessSubcomponent] ":" "refined" "to") "process" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
- * 	(processClassifier=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+ * 	(processSubcomponentType=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -39625,7 +39625,7 @@ protected class SystemSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  **/
 
 // (name=ID ":" | refined=[aadl2::ProcessSubcomponent] ":" "refined" "to") "process" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
-// (processClassifier=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (processSubcomponentType=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -39907,7 +39907,7 @@ protected class ProcessSubcomponent_ProcessKeyword_1 extends KeywordToken  {
 
 }
 
-// (processClassifier=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (processSubcomponentType=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class ProcessSubcomponent_Group_2 extends GroupToken {
 	
@@ -39924,23 +39924,23 @@ protected class ProcessSubcomponent_Group_2 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new ProcessSubcomponent_Group_2_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ProcessSubcomponent_ProcessClassifierAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new ProcessSubcomponent_ProcessSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// processClassifier=[aadl2::ProcessClassifier|QCREF]
-protected class ProcessSubcomponent_ProcessClassifierAssignment_2_0 extends AssignmentToken  {
+// processSubcomponentType=[aadl2::ProcessClassifier|QCREF]
+protected class ProcessSubcomponent_ProcessSubcomponentTypeAssignment_2_0 extends AssignmentToken  {
 	
-	public ProcessSubcomponent_ProcessClassifierAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ProcessSubcomponent_ProcessSubcomponentTypeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getProcessSubcomponentAccess().getProcessClassifierAssignment_2_0();
+		return grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeAssignment_2_0();
 	}
 
     @Override
@@ -39953,13 +39953,13 @@ protected class ProcessSubcomponent_ProcessClassifierAssignment_2_0 extends Assi
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("processClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("processClassifier");
+		if((value = eObjectConsumer.getConsumable("processSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("processSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getProcessSubcomponentAccess().getProcessClassifierProcessClassifierCrossReference_2_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessClassifierCrossReference_2_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getProcessSubcomponentAccess().getProcessClassifierProcessClassifierCrossReference_2_0_0(); 
+				element = grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessClassifierCrossReference_2_0_0(); 
 				return obj;
 			}
 		}
@@ -40005,7 +40005,7 @@ protected class ProcessSubcomponent_LeftParenthesisKeyword_2_1_0 extends Keyword
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ProcessSubcomponent_ProcessClassifierAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ProcessSubcomponent_ProcessSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -40823,7 +40823,7 @@ protected class ProcessSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  * ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent] ":" "refined" "to") "thread" "group" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
- * 	(threadGroupClassifier=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+ * 	(threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -40833,7 +40833,7 @@ protected class ProcessSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  **/
 
 // (name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent] ":" "refined" "to") "thread" "group" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
-// (threadGroupClassifier=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -41137,7 +41137,7 @@ protected class ThreadGroupSubcomponent_GroupKeyword_2 extends KeywordToken  {
 
 }
 
-// (threadGroupClassifier=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class ThreadGroupSubcomponent_Group_3 extends GroupToken {
 	
@@ -41154,23 +41154,23 @@ protected class ThreadGroupSubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new ThreadGroupSubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ThreadGroupSubcomponent_ThreadGroupClassifierAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new ThreadGroupSubcomponent_ThreadGroupSubcomponentTypeAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// threadGroupClassifier=[aadl2::ThreadGroupClassifier|QCREF]
-protected class ThreadGroupSubcomponent_ThreadGroupClassifierAssignment_3_0 extends AssignmentToken  {
+// threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF]
+protected class ThreadGroupSubcomponent_ThreadGroupSubcomponentTypeAssignment_3_0 extends AssignmentToken  {
 	
-	public ThreadGroupSubcomponent_ThreadGroupClassifierAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ThreadGroupSubcomponent_ThreadGroupSubcomponentTypeAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupClassifierAssignment_3_0();
+		return grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeAssignment_3_0();
 	}
 
     @Override
@@ -41183,13 +41183,13 @@ protected class ThreadGroupSubcomponent_ThreadGroupClassifierAssignment_3_0 exte
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("threadGroupClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("threadGroupClassifier");
+		if((value = eObjectConsumer.getConsumable("threadGroupSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("threadGroupSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupClassifierThreadGroupClassifierCrossReference_3_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupClassifierCrossReference_3_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupClassifierThreadGroupClassifierCrossReference_3_0_0(); 
+				element = grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupClassifierCrossReference_3_0_0(); 
 				return obj;
 			}
 		}
@@ -41235,7 +41235,7 @@ protected class ThreadGroupSubcomponent_LeftParenthesisKeyword_3_1_0 extends Key
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ThreadGroupSubcomponent_ThreadGroupClassifierAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ThreadGroupSubcomponent_ThreadGroupSubcomponentTypeAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -42053,7 +42053,7 @@ protected class ThreadGroupSubcomponent_SemicolonKeyword_7 extends KeywordToken 
  *
  * ThreadSubcomponent returns aadl2::ThreadSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::ThreadSubcomponent] ":" "refined" "to") "thread" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
- * 	(threadClassifier=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+ * 	(threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -42063,7 +42063,7 @@ protected class ThreadGroupSubcomponent_SemicolonKeyword_7 extends KeywordToken 
  **/
 
 // (name=ID ":" | refined=[aadl2::ThreadSubcomponent] ":" "refined" "to") "thread" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
-// (threadClassifier=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -42345,7 +42345,7 @@ protected class ThreadSubcomponent_ThreadKeyword_1 extends KeywordToken  {
 
 }
 
-// (threadClassifier=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class ThreadSubcomponent_Group_2 extends GroupToken {
 	
@@ -42362,23 +42362,23 @@ protected class ThreadSubcomponent_Group_2 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new ThreadSubcomponent_Group_2_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ThreadSubcomponent_ThreadClassifierAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new ThreadSubcomponent_ThreadSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// threadClassifier=[aadl2::ThreadClassifier|QCREF]
-protected class ThreadSubcomponent_ThreadClassifierAssignment_2_0 extends AssignmentToken  {
+// threadSubcomponentType=[aadl2::ThreadClassifier|QCREF]
+protected class ThreadSubcomponent_ThreadSubcomponentTypeAssignment_2_0 extends AssignmentToken  {
 	
-	public ThreadSubcomponent_ThreadClassifierAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ThreadSubcomponent_ThreadSubcomponentTypeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getThreadSubcomponentAccess().getThreadClassifierAssignment_2_0();
+		return grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeAssignment_2_0();
 	}
 
     @Override
@@ -42391,13 +42391,13 @@ protected class ThreadSubcomponent_ThreadClassifierAssignment_2_0 extends Assign
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("threadClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("threadClassifier");
+		if((value = eObjectConsumer.getConsumable("threadSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("threadSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getThreadSubcomponentAccess().getThreadClassifierThreadClassifierCrossReference_2_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadClassifierCrossReference_2_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getThreadSubcomponentAccess().getThreadClassifierThreadClassifierCrossReference_2_0_0(); 
+				element = grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadClassifierCrossReference_2_0_0(); 
 				return obj;
 			}
 		}
@@ -42443,7 +42443,7 @@ protected class ThreadSubcomponent_LeftParenthesisKeyword_2_1_0 extends KeywordT
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ThreadSubcomponent_ThreadClassifierAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ThreadSubcomponent_ThreadSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -43261,7 +43261,7 @@ protected class ThreadSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  * SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::SubprogramSubcomponent] ":" "refined" "to") "subprogram" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
- * 	(subprogramClassifier=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+ * 	(subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -43271,7 +43271,7 @@ protected class ThreadSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  **/
 
 // (name=ID ":" | refined=[aadl2::SubprogramSubcomponent] ":" "refined" "to") "subprogram" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
-// (subprogramClassifier=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -43553,7 +43553,7 @@ protected class SubprogramSubcomponent_SubprogramKeyword_1 extends KeywordToken 
 
 }
 
-// (subprogramClassifier=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class SubprogramSubcomponent_Group_2 extends GroupToken {
 	
@@ -43570,23 +43570,23 @@ protected class SubprogramSubcomponent_Group_2 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new SubprogramSubcomponent_Group_2_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new SubprogramSubcomponent_SubprogramClassifierAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new SubprogramSubcomponent_SubprogramSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]
-protected class SubprogramSubcomponent_SubprogramClassifierAssignment_2_0 extends AssignmentToken  {
+// subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF]
+protected class SubprogramSubcomponent_SubprogramSubcomponentTypeAssignment_2_0 extends AssignmentToken  {
 	
-	public SubprogramSubcomponent_SubprogramClassifierAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SubprogramSubcomponent_SubprogramSubcomponentTypeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSubprogramSubcomponentAccess().getSubprogramClassifierAssignment_2_0();
+		return grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeAssignment_2_0();
 	}
 
     @Override
@@ -43599,13 +43599,13 @@ protected class SubprogramSubcomponent_SubprogramClassifierAssignment_2_0 extend
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("subprogramClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("subprogramClassifier");
+		if((value = eObjectConsumer.getConsumable("subprogramSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("subprogramSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramClassifierSubprogramClassifierCrossReference_2_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramClassifierCrossReference_2_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getSubprogramSubcomponentAccess().getSubprogramClassifierSubprogramClassifierCrossReference_2_0_0(); 
+				element = grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramClassifierCrossReference_2_0_0(); 
 				return obj;
 			}
 		}
@@ -43651,7 +43651,7 @@ protected class SubprogramSubcomponent_LeftParenthesisKeyword_2_1_0 extends Keyw
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubprogramSubcomponent_SubprogramClassifierAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SubprogramSubcomponent_SubprogramSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -44469,8 +44469,8 @@ protected class SubprogramSubcomponent_SemicolonKeyword_6 extends KeywordToken  
  *
  * SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent] ":" "refined" "to") "subprogram" "group" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
- * 	(subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
- * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
+ * 	("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -44479,8 +44479,8 @@ protected class SubprogramSubcomponent_SemicolonKeyword_6 extends KeywordToken  
  **/
 
 // (name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent] ":" "refined" "to") "subprogram" "group" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
-// (subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// (subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
+// ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -44783,8 +44783,8 @@ protected class SubprogramGroupSubcomponent_GroupKeyword_2 extends KeywordToken 
 
 }
 
-// (subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
+// (subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
+// ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class SubprogramGroupSubcomponent_Group_3 extends GroupToken {
 	
 	public SubprogramGroupSubcomponent_Group_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -44800,23 +44800,23 @@ protected class SubprogramGroupSubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new SubprogramGroupSubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new SubprogramGroupSubcomponent_SubprogramGroupClassifierAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new SubprogramGroupSubcomponent_SubprogramGroupSubcomponentTypeAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF]
-protected class SubprogramGroupSubcomponent_SubprogramGroupClassifierAssignment_3_0 extends AssignmentToken  {
+// subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF]
+protected class SubprogramGroupSubcomponent_SubprogramGroupSubcomponentTypeAssignment_3_0 extends AssignmentToken  {
 	
-	public SubprogramGroupSubcomponent_SubprogramGroupClassifierAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SubprogramGroupSubcomponent_SubprogramGroupSubcomponentTypeAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupClassifierAssignment_3_0();
+		return grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeAssignment_3_0();
 	}
 
     @Override
@@ -44829,13 +44829,13 @@ protected class SubprogramGroupSubcomponent_SubprogramGroupClassifierAssignment_
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("subprogramGroupClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("subprogramGroupClassifier");
+		if((value = eObjectConsumer.getConsumable("subprogramGroupSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("subprogramGroupSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupClassifierSubprogramGroupClassifierCrossReference_3_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupClassifierCrossReference_3_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupClassifierSubprogramGroupClassifierCrossReference_3_0_0(); 
+				element = grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupClassifierCrossReference_3_0_0(); 
 				return obj;
 			}
 		}
@@ -44881,7 +44881,7 @@ protected class SubprogramGroupSubcomponent_LeftParenthesisKeyword_3_1_0 extends
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubprogramGroupSubcomponent_SubprogramGroupClassifierAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SubprogramGroupSubcomponent_SubprogramGroupSubcomponentTypeAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -45699,7 +45699,7 @@ protected class SubprogramGroupSubcomponent_SemicolonKeyword_7 extends KeywordTo
  *
  * ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::ProcessorSubcomponent] ":" "refined" "to") "processor"
- * 	(processorClassifier=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+ * 	(processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -45709,7 +45709,7 @@ protected class SubprogramGroupSubcomponent_SemicolonKeyword_7 extends KeywordTo
  **/
 
 // (name=ID ":" | refined=[aadl2::ProcessorSubcomponent] ":" "refined" "to") "processor"
-// (processorClassifier=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -45991,7 +45991,7 @@ protected class ProcessorSubcomponent_ProcessorKeyword_1 extends KeywordToken  {
 
 }
 
-// (processorClassifier=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class ProcessorSubcomponent_Group_2 extends GroupToken {
 	
@@ -46008,23 +46008,23 @@ protected class ProcessorSubcomponent_Group_2 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new ProcessorSubcomponent_Group_2_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ProcessorSubcomponent_ProcessorClassifierAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new ProcessorSubcomponent_ProcessorSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// processorClassifier=[aadl2::ProcessorClassifier|QCREF]
-protected class ProcessorSubcomponent_ProcessorClassifierAssignment_2_0 extends AssignmentToken  {
+// processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF]
+protected class ProcessorSubcomponent_ProcessorSubcomponentTypeAssignment_2_0 extends AssignmentToken  {
 	
-	public ProcessorSubcomponent_ProcessorClassifierAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ProcessorSubcomponent_ProcessorSubcomponentTypeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getProcessorSubcomponentAccess().getProcessorClassifierAssignment_2_0();
+		return grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeAssignment_2_0();
 	}
 
     @Override
@@ -46037,13 +46037,13 @@ protected class ProcessorSubcomponent_ProcessorClassifierAssignment_2_0 extends 
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("processorClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("processorClassifier");
+		if((value = eObjectConsumer.getConsumable("processorSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("processorSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getProcessorSubcomponentAccess().getProcessorClassifierProcessorClassifierCrossReference_2_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorClassifierCrossReference_2_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getProcessorSubcomponentAccess().getProcessorClassifierProcessorClassifierCrossReference_2_0_0(); 
+				element = grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorClassifierCrossReference_2_0_0(); 
 				return obj;
 			}
 		}
@@ -46089,7 +46089,7 @@ protected class ProcessorSubcomponent_LeftParenthesisKeyword_2_1_0 extends Keywo
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ProcessorSubcomponent_ProcessorClassifierAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ProcessorSubcomponent_ProcessorSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -46907,9 +46907,9 @@ protected class ProcessorSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  * VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent] ":" "refined" "to") "virtual" "processor"
- * 	(virtualProcessorClassifier=[aadl2::VirtualProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
- * 	("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
- * 	implementationReference+=ComponentImplementationReference (","
+ * 	(virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF] ("("
+ * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
+ * 	(arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
  * 	";";
@@ -46917,9 +46917,9 @@ protected class ProcessorSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  **/
 
 // (name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent] ":" "refined" "to") "virtual" "processor"
-// (virtualProcessorClassifier=[aadl2::VirtualProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
-// implementationReference+=ComponentImplementationReference (","
+// (virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF] ("("
+// ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
+// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
 protected class VirtualProcessorSubcomponent_Group extends GroupToken {
@@ -47221,8 +47221,8 @@ protected class VirtualProcessorSubcomponent_ProcessorKeyword_2 extends KeywordT
 
 }
 
-// (virtualProcessorClassifier=[aadl2::VirtualProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
+// (virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
+// ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class VirtualProcessorSubcomponent_Group_3 extends GroupToken {
 	
 	public VirtualProcessorSubcomponent_Group_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -47238,23 +47238,23 @@ protected class VirtualProcessorSubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new VirtualProcessorSubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new VirtualProcessorSubcomponent_VirtualProcessorClassifierAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new VirtualProcessorSubcomponent_VirtualProcessorSubcomponentTypeAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// virtualProcessorClassifier=[aadl2::VirtualProcessorClassifier|QCREF]
-protected class VirtualProcessorSubcomponent_VirtualProcessorClassifierAssignment_3_0 extends AssignmentToken  {
+// virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF]
+protected class VirtualProcessorSubcomponent_VirtualProcessorSubcomponentTypeAssignment_3_0 extends AssignmentToken  {
 	
-	public VirtualProcessorSubcomponent_VirtualProcessorClassifierAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public VirtualProcessorSubcomponent_VirtualProcessorSubcomponentTypeAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorClassifierAssignment_3_0();
+		return grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeAssignment_3_0();
 	}
 
     @Override
@@ -47267,13 +47267,13 @@ protected class VirtualProcessorSubcomponent_VirtualProcessorClassifierAssignmen
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("virtualProcessorClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("virtualProcessorClassifier");
+		if((value = eObjectConsumer.getConsumable("virtualProcessorSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("virtualProcessorSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorClassifierVirtualProcessorClassifierCrossReference_3_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorClassifierCrossReference_3_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorClassifierVirtualProcessorClassifierCrossReference_3_0_0(); 
+				element = grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorClassifierCrossReference_3_0_0(); 
 				return obj;
 			}
 		}
@@ -47319,7 +47319,7 @@ protected class VirtualProcessorSubcomponent_LeftParenthesisKeyword_3_1_0 extend
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new VirtualProcessorSubcomponent_VirtualProcessorClassifierAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new VirtualProcessorSubcomponent_VirtualProcessorSubcomponentTypeAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -48137,7 +48137,7 @@ protected class VirtualProcessorSubcomponent_SemicolonKeyword_7 extends KeywordT
  *
  * DeviceSubcomponent returns aadl2::DeviceSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::DeviceSubcomponent] ":" "refined" "to") "device"
- * 	(deviceClassifier=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+ * 	(deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -48147,7 +48147,7 @@ protected class VirtualProcessorSubcomponent_SemicolonKeyword_7 extends KeywordT
  **/
 
 // (name=ID ":" | refined=[aadl2::DeviceSubcomponent] ":" "refined" "to") "device"
-// (deviceClassifier=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -48429,7 +48429,7 @@ protected class DeviceSubcomponent_DeviceKeyword_1 extends KeywordToken  {
 
 }
 
-// (deviceClassifier=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class DeviceSubcomponent_Group_2 extends GroupToken {
 	
@@ -48446,23 +48446,23 @@ protected class DeviceSubcomponent_Group_2 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new DeviceSubcomponent_Group_2_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new DeviceSubcomponent_DeviceClassifierAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new DeviceSubcomponent_DeviceSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// deviceClassifier=[aadl2::DeviceClassifier|QCREF]
-protected class DeviceSubcomponent_DeviceClassifierAssignment_2_0 extends AssignmentToken  {
+// deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF]
+protected class DeviceSubcomponent_DeviceSubcomponentTypeAssignment_2_0 extends AssignmentToken  {
 	
-	public DeviceSubcomponent_DeviceClassifierAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public DeviceSubcomponent_DeviceSubcomponentTypeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getDeviceSubcomponentAccess().getDeviceClassifierAssignment_2_0();
+		return grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeAssignment_2_0();
 	}
 
     @Override
@@ -48475,13 +48475,13 @@ protected class DeviceSubcomponent_DeviceClassifierAssignment_2_0 extends Assign
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("deviceClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("deviceClassifier");
+		if((value = eObjectConsumer.getConsumable("deviceSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("deviceSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getDeviceSubcomponentAccess().getDeviceClassifierDeviceClassifierCrossReference_2_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceClassifierCrossReference_2_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getDeviceSubcomponentAccess().getDeviceClassifierDeviceClassifierCrossReference_2_0_0(); 
+				element = grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceClassifierCrossReference_2_0_0(); 
 				return obj;
 			}
 		}
@@ -48527,7 +48527,7 @@ protected class DeviceSubcomponent_LeftParenthesisKeyword_2_1_0 extends KeywordT
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DeviceSubcomponent_DeviceClassifierAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DeviceSubcomponent_DeviceSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -49345,7 +49345,7 @@ protected class DeviceSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  * MemorySubcomponent returns aadl2::MemorySubcomponent:
  * 	(name=ID ":" | refined=[aadl2::MemorySubcomponent] ":" "refined" "to") "memory"
- * 	(memoryClassifier=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+ * 	(memorySubcomponentType=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -49355,7 +49355,7 @@ protected class DeviceSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  **/
 
 // (name=ID ":" | refined=[aadl2::MemorySubcomponent] ":" "refined" "to") "memory"
-// (memoryClassifier=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (memorySubcomponentType=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -49637,7 +49637,7 @@ protected class MemorySubcomponent_MemoryKeyword_1 extends KeywordToken  {
 
 }
 
-// (memoryClassifier=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (memorySubcomponentType=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class MemorySubcomponent_Group_2 extends GroupToken {
 	
@@ -49654,23 +49654,23 @@ protected class MemorySubcomponent_Group_2 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new MemorySubcomponent_Group_2_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new MemorySubcomponent_MemoryClassifierAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new MemorySubcomponent_MemorySubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// memoryClassifier=[aadl2::MemoryClassifier|QCREF]
-protected class MemorySubcomponent_MemoryClassifierAssignment_2_0 extends AssignmentToken  {
+// memorySubcomponentType=[aadl2::MemoryClassifier|QCREF]
+protected class MemorySubcomponent_MemorySubcomponentTypeAssignment_2_0 extends AssignmentToken  {
 	
-	public MemorySubcomponent_MemoryClassifierAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public MemorySubcomponent_MemorySubcomponentTypeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getMemorySubcomponentAccess().getMemoryClassifierAssignment_2_0();
+		return grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeAssignment_2_0();
 	}
 
     @Override
@@ -49683,13 +49683,13 @@ protected class MemorySubcomponent_MemoryClassifierAssignment_2_0 extends Assign
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("memoryClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("memoryClassifier");
+		if((value = eObjectConsumer.getConsumable("memorySubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("memorySubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getMemorySubcomponentAccess().getMemoryClassifierMemoryClassifierCrossReference_2_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemoryClassifierCrossReference_2_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getMemorySubcomponentAccess().getMemoryClassifierMemoryClassifierCrossReference_2_0_0(); 
+				element = grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemoryClassifierCrossReference_2_0_0(); 
 				return obj;
 			}
 		}
@@ -49735,7 +49735,7 @@ protected class MemorySubcomponent_LeftParenthesisKeyword_2_1_0 extends KeywordT
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new MemorySubcomponent_MemoryClassifierAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new MemorySubcomponent_MemorySubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -50552,18 +50552,20 @@ protected class MemorySubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 /************ begin Rule BusSubcomponent ****************
  *
  * BusSubcomponent returns aadl2::BusSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::BusSubcomponent] ":" "refined" "to") "bus" (busClassifier=[aadl2::BusClassifier|QCREF]
- * 	("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
- * 	(arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+ * 	(name=ID ":" | refined=[aadl2::BusSubcomponent] ":" "refined" "to") "bus"
+ * 	(busSubcomponentType=[aadl2::BusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+ * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
  * 	";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::BusSubcomponent] ":" "refined" "to") "bus" (busClassifier=[aadl2::BusClassifier|QCREF]
-// ("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (name=ID ":" | refined=[aadl2::BusSubcomponent] ":" "refined" "to") "bus"
+// (busSubcomponentType=[aadl2::BusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
 protected class BusSubcomponent_Group extends GroupToken {
@@ -50843,7 +50845,7 @@ protected class BusSubcomponent_BusKeyword_1 extends KeywordToken  {
 
 }
 
-// (busClassifier=[aadl2::BusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (busSubcomponentType=[aadl2::BusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class BusSubcomponent_Group_2 extends GroupToken {
 	
@@ -50860,23 +50862,23 @@ protected class BusSubcomponent_Group_2 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new BusSubcomponent_Group_2_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new BusSubcomponent_BusClassifierAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new BusSubcomponent_BusSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// busClassifier=[aadl2::BusClassifier|QCREF]
-protected class BusSubcomponent_BusClassifierAssignment_2_0 extends AssignmentToken  {
+// busSubcomponentType=[aadl2::BusClassifier|QCREF]
+protected class BusSubcomponent_BusSubcomponentTypeAssignment_2_0 extends AssignmentToken  {
 	
-	public BusSubcomponent_BusClassifierAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public BusSubcomponent_BusSubcomponentTypeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getBusSubcomponentAccess().getBusClassifierAssignment_2_0();
+		return grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeAssignment_2_0();
 	}
 
     @Override
@@ -50889,13 +50891,13 @@ protected class BusSubcomponent_BusClassifierAssignment_2_0 extends AssignmentTo
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("busClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("busClassifier");
+		if((value = eObjectConsumer.getConsumable("busSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("busSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getBusSubcomponentAccess().getBusClassifierBusClassifierCrossReference_2_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusClassifierCrossReference_2_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getBusSubcomponentAccess().getBusClassifierBusClassifierCrossReference_2_0_0(); 
+				element = grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusClassifierCrossReference_2_0_0(); 
 				return obj;
 			}
 		}
@@ -50941,7 +50943,7 @@ protected class BusSubcomponent_LeftParenthesisKeyword_2_1_0 extends KeywordToke
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BusSubcomponent_BusClassifierAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new BusSubcomponent_BusSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -51759,7 +51761,7 @@ protected class BusSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  * VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::VirtualBusSubcomponent] ":" "refined" "to") "virtual" "bus"
- * 	(virtualBusClassifier=[aadl2::VirtualBusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+ * 	(virtualBusSubcomponentType=[aadl2::VirtualBusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -51769,7 +51771,7 @@ protected class BusSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  **/
 
 // (name=ID ":" | refined=[aadl2::VirtualBusSubcomponent] ":" "refined" "to") "virtual" "bus"
-// (virtualBusClassifier=[aadl2::VirtualBusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (virtualBusSubcomponentType=[aadl2::VirtualBusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -52073,7 +52075,7 @@ protected class VirtualBusSubcomponent_BusKeyword_2 extends KeywordToken  {
 
 }
 
-// (virtualBusClassifier=[aadl2::VirtualBusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (virtualBusSubcomponentType=[aadl2::VirtualBusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class VirtualBusSubcomponent_Group_3 extends GroupToken {
 	
@@ -52090,23 +52092,23 @@ protected class VirtualBusSubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new VirtualBusSubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new VirtualBusSubcomponent_VirtualBusClassifierAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new VirtualBusSubcomponent_VirtualBusSubcomponentTypeAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// virtualBusClassifier=[aadl2::VirtualBusClassifier|QCREF]
-protected class VirtualBusSubcomponent_VirtualBusClassifierAssignment_3_0 extends AssignmentToken  {
+// virtualBusSubcomponentType=[aadl2::VirtualBusClassifier|QCREF]
+protected class VirtualBusSubcomponent_VirtualBusSubcomponentTypeAssignment_3_0 extends AssignmentToken  {
 	
-	public VirtualBusSubcomponent_VirtualBusClassifierAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public VirtualBusSubcomponent_VirtualBusSubcomponentTypeAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getVirtualBusSubcomponentAccess().getVirtualBusClassifierAssignment_3_0();
+		return grammarAccess.getVirtualBusSubcomponentAccess().getVirtualBusSubcomponentTypeAssignment_3_0();
 	}
 
     @Override
@@ -52119,13 +52121,13 @@ protected class VirtualBusSubcomponent_VirtualBusClassifierAssignment_3_0 extend
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("virtualBusClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("virtualBusClassifier");
+		if((value = eObjectConsumer.getConsumable("virtualBusSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("virtualBusSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getVirtualBusSubcomponentAccess().getVirtualBusClassifierVirtualBusClassifierCrossReference_3_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getVirtualBusSubcomponentAccess().getVirtualBusSubcomponentTypeVirtualBusClassifierCrossReference_3_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getVirtualBusSubcomponentAccess().getVirtualBusClassifierVirtualBusClassifierCrossReference_3_0_0(); 
+				element = grammarAccess.getVirtualBusSubcomponentAccess().getVirtualBusSubcomponentTypeVirtualBusClassifierCrossReference_3_0_0(); 
 				return obj;
 			}
 		}
@@ -52171,7 +52173,7 @@ protected class VirtualBusSubcomponent_LeftParenthesisKeyword_3_1_0 extends Keyw
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new VirtualBusSubcomponent_VirtualBusClassifierAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new VirtualBusSubcomponent_VirtualBusSubcomponentTypeAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -52989,14 +52991,14 @@ protected class VirtualBusSubcomponent_SemicolonKeyword_7 extends KeywordToken  
  *
  * DataSubcomponent returns aadl2::DataSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::DataSubcomponent] ":" "refined" "to") "data"
- * 	(dataClassifier=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+ * 	(dataSubcomponentType=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
  * 	"modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";";
  *
  **/
 
 // (name=ID ":" | refined=[aadl2::DataSubcomponent] ":" "refined" "to") "data"
-// (dataClassifier=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (dataSubcomponentType=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
 // "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
 protected class DataSubcomponent_Group extends GroupToken {
@@ -53276,7 +53278,7 @@ protected class DataSubcomponent_DataKeyword_1 extends KeywordToken  {
 
 }
 
-// (dataClassifier=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+// (dataSubcomponentType=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 protected class DataSubcomponent_Group_2 extends GroupToken {
 	
@@ -53293,23 +53295,23 @@ protected class DataSubcomponent_Group_2 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new DataSubcomponent_Group_2_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new DataSubcomponent_DataClassifierAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new DataSubcomponent_DataSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// dataClassifier=[aadl2::DataClassifier|QCREF]
-protected class DataSubcomponent_DataClassifierAssignment_2_0 extends AssignmentToken  {
+// dataSubcomponentType=[aadl2::DataClassifier|QCREF]
+protected class DataSubcomponent_DataSubcomponentTypeAssignment_2_0 extends AssignmentToken  {
 	
-	public DataSubcomponent_DataClassifierAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public DataSubcomponent_DataSubcomponentTypeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getDataSubcomponentAccess().getDataClassifierAssignment_2_0();
+		return grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeAssignment_2_0();
 	}
 
     @Override
@@ -53322,13 +53324,13 @@ protected class DataSubcomponent_DataClassifierAssignment_2_0 extends Assignment
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("dataClassifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("dataClassifier");
+		if((value = eObjectConsumer.getConsumable("dataSubcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("dataSubcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getDataSubcomponentAccess().getDataClassifierDataClassifierCrossReference_2_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataClassifierCrossReference_2_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getDataSubcomponentAccess().getDataClassifierDataClassifierCrossReference_2_0_0(); 
+				element = grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataClassifierCrossReference_2_0_0(); 
 				return obj;
 			}
 		}
@@ -53374,7 +53376,7 @@ protected class DataSubcomponent_LeftParenthesisKeyword_2_1_0 extends KeywordTok
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DataSubcomponent_DataClassifierAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DataSubcomponent_DataSubcomponentTypeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}

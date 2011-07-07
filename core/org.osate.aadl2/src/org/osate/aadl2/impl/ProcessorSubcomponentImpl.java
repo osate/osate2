@@ -35,14 +35,16 @@
  */
 package org.osate.aadl2.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.ProcessorSubcomponentType;
+import org.osate.aadl2.SubcomponentType;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,14 +53,24 @@ import org.osate.aadl2.ProcessorSubcomponent;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.ProcessorSubcomponentImpl#getClassifier <em>Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ProcessorSubcomponentImpl#getProcessorClassifier <em>Processor Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ProcessorSubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ProcessorSubcomponentImpl#getProcessorSubcomponentType <em>Processor Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class ProcessorSubcomponentImpl extends SubcomponentImpl implements ProcessorSubcomponent {
+	/**
+	 * The cached value of the '{@link #getProcessorSubcomponentType() <em>Processor Subcomponent Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProcessorSubcomponentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProcessorSubcomponentType processorSubcomponentType;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -84,20 +96,10 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public ComponentClassifier basicGetClassifier() {
-		return classifier;
+	public SubcomponentType getSubcomponentType() {
+		SubcomponentType subcomponentType = basicGetSubcomponentType();
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+				: subcomponentType;
 	}
 
 	/**
@@ -105,31 +107,54 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ProcessorClassifier getProcessorClassifier() {
-		ProcessorClassifier processorClassifier = basicGetProcessorClassifier();
-		return processorClassifier != null && ((EObject) processorClassifier).eIsProxy() ? (ProcessorClassifier) eResolveProxy((InternalEObject) processorClassifier)
-				: processorClassifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public ProcessorClassifier basicGetProcessorClassifier() {
-		if (classifier instanceof ProcessorClassifier) {
-			return (ProcessorClassifier) classifier;
+	@Override
+	public SubcomponentType basicGetSubcomponentType() {
+		if (eIsSet(Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE)) {
+			return basicGetProcessorSubcomponentType();
 		}
-		return null;
+		return super.basicGetSubcomponentType();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	public void setProcessorClassifier(ProcessorClassifier newProcessorClassifier) {
-		classifier = newProcessorClassifier;
+	public ProcessorSubcomponentType getProcessorSubcomponentType() {
+		if (processorSubcomponentType != null && ((EObject) processorSubcomponentType).eIsProxy()) {
+			InternalEObject oldProcessorSubcomponentType = (InternalEObject) processorSubcomponentType;
+			processorSubcomponentType = (ProcessorSubcomponentType) eResolveProxy(oldProcessorSubcomponentType);
+			if (processorSubcomponentType != oldProcessorSubcomponentType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE,
+							oldProcessorSubcomponentType, processorSubcomponentType));
+			}
+		}
+		return processorSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProcessorSubcomponentType basicGetProcessorSubcomponentType() {
+		return processorSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setProcessorSubcomponentType(ProcessorSubcomponentType newProcessorSubcomponentType) {
+		ProcessorSubcomponentType oldProcessorSubcomponentType = processorSubcomponentType;
+		processorSubcomponentType = newProcessorSubcomponentType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE, oldProcessorSubcomponentType,
+					processorSubcomponentType));
 	}
 
 	/**
@@ -140,10 +165,10 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_CLASSIFIER:
+		case Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE:
 			if (resolve)
-				return getProcessorClassifier();
-			return basicGetProcessorClassifier();
+				return getProcessorSubcomponentType();
+			return basicGetProcessorSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,8 +181,8 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_CLASSIFIER:
-			setProcessorClassifier((ProcessorClassifier) newValue);
+		case Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE:
+			setProcessorSubcomponentType((ProcessorSubcomponentType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -171,8 +196,8 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_CLASSIFIER:
-			setProcessorClassifier((ProcessorClassifier) null);
+		case Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE:
+			setProcessorSubcomponentType((ProcessorSubcomponentType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -186,8 +211,8 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_CLASSIFIER:
-			return basicGetProcessorClassifier() != null;
+		case Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE:
+			return processorSubcomponentType != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -198,8 +223,9 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	 * @generated
 	 */
 	@Override
-	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_CLASSIFIER);
+	public boolean isSetSubcomponentType() {
+		return super.isSetSubcomponentType()
+				|| eIsSet(Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE);
 	}
 
 	public ComponentCategory getCategory() {
