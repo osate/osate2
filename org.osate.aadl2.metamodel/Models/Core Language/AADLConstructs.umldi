@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_ksStgBsgEd6jfqy49TIEhQ">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_5zyq4KcrEeCYEIHXYlP5sg">
   <model href="AADLConstructs.uml#_0"/>
   <diagrams xmi:id="_HKg1gEdvEdyOeaOA5AULsA" position="0,0" size="100,100" name="Packages" viewport="0,0">
     <property xmi:id="_HbDL4EdvEdyOeaOA5AULsA" key="pageFormatName" value="A4"/>
@@ -745,7 +745,7 @@
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_LHgIl0wzEd2AtbATM3PT-Q" id="stereotypeEdgeObject" offset="0,-10"/>
       </contained>
     </diagrams>
-    <diagrams xmi:id="_5zyq4KcrEeCYEIHXYlP5sg" position="0,0" size="100,100" name="Subcomponents Typed by Classifier" viewport="-112,0">
+    <diagrams xmi:id="_5zyq4KcrEeCYEIHXYlP5sg" position="0,0" size="100,100" name="Subcomponents Typed by Classifier" viewport="0,0">
       <property xmi:id="_502a0KcrEeCYEIHXYlP5sg" key="pageFormatName" value="A4"/>
       <property xmi:id="_502a0acrEeCYEIHXYlP5sg" key="diagramWidth" value="840"/>
       <property xmi:id="_502a0qcrEeCYEIHXYlP5sg" key="diagramHeight" value="1188"/>

@@ -401,7 +401,7 @@
         <ownedLiteral xmi:id="Components-ComponentCategory-virtualBus" name="virtualBus"/>
         <ownedLiteral xmi:id="Components-ComponentCategory-virtualProcessor" name="virtualProcessor"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_qfELUKclEeCYEIHXYlP5sg" name="SubcomponentType">
+      <packagedElement xmi:type="uml:Class" xmi:id="_qfELUKclEeCYEIHXYlP5sg" name="SubcomponentType" isAbstract="true">
         <generalization xmi:id="_nB-VMKcsEeCYEIHXYlP5sg">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Type"/>
         </generalization>
@@ -510,7 +510,7 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-Classifier-prototypeBinding-_lowerValue"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Templates-ComponentPrototype" name="ComponentPrototype">
+      <packagedElement xmi:type="uml:Class" xmi:id="Templates-ComponentPrototype" name="ComponentPrototype" isAbstract="true">
         <ownedComment xmi:id="Templates-ComponentPrototype-_ownedComment.0">
           <body>A prototype that can be bound to a component classifier.</body>
         </ownedComment>
@@ -1132,7 +1132,7 @@ For access features, the classifier specifies the type of the shared component.<
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-FeatureGroupType-inverse-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-FeatureGroupType-inverse-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Features-FeatureGroupType-ownedExtension" name="ownedExtension" type="Features-GroupExtension" association="Features-A_featureGroupType_ownedExtension">
+        <ownedAttribute xmi:id="Features-FeatureGroupType-ownedExtension" name="ownedExtension" type="Features-GroupExtension" aggregation="composite" association="Features-A_featureGroupType_ownedExtension">
           <ownedComment xmi:id="Features-FeatureGroupType-ownedExtension-_ownedComment.0">
             <body>===TBD===</body>
           </ownedComment>
