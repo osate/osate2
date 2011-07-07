@@ -520,7 +520,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
             	    otherlv_5=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_rulePropertySet405); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
-            	      		newLeafNode(otherlv_5, grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetCrossReference_4_1_0()); 
+            	      		newLeafNode(otherlv_5, grammarAccess.getPropertySetAccess().getImportedUnitPropertySetCrossReference_4_1_0()); 
             	      	
             	    }
 
@@ -571,7 +571,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
             	    	    otherlv_7=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_rulePropertySet442); if (state.failed) return current;
             	    	    if ( state.backtracking==0 ) {
 
-            	    	      		newLeafNode(otherlv_7, grammarAccess.getPropertySetAccess().getImportedPropertySetPropertySetCrossReference_4_2_1_0()); 
+            	    	      		newLeafNode(otherlv_7, grammarAccess.getPropertySetAccess().getImportedUnitPropertySetCrossReference_4_2_1_0()); 
             	    	      	
             	    	    }
 

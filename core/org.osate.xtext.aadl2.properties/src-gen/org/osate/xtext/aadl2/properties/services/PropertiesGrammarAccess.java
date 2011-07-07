@@ -55,14 +55,14 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cIsKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cWithKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cImportedPropertySetAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final CrossReference cImportedPropertySetPropertySetCrossReference_4_1_0 = (CrossReference)cImportedPropertySetAssignment_4_1.eContents().get(0);
-		private final RuleCall cImportedPropertySetPropertySetIDTerminalRuleCall_4_1_0_1 = (RuleCall)cImportedPropertySetPropertySetCrossReference_4_1_0.eContents().get(1);
+		private final Assignment cImportedUnitAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final CrossReference cImportedUnitPropertySetCrossReference_4_1_0 = (CrossReference)cImportedUnitAssignment_4_1.eContents().get(0);
+		private final RuleCall cImportedUnitPropertySetIDTerminalRuleCall_4_1_0_1 = (RuleCall)cImportedUnitPropertySetCrossReference_4_1_0.eContents().get(1);
 		private final Group cGroup_4_2 = (Group)cGroup_4.eContents().get(2);
 		private final Keyword cCommaKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
-		private final Assignment cImportedPropertySetAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
-		private final CrossReference cImportedPropertySetPropertySetCrossReference_4_2_1_0 = (CrossReference)cImportedPropertySetAssignment_4_2_1.eContents().get(0);
-		private final RuleCall cImportedPropertySetPropertySetIDTerminalRuleCall_4_2_1_0_1 = (RuleCall)cImportedPropertySetPropertySetCrossReference_4_2_1_0.eContents().get(1);
+		private final Assignment cImportedUnitAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
+		private final CrossReference cImportedUnitPropertySetCrossReference_4_2_1_0 = (CrossReference)cImportedUnitAssignment_4_2_1.eContents().get(0);
+		private final RuleCall cImportedUnitPropertySetIDTerminalRuleCall_4_2_1_0_1 = (RuleCall)cImportedUnitPropertySetCrossReference_4_2_1_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
 		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
 		private final Assignment cOwnedPropertyTypeAssignment_5_0 = (Assignment)cAlternatives_5.eContents().get(0);
@@ -76,14 +76,14 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//PropertySet returns aadl2::PropertySet:
-		//	"property" "set" name=ID "is" ("with" importedPropertySet+=[aadl2::PropertySet] //| importedPropertySet+=[props::PropertySet|ID]) 
-		//	("," importedPropertySet+=[aadl2::PropertySet])* ";")* (ownedPropertyType+=PropertyType |
-		//	ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* "end" ID ";";
+		//	"property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])*
+		//	";")* (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)*
+		//	"end" ID ";";
 		public ParserRule getRule() { return rule; }
 
-		//"property" "set" name=ID "is" ("with" importedPropertySet+=[aadl2::PropertySet] //| importedPropertySet+=[props::PropertySet|ID]) 
-		//("," importedPropertySet+=[aadl2::PropertySet])* ";")* (ownedPropertyType+=PropertyType |
-		//ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* "end" ID ";"
+		//"property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])* ";")*
+		//(ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* "end"
+		//ID ";"
 		public Group getGroup() { return cGroup; }
 
 		//"property"
@@ -101,36 +101,35 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//"is"
 		public Keyword getIsKeyword_3() { return cIsKeyword_3; }
 
-		//(=> "with" importedPropertySet+=[aadl2::PropertySet] //| importedPropertySet+=[props::PropertySet|ID]) 
-		//("," importedPropertySet+=[aadl2::PropertySet])* ";")*
+		//(=> "with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])* ";")*
 		public Group getGroup_4() { return cGroup_4; }
 
 		//=> "with"
 		public Keyword getWithKeyword_4_0() { return cWithKeyword_4_0; }
 
-		//importedPropertySet+=[aadl2::PropertySet]
-		public Assignment getImportedPropertySetAssignment_4_1() { return cImportedPropertySetAssignment_4_1; }
+		//importedUnit+=[aadl2::PropertySet]
+		public Assignment getImportedUnitAssignment_4_1() { return cImportedUnitAssignment_4_1; }
 
 		//[aadl2::PropertySet]
-		public CrossReference getImportedPropertySetPropertySetCrossReference_4_1_0() { return cImportedPropertySetPropertySetCrossReference_4_1_0; }
+		public CrossReference getImportedUnitPropertySetCrossReference_4_1_0() { return cImportedUnitPropertySetCrossReference_4_1_0; }
 
 		//ID
-		public RuleCall getImportedPropertySetPropertySetIDTerminalRuleCall_4_1_0_1() { return cImportedPropertySetPropertySetIDTerminalRuleCall_4_1_0_1; }
+		public RuleCall getImportedUnitPropertySetIDTerminalRuleCall_4_1_0_1() { return cImportedUnitPropertySetIDTerminalRuleCall_4_1_0_1; }
 
-		//("," importedPropertySet+=[aadl2::PropertySet])*
+		//("," importedUnit+=[aadl2::PropertySet])*
 		public Group getGroup_4_2() { return cGroup_4_2; }
 
 		//","
 		public Keyword getCommaKeyword_4_2_0() { return cCommaKeyword_4_2_0; }
 
-		//importedPropertySet+=[aadl2::PropertySet]
-		public Assignment getImportedPropertySetAssignment_4_2_1() { return cImportedPropertySetAssignment_4_2_1; }
+		//importedUnit+=[aadl2::PropertySet]
+		public Assignment getImportedUnitAssignment_4_2_1() { return cImportedUnitAssignment_4_2_1; }
 
 		//[aadl2::PropertySet]
-		public CrossReference getImportedPropertySetPropertySetCrossReference_4_2_1_0() { return cImportedPropertySetPropertySetCrossReference_4_2_1_0; }
+		public CrossReference getImportedUnitPropertySetCrossReference_4_2_1_0() { return cImportedUnitPropertySetCrossReference_4_2_1_0; }
 
 		//ID
-		public RuleCall getImportedPropertySetPropertySetIDTerminalRuleCall_4_2_1_0_1() { return cImportedPropertySetPropertySetIDTerminalRuleCall_4_2_1_0_1; }
+		public RuleCall getImportedUnitPropertySetIDTerminalRuleCall_4_2_1_0_1() { return cImportedUnitPropertySetIDTerminalRuleCall_4_2_1_0_1; }
 
 		//";"
 		public Keyword getSemicolonKeyword_4_3() { return cSemicolonKeyword_4_3; }
@@ -3737,9 +3736,9 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertySet returns aadl2::PropertySet:
-	//	"property" "set" name=ID "is" ("with" importedPropertySet+=[aadl2::PropertySet] //| importedPropertySet+=[props::PropertySet|ID]) 
-	//	("," importedPropertySet+=[aadl2::PropertySet])* ";")* (ownedPropertyType+=PropertyType |
-	//	ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* "end" ID ";";
+	//	"property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])*
+	//	";")* (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)*
+	//	"end" ID ";";
 	public PropertySetElements getPropertySetAccess() {
 		return (pPropertySet != null) ? pPropertySet : (pPropertySet = new PropertySetElements());
 	}
