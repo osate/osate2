@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,44 +31,21 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: ModalPath.java,v 1.2 2009-01-07 17:00:44 lwrage Exp $
  */
 package org.osate.aadl2;
 
-import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.parsesupport.AObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Modal Path</b></em>'.
+ * A representation of the model object '<em><b>Abstract Connection End</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.osate.aadl2.ModalPath#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
- * </ul>
- * </p>
  *
- * @see org.osate.aadl2.Aadl2Package#getModalPath()
+ * @see org.osate.aadl2.Aadl2Package#getAbstractConnectionEnd()
  * @model abstract="true"
+ * @extends AObject
  * @generated
  */
-public interface ModalPath extends ModalElement {
-	/**
-	 * Returns the value of the '<em><b>In Mode Or Transition</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.ModeFeature}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>In Mode Or Transition</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In Mode Or Transition</em>' reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getModalPath_InModeOrTransition()
-	 * @model
-	 * @generated
-	 */
-	EList<ModeFeature> getInModeOrTransitions();
-
-} // ModalPath
+public interface AbstractConnectionEnd extends AObject {
+} // AbstractConnectionEnd

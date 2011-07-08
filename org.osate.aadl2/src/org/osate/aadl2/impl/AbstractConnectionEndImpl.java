@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,44 +31,67 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: ModalPath.java,v 1.2 2009-01-07 17:00:44 lwrage Exp $
  */
-package org.osate.aadl2;
+package org.osate.aadl2.impl;
 
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.uml2.common.util.CacheAdapter;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AbstractConnectionEnd;
+import org.osate.aadl2.parsesupport.AObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Modal Path</b></em>'.
+ * An implementation of the model object '<em><b>Abstract Connection End</b></em>'.
  * <!-- end-user-doc -->
- *
  * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.osate.aadl2.ModalPath#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
- * </ul>
  * </p>
  *
- * @see org.osate.aadl2.Aadl2Package#getModalPath()
- * @model abstract="true"
  * @generated
  */
-public interface ModalPath extends ModalElement {
+public abstract class AbstractConnectionEndImpl extends AObjectImpl implements AbstractConnectionEnd {
 	/**
-	 * Returns the value of the '<em><b>In Mode Or Transition</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.ModeFeature}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>In Mode Or Transition</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In Mode Or Transition</em>' reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getModalPath_InModeOrTransition()
-	 * @model
 	 * @generated
 	 */
-	EList<ModeFeature> getInModeOrTransitions();
+	protected AbstractConnectionEndImpl() {
+		super();
+	}
 
-} // ModalPath
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return Aadl2Package.eINSTANCE.getAbstractConnectionEnd();
+	}
+
+	/**
+	 * Creates a new instance of the specified Ecore class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param eClass The Ecore class of the instance to create.
+	 * @return The new instance.
+	 * @generated
+	 */
+	protected EObject create(EClass eClass) {
+		return EcoreUtil.create(eClass);
+	}
+
+	/**
+	 * Retrieves the cache adapter for this '<em><b>Abstract Connection End</b></em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The cache adapter for this '<em><b>Abstract Connection End</b></em>'.
+	 * @generated
+	 */
+	protected CacheAdapter getCacheAdapter() {
+		return CacheAdapter.getCacheAdapter(this);
+	}
+
+} //AbstractConnectionEndImpl
