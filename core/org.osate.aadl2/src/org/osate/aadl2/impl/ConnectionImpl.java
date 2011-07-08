@@ -61,7 +61,7 @@ import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
@@ -77,7 +77,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getInModes <em>In Mode</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getInTransitions <em>In Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#isBidirectional <em>Bidirectional</em>}</li>
@@ -99,14 +99,14 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	protected EList<Mode> inModes;
 
 	/**
-	 * The cached value of the '{@link #getInTransitions() <em>In Transition</em>}' reference list.
+	 * The cached value of the '{@link #getInModeOrTransitions() <em>In Mode Or Transition</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInTransitions()
+	 * @see #getInModeOrTransitions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ModeTransition> inTransitions;
+	protected EList<ModeFeature> inModeOrTransitions;
 
 	/**
 	 * @author dionisio
@@ -200,12 +200,12 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ModeTransition> getInTransitions() {
-		if (inTransitions == null) {
-			inTransitions = new EObjectResolvingEList<ModeTransition>(ModeTransition.class, this,
-					Aadl2Package.CONNECTION__IN_TRANSITION);
+	public EList<ModeFeature> getInModeOrTransitions() {
+		if (inModeOrTransitions == null) {
+			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
+					Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION);
 		}
-		return inTransitions;
+		return inModeOrTransitions;
 	}
 
 	/**
@@ -492,8 +492,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		switch (featureID) {
 		case Aadl2Package.CONNECTION__IN_MODE:
 			return getInModes();
-		case Aadl2Package.CONNECTION__IN_TRANSITION:
-			return getInTransitions();
+		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
+			return getInModeOrTransitions();
 		case Aadl2Package.CONNECTION__DESTINATION:
 			return getDestination();
 		case Aadl2Package.CONNECTION__SOURCE:
@@ -521,9 +521,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 			getInModes().clear();
 			getInModes().addAll((Collection<? extends Mode>) newValue);
 			return;
-		case Aadl2Package.CONNECTION__IN_TRANSITION:
-			getInTransitions().clear();
-			getInTransitions().addAll((Collection<? extends ModeTransition>) newValue);
+		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
+			getInModeOrTransitions().clear();
+			getInModeOrTransitions().addAll((Collection<? extends ModeFeature>) newValue);
 			return;
 		case Aadl2Package.CONNECTION__DESTINATION:
 			setDestination((AbstractConnectionEnd) newValue);
@@ -552,8 +552,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		case Aadl2Package.CONNECTION__IN_MODE:
 			getInModes().clear();
 			return;
-		case Aadl2Package.CONNECTION__IN_TRANSITION:
-			getInTransitions().clear();
+		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
+			getInModeOrTransitions().clear();
 			return;
 		case Aadl2Package.CONNECTION__DESTINATION:
 			setDestination((AbstractConnectionEnd) null);
@@ -581,8 +581,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		switch (featureID) {
 		case Aadl2Package.CONNECTION__IN_MODE:
 			return inModes != null && !inModes.isEmpty();
-		case Aadl2Package.CONNECTION__IN_TRANSITION:
-			return inTransitions != null && !inTransitions.isEmpty();
+		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
+			return inModeOrTransitions != null && !inModeOrTransitions.isEmpty();
 		case Aadl2Package.CONNECTION__DESTINATION:
 			return destination != null;
 		case Aadl2Package.CONNECTION__SOURCE:
@@ -612,8 +612,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		}
 		if (baseClass == ModalPath.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.CONNECTION__IN_TRANSITION:
-				return Aadl2Package.MODAL_PATH__IN_TRANSITION;
+			case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
+				return Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION;
 			default:
 				return -1;
 			}
@@ -650,8 +650,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		}
 		if (baseClass == ModalPath.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.MODAL_PATH__IN_TRANSITION:
-				return Aadl2Package.CONNECTION__IN_TRANSITION;
+			case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
+				return Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION;
 			default:
 				return -1;
 			}

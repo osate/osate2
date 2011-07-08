@@ -571,7 +571,7 @@
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ModalPath">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalPath/inTransition"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalPath/inModeOrTransition"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//SubcomponentFlow">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
