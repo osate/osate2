@@ -429,8 +429,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return createPortCategoryFromString(eDataType, initialValue);
 		case Aadl2Package.COMPONENT_CATEGORY:
 			return createComponentCategoryFromString(eDataType, initialValue);
-		case Aadl2Package.CONNECTION_KIND:
-			return createConnectionKindFromString(eDataType, initialValue);
 		case Aadl2Package.ELEMENT_NAME_KIND:
 			return createElementNameKindFromString(eDataType, initialValue);
 		case Aadl2Package.OPERATION_KIND:
@@ -2209,18 +2207,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ConnectionKind createConnectionKindFromString(EDataType eDataType, String initialValue) {
-		ConnectionKind result = ConnectionKind.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
-		return result;
-	}
 
 	/**
 	 * <!-- begin-user-doc -->

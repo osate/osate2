@@ -55,6 +55,7 @@ import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.util.Aadl2Validator;
 
+
 /**
  * <!-- begin-user-doc -->
  * A static utility class that provides operations related to '<em><b>Classifier</b></em>' model objects.
@@ -137,8 +138,7 @@ public class ClassifierOperations extends NamespaceOperations {
 				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
 						Aadl2Validator.CLASSIFIER__NO_CYCLES_IN_GENERALIZATION,
 						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-								.getString(
-										"_UI_GenericInvariant_diagnostic",
+								.getString("_UI_GenericInvariant_diagnostic",
 										new Object[] {
 												"no_cycles_in_generalization",
 												org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(classifier,
@@ -197,8 +197,7 @@ public class ClassifierOperations extends NamespaceOperations {
 			if (diagnostics != null) {
 				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
 						Aadl2Validator.CLASSIFIER__SPECIALIZE_TYPE, org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-								.getString(
-										"_UI_GenericInvariant_diagnostic",
+								.getString("_UI_GenericInvariant_diagnostic",
 										new Object[] {
 												"specialize_type",
 												org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(classifier,

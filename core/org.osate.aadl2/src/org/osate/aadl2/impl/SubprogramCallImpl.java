@@ -342,10 +342,9 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.osate.aadl2.impl.NamedElementImpl#getPropertyValueInternal
-	 * (org.osate.aadl2.Property,
-	 * org.osate.aadl2.properties.AadlPropertyValue, boolean)
+	 * @see org.osate.aadl2.impl.NamedElementImpl#getPropertyValueInternal
+	 * (org.osate.aadl2.Property, org.osate.aadl2.properties.AadlPropertyValue,
+	 * boolean)
 	 */
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall) throws InvalidModelException {

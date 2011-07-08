@@ -54,7 +54,6 @@ import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
-import org.osate.aadl2.operations.ModalElementOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 
@@ -424,15 +423,6 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Mode> getAllInModes() {
-		return ModalElementOperations.getAllInModes(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -641,6 +631,30 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	}
 
 	/**
+	 * returns the list of modes the modal element belongs to.
+	 * This may be kept with the modal element or an ancestor in the extends hierarchy.
+	 * The in modes of the closest ancestor returned.
+	 * @return EList of modes. This list may be empty of it is all modes.
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
+	public EList<Mode> getAllInModes() {
+		ModalElement mm = this;
+		EList<Mode> inmodes = null;
+		// inmodes will be an empty list (all modes) if we do not find a non-empty list
+		while (mm != null) {
+			inmodes = mm.getInModes();
+			// we stop when we find the first occurrence of a non-empty inmodes list
+			if (inmodes != null && !inmodes.isEmpty())
+				return inmodes;
+			if (mm instanceof RefinableElement)
+				mm = (ModalElement) ((RefinableElement) mm).getRefinedElement();
+			else
+				mm = null;
+		}
+		return inmodes;
+	}
+
+	/**
 	 * get in feature of a flow source, sink, or path spec.
 	 * In case of a refined flowspec get it from the flowspec being refined
 	 * @return Feature or null
@@ -718,6 +732,19 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 				throw new InvalidModelException(this, "Flow specification is not part of a component");
 			}
 		}
+	}
+
+	/*
+	 * getName needs to get it from the refined pointer if it was refined
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
+	 */
+	@Override
+	public String getName() {
+		if (name != null)
+			return name;
+		return getRefined().getName();
 	}
 
 } //FlowSpecificationImpl

@@ -972,8 +972,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.osate.aadl2.Subcomponent#getPrototypeActual(org.osate.aadl2.Prototype)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osate.aadl2.Subcomponent#getPrototypeActual(org.osate.aadl2.Prototype
+	 * )
 	 */
 	public PrototypeBinding lookupPrototypeBinding(Prototype proto) {
 		for (PrototypeBinding pb : getOwnedPrototypeBindings()) {
@@ -983,6 +987,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		}
 		return null;
 	}
+
 
 	public void getPropertyValueTest(Property prop, PropertyAcc pas, Classifier cl) {
 		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();
@@ -1028,6 +1033,19 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		if (ct != null)
 			return ct.getAllFeatures();
 		return ECollections.emptyEList();
+	}
+
+	/*
+	 * getName needs to get it from the refined pointer if it was refined
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
+	 */
+	@Override
+	public String getName() {
+		if (name != null)
+			return name;
+		return getRefined().getName();
 	}
 
 } //SubcomponentImpl

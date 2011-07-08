@@ -87,10 +87,10 @@ public enum AccessCategory implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SUBPROGRAM_GROUP_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	SUBPROGRAM_GROUP(3, "subprogramGroup", "subprogramGroup");
+	SUBPROGRAM_GROUP(3, "subprogram group", "subprogram group");
 
 	/**
 	 * The '<em><b>Bus</b></em>' literal value.

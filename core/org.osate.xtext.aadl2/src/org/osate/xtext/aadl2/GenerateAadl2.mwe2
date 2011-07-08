@@ -1,0 +1,158 @@
+module org.osate.xtext.aadl2.Aadl2
+
+import org.eclipse.emf.mwe.utils.*
+import org.eclipse.xtext.generator.*
+import org.eclipse.xtext.ui.generator.*
+
+var grammarURI = "classpath:/org/osate/xtext/aadl2/Aadl2.xtext"
+var file.extensions = "aadl2"
+var projectName = "org.osate.xtext.aadl2"
+var runtimeProject = "../${projectName}"
+
+Workflow {
+	bean = StandaloneSetup {
+		platformUri = "${runtimeProject}/.."
+	//	registerGeneratedEPackage = "org.osate.aadl2.Aadl2Package"
+	}
+
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}/src-gen"
+	}
+
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}.ui/src-gen"
+	}
+
+	component = Generator {
+		pathRtProject = runtimeProject
+		pathUiProject = "${runtimeProject}.ui"
+		pathTestProject = "${runtimeProject}.tests"
+		projectNameRt = projectName
+		projectNameUi = "${projectName}.ui"
+		language = {
+			uri = grammarURI
+			fileExtensions = file.extensions
+
+			// Java API to access grammar elements (required by several other fragments)
+			fragment = grammarAccess.GrammarAccessFragment {}
+
+			// generates Java API for the generated EPackages
+//			fragment = ecore.EcoreGeneratorFragment {
+//			//	referencedGenModels = "platform:/resource/org.osate.xtext.aadl2.properties/src-gen/org/osate/aadl2/properties/Properties.genmodel"
+//			 		referencedGenModels = "platform:/resource/edu.cmu.sei.aadl.aadl2/model/aadl2.genmodel"
+//			 }
+
+			// the serialization component
+			fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+
+			// a custom ResourceFactory for use with EMF 
+			fragment = resourceFactory.ResourceFactoryFragment {
+				fileExtensions = file.extensions
+			}
+
+			// the Antlr parser
+//			fragment = parser.antlr.XtextAntlrGeneratorFragment {
+			fragment = parser.antlr.ex.rt.AntlrGeneratorFragment {
+    		options = {
+        		ignoreCase = true
+    		}
+				options = {
+					classSplitting = true
+				}
+			//  options = {
+			//		backtrack = true
+			//	}
+			}
+
+			// the Ecore2Xtext specific terminal converter
+			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment {}
+
+			// java-based API for validation 
+			fragment = validation.JavaValidatorFragment {
+//			 composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
+//			 composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+// complains about public section having a duplicate name of pacakge.
+			//	registerForImportedPackages = true
+			}
+
+			// scoping and exporting API
+//			fragment = scoping.ImportURIScopingFragment {
+//				 ignoreCase = true 
+//			}
+//			fragment = exporting.SimpleNamesFragment {}
+
+			// scoping and exporting API 
+
+			 fragment = scoping.ImportNamespacesScopingFragment {
+		        ignoreCase = true
+    			}
+			 fragment = exporting.QualifiedNamesFragment {}
+
+
+			fragment = builder.BuilderIntegrationFragment {}
+			// generator API
+			fragment = generator.GeneratorFragment {
+				generateMwe = true
+				generateJavaMain = true
+			}
+
+			// formatter API 
+			fragment = ecore2xtext.FormatterFragment {}
+			// formatter API 
+			fragment = formatting.FormatterFragment {}
+
+			// labeling API 
+			fragment = labeling.LabelProviderFragment {}
+
+			// outline API 
+	//		fragment = outline.TransformerFragment {}
+	//		fragment = outline.OutlineNodeAdapterFactoryFragment {}
+			fragment = outline.OutlineTreeProviderFragment {}
+			fragment = outline.QuickOutlineFragment {}
+			// quickfix API 
+			fragment = quickfix.QuickfixProviderFragment {}
+
+
+			// java-based API for content assistance 
+			fragment = contentAssist.JavaBasedContentAssistFragment {}
+
+			
+			// rename refactoring  
+			fragment = refactoring.RefactorElementNameFragment {}
+			// provides a compare view
+//			fragment = compare.CompareFragment {
+//				fileExtensions = file.extensions
+//			}
+
+			// generates a more lightweight Antlr parser and lexer tailored for content assist  
+			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
+			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
+				    options = {
+        		ignoreCase = true
+    		}
+				options = {
+					classSplitting = true
+				}
+			}
+
+			// generates junit test support classes into Generator#pathTestProject
+//			fragment = junit.Junit4Fragment {}
+
+			// project wizard (optional) 
+			// fragment = projectWizard.SimpleProjectWizardFragment {
+			// 		generatorProjectName = "${projectName}.generator" 
+			//		modelFileExtension = file.extensions
+			// }
+			
+//			fragment = types.TypesGeneratorFragment {}
+			// generates the required bindings only if the grammar inherits from Xbase
+//			fragment = xbase.XbaseGeneratorFragment {}
+
+			
+			// rename refactoring  
+			fragment = refactoring.RefactorElementNameFragment {}
+			// Code generator
+			fragment = generator.GeneratorFragment {}
+		}
+	}
+}

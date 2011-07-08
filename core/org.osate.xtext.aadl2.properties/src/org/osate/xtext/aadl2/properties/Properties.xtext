@@ -1,0 +1,467 @@
+grammar org.osate.xtext.aadl2.properties.Properties with org.eclipse.xtext.common.Terminals
+
+//generate properties "http://www.osate.org/aadl2/properties/Properties"
+
+
+import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
+
+PModel returns aadl2::Element:
+	PropertySet | ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation;
+
+PropertySet returns aadl2::PropertySet:
+	'property' 'set' name=ID 'is'
+	(=> 'with' (importedUnit+=[aadl2::PropertySet|ID])  
+	    (',' importedUnit+=[aadl2::PropertySet|ID])* ';')*
+	(ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition 
+	| ownedPropertyConstant+=PropertyConstant)*
+	'end' ID ';' ;
+
+PropertyType returns aadl2::PropertyType:
+	(BooleanType|StringType|EnumerationType|UnitsType |RealType
+	|IntegerType|RangeType|ClassifierType|ReferenceType|RecordType) 
+	';';
+
+UnnamedPropertyType returns aadl2::PropertyType:
+	(UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType |UnnamedRealType
+	|UnnamedIntegerType|UnnamedRangeType|UnnamedClassifierType|UnnamedReferenceType|UnnamedRecordType) 
+	;
+
+
+BooleanType returns aadl2::AadlBoolean:
+	 name=ID ':' 'type' 
+	'aadlboolean';
+
+
+UnnamedBooleanType returns aadl2::AadlBoolean:
+	{aadl2::AadlBoolean}'aadlboolean';
+
+StringType returns aadl2::AadlString:
+	name=ID ':' 'type' 
+	'aadlstring';
+
+UnnamedStringType returns aadl2::AadlString:
+	{aadl2::AadlString}'aadlstring';
+
+EnumerationType returns aadl2::EnumerationType:
+	name=ID ':' 'type' 
+	'enumeration'
+	'(' ownedLiteral+=EnumerationLiteral (',' ownedLiteral+=EnumerationLiteral)* ')';
+
+UnnamedEnumerationType returns aadl2::EnumerationType:
+	'enumeration'
+	'(' ownedLiteral+=EnumerationLiteral (',' ownedLiteral+=EnumerationLiteral)* ')';
+
+EnumerationLiteral returns aadl2::EnumerationLiteral:
+	name=ID;
+
+UnitsType returns aadl2::UnitsType:
+	name=ID ':' 'type' 
+	'units'
+	'(' ownedLiteral+=UnitLiteral (',' ownedLiteral+=UnitLiteralConversion)* ')';
+
+UnnamedUnitsType returns aadl2::UnitsType:
+	'units'
+	'(' ownedLiteral+=UnitLiteral (',' ownedLiteral+=UnitLiteralConversion)* ')';
+
+UnitLiteral returns aadl2::UnitLiteral:
+	name=ID;
+
+UnitLiteralConversion returns aadl2::UnitLiteral:
+	name=ID '=>' baseUnit=[aadl2::UnitLiteral|ID] STAR factor=NumberValue
+	;
+
+RealType returns aadl2::AadlReal:
+	name=ID ':' 'type' 
+	'aadlreal' (range=RealRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
+	 ;
+
+UnnamedRealType returns aadl2::AadlReal:
+	{aadl2::AadlReal}
+	'aadlreal' (range=RealRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
+	 ;
+
+IntegerType returns aadl2::AadlInteger:
+	name=ID ':' 'type' 
+	'aadlinteger' (range=IntegerRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
+	 ;
+
+UnnamedIntegerType returns aadl2::AadlInteger:
+	{aadl2::AadlInteger}
+	'aadlinteger' (range=IntegerRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
+	 ;
+
+RangeType returns aadl2::RangeType:
+	name=ID ':' 'type' 
+	'range' 'of' (ownedNumberType=(UnnamedIntegerType|UnnamedRealType)
+		| numberType=[aadl2::NumberType|QPREF]
+	)
+	 ;
+
+UnnamedRangeType returns aadl2::RangeType:
+	{aadl2::RangeType}
+	'range' 'of' (ownedNumberType=(UnnamedIntegerType|UnnamedRealType)
+		| numberType=[aadl2::NumberType|QPREF]
+	)
+	 ;
+
+ClassifierType returns aadl2::ClassifierType:
+	name=ID ':' 'type' 
+	'classifier' 
+	(classifierReference+=QCReference (',' classifierReference+=QCReference)*)?
+	 ;
+
+UnnamedClassifierType returns aadl2::ClassifierType:
+	{aadl2::ClassifierType}
+	'classifier' 
+	(classifierReference+=QCReference (',' classifierReference+=QCReference)*)?
+	 ;
+
+QCReference returns aadl2::MetaclassReference:
+	('{'  annexName=ID '}' STAR STAR )?
+	metaclassName+=ID
+	 ;
+
+ReferenceType returns aadl2::ReferenceType:
+	name=ID ':' 'type' 
+	'reference' 
+	(namedElementReference+=QCReference (',' namedElementReference+=QCReference)*)?
+	 ;
+
+UnnamedReferenceType returns aadl2::ReferenceType:
+	'reference' {aadl2::ReferenceType}
+	(namedElementReference+=QCReference (',' namedElementReference+=QCReference)*)?
+	 ;
+
+RecordType returns aadl2::RecordType:
+	name=ID ':' 'type' 
+	'record' '('
+	(ownedField+=RecordField )+
+	')'
+	 ;
+
+UnnamedRecordType returns aadl2::RecordType:
+	'record' '('
+	(ownedField+=RecordField )+
+	')'
+	 ;
+
+//&&&&&&& TODO list is currently a count
+RecordField returns aadl2::RecordField:
+	name=ID ':'
+//	(list+='list' 'of')*
+	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
+	 ;
+
+//&&&&& Property Definition
+
+
+PropertyDefinition returns aadl2::Property:
+	name=ID ':'
+	(inherit?='inherit')?
+//	(list+='list' 'of')*
+	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
+	// &&&& We set only owned or reference - not both
+	('=>' defaultValue=PropertyExpression)?
+	'applies' 'to' '('
+	((appliesTo+=PropertyOwner (',' appliesTo+=PropertyOwner)*)|
+	appliesTo+=AllReference)
+	')'
+	';'
+	 ;
+
+AllReference returns aadl2::MetaclassReference:
+	 metaclassName+='all'  // &&&&& actually set it to NamedElement using ALL rule returning "named element" as string
+;
+
+PropertyOwner returns aadl2::PropertyOwner:
+	// classifier value is always qualified by a package name
+	(ClassifierValue|QCReference)
+	 ;
+
+
+ClassifierValue returns aadl2::ClassifierValue:
+	classifier=[aadl2::ComponentClassifier|EQCREF] ;
+
+PropertyConstant returns aadl2::PropertyConstant:
+	name=ID ':' 'constant'
+//	(list+='list' 'of')*
+	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
+	'=>' constantValue=ConstantPropertyExpression  
+	';'
+	 ;
+
+
+
+
+NumberValue returns aadl2::NumberValue:
+	RealLit | IntegerLit ;
+
+RealLit returns aadl2::RealLiteral:
+	value=gREAL ;
+
+
+IntegerLit returns aadl2::IntegerLiteral:
+	value=gINT ;
+
+BasicPropertyAssociation returns aadl2::PropertyAssociation:
+	property=[aadl2::Property|QPREF] // name=QPREF
+	'=>' ownedValue+=PropertyValue ';'
+	;
+
+ContainedPropertyAssociation returns aadl2::PropertyAssociation:
+	// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
+	property=[aadl2::Property|QPREF] // name=QPREF
+	('=>' | append?='+=>') (constant?='constant')?
+	(( =>
+	'(' ownedValue+=ModalPropertyValue 
+	(',' ownedValue+=ModalPropertyValue)*
+	//(',' ownedValue+=PropertyValue)?
+	')' )
+	| ownedValue+=PropertyValue
+	)
+	(=> 'applies' 'to' appliesTo+=ContainmentPath)?
+	';';
+
+PropertyAssociation returns aadl2::PropertyAssociation:
+	// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
+	property=[aadl2::Property|QPREF] // name=QPREF
+	('=>' | append?='+=>') (constant?='constant')?
+	(( =>
+	'(' ownedValue+=ModalPropertyValue 
+	(',' ownedValue+=ModalPropertyValue)*
+//	(',' ownedValue+=PropertyValue)?
+	')' )
+	| ownedValue+=PropertyValue
+	)
+	';';
+
+
+ContainmentPath returns aadl2::ContainedNamedElement:
+	{aadl2::ContainedNamedElement}
+	containmentPathElement+=ContainmentPathElement
+	( ',' containmentPathElement+=ContainmentPathElement)*
+;
+
+ModalPropertyValue returns aadl2::ModalPropertyValue:
+	ownedValue=PropertyExpression 
+	// phf made this optional: need to check separately that only the last one is optional
+	('in' 'modes' '(' 
+	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
+	')')?
+	;
+	// &&&&&&&&&& handling of in binding
+
+PropertyValue returns aadl2::ModalPropertyValue:
+	ownedValue=PropertyExpression 
+	;
+
+PropertyExpression returns aadl2::PropertyExpression:
+	  RecordTerm |NumericRangeTerm
+	| ReferenceTerm | ComputedTerm | StringTerm 
+	| RealTerm | IntegerTerm 
+	 | ComponentClassifierTerm 	| BooleanTerm
+	 | ListTerm
+	;
+
+ConstantPropertyExpression returns aadl2::PropertyExpression:
+	 RecordTerm |NumericRangeTerm
+	| ComputedTerm | StringTerm 
+	| RealTerm | IntegerTerm 
+	 | ComponentClassifierTerm 	| ListTerm | BooleanTerm
+	  //| LiteralorReferenceTerm
+	;
+
+//LiteralorReferenceTerm returns aadl2::PropertyExpression:
+//	reference=[enum, units, property, propertyConstant] ;
+
+//ActualBooleanTerm returns aadl2::PropertyExpression:
+//	ActualOrTerm | ActualAndTerm | BooleanLiteral  | NotTerm | ConstantValue;
+//
+//ActualOrTerm returns aadl2::Operation:
+//  ownedPropertyExpression+=AndTerm  op=OrOp ownedPropertyExpression+=AndTerm (  op=OrOp ownedPropertyExpression+=AndTerm)*;
+//
+//ActualAndTerm returns aadl2::Operation:
+//  ownedPropertyExpression+=BooleanAtom  op=AndOp ownedPropertyExpression+=BooleanAtom ( op=AndOp ownedPropertyExpression+=BooleanAtom)*;
+
+
+
+BooleanTerm returns aadl2::PropertyExpression:
+	OrTerm ;
+
+  
+OrTerm returns aadl2::PropertyExpression:
+  AndTerm ( {aadl2::Operation.ownedPropertyExpression+=current} op=OrOp ownedPropertyExpression+=AndTerm)*;
+
+
+AndTerm returns aadl2::PropertyExpression:
+  BooleanAtom ({aadl2::Operation.ownedPropertyExpression+=current} op=AndOp ownedPropertyExpression+=BooleanAtom)*;
+
+
+NotTerm returns aadl2::Operation:
+  op=NotOp ownedPropertyExpression+=BooleanAtom;
+
+
+
+BooleanAtom returns aadl2::PropertyExpression:
+	( BooleanLiteral  | NotTerm | ConstantValue
+	| ('[' BooleanTerm ']')
+	);
+
+BooleanLiteral returns aadl2::BooleanLiteral:
+  {aadl2::BooleanLiteral}(value?='true'|'false')
+  //Assumes: default for value is false
+  ;
+
+ConstantValue returns aadl2::ConstantValue:
+  constant=[aadl2::PropertyConstant|QPREF]
+  ;
+
+ReferenceTerm returns aadl2::ReferenceValue:
+  'reference' '(' 	
+  containmentPathElement+=ContainmentPathElement
+	( '.' containmentPathElement+=ContainmentPathElement)*
+  ')'
+  ;
+
+RecordTerm returns aadl2::RecordValue:
+   '('
+   (ownedFieldValue+=FieldPropertyAssociation)+
+  ')'
+  ;
+
+ComputedTerm returns aadl2::ComputedValue:
+   'compute' '(' 	
+   function=ID
+  ')'
+  ;
+
+ComponentClassifierTerm returns aadl2::ClassifierValue:
+   'classifier' '(' 	
+   classifier=[aadl2::ComponentClassifier|QCREF]
+  ')'
+  ;
+
+
+ListTerm returns aadl2::ListValue:
+   '(' 	
+   ownedListElement+=(PropertyExpression)
+   (',' ownedListElement+=(PropertyExpression))*
+  ')'
+  ;
+
+FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:
+	property=[aadl2::RecordField|ID] // name=QPREF
+	'=>' 
+	ownedValue=PropertyExpression 
+	';';
+
+// from AADL2
+// need to add annex path element
+ContainmentPathElement returns aadl2::ContainmentPathElement:
+	((namedElement=[aadl2::NamedElement|ID]
+	 (arrayRange+=ArrayRange)?
+	 ) |
+	 'annex' namedElement=[aadl2::NamedElement|ANNEXREF]
+	)
+;
+
+ANNEXREF :
+	// check what values are ok inside ** **
+	'{' STAR STAR ID STAR STAR '}';
+
+  
+
+
+enum OperationKind returns aadl2::OperationKind:
+	 and='and' | or='or' | not='not' | plus='+' | minus = '-';
+// Need Value Converters	
+AndOp returns aadl2::OperationKind: 'and';
+OrOp returns aadl2::OperationKind: 'or';
+NotOp returns aadl2::OperationKind: 'not';
+PlusMinus returns aadl2::OperationKind: '+' | '-';
+
+
+StringTerm returns aadl2::StringLiteral:
+	value=NoQuoteString ;
+
+
+NoQuoteString :
+	// remove quotes from string in ValueConverter
+	STRING
+;
+
+
+ArrayRange returns aadl2::ArrayRange: {aadl2::ArrayRange}
+	'[' lowerBound=gINT ('..' upperBound=gINT)? 
+	']'
+;
+
+IntegerRange returns aadl2::NumericRange:
+	lowerBound=(IntegerTerm | SignedConstant | ConstantValue )
+	'..' upperBound=(IntegerTerm | SignedConstant | ConstantValue )
+	;
+
+RealRange returns aadl2::NumericRange:
+	lowerBound=(RealTerm | SignedConstant | ConstantValue )
+	'..' upperBound=(RealTerm | SignedConstant | ConstantValue )
+	;
+
+SignedConstant returns aadl2::Operation:
+	op=PlusMinus ownedPropertyExpression+=ConstantValue
+	;
+
+IntegerTerm returns aadl2::IntegerLiteral:
+	value=SignedInt (unit=[aadl2::UnitLiteral|ID])?
+	;
+
+SignedInt returns aadl2::Integer:
+	// in O2 parser: minus sign handled strangely
+	// Need valueconverter
+	('+'|'-')?INT ;
+	
+// IntegerLiteral allowing underscore in teh middle of the digits
+
+RealTerm returns aadl2::RealLiteral:
+	value=SignedReal (unit=[aadl2::UnitLiteral|ID])?
+	// or constant is not handled in O2 grammar
+	// valueString not set
+	;
+
+SignedReal returns aadl2::Real:
+	// in O2 parser: minus sign handled strangely
+	// Need valueconverter
+	('+'|'-')?REAL ;
+
+
+NumericRangeTerm returns aadl2::RangeValue:
+	minimum=(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+		'..' maximum=(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	('delta' delta=(RealTerm|IntegerTerm| SignedConstant | ConstantValue))?
+	;
+
+terminal SL_COMMENT:
+	'--' !('\n' | '\r')* ('\r'? '\n')?;
+
+
+REAL:
+	INT '.' INT;
+
+gINT returns aadl2::Integer:
+	INT 	
+;
+
+gREAL returns aadl2::Real:
+	REAL 	
+;
+
+
+QPREF:
+	ID ('::' ID)?;
+
+QCREF:
+	(ID '::')* ID ('.' ID)?;
+
+EQCREF:
+	(ID '::')+ ID ('.' ID)?;
+	
+STAR : '*';

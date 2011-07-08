@@ -352,7 +352,9 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 		return result.toString();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.BasicProperty#isList()
 	 */
 	public boolean isList() {

@@ -59,7 +59,6 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubcomponentFlow;
-import org.osate.aadl2.operations.ModalElementOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 
@@ -216,7 +215,9 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 					this, Aadl2Package.END_TO_END_FLOW__FLOW_ELEMENT, null, FLOW_ELEMENT_ESUBSETS) {
 				private static final long serialVersionUID = 1L;
 
-				/* (non-Javadoc)
+				/*
+				 * (non-Javadoc)
+				 * 
 				 * @see org.eclipse.emf.ecore.util.EObjectEList#isUnique()
 				 */
 				@Override
@@ -321,15 +322,6 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 				.getSubcomponentFlow());
 		getOwnedSubcomponentFlows().add(newOwnedSubcomponentFlow);
 		return newOwnedSubcomponentFlow;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Mode> getAllInModes() {
-		return ModalElementOperations.getAllInModes(this);
 	}
 
 	/**
@@ -562,6 +554,43 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 		if (!fromInstanceSlaveCall && pn.isInherit()) {
 			partOf.getPropertyValueInternal(pn, pas, fromInstanceSlaveCall);
 		}
+	}
+
+	/**
+	 * returns the list of modes the modal element belongs to.
+	 * This may be kept with the modal element or an ancestor in the extends hierarchy.
+	 * The in modes of the closest ancestor returned.
+	 * @return EList of modes. This list may be empty of it is all modes.
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
+	public EList<Mode> getAllInModes() {
+		ModalElement mm = this;
+		EList<Mode> inmodes = null;
+		// inmodes will be an empty list (all modes) if we do not find a non-empty list
+		while (mm != null) {
+			inmodes = mm.getInModes();
+			// we stop when we find the first occurrence of a non-empty inmodes list
+			if (inmodes != null && !inmodes.isEmpty())
+				return inmodes;
+			if (mm instanceof RefinableElement)
+				mm = (ModalElement) ((RefinableElement) mm).getRefinedElement();
+			else
+				mm = null;
+		}
+		return inmodes;
+	}
+
+	/*
+	 * getName needs to get it from the refined pointer if it was refined
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
+	 */
+	@Override
+	public String getName() {
+		if (name != null)
+			return name;
+		return getRefined().getName();
 	}
 
 } //EndToEndFlowImpl

@@ -189,13 +189,5 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 		return super.eIsSet(featureID);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		// TODO-LW: compare list values
-		return super.equals(obj);
-	}
 
 } //ListValueImpl

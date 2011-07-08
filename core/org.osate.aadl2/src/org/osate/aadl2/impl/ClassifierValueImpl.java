@@ -203,12 +203,30 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
-	public boolean equals(Object other) {
-		return (other instanceof ClassifierValue) && ((ClassifierValue) other).getClassifier() == classifier;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((classifier == null) ? 0 : classifier.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ClassifierValueImpl other = (ClassifierValueImpl) obj;
+		if (classifier == null) {
+			if (other.classifier != null)
+				return false;
+		} else if (!classifier.equals(other.classifier))
+			return false;
+		return true;
 	}
 
 } //ClassifierValueImpl

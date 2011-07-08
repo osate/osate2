@@ -40,10 +40,15 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.ocl.EvaluationEnvironment;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.OCL;
+import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -51,7 +56,6 @@ import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RecordType;
 import org.osate.aadl2.Type;
-import org.osate.aadl2.operations.TypeOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -165,12 +169,44 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	}
 
 	/**
+	 * The cached OCL expression body for the '{@link #conformsTo(org.osate.aadl2.Type) <em>Conforms To</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #conformsTo(org.osate.aadl2.Type)
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONFORMS_TO__TYPE__EOCL_EXP = "result = false";
+	/**
+	 * The cached OCL query for the '{@link #conformsTo(org.osate.aadl2.Type) <em>Conforms To</em>}' query operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #conformsTo(org.osate.aadl2.Type)
+	 * @generated
+	 * @ordered
+	 */
+	protected static OCLExpression<EClassifier> CONFORMS_TO__TYPE__EOCL_QRY;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public boolean conformsTo(Type other) {
-		return TypeOperations.conformsTo(this, other);
+		if (CONFORMS_TO__TYPE__EOCL_QRY == null) {
+			OCL.Helper helper = EOCL_ENV.createOCLHelper();
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getType(), Aadl2Package.eINSTANCE.getType()
+					.getEAllOperations().get(10));
+			try {
+				CONFORMS_TO__TYPE__EOCL_QRY = helper.createQuery(CONFORMS_TO__TYPE__EOCL_EXP);
+			} catch (ParserException pe) {
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+			}
+		}
+		OCL.Query query = EOCL_ENV.createQuery(CONFORMS_TO__TYPE__EOCL_QRY);
+		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
+		environment.add("other", other);
+		return ((Boolean) query.evaluate(this)).booleanValue();
 	}
 
 	/**

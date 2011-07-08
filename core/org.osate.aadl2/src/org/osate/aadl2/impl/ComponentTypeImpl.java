@@ -369,12 +369,26 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ComponentType getExtended() {
 		ComponentType extended = basicGetExtended();
 		return extended != null && ((EObject) extended).eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) extended)
 				: extended;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetExtended(ComponentType newExtended, NotificationChain msgs) {
+		// TODO: implement this method to set the contained 'Extended' containment reference
+		// -> this method is automatically invoked to keep the containment relationship in synch
+		// -> do not modify other features
+		// -> return msgs, after adding any generated Notification to it (if it is null, a NotificationChain object must be created first)
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -387,7 +401,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		if (getOwnedExtension() == null) {
 			return null;
 		}
-		return ((TypeExtensionImpl) getOwnedExtension()).basicGetExtended();
+		return ((TypeExtensionImpl) getOwnedExtension()).getExtended();
+		// phf: replaced to resolve proxy basicGetExtended();
 	}
 
 	/**
@@ -396,9 +411,20 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @generated
 	 */
 	public void setExtended(ComponentType newExtended) {
-		// TODO: implement this method to set the 'Extended' reference
+		// TODO: implement this method to set the 'Extended' containment reference
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentType createExtended(EClass eClass) {
+		ComponentType newExtended = (ComponentType) create(eClass);
+		setExtended(newExtended);
+		return newExtended;
 	}
 
 	/**
@@ -566,9 +592,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE:
 			return getOwnedFeatures();
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
-			if (resolve)
-				return getExtended();
-			return basicGetExtended();
+			return getExtended();
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
 			return getOwnedFlowSpecifications();
 		case Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION:
@@ -658,7 +682,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE:
 			return isSetOwnedFeatures();
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
-			return basicGetExtended() != null;
+			return getExtended() != null;
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
 			return ownedFlowSpecifications != null && !ownedFlowSpecifications.isEmpty();
 		case Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION:
