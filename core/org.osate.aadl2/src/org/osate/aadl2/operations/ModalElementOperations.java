@@ -66,7 +66,7 @@ public class ModalElementOperations extends NamedElementOperations {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public static EList<Mode> getAllInModes(ModalElement modalElement) {
 		EList<Mode> inmodes = null;
