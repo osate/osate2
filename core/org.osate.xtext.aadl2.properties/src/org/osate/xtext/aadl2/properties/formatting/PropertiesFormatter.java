@@ -3,8 +3,11 @@
  */
 package org.osate.xtext.aadl2.properties.formatting;
 
+import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
+import org.eclipse.xtext.util.Pair;
+import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess;
 
 /**
  * This class contains custom formatting description.
@@ -18,6 +21,49 @@ public class PropertiesFormatter extends AbstractDeclarativeFormatter {
 	
 	@Override
 	protected void configureFormatting(FormattingConfig c) {
+		PropertiesGrammarAccess f = (PropertiesGrammarAccess) getGrammarAccess();
+	    c.setAutoLinewrap(120);
+	    
+	    // find common keywords an specify formatting for them
+	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("(", ")")) {
+		      c.setNoSpace().after(pair.getFirst());
+		      c.setNoSpace().before(pair.getSecond());
+		    }
+	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("[", "]")) {
+		      c.setNoSpace().after(pair.getFirst());
+		      c.setNoSpace().before(pair.getSecond());
+		    }
+	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("{", "}")) {
+		      c.setIndentationIncrement().after(pair.getFirst());
+		      c.setLinewrap().after(pair.getFirst());
+		      c.setIndentationDecrement().before(pair.getSecond());
+		      c.setLinewrap().before(pair.getSecond());
+		    }
+	    for (Keyword comma : f.findKeywords(",")) {
+		      c.setNoSpace().before(comma);
+		    }
+	    for (Keyword semi : f.findKeywords(";")) {
+		      c.setLinewrap(2).after(semi);
+		    }
+	    for (Keyword dot : f.findKeywords(".")) {
+		      c.setNoSpace().around(dot);
+		    }
+	    for (Keyword doublecolon : f.findKeywords("::")) {
+		      c.setNoSpace().around(doublecolon);
+		    }
+	    for (Keyword is : f.findKeywords("is")) {
+		      c.setIndentationIncrement().after(is);
+		      c.setLinewrap().after(is);
+		    }
+	    for (Keyword end : f.findKeywords("end")) {
+		      c.setIndentationDecrement().before(end);
+		      c.setLinewrap().before(end);
+		    }
+	    for (Keyword applies : f.findKeywords("applies")) {
+		      c.setIndentationIncrement().before(applies);
+		      c.setLinewrap().before(applies);
+		      c.setIndentationDecrement().after(applies);
+		    }
 // It's usually a good idea to activate the following three statements.
 // They will add and preserve newlines around comments
 //		c.setLinewrap(0, 1, 2).before(getGrammarAccess().getSL_COMMENTRule());

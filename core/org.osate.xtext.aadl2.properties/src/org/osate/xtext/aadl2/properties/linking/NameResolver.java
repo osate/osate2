@@ -121,7 +121,8 @@ public class NameResolver
 	public static List<EObject> getMyLinkedObject(EObject context, EReference reference, String s){
 		final EClass requiredType = reference.getEReferenceType();
 		final EClass cl = Aadl2Package.eINSTANCE.getClassifier();
-		if (cl.isSuperTypeOf(requiredType) ){
+		final EClass sct = Aadl2Package.eINSTANCE.getSubcomponentType();
+		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType) ){
 			// resolve classifier reference
 			final int idx = s.lastIndexOf("::");
 			String packname = null;
@@ -138,6 +139,12 @@ public class NameResolver
 					return Collections.singletonList((EObject)e);
 				}
 			return Collections.<EObject> emptyList();
+		} else if(sct.isSuperTypeOf(requiredType)){
+			// need to resolve prototype
+			NamedElement searchResult = getContainingClassifier(context).findNamedElement(s);
+			if (searchResult instanceof ComponentPrototype){
+				return Collections.singletonList((EObject)searchResult);
+			}
 		} else if(Aadl2Package.eINSTANCE.getModelUnit() == requiredType){
 			AadlPackage pack = NameResolver.findAadlPackage(context, s);
 			if(pack != null) {
