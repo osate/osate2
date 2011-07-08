@@ -58,7 +58,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedPortConnections <em>Owned Port Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedFeatureConnections <em>Owned Feature Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedFeatureGroupConnections <em>Owned Feature Group Connection</em>}</li>
- *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedProcessorSubprograms <em>Owned Processor Subprogram</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#isNoSubcomponents <em>No Subcomponents</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#isNoConnections <em>No Connections</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#isNoCalls <em>No Calls</em>}</li>
@@ -384,103 +383,6 @@ public interface ComponentImplementation extends ComponentClassifier {
 	Realization createOwnedRealization();
 
 	/**
-	 * Returns the value of the '<em><b>Owned Access Connection</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.AccessConnection}.
-	 * <p>
-	 * This feature subsets the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
-	 * </ul>
-	 * </p>
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Access Connection</em>' containment
-	 * reference list isn't clear, there really should be more of a description
-	 * here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Access Connection</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedAccessConnection()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	EList<AccessConnection> getOwnedAccessConnections();
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.AccessConnection} and appends it to the '<em><b>Owned Access Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.AccessConnection}.
-	 * @see #getOwnedAccessConnections()
-	 * @generated
-	 */
-	AccessConnection createOwnedAccessConnection();
-
-	/**
-	 * Returns the value of the '<em><b>Owned Parameter Connection</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.ParameterConnection}.
-	 * <p>
-	 * This feature subsets the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
-	 * </ul>
-	 * </p>
-	 * <!-- begin-user-doc
-	 * -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Parameter Connection</em>' containment
-	 * reference list isn't clear, there really should be more of a description
-	 * here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Parameter Connection</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedParameterConnection()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	EList<ParameterConnection> getOwnedParameterConnections();
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.ParameterConnection} and appends it to the '<em><b>Owned Parameter Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.ParameterConnection}.
-	 * @see #getOwnedParameterConnections()
-	 * @generated
-	 */
-	ParameterConnection createOwnedParameterConnection();
-
-	/**
-	 * Returns the value of the '<em><b>Owned Port Connection</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.PortConnection}.
-	 * <p>
-	 * This feature subsets the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
-	 * </ul>
-	 * </p>
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Port Connection</em>' containment
-	 * reference list isn't clear, there really should be more of a description
-	 * here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Port Connection</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedPortConnection()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	EList<PortConnection> getOwnedPortConnections();
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.PortConnection} and appends it to the '<em><b>Owned Port Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.PortConnection}.
-	 * @see #getOwnedPortConnections()
-	 * @generated
-	 */
-	PortConnection createOwnedPortConnection();
-
-	/**
 	 * Returns the value of the '<em><b>Owned Abstract Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.AbstractSubcomponent}.
 	 * <p>
@@ -511,6 +413,166 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @generated
 	 */
 	AbstractSubcomponent createOwnedAbstractSubcomponent();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Access Connection</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.AccessConnection}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Access Connection</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Access Connection</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedAccessConnection()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<AccessConnection> getOwnedAccessConnections();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.AccessConnection} and appends it to the '<em><b>Owned Access Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.AccessConnection}.
+	 * @see #getOwnedAccessConnections()
+	 * @generated
+	 */
+	AccessConnection createOwnedAccessConnection();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Parameter Connection</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.ParameterConnection}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Parameter Connection</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Parameter Connection</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedParameterConnection()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<ParameterConnection> getOwnedParameterConnections();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.ParameterConnection} and appends it to the '<em><b>Owned Parameter Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.ParameterConnection}.
+	 * @see #getOwnedParameterConnections()
+	 * @generated
+	 */
+	ParameterConnection createOwnedParameterConnection();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Port Connection</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.PortConnection}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Port Connection</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Port Connection</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedPortConnection()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<PortConnection> getOwnedPortConnections();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.PortConnection} and appends it to the '<em><b>Owned Port Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.PortConnection}.
+	 * @see #getOwnedPortConnections()
+	 * @generated
+	 */
+	PortConnection createOwnedPortConnection();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Feature Connection</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.FeatureConnection}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Feature Connection</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Feature Connection</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedFeatureConnection()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<FeatureConnection> getOwnedFeatureConnections();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.FeatureConnection} and appends it to the '<em><b>Owned Feature Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.FeatureConnection}.
+	 * @see #getOwnedFeatureConnections()
+	 * @generated
+	 */
+	FeatureConnection createOwnedFeatureConnection();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Feature Group Connection</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.FeatureGroupConnection}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Feature Group Connection</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Feature Group Connection</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedFeatureGroupConnection()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<FeatureGroupConnection> getOwnedFeatureGroupConnections();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.FeatureGroupConnection} and appends it to the '<em><b>Owned Feature Group Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.FeatureGroupConnection}.
+	 * @see #getOwnedFeatureGroupConnections()
+	 * @generated
+	 */
+	FeatureGroupConnection createOwnedFeatureGroupConnection();
 
 	/**
 	 * Returns the value of the '<em><b>Owned End To End Flow</b></em>' containment reference list.
@@ -544,96 +606,6 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @generated
 	 */
 	EndToEndFlow createOwnedEndToEndFlow();
-
-	/**
-	 * Returns the value of the '<em><b>Owned Feature Connection</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.FeatureConnection}.
-	 * <p>
-	 * This feature subsets the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
-	 * </ul>
-	 * </p>
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Feature Connection</em>' containment
-	 * reference list isn't clear, there really should be more of a description
-	 * here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Feature Connection</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedFeatureConnection()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	EList<FeatureConnection> getOwnedFeatureConnections();
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.FeatureConnection} and appends it to the '<em><b>Owned Feature Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.FeatureConnection}.
-	 * @see #getOwnedFeatureConnections()
-	 * @generated
-	 */
-	FeatureConnection createOwnedFeatureConnection();
-
-	/**
-	 * Returns the value of the '<em><b>Owned Feature Group Connection</b></em>'
-	 * containment reference list. The list contents are of type
-	 * {@link org.osate.aadl2.FeatureGroupConnection}. <!--
-	 * begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Feature Group Connection</em>'
-	 * containment reference list isn't clear, there really should be more of a
-	 * description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Owned Feature Group Connection</em>'
-	 *         containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedFeatureGroupConnection()
-	 * @model containment="true" transient="true" volatile="true" derived="true"
-	 *        ordered="false"
-	 *        extendedMetaData="group='implementation#connections'"
-	 * @generated
-	 */
-	EList<FeatureGroupConnection> getOwnedFeatureGroupConnections();
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.FeatureGroupConnection} and appends it to the '<em><b>Owned Feature Group Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.FeatureGroupConnection}.
-	 * @see #getOwnedFeatureGroupConnections()
-	 * @generated
-	 */
-	FeatureGroupConnection createOwnedFeatureGroupConnection();
-
-	/**
-	 * Returns the value of the '<em><b>Owned Processor Subprogram</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.ProcessorSubprogram}.
-	 * <!-- begin-user-doc
-	 * -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Processor Subprogram</em>' containment
-	 * reference list isn't clear, there really should be more of a description
-	 * here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Processor Subprogram</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedProcessorSubprogram()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	EList<ProcessorSubprogram> getOwnedProcessorSubprograms();
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.ProcessorSubprogram} and appends it to the '<em><b>Owned Processor Subprogram</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.ProcessorSubprogram}.
-	 * @see #getOwnedProcessorSubprograms()
-	 * @generated
-	 */
-	ProcessorSubprogram createOwnedProcessorSubprogram();
 
 	/**
 	 * @author dionisio switch to add a connection to the proper list depending

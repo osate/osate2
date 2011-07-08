@@ -150,7 +150,7 @@ public interface FeatureGroupType extends Classifier {
 	void setInverse(FeatureGroupType value);
 
 	/**
-	 * Returns the value of the '<em><b>Owned Extension</b></em>' reference.
+	 * Returns the value of the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -163,23 +163,33 @@ public interface FeatureGroupType extends Classifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Extension</em>' reference.
+	 * @return the value of the '<em>Owned Extension</em>' containment reference.
 	 * @see #setOwnedExtension(GroupExtension)
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedExtension()
-	 * @model ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	GroupExtension getOwnedExtension();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.FeatureGroupType#getOwnedExtension <em>Owned Extension</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.FeatureGroupType#getOwnedExtension <em>Owned Extension</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Owned Extension</em>' reference.
+	 * @param value the new value of the '<em>Owned Extension</em>' containment reference.
 	 * @see #getOwnedExtension()
 	 * @generated
 	 */
 	void setOwnedExtension(GroupExtension value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.GroupExtension} and sets the '<em><b>Owned Extension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.GroupExtension}.
+	 * @see #getOwnedExtension()
+	 * @generated
+	 */
+	GroupExtension createOwnedExtension();
 
 	/**
 	 * Returns the value of the '<em><b>Owned Bus Access</b></em>' containment reference list.

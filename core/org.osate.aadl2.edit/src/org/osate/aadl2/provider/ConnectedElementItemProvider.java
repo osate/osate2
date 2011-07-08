@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,8 +31,6 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: ProcessorPortItemProvider.java,v 1.2 2009-02-25 20:34:54 lwrage Exp $
  */
 package org.osate.aadl2.provider;
 
@@ -41,21 +39,24 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.osate.aadl2.ProcessorPort;
+
+import org.osate.aadl2.Aadl2Package;
 
 /**
- * This is the item provider adapter for a {@link org.osate.aadl2.ProcessorPort} object.
+ * This is the item provider adapter for a {@link org.osate.aadl2.ConnectedElement} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProcessorPortItemProvider extends ConnectionEndItemProvider implements IEditingDomainItemProvider,
+public class ConnectedElementItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -63,7 +64,7 @@ public class ProcessorPortItemProvider extends ConnectionEndItemProvider impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ProcessorPortItemProvider(AdapterFactory adapterFactory) {
+	public ConnectedElementItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -78,19 +79,53 @@ public class ProcessorPortItemProvider extends ConnectionEndItemProvider impleme
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addContextPropertyDescriptor(object);
+			addConnectionEndPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This returns ProcessorPort.gif.
+	 * This adds a property descriptor for the Context feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addContextPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ConnectedElement_context_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ConnectedElement_context_feature",
+						"_UI_ConnectedElement_type"), Aadl2Package.eINSTANCE.getConnectedElement_Context(), true,
+				false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Connection End feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addConnectionEndPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ConnectedElement_connectionEnd_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ConnectedElement_connectionEnd_feature",
+						"_UI_ConnectedElement_type"), Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd(), true,
+				false, true, null, null, null));
+	}
+
+	/**
+	 * This returns ConnectedElement.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessorPort"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ConnectedElement"));
 	}
 
 	/**
@@ -101,9 +136,7 @@ public class ProcessorPortItemProvider extends ConnectionEndItemProvider impleme
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ProcessorPort) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_ProcessorPort_type")
-				: getString("_UI_ProcessorPort_type") + " " + label;
+		return getString("_UI_ConnectedElement_type");
 	}
 
 	/**

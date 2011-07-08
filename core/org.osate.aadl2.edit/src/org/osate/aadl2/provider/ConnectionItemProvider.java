@@ -83,11 +83,8 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider implem
 
 			addInModePropertyDescriptor(object);
 			addInTransitionPropertyDescriptor(object);
-			addKindPropertyDescriptor(object);
 			addDestinationPropertyDescriptor(object);
 			addSourcePropertyDescriptor(object);
-			addDestinationContextPropertyDescriptor(object);
-			addSourceContextPropertyDescriptor(object);
 			addBidirectionalPropertyDescriptor(object);
 			addRefinedPropertyDescriptor(object);
 		}
@@ -127,21 +124,6 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider implem
 	}
 
 	/**
-	 * This adds a property descriptor for the Kind feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addKindPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Connection_kind_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Connection_kind_feature", "_UI_Connection_type"),
-				Aadl2Package.eINSTANCE.getConnection_Kind(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Destination feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -172,38 +154,6 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider implem
 						getString("_UI_PropertyDescriptor_description", "_UI_Connection_source_feature",
 								"_UI_Connection_type"), Aadl2Package.eINSTANCE.getConnection_Source(), true, false,
 						true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Destination Context feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDestinationContextPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Connection_destinationContext_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Connection_destinationContext_feature",
-						"_UI_Connection_type"), Aadl2Package.eINSTANCE.getConnection_DestinationContext(), true, false,
-				true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Source Context feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSourceContextPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Connection_sourceContext_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Connection_sourceContext_feature",
-						"_UI_Connection_type"), Aadl2Package.eINSTANCE.getConnection_SourceContext(), true, false,
-				true, null, null, null));
 	}
 
 	/**
@@ -264,7 +214,6 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider implem
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Connection.class)) {
-		case Aadl2Package.CONNECTION__KIND:
 		case Aadl2Package.CONNECTION__BIDIRECTIONAL:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;

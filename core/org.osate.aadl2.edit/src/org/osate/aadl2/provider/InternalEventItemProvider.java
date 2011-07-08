@@ -55,7 +55,7 @@ import org.osate.aadl2.InternalEvent;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InternalEventItemProvider extends PortConnectionEndItemProvider implements IEditingDomainItemProvider,
+public class InternalEventItemProvider extends ConnectionEndItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.

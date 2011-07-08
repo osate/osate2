@@ -302,23 +302,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseTriggerPort(TriggerPort object) {
-			return createTriggerPortAdapter();
-		}
-
-		@Override
-		public Adapter caseContext(Context object) {
-			return createContextAdapter();
-		}
-
-		@Override
-		public Adapter casePort(Port object) {
-			return createPortAdapter();
-		}
-
-		@Override
-		public Adapter caseDirectedFeature(DirectedFeature object) {
-			return createDirectedFeatureAdapter();
+		public Adapter caseComponentType(ComponentType object) {
+			return createComponentTypeAdapter();
 		}
 
 		@Override
@@ -337,26 +322,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter casePortConnectionEnd(PortConnectionEnd object) {
-			return createPortConnectionEndAdapter();
-		}
-
-		@Override
-		public Adapter caseProcessorPort(ProcessorPort object) {
-			return createProcessorPortAdapter();
-		}
-
-		@Override
-		public Adapter caseInternalEvent(InternalEvent object) {
-			return createInternalEventAdapter();
-		}
-
-		@Override
-		public Adapter caseComponentType(ComponentType object) {
-			return createComponentTypeAdapter();
-		}
-
-		@Override
 		public Adapter caseFlowSpecification(FlowSpecification object) {
 			return createFlowSpecificationAdapter();
 		}
@@ -364,6 +329,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseFlow(Flow object) {
 			return createFlowAdapter();
+		}
+
+		@Override
+		public Adapter caseContext(Context object) {
+			return createContextAdapter();
 		}
 
 		@Override
@@ -377,13 +347,18 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseFeatureGroupConnectionEnd(FeatureGroupConnectionEnd object) {
-			return createFeatureGroupConnectionEndAdapter();
+		public Adapter caseCallContext(CallContext object) {
+			return createCallContextAdapter();
 		}
 
 		@Override
-		public Adapter caseCallContext(CallContext object) {
-			return createCallContextAdapter();
+		public Adapter caseDirectedFeature(DirectedFeature object) {
+			return createDirectedFeatureAdapter();
+		}
+
+		@Override
+		public Adapter caseFeatureGroupConnectionEnd(FeatureGroupConnectionEnd object) {
+			return createFeatureGroupConnectionEndAdapter();
 		}
 
 		@Override
@@ -437,6 +412,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter casePortConnectionEnd(PortConnectionEnd object) {
+			return createPortConnectionEndAdapter();
+		}
+
+		@Override
 		public Adapter caseFlowElement(FlowElement object) {
 			return createFlowElementAdapter();
 		}
@@ -464,6 +444,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseDataPort(DataPort object) {
 			return createDataPortAdapter();
+		}
+
+		@Override
+		public Adapter casePort(Port object) {
+			return createPortAdapter();
 		}
 
 		@Override
@@ -577,6 +562,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseConnectedElement(ConnectedElement object) {
+			return createConnectedElementAdapter();
+		}
+
+		@Override
 		public Adapter caseImplementationExtension(ImplementationExtension object) {
 			return createImplementationExtensionAdapter();
 		}
@@ -622,8 +612,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseProcessorSubprogram(ProcessorSubprogram object) {
-			return createProcessorSubprogramAdapter();
+		public Adapter caseElementName(ElementName object) {
+			return createElementNameAdapter();
 		}
 
 		@Override
@@ -639,6 +629,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseDefaultAnnexSubclause(DefaultAnnexSubclause object) {
 			return createDefaultAnnexSubclauseAdapter();
+		}
+
+		@Override
+		public Adapter caseTriggerPort(TriggerPort object) {
+			return createTriggerPortAdapter();
 		}
 
 		@Override
@@ -1374,6 +1369,21 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseReferenceType(ReferenceType object) {
 			return createReferenceTypeAdapter();
+		}
+
+		@Override
+		public Adapter caseProcessorPort(ProcessorPort object) {
+			return createProcessorPortAdapter();
+		}
+
+		@Override
+		public Adapter caseInternalEvent(InternalEvent object) {
+			return createInternalEventAdapter();
+		}
+
+		@Override
+		public Adapter caseProcessorSubprogram(ProcessorSubprogram object) {
+			return createProcessorSubprogramAdapter();
 		}
 
 		@Override
@@ -2138,6 +2148,20 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.ConnectedElement <em>Connected Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.ConnectedElement
+	 * @generated
+	 */
+	public Adapter createConnectedElementAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.FlowElement <em>Flow Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -2176,6 +2200,20 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAbstractSubcomponentAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.ElementName <em>Element Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.ElementName
+	 * @generated
+	 */
+	public Adapter createElementNameAdapter() {
 		return null;
 	}
 

@@ -42,165 +42,115 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Connection Kind</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Element Name Kind</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.osate.aadl2.Aadl2Package#getConnectionKind()
+ * @see org.osate.aadl2.Aadl2Package#getElementNameKind()
  * @model
  * @generated
  */
-public enum ConnectionKind implements Enumerator {
+public enum ElementNameKind implements Enumerator {
 	/**
-	 * The '<em><b>Access</b></em>' literal object.
+	 * The '<em><b>Internal Event</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #ACCESS_VALUE
+	 * @see #INTERNAL_EVENT_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	ACCESS(0, "Access", "Access"),
+	INTERNAL_EVENT(0, "InternalEvent", "InternalEvent"),
 
 	/**
-	 * The '<em><b>Feature</b></em>' literal object.
+	 * The '<em><b>Processor Port</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #FEATURE_VALUE
+	 * @see #PROCESSOR_PORT_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	FEATURE(1, "Feature", "Feature"),
+	PROCESSOR_PORT(1, "ProcessorPort", "ProcessorPort"),
 
 	/**
-	 * The '<em><b>Feature Group</b></em>' literal object.
+	 * The '<em><b>Processor Subprogram</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #FEATURE_GROUP_VALUE
+	 * @see #PROCESSOR_SUBPROGRAM_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	FEATURE_GROUP(2, "FeatureGroup", "FeatureGroup"),
+	PROCESSOR_SUBPROGRAM(2, "ProcessorSubprogram", "ProcessorSubprogram");
 
 	/**
-	 * The '<em><b>Parameter</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #PARAMETER_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	PARAMETER(3, "Parameter", "Parameter"),
-
-	/**
-	 * The '<em><b>Port</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #PORT_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	PORT(4, "Port", "Port");
-
-	/**
-	 * The '<em><b>Access</b></em>' literal value.
+	 * The '<em><b>Internal Event</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Access</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Internal Event</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #ACCESS
-	 * @model name="Access"
+	 * @see #INTERNAL_EVENT
+	 * @model name="InternalEvent"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ACCESS_VALUE = 0;
+	public static final int INTERNAL_EVENT_VALUE = 0;
 
 	/**
-	 * The '<em><b>Feature</b></em>' literal value.
+	 * The '<em><b>Processor Port</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Feature</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Processor Port</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #FEATURE
-	 * @model name="Feature"
+	 * @see #PROCESSOR_PORT
+	 * @model name="ProcessorPort"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FEATURE_VALUE = 1;
+	public static final int PROCESSOR_PORT_VALUE = 1;
 
 	/**
-	 * The '<em><b>Feature Group</b></em>' literal value.
+	 * The '<em><b>Processor Subprogram</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Feature Group</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Processor Subprogram</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #FEATURE_GROUP
-	 * @model name="FeatureGroup"
+	 * @see #PROCESSOR_SUBPROGRAM
+	 * @model name="ProcessorSubprogram"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FEATURE_GROUP_VALUE = 2;
+	public static final int PROCESSOR_SUBPROGRAM_VALUE = 2;
 
 	/**
-	 * The '<em><b>Parameter</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Parameter</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #PARAMETER
-	 * @model name="Parameter"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int PARAMETER_VALUE = 3;
-
-	/**
-	 * The '<em><b>Port</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Port</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #PORT
-	 * @model name="Port"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int PORT_VALUE = 4;
-
-	/**
-	 * An array of all the '<em><b>Connection Kind</b></em>' enumerators.
+	 * An array of all the '<em><b>Element Name Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final ConnectionKind[] VALUES_ARRAY = new ConnectionKind[] { ACCESS, FEATURE, FEATURE_GROUP,
-			PARAMETER, PORT, };
+	private static final ElementNameKind[] VALUES_ARRAY = new ElementNameKind[] { INTERNAL_EVENT, PROCESSOR_PORT,
+			PROCESSOR_SUBPROGRAM, };
 
 	/**
-	 * A public read-only list of all the '<em><b>Connection Kind</b></em>' enumerators.
+	 * A public read-only list of all the '<em><b>Element Name Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<ConnectionKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ElementNameKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Connection Kind</b></em>' literal with the specified literal value.
+	 * Returns the '<em><b>Element Name Kind</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static ConnectionKind get(String literal) {
+	public static ElementNameKind get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			ConnectionKind result = VALUES_ARRAY[i];
+			ElementNameKind result = VALUES_ARRAY[i];
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -209,14 +159,14 @@ public enum ConnectionKind implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Connection Kind</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Element Name Kind</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static ConnectionKind getByName(String name) {
+	public static ElementNameKind getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			ConnectionKind result = VALUES_ARRAY[i];
+			ElementNameKind result = VALUES_ARRAY[i];
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -225,23 +175,19 @@ public enum ConnectionKind implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Connection Kind</b></em>' literal with the specified integer value.
+	 * Returns the '<em><b>Element Name Kind</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static ConnectionKind get(int value) {
+	public static ElementNameKind get(int value) {
 		switch (value) {
-		case ACCESS_VALUE:
-			return ACCESS;
-		case FEATURE_VALUE:
-			return FEATURE;
-		case FEATURE_GROUP_VALUE:
-			return FEATURE_GROUP;
-		case PARAMETER_VALUE:
-			return PARAMETER;
-		case PORT_VALUE:
-			return PORT;
+		case INTERNAL_EVENT_VALUE:
+			return INTERNAL_EVENT;
+		case PROCESSOR_PORT_VALUE:
+			return PROCESSOR_PORT;
+		case PROCESSOR_SUBPROGRAM_VALUE:
+			return PROCESSOR_SUBPROGRAM;
 		}
 		return null;
 	}
@@ -273,7 +219,7 @@ public enum ConnectionKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private ConnectionKind(int value, String name, String literal) {
+	private ElementNameKind(int value, String name, String literal) {
 		this.value = value;
 		this.name = name;
 		this.literal = literal;
@@ -317,4 +263,4 @@ public enum ConnectionKind implements Enumerator {
 		return literal;
 	}
 
-} //ConnectionKind
+} //ElementNameKind

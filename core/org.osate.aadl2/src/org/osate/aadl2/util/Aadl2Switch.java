@@ -588,78 +588,23 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.TRIGGER_PORT: {
-			TriggerPort triggerPort = (TriggerPort) theEObject;
-			T result = caseTriggerPort(triggerPort);
+		case Aadl2Package.COMPONENT_TYPE: {
+			ComponentType componentType = (ComponentType) theEObject;
+			T result = caseComponentType(componentType);
 			if (result == null)
-				result = caseModeTransitionTrigger(triggerPort);
+				result = caseComponentClassifier(componentType);
 			if (result == null)
-				result = caseElement(triggerPort);
+				result = caseClassifier(componentType);
 			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.CONTEXT: {
-			Context context = (Context) theEObject;
-			T result = caseContext(context);
+				result = caseSubcomponentType(componentType);
 			if (result == null)
-				result = caseNamedElement(context);
+				result = caseNamespace(componentType);
 			if (result == null)
-				result = caseElement(context);
+				result = caseType(componentType);
 			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.PORT: {
-			Port port = (Port) theEObject;
-			T result = casePort(port);
+				result = caseNamedElement(componentType);
 			if (result == null)
-				result = caseDirectedFeature(port);
-			if (result == null)
-				result = casePortConnectionEnd(port);
-			if (result == null)
-				result = caseFeature(port);
-			if (result == null)
-				result = caseStructuralFeature(port);
-			if (result == null)
-				result = caseFeatureConnectionEnd(port);
-			if (result == null)
-				result = caseArrayableElement(port);
-			if (result == null)
-				result = caseRefinableElement(port);
-			if (result == null)
-				result = caseClassifierFeature(port);
-			if (result == null)
-				result = caseConnectionEnd(port);
-			if (result == null)
-				result = caseNamedElement(port);
-			if (result == null)
-				result = caseElement(port);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.DIRECTED_FEATURE: {
-			DirectedFeature directedFeature = (DirectedFeature) theEObject;
-			T result = caseDirectedFeature(directedFeature);
-			if (result == null)
-				result = caseFeature(directedFeature);
-			if (result == null)
-				result = caseStructuralFeature(directedFeature);
-			if (result == null)
-				result = caseFeatureConnectionEnd(directedFeature);
-			if (result == null)
-				result = caseArrayableElement(directedFeature);
-			if (result == null)
-				result = caseRefinableElement(directedFeature);
-			if (result == null)
-				result = caseClassifierFeature(directedFeature);
-			if (result == null)
-				result = caseConnectionEnd(directedFeature);
-			if (result == null)
-				result = caseNamedElement(directedFeature);
-			if (result == null)
-				result = caseElement(directedFeature);
+				result = caseElement(componentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -711,74 +656,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.PORT_CONNECTION_END: {
-			PortConnectionEnd portConnectionEnd = (PortConnectionEnd) theEObject;
-			T result = casePortConnectionEnd(portConnectionEnd);
-			if (result == null)
-				result = caseConnectionEnd(portConnectionEnd);
-			if (result == null)
-				result = caseNamedElement(portConnectionEnd);
-			if (result == null)
-				result = caseElement(portConnectionEnd);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.PROCESSOR_PORT: {
-			ProcessorPort processorPort = (ProcessorPort) theEObject;
-			T result = caseProcessorPort(processorPort);
-			if (result == null)
-				result = casePortConnectionEnd(processorPort);
-			if (result == null)
-				result = caseModeTransitionTrigger(processorPort);
-			if (result == null)
-				result = caseConnectionEnd(processorPort);
-			if (result == null)
-				result = caseNamedElement(processorPort);
-			if (result == null)
-				result = caseElement(processorPort);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.INTERNAL_EVENT: {
-			InternalEvent internalEvent = (InternalEvent) theEObject;
-			T result = caseInternalEvent(internalEvent);
-			if (result == null)
-				result = casePortConnectionEnd(internalEvent);
-			if (result == null)
-				result = caseModeTransitionTrigger(internalEvent);
-			if (result == null)
-				result = caseConnectionEnd(internalEvent);
-			if (result == null)
-				result = caseNamedElement(internalEvent);
-			if (result == null)
-				result = caseElement(internalEvent);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.COMPONENT_TYPE: {
-			ComponentType componentType = (ComponentType) theEObject;
-			T result = caseComponentType(componentType);
-			if (result == null)
-				result = caseComponentClassifier(componentType);
-			if (result == null)
-				result = caseClassifier(componentType);
-			if (result == null)
-				result = caseSubcomponentType(componentType);
-			if (result == null)
-				result = caseNamespace(componentType);
-			if (result == null)
-				result = caseType(componentType);
-			if (result == null)
-				result = caseNamedElement(componentType);
-			if (result == null)
-				result = caseElement(componentType);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.FLOW_SPECIFICATION: {
 			FlowSpecification flowSpecification = (FlowSpecification) theEObject;
 			T result = caseFlowSpecification(flowSpecification);
@@ -813,6 +690,17 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(flow);
 			if (result == null)
 				result = caseElement(flow);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.CONTEXT: {
+			Context context = (Context) theEObject;
+			T result = caseContext(context);
+			if (result == null)
+				result = caseNamedElement(context);
+			if (result == null)
+				result = caseElement(context);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -865,6 +753,40 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.CALL_CONTEXT: {
+			CallContext callContext = (CallContext) theEObject;
+			T result = caseCallContext(callContext);
+			if (result == null)
+				result = caseElement(callContext);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.DIRECTED_FEATURE: {
+			DirectedFeature directedFeature = (DirectedFeature) theEObject;
+			T result = caseDirectedFeature(directedFeature);
+			if (result == null)
+				result = caseFeature(directedFeature);
+			if (result == null)
+				result = caseStructuralFeature(directedFeature);
+			if (result == null)
+				result = caseFeatureConnectionEnd(directedFeature);
+			if (result == null)
+				result = caseArrayableElement(directedFeature);
+			if (result == null)
+				result = caseRefinableElement(directedFeature);
+			if (result == null)
+				result = caseClassifierFeature(directedFeature);
+			if (result == null)
+				result = caseConnectionEnd(directedFeature);
+			if (result == null)
+				result = caseNamedElement(directedFeature);
+			if (result == null)
+				result = caseElement(directedFeature);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.FEATURE_GROUP_CONNECTION_END: {
 			FeatureGroupConnectionEnd featureGroupConnectionEnd = (FeatureGroupConnectionEnd) theEObject;
 			T result = caseFeatureGroupConnectionEnd(featureGroupConnectionEnd);
@@ -874,15 +796,6 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(featureGroupConnectionEnd);
 			if (result == null)
 				result = caseElement(featureGroupConnectionEnd);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.CALL_CONTEXT: {
-			CallContext callContext = (CallContext) theEObject;
-			T result = caseCallContext(callContext);
-			if (result == null)
-				result = caseElement(callContext);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1091,6 +1004,19 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.PORT_CONNECTION_END: {
+			PortConnectionEnd portConnectionEnd = (PortConnectionEnd) theEObject;
+			T result = casePortConnectionEnd(portConnectionEnd);
+			if (result == null)
+				result = caseConnectionEnd(portConnectionEnd);
+			if (result == null)
+				result = caseNamedElement(portConnectionEnd);
+			if (result == null)
+				result = caseElement(portConnectionEnd);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.FLOW_ELEMENT: {
 			FlowElement flowElement = (FlowElement) theEObject;
 			T result = caseFlowElement(flowElement);
@@ -1199,6 +1125,35 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(dataPort);
 			if (result == null)
 				result = caseElement(dataPort);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PORT: {
+			Port port = (Port) theEObject;
+			T result = casePort(port);
+			if (result == null)
+				result = caseDirectedFeature(port);
+			if (result == null)
+				result = casePortConnectionEnd(port);
+			if (result == null)
+				result = caseFeature(port);
+			if (result == null)
+				result = caseStructuralFeature(port);
+			if (result == null)
+				result = caseFeatureConnectionEnd(port);
+			if (result == null)
+				result = caseArrayableElement(port);
+			if (result == null)
+				result = caseRefinableElement(port);
+			if (result == null)
+				result = caseClassifierFeature(port);
+			if (result == null)
+				result = caseConnectionEnd(port);
+			if (result == null)
+				result = caseNamedElement(port);
+			if (result == null)
+				result = caseElement(port);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1671,6 +1626,15 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.CONNECTED_ELEMENT: {
+			ConnectedElement connectedElement = (ConnectedElement) theEObject;
+			T result = caseConnectedElement(connectedElement);
+			if (result == null)
+				result = caseElement(connectedElement);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.IMPLEMENTATION_EXTENSION: {
 			ImplementationExtension implementationExtension = (ImplementationExtension) theEObject;
 			T result = caseImplementationExtension(implementationExtension);
@@ -1892,17 +1856,15 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.PROCESSOR_SUBPROGRAM: {
-			ProcessorSubprogram processorSubprogram = (ProcessorSubprogram) theEObject;
-			T result = caseProcessorSubprogram(processorSubprogram);
+		case Aadl2Package.ELEMENT_NAME: {
+			ElementName elementName = (ElementName) theEObject;
+			T result = caseElementName(elementName);
 			if (result == null)
-				result = caseAccessConnectionEnd(processorSubprogram);
+				result = caseConnectionEnd(elementName);
 			if (result == null)
-				result = caseConnectionEnd(processorSubprogram);
+				result = caseNamedElement(elementName);
 			if (result == null)
-				result = caseNamedElement(processorSubprogram);
-			if (result == null)
-				result = caseElement(processorSubprogram);
+				result = caseElement(elementName);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1942,6 +1904,17 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(defaultAnnexSubclause);
 			if (result == null)
 				result = caseElement(defaultAnnexSubclause);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.TRIGGER_PORT: {
+			TriggerPort triggerPort = (TriggerPort) theEObject;
+			T result = caseTriggerPort(triggerPort);
+			if (result == null)
+				result = caseModeTransitionTrigger(triggerPort);
+			if (result == null)
+				result = caseElement(triggerPort);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -5033,6 +5006,49 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.PROCESSOR_PORT: {
+			ProcessorPort processorPort = (ProcessorPort) theEObject;
+			T result = caseProcessorPort(processorPort);
+			if (result == null)
+				result = caseConnectionEnd(processorPort);
+			if (result == null)
+				result = caseModeTransitionTrigger(processorPort);
+			if (result == null)
+				result = caseNamedElement(processorPort);
+			if (result == null)
+				result = caseElement(processorPort);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.INTERNAL_EVENT: {
+			InternalEvent internalEvent = (InternalEvent) theEObject;
+			T result = caseInternalEvent(internalEvent);
+			if (result == null)
+				result = caseConnectionEnd(internalEvent);
+			if (result == null)
+				result = caseModeTransitionTrigger(internalEvent);
+			if (result == null)
+				result = caseNamedElement(internalEvent);
+			if (result == null)
+				result = caseElement(internalEvent);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESSOR_SUBPROGRAM: {
+			ProcessorSubprogram processorSubprogram = (ProcessorSubprogram) theEObject;
+			T result = caseProcessorSubprogram(processorSubprogram);
+			if (result == null)
+				result = caseConnectionEnd(processorSubprogram);
+			if (result == null)
+				result = caseNamedElement(processorSubprogram);
+			if (result == null)
+				result = caseElement(processorSubprogram);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -5834,6 +5850,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Connected Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Connected Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConnectedElement(ConnectedElement object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Flow Element</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -5875,6 +5906,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseAbstractSubcomponent(AbstractSubcomponent object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Element Name</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Element Name</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseElementName(ElementName object) {
 		return null;
 	}
 

@@ -208,7 +208,11 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedConnection());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedRealization());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedProcessorSubprogram());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAccessConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedParameterConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedPortConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureGroupConnection());
 		}
 		return childrenFeatures;
 	}
@@ -259,7 +263,11 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION:
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM:
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION:
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION:
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION:
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION:
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -282,8 +290,24 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 				Aadl2Factory.eINSTANCE.createRealization()));
 
 		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedProcessorSubprogram(),
-				Aadl2Factory.eINSTANCE.createProcessorSubprogram()));
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAccessConnection(),
+				Aadl2Factory.eINSTANCE.createAccessConnection()));
+
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedParameterConnection(),
+				Aadl2Factory.eINSTANCE.createParameterConnection()));
+
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedPortConnection(),
+				Aadl2Factory.eINSTANCE.createPortConnection()));
+
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureConnection(),
+				Aadl2Factory.eINSTANCE.createFeatureConnection()));
+
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureGroupConnection(),
+				Aadl2Factory.eINSTANCE.createFeatureGroupConnection()));
 	}
 
 }

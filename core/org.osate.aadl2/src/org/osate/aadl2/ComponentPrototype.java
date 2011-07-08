@@ -51,7 +51,7 @@ package org.osate.aadl2;
  * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getComponentPrototype()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface ComponentPrototype extends Prototype, SubcomponentType {

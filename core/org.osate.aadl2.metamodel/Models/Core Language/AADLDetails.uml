@@ -2349,18 +2349,6 @@
       <ownedComment xmi:id="_yQxBMBy3Ed6lOswgW78e2g">
         <body>This package contains metaclasses for modeling the different kinds of connections that exist in AADL.</body>
       </ownedComment>
-      <packagedElement xmi:type="uml:Class" xmi:id="Connections-ProcessorPort" name="ProcessorPort">
-        <ownedComment xmi:id="_YGmFEByQEd6lOswgW78e2g">
-          <body>A proxy for a port feature of the processor to which the component containing this proxy is bound.</body>
-        </ownedComment>
-        <generalization xmi:id="Connections-ProcessorPort-_generalization.1" general="Connections-PortConnectionEnd"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Connections-InternalEvent" name="InternalEvent">
-        <ownedComment xmi:id="_OhkEgByQEd6lOswgW78e2g">
-          <body>An event that originates inside the component that owns this proxy.</body>
-        </ownedComment>
-        <generalization xmi:id="Connections-InternalEvent-_generalization.1" general="Connections-PortConnectionEnd"/>
-      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Connections-AccessConnection" name="AccessConnection">
         <ownedComment xmi:id="_Ddmn0ByQEd6lOswgW78e2g">
           <body>An access connection.</body>
@@ -2374,22 +2362,6 @@
           </ownedComment>
           <type xmi:type="uml:Enumeration" href="AADLConstructs.uml#Features-AccessCategory"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-AccessConnection-destination" name="destination" type="Connections-AccessConnectionEnd" association="Connections-A_accessConnection_destination">
-          <ownedComment xmi:id="_GTi6MByQEd6lOswgW78e2g">
-            <body>Specifies the destination end of this connection.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-AccessConnection-destination-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-AccessConnection-destination-_lowerValue" value="1"/>
-          <redefinedProperty href="AADLConstructs.uml#Connections-Connection-destination"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-AccessConnection-source" name="source" type="Connections-AccessConnectionEnd" association="Connections-A_accessConnection_source">
-          <ownedComment xmi:id="_GfnnUByQEd6lOswgW78e2g">
-            <body>Specifies the source end of this connection.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-AccessConnection-source-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-AccessConnection-source-_lowerValue" value="1"/>
-          <redefinedProperty href="AADLConstructs.uml#Connections-Connection-source"/>
-        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Connections-ParameterConnection" name="ParameterConnection">
         <ownedComment xmi:id="_Ou0dYByQEd6lOswgW78e2g">
@@ -2398,22 +2370,6 @@
         <generalization xmi:id="Connections-ParameterConnection-_generalization.0">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Connection"/>
         </generalization>
-        <ownedAttribute xmi:id="Connections-ParameterConnection-destination" name="destination" type="Connections-ParameterConnectionEnd" association="Connections-A_parameterConnection_destination">
-          <ownedComment xmi:id="_QQRpEByQEd6lOswgW78e2g">
-            <body>Specifies the destination end of this connection.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ParameterConnection-destination-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ParameterConnection-destination-_lowerValue" value="1"/>
-          <redefinedProperty href="AADLConstructs.uml#Connections-Connection-destination"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-ParameterConnection-source" name="source" type="Connections-ParameterConnectionEnd" association="Connections-A_parameterConnection_source">
-          <ownedComment xmi:id="_QfB2wByQEd6lOswgW78e2g">
-            <body>Specifies the source end of this connection.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ParameterConnection-source-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ParameterConnection-source-_lowerValue" value="1"/>
-          <redefinedProperty href="AADLConstructs.uml#Connections-Connection-source"/>
-        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Connections-PortConnection" name="PortConnection">
         <ownedComment xmi:id="_PXNTEByQEd6lOswgW78e2g">
@@ -2422,22 +2378,6 @@
         <generalization xmi:id="Connections-PortConnection-_generalization.0">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Connection"/>
         </generalization>
-        <ownedAttribute xmi:id="Connections-PortConnection-destination" name="destination" type="Connections-PortConnectionEnd" association="Connections-A_portConnection_destination">
-          <ownedComment xmi:id="_VP6L0ByQEd6lOswgW78e2g">
-            <body>Specifies the destination end of this connection.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-PortConnection-destination-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-PortConnection-destination-_lowerValue" value="1"/>
-          <redefinedProperty href="AADLConstructs.uml#Connections-Connection-destination"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-PortConnection-source" name="source" type="Connections-PortConnectionEnd" association="Connections-A_portConnection_source">
-          <ownedComment xmi:id="_Vcku0ByQEd6lOswgW78e2g">
-            <body>Specifies the source end of this connection.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-PortConnection-source-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-PortConnection-source-_lowerValue" value="1"/>
-          <redefinedProperty href="AADLConstructs.uml#Connections-Connection-source"/>
-        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Connections-AccessConnectionEnd" name="AccessConnectionEnd" isAbstract="true">
         <ownedComment xmi:id="_HTxoIByQEd6lOswgW78e2g">
@@ -2463,42 +2403,6 @@
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-ConnectionEnd"/>
         </generalization>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_accessConnection_destination" name="A_accessConnection_destination" memberEnd="Connections-A_accessConnection_destination-connection Connections-AccessConnection-destination">
-        <ownedEnd xmi:id="Connections-A_accessConnection_destination-connection" name="connection" type="Connections-AccessConnection" association="Connections-A_accessConnection_destination">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_accessConnection_destination-connection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_accessConnection_destination-connection-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_accessConnection_source" name="A_accessConnection_source" memberEnd="Connections-A_accessConnection_source-connection Connections-AccessConnection-source">
-        <ownedEnd xmi:id="Connections-A_accessConnection_source-connection" name="connection" type="Connections-AccessConnection" association="Connections-A_accessConnection_source">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_accessConnection_source-connection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_accessConnection_source-connection-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_parameterConnection_destination" name="A_parameterConnection_destination" memberEnd="Connections-A_parameterConnection_destination-connection Connections-ParameterConnection-destination">
-        <ownedEnd xmi:id="Connections-A_parameterConnection_destination-connection" name="connection" type="Connections-ParameterConnection" association="Connections-A_parameterConnection_destination">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_parameterConnection_destination-connection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_parameterConnection_destination-connection-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_parameterConnection_source" name="A_parameterConnection_source" memberEnd="Connections-A_parameterConnection_source-connection Connections-ParameterConnection-source">
-        <ownedEnd xmi:id="Connections-A_parameterConnection_source-connection" name="connection" type="Connections-ParameterConnection" association="Connections-A_parameterConnection_source">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_parameterConnection_source-connection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_parameterConnection_source-connection-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_portConnection_destination" name="A_portConnection_destination" memberEnd="Connections-A_portConnection_destination-connection Connections-PortConnection-destination">
-        <ownedEnd xmi:id="Connections-A_portConnection_destination-connection" name="connection" type="Connections-PortConnection" association="Connections-A_portConnection_destination">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_portConnection_destination-connection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_portConnection_destination-connection-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_portConnection_source" name="A_portConnection_source" memberEnd="Connections-A_portConnection_source-connection Connections-PortConnection-source">
-        <ownedEnd xmi:id="Connections-A_portConnection_source-connection" name="connection" type="Connections-PortConnection" association="Connections-A_portConnection_source">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_portConnection_source-connection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_portConnection_source-connection-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Connections-FeatureGroupConnection" name="FeatureGroupConnection">
         <ownedComment xmi:id="_OCHvcByQEd6lOswgW78e2g">
           <body>A feature group connection.</body>
@@ -2506,42 +2410,14 @@
         <generalization xmi:id="Connections-FeatureGroupConnection-_generalization.0">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Connection"/>
         </generalization>
-        <ownedAttribute xmi:id="Connections-FeatureGroupConnection-source" name="source" type="Connections-FeatureGroupConnectionEnd" association="Connections-A_featureGroupConnection_source">
-          <ownedComment xmi:id="_SJRyEByQEd6lOswgW78e2g">
-            <body>Specifies the source end of this connection.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-FeatureGroupConnection-source-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-FeatureGroupConnection-source-_lowerValue" value="1"/>
-          <redefinedProperty href="AADLConstructs.uml#Connections-Connection-source"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-FeatureGroupConnection-destination" name="destination" type="Connections-FeatureGroupConnectionEnd" association="Connections-A_featureGroupConnection_destination">
-          <ownedComment xmi:id="_SXudwByQEd6lOswgW78e2g">
-            <body>Specifies the destination end of this connection.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-FeatureGroupConnection-destination-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-FeatureGroupConnection-destination-_lowerValue" value="1"/>
-          <redefinedProperty href="AADLConstructs.uml#Connections-Connection-destination"/>
-        </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Connections-FeatureGroupConnectionEnd" name="FeatureGroupConnectionEnd">
+      <packagedElement xmi:type="uml:Class" xmi:id="Connections-FeatureGroupConnectionEnd" name="FeatureGroupConnectionEnd" isAbstract="true">
         <ownedComment xmi:id="_OSEP8ByQEd6lOswgW78e2g">
           <body>The superclass of all elements that may be an end of a feature group connection.</body>
         </ownedComment>
         <generalization xmi:id="Connections-FeatureGroupConnectionEnd-_generalization.0">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-ConnectionEnd"/>
         </generalization>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_featureGroupConnection_source" name="A_featureGroupConnection_source" memberEnd="Connections-A_featureGroupConnection_source-connection Connections-FeatureGroupConnection-source">
-        <ownedEnd xmi:id="Connections-A_featureGroupConnection_source-connection" name="connection" type="Connections-FeatureGroupConnection" association="Connections-A_featureGroupConnection_source">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_featureGroupConnection_source-connection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_featureGroupConnection_source-connection-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_featureGroupConnection_destination" name="A_featureGroupConnection_destination" memberEnd="Connections-A_featureGroupConnection_destination-connection Connections-FeatureGroupConnection-destination">
-        <ownedEnd xmi:id="Connections-A_featureGroupConnection_destination-connection" name="connection" type="Connections-FeatureGroupConnection" association="Connections-A_featureGroupConnection_destination">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_featureGroupConnection_destination-connection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_featureGroupConnection_destination-connection-_lowerValue"/>
-        </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Connections-FeatureConnection" name="FeatureConnection">
         <ownedComment xmi:id="_LdwVQByQEd6lOswgW78e2g">
@@ -2550,22 +2426,6 @@
         <generalization xmi:id="Connections-FeatureConnection-_generalization.0">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Connection"/>
         </generalization>
-        <ownedAttribute xmi:id="Connections-FeatureConnection-source" name="source" type="Connections-FeatureConnectionEnd" association="Connections-A_featureConnection_source">
-          <ownedComment xmi:id="_MKT5QByQEd6lOswgW78e2g">
-            <body>Specifies the source end of this connection.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-FeatureConnection-source-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-FeatureConnection-source-_lowerValue" value="1"/>
-          <redefinedProperty href="AADLConstructs.uml#Connections-Connection-source"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-FeatureConnection-destination" name="destination" type="Connections-FeatureConnectionEnd" association="Connections-A_featureConnection_destination">
-          <ownedComment xmi:id="_L1dDkByQEd6lOswgW78e2g">
-            <body>Specifies the destination end of this connection.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-FeatureConnection-destination-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-FeatureConnection-destination-_lowerValue" value="1"/>
-          <redefinedProperty href="AADLConstructs.uml#Connections-Connection-destination"/>
-        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Connections-FeatureConnectionEnd" name="FeatureConnectionEnd" isAbstract="true">
         <ownedComment xmi:id="_NnmWoByQEd6lOswgW78e2g">
@@ -2575,143 +2435,68 @@
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-ConnectionEnd"/>
         </generalization>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_featureConnection_source" name="A_featureConnection_source" memberEnd="Connections-A_featureConnection_source-connection Connections-FeatureConnection-source">
-        <ownedEnd xmi:id="Connections-A_featureConnection_source-connection" name="connection" type="Connections-FeatureConnection" association="Connections-A_featureConnection_source">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_featureConnection_source-connection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_featureConnection_source-connection-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_featureConnection_destination" name="A_featureConnection_destination" memberEnd="Connections-A_featureConnection_destination-connection Connections-FeatureConnection-destination">
-        <ownedEnd xmi:id="Connections-A_featureConnection_destination-connection" name="connection" type="Connections-FeatureConnection" association="Connections-A_featureConnection_destination">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_featureConnection_destination-connection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_featureConnection_destination-connection-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Connections-ProcessorSubprogram" name="ProcessorSubprogram">
-        <ownedComment xmi:id="_ZEIrYByQEd6lOswgW78e2g">
-          <body>A proxy for a subprogram feature of the processor to which the component containing this proxy is bound.</body>
-        </ownedComment>
-        <generalization xmi:id="Connections-ProcessorSubprogram-_generalization.0" general="Connections-AccessConnectionEnd"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_accessConnection_processorSubprogramAccess" name="A_accessConnection_processorSubprogramAccess" memberEnd="Connections-A_accessConnection_processorSubprogramAccess-owner Connections-ComponentImplementation-ownedProcessorSubprogram">
-        <ownedEnd xmi:id="Connections-A_accessConnection_processorSubprogramAccess-owner" name="owner" type="Connections-ComponentImplementation" association="Connections-A_accessConnection_processorSubprogramAccess">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_accessConnection_processorSubprogramAccess-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_accessConnection_processorSubprogramAccess-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Connections-ComponentImplementation" name="ComponentImplementation" isAbstract="true">
-        <ownedComment xmi:id="_O5EbAByPEd6lOswgW78e2g">
-          <body>The owned connections of a component implementation are refined for the different connetion types.</body>
-        </ownedComment>
-        <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedAccessConnection" name="ownedAccessConnection" type="Connections-AccessConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedAccessConnection">
-          <ownedComment xmi:id="Connections-ComponentImplementation-ownedAccessConnection-_ownedComment.0">
-            <body>Specifies the access connections owned by this component implementation.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedAccessConnection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedAccessConnection-_lowerValue"/>
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="Connections-ComponentImplementation-ownedAccessConnection-_defaultValue" value=""/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_G8M0wKlfEeCVAsPdeCCOXw" name="ComponentImplementation" isAbstract="true">
+        <ownedAttribute xmi:id="_i6iH4KlfEeCVAsPdeCCOXw" name="ownedAccessConnection" type="Connections-AccessConnection" aggregation="composite" association="_i6ymkKlfEeCVAsPdeCCOXw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i6iH4alfEeCVAsPdeCCOXw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i6iH4qlfEeCVAsPdeCCOXw"/>
           <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedParameterConnection" name="ownedParameterConnection" type="Connections-ParameterConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedParameterConnection">
-          <ownedComment xmi:id="Connections-ComponentImplementation-ownedParameterConnection-_ownedComment.0">
-            <body>Specifies the parameter connections owned by this component implementation.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedParameterConnection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedParameterConnection-_lowerValue"/>
+        <ownedAttribute xmi:id="_j9CGsKlfEeCVAsPdeCCOXw" name="ownedParameterConnection" type="Connections-ParameterConnection" aggregation="composite" association="_j9WPwKlfEeCVAsPdeCCOXw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_j9CGsalfEeCVAsPdeCCOXw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_j9CGsqlfEeCVAsPdeCCOXw"/>
           <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedPortConnection" name="ownedPortConnection" type="Connections-PortConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedPortConnection">
-          <ownedComment xmi:id="Connections-ComponentImplementation-ownedPortConnection-_ownedComment.0">
-            <body>Specifies the port connections owned by this component implementation.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedPortConnection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedPortConnection-_lowerValue"/>
+        <ownedAttribute xmi:id="_kd7NQKlfEeCVAsPdeCCOXw" name="ownedPortConnection" type="Connections-PortConnection" aggregation="composite" association="_keKd0KlfEeCVAsPdeCCOXw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kd7NQalfEeCVAsPdeCCOXw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kd7NQqlfEeCVAsPdeCCOXw"/>
           <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedFeatureConnection" name="ownedFeatureConnection" type="Connections-FeatureConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedFeatureConnection">
-          <ownedComment xmi:id="Connections-ComponentImplementation-ownedFeatureConnection-_ownedComment.0">
-            <body>Specifies the feature connections owned by this component implementation.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedFeatureConnection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedFeatureConnection-_lowerValue"/>
+        <ownedAttribute xmi:id="_k6KdUKlfEeCVAsPdeCCOXw" name="ownedFeatureConnection" type="Connections-FeatureConnection" aggregation="composite" association="_k6fNcKlfEeCVAsPdeCCOXw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_k6KdUalfEeCVAsPdeCCOXw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_k6KdUqlfEeCVAsPdeCCOXw"/>
           <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedFeatureGroupConnection" name="ownedFeatureGroupConnection" type="Connections-FeatureGroupConnection" aggregation="composite" association="Connections-A_componentImplementation_ownedFeatureGroupConnection">
-          <ownedComment xmi:id="Connections-ComponentImplementation-ownedFeatureGroupConnection-_ownedComment.0">
-            <body>Specifies the feature group connections owned by this component implementation.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedFeatureGroupConnection-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedFeatureGroupConnection-_lowerValue"/>
+        <ownedAttribute xmi:id="_lVqtkKlfEeCVAsPdeCCOXw" name="ownedFeatureGroupConnection" type="Connections-FeatureGroupConnection" aggregation="composite" association="_lV_dsKlfEeCVAsPdeCCOXw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lVqtkalfEeCVAsPdeCCOXw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lVqtkqlfEeCVAsPdeCCOXw"/>
           <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedConnection"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-ComponentImplementation-ownedProcessorSubprogram" name="ownedProcessorSubprogram" type="Connections-ProcessorSubprogram" aggregation="composite" association="Connections-A_accessConnection_processorSubprogramAccess">
-          <ownedComment xmi:id="_pf-oMByPEd6lOswgW78e2g">
-            <body>Specifies the processor subprogram proxies owned by this component.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentImplementation-ownedProcessorSubprogram-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentImplementation-ownedProcessorSubprogram-_lowerValue"/>
-        </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_componentImplementation_ownedAccessConnection" name="A_componentImplementation_ownedAccessConnection" memberEnd="Connections-A_componentImplementation_ownedAccessConnection-owner Connections-ComponentImplementation-ownedAccessConnection">
-        <ownedEnd xmi:id="Connections-A_componentImplementation_ownedAccessConnection-owner" name="owner" type="Connections-ComponentImplementation" association="Connections-A_componentImplementation_ownedAccessConnection">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_componentImplementation_ownedAccessConnection-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_componentImplementation_ownedAccessConnection-owner-_lowerValue" value="1"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_i6ymkKlfEeCVAsPdeCCOXw" name="A_componentImplementation_ownedAccessConnection" memberEnd="_i6ymkalfEeCVAsPdeCCOXw _i6iH4KlfEeCVAsPdeCCOXw">
+        <ownedEnd xmi:id="_i6ymkalfEeCVAsPdeCCOXw" name="owner" type="_G8M0wKlfEeCVAsPdeCCOXw" association="_i6ymkKlfEeCVAsPdeCCOXw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i6ymkqlfEeCVAsPdeCCOXw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i6ymk6lfEeCVAsPdeCCOXw" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_componentImplementation_ownedFeatureConnection" name="A_componentImplementation_ownedFeatureConnection" memberEnd="Connections-A_componentImplementation_ownedFeatureConnection-owner Connections-ComponentImplementation-ownedFeatureConnection">
-        <ownedEnd xmi:id="Connections-A_componentImplementation_ownedFeatureConnection-owner" name="owner" type="Connections-ComponentImplementation" association="Connections-A_componentImplementation_ownedFeatureConnection">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_componentImplementation_ownedFeatureConnection-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_componentImplementation_ownedFeatureConnection-owner-_lowerValue" value="1"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_j9WPwKlfEeCVAsPdeCCOXw" name="A_componentImplementation_ownedParameterConnection>" memberEnd="_j9WPwalfEeCVAsPdeCCOXw _j9CGsKlfEeCVAsPdeCCOXw">
+        <ownedEnd xmi:id="_j9WPwalfEeCVAsPdeCCOXw" name="owner" type="_G8M0wKlfEeCVAsPdeCCOXw" association="_j9WPwKlfEeCVAsPdeCCOXw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_j9WPwqlfEeCVAsPdeCCOXw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_j9WPw6lfEeCVAsPdeCCOXw" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_componentImplementation_ownedFeatureGroupConnection" name="A_componentImplementation_ownedFeatureGroupConnection" memberEnd="Connections-A_componentImplementation_ownedFeatureGroupConnection-owner Connections-ComponentImplementation-ownedFeatureGroupConnection">
-        <ownedEnd xmi:id="Connections-A_componentImplementation_ownedFeatureGroupConnection-owner" name="owner" type="Connections-ComponentImplementation" association="Connections-A_componentImplementation_ownedFeatureGroupConnection">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_componentImplementation_ownedFeatureGroupConnection-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_componentImplementation_ownedFeatureGroupConnection-owner-_lowerValue" value="1"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_keKd0KlfEeCVAsPdeCCOXw" name="A_componentImplementation_ownedPortConnection" memberEnd="_keKd0alfEeCVAsPdeCCOXw _kd7NQKlfEeCVAsPdeCCOXw">
+        <ownedEnd xmi:id="_keKd0alfEeCVAsPdeCCOXw" name="owner" type="_G8M0wKlfEeCVAsPdeCCOXw" association="_keKd0KlfEeCVAsPdeCCOXw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_keKd0qlfEeCVAsPdeCCOXw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_keKd06lfEeCVAsPdeCCOXw" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_componentImplementation_ownedParameterConnection" name="A_componentImplementation_ownedParameterConnection" memberEnd="Connections-A_componentImplementation_ownedParameterConnection-owner Connections-ComponentImplementation-ownedParameterConnection">
-        <ownedEnd xmi:id="Connections-A_componentImplementation_ownedParameterConnection-owner" name="owner" type="Connections-ComponentImplementation" association="Connections-A_componentImplementation_ownedParameterConnection">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_componentImplementation_ownedParameterConnection-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_componentImplementation_ownedParameterConnection-owner-_lowerValue" value="1"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_k6fNcKlfEeCVAsPdeCCOXw" name="A_componentImplementation_ownedFeatureConnection" memberEnd="_k6fNcalfEeCVAsPdeCCOXw _k6KdUKlfEeCVAsPdeCCOXw">
+        <ownedEnd xmi:id="_k6fNcalfEeCVAsPdeCCOXw" name="owner" type="_G8M0wKlfEeCVAsPdeCCOXw" association="_k6fNcKlfEeCVAsPdeCCOXw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_k6fNcqlfEeCVAsPdeCCOXw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_k6fNc6lfEeCVAsPdeCCOXw" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_componentImplementation_ownedPortConnection" name="A_componentImplementation_ownedPortConnection" memberEnd="Connections-A_componentImplementation_ownedPortConnection-owner Connections-ComponentImplementation-ownedPortConnection">
-        <ownedEnd xmi:id="Connections-A_componentImplementation_ownedPortConnection-owner" name="owner" type="Connections-ComponentImplementation" association="Connections-A_componentImplementation_ownedPortConnection">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_componentImplementation_ownedPortConnection-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_componentImplementation_ownedPortConnection-owner-_lowerValue" value="1"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_lV_dsKlfEeCVAsPdeCCOXw" name="A_componentImplementation_ownedFeatureGroupConnection" memberEnd="_lV_dsalfEeCVAsPdeCCOXw _lVqtkKlfEeCVAsPdeCCOXw">
+        <ownedEnd xmi:id="_lV_dsalfEeCVAsPdeCCOXw" name="owner" type="_G8M0wKlfEeCVAsPdeCCOXw" association="_lV_dsKlfEeCVAsPdeCCOXw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lV_dsqlfEeCVAsPdeCCOXw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lV_ds6lfEeCVAsPdeCCOXw" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_componentClassifier_ownedInternalEvent" name="A_componentClassifier_ownedInternalEvent" memberEnd="Connections-A_componentClassifier_ownedInternalEvent-owner Connections-ComponentClassifier-ownedInternalEvent">
-        <ownedEnd xmi:id="Connections-A_componentClassifier_ownedInternalEvent-owner" name="owner" type="Connections-ComponentClassifier" association="Connections-A_componentClassifier_ownedInternalEvent">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_componentClassifier_ownedInternalEvent-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_componentClassifier_ownedInternalEvent-owner-_lowerValue" value="1"/>
-        </ownedEnd>
+      <packagedElement xmi:type="uml:Class" xmi:id="_K9fUYKlpEeCVAsPdeCCOXw" name="Feature" isAbstract="true">
+        <generalization xmi:id="_RZJJMKlpEeCVAsPdeCCOXw" general="Connections-FeatureConnectionEnd"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_componentClassifier_ownedProcessorPort" name="A_componentClassifier_ownedProcessorPort" memberEnd="Connections-A_componentClassifier_ownedProcessorPort-owner Connections-ComponentClassifier-ownedProcessorPort">
-        <ownedEnd xmi:id="Connections-A_componentClassifier_ownedProcessorPort-owner" name="owner" type="Connections-ComponentClassifier" association="Connections-A_componentClassifier_ownedProcessorPort">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_componentClassifier_ownedProcessorPort-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_componentClassifier_ownedProcessorPort-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Connections-ComponentClassifier" name="ComponentClassifier" isAbstract="true">
-        <ownedComment xmi:id="_IK6EcByQEd6lOswgW78e2g">
-          <body>A component classifier may own internal events and proxies for processor ports.</body>
-        </ownedComment>
-        <ownedAttribute xmi:id="Connections-ComponentClassifier-ownedProcessorPort" name="ownedProcessorPort" type="Connections-ProcessorPort" aggregation="composite" association="Connections-A_componentClassifier_ownedProcessorPort">
-          <ownedComment xmi:id="_JQ8fcByQEd6lOswgW78e2g">
-            <body>Specifies the processor port proxies owned by this component.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentClassifier-ownedProcessorPort-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentClassifier-ownedProcessorPort-_lowerValue"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-ComponentClassifier-ownedInternalEvent" name="ownedInternalEvent" type="Connections-InternalEvent" aggregation="composite" association="Connections-A_componentClassifier_ownedInternalEvent">
-          <ownedComment xmi:id="_I2RVoByQEd6lOswgW78e2g">
-            <body>Specifes the internal events owned by this component.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-ComponentClassifier-ownedInternalEvent-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-ComponentClassifier-ownedInternalEvent-_lowerValue"/>
-        </ownedAttribute>
+      <packagedElement xmi:type="uml:Class" xmi:id="_M2LUUKlpEeCVAsPdeCCOXw" name="FeatureGroup">
+        <generalization xmi:id="_R0rOoKlpEeCVAsPdeCCOXw" general="Connections-FeatureGroupConnectionEnd"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Features" name="Features">
@@ -3026,6 +2811,38 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2lUJvR-jEd6oIu99HumgeA" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2lUJvh-jEd6oIu99HumgeA"/>
         </ownedEnd>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_KdZncKlbEeCVAsPdeCCOXw" name="NamedProxies">
+      <packagedElement xmi:type="uml:Class" xmi:id="_cAIeYKlbEeCVAsPdeCCOXw" name="ProcessorPort">
+        <generalization xmi:id="_Ce64gKlcEeCVAsPdeCCOXw">
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#Modes-ModeTransitionTrigger"/>
+        </generalization>
+        <generalization xmi:id="_hTupgKlcEeCVAsPdeCCOXw">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
+        </generalization>
+        <generalization xmi:id="_pOx0gKlcEeCVAsPdeCCOXw">
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-ConnectionEnd"/>
+        </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_kVJokKlbEeCVAsPdeCCOXw" name="InternalEvent">
+        <generalization xmi:id="_A9SGoKlcEeCVAsPdeCCOXw">
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#Modes-ModeTransitionTrigger"/>
+        </generalization>
+        <generalization xmi:id="_hBGocKlcEeCVAsPdeCCOXw">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
+        </generalization>
+        <generalization xmi:id="_o0DnYKlcEeCVAsPdeCCOXw">
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-ConnectionEnd"/>
+        </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_saKn4KlbEeCVAsPdeCCOXw" name="ProcessorSubprogram">
+        <generalization xmi:id="_htBTQKlcEeCVAsPdeCCOXw">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
+        </generalization>
+        <generalization xmi:id="_pneBUKlcEeCVAsPdeCCOXw">
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-ConnectionEnd"/>
+        </generalization>
       </packagedElement>
     </packagedElement>
     <profileApplication xmi:id="_profileApplication.0">

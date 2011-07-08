@@ -94,22 +94,11 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Classifier</em>' reference.
-	 * @see #setClassifier(ComponentClassifier)
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_Classifier()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	ComponentClassifier getClassifier();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Subcomponent#getClassifier <em>Classifier</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Classifier</em>' reference.
-	 * @see #getClassifier()
-	 * @generated
-	 */
-	void setClassifier(ComponentClassifier value);
 
 	/**
 	 * Returns the value of the '<em><b>Abstract Subcomponent Type</b></em>' reference.
@@ -185,22 +174,11 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Prototype</em>' reference.
-	 * @see #setPrototype(ComponentPrototype)
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_Prototype()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	ComponentPrototype getPrototype();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Subcomponent#getPrototype <em>Prototype</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Prototype</em>' reference.
-	 * @see #getPrototype()
-	 * @generated
-	 */
-	void setPrototype(ComponentPrototype value);
 
 	/**
 	 * Returns the value of the '<em><b>Mode Binding</b></em>' containment reference list.

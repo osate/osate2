@@ -36,6 +36,7 @@
 package org.osate.aadl2;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
@@ -47,7 +48,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.osate.aadl2.ModeTransition#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.ModeTransition#getDestination <em>Destination</em>}</li>
- *   <li>{@link org.osate.aadl2.ModeTransition#getTriggers <em>Trigger</em>}</li>
  *   <li>{@link org.osate.aadl2.ModeTransition#getOwnedTriggers <em>Owned Trigger</em>}</li>
  * </ul>
  * </p>
@@ -110,30 +110,8 @@ public interface ModeTransition extends ModeFeature {
 	void setDestination(Mode value);
 
 	/**
-	 * Returns the value of the '<em><b>Trigger</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.ModeTransitionTrigger}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Trigger</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Trigger</em>' reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getModeTransition_Trigger()
-	 * @model required="true"
-	 * @generated
-	 */
-	EList<ModeTransitionTrigger> getTriggers();
-
-	/**
 	 * Returns the value of the '<em><b>Owned Trigger</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.TriggerPort}.
-	 * <p>
-	 * This feature subsets the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.ModeTransition#getTriggers() <em>Trigger</em>}'</li>
-	 * </ul>
-	 * </p>
+	 * The list contents are of type {@link org.osate.aadl2.ModeTransitionTrigger}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Trigger</em>' containment reference list isn't clear,
@@ -142,19 +120,20 @@ public interface ModeTransition extends ModeFeature {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Trigger</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getModeTransition_OwnedTrigger()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true" required="true" ordered="false"
 	 * @generated
 	 */
-	EList<TriggerPort> getOwnedTriggers();
+	EList<ModeTransitionTrigger> getOwnedTriggers();
 
 	/**
-	 * Creates a new {@link org.osate.aadl2.TriggerPort} and appends it to the '<em><b>Owned Trigger</b></em>' containment reference list.
+	 * Creates a new {@link org.osate.aadl2.ModeTransitionTrigger} and appends it to the '<em><b>Owned Trigger</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.TriggerPort}.
+	 * @param eClass The Ecore class of the {@link org.osate.aadl2.ModeTransitionTrigger} to create.
+	 * @return The new {@link org.osate.aadl2.ModeTransitionTrigger}.
 	 * @see #getOwnedTriggers()
 	 * @generated
 	 */
-	TriggerPort createOwnedTrigger();
+	ModeTransitionTrigger createOwnedTrigger(EClass eClass);
 
 } // ModeTransition

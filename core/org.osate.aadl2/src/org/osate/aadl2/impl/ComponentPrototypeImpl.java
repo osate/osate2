@@ -63,7 +63,7 @@ import org.osate.aadl2.operations.TypeOperations;
  *
  * @generated
  */
-public class ComponentPrototypeImpl extends PrototypeImpl implements ComponentPrototype {
+public abstract class ComponentPrototypeImpl extends PrototypeImpl implements ComponentPrototype {
 	/**
 	 * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
 	 * <!-- begin-user-doc -->

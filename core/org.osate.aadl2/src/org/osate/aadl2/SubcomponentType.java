@@ -41,7 +41,7 @@ package org.osate.aadl2;
  *
  *
  * @see org.osate.aadl2.Aadl2Package#getSubcomponentType()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface SubcomponentType extends Type {

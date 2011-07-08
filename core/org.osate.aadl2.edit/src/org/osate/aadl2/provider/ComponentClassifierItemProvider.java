@@ -135,8 +135,6 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider impl
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentClassifier_OwnedMode());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentClassifier_OwnedModeTransition());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentClassifier_OwnedProcessorPort());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentClassifier_OwnedInternalEvent());
 		}
 		return childrenFeatures;
 	}
@@ -185,8 +183,6 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider impl
 			return;
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE:
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:
-		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_PROCESSOR_PORT:
-		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_INTERNAL_EVENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -210,14 +206,6 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider impl
 		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getComponentClassifier_OwnedModeTransition(),
 				Aadl2Factory.eINSTANCE.createModeTransition()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentClassifier_OwnedProcessorPort(),
-				Aadl2Factory.eINSTANCE.createProcessorPort()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentClassifier_OwnedInternalEvent(),
-				Aadl2Factory.eINSTANCE.createInternalEvent()));
 	}
 
 }

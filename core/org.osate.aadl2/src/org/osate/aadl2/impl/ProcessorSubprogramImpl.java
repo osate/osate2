@@ -49,7 +49,7 @@ import org.osate.aadl2.ProcessorSubprogram;
  *
  * @generated
  */
-public class ProcessorSubprogramImpl extends AccessConnectionEndImpl implements ProcessorSubprogram {
+public class ProcessorSubprogramImpl extends ConnectionEndImpl implements ProcessorSubprogram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

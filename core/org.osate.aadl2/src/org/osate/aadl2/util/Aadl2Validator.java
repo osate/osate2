@@ -263,40 +263,30 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateModeTransition((ModeTransition) value, diagnostics, context);
 		case Aadl2Package.MODE_TRANSITION_TRIGGER:
 			return validateModeTransitionTrigger((ModeTransitionTrigger) value, diagnostics, context);
-		case Aadl2Package.TRIGGER_PORT:
-			return validateTriggerPort((TriggerPort) value, diagnostics, context);
-		case Aadl2Package.CONTEXT:
-			return validateContext((Context) value, diagnostics, context);
-		case Aadl2Package.PORT:
-			return validatePort((Port) value, diagnostics, context);
-		case Aadl2Package.DIRECTED_FEATURE:
-			return validateDirectedFeature((DirectedFeature) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_TYPE:
+			return validateComponentType((ComponentType) value, diagnostics, context);
 		case Aadl2Package.FEATURE:
 			return validateFeature((Feature) value, diagnostics, context);
 		case Aadl2Package.FEATURE_CONNECTION_END:
 			return validateFeatureConnectionEnd((FeatureConnectionEnd) value, diagnostics, context);
 		case Aadl2Package.CONNECTION_END:
 			return validateConnectionEnd((ConnectionEnd) value, diagnostics, context);
-		case Aadl2Package.PORT_CONNECTION_END:
-			return validatePortConnectionEnd((PortConnectionEnd) value, diagnostics, context);
-		case Aadl2Package.PROCESSOR_PORT:
-			return validateProcessorPort((ProcessorPort) value, diagnostics, context);
-		case Aadl2Package.INTERNAL_EVENT:
-			return validateInternalEvent((InternalEvent) value, diagnostics, context);
-		case Aadl2Package.COMPONENT_TYPE:
-			return validateComponentType((ComponentType) value, diagnostics, context);
 		case Aadl2Package.FLOW_SPECIFICATION:
 			return validateFlowSpecification((FlowSpecification) value, diagnostics, context);
 		case Aadl2Package.FLOW:
 			return validateFlow((Flow) value, diagnostics, context);
+		case Aadl2Package.CONTEXT:
+			return validateContext((Context) value, diagnostics, context);
 		case Aadl2Package.TYPE_EXTENSION:
 			return validateTypeExtension((TypeExtension) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP:
 			return validateFeatureGroup((FeatureGroup) value, diagnostics, context);
-		case Aadl2Package.FEATURE_GROUP_CONNECTION_END:
-			return validateFeatureGroupConnectionEnd((FeatureGroupConnectionEnd) value, diagnostics, context);
 		case Aadl2Package.CALL_CONTEXT:
 			return validateCallContext((CallContext) value, diagnostics, context);
+		case Aadl2Package.DIRECTED_FEATURE:
+			return validateDirectedFeature((DirectedFeature) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_CONNECTION_END:
+			return validateFeatureGroupConnectionEnd((FeatureGroupConnectionEnd) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP_TYPE:
 			return validateFeatureGroupType((FeatureGroupType) value, diagnostics, context);
 		case Aadl2Package.GROUP_EXTENSION:
@@ -317,6 +307,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateDataAccess((DataAccess) value, diagnostics, context);
 		case Aadl2Package.PARAMETER_CONNECTION_END:
 			return validateParameterConnectionEnd((ParameterConnectionEnd) value, diagnostics, context);
+		case Aadl2Package.PORT_CONNECTION_END:
+			return validatePortConnectionEnd((PortConnectionEnd) value, diagnostics, context);
 		case Aadl2Package.FLOW_ELEMENT:
 			return validateFlowElement((FlowElement) value, diagnostics, context);
 		case Aadl2Package.END_TO_END_FLOW_ELEMENT:
@@ -329,6 +321,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateData((Data) value, diagnostics, context);
 		case Aadl2Package.DATA_PORT:
 			return validateDataPort((DataPort) value, diagnostics, context);
+		case Aadl2Package.PORT:
+			return validatePort((Port) value, diagnostics, context);
 		case Aadl2Package.EVENT_DATA_PORT:
 			return validateEventDataPort((EventDataPort) value, diagnostics, context);
 		case Aadl2Package.EVENT_PORT:
@@ -374,6 +368,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateSubcomponentFlow((SubcomponentFlow) value, diagnostics, context);
 		case Aadl2Package.CONNECTION:
 			return validateConnection((Connection) value, diagnostics, context);
+		case Aadl2Package.CONNECTED_ELEMENT:
+			return validateConnectedElement((ConnectedElement) value, diagnostics, context);
 		case Aadl2Package.IMPLEMENTATION_EXTENSION:
 			return validateImplementationExtension((ImplementationExtension) value, diagnostics, context);
 		case Aadl2Package.REALIZATION:
@@ -392,14 +388,16 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateFeatureConnection((FeatureConnection) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP_CONNECTION:
 			return validateFeatureGroupConnection((FeatureGroupConnection) value, diagnostics, context);
-		case Aadl2Package.PROCESSOR_SUBPROGRAM:
-			return validateProcessorSubprogram((ProcessorSubprogram) value, diagnostics, context);
+		case Aadl2Package.ELEMENT_NAME:
+			return validateElementName((ElementName) value, diagnostics, context);
 		case Aadl2Package.ANNEX_LIBRARY:
 			return validateAnnexLibrary((AnnexLibrary) value, diagnostics, context);
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
 			return validateDefaultAnnexLibrary((DefaultAnnexLibrary) value, diagnostics, context);
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE:
 			return validateDefaultAnnexSubclause((DefaultAnnexSubclause) value, diagnostics, context);
+		case Aadl2Package.TRIGGER_PORT:
+			return validateTriggerPort((TriggerPort) value, diagnostics, context);
 		case Aadl2Package.PUBLIC_PACKAGE_SECTION:
 			return validatePublicPackageSection((PublicPackageSection) value, diagnostics, context);
 		case Aadl2Package.PACKAGE_SECTION:
@@ -695,20 +693,28 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateRecordField((RecordField) value, diagnostics, context);
 		case Aadl2Package.REFERENCE_TYPE:
 			return validateReferenceType((ReferenceType) value, diagnostics, context);
-		case Aadl2Package.DIRECTION_TYPE:
-			return validateDirectionType((DirectionType) value, diagnostics, context);
-		case Aadl2Package.PORT_CATEGORY:
-			return validatePortCategory((PortCategory) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_PORT:
+			return validateProcessorPort((ProcessorPort) value, diagnostics, context);
+		case Aadl2Package.INTERNAL_EVENT:
+			return validateInternalEvent((InternalEvent) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_SUBPROGRAM:
+			return validateProcessorSubprogram((ProcessorSubprogram) value, diagnostics, context);
 		case Aadl2Package.FLOW_KIND:
 			return validateFlowKind((FlowKind) value, diagnostics, context);
+		case Aadl2Package.DIRECTION_TYPE:
+			return validateDirectionType((DirectionType) value, diagnostics, context);
 		case Aadl2Package.ACCESS_TYPE:
 			return validateAccessType((AccessType) value, diagnostics, context);
 		case Aadl2Package.ACCESS_CATEGORY:
 			return validateAccessCategory((AccessCategory) value, diagnostics, context);
+		case Aadl2Package.PORT_CATEGORY:
+			return validatePortCategory((PortCategory) value, diagnostics, context);
 		case Aadl2Package.COMPONENT_CATEGORY:
 			return validateComponentCategory((ComponentCategory) value, diagnostics, context);
 		case Aadl2Package.CONNECTION_KIND:
 			return validateConnectionKind((ConnectionKind) value, diagnostics, context);
+		case Aadl2Package.ELEMENT_NAME_KIND:
+			return validateElementNameKind((ElementNameKind) value, diagnostics, context);
 		case Aadl2Package.OPERATION_KIND:
 			return validateOperationKind((OperationKind) value, diagnostics, context);
 		case Aadl2Package.STRING:
@@ -2625,6 +2631,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateConnectedElement(ConnectedElement connectedElement, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		if (!validate_NoCircularContainment((EObject) connectedElement, diagnostics, context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms((EObject) connectedElement, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms((EObject) connectedElement, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained((EObject) connectedElement, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) connectedElement, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves((EObject) connectedElement, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID((EObject) connectedElement, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique((EObject) connectedElement, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique((EObject) connectedElement, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_not_own_self(connectedElement, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_has_owner(connectedElement, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateFlowElement(FlowElement flowElement, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) flowElement, diagnostics, context))
 			return false;
@@ -2716,6 +2753,40 @@ public class Aadl2Validator extends EObjectValidator {
 			result &= validateNamedElement_has_no_qualified_name(abstractSubcomponent, diagnostics, context);
 		if (result || diagnostics != null)
 			result &= validateNamedElement_has_qualified_name(abstractSubcomponent, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateElementName(ElementName elementName, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment((EObject) elementName, diagnostics, context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms((EObject) elementName, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms((EObject) elementName, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained((EObject) elementName, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) elementName, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves((EObject) elementName, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID((EObject) elementName, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique((EObject) elementName, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique((EObject) elementName, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_not_own_self(elementName, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_has_owner(elementName, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_no_qualified_name(elementName, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_qualified_name(elementName, diagnostics, context);
 		return result;
 	}
 
@@ -9914,6 +9985,16 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateConnectionKind(ConnectionKind connectionKind, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateElementNameKind(ElementNameKind elementNameKind, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		return true;
 	}
