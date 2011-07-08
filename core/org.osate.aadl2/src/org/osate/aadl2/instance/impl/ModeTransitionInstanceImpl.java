@@ -359,7 +359,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
