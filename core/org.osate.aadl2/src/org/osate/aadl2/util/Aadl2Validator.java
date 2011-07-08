@@ -368,8 +368,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateSubcomponentFlow((SubcomponentFlow) value, diagnostics, context);
 		case Aadl2Package.CONNECTION:
 			return validateConnection((Connection) value, diagnostics, context);
-		case Aadl2Package.CONNECTED_ELEMENT:
-			return validateConnectedElement((ConnectedElement) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_CONNECTION_END:
+			return validateAbstractConnectionEnd((AbstractConnectionEnd) value, diagnostics, context);
 		case Aadl2Package.IMPLEMENTATION_EXTENSION:
 			return validateImplementationExtension((ImplementationExtension) value, diagnostics, context);
 		case Aadl2Package.REALIZATION:
@@ -388,6 +388,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateFeatureConnection((FeatureConnection) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP_CONNECTION:
 			return validateFeatureGroupConnection((FeatureGroupConnection) value, diagnostics, context);
+		case Aadl2Package.CONNECTED_ELEMENT:
+			return validateConnectedElement((ConnectedElement) value, diagnostics, context);
 		case Aadl2Package.ELEMENT_NAME:
 			return validateElementName((ElementName) value, diagnostics, context);
 		case Aadl2Package.ANNEX_LIBRARY:
@@ -2624,6 +2626,16 @@ public class Aadl2Validator extends EObjectValidator {
 		if (result || diagnostics != null)
 			result &= validateNamedElement_has_qualified_name(connection, diagnostics, context);
 		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAbstractConnectionEnd(AbstractConnectionEnd abstractConnectionEnd,
+			DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject) abstractConnectionEnd, diagnostics, context);
 	}
 
 	/**

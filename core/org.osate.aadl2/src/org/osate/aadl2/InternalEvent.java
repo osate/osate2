@@ -46,5 +46,5 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface InternalEvent extends ConnectionEnd, ModeTransitionTrigger {
+public interface InternalEvent extends NamedElement, ModeTransitionTrigger, AbstractConnectionEnd {
 } // InternalEvent

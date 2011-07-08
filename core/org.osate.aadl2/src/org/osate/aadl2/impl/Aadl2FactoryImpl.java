@@ -152,8 +152,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createFlowImplementation();
 		case Aadl2Package.SUBCOMPONENT_FLOW:
 			return (EObject) createSubcomponentFlow();
-		case Aadl2Package.CONNECTED_ELEMENT:
-			return (EObject) createConnectedElement();
 		case Aadl2Package.IMPLEMENTATION_EXTENSION:
 			return (EObject) createImplementationExtension();
 		case Aadl2Package.REALIZATION:
@@ -172,6 +170,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createFeatureConnection();
 		case Aadl2Package.FEATURE_GROUP_CONNECTION:
 			return (EObject) createFeatureGroupConnection();
+		case Aadl2Package.CONNECTED_ELEMENT:
+			return (EObject) createConnectedElement();
 		case Aadl2Package.ELEMENT_NAME:
 			return (EObject) createElementName();
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:

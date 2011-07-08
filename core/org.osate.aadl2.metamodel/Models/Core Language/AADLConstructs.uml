@@ -1731,14 +1731,14 @@ For access features, the classifier specifies the type of the shared component.<
         </generalization>
         <generalization xmi:id="Connections-Connection-_generalization.1" general="Flows-FlowElement"/>
         <generalization xmi:id="Connections-Connection-_generalization.2" general="Modes-ModalPath"/>
-        <ownedAttribute xmi:id="Connections-Connection-destination" name="destination" type="_9cVjIKjREeCoIp43xtd66A" aggregation="composite" association="Connections-A_connection_destination">
+        <ownedAttribute xmi:id="Connections-Connection-destination" name="destination" type="_iT__cKl3EeCfxLim1SVFOg" aggregation="composite" association="Connections-A_connection_destination">
           <ownedComment xmi:id="Connections-Connection-destination-_ownedComment.0">
             <body>Specifies the destination end of the connection. This is the end written on the right hand side of the connection symbol in textual AADL.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-Connection-destination-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-Connection-destination-_lowerValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-Connection-source" name="source" type="_9cVjIKjREeCoIp43xtd66A" aggregation="composite" association="Connections-A_connection_source">
+        <ownedAttribute xmi:id="Connections-Connection-source" name="source" type="_iT__cKl3EeCfxLim1SVFOg" aggregation="composite" association="Connections-A_connection_source">
           <ownedComment xmi:id="Connections-Connection-source-_ownedComment.0">
             <body>Specifies the source end of the connection. This is the end written on the left hand side of the connection symbol in textual AADL.</body>
           </ownedComment>
@@ -1835,6 +1835,7 @@ The context owns the connection end instance.</body>
         <generalization xmi:id="_7rzc0KjVEeCoIp43xtd66A">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
+        <generalization xmi:id="_suSNAKl3EeCfxLim1SVFOg" general="_iT__cKl3EeCfxLim1SVFOg"/>
         <ownedAttribute xmi:id="_Hb8RxKjQEeCoIp43xtd66A" name="context" type="Connections-Context" association="_Hb8RwKjQEeCoIp43xtd66A">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hb8RxajQEeCoIp43xtd66A" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hb8RxqjQEeCoIp43xtd66A"/>
@@ -1859,6 +1860,7 @@ The context owns the connection end instance.</body>
         <ownedLiteral xmi:id="_--b9IKjTEeCoIp43xtd66A" name="ProcessorPort"/>
         <ownedLiteral xmi:id="__eFGgKjTEeCoIp43xtd66A" name="ProcessorSubprogram"/>
       </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_iT__cKl3EeCfxLim1SVFOg" name="AbstractConnectionEnd" isAbstract="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Flows" name="Flows">
       <ownedComment xmi:id="Flows-_ownedComment.0">

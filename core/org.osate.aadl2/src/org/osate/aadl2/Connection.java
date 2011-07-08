@@ -35,6 +35,7 @@
  */
 package org.osate.aadl2;
 
+import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
@@ -65,12 +66,12 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Destination</em>' containment reference.
-	 * @see #setDestination(ConnectedElement)
+	 * @see #setDestination(AbstractConnectionEnd)
 	 * @see org.osate.aadl2.Aadl2Package#getConnection_Destination()
 	 * @model containment="true" required="true" ordered="false"
 	 * @generated
 	 */
-	ConnectedElement getDestination();
+	AbstractConnectionEnd getDestination();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.Connection#getDestination <em>Destination</em>}' containment reference.
@@ -80,17 +81,18 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @see #getDestination()
 	 * @generated
 	 */
-	void setDestination(ConnectedElement value);
+	void setDestination(AbstractConnectionEnd value);
 
 	/**
-	 * Creates a new {@link org.osate.aadl2.ConnectedElement} and sets the '<em><b>Destination</b></em>' containment reference.
+	 * Creates a new {@link org.osate.aadl2.AbstractConnectionEnd} and sets the '<em><b>Destination</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.ConnectedElement}.
+	 * @param eClass The Ecore class of the {@link org.osate.aadl2.AbstractConnectionEnd} to create.
+	 * @return The new {@link org.osate.aadl2.AbstractConnectionEnd}.
 	 * @see #getDestination()
 	 * @generated
 	 */
-	ConnectedElement createDestination();
+	AbstractConnectionEnd createDestination(EClass eClass);
 
 	/**
 	 * Returns the value of the '<em><b>Source</b></em>' containment reference.
@@ -101,12 +103,12 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' containment reference.
-	 * @see #setSource(ConnectedElement)
+	 * @see #setSource(AbstractConnectionEnd)
 	 * @see org.osate.aadl2.Aadl2Package#getConnection_Source()
 	 * @model containment="true" required="true" ordered="false"
 	 * @generated
 	 */
-	ConnectedElement getSource();
+	AbstractConnectionEnd getSource();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.Connection#getSource <em>Source</em>}' containment reference.
@@ -116,17 +118,18 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @see #getSource()
 	 * @generated
 	 */
-	void setSource(ConnectedElement value);
+	void setSource(AbstractConnectionEnd value);
 
 	/**
-	 * Creates a new {@link org.osate.aadl2.ConnectedElement} and sets the '<em><b>Source</b></em>' containment reference.
+	 * Creates a new {@link org.osate.aadl2.AbstractConnectionEnd} and sets the '<em><b>Source</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.ConnectedElement}.
+	 * @param eClass The Ecore class of the {@link org.osate.aadl2.AbstractConnectionEnd} to create.
+	 * @return The new {@link org.osate.aadl2.AbstractConnectionEnd}.
 	 * @see #getSource()
 	 * @generated
 	 */
-	ConnectedElement createSource();
+	AbstractConnectionEnd createSource(EClass eClass);
 
 	/**
 	 * Returns the value of the '<em><b>Bidirectional</b></em>' attribute.
