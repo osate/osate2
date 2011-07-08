@@ -100,51 +100,55 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		      c.setLinewrap().after(is);
 		    }
 	    for (Keyword applies : f.findKeywords("applies")) {
+		      c.setIndentationIncrement().before(applies);
 		      c.setLinewrap().before(applies);
-		      c.setSpace("  ").before(applies);
+		      c.setIndentationDecrement().after(applies);
 		    }
 	      c.setLinewrap().before(f.getPublicPackageSectionRule());
 	      c.setLinewrap().before(f.getPrivatePackageSectionRule());
 
-	      c.setIndentationIncrement().before(f.getSystemTypeRule());
-	      c.setIndentationDecrement().after(f.getSystemTypeRule());
-	      c.setLinewrap(2).after(f.getSystemTypeRule());
+	      c.setIndentationIncrement().before(f.getComponentTypeRule());
+	      c.setIndentationDecrement().after(f.getComponentTypeRule());
+	      c.setLinewrap(2).after(f.getComponentTypeRule());
 	      c.setIndentationIncrement().after(f.getSystemTypeAccess().getSystemKeyword_0());
-	      c.setIndentationIncrement().before(f.getSystemImplementationRule());
-	      c.setIndentationDecrement().after(f.getSystemImplementationRule());
-	      c.setLinewrap(2).after(f.getSystemImplementationRule());
+	      c.setIndentationIncrement().before(f.getComponentImplementationRule());
+	      c.setIndentationDecrement().after(f.getComponentImplementationRule());
+	      c.setLinewrap(2).after(f.getComponentImplementationRule());
 	      c.setIndentationIncrement().after(f.getSystemImplementationAccess().getSystemKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getAbstractTypeRule());
-	      c.setIndentationDecrement().after(f.getAbstractTypeRule());
-	      c.setLinewrap().after(f.getAbstractTypeRule());
+	      // Need to leave category specific rules in those cases where the rule is not part of the Component Type/Impl rule
+	      // This is the case for categories that have special rules for the common subclause sections
+	      
+//	      c.setIndentationIncrement().before(f.getAbstractTypeRule());
+//	      c.setIndentationDecrement().after(f.getAbstractTypeRule());
+//	      c.setLinewrap().after(f.getAbstractTypeRule());
 	      c.setIndentationIncrement().after(f.getAbstractTypeAccess().getAbstractKeyword_0());
-	      c.setIndentationIncrement().before(f.getAbstractImplementationRule());
-	      c.setIndentationDecrement().after(f.getAbstractImplementationRule());
-	      c.setLinewrap().after(f.getAbstractImplementationRule());
+//	      c.setIndentationIncrement().before(f.getAbstractImplementationRule());
+//	      c.setIndentationDecrement().after(f.getAbstractImplementationRule());
+//	      c.setLinewrap().after(f.getAbstractImplementationRule());
 	      c.setIndentationIncrement().after(f.getAbstractImplementationAccess().getAbstractKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getProcessTypeRule());
-	      c.setIndentationDecrement().after(f.getProcessTypeRule());
-	      c.setLinewrap().after(f.getProcessTypeRule());
+//	      c.setIndentationIncrement().before(f.getProcessTypeRule());
+//	      c.setIndentationDecrement().after(f.getProcessTypeRule());
+//	      c.setLinewrap().after(f.getProcessTypeRule());
 	      c.setIndentationIncrement().after(f.getProcessTypeAccess().getProcessKeyword_0());
-	      c.setIndentationIncrement().before(f.getProcessImplementationRule());
-	      c.setIndentationDecrement().after(f.getProcessImplementationRule());
-	      c.setLinewrap().after(f.getProcessImplementationRule());
+//	      c.setIndentationIncrement().before(f.getProcessImplementationRule());
+//	      c.setIndentationDecrement().after(f.getProcessImplementationRule());
+//	      c.setLinewrap().after(f.getProcessImplementationRule());
 	      c.setIndentationIncrement().after(f.getProcessImplementationAccess().getProcessKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getThreadGroupTypeRule());
-	      c.setIndentationDecrement().after(f.getThreadGroupTypeRule());
-	      c.setLinewrap().after(f.getThreadGroupTypeRule());
+//	      c.setIndentationIncrement().before(f.getThreadGroupTypeRule());
+//	      c.setIndentationDecrement().after(f.getThreadGroupTypeRule());
+//	      c.setLinewrap().after(f.getThreadGroupTypeRule());
 	      c.setIndentationIncrement().after(f.getThreadGroupTypeAccess().getThreadKeyword_0());
-	      c.setIndentationIncrement().before(f.getThreadGroupImplementationRule());
-	      c.setIndentationDecrement().after(f.getThreadGroupImplementationRule());
-	      c.setLinewrap().after(f.getThreadGroupImplementationRule());
+//	      c.setIndentationIncrement().before(f.getThreadGroupImplementationRule());
+//	      c.setIndentationDecrement().after(f.getThreadGroupImplementationRule());
+//	      c.setLinewrap().after(f.getThreadGroupImplementationRule());
 	      c.setIndentationIncrement().after(f.getThreadGroupImplementationAccess().getThreadKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getThreadTypeRule());
-	      c.setIndentationDecrement().after(f.getThreadTypeRule());
-	      c.setLinewrap().after(f.getThreadTypeRule());
+//	      c.setIndentationIncrement().before(f.getThreadTypeRule());
+//	      c.setIndentationDecrement().after(f.getThreadTypeRule());
+//	      c.setLinewrap().after(f.getThreadTypeRule());
 	      c.setIndentationIncrement().after(f.getThreadTypeAccess().getThreadKeyword_0());
 	      c.setIndentationIncrement().before(f.getThreadImplementationRule());
 	      c.setIndentationDecrement().after(f.getThreadImplementationRule());
@@ -155,14 +159,14 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 	      c.setIndentationDecrement().after(f.getDataTypeRule());
 	      c.setLinewrap().after(f.getDataTypeRule());
 	      c.setIndentationIncrement().after(f.getDataTypeAccess().getDataKeyword_0());
-	      c.setIndentationIncrement().before(f.getDataImplementationRule());
-	      c.setIndentationDecrement().after(f.getDataImplementationRule());
-	      c.setLinewrap().after(f.getDataImplementationRule());
+//	      c.setIndentationIncrement().before(f.getDataImplementationRule());
+//	      c.setIndentationDecrement().after(f.getDataImplementationRule());
+//	      c.setLinewrap().after(f.getDataImplementationRule());
 	      c.setIndentationIncrement().after(f.getDataImplementationAccess().getDataKeyword_1());
 
-	      c.setIndentationIncrement().before(f.getSubprogramTypeRule());
-	      c.setIndentationDecrement().after(f.getSubprogramTypeRule());
-	      c.setLinewrap().after(f.getSubprogramTypeRule());
+//	      c.setIndentationIncrement().before(f.getSubprogramTypeRule());
+//	      c.setIndentationDecrement().after(f.getSubprogramTypeRule());
+//	      c.setLinewrap().after(f.getSubprogramTypeRule());
 	      c.setIndentationIncrement().after(f.getSubprogramTypeAccess().getSubprogramKeyword_0());
 	      c.setIndentationIncrement().before(f.getSubprogramImplementationRule());
 	      c.setIndentationDecrement().after(f.getSubprogramImplementationRule());
@@ -178,9 +182,9 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 	      c.setLinewrap().after(f.getSubprogramGroupImplementationRule());
 	      c.setIndentationIncrement().after(f.getSubprogramGroupImplementationAccess().getSubprogramKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getProcessorTypeRule());
-	      c.setIndentationDecrement().after(f.getProcessorTypeRule());
-	      c.setLinewrap().after(f.getProcessorTypeRule());
+//	      c.setIndentationIncrement().before(f.getProcessorTypeRule());
+//	      c.setIndentationDecrement().after(f.getProcessorTypeRule());
+//	      c.setLinewrap().after(f.getProcessorTypeRule());
 	      c.setIndentationIncrement().after(f.getProcessorTypeAccess().getProcessorKeyword_0());
 	      c.setIndentationIncrement().before(f.getProcessorImplementationRule());
 	      c.setIndentationDecrement().after(f.getProcessorImplementationRule());
@@ -205,18 +209,18 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 	      c.setLinewrap().after(f.getBusImplementationRule());
 	      c.setIndentationIncrement().after(f.getBusImplementationAccess().getBusKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getDeviceTypeRule());
-	      c.setIndentationDecrement().after(f.getDeviceTypeRule());
-	      c.setLinewrap().after(f.getDeviceTypeRule());
+//	      c.setIndentationIncrement().before(f.getDeviceTypeRule());
+//	      c.setIndentationDecrement().after(f.getDeviceTypeRule());
+//	      c.setLinewrap().after(f.getDeviceTypeRule());
 	      c.setIndentationIncrement().after(f.getDeviceTypeAccess().getDeviceKeyword_0());
 	      c.setIndentationIncrement().before(f.getDeviceImplementationRule());
 	      c.setIndentationDecrement().after(f.getDeviceImplementationRule());
 	      c.setLinewrap().after(f.getDeviceImplementationRule());
 	      c.setIndentationIncrement().after(f.getDeviceImplementationAccess().getDeviceKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getVirtualProcessorTypeRule());
-	      c.setIndentationDecrement().after(f.getVirtualProcessorTypeRule());
-	      c.setLinewrap().after(f.getVirtualProcessorTypeRule());
+//	      c.setIndentationIncrement().before(f.getVirtualProcessorTypeRule());
+//	      c.setIndentationDecrement().after(f.getVirtualProcessorTypeRule());
+//	      c.setLinewrap().after(f.getVirtualProcessorTypeRule());
 	      c.setIndentationIncrement().after(f.getVirtualProcessorTypeAccess().getVirtualKeyword_0());
 	      c.setIndentationIncrement().before(f.getVirtualProcessorImplementationRule());
 	      c.setIndentationDecrement().after(f.getVirtualProcessorImplementationRule());
@@ -241,9 +245,9 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 
 // It's usually a good idea to activate the following three statements.
 // They will add and preserve newlines around comments
-		c.setLinewrap(0, 1, 2).before(f.getSL_COMMENTRule());
-		c.setLinewrap(0, 1, 2).before(f.getML_COMMENTRule());
-		c.setLinewrap(0, 1, 1).after(f.getML_COMMENTRule());
+//			c.setLinewrap(0, 1, 2).before(getGrammarAccess().getSL_COMMENTRule());
+//			c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
+//			c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
 
 	}
 }

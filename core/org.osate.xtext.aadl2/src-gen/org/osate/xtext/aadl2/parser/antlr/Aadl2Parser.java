@@ -25,7 +25,7 @@ public class Aadl2Parser extends org.eclipse.xtext.parser.antlr.AbstractAntlrPar
 	
 	@Override 
 	protected String getDefaultRuleName() {
-		return "AadlPackage";
+		return "Model";
 	}
 	
 	public Aadl2GrammarAccess getGrammarAccess() {

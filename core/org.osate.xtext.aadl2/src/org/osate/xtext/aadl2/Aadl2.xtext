@@ -7,6 +7,10 @@ import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 // TODO:   
 //InternalEvent(SELF), ProcessorPort: objects in mode transition instead of reference to unnamed owned in impl.
 
+Model returns aadl2::ModelUnit:
+	AadlPackage | PropertySet
+;
+
 AadlPackage returns aadl2::AadlPackage:
 	'package' name=PNAME
 	((ownedPublicSection=PublicPackageSection
@@ -86,15 +90,15 @@ ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
 
 Classifier returns aadl2::Classifier:
-//	SystemType | DataType | ComponentType
+	SubprogramGroupType | DataType | BusType|
+		 VirtualBusType|MemoryType|
 	ComponentType | ComponentImplementation | FeatureGroupType 
 ;
 
 
 ComponentType returns aadl2::ComponentType: 
-	(AbstractType | SystemType 
-		| ProcessorType | ProcessType|ThreadGroupType|ThreadType|DeviceType|BusType|
-		VirtualProcessorType| VirtualBusType|MemoryType|SubprogramType|SubprogramGroupType|DataType
+	(AbstractType | SystemType | VirtualProcessorType
+		| ProcessorType | ProcessType|ThreadGroupType|ThreadType|DeviceType|SubprogramType
 	) 
 	(=> 'flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
@@ -141,16 +145,6 @@ SystemType returns aadl2::SystemType:
 			)+
 			| (noFeatures?='none' ';')
  	) )?
-//	(=> 'flows'
-//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-//	(=> 'requires' 'modes'
-//	((ownedMode+=RequiresMode)+))?
-//	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-//	(=> 'properties'
-//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-//	| (noProperties?='none' ';')))?
-//	(ownedAnnexSubclause+=AnnexSubclause)*
-//	'end' ID ';'
 	;
 
 
@@ -228,13 +222,13 @@ SubprogramGroupType returns aadl2::SubprogramGroupType:
 	| ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-//	(=> 'flows'
-//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-//	(=> 'properties'
-//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-//	| (noProperties?='none' ';')))?
-//	(ownedAnnexSubclause+=AnnexSubclause)*
-//	'end' ID ';'
+	(=> 'flows'
+	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| (noProperties?='none' ';')))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID ';'
 	;
 
 
@@ -274,14 +268,14 @@ MemoryType returns aadl2::MemoryType:
 	// to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-////	(=> requiresModes?='requires' 'modes'
-////	((ownedMode+=Mode)+))?
-//	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-//	(=> 'properties'
-//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-//	| (noProperties?='none' ';')))?
-//	(ownedAnnexSubclause+=AnnexSubclause)*
-//	'end' ID ';'
+	(=> 'requires' 'modes'
+	((ownedMode+=RequiresMode)+))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| (noProperties?='none' ';')))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID ';'
 	;
 
 BusType returns aadl2::BusType:
@@ -294,14 +288,14 @@ BusType returns aadl2::BusType:
 	// to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-////	(=> requiresModes?='requires' 'modes'
-////	((ownedMode+=Mode)+))?
-//	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-//	(=> 'properties'
-//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-//	| (noProperties?='none' ';')))?
-//	(ownedAnnexSubclause+=AnnexSubclause)*
-//	'end' ID ';'
+	(=> 'requires' 'modes'
+	((ownedMode+=RequiresMode)+))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| (noProperties?='none' ';')))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID ';'
 	;
 
 VirtualBusType returns aadl2::VirtualBusType:
@@ -309,14 +303,14 @@ VirtualBusType returns aadl2::VirtualBusType:
 	(ownedExtension=TypeExtension
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-////	(=> requiresModes?='requires' 'modes'
-////	((ownedMode+=Mode)+))?
-//	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-//	(=> 'properties'
-//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-//	| (noProperties?='none' ';')))?
-//	(ownedAnnexSubclause+=AnnexSubclause)*
-//	'end' ID ';'
+	(=> 'requires' 'modes'
+	((ownedMode+=RequiresMode)+))?
+	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| (noProperties?='none' ';')))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID ';'
 	;
 
 
@@ -344,13 +338,13 @@ DataType returns aadl2::DataType:
 	| ownedAbstractFeature+=AbstractFeature
 	)+ )
 	 )?
-//	(=> 'flows'
-//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-//	(=> 'properties'
-//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-//	| (noProperties?='none' ';')))?
-//	(ownedAnnexSubclause+=AnnexSubclause)*
-//	'end' ID ';'
+	(=> 'flows'
+	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+	(=> 'properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| (noProperties?='none' ';')))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID ';'
 	;
 
 // Component Implementations: add calls for threads and subprograms
