@@ -785,7 +785,7 @@
           <ownedComment xmi:id="Expressions-Operation-ownedPropertyExpression-_ownedComment.0">
             <body>Specifies the operands for the operation.</body>
           </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-Operation-ownedPropertyExpression-_upperValue" value="2"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-Operation-ownedPropertyExpression-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-Operation-ownedPropertyExpression-_lowerValue" value="1"/>
         </ownedAttribute>
       </packagedElement>
