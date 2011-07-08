@@ -1159,9 +1159,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Connection" abstract="true" eSuperTypes="#//StructuralFeature #//ModalPath #//FlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="destination" ordered="false"
-        lowerBound="1" eType="#//ConnectedElement" containment="true"/>
+        lowerBound="1" eType="#//AbstractConnectionEnd" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
-        lowerBound="1" eType="#//ConnectedElement" containment="true"/>
+        lowerBound="1" eType="#//AbstractConnectionEnd" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bidirectional" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
@@ -1169,12 +1169,7 @@
       <eAnnotations source="redefines" references="#//RefinableElement/refinedElement"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConnectedElement" eSuperTypes="#//Element">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
-        eType="#//Context"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="connectionEnd" ordered="false"
-        lowerBound="1" eType="#//ConnectionEnd"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractConnectionEnd" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ImplementationExtension" eSuperTypes="#//Generalization">
     <eStructuralFeatures xsi:type="ecore:EReference" name="extended" ordered="false"
         lowerBound="1" eType="#//ComponentImplementation">
@@ -1214,6 +1209,12 @@
     <eLiterals name="FeatureGroup" value="2"/>
     <eLiterals name="Parameter" value="3"/>
     <eLiterals name="Port" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectedElement" eSuperTypes="#//Element #//AbstractConnectionEnd">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
+        eType="#//Context"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connectionEnd" ordered="false"
+        lowerBound="1" eType="#//ConnectionEnd"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ElementName" eSuperTypes="#//ConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
@@ -2384,7 +2385,7 @@
         ordered="false" lowerBound="1" upperBound="-1" eType="#//MetaclassReference"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorPort" eSuperTypes="#//ConnectionEnd #//ModeTransitionTrigger"/>
-  <eClassifiers xsi:type="ecore:EClass" name="InternalEvent" eSuperTypes="#//ConnectionEnd #//ModeTransitionTrigger"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorSubprogram" eSuperTypes="#//ConnectionEnd"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessorPort" eSuperTypes="#//NamedElement #//ModeTransitionTrigger #//AbstractConnectionEnd"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InternalEvent" eSuperTypes="#//NamedElement #//ModeTransitionTrigger #//AbstractConnectionEnd"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessorSubprogram" eSuperTypes="#//NamedElement #//AbstractConnectionEnd"/>
 </ecore:EPackage>

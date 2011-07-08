@@ -1626,11 +1626,9 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.CONNECTED_ELEMENT: {
-			ConnectedElement connectedElement = (ConnectedElement) theEObject;
-			T result = caseConnectedElement(connectedElement);
-			if (result == null)
-				result = caseElement(connectedElement);
+		case Aadl2Package.ABSTRACT_CONNECTION_END: {
+			AbstractConnectionEnd abstractConnectionEnd = (AbstractConnectionEnd) theEObject;
+			T result = caseAbstractConnectionEnd(abstractConnectionEnd);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1852,6 +1850,17 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(featureGroupConnection);
 			if (result == null)
 				result = caseElement(featureGroupConnection);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.CONNECTED_ELEMENT: {
+			ConnectedElement connectedElement = (ConnectedElement) theEObject;
+			T result = caseConnectedElement(connectedElement);
+			if (result == null)
+				result = caseElement(connectedElement);
+			if (result == null)
+				result = caseAbstractConnectionEnd(connectedElement);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -5010,11 +5019,11 @@ public class Aadl2Switch<T> {
 			ProcessorPort processorPort = (ProcessorPort) theEObject;
 			T result = caseProcessorPort(processorPort);
 			if (result == null)
-				result = caseConnectionEnd(processorPort);
+				result = caseNamedElement(processorPort);
 			if (result == null)
 				result = caseModeTransitionTrigger(processorPort);
 			if (result == null)
-				result = caseNamedElement(processorPort);
+				result = caseAbstractConnectionEnd(processorPort);
 			if (result == null)
 				result = caseElement(processorPort);
 			if (result == null)
@@ -5025,11 +5034,11 @@ public class Aadl2Switch<T> {
 			InternalEvent internalEvent = (InternalEvent) theEObject;
 			T result = caseInternalEvent(internalEvent);
 			if (result == null)
-				result = caseConnectionEnd(internalEvent);
+				result = caseNamedElement(internalEvent);
 			if (result == null)
 				result = caseModeTransitionTrigger(internalEvent);
 			if (result == null)
-				result = caseNamedElement(internalEvent);
+				result = caseAbstractConnectionEnd(internalEvent);
 			if (result == null)
 				result = caseElement(internalEvent);
 			if (result == null)
@@ -5040,9 +5049,9 @@ public class Aadl2Switch<T> {
 			ProcessorSubprogram processorSubprogram = (ProcessorSubprogram) theEObject;
 			T result = caseProcessorSubprogram(processorSubprogram);
 			if (result == null)
-				result = caseConnectionEnd(processorSubprogram);
-			if (result == null)
 				result = caseNamedElement(processorSubprogram);
+			if (result == null)
+				result = caseAbstractConnectionEnd(processorSubprogram);
 			if (result == null)
 				result = caseElement(processorSubprogram);
 			if (result == null)
@@ -5846,6 +5855,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseConnection(Connection object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Connection End</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Connection End</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractConnectionEnd(AbstractConnectionEnd object) {
 		return null;
 	}
 
