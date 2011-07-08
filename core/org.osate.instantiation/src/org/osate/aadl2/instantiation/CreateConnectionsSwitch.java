@@ -73,6 +73,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
@@ -102,7 +103,6 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgr
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
-
 
 /**
  * This class adds all connection instances to an instance model.
@@ -241,9 +241,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			conni.setName(name);
 			Iterator<Connection> connIter = connections.iterator();
 			Iterator<ComponentInstance> ctxIter = contexts.iterator();
-			while(connIter.hasNext()) {
+			while (connIter.hasNext()) {
 				ConnectionReference connRef = conni.createConnectionReference();
-				
+
 				connRef.setConnection(connIter.next());
 				connRef.setContext(ctxIter.next());
 			}
@@ -341,7 +341,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch#initSwitches()
+	 * @see
+	 * org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch#initSwitches
+	 * ()
 	 */
 	@Override
 	protected void initSwitches() {
@@ -503,8 +505,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			List<FeatureInstance> fiList = null;
 
 			if (fromCtx instanceof FeatureGroup) {
-				FeatureInstance fgi = (FeatureInstance) AadlUtil.findNamedElementInList((fromCi != null ? fromCi : ci)
-						.getFeatureInstances(), fromCtx.getName());
+				FeatureInstance fgi = (FeatureInstance) AadlUtil.findNamedElementInList(
+						(fromCi != null ? fromCi : ci).getFeatureInstances(), fromCtx.getName());
 
 				if (fgi != null) {
 					fiList = fgi.getFeatureInstances();
@@ -518,8 +520,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			List<FeatureInstance> fiList = null;
 
 			if (toCtx instanceof FeatureGroup) {
-				FeatureInstance fgi = (FeatureInstance) AadlUtil.findNamedElementInList((toCi != null ? toCi : ci)
-						.getFeatureInstances(), toCtx.getName());
+				FeatureInstance fgi = (FeatureInstance) AadlUtil.findNamedElementInList(
+						(toCi != null ? toCi : ci).getFeatureInstances(), toCtx.getName());
 
 				if (fgi != null) {
 					fiList = fgi.getFeatureInstances();
@@ -532,11 +534,15 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		if (!connInfo.addSegment(newSegment, fromFi, toFi, ci, goOpposite)) {
 			if (toFi == null) {
-				error(ci, "Connection from " + connInfo.src.getInstanceObjectPath() + " via "
-						+ newSegment.getQualifiedName() + " has no valid direction. Connection instance not created.");
+				error(ci,
+						"Connection from " + connInfo.src.getInstanceObjectPath() + " via "
+								+ newSegment.getQualifiedName()
+								+ " has no valid direction. Connection instance not created.");
 			} else {
-				error(ci, "Connection from " + connInfo.src.getInstanceObjectPath() + " to "
-						+ toFi.getInstanceObjectPath() + " has no valid direction. Connection instance not created.");
+				error(ci,
+						"Connection from " + connInfo.src.getInstanceObjectPath() + " to "
+								+ toFi.getInstanceObjectPath()
+								+ " has no valid direction. Connection instance not created.");
 			}
 			return;
 		}
@@ -545,8 +551,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		if (toEnd instanceof Subcomponent) {
 			// connection ends at a shared data, bus, or subprogram (group)
-			finalizeConnectionInstance(ci.getSystemInstance(), connInfo, ci
-					.findSubcomponentInstance((Subcomponent) toEnd));
+			finalizeConnectionInstance(ci.getSystemInstance(), connInfo,
+					ci.findSubcomponentInstance((Subcomponent) toEnd));
 			return;
 		}
 
@@ -600,8 +606,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			ComponentInstance nextComponent = ci.getContainingComponentInstance();
 			List<Connection> parentConns = InstanceUtil.getComponentImplementation(nextComponent, 0, classifierCache)
 					.getAllConnections();
-			List<Connection> conns = filterOutgoingConnections(filterOutgoingConnections(parentConns, ci
-					.getSubcomponent()), toFeature);
+			List<Connection> conns = filterOutgoingConnections(
+					filterOutgoingConnections(parentConns, ci.getSubcomponent()), toFeature);
 
 			if (conns.isEmpty() && !didModeTransitionConnection) {
 				// PropertyValue reqconn =
@@ -693,10 +699,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							// ((Feature)dest).getSimplePropertyValue(PredeclaredPropertyNames.REQUIRED_CONNECTION);
 							// if (reqconn instanceof TRUE){
 							if (!isValidFinalComponent(toCtx)) {
-								warning(ci, "No connection declaration from feature " + toEnd.getName()
-										+ " of component " + ((Subcomponent) toCtx).getName()
-										+ " to subcomponents. Connection instance ends at "
-										+ ((Subcomponent) toCtx).getName());
+								warning(ci,
+										"No connection declaration from feature " + toEnd.getName() + " of component "
+												+ ((Subcomponent) toCtx).getName()
+												+ " to subcomponents. Connection instance ends at "
+												+ ((Subcomponent) toCtx).getName());
 							}
 							// }
 							finalizeConnectionInstance(ci, connInfo, fi);
@@ -806,13 +813,13 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		if (dstI != null) {
 			sb.append(dstI.getInstanceObjectPath());
 		}
-		
+
 		final ConnectionInstance conni = connInfo.createConnectionInstance(sb.toString(), dstI);
 
 		if (conni == null) {
-			warning(systemInstance, "Connection from " + connInfo.src.getInstanceObjectPath() + " to "
-					+ dstI.getInstanceObjectPath()
-					+ " does not connect two components. No connection instance created.");
+			warning(systemInstance,
+					"Connection from " + connInfo.src.getInstanceObjectPath() + " to " + dstI.getInstanceObjectPath()
+							+ " does not connect two components. No connection instance created.");
 		} else {
 			systemInstance.getConnectionInstances().add(conni);
 
@@ -861,8 +868,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 		}
 
-		info(parentci.getSystemInstance(), "FGC from " + srcEnd.getInstanceObjectPath() + " to "
-				+ dstEnd.getInstanceObjectPath());
+		info(parentci.getSystemInstance(),
+				"FGC from " + srcEnd.getInstanceObjectPath() + " to " + dstEnd.getInstanceObjectPath());
 		if (srcEnd instanceof ComponentInstance && dstEnd instanceof ComponentInstance) {
 			// TODO-LW: error
 		} else if (srcEnd instanceof ComponentInstance && dstEnd instanceof ComponentInstance) {
@@ -983,13 +990,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			Feature f = fi.getFeature();
 
 			for (ModeTransitionInstance mti : ci.getContainingComponentInstance().getModeTransitionInstances()) {
-				for (TriggerPort trigger : mti.getModeTransition().getOwnedTriggers()) {
-					Port o = trigger.getPort();
-					Context co = trigger.getContext();
+				for (ModeTransitionTrigger trigger : mti.getModeTransition().getOwnedTriggers()) {
+					if (trigger instanceof TriggerPort) {
+						Port o = ((TriggerPort) trigger).getPort();
+						Context co = ((TriggerPort) trigger).getContext();
 
-					if (f == o && co == sub) {
-						addConnectionInstance(ci.getSystemInstance(), ConnectionInfo.newModeTransition(fi), mti);
-						didTransition = true;
+						if (f == o && co == sub) {
+							addConnectionInstance(ci.getSystemInstance(), ConnectionInfo.newModeTransition(fi), mti);
+							didTransition = true;
+						}
+					} else {
+						//TODO-LW: what if it's a processor port or internal event?
 					}
 				}
 			}
@@ -1037,20 +1048,23 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		for (Iterator<ModeTransitionInstance> it = mtl.iterator(); it.hasNext();) {
 			ModeTransitionInstance mti = it.next();
 			ModeTransition mt = mti.getModeTransition();
-			EList<TriggerPort> triggers = mt.getOwnedTriggers();
 			Context co = null;
-			for (TriggerPort trigger : triggers) {
-				Port o = trigger.getPort();
-				co = trigger.getContext();
-				NamedElement context = co;
-				if (context instanceof FeatureGroup)
-					context = parent.getSubcomponent().getAllClassifier();
-				if (f == o && context == connContext) {
-					final ConnectionInstance mtci = addConnectionInstance(parentci.getSystemInstance(), connInfo
-							.convertToModeTransition(), mti);
-					fillInModes(mtci);
-					fillInModeTransitions(mtci);
-					didTransition = true;
+			for (ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {
+				if (trigger instanceof TriggerPort) {
+					Port o = ((TriggerPort) trigger).getPort();
+					co = ((TriggerPort) trigger).getContext();
+					NamedElement context = co;
+					if (context instanceof FeatureGroup)
+						context = parent.getSubcomponent().getAllClassifier();
+					if (f == o && context == connContext) {
+						final ConnectionInstance mtci = addConnectionInstance(parentci.getSystemInstance(),
+								connInfo.convertToModeTransition(), mti);
+						fillInModes(mtci);
+						fillInModeTransitions(mtci);
+						didTransition = true;
+					}
+				} else {
+					// TODO-LW: what if it's a processor port or internal event?
 				}
 			}
 		}
@@ -1066,10 +1080,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		for (ConnectionReference connRef : conni.getConnectionReferences()) {
 			Connection conn = connRef.getConnection();
-			
+
 			for (ModeTransition mt : conn.getInTransitions()) {
 				ModeTransitionInstance mti = ci.findModeTransitionInstance(mt);
-				
+
 				if (mti != null) {
 					conni.getInModeTransitions().add(mti);
 				}
@@ -1086,14 +1100,14 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	private void fillInModes(ConnectionInstance conni) {
 		EList<ConnectionReference> connRefs = conni.getConnectionReferences();
-		
+
 		for (int idx = 0; idx < connRefs.size(); idx++) {
 			Connection conn = connRefs.get(idx).getConnection();
 			EList<Mode> connModes = conn.getAllInModes();
-			
+
 			if (!connModes.isEmpty()) {
 				EList<ModeInstance> mis = new BasicEList<ModeInstance>();
-				
+
 				generateModeCombinations(conni, mis, connModes, idx);
 				break;
 			}
@@ -1115,19 +1129,20 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * @param idx the index of the connection declaration in the connection
 	 * instance whose mode set is being processed
 	 */
-	private void generateModeCombinations(ConnectionInstance conni, EList<ModeInstance> mis, EList<Mode> connModes, int idx) {
+	private void generateModeCombinations(ConnectionInstance conni, EList<ModeInstance> mis, EList<Mode> connModes,
+			int idx) {
 		EList<ConnectionReference> connRefs = conni.getConnectionReferences();
 		ComponentInstance parentci = connRefs.get(idx).getContext();
-		
+
 		for (Mode m : connModes) {
 			ModeInstance mi = parentci.findModeInstance(m);
-			
+
 			if (mi != null) {
 				mis.add(mi);
 				for (int index = idx + 1; index < connRefs.size(); index++) {
 					Connection conn = connRefs.get(index).getConnection();
 					EList<Mode> cms = conn.getAllInModes();
-					
+
 					if (!cms.isEmpty()) {
 						generateModeCombinations(conni, mis, cms, index);
 						return;
@@ -1136,7 +1151,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				// add SOMs based on mis
 				SystemInstance si = (SystemInstance) conni.getElementRoot();
 				List<SystemOperationMode> somlist = si.getSystemOperationModesFor(mis);
-				
+
 				conni.getInSystemOperationModes().addAll(somlist);
 				mis.remove(mi);
 			}
