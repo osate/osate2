@@ -109,6 +109,7 @@
 			</command>
 		</menuContribution>
 	</extension>
+
 	<extension point="org.eclipse.ui.handlers">
 	    <handler
             class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
