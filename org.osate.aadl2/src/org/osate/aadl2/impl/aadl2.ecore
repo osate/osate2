@@ -834,8 +834,8 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModalPath" abstract="true" eSuperTypes="#//ModalElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inTransition" upperBound="-1"
-        eType="#//ModeTransition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inModeOrTransition" upperBound="-1"
+        eType="#//ModeFeature"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubcomponentFlow" eSuperTypes="#//FlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"

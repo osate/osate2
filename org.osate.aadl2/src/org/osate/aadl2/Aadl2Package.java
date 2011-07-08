@@ -9049,13 +9049,13 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_IMPLEMENTATION__IN_MODE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>In Transition</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION__IN_TRANSITION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+	int FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -9167,13 +9167,13 @@ public interface Aadl2Package extends EPackage {
 	int MODAL_PATH__IN_MODE = MODAL_ELEMENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>In Transition</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODAL_PATH__IN_TRANSITION = MODAL_ELEMENT_FEATURE_COUNT + 0;
+	int MODAL_PATH__IN_MODE_OR_TRANSITION = MODAL_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Modal Path</em>' class.
@@ -9367,13 +9367,13 @@ public interface Aadl2Package extends EPackage {
 	int CONNECTION__IN_MODE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>In Transition</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION__IN_TRANSITION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+	int CONNECTION__IN_MODE_OR_TRANSITION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Destination</b></em>' containment reference.
@@ -9723,13 +9723,13 @@ public interface Aadl2Package extends EPackage {
 	int END_TO_END_FLOW__IN_MODE = FLOW_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>In Transition</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW__IN_TRANSITION = FLOW_FEATURE_COUNT + 1;
+	int END_TO_END_FLOW__IN_MODE_OR_TRANSITION = FLOW_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Refined</b></em>' reference.
@@ -11239,13 +11239,13 @@ public interface Aadl2Package extends EPackage {
 	int ACCESS_CONNECTION__IN_MODE = CONNECTION__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>In Transition</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACCESS_CONNECTION__IN_TRANSITION = CONNECTION__IN_TRANSITION;
+	int ACCESS_CONNECTION__IN_MODE_OR_TRANSITION = CONNECTION__IN_MODE_OR_TRANSITION;
 
 	/**
 	 * The feature id for the '<em><b>Destination</b></em>' containment reference.
@@ -11383,13 +11383,13 @@ public interface Aadl2Package extends EPackage {
 	int PARAMETER_CONNECTION__IN_MODE = CONNECTION__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>In Transition</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER_CONNECTION__IN_TRANSITION = CONNECTION__IN_TRANSITION;
+	int PARAMETER_CONNECTION__IN_MODE_OR_TRANSITION = CONNECTION__IN_MODE_OR_TRANSITION;
 
 	/**
 	 * The feature id for the '<em><b>Destination</b></em>' containment reference.
@@ -11518,13 +11518,13 @@ public interface Aadl2Package extends EPackage {
 	int PORT_CONNECTION__IN_MODE = CONNECTION__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>In Transition</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_CONNECTION__IN_TRANSITION = CONNECTION__IN_TRANSITION;
+	int PORT_CONNECTION__IN_MODE_OR_TRANSITION = CONNECTION__IN_MODE_OR_TRANSITION;
 
 	/**
 	 * The feature id for the '<em><b>Destination</b></em>' containment reference.
@@ -11653,13 +11653,13 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_CONNECTION__IN_MODE = CONNECTION__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>In Transition</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_CONNECTION__IN_TRANSITION = CONNECTION__IN_TRANSITION;
+	int FEATURE_CONNECTION__IN_MODE_OR_TRANSITION = CONNECTION__IN_MODE_OR_TRANSITION;
 
 	/**
 	 * The feature id for the '<em><b>Destination</b></em>' containment reference.
@@ -11788,13 +11788,13 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_GROUP_CONNECTION__IN_MODE = CONNECTION__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>In Transition</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP_CONNECTION__IN_TRANSITION = CONNECTION__IN_TRANSITION;
+	int FEATURE_GROUP_CONNECTION__IN_MODE_OR_TRANSITION = CONNECTION__IN_MODE_OR_TRANSITION;
 
 	/**
 	 * The feature id for the '<em><b>Destination</b></em>' containment reference.
@@ -36430,15 +36430,15 @@ public interface Aadl2Package extends EPackage {
 	EClass getModalPath();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.aadl2.ModalPath#getInTransitions <em>In Transition</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.ModalPath#getInModeOrTransitions <em>In Mode Or Transition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>In Transition</em>'.
-	 * @see org.osate.aadl2.ModalPath#getInTransitions()
+	 * @return the meta object for the reference list '<em>In Mode Or Transition</em>'.
+	 * @see org.osate.aadl2.ModalPath#getInModeOrTransitions()
 	 * @see #getModalPath()
 	 * @generated
 	 */
-	EReference getModalPath_InTransition();
+	EReference getModalPath_InModeOrTransition();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.SubcomponentFlow <em>Subcomponent Flow</em>}'.
