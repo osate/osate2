@@ -75,7 +75,6 @@ import org.osate.aadl2.PackageSection;
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getOwnedAnnexLibraries <em>Owned Annex Library</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getImportedUnits <em>Imported Unit</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#isNoAnnexes <em>No Annexes</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#isNoProperties <em>No Properties</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageSectionImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
@@ -162,26 +161,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @ordered
 	 */
 	protected boolean noAnnexes = NO_ANNEXES_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #isNoProperties() <em>No Properties</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isNoProperties()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean NO_PROPERTIES_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isNoProperties() <em>No Properties</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isNoProperties()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean noProperties = NO_PROPERTIES_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -311,28 +290,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 				.getComponentTypeRename());
 		getOwnedComponentTypeRenames().add(newOwnedComponentTypeRename);
 		return newOwnedComponentTypeRename;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isNoProperties() {
-		return noProperties;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setNoProperties(boolean newNoProperties) {
-		boolean oldNoProperties = noProperties;
-		noProperties = newNoProperties;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES,
-					oldNoProperties, noProperties));
 	}
 
 	/**
@@ -472,8 +429,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			return getImportedUnits();
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
 			return isNoAnnexes();
-		case Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES:
-			return isNoProperties();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -514,9 +469,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
 			setNoAnnexes((Boolean) newValue);
 			return;
-		case Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES:
-			setNoProperties((Boolean) newValue);
-			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -550,9 +502,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
 			setNoAnnexes(NO_ANNEXES_EDEFAULT);
 			return;
-		case Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES:
-			setNoProperties(NO_PROPERTIES_EDEFAULT);
-			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -579,8 +528,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			return importedUnits != null && !importedUnits.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
 			return noAnnexes != NO_ANNEXES_EDEFAULT;
-		case Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES:
-			return noProperties != NO_PROPERTIES_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -598,8 +545,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (noAnnexes: ");
 		result.append(noAnnexes);
-		result.append(", noProperties: ");
-		result.append(noProperties);
 		result.append(')');
 		return result.toString();
 	}

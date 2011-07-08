@@ -180,15 +180,6 @@ public interface Aadl2Factory extends EFactory {
 	ComponentImplementationReference createComponentImplementationReference();
 
 	/**
-	 * Returns a new object of class '<em>Subcomponent Type</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Subcomponent Type</em>'.
-	 * @generated
-	 */
-	SubcomponentType createSubcomponentType();
-
-	/**
 	 * Returns a new object of class '<em>Mode Transition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -250,15 +241,6 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	FeatureGroup createFeatureGroup();
-
-	/**
-	 * Returns a new object of class '<em>Feature Group Connection End</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Feature Group Connection End</em>'.
-	 * @generated
-	 */
-	FeatureGroupConnectionEnd createFeatureGroupConnectionEnd();
 
 	/**
 	 * Returns a new object of class '<em>Feature Group Type</em>'.
@@ -369,15 +351,6 @@ public interface Aadl2Factory extends EFactory {
 	AbstractFeature createAbstractFeature();
 
 	/**
-	 * Returns a new object of class '<em>Component Prototype</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Component Prototype</em>'.
-	 * @generated
-	 */
-	ComponentPrototype createComponentPrototype();
-
-	/**
 	 * Returns a new object of class '<em>Mode Binding</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -403,6 +376,15 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	SubcomponentFlow createSubcomponentFlow();
+
+	/**
+	 * Returns a new object of class '<em>Connected Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Connected Element</em>'.
+	 * @generated
+	 */
+	ConnectedElement createConnectedElement();
 
 	/**
 	 * Returns a new object of class '<em>Implementation Extension</em>'.
@@ -439,6 +421,15 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	AbstractSubcomponent createAbstractSubcomponent();
+
+	/**
+	 * Returns a new object of class '<em>Element Name</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Element Name</em>'.
+	 * @generated
+	 */
+	ElementName createElementName();
 
 	/**
 	 * Returns a new object of class '<em>Access Connection</em>'.

@@ -109,6 +109,9 @@
     <packageMerge xmi:id="_Y5GYch-jEd6oIu99HumgeA">
       <mergedPackage href="Core%20Language/AADLDetails.uml#_JK-Ssh-jEd6oIu99HumgeA"/>
     </packageMerge>
+    <packageMerge xmi:id="_5sgLMKlcEeCVAsPdeCCOXw">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#_KdZncKlbEeCVAsPdeCCOXw"/>
+    </packageMerge>
     <profileApplication xmi:id="_profileApplication.0">
       <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA"/>

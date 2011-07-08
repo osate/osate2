@@ -35,6 +35,7 @@
  */
 package org.osate.aadl2;
 
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Connection</b></em>'.
@@ -43,11 +44,8 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.Connection#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.Connection#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.Connection#getSource <em>Source</em>}</li>
- *   <li>{@link org.osate.aadl2.Connection#getDestinationContext <em>Destination Context</em>}</li>
- *   <li>{@link org.osate.aadl2.Connection#getSourceContext <em>Source Context</em>}</li>
  *   <li>{@link org.osate.aadl2.Connection#isBidirectional <em>Bidirectional</em>}</li>
  *   <li>{@link org.osate.aadl2.Connection#getRefined <em>Refined</em>}</li>
  * </ul>
@@ -59,137 +57,76 @@ package org.osate.aadl2;
  */
 public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	/**
-	 * Returns the value of the '<em><b>Kind</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.osate.aadl2.ConnectionKind}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Kind</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Kind</em>' attribute.
-	 * @see org.osate.aadl2.ConnectionKind
-	 * @see #setKind(ConnectionKind)
-	 * @see org.osate.aadl2.Aadl2Package#getConnection_Kind()
-	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
-	 * @generated
-	 */
-	ConnectionKind getKind();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Connection#getKind <em>Kind</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Kind</em>' attribute.
-	 * @see org.osate.aadl2.ConnectionKind
-	 * @see #getKind()
-	 * @generated
-	 */
-	void setKind(ConnectionKind value);
-
-	/**
-	 * Returns the value of the '<em><b>Destination</b></em>' reference.
+	 * Returns the value of the '<em><b>Destination</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Destination</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Destination</em>' reference.
-	 * @see #setDestination(ConnectionEnd)
+	 * @return the value of the '<em>Destination</em>' containment reference.
+	 * @see #setDestination(ConnectedElement)
 	 * @see org.osate.aadl2.Aadl2Package#getConnection_Destination()
-	 * @model required="true" ordered="false"
+	 * @model containment="true" required="true" ordered="false"
 	 * @generated
 	 */
-	ConnectionEnd getDestination();
+	ConnectedElement getDestination();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Connection#getDestination <em>Destination</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.Connection#getDestination <em>Destination</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Destination</em>' reference.
+	 * @param value the new value of the '<em>Destination</em>' containment reference.
 	 * @see #getDestination()
 	 * @generated
 	 */
-	void setDestination(ConnectionEnd value);
+	void setDestination(ConnectedElement value);
 
 	/**
-	 * Returns the value of the '<em><b>Source</b></em>' reference.
+	 * Creates a new {@link org.osate.aadl2.ConnectedElement} and sets the '<em><b>Destination</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.ConnectedElement}.
+	 * @see #getDestination()
+	 * @generated
+	 */
+	ConnectedElement createDestination();
+
+	/**
+	 * Returns the value of the '<em><b>Source</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Source</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source</em>' reference.
-	 * @see #setSource(ConnectionEnd)
+	 * @return the value of the '<em>Source</em>' containment reference.
+	 * @see #setSource(ConnectedElement)
 	 * @see org.osate.aadl2.Aadl2Package#getConnection_Source()
-	 * @model required="true" ordered="false"
+	 * @model containment="true" required="true" ordered="false"
 	 * @generated
 	 */
-	ConnectionEnd getSource();
+	ConnectedElement getSource();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Connection#getSource <em>Source</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.Connection#getSource <em>Source</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source</em>' reference.
+	 * @param value the new value of the '<em>Source</em>' containment reference.
 	 * @see #getSource()
 	 * @generated
 	 */
-	void setSource(ConnectionEnd value);
+	void setSource(ConnectedElement value);
 
 	/**
-	 * Returns the value of the '<em><b>Destination Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Destination Context</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Destination Context</em>' reference.
-	 * @see #setDestinationContext(Context)
-	 * @see org.osate.aadl2.Aadl2Package#getConnection_DestinationContext()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	Context getDestinationContext();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Connection#getDestinationContext <em>Destination Context</em>}' reference.
+	 * Creates a new {@link org.osate.aadl2.ConnectedElement} and sets the '<em><b>Source</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Destination Context</em>' reference.
-	 * @see #getDestinationContext()
+	 * @return The new {@link org.osate.aadl2.ConnectedElement}.
+	 * @see #getSource()
 	 * @generated
 	 */
-	void setDestinationContext(Context value);
-
-	/**
-	 * Returns the value of the '<em><b>Source Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Source Context</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source Context</em>' reference.
-	 * @see #setSourceContext(Context)
-	 * @see org.osate.aadl2.Aadl2Package#getConnection_SourceContext()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	Context getSourceContext();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Connection#getSourceContext <em>Source Context</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source Context</em>' reference.
-	 * @see #getSourceContext()
-	 * @generated
-	 */
-	void setSourceContext(Context value);
+	ConnectedElement createSource();
 
 	/**
 	 * Returns the value of the '<em><b>Bidirectional</b></em>' attribute.

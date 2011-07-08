@@ -47,8 +47,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.osate.aadl2.ComponentClassifier#getOwnedModes <em>Owned Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentClassifier#getOwnedModeTransitions <em>Owned Mode Transition</em>}</li>
- *   <li>{@link org.osate.aadl2.ComponentClassifier#getOwnedProcessorPorts <em>Owned Processor Port</em>}</li>
- *   <li>{@link org.osate.aadl2.ComponentClassifier#getOwnedInternalEvents <em>Owned Internal Event</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentClassifier#isNoFlows <em>No Flows</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentClassifier#isNoModes <em>No Modes</em>}</li>
  * </ul>
@@ -176,58 +174,6 @@ public interface ComponentClassifier extends Classifier, SubcomponentType {
 	 * @generated
 	 */
 	void setNoModes(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Owned Processor Port</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.ProcessorPort}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Processor Port</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Processor Port</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getComponentClassifier_OwnedProcessorPort()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	EList<ProcessorPort> getOwnedProcessorPorts();
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.ProcessorPort} and appends it to the '<em><b>Owned Processor Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.ProcessorPort}.
-	 * @see #getOwnedProcessorPorts()
-	 * @generated
-	 */
-	ProcessorPort createOwnedProcessorPort();
-
-	/**
-	 * Returns the value of the '<em><b>Owned Internal Event</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.InternalEvent}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Internal Event</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Internal Event</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getComponentClassifier_OwnedInternalEvent()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	EList<InternalEvent> getOwnedInternalEvents();
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.InternalEvent} and appends it to the '<em><b>Owned Internal Event</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.InternalEvent}.
-	 * @see #getOwnedInternalEvents()
-	 * @generated
-	 */
-	InternalEvent createOwnedInternalEvent();
 
 	/**
 	 * Returns the category ("abstract", "bus", "data", "device", etc.) for the classifier.

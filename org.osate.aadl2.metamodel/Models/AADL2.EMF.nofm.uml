@@ -76,9 +76,6 @@
     <packagedElement xmi:type="uml:Class" xmi:id="BehavioredImplementation" name="BehavioredImplementation" isAbstract="true">
       <ownedAttribute xmi:id="BehavioredImplementation-callSpecification" name="callSpecification" isDerived="true"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="Connection" name="Connection">
-      <ownedAttribute xmi:id="Connection-kind" name="kind" isDerived="true"/>
-    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ModalElement" name="ModalElement">
       <ownedOperation xmi:id="ModalElement-getAllInModes" name="getAllInModes">
         <ownedParameter xmi:id="ModalElement-getAllInModes-_ownedParameter.0" name="" type="Mode" direction="return">
@@ -355,7 +352,7 @@
   <Ecore:EReference xmi:id="_wVc4hVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-extended"/>
   <Ecore:EReference xmi:id="_wVc4hlm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedConnection"/>
   <Ecore:EReference xmi:id="_wV5kcFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-extended"/>
-  <Ecore:EAttribute xmi:id="_-CnqUFpGEd2kwugqS-aPYQ" isTransient="true" isVolatile="true" base_Property="Connection-kind"/>
+  <Ecore:EAttribute xmi:id="_-CnqUFpGEd2kwugqS-aPYQ" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_8tGW8FpIEd2kwugqS-aPYQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedFeature"/>
   <Standard:Metamodel xmi:id="_NE82sVprEd2djcltMkYjuA" base_Model="_0"/>
   <Standard:Metaclass xmi:id="_NFPxoFprEd2djcltMkYjuA" base_Class="Element"/>
@@ -368,7 +365,7 @@
   <Standard:Metaclass xmi:id="_NFPxp1prEd2djcltMkYjuA" base_Class="DirectedRelationship"/>
   <Standard:Metaclass xmi:id="_NFPxqFprEd2djcltMkYjuA" base_Class="Generalization"/>
   <Standard:Metaclass xmi:id="_NFPxqVprEd2djcltMkYjuA"/>
-  <Standard:Metaclass xmi:id="_NFPxqlprEd2djcltMkYjuA" base_Class="Connection"/>
+  <Standard:Metaclass xmi:id="_NFPxqlprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFPxq1prEd2djcltMkYjuA" base_Class="PublicPackageSection"/>
   <Standard:Metaclass xmi:id="_NFPxrFprEd2djcltMkYjuA" base_Class="PrivatePackageSection"/>
   <Standard:Metaclass xmi:id="_NFPxrVprEd2djcltMkYjuA"/>

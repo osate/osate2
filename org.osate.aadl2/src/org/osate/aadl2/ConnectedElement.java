@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,42 +31,77 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: FeatureConnectionImpl.java,v 1.4 2009-03-25 18:34:50 lwrage Exp $
  */
-package org.osate.aadl2.impl;
-
-import org.eclipse.emf.ecore.EClass;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.FeatureConnection;
+package org.osate.aadl2;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Feature Connection</b></em>'.
+ * A representation of the model object '<em><b>Connected Element</b></em>'.
  * <!-- end-user-doc -->
+ *
  * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.osate.aadl2.ConnectedElement#getContext <em>Context</em>}</li>
+ *   <li>{@link org.osate.aadl2.ConnectedElement#getConnectionEnd <em>Connection End</em>}</li>
+ * </ul>
  * </p>
  *
+ * @see org.osate.aadl2.Aadl2Package#getConnectedElement()
+ * @model
  * @generated
  */
-public class FeatureConnectionImpl extends ConnectionImpl implements FeatureConnection {
+public interface ConnectedElement extends Element {
 	/**
+	 * Returns the value of the '<em><b>Context</b></em>' reference.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Context</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Context</em>' reference.
+	 * @see #setContext(Context)
+	 * @see org.osate.aadl2.Aadl2Package#getConnectedElement_Context()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	protected FeatureConnectionImpl() {
-		super();
-	}
+	Context getContext();
 
 	/**
+	 * Sets the value of the '{@link org.osate.aadl2.ConnectedElement#getContext <em>Context</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Context</em>' reference.
+	 * @see #getContext()
 	 * @generated
 	 */
-	@Override
-	protected EClass eStaticClass() {
-		return Aadl2Package.eINSTANCE.getFeatureConnection();
-	}
+	void setContext(Context value);
 
-} //FeatureConnectionImpl
+	/**
+	 * Returns the value of the '<em><b>Connection End</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Connection End</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Connection End</em>' reference.
+	 * @see #setConnectionEnd(ConnectionEnd)
+	 * @see org.osate.aadl2.Aadl2Package#getConnectedElement_ConnectionEnd()
+	 * @model required="true" ordered="false"
+	 * @generated
+	 */
+	ConnectionEnd getConnectionEnd();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.ConnectedElement#getConnectionEnd <em>Connection End</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Connection End</em>' reference.
+	 * @see #getConnectionEnd()
+	 * @generated
+	 */
+	void setConnectionEnd(ConnectionEnd value);
+
+} // ConnectedElement

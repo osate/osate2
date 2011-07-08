@@ -114,24 +114,14 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createNumeral();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE:
 			return (EObject) createComponentImplementationReference();
-		case Aadl2Package.SUBCOMPONENT_TYPE:
-			return (EObject) createSubcomponentType();
 		case Aadl2Package.MODE_TRANSITION:
 			return (EObject) createModeTransition();
-		case Aadl2Package.TRIGGER_PORT:
-			return (EObject) createTriggerPort();
-		case Aadl2Package.PROCESSOR_PORT:
-			return (EObject) createProcessorPort();
-		case Aadl2Package.INTERNAL_EVENT:
-			return (EObject) createInternalEvent();
 		case Aadl2Package.FLOW_SPECIFICATION:
 			return (EObject) createFlowSpecification();
 		case Aadl2Package.TYPE_EXTENSION:
 			return (EObject) createTypeExtension();
 		case Aadl2Package.FEATURE_GROUP:
 			return (EObject) createFeatureGroup();
-		case Aadl2Package.FEATURE_GROUP_CONNECTION_END:
-			return (EObject) createFeatureGroupConnectionEnd();
 		case Aadl2Package.FEATURE_GROUP_TYPE:
 			return (EObject) createFeatureGroupType();
 		case Aadl2Package.GROUP_EXTENSION:
@@ -156,14 +146,14 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createSubprogramGroupAccess();
 		case Aadl2Package.ABSTRACT_FEATURE:
 			return (EObject) createAbstractFeature();
-		case Aadl2Package.COMPONENT_PROTOTYPE:
-			return (EObject) createComponentPrototype();
 		case Aadl2Package.MODE_BINDING:
 			return (EObject) createModeBinding();
 		case Aadl2Package.FLOW_IMPLEMENTATION:
 			return (EObject) createFlowImplementation();
 		case Aadl2Package.SUBCOMPONENT_FLOW:
 			return (EObject) createSubcomponentFlow();
+		case Aadl2Package.CONNECTED_ELEMENT:
+			return (EObject) createConnectedElement();
 		case Aadl2Package.IMPLEMENTATION_EXTENSION:
 			return (EObject) createImplementationExtension();
 		case Aadl2Package.REALIZATION:
@@ -182,12 +172,14 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createFeatureConnection();
 		case Aadl2Package.FEATURE_GROUP_CONNECTION:
 			return (EObject) createFeatureGroupConnection();
-		case Aadl2Package.PROCESSOR_SUBPROGRAM:
-			return (EObject) createProcessorSubprogram();
+		case Aadl2Package.ELEMENT_NAME:
+			return (EObject) createElementName();
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
 			return (EObject) createDefaultAnnexLibrary();
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE:
 			return (EObject) createDefaultAnnexSubclause();
+		case Aadl2Package.TRIGGER_PORT:
+			return (EObject) createTriggerPort();
 		case Aadl2Package.PUBLIC_PACKAGE_SECTION:
 			return (EObject) createPublicPackageSection();
 		case Aadl2Package.PACKAGE_RENAME:
@@ -406,6 +398,12 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createRecordField();
 		case Aadl2Package.REFERENCE_TYPE:
 			return (EObject) createReferenceType();
+		case Aadl2Package.PROCESSOR_PORT:
+			return (EObject) createProcessorPort();
+		case Aadl2Package.INTERNAL_EVENT:
+			return (EObject) createInternalEvent();
+		case Aadl2Package.PROCESSOR_SUBPROGRAM:
+			return (EObject) createProcessorSubprogram();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -419,20 +417,22 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-		case Aadl2Package.DIRECTION_TYPE:
-			return createDirectionTypeFromString(eDataType, initialValue);
-		case Aadl2Package.PORT_CATEGORY:
-			return createPortCategoryFromString(eDataType, initialValue);
 		case Aadl2Package.FLOW_KIND:
 			return createFlowKindFromString(eDataType, initialValue);
+		case Aadl2Package.DIRECTION_TYPE:
+			return createDirectionTypeFromString(eDataType, initialValue);
 		case Aadl2Package.ACCESS_TYPE:
 			return createAccessTypeFromString(eDataType, initialValue);
 		case Aadl2Package.ACCESS_CATEGORY:
 			return createAccessCategoryFromString(eDataType, initialValue);
+		case Aadl2Package.PORT_CATEGORY:
+			return createPortCategoryFromString(eDataType, initialValue);
 		case Aadl2Package.COMPONENT_CATEGORY:
 			return createComponentCategoryFromString(eDataType, initialValue);
 		case Aadl2Package.CONNECTION_KIND:
 			return createConnectionKindFromString(eDataType, initialValue);
+		case Aadl2Package.ELEMENT_NAME_KIND:
+			return createElementNameKindFromString(eDataType, initialValue);
 		case Aadl2Package.OPERATION_KIND:
 			return createOperationKindFromString(eDataType, initialValue);
 		case Aadl2Package.STRING:
@@ -456,20 +456,22 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-		case Aadl2Package.DIRECTION_TYPE:
-			return convertDirectionTypeToString(eDataType, instanceValue);
-		case Aadl2Package.PORT_CATEGORY:
-			return convertPortCategoryToString(eDataType, instanceValue);
 		case Aadl2Package.FLOW_KIND:
 			return convertFlowKindToString(eDataType, instanceValue);
+		case Aadl2Package.DIRECTION_TYPE:
+			return convertDirectionTypeToString(eDataType, instanceValue);
 		case Aadl2Package.ACCESS_TYPE:
 			return convertAccessTypeToString(eDataType, instanceValue);
 		case Aadl2Package.ACCESS_CATEGORY:
 			return convertAccessCategoryToString(eDataType, instanceValue);
+		case Aadl2Package.PORT_CATEGORY:
+			return convertPortCategoryToString(eDataType, instanceValue);
 		case Aadl2Package.COMPONENT_CATEGORY:
 			return convertComponentCategoryToString(eDataType, instanceValue);
 		case Aadl2Package.CONNECTION_KIND:
 			return convertConnectionKindToString(eDataType, instanceValue);
+		case Aadl2Package.ELEMENT_NAME_KIND:
+			return convertElementNameKindToString(eDataType, instanceValue);
 		case Aadl2Package.OPERATION_KIND:
 			return convertOperationKindToString(eDataType, instanceValue);
 		case Aadl2Package.STRING:
@@ -630,16 +632,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SubcomponentType createSubcomponentType() {
-		SubcomponentTypeImpl subcomponentType = new SubcomponentTypeImpl();
-		return subcomponentType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public ModeTransition createModeTransition() {
 		ModeTransitionImpl modeTransition = new ModeTransitionImpl();
 		return modeTransition;
@@ -703,16 +695,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public FeatureGroup createFeatureGroup() {
 		FeatureGroupImpl featureGroup = new FeatureGroupImpl();
 		return featureGroup;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureGroupConnectionEnd createFeatureGroupConnectionEnd() {
-		FeatureGroupConnectionEndImpl featureGroupConnectionEnd = new FeatureGroupConnectionEndImpl();
-		return featureGroupConnectionEnd;
 	}
 
 	/**
@@ -840,16 +822,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ComponentPrototype createComponentPrototype() {
-		ComponentPrototypeImpl componentPrototype = new ComponentPrototypeImpl();
-		return componentPrototype;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public ModeBinding createModeBinding() {
 		ModeBindingImpl modeBinding = new ModeBindingImpl();
 		return modeBinding;
@@ -873,6 +845,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public SubcomponentFlow createSubcomponentFlow() {
 		SubcomponentFlowImpl subcomponentFlow = new SubcomponentFlowImpl();
 		return subcomponentFlow;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConnectedElement createConnectedElement() {
+		ConnectedElementImpl connectedElement = new ConnectedElementImpl();
+		return connectedElement;
 	}
 
 	/**
@@ -913,6 +895,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public AbstractSubcomponent createAbstractSubcomponent() {
 		AbstractSubcomponentImpl abstractSubcomponent = new AbstractSubcomponentImpl();
 		return abstractSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ElementName createElementName() {
+		ElementNameImpl elementName = new ElementNameImpl();
+		return elementName;
 	}
 
 	/**
@@ -2236,6 +2228,28 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * @generated
 	 */
 	public String convertConnectionKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ElementNameKind createElementNameKindFromString(EDataType eDataType, String initialValue) {
+		ElementNameKind result = ElementNameKind.get(initialValue);
+		if (result == null)
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertElementNameKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

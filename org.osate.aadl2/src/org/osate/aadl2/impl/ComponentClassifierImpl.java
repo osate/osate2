@@ -51,11 +51,9 @@ import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.InternalEvent;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.ProcessorPort;
 
 /**
  * <!-- begin-user-doc -->
@@ -68,8 +66,6 @@ import org.osate.aadl2.ProcessorPort;
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#getOwnedModes <em>Owned Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#getOwnedModeTransitions <em>Owned Mode Transition</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#getOwnedProcessorPorts <em>Owned Processor Port</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#getOwnedInternalEvents <em>Owned Internal Event</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#isNoFlows <em>No Flows</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#isNoModes <em>No Modes</em>}</li>
  * </ul>
@@ -97,24 +93,6 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 */
 	protected EList<ModeTransition> ownedModeTransitions;
 
-	/**
-	 * The cached value of the '{@link #getOwnedProcessorPorts() <em>Owned Processor Port</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOwnedProcessorPorts()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<ProcessorPort> ownedProcessorPorts;
-	/**
-	 * The cached value of the '{@link #getOwnedInternalEvents() <em>Owned Internal Event</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOwnedInternalEvents()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<InternalEvent> ownedInternalEvents;
 	/**
 	 * The default value of the '{@link #isNoFlows() <em>No Flows</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -341,54 +319,6 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ProcessorPort> getOwnedProcessorPorts() {
-		if (ownedProcessorPorts == null) {
-			ownedProcessorPorts = new EObjectContainmentEList<ProcessorPort>(ProcessorPort.class, this,
-					Aadl2Package.COMPONENT_CLASSIFIER__OWNED_PROCESSOR_PORT);
-		}
-		return ownedProcessorPorts;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ProcessorPort createOwnedProcessorPort() {
-		ProcessorPort newOwnedProcessorPort = (ProcessorPort) create(Aadl2Package.eINSTANCE.getProcessorPort());
-		getOwnedProcessorPorts().add(newOwnedProcessorPort);
-		return newOwnedProcessorPort;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<InternalEvent> getOwnedInternalEvents() {
-		if (ownedInternalEvents == null) {
-			ownedInternalEvents = new EObjectContainmentEList<InternalEvent>(InternalEvent.class, this,
-					Aadl2Package.COMPONENT_CLASSIFIER__OWNED_INTERNAL_EVENT);
-		}
-		return ownedInternalEvents;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public InternalEvent createOwnedInternalEvent() {
-		InternalEvent newOwnedInternalEvent = (InternalEvent) create(Aadl2Package.eINSTANCE.getInternalEvent());
-		getOwnedInternalEvents().add(newOwnedInternalEvent);
-		return newOwnedInternalEvent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -396,10 +326,6 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 			return ((InternalEList<?>) getOwnedModes()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:
 			return ((InternalEList<?>) getOwnedModeTransitions()).basicRemove(otherEnd, msgs);
-		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_PROCESSOR_PORT:
-			return ((InternalEList<?>) getOwnedProcessorPorts()).basicRemove(otherEnd, msgs);
-		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_INTERNAL_EVENT:
-			return ((InternalEList<?>) getOwnedInternalEvents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -416,10 +342,6 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 			return getOwnedModes();
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:
 			return getOwnedModeTransitions();
-		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_PROCESSOR_PORT:
-			return getOwnedProcessorPorts();
-		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_INTERNAL_EVENT:
-			return getOwnedInternalEvents();
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS:
 			return isNoFlows();
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_MODES:
@@ -445,14 +367,6 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 			getOwnedModeTransitions().clear();
 			getOwnedModeTransitions().addAll((Collection<? extends ModeTransition>) newValue);
 			return;
-		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_PROCESSOR_PORT:
-			getOwnedProcessorPorts().clear();
-			getOwnedProcessorPorts().addAll((Collection<? extends ProcessorPort>) newValue);
-			return;
-		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_INTERNAL_EVENT:
-			getOwnedInternalEvents().clear();
-			getOwnedInternalEvents().addAll((Collection<? extends InternalEvent>) newValue);
-			return;
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS:
 			setNoFlows((Boolean) newValue);
 			return;
@@ -477,12 +391,6 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:
 			getOwnedModeTransitions().clear();
 			return;
-		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_PROCESSOR_PORT:
-			getOwnedProcessorPorts().clear();
-			return;
-		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_INTERNAL_EVENT:
-			getOwnedInternalEvents().clear();
-			return;
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS:
 			setNoFlows(NO_FLOWS_EDEFAULT);
 			return;
@@ -505,10 +413,6 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 			return ownedModes != null && !ownedModes.isEmpty();
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:
 			return ownedModeTransitions != null && !ownedModeTransitions.isEmpty();
-		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_PROCESSOR_PORT:
-			return ownedProcessorPorts != null && !ownedProcessorPorts.isEmpty();
-		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_INTERNAL_EVENT:
-			return ownedInternalEvents != null && !ownedInternalEvents.isEmpty();
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS:
 			return noFlows != NO_FLOWS_EDEFAULT;
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_MODES:

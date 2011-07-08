@@ -44,14 +44,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.uml2.common.util.SubsetSupersetEObjectContainmentEList;
-import org.eclipse.uml2.common.util.SubsetSupersetEObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.TriggerPort;
 
 /**
  * <!-- begin-user-doc -->
@@ -60,7 +58,6 @@ import org.osate.aadl2.TriggerPort;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.ModeTransitionImpl#getTriggers <em>Trigger</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ModeTransitionImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ModeTransitionImpl#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ModeTransitionImpl#getOwnedTriggers <em>Owned Trigger</em>}</li>
@@ -70,16 +67,6 @@ import org.osate.aadl2.TriggerPort;
  * @generated
  */
 public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransition {
-	/**
-	 * The cached value of the '{@link #getTriggers() <em>Trigger</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTriggers()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<ModeTransitionTrigger> triggers;
-
 	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -108,7 +95,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<TriggerPort> ownedTriggers;
+	protected EList<ModeTransitionTrigger> ownedTriggers;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -214,10 +201,10 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<TriggerPort> getOwnedTriggers() {
+	public EList<ModeTransitionTrigger> getOwnedTriggers() {
 		if (ownedTriggers == null) {
-			ownedTriggers = new SubsetSupersetEObjectContainmentEList<TriggerPort>(TriggerPort.class, this,
-					Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER, OWNED_TRIGGER_ESUPERSETS, null);
+			ownedTriggers = new EObjectContainmentEList<ModeTransitionTrigger>(ModeTransitionTrigger.class, this,
+					Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER);
 		}
 		return ownedTriggers;
 	}
@@ -227,8 +214,8 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TriggerPort createOwnedTrigger() {
-		TriggerPort newOwnedTrigger = (TriggerPort) create(Aadl2Package.eINSTANCE.getTriggerPort());
+	public ModeTransitionTrigger createOwnedTrigger(EClass eClass) {
+		ModeTransitionTrigger newOwnedTrigger = (ModeTransitionTrigger) create(eClass);
 		getOwnedTriggers().add(newOwnedTrigger);
 		return newOwnedTrigger;
 	}
@@ -252,44 +239,9 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ModeTransitionTrigger> getTriggers() {
-		if (triggers == null) {
-			triggers = new SubsetSupersetEObjectResolvingEList<ModeTransitionTrigger>(ModeTransitionTrigger.class,
-					this, Aadl2Package.MODE_TRANSITION__TRIGGER, null, TRIGGER_ESUBSETS);
-		}
-		return triggers;
-	}
-
-	/**
-	 * The array of subset feature identifiers for the '{@link #getTriggers() <em>Trigger</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTriggers()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int[] TRIGGER_ESUBSETS = new int[] { Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER };
-
-	/**
-	 * The array of superset feature identifiers for the '{@link #getOwnedTriggers() <em>Owned Trigger</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOwnedTriggers()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int[] OWNED_TRIGGER_ESUPERSETS = new int[] { Aadl2Package.MODE_TRANSITION__TRIGGER };
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.MODE_TRANSITION__TRIGGER:
-			return getTriggers();
 		case Aadl2Package.MODE_TRANSITION__SOURCE:
 			if (resolve)
 				return getSource();
@@ -313,10 +265,6 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.MODE_TRANSITION__TRIGGER:
-			getTriggers().clear();
-			getTriggers().addAll((Collection<? extends ModeTransitionTrigger>) newValue);
-			return;
 		case Aadl2Package.MODE_TRANSITION__SOURCE:
 			setSource((Mode) newValue);
 			return;
@@ -325,7 +273,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 			return;
 		case Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER:
 			getOwnedTriggers().clear();
-			getOwnedTriggers().addAll((Collection<? extends TriggerPort>) newValue);
+			getOwnedTriggers().addAll((Collection<? extends ModeTransitionTrigger>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -339,9 +287,6 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.MODE_TRANSITION__TRIGGER:
-			getTriggers().clear();
-			return;
 		case Aadl2Package.MODE_TRANSITION__SOURCE:
 			setSource((Mode) null);
 			return;
@@ -363,8 +308,6 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.MODE_TRANSITION__TRIGGER:
-			return triggers != null && !triggers.isEmpty();
 		case Aadl2Package.MODE_TRANSITION__SOURCE:
 			return source != null;
 		case Aadl2Package.MODE_TRANSITION__DESTINATION:

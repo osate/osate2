@@ -425,29 +425,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubcomponentType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SubcomponentTypeItemProvider subcomponentTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SubcomponentType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSubcomponentTypeAdapter() {
-		if (subcomponentTypeItemProvider == null) {
-			subcomponentTypeItemProvider = new SubcomponentTypeItemProvider(this);
-		}
-
-		return subcomponentTypeItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ModeTransition} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -606,29 +583,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return featureGroupItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupConnectionEnd} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FeatureGroupConnectionEndItemProvider featureGroupConnectionEndItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupConnectionEnd}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFeatureGroupConnectionEndAdapter() {
-		if (featureGroupConnectionEndItemProvider == null) {
-			featureGroupConnectionEndItemProvider = new FeatureGroupConnectionEndItemProvider(this);
-		}
-
-		return featureGroupConnectionEndItemProvider;
 	}
 
 	/**
@@ -908,29 +862,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ComponentPrototype} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ComponentPrototypeItemProvider componentPrototypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ComponentPrototype}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createComponentPrototypeAdapter() {
-		if (componentPrototypeItemProvider == null) {
-			componentPrototypeItemProvider = new ComponentPrototypeItemProvider(this);
-		}
-
-		return componentPrototypeItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ModeBinding} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -997,6 +928,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return subcomponentFlowItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ConnectedElement} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ConnectedElementItemProvider connectedElementItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ConnectedElement}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createConnectedElementAdapter() {
+		if (connectedElementItemProvider == null) {
+			connectedElementItemProvider = new ConnectedElementItemProvider(this);
+		}
+
+		return connectedElementItemProvider;
 	}
 
 	/**
@@ -1089,6 +1043,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return abstractSubcomponentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ElementName} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ElementNameItemProvider elementNameItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ElementName}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createElementNameAdapter() {
+		if (elementNameItemProvider == null) {
+			elementNameItemProvider = new ElementNameItemProvider(this);
+		}
+
+		return elementNameItemProvider;
 	}
 
 	/**
@@ -3909,24 +3886,14 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			numeralItemProvider.dispose();
 		if (componentImplementationReferenceItemProvider != null)
 			componentImplementationReferenceItemProvider.dispose();
-		if (subcomponentTypeItemProvider != null)
-			subcomponentTypeItemProvider.dispose();
 		if (modeTransitionItemProvider != null)
 			modeTransitionItemProvider.dispose();
-		if (triggerPortItemProvider != null)
-			triggerPortItemProvider.dispose();
-		if (processorPortItemProvider != null)
-			processorPortItemProvider.dispose();
-		if (internalEventItemProvider != null)
-			internalEventItemProvider.dispose();
 		if (flowSpecificationItemProvider != null)
 			flowSpecificationItemProvider.dispose();
 		if (typeExtensionItemProvider != null)
 			typeExtensionItemProvider.dispose();
 		if (featureGroupItemProvider != null)
 			featureGroupItemProvider.dispose();
-		if (featureGroupConnectionEndItemProvider != null)
-			featureGroupConnectionEndItemProvider.dispose();
 		if (featureGroupTypeItemProvider != null)
 			featureGroupTypeItemProvider.dispose();
 		if (groupExtensionItemProvider != null)
@@ -3951,14 +3918,14 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			subprogramGroupAccessItemProvider.dispose();
 		if (abstractFeatureItemProvider != null)
 			abstractFeatureItemProvider.dispose();
-		if (componentPrototypeItemProvider != null)
-			componentPrototypeItemProvider.dispose();
 		if (modeBindingItemProvider != null)
 			modeBindingItemProvider.dispose();
 		if (flowImplementationItemProvider != null)
 			flowImplementationItemProvider.dispose();
 		if (subcomponentFlowItemProvider != null)
 			subcomponentFlowItemProvider.dispose();
+		if (connectedElementItemProvider != null)
+			connectedElementItemProvider.dispose();
 		if (implementationExtensionItemProvider != null)
 			implementationExtensionItemProvider.dispose();
 		if (realizationItemProvider != null)
@@ -3977,12 +3944,14 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			featureConnectionItemProvider.dispose();
 		if (featureGroupConnectionItemProvider != null)
 			featureGroupConnectionItemProvider.dispose();
-		if (processorSubprogramItemProvider != null)
-			processorSubprogramItemProvider.dispose();
+		if (elementNameItemProvider != null)
+			elementNameItemProvider.dispose();
 		if (defaultAnnexLibraryItemProvider != null)
 			defaultAnnexLibraryItemProvider.dispose();
 		if (defaultAnnexSubclauseItemProvider != null)
 			defaultAnnexSubclauseItemProvider.dispose();
+		if (triggerPortItemProvider != null)
+			triggerPortItemProvider.dispose();
 		if (publicPackageSectionItemProvider != null)
 			publicPackageSectionItemProvider.dispose();
 		if (packageRenameItemProvider != null)
@@ -4201,6 +4170,12 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			recordFieldItemProvider.dispose();
 		if (referenceTypeItemProvider != null)
 			referenceTypeItemProvider.dispose();
+		if (processorPortItemProvider != null)
+			processorPortItemProvider.dispose();
+		if (internalEventItemProvider != null)
+			internalEventItemProvider.dispose();
+		if (processorSubprogramItemProvider != null)
+			processorSubprogramItemProvider.dispose();
 	}
 
 }

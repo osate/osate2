@@ -342,17 +342,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setClassifier(ComponentClassifier newClassifier) {
-		// TODO: implement this method to set the 'Classifier' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public AbstractSubcomponentType getAbstractSubcomponentType() {
 		if (abstractSubcomponentType != null && ((EObject) abstractSubcomponentType).eIsProxy()) {
 			InternalEObject oldAbstractSubcomponentType = (InternalEObject) abstractSubcomponentType;
@@ -435,17 +424,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		SubcomponentType st = basicGetSubcomponentType();
 
 		return st instanceof ComponentPrototype ? (ComponentPrototype) st : null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPrototype(ComponentPrototype newPrototype) {
-		// TODO: implement this method to set the 'Prototype' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -661,9 +639,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			getOwnedPrototypeBindings().clear();
 			getOwnedPrototypeBindings().addAll((Collection<? extends PrototypeBinding>) newValue);
 			return;
-		case Aadl2Package.SUBCOMPONENT__PROTOTYPE:
-			setPrototype((ComponentPrototype) newValue);
-			return;
 		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
 			getModeBindings().clear();
 			getModeBindings().addAll((Collection<? extends ModeBinding>) newValue);
@@ -677,9 +652,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			return;
 		case Aadl2Package.SUBCOMPONENT__REFINED:
 			setRefined((Subcomponent) newValue);
-			return;
-		case Aadl2Package.SUBCOMPONENT__CLASSIFIER:
-			setClassifier((ComponentClassifier) newValue);
 			return;
 		case Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
 			setAbstractSubcomponentType((AbstractSubcomponentType) newValue);
@@ -705,9 +677,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 			getOwnedPrototypeBindings().clear();
 			return;
-		case Aadl2Package.SUBCOMPONENT__PROTOTYPE:
-			setPrototype((ComponentPrototype) null);
-			return;
 		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
 			getModeBindings().clear();
 			return;
@@ -719,9 +688,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			return;
 		case Aadl2Package.SUBCOMPONENT__REFINED:
 			setRefined((Subcomponent) null);
-			return;
-		case Aadl2Package.SUBCOMPONENT__CLASSIFIER:
-			setClassifier((ComponentClassifier) null);
 			return;
 		case Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
 			setAbstractSubcomponentType((AbstractSubcomponentType) null);

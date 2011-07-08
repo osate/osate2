@@ -76,7 +76,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.PrivatePackageSection;
-import org.osate.aadl2.ProcessorSubprogram;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
@@ -109,7 +108,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedPortConnections <em>Owned Port Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedFeatureConnections <em>Owned Feature Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedFeatureGroupConnections <em>Owned Feature Group Connection</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedProcessorSubprograms <em>Owned Processor Subprogram</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#isNoSubcomponents <em>No Subcomponents</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#isNoConnections <em>No Connections</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#isNoCalls <em>No Calls</em>}</li>
@@ -218,17 +216,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @ordered
 	 */
 	protected EList<FeatureGroupConnection> ownedFeatureGroupConnections;
-
-	/**
-	 * The cached value of the '{@link #getOwnedProcessorSubprograms()
-	 * <em>Owned Processor Subprogram</em>}' containment reference list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getOwnedProcessorSubprograms()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<ProcessorSubprogram> ownedProcessorSubprograms;
 
 	/**
 	 * The default value of the '{@link #isNoSubcomponents() <em>No Subcomponents</em>}' attribute.
@@ -780,74 +767,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AccessConnection> getOwnedAccessConnections() {
-		if (ownedAccessConnections == null) {
-			ownedAccessConnections = new EObjectContainmentEList<AccessConnection>(AccessConnection.class, this,
-					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION);
-		}
-		return ownedAccessConnections;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AccessConnection createOwnedAccessConnection() {
-		AccessConnection newOwnedAccessConnection = (AccessConnection) create(Aadl2Package.eINSTANCE
-				.getAccessConnection());
-		getOwnedAccessConnections().add(newOwnedAccessConnection);
-		return newOwnedAccessConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<ParameterConnection> getOwnedParameterConnections() {
-		if (ownedParameterConnections == null) {
-			ownedParameterConnections = new EObjectContainmentEList<ParameterConnection>(ParameterConnection.class,
-					this, Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION);
-		}
-		return ownedParameterConnections;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ParameterConnection createOwnedParameterConnection() {
-		ParameterConnection newOwnedParameterConnection = (ParameterConnection) create(Aadl2Package.eINSTANCE
-				.getParameterConnection());
-		getOwnedParameterConnections().add(newOwnedParameterConnection);
-		return newOwnedParameterConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<PortConnection> getOwnedPortConnections() {
-		if (ownedPortConnections == null) {
-			ownedPortConnections = new EObjectContainmentEList<PortConnection>(PortConnection.class, this,
-					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION);
-		}
-		return ownedPortConnections;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PortConnection createOwnedPortConnection() {
-		PortConnection newOwnedPortConnection = (PortConnection) create(Aadl2Package.eINSTANCE.getPortConnection());
-		getOwnedPortConnections().add(newOwnedPortConnection);
-		return newOwnedPortConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<AbstractSubcomponent> getOwnedAbstractSubcomponents() {
 		if (ownedAbstractSubcomponents == null) {
 			ownedAbstractSubcomponents = new EObjectContainmentEList<AbstractSubcomponent>(AbstractSubcomponent.class,
@@ -865,6 +784,131 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 				.getAbstractSubcomponent());
 		getOwnedAbstractSubcomponents().add(newOwnedAbstractSubcomponent);
 		return newOwnedAbstractSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<AccessConnection> getOwnedAccessConnections() {
+		if (ownedAccessConnections == null) {
+			ownedAccessConnections = new EObjectContainmentEList<AccessConnection>(AccessConnection.class, this,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION);
+		}
+		return ownedAccessConnections;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AccessConnection createOwnedAccessConnection() {
+		AccessConnection newOwnedAccessConnection = (AccessConnection) create(Aadl2Package.eINSTANCE
+				.getAccessConnection());
+		getOwnedAccessConnections().add(newOwnedAccessConnection);
+		return newOwnedAccessConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ParameterConnection> getOwnedParameterConnections() {
+		if (ownedParameterConnections == null) {
+			ownedParameterConnections = new EObjectContainmentEList<ParameterConnection>(ParameterConnection.class,
+					this, Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION);
+		}
+		return ownedParameterConnections;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ParameterConnection createOwnedParameterConnection() {
+		ParameterConnection newOwnedParameterConnection = (ParameterConnection) create(Aadl2Package.eINSTANCE
+				.getParameterConnection());
+		getOwnedParameterConnections().add(newOwnedParameterConnection);
+		return newOwnedParameterConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<PortConnection> getOwnedPortConnections() {
+		if (ownedPortConnections == null) {
+			ownedPortConnections = new EObjectContainmentEList<PortConnection>(PortConnection.class, this,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION);
+		}
+		return ownedPortConnections;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortConnection createOwnedPortConnection() {
+		PortConnection newOwnedPortConnection = (PortConnection) create(Aadl2Package.eINSTANCE.getPortConnection());
+		getOwnedPortConnections().add(newOwnedPortConnection);
+		return newOwnedPortConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<FeatureConnection> getOwnedFeatureConnections() {
+		if (ownedFeatureConnections == null) {
+			ownedFeatureConnections = new EObjectContainmentEList<FeatureConnection>(FeatureConnection.class, this,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION);
+		}
+		return ownedFeatureConnections;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureConnection createOwnedFeatureConnection() {
+		FeatureConnection newOwnedFeatureConnection = (FeatureConnection) create(Aadl2Package.eINSTANCE
+				.getFeatureConnection());
+		getOwnedFeatureConnections().add(newOwnedFeatureConnection);
+		return newOwnedFeatureConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<FeatureGroupConnection> getOwnedFeatureGroupConnections() {
+		if (ownedFeatureGroupConnections == null) {
+			ownedFeatureGroupConnections = new EObjectContainmentEList<FeatureGroupConnection>(
+					FeatureGroupConnection.class, this,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION);
+		}
+		return ownedFeatureGroupConnections;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureGroupConnection createOwnedFeatureGroupConnection() {
+		FeatureGroupConnection newOwnedFeatureGroupConnection = (FeatureGroupConnection) create(Aadl2Package.eINSTANCE
+				.getFeatureGroupConnection());
+		getOwnedFeatureGroupConnections().add(newOwnedFeatureGroupConnection);
+		return newOwnedFeatureGroupConnection;
 	}
 
 	/**
@@ -887,76 +931,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		EndToEndFlow newOwnedEndToEndFlow = (EndToEndFlow) create(Aadl2Package.eINSTANCE.getEndToEndFlow());
 		getOwnedEndToEndFlows().add(newOwnedEndToEndFlow);
 		return newOwnedEndToEndFlow;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<FeatureConnection> getOwnedFeatureConnections() {
-		if (ownedFeatureConnections == null) {
-			ownedFeatureConnections = new EObjectContainmentEList<FeatureConnection>(FeatureConnection.class, this,
-					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION);
-		}
-		return ownedFeatureConnections;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureConnection createOwnedFeatureConnection() {
-		FeatureConnection newOwnedFeatureConnection = (FeatureConnection) create(Aadl2Package.eINSTANCE
-				.getFeatureConnection());
-		getOwnedFeatureConnections().add(newOwnedFeatureConnection);
-		return newOwnedFeatureConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<FeatureGroupConnection> getOwnedFeatureGroupConnections() {
-		if (ownedFeatureGroupConnections == null) {
-			ownedFeatureGroupConnections = new EObjectContainmentEList<FeatureGroupConnection>(
-					FeatureGroupConnection.class, this,
-					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION);
-		}
-		return ownedFeatureGroupConnections;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureGroupConnection createOwnedFeatureGroupConnection() {
-		FeatureGroupConnection newOwnedFeatureGroupConnection = (FeatureGroupConnection) create(Aadl2Package.eINSTANCE
-				.getFeatureGroupConnection());
-		getOwnedFeatureGroupConnections().add(newOwnedFeatureGroupConnection);
-		return newOwnedFeatureGroupConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<ProcessorSubprogram> getOwnedProcessorSubprograms() {
-		if (ownedProcessorSubprograms == null) {
-			ownedProcessorSubprograms = new EObjectContainmentEList<ProcessorSubprogram>(ProcessorSubprogram.class,
-					this, Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM);
-		}
-		return ownedProcessorSubprograms;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ProcessorSubprogram createOwnedProcessorSubprogram() {
-		ProcessorSubprogram newOwnedProcessorSubprogram = (ProcessorSubprogram) create(Aadl2Package.eINSTANCE
-				.getProcessorSubprogram());
-		getOwnedProcessorSubprograms().add(newOwnedProcessorSubprogram);
-		return newOwnedProcessorSubprogram;
 	}
 
 	/**
@@ -986,8 +960,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			return ((InternalEList<?>) getOwnedFeatureConnections()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
 			return ((InternalEList<?>) getOwnedFeatureGroupConnections()).basicRemove(otherEnd, msgs);
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM:
-			return ((InternalEList<?>) getOwnedProcessorSubprograms()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1031,8 +1003,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			return getOwnedFeatureConnections();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
 			return getOwnedFeatureGroupConnections();
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM:
-			return getOwnedProcessorSubprograms();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS:
 			return isNoSubcomponents();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CONNECTIONS:
@@ -1095,10 +1065,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			getOwnedFeatureGroupConnections().clear();
 			getOwnedFeatureGroupConnections().addAll((Collection<? extends FeatureGroupConnection>) newValue);
 			return;
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM:
-			getOwnedProcessorSubprograms().clear();
-			getOwnedProcessorSubprograms().addAll((Collection<? extends ProcessorSubprogram>) newValue);
-			return;
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS:
 			setNoSubcomponents((Boolean) newValue);
 			return;
@@ -1155,9 +1121,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
 			getOwnedFeatureGroupConnections().clear();
 			return;
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM:
-			getOwnedProcessorSubprograms().clear();
-			return;
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS:
 			setNoSubcomponents(NO_SUBCOMPONENTS_EDEFAULT);
 			return;
@@ -1206,8 +1169,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			return ownedFeatureConnections != null && !ownedFeatureConnections.isEmpty();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
 			return ownedFeatureGroupConnections != null && !ownedFeatureGroupConnections.isEmpty();
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_SUBPROGRAM:
-			return ownedProcessorSubprograms != null && !ownedProcessorSubprograms.isEmpty();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS:
 			return noSubcomponents != NO_SUBCOMPONENTS_EDEFAULT;
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CONNECTIONS:

@@ -35,13 +35,8 @@
  */
 package org.osate.aadl2.impl;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.ParameterConnection;
 
 /**
@@ -49,11 +44,6 @@ import org.osate.aadl2.ParameterConnection;
  * An implementation of the model object '<em><b>Parameter Connection</b></em>'.
  * <!-- end-user-doc -->
  * <p>
- * The following features are implemented:
- * <ul>
- *   <li>{@link org.osate.aadl2.impl.ParameterConnectionImpl#getDestination <em>Destination</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ParameterConnectionImpl#getSource <em>Source</em>}</li>
- * </ul>
  * </p>
  *
  * @generated
@@ -76,110 +66,6 @@ public class ParameterConnectionImpl extends ConnectionImpl implements Parameter
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getParameterConnection();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ConnectionEnd getDestination() {
-		if (destination != null && ((EObject) destination).eIsProxy()) {
-			InternalEObject oldDestination = (InternalEObject) destination;
-			destination = (ConnectionEnd) eResolveProxy(oldDestination);
-			if (destination != oldDestination) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PARAMETER_CONNECTION__DESTINATION, oldDestination, destination));
-			}
-		}
-		return destination;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ConnectionEnd basicGetDestination() {
-		return destination;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setDestination(ConnectionEnd newDestination) {
-		ConnectionEnd oldDestination = destination;
-		destination = newDestination;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PARAMETER_CONNECTION__DESTINATION,
-					oldDestination, destination));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isSetDestination() {
-		return destination != null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ConnectionEnd getSource() {
-		if (source != null && ((EObject) source).eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject) source;
-			source = (ConnectionEnd) eResolveProxy(oldSource);
-			if (source != oldSource) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PARAMETER_CONNECTION__SOURCE, oldSource, source));
-			}
-		}
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ConnectionEnd basicGetSource() {
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setSource(ConnectionEnd newSource) {
-		ConnectionEnd oldSource = source;
-		source = newSource;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PARAMETER_CONNECTION__SOURCE, oldSource,
-					source));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isSetSource() {
-		return source != null;
 	}
 
 } //ParameterConnectionImpl

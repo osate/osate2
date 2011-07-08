@@ -53,7 +53,6 @@ import org.eclipse.emf.ecore.EClass;
  *   <li>{@link org.osate.aadl2.PackageSection#getOwnedAnnexLibraries <em>Owned Annex Library</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageSection#getImportedUnits <em>Imported Unit</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageSection#isNoAnnexes <em>No Annexes</em>}</li>
- *   <li>{@link org.osate.aadl2.PackageSection#isNoProperties <em>No Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -125,32 +124,6 @@ public interface PackageSection extends Namespace {
 	 * @generated
 	 */
 	ComponentTypeRename createOwnedComponentTypeRename();
-
-	/**
-	 * Returns the value of the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>No Properties</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>No Properties</em>' attribute.
-	 * @see #setNoProperties(boolean)
-	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_NoProperties()
-	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
-	 * @generated
-	 */
-	boolean isNoProperties();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.PackageSection#isNoProperties <em>No Properties</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>No Properties</em>' attribute.
-	 * @see #isNoProperties()
-	 * @generated
-	 */
-	void setNoProperties(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>No Annexes</b></em>' attribute.
