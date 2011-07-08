@@ -379,9 +379,8 @@ Realization returns aadl2::Realization:
 AbstractImplementation returns aadl2::AbstractImplementation:
 	'abstract' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
 	  ((ownedSystemSubcomponent+=SystemSubcomponent
 	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
@@ -405,9 +404,8 @@ AbstractImplementation returns aadl2::AbstractImplementation:
 SystemImplementation returns aadl2::SystemImplementation:
 	'system' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	( 'subcomponents'
 	  ((ownedSystemSubcomponent+=SystemSubcomponent
 	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
@@ -425,9 +423,8 @@ SystemImplementation returns aadl2::SystemImplementation:
 ProcessImplementation returns aadl2::ProcessImplementation:
 	'process' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
 	  ((ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | ownedThreadSubcomponent+=ThreadSubcomponent
 	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
@@ -440,9 +437,8 @@ ProcessImplementation returns aadl2::ProcessImplementation:
 ThreadGroupImplementation returns aadl2::ThreadGroupImplementation:
 	'thread' 'group' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
 	  ((ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | ownedThreadSubcomponent+=ThreadSubcomponent
 	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
@@ -455,9 +451,8 @@ ThreadGroupImplementation returns aadl2::ThreadGroupImplementation:
 ThreadImplementation returns aadl2::ThreadImplementation:
 	'thread' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
 	  ((ownedSubprogramSubcomponent+=SubprogramSubcomponent
 	  |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
@@ -474,9 +469,8 @@ ThreadImplementation returns aadl2::ThreadImplementation:
 SubprogramImplementation returns aadl2::SubprogramImplementation:
 	'subprogram' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  |ownedDataSubcomponent+=DataSubcomponent)+
@@ -491,9 +485,8 @@ SubprogramImplementation returns aadl2::SubprogramImplementation:
 SubprogramGroupImplementation returns aadl2::SubprogramGroupImplementation:
 	'subprogram' 'group' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
 	  ((ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
 	| ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent 
@@ -516,40 +509,21 @@ SubprogramGroupImplementation returns aadl2::SubprogramGroupImplementation:
 ProcessorImplementation returns aadl2::ProcessorImplementation:
 	'processor' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
 	  ((ownedMemorySubcomponent+=MemorySubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedBusSubcomponent+=BusSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	  | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-//	(=> 'connections'
-//	((// not in std: ownedPortConnection+=PortConnection | 
-//	ownedAccessConnection+=AccessConnection
-//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-//    )+
-//	| (noConnections?='none' ';')))?
-//	(=> 'flows'
-//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-//	(noFlows?='none' ';')))?
-//	(=> 'modes'
-//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-//	| (noModes?='none' ';')))?
-//	(=> 'properties'
-//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-//	| (noProperties?='none' ';')))?
-//	(ownedAnnexSubclause+=AnnexSubclause)*
-//	'end' ID '.' INAME ';'
 	;
 
 VirtualProcessorImplementation returns aadl2::VirtualProcessorImplementation:
 	'virtual' 'processor' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
@@ -557,27 +531,15 @@ VirtualProcessorImplementation returns aadl2::VirtualProcessorImplementation:
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-//	(=> 'flows'
-//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-//	(noFlows?='none' ';')))?
-//	(=> 'modes'
-//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-//	| (noModes?='none' ';')))?
-//	(=> 'properties'
-//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-//	| (noProperties?='none' ';')))?
-//	(ownedAnnexSubclause+=AnnexSubclause)*
-//	'end' ID '.' INAME ';'
 	;
 
 DeviceImplementation returns aadl2::DeviceImplementation:
 	'device' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
-	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
+	  ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent
 	// missing in meta model:  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	  | ownedBusSubcomponent+=BusSubcomponent
 	  )+
@@ -588,9 +550,8 @@ DeviceImplementation returns aadl2::DeviceImplementation:
 MemoryImplementation returns aadl2::MemoryImplementation:
 	'memory' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedMemorySubcomponent+=MemorySubcomponent
@@ -616,9 +577,8 @@ MemoryImplementation returns aadl2::MemoryImplementation:
 BusImplementation returns aadl2::BusImplementation:
 	'bus' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
@@ -638,9 +598,8 @@ BusImplementation returns aadl2::BusImplementation:
 VirtualBusImplementation returns aadl2::VirtualBusImplementation:
 	'virtual' 'bus' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
@@ -661,9 +620,8 @@ DataImplementation returns aadl2::DataImplementation:
 	{aadl2::DataImplementation}
 	'data' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
-	(ownedExtension=ImplementationExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	)?
+	(ownedExtension=ImplementationExtension )?
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	(=> 'subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedDataSubcomponent+=DataSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent
@@ -1035,6 +993,7 @@ Numeral returns aadl2::Numeral:
 
 ComponentImplementationReference returns aadl2::ComponentImplementationReference:
 	{aadl2::ComponentImplementationReference}implementation=[aadl2::ComponentImplementation|QCREF] 
+	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 ;
 
 PropertyReference returns aadl2::PropertyReference:

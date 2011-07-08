@@ -6967,10 +6967,10 @@ ruleAbstractImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0()); 
 	    }
 		lv_ownedExtension_5_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -6985,17 +6985,17 @@ ruleAbstractImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_6=KEYWORD_1
     {
-    	newLeafNode(otherlv_6, grammarAccess.getAbstractImplementationAccess().getLeftParenthesisKeyword_5_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getAbstractImplementationAccess().getLeftParenthesisKeyword_6_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_7_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -7013,12 +7013,12 @@ KEYWORD_1
 )(
 	otherlv_8=KEYWORD_5
     {
-    	newLeafNode(otherlv_8, grammarAccess.getAbstractImplementationAccess().getCommaKeyword_5_1_2_0());
+    	newLeafNode(otherlv_8, grammarAccess.getAbstractImplementationAccess().getCommaKeyword_6_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_9_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -7036,19 +7036,19 @@ KEYWORD_1
 ))*
 	otherlv_10=KEYWORD_2
     {
-    	newLeafNode(otherlv_10, grammarAccess.getAbstractImplementationAccess().getRightParenthesisKeyword_5_1_3());
+    	newLeafNode(otherlv_10, grammarAccess.getAbstractImplementationAccess().getRightParenthesisKeyword_6_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_11=KEYWORD_95
     {
-    	newLeafNode(otherlv_11, grammarAccess.getAbstractImplementationAccess().getSubcomponentsKeyword_6_0());
+    	newLeafNode(otherlv_11, grammarAccess.getAbstractImplementationAccess().getSubcomponentsKeyword_7_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedSystemSubcomponentSystemSubcomponentParserRuleCall_6_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedSystemSubcomponentSystemSubcomponentParserRuleCall_7_1_0_0_0()); 
 	    }
 		lv_ownedSystemSubcomponent_12_0=ruleSystemSubcomponent		{
 	        if ($current==null) {
@@ -7067,7 +7067,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_6_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_7_1_0_1_0()); 
 	    }
 		lv_ownedSubprogramSubcomponent_13_0=ruleSubprogramSubcomponent		{
 	        if ($current==null) {
@@ -7086,7 +7086,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedSubprogramGroupSubcomponentSubprogramGroupSubcomponentParserRuleCall_6_1_0_2_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedSubprogramGroupSubcomponentSubprogramGroupSubcomponentParserRuleCall_7_1_0_2_0()); 
 	    }
 		lv_ownedSubprogramGroupSubcomponent_14_0=ruleSubprogramGroupSubcomponent		{
 	        if ($current==null) {
@@ -7105,7 +7105,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedThreadSubcomponentThreadSubcomponentParserRuleCall_6_1_0_3_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedThreadSubcomponentThreadSubcomponentParserRuleCall_7_1_0_3_0()); 
 	    }
 		lv_ownedThreadSubcomponent_15_0=ruleThreadSubcomponent		{
 	        if ($current==null) {
@@ -7124,7 +7124,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedThreadGroupSubcomponentThreadGroupSubcomponentParserRuleCall_6_1_0_4_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedThreadGroupSubcomponentThreadGroupSubcomponentParserRuleCall_7_1_0_4_0()); 
 	    }
 		lv_ownedThreadGroupSubcomponent_16_0=ruleThreadGroupSubcomponent		{
 	        if ($current==null) {
@@ -7143,7 +7143,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedProcessSubcomponentProcessSubcomponentParserRuleCall_6_1_0_5_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedProcessSubcomponentProcessSubcomponentParserRuleCall_7_1_0_5_0()); 
 	    }
 		lv_ownedProcessSubcomponent_17_0=ruleProcessSubcomponent		{
 	        if ($current==null) {
@@ -7162,7 +7162,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedProcessorSubcomponentProcessorSubcomponentParserRuleCall_6_1_0_6_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedProcessorSubcomponentProcessorSubcomponentParserRuleCall_7_1_0_6_0()); 
 	    }
 		lv_ownedProcessorSubcomponent_18_0=ruleProcessorSubcomponent		{
 	        if ($current==null) {
@@ -7181,7 +7181,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedVirtualProcessorSubcomponentVirtualProcessorSubcomponentParserRuleCall_6_1_0_7_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedVirtualProcessorSubcomponentVirtualProcessorSubcomponentParserRuleCall_7_1_0_7_0()); 
 	    }
 		lv_ownedVirtualProcessorSubcomponent_19_0=ruleVirtualProcessorSubcomponent		{
 	        if ($current==null) {
@@ -7200,7 +7200,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedMemorySubcomponentMemorySubcomponentParserRuleCall_6_1_0_8_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedMemorySubcomponentMemorySubcomponentParserRuleCall_7_1_0_8_0()); 
 	    }
 		lv_ownedMemorySubcomponent_20_0=ruleMemorySubcomponent		{
 	        if ($current==null) {
@@ -7219,7 +7219,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedDeviceSubcomponentDeviceSubcomponentParserRuleCall_6_1_0_9_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedDeviceSubcomponentDeviceSubcomponentParserRuleCall_7_1_0_9_0()); 
 	    }
 		lv_ownedDeviceSubcomponent_21_0=ruleDeviceSubcomponent		{
 	        if ($current==null) {
@@ -7238,7 +7238,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedBusSubcomponentBusSubcomponentParserRuleCall_6_1_0_10_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedBusSubcomponentBusSubcomponentParserRuleCall_7_1_0_10_0()); 
 	    }
 		lv_ownedBusSubcomponent_22_0=ruleBusSubcomponent		{
 	        if ($current==null) {
@@ -7257,7 +7257,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_6_1_0_11_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_11_0()); 
 	    }
 		lv_ownedVirtualBusSubcomponent_23_0=ruleVirtualBusSubcomponent		{
 	        if ($current==null) {
@@ -7276,7 +7276,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_6_1_0_12_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_7_1_0_12_0()); 
 	    }
 		lv_ownedDataSubcomponent_24_0=ruleDataSubcomponent		{
 	        if ($current==null) {
@@ -7295,7 +7295,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_6_1_0_13_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_13_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_25_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -7316,7 +7316,7 @@ KEYWORD_95
 		lv_noSubcomponents_26_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_26_0, grammarAccess.getAbstractImplementationAccess().getNoSubcomponentsNoneKeyword_6_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_26_0, grammarAccess.getAbstractImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
     }
 
 	    {
@@ -7330,19 +7330,19 @@ KEYWORD_95
 )
 	otherlv_27=KEYWORD_9
     {
-    	newLeafNode(otherlv_27, grammarAccess.getAbstractImplementationAccess().getSemicolonKeyword_6_1_1_1());
+    	newLeafNode(otherlv_27, grammarAccess.getAbstractImplementationAccess().getSemicolonKeyword_7_1_1_1());
     }
 )))?(((
 KEYWORD_46
 )=>
 	otherlv_28=KEYWORD_46
     {
-    	newLeafNode(otherlv_28, grammarAccess.getAbstractImplementationAccess().getCallsKeyword_7_0());
+    	newLeafNode(otherlv_28, grammarAccess.getAbstractImplementationAccess().getCallsKeyword_8_0());
     }
 )((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedSubprogramCallSequenceSubprogramCallSequenceParserRuleCall_7_1_0_0()); 
+	        newCompositeNode(grammarAccess.getAbstractImplementationAccess().getOwnedSubprogramCallSequenceSubprogramCallSequenceParserRuleCall_8_1_0_0()); 
 	    }
 		lv_ownedSubprogramCallSequence_29_0=ruleSubprogramCallSequence		{
 	        if ($current==null) {
@@ -7363,7 +7363,7 @@ KEYWORD_46
 		lv_noCalls_30_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noCalls_30_0, grammarAccess.getAbstractImplementationAccess().getNoCallsNoneKeyword_7_1_1_0_0());
+        newLeafNode(lv_noCalls_30_0, grammarAccess.getAbstractImplementationAccess().getNoCallsNoneKeyword_8_1_1_0_0());
     }
 
 	    {
@@ -7377,7 +7377,7 @@ KEYWORD_46
 )
 	otherlv_31=KEYWORD_9
     {
-    	newLeafNode(otherlv_31, grammarAccess.getAbstractImplementationAccess().getSemicolonKeyword_7_1_1_1());
+    	newLeafNode(otherlv_31, grammarAccess.getAbstractImplementationAccess().getSemicolonKeyword_8_1_1_1());
     }
 )))?)
 ;
@@ -7451,10 +7451,10 @@ ruleSystemImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0()); 
 	    }
 		lv_ownedExtension_5_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -7469,17 +7469,17 @@ ruleSystemImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_6=KEYWORD_1
     {
-    	newLeafNode(otherlv_6, grammarAccess.getSystemImplementationAccess().getLeftParenthesisKeyword_5_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getSystemImplementationAccess().getLeftParenthesisKeyword_6_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_7_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -7497,12 +7497,12 @@ KEYWORD_1
 )(
 	otherlv_8=KEYWORD_5
     {
-    	newLeafNode(otherlv_8, grammarAccess.getSystemImplementationAccess().getCommaKeyword_5_1_2_0());
+    	newLeafNode(otherlv_8, grammarAccess.getSystemImplementationAccess().getCommaKeyword_6_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_9_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -7520,17 +7520,17 @@ KEYWORD_1
 ))*
 	otherlv_10=KEYWORD_2
     {
-    	newLeafNode(otherlv_10, grammarAccess.getSystemImplementationAccess().getRightParenthesisKeyword_5_1_3());
+    	newLeafNode(otherlv_10, grammarAccess.getSystemImplementationAccess().getRightParenthesisKeyword_6_3());
     }
-)?)?(
+)?(
 	otherlv_11=KEYWORD_95
     {
-    	newLeafNode(otherlv_11, grammarAccess.getSystemImplementationAccess().getSubcomponentsKeyword_6_0());
+    	newLeafNode(otherlv_11, grammarAccess.getSystemImplementationAccess().getSubcomponentsKeyword_7_0());
     }
 (((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedSystemSubcomponentSystemSubcomponentParserRuleCall_6_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedSystemSubcomponentSystemSubcomponentParserRuleCall_7_1_0_0_0()); 
 	    }
 		lv_ownedSystemSubcomponent_12_0=ruleSystemSubcomponent		{
 	        if ($current==null) {
@@ -7549,7 +7549,7 @@ KEYWORD_1
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_6_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_7_1_0_1_0()); 
 	    }
 		lv_ownedSubprogramSubcomponent_13_0=ruleSubprogramSubcomponent		{
 	        if ($current==null) {
@@ -7568,7 +7568,7 @@ KEYWORD_1
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedSubprogramGroupSubcomponentSubprogramGroupSubcomponentParserRuleCall_6_1_0_2_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedSubprogramGroupSubcomponentSubprogramGroupSubcomponentParserRuleCall_7_1_0_2_0()); 
 	    }
 		lv_ownedSubprogramGroupSubcomponent_14_0=ruleSubprogramGroupSubcomponent		{
 	        if ($current==null) {
@@ -7587,7 +7587,7 @@ KEYWORD_1
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedProcessSubcomponentProcessSubcomponentParserRuleCall_6_1_0_3_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedProcessSubcomponentProcessSubcomponentParserRuleCall_7_1_0_3_0()); 
 	    }
 		lv_ownedProcessSubcomponent_15_0=ruleProcessSubcomponent		{
 	        if ($current==null) {
@@ -7606,7 +7606,7 @@ KEYWORD_1
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedProcessorSubcomponentProcessorSubcomponentParserRuleCall_6_1_0_4_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedProcessorSubcomponentProcessorSubcomponentParserRuleCall_7_1_0_4_0()); 
 	    }
 		lv_ownedProcessorSubcomponent_16_0=ruleProcessorSubcomponent		{
 	        if ($current==null) {
@@ -7625,7 +7625,7 @@ KEYWORD_1
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedVirtualProcessorSubcomponentVirtualProcessorSubcomponentParserRuleCall_6_1_0_5_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedVirtualProcessorSubcomponentVirtualProcessorSubcomponentParserRuleCall_7_1_0_5_0()); 
 	    }
 		lv_ownedVirtualProcessorSubcomponent_17_0=ruleVirtualProcessorSubcomponent		{
 	        if ($current==null) {
@@ -7644,7 +7644,7 @@ KEYWORD_1
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedMemorySubcomponentMemorySubcomponentParserRuleCall_6_1_0_6_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedMemorySubcomponentMemorySubcomponentParserRuleCall_7_1_0_6_0()); 
 	    }
 		lv_ownedMemorySubcomponent_18_0=ruleMemorySubcomponent		{
 	        if ($current==null) {
@@ -7663,7 +7663,7 @@ KEYWORD_1
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedDeviceSubcomponentDeviceSubcomponentParserRuleCall_6_1_0_7_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedDeviceSubcomponentDeviceSubcomponentParserRuleCall_7_1_0_7_0()); 
 	    }
 		lv_ownedDeviceSubcomponent_19_0=ruleDeviceSubcomponent		{
 	        if ($current==null) {
@@ -7682,7 +7682,7 @@ KEYWORD_1
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedBusSubcomponentBusSubcomponentParserRuleCall_6_1_0_8_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedBusSubcomponentBusSubcomponentParserRuleCall_7_1_0_8_0()); 
 	    }
 		lv_ownedBusSubcomponent_20_0=ruleBusSubcomponent		{
 	        if ($current==null) {
@@ -7701,7 +7701,7 @@ KEYWORD_1
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_6_1_0_9_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_9_0()); 
 	    }
 		lv_ownedVirtualBusSubcomponent_21_0=ruleVirtualBusSubcomponent		{
 	        if ($current==null) {
@@ -7720,7 +7720,7 @@ KEYWORD_1
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_6_1_0_10_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_7_1_0_10_0()); 
 	    }
 		lv_ownedDataSubcomponent_22_0=ruleDataSubcomponent		{
 	        if ($current==null) {
@@ -7739,7 +7739,7 @@ KEYWORD_1
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_6_1_0_11_0()); 
+	        newCompositeNode(grammarAccess.getSystemImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_11_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_23_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -7760,7 +7760,7 @@ KEYWORD_1
 		lv_noSubcomponents_24_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_24_0, grammarAccess.getSystemImplementationAccess().getNoSubcomponentsNoneKeyword_6_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_24_0, grammarAccess.getSystemImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
     }
 
 	    {
@@ -7774,7 +7774,7 @@ KEYWORD_1
 )
 	otherlv_25=KEYWORD_9
     {
-    	newLeafNode(otherlv_25, grammarAccess.getSystemImplementationAccess().getSemicolonKeyword_6_1_1_1());
+    	newLeafNode(otherlv_25, grammarAccess.getSystemImplementationAccess().getSemicolonKeyword_7_1_1_1());
     }
 )))?)
 ;
@@ -7848,10 +7848,10 @@ ruleProcessImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0()); 
 	    }
 		lv_ownedExtension_5_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -7866,17 +7866,17 @@ ruleProcessImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_6=KEYWORD_1
     {
-    	newLeafNode(otherlv_6, grammarAccess.getProcessImplementationAccess().getLeftParenthesisKeyword_5_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getProcessImplementationAccess().getLeftParenthesisKeyword_6_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_7_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -7894,12 +7894,12 @@ KEYWORD_1
 )(
 	otherlv_8=KEYWORD_5
     {
-    	newLeafNode(otherlv_8, grammarAccess.getProcessImplementationAccess().getCommaKeyword_5_1_2_0());
+    	newLeafNode(otherlv_8, grammarAccess.getProcessImplementationAccess().getCommaKeyword_6_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_9_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -7917,19 +7917,19 @@ KEYWORD_1
 ))*
 	otherlv_10=KEYWORD_2
     {
-    	newLeafNode(otherlv_10, grammarAccess.getProcessImplementationAccess().getRightParenthesisKeyword_5_1_3());
+    	newLeafNode(otherlv_10, grammarAccess.getProcessImplementationAccess().getRightParenthesisKeyword_6_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_11=KEYWORD_95
     {
-    	newLeafNode(otherlv_11, grammarAccess.getProcessImplementationAccess().getSubcomponentsKeyword_6_0());
+    	newLeafNode(otherlv_11, grammarAccess.getProcessImplementationAccess().getSubcomponentsKeyword_7_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedThreadGroupSubcomponentThreadGroupSubcomponentParserRuleCall_6_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedThreadGroupSubcomponentThreadGroupSubcomponentParserRuleCall_7_1_0_0_0()); 
 	    }
 		lv_ownedThreadGroupSubcomponent_12_0=ruleThreadGroupSubcomponent		{
 	        if ($current==null) {
@@ -7948,7 +7948,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedThreadSubcomponentThreadSubcomponentParserRuleCall_6_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedThreadSubcomponentThreadSubcomponentParserRuleCall_7_1_0_1_0()); 
 	    }
 		lv_ownedThreadSubcomponent_13_0=ruleThreadSubcomponent		{
 	        if ($current==null) {
@@ -7967,7 +7967,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_6_1_0_2_0()); 
+	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_7_1_0_2_0()); 
 	    }
 		lv_ownedSubprogramSubcomponent_14_0=ruleSubprogramSubcomponent		{
 	        if ($current==null) {
@@ -7986,7 +7986,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedSubprogramGroupSubcomponentSubprogramGroupSubcomponentParserRuleCall_6_1_0_3_0()); 
+	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedSubprogramGroupSubcomponentSubprogramGroupSubcomponentParserRuleCall_7_1_0_3_0()); 
 	    }
 		lv_ownedSubprogramGroupSubcomponent_15_0=ruleSubprogramGroupSubcomponent		{
 	        if ($current==null) {
@@ -8005,7 +8005,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_6_1_0_4_0()); 
+	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_7_1_0_4_0()); 
 	    }
 		lv_ownedDataSubcomponent_16_0=ruleDataSubcomponent		{
 	        if ($current==null) {
@@ -8024,7 +8024,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_6_1_0_5_0()); 
+	        newCompositeNode(grammarAccess.getProcessImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_5_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_17_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -8045,7 +8045,7 @@ KEYWORD_95
 		lv_noSubcomponents_18_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_18_0, grammarAccess.getProcessImplementationAccess().getNoSubcomponentsNoneKeyword_6_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_18_0, grammarAccess.getProcessImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
     }
 
 	    {
@@ -8059,7 +8059,7 @@ KEYWORD_95
 )
 	otherlv_19=KEYWORD_9
     {
-    	newLeafNode(otherlv_19, grammarAccess.getProcessImplementationAccess().getSemicolonKeyword_6_1_1_1());
+    	newLeafNode(otherlv_19, grammarAccess.getProcessImplementationAccess().getSemicolonKeyword_7_1_1_1());
     }
 )))?)
 ;
@@ -8138,10 +8138,10 @@ ruleThreadGroupImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_6_0_0()); 
+	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_6_0()); 
 	    }
 		lv_ownedExtension_6_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -8156,17 +8156,17 @@ ruleThreadGroupImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_7=KEYWORD_1
     {
-    	newLeafNode(otherlv_7, grammarAccess.getThreadGroupImplementationAccess().getLeftParenthesisKeyword_6_1_0());
+    	newLeafNode(otherlv_7, grammarAccess.getThreadGroupImplementationAccess().getLeftParenthesisKeyword_7_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_1_0()); 
+	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_7_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_8_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -8184,12 +8184,12 @@ KEYWORD_1
 )(
 	otherlv_9=KEYWORD_5
     {
-    	newLeafNode(otherlv_9, grammarAccess.getThreadGroupImplementationAccess().getCommaKeyword_6_1_2_0());
+    	newLeafNode(otherlv_9, grammarAccess.getThreadGroupImplementationAccess().getCommaKeyword_7_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_7_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_10_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -8207,19 +8207,19 @@ KEYWORD_1
 ))*
 	otherlv_11=KEYWORD_2
     {
-    	newLeafNode(otherlv_11, grammarAccess.getThreadGroupImplementationAccess().getRightParenthesisKeyword_6_1_3());
+    	newLeafNode(otherlv_11, grammarAccess.getThreadGroupImplementationAccess().getRightParenthesisKeyword_7_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_12=KEYWORD_95
     {
-    	newLeafNode(otherlv_12, grammarAccess.getThreadGroupImplementationAccess().getSubcomponentsKeyword_7_0());
+    	newLeafNode(otherlv_12, grammarAccess.getThreadGroupImplementationAccess().getSubcomponentsKeyword_8_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedThreadGroupSubcomponentThreadGroupSubcomponentParserRuleCall_7_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedThreadGroupSubcomponentThreadGroupSubcomponentParserRuleCall_8_1_0_0_0()); 
 	    }
 		lv_ownedThreadGroupSubcomponent_13_0=ruleThreadGroupSubcomponent		{
 	        if ($current==null) {
@@ -8238,7 +8238,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedThreadSubcomponentThreadSubcomponentParserRuleCall_7_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedThreadSubcomponentThreadSubcomponentParserRuleCall_8_1_0_1_0()); 
 	    }
 		lv_ownedThreadSubcomponent_14_0=ruleThreadSubcomponent		{
 	        if ($current==null) {
@@ -8257,7 +8257,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_7_1_0_2_0()); 
+	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_8_1_0_2_0()); 
 	    }
 		lv_ownedSubprogramSubcomponent_15_0=ruleSubprogramSubcomponent		{
 	        if ($current==null) {
@@ -8276,7 +8276,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedSubprogramGroupSubcomponentSubprogramGroupSubcomponentParserRuleCall_7_1_0_3_0()); 
+	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedSubprogramGroupSubcomponentSubprogramGroupSubcomponentParserRuleCall_8_1_0_3_0()); 
 	    }
 		lv_ownedSubprogramGroupSubcomponent_16_0=ruleSubprogramGroupSubcomponent		{
 	        if ($current==null) {
@@ -8295,7 +8295,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_7_1_0_4_0()); 
+	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_8_1_0_4_0()); 
 	    }
 		lv_ownedDataSubcomponent_17_0=ruleDataSubcomponent		{
 	        if ($current==null) {
@@ -8314,7 +8314,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_5_0()); 
+	        newCompositeNode(grammarAccess.getThreadGroupImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_8_1_0_5_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_18_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -8335,7 +8335,7 @@ KEYWORD_95
 		lv_noSubcomponents_19_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_19_0, grammarAccess.getThreadGroupImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_19_0, grammarAccess.getThreadGroupImplementationAccess().getNoSubcomponentsNoneKeyword_8_1_1_0_0());
     }
 
 	    {
@@ -8349,7 +8349,7 @@ KEYWORD_95
 )
 	otherlv_20=KEYWORD_9
     {
-    	newLeafNode(otherlv_20, grammarAccess.getThreadGroupImplementationAccess().getSemicolonKeyword_7_1_1_1());
+    	newLeafNode(otherlv_20, grammarAccess.getThreadGroupImplementationAccess().getSemicolonKeyword_8_1_1_1());
     }
 )))?)
 ;
@@ -8423,10 +8423,10 @@ ruleThreadImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0()); 
 	    }
 		lv_ownedExtension_5_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -8441,17 +8441,17 @@ ruleThreadImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_6=KEYWORD_1
     {
-    	newLeafNode(otherlv_6, grammarAccess.getThreadImplementationAccess().getLeftParenthesisKeyword_5_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getThreadImplementationAccess().getLeftParenthesisKeyword_6_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_7_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -8469,12 +8469,12 @@ KEYWORD_1
 )(
 	otherlv_8=KEYWORD_5
     {
-    	newLeafNode(otherlv_8, grammarAccess.getThreadImplementationAccess().getCommaKeyword_5_1_2_0());
+    	newLeafNode(otherlv_8, grammarAccess.getThreadImplementationAccess().getCommaKeyword_6_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_9_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -8492,19 +8492,19 @@ KEYWORD_1
 ))*
 	otherlv_10=KEYWORD_2
     {
-    	newLeafNode(otherlv_10, grammarAccess.getThreadImplementationAccess().getRightParenthesisKeyword_5_1_3());
+    	newLeafNode(otherlv_10, grammarAccess.getThreadImplementationAccess().getRightParenthesisKeyword_6_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_11=KEYWORD_95
     {
-    	newLeafNode(otherlv_11, grammarAccess.getThreadImplementationAccess().getSubcomponentsKeyword_6_0());
+    	newLeafNode(otherlv_11, grammarAccess.getThreadImplementationAccess().getSubcomponentsKeyword_7_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_6_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_7_1_0_0_0()); 
 	    }
 		lv_ownedSubprogramSubcomponent_12_0=ruleSubprogramSubcomponent		{
 	        if ($current==null) {
@@ -8523,7 +8523,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedSubprogramGroupSubcomponentSubprogramGroupSubcomponentParserRuleCall_6_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedSubprogramGroupSubcomponentSubprogramGroupSubcomponentParserRuleCall_7_1_0_1_0()); 
 	    }
 		lv_ownedSubprogramGroupSubcomponent_13_0=ruleSubprogramGroupSubcomponent		{
 	        if ($current==null) {
@@ -8542,7 +8542,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_6_1_0_2_0()); 
+	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_7_1_0_2_0()); 
 	    }
 		lv_ownedDataSubcomponent_14_0=ruleDataSubcomponent		{
 	        if ($current==null) {
@@ -8561,7 +8561,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_6_1_0_3_0()); 
+	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_3_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_15_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -8582,7 +8582,7 @@ KEYWORD_95
 		lv_noSubcomponents_16_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_16_0, grammarAccess.getThreadImplementationAccess().getNoSubcomponentsNoneKeyword_6_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_16_0, grammarAccess.getThreadImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
     }
 
 	    {
@@ -8596,19 +8596,19 @@ KEYWORD_95
 )
 	otherlv_17=KEYWORD_9
     {
-    	newLeafNode(otherlv_17, grammarAccess.getThreadImplementationAccess().getSemicolonKeyword_6_1_1_1());
+    	newLeafNode(otherlv_17, grammarAccess.getThreadImplementationAccess().getSemicolonKeyword_7_1_1_1());
     }
 )))?(((
 KEYWORD_46
 )=>
 	otherlv_18=KEYWORD_46
     {
-    	newLeafNode(otherlv_18, grammarAccess.getThreadImplementationAccess().getCallsKeyword_7_0());
+    	newLeafNode(otherlv_18, grammarAccess.getThreadImplementationAccess().getCallsKeyword_8_0());
     }
 )((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedSubprogramCallSequenceSubprogramCallSequenceParserRuleCall_7_1_0_0()); 
+	        newCompositeNode(grammarAccess.getThreadImplementationAccess().getOwnedSubprogramCallSequenceSubprogramCallSequenceParserRuleCall_8_1_0_0()); 
 	    }
 		lv_ownedSubprogramCallSequence_19_0=ruleSubprogramCallSequence		{
 	        if ($current==null) {
@@ -8629,7 +8629,7 @@ KEYWORD_46
 		lv_noCalls_20_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noCalls_20_0, grammarAccess.getThreadImplementationAccess().getNoCallsNoneKeyword_7_1_1_0_0());
+        newLeafNode(lv_noCalls_20_0, grammarAccess.getThreadImplementationAccess().getNoCallsNoneKeyword_8_1_1_0_0());
     }
 
 	    {
@@ -8643,7 +8643,7 @@ KEYWORD_46
 )
 	otherlv_21=KEYWORD_9
     {
-    	newLeafNode(otherlv_21, grammarAccess.getThreadImplementationAccess().getSemicolonKeyword_7_1_1_1());
+    	newLeafNode(otherlv_21, grammarAccess.getThreadImplementationAccess().getSemicolonKeyword_8_1_1_1());
     }
 )))?)
 ;
@@ -8717,10 +8717,10 @@ ruleSubprogramImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0()); 
 	    }
 		lv_ownedExtension_5_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -8735,17 +8735,17 @@ ruleSubprogramImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_6=KEYWORD_1
     {
-    	newLeafNode(otherlv_6, grammarAccess.getSubprogramImplementationAccess().getLeftParenthesisKeyword_5_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getSubprogramImplementationAccess().getLeftParenthesisKeyword_6_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_7_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -8763,12 +8763,12 @@ KEYWORD_1
 )(
 	otherlv_8=KEYWORD_5
     {
-    	newLeafNode(otherlv_8, grammarAccess.getSubprogramImplementationAccess().getCommaKeyword_5_1_2_0());
+    	newLeafNode(otherlv_8, grammarAccess.getSubprogramImplementationAccess().getCommaKeyword_6_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_9_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -8786,19 +8786,19 @@ KEYWORD_1
 ))*
 	otherlv_10=KEYWORD_2
     {
-    	newLeafNode(otherlv_10, grammarAccess.getSubprogramImplementationAccess().getRightParenthesisKeyword_5_1_3());
+    	newLeafNode(otherlv_10, grammarAccess.getSubprogramImplementationAccess().getRightParenthesisKeyword_6_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_11=KEYWORD_95
     {
-    	newLeafNode(otherlv_11, grammarAccess.getSubprogramImplementationAccess().getSubcomponentsKeyword_6_0());
+    	newLeafNode(otherlv_11, grammarAccess.getSubprogramImplementationAccess().getSubcomponentsKeyword_7_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_6_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_0_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_12_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -8817,7 +8817,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_6_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_7_1_0_1_0()); 
 	    }
 		lv_ownedDataSubcomponent_13_0=ruleDataSubcomponent		{
 	        if ($current==null) {
@@ -8838,7 +8838,7 @@ KEYWORD_95
 		lv_noSubcomponents_14_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_14_0, grammarAccess.getSubprogramImplementationAccess().getNoSubcomponentsNoneKeyword_6_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_14_0, grammarAccess.getSubprogramImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
     }
 
 	    {
@@ -8852,19 +8852,19 @@ KEYWORD_95
 )
 	otherlv_15=KEYWORD_9
     {
-    	newLeafNode(otherlv_15, grammarAccess.getSubprogramImplementationAccess().getSemicolonKeyword_6_1_1_1());
+    	newLeafNode(otherlv_15, grammarAccess.getSubprogramImplementationAccess().getSemicolonKeyword_7_1_1_1());
     }
 )))?(((
 KEYWORD_46
 )=>
 	otherlv_16=KEYWORD_46
     {
-    	newLeafNode(otherlv_16, grammarAccess.getSubprogramImplementationAccess().getCallsKeyword_7_0());
+    	newLeafNode(otherlv_16, grammarAccess.getSubprogramImplementationAccess().getCallsKeyword_8_0());
     }
 )((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramCallSequenceSubprogramCallSequenceParserRuleCall_7_1_0_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramCallSequenceSubprogramCallSequenceParserRuleCall_8_1_0_0()); 
 	    }
 		lv_ownedSubprogramCallSequence_17_0=ruleSubprogramCallSequence		{
 	        if ($current==null) {
@@ -8885,7 +8885,7 @@ KEYWORD_46
 		lv_noCalls_18_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noCalls_18_0, grammarAccess.getSubprogramImplementationAccess().getNoCallsNoneKeyword_7_1_1_0_0());
+        newLeafNode(lv_noCalls_18_0, grammarAccess.getSubprogramImplementationAccess().getNoCallsNoneKeyword_8_1_1_0_0());
     }
 
 	    {
@@ -8899,7 +8899,7 @@ KEYWORD_46
 )
 	otherlv_19=KEYWORD_9
     {
-    	newLeafNode(otherlv_19, grammarAccess.getSubprogramImplementationAccess().getSemicolonKeyword_7_1_1_1());
+    	newLeafNode(otherlv_19, grammarAccess.getSubprogramImplementationAccess().getSemicolonKeyword_8_1_1_1());
     }
 )))?)
 ;
@@ -8978,10 +8978,10 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_6_0_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_6_0()); 
 	    }
 		lv_ownedExtension_6_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -8996,17 +8996,17 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_7=KEYWORD_1
     {
-    	newLeafNode(otherlv_7, grammarAccess.getSubprogramGroupImplementationAccess().getLeftParenthesisKeyword_6_1_0());
+    	newLeafNode(otherlv_7, grammarAccess.getSubprogramGroupImplementationAccess().getLeftParenthesisKeyword_7_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_1_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_7_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_8_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -9024,12 +9024,12 @@ KEYWORD_1
 )(
 	otherlv_9=KEYWORD_5
     {
-    	newLeafNode(otherlv_9, grammarAccess.getSubprogramGroupImplementationAccess().getCommaKeyword_6_1_2_0());
+    	newLeafNode(otherlv_9, grammarAccess.getSubprogramGroupImplementationAccess().getCommaKeyword_7_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_7_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_10_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -9047,19 +9047,19 @@ KEYWORD_1
 ))*
 	otherlv_11=KEYWORD_2
     {
-    	newLeafNode(otherlv_11, grammarAccess.getSubprogramGroupImplementationAccess().getRightParenthesisKeyword_6_1_3());
+    	newLeafNode(otherlv_11, grammarAccess.getSubprogramGroupImplementationAccess().getRightParenthesisKeyword_7_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_12=KEYWORD_95
     {
-    	newLeafNode(otherlv_12, grammarAccess.getSubprogramGroupImplementationAccess().getSubcomponentsKeyword_7_0());
+    	newLeafNode(otherlv_12, grammarAccess.getSubprogramGroupImplementationAccess().getSubcomponentsKeyword_8_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_7_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_8_1_0_0_0()); 
 	    }
 		lv_ownedSubprogramSubcomponent_13_0=ruleSubprogramSubcomponent		{
 	        if ($current==null) {
@@ -9078,7 +9078,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_8_1_0_1_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_14_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -9097,7 +9097,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedSubprogramGroupSubcomponentSubprogramGroupSubcomponentParserRuleCall_7_1_0_2_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedSubprogramGroupSubcomponentSubprogramGroupSubcomponentParserRuleCall_8_1_0_2_0()); 
 	    }
 		lv_ownedSubprogramGroupSubcomponent_15_0=ruleSubprogramGroupSubcomponent		{
 	        if ($current==null) {
@@ -9118,7 +9118,7 @@ KEYWORD_95
 		lv_noSubcomponents_16_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_16_0, grammarAccess.getSubprogramGroupImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_16_0, grammarAccess.getSubprogramGroupImplementationAccess().getNoSubcomponentsNoneKeyword_8_1_1_0_0());
     }
 
 	    {
@@ -9132,7 +9132,7 @@ KEYWORD_95
 )
 	otherlv_17=KEYWORD_9
     {
-    	newLeafNode(otherlv_17, grammarAccess.getSubprogramGroupImplementationAccess().getSemicolonKeyword_7_1_1_1());
+    	newLeafNode(otherlv_17, grammarAccess.getSubprogramGroupImplementationAccess().getSemicolonKeyword_8_1_1_1());
     }
 )))?)
 ;
@@ -9206,10 +9206,10 @@ ruleProcessorImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0()); 
 	    }
 		lv_ownedExtension_5_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -9224,17 +9224,17 @@ ruleProcessorImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_6=KEYWORD_1
     {
-    	newLeafNode(otherlv_6, grammarAccess.getProcessorImplementationAccess().getLeftParenthesisKeyword_5_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getProcessorImplementationAccess().getLeftParenthesisKeyword_6_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_7_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -9252,12 +9252,12 @@ KEYWORD_1
 )(
 	otherlv_8=KEYWORD_5
     {
-    	newLeafNode(otherlv_8, grammarAccess.getProcessorImplementationAccess().getCommaKeyword_5_1_2_0());
+    	newLeafNode(otherlv_8, grammarAccess.getProcessorImplementationAccess().getCommaKeyword_6_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_9_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -9275,19 +9275,19 @@ KEYWORD_1
 ))*
 	otherlv_10=KEYWORD_2
     {
-    	newLeafNode(otherlv_10, grammarAccess.getProcessorImplementationAccess().getRightParenthesisKeyword_5_1_3());
+    	newLeafNode(otherlv_10, grammarAccess.getProcessorImplementationAccess().getRightParenthesisKeyword_6_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_11=KEYWORD_95
     {
-    	newLeafNode(otherlv_11, grammarAccess.getProcessorImplementationAccess().getSubcomponentsKeyword_6_0());
+    	newLeafNode(otherlv_11, grammarAccess.getProcessorImplementationAccess().getSubcomponentsKeyword_7_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedMemorySubcomponentMemorySubcomponentParserRuleCall_6_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedMemorySubcomponentMemorySubcomponentParserRuleCall_7_1_0_0_0()); 
 	    }
 		lv_ownedMemorySubcomponent_12_0=ruleMemorySubcomponent		{
 	        if ($current==null) {
@@ -9306,7 +9306,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_6_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_1_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_13_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -9325,7 +9325,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedBusSubcomponentBusSubcomponentParserRuleCall_6_1_0_2_0()); 
+	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedBusSubcomponentBusSubcomponentParserRuleCall_7_1_0_2_0()); 
 	    }
 		lv_ownedBusSubcomponent_14_0=ruleBusSubcomponent		{
 	        if ($current==null) {
@@ -9344,7 +9344,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_6_1_0_3_0()); 
+	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_3_0()); 
 	    }
 		lv_ownedVirtualBusSubcomponent_15_0=ruleVirtualBusSubcomponent		{
 	        if ($current==null) {
@@ -9363,7 +9363,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedVirtualProcessorSubcomponentVirtualProcessorSubcomponentParserRuleCall_6_1_0_4_0()); 
+	        newCompositeNode(grammarAccess.getProcessorImplementationAccess().getOwnedVirtualProcessorSubcomponentVirtualProcessorSubcomponentParserRuleCall_7_1_0_4_0()); 
 	    }
 		lv_ownedVirtualProcessorSubcomponent_16_0=ruleVirtualProcessorSubcomponent		{
 	        if ($current==null) {
@@ -9384,7 +9384,7 @@ KEYWORD_95
 		lv_noSubcomponents_17_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_17_0, grammarAccess.getProcessorImplementationAccess().getNoSubcomponentsNoneKeyword_6_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_17_0, grammarAccess.getProcessorImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
     }
 
 	    {
@@ -9398,7 +9398,7 @@ KEYWORD_95
 )
 	otherlv_18=KEYWORD_9
     {
-    	newLeafNode(otherlv_18, grammarAccess.getProcessorImplementationAccess().getSemicolonKeyword_6_1_1_1());
+    	newLeafNode(otherlv_18, grammarAccess.getProcessorImplementationAccess().getSemicolonKeyword_7_1_1_1());
     }
 )))?)
 ;
@@ -9477,10 +9477,10 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualProcessorImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_6_0_0()); 
+	        newCompositeNode(grammarAccess.getVirtualProcessorImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_6_0()); 
 	    }
 		lv_ownedExtension_6_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -9495,17 +9495,17 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_7=KEYWORD_1
     {
-    	newLeafNode(otherlv_7, grammarAccess.getVirtualProcessorImplementationAccess().getLeftParenthesisKeyword_6_1_0());
+    	newLeafNode(otherlv_7, grammarAccess.getVirtualProcessorImplementationAccess().getLeftParenthesisKeyword_7_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualProcessorImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_1_0()); 
+	        newCompositeNode(grammarAccess.getVirtualProcessorImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_7_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_8_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -9523,12 +9523,12 @@ KEYWORD_1
 )(
 	otherlv_9=KEYWORD_5
     {
-    	newLeafNode(otherlv_9, grammarAccess.getVirtualProcessorImplementationAccess().getCommaKeyword_6_1_2_0());
+    	newLeafNode(otherlv_9, grammarAccess.getVirtualProcessorImplementationAccess().getCommaKeyword_7_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualProcessorImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getVirtualProcessorImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_7_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_10_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -9546,19 +9546,19 @@ KEYWORD_1
 ))*
 	otherlv_11=KEYWORD_2
     {
-    	newLeafNode(otherlv_11, grammarAccess.getVirtualProcessorImplementationAccess().getRightParenthesisKeyword_6_1_3());
+    	newLeafNode(otherlv_11, grammarAccess.getVirtualProcessorImplementationAccess().getRightParenthesisKeyword_7_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_12=KEYWORD_95
     {
-    	newLeafNode(otherlv_12, grammarAccess.getVirtualProcessorImplementationAccess().getSubcomponentsKeyword_7_0());
+    	newLeafNode(otherlv_12, grammarAccess.getVirtualProcessorImplementationAccess().getSubcomponentsKeyword_8_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualProcessorImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getVirtualProcessorImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_8_1_0_0_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_13_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -9577,7 +9577,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualProcessorImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getVirtualProcessorImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_8_1_0_1_0()); 
 	    }
 		lv_ownedVirtualBusSubcomponent_14_0=ruleVirtualBusSubcomponent		{
 	        if ($current==null) {
@@ -9596,7 +9596,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualProcessorImplementationAccess().getOwnedVirtualProcessorSubcomponentVirtualProcessorSubcomponentParserRuleCall_7_1_0_2_0()); 
+	        newCompositeNode(grammarAccess.getVirtualProcessorImplementationAccess().getOwnedVirtualProcessorSubcomponentVirtualProcessorSubcomponentParserRuleCall_8_1_0_2_0()); 
 	    }
 		lv_ownedVirtualProcessorSubcomponent_15_0=ruleVirtualProcessorSubcomponent		{
 	        if ($current==null) {
@@ -9617,7 +9617,7 @@ KEYWORD_95
 		lv_noSubcomponents_16_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_16_0, grammarAccess.getVirtualProcessorImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_16_0, grammarAccess.getVirtualProcessorImplementationAccess().getNoSubcomponentsNoneKeyword_8_1_1_0_0());
     }
 
 	    {
@@ -9631,7 +9631,7 @@ KEYWORD_95
 )
 	otherlv_17=KEYWORD_9
     {
-    	newLeafNode(otherlv_17, grammarAccess.getVirtualProcessorImplementationAccess().getSemicolonKeyword_7_1_1_1());
+    	newLeafNode(otherlv_17, grammarAccess.getVirtualProcessorImplementationAccess().getSemicolonKeyword_8_1_1_1());
     }
 )))?)
 ;
@@ -9705,10 +9705,10 @@ ruleDeviceImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDeviceImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getDeviceImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0()); 
 	    }
 		lv_ownedExtension_5_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -9723,17 +9723,17 @@ ruleDeviceImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_6=KEYWORD_1
     {
-    	newLeafNode(otherlv_6, grammarAccess.getDeviceImplementationAccess().getLeftParenthesisKeyword_5_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getDeviceImplementationAccess().getLeftParenthesisKeyword_6_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDeviceImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getDeviceImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_7_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -9751,12 +9751,12 @@ KEYWORD_1
 )(
 	otherlv_8=KEYWORD_5
     {
-    	newLeafNode(otherlv_8, grammarAccess.getDeviceImplementationAccess().getCommaKeyword_5_1_2_0());
+    	newLeafNode(otherlv_8, grammarAccess.getDeviceImplementationAccess().getCommaKeyword_6_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDeviceImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getDeviceImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_9_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -9774,19 +9774,19 @@ KEYWORD_1
 ))*
 	otherlv_10=KEYWORD_2
     {
-    	newLeafNode(otherlv_10, grammarAccess.getDeviceImplementationAccess().getRightParenthesisKeyword_5_1_3());
+    	newLeafNode(otherlv_10, grammarAccess.getDeviceImplementationAccess().getRightParenthesisKeyword_6_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_11=KEYWORD_95
     {
-    	newLeafNode(otherlv_11, grammarAccess.getDeviceImplementationAccess().getSubcomponentsKeyword_6_0());
+    	newLeafNode(otherlv_11, grammarAccess.getDeviceImplementationAccess().getSubcomponentsKeyword_7_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDeviceImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_6_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getDeviceImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_0_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_12_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -9805,16 +9805,35 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDeviceImplementationAccess().getOwnedBusSubcomponentBusSubcomponentParserRuleCall_6_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getDeviceImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_7_1_0_1_0()); 
 	    }
-		lv_ownedBusSubcomponent_13_0=ruleBusSubcomponent		{
+		lv_ownedDataSubcomponent_13_0=ruleDataSubcomponent		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDeviceImplementationRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedDataSubcomponent",
+        		lv_ownedDataSubcomponent_13_0, 
+        		"DataSubcomponent");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDeviceImplementationAccess().getOwnedBusSubcomponentBusSubcomponentParserRuleCall_7_1_0_2_0()); 
+	    }
+		lv_ownedBusSubcomponent_14_0=ruleBusSubcomponent		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getDeviceImplementationRule());
 	        }
        		add(
        			$current, 
        			"ownedBusSubcomponent",
-        		lv_ownedBusSubcomponent_13_0, 
+        		lv_ownedBusSubcomponent_14_0, 
         		"BusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -9823,10 +9842,10 @@ KEYWORD_95
 ))+
     |((
 (
-		lv_noSubcomponents_14_0=
+		lv_noSubcomponents_15_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_14_0, grammarAccess.getDeviceImplementationAccess().getNoSubcomponentsNoneKeyword_6_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_15_0, grammarAccess.getDeviceImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
     }
 
 	    {
@@ -9838,9 +9857,9 @@ KEYWORD_95
 
 )
 )
-	otherlv_15=KEYWORD_9
+	otherlv_16=KEYWORD_9
     {
-    	newLeafNode(otherlv_15, grammarAccess.getDeviceImplementationAccess().getSemicolonKeyword_6_1_1_1());
+    	newLeafNode(otherlv_16, grammarAccess.getDeviceImplementationAccess().getSemicolonKeyword_7_1_1_1());
     }
 )))?)
 ;
@@ -9914,10 +9933,10 @@ ruleMemoryImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0()); 
 	    }
 		lv_ownedExtension_5_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -9932,17 +9951,17 @@ ruleMemoryImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_6=KEYWORD_1
     {
-    	newLeafNode(otherlv_6, grammarAccess.getMemoryImplementationAccess().getLeftParenthesisKeyword_5_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getMemoryImplementationAccess().getLeftParenthesisKeyword_6_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_7_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -9960,12 +9979,12 @@ KEYWORD_1
 )(
 	otherlv_8=KEYWORD_5
     {
-    	newLeafNode(otherlv_8, grammarAccess.getMemoryImplementationAccess().getCommaKeyword_5_1_2_0());
+    	newLeafNode(otherlv_8, grammarAccess.getMemoryImplementationAccess().getCommaKeyword_6_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_9_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -9983,19 +10002,19 @@ KEYWORD_1
 ))*
 	otherlv_10=KEYWORD_2
     {
-    	newLeafNode(otherlv_10, grammarAccess.getMemoryImplementationAccess().getRightParenthesisKeyword_5_1_3());
+    	newLeafNode(otherlv_10, grammarAccess.getMemoryImplementationAccess().getRightParenthesisKeyword_6_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_11=KEYWORD_95
     {
-    	newLeafNode(otherlv_11, grammarAccess.getMemoryImplementationAccess().getSubcomponentsKeyword_6_0());
+    	newLeafNode(otherlv_11, grammarAccess.getMemoryImplementationAccess().getSubcomponentsKeyword_7_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_6_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_0_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_12_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -10014,7 +10033,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedMemorySubcomponentMemorySubcomponentParserRuleCall_6_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedMemorySubcomponentMemorySubcomponentParserRuleCall_7_1_0_1_0()); 
 	    }
 		lv_ownedMemorySubcomponent_13_0=ruleMemorySubcomponent		{
 	        if ($current==null) {
@@ -10033,7 +10052,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedBusSubcomponentBusSubcomponentParserRuleCall_6_1_0_2_0()); 
+	        newCompositeNode(grammarAccess.getMemoryImplementationAccess().getOwnedBusSubcomponentBusSubcomponentParserRuleCall_7_1_0_2_0()); 
 	    }
 		lv_ownedBusSubcomponent_14_0=ruleBusSubcomponent		{
 	        if ($current==null) {
@@ -10054,7 +10073,7 @@ KEYWORD_95
 		lv_noSubcomponents_15_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_15_0, grammarAccess.getMemoryImplementationAccess().getNoSubcomponentsNoneKeyword_6_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_15_0, grammarAccess.getMemoryImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
     }
 
 	    {
@@ -10068,7 +10087,7 @@ KEYWORD_95
 )
 	otherlv_16=KEYWORD_9
     {
-    	newLeafNode(otherlv_16, grammarAccess.getMemoryImplementationAccess().getSemicolonKeyword_6_1_1_1());
+    	newLeafNode(otherlv_16, grammarAccess.getMemoryImplementationAccess().getSemicolonKeyword_7_1_1_1());
     }
 )))?)
 ;
@@ -10142,10 +10161,10 @@ ruleBusImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getBusImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getBusImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_5_0()); 
 	    }
 		lv_ownedExtension_5_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -10160,17 +10179,17 @@ ruleBusImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_6=KEYWORD_1
     {
-    	newLeafNode(otherlv_6, grammarAccess.getBusImplementationAccess().getLeftParenthesisKeyword_5_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getBusImplementationAccess().getLeftParenthesisKeyword_6_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getBusImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getBusImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_7_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -10188,12 +10207,12 @@ KEYWORD_1
 )(
 	otherlv_8=KEYWORD_5
     {
-    	newLeafNode(otherlv_8, grammarAccess.getBusImplementationAccess().getCommaKeyword_5_1_2_0());
+    	newLeafNode(otherlv_8, grammarAccess.getBusImplementationAccess().getCommaKeyword_6_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getBusImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_5_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getBusImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_9_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -10211,19 +10230,19 @@ KEYWORD_1
 ))*
 	otherlv_10=KEYWORD_2
     {
-    	newLeafNode(otherlv_10, grammarAccess.getBusImplementationAccess().getRightParenthesisKeyword_5_1_3());
+    	newLeafNode(otherlv_10, grammarAccess.getBusImplementationAccess().getRightParenthesisKeyword_6_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_11=KEYWORD_95
     {
-    	newLeafNode(otherlv_11, grammarAccess.getBusImplementationAccess().getSubcomponentsKeyword_6_0());
+    	newLeafNode(otherlv_11, grammarAccess.getBusImplementationAccess().getSubcomponentsKeyword_7_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getBusImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_6_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getBusImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_0_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_12_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -10242,7 +10261,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getBusImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_6_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getBusImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_1_0()); 
 	    }
 		lv_ownedVirtualBusSubcomponent_13_0=ruleVirtualBusSubcomponent		{
 	        if ($current==null) {
@@ -10263,7 +10282,7 @@ KEYWORD_95
 		lv_noSubcomponents_14_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_14_0, grammarAccess.getBusImplementationAccess().getNoSubcomponentsNoneKeyword_6_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_14_0, grammarAccess.getBusImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
     }
 
 	    {
@@ -10277,7 +10296,7 @@ KEYWORD_95
 )
 	otherlv_15=KEYWORD_9
     {
-    	newLeafNode(otherlv_15, grammarAccess.getBusImplementationAccess().getSemicolonKeyword_6_1_1_1());
+    	newLeafNode(otherlv_15, grammarAccess.getBusImplementationAccess().getSemicolonKeyword_7_1_1_1());
     }
 )))?)
 ;
@@ -10356,10 +10375,10 @@ ruleVirtualBusImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualBusImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_6_0_0()); 
+	        newCompositeNode(grammarAccess.getVirtualBusImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_6_0()); 
 	    }
 		lv_ownedExtension_6_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -10374,17 +10393,17 @@ ruleVirtualBusImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_7=KEYWORD_1
     {
-    	newLeafNode(otherlv_7, grammarAccess.getVirtualBusImplementationAccess().getLeftParenthesisKeyword_6_1_0());
+    	newLeafNode(otherlv_7, grammarAccess.getVirtualBusImplementationAccess().getLeftParenthesisKeyword_7_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualBusImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_1_0()); 
+	        newCompositeNode(grammarAccess.getVirtualBusImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_7_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_8_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -10402,12 +10421,12 @@ KEYWORD_1
 )(
 	otherlv_9=KEYWORD_5
     {
-    	newLeafNode(otherlv_9, grammarAccess.getVirtualBusImplementationAccess().getCommaKeyword_6_1_2_0());
+    	newLeafNode(otherlv_9, grammarAccess.getVirtualBusImplementationAccess().getCommaKeyword_7_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualBusImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getVirtualBusImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_7_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_10_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -10425,19 +10444,19 @@ KEYWORD_1
 ))*
 	otherlv_11=KEYWORD_2
     {
-    	newLeafNode(otherlv_11, grammarAccess.getVirtualBusImplementationAccess().getRightParenthesisKeyword_6_1_3());
+    	newLeafNode(otherlv_11, grammarAccess.getVirtualBusImplementationAccess().getRightParenthesisKeyword_7_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_12=KEYWORD_95
     {
-    	newLeafNode(otherlv_12, grammarAccess.getVirtualBusImplementationAccess().getSubcomponentsKeyword_7_0());
+    	newLeafNode(otherlv_12, grammarAccess.getVirtualBusImplementationAccess().getSubcomponentsKeyword_8_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualBusImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getVirtualBusImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_8_1_0_0_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_13_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -10456,7 +10475,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualBusImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_7_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getVirtualBusImplementationAccess().getOwnedVirtualBusSubcomponentVirtualBusSubcomponentParserRuleCall_8_1_0_1_0()); 
 	    }
 		lv_ownedVirtualBusSubcomponent_14_0=ruleVirtualBusSubcomponent		{
 	        if ($current==null) {
@@ -10477,7 +10496,7 @@ KEYWORD_95
 		lv_noSubcomponents_15_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_15_0, grammarAccess.getVirtualBusImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_15_0, grammarAccess.getVirtualBusImplementationAccess().getNoSubcomponentsNoneKeyword_8_1_1_0_0());
     }
 
 	    {
@@ -10491,7 +10510,7 @@ KEYWORD_95
 )
 	otherlv_16=KEYWORD_9
     {
-    	newLeafNode(otherlv_16, grammarAccess.getVirtualBusImplementationAccess().getSemicolonKeyword_7_1_1_1());
+    	newLeafNode(otherlv_16, grammarAccess.getVirtualBusImplementationAccess().getSemicolonKeyword_8_1_1_1());
     }
 )))?)
 ;
@@ -10571,10 +10590,10 @@ ruleDataImplementation returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDataImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_6_0_0()); 
+	        newCompositeNode(grammarAccess.getDataImplementationAccess().getOwnedExtensionImplementationExtensionParserRuleCall_6_0()); 
 	    }
 		lv_ownedExtension_6_0=ruleImplementationExtension		{
 	        if ($current==null) {
@@ -10589,17 +10608,17 @@ ruleDataImplementation returns [EObject current=null]
 	    }
 
 )
-)(((
+)?(((
 KEYWORD_1
 )=>
 	otherlv_7=KEYWORD_1
     {
-    	newLeafNode(otherlv_7, grammarAccess.getDataImplementationAccess().getLeftParenthesisKeyword_6_1_0());
+    	newLeafNode(otherlv_7, grammarAccess.getDataImplementationAccess().getLeftParenthesisKeyword_7_0());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDataImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_1_0()); 
+	        newCompositeNode(grammarAccess.getDataImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_7_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_8_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -10617,12 +10636,12 @@ KEYWORD_1
 )(
 	otherlv_9=KEYWORD_5
     {
-    	newLeafNode(otherlv_9, grammarAccess.getDataImplementationAccess().getCommaKeyword_6_1_2_0());
+    	newLeafNode(otherlv_9, grammarAccess.getDataImplementationAccess().getCommaKeyword_7_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDataImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_6_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getDataImplementationAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_7_2_1_0()); 
 	    }
 		lv_ownedPrototypeBinding_10_0=rulePrototypeBinding		{
 	        if ($current==null) {
@@ -10640,19 +10659,19 @@ KEYWORD_1
 ))*
 	otherlv_11=KEYWORD_2
     {
-    	newLeafNode(otherlv_11, grammarAccess.getDataImplementationAccess().getRightParenthesisKeyword_6_1_3());
+    	newLeafNode(otherlv_11, grammarAccess.getDataImplementationAccess().getRightParenthesisKeyword_7_3());
     }
-)?)?(((
+)?(((
 KEYWORD_95
 )=>
 	otherlv_12=KEYWORD_95
     {
-    	newLeafNode(otherlv_12, grammarAccess.getDataImplementationAccess().getSubcomponentsKeyword_7_0());
+    	newLeafNode(otherlv_12, grammarAccess.getDataImplementationAccess().getSubcomponentsKeyword_8_0());
     }
 )(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDataImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_7_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getDataImplementationAccess().getOwnedAbstractSubcomponentAbstractSubcomponentParserRuleCall_8_1_0_0_0()); 
 	    }
 		lv_ownedAbstractSubcomponent_13_0=ruleAbstractSubcomponent		{
 	        if ($current==null) {
@@ -10671,7 +10690,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDataImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_7_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getDataImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_8_1_0_1_0()); 
 	    }
 		lv_ownedDataSubcomponent_14_0=ruleDataSubcomponent		{
 	        if ($current==null) {
@@ -10690,7 +10709,7 @@ KEYWORD_95
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDataImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_7_1_0_2_0()); 
+	        newCompositeNode(grammarAccess.getDataImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_8_1_0_2_0()); 
 	    }
 		lv_ownedSubprogramSubcomponent_15_0=ruleSubprogramSubcomponent		{
 	        if ($current==null) {
@@ -10711,7 +10730,7 @@ KEYWORD_95
 		lv_noSubcomponents_16_0=
 	KEYWORD_37
     {
-        newLeafNode(lv_noSubcomponents_16_0, grammarAccess.getDataImplementationAccess().getNoSubcomponentsNoneKeyword_7_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_16_0, grammarAccess.getDataImplementationAccess().getNoSubcomponentsNoneKeyword_8_1_1_0_0());
     }
 
 	    {
@@ -10725,7 +10744,7 @@ KEYWORD_95
 )
 	otherlv_17=KEYWORD_9
     {
-    	newLeafNode(otherlv_17, grammarAccess.getDataImplementationAccess().getSemicolonKeyword_7_1_1_1());
+    	newLeafNode(otherlv_17, grammarAccess.getDataImplementationAccess().getSemicolonKeyword_8_1_1_1());
     }
 )))?)
 ;
@@ -16673,7 +16692,60 @@ ruleComponentImplementationReference returns [EObject current=null]
 	    }
 
 )
-))
+)(((
+KEYWORD_1
+)=>
+	otherlv_2=KEYWORD_1
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getComponentImplementationReferenceAccess().getLeftParenthesisKeyword_2_0());
+    }
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getComponentImplementationReferenceAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_2_1_0()); 
+	    }
+		lv_ownedPrototypeBinding_3_0=rulePrototypeBinding		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getComponentImplementationReferenceRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPrototypeBinding",
+        		lv_ownedPrototypeBinding_3_0, 
+        		"PrototypeBinding");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+	otherlv_4=KEYWORD_5
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getComponentImplementationReferenceAccess().getCommaKeyword_2_2_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getComponentImplementationReferenceAccess().getOwnedPrototypeBindingPrototypeBindingParserRuleCall_2_2_1_0()); 
+	    }
+		lv_ownedPrototypeBinding_5_0=rulePrototypeBinding		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getComponentImplementationReferenceRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPrototypeBinding",
+        		lv_ownedPrototypeBinding_5_0, 
+        		"PrototypeBinding");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*
+	otherlv_6=KEYWORD_2
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getComponentImplementationReferenceAccess().getRightParenthesisKeyword_2_3());
+    }
+)?)
 ;
 
 
