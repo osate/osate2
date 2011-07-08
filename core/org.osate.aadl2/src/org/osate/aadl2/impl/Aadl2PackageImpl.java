@@ -4631,7 +4631,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModalPath_InTransition() {
+	public EReference getModalPath_InModeOrTransition() {
 		return (EReference) getModalPath().getEStructuralFeatures().get(0);
 	}
 
