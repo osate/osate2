@@ -52,7 +52,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.ConnectionKind;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.FeatureGroup;
@@ -64,7 +63,6 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
-import org.osate.aadl2.operations.ModalElementOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 
@@ -107,12 +105,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 */
 	protected EList<ModeTransition> inTransitions;
 
-	/**
-	 * @author dionisio
-	 *
-	 * to save the connection kind.
-	 */
-	ConnectionKind connectionKind = null;
 
 	/**
 	 * The cached value of the '{@link #getDestination() <em>Destination</em>}' containment reference.
@@ -247,23 +239,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		return list;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public ConnectionKind getKind() {
-		return connectionKind;
-	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public void setKind(ConnectionKind newKind) {
-		connectionKind = newKind;
-	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -454,15 +430,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 */
 	public boolean isSetRefined() {
 		return refined != null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Mode> getAllInModes() {
-		return ModalElementOperations.getAllInModes(this);
 	}
 
 	/**
@@ -752,7 +719,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 			return;
 		}
 
-		/* Next see if the property is defined in connection's properties
+		/*
+		 * Next see if the property is defined in connection's properties
 		 * subclause (could merge this with the loop below, but I want to make
 		 * the steps more explicit.)
 		 */
@@ -770,7 +738,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 			refined = refined.getRefined();
 		}
 
-		/* if still not set, and the property is "inherit", try the containing
+		/*
+		 * if still not set, and the property is "inherit", try the containing
 		 * component implementation.
 		 */
 		if (!fromInstanceSlaveCall && pn.isInherit()) {
@@ -778,7 +747,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.Connection#getAllSrcContextComponent()
 	 */
 	public NamedElement getAllSrcContextComponent() {
@@ -790,7 +761,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		return scxt;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.Connection#getAllDstContextComponent()
 	 */
 	public NamedElement getAllDstContextComponent() {
@@ -800,6 +773,42 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 			return conn.getContainingComponentImpl();
 		}
 		return dcxt;
+	}
+
+	/**
+	 * returns the list of modes the modal element belongs to.
+	 * This may be kept with the modal element or an ancestor in the extends hierarchy.
+	 * The in modes of the closest ancestor returned.
+	 * @return EList of modes. This list may be empty of it is all modes.
+	 */
+	public EList<Mode> getAllInModes() {
+		ModalElement mm = this;
+		EList<Mode> inmodes = null;
+		// inmodes will be an empty list (all modes) if we do not find a non-empty list
+		while (mm != null) {
+			inmodes = mm.getInModes();
+			// we stop when we find the first occurrence of a non-empty inmodes list
+			if (inmodes != null && !inmodes.isEmpty())
+				return inmodes;
+			if (mm instanceof RefinableElement)
+				mm = (ModalElement) ((RefinableElement) mm).getRefinedElement();
+			else
+				mm = null;
+		}
+		return inmodes;
+	}
+
+	/*
+	 * getName needs to get it from the refined pointer if it was refined
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
+	 */
+	@Override
+	public String getName() {
+		if (name != null)
+			return name;
+		return getRefined().getName();
 	}
 
 } //ConnectionImpl

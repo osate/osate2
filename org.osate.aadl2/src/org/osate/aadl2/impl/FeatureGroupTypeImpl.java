@@ -440,7 +440,8 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	public FeatureGroupType basicGetExtended() {
 		// DONE: implement this method to return the 'Extended' reference
 		GroupExtension extension = getOwnedExtension();
-		return extension == null ? null : ((GroupExtensionImpl) extension).basicGetExtended();
+		return extension == null ? null : ((GroupExtensionImpl) extension).getExtended();
+// phf: replaced to resolve proxy		.basicGetExtended();
 	}
 
 	/**

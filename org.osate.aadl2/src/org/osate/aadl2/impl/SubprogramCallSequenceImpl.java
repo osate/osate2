@@ -48,8 +48,8 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.aadl2.operations.ModalElementOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -138,15 +138,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 		CallSpecification newOwnedCallSpecification = (CallSpecification) create(eClass);
 		getOwnedCallSpecifications().add(newOwnedCallSpecification);
 		return newOwnedCallSpecification;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Mode> getAllInModes() {
-		return ModalElementOperations.getAllInModes(this);
 	}
 
 	/**
@@ -269,4 +260,28 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
+
+	/**
+	 * returns the list of modes the modal element belongs to.
+	 * This may be kept with the modal element or an ancestor in the extends hierarchy.
+	 * The in modes of the closest ancestor returned.
+	 * @return EList of modes. This list may be empty of it is all modes.
+	 */
+	public EList<Mode> getAllInModes() {
+		ModalElement mm = this;
+		EList<Mode> inmodes = null;
+		// inmodes will be an empty list (all modes) if we do not find a non-empty list
+		while (mm != null) {
+			inmodes = mm.getInModes();
+			// we stop when we find the first occurrence of a non-empty inmodes list
+			if (inmodes != null && !inmodes.isEmpty())
+				return inmodes;
+			if (mm instanceof RefinableElement)
+				mm = (ModalElement) ((RefinableElement) mm).getRefinedElement();
+			else
+				mm = null;
+		}
+		return inmodes;
+	}
+
 } //SubprogramCallSequenceImpl

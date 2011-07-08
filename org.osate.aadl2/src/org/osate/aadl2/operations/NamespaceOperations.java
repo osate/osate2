@@ -54,6 +54,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.util.Aadl2Validator;
 
+
 /**
  * <!-- begin-user-doc -->
  * A static utility class that provides operations related to '<em><b>Namespace</b></em>' model objects.
@@ -129,8 +130,7 @@ public class NamespaceOperations extends NamedElementOperations {
 				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
 						Aadl2Validator.NAMESPACE__MEMBERS_DISTINGUISHABLE,
 						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-								.getString(
-										"_UI_GenericInvariant_diagnostic",
+								.getString("_UI_GenericInvariant_diagnostic",
 										new Object[] {
 												"members_distinguishable",
 												org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(namespace,

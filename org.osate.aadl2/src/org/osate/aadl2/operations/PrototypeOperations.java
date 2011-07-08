@@ -47,6 +47,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.util.Aadl2Validator;
 
+
 /**
  * <!-- begin-user-doc -->
  * A static utility class that provides operations related to '<em><b>Prototype</b></em>' model objects.
@@ -119,8 +120,7 @@ public class PrototypeOperations extends NamedElementOperations {
 				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
 						Aadl2Validator.PROTOTYPE__CATEGORY_CONSTRAINT,
 						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-								.getString(
-										"_UI_GenericInvariant_diagnostic",
+								.getString("_UI_GenericInvariant_diagnostic",
 										new Object[] {
 												"categoryConstraint",
 												org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(prototype,

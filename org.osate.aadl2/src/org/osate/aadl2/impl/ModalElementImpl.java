@@ -169,27 +169,5 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 		return super.eIsSet(featureID);
 	}
 
-	/**
-	 * Returns the list of modes the modal element belongs to.
-	 * This may be kept with the modal element or an ancestor in the extends hierarchy.
-	 * The in modes of the closest ancestor returned.
-	 * @return EList of modes. This list may be empty of it is all modes.
-	 */
-	//	public EList<Mode> getAllInModes() {
-	//		ModalElement mm = this;
-	//		EList<Mode> inmodes = null;
-	//		// inmodes will be an empty list (all modes) if we do not find a non-empty list
-	//		while (mm != null) {
-	//			inmodes = mm.getInModes();
-	//			// we stop when we find the first occurrence of a non-empty inmodes list
-	//			if (inmodes != null && !inmodes.isEmpty())
-	//				return inmodes;
-	//			if (mm instanceof RefinableElement)
-	//				mm = (ModalElement) ((RefinableElement) mm).getRefinedElement();
-	//			else
-	//				mm = null;
-	//		}
-	//		return inmodes;
-	//	}
 
 } //ModalElementImpl

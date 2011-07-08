@@ -289,8 +289,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.osate.aadl2.UnitLiteral#getAbsoluteFactor(edu.cmu.sei.aadl
+	 * @see org.osate.aadl2.UnitLiteral#getAbsoluteFactor(edu.cmu.sei.aadl
 	 * .aadl2.UnitLiteral)
 	 */
 	public final double getAbsoluteFactor(UnitLiteral target) {

@@ -204,7 +204,9 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		setValue(Double.parseDouble(s));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
 	public NumberValue cloneAndInvert() {
@@ -230,7 +232,9 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		return newVal;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
 	public final NumberValue cloneNumber() {
@@ -245,7 +249,9 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		return newVal;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.NumberValue#getScaledValue()
 	 */
 	public final double getScaledValue() {
@@ -255,8 +261,11 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		return value * factor;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.osate.aadl2.NumberValue#getScaledValue(org.osate.aadl2.UnitLiteral)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osate.aadl2.NumberValue#getScaledValue(org.osate.aadl2.UnitLiteral)
 	 */
 	public double getScaledValue(UnitLiteral target) {
 		final double value = getValue();
@@ -265,12 +274,29 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		return value * factor;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
-	public boolean equals(Object other) {
-		return (other instanceof RealLiteral) && (((RealLiteral) other).getValue() == value);
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		long temp;
+		temp = Double.doubleToLongBits(value);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RealLiteralImpl other = (RealLiteralImpl) obj;
+		if (Double.doubleToLongBits(value) != Double
+				.doubleToLongBits(other.value))
+			return false;
+		return true;
 	}
 
 } //RealLiteralImpl

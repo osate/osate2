@@ -36,6 +36,7 @@
 package org.osate.aadl2;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
  * <!-- begin-user-doc -->
@@ -71,12 +72,11 @@ public interface ModalElement extends NamedElement {
 	EList<Mode> getInModes();
 
 	/**
-	 * Returns the list of modes the modal element belongs to.
+	 * returns the list of modes the modal element belongs to.
 	 * This may be kept with the modal element or an ancestor in the extends hierarchy.
 	 * The in modes of the closest ancestor returned.
-	 * @model kind="operation" ordered="false"
-	 * @generated
 	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	EList<Mode> getAllInModes();
 
 } // ModalElement

@@ -176,8 +176,11 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 		return super.isSetOwnedMembers() || isSetOwnedLiterals();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.osate.aadl2.impl.EnumerationTypeImpl#findLiteral(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osate.aadl2.impl.EnumerationTypeImpl#findLiteral(java.lang.String)
 	 */
 	@Override
 	public UnitLiteral findLiteral(String literalName) {

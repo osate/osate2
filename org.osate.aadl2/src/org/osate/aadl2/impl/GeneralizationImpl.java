@@ -184,13 +184,11 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public Classifier basicGetSpecific() {
-		// TODO: implement this method to return the 'Specific' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		// DONE: implement this method to return the 'Specific' reference
+		return (Classifier)getOwner();
 	}
 
 	/**

@@ -102,7 +102,9 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 		return ((AadlPackage) getOwner()).getPrivateSection();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getNamespace()
 	 */
 	@Override

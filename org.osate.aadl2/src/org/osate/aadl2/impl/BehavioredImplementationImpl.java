@@ -265,7 +265,9 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * @generated
 	 */
 	public EList<CallSpecification> callSpecifications() {
-		return BehavioredImplementationOperations.callSpecifications(this);
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**

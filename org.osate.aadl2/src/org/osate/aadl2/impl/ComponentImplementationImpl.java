@@ -535,7 +535,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public ComponentImplementation basicGetExtended() {
 		// DONE: implement this method to return the 'Extended' reference
 		ImplementationExtension extension = getOwnedExtension();
-		return extension == null ? null : ((ImplementationExtensionImpl) extension).basicGetExtended();
+		return extension == null ? null : ((ImplementationExtensionImpl) extension).getExtended();
+		// phf: replaced to resolve proxy basicGetExtended();
 	}
 
 	/**
@@ -631,7 +632,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'ComponentType' reference
 		Realization realization = getOwnedRealization();
-		return realization == null ? null : ((RealizationImpl) realization).basicGetImplemented();
+		return realization == null ? null : ((RealizationImpl) realization).getImplemented();
+		// phf: replaced to resolve proxy which is of type abtracttype	.basicGetImplemented();
 	}
 
 	/**
@@ -1276,6 +1278,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	public String getTypeName() {
+		ComponentType ct = getType();
+		if (ct != null) return ct.getName();
 		String n = getName();
 		int idx = n.indexOf('.');
 		if (idx < 0)
@@ -1519,8 +1523,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.osate.aadl2.ComponentClassifier#lookupPrototypeBinding(edu
+	 * @see org.osate.aadl2.ComponentClassifier#lookupPrototypeBinding(edu
 	 * .cmu.sei.aadl.aadl2.Prototype)
 	 */
 	public PrototypeBinding lookupPrototypeBinding(Prototype proto) {

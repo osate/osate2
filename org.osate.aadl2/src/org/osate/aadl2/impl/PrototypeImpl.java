@@ -38,15 +38,22 @@ package org.osate.aadl2.impl;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.RefinableElement;
-import org.osate.aadl2.operations.PrototypeOperations;
+import org.osate.aadl2.util.Aadl2Validator;
 
 /**
  * <!-- begin-user-doc -->
@@ -141,12 +148,50 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	}
 
 	/**
+	 * The cached OCL expression body for the '{@link #categoryConstraint(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Category Constraint</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #categoryConstraint(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP = "self.constrainingCategory.oclIsUndefined() implies self.constrainingClassifier = self.constrainingCategory";
+	/**
+	 * The cached OCL invariant for the '{@link #categoryConstraint(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Category Constraint</em>}' invariant operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #categoryConstraint(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated
+	 * @ordered
+	 */
+	protected static Constraint CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public boolean categoryConstraint(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return PrototypeOperations.categoryConstraint(this, diagnostics, context);
+		if (CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
+			OCL.Helper helper = EOCL_ENV.createOCLHelper();
+			helper.setContext(Aadl2Package.eINSTANCE.getPrototype());
+			try {
+				CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
+						.createInvariant(CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
+			} catch (ParserException pe) {
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+			}
+		}
+		if (!EOCL_ENV.createQuery(CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
+			if (diagnostics != null) {
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.PROTOTYPE__CATEGORY_CONSTRAINT, EcorePlugin.INSTANCE.getString(
+								"_UI_GenericInvariant_diagnostic", new Object[] { "categoryConstraint",
+										EObjectValidator.getObjectLabel(this, context) }), new Object[] { this }));
+			}
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -236,6 +281,19 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 */
 	public boolean isSetRefinedElement() {
 		return false;
+	}
+
+	/*
+	 * getName needs to get it from the refined pointer if it was refined
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
+	 */
+	@Override
+	public String getName() {
+		if (name != null)
+			return name;
+		return getRefined().getName();
 	}
 
 } //PrototypeImpl
