@@ -96,7 +96,7 @@ public interface Operation extends PropertyExpression {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Property Expression</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getOperation_OwnedPropertyExpression()
-	 * @model containment="true" required="true" upper="2" ordered="false"
+	 * @model containment="true" required="true" ordered="false"
 	 * @generated
 	 */
 	EList<PropertyExpression> getOwnedPropertyExpressions();

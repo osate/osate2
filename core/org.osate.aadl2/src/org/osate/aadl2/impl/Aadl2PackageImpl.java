@@ -8235,17 +8235,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getNumberValue_ValueString() {
-		return (EAttribute) getNumberValue().getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getNumberValue_Unit() {
-		return (EReference) getNumberValue().getEStructuralFeatures().get(1);
+		return (EReference) getNumberValue().getEStructuralFeatures().get(0);
 	}
 
 	/**

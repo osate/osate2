@@ -31578,22 +31578,13 @@ public interface Aadl2Package extends EPackage {
 	int NUMBER_VALUE__OWNED_COMMENT = PROPERTY_VALUE__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Value String</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMBER_VALUE__VALUE_STRING = PROPERTY_VALUE_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Unit</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_VALUE__UNIT = PROPERTY_VALUE_FEATURE_COUNT + 1;
+	int NUMBER_VALUE__UNIT = PROPERTY_VALUE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Number Value</em>' class.
@@ -31602,7 +31593,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_VALUE_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 2;
+	int NUMBER_VALUE_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.StringLiteralImpl <em>String Literal</em>}' class.
@@ -31881,15 +31872,6 @@ public interface Aadl2Package extends EPackage {
 	int INTEGER_LITERAL__OWNED_COMMENT = NUMBER_VALUE__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Value String</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INTEGER_LITERAL__VALUE_STRING = NUMBER_VALUE__VALUE_STRING;
-
-	/**
 	 * The feature id for the '<em><b>Unit</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -31952,15 +31934,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int REAL_LITERAL__OWNED_COMMENT = NUMBER_VALUE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Value String</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REAL_LITERAL__VALUE_STRING = NUMBER_VALUE__VALUE_STRING;
 
 	/**
 	 * The feature id for the '<em><b>Unit</b></em>' reference.
@@ -40032,17 +40005,6 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getNumberValue();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.NumberValue#getValueString <em>Value String</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value String</em>'.
-	 * @see org.osate.aadl2.NumberValue#getValueString()
-	 * @see #getNumberValue()
-	 * @generated
-	 */
-	EAttribute getNumberValue_ValueString();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.NumberValue#getUnit <em>Unit</em>}'.
