@@ -37500,12 +37500,12 @@ protected class Prototype_SemicolonKeyword_2 extends KeywordToken  {
 /************ begin Rule ComponentPrototype ****************
  *
  * ComponentPrototype returns aadl2::ComponentPrototype:
- * 	(name=ID ":" | refined=[aadl2::ComponentPrototype] ":" "refined" "to") category=ComponentCategory
+ * 	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") category=ComponentCategory
  * 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::ComponentPrototype] ":" "refined" "to") category=ComponentCategory
+// (name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") category=ComponentCategory
 // constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
 protected class ComponentPrototype_Group extends GroupToken {
 	
@@ -37537,7 +37537,7 @@ protected class ComponentPrototype_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::ComponentPrototype] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
 protected class ComponentPrototype_Alternatives_0 extends AlternativesToken {
 
 	public ComponentPrototype_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -37638,7 +37638,7 @@ protected class ComponentPrototype_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::ComponentPrototype] ":" "refined" "to"
+// refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
 protected class ComponentPrototype_Group_0_1 extends GroupToken {
 	
 	public ComponentPrototype_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -37660,7 +37660,7 @@ protected class ComponentPrototype_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::ComponentPrototype]
+// refined=[aadl2::ComponentPrototype|REFINEDNAME]
 protected class ComponentPrototype_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public ComponentPrototype_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -37922,12 +37922,12 @@ protected class ComponentPrototype_RightSquareBracketKeyword_3_1 extends Keyword
 /************ begin Rule FeatureGroupPrototype ****************
  *
  * FeatureGroupPrototype returns aadl2::FeatureGroupPrototype:
- * 	(name=ID ":" | refined=[aadl2::FeatureGroupPrototype] ":" "refined" "to") "feature" "group"
+ * 	(name=ID ":" | refined=[aadl2::FeatureGroupPrototype|REFINEDNAME] ":" "refined" "to") "feature" "group"
  * 	constrainingFeatureGroupType=[aadl2::FeatureGroupType|QCREF]?;
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::FeatureGroupPrototype] ":" "refined" "to") "feature" "group"
+// (name=ID ":" | refined=[aadl2::FeatureGroupPrototype|REFINEDNAME] ":" "refined" "to") "feature" "group"
 // constrainingFeatureGroupType=[aadl2::FeatureGroupType|QCREF]?
 protected class FeatureGroupPrototype_Group extends GroupToken {
 	
@@ -37958,7 +37958,7 @@ protected class FeatureGroupPrototype_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::FeatureGroupPrototype] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::FeatureGroupPrototype|REFINEDNAME] ":" "refined" "to"
 protected class FeatureGroupPrototype_Alternatives_0 extends AlternativesToken {
 
 	public FeatureGroupPrototype_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -38059,7 +38059,7 @@ protected class FeatureGroupPrototype_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::FeatureGroupPrototype] ":" "refined" "to"
+// refined=[aadl2::FeatureGroupPrototype|REFINEDNAME] ":" "refined" "to"
 protected class FeatureGroupPrototype_Group_0_1 extends GroupToken {
 	
 	public FeatureGroupPrototype_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -38081,7 +38081,7 @@ protected class FeatureGroupPrototype_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::FeatureGroupPrototype]
+// refined=[aadl2::FeatureGroupPrototype|REFINEDNAME]
 protected class FeatureGroupPrototype_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public FeatureGroupPrototype_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -38273,12 +38273,12 @@ protected class FeatureGroupPrototype_ConstrainingFeatureGroupTypeAssignment_3 e
 /************ begin Rule FeaturePrototype ****************
  *
  * FeaturePrototype returns aadl2::FeaturePrototype:
- * 	(name=ID ":" | refined=[aadl2::FeaturePrototype] ":" "refined" "to") direction=InOutDirection? // only in or out not inout
+ * 	(name=ID ":" | refined=[aadl2::FeaturePrototype|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? // only in or out not inout
  * 	"feature" constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?;
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::FeaturePrototype] ":" "refined" "to") direction=InOutDirection? // only in or out not inout
+// (name=ID ":" | refined=[aadl2::FeaturePrototype|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? // only in or out not inout
 // "feature" constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 protected class FeaturePrototype_Group extends GroupToken {
 	
@@ -38309,7 +38309,7 @@ protected class FeaturePrototype_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::FeaturePrototype] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::FeaturePrototype|REFINEDNAME] ":" "refined" "to"
 protected class FeaturePrototype_Alternatives_0 extends AlternativesToken {
 
 	public FeaturePrototype_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -38410,7 +38410,7 @@ protected class FeaturePrototype_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::FeaturePrototype] ":" "refined" "to"
+// refined=[aadl2::FeaturePrototype|REFINEDNAME] ":" "refined" "to"
 protected class FeaturePrototype_Group_0_1 extends GroupToken {
 	
 	public FeaturePrototype_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -38432,7 +38432,7 @@ protected class FeaturePrototype_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::FeaturePrototype]
+// refined=[aadl2::FeaturePrototype|REFINEDNAME]
 protected class FeaturePrototype_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public FeaturePrototype_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -40357,7 +40357,7 @@ protected class ComponentReference_RightParenthesisKeyword_1_3 extends KeywordTo
  * / *
  *  * Subcomponents
  *  * / AbstractSubcomponent returns aadl2::AbstractSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::SystemSubcomponent] ":" "refined" "to") "abstract" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+ * 	(name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "abstract"
  * 	(abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
@@ -40367,7 +40367,7 @@ protected class ComponentReference_RightParenthesisKeyword_1_3 extends KeywordTo
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::SystemSubcomponent] ":" "refined" "to") "abstract" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+// (name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "abstract"
 // (abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
@@ -40401,7 +40401,7 @@ protected class AbstractSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::SystemSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class AbstractSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public AbstractSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -40502,7 +40502,7 @@ protected class AbstractSubcomponent_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::SystemSubcomponent] ":" "refined" "to"
+// refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class AbstractSubcomponent_Group_0_1 extends GroupToken {
 	
 	public AbstractSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -40524,7 +40524,7 @@ protected class AbstractSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::SystemSubcomponent]
+// refined=[aadl2::SystemSubcomponent|REFINEDNAME]
 protected class AbstractSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public AbstractSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -41565,7 +41565,7 @@ protected class AbstractSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 /************ begin Rule SystemSubcomponent ****************
  *
  * SystemSubcomponent returns aadl2::SystemSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::SystemSubcomponent] ":" "refined" "to") "system"
+ * 	(name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "system"
  * 	(systemSubcomponentType=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
@@ -41575,7 +41575,7 @@ protected class AbstractSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::SystemSubcomponent] ":" "refined" "to") "system"
+// (name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "system"
 // (systemSubcomponentType=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
@@ -41609,7 +41609,7 @@ protected class SystemSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::SystemSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class SystemSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public SystemSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -41710,7 +41710,7 @@ protected class SystemSubcomponent_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::SystemSubcomponent] ":" "refined" "to"
+// refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class SystemSubcomponent_Group_0_1 extends GroupToken {
 	
 	public SystemSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -41732,7 +41732,7 @@ protected class SystemSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::SystemSubcomponent]
+// refined=[aadl2::SystemSubcomponent|REFINEDNAME]
 protected class SystemSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public SystemSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -42773,7 +42773,7 @@ protected class SystemSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 /************ begin Rule ProcessSubcomponent ****************
  *
  * ProcessSubcomponent returns aadl2::ProcessSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::ProcessSubcomponent] ":" "refined" "to") "process" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+ * 	(name=ID ":" | refined=[aadl2::ProcessSubcomponent|REFINEDNAME] ":" "refined" "to") "process"
  * 	(processSubcomponentType=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
@@ -42783,7 +42783,7 @@ protected class SystemSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::ProcessSubcomponent] ":" "refined" "to") "process" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+// (name=ID ":" | refined=[aadl2::ProcessSubcomponent|REFINEDNAME] ":" "refined" "to") "process"
 // (processSubcomponentType=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
@@ -42817,7 +42817,7 @@ protected class ProcessSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::ProcessSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::ProcessSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class ProcessSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public ProcessSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -42918,7 +42918,7 @@ protected class ProcessSubcomponent_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::ProcessSubcomponent] ":" "refined" "to"
+// refined=[aadl2::ProcessSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class ProcessSubcomponent_Group_0_1 extends GroupToken {
 	
 	public ProcessSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -42940,7 +42940,7 @@ protected class ProcessSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::ProcessSubcomponent]
+// refined=[aadl2::ProcessSubcomponent|REFINEDNAME]
 protected class ProcessSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public ProcessSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -43981,7 +43981,7 @@ protected class ProcessSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 /************ begin Rule ThreadGroupSubcomponent ****************
  *
  * ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent] ":" "refined" "to") "thread" "group" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+ * 	(name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "thread" "group"
  * 	(threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
@@ -43991,7 +43991,7 @@ protected class ProcessSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent] ":" "refined" "to") "thread" "group" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+// (name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "thread" "group"
 // (threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
@@ -44025,7 +44025,7 @@ protected class ThreadGroupSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class ThreadGroupSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public ThreadGroupSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -44126,7 +44126,7 @@ protected class ThreadGroupSubcomponent_ColonKeyword_0_0_1 extends KeywordToken 
 }
 
 
-// refined=[aadl2::ThreadGroupSubcomponent] ":" "refined" "to"
+// refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class ThreadGroupSubcomponent_Group_0_1 extends GroupToken {
 	
 	public ThreadGroupSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -44148,7 +44148,7 @@ protected class ThreadGroupSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::ThreadGroupSubcomponent]
+// refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME]
 protected class ThreadGroupSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public ThreadGroupSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -45211,7 +45211,7 @@ protected class ThreadGroupSubcomponent_SemicolonKeyword_7 extends KeywordToken 
 /************ begin Rule ThreadSubcomponent ****************
  *
  * ThreadSubcomponent returns aadl2::ThreadSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::ThreadSubcomponent] ":" "refined" "to") "thread" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+ * 	(name=ID ":" | refined=[aadl2::ThreadSubcomponent|REFINEDNAME] ":" "refined" "to") "thread"
  * 	(threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
@@ -45221,7 +45221,7 @@ protected class ThreadGroupSubcomponent_SemicolonKeyword_7 extends KeywordToken 
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::ThreadSubcomponent] ":" "refined" "to") "thread" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+// (name=ID ":" | refined=[aadl2::ThreadSubcomponent|REFINEDNAME] ":" "refined" "to") "thread"
 // (threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
@@ -45255,7 +45255,7 @@ protected class ThreadSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::ThreadSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::ThreadSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class ThreadSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public ThreadSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -45356,7 +45356,7 @@ protected class ThreadSubcomponent_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::ThreadSubcomponent] ":" "refined" "to"
+// refined=[aadl2::ThreadSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class ThreadSubcomponent_Group_0_1 extends GroupToken {
 	
 	public ThreadSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -45378,7 +45378,7 @@ protected class ThreadSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::ThreadSubcomponent]
+// refined=[aadl2::ThreadSubcomponent|REFINEDNAME]
 protected class ThreadSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public ThreadSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -46419,7 +46419,7 @@ protected class ThreadSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 /************ begin Rule SubprogramSubcomponent ****************
  *
  * SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::SubprogramSubcomponent] ":" "refined" "to") "subprogram" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+ * 	(name=ID ":" | refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram"
  * 	(subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
@@ -46429,7 +46429,7 @@ protected class ThreadSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::SubprogramSubcomponent] ":" "refined" "to") "subprogram" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+// (name=ID ":" | refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram"
 // (subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
@@ -46463,7 +46463,7 @@ protected class SubprogramSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::SubprogramSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class SubprogramSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public SubprogramSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -46564,7 +46564,7 @@ protected class SubprogramSubcomponent_ColonKeyword_0_0_1 extends KeywordToken  
 }
 
 
-// refined=[aadl2::SubprogramSubcomponent] ":" "refined" "to"
+// refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class SubprogramSubcomponent_Group_0_1 extends GroupToken {
 	
 	public SubprogramSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -46586,7 +46586,7 @@ protected class SubprogramSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::SubprogramSubcomponent]
+// refined=[aadl2::SubprogramSubcomponent|REFINEDNAME]
 protected class SubprogramSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public SubprogramSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -47627,7 +47627,7 @@ protected class SubprogramSubcomponent_SemicolonKeyword_6 extends KeywordToken  
 /************ begin Rule SubprogramGroupSubcomponent ****************
  *
  * SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent] ":" "refined" "to") "subprogram" "group" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+ * 	(name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram" "group"
  * 	(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
  * 	("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
@@ -47637,7 +47637,7 @@ protected class SubprogramSubcomponent_SemicolonKeyword_6 extends KeywordToken  
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent] ":" "refined" "to") "subprogram" "group" //	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
+// (name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram" "group"
 // (subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
 // ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
@@ -47671,7 +47671,7 @@ protected class SubprogramGroupSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class SubprogramGroupSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public SubprogramGroupSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -47772,7 +47772,7 @@ protected class SubprogramGroupSubcomponent_ColonKeyword_0_0_1 extends KeywordTo
 }
 
 
-// refined=[aadl2::SubprogramGroupSubcomponent] ":" "refined" "to"
+// refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class SubprogramGroupSubcomponent_Group_0_1 extends GroupToken {
 	
 	public SubprogramGroupSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -47794,7 +47794,7 @@ protected class SubprogramGroupSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::SubprogramGroupSubcomponent]
+// refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME]
 protected class SubprogramGroupSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public SubprogramGroupSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -48857,7 +48857,7 @@ protected class SubprogramGroupSubcomponent_SemicolonKeyword_7 extends KeywordTo
 /************ begin Rule ProcessorSubcomponent ****************
  *
  * ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::ProcessorSubcomponent] ":" "refined" "to") "processor"
+ * 	(name=ID ":" | refined=[aadl2::ProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "processor"
  * 	(processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
@@ -48867,7 +48867,7 @@ protected class SubprogramGroupSubcomponent_SemicolonKeyword_7 extends KeywordTo
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::ProcessorSubcomponent] ":" "refined" "to") "processor"
+// (name=ID ":" | refined=[aadl2::ProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "processor"
 // (processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
@@ -48901,7 +48901,7 @@ protected class ProcessorSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::ProcessorSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::ProcessorSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class ProcessorSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public ProcessorSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -49002,7 +49002,7 @@ protected class ProcessorSubcomponent_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::ProcessorSubcomponent] ":" "refined" "to"
+// refined=[aadl2::ProcessorSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class ProcessorSubcomponent_Group_0_1 extends GroupToken {
 	
 	public ProcessorSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -49024,7 +49024,7 @@ protected class ProcessorSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::ProcessorSubcomponent]
+// refined=[aadl2::ProcessorSubcomponent|REFINEDNAME]
 protected class ProcessorSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public ProcessorSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -50065,7 +50065,7 @@ protected class ProcessorSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 /************ begin Rule VirtualProcessorSubcomponent ****************
  *
  * VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent] ":" "refined" "to") "virtual" "processor"
+ * 	(name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "virtual" "processor"
  * 	(virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF] ("("
  * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
  * 	(arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
@@ -50075,7 +50075,7 @@ protected class ProcessorSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent] ":" "refined" "to") "virtual" "processor"
+// (name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "virtual" "processor"
 // (virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF] ("("
 // ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 // (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
@@ -50109,7 +50109,7 @@ protected class VirtualProcessorSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class VirtualProcessorSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public VirtualProcessorSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -50210,7 +50210,7 @@ protected class VirtualProcessorSubcomponent_ColonKeyword_0_0_1 extends KeywordT
 }
 
 
-// refined=[aadl2::VirtualProcessorSubcomponent] ":" "refined" "to"
+// refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class VirtualProcessorSubcomponent_Group_0_1 extends GroupToken {
 	
 	public VirtualProcessorSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -50232,7 +50232,7 @@ protected class VirtualProcessorSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::VirtualProcessorSubcomponent]
+// refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME]
 protected class VirtualProcessorSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public VirtualProcessorSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -51295,7 +51295,7 @@ protected class VirtualProcessorSubcomponent_SemicolonKeyword_7 extends KeywordT
 /************ begin Rule DeviceSubcomponent ****************
  *
  * DeviceSubcomponent returns aadl2::DeviceSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::DeviceSubcomponent] ":" "refined" "to") "device"
+ * 	(name=ID ":" | refined=[aadl2::DeviceSubcomponent|REFINEDNAME] ":" "refined" "to") "device"
  * 	(deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
@@ -51305,7 +51305,7 @@ protected class VirtualProcessorSubcomponent_SemicolonKeyword_7 extends KeywordT
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::DeviceSubcomponent] ":" "refined" "to") "device"
+// (name=ID ":" | refined=[aadl2::DeviceSubcomponent|REFINEDNAME] ":" "refined" "to") "device"
 // (deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
@@ -51339,7 +51339,7 @@ protected class DeviceSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::DeviceSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::DeviceSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class DeviceSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public DeviceSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -51440,7 +51440,7 @@ protected class DeviceSubcomponent_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::DeviceSubcomponent] ":" "refined" "to"
+// refined=[aadl2::DeviceSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class DeviceSubcomponent_Group_0_1 extends GroupToken {
 	
 	public DeviceSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -51462,7 +51462,7 @@ protected class DeviceSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::DeviceSubcomponent]
+// refined=[aadl2::DeviceSubcomponent|REFINEDNAME]
 protected class DeviceSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public DeviceSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -52503,7 +52503,7 @@ protected class DeviceSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 /************ begin Rule MemorySubcomponent ****************
  *
  * MemorySubcomponent returns aadl2::MemorySubcomponent:
- * 	(name=ID ":" | refined=[aadl2::MemorySubcomponent] ":" "refined" "to") "memory"
+ * 	(name=ID ":" | refined=[aadl2::MemorySubcomponent|REFINEDNAME] ":" "refined" "to") "memory"
  * 	(memorySubcomponentType=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
@@ -52513,7 +52513,7 @@ protected class DeviceSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::MemorySubcomponent] ":" "refined" "to") "memory"
+// (name=ID ":" | refined=[aadl2::MemorySubcomponent|REFINEDNAME] ":" "refined" "to") "memory"
 // (memorySubcomponentType=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
@@ -52547,7 +52547,7 @@ protected class MemorySubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::MemorySubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::MemorySubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class MemorySubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public MemorySubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -52648,7 +52648,7 @@ protected class MemorySubcomponent_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::MemorySubcomponent] ":" "refined" "to"
+// refined=[aadl2::MemorySubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class MemorySubcomponent_Group_0_1 extends GroupToken {
 	
 	public MemorySubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -52670,7 +52670,7 @@ protected class MemorySubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::MemorySubcomponent]
+// refined=[aadl2::MemorySubcomponent|REFINEDNAME]
 protected class MemorySubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public MemorySubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -53711,7 +53711,7 @@ protected class MemorySubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 /************ begin Rule BusSubcomponent ****************
  *
  * BusSubcomponent returns aadl2::BusSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::BusSubcomponent] ":" "refined" "to") "bus"
+ * 	(name=ID ":" | refined=[aadl2::BusSubcomponent|REFINEDNAME] ":" "refined" "to") "bus"
  * 	(busSubcomponentType=[aadl2::BusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
@@ -53721,7 +53721,7 @@ protected class MemorySubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::BusSubcomponent] ":" "refined" "to") "bus"
+// (name=ID ":" | refined=[aadl2::BusSubcomponent|REFINEDNAME] ":" "refined" "to") "bus"
 // (busSubcomponentType=[aadl2::BusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
@@ -53755,7 +53755,7 @@ protected class BusSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::BusSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::BusSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class BusSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public BusSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -53856,7 +53856,7 @@ protected class BusSubcomponent_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::BusSubcomponent] ":" "refined" "to"
+// refined=[aadl2::BusSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class BusSubcomponent_Group_0_1 extends GroupToken {
 	
 	public BusSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -53878,7 +53878,7 @@ protected class BusSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::BusSubcomponent]
+// refined=[aadl2::BusSubcomponent|REFINEDNAME]
 protected class BusSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public BusSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -54919,7 +54919,7 @@ protected class BusSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 /************ begin Rule VirtualBusSubcomponent ****************
  *
  * VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::VirtualBusSubcomponent] ":" "refined" "to") "virtual" "bus"
+ * 	(name=ID ":" | refined=[aadl2::VirtualBusSubcomponent|REFINEDNAME] ":" "refined" "to") "virtual" "bus"
  * 	(virtualBusSubcomponentType=[aadl2::VirtualBusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
  * 	implementationReference+=ComponentImplementationReference (","
@@ -54929,7 +54929,7 @@ protected class BusSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::VirtualBusSubcomponent] ":" "refined" "to") "virtual" "bus"
+// (name=ID ":" | refined=[aadl2::VirtualBusSubcomponent|REFINEDNAME] ":" "refined" "to") "virtual" "bus"
 // (virtualBusSubcomponentType=[aadl2::VirtualBusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
 // implementationReference+=ComponentImplementationReference (","
@@ -54963,7 +54963,7 @@ protected class VirtualBusSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::VirtualBusSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::VirtualBusSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class VirtualBusSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public VirtualBusSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -55064,7 +55064,7 @@ protected class VirtualBusSubcomponent_ColonKeyword_0_0_1 extends KeywordToken  
 }
 
 
-// refined=[aadl2::VirtualBusSubcomponent] ":" "refined" "to"
+// refined=[aadl2::VirtualBusSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class VirtualBusSubcomponent_Group_0_1 extends GroupToken {
 	
 	public VirtualBusSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -55086,7 +55086,7 @@ protected class VirtualBusSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::VirtualBusSubcomponent]
+// refined=[aadl2::VirtualBusSubcomponent|REFINEDNAME]
 protected class VirtualBusSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public VirtualBusSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -56149,14 +56149,14 @@ protected class VirtualBusSubcomponent_SemicolonKeyword_7 extends KeywordToken  
 /************ begin Rule DataSubcomponent ****************
  *
  * DataSubcomponent returns aadl2::DataSubcomponent:
- * 	(name=ID ":" | refined=[aadl2::DataSubcomponent] ":" "refined" "to") "data"
+ * 	(name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
  * 	(dataSubcomponentType=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
  * 	"modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::DataSubcomponent] ":" "refined" "to") "data"
+// (name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
 // (dataSubcomponentType=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
 // "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -56188,7 +56188,7 @@ protected class DataSubcomponent_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::DataSubcomponent] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class DataSubcomponent_Alternatives_0 extends AlternativesToken {
 
 	public DataSubcomponent_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -56289,7 +56289,7 @@ protected class DataSubcomponent_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::DataSubcomponent] ":" "refined" "to"
+// refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to"
 protected class DataSubcomponent_Group_0_1 extends GroupToken {
 	
 	public DataSubcomponent_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -56311,7 +56311,7 @@ protected class DataSubcomponent_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::DataSubcomponent]
+// refined=[aadl2::DataSubcomponent|REFINEDNAME]
 protected class DataSubcomponent_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public DataSubcomponent_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -58337,7 +58337,7 @@ protected class DataPort_RefinedAssignment_1_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getDataPortAccess().getRefinedDataPortCrossReference_1_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getDataPortAccess().getRefinedDataPortCrossReference_1_1_0_0(), (EObject)value , null)) {
+			if(param.isInstanceOf(grammarAccess.getDataPortAccess().getRefinedDataPortCrossReference_1_1_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getDataPortAccess().getRefinedDataPortCrossReference_1_1_0_0(); 
 				return obj;
@@ -58939,7 +58939,7 @@ protected class EventDataPort_RefinedAssignment_1_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getEventDataPortAccess().getRefinedEventDataPortCrossReference_1_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getEventDataPortAccess().getRefinedEventDataPortCrossReference_1_1_0_0(), (EObject)value , null)) {
+			if(param.isInstanceOf(grammarAccess.getEventDataPortAccess().getRefinedEventDataPortCrossReference_1_1_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getEventDataPortAccess().getRefinedEventDataPortCrossReference_1_1_0_0(); 
 				return obj;
@@ -59563,7 +59563,7 @@ protected class EventPort_RefinedAssignment_1_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getEventPortAccess().getRefinedEventPortCrossReference_1_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getEventPortAccess().getRefinedEventPortCrossReference_1_1_0_0(), (EObject)value , null)) {
+			if(param.isInstanceOf(grammarAccess.getEventPortAccess().getRefinedEventPortCrossReference_1_1_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getEventPortAccess().getRefinedEventPortCrossReference_1_1_0_0(); 
 				return obj;
@@ -59913,16 +59913,16 @@ protected class EventPort_SemicolonKeyword_7 extends KeywordToken  {
  *
  * FeatureGroup returns aadl2::FeatureGroup:
  * 	(name=ID ":" // need to set inout if no direction
- * 	| refined=[aadl2::FeatureGroup] ":" "refined" "to") direction=InOutDirection "feature" "group" (inverse?="inverse"
- * 	"of")? featureGroupType= // or prototype
+ * 	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
+ * 	(inverse?="inverse" "of")? featureGroupType= // or prototype
  * 	[aadl2::FeatureGroupType|QCREF] arraySpecification=SingleArraySpecification? ("{"
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // (name=ID ":" // need to set inout if no direction
-// | refined=[aadl2::FeatureGroup] ":" "refined" "to") direction=InOutDirection "feature" "group" (inverse?="inverse"
-// "of")? featureGroupType= // or prototype
+// | refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
+// (inverse?="inverse" "of")? featureGroupType= // or prototype
 // [aadl2::FeatureGroupType|QCREF] arraySpecification=SingleArraySpecification? ("{"
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class FeatureGroup_Group extends GroupToken {
@@ -59954,7 +59954,7 @@ protected class FeatureGroup_Group extends GroupToken {
 }
 
 // name=ID ":" // need to set inout if no direction
-// | refined=[aadl2::FeatureGroup] ":" "refined" "to"
+// | refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to"
 protected class FeatureGroup_Alternatives_0 extends AlternativesToken {
 
 	public FeatureGroup_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -60055,7 +60055,7 @@ protected class FeatureGroup_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::FeatureGroup] ":" "refined" "to"
+// refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to"
 protected class FeatureGroup_Group_0_1 extends GroupToken {
 	
 	public FeatureGroup_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -60077,7 +60077,7 @@ protected class FeatureGroup_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::FeatureGroup]
+// refined=[aadl2::FeatureGroup|REFINEDNAME]
 protected class FeatureGroup_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public FeatureGroup_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -60102,7 +60102,7 @@ protected class FeatureGroup_RefinedAssignment_0_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFeatureGroupAccess().getRefinedFeatureGroupCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getFeatureGroupAccess().getRefinedFeatureGroupCrossReference_0_1_0_0(), (EObject)value , null)) {
+			if(param.isInstanceOf(grammarAccess.getFeatureGroupAccess().getRefinedFeatureGroupCrossReference_0_1_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getFeatureGroupAccess().getRefinedFeatureGroupCrossReference_0_1_0_0(); 
 				return obj;
@@ -60569,13 +60569,13 @@ protected class FeatureGroup_SemicolonKeyword_8 extends KeywordToken  {
 /************ begin Rule Parameter ****************
  *
  * Parameter returns aadl2::Parameter:
- * 	(name=ID ":" | refined=[aadl2::Parameter] ":" "refined" "to") direction=PortDirection "parameter"
+ * 	(name=ID ":" | refined=[aadl2::Parameter|REFINEDNAME] ":" "refined" "to") direction=PortDirection "parameter"
  * 	dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? ("{"
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::Parameter] ":" "refined" "to") direction=PortDirection "parameter"
+// (name=ID ":" | refined=[aadl2::Parameter|REFINEDNAME] ":" "refined" "to") direction=PortDirection "parameter"
 // dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? ("{"
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class Parameter_Group extends GroupToken {
@@ -60606,7 +60606,7 @@ protected class Parameter_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::Parameter] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::Parameter|REFINEDNAME] ":" "refined" "to"
 protected class Parameter_Alternatives_0 extends AlternativesToken {
 
 	public Parameter_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -60707,7 +60707,7 @@ protected class Parameter_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::Parameter] ":" "refined" "to"
+// refined=[aadl2::Parameter|REFINEDNAME] ":" "refined" "to"
 protected class Parameter_Group_0_1 extends GroupToken {
 	
 	public Parameter_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -60729,7 +60729,7 @@ protected class Parameter_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::Parameter]
+// refined=[aadl2::Parameter|REFINEDNAME]
 protected class Parameter_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public Parameter_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -60754,7 +60754,7 @@ protected class Parameter_RefinedAssignment_0_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getParameterAccess().getRefinedParameterCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getParameterAccess().getRefinedParameterCrossReference_0_1_0_0(), (EObject)value , null)) {
+			if(param.isInstanceOf(grammarAccess.getParameterAccess().getRefinedParameterCrossReference_0_1_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getParameterAccess().getRefinedParameterCrossReference_0_1_0_0(); 
 				return obj;
@@ -61122,13 +61122,13 @@ protected class Parameter_SemicolonKeyword_6 extends KeywordToken  {
  *
  * // AccessCategory not set (is encoded in type)
  * SubprogramAccess returns aadl2::SubprogramAccess:
- * 	(name=ID ":" | refined=[aadl2::SubprogramAccess] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
+ * 	(name=ID ":" | refined=[aadl2::SubprogramAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
  * 	AccessDirection "subprogram" "access" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]?
  * 	arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::SubprogramAccess] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
+// (name=ID ":" | refined=[aadl2::SubprogramAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
 // AccessDirection "subprogram" "access" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]?
 // arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class SubprogramAccess_Group extends GroupToken {
@@ -61159,7 +61159,7 @@ protected class SubprogramAccess_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::SubprogramAccess] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::SubprogramAccess|REFINEDNAME] ":" "refined" "to"
 protected class SubprogramAccess_Alternatives_0 extends AlternativesToken {
 
 	public SubprogramAccess_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -61260,7 +61260,7 @@ protected class SubprogramAccess_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::SubprogramAccess] ":" "refined" "to"
+// refined=[aadl2::SubprogramAccess|REFINEDNAME] ":" "refined" "to"
 protected class SubprogramAccess_Group_0_1 extends GroupToken {
 	
 	public SubprogramAccess_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -61282,7 +61282,7 @@ protected class SubprogramAccess_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::SubprogramAccess]
+// refined=[aadl2::SubprogramAccess|REFINEDNAME]
 protected class SubprogramAccess_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public SubprogramAccess_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -61307,7 +61307,7 @@ protected class SubprogramAccess_RefinedAssignment_0_1_0 extends AssignmentToken
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSubprogramAccessAccess().getRefinedSubprogramAccessCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getSubprogramAccessAccess().getRefinedSubprogramAccessCrossReference_0_1_0_0(), (EObject)value , null)) {
+			if(param.isInstanceOf(grammarAccess.getSubprogramAccessAccess().getRefinedSubprogramAccessCrossReference_0_1_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getSubprogramAccessAccess().getRefinedSubprogramAccessCrossReference_0_1_0_0(); 
 				return obj;
@@ -61697,13 +61697,13 @@ protected class SubprogramAccess_SemicolonKeyword_7 extends KeywordToken  {
 /************ begin Rule SubprogramGroupAccess ****************
  *
  * SubprogramGroupAccess returns aadl2::SubprogramGroupAccess:
- * 	(name=ID ":" | refined=[aadl2::SubprogramGroupAccess] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
+ * 	(name=ID ":" | refined=[aadl2::SubprogramGroupAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
  * 	AccessDirection "subprogram" "group" "access" subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF]?
  * 	arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::SubprogramGroupAccess] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
+// (name=ID ":" | refined=[aadl2::SubprogramGroupAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
 // AccessDirection "subprogram" "group" "access" subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF]?
 // arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class SubprogramGroupAccess_Group extends GroupToken {
@@ -61734,7 +61734,7 @@ protected class SubprogramGroupAccess_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::SubprogramGroupAccess] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::SubprogramGroupAccess|REFINEDNAME] ":" "refined" "to"
 protected class SubprogramGroupAccess_Alternatives_0 extends AlternativesToken {
 
 	public SubprogramGroupAccess_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -61835,7 +61835,7 @@ protected class SubprogramGroupAccess_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::SubprogramGroupAccess] ":" "refined" "to"
+// refined=[aadl2::SubprogramGroupAccess|REFINEDNAME] ":" "refined" "to"
 protected class SubprogramGroupAccess_Group_0_1 extends GroupToken {
 	
 	public SubprogramGroupAccess_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -61857,7 +61857,7 @@ protected class SubprogramGroupAccess_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::SubprogramGroupAccess]
+// refined=[aadl2::SubprogramGroupAccess|REFINEDNAME]
 protected class SubprogramGroupAccess_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public SubprogramGroupAccess_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -61882,7 +61882,7 @@ protected class SubprogramGroupAccess_RefinedAssignment_0_1_0 extends Assignment
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSubprogramGroupAccessAccess().getRefinedSubprogramGroupAccessCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getSubprogramGroupAccessAccess().getRefinedSubprogramGroupAccessCrossReference_0_1_0_0(), (EObject)value , null)) {
+			if(param.isInstanceOf(grammarAccess.getSubprogramGroupAccessAccess().getRefinedSubprogramGroupAccessCrossReference_0_1_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getSubprogramGroupAccessAccess().getRefinedSubprogramGroupAccessCrossReference_0_1_0_0(); 
 				return obj;
@@ -62294,13 +62294,13 @@ protected class SubprogramGroupAccess_SemicolonKeyword_8 extends KeywordToken  {
 /************ begin Rule BusAccess ****************
  *
  * BusAccess returns aadl2::BusAccess:
- * 	(name=ID ":" | refined=[aadl2::BusAccess] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
+ * 	(name=ID ":" | refined=[aadl2::BusAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
  * 	AccessDirection "bus" "access" busClassifier=[aadl2::BusClassifier|QCREF]? arraySpecification=SingleArraySpecification?
  * 	("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::BusAccess] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
+// (name=ID ":" | refined=[aadl2::BusAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
 // AccessDirection "bus" "access" busClassifier=[aadl2::BusClassifier|QCREF]? arraySpecification=SingleArraySpecification?
 // ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class BusAccess_Group extends GroupToken {
@@ -62331,7 +62331,7 @@ protected class BusAccess_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::BusAccess] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::BusAccess|REFINEDNAME] ":" "refined" "to"
 protected class BusAccess_Alternatives_0 extends AlternativesToken {
 
 	public BusAccess_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -62432,7 +62432,7 @@ protected class BusAccess_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::BusAccess] ":" "refined" "to"
+// refined=[aadl2::BusAccess|REFINEDNAME] ":" "refined" "to"
 protected class BusAccess_Group_0_1 extends GroupToken {
 	
 	public BusAccess_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -62454,7 +62454,7 @@ protected class BusAccess_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::BusAccess]
+// refined=[aadl2::BusAccess|REFINEDNAME]
 protected class BusAccess_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public BusAccess_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -62479,7 +62479,7 @@ protected class BusAccess_RefinedAssignment_0_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getBusAccessAccess().getRefinedBusAccessCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getBusAccessAccess().getRefinedBusAccessCrossReference_0_1_0_0(), (EObject)value , null)) {
+			if(param.isInstanceOf(grammarAccess.getBusAccessAccess().getRefinedBusAccessCrossReference_0_1_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getBusAccessAccess().getRefinedBusAccessCrossReference_0_1_0_0(); 
 				return obj;
@@ -62869,13 +62869,13 @@ protected class BusAccess_SemicolonKeyword_7 extends KeywordToken  {
 /************ begin Rule DataAccess ****************
  *
  * DataAccess returns aadl2::DataAccess:
- * 	(name=ID ":" | refined=[aadl2::DataAccess] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
+ * 	(name=ID ":" | refined=[aadl2::DataAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
  * 	AccessDirection "data" "access" dataClassifier=[aadl2::DataClassifier|QCREF]?
  * 	arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::DataAccess] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
+// (name=ID ":" | refined=[aadl2::DataAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
 // AccessDirection "data" "access" dataClassifier=[aadl2::DataClassifier|QCREF]?
 // arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class DataAccess_Group extends GroupToken {
@@ -62906,7 +62906,7 @@ protected class DataAccess_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::DataAccess] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::DataAccess|REFINEDNAME] ":" "refined" "to"
 protected class DataAccess_Alternatives_0 extends AlternativesToken {
 
 	public DataAccess_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -63007,7 +63007,7 @@ protected class DataAccess_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::DataAccess] ":" "refined" "to"
+// refined=[aadl2::DataAccess|REFINEDNAME] ":" "refined" "to"
 protected class DataAccess_Group_0_1 extends GroupToken {
 	
 	public DataAccess_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -63029,7 +63029,7 @@ protected class DataAccess_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::DataAccess]
+// refined=[aadl2::DataAccess|REFINEDNAME]
 protected class DataAccess_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public DataAccess_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -63054,7 +63054,7 @@ protected class DataAccess_RefinedAssignment_0_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getDataAccessAccess().getRefinedDataAccessCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getDataAccessAccess().getRefinedDataAccessCrossReference_0_1_0_0(), (EObject)value , null)) {
+			if(param.isInstanceOf(grammarAccess.getDataAccessAccess().getRefinedDataAccessCrossReference_0_1_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getDataAccessAccess().getRefinedDataAccessCrossReference_0_1_0_0(); 
 				return obj;
@@ -63445,14 +63445,14 @@ protected class DataAccess_SemicolonKeyword_7 extends KeywordToken  {
  *
  * AbstractFeature returns aadl2::AbstractFeature:
  * 	(name=ID ":" // need to set inout if no direction
- * 	| refined=[aadl2::AbstractFeature] ":" "refined" "to") direction=InOutDirection? "feature"
+ * 	| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature"
  * 	classifier=[aadl2::ComponentType|QCREF]? arraySpecification=SingleArraySpecification? ("{"
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // (name=ID ":" // need to set inout if no direction
-// | refined=[aadl2::AbstractFeature] ":" "refined" "to") direction=InOutDirection? "feature"
+// | refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature"
 // classifier=[aadl2::ComponentType|QCREF]? arraySpecification=SingleArraySpecification? ("{"
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class AbstractFeature_Group extends GroupToken {
@@ -63484,7 +63484,7 @@ protected class AbstractFeature_Group extends GroupToken {
 }
 
 // name=ID ":" // need to set inout if no direction
-// | refined=[aadl2::AbstractFeature] ":" "refined" "to"
+// | refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to"
 protected class AbstractFeature_Alternatives_0 extends AlternativesToken {
 
 	public AbstractFeature_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -63585,7 +63585,7 @@ protected class AbstractFeature_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::AbstractFeature] ":" "refined" "to"
+// refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to"
 protected class AbstractFeature_Group_0_1 extends GroupToken {
 	
 	public AbstractFeature_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -63607,7 +63607,7 @@ protected class AbstractFeature_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::AbstractFeature]
+// refined=[aadl2::AbstractFeature|REFINEDNAME]
 protected class AbstractFeature_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public AbstractFeature_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -63632,7 +63632,7 @@ protected class AbstractFeature_RefinedAssignment_0_1_0 extends AssignmentToken 
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getAbstractFeatureAccess().getRefinedAbstractFeatureCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getAbstractFeatureAccess().getRefinedAbstractFeatureCrossReference_0_1_0_0(), (EObject)value , null)) {
+			if(param.isInstanceOf(grammarAccess.getAbstractFeatureAccess().getRefinedAbstractFeatureCrossReference_0_1_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getAbstractFeatureAccess().getRefinedAbstractFeatureCrossReference_0_1_0_0(); 
 				return obj;
@@ -65953,16 +65953,16 @@ protected class ProcessorConnectionEnd_ProcessorPortParserRuleCall_1 extends Rul
 /************ begin Rule PortConnection ****************
  *
  * PortConnection returns aadl2::PortConnection:
- * 	(name=ID ":" | refined=[aadl2::PortConnection] ":" "refined" "to") "port" source=AbstractConnectionEnd ("->" |
- * 	bidirectional?="<->") destination=ProcessorConnectionEnd ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
- * 	("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
+ * 	(name=ID ":" | refined=[aadl2::PortConnection|REFINEDNAME] ":" "refined" "to") "port" source=AbstractConnectionEnd
+ * 	("->" | bidirectional?="<->") destination=ProcessorConnectionEnd ("{" ownedPropertyAssociation+=PropertyAssociation+
+ * 	"}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	// also needs to refer to transitions
  * 	";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::PortConnection] ":" "refined" "to") "port" source=AbstractConnectionEnd ("->" |
-// bidirectional?="<->") destination=ProcessorConnectionEnd ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+// (name=ID ":" | refined=[aadl2::PortConnection|REFINEDNAME] ":" "refined" "to") "port" source=AbstractConnectionEnd ("->"
+// | bidirectional?="<->") destination=ProcessorConnectionEnd ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 // ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // // also needs to refer to transitions
 // ";"
@@ -65994,7 +65994,7 @@ protected class PortConnection_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::PortConnection] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::PortConnection|REFINEDNAME] ":" "refined" "to"
 protected class PortConnection_Alternatives_0 extends AlternativesToken {
 
 	public PortConnection_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -66095,7 +66095,7 @@ protected class PortConnection_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::PortConnection] ":" "refined" "to"
+// refined=[aadl2::PortConnection|REFINEDNAME] ":" "refined" "to"
 protected class PortConnection_Group_0_1 extends GroupToken {
 	
 	public PortConnection_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -66117,7 +66117,7 @@ protected class PortConnection_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::PortConnection]
+// refined=[aadl2::PortConnection|REFINEDNAME]
 protected class PortConnection_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public PortConnection_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -66711,14 +66711,16 @@ protected class PortConnection_SemicolonKeyword_7 extends KeywordToken  {
 /************ begin Rule AccessConnection ****************
  *
  * AccessConnection returns aadl2::AccessConnection:
- * 	(name=ID ":" | refined=[aadl2::AccessConnection] ":" "refined" "to") accessCategory=AccessCategory "access" source= //(ConnectedElement | ProcessorSubprogram)
+ * 	(name=ID ":" | refined=[aadl2::AccessConnection|REFINEDNAME] ":" "refined" "to") accessCategory=AccessCategory
+ * 	"access" source= //(ConnectedElement | ProcessorSubprogram)
  * 	ConnectedElement ("->" | bidirectional?="<->") destination=ConnectedElement ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::AccessConnection] ":" "refined" "to") accessCategory=AccessCategory "access" source= //(ConnectedElement | ProcessorSubprogram)
+// (name=ID ":" | refined=[aadl2::AccessConnection|REFINEDNAME] ":" "refined" "to") accessCategory=AccessCategory "access"
+// source= //(ConnectedElement | ProcessorSubprogram)
 // ConnectedElement ("->" | bidirectional?="<->") destination=ConnectedElement ("{"
 // ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // ";"
@@ -66750,7 +66752,7 @@ protected class AccessConnection_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::AccessConnection] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::AccessConnection|REFINEDNAME] ":" "refined" "to"
 protected class AccessConnection_Alternatives_0 extends AlternativesToken {
 
 	public AccessConnection_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -66851,7 +66853,7 @@ protected class AccessConnection_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::AccessConnection] ":" "refined" "to"
+// refined=[aadl2::AccessConnection|REFINEDNAME] ":" "refined" "to"
 protected class AccessConnection_Group_0_1 extends GroupToken {
 	
 	public AccessConnection_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -66873,7 +66875,7 @@ protected class AccessConnection_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::AccessConnection]
+// refined=[aadl2::AccessConnection|REFINEDNAME]
 protected class AccessConnection_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public AccessConnection_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -67501,16 +67503,16 @@ protected class AccessConnection_SemicolonKeyword_8 extends KeywordToken  {
 /************ begin Rule FeatureGroupConnection ****************
  *
  * FeatureGroupConnection returns aadl2::FeatureGroupConnection:
- * 	(name=ID ":" | refined=[aadl2::FeatureGroupConnection] ":" "refined" "to") "feature" "group" source=ConnectedElement
- * 	bidirectional?="<->" destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
- * 	"modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
+ * 	(name=ID ":" | refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ":" "refined" "to") "feature" "group"
+ * 	source=ConnectedElement bidirectional?="<->" destination=ConnectedElement ("{"
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::FeatureGroupConnection] ":" "refined" "to") "feature" "group" source=ConnectedElement
-// bidirectional?="<->" destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
-// "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
+// (name=ID ":" | refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ":" "refined" "to") "feature" "group"
+// source=ConnectedElement bidirectional?="<->" destination=ConnectedElement ("{"
+// ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // ";"
 protected class FeatureGroupConnection_Group extends GroupToken {
 	
@@ -67540,7 +67542,7 @@ protected class FeatureGroupConnection_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::FeatureGroupConnection] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ":" "refined" "to"
 protected class FeatureGroupConnection_Alternatives_0 extends AlternativesToken {
 
 	public FeatureGroupConnection_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -67641,7 +67643,7 @@ protected class FeatureGroupConnection_ColonKeyword_0_0_1 extends KeywordToken  
 }
 
 
-// refined=[aadl2::FeatureGroupConnection] ":" "refined" "to"
+// refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ":" "refined" "to"
 protected class FeatureGroupConnection_Group_0_1 extends GroupToken {
 	
 	public FeatureGroupConnection_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -67663,7 +67665,7 @@ protected class FeatureGroupConnection_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::FeatureGroupConnection]
+// refined=[aadl2::FeatureGroupConnection|REFINEDNAME]
 protected class FeatureGroupConnection_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public FeatureGroupConnection_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -68232,16 +68234,16 @@ protected class FeatureGroupConnection_SemicolonKeyword_8 extends KeywordToken  
 /************ begin Rule FeatureConnection ****************
  *
  * FeatureConnection returns aadl2::FeatureConnection:
- * 	(name=ID ":" | refined=[aadl2::FeatureConnection] ":" "refined" "to") "feature" source=ConnectedElement ("->" |
- * 	bidirectional?="<->") destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
- * 	"modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
+ * 	(name=ID ":" | refined=[aadl2::FeatureConnection|REFINEDNAME] ":" "refined" "to") "feature" source=ConnectedElement
+ * 	("->" | bidirectional?="<->") destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+ * 	("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::FeatureConnection] ":" "refined" "to") "feature" source=ConnectedElement ("->" |
-// bidirectional?="<->") destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
-// "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
+// (name=ID ":" | refined=[aadl2::FeatureConnection|REFINEDNAME] ":" "refined" "to") "feature" source=ConnectedElement
+// ("->" | bidirectional?="<->") destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+// ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // ";"
 protected class FeatureConnection_Group extends GroupToken {
 	
@@ -68271,7 +68273,7 @@ protected class FeatureConnection_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::FeatureConnection] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::FeatureConnection|REFINEDNAME] ":" "refined" "to"
 protected class FeatureConnection_Alternatives_0 extends AlternativesToken {
 
 	public FeatureConnection_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -68372,7 +68374,7 @@ protected class FeatureConnection_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::FeatureConnection] ":" "refined" "to"
+// refined=[aadl2::FeatureConnection|REFINEDNAME] ":" "refined" "to"
 protected class FeatureConnection_Group_0_1 extends GroupToken {
 	
 	public FeatureConnection_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -68394,7 +68396,7 @@ protected class FeatureConnection_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::FeatureConnection]
+// refined=[aadl2::FeatureConnection|REFINEDNAME]
 protected class FeatureConnection_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public FeatureConnection_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -68987,15 +68989,15 @@ protected class FeatureConnection_SemicolonKeyword_7 extends KeywordToken  {
 /************ begin Rule ParameterConnection ****************
  *
  * ParameterConnection returns aadl2::ParameterConnection:
- * 	(name=ID ":" | refined=[aadl2::ParameterConnection] ":" "refined" "to") "parameter" source=ConnectedElement "->"
- * 	destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "("
- * 	inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
+ * 	(name=ID ":" | refined=[aadl2::ParameterConnection|REFINEDNAME] ":" "refined" "to") "parameter"
+ * 	source=ConnectedElement "->" destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+ * 	("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::ParameterConnection] ":" "refined" "to") "parameter" source=ConnectedElement "->"
-// destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "("
+// (name=ID ":" | refined=[aadl2::ParameterConnection|REFINEDNAME] ":" "refined" "to") "parameter" source=ConnectedElement
+// "->" destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "("
 // inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // ";"
 protected class ParameterConnection_Group extends GroupToken {
@@ -69026,7 +69028,7 @@ protected class ParameterConnection_Group extends GroupToken {
 
 }
 
-// name=ID ":" | refined=[aadl2::ParameterConnection] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::ParameterConnection|REFINEDNAME] ":" "refined" "to"
 protected class ParameterConnection_Alternatives_0 extends AlternativesToken {
 
 	public ParameterConnection_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -69127,7 +69129,7 @@ protected class ParameterConnection_ColonKeyword_0_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::ParameterConnection] ":" "refined" "to"
+// refined=[aadl2::ParameterConnection|REFINEDNAME] ":" "refined" "to"
 protected class ParameterConnection_Group_0_1 extends GroupToken {
 	
 	public ParameterConnection_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -69149,7 +69151,7 @@ protected class ParameterConnection_Group_0_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::ParameterConnection]
+// refined=[aadl2::ParameterConnection|REFINEDNAME]
 protected class ParameterConnection_RefinedAssignment_0_1_0 extends AssignmentToken  {
 	
 	public ParameterConnection_RefinedAssignment_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -71212,12 +71214,12 @@ protected class FlowPathSpec_OutFeatureAssignment_8 extends AssignmentToken  {
 /************ begin Rule FlowSourceSpecRefinement ****************
  *
  * FlowSourceSpecRefinement returns aadl2::FlowSpecification:
- * 	refined=[aadl2::FlowSpecification] ":" "refined" "to" "flow" kind=FlowSource ("{"
+ * 	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSource ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")?;
  *
  **/
 
-// refined=[aadl2::FlowSpecification] ":" "refined" "to" "flow" kind=FlowSource ("{"
+// refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSource ("{"
 // ownedPropertyAssociation+=PropertyAssociation+ "}")?
 protected class FlowSourceSpecRefinement_Group extends GroupToken {
 	
@@ -71248,7 +71250,7 @@ protected class FlowSourceSpecRefinement_Group extends GroupToken {
 
 }
 
-// refined=[aadl2::FlowSpecification]
+// refined=[aadl2::FlowSpecification|REFINEDNAME]
 protected class FlowSourceSpecRefinement_RefinedAssignment_0 extends AssignmentToken  {
 	
 	public FlowSourceSpecRefinement_RefinedAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -71527,12 +71529,12 @@ protected class FlowSourceSpecRefinement_RightCurlyBracketKeyword_6_2 extends Ke
 /************ begin Rule FlowSinkSpecRefinement ****************
  *
  * FlowSinkSpecRefinement returns aadl2::FlowSpecification:
- * 	refined=[aadl2::FlowSpecification] ":" "refined" "to" "flow" kind=FlowSink ("{"
+ * 	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSink ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")?;
  *
  **/
 
-// refined=[aadl2::FlowSpecification] ":" "refined" "to" "flow" kind=FlowSink ("{"
+// refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSink ("{"
 // ownedPropertyAssociation+=PropertyAssociation+ "}")?
 protected class FlowSinkSpecRefinement_Group extends GroupToken {
 	
@@ -71563,7 +71565,7 @@ protected class FlowSinkSpecRefinement_Group extends GroupToken {
 
 }
 
-// refined=[aadl2::FlowSpecification]
+// refined=[aadl2::FlowSpecification|REFINEDNAME]
 protected class FlowSinkSpecRefinement_RefinedAssignment_0 extends AssignmentToken  {
 	
 	public FlowSinkSpecRefinement_RefinedAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -71842,12 +71844,12 @@ protected class FlowSinkSpecRefinement_RightCurlyBracketKeyword_6_2 extends Keyw
 /************ begin Rule FlowPathSpecRefinement ****************
  *
  * FlowPathSpecRefinement returns aadl2::FlowSpecification:
- * 	refined=[aadl2::FlowSpecification] ":" "refined" "to" "flow" kind=FlowPath ("{"
+ * 	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowPath ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")?;
  *
  **/
 
-// refined=[aadl2::FlowSpecification] ":" "refined" "to" "flow" kind=FlowPath ("{"
+// refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowPath ("{"
 // ownedPropertyAssociation+=PropertyAssociation+ "}")?
 protected class FlowPathSpecRefinement_Group extends GroupToken {
 	
@@ -71878,7 +71880,7 @@ protected class FlowPathSpecRefinement_Group extends GroupToken {
 
 }
 
-// refined=[aadl2::FlowSpecification]
+// refined=[aadl2::FlowSpecification|REFINEDNAME]
 protected class FlowPathSpecRefinement_RefinedAssignment_0 extends AssignmentToken  {
 	
 	public FlowPathSpecRefinement_RefinedAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -74314,13 +74316,13 @@ protected class EndToEndFlow_SemicolonKeyword_10 extends KeywordToken  {
 /************ begin Rule EndToEndFlowRefinement ****************
  *
  * EndToEndFlowRefinement returns aadl2::EndToEndFlow:
- * 	refined=[aadl2::EndToEndFlow] ":" "refined" "to" "end" "to" "end" "flow" ("{"
+ * 	refined=[aadl2::EndToEndFlow|REFINEDNAME] ":" "refined" "to" "end" "to" "end" "flow" ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * ;
  *
  **/
 
-// refined=[aadl2::EndToEndFlow] ":" "refined" "to" "end" "to" "end" "flow" ("{"
+// refined=[aadl2::EndToEndFlow|REFINEDNAME] ":" "refined" "to" "end" "to" "end" "flow" ("{"
 // ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 protected class EndToEndFlowRefinement_Group extends GroupToken {
 	
@@ -74352,7 +74354,7 @@ protected class EndToEndFlowRefinement_Group extends GroupToken {
 
 }
 
-// refined=[aadl2::EndToEndFlow]
+// refined=[aadl2::EndToEndFlow|REFINEDNAME]
 protected class EndToEndFlowRefinement_RefinedAssignment_0 extends AssignmentToken  {
 	
 	public EndToEndFlowRefinement_RefinedAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -91706,7 +91708,6 @@ protected class NumericRangeTerm_DeltaAssignment_3_1 extends AssignmentToken  {
 
 
 /************ end Rule NumericRangeTerm ****************/
-
 
 
 
