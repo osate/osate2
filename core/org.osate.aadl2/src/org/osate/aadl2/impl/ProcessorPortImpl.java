@@ -68,5 +68,10 @@ public class ProcessorPortImpl extends NamedElementImpl implements ProcessorPort
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessorPort();
 	}
+	
+	@Override
+	public String qualifiedName() {
+		return getName();
+	}
 
 } //ProcessorPortImpl
