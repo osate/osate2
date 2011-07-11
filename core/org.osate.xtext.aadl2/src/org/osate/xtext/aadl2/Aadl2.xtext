@@ -679,7 +679,7 @@ Prototype returns aadl2::Prototype:
 
 ComponentPrototype returns aadl2::ComponentPrototype:
 	((name=ID ':' )|
-	(refined=[aadl2::ComponentPrototype|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	category=ComponentCategory 
 	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
 	( array?='[' ']')?
@@ -687,14 +687,14 @@ ComponentPrototype returns aadl2::ComponentPrototype:
 
 FeatureGroupPrototype returns aadl2::FeatureGroupPrototype:
 	((name=ID ':' )|
-	(refined=[aadl2::FeatureGroupPrototype|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::FeatureGroupPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'feature' 'group'
 	(constrainingFeatureGroupType=[aadl2::FeatureGroupType|QCREF])?
 	;
 
 FeaturePrototype returns aadl2::FeaturePrototype:
 	((name=ID ':' )|
-	(refined=[aadl2::FeaturePrototype|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::FeaturePrototype|REFINEDNAME] ':' 'refined' 'to'))
 	(direction=InOutDirection)?  // only in or out not inout
 	'feature'
 	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
@@ -754,9 +754,8 @@ ComponentReference returns aadl2::ComponentReference:
 
 AbstractSubcomponent returns aadl2::AbstractSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::SystemSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::SystemSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'abstract'
-//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
 	(abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
@@ -771,7 +770,7 @@ AbstractSubcomponent returns aadl2::AbstractSubcomponent:
 
 SystemSubcomponent returns aadl2::SystemSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::SystemSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::SystemSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'system'
 	(systemSubcomponentType=[aadl2::SystemClassifier|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
@@ -787,9 +786,8 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 
 ProcessSubcomponent returns aadl2::ProcessSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::ProcessSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::ProcessSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'process'
-//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
 	(processSubcomponentType=[aadl2::ProcessClassifier|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
@@ -804,9 +802,8 @@ ProcessSubcomponent returns aadl2::ProcessSubcomponent:
 
 ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::ThreadGroupSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'thread' 'group'
-//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
 	(threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
@@ -821,9 +818,8 @@ ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
 
 ThreadSubcomponent returns aadl2::ThreadSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::ThreadSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::ThreadSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'thread'
-//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
 	(threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
@@ -838,9 +834,8 @@ ThreadSubcomponent returns aadl2::ThreadSubcomponent:
 
 SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::SubprogramSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'subprogram'
-//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
 	(subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
@@ -855,9 +850,8 @@ SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
 
 SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::SubprogramGroupSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'subprogram' 'group'
-//	(classifier=[ComponentClassifierOrPrototype|QCREF] )?
 	(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
@@ -872,7 +866,7 @@ SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
 
 ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::ProcessorSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::ProcessorSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'processor' 
 	 (processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF]
 	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
@@ -888,7 +882,7 @@ ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 
 VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::VirtualProcessorSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'virtual' 'processor' 
 	 (virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF]
 	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
@@ -904,7 +898,7 @@ VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
 
 DeviceSubcomponent returns aadl2::DeviceSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::DeviceSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::DeviceSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'device' 
 	 (deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF]
 	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
@@ -920,7 +914,7 @@ DeviceSubcomponent returns aadl2::DeviceSubcomponent:
 
 MemorySubcomponent returns aadl2::MemorySubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::MemorySubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::MemorySubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'memory' 
 	 (memorySubcomponentType=[aadl2::MemoryClassifier|QCREF]
 	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
@@ -936,7 +930,7 @@ MemorySubcomponent returns aadl2::MemorySubcomponent:
 
 BusSubcomponent returns aadl2::BusSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::BusSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::BusSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'bus' 
 	 (busSubcomponentType=[aadl2::BusClassifier|QCREF]
 	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
@@ -952,7 +946,7 @@ BusSubcomponent returns aadl2::BusSubcomponent:
 
 VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::VirtualBusSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::VirtualBusSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'virtual' 'bus' 
 	 (virtualBusSubcomponentType=[aadl2::VirtualBusClassifier|QCREF]
 	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
@@ -968,7 +962,7 @@ VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
 
 DataSubcomponent returns aadl2::DataSubcomponent:
 	((name=ID ':' )|
-	(refined=[aadl2::DataSubcomponent|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::DataSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'data' 
 	(dataSubcomponentType=[aadl2::DataClassifier|QCREF] 
 	 (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
@@ -1045,7 +1039,7 @@ EventPort returns aadl2::EventPort:
 FeatureGroup returns aadl2::FeatureGroup:
 		// need to set inout if no direction
 	((name=ID ':' )|
-	(refined=[aadl2::FeatureGroup|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::FeatureGroup|REFINEDNAME] ':' 'refined' 'to'))
 	direction=InOutDirection 'feature' 'group' 
 	( inverse?='inverse' 'of')?
 	featureGroupType=[aadl2::FeatureGroupType|QCREF] // or prototype
@@ -1055,7 +1049,7 @@ FeatureGroup returns aadl2::FeatureGroup:
 
 Parameter returns aadl2::Parameter:
 	((name=ID ':' )|
-	(refined=[aadl2::Parameter|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::Parameter|REFINEDNAME] ':' 'refined' 'to'))
 	direction=PortDirection 'parameter' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
 	(arraySpecification=SingleArraySpecification)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
@@ -1064,7 +1058,7 @@ Parameter returns aadl2::Parameter:
 // AccessCategory not set (is encoded in type)
 SubprogramAccess returns aadl2::SubprogramAccess: 
 	((name=ID ':' )|
-	(refined=[aadl2::SubprogramAccess|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::SubprogramAccess|REFINEDNAME] ':' 'refined' 'to'))
 	kind=AccessDirection // refined to with reference to access feature being refined.
 	'subprogram' 'access' (subprogramClassifier=[aadl2::SubprogramClassifier|QCREF])? 
 	(arraySpecification=SingleArraySpecification)?
@@ -1072,7 +1066,7 @@ SubprogramAccess returns aadl2::SubprogramAccess:
 ;
 SubprogramGroupAccess returns aadl2::SubprogramGroupAccess: 
 	((name=ID ':' )|
-	(refined=[aadl2::SubprogramGroupAccess|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::SubprogramGroupAccess|REFINEDNAME] ':' 'refined' 'to'))
 	kind=AccessDirection // refined to with reference to access feature being refined.
 	'subprogram' 'group' 'access' (subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF])? 
 	(arraySpecification=SingleArraySpecification)?
@@ -1080,7 +1074,7 @@ SubprogramGroupAccess returns aadl2::SubprogramGroupAccess:
 ;
 BusAccess returns aadl2::BusAccess: 
 	((name=ID ':' )|
-	(refined=[aadl2::BusAccess|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::BusAccess|REFINEDNAME] ':' 'refined' 'to'))
 	kind=AccessDirection  // refined to with reference to access feature being refined.
 	'bus' 'access' (busClassifier=[aadl2::BusClassifier|QCREF])? 
 	(arraySpecification=SingleArraySpecification)?
@@ -1088,7 +1082,7 @@ BusAccess returns aadl2::BusAccess:
 ;
 DataAccess returns aadl2::DataAccess: 
 	((name=ID ':' )|
-	(refined=[aadl2::DataAccess|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::DataAccess|REFINEDNAME] ':' 'refined' 'to'))
 	kind=AccessDirection // refined to with reference to access feature being refined.
 	'data' 'access' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
 	(arraySpecification=SingleArraySpecification)?
@@ -1097,7 +1091,7 @@ DataAccess returns aadl2::DataAccess:
 AbstractFeature returns aadl2::AbstractFeature:
 	// need to set inout if no direction
 	((name=ID ':' )|
-	(refined=[aadl2::AbstractFeature|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::AbstractFeature|REFINEDNAME] ':' 'refined' 'to'))
 	(direction=InOutDirection)? 'feature' (classifier=[aadl2::ComponentType|QCREF])? 
 	(arraySpecification=SingleArraySpecification)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
@@ -1156,7 +1150,7 @@ ProcessorConnectionEnd returns aadl2::AbstractConnectionEnd:
 
 PortConnection returns aadl2::PortConnection:
 	((name=ID ':' )|
-	(refined=[aadl2::PortConnection|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::PortConnection|REFINEDNAME] ':' 'refined' 'to'))
 	'port' 
 	source=AbstractConnectionEnd
 	('->' | bidirectional?='<->')
@@ -1168,7 +1162,7 @@ PortConnection returns aadl2::PortConnection:
 
 AccessConnection returns aadl2::AccessConnection:
 	((name=ID ':' )|
-	(refined=[aadl2::AccessConnection|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::AccessConnection|REFINEDNAME] ':' 'refined' 'to'))
 	accessCategory=AccessCategory 'access' 
 	source=ConnectedElement //(ConnectedElement | ProcessorSubprogram)
 	('->' | bidirectional?='<->')
@@ -1179,7 +1173,7 @@ AccessConnection returns aadl2::AccessConnection:
 
 FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 	((name=ID ':' )|
-	(refined=[aadl2::FeatureGroupConnection|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to'))
 	'feature' 'group' 
 	source=ConnectedElement
 	( bidirectional?='<->')
@@ -1190,7 +1184,7 @@ FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 
 FeatureConnection returns aadl2::FeatureConnection:
 	((name=ID ':' )|
-	(refined=[aadl2::FeatureConnection|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::FeatureConnection|REFINEDNAME] ':' 'refined' 'to'))
 	'feature' 
 	source=ConnectedElement
 	('->' | bidirectional?='<->')
@@ -1201,7 +1195,7 @@ FeatureConnection returns aadl2::FeatureConnection:
 
 ParameterConnection returns aadl2::ParameterConnection:
 	((name=ID ':' )|
-	(refined=[aadl2::ParameterConnection|ID] ':' 'refined' 'to'))
+	(refined=[aadl2::ParameterConnection|REFINEDNAME] ':' 'refined' 'to'))
 	'parameter' 
 	source=ConnectedElement
 	 '->'
@@ -1248,15 +1242,15 @@ FlowPathSpec returns aadl2::FlowSpecification:
 	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
 ;
 FlowSourceSpecRefinement returns aadl2::FlowSpecification:
-	refined=[aadl2::FlowSpecification|ID] ':' 'refined' 'to' 'flow' kind=FlowSource 
+	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowSource 
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 ;
 FlowSinkSpecRefinement returns aadl2::FlowSpecification:
-	refined=[aadl2::FlowSpecification|ID] ':' 'refined' 'to' 'flow' kind=FlowSink 
+	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowSink 
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 ;
 FlowPathSpecRefinement returns aadl2::FlowSpecification:
-	refined=[aadl2::FlowSpecification|ID] ':' 'refined' 'to' 'flow' kind=FlowPath 
+	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowPath 
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 ;
 
@@ -1300,7 +1294,7 @@ EndToEndFlow returns aadl2::EndToEndFlow:
     ;
     
 EndToEndFlowRefinement returns aadl2::EndToEndFlow:
-	refined=[aadl2::EndToEndFlow|ID] ':' 'refined' 'to' 'end' 'to' 'end' 'flow'  
+	refined=[aadl2::EndToEndFlow|REFINEDNAME] ':' 'refined' 'to' 'end' 'to' 'end' 'flow'  
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	( => 'in' 'modes' '(' ((inModeOrTransition+=[aadl2::ModeFeature|ID])+ ) ')')? //| allModes?='all'
 ;
