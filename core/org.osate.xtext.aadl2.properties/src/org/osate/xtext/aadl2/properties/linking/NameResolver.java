@@ -55,6 +55,11 @@ import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentPrototypeReference;
 
+import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.AccessConnectionEnd;
+import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.ComponentReference;
@@ -63,8 +68,10 @@ import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DataType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EnumerationLiteral;
@@ -72,7 +79,11 @@ import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.EnumerationValue;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureConnection;
+import org.osate.aadl2.FeatureConnectionEnd;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupConnectionEnd;
 import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.FeatureGroupReference;
@@ -91,6 +102,9 @@ import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.NumericRange;
 import org.osate.aadl2.PackageRename;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.ParameterConnection;
+import org.osate.aadl2.ParameterConnectionEnd;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.PortConnectionEnd;
@@ -108,9 +122,17 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordField;
 import org.osate.aadl2.RecordType;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentFlow;
+import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramClassifier;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.FeatureGroupPrototypeReference;
+import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 
@@ -175,43 +197,76 @@ public class NameResolver
 		} else if(Aadl2Package.eINSTANCE.getConnectionEnd() == requiredType){
 			// resolve connection end
 			Context cxt = ((ConnectedElement)context).getContext();
-			ConnectionEnd ce = NameResolver.findPortConnectionEnd((PortConnection)context, cxt, s);
+			Connection conn = (Connection)context.eContainer();
+			ConnectionEnd ce = null;
+			if (conn instanceof PortConnection) {
+				ce=NameResolver.findPortConnectionEnd((PortConnection)context.eContainer(), cxt, s);
+			} else if (conn instanceof AccessConnection) {
+				ce=NameResolver.findAccessConnectionEnd((AccessConnection)context.eContainer(), cxt, s);
+			} else if (conn instanceof FeatureGroupConnection) {
+				ce=NameResolver.findFeatureGroupConnectionEnd((FeatureGroupConnection)context.eContainer(), cxt, s);
+			} else if (conn instanceof FeatureConnection) {
+				ce=NameResolver.findFeatureConnectionEnd((FeatureConnection)context.eContainer(), cxt, s);
+			} else if (conn instanceof ParameterConnection) {
+				ce=NameResolver.findParameterConnectionEnd((ParameterConnection)context.eContainer(), cxt, s);
+			}
 			if(ce != null) {
 				return Collections.singletonList((EObject)ce);
 			}
 			return Collections.<EObject> emptyList();
 
-		} else if(Aadl2Package.eINSTANCE.getPort()== requiredType){
-			EObject searchResult = NameResolver.getContainingClassifier(context).findNamedElement(s);
-				if(searchResult != null && searchResult instanceof Port) {
-					return Collections.singletonList((EObject)searchResult);
-				}
-				return Collections.<EObject> emptyList();
-
-		} else if(Aadl2Package.eINSTANCE.getFeature()== requiredType){
-			// needs to handle refined if context is feature
-			// Feature used in FlowSpec
-			Classifier ns=NameResolver.getContainingClassifier(context);
-			if (context instanceof Feature){
+		} else if (Aadl2Package.eINSTANCE.getPort() == requiredType) {
+			Classifier ns = NameResolver.getContainingClassifier(context);
+			if (context instanceof Feature) {
 				// we need to resolve a refinement
-				if (ns.getExtended() != null){
+				if (ns.getExtended() != null) {
 					ns = ns.getExtended();
 				} else {
 					return Collections.emptyList();
 				}
 			}
 			EObject searchResult = ns.findNamedElement(s);
-				if(searchResult != null && searchResult instanceof Feature) {
-					return Collections.singletonList((EObject)searchResult);
-				}
-				return Collections.<EObject> emptyList();
+			if (searchResult != null && searchResult instanceof Port) {
+				return Collections.singletonList((EObject) searchResult);
+			}
+			return Collections.<EObject> emptyList();
 
-		} else if(Aadl2Package.eINSTANCE.getContext() == requiredType){
+		} else if (Aadl2Package.eINSTANCE.getFeature() == requiredType) {
+			// Feature used in FlowSpec
+			Classifier ns = NameResolver.getContainingClassifier(context);
+			if (context instanceof Feature) {
+				// we need to resolve a refinement
+				if (ns.getExtended() != null) {
+					ns = ns.getExtended();
+				} else {
+					return Collections.emptyList();
+				}
+			}
+			EObject searchResult = ns.findNamedElement(s);
+			if (searchResult != null && searchResult instanceof Feature) {
+				return Collections.singletonList((EObject) searchResult);
+			}
+			return Collections.<EObject> emptyList();
+
+		} else if (Aadl2Package.eINSTANCE.getContext() == requiredType) {
 			// represents connection source/dest context as well as flowspec context
 			// also used in triggerport
 			EObject searchResult = NameResolver.getContainingClassifier(context).findNamedElement(s);
-			if(searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
-					return Collections.singletonList((EObject)searchResult);
+			if (context instanceof ConnectedElement) {
+				// connection context
+				EObject conn = context.eContainer();
+				if (((conn instanceof FeatureGroupConnection
+						|| conn instanceof FeatureConnection || conn instanceof AccessConnection) && (searchResult instanceof Subcomponent || searchResult instanceof FeatureGroup))
+						|| ((conn instanceof ParameterConnection) && (searchResult instanceof Parameter
+								|| searchResult instanceof SubprogramCall
+								|| searchResult instanceof DataPort
+								|| searchResult instanceof EventDataPort || searchResult instanceof FeatureGroup))
+						|| ((conn instanceof PortConnection) && (searchResult instanceof FeatureGroup || searchResult instanceof Subcomponent
+								|| searchResult instanceof DataPort || searchResult instanceof EventDataPort)))
+					return Collections.singletonList((EObject) searchResult);
+			} else if (context instanceof TriggerPort || context instanceof FlowSpecification|| context instanceof SubcomponentFlow){
+				if (searchResult instanceof Subcomponent)
+					return Collections.singletonList((EObject) searchResult);
 			}
 			return Collections.<EObject> emptyList();
 
@@ -266,7 +321,7 @@ public class NameResolver
 				}
 			}
 			EObject searchResult = ns.findNamedElement(s);
-			if(searchResult != null && searchResult instanceof Subcomponent) {
+			if( searchResult instanceof Subcomponent) {
 				return Collections.singletonList((EObject)searchResult);
 			}
 			return Collections.<EObject> emptyList();
@@ -506,25 +561,64 @@ public class NameResolver
 		return Collections.emptyList();
 	}
 	
-//	public static Context findPortConnectionSourceContextReference(PortConnection connection, String contextName)
-//	{
-//		EObject searchResult = getContainingClassifier(connection).findNamedElement(contextName);
-//		if (searchResult instanceof FeatureGroup || searchResult instanceof Subcomponent || searchResult instanceof DataPort ||
-//				searchResult instanceof EventDataPort)
-//		{
-//			return((Context)searchResult);
-//		}
-//		return null;
-//	}
-//	
 
 	public static ConnectionEnd findPortConnectionEnd(PortConnection conn, Context cxt, String portName)
 	{
 		if (cxt == null)
 		{
 			EObject searchResult = ((ComponentImplementation)getContainingClassifier(conn)).findNamedElement(portName);
-			if (searchResult instanceof Port)
+			if (searchResult instanceof Port || searchResult instanceof DataSubcomponent || 
+					(searchResult instanceof DataAccess&& ((DataAccess)searchResult).getKind()==AccessType.REQUIRED))
 				return ((ConnectionEnd)searchResult);
+		}
+		else if (cxt instanceof Subcomponent)
+		{
+			Subcomponent subcomponent = (Subcomponent)cxt;
+			while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null && subcomponent.getRefined() != null)
+				subcomponent = subcomponent.getRefined();
+			if (subcomponent.getClassifier() != null)
+			{
+				EObject searchResult = subcomponent.getClassifier().findNamedElement(portName);
+				if (searchResult instanceof Port || 
+						(cxt instanceof DataSubcomponent && searchResult instanceof DataSubcomponent )|| //data subcomponent . data subcomponent
+						(searchResult instanceof DataAccess&& ((DataAccess)searchResult).getKind()==AccessType.PROVIDED) )
+					return ((ConnectionEnd)searchResult);
+			}
+			else if (subcomponent.getPrototype() != null)
+			{
+				ComponentClassifier classifier = findClassifierForComponentPrototype(getContainingClassifier(conn),
+						subcomponent.getPrototype());
+				if (classifier != null)
+				{
+					NamedElement searchResult = classifier.findNamedElement(portName);
+					if (searchResult instanceof DataSubcomponent)
+						return((DataSubcomponent)searchResult);
+				}
+			}
+		}
+		else if (cxt instanceof DataPort || cxt instanceof EventDataPort)
+			//DataPort or EventDataPort . data element
+		{
+			Feature context = (Port)cxt;
+			while (context.getClassifier() == null && context.getPrototype() == null && context.getRefined() != null)
+				context = context.getRefined();
+			if (context.getClassifier() != null)
+			{
+				NamedElement searchResult = context.getClassifier().findNamedElement(portName);
+				if (searchResult instanceof DataSubcomponent)
+					return((DataSubcomponent)searchResult);
+			}
+			else if (context.getPrototype() instanceof ComponentPrototype)
+			{
+				ComponentClassifier classifier = findClassifierForComponentPrototype(getContainingClassifier(conn),
+						(ComponentPrototype)context.getPrototype());
+				if (classifier != null)
+				{
+					NamedElement searchResult = classifier.findNamedElement(portName);
+					if (searchResult instanceof DataSubcomponent)
+						return((DataSubcomponent)searchResult);
+				}
+			}
 		}
 		else if (cxt instanceof FeatureGroup)
 		{
@@ -552,56 +646,401 @@ public class NameResolver
 				}
 			}
 		}
-		else if (cxt instanceof Subcomponent)
-		{
-			Subcomponent subcomponent = (Subcomponent)cxt;
-			while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null && subcomponent.getRefined() != null)
-				subcomponent = subcomponent.getRefined();
-			if (subcomponent.getClassifier() != null)
-			{
-				EObject searchResult = subcomponent.getClassifier().findNamedElement(portName);
-				if (searchResult instanceof ConnectionEnd)
-					return ((ConnectionEnd)searchResult);
-			}
-			else if (subcomponent.getPrototype() != null)
-			{
-				ComponentClassifier classifier = findClassifierForComponentPrototype(getContainingClassifier(conn),
-						subcomponent.getPrototype());
-				if (classifier != null)
-				{
-					NamedElement searchResult = classifier.findNamedElement(portName);
-					if (searchResult instanceof DataSubcomponent)
-						return((DataSubcomponent)searchResult);
-				}
-			}
-		}
-		else if (cxt instanceof DataPort || cxt instanceof EventDataPort)
-			//connection.getContext() is a DataPort or EventDataPort
-		{
-			Feature context = (Port)cxt;
-			while (context.getClassifier() == null && context.getPrototype() == null && context.getRefined() != null)
-				context = context.getRefined();
-			if (context.getClassifier() != null)
-			{
-				NamedElement searchResult = context.getClassifier().findNamedElement(portName);
-				if (searchResult instanceof DataSubcomponent)
-					return((DataSubcomponent)searchResult);
-			}
-			else if (context.getPrototype() instanceof ComponentPrototype)
-			{
-				ComponentClassifier classifier = findClassifierForComponentPrototype(getContainingClassifier(conn),
-						(ComponentPrototype)context.getPrototype());
-				if (classifier != null)
-				{
-					NamedElement searchResult = classifier.findNamedElement(portName);
-					if (searchResult instanceof DataSubcomponent)
-						return((DataSubcomponent)searchResult);
-				}
-			}
-		}
 		return null;
 	}
 	
+	public static ConnectionEnd findAccessConnectionEnd(AccessConnection conn, Context cxt, String name){
+		if (cxt == null) {
+			NamedElement searchResult = getContainingClassifier(conn).findNamedElement(name);
+			if (searchResult instanceof AccessConnectionEnd)
+				return (AccessConnectionEnd) searchResult;
+		} else if (cxt instanceof Subcomponent)
+		{
+			Subcomponent subcomponent = (Subcomponent) cxt;
+			while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null
+					&& subcomponent.getRefined() != null)
+				subcomponent = subcomponent.getRefined();
+			if (subcomponent.getClassifier() != null) {
+				NamedElement searchResult = subcomponent.getClassifier().findNamedElement(name);
+				if (searchResult instanceof Access)
+					return (Access) searchResult;
+			} else if (subcomponent.getPrototype() != null) {
+				ComponentClassifier classifier = findClassifierForComponentPrototype(
+						getContainingClassifier(conn), subcomponent.getPrototype());
+				if (classifier != null) {
+					NamedElement searchResult = classifier.findNamedElement(name);
+					if (searchResult instanceof Access)
+						return (Access) searchResult;
+				} 
+			} 
+		} else if (cxt instanceof FeatureGroup) {
+			FeatureGroup featureGroup = (FeatureGroup) cxt;
+			while (featureGroup.getFeatureGroupType() == null && featureGroup.getPrototype() == null
+					&& featureGroup.getRefined() instanceof FeatureGroup) {
+				featureGroup = (FeatureGroup) featureGroup.getRefined();
+			}
+			if (featureGroup.getFeatureGroupType() != null) {
+				NamedElement searchResult = featureGroup.getFeatureGroupType().findNamedElement(name);
+				if (searchResult instanceof Access)
+					return (Access) searchResult;
+			} else if (featureGroup.getPrototype() != null) {
+				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
+						getContainingClassifier(conn), (FeatureGroupPrototype) featureGroup.getPrototype());
+				if (featureGroupType != null) {
+					NamedElement searchResult = featureGroupType.findNamedElement(name);
+					if (searchResult instanceof Access)
+						return (Access) searchResult;
+				} 
+			} 
+		}
+		return null;
+	}
+
+	
+	public static ConnectionEnd findParameterConnectionEnd(
+			ParameterConnection conn, Context cxt, String name) {
+		if (cxt == null) {
+			NamedElement searchResult = getContainingClassifier(conn)
+					.findNamedElement(name);
+			if (searchResult instanceof ParameterConnectionEnd)
+				return(ParameterConnectionEnd) searchResult;
+		} else if (cxt instanceof FeatureGroup) {
+			FeatureGroup featureGroup = (FeatureGroup) cxt;
+			while (featureGroup.getFeatureGroupType() == null
+					&& featureGroup.getPrototype() == null
+					&& featureGroup.getRefined() instanceof FeatureGroup) {
+				featureGroup = (FeatureGroup) featureGroup.getRefined();
+			}
+			if (featureGroup.getFeatureGroupType() != null) {
+				NamedElement searchResult = featureGroup.getFeatureGroupType()
+						.findNamedElement(name);
+				if (searchResult instanceof ParameterConnectionEnd)
+					return(ParameterConnectionEnd) searchResult;
+			} else if (featureGroup.getPrototype() != null) {
+				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
+						getContainingClassifier(conn),
+						(FeatureGroupPrototype) featureGroup.getPrototype());
+				if (featureGroupType != null) {
+					NamedElement searchResult = featureGroupType
+							.findNamedElement(name);
+					if (searchResult instanceof ParameterConnectionEnd)
+						return(ParameterConnectionEnd) searchResult;
+				} 
+			} 
+		} else if (cxt instanceof SubprogramCall) {
+			SubprogramCall subprogramCall = (SubprogramCall) cxt;
+			if (subprogramCall.getCalledSubprogram() instanceof SubprogramClassifier) {
+				NamedElement searchResult = ((SubprogramClassifier) subprogramCall
+						.getCalledSubprogram())
+						.findNamedElement(name);
+				if (searchResult instanceof Parameter)
+					return(Parameter) searchResult;
+			} else if (subprogramCall.getCalledSubprogram() instanceof SubprogramSubcomponent) {
+				Subcomponent subcomponent = (SubprogramSubcomponent) subprogramCall
+						.getCalledSubprogram();
+				while (subcomponent.getClassifier() == null
+						&& subcomponent.getPrototype() == null
+						&& subcomponent.getRefined() != null)
+					subcomponent = subcomponent.getRefined();
+				if (subcomponent.getClassifier() != null) {
+					NamedElement searchResult = subcomponent.getClassifier()
+							.findNamedElement(name);
+					if (searchResult instanceof Parameter)
+						return(Parameter) searchResult;
+				} else if (subcomponent.getPrototype() != null) {
+					ComponentClassifier classifier = findClassifierForComponentPrototype(
+							getContainingClassifier(conn),
+							subcomponent.getPrototype());
+					if (classifier != null) {
+						NamedElement searchResult = classifier
+								.findNamedElement(name);
+						if (searchResult instanceof Parameter)
+							return(Parameter) searchResult;
+					} 
+				} 
+			} else if (subprogramCall.getCalledSubprogram() instanceof SubprogramAccess) {
+				Feature access = (SubprogramAccess) subprogramCall
+						.getCalledSubprogram();
+				while (access.getClassifier() == null
+						&& access.getPrototype() == null
+						&& access.getRefined() != null)
+					access = access.getRefined();
+				if (access.getClassifier() != null) {
+					NamedElement searchResult = access.getClassifier()
+							.findNamedElement(name);
+					if (searchResult instanceof Parameter)
+						return(Parameter) searchResult;
+				} else if (access.getPrototype() instanceof ComponentPrototype) {
+					CallContext callContext = subprogramCall.getContext();
+					if (callContext instanceof AbstractType
+							|| callContext instanceof DataType
+							|| callContext instanceof SubprogramGroupType) {
+						ComponentClassifier classifier = findClassifierForComponentPrototype(
+								(ComponentType) callContext,
+								(ComponentPrototype) access.getPrototype());
+						if (classifier != null) {
+							NamedElement searchResult = classifier
+									.findNamedElement(name);
+							if (searchResult instanceof Parameter)
+								return(Parameter) searchResult;
+						} 
+					} else if (callContext instanceof FeatureGroup) {
+						FeatureGroup callContextFeatureGroup = (FeatureGroup) callContext;
+						FeatureGroupType prototypeContext;
+						while (callContextFeatureGroup.getFeatureGroupType() == null
+								&& callContextFeatureGroup.getPrototype() == null
+								&& callContextFeatureGroup.getRefined() instanceof FeatureGroup) {
+							callContextFeatureGroup = (FeatureGroup) callContextFeatureGroup
+									.getRefined();
+						}
+						if (callContextFeatureGroup.getFeatureGroupType() != null)
+							prototypeContext = callContextFeatureGroup
+									.getFeatureGroupType();
+						else if (callContextFeatureGroup.getPrototype() instanceof FeatureGroupPrototype) {
+							prototypeContext = findFeatureGroupTypeForFeatureGroupPrototype(
+									getContainingClassifier(conn),
+									(FeatureGroupPrototype) callContextFeatureGroup
+											.getPrototype());
+						} else
+							prototypeContext = null;
+						if (prototypeContext != null) {
+							ComponentClassifier classifier = findClassifierForComponentPrototype(
+									prototypeContext,
+									(ComponentPrototype) access.getPrototype());
+							if (classifier != null) {
+								NamedElement searchResult = classifier
+										.findNamedElement(name);
+								if (searchResult instanceof Parameter)
+									return(Parameter) searchResult;
+							} 
+						} 
+					} else if (callContext instanceof SubprogramGroupAccess) {
+						Feature callContextAccess = (SubprogramGroupAccess) callContext;
+						Classifier prototypeContext;
+						while (callContextAccess.getClassifier() == null
+								&& callContextAccess.getPrototype() == null
+								&& callContextAccess.getRefined() != null) {
+							callContextAccess = callContextAccess.getRefined();
+						}
+						if (callContextAccess.getClassifier() != null)
+							prototypeContext = callContextAccess
+									.getClassifier();
+						else if (callContextAccess.getPrototype() instanceof ComponentPrototype) {
+							prototypeContext = findClassifierForComponentPrototype(
+									getContainingClassifier(conn),
+									(ComponentPrototype) callContextAccess
+											.getPrototype());
+						} else
+							prototypeContext = null;
+						if (prototypeContext != null) {
+							ComponentClassifier classifier = findClassifierForComponentPrototype(
+									prototypeContext,
+									(ComponentPrototype) access.getPrototype());
+							if (classifier != null) {
+								NamedElement searchResult = classifier
+										.findNamedElement(name);
+								if (searchResult instanceof Parameter)
+									return(Parameter) searchResult;
+							} 
+						} 
+					} else if (callContext instanceof SubprogramGroupSubcomponent) {
+						Subcomponent callContextSubcomponent = (SubprogramGroupSubcomponent) callContext;
+						while (callContextSubcomponent.getClassifier() == null
+								&& callContextSubcomponent.getPrototype() == null
+								&& callContextSubcomponent.getRefined() != null) {
+							callContextSubcomponent = callContextSubcomponent
+									.getRefined();
+						}
+						if (callContextSubcomponent.getClassifier() != null) {
+							ComponentClassifier classifier;
+							if (callContextSubcomponent
+									.getOwnedPrototypeBindings().isEmpty()) {
+								classifier = findClassifierForComponentPrototype(
+										callContextSubcomponent.getClassifier(),
+										(ComponentPrototype) access
+												.getPrototype());
+							} else {
+								classifier = findClassifierForComponentPrototype(
+										callContextSubcomponent.getClassifier(),
+										callContextSubcomponent,
+										(ComponentPrototype) access
+												.getPrototype());
+							}
+							if (classifier != null) {
+								NamedElement searchResult = classifier
+										.findNamedElement(name);
+								if (searchResult instanceof Parameter)
+									return(Parameter) searchResult;
+							} 
+						} else if (callContextSubcomponent.getPrototype() != null) {
+							Classifier prototypeContext = findClassifierForComponentPrototype(
+									getContainingClassifier(conn),
+									callContextSubcomponent.getPrototype());
+							if (prototypeContext != null) {
+								ComponentClassifier classifier = findClassifierForComponentPrototype(
+										prototypeContext,
+										(ComponentPrototype) access
+												.getPrototype());
+								if (classifier != null) {
+									NamedElement searchResult = classifier
+											.findNamedElement(name);
+									if (searchResult instanceof Parameter)
+										return(Parameter) searchResult;
+								} 
+							} 
+						} 
+					} else // callContext is null.
+					{
+						ComponentClassifier classifier = findClassifierForComponentPrototype(
+								getContainingClassifier(conn),
+								(ComponentPrototype) access.getPrototype());
+						if (classifier != null) {
+							NamedElement searchResult = classifier
+									.findNamedElement(name);
+							if (searchResult instanceof Parameter)
+								return(Parameter) searchResult;
+						} 
+					}
+				} 
+			} else // subprogramCall.getCalledSubprogram() is null. The
+					// subprogram call refers to a prototype.
+			{
+				ComponentClassifier classifier = findClassifierForComponentPrototype(
+						getContainingClassifier(conn),
+						(ComponentPrototype) subprogramCall.getPrototype());
+				if (classifier != null) {
+					NamedElement searchResult = classifier
+							.findNamedElement(name);
+					if (searchResult instanceof Parameter)
+						return(Parameter) searchResult;
+				} 
+			}
+		} else // connection.getSourceContext() is a Parameter, DataPort, or
+				// EventDataPort
+		{
+			Feature sourceContext = (Feature) cxt;
+			while (sourceContext.getClassifier() == null
+					&& sourceContext.getPrototype() == null
+					&& sourceContext.getRefined() != null) {
+				sourceContext = sourceContext.getRefined();
+			}
+			if (sourceContext.getClassifier() != null) {
+				NamedElement searchResult = sourceContext.getClassifier()
+						.findNamedElement(name);
+				if (searchResult instanceof DataSubcomponent)
+					return(DataSubcomponent) searchResult;
+			} else if (sourceContext.getPrototype() instanceof ComponentPrototype) {
+				ComponentClassifier classifier = findClassifierForComponentPrototype(
+						getContainingClassifier(conn),
+						(ComponentPrototype) sourceContext.getPrototype());
+				if (classifier != null) {
+					NamedElement searchResult = classifier
+							.findNamedElement(name);
+					if (searchResult instanceof DataSubcomponent)
+						return(DataSubcomponent) searchResult;
+				}
+			} 
+		}
+		return null;
+	}
+
+	
+	public static ConnectionEnd findFeatureGroupConnectionEnd(
+			FeatureGroupConnection connection, Context cxt, String name) {
+		if (cxt == null) {
+			NamedElement searchResult = getContainingClassifier(connection).findNamedElement(name);
+			if (searchResult instanceof FeatureGroupConnectionEnd)
+				return(FeatureGroupConnectionEnd) searchResult;
+		} else if (cxt instanceof Subcomponent) {
+			Subcomponent subcomponent = (Subcomponent) cxt;
+			while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null
+					&& subcomponent.getRefined() != null)
+				subcomponent = subcomponent.getRefined();
+			if (subcomponent.getClassifier() != null) {
+				NamedElement searchResult = subcomponent.getClassifier().findNamedElement(name);
+				if (searchResult instanceof FeatureGroupConnectionEnd)
+					return(FeatureGroupConnectionEnd) searchResult;
+			} else if (subcomponent.getPrototype() != null) {
+				ComponentClassifier classifier = findClassifierForComponentPrototype(
+						getContainingClassifier(connection), subcomponent.getPrototype());
+				if (classifier != null) {
+					NamedElement searchResult = classifier.findNamedElement(name);
+					if (searchResult instanceof FeatureGroupConnectionEnd)
+						return(FeatureGroupConnectionEnd) searchResult;
+				} 
+			} 
+		} else //connection.getSourceContext() is a FeatureGroup
+		{
+			FeatureGroup featureGroup = (FeatureGroup) cxt;
+			while (featureGroup.getFeatureGroupType() == null && featureGroup.getPrototype() == null
+					&& featureGroup.getRefined() instanceof FeatureGroup) {
+				featureGroup = (FeatureGroup) featureGroup.getRefined();
+			}
+			if (featureGroup.getFeatureGroupType() != null) {
+				NamedElement searchResult = featureGroup.getFeatureGroupType().findNamedElement(name);
+				if (searchResult instanceof FeatureGroupConnectionEnd)
+					return(FeatureGroupConnectionEnd) searchResult;
+			} else if (featureGroup.getPrototype() != null) {
+				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
+						getContainingClassifier(connection), (FeatureGroupPrototype) featureGroup.getPrototype());
+				if (featureGroupType != null) {
+					NamedElement searchResult = featureGroupType.findNamedElement(name);
+					if (searchResult instanceof FeatureGroupConnectionEnd)
+						return((FeatureGroupConnectionEnd) searchResult);
+				} 
+			} 
+		}
+		return null;
+	}
+
+	public static ConnectionEnd findFeatureConnectionEnd(
+			FeatureConnection connection, Context cxt, String name) {
+		if (cxt == null) {
+			NamedElement searchResult = getContainingClassifier(connection).findNamedElement(name);
+			if (searchResult instanceof FeatureConnectionEnd)
+				return((FeatureConnectionEnd) searchResult);
+		} else if (cxt instanceof Subcomponent) {
+			Subcomponent subcomponent = (Subcomponent) cxt;
+			while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null
+					&& subcomponent.getRefined() != null)
+				subcomponent = subcomponent.getRefined();
+			if (subcomponent.getClassifier() != null) {
+				NamedElement searchResult = subcomponent.getClassifier().findNamedElement(name);
+				if (searchResult instanceof FeatureConnectionEnd)
+					return((FeatureConnectionEnd) searchResult);
+			} else if (subcomponent.getPrototype() != null) {
+				ComponentClassifier classifier = findClassifierForComponentPrototype(
+						getContainingClassifier(connection), subcomponent.getPrototype());
+				if (classifier != null) {
+					NamedElement searchResult = classifier.findNamedElement(name);
+					if (searchResult instanceof FeatureConnectionEnd)
+						return((FeatureConnectionEnd) searchResult);
+				} 
+			} 
+		} else //connection.getSourceContext() is a FeatureGroup
+		{
+			FeatureGroup featureGroup = (FeatureGroup) cxt;
+			while (featureGroup.getFeatureGroupType() == null && featureGroup.getPrototype() == null
+					&& featureGroup.getRefined() instanceof FeatureGroup) {
+				featureGroup = (FeatureGroup) featureGroup.getRefined();
+			}
+			if (featureGroup.getFeatureGroupType() != null) {
+				NamedElement searchResult = featureGroup.getFeatureGroupType().findNamedElement(name);
+				if (searchResult instanceof FeatureConnectionEnd)
+					return((FeatureConnectionEnd) searchResult);
+			} else if (featureGroup.getPrototype() != null) {
+				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
+						getContainingClassifier(connection), (FeatureGroupPrototype) featureGroup.getPrototype());
+				if (featureGroupType != null) {
+					NamedElement searchResult = featureGroupType.findNamedElement(name);
+					if (searchResult instanceof FeatureConnectionEnd)
+						return((FeatureConnectionEnd) searchResult);
+				} 
+			} 
+		}
+		return null;
+	}
+
 //	private static String reconstructPath(List<ContainmentPathElement> path)
 //	{
 //		if (path.size() == 0)
