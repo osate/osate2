@@ -562,8 +562,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseConnectedElement(ConnectedElement object) {
-			return createConnectedElementAdapter();
+		public Adapter caseAbstractConnectionEnd(AbstractConnectionEnd object) {
+			return createAbstractConnectionEndAdapter();
 		}
 
 		@Override
@@ -609,6 +609,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseFeatureGroupConnection(FeatureGroupConnection object) {
 			return createFeatureGroupConnectionAdapter();
+		}
+
+		@Override
+		public Adapter caseConnectedElement(ConnectedElement object) {
+			return createConnectedElementAdapter();
 		}
 
 		@Override
@@ -2144,6 +2149,20 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConnectionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.AbstractConnectionEnd <em>Abstract Connection End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.AbstractConnectionEnd
+	 * @generated
+	 */
+	public Adapter createAbstractConnectionEndAdapter() {
 		return null;
 	}
 

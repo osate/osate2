@@ -46,7 +46,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.ModalPath#getInTransitions <em>In Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.ModalPath#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,19 +56,19 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface ModalPath extends ModalElement {
 	/**
-	 * Returns the value of the '<em><b>In Transition</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.ModeTransition}.
+	 * Returns the value of the '<em><b>In Mode Or Transition</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.ModeFeature}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>In Transition</em>' reference list isn't clear,
+	 * If the meaning of the '<em>In Mode Or Transition</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In Transition</em>' reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getModalPath_InTransition()
+	 * @return the value of the '<em>In Mode Or Transition</em>' reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getModalPath_InModeOrTransition()
 	 * @model
 	 * @generated
 	 */
-	EList<ModeTransition> getInTransitions();
+	EList<ModeFeature> getInModeOrTransitions();
 
 } // ModalPath

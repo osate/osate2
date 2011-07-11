@@ -211,22 +211,9 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 */
 	public NumberValue cloneAndInvert() {
 		final RealLiteral newVal = Aadl2Factory.eINSTANCE.createRealLiteral();
+		newVal.setLocationReference(getLocationReference());
 		// Copy the unit information
 		newVal.setUnit(getUnit());
-
-		newVal.setLocationReference(getLocationReference());
-
-		// Mess with the valuestring, removing/inserting '-' as needed
-		final StringBuilder valueString = new StringBuilder(getValueString());
-		final char first = valueString.charAt(0);
-		if (first == '+')
-			valueString.setCharAt(0, '-');
-		else if (first == '-')
-			valueString.deleteCharAt(0);
-		else
-			valueString.insert(0, '-');
-		newVal.setValueString(valueString.toString());
-
 		// invert the value
 		newVal.setValue(-getValue());
 		return newVal;
@@ -239,12 +226,9 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 */
 	public final NumberValue cloneNumber() {
 		final RealLiteral newVal = Aadl2Factory.eINSTANCE.createRealLiteral();
+		newVal.setLocationReference(getLocationReference());
 		// Copy the unit information
 		newVal.setUnit(getUnit());
-
-		newVal.setLocationReference(getLocationReference());
-
-		newVal.setValueString(getValueString());
 		newVal.setValue(getValue());
 		return newVal;
 	}

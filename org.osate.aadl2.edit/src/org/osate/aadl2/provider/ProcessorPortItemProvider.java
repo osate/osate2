@@ -55,7 +55,7 @@ import org.osate.aadl2.ProcessorPort;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProcessorPortItemProvider extends ConnectionEndItemProvider implements IEditingDomainItemProvider,
+public class ProcessorPortItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.

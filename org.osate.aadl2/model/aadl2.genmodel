@@ -571,7 +571,7 @@
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ModalPath">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalPath/inTransition"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalPath/inModeOrTransition"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//SubcomponentFlow">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -590,12 +590,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Connection/refined"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ConnectedElement">
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ConnectedElement/context"/>
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ConnectedElement/connectionEnd"/>
-    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//AbstractConnectionEnd"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ImplementationExtension">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ImplementationExtension/extended"/>
@@ -620,6 +615,12 @@
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PortConnection"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//FeatureConnection"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//FeatureGroupConnection"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ConnectedElement">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ConnectedElement/context"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ConnectedElement/connectionEnd"/>
+    </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ElementName">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ElementName/kind"/>
     </genClasses>
@@ -1182,7 +1183,6 @@
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//UnitLiteral/factor"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//NumberValue">
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//NumberValue/valueString"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumberValue/unit"/>
     </genClasses>

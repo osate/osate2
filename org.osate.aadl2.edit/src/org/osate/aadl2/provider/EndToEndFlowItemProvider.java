@@ -89,7 +89,7 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 			super.getPropertyDescriptors(object);
 
 			addInModePropertyDescriptor(object);
-			addInTransitionPropertyDescriptor(object);
+			addInModeOrTransitionPropertyDescriptor(object);
 			addRefinedPropertyDescriptor(object);
 			addFlowElementPropertyDescriptor(object);
 		}
@@ -113,19 +113,19 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	}
 
 	/**
-	 * This adds a property descriptor for the In Transition feature.
+	 * This adds a property descriptor for the In Mode Or Transition feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addInTransitionPropertyDescriptor(Object object) {
+	protected void addInModeOrTransitionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_ModalPath_inTransition_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalPath_inTransition_feature",
-						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE.getModalPath_InTransition(), true, false, true,
-				null, null, null));
+				getString("_UI_ModalPath_inModeOrTransition_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ModalPath_inModeOrTransition_feature",
+						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition(), true, false,
+				true, null, null, null));
 	}
 
 	/**

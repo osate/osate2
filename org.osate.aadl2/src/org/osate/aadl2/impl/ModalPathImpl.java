@@ -38,12 +38,14 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ModalPath;
-import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeFeature;
 
 /**
  * <!-- begin-user-doc -->
@@ -52,7 +54,7 @@ import org.osate.aadl2.ModeTransition;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.ModalPathImpl#getInTransitions <em>In Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ModalPathImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
  * </ul>
  * </p>
  *
@@ -60,14 +62,14 @@ import org.osate.aadl2.ModeTransition;
  */
 public abstract class ModalPathImpl extends ModalElementImpl implements ModalPath {
 	/**
-	 * The cached value of the '{@link #getInTransitions() <em>In Transition</em>}' reference list.
+	 * The cached value of the '{@link #getInModeOrTransitions() <em>In Mode Or Transition</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInTransitions()
+	 * @see #getInModeOrTransitions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ModeTransition> inTransitions;
+	protected EList<ModeFeature> inModeOrTransitions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -93,12 +95,12 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ModeTransition> getInTransitions() {
-		if (inTransitions == null) {
-			inTransitions = new EObjectResolvingEList<ModeTransition>(ModeTransition.class, this,
-					Aadl2Package.MODAL_PATH__IN_TRANSITION);
+	public EList<ModeFeature> getInModeOrTransitions() {
+		if (inModeOrTransitions == null) {
+			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
+					Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION);
 		}
-		return inTransitions;
+		return inModeOrTransitions;
 	}
 
 	/**
@@ -109,8 +111,8 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.MODAL_PATH__IN_TRANSITION:
-			return getInTransitions();
+		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
+			return getInModeOrTransitions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -124,9 +126,9 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.MODAL_PATH__IN_TRANSITION:
-			getInTransitions().clear();
-			getInTransitions().addAll((Collection<? extends ModeTransition>) newValue);
+		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
+			getInModeOrTransitions().clear();
+			getInModeOrTransitions().addAll((Collection<? extends ModeFeature>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -140,8 +142,8 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.MODAL_PATH__IN_TRANSITION:
-			getInTransitions().clear();
+		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
+			getInModeOrTransitions().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -155,10 +157,28 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.MODAL_PATH__IN_TRANSITION:
-			return inTransitions != null && !inTransitions.isEmpty();
+		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
+			return inModeOrTransitions != null && !inModeOrTransitions.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.impl.ModalElementImpl#getInModes()
+	 */
+	@Override
+	public EList<Mode> getInModes() {
+		if (inModes == null) {
+			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.MODAL_ELEMENT__IN_MODE);
+		} else {
+			inModes.clear();
+		}
+		for (ModeFeature mf : inModeOrTransitions) {
+			if (mf instanceof Mode) {
+				inModes.add((Mode) mf);
+			}
+		}
+		return inModes;
 	}
 
 } //ModalPathImpl

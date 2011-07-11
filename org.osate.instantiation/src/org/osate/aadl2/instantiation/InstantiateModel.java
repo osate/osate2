@@ -77,6 +77,8 @@ import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Numeral;
 import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.PortSpecification;
@@ -345,14 +347,18 @@ public class InstantiateModel {
 				mti.setSource(srcI);
 				mti.setDestination(dstI);
 				mti.setModeTransition(m);
-				EList<TriggerPort> triggers = m.getOwnedTriggers();
+				EList<ModeTransitionTrigger> triggers = m.getOwnedTriggers();
 				String eventName = "";
 				if (!triggers.isEmpty()) {
-					Context o = triggers.get(0).getContext();
-					if (o instanceof Subcomponent) {
-						eventName = ((Subcomponent) o).getName() + ".";
+					if (triggers.get(0) instanceof TriggerPort) {
+						Context o = ((TriggerPort) triggers.get(0)).getContext();
+						if (o instanceof Subcomponent) {
+							eventName = ((Subcomponent) o).getName() + ".";
+						}
+						eventName = eventName + ((TriggerPort) triggers.get(0)).getPort().getName();
+					} else {
+						eventName = ((NamedElement) triggers.get(0)).getName();
 					}
-					eventName = eventName + triggers.get(0).getPort().getName();
 				}
 				mti.setName(srcmode.getName() + "." + (!eventName.equals("") ? eventName + "." : "")
 						+ dstmode.getName());

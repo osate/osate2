@@ -55,7 +55,7 @@ import org.osate.aadl2.ProcessorSubprogram;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProcessorSubprogramItemProvider extends ConnectionEndItemProvider implements IEditingDomainItemProvider,
+public class ProcessorSubprogramItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.

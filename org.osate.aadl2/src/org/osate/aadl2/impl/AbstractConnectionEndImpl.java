@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,104 +31,67 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: InternalEventItemProvider.java,v 1.2 2009-02-25 20:34:54 lwrage Exp $
  */
-package org.osate.aadl2.provider;
+package org.osate.aadl2.impl;
 
-import java.util.Collection;
-import java.util.List;
-
-import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.osate.aadl2.InternalEvent;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.uml2.common.util.CacheAdapter;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AbstractConnectionEnd;
+import org.osate.aadl2.parsesupport.AObjectImpl;
 
 /**
- * This is the item provider adapter for a {@link org.osate.aadl2.InternalEvent} object.
  * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Abstract Connection End</b></em>'.
  * <!-- end-user-doc -->
+ * <p>
+ * </p>
+ *
  * @generated
  */
-public class InternalEventItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public abstract class AbstractConnectionEndImpl extends AObjectImpl implements AbstractConnectionEnd {
 	/**
-	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InternalEventItemProvider(AdapterFactory adapterFactory) {
-		super(adapterFactory);
+	protected AbstractConnectionEndImpl() {
+		super();
 	}
 
 	/**
-	 * This returns the property descriptors for the adapted class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
-			super.getPropertyDescriptors(object);
-
-		}
-		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This returns InternalEvent.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/InternalEvent"));
+	protected EClass eStaticClass() {
+		return Aadl2Package.eINSTANCE.getAbstractConnectionEnd();
 	}
 
 	/**
-	 * This returns the label text for the adapted class.
+	 * Creates a new instance of the specified Ecore class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param eClass The Ecore class of the instance to create.
+	 * @return The new instance.
 	 * @generated
 	 */
-	@Override
-	public String getText(Object object) {
-		String label = ((InternalEvent) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_InternalEvent_type")
-				: getString("_UI_InternalEvent_type") + " " + label;
+	protected EObject create(EClass eClass) {
+		return EcoreUtil.create(eClass);
 	}
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to update any cached
-	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+	 * Retrieves the cache adapter for this '<em><b>Abstract Connection End</b></em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @return The cache adapter for this '<em><b>Abstract Connection End</b></em>'.
 	 * @generated
 	 */
-	@Override
-	public void notifyChanged(Notification notification) {
-		updateChildren(notification);
-		super.notifyChanged(notification);
+	protected CacheAdapter getCacheAdapter() {
+		return CacheAdapter.getCacheAdapter(this);
 	}
 
-	/**
-	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-	 * that can be created under this object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
-		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
-
-}
+} //AbstractConnectionEndImpl

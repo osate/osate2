@@ -37,6 +37,7 @@ package org.osate.aadl2.operations;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.RefinableElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -65,12 +66,22 @@ public class ModalElementOperations extends NamedElementOperations {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public static EList<Mode> getAllInModes(ModalElement modalElement) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		EList<Mode> inmodes = null;
+		// inmodes will be an empty list (all modes) if we do not find a non-empty list
+		while (modalElement != null) {
+			inmodes = modalElement.getInModes();
+			// we stop when we find the first occurrence of a non-empty inmodes list
+			if (inmodes != null && !inmodes.isEmpty())
+				return inmodes;
+			if (modalElement instanceof RefinableElement)
+				modalElement = (ModalElement) ((RefinableElement) modalElement).getRefinedElement();
+			else
+				modalElement = null;
+		}
+		return inmodes;
 	}
 
 } // ModalElementOperations

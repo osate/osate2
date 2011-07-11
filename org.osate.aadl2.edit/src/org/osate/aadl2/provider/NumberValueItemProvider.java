@@ -47,10 +47,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.NumberValue;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.NumberValue} object.
@@ -81,26 +78,9 @@ public class NumberValueItemProvider extends PropertyValueItemProvider implement
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addValueStringPropertyDescriptor(object);
 			addUnitPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Value String feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addValueStringPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_NumberValue_valueString_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_NumberValue_valueString_feature",
-						"_UI_NumberValue_type"), Aadl2Package.eINSTANCE.getNumberValue_ValueString(), true, false,
-				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -128,9 +108,7 @@ public class NumberValueItemProvider extends PropertyValueItemProvider implement
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((NumberValue) object).getValueString();
-		return label == null || label.length() == 0 ? getString("_UI_NumberValue_type")
-				: getString("_UI_NumberValue_type") + " " + label;
+		return getString("_UI_NumberValue_type");
 	}
 
 	/**
@@ -143,12 +121,6 @@ public class NumberValueItemProvider extends PropertyValueItemProvider implement
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(NumberValue.class)) {
-		case Aadl2Package.NUMBER_VALUE__VALUE_STRING:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		}
 		super.notifyChanged(notification);
 	}
 

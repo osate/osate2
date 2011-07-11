@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AbstractConnectionEnd;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
@@ -59,7 +60,7 @@ import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
@@ -74,7 +75,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getInModes <em>In Mode</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getInTransitions <em>In Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#isBidirectional <em>Bidirectional</em>}</li>
@@ -96,14 +97,14 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	protected EList<Mode> inModes;
 
 	/**
-	 * The cached value of the '{@link #getInTransitions() <em>In Transition</em>}' reference list.
+	 * The cached value of the '{@link #getInModeOrTransitions() <em>In Mode Or Transition</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInTransitions()
+	 * @see #getInModeOrTransitions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ModeTransition> inTransitions;
+	protected EList<ModeFeature> inModeOrTransitions;
 
 
 	/**
@@ -114,7 +115,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * @generated
 	 * @ordered
 	 */
-	protected ConnectedElement destination;
+	protected AbstractConnectionEnd destination;
 
 	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' containment reference.
@@ -124,7 +125,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * @generated
 	 * @ordered
 	 */
-	protected ConnectedElement source;
+	protected AbstractConnectionEnd source;
 
 	/**
 	 * The default value of the '{@link #isBidirectional() <em>Bidirectional</em>}' attribute.
@@ -191,12 +192,12 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ModeTransition> getInTransitions() {
-		if (inTransitions == null) {
-			inTransitions = new EObjectResolvingEList<ModeTransition>(ModeTransition.class, this,
-					Aadl2Package.CONNECTION__IN_TRANSITION);
+	public EList<ModeFeature> getInModeOrTransitions() {
+		if (inModeOrTransitions == null) {
+			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
+					Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION);
 		}
-		return inTransitions;
+		return inModeOrTransitions;
 	}
 
 	/**
@@ -246,7 +247,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConnectedElement getDestination() {
+	public AbstractConnectionEnd getDestination() {
 		return destination;
 	}
 
@@ -255,8 +256,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetDestination(ConnectedElement newDestination, NotificationChain msgs) {
-		ConnectedElement oldDestination = destination;
+	public NotificationChain basicSetDestination(AbstractConnectionEnd newDestination, NotificationChain msgs) {
+		AbstractConnectionEnd oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
@@ -274,7 +275,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDestination(ConnectedElement newDestination) {
+	public void setDestination(AbstractConnectionEnd newDestination) {
 		if (newDestination != destination) {
 			NotificationChain msgs = null;
 			if (destination != null)
@@ -296,8 +297,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConnectedElement createDestination() {
-		ConnectedElement newDestination = (ConnectedElement) create(Aadl2Package.eINSTANCE.getConnectedElement());
+	public AbstractConnectionEnd createDestination(EClass eClass) {
+		AbstractConnectionEnd newDestination = (AbstractConnectionEnd) create(eClass);
 		setDestination(newDestination);
 		return newDestination;
 	}
@@ -307,7 +308,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConnectedElement getSource() {
+	public AbstractConnectionEnd getSource() {
 		return source;
 	}
 
@@ -316,8 +317,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSource(ConnectedElement newSource, NotificationChain msgs) {
-		ConnectedElement oldSource = source;
+	public NotificationChain basicSetSource(AbstractConnectionEnd newSource, NotificationChain msgs) {
+		AbstractConnectionEnd oldSource = source;
 		source = newSource;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
@@ -335,7 +336,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSource(ConnectedElement newSource) {
+	public void setSource(AbstractConnectionEnd newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
 			if (source != null)
@@ -356,8 +357,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConnectedElement createSource() {
-		ConnectedElement newSource = (ConnectedElement) create(Aadl2Package.eINSTANCE.getConnectedElement());
+	public AbstractConnectionEnd createSource(EClass eClass) {
+		AbstractConnectionEnd newSource = (AbstractConnectionEnd) create(eClass);
 		setSource(newSource);
 		return newSource;
 	}
@@ -458,8 +459,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		switch (featureID) {
 		case Aadl2Package.CONNECTION__IN_MODE:
 			return getInModes();
-		case Aadl2Package.CONNECTION__IN_TRANSITION:
-			return getInTransitions();
+		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
+			return getInModeOrTransitions();
 		case Aadl2Package.CONNECTION__DESTINATION:
 			return getDestination();
 		case Aadl2Package.CONNECTION__SOURCE:
@@ -487,15 +488,15 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 			getInModes().clear();
 			getInModes().addAll((Collection<? extends Mode>) newValue);
 			return;
-		case Aadl2Package.CONNECTION__IN_TRANSITION:
-			getInTransitions().clear();
-			getInTransitions().addAll((Collection<? extends ModeTransition>) newValue);
+		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
+			getInModeOrTransitions().clear();
+			getInModeOrTransitions().addAll((Collection<? extends ModeFeature>) newValue);
 			return;
 		case Aadl2Package.CONNECTION__DESTINATION:
-			setDestination((ConnectedElement) newValue);
+			setDestination((AbstractConnectionEnd) newValue);
 			return;
 		case Aadl2Package.CONNECTION__SOURCE:
-			setSource((ConnectedElement) newValue);
+			setSource((AbstractConnectionEnd) newValue);
 			return;
 		case Aadl2Package.CONNECTION__BIDIRECTIONAL:
 			setBidirectional((Boolean) newValue);
@@ -518,14 +519,14 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		case Aadl2Package.CONNECTION__IN_MODE:
 			getInModes().clear();
 			return;
-		case Aadl2Package.CONNECTION__IN_TRANSITION:
-			getInTransitions().clear();
+		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
+			getInModeOrTransitions().clear();
 			return;
 		case Aadl2Package.CONNECTION__DESTINATION:
-			setDestination((ConnectedElement) null);
+			setDestination((AbstractConnectionEnd) null);
 			return;
 		case Aadl2Package.CONNECTION__SOURCE:
-			setSource((ConnectedElement) null);
+			setSource((AbstractConnectionEnd) null);
 			return;
 		case Aadl2Package.CONNECTION__BIDIRECTIONAL:
 			setBidirectional(BIDIRECTIONAL_EDEFAULT);
@@ -547,8 +548,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		switch (featureID) {
 		case Aadl2Package.CONNECTION__IN_MODE:
 			return inModes != null && !inModes.isEmpty();
-		case Aadl2Package.CONNECTION__IN_TRANSITION:
-			return inTransitions != null && !inTransitions.isEmpty();
+		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
+			return inModeOrTransitions != null && !inModeOrTransitions.isEmpty();
 		case Aadl2Package.CONNECTION__DESTINATION:
 			return destination != null;
 		case Aadl2Package.CONNECTION__SOURCE:
@@ -578,8 +579,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		}
 		if (baseClass == ModalPath.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.CONNECTION__IN_TRANSITION:
-				return Aadl2Package.MODAL_PATH__IN_TRANSITION;
+			case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
+				return Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION;
 			default:
 				return -1;
 			}
@@ -616,8 +617,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		}
 		if (baseClass == ModalPath.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.MODAL_PATH__IN_TRANSITION:
-				return Aadl2Package.CONNECTION__IN_TRANSITION;
+			case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
+				return Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION;
 			default:
 				return -1;
 			}
@@ -661,8 +662,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public ConnectionEnd getAllSource() {
-		Connection conn = getRootConnection();
-		return conn.getSource().getConnectionEnd();
+		AbstractConnectionEnd end = getRootConnection().getSource();
+		return (end instanceof ConnectedElement) ? ((ConnectedElement) end).getConnectionEnd() : null;
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
@@ -683,8 +684,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public Context getAllDestinationContext() {
-		Connection conn = getRootConnection();
-		return conn.getDestination().getContext();
+		AbstractConnectionEnd end = getRootConnection().getDestination();
+		return (end instanceof ConnectedElement) ? ((ConnectedElement) end).getContext() : null;
 	}
 
 	/**
@@ -694,8 +695,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public ConnectionEnd getAllDestination() {
-		Connection conn = getRootConnection();
-		return conn.getDestination().getConnectionEnd();
+		AbstractConnectionEnd end = getRootConnection().getDestination();
+		return (end instanceof ConnectedElement) ? ((ConnectedElement) end).getConnectionEnd() : null;
 	}
 
 	/**
@@ -705,8 +706,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public Context getAllSourceContext() {
-		Connection conn = getRootConnection();
-		return conn.getSource().getContext();
+		AbstractConnectionEnd end = getRootConnection().getSource();
+		return (end instanceof ConnectedElement) ? ((ConnectedElement) end).getContext() : null;
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
