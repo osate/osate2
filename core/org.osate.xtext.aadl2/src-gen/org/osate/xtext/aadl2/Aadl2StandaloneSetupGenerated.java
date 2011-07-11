@@ -15,7 +15,7 @@ import com.google.inject.Injector;
 public class Aadl2StandaloneSetupGenerated implements ISetup {
 
 	public Injector createInjectorAndDoEMFRegistration() {
-		org.osate.xtext.aadl2.properties.PropertiesStandaloneSetup.doSetup();
+		org.eclipse.xtext.common.TerminalsStandaloneSetup.doSetup();
 
 		Injector injector = createInjector();
 		register(injector);

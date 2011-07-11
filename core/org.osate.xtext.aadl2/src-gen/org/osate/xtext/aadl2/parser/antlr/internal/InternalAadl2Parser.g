@@ -22730,110 +22730,6 @@ ruleDefaultAnnexSubclause returns [EObject current=null]
 
 
 
-
-
-// Entry rule entryRulePNAME
-entryRulePNAME returns [String current=null] 
-:
-	{ newCompositeNode(grammarAccess.getPNAMERule()); } 
-	 iv_rulePNAME=rulePNAME 
-	 { $current=$iv_rulePNAME.current.getText(); }  
-	 EOF 
-;
-
-// Rule PNAME
-rulePNAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule();
-    }:
-(    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getPNAMEAccess().getIDTerminalRuleCall_0()); 
-    }
-(
-	kw=KEYWORD_17 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPNAMEAccess().getColonColonKeyword_1_0()); 
-    }
-    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
-    }
-
-    { 
-    newLeafNode(this_ID_2, grammarAccess.getPNAMEAccess().getIDTerminalRuleCall_1_1()); 
-    }
-)*)
-    ;
-
-
-
-
-
-// Entry rule entryRuleINAME
-entryRuleINAME returns [String current=null] 
-:
-	{ newCompositeNode(grammarAccess.getINAMERule()); } 
-	 iv_ruleINAME=ruleINAME 
-	 { $current=$iv_ruleINAME.current.getText(); }  
-	 EOF 
-;
-
-// Rule INAME
-ruleINAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule();
-    }:
-    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getINAMEAccess().getIDTerminalRuleCall()); 
-    }
-
-    ;
-
-
-
-
-
-// Entry rule entryRuleREFINEDNAME
-entryRuleREFINEDNAME returns [String current=null] 
-:
-	{ newCompositeNode(grammarAccess.getREFINEDNAMERule()); } 
-	 iv_ruleREFINEDNAME=ruleREFINEDNAME 
-	 { $current=$iv_ruleREFINEDNAME.current.getText(); }  
-	 EOF 
-;
-
-// Rule REFINEDNAME
-ruleREFINEDNAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule();
-    }:
-    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getREFINEDNAMEAccess().getIDTerminalRuleCall()); 
-    }
-
-    ;
-
-
-
-
-
-
-
 // Entry rule entryRulePropertySet
 entryRulePropertySet returns [EObject current=null]
 	:
@@ -28443,6 +28339,8 @@ ruleNumericRangeTerm returns [EObject current=null]
 
 
 
+
+
 // Entry rule entryRuleREAL
 entryRuleREAL returns [String current=null] 
 :
@@ -28719,6 +28617,106 @@ ruleSTAR returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     {
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getSTARAccess().getAsteriskKeyword()); 
+    }
+
+    ;
+
+
+
+
+
+// Entry rule entryRulePNAME
+entryRulePNAME returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getPNAMERule()); } 
+	 iv_rulePNAME=rulePNAME 
+	 { $current=$iv_rulePNAME.current.getText(); }  
+	 EOF 
+;
+
+// Rule PNAME
+rulePNAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+(    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getPNAMEAccess().getIDTerminalRuleCall_0()); 
+    }
+(
+	kw=KEYWORD_17 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getPNAMEAccess().getColonColonKeyword_1_0()); 
+    }
+    this_ID_2=RULE_ID    {
+		$current.merge(this_ID_2);
+    }
+
+    { 
+    newLeafNode(this_ID_2, grammarAccess.getPNAMEAccess().getIDTerminalRuleCall_1_1()); 
+    }
+)*)
+    ;
+
+
+
+
+
+// Entry rule entryRuleINAME
+entryRuleINAME returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getINAMERule()); } 
+	 iv_ruleINAME=ruleINAME 
+	 { $current=$iv_ruleINAME.current.getText(); }  
+	 EOF 
+;
+
+// Rule INAME
+ruleINAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getINAMEAccess().getIDTerminalRuleCall()); 
+    }
+
+    ;
+
+
+
+
+
+// Entry rule entryRuleREFINEDNAME
+entryRuleREFINEDNAME returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getREFINEDNAMERule()); } 
+	 iv_ruleREFINEDNAME=ruleREFINEDNAME 
+	 { $current=$iv_ruleREFINEDNAME.current.getText(); }  
+	 EOF 
+;
+
+// Rule REFINEDNAME
+ruleREFINEDNAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getREFINEDNAMEAccess().getIDTerminalRuleCall()); 
     }
 
     ;

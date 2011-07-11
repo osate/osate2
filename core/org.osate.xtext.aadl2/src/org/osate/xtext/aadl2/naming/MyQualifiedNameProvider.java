@@ -8,6 +8,9 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PropertyType;
 
 public class MyQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
 	
@@ -24,6 +27,18 @@ public class MyQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProv
 	}
 	
 	public QualifiedName qualifiedName(final AadlPackage obj) {
+		return getConverter().toQualifiedName(obj.getQualifiedName());
+	}
+	
+	public QualifiedName qualifiedName(final PropertyType obj) {
+		return getConverter().toQualifiedName(obj.getQualifiedName());
+	}
+	
+	public QualifiedName qualifiedName(final Property obj) {
+		return getConverter().toQualifiedName(obj.getQualifiedName());
+	}
+	
+	public QualifiedName qualifiedName(final PropertySet obj) {
 		return getConverter().toQualifiedName(obj.getQualifiedName());
 	}
 

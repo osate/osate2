@@ -206,7 +206,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFlowSpecificationAccess().getAlternatives_0(), "rule__FlowSpecification__Alternatives_0");
 					put(grammarAccess.getFlowImplementationAccess().getAlternatives_0(), "rule__FlowImplementation__Alternatives_0");
 					put(grammarAccess.getTriggerAccess().getAlternatives(), "rule__Trigger__Alternatives");
-					put(grammarAccess.getPModelAccess().getAlternatives(), "rule__PModel__Alternatives");
 					put(grammarAccess.getPropertySetAccess().getAlternatives_5(), "rule__PropertySet__Alternatives_5");
 					put(grammarAccess.getPropertyTypeAccess().getAlternatives_0(), "rule__PropertyType__Alternatives_0");
 					put(grammarAccess.getUnnamedPropertyTypeAccess().getAlternatives(), "rule__UnnamedPropertyType__Alternatives");
@@ -797,9 +796,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getModeRefAccess().getGroup_1(), "rule__ModeRef__Group_1__0");
 					put(grammarAccess.getDefaultAnnexLibraryAccess().getGroup(), "rule__DefaultAnnexLibrary__Group__0");
 					put(grammarAccess.getDefaultAnnexSubclauseAccess().getGroup(), "rule__DefaultAnnexSubclause__Group__0");
-					put(grammarAccess.getCINAMEAccess().getGroup(), "rule__CINAME__Group__0");
-					put(grammarAccess.getPNAMEAccess().getGroup(), "rule__PNAME__Group__0");
-					put(grammarAccess.getPNAMEAccess().getGroup_1(), "rule__PNAME__Group_1__0");
 					put(grammarAccess.getPropertySetAccess().getGroup(), "rule__PropertySet__Group__0");
 					put(grammarAccess.getPropertySetAccess().getGroup_4(), "rule__PropertySet__Group_4__0");
 					put(grammarAccess.getPropertySetAccess().getGroup_4_2(), "rule__PropertySet__Group_4_2__0");
@@ -891,6 +887,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSignedRealAccess().getGroup(), "rule__SignedReal__Group__0");
 					put(grammarAccess.getNumericRangeTermAccess().getGroup(), "rule__NumericRangeTerm__Group__0");
 					put(grammarAccess.getNumericRangeTermAccess().getGroup_3(), "rule__NumericRangeTerm__Group_3__0");
+					put(grammarAccess.getCINAMEAccess().getGroup(), "rule__CINAME__Group__0");
 					put(grammarAccess.getREALAccess().getGroup(), "rule__REAL__Group__0");
 					put(grammarAccess.getQPREFAccess().getGroup(), "rule__QPREF__Group__0");
 					put(grammarAccess.getQPREFAccess().getGroup_1(), "rule__QPREF__Group_1__0");
@@ -900,6 +897,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getEQCREFAccess().getGroup(), "rule__EQCREF__Group__0");
 					put(grammarAccess.getEQCREFAccess().getGroup_0(), "rule__EQCREF__Group_0__0");
 					put(grammarAccess.getEQCREFAccess().getGroup_2(), "rule__EQCREF__Group_2__0");
+					put(grammarAccess.getPNAMEAccess().getGroup(), "rule__PNAME__Group__0");
+					put(grammarAccess.getPNAMEAccess().getGroup_1(), "rule__PNAME__Group_1__0");
 					put(grammarAccess.getAadlPackageAccess().getNameAssignment_1(), "rule__AadlPackage__NameAssignment_1");
 					put(grammarAccess.getAadlPackageAccess().getOwnedPublicSectionAssignment_2_0_0(), "rule__AadlPackage__OwnedPublicSectionAssignment_2_0_0");
 					put(grammarAccess.getAadlPackageAccess().getOwnedPrivateSectionAssignment_2_0_1(), "rule__AadlPackage__OwnedPrivateSectionAssignment_2_0_1");
