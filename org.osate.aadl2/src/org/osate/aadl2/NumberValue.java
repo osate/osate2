@@ -43,7 +43,6 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.NumberValue#getValueString <em>Value String</em>}</li>
  *   <li>{@link org.osate.aadl2.NumberValue#getUnit <em>Unit</em>}</li>
  * </ul>
  * </p>
@@ -53,32 +52,6 @@ package org.osate.aadl2;
  * @generated
  */
 public interface NumberValue extends PropertyValue {
-	/**
-	 * Returns the value of the '<em><b>Value String</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Value String</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value String</em>' attribute.
-	 * @see #setValueString(String)
-	 * @see org.osate.aadl2.Aadl2Package#getNumberValue_ValueString()
-	 * @model dataType="org.osate.aadl2.String" required="true" ordered="false"
-	 * @generated
-	 */
-	String getValueString();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.NumberValue#getValueString <em>Value String</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value String</em>' attribute.
-	 * @see #getValueString()
-	 * @generated
-	 */
-	void setValueString(String value);
-
 	/**
 	 * Returns the value of the '<em><b>Unit</b></em>' reference.
 	 * <!-- begin-user-doc -->

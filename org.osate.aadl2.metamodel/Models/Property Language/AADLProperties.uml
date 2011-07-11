@@ -589,12 +589,6 @@
           <body>A number value.</body>
         </ownedComment>
         <generalization xmi:id="Expressions-NumberValue-_generalization.0" general="Expressions-PropertyValue"/>
-        <ownedAttribute xmi:id="Expressions-NumberValue-valueString" name="valueString">
-          <ownedComment xmi:id="Expressions-NumberValue-valueString-_ownedComment.0">
-            <body>The value as it occurs in textual AADL.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#String"/>
-        </ownedAttribute>
         <ownedAttribute xmi:id="Expressions-NumberValue-unit" name="unit" type="Types-UnitLiteral" association="Expressions-A_numberValue_unit">
           <ownedComment xmi:id="Expressions-NumberValue-unit-_ownedComment.0">
             <body>Specifies a unit for this value.</body>

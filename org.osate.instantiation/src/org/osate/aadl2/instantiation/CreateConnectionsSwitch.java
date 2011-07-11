@@ -1081,13 +1081,14 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		for (ConnectionReference connRef : conni.getConnectionReferences()) {
 			Connection conn = connRef.getConnection();
 
-			for (ModeTransition mt : conn.getInTransitions()) {
-				ModeTransitionInstance mti = ci.findModeTransitionInstance(mt);
-
-				if (mti != null) {
-					conni.getInModeTransitions().add(mti);
-				}
-			}
+			// TODO-LW: Adapt to new connection MM
+//			for (ModeTransition mt : conn.getInTransitions()) {
+//				ModeTransitionInstance mti = ci.findModeTransitionInstance(mt);
+//
+//				if (mti != null) {
+//					conni.getInModeTransitions().add(mti);
+//				}
+//			}
 		}
 	}
 

@@ -51,7 +51,6 @@ import org.osate.aadl2.UnitLiteral;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.NumberValueImpl#getValueString <em>Value String</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.NumberValueImpl#getUnit <em>Unit</em>}</li>
  * </ul>
  * </p>
@@ -59,26 +58,6 @@ import org.osate.aadl2.UnitLiteral;
  * @generated
  */
 public abstract class NumberValueImpl extends PropertyValueImpl implements NumberValue {
-	/**
-	 * The default value of the '{@link #getValueString() <em>Value String</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValueString()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String VALUE_STRING_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getValueString() <em>Value String</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValueString()
-	 * @generated
-	 * @ordered
-	 */
-	protected String valueString = VALUE_STRING_EDEFAULT;
-
 	/**
 	 * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -106,28 +85,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNumberValue();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getValueString() {
-		return valueString;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setValueString(String newValueString) {
-		String oldValueString = valueString;
-		valueString = newValueString;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_VALUE__VALUE_STRING,
-					oldValueString, valueString));
 	}
 
 	/**
@@ -177,8 +134,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.NUMBER_VALUE__VALUE_STRING:
-			return getValueString();
 		case Aadl2Package.NUMBER_VALUE__UNIT:
 			if (resolve)
 				return getUnit();
@@ -195,9 +150,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.NUMBER_VALUE__VALUE_STRING:
-			setValueString((String) newValue);
-			return;
 		case Aadl2Package.NUMBER_VALUE__UNIT:
 			setUnit((UnitLiteral) newValue);
 			return;
@@ -213,9 +165,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.NUMBER_VALUE__VALUE_STRING:
-			setValueString(VALUE_STRING_EDEFAULT);
-			return;
 		case Aadl2Package.NUMBER_VALUE__UNIT:
 			setUnit((UnitLiteral) null);
 			return;
@@ -231,29 +180,10 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.NUMBER_VALUE__VALUE_STRING:
-			return VALUE_STRING_EDEFAULT == null ? valueString != null : !VALUE_STRING_EDEFAULT.equals(valueString);
 		case Aadl2Package.NUMBER_VALUE__UNIT:
 			return unit != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (valueString: ");
-		result.append(valueString);
-		result.append(')');
-		return result.toString();
 	}
 
 	/* (non-Javadoc)

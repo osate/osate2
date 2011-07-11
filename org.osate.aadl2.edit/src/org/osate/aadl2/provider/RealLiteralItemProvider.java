@@ -122,9 +122,8 @@ public class RealLiteralItemProvider extends NumberValueItemProvider implements 
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((RealLiteral) object).getValueString();
-		return label == null || label.length() == 0 ? getString("_UI_RealLiteral_type")
-				: getString("_UI_RealLiteral_type") + " " + label;
+		RealLiteral realLiteral = (RealLiteral) object;
+		return getString("_UI_RealLiteral_type") + " " + realLiteral.getValue();
 	}
 
 	/**
