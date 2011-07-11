@@ -332,7 +332,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public ComponentClassifier basicGetClassifier() {
 		// DONE: implement this method to return the 'Classifier' reference
-		SubcomponentType st = basicGetSubcomponentType();
+		SubcomponentType st = getSubcomponentType();
 
 		return st instanceof ComponentClassifier ? (ComponentClassifier) st : null;
 	}
@@ -421,7 +421,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public ComponentPrototype basicGetPrototype() {
 		// DONE: implement this method to return the 'Prototype' reference
-		SubcomponentType st = basicGetSubcomponentType();
+		// phf: changed it to get from basic to have the proxy resolved.
+		SubcomponentType st = getSubcomponentType();
 
 		return st instanceof ComponentPrototype ? (ComponentPrototype) st : null;
 	}

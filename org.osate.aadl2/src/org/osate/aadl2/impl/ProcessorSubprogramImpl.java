@@ -68,5 +68,10 @@ public class ProcessorSubprogramImpl extends NamedElementImpl implements Process
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessorSubprogram();
 	}
+	
+	@Override
+	public String qualifiedName() {
+		return getName();
+	}
 
 } //ProcessorSubprogramImpl
