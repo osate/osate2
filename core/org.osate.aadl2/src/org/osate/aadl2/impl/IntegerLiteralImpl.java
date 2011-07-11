@@ -312,25 +312,11 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 */
 	public NumberValue cloneAndInvert() {
 		final IntegerLiteral newVal = Aadl2Factory.eINSTANCE.createIntegerLiteral();
+		newVal.setLocationReference(getLocationReference());
 		// Copy the unit information
 		newVal.setUnit(getUnit());
-
-		newVal.setLocationReference(getLocationReference());
-
 		// copy base information
 		newVal.setBase(getBase());
-
-		//Mess with the valuestring, removing/inserting '-' as needed
-		final StringBuilder valueString = new StringBuilder(getValueString());
-		final char first = valueString.charAt(0);
-		if (first == '+')
-			valueString.setCharAt(0, '-');
-		else if (first == '-')
-			valueString.deleteCharAt(0);
-		else
-			valueString.insert(0, '-');
-		newVal.setValueString(valueString.toString());
-
 		// invert the value
 		newVal.setValue(-getValue());
 		return newVal;
@@ -343,13 +329,10 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 */
 	public final NumberValue cloneNumber() {
 		final IntegerLiteral newVal = Aadl2Factory.eINSTANCE.createIntegerLiteral();
+		newVal.setLocationReference(getLocationReference());
 		// Copy the unit information
 		newVal.setUnit(getUnit());
-
-		newVal.setLocationReference(getLocationReference());
-
 		newVal.setBase(getBase());
-		newVal.setValueString(getValueString());
 		newVal.setValue(getValue());
 		return newVal;
 	}

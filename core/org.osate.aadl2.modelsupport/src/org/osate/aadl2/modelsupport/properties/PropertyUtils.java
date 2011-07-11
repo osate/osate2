@@ -563,7 +563,6 @@ public class PropertyUtils {
 	public static IntegerLiteral createIntegerValue(long intValue) {
 		IntegerLiteral newPropertyValue = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		newPropertyValue.setValue(intValue);
-		newPropertyValue.setValueString(Long.toString(intValue));
 		return newPropertyValue;
 	}
 
@@ -659,7 +658,6 @@ public class PropertyUtils {
 	public static RealLiteral createRealValue(double realValue) {
 		RealLiteral newPropertyValue = Aadl2Factory.eINSTANCE.createRealLiteral();
 		newPropertyValue.setValue(realValue);
-		newPropertyValue.setValueString(Double.toString(realValue));
 		return newPropertyValue;
 	}
 

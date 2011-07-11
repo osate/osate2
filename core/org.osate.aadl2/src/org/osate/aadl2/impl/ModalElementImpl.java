@@ -169,5 +169,4 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 		return super.eIsSet(featureID);
 	}
 
-
 } //ModalElementImpl

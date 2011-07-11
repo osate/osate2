@@ -2822,7 +2822,7 @@
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
         </generalization>
         <generalization xmi:id="_pOx0gKlcEeCVAsPdeCCOXw">
-          <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-ConnectionEnd"/>
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#_iT__cKl3EeCfxLim1SVFOg"/>
         </generalization>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_kVJokKlbEeCVAsPdeCCOXw" name="InternalEvent">
@@ -2833,7 +2833,7 @@
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
         </generalization>
         <generalization xmi:id="_o0DnYKlcEeCVAsPdeCCOXw">
-          <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-ConnectionEnd"/>
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#_iT__cKl3EeCfxLim1SVFOg"/>
         </generalization>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_saKn4KlbEeCVAsPdeCCOXw" name="ProcessorSubprogram">
@@ -2841,7 +2841,7 @@
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
         </generalization>
         <generalization xmi:id="_pneBUKlcEeCVAsPdeCCOXw">
-          <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-ConnectionEnd"/>
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#_iT__cKl3EeCfxLim1SVFOg"/>
         </generalization>
       </packagedElement>
     </packagedElement>

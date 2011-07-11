@@ -73,7 +73,6 @@ public abstract class AObjectImpl extends EObjectImpl implements AObject {
 		super();
 	}
 
-	@SuppressWarnings("unchecked")
 	public final Object getAdapter(final Class adapter) {
 		//defer to the platform
 		return Platform.getAdapterManager().getAdapter(this, adapter);

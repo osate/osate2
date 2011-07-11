@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,20 +31,21 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: InternalEvent.java,v 1.1 2009-02-25 18:59:18 lwrage Exp $
  */
 package org.osate.aadl2;
 
+import org.osate.aadl2.parsesupport.AObject;
+
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Internal Event</b></em>'.
+ * A representation of the model object '<em><b>Abstract Connection End</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.aadl2.Aadl2Package#getInternalEvent()
- * @model
+ * @see org.osate.aadl2.Aadl2Package#getAbstractConnectionEnd()
+ * @model abstract="true"
+ * @extends AObject
  * @generated
  */
-public interface InternalEvent extends NamedElement, ModeTransitionTrigger, AbstractConnectionEnd {
-} // InternalEvent
+public interface AbstractConnectionEnd extends AObject {
+} // AbstractConnectionEnd

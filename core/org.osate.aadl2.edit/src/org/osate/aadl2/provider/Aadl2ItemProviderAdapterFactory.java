@@ -3924,8 +3924,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			flowImplementationItemProvider.dispose();
 		if (subcomponentFlowItemProvider != null)
 			subcomponentFlowItemProvider.dispose();
-		if (connectedElementItemProvider != null)
-			connectedElementItemProvider.dispose();
 		if (implementationExtensionItemProvider != null)
 			implementationExtensionItemProvider.dispose();
 		if (realizationItemProvider != null)
@@ -3944,6 +3942,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			featureConnectionItemProvider.dispose();
 		if (featureGroupConnectionItemProvider != null)
 			featureGroupConnectionItemProvider.dispose();
+		if (connectedElementItemProvider != null)
+			connectedElementItemProvider.dispose();
 		if (elementNameItemProvider != null)
 			elementNameItemProvider.dispose();
 		if (defaultAnnexLibraryItemProvider != null)

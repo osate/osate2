@@ -58,9 +58,9 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.RefinableElement;
+import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.SubcomponentFlow;
+import org.osate.aadl2.operations.ModalElementOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -70,7 +70,7 @@ import org.osate.aadl2.SubcomponentFlow;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getInModes <em>In Mode</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getInTransitions <em>In Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getFlowElements <em>Flow Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getSpecification <em>Specification</em>}</li>
@@ -93,14 +93,14 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 	protected EList<Mode> inModes;
 
 	/**
-	 * The cached value of the '{@link #getInTransitions() <em>In Transition</em>}' reference list.
+	 * The cached value of the '{@link #getInModeOrTransitions() <em>In Mode Or Transition</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInTransitions()
+	 * @see #getInModeOrTransitions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ModeTransition> inTransitions;
+	protected EList<ModeFeature> inModeOrTransitions;
 
 	/**
 	 * The cached value of the '{@link #getFlowElements() <em>Flow Element</em>}' reference list.
@@ -188,12 +188,12 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ModeTransition> getInTransitions() {
-		if (inTransitions == null) {
-			inTransitions = new EObjectResolvingEList<ModeTransition>(ModeTransition.class, this,
-					Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION);
+	public EList<ModeFeature> getInModeOrTransitions() {
+		if (inModeOrTransitions == null) {
+			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
+					Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION);
 		}
-		return inTransitions;
+		return inModeOrTransitions;
 	}
 
 	/**
@@ -278,6 +278,15 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Mode> getAllInModes() {
+		return ModalElementOperations.getAllInModes(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -298,9 +307,7 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 					Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT, null, FLOW_ELEMENT_ESUBSETS) {
 				private static final long serialVersionUID = 1L;
 
-				/*
-				 * (non-Javadoc)
-				 * 
+				/* (non-Javadoc)
 				 * @see org.eclipse.emf.ecore.util.EObjectEList#isUnique()
 				 */
 				@Override
@@ -363,8 +370,8 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 		switch (featureID) {
 		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
 			return getInModes();
-		case Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION:
-			return getInTransitions();
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
+			return getInModeOrTransitions();
 		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
 			return getFlowElements();
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
@@ -392,9 +399,9 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 			getInModes().clear();
 			getInModes().addAll((Collection<? extends Mode>) newValue);
 			return;
-		case Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION:
-			getInTransitions().clear();
-			getInTransitions().addAll((Collection<? extends ModeTransition>) newValue);
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
+			getInModeOrTransitions().clear();
+			getInModeOrTransitions().addAll((Collection<? extends ModeFeature>) newValue);
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
 			getFlowElements().clear();
@@ -425,8 +432,8 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
 			getInModes().clear();
 			return;
-		case Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION:
-			getInTransitions().clear();
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
+			getInModeOrTransitions().clear();
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
 			getFlowElements().clear();
@@ -454,8 +461,8 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 		switch (featureID) {
 		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
 			return inModes != null && !inModes.isEmpty();
-		case Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION:
-			return inTransitions != null && !inTransitions.isEmpty();
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
+			return inModeOrTransitions != null && !inModeOrTransitions.isEmpty();
 		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
 			return flowElements != null && !flowElements.isEmpty();
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
@@ -485,8 +492,8 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 		}
 		if (baseClass == ModalPath.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION:
-				return Aadl2Package.MODAL_PATH__IN_TRANSITION;
+			case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
+				return Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION;
 			default:
 				return -1;
 			}
@@ -511,8 +518,8 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 		}
 		if (baseClass == ModalPath.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.MODAL_PATH__IN_TRANSITION:
-				return Aadl2Package.FLOW_IMPLEMENTATION__IN_TRANSITION;
+			case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
+				return Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION;
 			default:
 				return -1;
 			}
@@ -536,28 +543,4 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 		result.append(')');
 		return result.toString();
 	}
-
-	/**
-	 * returns the list of modes the modal element belongs to.
-	 * This may be kept with the modal element or an ancestor in the extends hierarchy.
-	 * The in modes of the closest ancestor returned.
-	 * @return EList of modes. This list may be empty of it is all modes.
-	 */
-	public EList<Mode> getAllInModes() {
-		ModalElement mm = this;
-		EList<Mode> inmodes = null;
-		// inmodes will be an empty list (all modes) if we do not find a non-empty list
-		while (mm != null) {
-			inmodes = mm.getInModes();
-			// we stop when we find the first occurrence of a non-empty inmodes list
-			if (inmodes != null && !inmodes.isEmpty())
-				return inmodes;
-			if (mm instanceof RefinableElement)
-				mm = (ModalElement) ((RefinableElement) mm).getRefinedElement();
-			else
-				mm = null;
-		}
-		return inmodes;
-	}
-
 } //FlowImplementationImpl
