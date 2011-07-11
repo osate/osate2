@@ -1141,6 +1141,10 @@ InternalEventPort returns aadl2::InternalEvent:
 	 'self' '.' name=ID
 ;
 
+ProcessorSubprogram returns aadl2::ProcessorSubprogram:
+	 'processor' '.' name=ID
+;
+
 
 PortConnection returns aadl2::PortConnection:
 	((name=ID ':' )|
@@ -1158,7 +1162,7 @@ AccessConnection returns aadl2::AccessConnection:
 	((name=ID ':' )|
 	(refined=[aadl2::AccessConnection|ID] ':' 'refined' 'to'))
 	accessCategory=AccessCategory 'access' 
-	source=ConnectedElement
+	source=ConnectedElement //(ConnectedElement | ProcessorSubprogram)
 	('->' | bidirectional?='<->')
 	destination=ConnectedElement 
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
