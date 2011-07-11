@@ -2,16 +2,19 @@ package org.osate.xtext.aadl2.valueconversion;
 
 import java.util.Iterator;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.services.DefaultTerminalConverters;
 import org.eclipse.xtext.conversion.IValueConverter;
 import org.eclipse.xtext.conversion.ValueConverter;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FlowKind;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PortCategory;
 
 public class Aadl2ValueConverter extends DefaultTerminalConverters {
@@ -52,6 +55,26 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
         };
     }
 
+    @ValueConverter(rule = "REFINEDNAME")
+    public IValueConverter<String> REFINEDNAME() {
+        return new IValueConverter<String>() {
+            public String toValue(String string, INode node) {
+            	if (node == null ) return string;
+            	EObject e = NodeModelUtils.findActualSemanticObjectFor(node);
+            	if (e instanceof NamedElement){
+            		((NamedElement)e).setName(string);
+            	}
+				return string;
+			}
+
+            public String toString(String value) {
+                return value;
+            }
+        };
+    }
+
+    
+    
     @ValueConverter(rule = "PortCategory")
     public IValueConverter<PortCategory> PortCategory() {
         return new IValueConverter<PortCategory>() {

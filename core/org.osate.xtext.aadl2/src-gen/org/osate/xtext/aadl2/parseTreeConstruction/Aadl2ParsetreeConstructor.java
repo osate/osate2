@@ -122,103 +122,105 @@ protected class ThisRootNode extends RootToken {
 			case 88: return new ConnectedElement_Group(this, this, 88, inst);
 			case 89: return new ProcessorPort_Group(this, this, 89, inst);
 			case 90: return new InternalEventPort_Group(this, this, 90, inst);
-			case 91: return new PortConnection_Group(this, this, 91, inst);
-			case 92: return new AccessConnection_Group(this, this, 92, inst);
-			case 93: return new FeatureGroupConnection_Group(this, this, 93, inst);
-			case 94: return new FeatureConnection_Group(this, this, 94, inst);
-			case 95: return new ParameterConnection_Group(this, this, 95, inst);
-			case 96: return new Connection_PortConnectionParserRuleCall(this, this, 96, inst);
-			case 97: return new FlowSpecification_Group(this, this, 97, inst);
-			case 98: return new FlowSourceSpec_Group(this, this, 98, inst);
-			case 99: return new FlowSinkSpec_Group(this, this, 99, inst);
-			case 100: return new FlowPathSpec_Group(this, this, 100, inst);
-			case 101: return new FlowSourceSpecRefinement_Group(this, this, 101, inst);
-			case 102: return new FlowSinkSpecRefinement_Group(this, this, 102, inst);
-			case 103: return new FlowPathSpecRefinement_Group(this, this, 103, inst);
-			case 104: return new FlowImplementation_Group(this, this, 104, inst);
-			case 105: return new FlowSourceImpl_Group(this, this, 105, inst);
-			case 106: return new FlowSinkImpl_Group(this, this, 106, inst);
-			case 107: return new FlowPathImpl_Group(this, this, 107, inst);
-			case 108: return new EndToEndFlow_Group(this, this, 108, inst);
-			case 109: return new EndToEndFlowRefinement_Group(this, this, 109, inst);
-			case 110: return new SubcomponentFlow_Group(this, this, 110, inst);
-			case 111: return new Mode_Group(this, this, 111, inst);
-			case 112: return new RequiresMode_Group(this, this, 112, inst);
-			case 113: return new ModeTransition_Group(this, this, 113, inst);
-			case 114: return new Trigger_Alternatives(this, this, 114, inst);
-			case 115: return new TriggerPort_Group(this, this, 115, inst);
-			case 116: return new ModeRef_Group(this, this, 116, inst);
-			case 117: return new AnnexLibrary_DefaultAnnexLibraryParserRuleCall(this, this, 117, inst);
-			case 118: return new DefaultAnnexLibrary_Group(this, this, 118, inst);
-			case 119: return new AnnexSubclause_DefaultAnnexSubclauseParserRuleCall(this, this, 119, inst);
-			case 120: return new DefaultAnnexSubclause_Group(this, this, 120, inst);
-			case 121: return new PModel_Alternatives(this, this, 121, inst);
-			case 122: return new PropertySet_Group(this, this, 122, inst);
-			case 123: return new PropertyType_Group(this, this, 123, inst);
-			case 124: return new UnnamedPropertyType_Alternatives(this, this, 124, inst);
-			case 125: return new BooleanType_Group(this, this, 125, inst);
-			case 126: return new UnnamedBooleanType_Group(this, this, 126, inst);
-			case 127: return new StringType_Group(this, this, 127, inst);
-			case 128: return new UnnamedStringType_Group(this, this, 128, inst);
-			case 129: return new EnumerationType_Group(this, this, 129, inst);
-			case 130: return new UnnamedEnumerationType_Group(this, this, 130, inst);
-			case 131: return new EnumerationLiteral_NameAssignment(this, this, 131, inst);
-			case 132: return new UnitsType_Group(this, this, 132, inst);
-			case 133: return new UnnamedUnitsType_Group(this, this, 133, inst);
-			case 134: return new UnitLiteral_NameAssignment(this, this, 134, inst);
-			case 135: return new UnitLiteralConversion_Group(this, this, 135, inst);
-			case 136: return new RealType_Group(this, this, 136, inst);
-			case 137: return new UnnamedRealType_Group(this, this, 137, inst);
-			case 138: return new IntegerType_Group(this, this, 138, inst);
-			case 139: return new UnnamedIntegerType_Group(this, this, 139, inst);
-			case 140: return new RangeType_Group(this, this, 140, inst);
-			case 141: return new UnnamedRangeType_Group(this, this, 141, inst);
-			case 142: return new ClassifierType_Group(this, this, 142, inst);
-			case 143: return new UnnamedClassifierType_Group(this, this, 143, inst);
-			case 144: return new QCReference_Group(this, this, 144, inst);
-			case 145: return new ReferenceType_Group(this, this, 145, inst);
-			case 146: return new UnnamedReferenceType_Group(this, this, 146, inst);
-			case 147: return new RecordType_Group(this, this, 147, inst);
-			case 148: return new UnnamedRecordType_Group(this, this, 148, inst);
-			case 149: return new RecordField_Group(this, this, 149, inst);
-			case 150: return new PropertyDefinition_Group(this, this, 150, inst);
-			case 151: return new AllReference_MetaclassNameAssignment(this, this, 151, inst);
-			case 152: return new PropertyOwner_Alternatives(this, this, 152, inst);
-			case 153: return new ClassifierValue_ClassifierAssignment(this, this, 153, inst);
-			case 154: return new PropertyConstant_Group(this, this, 154, inst);
-			case 155: return new NumberValue_Alternatives(this, this, 155, inst);
-			case 156: return new RealLit_ValueAssignment(this, this, 156, inst);
-			case 157: return new IntegerLit_ValueAssignment(this, this, 157, inst);
-			case 158: return new BasicPropertyAssociation_Group(this, this, 158, inst);
-			case 159: return new ContainedPropertyAssociation_Group(this, this, 159, inst);
-			case 160: return new PropertyAssociation_Group(this, this, 160, inst);
-			case 161: return new ContainmentPath_Group(this, this, 161, inst);
-			case 162: return new ModalPropertyValue_Group(this, this, 162, inst);
-			case 163: return new PropertyValue_OwnedValueAssignment(this, this, 163, inst);
-			case 164: return new PropertyExpression_Alternatives(this, this, 164, inst);
-			case 165: return new ConstantPropertyExpression_Alternatives(this, this, 165, inst);
-			case 166: return new BooleanTerm_OrTermParserRuleCall(this, this, 166, inst);
-			case 167: return new OrTerm_Group(this, this, 167, inst);
-			case 168: return new AndTerm_Group(this, this, 168, inst);
-			case 169: return new NotTerm_Group(this, this, 169, inst);
-			case 170: return new BooleanAtom_Alternatives(this, this, 170, inst);
-			case 171: return new BooleanLiteral_Group(this, this, 171, inst);
-			case 172: return new ConstantValue_ConstantAssignment(this, this, 172, inst);
-			case 173: return new ReferenceTerm_Group(this, this, 173, inst);
-			case 174: return new RecordTerm_Group(this, this, 174, inst);
-			case 175: return new ComputedTerm_Group(this, this, 175, inst);
-			case 176: return new ComponentClassifierTerm_Group(this, this, 176, inst);
-			case 177: return new ListTerm_Group(this, this, 177, inst);
-			case 178: return new FieldPropertyAssociation_Group(this, this, 178, inst);
-			case 179: return new ContainmentPathElement_Alternatives(this, this, 179, inst);
-			case 180: return new StringTerm_ValueAssignment(this, this, 180, inst);
-			case 181: return new ArrayRange_Group(this, this, 181, inst);
-			case 182: return new IntegerRange_Group(this, this, 182, inst);
-			case 183: return new RealRange_Group(this, this, 183, inst);
-			case 184: return new SignedConstant_Group(this, this, 184, inst);
-			case 185: return new IntegerTerm_Group(this, this, 185, inst);
-			case 186: return new RealTerm_Group(this, this, 186, inst);
-			case 187: return new NumericRangeTerm_Group(this, this, 187, inst);
+			case 91: return new ProcessorSubprogram_Group(this, this, 91, inst);
+			case 92: return new AbstractConnectionEnd_Alternatives(this, this, 92, inst);
+			case 93: return new ProcessorConnectionEnd_Alternatives(this, this, 93, inst);
+			case 94: return new PortConnection_Group(this, this, 94, inst);
+			case 95: return new AccessConnection_Group(this, this, 95, inst);
+			case 96: return new FeatureGroupConnection_Group(this, this, 96, inst);
+			case 97: return new FeatureConnection_Group(this, this, 97, inst);
+			case 98: return new ParameterConnection_Group(this, this, 98, inst);
+			case 99: return new FlowSpecification_Group(this, this, 99, inst);
+			case 100: return new FlowSourceSpec_Group(this, this, 100, inst);
+			case 101: return new FlowSinkSpec_Group(this, this, 101, inst);
+			case 102: return new FlowPathSpec_Group(this, this, 102, inst);
+			case 103: return new FlowSourceSpecRefinement_Group(this, this, 103, inst);
+			case 104: return new FlowSinkSpecRefinement_Group(this, this, 104, inst);
+			case 105: return new FlowPathSpecRefinement_Group(this, this, 105, inst);
+			case 106: return new FlowImplementation_Group(this, this, 106, inst);
+			case 107: return new FlowSourceImpl_Group(this, this, 107, inst);
+			case 108: return new FlowSinkImpl_Group(this, this, 108, inst);
+			case 109: return new FlowPathImpl_Group(this, this, 109, inst);
+			case 110: return new EndToEndFlow_Group(this, this, 110, inst);
+			case 111: return new EndToEndFlowRefinement_Group(this, this, 111, inst);
+			case 112: return new SubcomponentFlow_Group(this, this, 112, inst);
+			case 113: return new Mode_Group(this, this, 113, inst);
+			case 114: return new RequiresMode_Group(this, this, 114, inst);
+			case 115: return new ModeTransition_Group(this, this, 115, inst);
+			case 116: return new Trigger_Alternatives(this, this, 116, inst);
+			case 117: return new TriggerPort_Group(this, this, 117, inst);
+			case 118: return new ModeRef_Group(this, this, 118, inst);
+			case 119: return new AnnexLibrary_DefaultAnnexLibraryParserRuleCall(this, this, 119, inst);
+			case 120: return new DefaultAnnexLibrary_Group(this, this, 120, inst);
+			case 121: return new AnnexSubclause_DefaultAnnexSubclauseParserRuleCall(this, this, 121, inst);
+			case 122: return new DefaultAnnexSubclause_Group(this, this, 122, inst);
+			case 123: return new PModel_Alternatives(this, this, 123, inst);
+			case 124: return new PropertySet_Group(this, this, 124, inst);
+			case 125: return new PropertyType_Group(this, this, 125, inst);
+			case 126: return new UnnamedPropertyType_Alternatives(this, this, 126, inst);
+			case 127: return new BooleanType_Group(this, this, 127, inst);
+			case 128: return new UnnamedBooleanType_Group(this, this, 128, inst);
+			case 129: return new StringType_Group(this, this, 129, inst);
+			case 130: return new UnnamedStringType_Group(this, this, 130, inst);
+			case 131: return new EnumerationType_Group(this, this, 131, inst);
+			case 132: return new UnnamedEnumerationType_Group(this, this, 132, inst);
+			case 133: return new EnumerationLiteral_NameAssignment(this, this, 133, inst);
+			case 134: return new UnitsType_Group(this, this, 134, inst);
+			case 135: return new UnnamedUnitsType_Group(this, this, 135, inst);
+			case 136: return new UnitLiteral_NameAssignment(this, this, 136, inst);
+			case 137: return new UnitLiteralConversion_Group(this, this, 137, inst);
+			case 138: return new RealType_Group(this, this, 138, inst);
+			case 139: return new UnnamedRealType_Group(this, this, 139, inst);
+			case 140: return new IntegerType_Group(this, this, 140, inst);
+			case 141: return new UnnamedIntegerType_Group(this, this, 141, inst);
+			case 142: return new RangeType_Group(this, this, 142, inst);
+			case 143: return new UnnamedRangeType_Group(this, this, 143, inst);
+			case 144: return new ClassifierType_Group(this, this, 144, inst);
+			case 145: return new UnnamedClassifierType_Group(this, this, 145, inst);
+			case 146: return new QCReference_Group(this, this, 146, inst);
+			case 147: return new ReferenceType_Group(this, this, 147, inst);
+			case 148: return new UnnamedReferenceType_Group(this, this, 148, inst);
+			case 149: return new RecordType_Group(this, this, 149, inst);
+			case 150: return new UnnamedRecordType_Group(this, this, 150, inst);
+			case 151: return new RecordField_Group(this, this, 151, inst);
+			case 152: return new PropertyDefinition_Group(this, this, 152, inst);
+			case 153: return new AllReference_MetaclassNameAssignment(this, this, 153, inst);
+			case 154: return new PropertyOwner_Alternatives(this, this, 154, inst);
+			case 155: return new ClassifierValue_ClassifierAssignment(this, this, 155, inst);
+			case 156: return new PropertyConstant_Group(this, this, 156, inst);
+			case 157: return new NumberValue_Alternatives(this, this, 157, inst);
+			case 158: return new RealLit_ValueAssignment(this, this, 158, inst);
+			case 159: return new IntegerLit_ValueAssignment(this, this, 159, inst);
+			case 160: return new BasicPropertyAssociation_Group(this, this, 160, inst);
+			case 161: return new ContainedPropertyAssociation_Group(this, this, 161, inst);
+			case 162: return new PropertyAssociation_Group(this, this, 162, inst);
+			case 163: return new ContainmentPath_Group(this, this, 163, inst);
+			case 164: return new ModalPropertyValue_Group(this, this, 164, inst);
+			case 165: return new PropertyValue_OwnedValueAssignment(this, this, 165, inst);
+			case 166: return new PropertyExpression_Alternatives(this, this, 166, inst);
+			case 167: return new ConstantPropertyExpression_Alternatives(this, this, 167, inst);
+			case 168: return new BooleanTerm_OrTermParserRuleCall(this, this, 168, inst);
+			case 169: return new OrTerm_Group(this, this, 169, inst);
+			case 170: return new AndTerm_Group(this, this, 170, inst);
+			case 171: return new NotTerm_Group(this, this, 171, inst);
+			case 172: return new BooleanAtom_Alternatives(this, this, 172, inst);
+			case 173: return new BooleanLiteral_Group(this, this, 173, inst);
+			case 174: return new ConstantValue_ConstantAssignment(this, this, 174, inst);
+			case 175: return new ReferenceTerm_Group(this, this, 175, inst);
+			case 176: return new RecordTerm_Group(this, this, 176, inst);
+			case 177: return new ComputedTerm_Group(this, this, 177, inst);
+			case 178: return new ComponentClassifierTerm_Group(this, this, 178, inst);
+			case 179: return new ListTerm_Group(this, this, 179, inst);
+			case 180: return new FieldPropertyAssociation_Group(this, this, 180, inst);
+			case 181: return new ContainmentPathElement_Alternatives(this, this, 181, inst);
+			case 182: return new StringTerm_ValueAssignment(this, this, 182, inst);
+			case 183: return new ArrayRange_Group(this, this, 183, inst);
+			case 184: return new IntegerRange_Group(this, this, 184, inst);
+			case 185: return new RealRange_Group(this, this, 185, inst);
+			case 186: return new SignedConstant_Group(this, this, 186, inst);
+			case 187: return new IntegerTerm_Group(this, this, 187, inst);
+			case 188: return new RealTerm_Group(this, this, 188, inst);
+			case 189: return new NumericRangeTerm_Group(this, this, 189, inst);
 			default: return null;
 		}	
 	}	
@@ -58123,14 +58125,14 @@ protected class PropertyReference_PropertyAssignment extends AssignmentToken  {
  * // ******** Features
  * // needs to have classifier or prototype reference
  * DataPort returns aadl2::DataPort:
- * 	{aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort] ":" "refined" "to") direction=PortDirection "data" "port"
- * 	dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? ("{"
+ * 	{aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
+ * 	"data" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? ("{"
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
-// {aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort] ":" "refined" "to") direction=PortDirection "data" "port"
-// dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? ("{"
+// {aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
+// "data" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? ("{"
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class DataPort_Group extends GroupToken {
 	
@@ -58186,7 +58188,7 @@ protected class DataPort_DataPortAction_0 extends ActionToken  {
 	}
 }
 
-// name=ID ":" | refined=[aadl2::DataPort] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to"
 protected class DataPort_Alternatives_1 extends AlternativesToken {
 
 	public DataPort_Alternatives_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -58288,7 +58290,7 @@ protected class DataPort_ColonKeyword_1_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::DataPort] ":" "refined" "to"
+// refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to"
 protected class DataPort_Group_1_1 extends GroupToken {
 	
 	public DataPort_Group_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -58310,7 +58312,7 @@ protected class DataPort_Group_1_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::DataPort]
+// refined=[aadl2::DataPort|REFINEDNAME]
 protected class DataPort_RefinedAssignment_1_1_0 extends AssignmentToken  {
 	
 	public DataPort_RefinedAssignment_1_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -58336,7 +58338,7 @@ protected class DataPort_RefinedAssignment_1_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getDataPortAccess().getRefinedDataPortCrossReference_1_1_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getDataPortAccess().getRefinedDataPortCrossReference_1_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getDataPortAccess().getRefinedDataPortCrossReference_1_1_0_0(), (EObject)value , null)) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getDataPortAccess().getRefinedDataPortCrossReference_1_1_0_0(); 
 				return obj;
@@ -58725,15 +58727,15 @@ protected class DataPort_SemicolonKeyword_8 extends KeywordToken  {
 /************ begin Rule EventDataPort ****************
  *
  * EventDataPort returns aadl2::EventDataPort:
- * 	{aadl2::EventDataPort} (name=ID ":" | refined=[aadl2::EventDataPort] ":" "refined" "to") direction=PortDirection
- * 	"event" "data" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? ("{"
- * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+ * 	{aadl2::EventDataPort} (name=ID ":" | refined=[aadl2::EventDataPort|REFINEDNAME] ":" "refined" "to")
+ * 	direction=PortDirection "event" "data" "port" dataClassifier=[aadl2::DataClassifier|QCREF]?
+ * 	arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
-// {aadl2::EventDataPort} (name=ID ":" | refined=[aadl2::EventDataPort] ":" "refined" "to") direction=PortDirection "event"
-// "data" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? ("{"
-// ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
+// {aadl2::EventDataPort} (name=ID ":" | refined=[aadl2::EventDataPort|REFINEDNAME] ":" "refined" "to")
+// direction=PortDirection "event" "data" "port" dataClassifier=[aadl2::DataClassifier|QCREF]?
+// arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class EventDataPort_Group extends GroupToken {
 	
 	public EventDataPort_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -58788,7 +58790,7 @@ protected class EventDataPort_EventDataPortAction_0 extends ActionToken  {
 	}
 }
 
-// name=ID ":" | refined=[aadl2::EventDataPort] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::EventDataPort|REFINEDNAME] ":" "refined" "to"
 protected class EventDataPort_Alternatives_1 extends AlternativesToken {
 
 	public EventDataPort_Alternatives_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -58890,7 +58892,7 @@ protected class EventDataPort_ColonKeyword_1_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::EventDataPort] ":" "refined" "to"
+// refined=[aadl2::EventDataPort|REFINEDNAME] ":" "refined" "to"
 protected class EventDataPort_Group_1_1 extends GroupToken {
 	
 	public EventDataPort_Group_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -58912,7 +58914,7 @@ protected class EventDataPort_Group_1_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::EventDataPort]
+// refined=[aadl2::EventDataPort|REFINEDNAME]
 protected class EventDataPort_RefinedAssignment_1_1_0 extends AssignmentToken  {
 	
 	public EventDataPort_RefinedAssignment_1_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -58938,7 +58940,7 @@ protected class EventDataPort_RefinedAssignment_1_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getEventDataPortAccess().getRefinedEventDataPortCrossReference_1_1_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getEventDataPortAccess().getRefinedEventDataPortCrossReference_1_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getEventDataPortAccess().getRefinedEventDataPortCrossReference_1_1_0_0(), (EObject)value , null)) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getEventDataPortAccess().getRefinedEventDataPortCrossReference_1_1_0_0(); 
 				return obj;
@@ -59349,14 +59351,15 @@ protected class EventDataPort_SemicolonKeyword_9 extends KeywordToken  {
 /************ begin Rule EventPort ****************
  *
  * EventPort returns aadl2::EventPort:
- * 	{aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort] ":" "refined" "to") direction=PortDirection "event"
- * 	"port" arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
- * 	";";
+ * 	{aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
+ * 	"event" "port" arraySpecification=SingleArraySpecification? ("{"
+ * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
-// {aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort] ":" "refined" "to") direction=PortDirection "event" "port"
-// arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
+// {aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
+// "event" "port" arraySpecification=SingleArraySpecification? ("{"
+// ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class EventPort_Group extends GroupToken {
 	
 	public EventPort_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -59411,7 +59414,7 @@ protected class EventPort_EventPortAction_0 extends ActionToken  {
 	}
 }
 
-// name=ID ":" | refined=[aadl2::EventPort] ":" "refined" "to"
+// name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to"
 protected class EventPort_Alternatives_1 extends AlternativesToken {
 
 	public EventPort_Alternatives_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -59513,7 +59516,7 @@ protected class EventPort_ColonKeyword_1_0_1 extends KeywordToken  {
 }
 
 
-// refined=[aadl2::EventPort] ":" "refined" "to"
+// refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to"
 protected class EventPort_Group_1_1 extends GroupToken {
 	
 	public EventPort_Group_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -59535,7 +59538,7 @@ protected class EventPort_Group_1_1 extends GroupToken {
 
 }
 
-// refined=[aadl2::EventPort]
+// refined=[aadl2::EventPort|REFINEDNAME]
 protected class EventPort_RefinedAssignment_1_1_0 extends AssignmentToken  {
 	
 	public EventPort_RefinedAssignment_1_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -59561,7 +59564,7 @@ protected class EventPort_RefinedAssignment_1_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getEventPortAccess().getRefinedEventPortCrossReference_1_1_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getEventPortAccess().getRefinedEventPortCrossReference_1_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getEventPortAccess().getRefinedEventPortCrossReference_1_1_0_0(), (EObject)value , null)) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getEventPortAccess().getRefinedEventPortCrossReference_1_1_0_0(); 
 				return obj;
@@ -60100,7 +60103,7 @@ protected class FeatureGroup_RefinedAssignment_0_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFeatureGroupAccess().getRefinedFeatureGroupCrossReference_0_1_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFeatureGroupAccess().getRefinedFeatureGroupCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getFeatureGroupAccess().getRefinedFeatureGroupCrossReference_0_1_0_0(), (EObject)value , null)) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getFeatureGroupAccess().getRefinedFeatureGroupCrossReference_0_1_0_0(); 
 				return obj;
@@ -60752,7 +60755,7 @@ protected class Parameter_RefinedAssignment_0_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getParameterAccess().getRefinedParameterCrossReference_0_1_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getParameterAccess().getRefinedParameterCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getParameterAccess().getRefinedParameterCrossReference_0_1_0_0(), (EObject)value , null)) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getParameterAccess().getRefinedParameterCrossReference_0_1_0_0(); 
 				return obj;
@@ -61305,7 +61308,7 @@ protected class SubprogramAccess_RefinedAssignment_0_1_0 extends AssignmentToken
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSubprogramAccessAccess().getRefinedSubprogramAccessCrossReference_0_1_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getSubprogramAccessAccess().getRefinedSubprogramAccessCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getSubprogramAccessAccess().getRefinedSubprogramAccessCrossReference_0_1_0_0(), (EObject)value , null)) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getSubprogramAccessAccess().getRefinedSubprogramAccessCrossReference_0_1_0_0(); 
 				return obj;
@@ -61880,7 +61883,7 @@ protected class SubprogramGroupAccess_RefinedAssignment_0_1_0 extends Assignment
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSubprogramGroupAccessAccess().getRefinedSubprogramGroupAccessCrossReference_0_1_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getSubprogramGroupAccessAccess().getRefinedSubprogramGroupAccessCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getSubprogramGroupAccessAccess().getRefinedSubprogramGroupAccessCrossReference_0_1_0_0(), (EObject)value , null)) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getSubprogramGroupAccessAccess().getRefinedSubprogramGroupAccessCrossReference_0_1_0_0(); 
 				return obj;
@@ -62477,7 +62480,7 @@ protected class BusAccess_RefinedAssignment_0_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getBusAccessAccess().getRefinedBusAccessCrossReference_0_1_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getBusAccessAccess().getRefinedBusAccessCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getBusAccessAccess().getRefinedBusAccessCrossReference_0_1_0_0(), (EObject)value , null)) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getBusAccessAccess().getRefinedBusAccessCrossReference_0_1_0_0(); 
 				return obj;
@@ -63052,7 +63055,7 @@ protected class DataAccess_RefinedAssignment_0_1_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getDataAccessAccess().getRefinedDataAccessCrossReference_0_1_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getDataAccessAccess().getRefinedDataAccessCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getDataAccessAccess().getRefinedDataAccessCrossReference_0_1_0_0(), (EObject)value , null)) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getDataAccessAccess().getRefinedDataAccessCrossReference_0_1_0_0(); 
 				return obj;
@@ -63630,7 +63633,7 @@ protected class AbstractFeature_RefinedAssignment_0_1_0 extends AssignmentToken 
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getAbstractFeatureAccess().getRefinedAbstractFeatureCrossReference_0_1_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAbstractFeatureAccess().getRefinedAbstractFeatureCrossReference_0_1_0_0().getType().getClassifier()) && crossRefSerializer.isValid(obj.getEObject(), grammarAccess.getAbstractFeatureAccess().getRefinedAbstractFeatureCrossReference_0_1_0_0(), (EObject)value , null)) {
 				type = AssignmentType.CROSS_REFERENCE;
 				element = grammarAccess.getAbstractFeatureAccess().getRefinedAbstractFeatureCrossReference_0_1_0_0(); 
 				return obj;
@@ -65565,20 +65568,403 @@ protected class InternalEventPort_NameAssignment_2 extends AssignmentToken  {
 /************ end Rule InternalEventPort ****************/
 
 
+/************ begin Rule ProcessorSubprogram ****************
+ *
+ * ProcessorSubprogram returns aadl2::ProcessorSubprogram:
+ * 	"processor" "." name=ID;
+ *
+ **/
+
+// "processor" "." name=ID
+protected class ProcessorSubprogram_Group extends GroupToken {
+	
+	public ProcessorSubprogram_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getProcessorSubprogramAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ProcessorSubprogram_NameAssignment_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getProcessorSubprogramRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// "processor"
+protected class ProcessorSubprogram_ProcessorKeyword_0 extends KeywordToken  {
+	
+	public ProcessorSubprogram_ProcessorKeyword_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getProcessorSubprogramAccess().getProcessorKeyword_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+}
+
+// "."
+protected class ProcessorSubprogram_FullStopKeyword_1 extends KeywordToken  {
+	
+	public ProcessorSubprogram_FullStopKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getProcessorSubprogramAccess().getFullStopKeyword_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ProcessorSubprogram_ProcessorKeyword_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// name=ID
+protected class ProcessorSubprogram_NameAssignment_2 extends AssignmentToken  {
+	
+	public ProcessorSubprogram_NameAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getProcessorSubprogramAccess().getNameAssignment_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ProcessorSubprogram_FullStopKeyword_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("name",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("name");
+		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getProcessorSubprogramAccess().getNameIDTerminalRuleCall_2_0(), value, null)) {
+			type = AssignmentType.TERMINAL_RULE_CALL;
+			element = grammarAccess.getProcessorSubprogramAccess().getNameIDTerminalRuleCall_2_0();
+			return obj;
+		}
+		return null;
+	}
+
+}
+
+
+/************ end Rule ProcessorSubprogram ****************/
+
+
+/************ begin Rule AbstractConnectionEnd ****************
+ *
+ * AbstractConnectionEnd returns aadl2::AbstractConnectionEnd:
+ * 	ConnectedElement | ProcessorPort | InternalEventPort;
+ *
+ **/
+
+// ConnectedElement | ProcessorPort | InternalEventPort
+protected class AbstractConnectionEnd_Alternatives extends AlternativesToken {
+
+	public AbstractConnectionEnd_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getAbstractConnectionEndAccess().getAlternatives();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AbstractConnectionEnd_ConnectedElementParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new AbstractConnectionEnd_ProcessorPortParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new AbstractConnectionEnd_InternalEventPortParserRuleCall_2(lastRuleCallOrigin, this, 2, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getConnectedElementRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getInternalEventPortRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getProcessorPortRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// ConnectedElement
+protected class AbstractConnectionEnd_ConnectedElementParserRuleCall_0 extends RuleCallToken {
+	
+	public AbstractConnectionEnd_ConnectedElementParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getAbstractConnectionEndAccess().getConnectedElementParserRuleCall_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ConnectedElement_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getConnectedElementRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(ConnectedElement_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// ProcessorPort
+protected class AbstractConnectionEnd_ProcessorPortParserRuleCall_1 extends RuleCallToken {
+	
+	public AbstractConnectionEnd_ProcessorPortParserRuleCall_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getAbstractConnectionEndAccess().getProcessorPortParserRuleCall_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ProcessorPort_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getProcessorPortRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(ProcessorPort_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// InternalEventPort
+protected class AbstractConnectionEnd_InternalEventPortParserRuleCall_2 extends RuleCallToken {
+	
+	public AbstractConnectionEnd_InternalEventPortParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getAbstractConnectionEndAccess().getInternalEventPortParserRuleCall_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new InternalEventPort_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getInternalEventPortRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(InternalEventPort_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+
+/************ end Rule AbstractConnectionEnd ****************/
+
+
+/************ begin Rule ProcessorConnectionEnd ****************
+ *
+ * ProcessorConnectionEnd returns aadl2::AbstractConnectionEnd:
+ * 	ConnectedElement | ProcessorPort;
+ *
+ **/
+
+// ConnectedElement | ProcessorPort
+protected class ProcessorConnectionEnd_Alternatives extends AlternativesToken {
+
+	public ProcessorConnectionEnd_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getProcessorConnectionEndAccess().getAlternatives();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ProcessorConnectionEnd_ConnectedElementParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ProcessorConnectionEnd_ProcessorPortParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getConnectedElementRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getProcessorPortRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// ConnectedElement
+protected class ProcessorConnectionEnd_ConnectedElementParserRuleCall_0 extends RuleCallToken {
+	
+	public ProcessorConnectionEnd_ConnectedElementParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getProcessorConnectionEndAccess().getConnectedElementParserRuleCall_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ConnectedElement_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getConnectedElementRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(ConnectedElement_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// ProcessorPort
+protected class ProcessorConnectionEnd_ProcessorPortParserRuleCall_1 extends RuleCallToken {
+	
+	public ProcessorConnectionEnd_ProcessorPortParserRuleCall_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getProcessorConnectionEndAccess().getProcessorPortParserRuleCall_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ProcessorPort_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getProcessorPortRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(ProcessorPort_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+
+/************ end Rule ProcessorConnectionEnd ****************/
+
+
 /************ begin Rule PortConnection ****************
  *
  * PortConnection returns aadl2::PortConnection:
- * 	(name=ID ":" | refined=[aadl2::PortConnection] ":" "refined" "to") "port" source= //(ConnectedElement|ProcessorPort|InternalEventPort)
- * 	ConnectedElement ("->" | bidirectional?="<->") destination=ConnectedElement ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+ * 	(name=ID ":" | refined=[aadl2::PortConnection] ":" "refined" "to") "port" source=AbstractConnectionEnd ("->" |
+ * 	bidirectional?="<->") destination=ProcessorConnectionEnd ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+ * 	("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	// also needs to refer to transitions
  * 	";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::PortConnection] ":" "refined" "to") "port" source= //(ConnectedElement|ProcessorPort|InternalEventPort)
-// ConnectedElement ("->" | bidirectional?="<->") destination=ConnectedElement ("{"
-// ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+// (name=ID ":" | refined=[aadl2::PortConnection] ":" "refined" "to") "port" source=AbstractConnectionEnd ("->" |
+// bidirectional?="<->") destination=ProcessorConnectionEnd ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+// ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // // also needs to refer to transitions
 // ";"
 protected class PortConnection_Group extends GroupToken {
@@ -65858,8 +66244,7 @@ protected class PortConnection_PortKeyword_1 extends KeywordToken  {
 
 }
 
-// source= //(ConnectedElement|ProcessorPort|InternalEventPort)
-// ConnectedElement
+// source=AbstractConnectionEnd
 protected class PortConnection_SourceAssignment_2 extends AssignmentToken  {
 	
 	public PortConnection_SourceAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -65874,7 +66259,7 @@ protected class PortConnection_SourceAssignment_2 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ConnectedElement_Group(this, this, 0, inst);
+			case 0: return new AbstractConnectionEnd_Alternatives(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -65885,9 +66270,9 @@ protected class PortConnection_SourceAssignment_2 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("source");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getConnectedElementRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAbstractConnectionEndRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getPortConnectionAccess().getSourceConnectedElementParserRuleCall_2_0(); 
+				element = grammarAccess.getPortConnectionAccess().getSourceAbstractConnectionEndParserRuleCall_2_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -65985,7 +66370,7 @@ protected class PortConnection_BidirectionalAssignment_3_1 extends AssignmentTok
 }
 
 
-// destination=ConnectedElement
+// destination=ProcessorConnectionEnd
 protected class PortConnection_DestinationAssignment_4 extends AssignmentToken  {
 	
 	public PortConnection_DestinationAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -66000,7 +66385,7 @@ protected class PortConnection_DestinationAssignment_4 extends AssignmentToken  
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ConnectedElement_Group(this, this, 0, inst);
+			case 0: return new ProcessorConnectionEnd_Alternatives(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -66011,9 +66396,9 @@ protected class PortConnection_DestinationAssignment_4 extends AssignmentToken  
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("destination");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getConnectedElementRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getProcessorConnectionEndRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getPortConnectionAccess().getDestinationConnectedElementParserRuleCall_4_0(); 
+				element = grammarAccess.getPortConnectionAccess().getDestinationProcessorConnectionEndParserRuleCall_4_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -66145,7 +66530,7 @@ protected class PortConnection_RightCurlyBracketKeyword_5_2 extends KeywordToken
 }
 
 
-// (=> "in" "modes" "(" inMode+=[aadl2::Mode]+ ")")?
+// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")?
 protected class PortConnection_Group_6 extends GroupToken {
 	
 	public PortConnection_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -66234,22 +66619,22 @@ protected class PortConnection_LeftParenthesisKeyword_6_2 extends KeywordToken  
 
 }
 
-// inMode+=[aadl2::Mode]+
-protected class PortConnection_InModeAssignment_6_3 extends AssignmentToken  {
+// inModeOrTransition+=[aadl2::ModeFeature]+
+protected class PortConnection_InModeOrTransitionAssignment_6_3 extends AssignmentToken  {
 	
-	public PortConnection_InModeAssignment_6_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PortConnection_InModeOrTransitionAssignment_6_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getPortConnectionAccess().getInModeAssignment_6_3();
+		return grammarAccess.getPortConnectionAccess().getInModeOrTransitionAssignment_6_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new PortConnection_InModeAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new PortConnection_InModeOrTransitionAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new PortConnection_LeftParenthesisKeyword_6_2(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -66257,13 +66642,13 @@ protected class PortConnection_InModeAssignment_6_3 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inMode",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getPortConnectionAccess().getInModeModeCrossReference_6_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getPortConnectionAccess().getInModeOrTransitionModeFeatureCrossReference_6_3_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getPortConnectionAccess().getInModeModeCrossReference_6_3_0(); 
+				element = grammarAccess.getPortConnectionAccess().getInModeOrTransitionModeFeatureCrossReference_6_3_0(); 
 				return obj;
 			}
 		}
@@ -66287,7 +66672,7 @@ protected class PortConnection_RightParenthesisKeyword_6_4 extends KeywordToken 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new PortConnection_InModeAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new PortConnection_InModeOrTransitionAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -66327,16 +66712,16 @@ protected class PortConnection_SemicolonKeyword_7 extends KeywordToken  {
 /************ begin Rule AccessConnection ****************
  *
  * AccessConnection returns aadl2::AccessConnection:
- * 	(name=ID ":" | refined=[aadl2::AccessConnection] ":" "refined" "to") accessCategory=AccessCategory "access"
- * 	source=ConnectedElement ("->" | bidirectional?="<->") destination=ConnectedElement ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+ * 	(name=ID ":" | refined=[aadl2::AccessConnection] ":" "refined" "to") accessCategory=AccessCategory "access" source= //(ConnectedElement | ProcessorSubprogram)
+ * 	ConnectedElement ("->" | bidirectional?="<->") destination=ConnectedElement ("{"
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
-// (name=ID ":" | refined=[aadl2::AccessConnection] ":" "refined" "to") accessCategory=AccessCategory "access"
-// source=ConnectedElement ("->" | bidirectional?="<->") destination=ConnectedElement ("{"
-// ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+// (name=ID ":" | refined=[aadl2::AccessConnection] ":" "refined" "to") accessCategory=AccessCategory "access" source= //(ConnectedElement | ProcessorSubprogram)
+// ConnectedElement ("->" | bidirectional?="<->") destination=ConnectedElement ("{"
+// ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // ";"
 protected class AccessConnection_Group extends GroupToken {
 	
@@ -66649,7 +67034,8 @@ protected class AccessConnection_AccessKeyword_2 extends KeywordToken  {
 
 }
 
-// source=ConnectedElement
+// source= //(ConnectedElement | ProcessorSubprogram)
+// ConnectedElement
 protected class AccessConnection_SourceAssignment_3 extends AssignmentToken  {
 	
 	public AccessConnection_SourceAssignment_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -66935,7 +67321,7 @@ protected class AccessConnection_RightCurlyBracketKeyword_6_2 extends KeywordTok
 }
 
 
-// (=> "in" "modes" "(" inMode+=[aadl2::Mode]+ ")")?
+// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")?
 protected class AccessConnection_Group_7 extends GroupToken {
 	
 	public AccessConnection_Group_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -67024,22 +67410,22 @@ protected class AccessConnection_LeftParenthesisKeyword_7_2 extends KeywordToken
 
 }
 
-// inMode+=[aadl2::Mode]+
-protected class AccessConnection_InModeAssignment_7_3 extends AssignmentToken  {
+// inModeOrTransition+=[aadl2::ModeFeature]+
+protected class AccessConnection_InModeOrTransitionAssignment_7_3 extends AssignmentToken  {
 	
-	public AccessConnection_InModeAssignment_7_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public AccessConnection_InModeOrTransitionAssignment_7_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getAccessConnectionAccess().getInModeAssignment_7_3();
+		return grammarAccess.getAccessConnectionAccess().getInModeOrTransitionAssignment_7_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new AccessConnection_InModeAssignment_7_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new AccessConnection_InModeOrTransitionAssignment_7_3(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new AccessConnection_LeftParenthesisKeyword_7_2(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -67047,13 +67433,13 @@ protected class AccessConnection_InModeAssignment_7_3 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inMode",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getAccessConnectionAccess().getInModeModeCrossReference_7_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAccessConnectionAccess().getInModeOrTransitionModeFeatureCrossReference_7_3_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getAccessConnectionAccess().getInModeModeCrossReference_7_3_0(); 
+				element = grammarAccess.getAccessConnectionAccess().getInModeOrTransitionModeFeatureCrossReference_7_3_0(); 
 				return obj;
 			}
 		}
@@ -67077,7 +67463,7 @@ protected class AccessConnection_RightParenthesisKeyword_7_4 extends KeywordToke
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new AccessConnection_InModeAssignment_7_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new AccessConnection_InModeOrTransitionAssignment_7_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -67118,14 +67504,14 @@ protected class AccessConnection_SemicolonKeyword_8 extends KeywordToken  {
  * FeatureGroupConnection returns aadl2::FeatureGroupConnection:
  * 	(name=ID ":" | refined=[aadl2::FeatureGroupConnection] ":" "refined" "to") "feature" "group" source=ConnectedElement
  * 	bidirectional?="<->" destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
- * 	"modes" "(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+ * 	"modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
 // (name=ID ":" | refined=[aadl2::FeatureGroupConnection] ":" "refined" "to") "feature" "group" source=ConnectedElement
 // bidirectional?="<->" destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
-// "modes" "(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+// "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // ";"
 protected class FeatureGroupConnection_Group extends GroupToken {
 	
@@ -67666,7 +68052,7 @@ protected class FeatureGroupConnection_RightCurlyBracketKeyword_6_2 extends Keyw
 }
 
 
-// (=> "in" "modes" "(" inMode+=[aadl2::Mode]+ ")")?
+// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")?
 protected class FeatureGroupConnection_Group_7 extends GroupToken {
 	
 	public FeatureGroupConnection_Group_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -67755,22 +68141,22 @@ protected class FeatureGroupConnection_LeftParenthesisKeyword_7_2 extends Keywor
 
 }
 
-// inMode+=[aadl2::Mode]+
-protected class FeatureGroupConnection_InModeAssignment_7_3 extends AssignmentToken  {
+// inModeOrTransition+=[aadl2::ModeFeature]+
+protected class FeatureGroupConnection_InModeOrTransitionAssignment_7_3 extends AssignmentToken  {
 	
-	public FeatureGroupConnection_InModeAssignment_7_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FeatureGroupConnection_InModeOrTransitionAssignment_7_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFeatureGroupConnectionAccess().getInModeAssignment_7_3();
+		return grammarAccess.getFeatureGroupConnectionAccess().getInModeOrTransitionAssignment_7_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FeatureGroupConnection_InModeAssignment_7_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FeatureGroupConnection_InModeOrTransitionAssignment_7_3(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new FeatureGroupConnection_LeftParenthesisKeyword_7_2(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -67778,13 +68164,13 @@ protected class FeatureGroupConnection_InModeAssignment_7_3 extends AssignmentTo
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inMode",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFeatureGroupConnectionAccess().getInModeModeCrossReference_7_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFeatureGroupConnectionAccess().getInModeOrTransitionModeFeatureCrossReference_7_3_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFeatureGroupConnectionAccess().getInModeModeCrossReference_7_3_0(); 
+				element = grammarAccess.getFeatureGroupConnectionAccess().getInModeOrTransitionModeFeatureCrossReference_7_3_0(); 
 				return obj;
 			}
 		}
@@ -67808,7 +68194,7 @@ protected class FeatureGroupConnection_RightParenthesisKeyword_7_4 extends Keywo
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FeatureGroupConnection_InModeAssignment_7_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FeatureGroupConnection_InModeOrTransitionAssignment_7_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -67849,14 +68235,14 @@ protected class FeatureGroupConnection_SemicolonKeyword_8 extends KeywordToken  
  * FeatureConnection returns aadl2::FeatureConnection:
  * 	(name=ID ":" | refined=[aadl2::FeatureConnection] ":" "refined" "to") "feature" source=ConnectedElement ("->" |
  * 	bidirectional?="<->") destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
- * 	"modes" "(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+ * 	"modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
 // (name=ID ":" | refined=[aadl2::FeatureConnection] ":" "refined" "to") "feature" source=ConnectedElement ("->" |
 // bidirectional?="<->") destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
-// "modes" "(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+// "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // ";"
 protected class FeatureConnection_Group extends GroupToken {
 	
@@ -68421,7 +68807,7 @@ protected class FeatureConnection_RightCurlyBracketKeyword_5_2 extends KeywordTo
 }
 
 
-// (=> "in" "modes" "(" inMode+=[aadl2::Mode]+ ")")?
+// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")?
 protected class FeatureConnection_Group_6 extends GroupToken {
 	
 	public FeatureConnection_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -68510,22 +68896,22 @@ protected class FeatureConnection_LeftParenthesisKeyword_6_2 extends KeywordToke
 
 }
 
-// inMode+=[aadl2::Mode]+
-protected class FeatureConnection_InModeAssignment_6_3 extends AssignmentToken  {
+// inModeOrTransition+=[aadl2::ModeFeature]+
+protected class FeatureConnection_InModeOrTransitionAssignment_6_3 extends AssignmentToken  {
 	
-	public FeatureConnection_InModeAssignment_6_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FeatureConnection_InModeOrTransitionAssignment_6_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFeatureConnectionAccess().getInModeAssignment_6_3();
+		return grammarAccess.getFeatureConnectionAccess().getInModeOrTransitionAssignment_6_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FeatureConnection_InModeAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FeatureConnection_InModeOrTransitionAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new FeatureConnection_LeftParenthesisKeyword_6_2(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -68533,13 +68919,13 @@ protected class FeatureConnection_InModeAssignment_6_3 extends AssignmentToken  
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inMode",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFeatureConnectionAccess().getInModeModeCrossReference_6_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFeatureConnectionAccess().getInModeOrTransitionModeFeatureCrossReference_6_3_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFeatureConnectionAccess().getInModeModeCrossReference_6_3_0(); 
+				element = grammarAccess.getFeatureConnectionAccess().getInModeOrTransitionModeFeatureCrossReference_6_3_0(); 
 				return obj;
 			}
 		}
@@ -68563,7 +68949,7 @@ protected class FeatureConnection_RightParenthesisKeyword_6_4 extends KeywordTok
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FeatureConnection_InModeAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FeatureConnection_InModeOrTransitionAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -68604,14 +68990,14 @@ protected class FeatureConnection_SemicolonKeyword_7 extends KeywordToken  {
  * ParameterConnection returns aadl2::ParameterConnection:
  * 	(name=ID ":" | refined=[aadl2::ParameterConnection] ":" "refined" "to") "parameter" source=ConnectedElement "->"
  * 	destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "("
- * 	inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+ * 	inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
 // (name=ID ":" | refined=[aadl2::ParameterConnection] ":" "refined" "to") "parameter" source=ConnectedElement "->"
 // destination=ConnectedElement ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "("
-// inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+// inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // ";"
 protected class ParameterConnection_Group extends GroupToken {
 	
@@ -69118,7 +69504,7 @@ protected class ParameterConnection_RightCurlyBracketKeyword_5_2 extends Keyword
 }
 
 
-// (=> "in" "modes" "(" inMode+=[aadl2::Mode]+ ")")?
+// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")?
 protected class ParameterConnection_Group_6 extends GroupToken {
 	
 	public ParameterConnection_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -69207,22 +69593,22 @@ protected class ParameterConnection_LeftParenthesisKeyword_6_2 extends KeywordTo
 
 }
 
-// inMode+=[aadl2::Mode]+
-protected class ParameterConnection_InModeAssignment_6_3 extends AssignmentToken  {
+// inModeOrTransition+=[aadl2::ModeFeature]+
+protected class ParameterConnection_InModeOrTransitionAssignment_6_3 extends AssignmentToken  {
 	
-	public ParameterConnection_InModeAssignment_6_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ParameterConnection_InModeOrTransitionAssignment_6_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getParameterConnectionAccess().getInModeAssignment_6_3();
+		return grammarAccess.getParameterConnectionAccess().getInModeOrTransitionAssignment_6_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ParameterConnection_InModeAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ParameterConnection_InModeOrTransitionAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new ParameterConnection_LeftParenthesisKeyword_6_2(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -69230,13 +69616,13 @@ protected class ParameterConnection_InModeAssignment_6_3 extends AssignmentToken
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inMode",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getParameterConnectionAccess().getInModeModeCrossReference_6_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getParameterConnectionAccess().getInModeOrTransitionModeFeatureCrossReference_6_3_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getParameterConnectionAccess().getInModeModeCrossReference_6_3_0(); 
+				element = grammarAccess.getParameterConnectionAccess().getInModeOrTransitionModeFeatureCrossReference_6_3_0(); 
 				return obj;
 			}
 		}
@@ -69260,7 +69646,7 @@ protected class ParameterConnection_RightParenthesisKeyword_6_4 extends KeywordT
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ParameterConnection_InModeAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ParameterConnection_InModeOrTransitionAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -69295,52 +69681,6 @@ protected class ParameterConnection_SemicolonKeyword_7 extends KeywordToken  {
 
 /************ end Rule ParameterConnection ****************/
 
-
-
-/************ begin Rule Connection ****************
- *
- * Connection returns aadl2::Connection:
- * 	PortConnection;
- *
- **/
-
-// PortConnection
-protected class Connection_PortConnectionParserRuleCall extends RuleCallToken {
-	
-	public Connection_PortConnectionParserRuleCall(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getConnectionAccess().getPortConnectionParserRuleCall();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new PortConnection_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getPortConnectionRule().getType().getClassifier())
-			return null;
-		if(checkForRecursion(PortConnection_Group.class, eObjectConsumer)) return null;
-		return eObjectConsumer;
-	}
-	
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
-		}	
-	}	
-}
-
-/************ end Rule Connection ****************/
 
 
 
@@ -71819,13 +72159,13 @@ protected class FlowPathSpecRefinement_RightCurlyBracketKeyword_6_2 extends Keyw
  *
  * FlowImplementation returns aadl2::FlowImplementation:
  * 	(FlowSourceImpl | FlowSinkImpl | FlowPathImpl) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
- * 	"(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+ * 	"(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
 // (FlowSourceImpl | FlowSinkImpl | FlowPathImpl) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
-// "(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+// "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // ";"
 protected class FlowImplementation_Group extends GroupToken {
 	
@@ -72096,7 +72436,7 @@ protected class FlowImplementation_RightCurlyBracketKeyword_1_2 extends KeywordT
 }
 
 
-// (=> "in" "modes" "(" inMode+=[aadl2::Mode]+ ")")?
+// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")?
 protected class FlowImplementation_Group_2 extends GroupToken {
 	
 	public FlowImplementation_Group_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -72185,22 +72525,22 @@ protected class FlowImplementation_LeftParenthesisKeyword_2_2 extends KeywordTok
 
 }
 
-// inMode+=[aadl2::Mode]+
-protected class FlowImplementation_InModeAssignment_2_3 extends AssignmentToken  {
+// inModeOrTransition+=[aadl2::ModeFeature]+
+protected class FlowImplementation_InModeOrTransitionAssignment_2_3 extends AssignmentToken  {
 	
-	public FlowImplementation_InModeAssignment_2_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowImplementation_InModeOrTransitionAssignment_2_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowImplementationAccess().getInModeAssignment_2_3();
+		return grammarAccess.getFlowImplementationAccess().getInModeOrTransitionAssignment_2_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowImplementation_InModeAssignment_2_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowImplementation_InModeOrTransitionAssignment_2_3(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new FlowImplementation_LeftParenthesisKeyword_2_2(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -72208,13 +72548,13 @@ protected class FlowImplementation_InModeAssignment_2_3 extends AssignmentToken 
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inMode",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowImplementationAccess().getInModeModeCrossReference_2_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFlowImplementationAccess().getInModeOrTransitionModeFeatureCrossReference_2_3_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowImplementationAccess().getInModeModeCrossReference_2_3_0(); 
+				element = grammarAccess.getFlowImplementationAccess().getInModeOrTransitionModeFeatureCrossReference_2_3_0(); 
 				return obj;
 			}
 		}
@@ -72238,7 +72578,7 @@ protected class FlowImplementation_RightParenthesisKeyword_2_4 extends KeywordTo
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowImplementation_InModeAssignment_2_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowImplementation_InModeOrTransitionAssignment_2_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -73300,14 +73640,14 @@ protected class FlowPathImpl_FlowElementAssignment_4_2 extends AssignmentToken  
  * EndToEndFlow returns aadl2::EndToEndFlow:
  * 	name=ID ":" "end" "to" "end" "flow" ownedSubcomponentFlow+=SubcomponentFlow ("->" flowElement+=[aadl2::Connection]
  * 	"->" ownedSubcomponentFlow+=SubcomponentFlow)* ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
- * 	"(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+ * 	"(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
 // name=ID ":" "end" "to" "end" "flow" ownedSubcomponentFlow+=SubcomponentFlow ("->" flowElement+=[aadl2::Connection] "->"
 // ownedSubcomponentFlow+=SubcomponentFlow)* ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "("
-// inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+// inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // ";"
 protected class EndToEndFlow_Group extends GroupToken {
 	
@@ -73792,7 +74132,7 @@ protected class EndToEndFlow_RightCurlyBracketKeyword_8_2 extends KeywordToken  
 }
 
 
-// (=> "in" "modes" "(" inMode+=[aadl2::Mode]+ ")")?
+// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")?
 protected class EndToEndFlow_Group_9 extends GroupToken {
 	
 	public EndToEndFlow_Group_9(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -73882,22 +74222,22 @@ protected class EndToEndFlow_LeftParenthesisKeyword_9_2 extends KeywordToken  {
 
 }
 
-// inMode+=[aadl2::Mode]+
-protected class EndToEndFlow_InModeAssignment_9_3 extends AssignmentToken  {
+// inModeOrTransition+=[aadl2::ModeFeature]+
+protected class EndToEndFlow_InModeOrTransitionAssignment_9_3 extends AssignmentToken  {
 	
-	public EndToEndFlow_InModeAssignment_9_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlow_InModeOrTransitionAssignment_9_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getEndToEndFlowAccess().getInModeAssignment_9_3();
+		return grammarAccess.getEndToEndFlowAccess().getInModeOrTransitionAssignment_9_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlow_InModeAssignment_9_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlow_InModeOrTransitionAssignment_9_3(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new EndToEndFlow_LeftParenthesisKeyword_9_2(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -73905,13 +74245,13 @@ protected class EndToEndFlow_InModeAssignment_9_3 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inMode",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getEndToEndFlowAccess().getInModeModeCrossReference_9_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getEndToEndFlowAccess().getInModeOrTransitionModeFeatureCrossReference_9_3_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getEndToEndFlowAccess().getInModeModeCrossReference_9_3_0(); 
+				element = grammarAccess.getEndToEndFlowAccess().getInModeOrTransitionModeFeatureCrossReference_9_3_0(); 
 				return obj;
 			}
 		}
@@ -73935,7 +74275,7 @@ protected class EndToEndFlow_RightParenthesisKeyword_9_4 extends KeywordToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlow_InModeAssignment_9_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlow_InModeOrTransitionAssignment_9_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -73976,13 +74316,13 @@ protected class EndToEndFlow_SemicolonKeyword_10 extends KeywordToken  {
  *
  * EndToEndFlowRefinement returns aadl2::EndToEndFlow:
  * 	refined=[aadl2::EndToEndFlow] ":" "refined" "to" "end" "to" "end" "flow" ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * ;
  *
  **/
 
 // refined=[aadl2::EndToEndFlow] ":" "refined" "to" "end" "to" "end" "flow" ("{"
-// ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
+// ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 protected class EndToEndFlowRefinement_Group extends GroupToken {
 	
 	public EndToEndFlowRefinement_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -74317,7 +74657,7 @@ protected class EndToEndFlowRefinement_RightCurlyBracketKeyword_8_2 extends Keyw
 }
 
 
-// (=> "in" "modes" "(" inMode+=[aadl2::Mode]+ ")")?
+// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")?
 protected class EndToEndFlowRefinement_Group_9 extends GroupToken {
 	
 	public EndToEndFlowRefinement_Group_9(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -74406,22 +74746,22 @@ protected class EndToEndFlowRefinement_LeftParenthesisKeyword_9_2 extends Keywor
 
 }
 
-// inMode+=[aadl2::Mode]+
-protected class EndToEndFlowRefinement_InModeAssignment_9_3 extends AssignmentToken  {
+// inModeOrTransition+=[aadl2::ModeFeature]+
+protected class EndToEndFlowRefinement_InModeOrTransitionAssignment_9_3 extends AssignmentToken  {
 	
-	public EndToEndFlowRefinement_InModeAssignment_9_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_InModeOrTransitionAssignment_9_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getInModeAssignment_9_3();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionAssignment_9_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_InModeAssignment_9_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_InModeOrTransitionAssignment_9_3(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new EndToEndFlowRefinement_LeftParenthesisKeyword_9_2(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -74429,13 +74769,13 @@ protected class EndToEndFlowRefinement_InModeAssignment_9_3 extends AssignmentTo
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inMode",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getEndToEndFlowRefinementAccess().getInModeModeCrossReference_9_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_9_3_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getEndToEndFlowRefinementAccess().getInModeModeCrossReference_9_3_0(); 
+				element = grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_9_3_0(); 
 				return obj;
 			}
 		}
@@ -74459,7 +74799,7 @@ protected class EndToEndFlowRefinement_RightParenthesisKeyword_9_4 extends Keywo
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_InModeAssignment_9_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_InModeOrTransitionAssignment_9_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -76575,6 +76915,7 @@ protected class DefaultAnnexSubclause_SemicolonKeyword_3 extends KeywordToken  {
 
 
 /************ end Rule DefaultAnnexSubclause ****************/
+
 
 
 

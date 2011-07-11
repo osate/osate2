@@ -5,6 +5,7 @@ import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PropertySet;
@@ -22,6 +23,10 @@ public class MyQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProv
 	
 	public QualifiedName qualifiedName(final PropertySet obj) {
 		return getConverter().toQualifiedName(obj.getQualifiedName());
+	}
+	
+	public QualifiedName qualifiedName(final Element obj) {
+		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
 	}
 
 }
