@@ -36,6 +36,7 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DataPrototype;
 
 /**
@@ -67,4 +68,8 @@ public class DataPrototypeImpl extends ComponentPrototypeImpl implements DataPro
 		return Aadl2Package.eINSTANCE.getDataPrototype();
 	}
 
+	@Override
+	public ComponentCategory getCategory() {
+		return ComponentCategory.DATA;
+	}
 } //DataPrototypeImpl
