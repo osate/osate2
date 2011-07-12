@@ -36,6 +36,7 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ThreadGroupPrototype;
 
 /**
@@ -65,6 +66,11 @@ public class ThreadGroupPrototypeImpl extends ComponentPrototypeImpl implements 
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getThreadGroupPrototype();
+	}
+
+	@Override
+	public ComponentCategory getCategory() {
+		return ComponentCategory.THREAD_GROUP;
 	}
 
 } //ThreadGroupPrototypeImpl
