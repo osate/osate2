@@ -327,7 +327,7 @@ import org.osate.aadl2.UnitsType;
 					psname = s.substring(0, idx);
 					pname = s.substring(idx+2);
 				} 
-				EObject e = findNamedElementInPropertySet(psname,pname,getContainingClassifier(context));
+				EObject e = findNamedElementInPropertySet(psname,pname,getContainingTopLevelNamespace(context));
 				if(e != null && e instanceof Property) {
 					return Collections.singletonList((EObject)e);
 				}
