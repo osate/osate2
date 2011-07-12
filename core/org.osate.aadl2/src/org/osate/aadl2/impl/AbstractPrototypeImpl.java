@@ -37,6 +37,7 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractPrototype;
+import org.osate.aadl2.ComponentCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -67,4 +68,9 @@ public class AbstractPrototypeImpl extends ComponentPrototypeImpl implements Abs
 		return Aadl2Package.eINSTANCE.getAbstractPrototype();
 	}
 
+
+	@Override
+	public ComponentCategory getCategory() {
+		return ComponentCategory.ABSTRACT;
+	}
 } //AbstractPrototypeImpl

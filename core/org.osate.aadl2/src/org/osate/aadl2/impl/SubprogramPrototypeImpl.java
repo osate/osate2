@@ -36,6 +36,7 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.SubprogramPrototype;
 
 /**
@@ -67,4 +68,9 @@ public class SubprogramPrototypeImpl extends ComponentPrototypeImpl implements S
 		return Aadl2Package.eINSTANCE.getSubprogramPrototype();
 	}
 
+
+	@Override
+	public ComponentCategory getCategory() {
+		return ComponentCategory.SUBPROGRAM;
+	}
 } //SubprogramPrototypeImpl

@@ -37,6 +37,7 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusPrototype;
+import org.osate.aadl2.ComponentCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -65,6 +66,11 @@ public class BusPrototypeImpl extends ComponentPrototypeImpl implements BusProto
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getBusPrototype();
+	}
+
+	@Override
+	public ComponentCategory getCategory() {
+		return ComponentCategory.BUS;
 	}
 
 } //BusPrototypeImpl
