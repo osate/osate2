@@ -332,6 +332,21 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseFlowElement(FlowElement object) {
+			return createFlowElementAdapter();
+		}
+
+		@Override
+		public Adapter caseEndToEndFlowElement(EndToEndFlowElement object) {
+			return createEndToEndFlowElementAdapter();
+		}
+
+		@Override
+		public Adapter caseFlowEnd(FlowEnd object) {
+			return createFlowEndAdapter();
+		}
+
+		@Override
 		public Adapter caseContext(Context object) {
 			return createContextAdapter();
 		}
@@ -414,16 +429,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter casePortConnectionEnd(PortConnectionEnd object) {
 			return createPortConnectionEndAdapter();
-		}
-
-		@Override
-		public Adapter caseFlowElement(FlowElement object) {
-			return createFlowElementAdapter();
-		}
-
-		@Override
-		public Adapter caseEndToEndFlowElement(EndToEndFlowElement object) {
-			return createEndToEndFlowElementAdapter();
 		}
 
 		@Override
@@ -552,8 +557,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSubcomponentFlow(SubcomponentFlow object) {
-			return createSubcomponentFlowAdapter();
+		public Adapter caseFlowSegment(FlowSegment object) {
+			return createFlowSegmentAdapter();
 		}
 
 		@Override
@@ -579,6 +584,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseEndToEndFlow(EndToEndFlow object) {
 			return createEndToEndFlowAdapter();
+		}
+
+		@Override
+		public Adapter caseEndToEndFlowSegment(EndToEndFlowSegment object) {
+			return createEndToEndFlowSegmentAdapter();
 		}
 
 		@Override
@@ -2027,6 +2037,20 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.FlowEnd <em>Flow End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.FlowEnd
+	 * @generated
+	 */
+	public Adapter createFlowEndAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.FeatureGroup <em>Feature Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -2517,6 +2541,20 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.EndToEndFlowSegment <em>End To End Flow Segment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.EndToEndFlowSegment
+	 * @generated
+	 */
+	public Adapter createEndToEndFlowSegmentAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.FeatureConnection <em>Feature Connection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -2867,6 +2905,20 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.FlowSegment <em>Flow Segment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.FlowSegment
+	 * @generated
+	 */
+	public Adapter createFlowSegmentAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.AccessConnection <em>Access Connection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -2975,20 +3027,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createProcessorSubprogramAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.SubcomponentFlow <em>Subcomponent Flow</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.SubcomponentFlow
-	 * @generated
-	 */
-	public Adapter createSubcomponentFlowAdapter() {
 		return null;
 	}
 

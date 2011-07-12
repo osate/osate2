@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,8 +31,6 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: SubcomponentFlowImpl.java,v 1.6 2010-04-13 17:52:31 lwrage Exp $
  */
 package org.osate.aadl2.impl;
 
@@ -41,28 +39,29 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.uml2.common.util.CacheAdapter;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SubcomponentFlow;
+import org.osate.aadl2.Context;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FlowEnd;
+import org.osate.aadl2.parsesupport.AObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Subcomponent Flow</b></em>'.
+ * An implementation of the model object '<em><b>Flow End</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.SubcomponentFlowImpl#getContext <em>Context</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.SubcomponentFlowImpl#getFlowSpecification <em>Flow Specification</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.SubcomponentFlowImpl#getDataAccess <em>Data Access</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FlowEndImpl#getContext <em>Context</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FlowEndImpl#getFeature <em>Feature</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class SubcomponentFlowImpl extends FlowElementImpl implements SubcomponentFlow {
+public class FlowEndImpl extends AObjectImpl implements FlowEnd {
 	/**
 	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -71,32 +70,24 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	 * @generated
 	 * @ordered
 	 */
-	protected Subcomponent context;
+	protected Context context;
+
 	/**
-	 * The cached value of the '{@link #getFlowSpecification() <em>Flow Specification</em>}' reference.
+	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFlowSpecification()
+	 * @see #getFeature()
 	 * @generated
 	 * @ordered
 	 */
-	protected FlowSpecification flowSpecification;
-	/**
-	 * The cached value of the '{@link #getDataAccess() <em>Data Access</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDataAccess()
-	 * @generated
-	 * @ordered
-	 */
-	protected DataAccess dataAccess;
+	protected Feature feature;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SubcomponentFlowImpl() {
+	protected FlowEndImpl() {
 		super();
 	}
 
@@ -107,7 +98,7 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return Aadl2Package.eINSTANCE.getSubcomponentFlow();
+		return Aadl2Package.eINSTANCE.getFlowEnd();
 	}
 
 	/**
@@ -115,13 +106,13 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Subcomponent getContext() {
+	public Context getContext() {
 		if (context != null && ((EObject) context).eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
-			context = (Subcomponent) eResolveProxy(oldContext);
+			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.SUBCOMPONENT_FLOW__CONTEXT,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FLOW_END__CONTEXT,
 							oldContext, context));
 			}
 		}
@@ -133,7 +124,7 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Subcomponent basicGetContext() {
+	public Context basicGetContext() {
 		return context;
 	}
 
@@ -142,12 +133,11 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setContext(Subcomponent newContext) {
-		Subcomponent oldContext = context;
+	public void setContext(Context newContext) {
+		Context oldContext = context;
 		context = newContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT_FLOW__CONTEXT, oldContext,
-					context));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_END__CONTEXT, oldContext, context));
 	}
 
 	/**
@@ -155,17 +145,17 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FlowSpecification getFlowSpecification() {
-		if (flowSpecification != null && ((EObject) flowSpecification).eIsProxy()) {
-			InternalEObject oldFlowSpecification = (InternalEObject) flowSpecification;
-			flowSpecification = (FlowSpecification) eResolveProxy(oldFlowSpecification);
-			if (flowSpecification != oldFlowSpecification) {
+	public Feature getFeature() {
+		if (feature != null && ((EObject) feature).eIsProxy()) {
+			InternalEObject oldFeature = (InternalEObject) feature;
+			feature = (Feature) eResolveProxy(oldFeature);
+			if (feature != oldFeature) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.SUBCOMPONENT_FLOW__FLOW_SPECIFICATION, oldFlowSpecification, flowSpecification));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FLOW_END__FEATURE,
+							oldFeature, feature));
 			}
 		}
-		return flowSpecification;
+		return feature;
 	}
 
 	/**
@@ -173,8 +163,8 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FlowSpecification basicGetFlowSpecification() {
-		return flowSpecification;
+	public Feature basicGetFeature() {
+		return feature;
 	}
 
 	/**
@@ -182,52 +172,11 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFlowSpecification(FlowSpecification newFlowSpecification) {
-		FlowSpecification oldFlowSpecification = flowSpecification;
-		flowSpecification = newFlowSpecification;
+	public void setFeature(Feature newFeature) {
+		Feature oldFeature = feature;
+		feature = newFeature;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT_FLOW__FLOW_SPECIFICATION,
-					oldFlowSpecification, flowSpecification));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DataAccess getDataAccess() {
-		if (dataAccess != null && ((EObject) dataAccess).eIsProxy()) {
-			InternalEObject oldDataAccess = (InternalEObject) dataAccess;
-			dataAccess = (DataAccess) eResolveProxy(oldDataAccess);
-			if (dataAccess != oldDataAccess) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.SUBCOMPONENT_FLOW__DATA_ACCESS, oldDataAccess, dataAccess));
-			}
-		}
-		return dataAccess;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DataAccess basicGetDataAccess() {
-		return dataAccess;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDataAccess(DataAccess newDataAccess) {
-		DataAccess oldDataAccess = dataAccess;
-		dataAccess = newDataAccess;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT_FLOW__DATA_ACCESS,
-					oldDataAccess, dataAccess));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_END__FEATURE, oldFeature, feature));
 	}
 
 	/**
@@ -238,18 +187,14 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.SUBCOMPONENT_FLOW__CONTEXT:
+		case Aadl2Package.FLOW_END__CONTEXT:
 			if (resolve)
 				return getContext();
 			return basicGetContext();
-		case Aadl2Package.SUBCOMPONENT_FLOW__FLOW_SPECIFICATION:
+		case Aadl2Package.FLOW_END__FEATURE:
 			if (resolve)
-				return getFlowSpecification();
-			return basicGetFlowSpecification();
-		case Aadl2Package.SUBCOMPONENT_FLOW__DATA_ACCESS:
-			if (resolve)
-				return getDataAccess();
-			return basicGetDataAccess();
+				return getFeature();
+			return basicGetFeature();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -262,14 +207,11 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.SUBCOMPONENT_FLOW__CONTEXT:
-			setContext((Subcomponent) newValue);
+		case Aadl2Package.FLOW_END__CONTEXT:
+			setContext((Context) newValue);
 			return;
-		case Aadl2Package.SUBCOMPONENT_FLOW__FLOW_SPECIFICATION:
-			setFlowSpecification((FlowSpecification) newValue);
-			return;
-		case Aadl2Package.SUBCOMPONENT_FLOW__DATA_ACCESS:
-			setDataAccess((DataAccess) newValue);
+		case Aadl2Package.FLOW_END__FEATURE:
+			setFeature((Feature) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -283,14 +225,11 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBCOMPONENT_FLOW__CONTEXT:
-			setContext((Subcomponent) null);
+		case Aadl2Package.FLOW_END__CONTEXT:
+			setContext((Context) null);
 			return;
-		case Aadl2Package.SUBCOMPONENT_FLOW__FLOW_SPECIFICATION:
-			setFlowSpecification((FlowSpecification) null);
-			return;
-		case Aadl2Package.SUBCOMPONENT_FLOW__DATA_ACCESS:
-			setDataAccess((DataAccess) null);
+		case Aadl2Package.FLOW_END__FEATURE:
+			setFeature((Feature) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -304,14 +243,35 @@ public class SubcomponentFlowImpl extends FlowElementImpl implements Subcomponen
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBCOMPONENT_FLOW__CONTEXT:
+		case Aadl2Package.FLOW_END__CONTEXT:
 			return context != null;
-		case Aadl2Package.SUBCOMPONENT_FLOW__FLOW_SPECIFICATION:
-			return flowSpecification != null;
-		case Aadl2Package.SUBCOMPONENT_FLOW__DATA_ACCESS:
-			return dataAccess != null;
+		case Aadl2Package.FLOW_END__FEATURE:
+			return feature != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //SubcomponentFlowImpl
+	/**
+	 * Creates a new instance of the specified Ecore class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param eClass The Ecore class of the instance to create.
+	 * @return The new instance.
+	 * @generated
+	 */
+	protected EObject create(EClass eClass) {
+		return EcoreUtil.create(eClass);
+	}
+
+	/**
+	 * Retrieves the cache adapter for this '<em><b>Flow End</b></em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The cache adapter for this '<em><b>Flow End</b></em>'.
+	 * @generated
+	 */
+	protected CacheAdapter getCacheAdapter() {
+		return CacheAdapter.getCacheAdapter(this);
+	}
+
+} //FlowEndImpl

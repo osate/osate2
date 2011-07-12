@@ -38,6 +38,7 @@ package org.osate.aadl2.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -46,8 +47,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Context;
-import org.osate.aadl2.Feature;
+import org.osate.aadl2.EndToEndFlowElement;
+import org.osate.aadl2.FlowElement;
+import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalElement;
@@ -68,10 +70,8 @@ import org.osate.aadl2.properties.PropertyAcc;
  *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getKind <em>Kind</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getInFeature <em>In Feature</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getInContext <em>In Context</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getOutFeature <em>Out Feature</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getOutContext <em>Out Context</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getOutEnd <em>Out End</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getInEnd <em>In End</em>}</li>
  * </ul>
  * </p>
  *
@@ -119,44 +119,24 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	protected FlowKind kind = KIND_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getInFeature() <em>In Feature</em>}' reference.
+	 * The cached value of the '{@link #getOutEnd() <em>Out End</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInFeature()
+	 * @see #getOutEnd()
 	 * @generated
 	 * @ordered
 	 */
-	protected Feature inFeature;
+	protected FlowEnd outEnd;
 
 	/**
-	 * The cached value of the '{@link #getInContext() <em>In Context</em>}' reference.
+	 * The cached value of the '{@link #getInEnd() <em>In End</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInContext()
+	 * @see #getInEnd()
 	 * @generated
 	 * @ordered
 	 */
-	protected Context inContext;
-
-	/**
-	 * The cached value of the '{@link #getOutFeature() <em>Out Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOutFeature()
-	 * @generated
-	 * @ordered
-	 */
-	protected Feature outFeature;
-
-	/**
-	 * The cached value of the '{@link #getOutContext() <em>Out Context</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOutContext()
-	 * @generated
-	 * @ordered
-	 */
-	protected Context outContext;
+	protected FlowEnd inEnd;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -194,86 +174,6 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Feature getInFeature() {
-		if (inFeature != null && ((EObject) inFeature).eIsProxy()) {
-			InternalEObject oldInFeature = (InternalEObject) inFeature;
-			inFeature = (Feature) eResolveProxy(oldInFeature);
-			if (inFeature != oldInFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_SPECIFICATION__IN_FEATURE, oldInFeature, inFeature));
-			}
-		}
-		return inFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Feature basicGetInFeature() {
-		return inFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setInFeature(Feature newInFeature) {
-		Feature oldInFeature = inFeature;
-		inFeature = newInFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__IN_FEATURE,
-					oldInFeature, inFeature));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Feature getOutFeature() {
-		if (outFeature != null && ((EObject) outFeature).eIsProxy()) {
-			InternalEObject oldOutFeature = (InternalEObject) outFeature;
-			outFeature = (Feature) eResolveProxy(oldOutFeature);
-			if (outFeature != oldOutFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_SPECIFICATION__OUT_FEATURE, oldOutFeature, outFeature));
-			}
-		}
-		return outFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Feature basicGetOutFeature() {
-		return outFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setOutFeature(Feature newOutFeature) {
-		Feature oldOutFeature = outFeature;
-		outFeature = newOutFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__OUT_FEATURE,
-					oldOutFeature, outFeature));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public FlowKind getKind() {
 		return kind;
 	}
@@ -288,6 +188,128 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__KIND, oldKind, kind));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FlowEnd getOutEnd() {
+		return outEnd;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetOutEnd(FlowEnd newOutEnd, NotificationChain msgs) {
+		FlowEnd oldOutEnd = outEnd;
+		outEnd = newOutEnd;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FLOW_SPECIFICATION__OUT_END, oldOutEnd, newOutEnd);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOutEnd(FlowEnd newOutEnd) {
+		if (newOutEnd != outEnd) {
+			NotificationChain msgs = null;
+			if (outEnd != null)
+				msgs = ((InternalEObject) outEnd).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.FLOW_SPECIFICATION__OUT_END, null, msgs);
+			if (newOutEnd != null)
+				msgs = ((InternalEObject) newOutEnd).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.FLOW_SPECIFICATION__OUT_END, null, msgs);
+			msgs = basicSetOutEnd(newOutEnd, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__OUT_END, newOutEnd,
+					newOutEnd));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FlowEnd createOutEnd() {
+		FlowEnd newOutEnd = (FlowEnd) create(Aadl2Package.eINSTANCE.getFlowEnd());
+		setOutEnd(newOutEnd);
+		return newOutEnd;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FlowEnd getInEnd() {
+		return inEnd;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetInEnd(FlowEnd newInEnd, NotificationChain msgs) {
+		FlowEnd oldInEnd = inEnd;
+		inEnd = newInEnd;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FLOW_SPECIFICATION__IN_END, oldInEnd, newInEnd);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInEnd(FlowEnd newInEnd) {
+		if (newInEnd != inEnd) {
+			NotificationChain msgs = null;
+			if (inEnd != null)
+				msgs = ((InternalEObject) inEnd).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.FLOW_SPECIFICATION__IN_END, null, msgs);
+			if (newInEnd != null)
+				msgs = ((InternalEObject) newInEnd).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.FLOW_SPECIFICATION__IN_END, null, msgs);
+			msgs = basicSetInEnd(newInEnd, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__IN_END, newInEnd,
+					newInEnd));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FlowEnd createInEnd() {
+		FlowEnd newInEnd = (FlowEnd) create(Aadl2Package.eINSTANCE.getFlowEnd());
+		setInEnd(newInEnd);
+		return newInEnd;
 	}
 
 	/**
@@ -344,88 +366,24 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Context getInContext() {
-		if (inContext != null && ((EObject) inContext).eIsProxy()) {
-			InternalEObject oldInContext = (InternalEObject) inContext;
-			inContext = (Context) eResolveProxy(oldInContext);
-			if (inContext != oldInContext) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_SPECIFICATION__IN_CONTEXT, oldInContext, inContext));
-			}
-		}
-		return inContext;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Context basicGetInContext() {
-		return inContext;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setInContext(Context newInContext) {
-		Context oldInContext = inContext;
-		inContext = newInContext;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__IN_CONTEXT,
-					oldInContext, inContext));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Context getOutContext() {
-		if (outContext != null && ((EObject) outContext).eIsProxy()) {
-			InternalEObject oldOutContext = (InternalEObject) outContext;
-			outContext = (Context) eResolveProxy(oldOutContext);
-			if (outContext != oldOutContext) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_SPECIFICATION__OUT_CONTEXT, oldOutContext, outContext));
-			}
-		}
-		return outContext;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Context basicGetOutContext() {
-		return outContext;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setOutContext(Context newOutContext) {
-		Context oldOutContext = outContext;
-		outContext = newOutContext;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__OUT_CONTEXT,
-					oldOutContext, outContext));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<Mode> getAllInModes() {
 		return ModalElementOperations.getAllInModes(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.FLOW_SPECIFICATION__OUT_END:
+			return basicSetOutEnd(null, msgs);
+		case Aadl2Package.FLOW_SPECIFICATION__IN_END:
+			return basicSetInEnd(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -444,22 +402,10 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 			return basicGetRefined();
 		case Aadl2Package.FLOW_SPECIFICATION__KIND:
 			return getKind();
-		case Aadl2Package.FLOW_SPECIFICATION__IN_FEATURE:
-			if (resolve)
-				return getInFeature();
-			return basicGetInFeature();
-		case Aadl2Package.FLOW_SPECIFICATION__IN_CONTEXT:
-			if (resolve)
-				return getInContext();
-			return basicGetInContext();
-		case Aadl2Package.FLOW_SPECIFICATION__OUT_FEATURE:
-			if (resolve)
-				return getOutFeature();
-			return basicGetOutFeature();
-		case Aadl2Package.FLOW_SPECIFICATION__OUT_CONTEXT:
-			if (resolve)
-				return getOutContext();
-			return basicGetOutContext();
+		case Aadl2Package.FLOW_SPECIFICATION__OUT_END:
+			return getOutEnd();
+		case Aadl2Package.FLOW_SPECIFICATION__IN_END:
+			return getInEnd();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -483,17 +429,11 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 		case Aadl2Package.FLOW_SPECIFICATION__KIND:
 			setKind((FlowKind) newValue);
 			return;
-		case Aadl2Package.FLOW_SPECIFICATION__IN_FEATURE:
-			setInFeature((Feature) newValue);
+		case Aadl2Package.FLOW_SPECIFICATION__OUT_END:
+			setOutEnd((FlowEnd) newValue);
 			return;
-		case Aadl2Package.FLOW_SPECIFICATION__IN_CONTEXT:
-			setInContext((Context) newValue);
-			return;
-		case Aadl2Package.FLOW_SPECIFICATION__OUT_FEATURE:
-			setOutFeature((Feature) newValue);
-			return;
-		case Aadl2Package.FLOW_SPECIFICATION__OUT_CONTEXT:
-			setOutContext((Context) newValue);
+		case Aadl2Package.FLOW_SPECIFICATION__IN_END:
+			setInEnd((FlowEnd) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -516,17 +456,11 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 		case Aadl2Package.FLOW_SPECIFICATION__KIND:
 			setKind(KIND_EDEFAULT);
 			return;
-		case Aadl2Package.FLOW_SPECIFICATION__IN_FEATURE:
-			setInFeature((Feature) null);
+		case Aadl2Package.FLOW_SPECIFICATION__OUT_END:
+			setOutEnd((FlowEnd) null);
 			return;
-		case Aadl2Package.FLOW_SPECIFICATION__IN_CONTEXT:
-			setInContext((Context) null);
-			return;
-		case Aadl2Package.FLOW_SPECIFICATION__OUT_FEATURE:
-			setOutFeature((Feature) null);
-			return;
-		case Aadl2Package.FLOW_SPECIFICATION__OUT_CONTEXT:
-			setOutContext((Context) null);
+		case Aadl2Package.FLOW_SPECIFICATION__IN_END:
+			setInEnd((FlowEnd) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -546,14 +480,10 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 			return isSetRefined();
 		case Aadl2Package.FLOW_SPECIFICATION__KIND:
 			return kind != KIND_EDEFAULT;
-		case Aadl2Package.FLOW_SPECIFICATION__IN_FEATURE:
-			return inFeature != null;
-		case Aadl2Package.FLOW_SPECIFICATION__IN_CONTEXT:
-			return inContext != null;
-		case Aadl2Package.FLOW_SPECIFICATION__OUT_FEATURE:
-			return outFeature != null;
-		case Aadl2Package.FLOW_SPECIFICATION__OUT_CONTEXT:
-			return outContext != null;
+		case Aadl2Package.FLOW_SPECIFICATION__OUT_END:
+			return outEnd != null;
+		case Aadl2Package.FLOW_SPECIFICATION__IN_END:
+			return inEnd != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -573,6 +503,18 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 				return -1;
 			}
 		}
+		if (baseClass == EndToEndFlowElement.class) {
+			switch (derivedFeatureID) {
+			default:
+				return -1;
+			}
+		}
+		if (baseClass == FlowElement.class) {
+			switch (derivedFeatureID) {
+			default:
+				return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -587,6 +529,18 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 			switch (baseFeatureID) {
 			case Aadl2Package.MODAL_ELEMENT__IN_MODE:
 				return Aadl2Package.FLOW_SPECIFICATION__IN_MODE;
+			default:
+				return -1;
+			}
+		}
+		if (baseClass == EndToEndFlowElement.class) {
+			switch (baseFeatureID) {
+			default:
+				return -1;
+			}
+		}
+		if (baseClass == FlowElement.class) {
+			switch (baseFeatureID) {
 			default:
 				return -1;
 			}
@@ -639,58 +593,58 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	public boolean isSetRefinedElement() {
 		return false;
 	}
-
-	/**
-	 * get in feature of a flow source, sink, or path spec.
-	 * In case of a refined flowspec get it from the flowspec being refined
-	 * @return Feature or null
-	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	public Feature getAllInFeature() {
-		FlowSpecification fs = this;
-		while (fs.getInFeature() == null && fs.getRefined() != null)
-			fs = fs.getRefined();
-		return fs.getInFeature();
-	}
-
-	/**
-	 * get in flow context of a flow source, sink, or path spec.
-	 * In case of a refined flowspec get it from the flowspec being refined
-	 * @return Context or null
-	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	public Context getAllInContext() {
-		FlowSpecification fs = this;
-		while (fs.getInContext() == null && fs.getRefined() != null)
-			fs = fs.getRefined();
-		return fs.getInContext();
-	}
-
-	/**
-	 * get out feature of a flow source, sink, or path spec.
-	 * In case of a refined flowspec get it from the flowspec being refined
-	 * @return Feature or null
-	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	public Feature getAllOutFeature() {
-		FlowSpecification fs = this;
-		while (fs.getOutFeature() == null && fs.getRefined() != null)
-			fs = fs.getRefined();
-		return fs.getOutFeature();
-	}
-
-	/**
-	 * get out flow context of flow source, sink, or path spec.
-	 * In case of a refined flowspec get it from the flowspec being refined
-	 * @return Context or null
-	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	public Context getAllOutContext() {
-		FlowSpecification fs = this;
-		while (fs.getOutContext() == null && fs.getRefined() != null)
-			fs = fs.getRefined();
-		return fs.getOutContext();
-	}
+// FIXME-LW: instantiation
+//	/**
+//	 * get in feature of a flow source, sink, or path spec.
+//	 * In case of a refined flowspec get it from the flowspec being refined
+//	 * @return Feature or null
+//	 */
+//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+//	public Feature getAllInFeature() {
+//		FlowSpecification fs = this;
+//		while (fs.getInFeature() == null && fs.getRefined() != null)
+//			fs = fs.getRefined();
+//		return fs.getInFeature();
+//	}
+//
+//	/**
+//	 * get in flow context of a flow source, sink, or path spec.
+//	 * In case of a refined flowspec get it from the flowspec being refined
+//	 * @return Context or null
+//	 */
+//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+//	public Context getAllInContext() {
+//		FlowSpecification fs = this;
+//		while (fs.getInContext() == null && fs.getRefined() != null)
+//			fs = fs.getRefined();
+//		return fs.getInContext();
+//	}
+//
+//	/**
+//	 * get out feature of a flow source, sink, or path spec.
+//	 * In case of a refined flowspec get it from the flowspec being refined
+//	 * @return Feature or null
+//	 */
+//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+//	public Feature getAllOutFeature() {
+//		FlowSpecification fs = this;
+//		while (fs.getOutFeature() == null && fs.getRefined() != null)
+//			fs = fs.getRefined();
+//		return fs.getOutFeature();
+//	}
+//
+//	/**
+//	 * get out flow context of flow source, sink, or path spec.
+//	 * In case of a refined flowspec get it from the flowspec being refined
+//	 * @return Context or null
+//	 */
+//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+//	public Context getAllOutContext() {
+//		FlowSpecification fs = this;
+//		while (fs.getOutContext() == null && fs.getRefined() != null)
+//			fs = fs.getRefined();
+//		return fs.getOutContext();
+//	}
 
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc paa,
 			final boolean fromInstanceSlaveCall) throws InvalidModelException {

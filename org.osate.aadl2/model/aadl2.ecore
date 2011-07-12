@@ -852,27 +852,32 @@
   <eClassifiers xsi:type="ecore:EClass" name="FeatureConnectionEnd" abstract="true"
       eSuperTypes="#//ConnectionEnd"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionEnd" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FlowSpecification" eSuperTypes="#//Flow #//ModalElement">
+  <eClassifiers xsi:type="ecore:EClass" name="FlowSpecification" eSuperTypes="#//Flow #//ModalElement #//FlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//FlowSpecification">
       <eAnnotations source="redefines" references="#//RefinableElement/refinedElement"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
         eType="#//FlowKind"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inFeature" ordered="false"
-        eType="#//Feature"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inContext" ordered="false"
-        eType="#//Context"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="outFeature" ordered="false"
-        eType="#//Feature"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="outContext" ordered="false"
-        eType="#//Context"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outEnd" ordered="false"
+        eType="#//FlowEnd" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="InEnd" ordered="false"
+        eType="#//FlowEnd" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Flow" abstract="true" eSuperTypes="#//StructuralFeature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FlowElement" abstract="true" eSuperTypes="#//EndToEndFlowElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlowElement" abstract="true"
+      eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EEnum" name="FlowKind">
     <eLiterals name="source"/>
     <eLiterals name="path" value="1"/>
     <eLiterals name="sink" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FlowEnd">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
+        eType="#//Context"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" ordered="false"
+        lowerBound="1" eType="#//Feature"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Context" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeExtension" eSuperTypes="#//Generalization">
@@ -1003,8 +1008,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="ParameterConnectionEnd" abstract="true"
       eSuperTypes="#//ConnectionEnd"/>
   <eClassifiers xsi:type="ecore:EClass" name="PortConnectionEnd" abstract="true" eSuperTypes="#//ConnectionEnd"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FlowElement" abstract="true" eSuperTypes="#//EndToEndFlowElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlowElement" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//DataSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponentType" abstract="true"
       eSuperTypes="#//Data #//SubcomponentType"/>
@@ -1138,24 +1141,18 @@
         eType="#//FlowKind" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="specification" ordered="false"
         lowerBound="1" eType="#//FlowSpecification"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="flowElement" unique="false"
-        upperBound="-1" eType="#//FlowElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubcomponentFlow"
-        ordered="false" upperBound="-1" eType="#//SubcomponentFlow" containment="true">
-      <eAnnotations source="subsets" references="#//FlowImplementation/flowElement"/>
-    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFlowSegment" lowerBound="1"
+        upperBound="-1" eType="#//FlowSegment" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModalPath" abstract="true" eSuperTypes="#//ModalElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="inModeOrTransition" upperBound="-1"
         eType="#//ModeFeature"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubcomponentFlow" eSuperTypes="#//FlowElement">
+  <eClassifiers xsi:type="ecore:EClass" name="FlowSegment">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="flowElement" ordered="false"
+        unique="false" lowerBound="1" eType="#//FlowElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
-        lowerBound="1" eType="#//Subcomponent"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="flowSpecification" ordered="false"
-        eType="#//FlowSpecification"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dataAccess" ordered="false"
-        eType="#//DataAccess"/>
+        eType="#//Context"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Connection" abstract="true" eSuperTypes="#//StructuralFeature #//ModalPath #//FlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="destination" ordered="false"
@@ -1182,17 +1179,20 @@
       <eAnnotations source="subsets" references="#//Generalization/general"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlow" eSuperTypes="#//Flow #//ModalPath #//EndToEndFlowElement">
+  <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlow" eSuperTypes="#//Flow #//ModalPath">
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//EndToEndFlow">
       <eAnnotations source="redefines" references="#//RefinableElement/refinedElement"/>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEndToEndFlowSegment"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//EndToEndFlowSegment"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlowSegment" eSuperTypes="#//EndToEndFlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="flowElement" unique="false"
         lowerBound="1" upperBound="-1" eType="#//EndToEndFlowElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubcomponentFlow"
-        ordered="false" upperBound="-1" eType="#//SubcomponentFlow" containment="true">
-      <eAnnotations source="subsets" references="#//EndToEndFlow/flowElement"/>
-    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
+        eType="#//Context"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractSubcomponent" eSuperTypes="#//Subcomponent #//Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="AccessConnection" eSuperTypes="#//Connection">

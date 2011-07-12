@@ -40,6 +40,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -49,6 +50,7 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.FlowSpecification;
 
@@ -84,10 +86,6 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements I
 			addInModePropertyDescriptor(object);
 			addRefinedPropertyDescriptor(object);
 			addKindPropertyDescriptor(object);
-			addInFeaturePropertyDescriptor(object);
-			addInContextPropertyDescriptor(object);
-			addOutFeaturePropertyDescriptor(object);
-			addOutContextPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -109,38 +107,6 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements I
 	}
 
 	/**
-	 * This adds a property descriptor for the In Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addInFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_FlowSpecification_inFeature_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_inFeature_feature",
-						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_InFeature(), true,
-				false, true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Out Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addOutFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_FlowSpecification_outFeature_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_outFeature_feature",
-						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_OutFeature(), true,
-				false, true, null, null, null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Kind feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -157,6 +123,37 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements I
 	}
 
 	/**
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFlowSpecification_OutEnd());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFlowSpecification_InEnd());
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
+	}
+
+	/**
 	 * This adds a property descriptor for the Refined feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -169,38 +166,6 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements I
 				getString("_UI_FlowSpecification_refined_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_refined_feature",
 						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_Refined(), true,
-				false, true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the In Context feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addInContextPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_FlowSpecification_inContext_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_inContext_feature",
-						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_InContext(), true,
-				false, true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Out Context feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addOutContextPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_FlowSpecification_outContext_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_outContext_feature",
-						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_OutContext(), true,
 				false, true, null, null, null));
 	}
 
@@ -243,6 +208,10 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements I
 		case Aadl2Package.FLOW_SPECIFICATION__KIND:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
+		case Aadl2Package.FLOW_SPECIFICATION__OUT_END:
+		case Aadl2Package.FLOW_SPECIFICATION__IN_END:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -257,6 +226,33 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements I
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFlowSpecification_OutEnd(),
+				Aadl2Factory.eINSTANCE.createFlowEnd()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFlowSpecification_InEnd(),
+				Aadl2Factory.eINSTANCE.createFlowEnd()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify = childFeature == Aadl2Package.eINSTANCE.getFlowSpecification_OutEnd()
+				|| childFeature == Aadl2Package.eINSTANCE.getFlowSpecification_InEnd();
+
+		if (qualify) {
+			return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject),
+					getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

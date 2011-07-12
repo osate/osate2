@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,51 +31,64 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: ModalPathImpl.java,v 1.3 2009-01-12 16:25:09 jseibel Exp $
  */
 package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ModalPath;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.Context;
+import org.osate.aadl2.EndToEndFlowElement;
+import org.osate.aadl2.EndToEndFlowSegment;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Modal Path</b></em>'.
+ * An implementation of the model object '<em><b>End To End Flow Segment</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.ModalPathImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.EndToEndFlowSegmentImpl#getFlowElements <em>Flow Element</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.EndToEndFlowSegmentImpl#getContext <em>Context</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class ModalPathImpl extends ModalElementImpl implements ModalPath {
+public class EndToEndFlowSegmentImpl extends EndToEndFlowElementImpl implements EndToEndFlowSegment {
 	/**
-	 * The cached value of the '{@link #getInModeOrTransitions() <em>In Mode Or Transition</em>}' reference list.
+	 * The cached value of the '{@link #getFlowElements() <em>Flow Element</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInModeOrTransitions()
+	 * @see #getFlowElements()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ModeFeature> inModeOrTransitions;
+	protected EList<EndToEndFlowElement> flowElements;
+
+	/**
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected Context context;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ModalPathImpl() {
+	protected EndToEndFlowSegmentImpl() {
 		super();
 	}
 
@@ -86,7 +99,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return Aadl2Package.eINSTANCE.getModalPath();
+		return Aadl2Package.eINSTANCE.getEndToEndFlowSegment();
 	}
 
 	/**
@@ -94,12 +107,52 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ModeFeature> getInModeOrTransitions() {
-		if (inModeOrTransitions == null) {
-			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
-					Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION);
+	public EList<EndToEndFlowElement> getFlowElements() {
+		if (flowElements == null) {
+			flowElements = new EObjectResolvingEList<EndToEndFlowElement>(EndToEndFlowElement.class, this,
+					Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT);
 		}
-		return inModeOrTransitions;
+		return flowElements;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Context getContext() {
+		if (context != null && ((EObject) context).eIsProxy()) {
+			InternalEObject oldContext = (InternalEObject) context;
+			context = (Context) eResolveProxy(oldContext);
+			if (context != oldContext) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT, oldContext, context));
+			}
+		}
+		return context;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Context basicGetContext() {
+		return context;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContext(Context newContext) {
+		Context oldContext = context;
+		context = newContext;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT,
+					oldContext, context));
 	}
 
 	/**
@@ -110,8 +163,12 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
-			return getInModeOrTransitions();
+		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
+			return getFlowElements();
+		case Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT:
+			if (resolve)
+				return getContext();
+			return basicGetContext();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -125,9 +182,12 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
-			getInModeOrTransitions().clear();
-			getInModeOrTransitions().addAll((Collection<? extends ModeFeature>) newValue);
+		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
+			getFlowElements().clear();
+			getFlowElements().addAll((Collection<? extends EndToEndFlowElement>) newValue);
+			return;
+		case Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT:
+			setContext((Context) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -141,8 +201,11 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
-			getInModeOrTransitions().clear();
+		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
+			getFlowElements().clear();
+			return;
+		case Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT:
+			setContext((Context) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -156,28 +219,12 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
-			return inModeOrTransitions != null && !inModeOrTransitions.isEmpty();
+		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
+			return flowElements != null && !flowElements.isEmpty();
+		case Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT:
+			return context != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.osate.aadl2.impl.ModalElementImpl#getInModes()
-	 */
-	@Override
-	public EList<Mode> getInModes() {
-		if (inModes == null) {
-			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.MODAL_ELEMENT__IN_MODE);
-		} else {
-			inModes.clear();
-		}
-		for (ModeFeature mf : inModeOrTransitions) {
-			if (mf instanceof Mode) {
-				inModes.add((Mode) mf);
-			}
-		}
-		return inModes;
-	}
-
-} //ModalPathImpl
+} //EndToEndFlowSegmentImpl

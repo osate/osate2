@@ -1,14 +1,14 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- *
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
+ * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
+ * 
  * NO WARRANTY
- *
+ * 
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
+ * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
  * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
  * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
@@ -16,107 +16,95 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
+ * 
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
+ * 
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- *
- * $Id: EndToEndFlow.java,v 1.20 2009-06-04 14:59:49 lwrage Exp $
+ * 
  */
 package org.osate.aadl2;
 
-import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.parsesupport.AObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>End To End Flow</b></em>'.
+ * A representation of the model object '<em><b>Flow End</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.EndToEndFlow#getRefined <em>Refined</em>}</li>
- *   <li>{@link org.osate.aadl2.EndToEndFlow#getOwnedEndToEndFlowSegments <em>Owned End To End Flow Segment</em>}</li>
+ *   <li>{@link org.osate.aadl2.FlowEnd#getContext <em>Context</em>}</li>
+ *   <li>{@link org.osate.aadl2.FlowEnd#getFeature <em>Feature</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.aadl2.Aadl2Package#getEndToEndFlow()
+ * @see org.osate.aadl2.Aadl2Package#getFlowEnd()
  * @model
+ * @extends AObject
  * @generated
  */
-public interface EndToEndFlow extends Flow, ModalPath {
+public interface FlowEnd extends AObject {
 	/**
-	 * Returns the value of the '<em><b>Refined</b></em>' reference.
-	 * <p>
-	 * This feature redefines the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.RefinableElement#getRefinedElement() <em>Refined Element</em>}'</li>
-	 * </ul>
-	 * </p>
+	 * Returns the value of the '<em><b>Context</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Refined</em>' reference isn't clear,
+	 * If the meaning of the '<em>Context</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Refined</em>' reference.
-	 * @see #setRefined(EndToEndFlow)
-	 * @see org.osate.aadl2.Aadl2Package#getEndToEndFlow_Refined()
+	 * @return the value of the '<em>Context</em>' reference.
+	 * @see #setContext(Context)
+	 * @see org.osate.aadl2.Aadl2Package#getFlowEnd_Context()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	EndToEndFlow getRefined();
+	Context getContext();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.EndToEndFlow#getRefined <em>Refined</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.FlowEnd#getContext <em>Context</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Refined</em>' reference.
-	 * @see #getRefined()
+	 * @param value the new value of the '<em>Context</em>' reference.
+	 * @see #getContext()
 	 * @generated
 	 */
-	void setRefined(EndToEndFlow value);
+	void setContext(Context value);
 
 	/**
-	 * Returns the value of the '<em><b>Owned End To End Flow Segment</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.EndToEndFlowSegment}.
+	 * Returns the value of the '<em><b>Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Owned End To End Flow Segment</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Feature</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned End To End Flow Segment</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getEndToEndFlow_OwnedEndToEndFlowSegment()
-	 * @model containment="true" required="true" ordered="false"
+	 * @return the value of the '<em>Feature</em>' reference.
+	 * @see #setFeature(Feature)
+	 * @see org.osate.aadl2.Aadl2Package#getFlowEnd_Feature()
+	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	EList<EndToEndFlowSegment> getOwnedEndToEndFlowSegments();
+	Feature getFeature();
 
 	/**
-	 * Creates a new {@link org.osate.aadl2.EndToEndFlowSegment} and appends it to the '<em><b>Owned End To End Flow Segment</b></em>' containment reference list.
+	 * Sets the value of the '{@link org.osate.aadl2.FlowEnd#getFeature <em>Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.EndToEndFlowSegment}.
-	 * @see #getOwnedEndToEndFlowSegments()
+	 * @param value the new value of the '<em>Feature</em>' reference.
+	 * @see #getFeature()
 	 * @generated
 	 */
-	EndToEndFlowSegment createOwnedEndToEndFlowSegment();
+	void setFeature(Feature value);
 
-	/**
-	 * get the EndToEndFlowElement sequence taking into account refines
-	 * @return EList EndToEndFlowElement
-	 */
-	EList<EndToEndFlowSegment> getAllFlowSegments();
-
-} // EndToEndFlow
+} // FlowEnd

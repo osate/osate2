@@ -45,10 +45,8 @@ package org.osate.aadl2;
  * <ul>
  *   <li>{@link org.osate.aadl2.FlowSpecification#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.FlowSpecification#getKind <em>Kind</em>}</li>
- *   <li>{@link org.osate.aadl2.FlowSpecification#getInFeature <em>In Feature</em>}</li>
- *   <li>{@link org.osate.aadl2.FlowSpecification#getInContext <em>In Context</em>}</li>
- *   <li>{@link org.osate.aadl2.FlowSpecification#getOutFeature <em>Out Feature</em>}</li>
- *   <li>{@link org.osate.aadl2.FlowSpecification#getOutContext <em>Out Context</em>}</li>
+ *   <li>{@link org.osate.aadl2.FlowSpecification#getOutEnd <em>Out End</em>}</li>
+ *   <li>{@link org.osate.aadl2.FlowSpecification#getInEnd <em>In End</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,59 +54,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface FlowSpecification extends Flow, ModalElement {
-	/**
-	 * Returns the value of the '<em><b>In Feature</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>In Feature</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In Feature</em>' reference.
-	 * @see #setInFeature(Feature)
-	 * @see org.osate.aadl2.Aadl2Package#getFlowSpecification_InFeature()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	Feature getInFeature();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.FlowSpecification#getInFeature <em>In Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>In Feature</em>' reference.
-	 * @see #getInFeature()
-	 * @generated
-	 */
-	void setInFeature(Feature value);
-
-	/**
-	 * Returns the value of the '<em><b>Out Feature</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Out Feature</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Out Feature</em>' reference.
-	 * @see #setOutFeature(Feature)
-	 * @see org.osate.aadl2.Aadl2Package#getFlowSpecification_OutFeature()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	Feature getOutFeature();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.FlowSpecification#getOutFeature <em>Out Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Out Feature</em>' reference.
-	 * @see #getOutFeature()
-	 * @generated
-	 */
-	void setOutFeature(Feature value);
-
+public interface FlowSpecification extends Flow, ModalElement, FlowElement {
 	/**
 	 * Returns the value of the '<em><b>Kind</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.osate.aadl2.FlowKind}.
@@ -137,6 +83,78 @@ public interface FlowSpecification extends Flow, ModalElement {
 	 * @generated
 	 */
 	void setKind(FlowKind value);
+
+	/**
+	 * Returns the value of the '<em><b>Out End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Out End</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Out End</em>' containment reference.
+	 * @see #setOutEnd(FlowEnd)
+	 * @see org.osate.aadl2.Aadl2Package#getFlowSpecification_OutEnd()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	FlowEnd getOutEnd();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.FlowSpecification#getOutEnd <em>Out End</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Out End</em>' containment reference.
+	 * @see #getOutEnd()
+	 * @generated
+	 */
+	void setOutEnd(FlowEnd value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.FlowEnd} and sets the '<em><b>Out End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.FlowEnd}.
+	 * @see #getOutEnd()
+	 * @generated
+	 */
+	FlowEnd createOutEnd();
+
+	/**
+	 * Returns the value of the '<em><b>In End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>In End</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>In End</em>' containment reference.
+	 * @see #setInEnd(FlowEnd)
+	 * @see org.osate.aadl2.Aadl2Package#getFlowSpecification_InEnd()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	FlowEnd getInEnd();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.FlowSpecification#getInEnd <em>In End</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>In End</em>' containment reference.
+	 * @see #getInEnd()
+	 * @generated
+	 */
+	void setInEnd(FlowEnd value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.FlowEnd} and sets the '<em><b>In End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.FlowEnd}.
+	 * @see #getInEnd()
+	 * @generated
+	 */
+	FlowEnd createInEnd();
 
 	/**
 	 * Returns the value of the '<em><b>Refined</b></em>' reference.
@@ -170,88 +188,37 @@ public interface FlowSpecification extends Flow, ModalElement {
 	 */
 	void setRefined(FlowSpecification value);
 
-	/**
-	 * Returns the value of the '<em><b>In Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>In Context</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In Context</em>' reference.
-	 * @see #setInContext(Context)
-	 * @see org.osate.aadl2.Aadl2Package#getFlowSpecification_InContext()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	Context getInContext();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.FlowSpecification#getInContext <em>In Context</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>In Context</em>' reference.
-	 * @see #getInContext()
-	 * @generated
-	 */
-	void setInContext(Context value);
-
-	/**
-	 * Returns the value of the '<em><b>Out Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Out Context</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Out Context</em>' reference.
-	 * @see #setOutContext(Context)
-	 * @see org.osate.aadl2.Aadl2Package#getFlowSpecification_OutContext()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	Context getOutContext();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.FlowSpecification#getOutContext <em>Out Context</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Out Context</em>' reference.
-	 * @see #getOutContext()
-	 * @generated
-	 */
-	void setOutContext(Context value);
-
-	/**
-	 * get in feature of a flow source, sink, or path spec.
-	 * In case of a refined flowspec get it from the flowspec being refined
-	 * @return Feature or null
-	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	Feature getAllInFeature();
-
-	/**
-	 * get in flow context of a flow source, sink, or path spec.
-	 * In case of a refined flowspec get it from the flowspec being refined
-	 * @return Context or null
-	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	Context getAllInContext();
-
-	/**
-	 * get out feature of a flow source, sink, or path spec.
-	 * In case of a refined flowspec get it from the flowspec being refined
-	 * @return Feature or null
-	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	Feature getAllOutFeature();
-
-	/**
-	 * get out flow context of flow source, sink, or path spec.
-	 * In case of a refined flowspec get it from the flowspec being refined
-	 * @return Context or null
-	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	Context getAllOutContext();
+// FIXME-LW: instantiation
+//	/**
+//	 * get in feature of a flow source, sink, or path spec.
+//	 * In case of a refined flowspec get it from the flowspec being refined
+//	 * @return Feature or null
+//	 */
+//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+//	Feature getAllInFeature();
+//
+//	/**
+//	 * get in flow context of a flow source, sink, or path spec.
+//	 * In case of a refined flowspec get it from the flowspec being refined
+//	 * @return Context or null
+//	 */
+//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+//	Context getAllInContext();
+//
+//	/**
+//	 * get out feature of a flow source, sink, or path spec.
+//	 * In case of a refined flowspec get it from the flowspec being refined
+//	 * @return Feature or null
+//	 */
+//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+//	Feature getAllOutFeature();
+//
+//	/**
+//	 * get out flow context of flow source, sink, or path spec.
+//	 * In case of a refined flowspec get it from the flowspec being refined
+//	 * @return Context or null
+//	 */
+//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+//	Context getAllOutContext();
 
 } // FlowSpecification

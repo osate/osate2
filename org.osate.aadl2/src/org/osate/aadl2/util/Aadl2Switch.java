@@ -664,7 +664,11 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseModalElement(flowSpecification);
 			if (result == null)
+				result = caseFlowElement(flowSpecification);
+			if (result == null)
 				result = caseStructuralFeature(flowSpecification);
+			if (result == null)
+				result = caseEndToEndFlowElement(flowSpecification);
 			if (result == null)
 				result = caseRefinableElement(flowSpecification);
 			if (result == null)
@@ -690,6 +694,37 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(flow);
 			if (result == null)
 				result = caseElement(flow);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.FLOW_ELEMENT: {
+			FlowElement flowElement = (FlowElement) theEObject;
+			T result = caseFlowElement(flowElement);
+			if (result == null)
+				result = caseEndToEndFlowElement(flowElement);
+			if (result == null)
+				result = caseNamedElement(flowElement);
+			if (result == null)
+				result = caseElement(flowElement);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.END_TO_END_FLOW_ELEMENT: {
+			EndToEndFlowElement endToEndFlowElement = (EndToEndFlowElement) theEObject;
+			T result = caseEndToEndFlowElement(endToEndFlowElement);
+			if (result == null)
+				result = caseNamedElement(endToEndFlowElement);
+			if (result == null)
+				result = caseElement(endToEndFlowElement);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.FLOW_END: {
+			FlowEnd flowEnd = (FlowEnd) theEObject;
+			T result = caseFlowEnd(flowEnd);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1013,30 +1048,6 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(portConnectionEnd);
 			if (result == null)
 				result = caseElement(portConnectionEnd);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.FLOW_ELEMENT: {
-			FlowElement flowElement = (FlowElement) theEObject;
-			T result = caseFlowElement(flowElement);
-			if (result == null)
-				result = caseEndToEndFlowElement(flowElement);
-			if (result == null)
-				result = caseNamedElement(flowElement);
-			if (result == null)
-				result = caseElement(flowElement);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.END_TO_END_FLOW_ELEMENT: {
-			EndToEndFlowElement endToEndFlowElement = (EndToEndFlowElement) theEObject;
-			T result = caseEndToEndFlowElement(endToEndFlowElement);
-			if (result == null)
-				result = caseNamedElement(endToEndFlowElement);
-			if (result == null)
-				result = caseElement(endToEndFlowElement);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1586,17 +1597,9 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.SUBCOMPONENT_FLOW: {
-			SubcomponentFlow subcomponentFlow = (SubcomponentFlow) theEObject;
-			T result = caseSubcomponentFlow(subcomponentFlow);
-			if (result == null)
-				result = caseFlowElement(subcomponentFlow);
-			if (result == null)
-				result = caseEndToEndFlowElement(subcomponentFlow);
-			if (result == null)
-				result = caseNamedElement(subcomponentFlow);
-			if (result == null)
-				result = caseElement(subcomponentFlow);
+		case Aadl2Package.FLOW_SEGMENT: {
+			FlowSegment flowSegment = (FlowSegment) theEObject;
+			T result = caseFlowSegment(flowSegment);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1671,8 +1674,6 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseModalPath(endToEndFlow);
 			if (result == null)
-				result = caseEndToEndFlowElement(endToEndFlow);
-			if (result == null)
 				result = caseStructuralFeature(endToEndFlow);
 			if (result == null)
 				result = caseModalElement(endToEndFlow);
@@ -1684,6 +1685,19 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(endToEndFlow);
 			if (result == null)
 				result = caseElement(endToEndFlow);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.END_TO_END_FLOW_SEGMENT: {
+			EndToEndFlowSegment endToEndFlowSegment = (EndToEndFlowSegment) theEObject;
+			T result = caseEndToEndFlowSegment(endToEndFlowSegment);
+			if (result == null)
+				result = caseEndToEndFlowElement(endToEndFlowSegment);
+			if (result == null)
+				result = caseNamedElement(endToEndFlowSegment);
+			if (result == null)
+				result = caseElement(endToEndFlowSegment);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -5724,6 +5738,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Flow End</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Flow End</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFlowEnd(FlowEnd object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Feature Group</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -6249,6 +6278,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>End To End Flow Segment</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>End To End Flow Segment</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEndToEndFlowSegment(EndToEndFlowSegment object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Feature Connection</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -6624,6 +6668,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Flow Segment</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Flow Segment</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFlowSegment(FlowSegment object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Access Connection</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -6740,21 +6799,6 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseProcessorSubprogram(ProcessorSubprogram object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Subcomponent Flow</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Subcomponent Flow</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseSubcomponentFlow(SubcomponentFlow object) {
 		return null;
 	}
 
