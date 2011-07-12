@@ -549,7 +549,6 @@
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Subcomponent/abstractSubcomponentType"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ComponentPrototype">
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentPrototype/category"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentPrototype/array"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentPrototype/constrainingClassifier"/>
@@ -694,6 +693,10 @@
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ComponentPrototypeActual">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentPrototypeActual/category"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentPrototypeActual/binding"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentPrototypeActual/subcomponentType"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//FeatureGroupPrototype">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -730,16 +733,6 @@
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//FeaturePrototypeReference/direction"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeaturePrototypeReference/prototype"/>
-    </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ComponentPrototypeReference">
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentPrototypeReference/prototype"/>
-    </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ComponentReference">
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentReference/binding"/>
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentReference/classifier"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//FeatureGroupPrototypeReference">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"

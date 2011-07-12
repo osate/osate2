@@ -36,6 +36,9 @@
  */
 package org.osate.aadl2;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Component Prototype Actual</b></em>'.
@@ -45,11 +48,13 @@ package org.osate.aadl2;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.ComponentPrototypeActual#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.aadl2.ComponentPrototypeActual#getBindings <em>Binding</em>}</li>
+ *   <li>{@link org.osate.aadl2.ComponentPrototypeActual#getSubcomponentType <em>Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getComponentPrototypeActual()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface ComponentPrototypeActual extends Element {
@@ -81,5 +86,58 @@ public interface ComponentPrototypeActual extends Element {
 	 * @generated
 	 */
 	void setCategory(ComponentCategory value);
+
+	/**
+	 * Returns the value of the '<em><b>Binding</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.PrototypeBinding}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Binding</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Binding</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getComponentPrototypeActual_Binding()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<PrototypeBinding> getBindings();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.PrototypeBinding} and appends it to the '<em><b>Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param eClass The Ecore class of the {@link org.osate.aadl2.PrototypeBinding} to create.
+	 * @return The new {@link org.osate.aadl2.PrototypeBinding}.
+	 * @see #getBindings()
+	 * @generated
+	 */
+	PrototypeBinding createBinding(EClass eClass);
+
+	/**
+	 * Returns the value of the '<em><b>Subcomponent Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Subcomponent Type</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Subcomponent Type</em>' reference.
+	 * @see #setSubcomponentType(SubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getComponentPrototypeActual_SubcomponentType()
+	 * @model required="true" ordered="false"
+	 * @generated
+	 */
+	SubcomponentType getSubcomponentType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.ComponentPrototypeActual#getSubcomponentType <em>Subcomponent Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Subcomponent Type</em>' reference.
+	 * @see #getSubcomponentType()
+	 * @generated
+	 */
+	void setSubcomponentType(SubcomponentType value);
 
 } // ComponentPrototypeActual

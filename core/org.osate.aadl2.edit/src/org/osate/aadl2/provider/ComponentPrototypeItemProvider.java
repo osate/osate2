@@ -82,27 +82,10 @@ public class ComponentPrototypeItemProvider extends PrototypeItemProvider implem
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addCategoryPropertyDescriptor(object);
 			addArrayPropertyDescriptor(object);
 			addConstrainingClassifierPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Category feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addCategoryPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ComponentPrototype_category_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentPrototype_category_feature",
-						"_UI_ComponentPrototype_type"), Aadl2Package.eINSTANCE.getComponentPrototype_Category(), true,
-				false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -174,7 +157,6 @@ public class ComponentPrototypeItemProvider extends PrototypeItemProvider implem
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ComponentPrototype.class)) {
-		case Aadl2Package.COMPONENT_PROTOTYPE__CATEGORY:
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;

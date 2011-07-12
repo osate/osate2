@@ -242,17 +242,7 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 	public EList<FlowSegment> getOwnedFlowSegments() {
 		if (ownedFlowSegments == null) {
 			ownedFlowSegments = new EObjectContainmentEList<FlowSegment>(FlowSegment.class, this,
-					Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT) {
-				private static final long serialVersionUID = 1L;
-
-				/* (non-Javadoc)
-				 * @see org.eclipse.emf.ecore.util.EObjectEList#isUnique()
-				 */
-				@Override
-				protected boolean isUnique() {
-					return false;
-				}
-			};
+					Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT);
 		}
 		return ownedFlowSegments;
 	}

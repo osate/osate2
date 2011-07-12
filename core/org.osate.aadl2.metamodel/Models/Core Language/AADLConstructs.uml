@@ -516,11 +516,6 @@
         </ownedComment>
         <generalization xmi:id="Templates-ComponentPrototype-_generalization.0" general="Templates-Prototype"/>
         <generalization xmi:id="_S7p8oKcrEeCYEIHXYlP5sg" general="_qfELUKclEeCYEIHXYlP5sg"/>
-        <ownedAttribute xmi:id="Templates-ComponentPrototype-category" name="category" type="Components-ComponentCategory">
-          <ownedComment xmi:id="Templates-ComponentPrototype-category-_ownedComment.0">
-            <body>Constrains any binding of this prototype to a classifier of the specified category.</body>
-          </ownedComment>
-        </ownedAttribute>
         <ownedAttribute xmi:id="Templates-ComponentPrototype-array" name="array">
           <ownedComment xmi:id="Templates-ComponentPrototype-array-_ownedComment.0">
             <body>Specifies if the prototype can be bound to an array of classifiers.</body>
@@ -559,12 +554,6 @@
         <ownedEnd xmi:id="Templates-A_componentPrototype_constrainingClassifier-prototype" name="prototype" type="Templates-ComponentPrototype" association="Templates-A_componentPrototype_constrainingClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_componentPrototype_constrainingClassifier-prototype-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_componentPrototype_constrainingClassifier-prototype-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Templates-A_classifierReference_classifier" name="A_classifierReference_classifier" memberEnd="Templates-A_classifierReference_classifier-actual Templates-ComponentReference-classifier">
-        <ownedEnd xmi:id="Templates-A_classifierReference_classifier-actual" name="actual" type="Templates-ComponentReference" association="Templates-A_classifierReference_classifier">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_classifierReference_classifier-actual-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_classifierReference_classifier-actual-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Templates-A_componentPrototypeBinding_formal" name="A_componentPrototypeBinding_formal" memberEnd="Templates-A_componentPrototypeBinding_formal-binding Templates-ComponentPrototypeBinding-formal">
@@ -770,7 +759,7 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_featureProtoypeReference_prototype-reference-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Templates-ComponentPrototypeActual" name="ComponentPrototypeActual" isAbstract="true">
+      <packagedElement xmi:type="uml:Class" xmi:id="Templates-ComponentPrototypeActual" name="ComponentPrototypeActual">
         <ownedComment xmi:id="Templates-ComponentPrototypeActual-_ownedComment.0">
           <body>An element to which a component prototype may be bound.</body>
         </ownedComment>
@@ -782,6 +771,17 @@
             <body>Specifies the component category of this actual.</body>
           </ownedComment>
         </ownedAttribute>
+        <ownedAttribute xmi:id="Templates-ComponentReference-binding" name="binding" type="Templates-PrototypeBinding" aggregation="composite" association="Templates-A_classifierReference_binding">
+          <ownedComment xmi:id="Templates-ComponentReference-binding-_ownedComment.0">
+            <body>A list of prototype bindings. These bindings apply to the component classifier of this reference.</body>
+          </ownedComment>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-ComponentReference-binding-_upperValue" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-ComponentReference-binding-_lowerValue"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_RljAtKyOEeC0h7jzzZfZ7Q" name="subcomponentType" type="_qfELUKclEeCYEIHXYlP5sg" association="_RljAsKyOEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RljAtayOEeC0h7jzzZfZ7Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RljAtqyOEeC0h7jzzZfZ7Q" value="1"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Templates-A_componentPrototypeBinding_actual" name="A_componentPrototypeBinding_actual" memberEnd="Templates-A_componentPrototypeBinding_actual-owner Templates-ComponentPrototypeBinding-actual">
         <ownedEnd xmi:id="Templates-A_componentPrototypeBinding_actual-owner" name="owner" type="Templates-ComponentPrototypeBinding" association="Templates-A_componentPrototypeBinding_actual">
@@ -789,14 +789,8 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_componentPrototypeBinding_actual-owner-_lowerValue" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Templates-A_classifierPrototypeReference_prototype" name="A_classifierPrototypeReference_prototype" memberEnd="Templates-A_classifierPrototypeReference_prototype-actual Templates-ComponentPrototypeReference-prototype">
-        <ownedEnd xmi:id="Templates-A_classifierPrototypeReference_prototype-actual" name="actual" type="Templates-ComponentPrototypeReference" association="Templates-A_classifierPrototypeReference_prototype">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_classifierPrototypeReference_prototype-actual-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_classifierPrototypeReference_prototype-actual-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Templates-A_classifierReference_binding" name="A_classifierReference_binding" memberEnd="Templates-A_classifierReference_binding-owner Templates-ComponentReference-binding">
-        <ownedEnd xmi:id="Templates-A_classifierReference_binding-owner" name="owner" type="Templates-ComponentReference" association="Templates-A_classifierReference_binding">
+        <ownedEnd xmi:id="Templates-A_classifierReference_binding-owner" name="owner" type="Templates-ComponentPrototypeActual" association="Templates-A_classifierReference_binding">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_classifierReference_binding-owner-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_classifierReference_binding-owner-_lowerValue"/>
         </ownedEnd>
@@ -826,39 +820,6 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_featureGroupPrototypeActual_binding-owner-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_featureGroupPrototypeActual_binding-owner-_lowerValue"/>
         </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Templates-ComponentPrototypeReference" name="ComponentPrototypeReference">
-        <ownedComment xmi:id="Templates-ComponentPrototypeReference-_ownedComment.0">
-          <body>A reference to a component prototype. This is used to pass  a prototype actual down the containment hierarchy.</body>
-        </ownedComment>
-        <generalization xmi:id="Templates-ComponentPrototypeReference-_generalization.0" general="Templates-ComponentPrototypeActual"/>
-        <ownedAttribute xmi:id="Templates-ComponentPrototypeReference-prototype" name="prototype" type="Templates-ComponentPrototype" association="Templates-A_classifierPrototypeReference_prototype">
-          <ownedComment xmi:id="Templates-ComponentPrototypeReference-prototype-_ownedComment.0">
-            <body>References the component prototype that is used as a prototype actual.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-ComponentPrototypeReference-prototype-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-ComponentPrototypeReference-prototype-_lowerValue" value="1"/>
-        </ownedAttribute>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Templates-ComponentReference" name="ComponentReference">
-        <ownedComment xmi:id="Templates-ComponentReference-_ownedComment.0">
-          <body>A reference to a component classifier that is used as a prototype actual.</body>
-        </ownedComment>
-        <generalization xmi:id="Templates-ComponentReference-_generalization.0" general="Templates-ComponentPrototypeActual"/>
-        <ownedAttribute xmi:id="Templates-ComponentReference-binding" name="binding" type="Templates-PrototypeBinding" aggregation="composite" association="Templates-A_classifierReference_binding">
-          <ownedComment xmi:id="Templates-ComponentReference-binding-_ownedComment.0">
-            <body>A list of prototype bindings. These bindings apply to the component classifier of this reference.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-ComponentReference-binding-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-ComponentReference-binding-_lowerValue"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Templates-ComponentReference-classifier" name="classifier" type="Components-ComponentClassifier" association="Templates-A_classifierReference_classifier">
-          <ownedComment xmi:id="Templates-ComponentReference-classifier-_ownedComment.0">
-            <body>References the component classifier that is the prototype actual.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-ComponentReference-classifier-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-ComponentReference-classifier-_lowerValue" value="1"/>
-        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Templates-FeatureGroupPrototypeReference" name="FeatureGroupPrototypeReference">
         <ownedComment xmi:id="Templates-FeatureGroupPrototypeReference-_ownedComment.0">
@@ -917,6 +878,12 @@
         <ownedEnd xmi:id="_kspOnirqEd-XztODHk7A9w" name="componentPrototype" type="Templates-ComponentPrototype" association="_kspOmirqEd-XztODHk7A9w">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kspOnyrqEd-XztODHk7A9w" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kspOoCrqEd-XztODHk7A9w"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_RljAsKyOEeC0h7jzzZfZ7Q" name="A_componentPrototypeActual_subcomponentType" memberEnd="_RljAsayOEeC0h7jzzZfZ7Q _RljAtKyOEeC0h7jzzZfZ7Q">
+        <ownedEnd xmi:id="_RljAsayOEeC0h7jzzZfZ7Q" name="componentPrototypeActual" type="Templates-ComponentPrototypeActual" association="_RljAsKyOEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RljAsqyOEeC0h7jzzZfZ7Q" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RljAs6yOEeC0h7jzzZfZ7Q"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

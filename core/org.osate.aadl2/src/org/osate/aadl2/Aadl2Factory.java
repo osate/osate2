@@ -1080,6 +1080,15 @@ public interface Aadl2Factory extends EFactory {
 	ComponentPrototypeBinding createComponentPrototypeBinding();
 
 	/**
+	 * Returns a new object of class '<em>Component Prototype Actual</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Component Prototype Actual</em>'.
+	 * @generated
+	 */
+	ComponentPrototypeActual createComponentPrototypeActual();
+
+	/**
 	 * Returns a new object of class '<em>Feature Group Prototype</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1141,24 +1150,6 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	FeaturePrototypeReference createFeaturePrototypeReference();
-
-	/**
-	 * Returns a new object of class '<em>Component Prototype Reference</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Component Prototype Reference</em>'.
-	 * @generated
-	 */
-	ComponentPrototypeReference createComponentPrototypeReference();
-
-	/**
-	 * Returns a new object of class '<em>Component Reference</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Component Reference</em>'.
-	 * @generated
-	 */
-	ComponentReference createComponentReference();
 
 	/**
 	 * Returns a new object of class '<em>Feature Group Prototype Reference</em>'.
