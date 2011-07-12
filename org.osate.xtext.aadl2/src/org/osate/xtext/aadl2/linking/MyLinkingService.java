@@ -35,6 +35,8 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataPort;
@@ -553,6 +555,33 @@ import org.osate.aadl2.UnitsType;
 					return Collections.singletonList((EObject)searchResult);
 				}
 				return Collections.<EObject> emptyList();
+			} else if(Aadl2Package.eINSTANCE.getNamedElement() == requiredType ){
+				// containment path element
+			  if (context instanceof ContainmentPathElement) {
+				  EObject searchResult = null;
+				  ContainedNamedElement path = (ContainedNamedElement)context.eContainer();
+				  EList<ContainmentPathElement> list = path.getContainmentPathElements();
+				  int idx = list.indexOf(context);
+				if (idx > 0){
+					ContainmentPathElement el = list.get(idx-1);
+					NamedElement ne = el.getNamedElement();
+					if (ne instanceof Subcomponent){
+						Classifier ns = ((Subcomponent)ne).getClassifier();
+						if (ns != null)
+							searchResult = ns.findNamedElement(s);
+					} else if (ne instanceof FeatureGroup){
+						Classifier ns = ((FeatureGroup)ne).getFeatureGroupType();
+						if (ns != null) searchResult = ns.findNamedElement(s);
+					}
+				} else {
+					Classifier ns = getContainingClassifier(context);
+					if (ns != null) searchResult = ns.findNamedElement(s);
+				}
+				if (searchResult != null && searchResult instanceof NamedElement) {
+					return Collections.singletonList((EObject) searchResult);
+				}
+			  }
+			return Collections.<EObject> emptyList();
 			}
 			
 
@@ -560,7 +589,7 @@ import org.osate.aadl2.UnitsType;
 		}
 		
 
-		public  ConnectionEnd findPortConnectionEnd(PortConnection conn, Context cxt, String portName)
+		public static ConnectionEnd findPortConnectionEnd(PortConnection conn, Context cxt, String portName)
 		{
 			if (cxt == null)
 			{
@@ -647,7 +676,7 @@ import org.osate.aadl2.UnitsType;
 			return null;
 		}
 		
-		public  ConnectionEnd findAccessConnectionEnd(AccessConnection conn, Context cxt, String name){
+		public static  ConnectionEnd findAccessConnectionEnd(AccessConnection conn, Context cxt, String name){
 			if (cxt == null) {
 				NamedElement searchResult = getContainingClassifier(conn).findNamedElement(name);
 				if (searchResult instanceof AccessConnectionEnd)
@@ -695,7 +724,7 @@ import org.osate.aadl2.UnitsType;
 		}
 
 		
-		public  ConnectionEnd findParameterConnectionEnd(
+		public static ConnectionEnd findParameterConnectionEnd(
 				ParameterConnection conn, Context cxt, String name) {
 			if (cxt == null) {
 				NamedElement searchResult = getContainingClassifier(conn)
@@ -943,7 +972,7 @@ import org.osate.aadl2.UnitsType;
 		}
 
 		
-		public  ConnectionEnd findFeatureGroupConnectionEnd(
+		public static ConnectionEnd findFeatureGroupConnectionEnd(
 				FeatureGroupConnection connection, Context cxt, String name) {
 			if (cxt == null) {
 				NamedElement searchResult = getContainingClassifier(connection).findNamedElement(name);
@@ -991,7 +1020,7 @@ import org.osate.aadl2.UnitsType;
 			return null;
 		}
 
-		public  ConnectionEnd findFeatureConnectionEnd(
+		public static ConnectionEnd findFeatureConnectionEnd(
 				FeatureConnection connection, Context cxt, String name) {
 			if (cxt == null) {
 				NamedElement searchResult = getContainingClassifier(connection).findNamedElement(name);
@@ -1079,7 +1108,7 @@ import org.osate.aadl2.UnitsType;
 		 * 
 		 * This will cause a stack overflow!
 		 */
-		private  ComponentClassifier findClassifierForComponentPrototype(Classifier containingClassifier, ComponentPrototype prototype)
+		private static ComponentClassifier findClassifierForComponentPrototype(Classifier containingClassifier, ComponentPrototype prototype)
 		{
 			//TODO: Need to check that the prototype binding is a component prototype binding.  In PrototypeFormalReference,
 			//		we should check that component prototypes are bound by component prototype bindings.
@@ -1117,7 +1146,7 @@ import org.osate.aadl2.UnitsType;
 		/*
 		 * TODO: Check for circular dependencies with prototypes.
 		 */
-		private  ComponentClassifier findClassifierForComponentPrototype(Classifier classifierPrototypeContext,
+		private static ComponentClassifier findClassifierForComponentPrototype(Classifier classifierPrototypeContext,
 				Subcomponent subcomponentPrototypeContext, ComponentPrototype prototype)
 		{
 			//TODO: Need to check that the prototype binding is a component prototype binding.  In PrototypeFormalReference,
@@ -1229,7 +1258,7 @@ import org.osate.aadl2.UnitsType;
 		 * 												   RealizationReference, FeatureGroupTypeExtendReference.
 		 */
 		//TODO: Check for circular dependencies with prototypes.
-		private  FeatureGroupType findFeatureGroupTypeForFeatureGroupPrototype(Classifier containingClassifier,
+		private static FeatureGroupType findFeatureGroupTypeForFeatureGroupPrototype(Classifier containingClassifier,
 				FeatureGroupPrototype prototype)
 		{
 			//TODO: Need to check that the prototype binding is a feature group prototype binding.  In PrototypeFormalReference,
@@ -1330,9 +1359,12 @@ import org.osate.aadl2.UnitsType;
 //				return null;
 //		}
 		
-		public  AadlPackage findImportedPackage(String name, EObject context)
+		public static AadlPackage findImportedPackage(String name, EObject context)
 		{
 			EList<ModelUnit> imports;
+			if (!(context instanceof PropertySet || context instanceof PackageSection)){
+				context = getContainingTopLevelNamespace(context);
+			}
 			if (context instanceof PropertySet)
 				imports = ((PropertySet)context).getImportedUnits();
 			else
@@ -1352,9 +1384,12 @@ import org.osate.aadl2.UnitsType;
 			return null;
 		}
 		
-		private  PropertySet findImportedPropertySet(String name, EObject context)
+		public static  PropertySet findImportedPropertySet(String name, EObject context)
 		{
 			EList<ModelUnit> importedPropertySets;
+			if (!(context instanceof PropertySet || context instanceof PackageSection)){
+				context = getContainingTopLevelNamespace(context);
+			}
 			if (context instanceof PropertySet)
 				importedPropertySets = ((PropertySet)context).getImportedUnits();
 			else
@@ -1365,7 +1400,7 @@ import org.osate.aadl2.UnitsType;
 			return null;
 		}
 		
-		public  PackageSection getContainingPackageSection(EObject element)
+		public  static PackageSection getContainingPackageSection(EObject element)
 		{
 			EObject container = element.eContainer();
 			while (container != null && !(container instanceof PackageSection))
@@ -1373,7 +1408,7 @@ import org.osate.aadl2.UnitsType;
 			return (PackageSection)container;
 		}
 		
-		public  PropertySet getContainingPropertySet(EObject element)
+		public  static PropertySet getContainingPropertySet(EObject element)
 		{
 			EObject container = element.eContainer();
 			while (container != null  && !(container instanceof PropertySet))
@@ -1381,7 +1416,7 @@ import org.osate.aadl2.UnitsType;
 			return (PropertySet)container;
 		}
 		
-		private  Namespace getContainingTopLevelNamespace(EObject element)
+		public static  Namespace getContainingTopLevelNamespace(EObject element)
 		{
 			EObject container = element.eContainer();
 			while (container != null && !(container instanceof PackageSection) && !(container instanceof PropertySet))
@@ -1389,7 +1424,7 @@ import org.osate.aadl2.UnitsType;
 			return (Namespace)container;
 		}
 		
-		private  Namespace getContainingNamespace(EObject element)
+		public static  Namespace getContainingNamespace(EObject element)
 		{
 			EObject container = element.eContainer();
 			while (container != null && !(container instanceof Namespace))
@@ -1405,16 +1440,6 @@ import org.osate.aadl2.UnitsType;
 //			return (PropertyAssociation)container;
 //		}
 		
-		/**
-		 * Converts the first character of the String s to upper case and converts all other characters to lower case.
-		 * This is used to make messages to the user look nice.
-		 */
-		private  String capitalizeFirstLetterOnly(String s)
-		{
-			StringBuilder builder = new StringBuilder(s.toLowerCase());
-			builder.setCharAt(0, Character.toUpperCase(builder.charAt(0)));
-			return builder.toString();
-		}
 		
 		/**
 		 * Search for a {@link NamedElement} in a package.  If {@code context} is a {@link PublicPackageSection}, then this
@@ -1433,7 +1458,7 @@ import org.osate.aadl2.UnitsType;
 		 * @param context The {@link PackageSection} that contains the {@link Element} that needs the search result.
 		 * @return The {@link NamedElement} or {@code null} if it cannot be found.
 		 */
-		public  NamedElement findNamedElementInAadlPackage(String name, PackageSection context)
+		public static NamedElement findNamedElementInAadlPackage(String name, PackageSection context)
 		{
 			NamedElement result = context.findNamedElement(name);
 			if (result == null && context instanceof PrivatePackageSection && ((AadlPackage)context.eContainer()).getOwnedPublicSection() != null)
@@ -1458,7 +1483,7 @@ import org.osate.aadl2.UnitsType;
 		 * @param context The {@link PackageSection} that needs to refer to the specified {@link Element}.
 		 * @return The {@link NamedElement} or {@code null} if it cannot be found.
 		 */
-		public  EObject findNamedElementInAadlPackage(String packageName, String elementName, Namespace context)
+		public static EObject findNamedElementInAadlPackage(String packageName, String elementName, Namespace context)
 		{
 			if (context instanceof PackageSection && (packageName == null || /* phf: ((AadlPackage)context.eContainer())*/context.getName().equalsIgnoreCase(packageName)))
 				return findNamedElementInAadlPackage(elementName, (PackageSection)context);
@@ -1488,7 +1513,7 @@ import org.osate.aadl2.UnitsType;
 		 * Dependencies:
 		 * 		If propertySetName is the name of a different, non standard property set: WithStatementReference.
 		 */
-		public  EObject findNamedElementInPropertySet(String propertySetName, String elementName, Namespace context)
+		public static EObject findNamedElementInPropertySet(String propertySetName, String elementName, Namespace context)
 		{
 			if (propertySetName == null)
 			{
@@ -1529,7 +1554,7 @@ import org.osate.aadl2.UnitsType;
 		 * @param context The {@link PackageSection} that contains the {@link Element} that needs a {@link PackageRename}.
 		 * @return The {@link PackageRename} or {@code null} if it cannot be found.
 		 */
-		private  PackageRename findPackageRename(String name, PackageSection context)
+		public static  PackageRename findPackageRename(String name, PackageSection context)
 		{
 			NamedElement searchResult = context.findNamedElement(name, false);
 			if (searchResult == null && context instanceof PrivatePackageSection &&
@@ -1543,7 +1568,7 @@ import org.osate.aadl2.UnitsType;
 				return null;
 		}
 		
-		public  String getQualifiedName(String packageOrPropertySetName, String elementName)
+		public static String getQualifiedName(String packageOrPropertySetName, String elementName)
 		{
 			if (packageOrPropertySetName == null)
 				return elementName;
@@ -1551,7 +1576,7 @@ import org.osate.aadl2.UnitsType;
 				return packageOrPropertySetName + "::" + elementName;
 		}
 		
-		public  Classifier getContainingClassifier(EObject element)
+		public static Classifier getContainingClassifier(EObject element)
 		{
 			EObject container = element.eContainer();
 			while (container != null && !(container instanceof Classifier))
@@ -1564,7 +1589,7 @@ import org.osate.aadl2.UnitsType;
 		 * 		Based on the type of classifier: ComponentTypeExtensionReference, ComponentImplementationExtensionReference, RealizationReference,
 		 * 										 FeatureGroupTypeExtendReference.
 		 */
-		private  PrototypeBinding findPrototypeBinding(Classifier classifier, Prototype prototype)
+		public static  PrototypeBinding findPrototypeBinding(Classifier classifier, Prototype prototype)
 		{
 			for (PrototypeBinding binding : classifier.getOwnedPrototypeBindings())
 				if (binding.getFormal().equals(prototype))
@@ -1583,7 +1608,7 @@ import org.osate.aadl2.UnitsType;
 		 * 		Based on the type of classifierPrototypeContext: ComponentTypeExtensionReference, ComponentImplementationExtensionReference,
 		 * 														 RealizationReference, FeatureGroupTypeExtendReference.
 		 */
-		private  PrototypeBinding findPrototypeBinding(Classifier classifierPrototypeContext, Subcomponent subcomponentPrototypeContext,
+		private static PrototypeBinding findPrototypeBinding(Classifier classifierPrototypeContext, Subcomponent subcomponentPrototypeContext,
 				Prototype prototype)
 		{
 			for (PrototypeBinding binding : subcomponentPrototypeContext.getOwnedPrototypeBindings())
@@ -1601,7 +1626,7 @@ import org.osate.aadl2.UnitsType;
 			return null;
 		}
 		
-		public  AadlPackage findAadlPackage(EObject context, String name)
+		public static AadlPackage findAadlPackage(EObject context, String name)
 		{
 			if (name == null || name.length() == 0)
 				return null;
@@ -1649,7 +1674,7 @@ import org.osate.aadl2.UnitsType;
 			return null;
 		}
 		
-		public  PropertySet findPropertySet(EObject context, String name)
+		public static PropertySet findPropertySet(EObject context, String name)
 		{
 			if (name == null || name.length() == 0)
 				return null;
@@ -1701,7 +1726,7 @@ import org.osate.aadl2.UnitsType;
 		/**
 		 * Dependencies: PrototypeFormalReference.
 		 */
-		private  PrototypeBinding findPrototypeBinding(Subcomponent subcomponent, Prototype prototype)
+		private static PrototypeBinding findPrototypeBinding(Subcomponent subcomponent, Prototype prototype)
 		{
 			for (PrototypeBinding binding : subcomponent.getOwnedPrototypeBindings())
 				if (binding.getFormal().equals(prototype))

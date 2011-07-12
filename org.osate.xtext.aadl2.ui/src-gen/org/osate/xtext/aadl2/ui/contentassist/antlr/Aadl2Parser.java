@@ -902,6 +902,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup_3_0(), "rule__ContainedPropertyAssociation__Group_3_0__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup_3_0_2(), "rule__ContainedPropertyAssociation__Group_3_0_2__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup_4(), "rule__ContainedPropertyAssociation__Group_4__0");
+					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup_4_3(), "rule__ContainedPropertyAssociation__Group_4_3__0");
 					put(grammarAccess.getPropertyAssociationAccess().getGroup(), "rule__PropertyAssociation__Group__0");
 					put(grammarAccess.getPropertyAssociationAccess().getGroup_3_0(), "rule__PropertyAssociation__Group_3_0__0");
 					put(grammarAccess.getPropertyAssociationAccess().getGroup_3_0_2(), "rule__PropertyAssociation__Group_3_0_2__0");
@@ -1878,6 +1879,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueAssignment_3_0_2_1(), "rule__ContainedPropertyAssociation__OwnedValueAssignment_3_0_2_1");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueAssignment_3_1(), "rule__ContainedPropertyAssociation__OwnedValueAssignment_3_1");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToAssignment_4_2(), "rule__ContainedPropertyAssociation__AppliesToAssignment_4_2");
+					put(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToAssignment_4_3_1(), "rule__ContainedPropertyAssociation__AppliesToAssignment_4_3_1");
 					put(grammarAccess.getPropertyAssociationAccess().getPropertyAssignment_0(), "rule__PropertyAssociation__PropertyAssignment_0");
 					put(grammarAccess.getPropertyAssociationAccess().getAppendAssignment_1_1(), "rule__PropertyAssociation__AppendAssignment_1_1");
 					put(grammarAccess.getPropertyAssociationAccess().getConstantAssignment_2(), "rule__PropertyAssociation__ConstantAssignment_2");

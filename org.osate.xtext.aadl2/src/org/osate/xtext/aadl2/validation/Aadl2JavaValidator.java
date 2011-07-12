@@ -104,6 +104,7 @@ import org.osate.aadl2.VirtualBusImplementation;
 import org.osate.aadl2.VirtualBusType;
 import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorType;
+import org.osate.xtext.aadl2.linking.MyLinkingService;
 
  
 
@@ -114,7 +115,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	{
 		checkComponentImplementationInPackageSection(componentImplementation);
 		checkComponentImplementationModes(componentImplementation);				
-		
 	}
 	
 	@Check(CheckType.FAST)
@@ -122,7 +122,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	{
 		checkTypeExtensionCategory(typeExtension);
 		checkFeaturesOfExtendedAbstractType((ComponentType)typeExtension.getSpecific());
-		
 	}
 	
 	@Check(CheckType.FAST)
@@ -130,7 +129,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	{
 		checkComponentTypeModes(componentType);
 		checkForInheritedFeatureArrays(componentType);
-		
 	}
 	
 	@Check(CheckType.FAST)
@@ -139,21 +137,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkExtensionAndRealizationHierarchy(implementationExtension);
 		checkImplementationExtensionCategory(implementationExtension);
 		checkSubcomponentsOfExtendedAbstractImplementation((ComponentImplementation)implementationExtension.getSpecific());
-		
 	}
 	
 	@Check(CheckType.FAST)
 	public void caseRealization(Realization realization)
 	{
 		checkRealizationCategory(realization);
-		
 	}
 	
 	@Check(CheckType.FAST)
 	public void caseComponentTypeRename(ComponentTypeRename componentTypeRename)
 	{
 		checkComponentTypeRenameCategory(componentTypeRename);
-		
 	}
 	
 	@Check(CheckType.FAST)
@@ -162,7 +157,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkSubcomponentCategory(subcomponent);				
 		checkSubcomponentRefinementCategory(subcomponent);
 		checkSubcomponentsHierarchy(subcomponent);
-		
 	}
 	
 	@Check(CheckType.FAST)
@@ -172,7 +166,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkRefinedOfComponentPrototype(prototype);
 		checkCategoryOfRefinedComponentPrototype(prototype);
 		checkArrayOfRefinedComponentPrototype(prototype);
-		
 	}
 	
 	@Check(CheckType.FAST)
@@ -180,21 +173,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	{
 		checkComponentPrototypeBindingCategory(binding);
 		checkFormalOfComponentPrototypeBinding(binding);
-		
 	}
 	
 	@Check(CheckType.FAST)
 	public void caseComponentReference(ComponentReference prototypeActual)
 	{
 		checkComponentPrototypeActualComponentCategory(prototypeActual);
-		
 	}
 	
 	@Check(CheckType.FAST)
 	public void caseComponentPrototypeReference(ComponentPrototypeReference prototypeActual)
 	{
 		checkComponentPrototypeActualPrototypeCategory(prototypeActual);
-		
 	}
 	
 	@Check(CheckType.FAST)
@@ -202,21 +192,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	{
 		checkFeaturePrototypeBindingDirection(binding);
 		checkFormalOfFeaturePrototypeBinding(binding);
-		
 	}
 	
 	@Check(CheckType.FAST)
 	public void caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding binding)
 	{
 		checkFormalOfFeatureGroupPrototypeBinding(binding);
-		
 	}
 	
 	@Check(CheckType.FAST)
 	public void caseFeatureGroupPrototype(FeatureGroupPrototype prototype)
 	{
 		checkRefinedOfFeatureGroupPrototype(prototype);
-		
 	}
 	
 	@Check(CheckType.FAST)
@@ -411,11 +398,27 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		
 	}
 	
+	
 	@Check(CheckType.FAST)
 	public void caseEnumerationValue(EnumerationValue enumerationValue)
 	{
 		insertNecessaryListValueObjects(enumerationValue);
-		
+	}
+	
+	@Check(CheckType.FAST)
+	public void casePropertyAssociation(PropertyAssociation pa)
+	{
+		String s = pa.getProperty().getQualifiedName();
+		String psname = null;
+		final int idx = s.lastIndexOf("::");
+		if (idx != -1 ){
+			psname = s.substring(0, idx);
+			EObject propertySet = MyLinkingService.findImportedPropertySet(psname, pa);
+			if (propertySet == null)
+			{
+				error(pa,"Property set containing property is not listed in with clause");
+			}
+		} 
 	}
 	
 	@Check(CheckType.FAST)

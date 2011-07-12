@@ -7341,6 +7341,12 @@
           <elements xsi:type="xtext:Assignment" feature="appliesTo" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.174"/>
           </elements>
+          <elements xsi:type="xtext:Group" cardinality="*">
+            <elements xsi:type="xtext:Keyword" value=","/>
+            <elements xsi:type="xtext:Assignment" feature="appliesTo" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.174"/>
+            </elements>
+          </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
       </alternatives>
@@ -7402,7 +7408,7 @@
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.192"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
-          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Keyword" value="."/>
           <elements xsi:type="xtext:Assignment" feature="containmentPathElement" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.192"/>
           </elements>
