@@ -1872,6 +1872,7 @@ The context owns the connection end instance.</body>
         </ownedComment>
         <generalization xmi:id="Flows-FlowSpecification-_generalization.0" general="_W64jmFEMEd6kWIIn_VWR1g"/>
         <generalization xmi:id="Flows-FlowSpecification-_generalization.1" general="Modes-ModalElement"/>
+        <generalization xmi:id="Flows-SubcomponentFlow-_generalization.0" general="Flows-FlowElement"/>
         <ownedAttribute xmi:id="Flows-FlowSpecification-refined" name="refined" type="Flows-FlowSpecification" association="Flows-A_flowSpecification_refined">
           <ownedComment xmi:id="Flows-FlowSpecification-refined-_ownedComment.0">
             <body>References a flow specifacion that is refined by this flow specification.</body>
@@ -1885,33 +1886,19 @@ The context owns the connection end instance.</body>
             <body>Specifies if this flow specification is a source, path, or sink.</body>
           </ownedComment>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Flows-FlowSpecification-inFeature" name="inFeature" type="Features-Feature" association="Flows-A_flowSpecification_inFeature">
+        <ownedAttribute xmi:id="Flows-FlowSpecification-inFeature" name="outEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" aggregation="composite" association="Flows-A_flowSpecification_inFeature">
           <ownedComment xmi:id="Flows-FlowSpecification-inFeature-_ownedComment.0">
             <body>The feature at which the flow enters the component. Empty for a flow source.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-FlowSpecification-inFeature-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-FlowSpecification-inFeature-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Flows-FlowSpecification-inContext" name="inContext" type="Connections-Context" association="Flows-A_flowSpecification_inContext">
-          <ownedComment xmi:id="Flows-FlowSpecification-inContext-_ownedComment.0">
-            <body>Specifies the context of the inFeature instance.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-FlowSpecification-inContext-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-FlowSpecification-inContext-_lowerValue"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Flows-FlowSpecification-outFeature" name="outFeature" type="Features-Feature" association="Flows-A_flowSpecification_outFeature">
+        <ownedAttribute xmi:id="Flows-FlowSpecification-outFeature" name="InEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" aggregation="composite" association="Flows-A_flowSpecification_outFeature">
           <ownedComment xmi:id="Flows-FlowSpecification-outFeature-_ownedComment.0">
             <body>The feature at which the flow exits the component. Empty for a flow sink.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-FlowSpecification-outFeature-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-FlowSpecification-outFeature-_lowerValue"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Flows-FlowSpecification-outContext" name="outContext" type="Connections-Context" association="Flows-A_flowSpecification_outContext">
-          <ownedComment xmi:id="Flows-FlowSpecification-outContext-_ownedComment.0">
-            <body>Specifies the context of the outFeature instance.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-FlowSpecification-outContext-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-FlowSpecification-outContext-_lowerValue"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Flows-FlowImplementation" name="FlowImplementation">
@@ -1934,16 +1921,9 @@ The context owns the connection end instance.</body>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-FlowImplementation-specification-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-FlowImplementation-specification-_lowerValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Flows-FlowImplementation-flowElement" name="flowElement" type="Flows-FlowElement" isOrdered="true" isUnique="false" association="Flows-A_flowImplementation_flowElement">
-          <ownedComment xmi:id="Flows-FlowImplementation-flowElement-_ownedComment.0">
-            <body>Specifies the sequence of flow elements in this flow implementation.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-FlowImplementation-flowElement-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-FlowImplementation-flowElement-_lowerValue"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="_aQNx3h-iEd6oIu99HumgeA" name="ownedSubcomponentFlow" type="Flows-SubcomponentFlow" aggregation="composite" subsettedProperty="Flows-FlowImplementation-flowElement" association="_aQNx2h-iEd6oIu99HumgeA">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_aQNx3x-iEd6oIu99HumgeA" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_aQNx4B-iEd6oIu99HumgeA"/>
+        <ownedAttribute xmi:id="_xoODUKvbEeC0h7jzzZfZ7Q" name="ownedFlowSegment" type="_tDLx4KvbEeC0h7jzzZfZ7Q" isOrdered="true" aggregation="composite" association="_xpTocKvbEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xoODUavbEeC0h7jzzZfZ7Q" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xoODUqvbEeC0h7jzzZfZ7Q" value="1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Flows-FlowElement" name="FlowElement" isAbstract="true">
@@ -1958,8 +1938,8 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_flowImplementation_specification-implementation-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Flows-A_flowImplementation_flowElement" name="A_flowImplementation_flowElement" memberEnd="Flows-A_flowImplementation_flowElement-implementation Flows-FlowImplementation-flowElement">
-        <ownedEnd xmi:id="Flows-A_flowImplementation_flowElement-implementation" name="implementation" type="Flows-FlowImplementation" isUnique="false" association="Flows-A_flowImplementation_flowElement">
+      <packagedElement xmi:type="uml:Association" xmi:id="Flows-A_flowImplementation_flowElement" name="A_flowSegment_flowElement" memberEnd="Flows-A_flowImplementation_flowElement-implementation Flows-FlowImplementation-flowElement">
+        <ownedEnd xmi:id="Flows-A_flowImplementation_flowElement-implementation" name="implementation" type="_tDLx4KvbEeC0h7jzzZfZ7Q" association="Flows-A_flowImplementation_flowElement">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-A_flowImplementation_flowElement-implementation-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_flowImplementation_flowElement-implementation-_lowerValue"/>
         </ownedEnd>
@@ -1969,7 +1949,6 @@ The context owns the connection end instance.</body>
           <body>The specification of an end to end flow in a component.</body>
         </ownedComment>
         <generalization xmi:id="Flows-EndToEndFlow-_generalization.0" general="_W64jmFEMEd6kWIIn_VWR1g"/>
-        <generalization xmi:id="Flows-EndToEndFlow-_generalization.1" general="Flows-EndToEndFlowElement"/>
         <generalization xmi:id="Flows-EndToEndFlow-_generalization.2" general="Modes-ModalPath"/>
         <ownedAttribute xmi:id="Flows-EndToEndFlow-refined" name="refined" type="Flows-EndToEndFlow" association="Flows-A_endToEndFlow_refined">
           <ownedComment xmi:id="Flows-EndToEndFlow-refined-_ownedComment.0">
@@ -1979,31 +1958,24 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-EndToEndFlow-refined-_lowerValue"/>
           <redefinedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Flows-EndToEndFlow-flowElement" name="flowElement" type="Flows-EndToEndFlowElement" isOrdered="true" isUnique="false" association="Flows-A_endToEndFlow_flowElement">
-          <ownedComment xmi:id="Flows-EndToEndFlow-flowElement-_ownedComment.0">
-            <body>The sequence of elements in this end to end flow.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-EndToEndFlow-flowElement-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-EndToEndFlow-flowElement-_lowerValue" value="1"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="_a74lDx-iEd6oIu99HumgeA" name="ownedSubcomponentFlow" type="Flows-SubcomponentFlow" aggregation="composite" subsettedProperty="Flows-EndToEndFlow-flowElement" association="_a74lCx-iEd6oIu99HumgeA">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_a74lEB-iEd6oIu99HumgeA" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_a74lER-iEd6oIu99HumgeA"/>
+        <ownedAttribute xmi:id="_fU3tIKvuEeC0h7jzzZfZ7Q" name="ownedEndToEndFlowSegment" type="_xtnbgKvtEeC0h7jzzZfZ7Q" aggregation="composite" association="_fVf_QKvuEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fU3tIavuEeC0h7jzzZfZ7Q" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fU3tIqvuEeC0h7jzzZfZ7Q" value="1"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Flows-A_flowSpecification_inFeature" name="A_flowSpecification_inFeature" memberEnd="Flows-A_flowSpecification_inFeature-specification Flows-FlowSpecification-inFeature">
-        <ownedEnd xmi:id="Flows-A_flowSpecification_inFeature-specification" name="specification" type="Flows-FlowSpecification" association="Flows-A_flowSpecification_inFeature">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-A_flowSpecification_inFeature-specification-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_flowSpecification_inFeature-specification-_lowerValue"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="Flows-A_flowSpecification_inFeature" name="A_flowSpecification_outEnd" memberEnd="Flows-A_flowSpecification_inFeature-specification Flows-FlowSpecification-inFeature">
+        <ownedEnd xmi:id="Flows-A_flowSpecification_inFeature-specification" name="owner" type="Flows-FlowSpecification" association="Flows-A_flowSpecification_inFeature">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-A_flowSpecification_inFeature-specification-_upperValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_flowSpecification_inFeature-specification-_lowerValue" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Flows-A_flowSpecification_outFeature" name="A_flowSpecification_outFeature" memberEnd="Flows-A_flowSpecification_outFeature-specification Flows-FlowSpecification-outFeature">
-        <ownedEnd xmi:id="Flows-A_flowSpecification_outFeature-specification" name="specification" type="Flows-FlowSpecification" association="Flows-A_flowSpecification_outFeature">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-A_flowSpecification_outFeature-specification-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_flowSpecification_outFeature-specification-_lowerValue"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="Flows-A_flowSpecification_outFeature" name="A_flowSpecification_inEnd" memberEnd="Flows-A_flowSpecification_outFeature-specification Flows-FlowSpecification-outFeature">
+        <ownedEnd xmi:id="Flows-A_flowSpecification_outFeature-specification" name="owner" type="Flows-FlowSpecification" association="Flows-A_flowSpecification_outFeature">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-A_flowSpecification_outFeature-specification-_upperValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_flowSpecification_outFeature-specification-_lowerValue" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Flows-EndToEndFlowElement" name="EndToEndFlowElement">
+      <packagedElement xmi:type="uml:Class" xmi:id="Flows-EndToEndFlowElement" name="EndToEndFlowElement" isAbstract="true">
         <ownedComment xmi:id="Flows-EndToEndFlowElement-_ownedComment.0">
           <body>An element that may occur in an end to end flow.</body>
         </ownedComment>
@@ -2012,7 +1984,7 @@ The context owns the connection end instance.</body>
         </generalization>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Flows-A_endToEndFlow_flowElement" name="A_endToEndFlow_flowElement" memberEnd="Flows-A_endToEndFlow_flowElement-flow Flows-EndToEndFlow-flowElement">
-        <ownedEnd xmi:id="Flows-A_endToEndFlow_flowElement-flow" name="flow" type="Flows-EndToEndFlow" isUnique="false" association="Flows-A_endToEndFlow_flowElement">
+        <ownedEnd xmi:id="Flows-A_endToEndFlow_flowElement-flow" name="flow" type="_xtnbgKvtEeC0h7jzzZfZ7Q" isUnique="false" association="Flows-A_endToEndFlow_flowElement">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-A_endToEndFlow_flowElement-flow-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_endToEndFlow_flowElement-flow-_lowerValue"/>
         </ownedEnd>
@@ -2031,38 +2003,6 @@ The context owns the connection end instance.</body>
         <ownedLiteral xmi:id="Flows-FlowKind-path" name="path"/>
         <ownedLiteral xmi:id="Flows-FlowKind-sink" name="sink"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Flows-SubcomponentFlow" name="SubcomponentFlow">
-        <ownedComment xmi:id="Flows-SubcomponentFlow-_ownedComment.0">
-          <body>===TBD===</body>
-        </ownedComment>
-        <generalization xmi:id="Flows-SubcomponentFlow-_generalization.0" general="Flows-FlowElement"/>
-        <ownedAttribute xmi:id="Flows-SubcomponentFlow-context" name="context" type="Components-Subcomponent" association="Flows-A_subcomponentFlow_context">
-          <ownedComment xmi:id="Flows-SubcomponentFlow-context-_ownedComment.0">
-            <body>===TBD===</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-SubcomponentFlow-context-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-SubcomponentFlow-context-_lowerValue" value="1"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Flows-SubcomponentFlow-flowSpecification" name="flowSpecification" type="Flows-FlowSpecification" association="Flows-A_subcomponentFlow_flowSpecification">
-          <ownedComment xmi:id="Flows-SubcomponentFlow-flowSpecification-_ownedComment.0">
-            <body>===TBD===</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-SubcomponentFlow-flowSpecification-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-SubcomponentFlow-flowSpecification-_lowerValue"/>
-        </ownedAttribute>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Flows-A_subcomponentFlow_context" name="A_subcomponentFlow_context" memberEnd="Flows-A_subcomponentFlow_context-subcomponentFlow Flows-SubcomponentFlow-context">
-        <ownedEnd xmi:id="Flows-A_subcomponentFlow_context-subcomponentFlow" name="subcomponentFlow" type="Flows-SubcomponentFlow" association="Flows-A_subcomponentFlow_context">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-A_subcomponentFlow_context-subcomponentFlow-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_subcomponentFlow_context-subcomponentFlow-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Flows-A_subcomponentFlow_flowSpecification" name="A_subcomponentFlow_flowSpecification" memberEnd="Flows-A_subcomponentFlow_flowSpecification-subcomponentFlow Flows-SubcomponentFlow-flowSpecification">
-        <ownedEnd xmi:id="Flows-A_subcomponentFlow_flowSpecification-subcomponentFlow" name="subcomponentFlow" type="Flows-SubcomponentFlow" association="Flows-A_subcomponentFlow_flowSpecification">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-A_subcomponentFlow_flowSpecification-subcomponentFlow-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_subcomponentFlow_flowSpecification-subcomponentFlow-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Flows-A_endToEndFlow_refined" name="A_endToEndFlow_refined" memberEnd="Flows-A_endToEndFlow_refined-flow Flows-EndToEndFlow-refined">
         <ownedEnd xmi:id="Flows-A_endToEndFlow_refined-flow" name="flow" type="Flows-EndToEndFlow" association="Flows-A_endToEndFlow_refined">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-A_endToEndFlow_refined-flow-_upperValue" value="*"/>
@@ -2075,34 +2015,83 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_flowSpecification_refined-flow-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Flows-A_flowSpecification_inContext" name="A_flowSpecification_inContext" memberEnd="Flows-A_flowSpecification_inContext-specification Flows-FlowSpecification-inContext">
-        <ownedEnd xmi:id="Flows-A_flowSpecification_inContext-specification" name="specification" type="Flows-FlowSpecification" association="Flows-A_flowSpecification_inContext">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-A_flowSpecification_inContext-specification-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_flowSpecification_inContext-specification-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Flows-A_flowSpecification_outContext" name="A_flowSpecification_outContext" memberEnd="Flows-A_flowSpecification_outContext-specification Flows-FlowSpecification-outContext">
-        <ownedEnd xmi:id="Flows-A_flowSpecification_outContext-specification" name="specification" type="Flows-FlowSpecification" association="Flows-A_flowSpecification_outContext">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-A_flowSpecification_outContext-specification-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_flowSpecification_outContext-specification-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_aQNx2h-iEd6oIu99HumgeA" name="A_flowImplementation_ownedSubcomponentFlow" memberEnd="_aQNx2x-iEd6oIu99HumgeA _aQNx3h-iEd6oIu99HumgeA">
-        <ownedEnd xmi:id="_aQNx2x-iEd6oIu99HumgeA" name="owner" type="Flows-FlowImplementation" association="_aQNx2h-iEd6oIu99HumgeA">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_aQNx3B-iEd6oIu99HumgeA" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_aQNx3R-iEd6oIu99HumgeA"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_a74lCx-iEd6oIu99HumgeA" name="A_endToEndFlow_ownedSubcomponentFlow" memberEnd="_a74lDB-iEd6oIu99HumgeA _a74lDx-iEd6oIu99HumgeA">
-        <ownedEnd xmi:id="_a74lDB-iEd6oIu99HumgeA" name="owner" type="Flows-EndToEndFlow" association="_a74lCx-iEd6oIu99HumgeA">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_a74lDR-iEd6oIu99HumgeA" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_a74lDh-iEd6oIu99HumgeA"/>
-        </ownedEnd>
-      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_W64jmFEMEd6kWIIn_VWR1g" name="Flow" isAbstract="true">
         <generalization xmi:id="_b3rNtVEMEd6kWIIn_VWR1g">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#StructuralFeature"/>
         </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_AzAPoKvVEeC0h7jzzZfZ7Q" name="FlowEnd">
+        <ownedAttribute xmi:id="_T0XnzqvVEeC0h7jzzZfZ7Q" name="context" type="Connections-Context" association="_T0XnyqvVEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_T0Xnz6vVEeC0h7jzzZfZ7Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_T0Xn0KvVEeC0h7jzzZfZ7Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_TOONzqvVEeC0h7jzzZfZ7Q" name="feature" type="Features-Feature" association="_TOONyqvVEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TOONz6vVEeC0h7jzzZfZ7Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TOON0KvVEeC0h7jzzZfZ7Q" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_TOONyqvVEeC0h7jzzZfZ7Q" name="A_flowEnd_feature" memberEnd="_TOONy6vVEeC0h7jzzZfZ7Q _TOONzqvVEeC0h7jzzZfZ7Q">
+        <ownedEnd xmi:id="_TOONy6vVEeC0h7jzzZfZ7Q" name="flowEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" association="_TOONyqvVEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TOONzKvVEeC0h7jzzZfZ7Q" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TOONzavVEeC0h7jzzZfZ7Q"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_T0XnyqvVEeC0h7jzzZfZ7Q" name="A_flowEnd_context" memberEnd="_T0Xny6vVEeC0h7jzzZfZ7Q _T0XnzqvVEeC0h7jzzZfZ7Q">
+        <ownedEnd xmi:id="_T0Xny6vVEeC0h7jzzZfZ7Q" name="flowEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" association="_T0XnyqvVEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_T0XnzKvVEeC0h7jzzZfZ7Q" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_T0XnzavVEeC0h7jzzZfZ7Q"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_tDLx4KvbEeC0h7jzzZfZ7Q" name="FlowSegment">
+        <ownedAttribute xmi:id="Flows-FlowImplementation-flowElement" name="flowElement" type="Flows-FlowElement" isUnique="false" association="Flows-A_flowImplementation_flowElement">
+          <ownedComment xmi:id="Flows-FlowImplementation-flowElement-_ownedComment.0">
+            <body>Specifies the sequence of flow elements in this flow implementation.</body>
+          </ownedComment>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-FlowImplementation-flowElement-_upperValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-FlowImplementation-flowElement-_lowerValue" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_NkLidKvdEeC0h7jzzZfZ7Q" name="context" type="Connections-Context" association="_NkLicKvdEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NkLidavdEeC0h7jzzZfZ7Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NkLidqvdEeC0h7jzzZfZ7Q"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_xpTocKvbEeC0h7jzzZfZ7Q" name="A_flowImplementation_ownedFlowSegment" memberEnd="_xpTocavbEeC0h7jzzZfZ7Q _xoODUKvbEeC0h7jzzZfZ7Q">
+        <ownedEnd xmi:id="_xpTocavbEeC0h7jzzZfZ7Q" name="owner" type="Flows-FlowImplementation" association="_xpTocKvbEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xpTocqvbEeC0h7jzzZfZ7Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xpToc6vbEeC0h7jzzZfZ7Q"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_NkLicKvdEeC0h7jzzZfZ7Q" name="A_flowSegment_context" memberEnd="_NkLicavdEeC0h7jzzZfZ7Q _NkLidKvdEeC0h7jzzZfZ7Q">
+        <ownedEnd xmi:id="_NkLicavdEeC0h7jzzZfZ7Q" name="flowSegment" type="_tDLx4KvbEeC0h7jzzZfZ7Q" association="_NkLicKvdEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NkLicqvdEeC0h7jzzZfZ7Q" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NkLic6vdEeC0h7jzzZfZ7Q"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_xtnbgKvtEeC0h7jzzZfZ7Q" name="EndToEndFlowSegment">
+        <generalization xmi:id="Flows-EndToEndFlow-_generalization.1" general="Flows-EndToEndFlowElement"/>
+        <ownedAttribute xmi:id="Flows-EndToEndFlow-flowElement" name="flowElement" type="Flows-EndToEndFlowElement" isOrdered="true" isUnique="false" association="Flows-A_endToEndFlow_flowElement">
+          <ownedComment xmi:id="Flows-EndToEndFlow-flowElement-_ownedComment.0">
+            <body>The sequence of elements in this end to end flow.</body>
+          </ownedComment>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-EndToEndFlow-flowElement-_upperValue" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-EndToEndFlow-flowElement-_lowerValue" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_GjmWdKvvEeC0h7jzzZfZ7Q" name="context" type="Connections-Context" association="_GjmWcKvvEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GjmWdavvEeC0h7jzzZfZ7Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GjmWdqvvEeC0h7jzzZfZ7Q"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_fVf_QKvuEeC0h7jzzZfZ7Q" name="A_endToEndFlow_ownedEndToEndFlowSegment" memberEnd="_fVf_QavuEeC0h7jzzZfZ7Q _fU3tIKvuEeC0h7jzzZfZ7Q">
+        <ownedEnd xmi:id="_fVf_QavuEeC0h7jzzZfZ7Q" name="owner" type="Flows-EndToEndFlow" association="_fVf_QKvuEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fVf_QqvuEeC0h7jzzZfZ7Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fVf_Q6vuEeC0h7jzzZfZ7Q" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_GjmWcKvvEeC0h7jzzZfZ7Q" name="A_endToEndFlowSegment_context" memberEnd="_GjmWcavvEeC0h7jzzZfZ7Q _GjmWdKvvEeC0h7jzzZfZ7Q">
+        <ownedEnd xmi:id="_GjmWcavvEeC0h7jzzZfZ7Q" name="endToEndFlowSegment" type="_xtnbgKvtEeC0h7jzzZfZ7Q" association="_GjmWcKvvEeC0h7jzzZfZ7Q">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GjmWcqvvEeC0h7jzzZfZ7Q" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GjmWc6vvEeC0h7jzzZfZ7Q"/>
+        </ownedEnd>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Modes" name="Modes">

@@ -275,6 +275,12 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateFlowSpecification((FlowSpecification) value, diagnostics, context);
 		case Aadl2Package.FLOW:
 			return validateFlow((Flow) value, diagnostics, context);
+		case Aadl2Package.FLOW_ELEMENT:
+			return validateFlowElement((FlowElement) value, diagnostics, context);
+		case Aadl2Package.END_TO_END_FLOW_ELEMENT:
+			return validateEndToEndFlowElement((EndToEndFlowElement) value, diagnostics, context);
+		case Aadl2Package.FLOW_END:
+			return validateFlowEnd((FlowEnd) value, diagnostics, context);
 		case Aadl2Package.CONTEXT:
 			return validateContext((Context) value, diagnostics, context);
 		case Aadl2Package.TYPE_EXTENSION:
@@ -309,10 +315,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateParameterConnectionEnd((ParameterConnectionEnd) value, diagnostics, context);
 		case Aadl2Package.PORT_CONNECTION_END:
 			return validatePortConnectionEnd((PortConnectionEnd) value, diagnostics, context);
-		case Aadl2Package.FLOW_ELEMENT:
-			return validateFlowElement((FlowElement) value, diagnostics, context);
-		case Aadl2Package.END_TO_END_FLOW_ELEMENT:
-			return validateEndToEndFlowElement((EndToEndFlowElement) value, diagnostics, context);
 		case Aadl2Package.DATA_CLASSIFIER:
 			return validateDataClassifier((DataClassifier) value, diagnostics, context);
 		case Aadl2Package.DATA_SUBCOMPONENT_TYPE:
@@ -364,8 +366,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateFlowImplementation((FlowImplementation) value, diagnostics, context);
 		case Aadl2Package.MODAL_PATH:
 			return validateModalPath((ModalPath) value, diagnostics, context);
-		case Aadl2Package.SUBCOMPONENT_FLOW:
-			return validateSubcomponentFlow((SubcomponentFlow) value, diagnostics, context);
+		case Aadl2Package.FLOW_SEGMENT:
+			return validateFlowSegment((FlowSegment) value, diagnostics, context);
 		case Aadl2Package.CONNECTION:
 			return validateConnection((Connection) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_CONNECTION_END:
@@ -376,6 +378,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateRealization((Realization) value, diagnostics, context);
 		case Aadl2Package.END_TO_END_FLOW:
 			return validateEndToEndFlow((EndToEndFlow) value, diagnostics, context);
+		case Aadl2Package.END_TO_END_FLOW_SEGMENT:
+			return validateEndToEndFlowSegment((EndToEndFlowSegment) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_SUBCOMPONENT:
 			return validateAbstractSubcomponent((AbstractSubcomponent) value, diagnostics, context);
 		case Aadl2Package.ACCESS_CONNECTION:
@@ -2314,6 +2318,15 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateFlowEnd(FlowEnd flowEnd, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject) flowEnd, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateFeatureGroup(FeatureGroup featureGroup, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) featureGroup, diagnostics, context))
@@ -3475,6 +3488,41 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateEndToEndFlowSegment(EndToEndFlowSegment endToEndFlowSegment, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		if (!validate_NoCircularContainment((EObject) endToEndFlowSegment, diagnostics, context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms((EObject) endToEndFlowSegment, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms((EObject) endToEndFlowSegment, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained((EObject) endToEndFlowSegment, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) endToEndFlowSegment, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves((EObject) endToEndFlowSegment, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID((EObject) endToEndFlowSegment, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique((EObject) endToEndFlowSegment, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique((EObject) endToEndFlowSegment, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_not_own_self(endToEndFlowSegment, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_has_owner(endToEndFlowSegment, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_no_qualified_name(endToEndFlowSegment, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_qualified_name(endToEndFlowSegment, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateFeatureConnection(FeatureConnection featureConnection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) featureConnection, diagnostics, context))
@@ -4343,6 +4391,15 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateFlowSegment(FlowSegment flowSegment, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject) flowSegment, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateAccessConnection(AccessConnection accessConnection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) accessConnection, diagnostics, context))
@@ -4617,41 +4674,6 @@ public class Aadl2Validator extends EObjectValidator {
 			result &= validateNamedElement_has_no_qualified_name(processorSubprogram, diagnostics, context);
 		if (result || diagnostics != null)
 			result &= validateNamedElement_has_qualified_name(processorSubprogram, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateSubcomponentFlow(SubcomponentFlow subcomponentFlow, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subcomponentFlow, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subcomponentFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subcomponentFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subcomponentFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subcomponentFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subcomponentFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subcomponentFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subcomponentFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subcomponentFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(subcomponentFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(subcomponentFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateNamedElement_has_no_qualified_name(subcomponentFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateNamedElement_has_qualified_name(subcomponentFlow, diagnostics, context);
 		return result;
 	}
 

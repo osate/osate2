@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,30 +31,55 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: SubcomponentFlow.java,v 1.4 2010-04-13 17:52:31 lwrage Exp $
  */
 package org.osate.aadl2;
 
+import org.osate.aadl2.parsesupport.AObject;
+
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Subcomponent Flow</b></em>'.
+ * A representation of the model object '<em><b>Flow Segment</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.SubcomponentFlow#getContext <em>Context</em>}</li>
- *   <li>{@link org.osate.aadl2.SubcomponentFlow#getFlowSpecification <em>Flow Specification</em>}</li>
- *   <li>{@link org.osate.aadl2.SubcomponentFlow#getDataAccess <em>Data Access</em>}</li>
+ *   <li>{@link org.osate.aadl2.FlowSegment#getFlowElement <em>Flow Element</em>}</li>
+ *   <li>{@link org.osate.aadl2.FlowSegment#getContext <em>Context</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.aadl2.Aadl2Package#getSubcomponentFlow()
+ * @see org.osate.aadl2.Aadl2Package#getFlowSegment()
  * @model
+ * @extends AObject
  * @generated
  */
-public interface SubcomponentFlow extends FlowElement {
+public interface FlowSegment extends AObject {
+	/**
+	 * Returns the value of the '<em><b>Flow Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Flow Element</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Flow Element</em>' reference.
+	 * @see #setFlowElement(FlowElement)
+	 * @see org.osate.aadl2.Aadl2Package#getFlowSegment_FlowElement()
+	 * @model required="true" ordered="false"
+	 * @generated
+	 */
+	FlowElement getFlowElement();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.FlowSegment#getFlowElement <em>Flow Element</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Flow Element</em>' reference.
+	 * @see #getFlowElement()
+	 * @generated
+	 */
+	void setFlowElement(FlowElement value);
 
 	/**
 	 * Returns the value of the '<em><b>Context</b></em>' reference.
@@ -65,72 +90,21 @@ public interface SubcomponentFlow extends FlowElement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Context</em>' reference.
-	 * @see #setContext(Subcomponent)
-	 * @see org.osate.aadl2.Aadl2Package#getSubcomponentFlow_Context()
-	 * @model required="true" ordered="false"
+	 * @see #setContext(Context)
+	 * @see org.osate.aadl2.Aadl2Package#getFlowSegment_Context()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	Subcomponent getContext();
+	Context getContext();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.SubcomponentFlow#getContext <em>Context</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.FlowSegment#getContext <em>Context</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Context</em>' reference.
 	 * @see #getContext()
 	 * @generated
 	 */
-	void setContext(Subcomponent value);
+	void setContext(Context value);
 
-	/**
-	 * Returns the value of the '<em><b>Flow Specification</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Flow Specification</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Flow Specification</em>' reference.
-	 * @see #setFlowSpecification(FlowSpecification)
-	 * @see org.osate.aadl2.Aadl2Package#getSubcomponentFlow_FlowSpecification()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	FlowSpecification getFlowSpecification();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.SubcomponentFlow#getFlowSpecification <em>Flow Specification</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Flow Specification</em>' reference.
-	 * @see #getFlowSpecification()
-	 * @generated
-	 */
-	void setFlowSpecification(FlowSpecification value);
-
-	/**
-	 * Returns the value of the '<em><b>Data Access</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Data Access</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Data Access</em>' reference.
-	 * @see #setDataAccess(DataAccess)
-	 * @see org.osate.aadl2.Aadl2Package#getSubcomponentFlow_DataAccess()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	DataAccess getDataAccess();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.SubcomponentFlow#getDataAccess <em>Data Access</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Data Access</em>' reference.
-	 * @see #getDataAccess()
-	 * @generated
-	 */
-	void setDataAccess(DataAccess value);
-} // SubcomponentFlow
+} // FlowSegment

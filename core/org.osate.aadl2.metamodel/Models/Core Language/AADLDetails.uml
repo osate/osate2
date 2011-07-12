@@ -2799,20 +2799,7 @@
         </ownedAttribute>
       </packagedElement>
     </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="_JK-Ssh-jEd6oIu99HumgeA" name="Flows">
-      <packagedElement xmi:type="uml:Class" xmi:id="_xp2VQB-jEd6oIu99HumgeA" name="SubcomponentFlow">
-        <ownedAttribute xmi:id="_2lUJvx-jEd6oIu99HumgeA" name="dataAccess" type="Features-DataAccess" association="_2lUJux-jEd6oIu99HumgeA">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2lUJwB-jEd6oIu99HumgeA" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2lUJwR-jEd6oIu99HumgeA"/>
-        </ownedAttribute>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_2lUJux-jEd6oIu99HumgeA" name="A_subcomponentFlow_dataAccess" memberEnd="_2lUJvB-jEd6oIu99HumgeA _2lUJvx-jEd6oIu99HumgeA">
-        <ownedEnd xmi:id="_2lUJvB-jEd6oIu99HumgeA" name="subcomponentFlow" type="_xp2VQB-jEd6oIu99HumgeA" association="_2lUJux-jEd6oIu99HumgeA">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2lUJvR-jEd6oIu99HumgeA" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2lUJvh-jEd6oIu99HumgeA"/>
-        </ownedEnd>
-      </packagedElement>
-    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_JK-Ssh-jEd6oIu99HumgeA" name="Flows"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_KdZncKlbEeCVAsPdeCCOXw" name="NamedProxies">
       <packagedElement xmi:type="uml:Class" xmi:id="_cAIeYKlbEeCVAsPdeCCOXw" name="ProcessorPort">
         <generalization xmi:id="_Ce64gKlcEeCVAsPdeCCOXw">
