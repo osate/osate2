@@ -18532,20 +18532,24 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cToKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
 		private final Assignment cAppliesToAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
 		private final RuleCall cAppliesToContainmentPathParserRuleCall_4_2_0 = (RuleCall)cAppliesToAssignment_4_2.eContents().get(0);
+		private final Group cGroup_4_3 = (Group)cGroup_4.eContents().get(3);
+		private final Keyword cCommaKeyword_4_3_0 = (Keyword)cGroup_4_3.eContents().get(0);
+		private final Assignment cAppliesToAssignment_4_3_1 = (Assignment)cGroup_4_3.eContents().get(1);
+		private final RuleCall cAppliesToContainmentPathParserRuleCall_4_3_1_0 = (RuleCall)cAppliesToAssignment_4_3_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//ContainedPropertyAssociation returns aadl2::PropertyAssociation: // &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
 		//	property= // name=QPREF
 		//	[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
 		//	ownedValue+=ModalPropertyValue)* //(',' ownedValue+=PropertyValue)?
-		//	")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath)? ";";
+		//	")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";";
 		public ParserRule getRule() { return rule; }
 
 		//// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
 		//property= // name=QPREF
 		//[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
 		//ownedValue+=ModalPropertyValue)* //(',' ownedValue+=PropertyValue)?
-		//")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath)? ";"
+		//")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";"
 		public Group getGroup() { return cGroup; }
 
 		//// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
@@ -18617,7 +18621,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//PropertyValue
 		public RuleCall getOwnedValuePropertyValueParserRuleCall_3_1_0() { return cOwnedValuePropertyValueParserRuleCall_3_1_0; }
 
-		//(=> "applies" "to" appliesTo+=ContainmentPath)?
+		//(=> "applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//=> "applies"
@@ -18631,6 +18635,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//ContainmentPath
 		public RuleCall getAppliesToContainmentPathParserRuleCall_4_2_0() { return cAppliesToContainmentPathParserRuleCall_4_2_0; }
+
+		//("," appliesTo+=ContainmentPath)*
+		public Group getGroup_4_3() { return cGroup_4_3; }
+
+		//","
+		public Keyword getCommaKeyword_4_3_0() { return cCommaKeyword_4_3_0; }
+
+		//appliesTo+=ContainmentPath
+		public Assignment getAppliesToAssignment_4_3_1() { return cAppliesToAssignment_4_3_1; }
+
+		//ContainmentPath
+		public RuleCall getAppliesToContainmentPathParserRuleCall_4_3_1_0() { return cAppliesToContainmentPathParserRuleCall_4_3_1_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
@@ -18756,16 +18772,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cContainmentPathElementAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cContainmentPathElementContainmentPathElementParserRuleCall_1_0 = (RuleCall)cContainmentPathElementAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cCommaKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cContainmentPathElementAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final RuleCall cContainmentPathElementContainmentPathElementParserRuleCall_2_1_0 = (RuleCall)cContainmentPathElementAssignment_2_1.eContents().get(0);
 		
 		//ContainmentPath returns aadl2::ContainedNamedElement:
-		//	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement (","
+		//	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement ("."
 		//	containmentPathElement+=ContainmentPathElement)*;
 		public ParserRule getRule() { return rule; }
 
-		//{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement (","
+		//{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement ("."
 		//containmentPathElement+=ContainmentPathElement)*
 		public Group getGroup() { return cGroup; }
 
@@ -18778,11 +18794,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ContainmentPathElement
 		public RuleCall getContainmentPathElementContainmentPathElementParserRuleCall_1_0() { return cContainmentPathElementContainmentPathElementParserRuleCall_1_0; }
 
-		//("," containmentPathElement+=ContainmentPathElement)*
+		//("." containmentPathElement+=ContainmentPathElement)*
 		public Group getGroup_2() { return cGroup_2; }
 
-		//","
-		public Keyword getCommaKeyword_2_0() { return cCommaKeyword_2_0; }
+		//"."
+		public Keyword getFullStopKeyword_2_0() { return cFullStopKeyword_2_0; }
 
 		//containmentPathElement+=ContainmentPathElement
 		public Assignment getContainmentPathElementAssignment_2_1() { return cContainmentPathElementAssignment_2_1; }
@@ -22758,7 +22774,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	property= // name=QPREF
 	//	[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
 	//	ownedValue+=ModalPropertyValue)* //(',' ownedValue+=PropertyValue)?
-	//	")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath)? ";";
+	//	")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";";
 	public ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
 		return (pContainedPropertyAssociation != null) ? pContainedPropertyAssociation : (pContainedPropertyAssociation = new ContainedPropertyAssociationElements());
 	}
@@ -22781,7 +22797,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ContainmentPath returns aadl2::ContainedNamedElement:
-	//	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement (","
+	//	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement ("."
 	//	containmentPathElement+=ContainmentPathElement)*;
 	public ContainmentPathElements getContainmentPathAccess() {
 		return (pContainmentPath != null) ? pContainmentPath : (pContainmentPath = new ContainmentPathElements());

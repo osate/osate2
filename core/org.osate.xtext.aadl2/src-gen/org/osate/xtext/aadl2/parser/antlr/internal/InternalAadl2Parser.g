@@ -26690,10 +26690,33 @@ KEYWORD_63
 	    }
 
 )
-))?
-	otherlv_13=KEYWORD_9
+)(
+	otherlv_13=KEYWORD_5
     {
-    	newLeafNode(otherlv_13, grammarAccess.getContainedPropertyAssociationAccess().getSemicolonKeyword_5());
+    	newLeafNode(otherlv_13, grammarAccess.getContainedPropertyAssociationAccess().getCommaKeyword_4_3_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_4_3_1_0()); 
+	    }
+		lv_appliesTo_14_0=ruleContainmentPath		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getContainedPropertyAssociationRule());
+	        }
+       		add(
+       			$current, 
+       			"appliesTo",
+        		lv_appliesTo_14_0, 
+        		"ContainmentPath");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*)?
+	otherlv_15=KEYWORD_9
+    {
+    	newLeafNode(otherlv_15, grammarAccess.getContainedPropertyAssociationAccess().getSemicolonKeyword_5());
     }
 )
 ;
@@ -26892,9 +26915,9 @@ ruleContainmentPath returns [EObject current=null]
 
 )
 )(
-	otherlv_2=KEYWORD_5
+	otherlv_2=KEYWORD_7
     {
-    	newLeafNode(otherlv_2, grammarAccess.getContainmentPathAccess().getCommaKeyword_2_0());
+    	newLeafNode(otherlv_2, grammarAccess.getContainmentPathAccess().getFullStopKeyword_2_0());
     }
 (
 (

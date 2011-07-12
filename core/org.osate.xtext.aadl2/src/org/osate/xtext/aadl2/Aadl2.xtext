@@ -1645,7 +1645,9 @@ ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	')' )
 	| ownedValue+=PropertyValue
 	)
-	(=> 'applies' 'to' appliesTo+=ContainmentPath)?
+	(=> 'applies' 'to' appliesTo+=ContainmentPath 
+		(',' appliesTo+=ContainmentPath)*
+	)?
 	';';
 
 PropertyAssociation returns aadl2::PropertyAssociation:
@@ -1665,7 +1667,7 @@ PropertyAssociation returns aadl2::PropertyAssociation:
 ContainmentPath returns aadl2::ContainedNamedElement:
 	{aadl2::ContainedNamedElement}
 	containmentPathElement+=ContainmentPathElement
-	( ',' containmentPathElement+=ContainmentPathElement)*
+	( '.' containmentPathElement+=ContainmentPathElement)*
 ;
 
 ModalPropertyValue returns aadl2::ModalPropertyValue:
