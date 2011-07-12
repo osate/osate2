@@ -23,8 +23,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAadlPackageParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cPropertySetParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//// TODO:   
-		////InternalEvent(SELF), ProcessorPort: objects in mode transition instead of reference to unnamed owned in impl.
 		//Model returns aadl2::ModelUnit:
 		//	AadlPackage | PropertySet;
 		public ParserRule getRule() { return rule; }
@@ -7910,10 +7908,22 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Prototype");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
-		private final RuleCall cSystemPrototypeParserRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
-		private final RuleCall cDataPrototypeParserRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
-		private final RuleCall cFeatureGroupPrototypeParserRuleCall_0_2 = (RuleCall)cAlternatives_0.eContents().get(2);
-		private final RuleCall cFeaturePrototypeParserRuleCall_0_3 = (RuleCall)cAlternatives_0.eContents().get(3);
+		private final RuleCall cAbstractPrototypeParserRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
+		private final RuleCall cBusPrototypeParserRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
+		private final RuleCall cDevicePrototypeParserRuleCall_0_2 = (RuleCall)cAlternatives_0.eContents().get(2);
+		private final RuleCall cMemoryPrototypeParserRuleCall_0_3 = (RuleCall)cAlternatives_0.eContents().get(3);
+		private final RuleCall cProcessPrototypeParserRuleCall_0_4 = (RuleCall)cAlternatives_0.eContents().get(4);
+		private final RuleCall cProcessorPrototypeParserRuleCall_0_5 = (RuleCall)cAlternatives_0.eContents().get(5);
+		private final RuleCall cSubprogramPrototypeParserRuleCall_0_6 = (RuleCall)cAlternatives_0.eContents().get(6);
+		private final RuleCall cSubprogramGroupPrototypeParserRuleCall_0_7 = (RuleCall)cAlternatives_0.eContents().get(7);
+		private final RuleCall cThreadPrototypeParserRuleCall_0_8 = (RuleCall)cAlternatives_0.eContents().get(8);
+		private final RuleCall cThreadGroupPrototypeParserRuleCall_0_9 = (RuleCall)cAlternatives_0.eContents().get(9);
+		private final RuleCall cVirtualBusPrototypeParserRuleCall_0_10 = (RuleCall)cAlternatives_0.eContents().get(10);
+		private final RuleCall cVirtualProcessorPrototypeParserRuleCall_0_11 = (RuleCall)cAlternatives_0.eContents().get(11);
+		private final RuleCall cSystemPrototypeParserRuleCall_0_12 = (RuleCall)cAlternatives_0.eContents().get(12);
+		private final RuleCall cDataPrototypeParserRuleCall_0_13 = (RuleCall)cAlternatives_0.eContents().get(13);
+		private final RuleCall cFeatureGroupPrototypeParserRuleCall_0_14 = (RuleCall)cAlternatives_0.eContents().get(14);
+		private final RuleCall cFeaturePrototypeParserRuleCall_0_15 = (RuleCall)cAlternatives_0.eContents().get(15);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cOwnedPropertyAssociationAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
@@ -7923,31 +7933,70 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// ******* Prototypes
 		//Prototype returns aadl2::Prototype:
-		//	(SystemPrototype // ComponentPrototype 
-		//	| DataPrototype | FeatureGroupPrototype | FeaturePrototype) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-		//	";";
+		//	(AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
+		//	SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
+		//	VirtualProcessorPrototype | SystemPrototype | DataPrototype | FeatureGroupPrototype | FeaturePrototype) ("{"
+		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//(SystemPrototype // ComponentPrototype 
-		//| DataPrototype | FeatureGroupPrototype | FeaturePrototype) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-		//";"
+		//(AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
+		//SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
+		//VirtualProcessorPrototype | SystemPrototype | DataPrototype | FeatureGroupPrototype | FeaturePrototype) ("{"
+		//ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
-		//SystemPrototype // ComponentPrototype 
-		//| DataPrototype | FeatureGroupPrototype | FeaturePrototype
+		//AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
+		//SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
+		//VirtualProcessorPrototype | SystemPrototype | DataPrototype | FeatureGroupPrototype | FeaturePrototype
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
+		//AbstractPrototype
+		public RuleCall getAbstractPrototypeParserRuleCall_0_0() { return cAbstractPrototypeParserRuleCall_0_0; }
+
+		//BusPrototype
+		public RuleCall getBusPrototypeParserRuleCall_0_1() { return cBusPrototypeParserRuleCall_0_1; }
+
+		//DevicePrototype
+		public RuleCall getDevicePrototypeParserRuleCall_0_2() { return cDevicePrototypeParserRuleCall_0_2; }
+
+		//MemoryPrototype
+		public RuleCall getMemoryPrototypeParserRuleCall_0_3() { return cMemoryPrototypeParserRuleCall_0_3; }
+
+		//ProcessPrototype
+		public RuleCall getProcessPrototypeParserRuleCall_0_4() { return cProcessPrototypeParserRuleCall_0_4; }
+
+		//ProcessorPrototype
+		public RuleCall getProcessorPrototypeParserRuleCall_0_5() { return cProcessorPrototypeParserRuleCall_0_5; }
+
+		//SubprogramPrototype
+		public RuleCall getSubprogramPrototypeParserRuleCall_0_6() { return cSubprogramPrototypeParserRuleCall_0_6; }
+
+		//SubprogramGroupPrototype
+		public RuleCall getSubprogramGroupPrototypeParserRuleCall_0_7() { return cSubprogramGroupPrototypeParserRuleCall_0_7; }
+
+		//ThreadPrototype
+		public RuleCall getThreadPrototypeParserRuleCall_0_8() { return cThreadPrototypeParserRuleCall_0_8; }
+
+		//ThreadGroupPrototype
+		public RuleCall getThreadGroupPrototypeParserRuleCall_0_9() { return cThreadGroupPrototypeParserRuleCall_0_9; }
+
+		//VirtualBusPrototype
+		public RuleCall getVirtualBusPrototypeParserRuleCall_0_10() { return cVirtualBusPrototypeParserRuleCall_0_10; }
+
+		//VirtualProcessorPrototype
+		public RuleCall getVirtualProcessorPrototypeParserRuleCall_0_11() { return cVirtualProcessorPrototypeParserRuleCall_0_11; }
+
 		//SystemPrototype
-		public RuleCall getSystemPrototypeParserRuleCall_0_0() { return cSystemPrototypeParserRuleCall_0_0; }
+		public RuleCall getSystemPrototypeParserRuleCall_0_12() { return cSystemPrototypeParserRuleCall_0_12; }
 
 		//DataPrototype
-		public RuleCall getDataPrototypeParserRuleCall_0_1() { return cDataPrototypeParserRuleCall_0_1; }
+		public RuleCall getDataPrototypeParserRuleCall_0_13() { return cDataPrototypeParserRuleCall_0_13; }
 
 		//FeatureGroupPrototype
-		public RuleCall getFeatureGroupPrototypeParserRuleCall_0_2() { return cFeatureGroupPrototypeParserRuleCall_0_2; }
+		public RuleCall getFeatureGroupPrototypeParserRuleCall_0_14() { return cFeatureGroupPrototypeParserRuleCall_0_14; }
 
 		//FeaturePrototype
-		public RuleCall getFeaturePrototypeParserRuleCall_0_3() { return cFeaturePrototypeParserRuleCall_0_3; }
+		public RuleCall getFeaturePrototypeParserRuleCall_0_15() { return cFeaturePrototypeParserRuleCall_0_15; }
 
 		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_1() { return cGroup_1; }
@@ -7968,8 +8017,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
 	}
 
-	public class ComponentPrototypeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ComponentPrototype");
+	public class AbstractPrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AbstractPrototype");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
 		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
@@ -7983,8 +8032,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
 		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
 		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
-		private final Assignment cCategoryAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cCategoryComponentCategoryParserRuleCall_1_0 = (RuleCall)cCategoryAssignment_1.eContents().get(0);
+		private final Keyword cAbstractKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cConstrainingClassifierAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_2_0 = (CrossReference)cConstrainingClassifierAssignment_2.eContents().get(0);
 		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_2_0.eContents().get(1);
@@ -7993,12 +8041,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cArrayLeftSquareBracketKeyword_3_0_0 = (Keyword)cArrayAssignment_3_0.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
 		
-		//ComponentPrototype returns aadl2::DataPrototype:
-		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") category=ComponentCategory
+		//AbstractPrototype returns aadl2::AbstractPrototype:
+		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "abstract"
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
 		public ParserRule getRule() { return rule; }
 
-		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") category=ComponentCategory
+		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "abstract"
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
 		public Group getGroup() { return cGroup; }
 
@@ -8038,11 +8086,102 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"to"
 		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
 
-		//category=ComponentCategory
-		public Assignment getCategoryAssignment_1() { return cCategoryAssignment_1; }
+		//"abstract"
+		public Keyword getAbstractKeyword_1() { return cAbstractKeyword_1; }
 
-		//ComponentCategory
-		public RuleCall getCategoryComponentCategoryParserRuleCall_1_0() { return cCategoryComponentCategoryParserRuleCall_1_0; }
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+		public Assignment getConstrainingClassifierAssignment_2() { return cConstrainingClassifierAssignment_2; }
+
+		//[aadl2::ComponentClassifier|QCREF]
+		public CrossReference getConstrainingClassifierComponentClassifierCrossReference_2_0() { return cConstrainingClassifierComponentClassifierCrossReference_2_0; }
+
+		//QCREF
+		public RuleCall getConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1() { return cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1; }
+
+		//(array?="[" "]")?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//array?="["
+		public Assignment getArrayAssignment_3_0() { return cArrayAssignment_3_0; }
+
+		//"["
+		public Keyword getArrayLeftSquareBracketKeyword_3_0_0() { return cArrayLeftSquareBracketKeyword_3_0_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_3_1() { return cRightSquareBracketKeyword_3_1; }
+	}
+
+	public class BusPrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "BusPrototype");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0_0 = (RuleCall)cNameAssignment_0_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final CrossReference cRefinedComponentPrototypeCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
+		private final RuleCall cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1 = (RuleCall)cRefinedComponentPrototypeCrossReference_0_1_0_0.eContents().get(1);
+		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
+		private final Keyword cBusKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cConstrainingClassifierAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_2_0 = (CrossReference)cConstrainingClassifierAssignment_2.eContents().get(0);
+		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_2_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cArrayAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final Keyword cArrayLeftSquareBracketKeyword_3_0_0 = (Keyword)cArrayAssignment_3_0.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		
+		//BusPrototype returns aadl2::BusPrototype:
+		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "bus"
+		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+		public ParserRule getRule() { return rule; }
+
+		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "bus"
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//name=ID ":"
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0_0_0() { return cNameIDTerminalRuleCall_0_0_0_0; }
+
+		//":"
+		public Keyword getColonKeyword_0_0_1() { return cColonKeyword_0_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME]
+		public Assignment getRefinedAssignment_0_1_0() { return cRefinedAssignment_0_1_0; }
+
+		//[aadl2::ComponentPrototype|REFINEDNAME]
+		public CrossReference getRefinedComponentPrototypeCrossReference_0_1_0_0() { return cRefinedComponentPrototypeCrossReference_0_1_0_0; }
+
+		//REFINEDNAME
+		public RuleCall getRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1() { return cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_0_1_1() { return cColonKeyword_0_1_1; }
+
+		//"refined"
+		public Keyword getRefinedKeyword_0_1_2() { return cRefinedKeyword_0_1_2; }
+
+		//"to"
+		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
+
+		//"bus"
+		public Keyword getBusKeyword_1() { return cBusKeyword_1; }
 
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 		public Assignment getConstrainingClassifierAssignment_2() { return cConstrainingClassifierAssignment_2; }
@@ -8160,6 +8299,574 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_3_1() { return cRightSquareBracketKeyword_3_1; }
 	}
 
+	public class DevicePrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DevicePrototype");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0_0 = (RuleCall)cNameAssignment_0_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final CrossReference cRefinedComponentPrototypeCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
+		private final RuleCall cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1 = (RuleCall)cRefinedComponentPrototypeCrossReference_0_1_0_0.eContents().get(1);
+		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
+		private final Keyword cDeviceKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cConstrainingClassifierAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_2_0 = (CrossReference)cConstrainingClassifierAssignment_2.eContents().get(0);
+		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_2_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cArrayAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final Keyword cArrayLeftSquareBracketKeyword_3_0_0 = (Keyword)cArrayAssignment_3_0.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		
+		//DevicePrototype returns aadl2::DevicePrototype:
+		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "device"
+		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+		public ParserRule getRule() { return rule; }
+
+		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "device"
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//name=ID ":"
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0_0_0() { return cNameIDTerminalRuleCall_0_0_0_0; }
+
+		//":"
+		public Keyword getColonKeyword_0_0_1() { return cColonKeyword_0_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME]
+		public Assignment getRefinedAssignment_0_1_0() { return cRefinedAssignment_0_1_0; }
+
+		//[aadl2::ComponentPrototype|REFINEDNAME]
+		public CrossReference getRefinedComponentPrototypeCrossReference_0_1_0_0() { return cRefinedComponentPrototypeCrossReference_0_1_0_0; }
+
+		//REFINEDNAME
+		public RuleCall getRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1() { return cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_0_1_1() { return cColonKeyword_0_1_1; }
+
+		//"refined"
+		public Keyword getRefinedKeyword_0_1_2() { return cRefinedKeyword_0_1_2; }
+
+		//"to"
+		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
+
+		//"device"
+		public Keyword getDeviceKeyword_1() { return cDeviceKeyword_1; }
+
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+		public Assignment getConstrainingClassifierAssignment_2() { return cConstrainingClassifierAssignment_2; }
+
+		//[aadl2::ComponentClassifier|QCREF]
+		public CrossReference getConstrainingClassifierComponentClassifierCrossReference_2_0() { return cConstrainingClassifierComponentClassifierCrossReference_2_0; }
+
+		//QCREF
+		public RuleCall getConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1() { return cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1; }
+
+		//(array?="[" "]")?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//array?="["
+		public Assignment getArrayAssignment_3_0() { return cArrayAssignment_3_0; }
+
+		//"["
+		public Keyword getArrayLeftSquareBracketKeyword_3_0_0() { return cArrayLeftSquareBracketKeyword_3_0_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_3_1() { return cRightSquareBracketKeyword_3_1; }
+	}
+
+	public class MemoryPrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MemoryPrototype");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0_0 = (RuleCall)cNameAssignment_0_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final CrossReference cRefinedComponentPrototypeCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
+		private final RuleCall cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1 = (RuleCall)cRefinedComponentPrototypeCrossReference_0_1_0_0.eContents().get(1);
+		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
+		private final Keyword cMemoryKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cConstrainingClassifierAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_2_0 = (CrossReference)cConstrainingClassifierAssignment_2.eContents().get(0);
+		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_2_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cArrayAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final Keyword cArrayLeftSquareBracketKeyword_3_0_0 = (Keyword)cArrayAssignment_3_0.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		
+		//MemoryPrototype returns aadl2::MemoryPrototype:
+		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "memory"
+		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+		public ParserRule getRule() { return rule; }
+
+		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "memory"
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//name=ID ":"
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0_0_0() { return cNameIDTerminalRuleCall_0_0_0_0; }
+
+		//":"
+		public Keyword getColonKeyword_0_0_1() { return cColonKeyword_0_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME]
+		public Assignment getRefinedAssignment_0_1_0() { return cRefinedAssignment_0_1_0; }
+
+		//[aadl2::ComponentPrototype|REFINEDNAME]
+		public CrossReference getRefinedComponentPrototypeCrossReference_0_1_0_0() { return cRefinedComponentPrototypeCrossReference_0_1_0_0; }
+
+		//REFINEDNAME
+		public RuleCall getRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1() { return cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_0_1_1() { return cColonKeyword_0_1_1; }
+
+		//"refined"
+		public Keyword getRefinedKeyword_0_1_2() { return cRefinedKeyword_0_1_2; }
+
+		//"to"
+		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
+
+		//"memory"
+		public Keyword getMemoryKeyword_1() { return cMemoryKeyword_1; }
+
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+		public Assignment getConstrainingClassifierAssignment_2() { return cConstrainingClassifierAssignment_2; }
+
+		//[aadl2::ComponentClassifier|QCREF]
+		public CrossReference getConstrainingClassifierComponentClassifierCrossReference_2_0() { return cConstrainingClassifierComponentClassifierCrossReference_2_0; }
+
+		//QCREF
+		public RuleCall getConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1() { return cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1; }
+
+		//(array?="[" "]")?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//array?="["
+		public Assignment getArrayAssignment_3_0() { return cArrayAssignment_3_0; }
+
+		//"["
+		public Keyword getArrayLeftSquareBracketKeyword_3_0_0() { return cArrayLeftSquareBracketKeyword_3_0_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_3_1() { return cRightSquareBracketKeyword_3_1; }
+	}
+
+	public class ProcessPrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ProcessPrototype");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0_0 = (RuleCall)cNameAssignment_0_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final CrossReference cRefinedComponentPrototypeCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
+		private final RuleCall cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1 = (RuleCall)cRefinedComponentPrototypeCrossReference_0_1_0_0.eContents().get(1);
+		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
+		private final Keyword cProcessKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cConstrainingClassifierAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_2_0 = (CrossReference)cConstrainingClassifierAssignment_2.eContents().get(0);
+		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_2_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cArrayAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final Keyword cArrayLeftSquareBracketKeyword_3_0_0 = (Keyword)cArrayAssignment_3_0.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		
+		//ProcessPrototype returns aadl2::ProcessPrototype:
+		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "process"
+		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+		public ParserRule getRule() { return rule; }
+
+		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "process"
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//name=ID ":"
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0_0_0() { return cNameIDTerminalRuleCall_0_0_0_0; }
+
+		//":"
+		public Keyword getColonKeyword_0_0_1() { return cColonKeyword_0_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME]
+		public Assignment getRefinedAssignment_0_1_0() { return cRefinedAssignment_0_1_0; }
+
+		//[aadl2::ComponentPrototype|REFINEDNAME]
+		public CrossReference getRefinedComponentPrototypeCrossReference_0_1_0_0() { return cRefinedComponentPrototypeCrossReference_0_1_0_0; }
+
+		//REFINEDNAME
+		public RuleCall getRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1() { return cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_0_1_1() { return cColonKeyword_0_1_1; }
+
+		//"refined"
+		public Keyword getRefinedKeyword_0_1_2() { return cRefinedKeyword_0_1_2; }
+
+		//"to"
+		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
+
+		//"process"
+		public Keyword getProcessKeyword_1() { return cProcessKeyword_1; }
+
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+		public Assignment getConstrainingClassifierAssignment_2() { return cConstrainingClassifierAssignment_2; }
+
+		//[aadl2::ComponentClassifier|QCREF]
+		public CrossReference getConstrainingClassifierComponentClassifierCrossReference_2_0() { return cConstrainingClassifierComponentClassifierCrossReference_2_0; }
+
+		//QCREF
+		public RuleCall getConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1() { return cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1; }
+
+		//(array?="[" "]")?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//array?="["
+		public Assignment getArrayAssignment_3_0() { return cArrayAssignment_3_0; }
+
+		//"["
+		public Keyword getArrayLeftSquareBracketKeyword_3_0_0() { return cArrayLeftSquareBracketKeyword_3_0_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_3_1() { return cRightSquareBracketKeyword_3_1; }
+	}
+
+	public class ProcessorPrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ProcessorPrototype");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0_0 = (RuleCall)cNameAssignment_0_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final CrossReference cRefinedComponentPrototypeCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
+		private final RuleCall cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1 = (RuleCall)cRefinedComponentPrototypeCrossReference_0_1_0_0.eContents().get(1);
+		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
+		private final Keyword cProcessorKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cConstrainingClassifierAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_2_0 = (CrossReference)cConstrainingClassifierAssignment_2.eContents().get(0);
+		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_2_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cArrayAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final Keyword cArrayLeftSquareBracketKeyword_3_0_0 = (Keyword)cArrayAssignment_3_0.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		
+		//ProcessorPrototype returns aadl2::ProcessorPrototype:
+		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "processor"
+		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+		public ParserRule getRule() { return rule; }
+
+		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "processor"
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//name=ID ":"
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0_0_0() { return cNameIDTerminalRuleCall_0_0_0_0; }
+
+		//":"
+		public Keyword getColonKeyword_0_0_1() { return cColonKeyword_0_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME]
+		public Assignment getRefinedAssignment_0_1_0() { return cRefinedAssignment_0_1_0; }
+
+		//[aadl2::ComponentPrototype|REFINEDNAME]
+		public CrossReference getRefinedComponentPrototypeCrossReference_0_1_0_0() { return cRefinedComponentPrototypeCrossReference_0_1_0_0; }
+
+		//REFINEDNAME
+		public RuleCall getRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1() { return cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_0_1_1() { return cColonKeyword_0_1_1; }
+
+		//"refined"
+		public Keyword getRefinedKeyword_0_1_2() { return cRefinedKeyword_0_1_2; }
+
+		//"to"
+		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
+
+		//"processor"
+		public Keyword getProcessorKeyword_1() { return cProcessorKeyword_1; }
+
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+		public Assignment getConstrainingClassifierAssignment_2() { return cConstrainingClassifierAssignment_2; }
+
+		//[aadl2::ComponentClassifier|QCREF]
+		public CrossReference getConstrainingClassifierComponentClassifierCrossReference_2_0() { return cConstrainingClassifierComponentClassifierCrossReference_2_0; }
+
+		//QCREF
+		public RuleCall getConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1() { return cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1; }
+
+		//(array?="[" "]")?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//array?="["
+		public Assignment getArrayAssignment_3_0() { return cArrayAssignment_3_0; }
+
+		//"["
+		public Keyword getArrayLeftSquareBracketKeyword_3_0_0() { return cArrayLeftSquareBracketKeyword_3_0_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_3_1() { return cRightSquareBracketKeyword_3_1; }
+	}
+
+	public class SubprogramPrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SubprogramPrototype");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0_0 = (RuleCall)cNameAssignment_0_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final CrossReference cRefinedComponentPrototypeCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
+		private final RuleCall cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1 = (RuleCall)cRefinedComponentPrototypeCrossReference_0_1_0_0.eContents().get(1);
+		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
+		private final Keyword cSubprogramKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cConstrainingClassifierAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_2_0 = (CrossReference)cConstrainingClassifierAssignment_2.eContents().get(0);
+		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_2_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cArrayAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final Keyword cArrayLeftSquareBracketKeyword_3_0_0 = (Keyword)cArrayAssignment_3_0.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		
+		//SubprogramPrototype returns aadl2::SubprogramPrototype:
+		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "subprogram"
+		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+		public ParserRule getRule() { return rule; }
+
+		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "subprogram"
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//name=ID ":"
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0_0_0() { return cNameIDTerminalRuleCall_0_0_0_0; }
+
+		//":"
+		public Keyword getColonKeyword_0_0_1() { return cColonKeyword_0_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME]
+		public Assignment getRefinedAssignment_0_1_0() { return cRefinedAssignment_0_1_0; }
+
+		//[aadl2::ComponentPrototype|REFINEDNAME]
+		public CrossReference getRefinedComponentPrototypeCrossReference_0_1_0_0() { return cRefinedComponentPrototypeCrossReference_0_1_0_0; }
+
+		//REFINEDNAME
+		public RuleCall getRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1() { return cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_0_1_1() { return cColonKeyword_0_1_1; }
+
+		//"refined"
+		public Keyword getRefinedKeyword_0_1_2() { return cRefinedKeyword_0_1_2; }
+
+		//"to"
+		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
+
+		//"subprogram"
+		public Keyword getSubprogramKeyword_1() { return cSubprogramKeyword_1; }
+
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+		public Assignment getConstrainingClassifierAssignment_2() { return cConstrainingClassifierAssignment_2; }
+
+		//[aadl2::ComponentClassifier|QCREF]
+		public CrossReference getConstrainingClassifierComponentClassifierCrossReference_2_0() { return cConstrainingClassifierComponentClassifierCrossReference_2_0; }
+
+		//QCREF
+		public RuleCall getConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1() { return cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1; }
+
+		//(array?="[" "]")?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//array?="["
+		public Assignment getArrayAssignment_3_0() { return cArrayAssignment_3_0; }
+
+		//"["
+		public Keyword getArrayLeftSquareBracketKeyword_3_0_0() { return cArrayLeftSquareBracketKeyword_3_0_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_3_1() { return cRightSquareBracketKeyword_3_1; }
+	}
+
+	public class SubprogramGroupPrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SubprogramGroupPrototype");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0_0 = (RuleCall)cNameAssignment_0_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final CrossReference cRefinedComponentPrototypeCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
+		private final RuleCall cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1 = (RuleCall)cRefinedComponentPrototypeCrossReference_0_1_0_0.eContents().get(1);
+		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
+		private final Keyword cSubprogramKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cGroupKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cConstrainingClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_3_0 = (CrossReference)cConstrainingClassifierAssignment_3.eContents().get(0);
+		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_3_0.eContents().get(1);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Assignment cArrayAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final Keyword cArrayLeftSquareBracketKeyword_4_0_0 = (Keyword)cArrayAssignment_4_0.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
+		
+		//SubprogramGroupPrototype returns aadl2::SubprogramGroupPrototype:
+		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "subprogram" "group"
+		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+		public ParserRule getRule() { return rule; }
+
+		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "subprogram" "group"
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//name=ID ":"
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0_0_0() { return cNameIDTerminalRuleCall_0_0_0_0; }
+
+		//":"
+		public Keyword getColonKeyword_0_0_1() { return cColonKeyword_0_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME]
+		public Assignment getRefinedAssignment_0_1_0() { return cRefinedAssignment_0_1_0; }
+
+		//[aadl2::ComponentPrototype|REFINEDNAME]
+		public CrossReference getRefinedComponentPrototypeCrossReference_0_1_0_0() { return cRefinedComponentPrototypeCrossReference_0_1_0_0; }
+
+		//REFINEDNAME
+		public RuleCall getRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1() { return cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_0_1_1() { return cColonKeyword_0_1_1; }
+
+		//"refined"
+		public Keyword getRefinedKeyword_0_1_2() { return cRefinedKeyword_0_1_2; }
+
+		//"to"
+		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
+
+		//"subprogram"
+		public Keyword getSubprogramKeyword_1() { return cSubprogramKeyword_1; }
+
+		//"group"
+		public Keyword getGroupKeyword_2() { return cGroupKeyword_2; }
+
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+		public Assignment getConstrainingClassifierAssignment_3() { return cConstrainingClassifierAssignment_3; }
+
+		//[aadl2::ComponentClassifier|QCREF]
+		public CrossReference getConstrainingClassifierComponentClassifierCrossReference_3_0() { return cConstrainingClassifierComponentClassifierCrossReference_3_0; }
+
+		//QCREF
+		public RuleCall getConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1() { return cConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1; }
+
+		//(array?="[" "]")?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//array?="["
+		public Assignment getArrayAssignment_4_0() { return cArrayAssignment_4_0; }
+
+		//"["
+		public Keyword getArrayLeftSquareBracketKeyword_4_0_0() { return cArrayLeftSquareBracketKeyword_4_0_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_4_1() { return cRightSquareBracketKeyword_4_1; }
+	}
+
 	public class SystemPrototypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SystemPrototype");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -8252,6 +8959,394 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_3_1() { return cRightSquareBracketKeyword_3_1; }
+	}
+
+	public class ThreadPrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ThreadPrototype");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0_0 = (RuleCall)cNameAssignment_0_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final CrossReference cRefinedComponentPrototypeCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
+		private final RuleCall cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1 = (RuleCall)cRefinedComponentPrototypeCrossReference_0_1_0_0.eContents().get(1);
+		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
+		private final Keyword cThreadKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cConstrainingClassifierAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_2_0 = (CrossReference)cConstrainingClassifierAssignment_2.eContents().get(0);
+		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_2_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cArrayAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final Keyword cArrayLeftSquareBracketKeyword_3_0_0 = (Keyword)cArrayAssignment_3_0.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		
+		//ThreadPrototype returns aadl2::ThreadPrototype:
+		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "thread"
+		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+		public ParserRule getRule() { return rule; }
+
+		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "thread"
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//name=ID ":"
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0_0_0() { return cNameIDTerminalRuleCall_0_0_0_0; }
+
+		//":"
+		public Keyword getColonKeyword_0_0_1() { return cColonKeyword_0_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME]
+		public Assignment getRefinedAssignment_0_1_0() { return cRefinedAssignment_0_1_0; }
+
+		//[aadl2::ComponentPrototype|REFINEDNAME]
+		public CrossReference getRefinedComponentPrototypeCrossReference_0_1_0_0() { return cRefinedComponentPrototypeCrossReference_0_1_0_0; }
+
+		//REFINEDNAME
+		public RuleCall getRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1() { return cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_0_1_1() { return cColonKeyword_0_1_1; }
+
+		//"refined"
+		public Keyword getRefinedKeyword_0_1_2() { return cRefinedKeyword_0_1_2; }
+
+		//"to"
+		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
+
+		//"thread"
+		public Keyword getThreadKeyword_1() { return cThreadKeyword_1; }
+
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+		public Assignment getConstrainingClassifierAssignment_2() { return cConstrainingClassifierAssignment_2; }
+
+		//[aadl2::ComponentClassifier|QCREF]
+		public CrossReference getConstrainingClassifierComponentClassifierCrossReference_2_0() { return cConstrainingClassifierComponentClassifierCrossReference_2_0; }
+
+		//QCREF
+		public RuleCall getConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1() { return cConstrainingClassifierComponentClassifierQCREFParserRuleCall_2_0_1; }
+
+		//(array?="[" "]")?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//array?="["
+		public Assignment getArrayAssignment_3_0() { return cArrayAssignment_3_0; }
+
+		//"["
+		public Keyword getArrayLeftSquareBracketKeyword_3_0_0() { return cArrayLeftSquareBracketKeyword_3_0_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_3_1() { return cRightSquareBracketKeyword_3_1; }
+	}
+
+	public class ThreadGroupPrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ThreadGroupPrototype");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0_0 = (RuleCall)cNameAssignment_0_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final CrossReference cRefinedComponentPrototypeCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
+		private final RuleCall cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1 = (RuleCall)cRefinedComponentPrototypeCrossReference_0_1_0_0.eContents().get(1);
+		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
+		private final Keyword cThreadKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cGroupKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cConstrainingClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_3_0 = (CrossReference)cConstrainingClassifierAssignment_3.eContents().get(0);
+		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_3_0.eContents().get(1);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Assignment cArrayAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final Keyword cArrayLeftSquareBracketKeyword_4_0_0 = (Keyword)cArrayAssignment_4_0.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
+		
+		//ThreadGroupPrototype returns aadl2::ThreadGroupPrototype:
+		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "thread" "group"
+		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+		public ParserRule getRule() { return rule; }
+
+		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "thread" "group"
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//name=ID ":"
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0_0_0() { return cNameIDTerminalRuleCall_0_0_0_0; }
+
+		//":"
+		public Keyword getColonKeyword_0_0_1() { return cColonKeyword_0_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME]
+		public Assignment getRefinedAssignment_0_1_0() { return cRefinedAssignment_0_1_0; }
+
+		//[aadl2::ComponentPrototype|REFINEDNAME]
+		public CrossReference getRefinedComponentPrototypeCrossReference_0_1_0_0() { return cRefinedComponentPrototypeCrossReference_0_1_0_0; }
+
+		//REFINEDNAME
+		public RuleCall getRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1() { return cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_0_1_1() { return cColonKeyword_0_1_1; }
+
+		//"refined"
+		public Keyword getRefinedKeyword_0_1_2() { return cRefinedKeyword_0_1_2; }
+
+		//"to"
+		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
+
+		//"thread"
+		public Keyword getThreadKeyword_1() { return cThreadKeyword_1; }
+
+		//"group"
+		public Keyword getGroupKeyword_2() { return cGroupKeyword_2; }
+
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+		public Assignment getConstrainingClassifierAssignment_3() { return cConstrainingClassifierAssignment_3; }
+
+		//[aadl2::ComponentClassifier|QCREF]
+		public CrossReference getConstrainingClassifierComponentClassifierCrossReference_3_0() { return cConstrainingClassifierComponentClassifierCrossReference_3_0; }
+
+		//QCREF
+		public RuleCall getConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1() { return cConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1; }
+
+		//(array?="[" "]")?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//array?="["
+		public Assignment getArrayAssignment_4_0() { return cArrayAssignment_4_0; }
+
+		//"["
+		public Keyword getArrayLeftSquareBracketKeyword_4_0_0() { return cArrayLeftSquareBracketKeyword_4_0_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_4_1() { return cRightSquareBracketKeyword_4_1; }
+	}
+
+	public class VirtualBusPrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VirtualBusPrototype");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0_0 = (RuleCall)cNameAssignment_0_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final CrossReference cRefinedComponentPrototypeCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
+		private final RuleCall cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1 = (RuleCall)cRefinedComponentPrototypeCrossReference_0_1_0_0.eContents().get(1);
+		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
+		private final Keyword cVirtualKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cBusKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cConstrainingClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_3_0 = (CrossReference)cConstrainingClassifierAssignment_3.eContents().get(0);
+		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_3_0.eContents().get(1);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Assignment cArrayAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final Keyword cArrayLeftSquareBracketKeyword_4_0_0 = (Keyword)cArrayAssignment_4_0.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
+		
+		//VirtualBusPrototype returns aadl2::VirtualBusPrototype:
+		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "virtual" "bus"
+		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+		public ParserRule getRule() { return rule; }
+
+		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "virtual" "bus"
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//name=ID ":"
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0_0_0() { return cNameIDTerminalRuleCall_0_0_0_0; }
+
+		//":"
+		public Keyword getColonKeyword_0_0_1() { return cColonKeyword_0_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME]
+		public Assignment getRefinedAssignment_0_1_0() { return cRefinedAssignment_0_1_0; }
+
+		//[aadl2::ComponentPrototype|REFINEDNAME]
+		public CrossReference getRefinedComponentPrototypeCrossReference_0_1_0_0() { return cRefinedComponentPrototypeCrossReference_0_1_0_0; }
+
+		//REFINEDNAME
+		public RuleCall getRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1() { return cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_0_1_1() { return cColonKeyword_0_1_1; }
+
+		//"refined"
+		public Keyword getRefinedKeyword_0_1_2() { return cRefinedKeyword_0_1_2; }
+
+		//"to"
+		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
+
+		//"virtual"
+		public Keyword getVirtualKeyword_1() { return cVirtualKeyword_1; }
+
+		//"bus"
+		public Keyword getBusKeyword_2() { return cBusKeyword_2; }
+
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+		public Assignment getConstrainingClassifierAssignment_3() { return cConstrainingClassifierAssignment_3; }
+
+		//[aadl2::ComponentClassifier|QCREF]
+		public CrossReference getConstrainingClassifierComponentClassifierCrossReference_3_0() { return cConstrainingClassifierComponentClassifierCrossReference_3_0; }
+
+		//QCREF
+		public RuleCall getConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1() { return cConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1; }
+
+		//(array?="[" "]")?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//array?="["
+		public Assignment getArrayAssignment_4_0() { return cArrayAssignment_4_0; }
+
+		//"["
+		public Keyword getArrayLeftSquareBracketKeyword_4_0_0() { return cArrayLeftSquareBracketKeyword_4_0_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_4_1() { return cRightSquareBracketKeyword_4_1; }
+	}
+
+	public class VirtualProcessorPrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VirtualProcessorPrototype");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0_0 = (RuleCall)cNameAssignment_0_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final CrossReference cRefinedComponentPrototypeCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
+		private final RuleCall cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1 = (RuleCall)cRefinedComponentPrototypeCrossReference_0_1_0_0.eContents().get(1);
+		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
+		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
+		private final Keyword cVirtualKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cProcessorKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cConstrainingClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_3_0 = (CrossReference)cConstrainingClassifierAssignment_3.eContents().get(0);
+		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_3_0.eContents().get(1);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Assignment cArrayAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final Keyword cArrayLeftSquareBracketKeyword_4_0_0 = (Keyword)cArrayAssignment_4_0.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
+		
+		//VirtualProcessorPrototype returns aadl2::VirtualProcessorPrototype:
+		//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "virtual" "processor"
+		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+		public ParserRule getRule() { return rule; }
+
+		//(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "virtual" "processor"
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//name=ID ":"
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0_0_0() { return cNameIDTerminalRuleCall_0_0_0_0; }
+
+		//":"
+		public Keyword getColonKeyword_0_0_1() { return cColonKeyword_0_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to"
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//refined=[aadl2::ComponentPrototype|REFINEDNAME]
+		public Assignment getRefinedAssignment_0_1_0() { return cRefinedAssignment_0_1_0; }
+
+		//[aadl2::ComponentPrototype|REFINEDNAME]
+		public CrossReference getRefinedComponentPrototypeCrossReference_0_1_0_0() { return cRefinedComponentPrototypeCrossReference_0_1_0_0; }
+
+		//REFINEDNAME
+		public RuleCall getRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1() { return cRefinedComponentPrototypeREFINEDNAMEParserRuleCall_0_1_0_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_0_1_1() { return cColonKeyword_0_1_1; }
+
+		//"refined"
+		public Keyword getRefinedKeyword_0_1_2() { return cRefinedKeyword_0_1_2; }
+
+		//"to"
+		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
+
+		//"virtual"
+		public Keyword getVirtualKeyword_1() { return cVirtualKeyword_1; }
+
+		//"processor"
+		public Keyword getProcessorKeyword_2() { return cProcessorKeyword_2; }
+
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+		public Assignment getConstrainingClassifierAssignment_3() { return cConstrainingClassifierAssignment_3; }
+
+		//[aadl2::ComponentClassifier|QCREF]
+		public CrossReference getConstrainingClassifierComponentClassifierCrossReference_3_0() { return cConstrainingClassifierComponentClassifierCrossReference_3_0; }
+
+		//QCREF
+		public RuleCall getConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1() { return cConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1; }
+
+		//(array?="[" "]")?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//array?="["
+		public Assignment getArrayAssignment_4_0() { return cArrayAssignment_4_0; }
+
+		//"["
+		public Keyword getArrayLeftSquareBracketKeyword_4_0_0() { return cArrayLeftSquareBracketKeyword_4_0_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_4_1() { return cRightSquareBracketKeyword_4_1; }
 	}
 
 	public class FeatureGroupPrototypeElements extends AbstractParserRuleElementFinder {
@@ -20424,9 +21519,20 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private SubprogramCallSequenceElements pSubprogramCallSequence;
 	private CallSpecificationElements pCallSpecification;
 	private PrototypeElements pPrototype;
-	private ComponentPrototypeElements pComponentPrototype;
+	private AbstractPrototypeElements pAbstractPrototype;
+	private BusPrototypeElements pBusPrototype;
 	private DataPrototypeElements pDataPrototype;
+	private DevicePrototypeElements pDevicePrototype;
+	private MemoryPrototypeElements pMemoryPrototype;
+	private ProcessPrototypeElements pProcessPrototype;
+	private ProcessorPrototypeElements pProcessorPrototype;
+	private SubprogramPrototypeElements pSubprogramPrototype;
+	private SubprogramGroupPrototypeElements pSubprogramGroupPrototype;
 	private SystemPrototypeElements pSystemPrototype;
+	private ThreadPrototypeElements pThreadPrototype;
+	private ThreadGroupPrototypeElements pThreadGroupPrototype;
+	private VirtualBusPrototypeElements pVirtualBusPrototype;
+	private VirtualProcessorPrototypeElements pVirtualProcessorPrototype;
 	private FeatureGroupPrototypeElements pFeatureGroupPrototype;
 	private FeaturePrototypeElements pFeaturePrototype;
 	private PrototypeBindingElements pPrototypeBinding;
@@ -20621,8 +21727,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
-	//// TODO:   
-	////InternalEvent(SELF), ProcessorPort: objects in mode transition instead of reference to unnamed owned in impl.
 	//Model returns aadl2::ModelUnit:
 	//	AadlPackage | PropertySet;
 	public ModelElements getModelAccess() {
@@ -21315,9 +22419,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//// ******* Prototypes
 	//Prototype returns aadl2::Prototype:
-	//	(SystemPrototype // ComponentPrototype 
-	//	| DataPrototype | FeatureGroupPrototype | FeaturePrototype) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-	//	";";
+	//	(AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
+	//	SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
+	//	VirtualProcessorPrototype | SystemPrototype | DataPrototype | FeatureGroupPrototype | FeaturePrototype) ("{"
+	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public PrototypeElements getPrototypeAccess() {
 		return (pPrototype != null) ? pPrototype : (pPrototype = new PrototypeElements());
 	}
@@ -21326,15 +22431,26 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getPrototypeAccess().getRule();
 	}
 
-	//ComponentPrototype returns aadl2::DataPrototype:
-	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") category=ComponentCategory
+	//AbstractPrototype returns aadl2::AbstractPrototype:
+	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "abstract"
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
-	public ComponentPrototypeElements getComponentPrototypeAccess() {
-		return (pComponentPrototype != null) ? pComponentPrototype : (pComponentPrototype = new ComponentPrototypeElements());
+	public AbstractPrototypeElements getAbstractPrototypeAccess() {
+		return (pAbstractPrototype != null) ? pAbstractPrototype : (pAbstractPrototype = new AbstractPrototypeElements());
 	}
 	
-	public ParserRule getComponentPrototypeRule() {
-		return getComponentPrototypeAccess().getRule();
+	public ParserRule getAbstractPrototypeRule() {
+		return getAbstractPrototypeAccess().getRule();
+	}
+
+	//BusPrototype returns aadl2::BusPrototype:
+	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "bus"
+	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+	public BusPrototypeElements getBusPrototypeAccess() {
+		return (pBusPrototype != null) ? pBusPrototype : (pBusPrototype = new BusPrototypeElements());
+	}
+	
+	public ParserRule getBusPrototypeRule() {
+		return getBusPrototypeAccess().getRule();
 	}
 
 	//DataPrototype returns aadl2::DataPrototype:
@@ -21348,6 +22464,72 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getDataPrototypeAccess().getRule();
 	}
 
+	//DevicePrototype returns aadl2::DevicePrototype:
+	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "device"
+	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+	public DevicePrototypeElements getDevicePrototypeAccess() {
+		return (pDevicePrototype != null) ? pDevicePrototype : (pDevicePrototype = new DevicePrototypeElements());
+	}
+	
+	public ParserRule getDevicePrototypeRule() {
+		return getDevicePrototypeAccess().getRule();
+	}
+
+	//MemoryPrototype returns aadl2::MemoryPrototype:
+	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "memory"
+	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+	public MemoryPrototypeElements getMemoryPrototypeAccess() {
+		return (pMemoryPrototype != null) ? pMemoryPrototype : (pMemoryPrototype = new MemoryPrototypeElements());
+	}
+	
+	public ParserRule getMemoryPrototypeRule() {
+		return getMemoryPrototypeAccess().getRule();
+	}
+
+	//ProcessPrototype returns aadl2::ProcessPrototype:
+	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "process"
+	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+	public ProcessPrototypeElements getProcessPrototypeAccess() {
+		return (pProcessPrototype != null) ? pProcessPrototype : (pProcessPrototype = new ProcessPrototypeElements());
+	}
+	
+	public ParserRule getProcessPrototypeRule() {
+		return getProcessPrototypeAccess().getRule();
+	}
+
+	//ProcessorPrototype returns aadl2::ProcessorPrototype:
+	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "processor"
+	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+	public ProcessorPrototypeElements getProcessorPrototypeAccess() {
+		return (pProcessorPrototype != null) ? pProcessorPrototype : (pProcessorPrototype = new ProcessorPrototypeElements());
+	}
+	
+	public ParserRule getProcessorPrototypeRule() {
+		return getProcessorPrototypeAccess().getRule();
+	}
+
+	//SubprogramPrototype returns aadl2::SubprogramPrototype:
+	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "subprogram"
+	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+	public SubprogramPrototypeElements getSubprogramPrototypeAccess() {
+		return (pSubprogramPrototype != null) ? pSubprogramPrototype : (pSubprogramPrototype = new SubprogramPrototypeElements());
+	}
+	
+	public ParserRule getSubprogramPrototypeRule() {
+		return getSubprogramPrototypeAccess().getRule();
+	}
+
+	//SubprogramGroupPrototype returns aadl2::SubprogramGroupPrototype:
+	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "subprogram" "group"
+	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+	public SubprogramGroupPrototypeElements getSubprogramGroupPrototypeAccess() {
+		return (pSubprogramGroupPrototype != null) ? pSubprogramGroupPrototype : (pSubprogramGroupPrototype = new SubprogramGroupPrototypeElements());
+	}
+	
+	public ParserRule getSubprogramGroupPrototypeRule() {
+		return getSubprogramGroupPrototypeAccess().getRule();
+	}
+
 	//SystemPrototype returns aadl2::SystemPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "system"
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
@@ -21357,6 +22539,50 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getSystemPrototypeRule() {
 		return getSystemPrototypeAccess().getRule();
+	}
+
+	//ThreadPrototype returns aadl2::ThreadPrototype:
+	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "thread"
+	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+	public ThreadPrototypeElements getThreadPrototypeAccess() {
+		return (pThreadPrototype != null) ? pThreadPrototype : (pThreadPrototype = new ThreadPrototypeElements());
+	}
+	
+	public ParserRule getThreadPrototypeRule() {
+		return getThreadPrototypeAccess().getRule();
+	}
+
+	//ThreadGroupPrototype returns aadl2::ThreadGroupPrototype:
+	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "thread" "group"
+	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+	public ThreadGroupPrototypeElements getThreadGroupPrototypeAccess() {
+		return (pThreadGroupPrototype != null) ? pThreadGroupPrototype : (pThreadGroupPrototype = new ThreadGroupPrototypeElements());
+	}
+	
+	public ParserRule getThreadGroupPrototypeRule() {
+		return getThreadGroupPrototypeAccess().getRule();
+	}
+
+	//VirtualBusPrototype returns aadl2::VirtualBusPrototype:
+	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "virtual" "bus"
+	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+	public VirtualBusPrototypeElements getVirtualBusPrototypeAccess() {
+		return (pVirtualBusPrototype != null) ? pVirtualBusPrototype : (pVirtualBusPrototype = new VirtualBusPrototypeElements());
+	}
+	
+	public ParserRule getVirtualBusPrototypeRule() {
+		return getVirtualBusPrototypeAccess().getRule();
+	}
+
+	//VirtualProcessorPrototype returns aadl2::VirtualProcessorPrototype:
+	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "virtual" "processor"
+	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?;
+	public VirtualProcessorPrototypeElements getVirtualProcessorPrototypeAccess() {
+		return (pVirtualProcessorPrototype != null) ? pVirtualProcessorPrototype : (pVirtualProcessorPrototype = new VirtualProcessorPrototypeElements());
+	}
+	
+	public ParserRule getVirtualProcessorPrototypeRule() {
+		return getVirtualProcessorPrototypeAccess().getRule();
 	}
 
 	//FeatureGroupPrototype returns aadl2::FeatureGroupPrototype:

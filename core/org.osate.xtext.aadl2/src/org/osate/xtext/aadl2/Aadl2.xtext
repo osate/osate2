@@ -6,8 +6,6 @@ grammar org.osate.xtext.aadl2.Aadl2 with org.eclipse.xtext.common.Terminals
 
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
-// TODO:   
-//InternalEvent(SELF), ProcessorPort: objects in mode transition instead of reference to unnamed owned in impl.
 
 Model returns aadl2::ModelUnit:
 	AadlPackage | PropertySet
@@ -727,7 +725,8 @@ CallSpecification returns aadl2::CallSpecification:
 //******* Prototypes
 
 Prototype returns aadl2::Prototype:
-	(// ComponentPrototype 
+	( AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
+		SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype | VirtualProcessorPrototype | 
 	SystemPrototype | DataPrototype
 		| FeatureGroupPrototype | FeaturePrototype
 	)
@@ -736,10 +735,18 @@ Prototype returns aadl2::Prototype:
 ;
 
 
-ComponentPrototype returns aadl2::DataPrototype:
+AbstractPrototype returns aadl2::AbstractPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
-	category=ComponentCategory 
+	'abstract' 
+	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	( array?='[' ']')?
+	;
+
+BusPrototype returns aadl2::BusPrototype:
+	((name=ID ':' )|
+	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
+	'bus' 
 	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
 	( array?='[' ']')?
 	;
@@ -752,6 +759,54 @@ DataPrototype returns aadl2::DataPrototype:
 	( array?='[' ']')?
 	;
 
+DevicePrototype returns aadl2::DevicePrototype:
+	((name=ID ':' )|
+	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
+	'device' 
+	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	( array?='[' ']')?
+	;
+
+MemoryPrototype returns aadl2::MemoryPrototype:
+	((name=ID ':' )|
+	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
+	'memory' 
+	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	( array?='[' ']')?
+	;
+
+ProcessPrototype returns aadl2::ProcessPrototype:
+	((name=ID ':' )|
+	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
+	'process' 
+	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	( array?='[' ']')?
+	;
+
+ProcessorPrototype returns aadl2::ProcessorPrototype:
+	((name=ID ':' )|
+	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
+	'processor' 
+	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	( array?='[' ']')?
+	;
+
+SubprogramPrototype returns aadl2::SubprogramPrototype:
+	((name=ID ':' )|
+	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
+	'subprogram' 
+	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	( array?='[' ']')?
+	;
+
+SubprogramGroupPrototype returns aadl2::SubprogramGroupPrototype:
+	((name=ID ':' )|
+	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
+	'subprogram' 'group'
+	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	( array?='[' ']')?
+	;
+
 SystemPrototype returns aadl2::SystemPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
@@ -759,6 +814,40 @@ SystemPrototype returns aadl2::SystemPrototype:
 	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
 	( array?='[' ']')?
 	;
+
+
+ThreadPrototype returns aadl2::ThreadPrototype:
+	((name=ID ':' )|
+	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
+	'thread' 
+	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	( array?='[' ']')?
+	;
+
+ThreadGroupPrototype returns aadl2::ThreadGroupPrototype:
+	((name=ID ':' )|
+	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
+	'thread' 'group'
+	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	( array?='[' ']')?
+	;
+
+VirtualBusPrototype returns aadl2::VirtualBusPrototype:
+	((name=ID ':' )|
+	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
+	'virtual' 'bus'
+	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	( array?='[' ']')?
+	;
+
+VirtualProcessorPrototype returns aadl2::VirtualProcessorPrototype:
+	((name=ID ':' )|
+	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
+	'virtual' 'processor'
+	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	( array?='[' ']')?
+	;
+
 
 FeatureGroupPrototype returns aadl2::FeatureGroupPrototype:
 	((name=ID ':' )|
