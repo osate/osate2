@@ -13926,21 +13926,21 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//FeatureGroup returns aadl2::FeatureGroup:
-		//	(name=ID ":" // need to set inout if no direction
+		//	(name=ID ":" // default is inout if no direction
 		//	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
 		//	(inverse?="inverse" "of")? featureGroupType= // or prototype
 		//	[aadl2::FeatureGroupType|QCREF] arraySpecification=SingleArraySpecification? ("{"
 		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//(name=ID ":" // need to set inout if no direction
+		//(name=ID ":" // default is inout if no direction
 		//| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
 		//(inverse?="inverse" "of")? featureGroupType= // or prototype
 		//[aadl2::FeatureGroupType|QCREF] arraySpecification=SingleArraySpecification? ("{"
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
-		//name=ID ":" // need to set inout if no direction
+		//name=ID ":" // default is inout if no direction
 		//| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to"
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
@@ -23017,7 +23017,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FeatureGroup returns aadl2::FeatureGroup:
-	//	(name=ID ":" // need to set inout if no direction
+	//	(name=ID ":" // default is inout if no direction
 	//	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
 	//	(inverse?="inverse" "of")? featureGroupType= // or prototype
 	//	[aadl2::FeatureGroupType|QCREF] arraySpecification=SingleArraySpecification? ("{"

@@ -68661,7 +68661,7 @@ protected class EventPort_SemicolonKeyword_7 extends KeywordToken  {
 /************ begin Rule FeatureGroup ****************
  *
  * FeatureGroup returns aadl2::FeatureGroup:
- * 	(name=ID ":" // need to set inout if no direction
+ * 	(name=ID ":" // default is inout if no direction
  * 	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
  * 	(inverse?="inverse" "of")? featureGroupType= // or prototype
  * 	[aadl2::FeatureGroupType|QCREF] arraySpecification=SingleArraySpecification? ("{"
@@ -68669,7 +68669,7 @@ protected class EventPort_SemicolonKeyword_7 extends KeywordToken  {
  *
  **/
 
-// (name=ID ":" // need to set inout if no direction
+// (name=ID ":" // default is inout if no direction
 // | refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
 // (inverse?="inverse" "of")? featureGroupType= // or prototype
 // [aadl2::FeatureGroupType|QCREF] arraySpecification=SingleArraySpecification? ("{"
@@ -68702,7 +68702,7 @@ protected class FeatureGroup_Group extends GroupToken {
 
 }
 
-// name=ID ":" // need to set inout if no direction
+// name=ID ":" // default is inout if no direction
 // | refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to"
 protected class FeatureGroup_Alternatives_0 extends AlternativesToken {
 
