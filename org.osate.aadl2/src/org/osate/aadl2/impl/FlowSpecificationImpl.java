@@ -593,58 +593,59 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	public boolean isSetRefinedElement() {
 		return false;
 	}
-// FIXME-LW: instantiation
-//	/**
-//	 * get in feature of a flow source, sink, or path spec.
-//	 * In case of a refined flowspec get it from the flowspec being refined
-//	 * @return Feature or null
-//	 */
-//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-//	public Feature getAllInFeature() {
-//		FlowSpecification fs = this;
-//		while (fs.getInFeature() == null && fs.getRefined() != null)
-//			fs = fs.getRefined();
-//		return fs.getInFeature();
-//	}
-//
-//	/**
-//	 * get in flow context of a flow source, sink, or path spec.
-//	 * In case of a refined flowspec get it from the flowspec being refined
-//	 * @return Context or null
-//	 */
-//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-//	public Context getAllInContext() {
-//		FlowSpecification fs = this;
-//		while (fs.getInContext() == null && fs.getRefined() != null)
-//			fs = fs.getRefined();
-//		return fs.getInContext();
-//	}
-//
-//	/**
-//	 * get out feature of a flow source, sink, or path spec.
-//	 * In case of a refined flowspec get it from the flowspec being refined
-//	 * @return Feature or null
-//	 */
-//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-//	public Feature getAllOutFeature() {
-//		FlowSpecification fs = this;
-//		while (fs.getOutFeature() == null && fs.getRefined() != null)
-//			fs = fs.getRefined();
-//		return fs.getOutFeature();
-//	}
-//
-//	/**
-//	 * get out flow context of flow source, sink, or path spec.
-//	 * In case of a refined flowspec get it from the flowspec being refined
-//	 * @return Context or null
-//	 */
-//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-//	public Context getAllOutContext() {
-//		FlowSpecification fs = this;
-//		while (fs.getOutContext() == null && fs.getRefined() != null)
-//			fs = fs.getRefined();
-//		return fs.getOutContext();
-//	}
+
+	// FIXME-LW: instantiation
+	//	/**
+	//	 * get in feature of a flow source, sink, or path spec.
+	//	 * In case of a refined flowspec get it from the flowspec being refined
+	//	 * @return Feature or null
+	//	 */
+	//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	//	public Feature getAllInFeature() {
+	//		FlowSpecification fs = this;
+	//		while (fs.getInFeature() == null && fs.getRefined() != null)
+	//			fs = fs.getRefined();
+	//		return fs.getInFeature();
+	//	}
+	//
+	//	/**
+	//	 * get in flow context of a flow source, sink, or path spec.
+	//	 * In case of a refined flowspec get it from the flowspec being refined
+	//	 * @return Context or null
+	//	 */
+	//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	//	public Context getAllInContext() {
+	//		FlowSpecification fs = this;
+	//		while (fs.getInContext() == null && fs.getRefined() != null)
+	//			fs = fs.getRefined();
+	//		return fs.getInContext();
+	//	}
+	//
+	//	/**
+	//	 * get out feature of a flow source, sink, or path spec.
+	//	 * In case of a refined flowspec get it from the flowspec being refined
+	//	 * @return Feature or null
+	//	 */
+	//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	//	public Feature getAllOutFeature() {
+	//		FlowSpecification fs = this;
+	//		while (fs.getOutFeature() == null && fs.getRefined() != null)
+	//			fs = fs.getRefined();
+	//		return fs.getOutFeature();
+	//	}
+	//
+	//	/**
+	//	 * get out flow context of flow source, sink, or path spec.
+	//	 * In case of a refined flowspec get it from the flowspec being refined
+	//	 * @return Context or null
+	//	 */
+	//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	//	public Context getAllOutContext() {
+	//		FlowSpecification fs = this;
+	//		while (fs.getOutContext() == null && fs.getRefined() != null)
+	//			fs = fs.getRefined();
+	//		return fs.getOutContext();
+	//	}
 
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc paa,
 			final boolean fromInstanceSlaveCall) throws InvalidModelException {

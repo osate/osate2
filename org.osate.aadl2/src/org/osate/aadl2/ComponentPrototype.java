@@ -44,7 +44,6 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.ComponentPrototype#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentPrototype#isArray <em>Array</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentPrototype#getConstrainingClassifier <em>Constraining Classifier</em>}</li>
  * </ul>
@@ -55,35 +54,6 @@ package org.osate.aadl2;
  * @generated
  */
 public interface ComponentPrototype extends Prototype, SubcomponentType {
-	/**
-	 * Returns the value of the '<em><b>Category</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.osate.aadl2.ComponentCategory}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Category</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Category</em>' attribute.
-	 * @see org.osate.aadl2.ComponentCategory
-	 * @see #setCategory(ComponentCategory)
-	 * @see org.osate.aadl2.Aadl2Package#getComponentPrototype_Category()
-	 * @model required="true" ordered="false"
-	 * @generated
-	 */
-	ComponentCategory getCategory();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ComponentPrototype#getCategory <em>Category</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Category</em>' attribute.
-	 * @see org.osate.aadl2.ComponentCategory
-	 * @see #getCategory()
-	 * @generated
-	 */
-	void setCategory(ComponentCategory value);
-
 	/**
 	 * Returns the value of the '<em><b>Array</b></em>' attribute.
 	 * <!-- begin-user-doc -->

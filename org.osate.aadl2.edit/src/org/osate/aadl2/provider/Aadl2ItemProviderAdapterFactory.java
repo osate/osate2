@@ -2725,6 +2725,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ComponentPrototypeActual} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ComponentPrototypeActualItemProvider componentPrototypeActualItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ComponentPrototypeActual}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createComponentPrototypeActualAdapter() {
+		if (componentPrototypeActualItemProvider == null) {
+			componentPrototypeActualItemProvider = new ComponentPrototypeActualItemProvider(this);
+		}
+
+		return componentPrototypeActualItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupPrototype} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2883,52 +2906,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return featurePrototypeReferenceItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ComponentPrototypeReference} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ComponentPrototypeReferenceItemProvider componentPrototypeReferenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ComponentPrototypeReference}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createComponentPrototypeReferenceAdapter() {
-		if (componentPrototypeReferenceItemProvider == null) {
-			componentPrototypeReferenceItemProvider = new ComponentPrototypeReferenceItemProvider(this);
-		}
-
-		return componentPrototypeReferenceItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ComponentReference} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ComponentReferenceItemProvider componentReferenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ComponentReference}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createComponentReferenceAdapter() {
-		if (componentReferenceItemProvider == null) {
-			componentReferenceItemProvider = new ComponentReferenceItemProvider(this);
-		}
-
-		return componentReferenceItemProvider;
 	}
 
 	/**
@@ -3991,6 +3968,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			featureGroupTypeRenameItemProvider.dispose();
 		if (componentPrototypeBindingItemProvider != null)
 			componentPrototypeBindingItemProvider.dispose();
+		if (componentPrototypeActualItemProvider != null)
+			componentPrototypeActualItemProvider.dispose();
 		if (featureGroupPrototypeItemProvider != null)
 			featureGroupPrototypeItemProvider.dispose();
 		if (featureGroupPrototypeBindingItemProvider != null)
@@ -4005,10 +3984,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			portSpecificationItemProvider.dispose();
 		if (featurePrototypeReferenceItemProvider != null)
 			featurePrototypeReferenceItemProvider.dispose();
-		if (componentPrototypeReferenceItemProvider != null)
-			componentPrototypeReferenceItemProvider.dispose();
-		if (componentReferenceItemProvider != null)
-			componentReferenceItemProvider.dispose();
 		if (featureGroupPrototypeReferenceItemProvider != null)
 			featureGroupPrototypeReferenceItemProvider.dispose();
 		if (featureGroupReferenceItemProvider != null)

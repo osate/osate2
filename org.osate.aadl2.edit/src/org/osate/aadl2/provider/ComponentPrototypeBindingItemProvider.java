@@ -170,10 +170,7 @@ public class ComponentPrototypeBindingItemProvider extends PrototypeBindingItemP
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentPrototypeBinding_Actual(),
-				Aadl2Factory.eINSTANCE.createComponentPrototypeReference()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentPrototypeBinding_Actual(),
-				Aadl2Factory.eINSTANCE.createComponentReference()));
+				Aadl2Factory.eINSTANCE.createComponentPrototypeActual()));
 	}
 
 }

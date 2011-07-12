@@ -249,17 +249,7 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	public EList<EndToEndFlowSegment> getOwnedEndToEndFlowSegments() {
 		if (ownedEndToEndFlowSegments == null) {
 			ownedEndToEndFlowSegments = new EObjectContainmentEList<EndToEndFlowSegment>(EndToEndFlowSegment.class,
-					this, Aadl2Package.END_TO_END_FLOW__OWNED_END_TO_END_FLOW_SEGMENT) {
-				private static final long serialVersionUID = 1L;
-
-				/* (non-Javadoc)
-				 * @see org.eclipse.emf.ecore.util.EObjectEList#isUnique()
-				 */
-				@Override
-				protected boolean isUnique() {
-					return false;
-				}
-			};
+					this, Aadl2Package.END_TO_END_FLOW__OWNED_END_TO_END_FLOW_SEGMENT);
 		}
 		return ownedEndToEndFlowSegments;
 	}
