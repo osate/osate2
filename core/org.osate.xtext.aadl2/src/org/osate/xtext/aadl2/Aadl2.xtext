@@ -1201,7 +1201,7 @@ EventPort returns aadl2::EventPort:
 	;
 
 FeatureGroup returns aadl2::FeatureGroup:
-		// need to set inout if no direction
+		// default is inout if no direction
 	((name=ID ':' )|
 	(refined=[aadl2::FeatureGroup|REFINEDNAME] ':' 'refined' 'to'))
 	direction=InOutDirection 'feature' 'group' 
