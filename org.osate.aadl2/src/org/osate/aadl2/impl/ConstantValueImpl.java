@@ -43,8 +43,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ConstantValue;
 import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
@@ -198,14 +196,6 @@ public class ConstantValueImpl extends ArraySizeImpl implements ConstantValue {
 		} else {
 			return getConstant().evaluate(ctx);
 		}
-	}
-
-	/**
-	 * Default implementation for instantiation: simply returns itself.
-	 * Most property value do not need to be translated.
-	 */
-	public PropertyExpression instantiate(final ComponentInstance root) throws InvalidModelException {
-		return this;
 	}
 
 	/* (non-Javadoc)

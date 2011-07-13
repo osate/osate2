@@ -58,10 +58,10 @@ import org.osate.aadl2.properties.InvalidModelException;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getList <em>List</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getOwnedType <em>Owned Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getConstantValue <em>Constant Value</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -106,16 +106,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * @ordered
 	 */
 	protected PropertyExpression constantValue;
-
-	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getType()
-	 * @generated
-	 * @ordered
-	 */
-	protected Type type;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -176,6 +166,12 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 		type = newType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_CONSTANT__TYPE, oldType, type));
+		Resource.Internal eInternalResource = eInternalResource();
+		if (eInternalResource == null || !eInternalResource.isLoading()) {
+			if (ownedType != null && ownedType != newType) {
+				setOwnedType(null);
+			}
+		}
 	}
 
 	/**

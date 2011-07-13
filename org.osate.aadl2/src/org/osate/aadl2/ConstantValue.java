@@ -51,7 +51,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface ConstantValue extends ArraySize, PropertyValue {
+public interface ConstantValue extends ArraySize, AbstractNamedValue {
 	/**
 	 * Returns the value of the '<em><b>Constant</b></em>' reference.
 	 * <!-- begin-user-doc -->

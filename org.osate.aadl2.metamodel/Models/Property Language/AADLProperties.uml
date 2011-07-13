@@ -538,7 +538,7 @@
         <ownedComment xmi:id="Expressions-EnumerationValue-_ownedComment.0">
           <body>An enumeration value.</body>
         </ownedComment>
-        <generalization xmi:id="Expressions-EnumerationValue-_generalization.0" general="Expressions-PropertyValue"/>
+        <generalization xmi:id="Expressions-EnumerationValue-_generalization.0" general="_qhwp8K17EeCEBvwFrdo_PA"/>
         <ownedAttribute xmi:id="Expressions-EnumerationValue-literal" name="literal" type="Types-EnumerationLiteral" association="Expressions-A_enumerationValue_enumerationLiteral">
           <ownedComment xmi:id="Expressions-EnumerationValue-literal-_ownedComment.0">
             <body>References the enumeration literal of this value.</body>
@@ -551,7 +551,7 @@
         <ownedComment xmi:id="Expressions-UnitValue-_ownedComment.0">
           <body>A unit value.</body>
         </ownedComment>
-        <generalization xmi:id="Expressions-UnitValue-_generalization.0" general="Expressions-PropertyValue"/>
+        <generalization xmi:id="Expressions-UnitValue-_generalization.0" general="_qhwp8K17EeCEBvwFrdo_PA"/>
         <ownedAttribute xmi:id="Expressions-UnitValue-literal" name="literal" type="Types-UnitLiteral" association="Expressions-A_unitValue_unitLiteral">
           <ownedComment xmi:id="Expressions-UnitValue-literal-_ownedComment.0">
             <body>References the unit literal of this value.</body>
@@ -723,7 +723,7 @@
         <ownedComment xmi:id="Expressions-ConstantValue-_ownedComment.0">
           <body>Specification of a constant that contains the property value.</body>
         </ownedComment>
-        <generalization xmi:id="Expressions-ConstantValue-_generalization.0" general="Expressions-PropertyValue"/>
+        <generalization xmi:id="Expressions-ConstantValue-_generalization.0" general="_qhwp8K17EeCEBvwFrdo_PA"/>
         <generalization xmi:id="Expressions-ConstantValue-_generalization.1" general="Expressions-ArraySize"/>
         <ownedAttribute xmi:id="Expressions-ConstantValue-constant" name="constant" type="Constants-PropertyConstant" association="Expressions-A_constantValue_constant">
           <ownedComment xmi:id="Expressions-ConstantValue-constant-_ownedComment.0">
@@ -737,7 +737,7 @@
         <ownedComment xmi:id="Expressions-PropertyReference-_ownedComment.0">
           <body>Specification of a property that contains the property value.</body>
         </ownedComment>
-        <generalization xmi:id="Expressions-PropertyReference-_generalization.0" general="Expressions-PropertyValue"/>
+        <generalization xmi:id="Expressions-PropertyReference-_generalization.0" general="_qhwp8K17EeCEBvwFrdo_PA"/>
         <generalization xmi:id="Expressions-PropertyReference-_generalization.1" general="Expressions-ArraySize"/>
         <ownedAttribute xmi:id="Expressions-PropertyReference-property" name="property" type="Definitions-Property" association="Expressions-A_propertyReference_property">
           <ownedComment xmi:id="Expressions-PropertyReference-property-_ownedComment.0">
@@ -866,6 +866,20 @@
         <ownedEnd xmi:id="_5Ld1f0DeEd-ss6Um5u-QLw" name="owner" type="_w53ysEDeEd-ss6Um5u-QLw" association="_5Ld1fkDeEd-ss6Um5u-QLw">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5Ld1gEDeEd-ss6Um5u-QLw" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5Ld1gUDeEd-ss6Um5u-QLw"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_qhwp8K17EeCEBvwFrdo_PA" name="AbstractNamedValue" isAbstract="true"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_vi0eIK19EeCEBvwFrdo_PA" name="NamedValue">
+        <generalization xmi:id="_MsabwK2EEeCEBvwFrdo_PA" general="Expressions-PropertyValue"/>
+        <ownedAttribute xmi:id="_ds3sFK2EEeCEBvwFrdo_PA" name="namedValue" type="_qhwp8K17EeCEBvwFrdo_PA" association="_ds3sEK2EEeCEBvwFrdo_PA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ds3sFa2EEeCEBvwFrdo_PA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ds3sFq2EEeCEBvwFrdo_PA" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_ds3sEK2EEeCEBvwFrdo_PA" name="A_namedValue_namedValue" memberEnd="_ds3sEa2EEeCEBvwFrdo_PA _ds3sFK2EEeCEBvwFrdo_PA">
+        <ownedEnd xmi:id="_ds3sEa2EEeCEBvwFrdo_PA" name="value" type="_vi0eIK19EeCEBvwFrdo_PA" association="_ds3sEK2EEeCEBvwFrdo_PA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ds3sEq2EEeCEBvwFrdo_PA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ds3sE62EEeCEBvwFrdo_PA" value="1"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

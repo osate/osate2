@@ -54,9 +54,9 @@ import org.osate.aadl2.Type;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getList <em>List</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getOwnedType <em>Owned Type</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -92,16 +92,6 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * @ordered
 	 */
 	protected PropertyType ownedType;
-
-	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getType()
-	 * @generated
-	 * @ordered
-	 */
-	protected Type type;
 
 	/**
 	 * <!-- begin-user-doc -->

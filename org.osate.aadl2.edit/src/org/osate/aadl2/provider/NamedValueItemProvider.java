@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,8 +31,6 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: ListValueItemProvider.java,v 1.3 2011-04-11 13:36:11 lwrage Exp $
  */
 package org.osate.aadl2.provider;
 
@@ -41,25 +39,22 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ListValue;
 
 /**
- * This is the item provider adapter for a {@link org.osate.aadl2.ListValue} object.
+ * This is the item provider adapter for a {@link org.osate.aadl2.NamedValue} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ListValueItemProvider extends PropertyExpressionItemProvider implements IEditingDomainItemProvider,
+public class NamedValueItemProvider extends PropertyValueItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -67,7 +62,7 @@ public class ListValueItemProvider extends PropertyExpressionItemProvider implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ListValueItemProvider(AdapterFactory adapterFactory) {
+	public NamedValueItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -82,49 +77,36 @@ public class ListValueItemProvider extends PropertyExpressionItemProvider implem
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addNamedValuePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Named Value feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getListValue_OwnedListElement());
-		}
-		return childrenFeatures;
+	protected void addNamedValuePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_NamedValue_namedValue_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_NamedValue_namedValue_feature",
+						"_UI_NamedValue_type"), Aadl2Package.eINSTANCE.getNamedValue_NamedValue(), true, false, true,
+				null, null, null));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns ListValue.gif.
+	 * This returns NamedValue.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ListValue"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/NamedValue"));
 	}
 
 	/**
@@ -135,7 +117,7 @@ public class ListValueItemProvider extends PropertyExpressionItemProvider implem
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ListValue_type");
+		return getString("_UI_NamedValue_type");
 	}
 
 	/**
@@ -148,12 +130,6 @@ public class ListValueItemProvider extends PropertyExpressionItemProvider implem
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(ListValue.class)) {
-		case Aadl2Package.LIST_VALUE__OWNED_LIST_ELEMENT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -167,42 +143,6 @@ public class ListValueItemProvider extends PropertyExpressionItemProvider implem
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
-				Aadl2Factory.eINSTANCE.createStringLiteral()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
-				Aadl2Factory.eINSTANCE.createClassifierValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
-				Aadl2Factory.eINSTANCE.createReferenceValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
-				Aadl2Factory.eINSTANCE.createBooleanLiteral()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
-				Aadl2Factory.eINSTANCE.createRangeValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
-				Aadl2Factory.eINSTANCE.createIntegerLiteral()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
-				Aadl2Factory.eINSTANCE.createRealLiteral()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
-				Aadl2Factory.eINSTANCE.createOperation()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
-				Aadl2Factory.eINSTANCE.createRecordValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
-				Aadl2Factory.eINSTANCE.createComputedValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
-				Aadl2Factory.eINSTANCE.createListValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
-				Aadl2Factory.eINSTANCE.createNamedValue()));
 	}
 
 }

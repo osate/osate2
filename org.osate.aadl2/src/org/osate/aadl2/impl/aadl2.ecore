@@ -1890,13 +1890,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="constantValue" ordered="false"
         eType="#//PropertyExpression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EnumerationValue" eSuperTypes="#//PropertyValue">
+  <eClassifiers xsi:type="ecore:EClass" name="EnumerationValue" eSuperTypes="#//AbstractNamedValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="literal" ordered="false"
         lowerBound="1" eType="#//EnumerationLiteral"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyValue" abstract="true" eSuperTypes="#//PropertyExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractNamedValue" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="EnumerationLiteral" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="UnitValue" eSuperTypes="#//PropertyValue">
+  <eClassifiers xsi:type="ecore:EClass" name="UnitValue" eSuperTypes="#//AbstractNamedValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="literal" ordered="false"
         lowerBound="1" eType="#//UnitLiteral"/>
   </eClassifiers>
@@ -1909,6 +1909,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="NumberValue" abstract="true" eSuperTypes="#//PropertyValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="unit" ordered="false" eType="#//UnitLiteral"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyValue" abstract="true" eSuperTypes="#//PropertyExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="StringLiteral" eSuperTypes="#//PropertyValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
         lowerBound="1" eType="#//String"/>
@@ -1939,11 +1940,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
         lowerBound="1" eType="#//Real"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConstantValue" eSuperTypes="#//ArraySize #//PropertyValue">
+  <eClassifiers xsi:type="ecore:EClass" name="ConstantValue" eSuperTypes="#//ArraySize #//AbstractNamedValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="constant" ordered="false"
         lowerBound="1" eType="#//PropertyConstant"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyReference" eSuperTypes="#//ArraySize #//PropertyValue">
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyReference" eSuperTypes="#//ArraySize #//AbstractNamedValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="property" ordered="false"
         lowerBound="1" eType="#//Property"/>
   </eClassifiers>
@@ -1972,6 +1973,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="ListValue" eSuperTypes="#//PropertyExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedListElement" upperBound="-1"
         eType="#//PropertyExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedValue" eSuperTypes="#//PropertyValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="namedValue" ordered="false"
+        lowerBound="1" eType="#//AbstractNamedValue"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertySet" eSuperTypes="#//Namespace #//ModelUnit">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"

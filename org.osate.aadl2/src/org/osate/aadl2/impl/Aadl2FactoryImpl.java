@@ -370,6 +370,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createComputedValue();
 		case Aadl2Package.LIST_VALUE:
 			return (EObject) createListValue();
+		case Aadl2Package.NAMED_VALUE:
+			return (EObject) createNamedValue();
 		case Aadl2Package.PROPERTY_SET:
 			return (EObject) createPropertySet();
 		case Aadl2Package.GLOBAL_NAMESPACE:
@@ -1935,6 +1937,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public ListValue createListValue() {
 		ListValueImpl listValue = new ListValueImpl();
 		return listValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NamedValue createNamedValue() {
+		NamedValueImpl namedValue = new NamedValueImpl();
+		return namedValue;
 	}
 
 	/**

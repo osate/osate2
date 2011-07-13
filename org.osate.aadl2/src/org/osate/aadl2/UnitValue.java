@@ -51,7 +51,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface UnitValue extends PropertyValue {
+public interface UnitValue extends AbstractNamedValue {
 	/**
 	 * Returns the value of the '<em><b>Literal</b></em>' reference.
 	 * <!-- begin-user-doc -->

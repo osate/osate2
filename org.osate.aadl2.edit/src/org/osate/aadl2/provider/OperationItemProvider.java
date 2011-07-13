@@ -193,12 +193,6 @@ public class OperationItemProvider extends PropertyExpressionItemProvider implem
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
-				Aadl2Factory.eINSTANCE.createEnumerationValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
-				Aadl2Factory.eINSTANCE.createUnitValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
@@ -220,12 +214,6 @@ public class OperationItemProvider extends PropertyExpressionItemProvider implem
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
-				Aadl2Factory.eINSTANCE.createConstantValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
-				Aadl2Factory.eINSTANCE.createPropertyReference()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
@@ -236,6 +224,9 @@ public class OperationItemProvider extends PropertyExpressionItemProvider implem
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createListValue()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+				Aadl2Factory.eINSTANCE.createNamedValue()));
 	}
 
 }

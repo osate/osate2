@@ -42,9 +42,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyReference;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
@@ -190,17 +188,6 @@ public class PropertyReferenceImpl extends ArraySizeImpl implements PropertyRefe
 			return property != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * Default implementation for instantiation: simply returns itself.
-	 * Most property value do not need to be translated.
-	 */
-	/* XXX: Must declare InvalidModelException to be thrown because
-	 * ReferenceValueImpl extends this class.
-	 */
-	public PropertyExpression instantiate(final ComponentInstance root) throws InvalidModelException {
-		return this;
 	}
 
 	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
