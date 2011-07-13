@@ -285,10 +285,6 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 			return new SubsetSupersetSetCommand(domain, owner, feature,
 					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getTypedElement_Type() }, null, value);
 		}
-		if (feature == Aadl2Package.eINSTANCE.getTypedElement_Type()) {
-			return new SubsetSupersetSetCommand(domain, owner, feature, null,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType() }, value);
-		}
 		return super.createSetCommand(domain, owner, feature, value);
 	}
 

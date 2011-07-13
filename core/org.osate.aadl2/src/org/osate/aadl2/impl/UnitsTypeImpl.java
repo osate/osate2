@@ -66,6 +66,16 @@ import org.osate.aadl2.UnitsType;
  */
 public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	/**
+	 * The cached value of the '{@link #getOwnedLiterals() <em>Owned Literal</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedLiterals()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EnumerationLiteral> ownedLiterals;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -137,17 +147,6 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EnumerationLiteral createOwnedLiteral() {
-		UnitLiteral newOwnedLiteral = (UnitLiteral) create(Aadl2Package.eINSTANCE.getUnitLiteral());
-		getOwnedLiterals().add(newOwnedLiteral);
-		return newOwnedLiteral;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isSetOwnedLiterals() {
 		return ownedLiterals != null && !ownedLiterals.isEmpty();
 	}
@@ -173,7 +172,7 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 */
 	@Override
 	public boolean isSetOwnedMembers() {
-		return super.isSetOwnedMembers() || isSetOwnedLiterals();
+		return super.isSetOwnedMembers();
 	}
 
 	/* (non-Javadoc)

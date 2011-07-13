@@ -46,8 +46,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentPrototypeReference;
-import org.osate.aadl2.ComponentReference;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;

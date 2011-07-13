@@ -34,7 +34,6 @@
  */
 package org.osate.aadl2;
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -44,7 +43,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.EndToEndFlowSegment#getFlowElements <em>Flow Element</em>}</li>
+ *   <li>{@link org.osate.aadl2.EndToEndFlowSegment#getFlowElement <em>Flow Element</em>}</li>
  *   <li>{@link org.osate.aadl2.EndToEndFlowSegment#getContext <em>Context</em>}</li>
  * </ul>
  * </p>
@@ -53,22 +52,32 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface EndToEndFlowSegment extends EndToEndFlowElement {
+public interface EndToEndFlowSegment extends Element {
 	/**
-	 * Returns the value of the '<em><b>Flow Element</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.EndToEndFlowElement}.
+	 * Returns the value of the '<em><b>Flow Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Flow Element</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Flow Element</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Flow Element</em>' reference list.
+	 * @return the value of the '<em>Flow Element</em>' reference.
+	 * @see #setFlowElement(EndToEndFlowElement)
 	 * @see org.osate.aadl2.Aadl2Package#getEndToEndFlowSegment_FlowElement()
 	 * @model required="true"
 	 * @generated
 	 */
-	EList<EndToEndFlowElement> getFlowElements();
+	EndToEndFlowElement getFlowElement();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.EndToEndFlowSegment#getFlowElement <em>Flow Element</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Flow Element</em>' reference.
+	 * @see #getFlowElement()
+	 * @generated
+	 */
+	void setFlowElement(EndToEndFlowElement value);
 
 	/**
 	 * Returns the value of the '<em><b>Context</b></em>' reference.
