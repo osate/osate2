@@ -228,12 +228,6 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 				Aadl2Factory.eINSTANCE.createReferenceType()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
-				Aadl2Factory.eINSTANCE.createEnumerationValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
-				Aadl2Factory.eINSTANCE.createUnitValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
@@ -255,12 +249,6 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
-				Aadl2Factory.eINSTANCE.createConstantValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
-				Aadl2Factory.eINSTANCE.createPropertyReference()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
@@ -271,6 +259,9 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
 				Aadl2Factory.eINSTANCE.createListValue()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
+				Aadl2Factory.eINSTANCE.createNamedValue()));
 	}
 
 	/**
@@ -284,6 +275,10 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 		if (feature == Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature,
 					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getTypedElement_Type() }, null, value);
+		}
+		if (feature == Aadl2Package.eINSTANCE.getTypedElement_Type()) {
+			return new SubsetSupersetSetCommand(domain, owner, feature, null,
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType() }, value);
 		}
 		return super.createSetCommand(domain, owner, feature, value);
 	}

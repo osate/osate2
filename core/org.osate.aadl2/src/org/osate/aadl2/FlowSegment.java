@@ -34,7 +34,6 @@
  */
 package org.osate.aadl2;
 
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Flow Segment</b></em>'.

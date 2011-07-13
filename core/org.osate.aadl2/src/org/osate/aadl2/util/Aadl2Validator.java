@@ -629,8 +629,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validatePropertyConstant((PropertyConstant) value, diagnostics, context);
 		case Aadl2Package.ENUMERATION_VALUE:
 			return validateEnumerationValue((EnumerationValue) value, diagnostics, context);
-		case Aadl2Package.PROPERTY_VALUE:
-			return validatePropertyValue((PropertyValue) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_NAMED_VALUE:
+			return validateAbstractNamedValue((AbstractNamedValue) value, diagnostics, context);
 		case Aadl2Package.ENUMERATION_LITERAL:
 			return validateEnumerationLiteral((EnumerationLiteral) value, diagnostics, context);
 		case Aadl2Package.UNIT_VALUE:
@@ -639,6 +639,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateUnitLiteral((UnitLiteral) value, diagnostics, context);
 		case Aadl2Package.NUMBER_VALUE:
 			return validateNumberValue((NumberValue) value, diagnostics, context);
+		case Aadl2Package.PROPERTY_VALUE:
+			return validatePropertyValue((PropertyValue) value, diagnostics, context);
 		case Aadl2Package.STRING_LITERAL:
 			return validateStringLiteral((StringLiteral) value, diagnostics, context);
 		case Aadl2Package.CLASSIFIER_VALUE:
@@ -665,6 +667,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateComputedValue((ComputedValue) value, diagnostics, context);
 		case Aadl2Package.LIST_VALUE:
 			return validateListValue((ListValue) value, diagnostics, context);
+		case Aadl2Package.NAMED_VALUE:
+			return validateNamedValue((NamedValue) value, diagnostics, context);
 		case Aadl2Package.PROPERTY_SET:
 			return validatePropertySet((PropertySet) value, diagnostics, context);
 		case Aadl2Package.GLOBAL_NAMESPACE:
@@ -8873,28 +8877,17 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEnumerationValue(EnumerationValue enumerationValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) enumerationValue, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) enumerationValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) enumerationValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) enumerationValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) enumerationValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) enumerationValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) enumerationValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) enumerationValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) enumerationValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(enumerationValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(enumerationValue, diagnostics, context);
-		return result;
+		return validate_EveryDefaultConstraint((EObject) enumerationValue, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAbstractNamedValue(AbstractNamedValue abstractNamedValue, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject) abstractNamedValue, diagnostics, context);
 	}
 
 	/**
@@ -9243,28 +9236,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateUnitValue(UnitValue unitValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) unitValue, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) unitValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) unitValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) unitValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) unitValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) unitValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) unitValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) unitValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) unitValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(unitValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(unitValue, diagnostics, context);
-		return result;
+		return validate_EveryDefaultConstraint((EObject) unitValue, diagnostics, context);
 	}
 
 	/**
@@ -9726,6 +9698,36 @@ public class Aadl2Validator extends EObjectValidator {
 			result &= validateElement_not_own_self(listValue, diagnostics, context);
 		if (result || diagnostics != null)
 			result &= validateElement_has_owner(listValue, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateNamedValue(NamedValue namedValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment((EObject) namedValue, diagnostics, context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms((EObject) namedValue, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms((EObject) namedValue, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained((EObject) namedValue, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) namedValue, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves((EObject) namedValue, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID((EObject) namedValue, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique((EObject) namedValue, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique((EObject) namedValue, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_not_own_self(namedValue, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_has_owner(namedValue, diagnostics, context);
 		return result;
 	}
 

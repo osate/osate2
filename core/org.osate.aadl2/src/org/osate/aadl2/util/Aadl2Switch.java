@@ -4529,22 +4529,14 @@ public class Aadl2Switch<T> {
 			EnumerationValue enumerationValue = (EnumerationValue) theEObject;
 			T result = caseEnumerationValue(enumerationValue);
 			if (result == null)
-				result = casePropertyValue(enumerationValue);
-			if (result == null)
-				result = casePropertyExpression(enumerationValue);
-			if (result == null)
-				result = caseElement(enumerationValue);
+				result = caseAbstractNamedValue(enumerationValue);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.PROPERTY_VALUE: {
-			PropertyValue propertyValue = (PropertyValue) theEObject;
-			T result = casePropertyValue(propertyValue);
-			if (result == null)
-				result = casePropertyExpression(propertyValue);
-			if (result == null)
-				result = caseElement(propertyValue);
+		case Aadl2Package.ABSTRACT_NAMED_VALUE: {
+			AbstractNamedValue abstractNamedValue = (AbstractNamedValue) theEObject;
+			T result = caseAbstractNamedValue(abstractNamedValue);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -4564,11 +4556,7 @@ public class Aadl2Switch<T> {
 			UnitValue unitValue = (UnitValue) theEObject;
 			T result = caseUnitValue(unitValue);
 			if (result == null)
-				result = casePropertyValue(unitValue);
-			if (result == null)
-				result = casePropertyExpression(unitValue);
-			if (result == null)
-				result = caseElement(unitValue);
+				result = caseAbstractNamedValue(unitValue);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -4595,6 +4583,17 @@ public class Aadl2Switch<T> {
 				result = casePropertyExpression(numberValue);
 			if (result == null)
 				result = caseElement(numberValue);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROPERTY_VALUE: {
+			PropertyValue propertyValue = (PropertyValue) theEObject;
+			T result = casePropertyValue(propertyValue);
+			if (result == null)
+				result = casePropertyExpression(propertyValue);
+			if (result == null)
+				result = caseElement(propertyValue);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -4704,9 +4703,7 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseArraySize(constantValue);
 			if (result == null)
-				result = casePropertyValue(constantValue);
-			if (result == null)
-				result = casePropertyExpression(constantValue);
+				result = caseAbstractNamedValue(constantValue);
 			if (result == null)
 				result = caseElement(constantValue);
 			if (result == null)
@@ -4719,9 +4716,7 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseArraySize(propertyReference);
 			if (result == null)
-				result = casePropertyValue(propertyReference);
-			if (result == null)
-				result = casePropertyExpression(propertyReference);
+				result = caseAbstractNamedValue(propertyReference);
 			if (result == null)
 				result = caseElement(propertyReference);
 			if (result == null)
@@ -4772,6 +4767,19 @@ public class Aadl2Switch<T> {
 				result = casePropertyExpression(listValue);
 			if (result == null)
 				result = caseElement(listValue);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.NAMED_VALUE: {
+			NamedValue namedValue = (NamedValue) theEObject;
+			T result = caseNamedValue(namedValue);
+			if (result == null)
+				result = casePropertyValue(namedValue);
+			if (result == null)
+				result = casePropertyExpression(namedValue);
+			if (result == null)
+				result = caseElement(namedValue);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -8444,6 +8452,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Named Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Named Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractNamedValue(AbstractNamedValue object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Property Value</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -8830,6 +8853,21 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseListValue(ListValue object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Named Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Named Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNamedValue(NamedValue object) {
 		return null;
 	}
 

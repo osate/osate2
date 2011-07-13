@@ -1359,6 +1359,15 @@ public interface Aadl2Factory extends EFactory {
 	ListValue createListValue();
 
 	/**
+	 * Returns a new object of class '<em>Named Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Named Value</em>'.
+	 * @generated
+	 */
+	NamedValue createNamedValue();
+
+	/**
 	 * Returns a new object of class '<em>Property Set</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

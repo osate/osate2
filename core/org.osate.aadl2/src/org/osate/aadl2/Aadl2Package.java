@@ -3449,7 +3449,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorPort()
 	 * @generated
 	 */
-	int PROCESSOR_PORT = 256;
+	int PROCESSOR_PORT = 258;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.InternalEventImpl <em>Internal Event</em>}' class.
@@ -3459,7 +3459,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getInternalEvent()
 	 * @generated
 	 */
-	int INTERNAL_EVENT = 257;
+	int INTERNAL_EVENT = 259;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentTypeImpl <em>Component Type</em>}' class.
@@ -10036,7 +10036,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubprogram()
 	 * @generated
 	 */
-	int PROCESSOR_SUBPROGRAM = 258;
+	int PROCESSOR_SUBPROGRAM = 260;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AnnexLibraryImpl <em>Annex Library</em>}' class.
@@ -31059,6 +31059,25 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_CONSTANT_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractNamedValueImpl <em>Abstract Named Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractNamedValueImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractNamedValue()
+	 * @generated
+	 */
+	int ABSTRACT_NAMED_VALUE = 223;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Named Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_NAMED_VALUE_FEATURE_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyValueImpl <em>Property Value</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -31066,34 +31085,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyValue()
 	 * @generated
 	 */
-	int PROPERTY_VALUE = 223;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_VALUE__OWNED_ELEMENT = PROPERTY_EXPRESSION__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_VALUE__OWNED_COMMENT = PROPERTY_EXPRESSION__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Property Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_VALUE_FEATURE_COUNT = PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
+	int PROPERTY_VALUE = 228;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EnumerationValueImpl <em>Enumeration Value</em>}' class.
@@ -31106,31 +31098,13 @@ public interface Aadl2Package extends EPackage {
 	int ENUMERATION_VALUE = 222;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENUMERATION_VALUE__OWNED_ELEMENT = PROPERTY_VALUE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENUMERATION_VALUE__OWNED_COMMENT = PROPERTY_VALUE__OWNED_COMMENT;
-
-	/**
 	 * The feature id for the '<em><b>Literal</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENUMERATION_VALUE__LITERAL = PROPERTY_VALUE_FEATURE_COUNT + 0;
+	int ENUMERATION_VALUE__LITERAL = ABSTRACT_NAMED_VALUE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Enumeration Value</em>' class.
@@ -31139,7 +31113,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENUMERATION_VALUE_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
+	int ENUMERATION_VALUE_FEATURE_COUNT = ABSTRACT_NAMED_VALUE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EnumerationLiteralImpl <em>Enumeration Literal</em>}' class.
@@ -31216,31 +31190,13 @@ public interface Aadl2Package extends EPackage {
 	int UNIT_VALUE = 225;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_VALUE__OWNED_ELEMENT = PROPERTY_VALUE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_VALUE__OWNED_COMMENT = PROPERTY_VALUE__OWNED_COMMENT;
-
-	/**
 	 * The feature id for the '<em><b>Literal</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int UNIT_VALUE__LITERAL = PROPERTY_VALUE_FEATURE_COUNT + 0;
+	int UNIT_VALUE__LITERAL = ABSTRACT_NAMED_VALUE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Unit Value</em>' class.
@@ -31249,7 +31205,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int UNIT_VALUE_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
+	int UNIT_VALUE_FEATURE_COUNT = ABSTRACT_NAMED_VALUE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.UnitLiteralImpl <em>Unit Literal</em>}' class.
@@ -31334,6 +31290,33 @@ public interface Aadl2Package extends EPackage {
 	int UNIT_LITERAL_FEATURE_COUNT = ENUMERATION_LITERAL_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_VALUE__OWNED_ELEMENT = PROPERTY_EXPRESSION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_VALUE__OWNED_COMMENT = PROPERTY_EXPRESSION__OWNED_COMMENT;
+
+	/**
+	 * The number of structural features of the '<em>Property Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_VALUE_FEATURE_COUNT = PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.NumberValueImpl <em>Number Value</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -31387,7 +31370,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getStringLiteral()
 	 * @generated
 	 */
-	int STRING_LITERAL = 228;
+	int STRING_LITERAL = 229;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31433,7 +31416,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierValue()
 	 * @generated
 	 */
-	int CLASSIFIER_VALUE = 229;
+	int CLASSIFIER_VALUE = 230;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31479,7 +31462,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReferenceValue()
 	 * @generated
 	 */
-	int REFERENCE_VALUE = 230;
+	int REFERENCE_VALUE = 231;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31525,7 +31508,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBooleanLiteral()
 	 * @generated
 	 */
-	int BOOLEAN_LITERAL = 231;
+	int BOOLEAN_LITERAL = 232;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31571,7 +31554,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRangeValue()
 	 * @generated
 	 */
-	int RANGE_VALUE = 232;
+	int RANGE_VALUE = 233;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31635,7 +31618,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getIntegerLiteral()
 	 * @generated
 	 */
-	int INTEGER_LITERAL = 233;
+	int INTEGER_LITERAL = 234;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31699,7 +31682,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRealLiteral()
 	 * @generated
 	 */
-	int REAL_LITERAL = 234;
+	int REAL_LITERAL = 235;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31754,7 +31737,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConstantValue()
 	 * @generated
 	 */
-	int CONSTANT_VALUE = 235;
+	int CONSTANT_VALUE = 236;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31800,7 +31783,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyReference()
 	 * @generated
 	 */
-	int PROPERTY_REFERENCE = 236;
+	int PROPERTY_REFERENCE = 237;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31846,7 +31829,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getOperation()
 	 * @generated
 	 */
-	int OPERATION = 237;
+	int OPERATION = 238;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31901,7 +31884,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRecordValue()
 	 * @generated
 	 */
-	int RECORD_VALUE = 238;
+	int RECORD_VALUE = 239;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31947,7 +31930,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComputedValue()
 	 * @generated
 	 */
-	int COMPUTED_VALUE = 239;
+	int COMPUTED_VALUE = 240;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31993,7 +31976,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getListValue()
 	 * @generated
 	 */
-	int LIST_VALUE = 240;
+	int LIST_VALUE = 241;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32032,6 +32015,52 @@ public interface Aadl2Package extends EPackage {
 	int LIST_VALUE_FEATURE_COUNT = PROPERTY_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.NamedValueImpl <em>Named Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.NamedValueImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNamedValue()
+	 * @generated
+	 */
+	int NAMED_VALUE = 242;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMED_VALUE__OWNED_ELEMENT = PROPERTY_VALUE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMED_VALUE__OWNED_COMMENT = PROPERTY_VALUE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Named Value</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMED_VALUE__NAMED_VALUE = PROPERTY_VALUE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Named Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMED_VALUE_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertySetImpl <em>Property Set</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -32039,7 +32068,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertySet()
 	 * @generated
 	 */
-	int PROPERTY_SET = 241;
+	int PROPERTY_SET = 243;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32157,7 +32186,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getGlobalNamespace()
 	 * @generated
 	 */
-	int GLOBAL_NAMESPACE = 242;
+	int GLOBAL_NAMESPACE = 244;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32257,7 +32286,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlBoolean()
 	 * @generated
 	 */
-	int AADL_BOOLEAN = 243;
+	int AADL_BOOLEAN = 245;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32321,7 +32350,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlString()
 	 * @generated
 	 */
-	int AADL_STRING = 244;
+	int AADL_STRING = 246;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32385,7 +32414,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumberType()
 	 * @generated
 	 */
-	int NUMBER_TYPE = 246;
+	int NUMBER_TYPE = 248;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32476,7 +32505,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlInteger()
 	 * @generated
 	 */
-	int AADL_INTEGER = 245;
+	int AADL_INTEGER = 247;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32567,7 +32596,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEnumerationType()
 	 * @generated
 	 */
-	int ENUMERATION_TYPE = 248;
+	int ENUMERATION_TYPE = 250;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32658,7 +32687,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getUnitsType()
 	 * @generated
 	 */
-	int UNITS_TYPE = 247;
+	int UNITS_TYPE = 249;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32749,7 +32778,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumericRange()
 	 * @generated
 	 */
-	int NUMERIC_RANGE = 249;
+	int NUMERIC_RANGE = 251;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32804,7 +32833,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlReal()
 	 * @generated
 	 */
-	int AADL_REAL = 250;
+	int AADL_REAL = 252;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32895,7 +32924,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierType()
 	 * @generated
 	 */
-	int CLASSIFIER_TYPE = 251;
+	int CLASSIFIER_TYPE = 253;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32968,7 +32997,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRangeType()
 	 * @generated
 	 */
-	int RANGE_TYPE = 252;
+	int RANGE_TYPE = 254;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33050,7 +33079,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRecordType()
 	 * @generated
 	 */
-	int RECORD_TYPE = 253;
+	int RECORD_TYPE = 255;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33141,7 +33170,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRecordField()
 	 * @generated
 	 */
-	int RECORD_FIELD = 254;
+	int RECORD_FIELD = 256;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33232,7 +33261,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReferenceType()
 	 * @generated
 	 */
-	int REFERENCE_TYPE = 255;
+	int REFERENCE_TYPE = 257;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33467,7 +33496,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDirectionType()
 	 * @generated
 	 */
-	int DIRECTION_TYPE = 260;
+	int DIRECTION_TYPE = 262;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.PortCategory <em>Port Category</em>}' enum.
@@ -33477,7 +33506,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortCategory()
 	 * @generated
 	 */
-	int PORT_CATEGORY = 263;
+	int PORT_CATEGORY = 265;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.FlowKind <em>Flow Kind</em>}' enum.
@@ -33487,7 +33516,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowKind()
 	 * @generated
 	 */
-	int FLOW_KIND = 259;
+	int FLOW_KIND = 261;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.AccessType <em>Access Type</em>}' enum.
@@ -33497,7 +33526,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessType()
 	 * @generated
 	 */
-	int ACCESS_TYPE = 261;
+	int ACCESS_TYPE = 263;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.AccessCategory <em>Access Category</em>}' enum.
@@ -33507,7 +33536,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessCategory()
 	 * @generated
 	 */
-	int ACCESS_CATEGORY = 262;
+	int ACCESS_CATEGORY = 264;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.ComponentCategory <em>Component Category</em>}' enum.
@@ -33517,7 +33546,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentCategory()
 	 * @generated
 	 */
-	int COMPONENT_CATEGORY = 264;
+	int COMPONENT_CATEGORY = 266;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.ConnectionKind <em>Connection Kind</em>}' enum.
@@ -33527,7 +33556,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnectionKind()
 	 * @generated
 	 */
-	int CONNECTION_KIND = 265;
+	int CONNECTION_KIND = 267;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.ElementNameKind <em>Element Name Kind</em>}' enum.
@@ -33537,7 +33566,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getElementNameKind()
 	 * @generated
 	 */
-	int ELEMENT_NAME_KIND = 266;
+	int ELEMENT_NAME_KIND = 268;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.OperationKind <em>Operation Kind</em>}' enum.
@@ -33547,7 +33576,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getOperationKind()
 	 * @generated
 	 */
-	int OPERATION_KIND = 267;
+	int OPERATION_KIND = 269;
 
 	/**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -33557,7 +33586,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getString()
 	 * @generated
 	 */
-	int STRING = 268;
+	int STRING = 270;
 
 	/**
 	 * The meta object id for the '<em>Boolean</em>' data type.
@@ -33566,7 +33595,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBoolean()
 	 * @generated
 	 */
-	int BOOLEAN = 269;
+	int BOOLEAN = 271;
 
 	/**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -33575,7 +33604,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 270;
+	int INTEGER = 272;
 
 	/**
 	 * The meta object id for the '<em>Real</em>' data type.
@@ -33584,7 +33613,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReal()
 	 * @generated
 	 */
-	int REAL = 271;
+	int REAL = 273;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.Element <em>Element</em>}'.
@@ -39675,6 +39704,16 @@ public interface Aadl2Package extends EPackage {
 	EReference getEnumerationValue_Literal();
 
 	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.AbstractNamedValue <em>Abstract Named Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Abstract Named Value</em>'.
+	 * @see org.osate.aadl2.AbstractNamedValue
+	 * @generated
+	 */
+	EClass getAbstractNamedValue();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.PropertyValue <em>Property Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -40073,6 +40112,27 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getListValue_OwnedListElement();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.NamedValue <em>Named Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Named Value</em>'.
+	 * @see org.osate.aadl2.NamedValue
+	 * @generated
+	 */
+	EClass getNamedValue();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.NamedValue#getNamedValue <em>Named Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Named Value</em>'.
+	 * @see org.osate.aadl2.NamedValue#getNamedValue()
+	 * @see #getNamedValue()
+	 * @generated
+	 */
+	EReference getNamedValue_NamedValue();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.PropertySet <em>Property Set</em>}'.

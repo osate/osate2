@@ -55,7 +55,7 @@ import org.osate.aadl2.Aadl2Package;
  * <!-- end-user-doc -->
  * @generated
  */
-public class EnumerationValueItemProvider extends PropertyValueItemProvider implements IEditingDomainItemProvider,
+public class EnumerationValueItemProvider extends AbstractNamedValueItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.

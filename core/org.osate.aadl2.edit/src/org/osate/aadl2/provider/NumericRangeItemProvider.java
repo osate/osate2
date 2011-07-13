@@ -171,12 +171,6 @@ public class NumericRangeItemProvider extends ElementItemProvider implements IEd
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_UpperBound(),
-				Aadl2Factory.eINSTANCE.createEnumerationValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_UpperBound(),
-				Aadl2Factory.eINSTANCE.createUnitValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_UpperBound(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_UpperBound(),
@@ -198,12 +192,6 @@ public class NumericRangeItemProvider extends ElementItemProvider implements IEd
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_UpperBound(),
-				Aadl2Factory.eINSTANCE.createConstantValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_UpperBound(),
-				Aadl2Factory.eINSTANCE.createPropertyReference()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_UpperBound(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_UpperBound(),
@@ -215,11 +203,8 @@ public class NumericRangeItemProvider extends ElementItemProvider implements IEd
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_UpperBound(),
 				Aadl2Factory.eINSTANCE.createListValue()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_LowerBound(),
-				Aadl2Factory.eINSTANCE.createEnumerationValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_LowerBound(),
-				Aadl2Factory.eINSTANCE.createUnitValue()));
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_UpperBound(),
+				Aadl2Factory.eINSTANCE.createNamedValue()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_LowerBound(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
@@ -243,12 +228,6 @@ public class NumericRangeItemProvider extends ElementItemProvider implements IEd
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_LowerBound(),
-				Aadl2Factory.eINSTANCE.createConstantValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_LowerBound(),
-				Aadl2Factory.eINSTANCE.createPropertyReference()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_LowerBound(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_LowerBound(),
@@ -259,6 +238,9 @@ public class NumericRangeItemProvider extends ElementItemProvider implements IEd
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_LowerBound(),
 				Aadl2Factory.eINSTANCE.createListValue()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumericRange_LowerBound(),
+				Aadl2Factory.eINSTANCE.createNamedValue()));
 	}
 
 	/**

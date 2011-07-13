@@ -1212,8 +1212,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter casePropertyValue(PropertyValue object) {
-			return createPropertyValueAdapter();
+		public Adapter caseAbstractNamedValue(AbstractNamedValue object) {
+			return createAbstractNamedValueAdapter();
 		}
 
 		@Override
@@ -1234,6 +1234,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseNumberValue(NumberValue object) {
 			return createNumberValueAdapter();
+		}
+
+		@Override
+		public Adapter casePropertyValue(PropertyValue object) {
+			return createPropertyValueAdapter();
 		}
 
 		@Override
@@ -1299,6 +1304,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseListValue(ListValue object) {
 			return createListValueAdapter();
+		}
+
+		@Override
+		public Adapter caseNamedValue(NamedValue object) {
+			return createNamedValueAdapter();
 		}
 
 		@Override
@@ -4575,6 +4585,20 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.AbstractNamedValue <em>Abstract Named Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.AbstractNamedValue
+	 * @generated
+	 */
+	public Adapter createAbstractNamedValueAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.PropertyValue <em>Property Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -4935,6 +4959,20 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createListValueAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.NamedValue <em>Named Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.NamedValue
+	 * @generated
+	 */
+	public Adapter createNamedValueAdapter() {
 		return null;
 	}
 
