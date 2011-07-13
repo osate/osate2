@@ -1872,10 +1872,10 @@ The context owns the connection end instance.</body>
         <ownedComment xmi:id="Flows-FlowImplementation-_ownedComment.0">
           <body>The implementation of a flow specification in terms of flow elements.</body>
         </ownedComment>
-        <generalization xmi:id="Flows-FlowImplementation-_generalization.0">
-          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#StructuralFeature"/>
-        </generalization>
         <generalization xmi:id="Flows-FlowImplementation-_generalization.1" general="Modes-ModalPath"/>
+        <generalization xmi:id="_sl0SkK1eEeCEBvwFrdo_PA">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#ClassifierFeature"/>
+        </generalization>
         <ownedAttribute xmi:id="Flows-FlowImplementation-kind" name="kind" type="Flows-FlowKind" isDerived="true">
           <ownedComment xmi:id="Flows-FlowImplementation-kind-_ownedComment.0">
             <body>Specifies if this flow specification is a source, path, or sink. Derived from the corresponding flow specification.</body>
@@ -1917,6 +1917,7 @@ The context owns the connection end instance.</body>
         </ownedComment>
         <generalization xmi:id="Flows-EndToEndFlow-_generalization.0" general="_W64jmFEMEd6kWIIn_VWR1g"/>
         <generalization xmi:id="Flows-EndToEndFlow-_generalization.2" general="Modes-ModalPath"/>
+        <generalization xmi:id="Flows-EndToEndFlow-_generalization.1" general="Flows-EndToEndFlowElement"/>
         <ownedAttribute xmi:id="Flows-EndToEndFlow-refined" name="refined" type="Flows-EndToEndFlow" association="Flows-A_endToEndFlow_refined">
           <ownedComment xmi:id="Flows-EndToEndFlow-refined-_ownedComment.0">
             <body>References an end to end flow that is refined by this end to end flow.</body>
@@ -1988,6 +1989,9 @@ The context owns the connection end instance.</body>
         </generalization>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_AzAPoKvVEeC0h7jzzZfZ7Q" name="FlowEnd">
+        <generalization xmi:id="_D5kAgK1MEeCEBvwFrdo_PA">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
+        </generalization>
         <ownedAttribute xmi:id="_T0XnzqvVEeC0h7jzzZfZ7Q" name="context" type="Connections-Context" association="_T0XnyqvVEeC0h7jzzZfZ7Q">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_T0Xnz6vVEeC0h7jzzZfZ7Q" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_T0Xn0KvVEeC0h7jzzZfZ7Q"/>
@@ -2010,6 +2014,9 @@ The context owns the connection end instance.</body>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_tDLx4KvbEeC0h7jzzZfZ7Q" name="FlowSegment">
+        <generalization xmi:id="_dc1mcK1MEeCEBvwFrdo_PA">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
+        </generalization>
         <ownedAttribute xmi:id="Flows-FlowImplementation-flowElement" name="flowElement" type="Flows-FlowElement" isUnique="false" association="Flows-A_flowImplementation_flowElement">
           <ownedComment xmi:id="Flows-FlowImplementation-flowElement-_ownedComment.0">
             <body>Specifies the sequence of flow elements in this flow implementation.</body>
@@ -2035,12 +2042,14 @@ The context owns the connection end instance.</body>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_xtnbgKvtEeC0h7jzzZfZ7Q" name="EndToEndFlowSegment">
-        <generalization xmi:id="Flows-EndToEndFlow-_generalization.1" general="Flows-EndToEndFlowElement"/>
+        <generalization xmi:id="_R7PLgK1MEeCEBvwFrdo_PA">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
+        </generalization>
         <ownedAttribute xmi:id="Flows-EndToEndFlow-flowElement" name="flowElement" type="Flows-EndToEndFlowElement" isOrdered="true" isUnique="false" association="Flows-A_endToEndFlow_flowElement">
           <ownedComment xmi:id="Flows-EndToEndFlow-flowElement-_ownedComment.0">
             <body>The sequence of elements in this end to end flow.</body>
           </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-EndToEndFlow-flowElement-_upperValue" value="*"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-EndToEndFlow-flowElement-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-EndToEndFlow-flowElement-_lowerValue" value="1"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_GjmWdKvvEeC0h7jzzZfZ7Q" name="context" type="Connections-Context" association="_GjmWcKvvEeC0h7jzzZfZ7Q">
@@ -2161,7 +2170,6 @@ The context owns the connection end instance.</body>
         <ownedComment xmi:id="Modes-ModalPath-_ownedComment.0">
           <body>===TBD===</body>
         </ownedComment>
-        <generalization xmi:id="Modes-ModalPath-_generalization.0" general="Modes-ModalElement"/>
         <generalization xmi:id="_vbv6AKmREeCfxLim1SVFOg" general="Modes-ModalElement"/>
         <ownedAttribute xmi:id="Modes-ModalPath-inTransition" name="inModeOrTransition" type="Modes-ModeFeature" isOrdered="true" association="Modes-A_modalPath_inTransition">
           <ownedComment xmi:id="Modes-ModalPath-inTransition-_ownedComment.0"/>

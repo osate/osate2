@@ -34,7 +34,6 @@
  */
 package org.osate.aadl2;
 
-import org.osate.aadl2.parsesupport.AObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,10 +50,9 @@ import org.osate.aadl2.parsesupport.AObject;
  *
  * @see org.osate.aadl2.Aadl2Package#getFlowSegment()
  * @model
- * @extends AObject
  * @generated
  */
-public interface FlowSegment extends AObject {
+public interface FlowSegment extends Element {
 	/**
 	 * Returns the value of the '<em><b>Flow Element</b></em>' reference.
 	 * <!-- begin-user-doc -->

@@ -4463,13 +4463,31 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_END = 49;
 
 	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_END__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_END__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
 	 * The feature id for the '<em><b>Context</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_END__CONTEXT = 0;
+	int FLOW_END__CONTEXT = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -4478,7 +4496,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_END__FEATURE = 1;
+	int FLOW_END__FEATURE = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Flow End</em>' class.
@@ -4487,7 +4505,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_END_FEATURE_COUNT = 2;
+	int FLOW_END_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -8978,132 +8996,6 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_IMPLEMENTATION = 90;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__OWNED_ELEMENT = STRUCTURAL_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__OWNED_COMMENT = STRUCTURAL_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__NAME = STRUCTURAL_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__QUALIFIED_NAME = STRUCTURAL_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__REFINEMENT_CONTEXT = STRUCTURAL_FEATURE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__REFINED_ELEMENT = STRUCTURAL_FEATURE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__IN_MODE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__KIND = STRUCTURAL_FEATURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Specification</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__SPECIFICATION = STRUCTURAL_FEATURE_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Owned Flow Segment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT = STRUCTURAL_FEATURE_FEATURE_COUNT + 4;
-
-	/**
-	 * The number of structural features of the '<em>Flow Implementation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 5;
-
-	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalPathImpl <em>Modal Path</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9186,6 +9078,114 @@ public interface Aadl2Package extends EPackage {
 	int MODAL_PATH_FEATURE_COUNT = MODAL_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__OWNED_ELEMENT = MODAL_PATH__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__OWNED_COMMENT = MODAL_PATH__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__NAME = MODAL_PATH__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__QUALIFIED_NAME = MODAL_PATH__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = MODAL_PATH__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__IN_MODE = MODAL_PATH__IN_MODE;
+
+	/**
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION = MODAL_PATH__IN_MODE_OR_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER = MODAL_PATH_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__KIND = MODAL_PATH_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Specification</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__SPECIFICATION = MODAL_PATH_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Flow Segment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT = MODAL_PATH_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Flow Implementation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION_FEATURE_COUNT = MODAL_PATH_FEATURE_COUNT + 4;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowSegmentImpl <em>Flow Segment</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9196,13 +9196,31 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_SEGMENT = 92;
 
 	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SEGMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SEGMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
 	 * The feature id for the '<em><b>Flow Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_SEGMENT__FLOW_ELEMENT = 0;
+	int FLOW_SEGMENT__FLOW_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Context</b></em>' reference.
@@ -9211,7 +9229,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_SEGMENT__CONTEXT = 1;
+	int FLOW_SEGMENT__CONTEXT = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Flow Segment</em>' class.
@@ -9220,7 +9238,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_SEGMENT_FEATURE_COUNT = 2;
+	int FLOW_SEGMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectionImpl <em>Connection</em>}' class.
@@ -9722,7 +9740,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_SEGMENT__OWNED_ELEMENT = END_TO_END_FLOW_ELEMENT__OWNED_ELEMENT;
+	int END_TO_END_FLOW_SEGMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -9731,43 +9749,16 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_SEGMENT__OWNED_COMMENT = END_TO_END_FLOW_ELEMENT__OWNED_COMMENT;
+	int END_TO_END_FLOW_SEGMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Flow Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_SEGMENT__NAME = END_TO_END_FLOW_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_SEGMENT__QUALIFIED_NAME = END_TO_END_FLOW_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_SEGMENT__OWNED_PROPERTY_ASSOCIATION = END_TO_END_FLOW_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Flow Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT = END_TO_END_FLOW_ELEMENT_FEATURE_COUNT + 0;
+	int END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Context</b></em>' reference.
@@ -9776,7 +9767,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_SEGMENT__CONTEXT = END_TO_END_FLOW_ELEMENT_FEATURE_COUNT + 1;
+	int END_TO_END_FLOW_SEGMENT__CONTEXT = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>End To End Flow Segment</em>' class.
@@ -9785,7 +9776,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_SEGMENT_FEATURE_COUNT = END_TO_END_FLOW_ELEMENT_FEATURE_COUNT + 2;
+	int END_TO_END_FLOW_SEGMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractSubcomponentImpl <em>Abstract Subcomponent</em>}' class.
@@ -36407,11 +36398,11 @@ public interface Aadl2Package extends EPackage {
 	EClass getEndToEndFlowSegment();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.aadl2.EndToEndFlowSegment#getFlowElements <em>Flow Element</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.EndToEndFlowSegment#getFlowElement <em>Flow Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Flow Element</em>'.
-	 * @see org.osate.aadl2.EndToEndFlowSegment#getFlowElements()
+	 * @return the meta object for the reference '<em>Flow Element</em>'.
+	 * @see org.osate.aadl2.EndToEndFlowSegment#getFlowElement()
 	 * @see #getEndToEndFlowSegment()
 	 * @generated
 	 */
