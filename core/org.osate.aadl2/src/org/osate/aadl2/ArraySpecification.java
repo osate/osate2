@@ -109,4 +109,14 @@ public interface ArraySpecification extends Element {
 	 */
 	ArraySize createSize(EClass eClass);
 
+	/**
+	 * Creates a new {@link org.osate.aadl2.Numeral} and appends it to the '<em><b>Size</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.Numeral}.
+	 * @see #getSizes()
+	 * @generated
+	 */
+	ArraySize createSize();
+
 } // ArraySpecification

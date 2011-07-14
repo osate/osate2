@@ -142,6 +142,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseAbstractNamedValue(AbstractNamedValue object) {
+			return createAbstractNamedValueAdapter();
+		}
+
+		@Override
 		public Adapter casePropertyExpression(PropertyExpression object) {
 			return createPropertyExpressionAdapter();
 		}
@@ -1207,33 +1212,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseEnumerationValue(EnumerationValue object) {
-			return createEnumerationValueAdapter();
-		}
-
-		@Override
-		public Adapter caseAbstractNamedValue(AbstractNamedValue object) {
-			return createAbstractNamedValueAdapter();
-		}
-
-		@Override
-		public Adapter caseEnumerationLiteral(EnumerationLiteral object) {
-			return createEnumerationLiteralAdapter();
-		}
-
-		@Override
-		public Adapter caseUnitValue(UnitValue object) {
-			return createUnitValueAdapter();
-		}
-
-		@Override
-		public Adapter caseUnitLiteral(UnitLiteral object) {
-			return createUnitLiteralAdapter();
-		}
-
-		@Override
-		public Adapter caseNumberValue(NumberValue object) {
-			return createNumberValueAdapter();
+		public Adapter caseStringLiteral(StringLiteral object) {
+			return createStringLiteralAdapter();
 		}
 
 		@Override
@@ -1242,8 +1222,18 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseStringLiteral(StringLiteral object) {
-			return createStringLiteralAdapter();
+		public Adapter caseNumberValue(NumberValue object) {
+			return createNumberValueAdapter();
+		}
+
+		@Override
+		public Adapter caseUnitLiteral(UnitLiteral object) {
+			return createUnitLiteralAdapter();
+		}
+
+		@Override
+		public Adapter caseEnumerationLiteral(EnumerationLiteral object) {
+			return createEnumerationLiteralAdapter();
 		}
 
 		@Override
@@ -1274,16 +1264,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseRealLiteral(RealLiteral object) {
 			return createRealLiteralAdapter();
-		}
-
-		@Override
-		public Adapter caseConstantValue(ConstantValue object) {
-			return createConstantValueAdapter();
-		}
-
-		@Override
-		public Adapter casePropertyReference(PropertyReference object) {
-			return createPropertyReferenceAdapter();
 		}
 
 		@Override
@@ -4571,20 +4551,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.EnumerationValue <em>Enumeration Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.EnumerationValue
-	 * @generated
-	 */
-	public Adapter createEnumerationValueAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.AbstractNamedValue <em>Abstract Named Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -4739,20 +4705,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.UnitValue <em>Unit Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.UnitValue
-	 * @generated
-	 */
-	public Adapter createUnitValueAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.UnitLiteral <em>Unit Literal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -4875,34 +4827,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRealLiteralAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.ConstantValue <em>Constant Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.ConstantValue
-	 * @generated
-	 */
-	public Adapter createConstantValueAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.PropertyReference <em>Property Reference</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.PropertyReference
-	 * @generated
-	 */
-	public Adapter createPropertyReferenceAdapter() {
 		return null;
 	}
 

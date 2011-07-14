@@ -198,6 +198,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateTypedElement((TypedElement) value, diagnostics, context);
 		case Aadl2Package.PROPERTY_TYPE:
 			return validatePropertyType((PropertyType) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_NAMED_VALUE:
+			return validateAbstractNamedValue((AbstractNamedValue) value, diagnostics, context);
 		case Aadl2Package.PROPERTY_EXPRESSION:
 			return validatePropertyExpression((PropertyExpression) value, diagnostics, context);
 		case Aadl2Package.METACLASS_REFERENCE:
@@ -627,22 +629,16 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateBasicPropertyAssociation((BasicPropertyAssociation) value, diagnostics, context);
 		case Aadl2Package.PROPERTY_CONSTANT:
 			return validatePropertyConstant((PropertyConstant) value, diagnostics, context);
-		case Aadl2Package.ENUMERATION_VALUE:
-			return validateEnumerationValue((EnumerationValue) value, diagnostics, context);
-		case Aadl2Package.ABSTRACT_NAMED_VALUE:
-			return validateAbstractNamedValue((AbstractNamedValue) value, diagnostics, context);
-		case Aadl2Package.ENUMERATION_LITERAL:
-			return validateEnumerationLiteral((EnumerationLiteral) value, diagnostics, context);
-		case Aadl2Package.UNIT_VALUE:
-			return validateUnitValue((UnitValue) value, diagnostics, context);
-		case Aadl2Package.UNIT_LITERAL:
-			return validateUnitLiteral((UnitLiteral) value, diagnostics, context);
-		case Aadl2Package.NUMBER_VALUE:
-			return validateNumberValue((NumberValue) value, diagnostics, context);
-		case Aadl2Package.PROPERTY_VALUE:
-			return validatePropertyValue((PropertyValue) value, diagnostics, context);
 		case Aadl2Package.STRING_LITERAL:
 			return validateStringLiteral((StringLiteral) value, diagnostics, context);
+		case Aadl2Package.PROPERTY_VALUE:
+			return validatePropertyValue((PropertyValue) value, diagnostics, context);
+		case Aadl2Package.NUMBER_VALUE:
+			return validateNumberValue((NumberValue) value, diagnostics, context);
+		case Aadl2Package.UNIT_LITERAL:
+			return validateUnitLiteral((UnitLiteral) value, diagnostics, context);
+		case Aadl2Package.ENUMERATION_LITERAL:
+			return validateEnumerationLiteral((EnumerationLiteral) value, diagnostics, context);
 		case Aadl2Package.CLASSIFIER_VALUE:
 			return validateClassifierValue((ClassifierValue) value, diagnostics, context);
 		case Aadl2Package.REFERENCE_VALUE:
@@ -655,10 +651,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateIntegerLiteral((IntegerLiteral) value, diagnostics, context);
 		case Aadl2Package.REAL_LITERAL:
 			return validateRealLiteral((RealLiteral) value, diagnostics, context);
-		case Aadl2Package.CONSTANT_VALUE:
-			return validateConstantValue((ConstantValue) value, diagnostics, context);
-		case Aadl2Package.PROPERTY_REFERENCE:
-			return validatePropertyReference((PropertyReference) value, diagnostics, context);
 		case Aadl2Package.OPERATION:
 			return validateOperation((Operation) value, diagnostics, context);
 		case Aadl2Package.RECORD_VALUE:
@@ -8875,16 +8867,6 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEnumerationValue(EnumerationValue enumerationValue, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) enumerationValue, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean validateAbstractNamedValue(AbstractNamedValue abstractNamedValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject) abstractNamedValue, diagnostics, context);
@@ -9235,15 +9217,6 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateUnitValue(UnitValue unitValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) unitValue, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean validateUnitLiteral(UnitLiteral unitLiteral, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) unitLiteral, diagnostics, context))
 			return false;
@@ -9515,68 +9488,6 @@ public class Aadl2Validator extends EObjectValidator {
 			result &= validateElement_not_own_self(realLiteral, diagnostics, context);
 		if (result || diagnostics != null)
 			result &= validateElement_has_owner(realLiteral, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateConstantValue(ConstantValue constantValue, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) constantValue, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) constantValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) constantValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) constantValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) constantValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) constantValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) constantValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) constantValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) constantValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(constantValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(constantValue, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validatePropertyReference(PropertyReference propertyReference, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) propertyReference, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) propertyReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) propertyReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) propertyReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) propertyReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) propertyReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) propertyReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) propertyReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) propertyReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(propertyReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(propertyReference, diagnostics, context);
 		return result;
 	}
 

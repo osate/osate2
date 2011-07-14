@@ -3047,29 +3047,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EnumerationValue} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EnumerationValueItemProvider enumerationValueItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.EnumerationValue}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createEnumerationValueAdapter() {
-		if (enumerationValueItemProvider == null) {
-			enumerationValueItemProvider = new EnumerationValueItemProvider(this);
-		}
-
-		return enumerationValueItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EnumerationLiteral} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3090,29 +3067,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return enumerationLiteralItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.UnitValue} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected UnitValueItemProvider unitValueItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.UnitValue}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createUnitValueAdapter() {
-		if (unitValueItemProvider == null) {
-			unitValueItemProvider = new UnitValueItemProvider(this);
-		}
-
-		return unitValueItemProvider;
 	}
 
 	/**
@@ -3297,52 +3251,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return realLiteralItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ConstantValue} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ConstantValueItemProvider constantValueItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ConstantValue}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createConstantValueAdapter() {
-		if (constantValueItemProvider == null) {
-			constantValueItemProvider = new ConstantValueItemProvider(this);
-		}
-
-		return constantValueItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PropertyReference} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected PropertyReferenceItemProvider propertyReferenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.PropertyReference}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createPropertyReferenceAdapter() {
-		if (propertyReferenceItemProvider == null) {
-			propertyReferenceItemProvider = new PropertyReferenceItemProvider(this);
-		}
-
-		return propertyReferenceItemProvider;
 	}
 
 	/**
@@ -4131,16 +4039,12 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			basicPropertyAssociationItemProvider.dispose();
 		if (propertyConstantItemProvider != null)
 			propertyConstantItemProvider.dispose();
-		if (enumerationValueItemProvider != null)
-			enumerationValueItemProvider.dispose();
-		if (enumerationLiteralItemProvider != null)
-			enumerationLiteralItemProvider.dispose();
-		if (unitValueItemProvider != null)
-			unitValueItemProvider.dispose();
-		if (unitLiteralItemProvider != null)
-			unitLiteralItemProvider.dispose();
 		if (stringLiteralItemProvider != null)
 			stringLiteralItemProvider.dispose();
+		if (unitLiteralItemProvider != null)
+			unitLiteralItemProvider.dispose();
+		if (enumerationLiteralItemProvider != null)
+			enumerationLiteralItemProvider.dispose();
 		if (classifierValueItemProvider != null)
 			classifierValueItemProvider.dispose();
 		if (referenceValueItemProvider != null)
@@ -4153,10 +4057,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			integerLiteralItemProvider.dispose();
 		if (realLiteralItemProvider != null)
 			realLiteralItemProvider.dispose();
-		if (constantValueItemProvider != null)
-			constantValueItemProvider.dispose();
-		if (propertyReferenceItemProvider != null)
-			propertyReferenceItemProvider.dispose();
 		if (operationItemProvider != null)
 			operationItemProvider.dispose();
 		if (recordValueItemProvider != null)

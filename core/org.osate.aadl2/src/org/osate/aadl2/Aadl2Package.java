@@ -772,7 +772,2176 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyExpression()
 	 * @generated
 	 */
-	int PROPERTY_EXPRESSION = 9;
+	int PROPERTY_EXPRESSION = 10;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyOwnerImpl <em>Property Owner</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PropertyOwnerImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyOwner()
+	 * @generated
+	 */
+	int PROPERTY_OWNER = 12;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MetaclassReferenceImpl <em>Metaclass Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MetaclassReferenceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMetaclassReference()
+	 * @generated
+	 */
+	int METACLASS_REFERENCE = 11;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.NamespaceImpl <em>Namespace</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.NamespaceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNamespace()
+	 * @generated
+	 */
+	int NAMESPACE = 14;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ClassifierImpl <em>Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifier()
+	 * @generated
+	 */
+	int CLASSIFIER = 13;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ClassifierFeatureImpl <em>Classifier Feature</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ClassifierFeatureImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierFeature()
+	 * @generated
+	 */
+	int CLASSIFIER_FEATURE = 15;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.RelationshipImpl <em>Relationship</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.RelationshipImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRelationship()
+	 * @generated
+	 */
+	int RELATIONSHIP = 18;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DirectedRelationshipImpl <em>Directed Relationship</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DirectedRelationshipImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDirectedRelationship()
+	 * @generated
+	 */
+	int DIRECTED_RELATIONSHIP = 17;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.GeneralizationImpl <em>Generalization</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.GeneralizationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getGeneralization()
+	 * @generated
+	 */
+	int GENERALIZATION = 16;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalElementImpl <em>Modal Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ModalElementImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalElement()
+	 * @generated
+	 */
+	int MODAL_ELEMENT = 20;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AnnexSubclauseImpl <em>Annex Subclause</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AnnexSubclauseImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAnnexSubclause()
+	 * @generated
+	 */
+	int ANNEX_SUBCLAUSE = 19;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeFeatureImpl <em>Mode Feature</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ModeFeatureImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeFeature()
+	 * @generated
+	 */
+	int MODE_FEATURE = 22;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeImpl <em>Mode</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ModeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMode()
+	 * @generated
+	 */
+	int MODE = 21;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.RefinableElementImpl <em>Refinable Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.RefinableElementImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRefinableElement()
+	 * @generated
+	 */
+	int REFINABLE_ELEMENT = 25;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.StructuralFeatureImpl <em>Structural Feature</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.StructuralFeatureImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getStructuralFeature()
+	 * @generated
+	 */
+	int STRUCTURAL_FEATURE = 24;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PrototypeImpl <em>Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrototype()
+	 * @generated
+	 */
+	int PROTOTYPE = 23;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PrototypeBindingImpl <em>Prototype Binding</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PrototypeBindingImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrototypeBinding()
+	 * @generated
+	 */
+	int PROTOTYPE_BINDING = 26;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ContainedNamedElementImpl <em>Contained Named Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ContainedNamedElementImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContainedNamedElement()
+	 * @generated
+	 */
+	int CONTAINED_NAMED_ELEMENT = 27;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ContainmentPathElementImpl <em>Containment Path Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ContainmentPathElementImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContainmentPathElement()
+	 * @generated
+	 */
+	int CONTAINMENT_PATH_ELEMENT = 28;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ArrayRangeImpl <em>Array Range</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ArrayRangeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArrayRange()
+	 * @generated
+	 */
+	int ARRAY_RANGE = 29;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalPropertyValueImpl <em>Modal Property Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ModalPropertyValueImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalPropertyValue()
+	 * @generated
+	 */
+	int MODAL_PROPERTY_VALUE = 30;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BehavioralFeatureImpl <em>Behavioral Feature</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BehavioralFeatureImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBehavioralFeature()
+	 * @generated
+	 */
+	int BEHAVIORAL_FEATURE = 31;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ArraySpecificationImpl <em>Array Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ArraySpecificationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArraySpecification()
+	 * @generated
+	 */
+	int ARRAY_SPECIFICATION = 32;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ArraySizeImpl <em>Array Size</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ArraySizeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArraySize()
+	 * @generated
+	 */
+	int ARRAY_SIZE = 33;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ArrayableElementImpl <em>Arrayable Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ArrayableElementImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArrayableElement()
+	 * @generated
+	 */
+	int ARRAYABLE_ELEMENT = 34;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.NumeralImpl <em>Numeral</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.NumeralImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumeral()
+	 * @generated
+	 */
+	int NUMERAL = 35;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentImplementationReferenceImpl <em>Component Implementation Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ComponentImplementationReferenceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentImplementationReference()
+	 * @generated
+	 */
+	int COMPONENT_IMPLEMENTATION_REFERENCE = 36;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentClassifierImpl <em>Component Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ComponentClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentClassifier()
+	 * @generated
+	 */
+	int COMPONENT_CLASSIFIER = 38;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentImplementationImpl <em>Component Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ComponentImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentImplementation()
+	 * @generated
+	 */
+	int COMPONENT_IMPLEMENTATION = 37;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubcomponentTypeImpl <em>Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubcomponentType()
+	 * @generated
+	 */
+	int SUBCOMPONENT_TYPE = 39;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeTransitionImpl <em>Mode Transition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ModeTransitionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeTransition()
+	 * @generated
+	 */
+	int MODE_TRANSITION = 40;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeTransitionTriggerImpl <em>Mode Transition Trigger</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ModeTransitionTriggerImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeTransitionTrigger()
+	 * @generated
+	 */
+	int MODE_TRANSITION_TRIGGER = 41;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.TriggerPortImpl <em>Trigger Port</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.TriggerPortImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getTriggerPort()
+	 * @generated
+	 */
+	int TRIGGER_PORT = 111;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ContextImpl <em>Context</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ContextImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContext()
+	 * @generated
+	 */
+	int CONTEXT = 51;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureImpl <em>Feature</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeature()
+	 * @generated
+	 */
+	int FEATURE = 43;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DirectedFeatureImpl <em>Directed Feature</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DirectedFeatureImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDirectedFeature()
+	 * @generated
+	 */
+	int DIRECTED_FEATURE = 55;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PortImpl <em>Port</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PortImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPort()
+	 * @generated
+	 */
+	int PORT = 72;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectionEndImpl <em>Connection End</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ConnectionEndImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnectionEnd()
+	 * @generated
+	 */
+	int CONNECTION_END = 45;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureConnectionEndImpl <em>Feature Connection End</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureConnectionEndImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureConnectionEnd()
+	 * @generated
+	 */
+	int FEATURE_CONNECTION_END = 44;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PortConnectionEndImpl <em>Port Connection End</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PortConnectionEndImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortConnectionEnd()
+	 * @generated
+	 */
+	int PORT_CONNECTION_END = 67;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorPortImpl <em>Processor Port</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorPortImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorPort()
+	 * @generated
+	 */
+	int PROCESSOR_PORT = 254;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.InternalEventImpl <em>Internal Event</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.InternalEventImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getInternalEvent()
+	 * @generated
+	 */
+	int INTERNAL_EVENT = 255;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentTypeImpl <em>Component Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ComponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentType()
+	 * @generated
+	 */
+	int COMPONENT_TYPE = 42;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowImpl <em>Flow</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FlowImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlow()
+	 * @generated
+	 */
+	int FLOW = 47;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowSpecificationImpl <em>Flow Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FlowSpecificationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowSpecification()
+	 * @generated
+	 */
+	int FLOW_SPECIFICATION = 46;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.TypeExtensionImpl <em>Type Extension</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.TypeExtensionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getTypeExtension()
+	 * @generated
+	 */
+	int TYPE_EXTENSION = 52;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupImpl <em>Feature Group</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroup()
+	 * @generated
+	 */
+	int FEATURE_GROUP = 53;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupConnectionEndImpl <em>Feature Group Connection End</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupConnectionEndImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupConnectionEnd()
+	 * @generated
+	 */
+	int FEATURE_GROUP_CONNECTION_END = 56;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.CallContextImpl <em>Call Context</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.CallContextImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getCallContext()
+	 * @generated
+	 */
+	int CALL_CONTEXT = 54;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupTypeImpl <em>Feature Group Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupType()
+	 * @generated
+	 */
+	int FEATURE_GROUP_TYPE = 57;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.GroupExtensionImpl <em>Group Extension</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.GroupExtensionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getGroupExtension()
+	 * @generated
+	 */
+	int GROUP_EXTENSION = 58;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessImpl <em>Access</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AccessImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccess()
+	 * @generated
+	 */
+	int ACCESS = 60;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BusAccessImpl <em>Bus Access</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BusAccessImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusAccess()
+	 * @generated
+	 */
+	int BUS_ACCESS = 59;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessConnectionEndImpl <em>Access Connection End</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AccessConnectionEndImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessConnectionEnd()
+	 * @generated
+	 */
+	int ACCESS_CONNECTION_END = 61;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BusClassifierImpl <em>Bus Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BusClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusClassifier()
+	 * @generated
+	 */
+	int BUS_CLASSIFIER = 62;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BusImpl <em>Bus</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BusImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBus()
+	 * @generated
+	 */
+	int BUS = 64;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BusSubcomponentTypeImpl <em>Bus Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BusSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusSubcomponentType()
+	 * @generated
+	 */
+	int BUS_SUBCOMPONENT_TYPE = 63;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DataAccessImpl <em>Data Access</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DataAccessImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataAccess()
+	 * @generated
+	 */
+	int DATA_ACCESS = 65;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ParameterConnectionEndImpl <em>Parameter Connection End</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ParameterConnectionEndImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getParameterConnectionEnd()
+	 * @generated
+	 */
+	int PARAMETER_CONNECTION_END = 66;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.EndToEndFlowElementImpl <em>End To End Flow Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.EndToEndFlowElementImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEndToEndFlowElement()
+	 * @generated
+	 */
+	int END_TO_END_FLOW_ELEMENT = 49;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowElementImpl <em>Flow Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FlowElementImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowElement()
+	 * @generated
+	 */
+	int FLOW_ELEMENT = 48;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowEndImpl <em>Flow End</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FlowEndImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowEnd()
+	 * @generated
+	 */
+	int FLOW_END = 50;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DataClassifierImpl <em>Data Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DataClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataClassifier()
+	 * @generated
+	 */
+	int DATA_CLASSIFIER = 68;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DataImpl <em>Data</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DataImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getData()
+	 * @generated
+	 */
+	int DATA = 70;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DataSubcomponentTypeImpl <em>Data Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DataSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataSubcomponentType()
+	 * @generated
+	 */
+	int DATA_SUBCOMPONENT_TYPE = 69;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DataPortImpl <em>Data Port</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DataPortImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataPort()
+	 * @generated
+	 */
+	int DATA_PORT = 71;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.EventDataPortImpl <em>Event Data Port</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.EventDataPortImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEventDataPort()
+	 * @generated
+	 */
+	int EVENT_DATA_PORT = 73;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.EventPortImpl <em>Event Port</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.EventPortImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEventPort()
+	 * @generated
+	 */
+	int EVENT_PORT = 74;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ParameterImpl <em>Parameter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ParameterImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getParameter()
+	 * @generated
+	 */
+	int PARAMETER = 75;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramAccessImpl <em>Subprogram Access</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramAccessImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramAccess()
+	 * @generated
+	 */
+	int SUBPROGRAM_ACCESS = 76;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.CalledSubprogramImpl <em>Called Subprogram</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.CalledSubprogramImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getCalledSubprogram()
+	 * @generated
+	 */
+	int CALLED_SUBPROGRAM = 77;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramClassifierImpl <em>Subprogram Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramClassifier()
+	 * @generated
+	 */
+	int SUBPROGRAM_CLASSIFIER = 78;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramSubcomponentTypeImpl <em>Subprogram Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramSubcomponentType()
+	 * @generated
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE = 79;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramImpl <em>Subprogram</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogram()
+	 * @generated
+	 */
+	int SUBPROGRAM = 80;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupAccessImpl <em>Subprogram Group Access</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramGroupAccessImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupAccess()
+	 * @generated
+	 */
+	int SUBPROGRAM_GROUP_ACCESS = 81;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupClassifierImpl <em>Subprogram Group Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramGroupClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupClassifier()
+	 * @generated
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER = 82;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentTypeImpl <em>Subprogram Group Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramGroupSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupSubcomponentType()
+	 * @generated
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE = 83;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupImpl <em>Subprogram Group</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramGroupImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroup()
+	 * @generated
+	 */
+	int SUBPROGRAM_GROUP = 84;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractFeatureImpl <em>Abstract Feature</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractFeatureImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractFeature()
+	 * @generated
+	 */
+	int ABSTRACT_FEATURE = 85;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubcomponentImpl <em>Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubcomponent()
+	 * @generated
+	 */
+	int SUBCOMPONENT = 86;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeImpl <em>Component Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ComponentPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototype()
+	 * @generated
+	 */
+	int COMPONENT_PROTOTYPE = 87;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeBindingImpl <em>Mode Binding</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ModeBindingImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeBinding()
+	 * @generated
+	 */
+	int MODE_BINDING = 88;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractClassifierImpl <em>Abstract Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractClassifier()
+	 * @generated
+	 */
+	int ABSTRACT_CLASSIFIER = 139;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractImpl <em>Abstract</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstract()
+	 * @generated
+	 */
+	int ABSTRACT = 90;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractSubcomponentTypeImpl <em>Abstract Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractSubcomponentType()
+	 * @generated
+	 */
+	int ABSTRACT_SUBCOMPONENT_TYPE = 89;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowImplementationImpl <em>Flow Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FlowImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowImplementation()
+	 * @generated
+	 */
+	int FLOW_IMPLEMENTATION = 91;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalPathImpl <em>Modal Path</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ModalPathImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalPath()
+	 * @generated
+	 */
+	int MODAL_PATH = 92;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowSegmentImpl <em>Flow Segment</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FlowSegmentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowSegment()
+	 * @generated
+	 */
+	int FLOW_SEGMENT = 93;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectionImpl <em>Connection</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ConnectionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnection()
+	 * @generated
+	 */
+	int CONNECTION = 94;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractConnectionEndImpl <em>Abstract Connection End</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractConnectionEndImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractConnectionEnd()
+	 * @generated
+	 */
+	int ABSTRACT_CONNECTION_END = 95;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectedElementImpl <em>Connected Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ConnectedElementImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnectedElement()
+	 * @generated
+	 */
+	int CONNECTED_ELEMENT = 106;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ImplementationExtensionImpl <em>Implementation Extension</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ImplementationExtensionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getImplementationExtension()
+	 * @generated
+	 */
+	int IMPLEMENTATION_EXTENSION = 96;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.RealizationImpl <em>Realization</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.RealizationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRealization()
+	 * @generated
+	 */
+	int REALIZATION = 97;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.EndToEndFlowImpl <em>End To End Flow</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.EndToEndFlowImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEndToEndFlow()
+	 * @generated
+	 */
+	int END_TO_END_FLOW = 98;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.EndToEndFlowSegmentImpl <em>End To End Flow Segment</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.EndToEndFlowSegmentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEndToEndFlowSegment()
+	 * @generated
+	 */
+	int END_TO_END_FLOW_SEGMENT = 99;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractSubcomponentImpl <em>Abstract Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractSubcomponent()
+	 * @generated
+	 */
+	int ABSTRACT_SUBCOMPONENT = 100;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ElementNameImpl <em>Element Name</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ElementNameImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getElementName()
+	 * @generated
+	 */
+	int ELEMENT_NAME = 107;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessConnectionImpl <em>Access Connection</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AccessConnectionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessConnection()
+	 * @generated
+	 */
+	int ACCESS_CONNECTION = 101;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ParameterConnectionImpl <em>Parameter Connection</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ParameterConnectionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getParameterConnection()
+	 * @generated
+	 */
+	int PARAMETER_CONNECTION = 102;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PortConnectionImpl <em>Port Connection</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PortConnectionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortConnection()
+	 * @generated
+	 */
+	int PORT_CONNECTION = 103;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureConnectionImpl <em>Feature Connection</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureConnectionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureConnection()
+	 * @generated
+	 */
+	int FEATURE_CONNECTION = 104;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupConnectionImpl <em>Feature Group Connection</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupConnectionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupConnection()
+	 * @generated
+	 */
+	int FEATURE_GROUP_CONNECTION = 105;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorSubprogramImpl <em>Processor Subprogram</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorSubprogramImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubprogram()
+	 * @generated
+	 */
+	int PROCESSOR_SUBPROGRAM = 256;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AnnexLibraryImpl <em>Annex Library</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AnnexLibraryImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAnnexLibrary()
+	 * @generated
+	 */
+	int ANNEX_LIBRARY = 108;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DefaultAnnexLibraryImpl <em>Default Annex Library</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DefaultAnnexLibraryImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDefaultAnnexLibrary()
+	 * @generated
+	 */
+	int DEFAULT_ANNEX_LIBRARY = 109;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DefaultAnnexSubclauseImpl <em>Default Annex Subclause</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DefaultAnnexSubclauseImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDefaultAnnexSubclause()
+	 * @generated
+	 */
+	int DEFAULT_ANNEX_SUBCLAUSE = 110;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PackageSectionImpl <em>Package Section</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PackageSectionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPackageSection()
+	 * @generated
+	 */
+	int PACKAGE_SECTION = 113;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PublicPackageSectionImpl <em>Public Package Section</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PublicPackageSectionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPublicPackageSection()
+	 * @generated
+	 */
+	int PUBLIC_PACKAGE_SECTION = 112;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PackageRenameImpl <em>Package Rename</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PackageRenameImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPackageRename()
+	 * @generated
+	 */
+	int PACKAGE_RENAME = 114;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ModelUnitImpl <em>Model Unit</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ModelUnitImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModelUnit()
+	 * @generated
+	 */
+	int MODEL_UNIT = 116;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AadlPackageImpl <em>Aadl Package</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AadlPackageImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlPackage()
+	 * @generated
+	 */
+	int AADL_PACKAGE = 115;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PrivatePackageSectionImpl <em>Private Package Section</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PrivatePackageSectionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrivatePackageSection()
+	 * @generated
+	 */
+	int PRIVATE_PACKAGE_SECTION = 117;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentTypeRenameImpl <em>Component Type Rename</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ComponentTypeRenameImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentTypeRename()
+	 * @generated
+	 */
+	int COMPONENT_TYPE_RENAME = 118;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupTypeRenameImpl <em>Feature Group Type Rename</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupTypeRenameImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupTypeRename()
+	 * @generated
+	 */
+	int FEATURE_GROUP_TYPE_RENAME = 119;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractTypeImpl <em>Abstract Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractType()
+	 * @generated
+	 */
+	int ABSTRACT_TYPE = 138;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BehavioredImplementationImpl <em>Behaviored Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BehavioredImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBehavioredImplementation()
+	 * @generated
+	 */
+	int BEHAVIORED_IMPLEMENTATION = 136;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractImplementationImpl <em>Abstract Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractImplementation()
+	 * @generated
+	 */
+	int ABSTRACT_IMPLEMENTATION = 140;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.CallSpecificationImpl <em>Call Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.CallSpecificationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getCallSpecification()
+	 * @generated
+	 */
+	int CALL_SPECIFICATION = 134;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramCallSequenceImpl <em>Subprogram Call Sequence</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramCallSequenceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramCallSequence()
+	 * @generated
+	 */
+	int SUBPROGRAM_CALL_SEQUENCE = 133;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BusSubcomponentImpl <em>Bus Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BusSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusSubcomponent()
+	 * @generated
+	 */
+	int BUS_SUBCOMPONENT = 141;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DataSubcomponentImpl <em>Data Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DataSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataSubcomponent()
+	 * @generated
+	 */
+	int DATA_SUBCOMPONENT = 142;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceSubcomponentImpl <em>Device Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DeviceSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceSubcomponent()
+	 * @generated
+	 */
+	int DEVICE_SUBCOMPONENT = 143;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceImpl <em>Device</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DeviceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDevice()
+	 * @generated
+	 */
+	int DEVICE = 144;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceClassifierImpl <em>Device Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DeviceClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceClassifier()
+	 * @generated
+	 */
+	int DEVICE_CLASSIFIER = 179;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MemorySubcomponentImpl <em>Memory Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MemorySubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemorySubcomponent()
+	 * @generated
+	 */
+	int MEMORY_SUBCOMPONENT = 146;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryImpl <em>Memory</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MemoryImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemory()
+	 * @generated
+	 */
+	int MEMORY = 147;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryClassifierImpl <em>Memory Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MemoryClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryClassifier()
+	 * @generated
+	 */
+	int MEMORY_CLASSIFIER = 183;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessSubcomponentImpl <em>Process Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessSubcomponent()
+	 * @generated
+	 */
+	int PROCESS_SUBCOMPONENT = 149;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessImpl <em>Process</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcess()
+	 * @generated
+	 */
+	int PROCESS = 150;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessClassifierImpl <em>Process Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessClassifier()
+	 * @generated
+	 */
+	int PROCESS_CLASSIFIER = 201;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorSubcomponentImpl <em>Processor Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubcomponent()
+	 * @generated
+	 */
+	int PROCESSOR_SUBCOMPONENT = 152;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorImpl <em>Processor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessor()
+	 * @generated
+	 */
+	int PROCESSOR = 153;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorClassifierImpl <em>Processor Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorClassifier()
+	 * @generated
+	 */
+	int PROCESSOR_CLASSIFIER = 197;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemSubcomponentImpl <em>System Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SystemSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemSubcomponent()
+	 * @generated
+	 */
+	int SYSTEM_SUBCOMPONENT = 155;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemImpl <em>System</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SystemImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystem()
+	 * @generated
+	 */
+	int SYSTEM = 156;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemClassifierImpl <em>System Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SystemClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemClassifier()
+	 * @generated
+	 */
+	int SYSTEM_CLASSIFIER = 193;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramSubcomponentImpl <em>Subprogram Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramSubcomponent()
+	 * @generated
+	 */
+	int SUBPROGRAM_SUBCOMPONENT = 158;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl <em>Subprogram Group Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupSubcomponent()
+	 * @generated
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT = 159;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadSubcomponentImpl <em>Thread Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadSubcomponent()
+	 * @generated
+	 */
+	int THREAD_SUBCOMPONENT = 160;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadImpl <em>Thread</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThread()
+	 * @generated
+	 */
+	int THREAD = 161;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadClassifierImpl <em>Thread Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadClassifier()
+	 * @generated
+	 */
+	int THREAD_CLASSIFIER = 205;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupSubcomponentImpl <em>Thread Group Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadGroupSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupSubcomponent()
+	 * @generated
+	 */
+	int THREAD_GROUP_SUBCOMPONENT = 163;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupImpl <em>Thread Group</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadGroupImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroup()
+	 * @generated
+	 */
+	int THREAD_GROUP = 164;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupClassifierImpl <em>Thread Group Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadGroupClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupClassifier()
+	 * @generated
+	 */
+	int THREAD_GROUP_CLASSIFIER = 209;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusSubcomponentImpl <em>Virtual Bus Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusSubcomponent()
+	 * @generated
+	 */
+	int VIRTUAL_BUS_SUBCOMPONENT = 166;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBus()
+	 * @generated
+	 */
+	int VIRTUAL_BUS = 167;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusClassifierImpl <em>Virtual Bus Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusClassifier()
+	 * @generated
+	 */
+	int VIRTUAL_BUS_CLASSIFIER = 213;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorSubcomponentImpl <em>Virtual Processor Subcomponent</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualProcessorSubcomponentImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorSubcomponent()
+	 * @generated
+	 */
+	int VIRTUAL_PROCESSOR_SUBCOMPONENT = 169;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorImpl <em>Virtual Processor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualProcessorImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessor()
+	 * @generated
+	 */
+	int VIRTUAL_PROCESSOR = 170;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorClassifierImpl <em>Virtual Processor Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualProcessorClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorClassifier()
+	 * @generated
+	 */
+	int VIRTUAL_PROCESSOR_CLASSIFIER = 217;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BusTypeImpl <em>Bus Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BusTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusType()
+	 * @generated
+	 */
+	int BUS_TYPE = 173;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BusImplementationImpl <em>Bus Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BusImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusImplementation()
+	 * @generated
+	 */
+	int BUS_IMPLEMENTATION = 174;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DataTypeImpl <em>Data Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DataTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataType()
+	 * @generated
+	 */
+	int DATA_TYPE = 176;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DataImplementationImpl <em>Data Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DataImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataImplementation()
+	 * @generated
+	 */
+	int DATA_IMPLEMENTATION = 177;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceTypeImpl <em>Device Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DeviceTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceType()
+	 * @generated
+	 */
+	int DEVICE_TYPE = 180;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceImplementationImpl <em>Device Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DeviceImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceImplementation()
+	 * @generated
+	 */
+	int DEVICE_IMPLEMENTATION = 181;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryTypeImpl <em>Memory Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MemoryTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryType()
+	 * @generated
+	 */
+	int MEMORY_TYPE = 184;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryImplementationImpl <em>Memory Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MemoryImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryImplementation()
+	 * @generated
+	 */
+	int MEMORY_IMPLEMENTATION = 185;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessTypeImpl <em>Process Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessType()
+	 * @generated
+	 */
+	int PROCESS_TYPE = 202;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorTypeImpl <em>Processor Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorType()
+	 * @generated
+	 */
+	int PROCESSOR_TYPE = 198;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessImplementationImpl <em>Process Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessImplementation()
+	 * @generated
+	 */
+	int PROCESS_IMPLEMENTATION = 203;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorImplementationImpl <em>Processor Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorImplementation()
+	 * @generated
+	 */
+	int PROCESSOR_IMPLEMENTATION = 199;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramTypeImpl <em>Subprogram Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramType()
+	 * @generated
+	 */
+	int SUBPROGRAM_TYPE = 187;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramImplementationImpl <em>Subprogram Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramImplementation()
+	 * @generated
+	 */
+	int SUBPROGRAM_IMPLEMENTATION = 188;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupTypeImpl <em>Subprogram Group Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramGroupTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupType()
+	 * @generated
+	 */
+	int SUBPROGRAM_GROUP_TYPE = 190;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl <em>Subprogram Group Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramGroupImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupImplementation()
+	 * @generated
+	 */
+	int SUBPROGRAM_GROUP_IMPLEMENTATION = 191;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemTypeImpl <em>System Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SystemTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemType()
+	 * @generated
+	 */
+	int SYSTEM_TYPE = 194;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemImplementationImpl <em>System Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SystemImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemImplementation()
+	 * @generated
+	 */
+	int SYSTEM_IMPLEMENTATION = 195;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadTypeImpl <em>Thread Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadType()
+	 * @generated
+	 */
+	int THREAD_TYPE = 206;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadImplementationImpl <em>Thread Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadImplementation()
+	 * @generated
+	 */
+	int THREAD_IMPLEMENTATION = 207;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupTypeImpl <em>Thread Group Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadGroupTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupType()
+	 * @generated
+	 */
+	int THREAD_GROUP_TYPE = 210;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupImplementationImpl <em>Thread Group Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadGroupImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupImplementation()
+	 * @generated
+	 */
+	int THREAD_GROUP_IMPLEMENTATION = 211;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusTypeImpl <em>Virtual Bus Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusType()
+	 * @generated
+	 */
+	int VIRTUAL_BUS_TYPE = 214;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusImplementationImpl <em>Virtual Bus Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusImplementation()
+	 * @generated
+	 */
+	int VIRTUAL_BUS_IMPLEMENTATION = 215;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorTypeImpl <em>Virtual Processor Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualProcessorTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorType()
+	 * @generated
+	 */
+	int VIRTUAL_PROCESSOR_TYPE = 218;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorImplementationImpl <em>Virtual Processor Implementation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualProcessorImplementationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorImplementation()
+	 * @generated
+	 */
+	int VIRTUAL_PROCESSOR_IMPLEMENTATION = 219;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeBindingImpl <em>Component Prototype Binding</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ComponentPrototypeBindingImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeBinding()
+	 * @generated
+	 */
+	int COMPONENT_PROTOTYPE_BINDING = 120;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl <em>Component Prototype Actual</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ComponentPrototypeActualImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeActual()
+	 * @generated
+	 */
+	int COMPONENT_PROTOTYPE_ACTUAL = 121;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeImpl <em>Feature Group Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototype()
+	 * @generated
+	 */
+	int FEATURE_GROUP_PROTOTYPE = 122;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeBindingImpl <em>Feature Group Prototype Binding</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeBindingImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeBinding()
+	 * @generated
+	 */
+	int FEATURE_GROUP_PROTOTYPE_BINDING = 123;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl <em>Feature Group Prototype Actual</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeActual()
+	 * @generated
+	 */
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL = 124;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeImpl <em>Feature Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeaturePrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototype()
+	 * @generated
+	 */
+	int FEATURE_PROTOTYPE = 125;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeBindingImpl <em>Feature Prototype Binding</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeaturePrototypeBindingImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeBinding()
+	 * @generated
+	 */
+	int FEATURE_PROTOTYPE_BINDING = 126;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeActualImpl <em>Feature Prototype Actual</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeaturePrototypeActualImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeActual()
+	 * @generated
+	 */
+	int FEATURE_PROTOTYPE_ACTUAL = 127;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessSpecificationImpl <em>Access Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AccessSpecificationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessSpecification()
+	 * @generated
+	 */
+	int ACCESS_SPECIFICATION = 128;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PortSpecificationImpl <em>Port Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PortSpecificationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortSpecification()
+	 * @generated
+	 */
+	int PORT_SPECIFICATION = 129;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeReferenceImpl <em>Feature Prototype Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeaturePrototypeReferenceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeReference()
+	 * @generated
+	 */
+	int FEATURE_PROTOTYPE_REFERENCE = 130;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeReferenceImpl <em>Feature Group Prototype Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeReferenceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeReference()
+	 * @generated
+	 */
+	int FEATURE_GROUP_PROTOTYPE_REFERENCE = 131;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupReferenceImpl <em>Feature Group Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureGroupReferenceImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupReference()
+	 * @generated
+	 */
+	int FEATURE_GROUP_REFERENCE = 132;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorCallImpl <em>Processor Call</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorCallImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorCall()
+	 * @generated
+	 */
+	int PROCESSOR_CALL = 135;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramCallImpl <em>Subprogram Call</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramCallImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramCall()
+	 * @generated
+	 */
+	int SUBPROGRAM_CALL = 137;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceSubcomponentTypeImpl <em>Device Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DeviceSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceSubcomponentType()
+	 * @generated
+	 */
+	int DEVICE_SUBCOMPONENT_TYPE = 145;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MemorySubcomponentTypeImpl <em>Memory Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MemorySubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemorySubcomponentType()
+	 * @generated
+	 */
+	int MEMORY_SUBCOMPONENT_TYPE = 148;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessSubcomponentTypeImpl <em>Process Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessSubcomponentType()
+	 * @generated
+	 */
+	int PROCESS_SUBCOMPONENT_TYPE = 151;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorSubcomponentTypeImpl <em>Processor Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubcomponentType()
+	 * @generated
+	 */
+	int PROCESSOR_SUBCOMPONENT_TYPE = 154;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemSubcomponentTypeImpl <em>System Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SystemSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemSubcomponentType()
+	 * @generated
+	 */
+	int SYSTEM_SUBCOMPONENT_TYPE = 157;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadSubcomponentTypeImpl <em>Thread Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadSubcomponentType()
+	 * @generated
+	 */
+	int THREAD_SUBCOMPONENT_TYPE = 162;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupSubcomponentTypeImpl <em>Thread Group Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadGroupSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupSubcomponentType()
+	 * @generated
+	 */
+	int THREAD_GROUP_SUBCOMPONENT_TYPE = 165;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VitualBusSubcomponentTypeImpl <em>Vitual Bus Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VitualBusSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVitualBusSubcomponentType()
+	 * @generated
+	 */
+	int VITUAL_BUS_SUBCOMPONENT_TYPE = 168;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorSubcomponentTypeImpl <em>Virtual Processor Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualProcessorSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorSubcomponentType()
+	 * @generated
+	 */
+	int VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE = 171;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractPrototypeImpl <em>Abstract Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractPrototype()
+	 * @generated
+	 */
+	int ABSTRACT_PROTOTYPE = 172;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BusPrototypeImpl <em>Bus Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BusPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusPrototype()
+	 * @generated
+	 */
+	int BUS_PROTOTYPE = 175;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DataPrototypeImpl <em>Data Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DataPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataPrototype()
+	 * @generated
+	 */
+	int DATA_PROTOTYPE = 178;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.DevicePrototypeImpl <em>Device Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.DevicePrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDevicePrototype()
+	 * @generated
+	 */
+	int DEVICE_PROTOTYPE = 182;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryPrototypeImpl <em>Memory Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.MemoryPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryPrototype()
+	 * @generated
+	 */
+	int MEMORY_PROTOTYPE = 186;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramPrototypeImpl <em>Subprogram Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramPrototype()
+	 * @generated
+	 */
+	int SUBPROGRAM_PROTOTYPE = 189;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupPrototypeImpl <em>Subprogram Group Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SubprogramGroupPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupPrototype()
+	 * @generated
+	 */
+	int SUBPROGRAM_GROUP_PROTOTYPE = 192;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemPrototypeImpl <em>System Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.SystemPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemPrototype()
+	 * @generated
+	 */
+	int SYSTEM_PROTOTYPE = 196;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorPrototypeImpl <em>Processor Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessorPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorPrototype()
+	 * @generated
+	 */
+	int PROCESSOR_PROTOTYPE = 200;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessPrototypeImpl <em>Process Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ProcessPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessPrototype()
+	 * @generated
+	 */
+	int PROCESS_PROTOTYPE = 204;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadPrototypeImpl <em>Thread Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadPrototype()
+	 * @generated
+	 */
+	int THREAD_PROTOTYPE = 208;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupPrototypeImpl <em>Thread Group Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ThreadGroupPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupPrototype()
+	 * @generated
+	 */
+	int THREAD_GROUP_PROTOTYPE = 212;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusPrototypeImpl <em>Virtual Bus Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusPrototype()
+	 * @generated
+	 */
+	int VIRTUAL_BUS_PROTOTYPE = 216;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorPrototypeImpl <em>Virtual Processor Prototype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualProcessorPrototypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorPrototype()
+	 * @generated
+	 */
+	int VIRTUAL_PROCESSOR_PROTOTYPE = 220;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BasicPropertyAssociationImpl <em>Basic Property Association</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BasicPropertyAssociationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBasicPropertyAssociation()
+	 * @generated
+	 */
+	int BASIC_PROPERTY_ASSOCIATION = 221;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyConstantImpl <em>Property Constant</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PropertyConstantImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyConstant()
+	 * @generated
+	 */
+	int PROPERTY_CONSTANT = 222;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractNamedValueImpl <em>Abstract Named Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractNamedValueImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractNamedValue()
+	 * @generated
+	 */
+	int ABSTRACT_NAMED_VALUE = 9;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Named Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_NAMED_VALUE_FEATURE_COUNT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -802,16 +2971,6 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_EXPRESSION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyOwnerImpl <em>Property Owner</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PropertyOwnerImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyOwner()
-	 * @generated
-	 */
-	int PROPERTY_OWNER = 11;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -837,16 +2996,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int PROPERTY_OWNER_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MetaclassReferenceImpl <em>Metaclass Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MetaclassReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMetaclassReference()
-	 * @generated
-	 */
-	int METACLASS_REFERENCE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -892,16 +3041,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int METACLASS_REFERENCE_FEATURE_COUNT = PROPERTY_OWNER_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.NamespaceImpl <em>Namespace</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.NamespaceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNamespace()
-	 * @generated
-	 */
-	int NAMESPACE = 13;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -974,16 +3113,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int NAMESPACE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ClassifierImpl <em>Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifier()
-	 * @generated
-	 */
-	int CLASSIFIER = 12;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1148,16 +3277,6 @@ public interface Aadl2Package extends EPackage {
 	int CLASSIFIER_FEATURE_COUNT = NAMESPACE_FEATURE_COUNT + 10;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ClassifierFeatureImpl <em>Classifier Feature</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ClassifierFeatureImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierFeature()
-	 * @generated
-	 */
-	int CLASSIFIER_FEATURE = 14;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1221,16 +3340,6 @@ public interface Aadl2Package extends EPackage {
 	int CLASSIFIER_FEATURE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.RelationshipImpl <em>Relationship</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.RelationshipImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRelationship()
-	 * @generated
-	 */
-	int RELATIONSHIP = 17;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1265,16 +3374,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int RELATIONSHIP_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DirectedRelationshipImpl <em>Directed Relationship</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DirectedRelationshipImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDirectedRelationship()
-	 * @generated
-	 */
-	int DIRECTED_RELATIONSHIP = 16;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1329,16 +3428,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int DIRECTED_RELATIONSHIP_FEATURE_COUNT = RELATIONSHIP_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.GeneralizationImpl <em>Generalization</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.GeneralizationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getGeneralization()
-	 * @generated
-	 */
-	int GENERALIZATION = 15;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1413,16 +3502,6 @@ public interface Aadl2Package extends EPackage {
 	int GENERALIZATION_FEATURE_COUNT = DIRECTED_RELATIONSHIP_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalElementImpl <em>Modal Element</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ModalElementImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalElement()
-	 * @generated
-	 */
-	int MODAL_ELEMENT = 19;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1484,16 +3563,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int MODAL_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AnnexSubclauseImpl <em>Annex Subclause</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AnnexSubclauseImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAnnexSubclause()
-	 * @generated
-	 */
-	int ANNEX_SUBCLAUSE = 18;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1559,16 +3628,6 @@ public interface Aadl2Package extends EPackage {
 	int ANNEX_SUBCLAUSE_FEATURE_COUNT = MODAL_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeFeatureImpl <em>Mode Feature</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ModeFeatureImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeFeature()
-	 * @generated
-	 */
-	int MODE_FEATURE = 21;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1630,16 +3689,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int MODE_FEATURE_FEATURE_COUNT = CLASSIFIER_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeImpl <em>Mode</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ModeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMode()
-	 * @generated
-	 */
-	int MODE = 20;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1723,16 +3772,6 @@ public interface Aadl2Package extends EPackage {
 	int MODE_FEATURE_COUNT = MODE_FEATURE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.RefinableElementImpl <em>Refinable Element</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.RefinableElementImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRefinableElement()
-	 * @generated
-	 */
-	int REFINABLE_ELEMENT = 24;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1803,16 +3842,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int REFINABLE_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.StructuralFeatureImpl <em>Structural Feature</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.StructuralFeatureImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getStructuralFeature()
-	 * @generated
-	 */
-	int STRUCTURAL_FEATURE = 23;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1894,16 +3923,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int STRUCTURAL_FEATURE_FEATURE_COUNT = REFINABLE_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PrototypeImpl <em>Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrototype()
-	 * @generated
-	 */
-	int PROTOTYPE = 22;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1996,16 +4015,6 @@ public interface Aadl2Package extends EPackage {
 	int PROTOTYPE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PrototypeBindingImpl <em>Prototype Binding</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PrototypeBindingImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrototypeBinding()
-	 * @generated
-	 */
-	int PROTOTYPE_BINDING = 25;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2042,16 +4051,6 @@ public interface Aadl2Package extends EPackage {
 	int PROTOTYPE_BINDING_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ContainedNamedElementImpl <em>Contained Named Element</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ContainedNamedElementImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContainedNamedElement()
-	 * @generated
-	 */
-	int CONTAINED_NAMED_ELEMENT = 26;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2086,16 +4085,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int CONTAINED_NAMED_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ContainmentPathElementImpl <em>Containment Path Element</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ContainmentPathElementImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContainmentPathElement()
-	 * @generated
-	 */
-	int CONTAINMENT_PATH_ELEMENT = 27;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2143,16 +4132,6 @@ public interface Aadl2Package extends EPackage {
 	int CONTAINMENT_PATH_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ArrayRangeImpl <em>Array Range</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ArrayRangeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArrayRange()
-	 * @generated
-	 */
-	int ARRAY_RANGE = 28;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2196,16 +4175,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int ARRAY_RANGE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalPropertyValueImpl <em>Modal Property Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ModalPropertyValueImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalPropertyValue()
-	 * @generated
-	 */
-	int MODAL_PROPERTY_VALUE = 29;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2280,16 +4249,6 @@ public interface Aadl2Package extends EPackage {
 	int MODAL_PROPERTY_VALUE_FEATURE_COUNT = MODAL_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BehavioralFeatureImpl <em>Behavioral Feature</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BehavioralFeatureImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBehavioralFeature()
-	 * @generated
-	 */
-	int BEHAVIORAL_FEATURE = 30;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2353,16 +4312,6 @@ public interface Aadl2Package extends EPackage {
 	int BEHAVIORAL_FEATURE_FEATURE_COUNT = CLASSIFIER_FEATURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ArraySpecificationImpl <em>Array Specification</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ArraySpecificationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArraySpecification()
-	 * @generated
-	 */
-	int ARRAY_SPECIFICATION = 31;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2408,16 +4357,6 @@ public interface Aadl2Package extends EPackage {
 	int ARRAY_SPECIFICATION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ArraySizeImpl <em>Array Size</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ArraySizeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArraySize()
-	 * @generated
-	 */
-	int ARRAY_SIZE = 32;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2443,16 +4382,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int ARRAY_SIZE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ArrayableElementImpl <em>Arrayable Element</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ArrayableElementImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArrayableElement()
-	 * @generated
-	 */
-	int ARRAYABLE_ELEMENT = 33;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2491,16 +4420,6 @@ public interface Aadl2Package extends EPackage {
 	int ARRAYABLE_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.NumeralImpl <em>Numeral</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.NumeralImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumeral()
-	 * @generated
-	 */
-	int NUMERAL = 34;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2535,16 +4454,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int NUMERAL_FEATURE_COUNT = ARRAY_SIZE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentImplementationReferenceImpl <em>Component Implementation Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ComponentImplementationReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentImplementationReference()
-	 * @generated
-	 */
-	int COMPONENT_IMPLEMENTATION_REFERENCE = 35;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2590,16 +4499,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int COMPONENT_IMPLEMENTATION_REFERENCE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentClassifierImpl <em>Component Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ComponentClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentClassifier()
-	 * @generated
-	 */
-	int COMPONENT_CLASSIFIER = 37;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2798,16 +4697,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int COMPONENT_CLASSIFIER_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 4;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentImplementationImpl <em>Component Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ComponentImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentImplementation()
-	 * @generated
-	 */
-	int COMPONENT_IMPLEMENTATION = 36;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3161,16 +5050,6 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 17;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubcomponentTypeImpl <em>Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubcomponentType()
-	 * @generated
-	 */
-	int SUBCOMPONENT_TYPE = 38;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3223,16 +5102,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBCOMPONENT_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeTransitionImpl <em>Mode Transition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ModeTransitionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeTransition()
-	 * @generated
-	 */
-	int MODE_TRANSITION = 39;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3325,16 +5194,6 @@ public interface Aadl2Package extends EPackage {
 	int MODE_TRANSITION_FEATURE_COUNT = MODE_FEATURE_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeTransitionTriggerImpl <em>Mode Transition Trigger</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ModeTransitionTriggerImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeTransitionTrigger()
-	 * @generated
-	 */
-	int MODE_TRANSITION_TRIGGER = 40;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3360,116 +5219,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int MODE_TRANSITION_TRIGGER_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.TriggerPortImpl <em>Trigger Port</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.TriggerPortImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getTriggerPort()
-	 * @generated
-	 */
-	int TRIGGER_PORT = 110;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ContextImpl <em>Context</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ContextImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContext()
-	 * @generated
-	 */
-	int CONTEXT = 50;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureImpl <em>Feature</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeature()
-	 * @generated
-	 */
-	int FEATURE = 42;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DirectedFeatureImpl <em>Directed Feature</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DirectedFeatureImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDirectedFeature()
-	 * @generated
-	 */
-	int DIRECTED_FEATURE = 54;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PortImpl <em>Port</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PortImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPort()
-	 * @generated
-	 */
-	int PORT = 71;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectionEndImpl <em>Connection End</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ConnectionEndImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnectionEnd()
-	 * @generated
-	 */
-	int CONNECTION_END = 44;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureConnectionEndImpl <em>Feature Connection End</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureConnectionEndImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureConnectionEnd()
-	 * @generated
-	 */
-	int FEATURE_CONNECTION_END = 43;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PortConnectionEndImpl <em>Port Connection End</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PortConnectionEndImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortConnectionEnd()
-	 * @generated
-	 */
-	int PORT_CONNECTION_END = 66;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorPortImpl <em>Processor Port</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorPortImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorPort()
-	 * @generated
-	 */
-	int PROCESSOR_PORT = 258;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.InternalEventImpl <em>Internal Event</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.InternalEventImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getInternalEvent()
-	 * @generated
-	 */
-	int INTERNAL_EVENT = 259;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentTypeImpl <em>Component Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ComponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentType()
-	 * @generated
-	 */
-	int COMPONENT_TYPE = 41;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -3958,16 +5707,6 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowImpl <em>Flow</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FlowImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlow()
-	 * @generated
-	 */
-	int FLOW = 46;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4047,16 +5786,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int FLOW_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowSpecificationImpl <em>Flow Specification</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FlowSpecificationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowSpecification()
-	 * @generated
-	 */
-	int FLOW_SPECIFICATION = 45;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4185,156 +5914,6 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_SPECIFICATION_FEATURE_COUNT = FLOW_FEATURE_COUNT + 5;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.TypeExtensionImpl <em>Type Extension</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.TypeExtensionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getTypeExtension()
-	 * @generated
-	 */
-	int TYPE_EXTENSION = 51;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupImpl <em>Feature Group</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroup()
-	 * @generated
-	 */
-	int FEATURE_GROUP = 52;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupConnectionEndImpl <em>Feature Group Connection End</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupConnectionEndImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupConnectionEnd()
-	 * @generated
-	 */
-	int FEATURE_GROUP_CONNECTION_END = 55;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.CallContextImpl <em>Call Context</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.CallContextImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getCallContext()
-	 * @generated
-	 */
-	int CALL_CONTEXT = 53;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupTypeImpl <em>Feature Group Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupType()
-	 * @generated
-	 */
-	int FEATURE_GROUP_TYPE = 56;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.GroupExtensionImpl <em>Group Extension</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.GroupExtensionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getGroupExtension()
-	 * @generated
-	 */
-	int GROUP_EXTENSION = 57;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessImpl <em>Access</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AccessImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccess()
-	 * @generated
-	 */
-	int ACCESS = 59;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BusAccessImpl <em>Bus Access</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BusAccessImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusAccess()
-	 * @generated
-	 */
-	int BUS_ACCESS = 58;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessConnectionEndImpl <em>Access Connection End</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AccessConnectionEndImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessConnectionEnd()
-	 * @generated
-	 */
-	int ACCESS_CONNECTION_END = 60;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BusClassifierImpl <em>Bus Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BusClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusClassifier()
-	 * @generated
-	 */
-	int BUS_CLASSIFIER = 61;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BusImpl <em>Bus</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BusImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBus()
-	 * @generated
-	 */
-	int BUS = 63;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BusSubcomponentTypeImpl <em>Bus Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BusSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusSubcomponentType()
-	 * @generated
-	 */
-	int BUS_SUBCOMPONENT_TYPE = 62;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DataAccessImpl <em>Data Access</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DataAccessImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataAccess()
-	 * @generated
-	 */
-	int DATA_ACCESS = 64;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ParameterConnectionEndImpl <em>Parameter Connection End</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ParameterConnectionEndImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getParameterConnectionEnd()
-	 * @generated
-	 */
-	int PARAMETER_CONNECTION_END = 65;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.EndToEndFlowElementImpl <em>End To End Flow Element</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.EndToEndFlowElementImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEndToEndFlowElement()
-	 * @generated
-	 */
-	int END_TO_END_FLOW_ELEMENT = 48;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4389,16 +5968,6 @@ public interface Aadl2Package extends EPackage {
 	int END_TO_END_FLOW_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowElementImpl <em>Flow Element</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FlowElementImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowElement()
-	 * @generated
-	 */
-	int FLOW_ELEMENT = 47;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4451,16 +6020,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int FLOW_ELEMENT_FEATURE_COUNT = END_TO_END_FLOW_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowEndImpl <em>Flow End</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FlowEndImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowEnd()
-	 * @generated
-	 */
-	int FLOW_END = 49;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -6254,16 +7813,6 @@ public interface Aadl2Package extends EPackage {
 	int PORT_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DataClassifierImpl <em>Data Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DataClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataClassifier()
-	 * @generated
-	 */
-	int DATA_CLASSIFIER = 67;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6462,16 +8011,6 @@ public interface Aadl2Package extends EPackage {
 	int DATA_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DataImpl <em>Data</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DataImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getData()
-	 * @generated
-	 */
-	int DATA = 69;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6524,16 +8063,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int DATA_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DataSubcomponentTypeImpl <em>Data Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DataSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataSubcomponentType()
-	 * @generated
-	 */
-	int DATA_SUBCOMPONENT_TYPE = 68;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -6725,16 +8254,6 @@ public interface Aadl2Package extends EPackage {
 	int PORT_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DataPortImpl <em>Data Port</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DataPortImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataPort()
-	 * @generated
-	 */
-	int DATA_PORT = 70;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6877,16 +8396,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int DATA_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.EventDataPortImpl <em>Event Data Port</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.EventDataPortImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEventDataPort()
-	 * @generated
-	 */
-	int EVENT_DATA_PORT = 72;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -7033,16 +8542,6 @@ public interface Aadl2Package extends EPackage {
 	int EVENT_DATA_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.EventPortImpl <em>Event Port</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.EventPortImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEventPort()
-	 * @generated
-	 */
-	int EVENT_PORT = 73;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7178,16 +8677,6 @@ public interface Aadl2Package extends EPackage {
 	int EVENT_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ParameterImpl <em>Parameter</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ParameterImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getParameter()
-	 * @generated
-	 */
-	int PARAMETER = 74;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7321,16 +8810,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int PARAMETER_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramAccessImpl <em>Subprogram Access</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramAccessImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramAccess()
-	 * @generated
-	 */
-	int SUBPROGRAM_ACCESS = 75;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -7477,16 +8956,6 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.CalledSubprogramImpl <em>Called Subprogram</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.CalledSubprogramImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getCalledSubprogram()
-	 * @generated
-	 */
-	int CALLED_SUBPROGRAM = 76;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7512,16 +8981,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int CALLED_SUBPROGRAM_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramClassifierImpl <em>Subprogram Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramClassifier()
-	 * @generated
-	 */
-	int SUBPROGRAM_CLASSIFIER = 77;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -7722,16 +9181,6 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramSubcomponentTypeImpl <em>Subprogram Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramSubcomponentType()
-	 * @generated
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE = 78;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7786,16 +9235,6 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramImpl <em>Subprogram</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogram()
-	 * @generated
-	 */
-	int SUBPROGRAM = 79;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7848,16 +9287,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBPROGRAM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupAccessImpl <em>Subprogram Group Access</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramGroupAccessImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupAccess()
-	 * @generated
-	 */
-	int SUBPROGRAM_GROUP_ACCESS = 80;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -8002,16 +9431,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBPROGRAM_GROUP_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupClassifierImpl <em>Subprogram Group Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramGroupClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupClassifier()
-	 * @generated
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER = 81;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -8212,16 +9631,6 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentTypeImpl <em>Subprogram Group Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramGroupSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupSubcomponentType()
-	 * @generated
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE = 82;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8276,16 +9685,6 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupImpl <em>Subprogram Group</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramGroupImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroup()
-	 * @generated
-	 */
-	int SUBPROGRAM_GROUP = 83;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8338,16 +9737,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBPROGRAM_GROUP_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractFeatureImpl <em>Abstract Feature</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AbstractFeatureImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractFeature()
-	 * @generated
-	 */
-	int ABSTRACT_FEATURE = 84;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -8483,16 +9872,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int ABSTRACT_FEATURE_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubcomponentImpl <em>Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubcomponent()
-	 * @generated
-	 */
-	int SUBCOMPONENT = 85;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -8675,16 +10054,6 @@ public interface Aadl2Package extends EPackage {
 	int SUBCOMPONENT_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 11;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeImpl <em>Component Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ComponentPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototype()
-	 * @generated
-	 */
-	int COMPONENT_PROTOTYPE = 86;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8793,16 +10162,6 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeBindingImpl <em>Mode Binding</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ModeBindingImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeBinding()
-	 * @generated
-	 */
-	int MODE_BINDING = 87;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8846,26 +10205,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int MODE_BINDING_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractClassifierImpl <em>Abstract Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AbstractClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractClassifier()
-	 * @generated
-	 */
-	int ABSTRACT_CLASSIFIER = 138;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractImpl <em>Abstract</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AbstractImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstract()
-	 * @generated
-	 */
-	int ABSTRACT = 89;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -8922,16 +10261,6 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractSubcomponentTypeImpl <em>Abstract Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AbstractSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractSubcomponentType()
-	 * @generated
-	 */
-	int ABSTRACT_SUBCOMPONENT_TYPE = 88;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8984,26 +10313,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int ABSTRACT_SUBCOMPONENT_TYPE_FEATURE_COUNT = ABSTRACT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowImplementationImpl <em>Flow Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FlowImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowImplementation()
-	 * @generated
-	 */
-	int FLOW_IMPLEMENTATION = 90;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalPathImpl <em>Modal Path</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ModalPathImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalPath()
-	 * @generated
-	 */
-	int MODAL_PATH = 91;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -9186,16 +10495,6 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_IMPLEMENTATION_FEATURE_COUNT = MODAL_PATH_FEATURE_COUNT + 4;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowSegmentImpl <em>Flow Segment</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FlowSegmentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowSegment()
-	 * @generated
-	 */
-	int FLOW_SEGMENT = 92;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9239,16 +10538,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int FLOW_SEGMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectionImpl <em>Connection</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ConnectionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnection()
-	 * @generated
-	 */
-	int CONNECTION = 93;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -9386,16 +10675,6 @@ public interface Aadl2Package extends EPackage {
 	int CONNECTION_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 6;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractConnectionEndImpl <em>Abstract Connection End</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AbstractConnectionEndImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractConnectionEnd()
-	 * @generated
-	 */
-	int ABSTRACT_CONNECTION_END = 94;
-
-	/**
 	 * The number of structural features of the '<em>Abstract Connection End</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9403,26 +10682,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int ABSTRACT_CONNECTION_END_FEATURE_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectedElementImpl <em>Connected Element</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ConnectedElementImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnectedElement()
-	 * @generated
-	 */
-	int CONNECTED_ELEMENT = 105;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ImplementationExtensionImpl <em>Implementation Extension</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ImplementationExtensionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getImplementationExtension()
-	 * @generated
-	 */
-	int IMPLEMENTATION_EXTENSION = 95;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -9506,16 +10765,6 @@ public interface Aadl2Package extends EPackage {
 	int IMPLEMENTATION_EXTENSION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.RealizationImpl <em>Realization</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.RealizationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRealization()
-	 * @generated
-	 */
-	int REALIZATION = 96;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9595,16 +10844,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int REALIZATION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.EndToEndFlowImpl <em>End To End Flow</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.EndToEndFlowImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEndToEndFlow()
-	 * @generated
-	 */
-	int END_TO_END_FLOW = 97;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -9724,16 +10963,6 @@ public interface Aadl2Package extends EPackage {
 	int END_TO_END_FLOW_FEATURE_COUNT = FLOW_FEATURE_COUNT + 4;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.EndToEndFlowSegmentImpl <em>End To End Flow Segment</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.EndToEndFlowSegmentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEndToEndFlowSegment()
-	 * @generated
-	 */
-	int END_TO_END_FLOW_SEGMENT = 98;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9777,16 +11006,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int END_TO_END_FLOW_SEGMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractSubcomponentImpl <em>Abstract Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AbstractSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractSubcomponent()
-	 * @generated
-	 */
-	int ABSTRACT_SUBCOMPONENT = 99;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -9967,1186 +11186,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int ABSTRACT_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ElementNameImpl <em>Element Name</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ElementNameImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getElementName()
-	 * @generated
-	 */
-	int ELEMENT_NAME = 106;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessConnectionImpl <em>Access Connection</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AccessConnectionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessConnection()
-	 * @generated
-	 */
-	int ACCESS_CONNECTION = 100;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ParameterConnectionImpl <em>Parameter Connection</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ParameterConnectionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getParameterConnection()
-	 * @generated
-	 */
-	int PARAMETER_CONNECTION = 101;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PortConnectionImpl <em>Port Connection</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PortConnectionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortConnection()
-	 * @generated
-	 */
-	int PORT_CONNECTION = 102;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureConnectionImpl <em>Feature Connection</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureConnectionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureConnection()
-	 * @generated
-	 */
-	int FEATURE_CONNECTION = 103;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupConnectionImpl <em>Feature Group Connection</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupConnectionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupConnection()
-	 * @generated
-	 */
-	int FEATURE_GROUP_CONNECTION = 104;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorSubprogramImpl <em>Processor Subprogram</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorSubprogramImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubprogram()
-	 * @generated
-	 */
-	int PROCESSOR_SUBPROGRAM = 260;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AnnexLibraryImpl <em>Annex Library</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AnnexLibraryImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAnnexLibrary()
-	 * @generated
-	 */
-	int ANNEX_LIBRARY = 107;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DefaultAnnexLibraryImpl <em>Default Annex Library</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DefaultAnnexLibraryImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDefaultAnnexLibrary()
-	 * @generated
-	 */
-	int DEFAULT_ANNEX_LIBRARY = 108;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DefaultAnnexSubclauseImpl <em>Default Annex Subclause</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DefaultAnnexSubclauseImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDefaultAnnexSubclause()
-	 * @generated
-	 */
-	int DEFAULT_ANNEX_SUBCLAUSE = 109;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PackageSectionImpl <em>Package Section</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PackageSectionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPackageSection()
-	 * @generated
-	 */
-	int PACKAGE_SECTION = 112;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PublicPackageSectionImpl <em>Public Package Section</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PublicPackageSectionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPublicPackageSection()
-	 * @generated
-	 */
-	int PUBLIC_PACKAGE_SECTION = 111;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PackageRenameImpl <em>Package Rename</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PackageRenameImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPackageRename()
-	 * @generated
-	 */
-	int PACKAGE_RENAME = 113;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ModelUnitImpl <em>Model Unit</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ModelUnitImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModelUnit()
-	 * @generated
-	 */
-	int MODEL_UNIT = 115;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AadlPackageImpl <em>Aadl Package</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AadlPackageImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlPackage()
-	 * @generated
-	 */
-	int AADL_PACKAGE = 114;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PrivatePackageSectionImpl <em>Private Package Section</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PrivatePackageSectionImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrivatePackageSection()
-	 * @generated
-	 */
-	int PRIVATE_PACKAGE_SECTION = 116;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentTypeRenameImpl <em>Component Type Rename</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ComponentTypeRenameImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentTypeRename()
-	 * @generated
-	 */
-	int COMPONENT_TYPE_RENAME = 117;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupTypeRenameImpl <em>Feature Group Type Rename</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupTypeRenameImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupTypeRename()
-	 * @generated
-	 */
-	int FEATURE_GROUP_TYPE_RENAME = 118;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractTypeImpl <em>Abstract Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AbstractTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractType()
-	 * @generated
-	 */
-	int ABSTRACT_TYPE = 137;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BehavioredImplementationImpl <em>Behaviored Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BehavioredImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBehavioredImplementation()
-	 * @generated
-	 */
-	int BEHAVIORED_IMPLEMENTATION = 135;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractImplementationImpl <em>Abstract Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AbstractImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractImplementation()
-	 * @generated
-	 */
-	int ABSTRACT_IMPLEMENTATION = 139;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.CallSpecificationImpl <em>Call Specification</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.CallSpecificationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getCallSpecification()
-	 * @generated
-	 */
-	int CALL_SPECIFICATION = 133;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramCallSequenceImpl <em>Subprogram Call Sequence</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramCallSequenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramCallSequence()
-	 * @generated
-	 */
-	int SUBPROGRAM_CALL_SEQUENCE = 132;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BusSubcomponentImpl <em>Bus Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BusSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusSubcomponent()
-	 * @generated
-	 */
-	int BUS_SUBCOMPONENT = 140;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DataSubcomponentImpl <em>Data Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DataSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataSubcomponent()
-	 * @generated
-	 */
-	int DATA_SUBCOMPONENT = 141;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceSubcomponentImpl <em>Device Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DeviceSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceSubcomponent()
-	 * @generated
-	 */
-	int DEVICE_SUBCOMPONENT = 142;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceImpl <em>Device</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DeviceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDevice()
-	 * @generated
-	 */
-	int DEVICE = 143;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceClassifierImpl <em>Device Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DeviceClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceClassifier()
-	 * @generated
-	 */
-	int DEVICE_CLASSIFIER = 178;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MemorySubcomponentImpl <em>Memory Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MemorySubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemorySubcomponent()
-	 * @generated
-	 */
-	int MEMORY_SUBCOMPONENT = 145;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryImpl <em>Memory</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MemoryImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemory()
-	 * @generated
-	 */
-	int MEMORY = 146;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryClassifierImpl <em>Memory Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MemoryClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryClassifier()
-	 * @generated
-	 */
-	int MEMORY_CLASSIFIER = 182;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessSubcomponentImpl <em>Process Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessSubcomponent()
-	 * @generated
-	 */
-	int PROCESS_SUBCOMPONENT = 148;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessImpl <em>Process</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcess()
-	 * @generated
-	 */
-	int PROCESS = 149;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessClassifierImpl <em>Process Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessClassifier()
-	 * @generated
-	 */
-	int PROCESS_CLASSIFIER = 200;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorSubcomponentImpl <em>Processor Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubcomponent()
-	 * @generated
-	 */
-	int PROCESSOR_SUBCOMPONENT = 151;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorImpl <em>Processor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessor()
-	 * @generated
-	 */
-	int PROCESSOR = 152;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorClassifierImpl <em>Processor Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorClassifier()
-	 * @generated
-	 */
-	int PROCESSOR_CLASSIFIER = 196;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemSubcomponentImpl <em>System Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SystemSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemSubcomponent()
-	 * @generated
-	 */
-	int SYSTEM_SUBCOMPONENT = 154;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemImpl <em>System</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SystemImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystem()
-	 * @generated
-	 */
-	int SYSTEM = 155;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemClassifierImpl <em>System Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SystemClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemClassifier()
-	 * @generated
-	 */
-	int SYSTEM_CLASSIFIER = 192;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramSubcomponentImpl <em>Subprogram Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramSubcomponent()
-	 * @generated
-	 */
-	int SUBPROGRAM_SUBCOMPONENT = 157;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl <em>Subprogram Group Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupSubcomponent()
-	 * @generated
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT = 158;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadSubcomponentImpl <em>Thread Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadSubcomponent()
-	 * @generated
-	 */
-	int THREAD_SUBCOMPONENT = 159;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadImpl <em>Thread</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThread()
-	 * @generated
-	 */
-	int THREAD = 160;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadClassifierImpl <em>Thread Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadClassifier()
-	 * @generated
-	 */
-	int THREAD_CLASSIFIER = 204;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupSubcomponentImpl <em>Thread Group Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadGroupSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupSubcomponent()
-	 * @generated
-	 */
-	int THREAD_GROUP_SUBCOMPONENT = 162;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupImpl <em>Thread Group</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadGroupImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroup()
-	 * @generated
-	 */
-	int THREAD_GROUP = 163;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupClassifierImpl <em>Thread Group Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadGroupClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupClassifier()
-	 * @generated
-	 */
-	int THREAD_GROUP_CLASSIFIER = 208;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusSubcomponentImpl <em>Virtual Bus Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualBusSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusSubcomponent()
-	 * @generated
-	 */
-	int VIRTUAL_BUS_SUBCOMPONENT = 165;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualBusImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBus()
-	 * @generated
-	 */
-	int VIRTUAL_BUS = 166;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusClassifierImpl <em>Virtual Bus Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualBusClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusClassifier()
-	 * @generated
-	 */
-	int VIRTUAL_BUS_CLASSIFIER = 212;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorSubcomponentImpl <em>Virtual Processor Subcomponent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualProcessorSubcomponentImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorSubcomponent()
-	 * @generated
-	 */
-	int VIRTUAL_PROCESSOR_SUBCOMPONENT = 168;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorImpl <em>Virtual Processor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualProcessorImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessor()
-	 * @generated
-	 */
-	int VIRTUAL_PROCESSOR = 169;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorClassifierImpl <em>Virtual Processor Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualProcessorClassifierImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorClassifier()
-	 * @generated
-	 */
-	int VIRTUAL_PROCESSOR_CLASSIFIER = 216;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BusTypeImpl <em>Bus Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BusTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusType()
-	 * @generated
-	 */
-	int BUS_TYPE = 172;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BusImplementationImpl <em>Bus Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BusImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusImplementation()
-	 * @generated
-	 */
-	int BUS_IMPLEMENTATION = 173;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DataTypeImpl <em>Data Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DataTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataType()
-	 * @generated
-	 */
-	int DATA_TYPE = 175;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DataImplementationImpl <em>Data Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DataImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataImplementation()
-	 * @generated
-	 */
-	int DATA_IMPLEMENTATION = 176;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceTypeImpl <em>Device Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DeviceTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceType()
-	 * @generated
-	 */
-	int DEVICE_TYPE = 179;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceImplementationImpl <em>Device Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DeviceImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceImplementation()
-	 * @generated
-	 */
-	int DEVICE_IMPLEMENTATION = 180;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryTypeImpl <em>Memory Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MemoryTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryType()
-	 * @generated
-	 */
-	int MEMORY_TYPE = 183;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryImplementationImpl <em>Memory Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MemoryImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryImplementation()
-	 * @generated
-	 */
-	int MEMORY_IMPLEMENTATION = 184;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessTypeImpl <em>Process Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessType()
-	 * @generated
-	 */
-	int PROCESS_TYPE = 201;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorTypeImpl <em>Processor Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorType()
-	 * @generated
-	 */
-	int PROCESSOR_TYPE = 197;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessImplementationImpl <em>Process Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessImplementation()
-	 * @generated
-	 */
-	int PROCESS_IMPLEMENTATION = 202;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorImplementationImpl <em>Processor Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorImplementation()
-	 * @generated
-	 */
-	int PROCESSOR_IMPLEMENTATION = 198;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramTypeImpl <em>Subprogram Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramType()
-	 * @generated
-	 */
-	int SUBPROGRAM_TYPE = 186;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramImplementationImpl <em>Subprogram Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramImplementation()
-	 * @generated
-	 */
-	int SUBPROGRAM_IMPLEMENTATION = 187;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupTypeImpl <em>Subprogram Group Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramGroupTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupType()
-	 * @generated
-	 */
-	int SUBPROGRAM_GROUP_TYPE = 189;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl <em>Subprogram Group Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramGroupImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupImplementation()
-	 * @generated
-	 */
-	int SUBPROGRAM_GROUP_IMPLEMENTATION = 190;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemTypeImpl <em>System Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SystemTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemType()
-	 * @generated
-	 */
-	int SYSTEM_TYPE = 193;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemImplementationImpl <em>System Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SystemImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemImplementation()
-	 * @generated
-	 */
-	int SYSTEM_IMPLEMENTATION = 194;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadTypeImpl <em>Thread Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadType()
-	 * @generated
-	 */
-	int THREAD_TYPE = 205;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadImplementationImpl <em>Thread Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadImplementation()
-	 * @generated
-	 */
-	int THREAD_IMPLEMENTATION = 206;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupTypeImpl <em>Thread Group Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadGroupTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupType()
-	 * @generated
-	 */
-	int THREAD_GROUP_TYPE = 209;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupImplementationImpl <em>Thread Group Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadGroupImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupImplementation()
-	 * @generated
-	 */
-	int THREAD_GROUP_IMPLEMENTATION = 210;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusTypeImpl <em>Virtual Bus Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualBusTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusType()
-	 * @generated
-	 */
-	int VIRTUAL_BUS_TYPE = 213;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusImplementationImpl <em>Virtual Bus Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualBusImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusImplementation()
-	 * @generated
-	 */
-	int VIRTUAL_BUS_IMPLEMENTATION = 214;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorTypeImpl <em>Virtual Processor Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualProcessorTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorType()
-	 * @generated
-	 */
-	int VIRTUAL_PROCESSOR_TYPE = 217;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorImplementationImpl <em>Virtual Processor Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualProcessorImplementationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorImplementation()
-	 * @generated
-	 */
-	int VIRTUAL_PROCESSOR_IMPLEMENTATION = 218;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeBindingImpl <em>Component Prototype Binding</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ComponentPrototypeBindingImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeBinding()
-	 * @generated
-	 */
-	int COMPONENT_PROTOTYPE_BINDING = 119;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl <em>Component Prototype Actual</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ComponentPrototypeActualImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeActual()
-	 * @generated
-	 */
-	int COMPONENT_PROTOTYPE_ACTUAL = 120;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeImpl <em>Feature Group Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototype()
-	 * @generated
-	 */
-	int FEATURE_GROUP_PROTOTYPE = 121;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeBindingImpl <em>Feature Group Prototype Binding</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeBindingImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeBinding()
-	 * @generated
-	 */
-	int FEATURE_GROUP_PROTOTYPE_BINDING = 122;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl <em>Feature Group Prototype Actual</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeActual()
-	 * @generated
-	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL = 123;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeImpl <em>Feature Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeaturePrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototype()
-	 * @generated
-	 */
-	int FEATURE_PROTOTYPE = 124;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeBindingImpl <em>Feature Prototype Binding</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeaturePrototypeBindingImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeBinding()
-	 * @generated
-	 */
-	int FEATURE_PROTOTYPE_BINDING = 125;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeActualImpl <em>Feature Prototype Actual</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeaturePrototypeActualImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeActual()
-	 * @generated
-	 */
-	int FEATURE_PROTOTYPE_ACTUAL = 126;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessSpecificationImpl <em>Access Specification</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AccessSpecificationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessSpecification()
-	 * @generated
-	 */
-	int ACCESS_SPECIFICATION = 127;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PortSpecificationImpl <em>Port Specification</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PortSpecificationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortSpecification()
-	 * @generated
-	 */
-	int PORT_SPECIFICATION = 128;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeReferenceImpl <em>Feature Prototype Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeaturePrototypeReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeReference()
-	 * @generated
-	 */
-	int FEATURE_PROTOTYPE_REFERENCE = 129;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeReferenceImpl <em>Feature Group Prototype Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeReference()
-	 * @generated
-	 */
-	int FEATURE_GROUP_PROTOTYPE_REFERENCE = 130;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupReferenceImpl <em>Feature Group Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupReference()
-	 * @generated
-	 */
-	int FEATURE_GROUP_REFERENCE = 131;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorCallImpl <em>Processor Call</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorCallImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorCall()
-	 * @generated
-	 */
-	int PROCESSOR_CALL = 134;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramCallImpl <em>Subprogram Call</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramCallImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramCall()
-	 * @generated
-	 */
-	int SUBPROGRAM_CALL = 136;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceSubcomponentTypeImpl <em>Device Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DeviceSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceSubcomponentType()
-	 * @generated
-	 */
-	int DEVICE_SUBCOMPONENT_TYPE = 144;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MemorySubcomponentTypeImpl <em>Memory Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MemorySubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemorySubcomponentType()
-	 * @generated
-	 */
-	int MEMORY_SUBCOMPONENT_TYPE = 147;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessSubcomponentTypeImpl <em>Process Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessSubcomponentType()
-	 * @generated
-	 */
-	int PROCESS_SUBCOMPONENT_TYPE = 150;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorSubcomponentTypeImpl <em>Processor Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubcomponentType()
-	 * @generated
-	 */
-	int PROCESSOR_SUBCOMPONENT_TYPE = 153;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemSubcomponentTypeImpl <em>System Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SystemSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemSubcomponentType()
-	 * @generated
-	 */
-	int SYSTEM_SUBCOMPONENT_TYPE = 156;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadSubcomponentTypeImpl <em>Thread Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadSubcomponentType()
-	 * @generated
-	 */
-	int THREAD_SUBCOMPONENT_TYPE = 161;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupSubcomponentTypeImpl <em>Thread Group Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadGroupSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupSubcomponentType()
-	 * @generated
-	 */
-	int THREAD_GROUP_SUBCOMPONENT_TYPE = 164;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VitualBusSubcomponentTypeImpl <em>Vitual Bus Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VitualBusSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVitualBusSubcomponentType()
-	 * @generated
-	 */
-	int VITUAL_BUS_SUBCOMPONENT_TYPE = 167;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorSubcomponentTypeImpl <em>Virtual Processor Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualProcessorSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorSubcomponentType()
-	 * @generated
-	 */
-	int VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE = 170;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractPrototypeImpl <em>Abstract Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AbstractPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractPrototype()
-	 * @generated
-	 */
-	int ABSTRACT_PROTOTYPE = 171;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BusPrototypeImpl <em>Bus Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BusPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusPrototype()
-	 * @generated
-	 */
-	int BUS_PROTOTYPE = 174;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DataPrototypeImpl <em>Data Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DataPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataPrototype()
-	 * @generated
-	 */
-	int DATA_PROTOTYPE = 177;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.DevicePrototypeImpl <em>Device Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.DevicePrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDevicePrototype()
-	 * @generated
-	 */
-	int DEVICE_PROTOTYPE = 181;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryPrototypeImpl <em>Memory Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.MemoryPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryPrototype()
-	 * @generated
-	 */
-	int MEMORY_PROTOTYPE = 185;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramPrototypeImpl <em>Subprogram Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramPrototype()
-	 * @generated
-	 */
-	int SUBPROGRAM_PROTOTYPE = 188;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupPrototypeImpl <em>Subprogram Group Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SubprogramGroupPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupPrototype()
-	 * @generated
-	 */
-	int SUBPROGRAM_GROUP_PROTOTYPE = 191;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemPrototypeImpl <em>System Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.SystemPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemPrototype()
-	 * @generated
-	 */
-	int SYSTEM_PROTOTYPE = 195;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorPrototypeImpl <em>Processor Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessorPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorPrototype()
-	 * @generated
-	 */
-	int PROCESSOR_PROTOTYPE = 199;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessPrototypeImpl <em>Process Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ProcessPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessPrototype()
-	 * @generated
-	 */
-	int PROCESS_PROTOTYPE = 203;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadPrototypeImpl <em>Thread Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadPrototype()
-	 * @generated
-	 */
-	int THREAD_PROTOTYPE = 207;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupPrototypeImpl <em>Thread Group Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ThreadGroupPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupPrototype()
-	 * @generated
-	 */
-	int THREAD_GROUP_PROTOTYPE = 211;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusPrototypeImpl <em>Virtual Bus Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualBusPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusPrototype()
-	 * @generated
-	 */
-	int VIRTUAL_BUS_PROTOTYPE = 215;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorPrototypeImpl <em>Virtual Processor Prototype</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualProcessorPrototypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorPrototype()
-	 * @generated
-	 */
-	int VIRTUAL_PROCESSOR_PROTOTYPE = 219;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -30904,16 +30943,6 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BasicPropertyAssociationImpl <em>Basic Property Association</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BasicPropertyAssociationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBasicPropertyAssociation()
-	 * @generated
-	 */
-	int BASIC_PROPERTY_ASSOCIATION = 220;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -30957,16 +30986,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int BASIC_PROPERTY_ASSOCIATION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyConstantImpl <em>Property Constant</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PropertyConstantImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyConstant()
-	 * @generated
-	 */
-	int PROPERTY_CONSTANT = 221;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31059,25 +31078,6 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_CONSTANT_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractNamedValueImpl <em>Abstract Named Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AbstractNamedValueImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractNamedValue()
-	 * @generated
-	 */
-	int ABSTRACT_NAMED_VALUE = 223;
-
-	/**
-	 * The number of structural features of the '<em>Abstract Named Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_NAMED_VALUE_FEATURE_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyValueImpl <em>Property Value</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -31085,35 +31085,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyValue()
 	 * @generated
 	 */
-	int PROPERTY_VALUE = 228;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.EnumerationValueImpl <em>Enumeration Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.EnumerationValueImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEnumerationValue()
-	 * @generated
-	 */
-	int ENUMERATION_VALUE = 222;
-
-	/**
-	 * The feature id for the '<em><b>Literal</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENUMERATION_VALUE__LITERAL = ABSTRACT_NAMED_VALUE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Enumeration Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENUMERATION_VALUE_FEATURE_COUNT = ABSTRACT_NAMED_VALUE_FEATURE_COUNT + 1;
+	int PROPERTY_VALUE = 224;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EnumerationLiteralImpl <em>Enumeration Literal</em>}' class.
@@ -31123,7 +31095,136 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEnumerationLiteral()
 	 * @generated
 	 */
-	int ENUMERATION_LITERAL = 224;
+	int ENUMERATION_LITERAL = 227;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.UnitLiteralImpl <em>Unit Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.UnitLiteralImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getUnitLiteral()
+	 * @generated
+	 */
+	int UNIT_LITERAL = 226;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_VALUE__OWNED_ELEMENT = PROPERTY_EXPRESSION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_VALUE__OWNED_COMMENT = PROPERTY_EXPRESSION__OWNED_COMMENT;
+
+	/**
+	 * The number of structural features of the '<em>Property Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_VALUE_FEATURE_COUNT = PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.NumberValueImpl <em>Number Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.NumberValueImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumberValue()
+	 * @generated
+	 */
+	int NUMBER_VALUE = 225;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.StringLiteralImpl <em>String Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.StringLiteralImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getStringLiteral()
+	 * @generated
+	 */
+	int STRING_LITERAL = 223;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL__OWNED_ELEMENT = PROPERTY_VALUE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL__OWNED_COMMENT = PROPERTY_VALUE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL__VALUE = PROPERTY_VALUE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>String Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMBER_VALUE__OWNED_ELEMENT = PROPERTY_VALUE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMBER_VALUE__OWNED_COMMENT = PROPERTY_VALUE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Unit</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMBER_VALUE__UNIT = PROPERTY_VALUE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Number Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMBER_VALUE_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31178,44 +31279,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int ENUMERATION_LITERAL_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.UnitValueImpl <em>Unit Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.UnitValueImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getUnitValue()
-	 * @generated
-	 */
-	int UNIT_VALUE = 225;
-
-	/**
-	 * The feature id for the '<em><b>Literal</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_VALUE__LITERAL = ABSTRACT_NAMED_VALUE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Unit Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_VALUE_FEATURE_COUNT = ABSTRACT_NAMED_VALUE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.UnitLiteralImpl <em>Unit Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.UnitLiteralImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getUnitLiteral()
-	 * @generated
-	 */
-	int UNIT_LITERAL = 226;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31290,125 +31353,6 @@ public interface Aadl2Package extends EPackage {
 	int UNIT_LITERAL_FEATURE_COUNT = ENUMERATION_LITERAL_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_VALUE__OWNED_ELEMENT = PROPERTY_EXPRESSION__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_VALUE__OWNED_COMMENT = PROPERTY_EXPRESSION__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Property Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_VALUE_FEATURE_COUNT = PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.NumberValueImpl <em>Number Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.NumberValueImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumberValue()
-	 * @generated
-	 */
-	int NUMBER_VALUE = 227;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMBER_VALUE__OWNED_ELEMENT = PROPERTY_VALUE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMBER_VALUE__OWNED_COMMENT = PROPERTY_VALUE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Unit</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMBER_VALUE__UNIT = PROPERTY_VALUE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Number Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMBER_VALUE_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.StringLiteralImpl <em>String Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.StringLiteralImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getStringLiteral()
-	 * @generated
-	 */
-	int STRING_LITERAL = 229;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__OWNED_ELEMENT = PROPERTY_VALUE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__OWNED_COMMENT = PROPERTY_VALUE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__VALUE = PROPERTY_VALUE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>String Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ClassifierValueImpl <em>Classifier Value</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -31416,7 +31360,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierValue()
 	 * @generated
 	 */
-	int CLASSIFIER_VALUE = 230;
+	int CLASSIFIER_VALUE = 228;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31462,7 +31406,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReferenceValue()
 	 * @generated
 	 */
-	int REFERENCE_VALUE = 231;
+	int REFERENCE_VALUE = 229;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31508,7 +31452,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBooleanLiteral()
 	 * @generated
 	 */
-	int BOOLEAN_LITERAL = 232;
+	int BOOLEAN_LITERAL = 230;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31554,7 +31498,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRangeValue()
 	 * @generated
 	 */
-	int RANGE_VALUE = 233;
+	int RANGE_VALUE = 231;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31618,7 +31562,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getIntegerLiteral()
 	 * @generated
 	 */
-	int INTEGER_LITERAL = 234;
+	int INTEGER_LITERAL = 232;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31682,7 +31626,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRealLiteral()
 	 * @generated
 	 */
-	int REAL_LITERAL = 235;
+	int REAL_LITERAL = 233;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31730,98 +31674,6 @@ public interface Aadl2Package extends EPackage {
 	int REAL_LITERAL_FEATURE_COUNT = NUMBER_VALUE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ConstantValueImpl <em>Constant Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ConstantValueImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConstantValue()
-	 * @generated
-	 */
-	int CONSTANT_VALUE = 236;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTANT_VALUE__OWNED_ELEMENT = ARRAY_SIZE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTANT_VALUE__OWNED_COMMENT = ARRAY_SIZE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Constant</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTANT_VALUE__CONSTANT = ARRAY_SIZE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Constant Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTANT_VALUE_FEATURE_COUNT = ARRAY_SIZE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyReferenceImpl <em>Property Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PropertyReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyReference()
-	 * @generated
-	 */
-	int PROPERTY_REFERENCE = 237;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_REFERENCE__OWNED_ELEMENT = ARRAY_SIZE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_REFERENCE__OWNED_COMMENT = ARRAY_SIZE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Property</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_REFERENCE__PROPERTY = ARRAY_SIZE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Property Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_REFERENCE_FEATURE_COUNT = ARRAY_SIZE_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.OperationImpl <em>Operation</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -31829,7 +31681,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getOperation()
 	 * @generated
 	 */
-	int OPERATION = 238;
+	int OPERATION = 234;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31884,7 +31736,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRecordValue()
 	 * @generated
 	 */
-	int RECORD_VALUE = 239;
+	int RECORD_VALUE = 235;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31930,7 +31782,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComputedValue()
 	 * @generated
 	 */
-	int COMPUTED_VALUE = 240;
+	int COMPUTED_VALUE = 236;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31976,7 +31828,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getListValue()
 	 * @generated
 	 */
-	int LIST_VALUE = 241;
+	int LIST_VALUE = 237;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32022,7 +31874,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNamedValue()
 	 * @generated
 	 */
-	int NAMED_VALUE = 242;
+	int NAMED_VALUE = 238;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32068,7 +31920,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertySet()
 	 * @generated
 	 */
-	int PROPERTY_SET = 243;
+	int PROPERTY_SET = 239;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32186,7 +32038,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getGlobalNamespace()
 	 * @generated
 	 */
-	int GLOBAL_NAMESPACE = 244;
+	int GLOBAL_NAMESPACE = 240;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32286,7 +32138,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlBoolean()
 	 * @generated
 	 */
-	int AADL_BOOLEAN = 245;
+	int AADL_BOOLEAN = 241;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32350,7 +32202,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlString()
 	 * @generated
 	 */
-	int AADL_STRING = 246;
+	int AADL_STRING = 242;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32414,7 +32266,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumberType()
 	 * @generated
 	 */
-	int NUMBER_TYPE = 248;
+	int NUMBER_TYPE = 244;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32505,7 +32357,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlInteger()
 	 * @generated
 	 */
-	int AADL_INTEGER = 247;
+	int AADL_INTEGER = 243;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32596,7 +32448,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEnumerationType()
 	 * @generated
 	 */
-	int ENUMERATION_TYPE = 250;
+	int ENUMERATION_TYPE = 246;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32687,7 +32539,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getUnitsType()
 	 * @generated
 	 */
-	int UNITS_TYPE = 249;
+	int UNITS_TYPE = 245;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32778,7 +32630,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumericRange()
 	 * @generated
 	 */
-	int NUMERIC_RANGE = 251;
+	int NUMERIC_RANGE = 247;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32833,7 +32685,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlReal()
 	 * @generated
 	 */
-	int AADL_REAL = 252;
+	int AADL_REAL = 248;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32924,7 +32776,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierType()
 	 * @generated
 	 */
-	int CLASSIFIER_TYPE = 253;
+	int CLASSIFIER_TYPE = 249;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32997,7 +32849,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRangeType()
 	 * @generated
 	 */
-	int RANGE_TYPE = 254;
+	int RANGE_TYPE = 250;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33079,7 +32931,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRecordType()
 	 * @generated
 	 */
-	int RECORD_TYPE = 255;
+	int RECORD_TYPE = 251;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33170,7 +33022,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRecordField()
 	 * @generated
 	 */
-	int RECORD_FIELD = 256;
+	int RECORD_FIELD = 252;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33261,7 +33113,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReferenceType()
 	 * @generated
 	 */
-	int REFERENCE_TYPE = 257;
+	int REFERENCE_TYPE = 253;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33496,7 +33348,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDirectionType()
 	 * @generated
 	 */
-	int DIRECTION_TYPE = 262;
+	int DIRECTION_TYPE = 258;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.PortCategory <em>Port Category</em>}' enum.
@@ -33506,7 +33358,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortCategory()
 	 * @generated
 	 */
-	int PORT_CATEGORY = 265;
+	int PORT_CATEGORY = 261;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.FlowKind <em>Flow Kind</em>}' enum.
@@ -33516,7 +33368,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowKind()
 	 * @generated
 	 */
-	int FLOW_KIND = 261;
+	int FLOW_KIND = 257;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.AccessType <em>Access Type</em>}' enum.
@@ -33526,7 +33378,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessType()
 	 * @generated
 	 */
-	int ACCESS_TYPE = 263;
+	int ACCESS_TYPE = 259;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.AccessCategory <em>Access Category</em>}' enum.
@@ -33536,7 +33388,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessCategory()
 	 * @generated
 	 */
-	int ACCESS_CATEGORY = 264;
+	int ACCESS_CATEGORY = 260;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.ComponentCategory <em>Component Category</em>}' enum.
@@ -33546,7 +33398,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentCategory()
 	 * @generated
 	 */
-	int COMPONENT_CATEGORY = 266;
+	int COMPONENT_CATEGORY = 262;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.ConnectionKind <em>Connection Kind</em>}' enum.
@@ -33556,7 +33408,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnectionKind()
 	 * @generated
 	 */
-	int CONNECTION_KIND = 267;
+	int CONNECTION_KIND = 263;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.ElementNameKind <em>Element Name Kind</em>}' enum.
@@ -33566,7 +33418,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getElementNameKind()
 	 * @generated
 	 */
-	int ELEMENT_NAME_KIND = 268;
+	int ELEMENT_NAME_KIND = 264;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.OperationKind <em>Operation Kind</em>}' enum.
@@ -33576,7 +33428,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getOperationKind()
 	 * @generated
 	 */
-	int OPERATION_KIND = 269;
+	int OPERATION_KIND = 265;
 
 	/**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -33586,7 +33438,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getString()
 	 * @generated
 	 */
-	int STRING = 270;
+	int STRING = 266;
 
 	/**
 	 * The meta object id for the '<em>Boolean</em>' data type.
@@ -33595,7 +33447,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBoolean()
 	 * @generated
 	 */
-	int BOOLEAN = 271;
+	int BOOLEAN = 267;
 
 	/**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -33604,7 +33456,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 272;
+	int INTEGER = 268;
 
 	/**
 	 * The meta object id for the '<em>Real</em>' data type.
@@ -33613,7 +33465,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReal()
 	 * @generated
 	 */
-	int REAL = 273;
+	int REAL = 269;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.Element <em>Element</em>}'.
@@ -39683,27 +39535,6 @@ public interface Aadl2Package extends EPackage {
 	EReference getPropertyConstant_ConstantValue();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.EnumerationValue <em>Enumeration Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Enumeration Value</em>'.
-	 * @see org.osate.aadl2.EnumerationValue
-	 * @generated
-	 */
-	EClass getEnumerationValue();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.EnumerationValue#getLiteral <em>Literal</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Literal</em>'.
-	 * @see org.osate.aadl2.EnumerationValue#getLiteral()
-	 * @see #getEnumerationValue()
-	 * @generated
-	 */
-	EReference getEnumerationValue_Literal();
-
-	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.AbstractNamedValue <em>Abstract Named Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -39732,27 +39563,6 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getEnumerationLiteral();
-
-	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.UnitValue <em>Unit Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Unit Value</em>'.
-	 * @see org.osate.aadl2.UnitValue
-	 * @generated
-	 */
-	EClass getUnitValue();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.UnitValue#getLiteral <em>Literal</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Literal</em>'.
-	 * @see org.osate.aadl2.UnitValue#getLiteral()
-	 * @see #getUnitValue()
-	 * @generated
-	 */
-	EReference getUnitValue_Literal();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.UnitLiteral <em>Unit Literal</em>}'.
@@ -39975,48 +39785,6 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EAttribute getRealLiteral_Value();
-
-	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.ConstantValue <em>Constant Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Constant Value</em>'.
-	 * @see org.osate.aadl2.ConstantValue
-	 * @generated
-	 */
-	EClass getConstantValue();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.ConstantValue#getConstant <em>Constant</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Constant</em>'.
-	 * @see org.osate.aadl2.ConstantValue#getConstant()
-	 * @see #getConstantValue()
-	 * @generated
-	 */
-	EReference getConstantValue_Constant();
-
-	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.PropertyReference <em>Property Reference</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Property Reference</em>'.
-	 * @see org.osate.aadl2.PropertyReference
-	 * @generated
-	 */
-	EClass getPropertyReference();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.PropertyReference#getProperty <em>Property</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Property</em>'.
-	 * @see org.osate.aadl2.PropertyReference#getProperty()
-	 * @see #getPropertyReference()
-	 * @generated
-	 */
-	EReference getPropertyReference_Property();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.Operation <em>Operation</em>}'.

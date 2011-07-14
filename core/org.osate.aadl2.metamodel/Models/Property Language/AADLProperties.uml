@@ -146,6 +146,7 @@
         <generalization xmi:id="Types-EnumerationLiteral-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#NamedElement"/>
         </generalization>
+        <generalization xmi:id="_42bHgK4tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_enumeration_ownedLiteral" name="A_enumeration_ownedLiteral" memberEnd="Types-A_enumeration_ownedLiteral-owner Types-EnumerationType-ownedLiteral">
         <ownedEnd xmi:id="Types-A_enumeration_ownedLiteral-owner" name="owner" type="Types-EnumerationType" association="Types-A_enumeration_ownedLiteral">
@@ -376,6 +377,7 @@
           <body>A unit literal.</body>
         </ownedComment>
         <generalization xmi:id="Types-UnitLiteral-_generalization.0" general="Types-EnumerationLiteral"/>
+        <generalization xmi:id="_5UwCQ64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
         <ownedAttribute xmi:id="Types-UnitLiteral-baseUnit" name="baseUnit" type="Types-UnitLiteral" association="Types-A_derivedUnit_baseUnit">
           <ownedComment xmi:id="Types-UnitLiteral-baseUnit-_ownedComment.0">
             <body>References a units literal defined earlier in the same units type.</body>
@@ -413,6 +415,7 @@
           <body>A property is a basic property with a specification to which elements it can be applied.</body>
         </ownedComment>
         <generalization xmi:id="Definitions-Property-_generalization.0" general="Definitions-BasicProperty"/>
+        <generalization xmi:id="_6IBSQ64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
         <ownedAttribute xmi:id="Definitions-Property-inherit" name="inherit">
           <ownedComment xmi:id="Definitions-Property-inherit-_ownedComment.0">
             <body>Specifies if the property value propagates down the containment hierarchy.</body>
@@ -534,32 +537,6 @@
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Element"/>
         </generalization>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Expressions-EnumerationValue" name="EnumerationValue">
-        <ownedComment xmi:id="Expressions-EnumerationValue-_ownedComment.0">
-          <body>An enumeration value.</body>
-        </ownedComment>
-        <generalization xmi:id="Expressions-EnumerationValue-_generalization.0" general="_qhwp8K17EeCEBvwFrdo_PA"/>
-        <ownedAttribute xmi:id="Expressions-EnumerationValue-literal" name="literal" type="Types-EnumerationLiteral" association="Expressions-A_enumerationValue_enumerationLiteral">
-          <ownedComment xmi:id="Expressions-EnumerationValue-literal-_ownedComment.0">
-            <body>References the enumeration literal of this value.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-EnumerationValue-literal-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-EnumerationValue-literal-_lowerValue" value="1"/>
-        </ownedAttribute>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Expressions-UnitValue" name="UnitValue">
-        <ownedComment xmi:id="Expressions-UnitValue-_ownedComment.0">
-          <body>A unit value.</body>
-        </ownedComment>
-        <generalization xmi:id="Expressions-UnitValue-_generalization.0" general="_qhwp8K17EeCEBvwFrdo_PA"/>
-        <ownedAttribute xmi:id="Expressions-UnitValue-literal" name="literal" type="Types-UnitLiteral" association="Expressions-A_unitValue_unitLiteral">
-          <ownedComment xmi:id="Expressions-UnitValue-literal-_ownedComment.0">
-            <body>References the unit literal of this value.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-UnitValue-literal-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-UnitValue-literal-_lowerValue" value="1"/>
-        </ownedAttribute>
-      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-StringLiteral" name="StringLiteral">
         <ownedComment xmi:id="Expressions-StringLiteral-_ownedComment.0">
           <body>A string value.</body>
@@ -571,18 +548,6 @@
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#String"/>
         </ownedAttribute>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Expressions-A_enumerationValue_enumerationLiteral" name="A_enumerationValue_enumerationLiteral" memberEnd="Expressions-A_enumerationValue_enumerationLiteral-enumerationValue Expressions-EnumerationValue-literal">
-        <ownedEnd xmi:id="Expressions-A_enumerationValue_enumerationLiteral-enumerationValue" name="enumerationValue" type="Expressions-EnumerationValue" association="Expressions-A_enumerationValue_enumerationLiteral">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-A_enumerationValue_enumerationLiteral-enumerationValue-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_enumerationValue_enumerationLiteral-enumerationValue-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Expressions-A_unitValue_unitLiteral" name="A_unitValue_unitLiteral" memberEnd="Expressions-A_unitValue_unitLiteral-unitValue Expressions-UnitValue-literal">
-        <ownedEnd xmi:id="Expressions-A_unitValue_unitLiteral-unitValue" name="unitValue" type="Expressions-UnitValue" association="Expressions-A_unitValue_unitLiteral">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-A_unitValue_unitLiteral-unitValue-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_unitValue_unitLiteral-unitValue-_lowerValue"/>
-        </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-NumberValue" name="NumberValue" isAbstract="true">
         <ownedComment xmi:id="Expressions-NumberValue-_ownedComment.0">
@@ -717,46 +682,6 @@
         <ownedEnd xmi:id="Expressions-A_rangeValue_delta-owner" name="owner" type="Expressions-RangeValue" association="Expressions-A_rangeValue_delta">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-A_rangeValue_delta-owner-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_rangeValue_delta-owner-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Expressions-ConstantValue" name="ConstantValue">
-        <ownedComment xmi:id="Expressions-ConstantValue-_ownedComment.0">
-          <body>Specification of a constant that contains the property value.</body>
-        </ownedComment>
-        <generalization xmi:id="Expressions-ConstantValue-_generalization.0" general="_qhwp8K17EeCEBvwFrdo_PA"/>
-        <generalization xmi:id="Expressions-ConstantValue-_generalization.1" general="Expressions-ArraySize"/>
-        <ownedAttribute xmi:id="Expressions-ConstantValue-constant" name="constant" type="Constants-PropertyConstant" association="Expressions-A_constantValue_constant">
-          <ownedComment xmi:id="Expressions-ConstantValue-constant-_ownedComment.0">
-            <body>References the property constant from which to take the value.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-ConstantValue-constant-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-ConstantValue-constant-_lowerValue" value="1"/>
-        </ownedAttribute>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Expressions-PropertyReference" name="PropertyReference">
-        <ownedComment xmi:id="Expressions-PropertyReference-_ownedComment.0">
-          <body>Specification of a property that contains the property value.</body>
-        </ownedComment>
-        <generalization xmi:id="Expressions-PropertyReference-_generalization.0" general="_qhwp8K17EeCEBvwFrdo_PA"/>
-        <generalization xmi:id="Expressions-PropertyReference-_generalization.1" general="Expressions-ArraySize"/>
-        <ownedAttribute xmi:id="Expressions-PropertyReference-property" name="property" type="Definitions-Property" association="Expressions-A_propertyReference_property">
-          <ownedComment xmi:id="Expressions-PropertyReference-property-_ownedComment.0">
-            <body>References the property from which to take the value.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-PropertyReference-property-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-PropertyReference-property-_lowerValue" value="1"/>
-        </ownedAttribute>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Expressions-A_constantValue_constant" name="A_constantValue_constant" memberEnd="Expressions-A_constantValue_constant-constantValue Expressions-ConstantValue-constant">
-        <ownedEnd xmi:id="Expressions-A_constantValue_constant-constantValue" name="constantValue" type="Expressions-ConstantValue" association="Expressions-A_constantValue_constant">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-A_constantValue_constant-constantValue-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_constantValue_constant-constantValue-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Expressions-A_propertyReference_property" name="A_propertyReference_property" memberEnd="Expressions-A_propertyReference_property-propertyReference Expressions-PropertyReference-property">
-        <ownedEnd xmi:id="Expressions-A_propertyReference_property-propertyReference" name="propertyReference" type="Expressions-PropertyReference" association="Expressions-A_propertyReference_property">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-A_propertyReference_property-propertyReference-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_propertyReference_property-propertyReference-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-PropertyValue" name="PropertyValue" isAbstract="true">
@@ -894,6 +819,7 @@
         <generalization xmi:id="Constants-PropertyConstant-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#TypedElement"/>
         </generalization>
+        <generalization xmi:id="_5wmQw64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
         <ownedAttribute xmi:id="Constants-PropertyConstant-list" name="list">
           <ownedComment xmi:id="Constants-PropertyConstant-list-_ownedComment.0">
             <body>Specifies if this constant is a list.</body>

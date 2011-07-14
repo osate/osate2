@@ -1206,15 +1206,6 @@ public interface Aadl2Factory extends EFactory {
 	PropertyConstant createPropertyConstant();
 
 	/**
-	 * Returns a new object of class '<em>Enumeration Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Enumeration Value</em>'.
-	 * @generated
-	 */
-	EnumerationValue createEnumerationValue();
-
-	/**
 	 * Returns a new object of class '<em>Enumeration Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1222,15 +1213,6 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	EnumerationLiteral createEnumerationLiteral();
-
-	/**
-	 * Returns a new object of class '<em>Unit Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Unit Value</em>'.
-	 * @generated
-	 */
-	UnitValue createUnitValue();
 
 	/**
 	 * Returns a new object of class '<em>Unit Literal</em>'.
@@ -1303,24 +1285,6 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	RealLiteral createRealLiteral();
-
-	/**
-	 * Returns a new object of class '<em>Constant Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Constant Value</em>'.
-	 * @generated
-	 */
-	ConstantValue createConstantValue();
-
-	/**
-	 * Returns a new object of class '<em>Property Reference</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Property Reference</em>'.
-	 * @generated
-	 */
-	PropertyReference createPropertyReference();
 
 	/**
 	 * Returns a new object of class '<em>Operation</em>'.

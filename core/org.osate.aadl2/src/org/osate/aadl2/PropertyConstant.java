@@ -58,7 +58,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  * @model
  * @generated
  */
-public interface PropertyConstant extends TypedElement {
+public interface PropertyConstant extends TypedElement, AbstractNamedValue {
 	/**
 	 * Returns the value of the '<em><b>List</b></em>' attribute.
 	 * <!-- begin-user-doc -->

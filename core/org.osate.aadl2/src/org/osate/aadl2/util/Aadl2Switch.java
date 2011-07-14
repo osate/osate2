@@ -162,6 +162,8 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseBasicProperty(property);
 			if (result == null)
+				result = caseAbstractNamedValue(property);
+			if (result == null)
 				result = caseTypedElement(property);
 			if (result == null)
 				result = caseNamedElement(property);
@@ -204,6 +206,13 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(propertyType);
 			if (result == null)
 				result = caseElement(propertyType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.ABSTRACT_NAMED_VALUE: {
+			AbstractNamedValue abstractNamedValue = (AbstractNamedValue) theEObject;
+			T result = caseAbstractNamedValue(abstractNamedValue);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -4518,6 +4527,8 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseTypedElement(propertyConstant);
 			if (result == null)
+				result = caseAbstractNamedValue(propertyConstant);
+			if (result == null)
 				result = caseNamedElement(propertyConstant);
 			if (result == null)
 				result = caseElement(propertyConstant);
@@ -4525,51 +4536,26 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.ENUMERATION_VALUE: {
-			EnumerationValue enumerationValue = (EnumerationValue) theEObject;
-			T result = caseEnumerationValue(enumerationValue);
+		case Aadl2Package.STRING_LITERAL: {
+			StringLiteral stringLiteral = (StringLiteral) theEObject;
+			T result = caseStringLiteral(stringLiteral);
 			if (result == null)
-				result = caseAbstractNamedValue(enumerationValue);
+				result = casePropertyValue(stringLiteral);
 			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.ABSTRACT_NAMED_VALUE: {
-			AbstractNamedValue abstractNamedValue = (AbstractNamedValue) theEObject;
-			T result = caseAbstractNamedValue(abstractNamedValue);
+				result = casePropertyExpression(stringLiteral);
+			if (result == null)
+				result = caseElement(stringLiteral);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.ENUMERATION_LITERAL: {
-			EnumerationLiteral enumerationLiteral = (EnumerationLiteral) theEObject;
-			T result = caseEnumerationLiteral(enumerationLiteral);
+		case Aadl2Package.PROPERTY_VALUE: {
+			PropertyValue propertyValue = (PropertyValue) theEObject;
+			T result = casePropertyValue(propertyValue);
 			if (result == null)
-				result = caseNamedElement(enumerationLiteral);
+				result = casePropertyExpression(propertyValue);
 			if (result == null)
-				result = caseElement(enumerationLiteral);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.UNIT_VALUE: {
-			UnitValue unitValue = (UnitValue) theEObject;
-			T result = caseUnitValue(unitValue);
-			if (result == null)
-				result = caseAbstractNamedValue(unitValue);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.UNIT_LITERAL: {
-			UnitLiteral unitLiteral = (UnitLiteral) theEObject;
-			T result = caseUnitLiteral(unitLiteral);
-			if (result == null)
-				result = caseEnumerationLiteral(unitLiteral);
-			if (result == null)
-				result = caseNamedElement(unitLiteral);
-			if (result == null)
-				result = caseElement(unitLiteral);
+				result = caseElement(propertyValue);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -4587,26 +4573,30 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.PROPERTY_VALUE: {
-			PropertyValue propertyValue = (PropertyValue) theEObject;
-			T result = casePropertyValue(propertyValue);
+		case Aadl2Package.UNIT_LITERAL: {
+			UnitLiteral unitLiteral = (UnitLiteral) theEObject;
+			T result = caseUnitLiteral(unitLiteral);
 			if (result == null)
-				result = casePropertyExpression(propertyValue);
+				result = caseEnumerationLiteral(unitLiteral);
 			if (result == null)
-				result = caseElement(propertyValue);
+				result = caseNamedElement(unitLiteral);
+			if (result == null)
+				result = caseAbstractNamedValue(unitLiteral);
+			if (result == null)
+				result = caseElement(unitLiteral);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.STRING_LITERAL: {
-			StringLiteral stringLiteral = (StringLiteral) theEObject;
-			T result = caseStringLiteral(stringLiteral);
+		case Aadl2Package.ENUMERATION_LITERAL: {
+			EnumerationLiteral enumerationLiteral = (EnumerationLiteral) theEObject;
+			T result = caseEnumerationLiteral(enumerationLiteral);
 			if (result == null)
-				result = casePropertyValue(stringLiteral);
+				result = caseNamedElement(enumerationLiteral);
 			if (result == null)
-				result = casePropertyExpression(stringLiteral);
+				result = caseAbstractNamedValue(enumerationLiteral);
 			if (result == null)
-				result = caseElement(stringLiteral);
+				result = caseElement(enumerationLiteral);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -4693,32 +4683,6 @@ public class Aadl2Switch<T> {
 				result = casePropertyExpression(realLiteral);
 			if (result == null)
 				result = caseElement(realLiteral);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.CONSTANT_VALUE: {
-			ConstantValue constantValue = (ConstantValue) theEObject;
-			T result = caseConstantValue(constantValue);
-			if (result == null)
-				result = caseArraySize(constantValue);
-			if (result == null)
-				result = caseAbstractNamedValue(constantValue);
-			if (result == null)
-				result = caseElement(constantValue);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.PROPERTY_REFERENCE: {
-			PropertyReference propertyReference = (PropertyReference) theEObject;
-			T result = casePropertyReference(propertyReference);
-			if (result == null)
-				result = caseArraySize(propertyReference);
-			if (result == null)
-				result = caseAbstractNamedValue(propertyReference);
-			if (result == null)
-				result = caseElement(propertyReference);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -8437,21 +8401,6 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Enumeration Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Enumeration Value</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseEnumerationValue(EnumerationValue object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Abstract Named Value</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -8617,21 +8566,6 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Unit Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Unit Value</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseUnitValue(UnitValue object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Unit Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -8763,36 +8697,6 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseRealLiteral(RealLiteral object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Constant Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Constant Value</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseConstantValue(ConstantValue object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Property Reference</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Property Reference</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePropertyReference(PropertyReference object) {
 		return null;
 	}
 
