@@ -62,7 +62,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  * @model
  * @generated
  */
-public interface Property extends BasicProperty {
+public interface Property extends BasicProperty, AbstractNamedValue {
 	/**
 	 * Returns the value of the '<em><b>Inherit</b></em>' attribute.
 	 * <!-- begin-user-doc -->

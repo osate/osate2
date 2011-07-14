@@ -192,12 +192,6 @@ public class ArraySpecificationItemProvider extends ElementItemProvider implemen
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArraySpecification_Size(),
 				Aadl2Factory.eINSTANCE.createNumeral()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArraySpecification_Size(),
-				Aadl2Factory.eINSTANCE.createConstantValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArraySpecification_Size(),
-				Aadl2Factory.eINSTANCE.createPropertyReference()));
 	}
 
 }

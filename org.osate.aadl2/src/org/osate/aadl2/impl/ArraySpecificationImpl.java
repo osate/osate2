@@ -162,6 +162,15 @@ public class ArraySpecificationImpl extends ElementImpl implements ArraySpecific
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ArraySize createSize() {
+		return createSize(Aadl2Package.eINSTANCE.getArraySize());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {

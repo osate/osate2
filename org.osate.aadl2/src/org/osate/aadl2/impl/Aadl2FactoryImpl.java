@@ -336,16 +336,12 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createBasicPropertyAssociation();
 		case Aadl2Package.PROPERTY_CONSTANT:
 			return (EObject) createPropertyConstant();
-		case Aadl2Package.ENUMERATION_VALUE:
-			return (EObject) createEnumerationValue();
-		case Aadl2Package.ENUMERATION_LITERAL:
-			return (EObject) createEnumerationLiteral();
-		case Aadl2Package.UNIT_VALUE:
-			return (EObject) createUnitValue();
-		case Aadl2Package.UNIT_LITERAL:
-			return (EObject) createUnitLiteral();
 		case Aadl2Package.STRING_LITERAL:
 			return (EObject) createStringLiteral();
+		case Aadl2Package.UNIT_LITERAL:
+			return (EObject) createUnitLiteral();
+		case Aadl2Package.ENUMERATION_LITERAL:
+			return (EObject) createEnumerationLiteral();
 		case Aadl2Package.CLASSIFIER_VALUE:
 			return (EObject) createClassifierValue();
 		case Aadl2Package.REFERENCE_VALUE:
@@ -358,10 +354,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createIntegerLiteral();
 		case Aadl2Package.REAL_LITERAL:
 			return (EObject) createRealLiteral();
-		case Aadl2Package.CONSTANT_VALUE:
-			return (EObject) createConstantValue();
-		case Aadl2Package.PROPERTY_REFERENCE:
-			return (EObject) createPropertyReference();
 		case Aadl2Package.OPERATION:
 			return (EObject) createOperation();
 		case Aadl2Package.RECORD_VALUE:
@@ -1774,29 +1766,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EnumerationValue createEnumerationValue() {
-		EnumerationValueImpl enumerationValue = new EnumerationValueImpl();
-		return enumerationValue;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EnumerationLiteral createEnumerationLiteral() {
 		EnumerationLiteralImpl enumerationLiteral = new EnumerationLiteralImpl();
 		return enumerationLiteral;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public UnitValue createUnitValue() {
-		UnitValueImpl unitValue = new UnitValueImpl();
-		return unitValue;
 	}
 
 	/**
@@ -1877,26 +1849,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public RealLiteral createRealLiteral() {
 		RealLiteralImpl realLiteral = new RealLiteralImpl();
 		return realLiteral;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ConstantValue createConstantValue() {
-		ConstantValueImpl constantValue = new ConstantValueImpl();
-		return constantValue;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PropertyReference createPropertyReference() {
-		PropertyReferenceImpl propertyReference = new PropertyReferenceImpl();
-		return propertyReference;
 	}
 
 	/**
