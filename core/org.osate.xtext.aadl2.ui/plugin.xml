@@ -21,7 +21,7 @@
             commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
             <activeWhen>
                 <reference
-                    definitionId="org.eclipse.xtext.xtend2.Xtend2.Editor.opened">
+                    definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
