@@ -1,15 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<templates>
-<template 
-context="org.osate.xtext.aadl2.Aadl2.SystemType" 
-description="insert system type" enabled="true" 
-name="SystemType">system ${name}
-  ${cursor}
-end ${name} ;</template>
-<template 
-context="org.osate.xtext.aadl2.Aadl2.DataType" 
-description="insert system type" enabled="true" 
-name="DataType">data ${name}
-  ${cursor}
-end ${name} ;</template>
-</templates>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ThreadType" deleted="false" description="Thread Type" enabled="true" name="ThreadType">thread ${name}&#13;
+features&#13;
+  ${cursor}&#13;
+end ${name} ;</template></templates>

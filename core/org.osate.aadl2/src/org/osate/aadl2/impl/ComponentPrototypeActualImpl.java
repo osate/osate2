@@ -36,12 +36,21 @@
  */
 package org.osate.aadl2.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.PrototypeBinding;
+import org.osate.aadl2.SubcomponentType;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,12 +60,14 @@ import org.osate.aadl2.ComponentPrototypeActual;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl#getBindings <em>Binding</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class ComponentPrototypeActualImpl extends ElementImpl implements ComponentPrototypeActual {
+public class ComponentPrototypeActualImpl extends ElementImpl implements ComponentPrototypeActual {
 	/**
 	 * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -76,6 +87,26 @@ public abstract class ComponentPrototypeActualImpl extends ElementImpl implement
 	 * @ordered
 	 */
 	protected ComponentCategory category = CATEGORY_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getBindings() <em>Binding</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBindings()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<PrototypeBinding> bindings;
+
+	/**
+	 * The cached value of the '{@link #getSubcomponentType() <em>Subcomponent Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSubcomponentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected SubcomponentType subcomponentType;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -123,11 +154,96 @@ public abstract class ComponentPrototypeActualImpl extends ElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<PrototypeBinding> getBindings() {
+		if (bindings == null) {
+			bindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
+					Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING);
+		}
+		return bindings;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PrototypeBinding createBinding(EClass eClass) {
+		PrototypeBinding newBinding = (PrototypeBinding) create(eClass);
+		getBindings().add(newBinding);
+		return newBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubcomponentType getSubcomponentType() {
+		if (subcomponentType != null && ((EObject) subcomponentType).eIsProxy()) {
+			InternalEObject oldSubcomponentType = (InternalEObject) subcomponentType;
+			subcomponentType = (SubcomponentType) eResolveProxy(oldSubcomponentType);
+			if (subcomponentType != oldSubcomponentType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE, oldSubcomponentType,
+							subcomponentType));
+			}
+		}
+		return subcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubcomponentType basicGetSubcomponentType() {
+		return subcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSubcomponentType(SubcomponentType newSubcomponentType) {
+		SubcomponentType oldSubcomponentType = subcomponentType;
+		subcomponentType = newSubcomponentType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE, oldSubcomponentType, subcomponentType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING:
+			return ((InternalEList<?>) getBindings()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY:
 			return getCategory();
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING:
+			return getBindings();
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE:
+			if (resolve)
+				return getSubcomponentType();
+			return basicGetSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -137,11 +253,19 @@ public abstract class ComponentPrototypeActualImpl extends ElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY:
 			setCategory((ComponentCategory) newValue);
+			return;
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING:
+			getBindings().clear();
+			getBindings().addAll((Collection<? extends PrototypeBinding>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE:
+			setSubcomponentType((SubcomponentType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -158,6 +282,12 @@ public abstract class ComponentPrototypeActualImpl extends ElementImpl implement
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY:
 			setCategory(CATEGORY_EDEFAULT);
 			return;
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING:
+			getBindings().clear();
+			return;
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE:
+			setSubcomponentType((SubcomponentType) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -172,6 +302,10 @@ public abstract class ComponentPrototypeActualImpl extends ElementImpl implement
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY:
 			return category != CATEGORY_EDEFAULT;
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING:
+			return bindings != null && !bindings.isEmpty();
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE:
+			return subcomponentType != null;
 		}
 		return super.eIsSet(featureID);
 	}

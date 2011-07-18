@@ -114,8 +114,9 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ComponentPrototypeActual createActual(EClass eClass) {
-		ComponentPrototypeActual newActual = (ComponentPrototypeActual) create(eClass);
+	public ComponentPrototypeActual createActual() {
+		ComponentPrototypeActual newActual = (ComponentPrototypeActual) create(Aadl2Package.eINSTANCE
+				.getComponentPrototypeActual());
 		getActuals().add(newActual);
 		return newActual;
 	}

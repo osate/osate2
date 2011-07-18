@@ -46,8 +46,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.EndToEndFlow#getRefined <em>Refined</em>}</li>
- *   <li>{@link org.osate.aadl2.EndToEndFlow#getFlowElements <em>Flow Element</em>}</li>
- *   <li>{@link org.osate.aadl2.EndToEndFlow#getOwnedSubcomponentFlows <em>Owned Subcomponent Flow</em>}</li>
+ *   <li>{@link org.osate.aadl2.EndToEndFlow#getOwnedEndToEndFlowSegments <em>Owned End To End Flow Segment</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,55 +54,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface EndToEndFlow extends Flow, ModalPath, EndToEndFlowElement {
-	/**
-	 * Returns the value of the '<em><b>Flow Element</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.EndToEndFlowElement}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Flow Element</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Flow Element</em>' reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getEndToEndFlow_FlowElement()
-	 * @model required="true"
-	 * @generated
-	 */
-	EList<EndToEndFlowElement> getFlowElements();
-
-	/**
-	 * Returns the value of the '<em><b>Owned Subcomponent Flow</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.SubcomponentFlow}.
-	 * <p>
-	 * This feature subsets the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.EndToEndFlow#getFlowElements() <em>Flow Element</em>}'</li>
-	 * </ul>
-	 * </p>
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Subcomponent Flow</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Subcomponent Flow</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getEndToEndFlow_OwnedSubcomponentFlow()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	EList<SubcomponentFlow> getOwnedSubcomponentFlows();
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.SubcomponentFlow} and appends it to the '<em><b>Owned Subcomponent Flow</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.SubcomponentFlow}.
-	 * @see #getOwnedSubcomponentFlows()
-	 * @generated
-	 */
-	SubcomponentFlow createOwnedSubcomponentFlow();
-
+public interface EndToEndFlow extends Flow, ModalPath {
 	/**
 	 * Returns the value of the '<em><b>Refined</b></em>' reference.
 	 * <p>
@@ -137,10 +88,35 @@ public interface EndToEndFlow extends Flow, ModalPath, EndToEndFlowElement {
 	void setRefined(EndToEndFlow value);
 
 	/**
+	 * Returns the value of the '<em><b>Owned End To End Flow Segment</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.EndToEndFlowSegment}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned End To End Flow Segment</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned End To End Flow Segment</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getEndToEndFlow_OwnedEndToEndFlowSegment()
+	 * @model containment="true" required="true" ordered="false"
+	 * @generated
+	 */
+	EList<EndToEndFlowSegment> getOwnedEndToEndFlowSegments();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.EndToEndFlowSegment} and appends it to the '<em><b>Owned End To End Flow Segment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.EndToEndFlowSegment}.
+	 * @see #getOwnedEndToEndFlowSegments()
+	 * @generated
+	 */
+	EndToEndFlowSegment createOwnedEndToEndFlowSegment();
+
+	/**
 	 * get the EndToEndFlowElement sequence taking into account refines
 	 * @return EList EndToEndFlowElement
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	EList<EndToEndFlowElement> getAllFlowElements();
+	EList<EndToEndFlowSegment> getAllFlowSegments();
 
 } // EndToEndFlow

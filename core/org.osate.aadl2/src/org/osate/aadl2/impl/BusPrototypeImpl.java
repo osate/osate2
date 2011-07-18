@@ -68,8 +68,8 @@ public class BusPrototypeImpl extends ComponentPrototypeImpl implements BusProto
 		return Aadl2Package.eINSTANCE.getBusPrototype();
 	}
 
-	@Override
-	public ComponentCategory getCategory() {
+	
+	public ComponentCategory getCategory(){
 		return ComponentCategory.BUS;
 	}
 

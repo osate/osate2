@@ -42,7 +42,7 @@ package org.osate.aadl2;
  *
  *
  * @see org.osate.aadl2.Aadl2Package#getEndToEndFlowElement()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface EndToEndFlowElement extends NamedElement {

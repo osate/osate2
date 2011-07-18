@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.osate.aadl2
-Bundle-Vendor: My Company
+Bundle-Vendor: SEI
 Bundle-Version: 1.0.0
 Bundle-SymbolicName: org.osate.xtext.aadl2;singleton:=true
 Bundle-ActivationPolicy: lazy

@@ -6,12 +6,12 @@ import java.util.HashSet;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
-import org.eclipse.xtext.validation.Check;
-import org.eclipse.xtext.validation.CheckType;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
@@ -33,8 +33,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentPrototypeReference;
-import org.osate.aadl2.ComponentReference;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ComponentTypeRename;
 import org.osate.aadl2.ConnectionEnd;
@@ -42,6 +40,7 @@ import org.osate.aadl2.ConstantValue;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataImplementation;
 import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DataType;
 import org.osate.aadl2.DeviceImplementation;
@@ -68,7 +67,6 @@ import org.osate.aadl2.MemoryType;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
-import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.Operation;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
@@ -86,11 +84,14 @@ import org.osate.aadl2.PropertyReference;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramGroupPrototype;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SubprogramPrototype;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.SystemType;
@@ -98,7 +99,6 @@ import org.osate.aadl2.ThreadGroupImplementation;
 import org.osate.aadl2.ThreadGroupType;
 import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.ThreadType;
-import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.VirtualBusImplementation;
 import org.osate.aadl2.VirtualBusType;
@@ -176,16 +176,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 	
 	@Check(CheckType.FAST)
-	public void caseComponentReference(ComponentReference prototypeActual)
+	public void caseComponentReference(ComponentPrototypeActual prototypeActual)
 	{
 		checkComponentPrototypeActualComponentCategory(prototypeActual);
 	}
 	
-	@Check(CheckType.FAST)
-	public void caseComponentPrototypeReference(ComponentPrototypeReference prototypeActual)
-	{
-		checkComponentPrototypeActualPrototypeCategory(prototypeActual);
-	}
 	
 	@Check(CheckType.FAST)
 	public void caseFeaturePrototypeBinding(FeaturePrototypeBinding binding)
@@ -888,35 +883,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * the category specified in the binding and the category of the referenced classifier or
 	 * prototype must match.  This method does the second check.
 	 */
-	private void checkComponentPrototypeActualComponentCategory(ComponentReference actual)
+	private void checkComponentPrototypeActualComponentCategory(ComponentPrototypeActual actual)
 	{
-		if (!actual.getClassifier().getCategory().equals(ComponentCategory.ABSTRACT.getName()) &&
-				!actual.getCategory().getName().equals(actual.getClassifier().getCategory()))
+		SubcomponentType st = actual.getSubcomponentType();
+		if (!actual.getCategory().equals(ComponentCategory.ABSTRACT.getName()) &&
+				!actual.getCategory().equals(st instanceof ComponentClassifier? ((ComponentClassifier)st).getCategory():((ComponentPrototype)st).getCategory()))
 		{
 			error(actual, "The category of the referenced classifier is not compatible the category specified in the prototype binding.");
 		}
 	}
 	
-	/**
-	 * Checks legality rule 1 in section 4.7 (Prototypes) on page 56.
-	 * "The component category declared in the component prototype binding must match the component
-	 * category of the prototype or classifier being referenced, i.e., they must be identical, or
-	 * the declared category component category of the prototype must be abstract."
-	 * Peter needs to rewrite this rule into two separate rules.  The first will specify that the
-	 * category of the formal prototype and the category specified in the binding must match (match
-	 * also means that abstract can be refined to a concrete type).  The second will specify that
-	 * the category specified in the binding and the category of the referenced classifier or
-	 * prototype must match.  This method does the second check.
-	 */
-	private void checkComponentPrototypeActualPrototypeCategory(ComponentPrototypeReference actual)
-	{
-		if (!actual.getPrototype().getCategory().equals(ComponentCategory.ABSTRACT) &&
-				!actual.getCategory().equals(actual.getPrototype().getCategory()))
-		{
-			error(actual,
-					"The category of the referenced prototype is not compatible with the category specified in the prototype binding.");
-		}
-	}
 	
 	/**
 	 * Checks legality rule 6 in section 4.7 (Prototypes) on page 56.
@@ -1730,8 +1706,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkSubprogramAccessPrototypeReference(SubprogramAccess subprogramAccess)
 	{
-		if (subprogramAccess.getPrototype() instanceof ComponentPrototype &&
-				!((ComponentPrototype)subprogramAccess.getPrototype()).getCategory().equals(ComponentCategory.SUBPROGRAM))
+		if (!(subprogramAccess.getPrototype() instanceof SubprogramPrototype) )
 		{
 			error(subprogramAccess, "The category of the referenced component prototype must be subprogram.");
 		}
@@ -1746,8 +1721,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkSubprogramGroupAccessPrototypeReference(SubprogramGroupAccess subprogramGroupAccess)
 	{
-		if (subprogramGroupAccess.getPrototype() instanceof ComponentPrototype &&
-				!((ComponentPrototype)subprogramGroupAccess.getPrototype()).getCategory().equals(ComponentCategory.SUBPROGRAM_GROUP))
+		if (!(subprogramGroupAccess.getPrototype() instanceof SubprogramGroupPrototype ))
 		{
 			error(subprogramGroupAccess, "The category of the referenced component prototype must be subprogram group.");
 		}
@@ -1812,8 +1786,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkDataAccessPrototypeReference(DataAccess dataAccess)
 	{
-		if (dataAccess.getPrototype() instanceof ComponentPrototype &&
-				!((ComponentPrototype)dataAccess.getPrototype()).getCategory().equals(ComponentCategory.DATA))
+		if (!(dataAccess.getPrototype() instanceof DataPrototype))
 		{
 			error(dataAccess, "The category of the referenced component prototype must be data.");
 		}

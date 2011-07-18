@@ -47,8 +47,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.osate.aadl2.FlowImplementation#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.FlowImplementation#getSpecification <em>Specification</em>}</li>
- *   <li>{@link org.osate.aadl2.FlowImplementation#getFlowElements <em>Flow Element</em>}</li>
- *   <li>{@link org.osate.aadl2.FlowImplementation#getOwnedSubcomponentFlows <em>Owned Subcomponent Flow</em>}</li>
+ *   <li>{@link org.osate.aadl2.FlowImplementation#getOwnedFlowSegments <em>Owned Flow Segment</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,52 +83,30 @@ public interface FlowImplementation extends StructuralFeature, ModalPath {
 	void setSpecification(FlowSpecification value);
 
 	/**
-	 * Returns the value of the '<em><b>Flow Element</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.FlowElement}.
+	 * Returns the value of the '<em><b>Owned Flow Segment</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.FlowSegment}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Flow Element</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Owned Flow Segment</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Flow Element</em>' reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getFlowImplementation_FlowElement()
-	 * @model
+	 * @return the value of the '<em>Owned Flow Segment</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getFlowImplementation_OwnedFlowSegment()
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	EList<FlowElement> getFlowElements();
+	EList<FlowSegment> getOwnedFlowSegments();
 
 	/**
-	 * Returns the value of the '<em><b>Owned Subcomponent Flow</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.SubcomponentFlow}.
-	 * <p>
-	 * This feature subsets the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.FlowImplementation#getFlowElements() <em>Flow Element</em>}'</li>
-	 * </ul>
-	 * </p>
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Subcomponent Flow</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Subcomponent Flow</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getFlowImplementation_OwnedSubcomponentFlow()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	EList<SubcomponentFlow> getOwnedSubcomponentFlows();
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.SubcomponentFlow} and appends it to the '<em><b>Owned Subcomponent Flow</b></em>' containment reference list.
+	 * Creates a new {@link org.osate.aadl2.FlowSegment} and appends it to the '<em><b>Owned Flow Segment</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.SubcomponentFlow}.
-	 * @see #getOwnedSubcomponentFlows()
+	 * @return The new {@link org.osate.aadl2.FlowSegment}.
+	 * @see #getOwnedFlowSegments()
 	 * @generated
 	 */
-	SubcomponentFlow createOwnedSubcomponentFlow();
+	FlowSegment createOwnedFlowSegment();
 
 	/**
 	 * Returns the value of the '<em><b>Kind</b></em>' attribute.

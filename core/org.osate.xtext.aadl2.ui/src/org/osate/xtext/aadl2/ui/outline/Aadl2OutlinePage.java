@@ -13,7 +13,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.OutlinePage;
 public class Aadl2OutlinePage extends OutlinePage {
 
 	private Menu contextMenu;
-	private static final String contextMenuID = "RoomOutlineContextMenu";
+	private static final String contextMenuID = "Aadl2OutlineContextMenu";
 
 	/*
 	 * (non-Javadoc)
@@ -41,7 +41,7 @@ public class Aadl2OutlinePage extends OutlinePage {
 
 		IPageSite site = getSite();
 		site.registerContextMenu(
-				"org.osate.xtext.aadl2.ui.outline ", manager, getTreeViewer()); //$NON-NLS-1$
+				"org.osate.xtext.aadl2.ui.outline", manager, getTreeViewer()); //$NON-NLS-1$
 	}
 
 	protected void fillContextMenu(IMenuManager menu) {
@@ -56,7 +56,7 @@ public class Aadl2OutlinePage extends OutlinePage {
 	 */
 	@Override
 	protected int getDefaultExpansionLevel() {
-		return 2;
+		return 3;
 	}
 
 }

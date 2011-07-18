@@ -14402,7 +14402,7 @@ ruleComponentReference returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getComponentReferenceAccess().getClassifierComponentClassifierCrossReference_1_0()); 
+	        newCompositeNode(grammarAccess.getComponentReferenceAccess().getSubcomponentTypeSubcomponentTypeCrossReference_1_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -22984,35 +22984,22 @@ ruleFlowSourceSpec returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowSourceSpecRule());
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSourceSpecAccess().getOutEndFlowEndParserRuleCall_4_0()); 
+	    }
+		lv_outEnd_4_0=ruleFlowEnd		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSourceSpecRule());
 	        }
-        }
-	otherlv_4=RULE_ID
-	{
-		newLeafNode(otherlv_4, grammarAccess.getFlowSourceSpecAccess().getOutContextContextCrossReference_4_0_0()); 
-	}
-
-)
-)
-	otherlv_5=KEYWORD_7
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getFlowSourceSpecAccess().getFullStopKeyword_4_1());
-    }
-)?(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowSourceSpecRule());
-	        }
-        }
-	otherlv_6=RULE_ID
-	{
-		newLeafNode(otherlv_6, grammarAccess.getFlowSourceSpecAccess().getOutFeatureFeatureCrossReference_5_0()); 
-	}
+       		set(
+       			$current, 
+       			"outEnd",
+        		lv_outEnd_4_0, 
+        		"FlowEnd");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 ))
@@ -23082,35 +23069,22 @@ ruleFlowSinkSpec returns [EObject current=null]
 	    }
 
 )
-)((
+)(
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowSinkSpecRule());
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSinkSpecAccess().getInEndFlowEndParserRuleCall_4_0()); 
+	    }
+		lv_InEnd_4_0=ruleFlowEnd		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSinkSpecRule());
 	        }
-        }
-	otherlv_4=RULE_ID
-	{
-		newLeafNode(otherlv_4, grammarAccess.getFlowSinkSpecAccess().getInContextContextCrossReference_4_0_0()); 
-	}
-
-)
-)
-	otherlv_5=KEYWORD_7
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getFlowSinkSpecAccess().getFullStopKeyword_4_1());
-    }
-)?(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowSinkSpecRule());
-	        }
-        }
-	otherlv_6=RULE_ID
-	{
-		newLeafNode(otherlv_6, grammarAccess.getFlowSinkSpecAccess().getInFeatureFeatureCrossReference_5_0()); 
-	}
+       		set(
+       			$current, 
+       			"InEnd",
+        		lv_InEnd_4_0, 
+        		"FlowEnd");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 ))
@@ -23180,70 +23154,96 @@ ruleFlowPathSpec returns [EObject current=null]
 	    }
 
 )
-)((
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowPathSpecAccess().getInEndFlowEndParserRuleCall_4_0()); 
+	    }
+		lv_InEnd_4_0=ruleFlowEnd		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowPathSpecRule());
+	        }
+       		set(
+       			$current, 
+       			"InEnd",
+        		lv_InEnd_4_0, 
+        		"FlowEnd");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+	otherlv_5=KEYWORD_14
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getFlowPathSpecAccess().getHyphenMinusGreaterThanSignKeyword_5());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowPathSpecAccess().getOutEndFlowEndParserRuleCall_6_0()); 
+	    }
+		lv_outEnd_6_0=ruleFlowEnd		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowPathSpecRule());
+	        }
+       		set(
+       			$current, 
+       			"outEnd",
+        		lv_outEnd_6_0, 
+        		"FlowEnd");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleFlowEnd
+entryRuleFlowEnd returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getFlowEndRule()); }
+	 iv_ruleFlowEnd=ruleFlowEnd 
+	 { $current=$iv_ruleFlowEnd.current; } 
+	 EOF 
+;
+
+// Rule FlowEnd
+ruleFlowEnd returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(((
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowPathSpecRule());
+	            $current = createModelElement(grammarAccess.getFlowEndRule());
 	        }
         }
-	otherlv_4=RULE_ID
+	otherlv_0=RULE_ID
 	{
-		newLeafNode(otherlv_4, grammarAccess.getFlowPathSpecAccess().getInContextContextCrossReference_4_0_0()); 
+		newLeafNode(otherlv_0, grammarAccess.getFlowEndAccess().getContextContextCrossReference_0_0_0()); 
 	}
 
 )
 )
-	otherlv_5=KEYWORD_7
+	otherlv_1=KEYWORD_7
     {
-    	newLeafNode(otherlv_5, grammarAccess.getFlowPathSpecAccess().getFullStopKeyword_4_1());
+    	newLeafNode(otherlv_1, grammarAccess.getFlowEndAccess().getFullStopKeyword_0_1());
     }
 )?(
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowPathSpecRule());
+	            $current = createModelElement(grammarAccess.getFlowEndRule());
 	        }
         }
-	otherlv_6=RULE_ID
+	otherlv_2=RULE_ID
 	{
-		newLeafNode(otherlv_6, grammarAccess.getFlowPathSpecAccess().getInFeatureFeatureCrossReference_5_0()); 
-	}
-
-)
-)
-	otherlv_7=KEYWORD_14
-    {
-    	newLeafNode(otherlv_7, grammarAccess.getFlowPathSpecAccess().getHyphenMinusGreaterThanSignKeyword_6());
-    }
-((
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowPathSpecRule());
-	        }
-        }
-	otherlv_8=RULE_ID
-	{
-		newLeafNode(otherlv_8, grammarAccess.getFlowPathSpecAccess().getOutContextContextCrossReference_7_0_0()); 
-	}
-
-)
-)
-	otherlv_9=KEYWORD_7
-    {
-    	newLeafNode(otherlv_9, grammarAccess.getFlowPathSpecAccess().getFullStopKeyword_7_1());
-    }
-)?(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowPathSpecRule());
-	        }
-        }
-	otherlv_10=RULE_ID
-	{
-		newLeafNode(otherlv_10, grammarAccess.getFlowPathSpecAccess().getOutFeatureFeatureCrossReference_8_0()); 
+		newLeafNode(otherlv_2, grammarAccess.getFlowEndAccess().getFeatureFeatureCrossReference_1_0()); 
 	}
 
 )
@@ -23744,16 +23744,16 @@ ruleFlowSourceImpl returns [EObject current=null]
 )((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFlowSourceImplAccess().getOwnedSubcomponentFlowSubcomponentFlowParserRuleCall_4_0_0()); 
+	        newCompositeNode(grammarAccess.getFlowSourceImplAccess().getOwnedFlowSegmentSubcomponentFlowParserRuleCall_4_0_0()); 
 	    }
-		lv_ownedSubcomponentFlow_4_0=ruleSubcomponentFlow		{
+		lv_ownedFlowSegment_4_0=ruleSubcomponentFlow		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFlowSourceImplRule());
 	        }
        		add(
        			$current, 
-       			"ownedSubcomponentFlow",
-        		lv_ownedSubcomponentFlow_4_0, 
+       			"ownedFlowSegment",
+        		lv_ownedFlowSegment_4_0, 
         		"SubcomponentFlow");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -23766,15 +23766,20 @@ ruleFlowSourceImpl returns [EObject current=null]
     }
 (
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowSourceImplRule());
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSourceImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_4_2_0()); 
+	    }
+		lv_ownedFlowSegment_6_0=ruleConnectionFlow		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSourceImplRule());
 	        }
-        }
-	otherlv_6=RULE_ID
-	{
-		newLeafNode(otherlv_6, grammarAccess.getFlowSourceImplAccess().getFlowElementConnectionCrossReference_4_2_0()); 
-	}
+       		add(
+       			$current, 
+       			"ownedFlowSegment",
+        		lv_ownedFlowSegment_6_0, 
+        		"ConnectionFlow");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )
@@ -23782,7 +23787,20 @@ ruleFlowSourceImpl returns [EObject current=null]
     {
     	newLeafNode(otherlv_7, grammarAccess.getFlowSourceImplAccess().getHyphenMinusGreaterThanSignKeyword_4_3());
     }
-)*)
+)*(this_ID_8=RULE_ID
+    { 
+    newLeafNode(this_ID_8, grammarAccess.getFlowSourceImplAccess().getIDTerminalRuleCall_5_0()); 
+    }
+
+	otherlv_9=KEYWORD_7
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getFlowSourceImplAccess().getFullStopKeyword_5_1());
+    }
+)?this_ID_10=RULE_ID
+    { 
+    newLeafNode(this_ID_10, grammarAccess.getFlowSourceImplAccess().getIDTerminalRuleCall_6()); 
+    }
+)
 ;
 
 
@@ -23844,42 +23862,60 @@ ruleFlowSinkImpl returns [EObject current=null]
 	    }
 
 )
-)(
-	otherlv_4=KEYWORD_14
+)(this_ID_4=RULE_ID
+    { 
+    newLeafNode(this_ID_4, grammarAccess.getFlowSinkImplAccess().getIDTerminalRuleCall_4_0()); 
+    }
+
+	otherlv_5=KEYWORD_7
     {
-    	newLeafNode(otherlv_4, grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_4_0());
+    	newLeafNode(otherlv_5, grammarAccess.getFlowSinkImplAccess().getFullStopKeyword_4_1());
+    }
+)?this_ID_6=RULE_ID
+    { 
+    newLeafNode(this_ID_6, grammarAccess.getFlowSinkImplAccess().getIDTerminalRuleCall_5()); 
     }
 (
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowSinkImplRule());
-	        }
-        }
-	otherlv_5=RULE_ID
-	{
-		newLeafNode(otherlv_5, grammarAccess.getFlowSinkImplAccess().getFlowElementConnectionCrossReference_4_1_0()); 
-	}
-
-)
-)
-	otherlv_6=KEYWORD_14
+	otherlv_7=KEYWORD_14
     {
-    	newLeafNode(otherlv_6, grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_4_2());
+    	newLeafNode(otherlv_7, grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_6_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFlowSinkImplAccess().getOwnedSubcomponentFlowSubcomponentFlowParserRuleCall_4_3_0()); 
+	        newCompositeNode(grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_6_1_0()); 
 	    }
-		lv_ownedSubcomponentFlow_7_0=ruleSubcomponentFlow		{
+		lv_ownedFlowSegment_8_0=ruleConnectionFlow		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFlowSinkImplRule());
 	        }
        		add(
        			$current, 
-       			"ownedSubcomponentFlow",
-        		lv_ownedSubcomponentFlow_7_0, 
+       			"ownedFlowSegment",
+        		lv_ownedFlowSegment_8_0, 
+        		"ConnectionFlow");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+	otherlv_9=KEYWORD_14
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_6_2());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentSubcomponentFlowParserRuleCall_6_3_0()); 
+	    }
+		lv_ownedFlowSegment_10_0=ruleSubcomponentFlow		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSinkImplRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedFlowSegment",
+        		lv_ownedFlowSegment_10_0, 
         		"SubcomponentFlow");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -23947,66 +23983,102 @@ ruleFlowPathImpl returns [EObject current=null]
 	    }
 
 )
-)((
-	otherlv_4=KEYWORD_14
-    {
-    	newLeafNode(otherlv_4, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_4_0_0());
+)(this_ID_4=RULE_ID
+    { 
+    newLeafNode(this_ID_4, grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_4_0()); 
     }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowPathImplRule());
-	        }
-        }
-	otherlv_5=RULE_ID
-	{
-		newLeafNode(otherlv_5, grammarAccess.getFlowPathImplAccess().getFlowElementConnectionCrossReference_4_0_1_0()); 
-	}
 
-)
-)
-	otherlv_6=KEYWORD_14
+	otherlv_5=KEYWORD_7
     {
-    	newLeafNode(otherlv_6, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_4_0_2());
+    	newLeafNode(otherlv_5, grammarAccess.getFlowPathImplAccess().getFullStopKeyword_4_1());
+    }
+)?this_ID_6=RULE_ID
+    { 
+    newLeafNode(this_ID_6, grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_5()); 
+    }
+((
+	otherlv_7=KEYWORD_14
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_6_0_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getOwnedSubcomponentFlowSubcomponentFlowParserRuleCall_4_0_3_0()); 
+	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_6_0_1_0()); 
 	    }
-		lv_ownedSubcomponentFlow_7_0=ruleSubcomponentFlow		{
+		lv_ownedFlowSegment_8_0=ruleConnectionFlow		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFlowPathImplRule());
 	        }
        		add(
        			$current, 
-       			"ownedSubcomponentFlow",
-        		lv_ownedSubcomponentFlow_7_0, 
+       			"ownedFlowSegment",
+        		lv_ownedFlowSegment_8_0, 
+        		"ConnectionFlow");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+	otherlv_9=KEYWORD_14
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_6_0_2());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentSubcomponentFlowParserRuleCall_6_0_3_0()); 
+	    }
+		lv_ownedFlowSegment_10_0=ruleSubcomponentFlow		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowPathImplRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedFlowSegment",
+        		lv_ownedFlowSegment_10_0, 
         		"SubcomponentFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 ))*
-	otherlv_8=KEYWORD_14
+	otherlv_11=KEYWORD_14
     {
-    	newLeafNode(otherlv_8, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_4_1());
+    	newLeafNode(otherlv_11, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_6_1());
     }
 (
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowPathImplRule());
+		{ 
+	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_6_2_0()); 
+	    }
+		lv_ownedFlowSegment_12_0=ruleConnectionFlow		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowPathImplRule());
 	        }
-        }
-	otherlv_9=RULE_ID
-	{
-		newLeafNode(otherlv_9, grammarAccess.getFlowPathImplAccess().getFlowElementConnectionCrossReference_4_2_0()); 
-	}
+       		add(
+       			$current, 
+       			"ownedFlowSegment",
+        		lv_ownedFlowSegment_12_0, 
+        		"ConnectionFlow");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
-))?)
+))?(this_ID_13=RULE_ID
+    { 
+    newLeafNode(this_ID_13, grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_7_0()); 
+    }
+
+	otherlv_14=KEYWORD_7
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getFlowPathImplAccess().getFullStopKeyword_7_1());
+    }
+)?this_ID_15=RULE_ID
+    { 
+    newLeafNode(this_ID_15, grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_8()); 
+    }
+)
 ;
 
 
@@ -24073,17 +24145,17 @@ ruleEndToEndFlow returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEndToEndFlowAccess().getOwnedSubcomponentFlowSubcomponentFlowParserRuleCall_6_0()); 
+	        newCompositeNode(grammarAccess.getEndToEndFlowAccess().getOwnedEndToEndFlowSegmentETESubcomponentFlowParserRuleCall_6_0()); 
 	    }
-		lv_ownedSubcomponentFlow_6_0=ruleSubcomponentFlow		{
+		lv_ownedEndToEndFlowSegment_6_0=ruleETESubcomponentFlow		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEndToEndFlowRule());
 	        }
        		add(
        			$current, 
-       			"ownedSubcomponentFlow",
-        		lv_ownedSubcomponentFlow_6_0, 
-        		"SubcomponentFlow");
+       			"ownedEndToEndFlowSegment",
+        		lv_ownedEndToEndFlowSegment_6_0, 
+        		"ETESubcomponentFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24095,15 +24167,20 @@ ruleEndToEndFlow returns [EObject current=null]
     }
 (
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEndToEndFlowRule());
+		{ 
+	        newCompositeNode(grammarAccess.getEndToEndFlowAccess().getOwnedEndToEndFlowSegmentETEConnectionFlowParserRuleCall_7_1_0()); 
+	    }
+		lv_ownedEndToEndFlowSegment_8_0=ruleETEConnectionFlow		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getEndToEndFlowRule());
 	        }
-        }
-	otherlv_8=RULE_ID
-	{
-		newLeafNode(otherlv_8, grammarAccess.getEndToEndFlowAccess().getFlowElementConnectionCrossReference_7_1_0()); 
-	}
+       		add(
+       			$current, 
+       			"ownedEndToEndFlowSegment",
+        		lv_ownedEndToEndFlowSegment_8_0, 
+        		"ETEConnectionFlow");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )
@@ -24114,17 +24191,17 @@ ruleEndToEndFlow returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEndToEndFlowAccess().getOwnedSubcomponentFlowSubcomponentFlowParserRuleCall_7_3_0()); 
+	        newCompositeNode(grammarAccess.getEndToEndFlowAccess().getOwnedEndToEndFlowSegmentETESubcomponentFlowParserRuleCall_7_3_0()); 
 	    }
-		lv_ownedSubcomponentFlow_10_0=ruleSubcomponentFlow		{
+		lv_ownedEndToEndFlowSegment_10_0=ruleETESubcomponentFlow		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEndToEndFlowRule());
 	        }
        		add(
        			$current, 
-       			"ownedSubcomponentFlow",
-        		lv_ownedSubcomponentFlow_10_0, 
-        		"SubcomponentFlow");
+       			"ownedEndToEndFlowSegment",
+        		lv_ownedEndToEndFlowSegment_10_0, 
+        		"ETESubcomponentFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24356,7 +24433,7 @@ ruleSubcomponentFlow returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
+(((
 (
 		{
 			if ($current==null) {
@@ -24365,16 +24442,16 @@ ruleSubcomponentFlow returns [EObject current=null]
         }
 	otherlv_0=RULE_ID
 	{
-		newLeafNode(otherlv_0, grammarAccess.getSubcomponentFlowAccess().getContextSubcomponentCrossReference_0_0()); 
+		newLeafNode(otherlv_0, grammarAccess.getSubcomponentFlowAccess().getContextSubcomponentCrossReference_0_0_0()); 
 	}
 
 )
 )
 	otherlv_1=KEYWORD_7
     {
-    	newLeafNode(otherlv_1, grammarAccess.getSubcomponentFlowAccess().getFullStopKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getSubcomponentFlowAccess().getFullStopKeyword_0_1());
     }
-(
+)?(
 (
 		{
 			if ($current==null) {
@@ -24383,11 +24460,131 @@ ruleSubcomponentFlow returns [EObject current=null]
         }
 	otherlv_2=RULE_ID
 	{
-		newLeafNode(otherlv_2, grammarAccess.getSubcomponentFlowAccess().getFlowSpecificationFlowSpecificationCrossReference_2_0()); 
+		newLeafNode(otherlv_2, grammarAccess.getSubcomponentFlowAccess().getFlowElementFlowElementCrossReference_1_0()); 
 	}
 
 )
 ))
+;
+
+
+
+
+
+// Entry rule entryRuleConnectionFlow
+entryRuleConnectionFlow returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getConnectionFlowRule()); }
+	 iv_ruleConnectionFlow=ruleConnectionFlow 
+	 { $current=$iv_ruleConnectionFlow.current; } 
+	 EOF 
+;
+
+// Rule ConnectionFlow
+ruleConnectionFlow returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConnectionFlowRule());
+	        }
+        }
+	otherlv_0=RULE_ID
+	{
+		newLeafNode(otherlv_0, grammarAccess.getConnectionFlowAccess().getFlowElementConnectionCrossReference_0()); 
+	}
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleETESubcomponentFlow
+entryRuleETESubcomponentFlow returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getETESubcomponentFlowRule()); }
+	 iv_ruleETESubcomponentFlow=ruleETESubcomponentFlow 
+	 { $current=$iv_ruleETESubcomponentFlow.current; } 
+	 EOF 
+;
+
+// Rule ETESubcomponentFlow
+ruleETESubcomponentFlow returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getETESubcomponentFlowRule());
+	        }
+        }
+	otherlv_0=RULE_ID
+	{
+		newLeafNode(otherlv_0, grammarAccess.getETESubcomponentFlowAccess().getContextSubcomponentCrossReference_0_0_0()); 
+	}
+
+)
+)
+	otherlv_1=KEYWORD_7
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getETESubcomponentFlowAccess().getFullStopKeyword_0_1());
+    }
+)?(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getETESubcomponentFlowRule());
+	        }
+        }
+	otherlv_2=RULE_ID
+	{
+		newLeafNode(otherlv_2, grammarAccess.getETESubcomponentFlowAccess().getFlowElementEndToEndFlowElementCrossReference_1_0()); 
+	}
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleETEConnectionFlow
+entryRuleETEConnectionFlow returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getETEConnectionFlowRule()); }
+	 iv_ruleETEConnectionFlow=ruleETEConnectionFlow 
+	 { $current=$iv_ruleETEConnectionFlow.current; } 
+	 EOF 
+;
+
+// Rule ETEConnectionFlow
+ruleETEConnectionFlow returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getETEConnectionFlowRule());
+	        }
+        }
+	otherlv_0=RULE_ID
+	{
+		newLeafNode(otherlv_0, grammarAccess.getETEConnectionFlowAccess().getFlowElementConnectionCrossReference_0()); 
+	}
+
+)
+)
 ;
 
 

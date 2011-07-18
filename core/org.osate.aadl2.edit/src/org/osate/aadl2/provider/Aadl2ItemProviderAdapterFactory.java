@@ -540,6 +540,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FlowEnd} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FlowEndItemProvider flowEndItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.FlowEnd}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFlowEndAdapter() {
+		if (flowEndItemProvider == null) {
+			flowEndItemProvider = new FlowEndItemProvider(this);
+		}
+
+		return flowEndItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.TypeExtension} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -675,29 +698,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return dataAccessItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EndToEndFlowElement} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EndToEndFlowElementItemProvider endToEndFlowElementItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.EndToEndFlowElement}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createEndToEndFlowElementAdapter() {
-		if (endToEndFlowElementItemProvider == null) {
-			endToEndFlowElementItemProvider = new EndToEndFlowElementItemProvider(this);
-		}
-
-		return endToEndFlowElementItemProvider;
 	}
 
 	/**
@@ -908,26 +908,26 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubcomponentFlow} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FlowSegment} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SubcomponentFlowItemProvider subcomponentFlowItemProvider;
+	protected FlowSegmentItemProvider flowSegmentItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.SubcomponentFlow}.
+	 * This creates an adapter for a {@link org.osate.aadl2.FlowSegment}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createSubcomponentFlowAdapter() {
-		if (subcomponentFlowItemProvider == null) {
-			subcomponentFlowItemProvider = new SubcomponentFlowItemProvider(this);
+	public Adapter createFlowSegmentAdapter() {
+		if (flowSegmentItemProvider == null) {
+			flowSegmentItemProvider = new FlowSegmentItemProvider(this);
 		}
 
-		return subcomponentFlowItemProvider;
+		return flowSegmentItemProvider;
 	}
 
 	/**
@@ -1020,6 +1020,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return endToEndFlowItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EndToEndFlowSegment} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EndToEndFlowSegmentItemProvider endToEndFlowSegmentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.EndToEndFlowSegment}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEndToEndFlowSegmentAdapter() {
+		if (endToEndFlowSegmentItemProvider == null) {
+			endToEndFlowSegmentItemProvider = new EndToEndFlowSegmentItemProvider(this);
+		}
+
+		return endToEndFlowSegmentItemProvider;
 	}
 
 	/**
@@ -2702,6 +2725,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ComponentPrototypeActual} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ComponentPrototypeActualItemProvider componentPrototypeActualItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ComponentPrototypeActual}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createComponentPrototypeActualAdapter() {
+		if (componentPrototypeActualItemProvider == null) {
+			componentPrototypeActualItemProvider = new ComponentPrototypeActualItemProvider(this);
+		}
+
+		return componentPrototypeActualItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupPrototype} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2860,52 +2906,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return featurePrototypeReferenceItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ComponentPrototypeReference} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ComponentPrototypeReferenceItemProvider componentPrototypeReferenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ComponentPrototypeReference}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createComponentPrototypeReferenceAdapter() {
-		if (componentPrototypeReferenceItemProvider == null) {
-			componentPrototypeReferenceItemProvider = new ComponentPrototypeReferenceItemProvider(this);
-		}
-
-		return componentPrototypeReferenceItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ComponentReference} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ComponentReferenceItemProvider componentReferenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ComponentReference}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createComponentReferenceAdapter() {
-		if (componentReferenceItemProvider == null) {
-			componentReferenceItemProvider = new ComponentReferenceItemProvider(this);
-		}
-
-		return componentReferenceItemProvider;
 	}
 
 	/**
@@ -3890,6 +3890,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			modeTransitionItemProvider.dispose();
 		if (flowSpecificationItemProvider != null)
 			flowSpecificationItemProvider.dispose();
+		if (flowEndItemProvider != null)
+			flowEndItemProvider.dispose();
 		if (typeExtensionItemProvider != null)
 			typeExtensionItemProvider.dispose();
 		if (featureGroupItemProvider != null)
@@ -3902,8 +3904,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			busAccessItemProvider.dispose();
 		if (dataAccessItemProvider != null)
 			dataAccessItemProvider.dispose();
-		if (endToEndFlowElementItemProvider != null)
-			endToEndFlowElementItemProvider.dispose();
 		if (dataPortItemProvider != null)
 			dataPortItemProvider.dispose();
 		if (eventDataPortItemProvider != null)
@@ -3922,14 +3922,16 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			modeBindingItemProvider.dispose();
 		if (flowImplementationItemProvider != null)
 			flowImplementationItemProvider.dispose();
-		if (subcomponentFlowItemProvider != null)
-			subcomponentFlowItemProvider.dispose();
+		if (flowSegmentItemProvider != null)
+			flowSegmentItemProvider.dispose();
 		if (implementationExtensionItemProvider != null)
 			implementationExtensionItemProvider.dispose();
 		if (realizationItemProvider != null)
 			realizationItemProvider.dispose();
 		if (endToEndFlowItemProvider != null)
 			endToEndFlowItemProvider.dispose();
+		if (endToEndFlowSegmentItemProvider != null)
+			endToEndFlowSegmentItemProvider.dispose();
 		if (abstractSubcomponentItemProvider != null)
 			abstractSubcomponentItemProvider.dispose();
 		if (accessConnectionItemProvider != null)
@@ -3966,6 +3968,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			featureGroupTypeRenameItemProvider.dispose();
 		if (componentPrototypeBindingItemProvider != null)
 			componentPrototypeBindingItemProvider.dispose();
+		if (componentPrototypeActualItemProvider != null)
+			componentPrototypeActualItemProvider.dispose();
 		if (featureGroupPrototypeItemProvider != null)
 			featureGroupPrototypeItemProvider.dispose();
 		if (featureGroupPrototypeBindingItemProvider != null)
@@ -3980,10 +3984,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			portSpecificationItemProvider.dispose();
 		if (featurePrototypeReferenceItemProvider != null)
 			featurePrototypeReferenceItemProvider.dispose();
-		if (componentPrototypeReferenceItemProvider != null)
-			componentPrototypeReferenceItemProvider.dispose();
-		if (componentReferenceItemProvider != null)
-			componentReferenceItemProvider.dispose();
 		if (featureGroupPrototypeReferenceItemProvider != null)
 			featureGroupPrototypeReferenceItemProvider.dispose();
 		if (featureGroupReferenceItemProvider != null)

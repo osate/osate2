@@ -67,9 +67,9 @@ public class DataPrototypeImpl extends ComponentPrototypeImpl implements DataPro
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDataPrototype();
 	}
-
-	@Override
-	public ComponentCategory getCategory() {
+	
+	public ComponentCategory getCategory(){
 		return ComponentCategory.DATA;
 	}
+
 } //DataPrototypeImpl

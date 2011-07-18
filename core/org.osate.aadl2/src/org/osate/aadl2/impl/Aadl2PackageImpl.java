@@ -564,6 +564,13 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass flowEndEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass dataClassifierEClass = null;
 
 	/**
@@ -739,7 +746,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass subcomponentFlowEClass = null;
+	private EClass flowSegmentEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -782,6 +789,13 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	private EClass endToEndFlowEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass endToEndFlowSegmentEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1587,20 +1601,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	private EClass featurePrototypeReferenceEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass componentPrototypeReferenceEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass componentReferenceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -3339,7 +3339,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getTriggerPort() {
 		if (triggerPortEClass == null) {
 			triggerPortEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(120);
+					.get(122);
 		}
 		return triggerPortEClass;
 	}
@@ -3370,7 +3370,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getContext() {
 		if (contextEClass == null) {
 			contextEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(52);
+					.get(55);
 		}
 		return contextEClass;
 	}
@@ -3383,7 +3383,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getPort() {
 		if (portEClass == null) {
 			portEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(78);
+					.get(79);
 		}
 		return portEClass;
 	}
@@ -3405,7 +3405,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getDirectedFeature() {
 		if (directedFeatureEClass == null) {
 			directedFeatureEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(56);
+					.getEClassifiers().get(59);
 		}
 		return directedFeatureEClass;
 	}
@@ -3493,7 +3493,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getPortConnectionEnd() {
 		if (portConnectionEndEClass == null) {
 			portConnectionEndEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(71);
+					.getEClassifiers().get(74);
 		}
 		return portConnectionEndEClass;
 	}
@@ -3636,7 +3636,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFlowSpecification_InFeature() {
+	public EReference getFlowSpecification_OutEnd() {
 		return (EReference) getFlowSpecification().getEStructuralFeatures().get(2);
 	}
 
@@ -3645,26 +3645,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFlowSpecification_InContext() {
+	public EReference getFlowSpecification_InEnd() {
 		return (EReference) getFlowSpecification().getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFlowSpecification_OutFeature() {
-		return (EReference) getFlowSpecification().getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFlowSpecification_OutContext() {
-		return (EReference) getFlowSpecification().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -3688,7 +3670,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getTypeExtension() {
 		if (typeExtensionEClass == null) {
 			typeExtensionEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(53);
+					.getEClassifiers().get(56);
 		}
 		return typeExtensionEClass;
 	}
@@ -3710,7 +3692,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeatureGroup() {
 		if (featureGroupEClass == null) {
 			featureGroupEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(54);
+					.getEClassifiers().get(57);
 		}
 		return featureGroupEClass;
 	}
@@ -3741,7 +3723,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeatureGroupConnectionEnd() {
 		if (featureGroupConnectionEndEClass == null) {
 			featureGroupConnectionEndEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(58);
+					.getEClassifiers().get(61);
 		}
 		return featureGroupConnectionEndEClass;
 	}
@@ -3754,7 +3736,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getCallContext() {
 		if (callContextEClass == null) {
 			callContextEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(55);
+					.get(58);
 		}
 		return callContextEClass;
 	}
@@ -3767,7 +3749,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeatureGroupType() {
 		if (featureGroupTypeEClass == null) {
 			featureGroupTypeEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(59);
+					.getEClassifiers().get(62);
 		}
 		return featureGroupTypeEClass;
 	}
@@ -3906,7 +3888,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getGroupExtension() {
 		if (groupExtensionEClass == null) {
 			groupExtensionEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(60);
+					.getEClassifiers().get(63);
 		}
 		return groupExtensionEClass;
 	}
@@ -3928,7 +3910,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getBusAccess() {
 		if (busAccessEClass == null) {
 			busAccessEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(61);
+					.get(64);
 		}
 		return busAccessEClass;
 	}
@@ -3950,7 +3932,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getAccess() {
 		if (accessEClass == null) {
 			accessEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(62);
+					.get(65);
 		}
 		return accessEClass;
 	}
@@ -3981,7 +3963,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getAccessConnectionEnd() {
 		if (accessConnectionEndEClass == null) {
 			accessConnectionEndEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(63);
+					.getEClassifiers().get(66);
 		}
 		return accessConnectionEndEClass;
 	}
@@ -3994,7 +3976,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getBusClassifier() {
 		if (busClassifierEClass == null) {
 			busClassifierEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(66);
+					.getEClassifiers().get(69);
 		}
 		return busClassifierEClass;
 	}
@@ -4007,7 +3989,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getBusSubcomponentType() {
 		if (busSubcomponentTypeEClass == null) {
 			busSubcomponentTypeEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(67);
+					.getEClassifiers().get(70);
 		}
 		return busSubcomponentTypeEClass;
 	}
@@ -4019,7 +4001,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 */
 	public EClass getBus() {
 		if (busEClass == null) {
-			busEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers().get(68);
+			busEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers().get(71);
 		}
 		return busEClass;
 	}
@@ -4032,7 +4014,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getDataAccess() {
 		if (dataAccessEClass == null) {
 			dataAccessEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(69);
+					.get(72);
 		}
 		return dataAccessEClass;
 	}
@@ -4054,7 +4036,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getParameterConnectionEnd() {
 		if (parameterConnectionEndEClass == null) {
 			parameterConnectionEndEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(70);
+					.getEClassifiers().get(73);
 		}
 		return parameterConnectionEndEClass;
 	}
@@ -4067,7 +4049,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFlowElement() {
 		if (flowElementEClass == null) {
 			flowElementEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(72);
+					.get(51);
 		}
 		return flowElementEClass;
 	}
@@ -4080,9 +4062,40 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getEndToEndFlowElement() {
 		if (endToEndFlowElementEClass == null) {
 			endToEndFlowElementEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(73);
+					.getEClassifiers().get(52);
 		}
 		return endToEndFlowElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFlowEnd() {
+		if (flowEndEClass == null) {
+			flowEndEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
+					.get(54);
+		}
+		return flowEndEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFlowEnd_Context() {
+		return (EReference) getFlowEnd().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFlowEnd_Feature() {
+		return (EReference) getFlowEnd().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4093,7 +4106,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getDataClassifier() {
 		if (dataClassifierEClass == null) {
 			dataClassifierEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(74);
+					.getEClassifiers().get(75);
 		}
 		return dataClassifierEClass;
 	}
@@ -4106,7 +4119,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getDataSubcomponentType() {
 		if (dataSubcomponentTypeEClass == null) {
 			dataSubcomponentTypeEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(75);
+					.getEClassifiers().get(76);
 		}
 		return dataSubcomponentTypeEClass;
 	}
@@ -4119,7 +4132,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getData() {
 		if (dataEClass == null) {
 			dataEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(76);
+					.get(77);
 		}
 		return dataEClass;
 	}
@@ -4132,7 +4145,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getDataPort() {
 		if (dataPortEClass == null) {
 			dataPortEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(77);
+					.get(78);
 		}
 		return dataPortEClass;
 	}
@@ -4154,7 +4167,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getEventDataPort() {
 		if (eventDataPortEClass == null) {
 			eventDataPortEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(80);
+					.getEClassifiers().get(81);
 		}
 		return eventDataPortEClass;
 	}
@@ -4176,7 +4189,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getEventPort() {
 		if (eventPortEClass == null) {
 			eventPortEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(81);
+					.get(82);
 		}
 		return eventPortEClass;
 	}
@@ -4189,7 +4202,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getParameter() {
 		if (parameterEClass == null) {
 			parameterEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(82);
+					.get(83);
 		}
 		return parameterEClass;
 	}
@@ -4211,7 +4224,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getSubprogramAccess() {
 		if (subprogramAccessEClass == null) {
 			subprogramAccessEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(83);
+					.getEClassifiers().get(84);
 		}
 		return subprogramAccessEClass;
 	}
@@ -4233,7 +4246,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getCalledSubprogram() {
 		if (calledSubprogramEClass == null) {
 			calledSubprogramEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(84);
+					.getEClassifiers().get(85);
 		}
 		return calledSubprogramEClass;
 	}
@@ -4246,7 +4259,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getSubprogramClassifier() {
 		if (subprogramClassifierEClass == null) {
 			subprogramClassifierEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(85);
+					.getEClassifiers().get(86);
 		}
 		return subprogramClassifierEClass;
 	}
@@ -4259,7 +4272,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getSubprogramSubcomponentType() {
 		if (subprogramSubcomponentTypeEClass == null) {
 			subprogramSubcomponentTypeEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(86);
+					.getEClassifiers().get(87);
 		}
 		return subprogramSubcomponentTypeEClass;
 	}
@@ -4272,7 +4285,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getSubprogram() {
 		if (subprogramEClass == null) {
 			subprogramEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(87);
+					.get(88);
 		}
 		return subprogramEClass;
 	}
@@ -4285,7 +4298,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getSubprogramGroupAccess() {
 		if (subprogramGroupAccessEClass == null) {
 			subprogramGroupAccessEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(88);
+					.getEClassifiers().get(89);
 		}
 		return subprogramGroupAccessEClass;
 	}
@@ -4307,7 +4320,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getSubprogramGroupClassifier() {
 		if (subprogramGroupClassifierEClass == null) {
 			subprogramGroupClassifierEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(89);
+					.getEClassifiers().get(90);
 		}
 		return subprogramGroupClassifierEClass;
 	}
@@ -4320,7 +4333,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getSubprogramGroupSubcomponentType() {
 		if (subprogramGroupSubcomponentTypeEClass == null) {
 			subprogramGroupSubcomponentTypeEClass = (EClass) EPackage.Registry.INSTANCE
-					.getEPackage(Aadl2Package.eNS_URI).getEClassifiers().get(90);
+					.getEPackage(Aadl2Package.eNS_URI).getEClassifiers().get(91);
 		}
 		return subprogramGroupSubcomponentTypeEClass;
 	}
@@ -4333,7 +4346,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getSubprogramGroup() {
 		if (subprogramGroupEClass == null) {
 			subprogramGroupEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(91);
+					.getEClassifiers().get(92);
 		}
 		return subprogramGroupEClass;
 	}
@@ -4346,7 +4359,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getAbstractFeature() {
 		if (abstractFeatureEClass == null) {
 			abstractFeatureEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(92);
+					.getEClassifiers().get(93);
 		}
 		return abstractFeatureEClass;
 	}
@@ -4368,7 +4381,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getSubcomponent() {
 		if (subcomponentEClass == null) {
 			subcomponentEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(93);
+					.getEClassifiers().get(94);
 		}
 		return subcomponentEClass;
 	}
@@ -4462,7 +4475,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getComponentPrototype() {
 		if (componentPrototypeEClass == null) {
 			componentPrototypeEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(94);
+					.getEClassifiers().get(95);
 		}
 		return componentPrototypeEClass;
 	}
@@ -4472,7 +4485,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComponentPrototype_Category() {
+	public EAttribute getComponentPrototype_Array() {
 		return (EAttribute) getComponentPrototype().getEStructuralFeatures().get(0);
 	}
 
@@ -4481,17 +4494,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComponentPrototype_Array() {
-		return (EAttribute) getComponentPrototype().getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getComponentPrototype_ConstrainingClassifier() {
-		return (EReference) getComponentPrototype().getEStructuralFeatures().get(2);
+		return (EReference) getComponentPrototype().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4600,17 +4604,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFlowImplementation_FlowElement() {
+	public EReference getFlowImplementation_OwnedFlowSegment() {
 		return (EReference) getFlowImplementation().getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFlowImplementation_OwnedSubcomponentFlow() {
-		return (EReference) getFlowImplementation().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -4640,12 +4635,12 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSubcomponentFlow() {
-		if (subcomponentFlowEClass == null) {
-			subcomponentFlowEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(101);
+	public EClass getFlowSegment() {
+		if (flowSegmentEClass == null) {
+			flowSegmentEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
+					.get(101);
 		}
-		return subcomponentFlowEClass;
+		return flowSegmentEClass;
 	}
 
 	/**
@@ -4653,8 +4648,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSubcomponentFlow_Context() {
-		return (EReference) getSubcomponentFlow().getEStructuralFeatures().get(0);
+	public EReference getFlowSegment_FlowElement() {
+		return (EReference) getFlowSegment().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4662,17 +4657,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSubcomponentFlow_FlowSpecification() {
-		return (EReference) getSubcomponentFlow().getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSubcomponentFlow_DataAccess() {
-		return (EReference) getSubcomponentFlow().getEStructuralFeatures().get(2);
+	public EReference getFlowSegment_Context() {
+		return (EReference) getFlowSegment().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4745,7 +4731,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getConnectedElement() {
 		if (connectedElementEClass == null) {
 			connectedElementEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(114);
+					.getEClassifiers().get(116);
 		}
 		return connectedElementEClass;
 	}
@@ -4839,7 +4825,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEndToEndFlow_FlowElement() {
+	public EReference getEndToEndFlow_OwnedEndToEndFlowSegment() {
 		return (EReference) getEndToEndFlow().getEStructuralFeatures().get(1);
 	}
 
@@ -4848,8 +4834,30 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEndToEndFlow_OwnedSubcomponentFlow() {
-		return (EReference) getEndToEndFlow().getEStructuralFeatures().get(2);
+	public EClass getEndToEndFlowSegment() {
+		if (endToEndFlowSegmentEClass == null) {
+			endToEndFlowSegmentEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
+					.getEClassifiers().get(107);
+		}
+		return endToEndFlowSegmentEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEndToEndFlowSegment_FlowElement() {
+		return (EReference) getEndToEndFlowSegment().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEndToEndFlowSegment_Context() {
+		return (EReference) getEndToEndFlowSegment().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4860,7 +4868,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getAbstractSubcomponent() {
 		if (abstractSubcomponentEClass == null) {
 			abstractSubcomponentEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(107);
+					.getEClassifiers().get(108);
 		}
 		return abstractSubcomponentEClass;
 	}
@@ -4873,7 +4881,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getElementName() {
 		if (elementNameEClass == null) {
 			elementNameEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(115);
+					.get(117);
 		}
 		return elementNameEClass;
 	}
@@ -4895,7 +4903,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getAccessConnection() {
 		if (accessConnectionEClass == null) {
 			accessConnectionEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(108);
+					.getEClassifiers().get(109);
 		}
 		return accessConnectionEClass;
 	}
@@ -4917,7 +4925,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getParameterConnection() {
 		if (parameterConnectionEClass == null) {
 			parameterConnectionEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(109);
+					.getEClassifiers().get(110);
 		}
 		return parameterConnectionEClass;
 	}
@@ -4930,7 +4938,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getPortConnection() {
 		if (portConnectionEClass == null) {
 			portConnectionEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(110);
+					.getEClassifiers().get(111);
 		}
 		return portConnectionEClass;
 	}
@@ -4943,7 +4951,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeatureConnection() {
 		if (featureConnectionEClass == null) {
 			featureConnectionEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(111);
+					.getEClassifiers().get(112);
 		}
 		return featureConnectionEClass;
 	}
@@ -4956,7 +4964,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeatureGroupConnection() {
 		if (featureGroupConnectionEClass == null) {
 			featureGroupConnectionEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(112);
+					.getEClassifiers().get(113);
 		}
 		return featureGroupConnectionEClass;
 	}
@@ -4982,7 +4990,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getAnnexLibrary() {
 		if (annexLibraryEClass == null) {
 			annexLibraryEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(117);
+					.getEClassifiers().get(119);
 		}
 		return annexLibraryEClass;
 	}
@@ -4995,7 +5003,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getDefaultAnnexLibrary() {
 		if (defaultAnnexLibraryEClass == null) {
 			defaultAnnexLibraryEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(118);
+					.getEClassifiers().get(120);
 		}
 		return defaultAnnexLibraryEClass;
 	}
@@ -5017,7 +5025,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getDefaultAnnexSubclause() {
 		if (defaultAnnexSubclauseEClass == null) {
 			defaultAnnexSubclauseEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(119);
+					.getEClassifiers().get(121);
 		}
 		return defaultAnnexSubclauseEClass;
 	}
@@ -5039,7 +5047,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getPublicPackageSection() {
 		if (publicPackageSectionEClass == null) {
 			publicPackageSectionEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(121);
+					.getEClassifiers().get(123);
 		}
 		return publicPackageSectionEClass;
 	}
@@ -5061,7 +5069,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getPackageSection() {
 		if (packageSectionEClass == null) {
 			packageSectionEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(122);
+					.getEClassifiers().get(124);
 		}
 		return packageSectionEClass;
 	}
@@ -5137,7 +5145,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getPackageRename() {
 		if (packageRenameEClass == null) {
 			packageRenameEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(123);
+					.getEClassifiers().get(125);
 		}
 		return packageRenameEClass;
 	}
@@ -5168,7 +5176,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getAadlPackage() {
 		if (aadlPackageEClass == null) {
 			aadlPackageEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(124);
+					.get(126);
 		}
 		return aadlPackageEClass;
 	}
@@ -5226,7 +5234,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getModelUnit() {
 		if (modelUnitEClass == null) {
 			modelUnitEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(125);
+					.get(127);
 		}
 		return modelUnitEClass;
 	}
@@ -5239,7 +5247,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getPrivatePackageSection() {
 		if (privatePackageSectionEClass == null) {
 			privatePackageSectionEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(126);
+					.getEClassifiers().get(128);
 		}
 		return privatePackageSectionEClass;
 	}
@@ -5261,7 +5269,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getComponentTypeRename() {
 		if (componentTypeRenameEClass == null) {
 			componentTypeRenameEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(127);
+					.getEClassifiers().get(129);
 		}
 		return componentTypeRenameEClass;
 	}
@@ -5292,7 +5300,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeatureGroupTypeRename() {
 		if (featureGroupTypeRenameEClass == null) {
 			featureGroupTypeRenameEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(128);
+					.getEClassifiers().get(130);
 		}
 		return featureGroupTypeRenameEClass;
 	}
@@ -7607,7 +7615,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getComponentPrototypeBinding() {
 		if (componentPrototypeBindingEClass == null) {
 			componentPrototypeBindingEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(129);
+					.getEClassifiers().get(131);
 		}
 		return componentPrototypeBindingEClass;
 	}
@@ -7629,7 +7637,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getComponentPrototypeActual() {
 		if (componentPrototypeActualEClass == null) {
 			componentPrototypeActualEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(130);
+					.getEClassifiers().get(132);
 		}
 		return componentPrototypeActualEClass;
 	}
@@ -7648,10 +7656,28 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getComponentPrototypeActual_Binding() {
+		return (EReference) getComponentPrototypeActual().getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getComponentPrototypeActual_SubcomponentType() {
+		return (EReference) getComponentPrototypeActual().getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFeatureGroupPrototype() {
 		if (featureGroupPrototypeEClass == null) {
 			featureGroupPrototypeEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(131);
+					.getEClassifiers().get(133);
 		}
 		return featureGroupPrototypeEClass;
 	}
@@ -7673,7 +7699,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeatureGroupPrototypeBinding() {
 		if (featureGroupPrototypeBindingEClass == null) {
 			featureGroupPrototypeBindingEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(132);
+					.getEClassifiers().get(134);
 		}
 		return featureGroupPrototypeBindingEClass;
 	}
@@ -7695,7 +7721,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeatureGroupPrototypeActual() {
 		if (featureGroupPrototypeActualEClass == null) {
 			featureGroupPrototypeActualEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(133);
+					.getEClassifiers().get(135);
 		}
 		return featureGroupPrototypeActualEClass;
 	}
@@ -7708,7 +7734,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeaturePrototype() {
 		if (featurePrototypeEClass == null) {
 			featurePrototypeEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(134);
+					.getEClassifiers().get(136);
 		}
 		return featurePrototypeEClass;
 	}
@@ -7739,7 +7765,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeaturePrototypeBinding() {
 		if (featurePrototypeBindingEClass == null) {
 			featurePrototypeBindingEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(135);
+					.getEClassifiers().get(137);
 		}
 		return featurePrototypeBindingEClass;
 	}
@@ -7761,7 +7787,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeaturePrototypeActual() {
 		if (featurePrototypeActualEClass == null) {
 			featurePrototypeActualEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(136);
+					.getEClassifiers().get(138);
 		}
 		return featurePrototypeActualEClass;
 	}
@@ -7774,7 +7800,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getAccessSpecification() {
 		if (accessSpecificationEClass == null) {
 			accessSpecificationEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(137);
+					.getEClassifiers().get(139);
 		}
 		return accessSpecificationEClass;
 	}
@@ -7814,7 +7840,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getPortSpecification() {
 		if (portSpecificationEClass == null) {
 			portSpecificationEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(138);
+					.getEClassifiers().get(140);
 		}
 		return portSpecificationEClass;
 	}
@@ -7854,7 +7880,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeaturePrototypeReference() {
 		if (featurePrototypeReferenceEClass == null) {
 			featurePrototypeReferenceEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(139);
+					.getEClassifiers().get(141);
 		}
 		return featurePrototypeReferenceEClass;
 	}
@@ -7875,59 +7901,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 */
 	public EReference getFeaturePrototypeReference_Prototype() {
 		return (EReference) getFeaturePrototypeReference().getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getComponentPrototypeReference() {
-		if (componentPrototypeReferenceEClass == null) {
-			componentPrototypeReferenceEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(140);
-		}
-		return componentPrototypeReferenceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getComponentPrototypeReference_Prototype() {
-		return (EReference) getComponentPrototypeReference().getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getComponentReference() {
-		if (componentReferenceEClass == null) {
-			componentReferenceEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(141);
-		}
-		return componentReferenceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getComponentReference_Binding() {
-		return (EReference) getComponentReference().getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getComponentReference_Classifier() {
-		return (EReference) getComponentReference().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -8908,7 +8881,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EEnum getDirectionType() {
 		if (directionTypeEEnum == null) {
 			directionTypeEEnum = (EEnum) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(57);
+					.get(60);
 		}
 		return directionTypeEEnum;
 	}
@@ -8921,7 +8894,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EEnum getPortCategory() {
 		if (portCategoryEEnum == null) {
 			portCategoryEEnum = (EEnum) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(79);
+					.get(80);
 		}
 		return portCategoryEEnum;
 	}
@@ -8934,7 +8907,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EEnum getFlowKind() {
 		if (flowKindEEnum == null) {
 			flowKindEEnum = (EEnum) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(51);
+					.get(53);
 		}
 		return flowKindEEnum;
 	}
@@ -8947,7 +8920,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EEnum getAccessType() {
 		if (accessTypeEEnum == null) {
 			accessTypeEEnum = (EEnum) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(64);
+					.get(67);
 		}
 		return accessTypeEEnum;
 	}
@@ -8960,7 +8933,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EEnum getAccessCategory() {
 		if (accessCategoryEEnum == null) {
 			accessCategoryEEnum = (EEnum) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(65);
+					.getEClassifiers().get(68);
 		}
 		return accessCategoryEEnum;
 	}
@@ -8973,7 +8946,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EEnum getComponentCategory() {
 		if (componentCategoryEEnum == null) {
 			componentCategoryEEnum = (EEnum) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(95);
+					.getEClassifiers().get(114);
 		}
 		return componentCategoryEEnum;
 	}
@@ -8986,7 +8959,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EEnum getConnectionKind() {
 		if (connectionKindEEnum == null) {
 			connectionKindEEnum = (EEnum) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(113);
+					.getEClassifiers().get(115);
 		}
 		return connectionKindEEnum;
 	}
@@ -8999,7 +8972,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EEnum getElementNameKind() {
 		if (elementNameKindEEnum == null) {
 			elementNameKindEEnum = (EEnum) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(116);
+					.getEClassifiers().get(118);
 		}
 		return elementNameKindEEnum;
 	}

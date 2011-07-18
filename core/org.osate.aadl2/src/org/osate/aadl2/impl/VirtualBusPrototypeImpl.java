@@ -68,8 +68,8 @@ public class VirtualBusPrototypeImpl extends ComponentPrototypeImpl implements V
 		return Aadl2Package.eINSTANCE.getVirtualBusPrototype();
 	}
 
-	@Override
-	public ComponentCategory getCategory() {
+	
+	public ComponentCategory getCategory(){
 		return ComponentCategory.VIRTUAL_BUS;
 	}
 

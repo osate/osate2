@@ -46,8 +46,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentPrototypeReference;
-import org.osate.aadl2.ComponentReference;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
@@ -61,6 +59,7 @@ import org.osate.aadl2.FeaturePrototypeReference;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -246,10 +245,10 @@ public class InstanceUtil {
 				if (prototype != null) {
 					// resolve prototype
 					if (prototype instanceof ComponentPrototype) {
-						ComponentReference cr = resolveComponentPrototype(prototype, iobj, classifierCache);
+						ComponentPrototypeActual cr = resolveComponentPrototype(prototype, iobj, classifierCache);
 
 						if (cr != null) {
-							ic = new InstantiatedClassifier(cr.getClassifier(), cr.getBindings());
+							ic = new InstantiatedClassifier((Classifier)cr.getSubcomponentType(), cr.getBindings());
 						}
 					} else if (prototype instanceof FeatureGroupPrototype) {
 						FeatureGroupReference fr = resolveFeatureGroupPrototype(prototype, iobj, classifierCache);
@@ -279,9 +278,9 @@ public class InstanceUtil {
 	 *            classifiers, may be null
 	 * @return The component reference that the prototype resolves to.
 	 */
-	public static ComponentReference resolveComponentPrototype(Prototype proto, InstanceObject context,
+	public static ComponentPrototypeActual resolveComponentPrototype(Prototype proto, InstanceObject context,
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
-		ComponentReference cr = null;
+		ComponentPrototypeActual cr = null;
 		ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) resolvePrototype(proto, context, classifierCache);
 
 		if (cpb == null) {
@@ -292,12 +291,12 @@ public class InstanceUtil {
 
 		if (actuals != null && actuals.size() > 0) {
 			ComponentPrototypeActual actual = actuals.get(0);
-
-			if (actual instanceof ComponentReference) {
-				cr = (ComponentReference) actual;
+			SubcomponentType st = actual.getSubcomponentType();
+			if (st instanceof ComponentClassifier) {
+				cr = actual;
 			} else {
 				// resolve recursively
-				cr = resolveComponentPrototype(((ComponentPrototypeReference) actual).getPrototype(), context
+				cr = resolveComponentPrototype(((Prototype) st), context
 						.getContainingComponentInstance(), classifierCache);
 			}
 		}

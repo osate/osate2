@@ -48,16 +48,5 @@ import org.osate.aadl2.UnitsType;
 
 	public class MyLinkingService extends DefaultLinkingService {
 
-		@Override
-		public List<EObject> getLinkedObjects(EObject context, EReference reference, INode node)
-		throws IllegalNodeException
-		{
-			final EClass requiredType = reference.getEReferenceType();
-			if (requiredType == null)
-				return Collections.<EObject> emptyList();
-			final String s = getCrossRefNodeAsString(node);
-			return NameResolver.getMyLinkedObject(context, reference, s);
-		};
-		
 
 }

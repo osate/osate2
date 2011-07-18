@@ -147,92 +147,96 @@ protected class ThisRootNode extends RootToken {
 			case 113: return new FlowSourceSpec_Group(this, this, 113, inst);
 			case 114: return new FlowSinkSpec_Group(this, this, 114, inst);
 			case 115: return new FlowPathSpec_Group(this, this, 115, inst);
-			case 116: return new FlowSourceSpecRefinement_Group(this, this, 116, inst);
-			case 117: return new FlowSinkSpecRefinement_Group(this, this, 117, inst);
-			case 118: return new FlowPathSpecRefinement_Group(this, this, 118, inst);
-			case 119: return new FlowImplementation_Group(this, this, 119, inst);
-			case 120: return new FlowSourceImpl_Group(this, this, 120, inst);
-			case 121: return new FlowSinkImpl_Group(this, this, 121, inst);
-			case 122: return new FlowPathImpl_Group(this, this, 122, inst);
-			case 123: return new EndToEndFlow_Group(this, this, 123, inst);
-			case 124: return new EndToEndFlowRefinement_Group(this, this, 124, inst);
-			case 125: return new SubcomponentFlow_Group(this, this, 125, inst);
-			case 126: return new Mode_Group(this, this, 126, inst);
-			case 127: return new RequiresMode_Group(this, this, 127, inst);
-			case 128: return new ModeTransition_Group(this, this, 128, inst);
-			case 129: return new Trigger_Alternatives(this, this, 129, inst);
-			case 130: return new TriggerPort_Group(this, this, 130, inst);
-			case 131: return new ModeRef_Group(this, this, 131, inst);
-			case 132: return new AnnexLibrary_DefaultAnnexLibraryParserRuleCall(this, this, 132, inst);
-			case 133: return new DefaultAnnexLibrary_Group(this, this, 133, inst);
-			case 134: return new AnnexSubclause_DefaultAnnexSubclauseParserRuleCall(this, this, 134, inst);
-			case 135: return new DefaultAnnexSubclause_Group(this, this, 135, inst);
-			case 136: return new PropertySet_Group(this, this, 136, inst);
-			case 137: return new PropertyType_Group(this, this, 137, inst);
-			case 138: return new UnnamedPropertyType_Alternatives(this, this, 138, inst);
-			case 139: return new BooleanType_Group(this, this, 139, inst);
-			case 140: return new UnnamedBooleanType_Group(this, this, 140, inst);
-			case 141: return new StringType_Group(this, this, 141, inst);
-			case 142: return new UnnamedStringType_Group(this, this, 142, inst);
-			case 143: return new EnumerationType_Group(this, this, 143, inst);
-			case 144: return new UnnamedEnumerationType_Group(this, this, 144, inst);
-			case 145: return new EnumerationLiteral_NameAssignment(this, this, 145, inst);
-			case 146: return new UnitsType_Group(this, this, 146, inst);
-			case 147: return new UnnamedUnitsType_Group(this, this, 147, inst);
-			case 148: return new UnitLiteral_NameAssignment(this, this, 148, inst);
-			case 149: return new UnitLiteralConversion_Group(this, this, 149, inst);
-			case 150: return new RealType_Group(this, this, 150, inst);
-			case 151: return new UnnamedRealType_Group(this, this, 151, inst);
-			case 152: return new IntegerType_Group(this, this, 152, inst);
-			case 153: return new UnnamedIntegerType_Group(this, this, 153, inst);
-			case 154: return new RangeType_Group(this, this, 154, inst);
-			case 155: return new UnnamedRangeType_Group(this, this, 155, inst);
-			case 156: return new ClassifierType_Group(this, this, 156, inst);
-			case 157: return new UnnamedClassifierType_Group(this, this, 157, inst);
-			case 158: return new QCReference_Group(this, this, 158, inst);
-			case 159: return new ReferenceType_Group(this, this, 159, inst);
-			case 160: return new UnnamedReferenceType_Group(this, this, 160, inst);
-			case 161: return new RecordType_Group(this, this, 161, inst);
-			case 162: return new UnnamedRecordType_Group(this, this, 162, inst);
-			case 163: return new RecordField_Group(this, this, 163, inst);
-			case 164: return new PropertyDefinition_Group(this, this, 164, inst);
-			case 165: return new AllReference_MetaclassNameAssignment(this, this, 165, inst);
-			case 166: return new PropertyOwner_Alternatives(this, this, 166, inst);
-			case 167: return new ClassifierValue_ClassifierAssignment(this, this, 167, inst);
-			case 168: return new PropertyConstant_Group(this, this, 168, inst);
-			case 169: return new NumberValue_Alternatives(this, this, 169, inst);
-			case 170: return new RealLit_ValueAssignment(this, this, 170, inst);
-			case 171: return new IntegerLit_ValueAssignment(this, this, 171, inst);
-			case 172: return new BasicPropertyAssociation_Group(this, this, 172, inst);
-			case 173: return new ContainedPropertyAssociation_Group(this, this, 173, inst);
-			case 174: return new PropertyAssociation_Group(this, this, 174, inst);
-			case 175: return new ContainmentPath_Group(this, this, 175, inst);
-			case 176: return new ModalPropertyValue_Group(this, this, 176, inst);
-			case 177: return new PropertyValue_OwnedValueAssignment(this, this, 177, inst);
-			case 178: return new PropertyExpression_Alternatives(this, this, 178, inst);
-			case 179: return new ConstantPropertyExpression_Alternatives(this, this, 179, inst);
-			case 180: return new BooleanTerm_OrTermParserRuleCall(this, this, 180, inst);
-			case 181: return new OrTerm_Group(this, this, 181, inst);
-			case 182: return new AndTerm_Group(this, this, 182, inst);
-			case 183: return new NotTerm_Group(this, this, 183, inst);
-			case 184: return new BooleanAtom_Alternatives(this, this, 184, inst);
-			case 185: return new BooleanLiteral_Group(this, this, 185, inst);
-			case 186: return new ConstantValue_ConstantAssignment(this, this, 186, inst);
-			case 187: return new ReferenceTerm_Group(this, this, 187, inst);
-			case 188: return new RecordTerm_Group(this, this, 188, inst);
-			case 189: return new ComputedTerm_Group(this, this, 189, inst);
-			case 190: return new ComponentClassifierTerm_Group(this, this, 190, inst);
-			case 191: return new ListTerm_Group(this, this, 191, inst);
-			case 192: return new FieldPropertyAssociation_Group(this, this, 192, inst);
-			case 193: return new ContainmentPathElement_Alternatives(this, this, 193, inst);
-			case 194: return new StringTerm_ValueAssignment(this, this, 194, inst);
-			case 195: return new ArrayRange_Group(this, this, 195, inst);
-			case 196: return new IntegerRange_Group(this, this, 196, inst);
-			case 197: return new RealRange_Group(this, this, 197, inst);
-			case 198: return new SignedConstant_Group(this, this, 198, inst);
-			case 199: return new IntegerTerm_Group(this, this, 199, inst);
-			case 200: return new RealTerm_Group(this, this, 200, inst);
-			case 201: return new NumericRangeTerm_Group(this, this, 201, inst);
+			case 116: return new FlowEnd_Group(this, this, 116, inst);
+			case 117: return new FlowSourceSpecRefinement_Group(this, this, 117, inst);
+			case 118: return new FlowSinkSpecRefinement_Group(this, this, 118, inst);
+			case 119: return new FlowPathSpecRefinement_Group(this, this, 119, inst);
+			case 120: return new FlowImplementation_Group(this, this, 120, inst);
+			case 121: return new FlowSourceImpl_Group(this, this, 121, inst);
+			case 122: return new FlowSinkImpl_Group(this, this, 122, inst);
+			case 123: return new FlowPathImpl_Group(this, this, 123, inst);
+			case 124: return new EndToEndFlow_Group(this, this, 124, inst);
+			case 125: return new EndToEndFlowRefinement_Group(this, this, 125, inst);
+			case 126: return new SubcomponentFlow_Group(this, this, 126, inst);
+			case 127: return new ConnectionFlow_FlowElementAssignment(this, this, 127, inst);
+			case 128: return new ETESubcomponentFlow_Group(this, this, 128, inst);
+			case 129: return new ETEConnectionFlow_FlowElementAssignment(this, this, 129, inst);
+			case 130: return new Mode_Group(this, this, 130, inst);
+			case 131: return new RequiresMode_Group(this, this, 131, inst);
+			case 132: return new ModeTransition_Group(this, this, 132, inst);
+			case 133: return new Trigger_Alternatives(this, this, 133, inst);
+			case 134: return new TriggerPort_Group(this, this, 134, inst);
+			case 135: return new ModeRef_Group(this, this, 135, inst);
+			case 136: return new AnnexLibrary_DefaultAnnexLibraryParserRuleCall(this, this, 136, inst);
+			case 137: return new DefaultAnnexLibrary_Group(this, this, 137, inst);
+			case 138: return new AnnexSubclause_DefaultAnnexSubclauseParserRuleCall(this, this, 138, inst);
+			case 139: return new DefaultAnnexSubclause_Group(this, this, 139, inst);
+			case 140: return new PropertySet_Group(this, this, 140, inst);
+			case 141: return new PropertyType_Group(this, this, 141, inst);
+			case 142: return new UnnamedPropertyType_Alternatives(this, this, 142, inst);
+			case 143: return new BooleanType_Group(this, this, 143, inst);
+			case 144: return new UnnamedBooleanType_Group(this, this, 144, inst);
+			case 145: return new StringType_Group(this, this, 145, inst);
+			case 146: return new UnnamedStringType_Group(this, this, 146, inst);
+			case 147: return new EnumerationType_Group(this, this, 147, inst);
+			case 148: return new UnnamedEnumerationType_Group(this, this, 148, inst);
+			case 149: return new EnumerationLiteral_NameAssignment(this, this, 149, inst);
+			case 150: return new UnitsType_Group(this, this, 150, inst);
+			case 151: return new UnnamedUnitsType_Group(this, this, 151, inst);
+			case 152: return new UnitLiteral_NameAssignment(this, this, 152, inst);
+			case 153: return new UnitLiteralConversion_Group(this, this, 153, inst);
+			case 154: return new RealType_Group(this, this, 154, inst);
+			case 155: return new UnnamedRealType_Group(this, this, 155, inst);
+			case 156: return new IntegerType_Group(this, this, 156, inst);
+			case 157: return new UnnamedIntegerType_Group(this, this, 157, inst);
+			case 158: return new RangeType_Group(this, this, 158, inst);
+			case 159: return new UnnamedRangeType_Group(this, this, 159, inst);
+			case 160: return new ClassifierType_Group(this, this, 160, inst);
+			case 161: return new UnnamedClassifierType_Group(this, this, 161, inst);
+			case 162: return new QCReference_Group(this, this, 162, inst);
+			case 163: return new ReferenceType_Group(this, this, 163, inst);
+			case 164: return new UnnamedReferenceType_Group(this, this, 164, inst);
+			case 165: return new RecordType_Group(this, this, 165, inst);
+			case 166: return new UnnamedRecordType_Group(this, this, 166, inst);
+			case 167: return new RecordField_Group(this, this, 167, inst);
+			case 168: return new PropertyDefinition_Group(this, this, 168, inst);
+			case 169: return new AllReference_MetaclassNameAssignment(this, this, 169, inst);
+			case 170: return new PropertyOwner_Alternatives(this, this, 170, inst);
+			case 171: return new ClassifierValue_ClassifierAssignment(this, this, 171, inst);
+			case 172: return new PropertyConstant_Group(this, this, 172, inst);
+			case 173: return new NumberValue_Alternatives(this, this, 173, inst);
+			case 174: return new RealLit_ValueAssignment(this, this, 174, inst);
+			case 175: return new IntegerLit_ValueAssignment(this, this, 175, inst);
+			case 176: return new BasicPropertyAssociation_Group(this, this, 176, inst);
+			case 177: return new ContainedPropertyAssociation_Group(this, this, 177, inst);
+			case 178: return new PropertyAssociation_Group(this, this, 178, inst);
+			case 179: return new ContainmentPath_Group(this, this, 179, inst);
+			case 180: return new ModalPropertyValue_Group(this, this, 180, inst);
+			case 181: return new PropertyValue_OwnedValueAssignment(this, this, 181, inst);
+			case 182: return new PropertyExpression_Alternatives(this, this, 182, inst);
+			case 183: return new ConstantPropertyExpression_Alternatives(this, this, 183, inst);
+			case 184: return new BooleanTerm_OrTermParserRuleCall(this, this, 184, inst);
+			case 185: return new OrTerm_Group(this, this, 185, inst);
+			case 186: return new AndTerm_Group(this, this, 186, inst);
+			case 187: return new NotTerm_Group(this, this, 187, inst);
+			case 188: return new BooleanAtom_Alternatives(this, this, 188, inst);
+			case 189: return new BooleanLiteral_Group(this, this, 189, inst);
+			case 190: return new ConstantValue_ConstantAssignment(this, this, 190, inst);
+			case 191: return new ReferenceTerm_Group(this, this, 191, inst);
+			case 192: return new RecordTerm_Group(this, this, 192, inst);
+			case 193: return new ComputedTerm_Group(this, this, 193, inst);
+			case 194: return new ComponentClassifierTerm_Group(this, this, 194, inst);
+			case 195: return new ListTerm_Group(this, this, 195, inst);
+			case 196: return new FieldPropertyAssociation_Group(this, this, 196, inst);
+			case 197: return new ContainmentPathElement_Alternatives(this, this, 197, inst);
+			case 198: return new StringTerm_ValueAssignment(this, this, 198, inst);
+			case 199: return new ArrayRange_Group(this, this, 199, inst);
+			case 200: return new IntegerRange_Group(this, this, 200, inst);
+			case 201: return new RealRange_Group(this, this, 201, inst);
+			case 202: return new SignedConstant_Group(this, this, 202, inst);
+			case 203: return new IntegerTerm_Group(this, this, 203, inst);
+			case 204: return new RealTerm_Group(this, this, 204, inst);
+			case 205: return new NumericRangeTerm_Group(this, this, 205, inst);
 			default: return null;
 		}	
 	}	
@@ -48784,13 +48788,13 @@ protected class ComponentPrototypeBinding_RightParenthesisKeyword_2_1_3 extends 
 
 /************ begin Rule ComponentReference ****************
  *
- * ComponentReference returns aadl2::ComponentReference:
- * 	category=ComponentCategory classifier=[aadl2::ComponentClassifier|QCREF] ("(" binding+=PrototypeBinding (","
+ * ComponentReference returns aadl2::ComponentPrototypeActual:
+ * 	category=ComponentCategory subcomponentType=[aadl2::SubcomponentType|QCREF] ("(" binding+=PrototypeBinding (","
  * 	binding+=PrototypeBinding)* ")")?;
  *
  **/
 
-// category=ComponentCategory classifier=[aadl2::ComponentClassifier|QCREF] ("(" binding+=PrototypeBinding (","
+// category=ComponentCategory subcomponentType=[aadl2::SubcomponentType|QCREF] ("(" binding+=PrototypeBinding (","
 // binding+=PrototypeBinding)* ")")?
 protected class ComponentReference_Group extends GroupToken {
 	
@@ -48807,7 +48811,7 @@ protected class ComponentReference_Group extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new ComponentReference_Group_2(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ComponentReference_ClassifierAssignment_1(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new ComponentReference_SubcomponentTypeAssignment_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -48854,16 +48858,16 @@ protected class ComponentReference_CategoryAssignment_0 extends AssignmentToken 
 
 }
 
-// classifier=[aadl2::ComponentClassifier|QCREF]
-protected class ComponentReference_ClassifierAssignment_1 extends AssignmentToken  {
+// subcomponentType=[aadl2::SubcomponentType|QCREF]
+protected class ComponentReference_SubcomponentTypeAssignment_1 extends AssignmentToken  {
 	
-	public ComponentReference_ClassifierAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ComponentReference_SubcomponentTypeAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getComponentReferenceAccess().getClassifierAssignment_1();
+		return grammarAccess.getComponentReferenceAccess().getSubcomponentTypeAssignment_1();
 	}
 
     @Override
@@ -48876,13 +48880,13 @@ protected class ComponentReference_ClassifierAssignment_1 extends AssignmentToke
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("classifier",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("classifier");
+		if((value = eObjectConsumer.getConsumable("subcomponentType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("subcomponentType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getComponentReferenceAccess().getClassifierComponentClassifierCrossReference_1_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getComponentReferenceAccess().getSubcomponentTypeSubcomponentTypeCrossReference_1_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getComponentReferenceAccess().getClassifierComponentClassifierCrossReference_1_0(); 
+				element = grammarAccess.getComponentReferenceAccess().getSubcomponentTypeSubcomponentTypeCrossReference_1_0(); 
 				return obj;
 			}
 		}
@@ -48928,7 +48932,7 @@ protected class ComponentReference_LeftParenthesisKeyword_2_0 extends KeywordTok
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ComponentReference_ClassifierAssignment_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ComponentReference_SubcomponentTypeAssignment_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -79006,11 +79010,11 @@ protected class FlowSpecification_SemicolonKeyword_3 extends KeywordToken  {
 /************ begin Rule FlowSourceSpec ****************
  *
  * FlowSourceSpec returns aadl2::FlowSpecification:
- * 	name=ID ":" "flow" kind=FlowSource (outContext=[aadl2::Context] ".")? outFeature=[aadl2::Feature];
+ * 	name=ID ":" "flow" kind=FlowSource outEnd=FlowEnd;
  *
  **/
 
-// name=ID ":" "flow" kind=FlowSource (outContext=[aadl2::Context] ".")? outFeature=[aadl2::Feature]
+// name=ID ":" "flow" kind=FlowSource outEnd=FlowEnd
 protected class FlowSourceSpec_Group extends GroupToken {
 	
 	public FlowSourceSpec_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -79025,7 +79029,7 @@ protected class FlowSourceSpec_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSourceSpec_OutFeatureAssignment_5(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSourceSpec_OutEndAssignment_4(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -79150,124 +79154,50 @@ protected class FlowSourceSpec_KindAssignment_3 extends AssignmentToken  {
 
 }
 
-// (outContext=[aadl2::Context] ".")?
-protected class FlowSourceSpec_Group_4 extends GroupToken {
+// outEnd=FlowEnd
+protected class FlowSourceSpec_OutEndAssignment_4 extends AssignmentToken  {
 	
-	public FlowSourceSpec_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getFlowSourceSpecAccess().getGroup_4();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowSourceSpec_FullStopKeyword_4_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// outContext=[aadl2::Context]
-protected class FlowSourceSpec_OutContextAssignment_4_0 extends AssignmentToken  {
-	
-	public FlowSourceSpec_OutContextAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSourceSpec_OutEndAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSourceSpecAccess().getOutContextAssignment_4_0();
+		return grammarAccess.getFlowSourceSpecAccess().getOutEndAssignment_4();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSourceSpec_KindAssignment_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowEnd_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("outContext",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("outContext");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+		if((value = eObjectConsumer.getConsumable("outEnd",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("outEnd");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowSourceSpecAccess().getOutContextContextCrossReference_4_0_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowSourceSpecAccess().getOutContextContextCrossReference_4_0_0(); 
-				return obj;
+			if(param.isInstanceOf(grammarAccess.getFlowEndRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFlowSourceSpecAccess().getOutEndFlowEndParserRuleCall_4_0(); 
+				consumed = obj;
+				return param;
 			}
 		}
 		return null;
 	}
 
-}
-
-// "."
-protected class FlowSourceSpec_FullStopKeyword_4_1 extends KeywordToken  {
-	
-	public FlowSourceSpec_FullStopKeyword_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSourceSpecAccess().getFullStopKeyword_4_1();
-	}
-
     @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new FlowSourceSpec_OutContextAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSourceSpec_KindAssignment_3(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
-	}
-
-}
-
-
-// outFeature=[aadl2::Feature]
-protected class FlowSourceSpec_OutFeatureAssignment_5 extends AssignmentToken  {
-	
-	public FlowSourceSpec_OutFeatureAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSourceSpecAccess().getOutFeatureAssignment_5();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowSourceSpec_Group_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSourceSpec_KindAssignment_3(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("outFeature",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("outFeature");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowSourceSpecAccess().getOutFeatureFeatureCrossReference_5_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowSourceSpecAccess().getOutFeatureFeatureCrossReference_5_0(); 
-				return obj;
-			}
-		}
-		return null;
-	}
-
+	}	
 }
 
 
@@ -79277,11 +79207,11 @@ protected class FlowSourceSpec_OutFeatureAssignment_5 extends AssignmentToken  {
 /************ begin Rule FlowSinkSpec ****************
  *
  * FlowSinkSpec returns aadl2::FlowSpecification:
- * 	name=ID ":" "flow" kind=FlowSink (inContext=[aadl2::Context] ".")? inFeature=[aadl2::Feature];
+ * 	name=ID ":" "flow" kind=FlowSink InEnd=FlowEnd;
  *
  **/
 
-// name=ID ":" "flow" kind=FlowSink (inContext=[aadl2::Context] ".")? inFeature=[aadl2::Feature]
+// name=ID ":" "flow" kind=FlowSink InEnd=FlowEnd
 protected class FlowSinkSpec_Group extends GroupToken {
 	
 	public FlowSinkSpec_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -79296,7 +79226,7 @@ protected class FlowSinkSpec_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSinkSpec_InFeatureAssignment_5(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSinkSpec_InEndAssignment_4(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -79421,124 +79351,50 @@ protected class FlowSinkSpec_KindAssignment_3 extends AssignmentToken  {
 
 }
 
-// (inContext=[aadl2::Context] ".")?
-protected class FlowSinkSpec_Group_4 extends GroupToken {
+// InEnd=FlowEnd
+protected class FlowSinkSpec_InEndAssignment_4 extends AssignmentToken  {
 	
-	public FlowSinkSpec_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getFlowSinkSpecAccess().getGroup_4();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowSinkSpec_FullStopKeyword_4_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// inContext=[aadl2::Context]
-protected class FlowSinkSpec_InContextAssignment_4_0 extends AssignmentToken  {
-	
-	public FlowSinkSpec_InContextAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSinkSpec_InEndAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSinkSpecAccess().getInContextAssignment_4_0();
+		return grammarAccess.getFlowSinkSpecAccess().getInEndAssignment_4();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSinkSpec_KindAssignment_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowEnd_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inContext",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inContext");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+		if((value = eObjectConsumer.getConsumable("InEnd",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("InEnd");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowSinkSpecAccess().getInContextContextCrossReference_4_0_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowSinkSpecAccess().getInContextContextCrossReference_4_0_0(); 
-				return obj;
+			if(param.isInstanceOf(grammarAccess.getFlowEndRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFlowSinkSpecAccess().getInEndFlowEndParserRuleCall_4_0(); 
+				consumed = obj;
+				return param;
 			}
 		}
 		return null;
 	}
 
-}
-
-// "."
-protected class FlowSinkSpec_FullStopKeyword_4_1 extends KeywordToken  {
-	
-	public FlowSinkSpec_FullStopKeyword_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSinkSpecAccess().getFullStopKeyword_4_1();
-	}
-
     @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new FlowSinkSpec_InContextAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSinkSpec_KindAssignment_3(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
-	}
-
-}
-
-
-// inFeature=[aadl2::Feature]
-protected class FlowSinkSpec_InFeatureAssignment_5 extends AssignmentToken  {
-	
-	public FlowSinkSpec_InFeatureAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSinkSpecAccess().getInFeatureAssignment_5();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowSinkSpec_Group_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSinkSpec_KindAssignment_3(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inFeature",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inFeature");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowSinkSpecAccess().getInFeatureFeatureCrossReference_5_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowSinkSpecAccess().getInFeatureFeatureCrossReference_5_0(); 
-				return obj;
-			}
-		}
-		return null;
-	}
-
+	}	
 }
 
 
@@ -79548,13 +79404,11 @@ protected class FlowSinkSpec_InFeatureAssignment_5 extends AssignmentToken  {
 /************ begin Rule FlowPathSpec ****************
  *
  * FlowPathSpec returns aadl2::FlowSpecification:
- * 	name=ID ":" "flow" kind=FlowPath (inContext=[aadl2::Context] ".")? inFeature=[aadl2::Feature] "->"
- * 	(outContext=[aadl2::Context] ".")? outFeature=[aadl2::Feature];
+ * 	name=ID ":" "flow" kind=FlowPath InEnd=FlowEnd "->" outEnd=FlowEnd;
  *
  **/
 
-// name=ID ":" "flow" kind=FlowPath (inContext=[aadl2::Context] ".")? inFeature=[aadl2::Feature] "->"
-// (outContext=[aadl2::Context] ".")? outFeature=[aadl2::Feature]
+// name=ID ":" "flow" kind=FlowPath InEnd=FlowEnd "->" outEnd=FlowEnd
 protected class FlowPathSpec_Group extends GroupToken {
 	
 	public FlowPathSpec_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -79569,7 +79423,7 @@ protected class FlowPathSpec_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathSpec_OutFeatureAssignment_8(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowPathSpec_OutEndAssignment_6(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -79694,270 +79548,280 @@ protected class FlowPathSpec_KindAssignment_3 extends AssignmentToken  {
 
 }
 
-// (inContext=[aadl2::Context] ".")?
-protected class FlowPathSpec_Group_4 extends GroupToken {
+// InEnd=FlowEnd
+protected class FlowPathSpec_InEndAssignment_4 extends AssignmentToken  {
 	
-	public FlowPathSpec_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getFlowPathSpecAccess().getGroup_4();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowPathSpec_FullStopKeyword_4_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// inContext=[aadl2::Context]
-protected class FlowPathSpec_InContextAssignment_4_0 extends AssignmentToken  {
-	
-	public FlowPathSpec_InContextAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowPathSpec_InEndAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowPathSpecAccess().getInContextAssignment_4_0();
+		return grammarAccess.getFlowPathSpecAccess().getInEndAssignment_4();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathSpec_KindAssignment_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowEnd_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inContext",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inContext");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+		if((value = eObjectConsumer.getConsumable("InEnd",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("InEnd");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowPathSpecAccess().getInContextContextCrossReference_4_0_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowPathSpecAccess().getInContextContextCrossReference_4_0_0(); 
-				return obj;
+			if(param.isInstanceOf(grammarAccess.getFlowEndRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFlowPathSpecAccess().getInEndFlowEndParserRuleCall_4_0(); 
+				consumed = obj;
+				return param;
 			}
 		}
 		return null;
 	}
 
-}
-
-// "."
-protected class FlowPathSpec_FullStopKeyword_4_1 extends KeywordToken  {
-	
-	public FlowPathSpec_FullStopKeyword_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowPathSpecAccess().getFullStopKeyword_4_1();
-	}
-
     @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new FlowPathSpec_InContextAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowPathSpec_KindAssignment_3(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
-	}
-
-}
-
-
-// inFeature=[aadl2::Feature]
-protected class FlowPathSpec_InFeatureAssignment_5 extends AssignmentToken  {
-	
-	public FlowPathSpec_InFeatureAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowPathSpecAccess().getInFeatureAssignment_5();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowPathSpec_Group_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowPathSpec_KindAssignment_3(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inFeature",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inFeature");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowPathSpecAccess().getInFeatureFeatureCrossReference_5_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowPathSpecAccess().getInFeatureFeatureCrossReference_5_0(); 
-				return obj;
-			}
-		}
-		return null;
-	}
-
+	}	
 }
 
 // "->"
-protected class FlowPathSpec_HyphenMinusGreaterThanSignKeyword_6 extends KeywordToken  {
+protected class FlowPathSpec_HyphenMinusGreaterThanSignKeyword_5 extends KeywordToken  {
 	
-	public FlowPathSpec_HyphenMinusGreaterThanSignKeyword_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowPathSpec_HyphenMinusGreaterThanSignKeyword_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowPathSpecAccess().getHyphenMinusGreaterThanSignKeyword_6();
+		return grammarAccess.getFlowPathSpecAccess().getHyphenMinusGreaterThanSignKeyword_5();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathSpec_InFeatureAssignment_5(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowPathSpec_InEndAssignment_4(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// (outContext=[aadl2::Context] ".")?
-protected class FlowPathSpec_Group_7 extends GroupToken {
+// outEnd=FlowEnd
+protected class FlowPathSpec_OutEndAssignment_6 extends AssignmentToken  {
 	
-	public FlowPathSpec_Group_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getFlowPathSpecAccess().getGroup_7();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowPathSpec_FullStopKeyword_7_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// outContext=[aadl2::Context]
-protected class FlowPathSpec_OutContextAssignment_7_0 extends AssignmentToken  {
-	
-	public FlowPathSpec_OutContextAssignment_7_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowPathSpec_OutEndAssignment_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowPathSpecAccess().getOutContextAssignment_7_0();
+		return grammarAccess.getFlowPathSpecAccess().getOutEndAssignment_6();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathSpec_HyphenMinusGreaterThanSignKeyword_6(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowEnd_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("outContext",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("outContext");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+		if((value = eObjectConsumer.getConsumable("outEnd",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("outEnd");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowPathSpecAccess().getOutContextContextCrossReference_7_0_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowPathSpecAccess().getOutContextContextCrossReference_7_0_0(); 
-				return obj;
+			if(param.isInstanceOf(grammarAccess.getFlowEndRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFlowPathSpecAccess().getOutEndFlowEndParserRuleCall_6_0(); 
+				consumed = obj;
+				return param;
 			}
 		}
 		return null;
 	}
 
-}
-
-// "."
-protected class FlowPathSpec_FullStopKeyword_7_1 extends KeywordToken  {
-	
-	public FlowPathSpec_FullStopKeyword_7_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowPathSpecAccess().getFullStopKeyword_7_1();
-	}
-
     @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new FlowPathSpec_OutContextAssignment_7_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowPathSpec_HyphenMinusGreaterThanSignKeyword_5(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
-	}
-
-}
-
-
-// outFeature=[aadl2::Feature]
-protected class FlowPathSpec_OutFeatureAssignment_8 extends AssignmentToken  {
-	
-	public FlowPathSpec_OutFeatureAssignment_8(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowPathSpecAccess().getOutFeatureAssignment_8();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowPathSpec_Group_7(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowPathSpec_HyphenMinusGreaterThanSignKeyword_6(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("outFeature",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("outFeature");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowPathSpecAccess().getOutFeatureFeatureCrossReference_8_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowPathSpecAccess().getOutFeatureFeatureCrossReference_8_0(); 
-				return obj;
-			}
-		}
-		return null;
-	}
-
+	}	
 }
 
 
 /************ end Rule FlowPathSpec ****************/
+
+
+/************ begin Rule FlowEnd ****************
+ *
+ * FlowEnd returns aadl2::FlowEnd:
+ * 	(context=[aadl2::Context] ".")? feature=[aadl2::Feature];
+ *
+ **/
+
+// (context=[aadl2::Context] ".")? feature=[aadl2::Feature]
+protected class FlowEnd_Group extends GroupToken {
+	
+	public FlowEnd_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowEndAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowEnd_FeatureAssignment_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getFlowEndRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// (context=[aadl2::Context] ".")?
+protected class FlowEnd_Group_0 extends GroupToken {
+	
+	public FlowEnd_Group_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowEndAccess().getGroup_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowEnd_FullStopKeyword_0_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// context=[aadl2::Context]
+protected class FlowEnd_ContextAssignment_0_0 extends AssignmentToken  {
+	
+	public FlowEnd_ContextAssignment_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFlowEndAccess().getContextAssignment_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("context",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("context");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getFlowEndAccess().getContextContextCrossReference_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getFlowEndAccess().getContextContextCrossReference_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// "."
+protected class FlowEnd_FullStopKeyword_0_1 extends KeywordToken  {
+	
+	public FlowEnd_FullStopKeyword_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowEndAccess().getFullStopKeyword_0_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowEnd_ContextAssignment_0_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+// feature=[aadl2::Feature]
+protected class FlowEnd_FeatureAssignment_1 extends AssignmentToken  {
+	
+	public FlowEnd_FeatureAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFlowEndAccess().getFeatureAssignment_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowEnd_Group_0(lastRuleCallOrigin, this, 0, inst);
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index - 1, inst);
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("feature",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("feature");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getFlowEndAccess().getFeatureFeatureCrossReference_1_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getFlowEndAccess().getFeatureFeatureCrossReference_1_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+
+/************ end Rule FlowEnd ****************/
 
 
 /************ begin Rule FlowSourceSpecRefinement ****************
@@ -81366,17 +81230,16 @@ protected class FlowImplementation_SemicolonKeyword_3 extends KeywordToken  {
 
 /************ begin Rule FlowSourceImpl ****************
  *
- * //	(outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID]
  * FlowSourceImpl returns aadl2::FlowImplementation:
- * 	specification= //name=ID 
- * 	[aadl2::FlowSpecification] ":" "flow" kind=FlowSource (ownedSubcomponentFlow+=SubcomponentFlow "->"
- * 	flowElement+=[aadl2::Connection] "->")*;
+ * 	specification=[aadl2::FlowSpecification] ":" "flow" kind=FlowSource (ownedFlowSegment+=SubcomponentFlow "->"
+ * 	ownedFlowSegment+=ConnectionFlow "->")* //	(outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID]
+ * 	(ID ".")? ID;
  *
  **/
 
-// specification= //name=ID 
-// [aadl2::FlowSpecification] ":" "flow" kind=FlowSource (ownedSubcomponentFlow+=SubcomponentFlow "->"
-// flowElement+=[aadl2::Connection] "->")*
+// specification=[aadl2::FlowSpecification] ":" "flow" kind=FlowSource (ownedFlowSegment+=SubcomponentFlow "->"
+// ownedFlowSegment+=ConnectionFlow "->")* //	(outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID]
+// (ID ".")? ID
 protected class FlowSourceImpl_Group extends GroupToken {
 	
 	public FlowSourceImpl_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -81391,8 +81254,7 @@ protected class FlowSourceImpl_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSourceImpl_Group_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSourceImpl_KindAssignment_3(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new FlowSourceImpl_IDTerminalRuleCall_6(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -81406,8 +81268,7 @@ protected class FlowSourceImpl_Group extends GroupToken {
 
 }
 
-// specification= //name=ID 
-// [aadl2::FlowSpecification]
+// specification=[aadl2::FlowSpecification]
 protected class FlowSourceImpl_SpecificationAssignment_0 extends AssignmentToken  {
 	
 	public FlowSourceImpl_SpecificationAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -81521,7 +81382,7 @@ protected class FlowSourceImpl_KindAssignment_3 extends AssignmentToken  {
 
 }
 
-// (ownedSubcomponentFlow+=SubcomponentFlow "->" flowElement+=[aadl2::Connection] "->")*
+// (ownedFlowSegment+=SubcomponentFlow "->" ownedFlowSegment+=ConnectionFlow "->")*
 protected class FlowSourceImpl_Group_4 extends GroupToken {
 	
 	public FlowSourceImpl_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -81543,16 +81404,16 @@ protected class FlowSourceImpl_Group_4 extends GroupToken {
 
 }
 
-// ownedSubcomponentFlow+=SubcomponentFlow
-protected class FlowSourceImpl_OwnedSubcomponentFlowAssignment_4_0 extends AssignmentToken  {
+// ownedFlowSegment+=SubcomponentFlow
+protected class FlowSourceImpl_OwnedFlowSegmentAssignment_4_0 extends AssignmentToken  {
 	
-	public FlowSourceImpl_OwnedSubcomponentFlowAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSourceImpl_OwnedFlowSegmentAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSourceImplAccess().getOwnedSubcomponentFlowAssignment_4_0();
+		return grammarAccess.getFlowSourceImplAccess().getOwnedFlowSegmentAssignment_4_0();
 	}
 
     @Override
@@ -81565,13 +81426,13 @@ protected class FlowSourceImpl_OwnedSubcomponentFlowAssignment_4_0 extends Assig
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("ownedSubcomponentFlow",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedSubcomponentFlow");
+		if((value = eObjectConsumer.getConsumable("ownedFlowSegment",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedFlowSegment");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getSubcomponentFlowRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getFlowSourceImplAccess().getOwnedSubcomponentFlowSubcomponentFlowParserRuleCall_4_0_0(); 
+				element = grammarAccess.getFlowSourceImplAccess().getOwnedFlowSegmentSubcomponentFlowParserRuleCall_4_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -81605,48 +81466,57 @@ protected class FlowSourceImpl_HyphenMinusGreaterThanSignKeyword_4_1 extends Key
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSourceImpl_OwnedSubcomponentFlowAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSourceImpl_OwnedFlowSegmentAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// flowElement+=[aadl2::Connection]
-protected class FlowSourceImpl_FlowElementAssignment_4_2 extends AssignmentToken  {
+// ownedFlowSegment+=ConnectionFlow
+protected class FlowSourceImpl_OwnedFlowSegmentAssignment_4_2 extends AssignmentToken  {
 	
-	public FlowSourceImpl_FlowElementAssignment_4_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSourceImpl_OwnedFlowSegmentAssignment_4_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSourceImplAccess().getFlowElementAssignment_4_2();
+		return grammarAccess.getFlowSourceImplAccess().getOwnedFlowSegmentAssignment_4_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSourceImpl_HyphenMinusGreaterThanSignKeyword_4_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ConnectionFlow_FlowElementAssignment(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("flowElement",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("flowElement");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+		if((value = eObjectConsumer.getConsumable("ownedFlowSegment",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedFlowSegment");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowSourceImplAccess().getFlowElementConnectionCrossReference_4_2_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowSourceImplAccess().getFlowElementConnectionCrossReference_4_2_0(); 
-				return obj;
+			if(param.isInstanceOf(grammarAccess.getConnectionFlowRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFlowSourceImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_4_2_0(); 
+				consumed = obj;
+				return param;
 			}
 		}
 		return null;
 	}
 
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FlowSourceImpl_HyphenMinusGreaterThanSignKeyword_4_1(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
 }
 
 // "->"
@@ -81664,13 +81534,36 @@ protected class FlowSourceImpl_HyphenMinusGreaterThanSignKeyword_4_3 extends Key
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSourceImpl_FlowElementAssignment_4_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSourceImpl_OwnedFlowSegmentAssignment_4_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
+
+// ID
+protected class FlowSourceImpl_IDTerminalRuleCall_6 extends UnassignedTextToken {
+
+	public FlowSourceImpl_IDTerminalRuleCall_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getFlowSourceImplAccess().getIDTerminalRuleCall_6();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSourceImpl_Group_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSourceImpl_KindAssignment_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
 
 
 /************ end Rule FlowSourceImpl ****************/
@@ -81681,13 +81574,13 @@ protected class FlowSourceImpl_HyphenMinusGreaterThanSignKeyword_4_3 extends Key
  * FlowSinkImpl returns aadl2::FlowImplementation:
  * 	specification= //name=ID 
  * 	[aadl2::FlowSpecification] ":" "flow" kind=FlowSink //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
- * 	("->" flowElement+=[aadl2::Connection] "->" ownedSubcomponentFlow+=SubcomponentFlow)*;
+ * 	(ID ".")? ID ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)*;
  *
  **/
 
 // specification= //name=ID 
 // [aadl2::FlowSpecification] ":" "flow" kind=FlowSink //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
-// ("->" flowElement+=[aadl2::Connection] "->" ownedSubcomponentFlow+=SubcomponentFlow)*
+// (ID ".")? ID ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)*
 protected class FlowSinkImpl_Group extends GroupToken {
 	
 	public FlowSinkImpl_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -81702,8 +81595,8 @@ protected class FlowSinkImpl_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSinkImpl_Group_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSinkImpl_KindAssignment_3(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new FlowSinkImpl_Group_6(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSinkImpl_IDTerminalRuleCall_5(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -81832,22 +81725,44 @@ protected class FlowSinkImpl_KindAssignment_3 extends AssignmentToken  {
 
 }
 
-// ("->" flowElement+=[aadl2::Connection] "->" ownedSubcomponentFlow+=SubcomponentFlow)*
-protected class FlowSinkImpl_Group_4 extends GroupToken {
-	
-	public FlowSinkImpl_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+// ID
+protected class FlowSinkImpl_IDTerminalRuleCall_5 extends UnassignedTextToken {
+
+	public FlowSinkImpl_IDTerminalRuleCall_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getFlowSinkImplAccess().getGroup_4();
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getFlowSinkImplAccess().getIDTerminalRuleCall_5();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSinkImpl_OwnedSubcomponentFlowAssignment_4_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSinkImpl_KindAssignment_3(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)*
+protected class FlowSinkImpl_Group_6 extends GroupToken {
+	
+	public FlowSinkImpl_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowSinkImplAccess().getGroup_6();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSinkImpl_OwnedFlowSegmentAssignment_6_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -81855,97 +81770,106 @@ protected class FlowSinkImpl_Group_4 extends GroupToken {
 }
 
 // "->"
-protected class FlowSinkImpl_HyphenMinusGreaterThanSignKeyword_4_0 extends KeywordToken  {
+protected class FlowSinkImpl_HyphenMinusGreaterThanSignKeyword_6_0 extends KeywordToken  {
 	
-	public FlowSinkImpl_HyphenMinusGreaterThanSignKeyword_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSinkImpl_HyphenMinusGreaterThanSignKeyword_6_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_4_0();
+		return grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_6_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSinkImpl_Group_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSinkImpl_KindAssignment_3(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new FlowSinkImpl_Group_6(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSinkImpl_IDTerminalRuleCall_5(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// flowElement+=[aadl2::Connection]
-protected class FlowSinkImpl_FlowElementAssignment_4_1 extends AssignmentToken  {
+// ownedFlowSegment+=ConnectionFlow
+protected class FlowSinkImpl_OwnedFlowSegmentAssignment_6_1 extends AssignmentToken  {
 	
-	public FlowSinkImpl_FlowElementAssignment_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSinkImpl_OwnedFlowSegmentAssignment_6_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSinkImplAccess().getFlowElementAssignment_4_1();
+		return grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentAssignment_6_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSinkImpl_HyphenMinusGreaterThanSignKeyword_4_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ConnectionFlow_FlowElementAssignment(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("flowElement",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("flowElement");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+		if((value = eObjectConsumer.getConsumable("ownedFlowSegment",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedFlowSegment");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowSinkImplAccess().getFlowElementConnectionCrossReference_4_1_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowSinkImplAccess().getFlowElementConnectionCrossReference_4_1_0(); 
-				return obj;
+			if(param.isInstanceOf(grammarAccess.getConnectionFlowRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_6_1_0(); 
+				consumed = obj;
+				return param;
 			}
 		}
 		return null;
 	}
 
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FlowSinkImpl_HyphenMinusGreaterThanSignKeyword_6_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
 }
 
 // "->"
-protected class FlowSinkImpl_HyphenMinusGreaterThanSignKeyword_4_2 extends KeywordToken  {
+protected class FlowSinkImpl_HyphenMinusGreaterThanSignKeyword_6_2 extends KeywordToken  {
 	
-	public FlowSinkImpl_HyphenMinusGreaterThanSignKeyword_4_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSinkImpl_HyphenMinusGreaterThanSignKeyword_6_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_4_2();
+		return grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_6_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSinkImpl_FlowElementAssignment_4_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSinkImpl_OwnedFlowSegmentAssignment_6_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// ownedSubcomponentFlow+=SubcomponentFlow
-protected class FlowSinkImpl_OwnedSubcomponentFlowAssignment_4_3 extends AssignmentToken  {
+// ownedFlowSegment+=SubcomponentFlow
+protected class FlowSinkImpl_OwnedFlowSegmentAssignment_6_3 extends AssignmentToken  {
 	
-	public FlowSinkImpl_OwnedSubcomponentFlowAssignment_4_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSinkImpl_OwnedFlowSegmentAssignment_6_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSinkImplAccess().getOwnedSubcomponentFlowAssignment_4_3();
+		return grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentAssignment_6_3();
 	}
 
     @Override
@@ -81958,13 +81882,13 @@ protected class FlowSinkImpl_OwnedSubcomponentFlowAssignment_4_3 extends Assignm
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("ownedSubcomponentFlow",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedSubcomponentFlow");
+		if((value = eObjectConsumer.getConsumable("ownedFlowSegment",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedFlowSegment");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getSubcomponentFlowRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getFlowSinkImplAccess().getOwnedSubcomponentFlowSubcomponentFlowParserRuleCall_4_3_0(); 
+				element = grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentSubcomponentFlowParserRuleCall_6_3_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -81976,7 +81900,7 @@ protected class FlowSinkImpl_OwnedSubcomponentFlowAssignment_4_3 extends Assignm
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new FlowSinkImpl_HyphenMinusGreaterThanSignKeyword_4_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new FlowSinkImpl_HyphenMinusGreaterThanSignKeyword_6_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -81989,19 +81913,20 @@ protected class FlowSinkImpl_OwnedSubcomponentFlowAssignment_4_3 extends Assignm
 
 /************ begin Rule FlowPathImpl ****************
  *
- * //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
  * FlowPathImpl returns aadl2::FlowImplementation:
  * 	specification= //name=ID 
  * 	[aadl2::FlowSpecification] ":" "flow" kind=FlowPath //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
- * 	(("->" flowElement+=[aadl2::Connection] "->" ownedSubcomponentFlow+=SubcomponentFlow)* "->"
- * 	flowElement+=[aadl2::Connection])?;
+ * 	(ID ".")? ID (("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* "->"
+ * 	ownedFlowSegment+=ConnectionFlow)? //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
+ * 	(ID ".")? ID;
  *
  **/
 
 // specification= //name=ID 
 // [aadl2::FlowSpecification] ":" "flow" kind=FlowPath //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
-// (("->" flowElement+=[aadl2::Connection] "->" ownedSubcomponentFlow+=SubcomponentFlow)* "->"
-// flowElement+=[aadl2::Connection])?
+// (ID ".")? ID (("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* "->"
+// ownedFlowSegment+=ConnectionFlow)? //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
+// (ID ".")? ID
 protected class FlowPathImpl_Group extends GroupToken {
 	
 	public FlowPathImpl_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -82016,8 +81941,7 @@ protected class FlowPathImpl_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathImpl_Group_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowPathImpl_KindAssignment_3(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new FlowPathImpl_IDTerminalRuleCall_8(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -82146,45 +82070,67 @@ protected class FlowPathImpl_KindAssignment_3 extends AssignmentToken  {
 
 }
 
-// (("->" flowElement+=[aadl2::Connection] "->" ownedSubcomponentFlow+=SubcomponentFlow)* "->"
-// flowElement+=[aadl2::Connection])?
-protected class FlowPathImpl_Group_4 extends GroupToken {
-	
-	public FlowPathImpl_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+// ID
+protected class FlowPathImpl_IDTerminalRuleCall_5 extends UnassignedTextToken {
+
+	public FlowPathImpl_IDTerminalRuleCall_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getFlowPathImplAccess().getGroup_4();
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_5();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathImpl_FlowElementAssignment_4_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowPathImpl_KindAssignment_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// ("->" flowElement+=[aadl2::Connection] "->" ownedSubcomponentFlow+=SubcomponentFlow)*
-protected class FlowPathImpl_Group_4_0 extends GroupToken {
+// (("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* "->"
+// ownedFlowSegment+=ConnectionFlow)?
+protected class FlowPathImpl_Group_6 extends GroupToken {
 	
-	public FlowPathImpl_Group_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowPathImpl_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Group getGrammarElement() {
-		return grammarAccess.getFlowPathImplAccess().getGroup_4_0();
+		return grammarAccess.getFlowPathImplAccess().getGroup_6();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathImpl_OwnedSubcomponentFlowAssignment_4_0_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowPathImpl_OwnedFlowSegmentAssignment_6_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)*
+protected class FlowPathImpl_Group_6_0 extends GroupToken {
+	
+	public FlowPathImpl_Group_6_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowPathImplAccess().getGroup_6_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowPathImpl_OwnedFlowSegmentAssignment_6_0_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -82192,97 +82138,106 @@ protected class FlowPathImpl_Group_4_0 extends GroupToken {
 }
 
 // "->"
-protected class FlowPathImpl_HyphenMinusGreaterThanSignKeyword_4_0_0 extends KeywordToken  {
+protected class FlowPathImpl_HyphenMinusGreaterThanSignKeyword_6_0_0 extends KeywordToken  {
 	
-	public FlowPathImpl_HyphenMinusGreaterThanSignKeyword_4_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowPathImpl_HyphenMinusGreaterThanSignKeyword_6_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_4_0_0();
+		return grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_6_0_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathImpl_Group_4_0(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowPathImpl_KindAssignment_3(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new FlowPathImpl_Group_6_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowPathImpl_IDTerminalRuleCall_5(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// flowElement+=[aadl2::Connection]
-protected class FlowPathImpl_FlowElementAssignment_4_0_1 extends AssignmentToken  {
+// ownedFlowSegment+=ConnectionFlow
+protected class FlowPathImpl_OwnedFlowSegmentAssignment_6_0_1 extends AssignmentToken  {
 	
-	public FlowPathImpl_FlowElementAssignment_4_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowPathImpl_OwnedFlowSegmentAssignment_6_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowPathImplAccess().getFlowElementAssignment_4_0_1();
+		return grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentAssignment_6_0_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathImpl_HyphenMinusGreaterThanSignKeyword_4_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ConnectionFlow_FlowElementAssignment(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("flowElement",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("flowElement");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+		if((value = eObjectConsumer.getConsumable("ownedFlowSegment",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedFlowSegment");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowPathImplAccess().getFlowElementConnectionCrossReference_4_0_1_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowPathImplAccess().getFlowElementConnectionCrossReference_4_0_1_0(); 
-				return obj;
+			if(param.isInstanceOf(grammarAccess.getConnectionFlowRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_6_0_1_0(); 
+				consumed = obj;
+				return param;
 			}
 		}
 		return null;
 	}
 
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FlowPathImpl_HyphenMinusGreaterThanSignKeyword_6_0_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
 }
 
 // "->"
-protected class FlowPathImpl_HyphenMinusGreaterThanSignKeyword_4_0_2 extends KeywordToken  {
+protected class FlowPathImpl_HyphenMinusGreaterThanSignKeyword_6_0_2 extends KeywordToken  {
 	
-	public FlowPathImpl_HyphenMinusGreaterThanSignKeyword_4_0_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowPathImpl_HyphenMinusGreaterThanSignKeyword_6_0_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_4_0_2();
+		return grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_6_0_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathImpl_FlowElementAssignment_4_0_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowPathImpl_OwnedFlowSegmentAssignment_6_0_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// ownedSubcomponentFlow+=SubcomponentFlow
-protected class FlowPathImpl_OwnedSubcomponentFlowAssignment_4_0_3 extends AssignmentToken  {
+// ownedFlowSegment+=SubcomponentFlow
+protected class FlowPathImpl_OwnedFlowSegmentAssignment_6_0_3 extends AssignmentToken  {
 	
-	public FlowPathImpl_OwnedSubcomponentFlowAssignment_4_0_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowPathImpl_OwnedFlowSegmentAssignment_6_0_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowPathImplAccess().getOwnedSubcomponentFlowAssignment_4_0_3();
+		return grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentAssignment_6_0_3();
 	}
 
     @Override
@@ -82295,13 +82250,13 @@ protected class FlowPathImpl_OwnedSubcomponentFlowAssignment_4_0_3 extends Assig
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("ownedSubcomponentFlow",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedSubcomponentFlow");
+		if((value = eObjectConsumer.getConsumable("ownedFlowSegment",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedFlowSegment");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getSubcomponentFlowRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getFlowPathImplAccess().getOwnedSubcomponentFlowSubcomponentFlowParserRuleCall_4_0_3_0(); 
+				element = grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentSubcomponentFlowParserRuleCall_6_0_3_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -82313,7 +82268,7 @@ protected class FlowPathImpl_OwnedSubcomponentFlowAssignment_4_0_3 extends Assig
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new FlowPathImpl_HyphenMinusGreaterThanSignKeyword_4_0_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new FlowPathImpl_HyphenMinusGreaterThanSignKeyword_6_0_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -82321,65 +82276,97 @@ protected class FlowPathImpl_OwnedSubcomponentFlowAssignment_4_0_3 extends Assig
 
 
 // "->"
-protected class FlowPathImpl_HyphenMinusGreaterThanSignKeyword_4_1 extends KeywordToken  {
+protected class FlowPathImpl_HyphenMinusGreaterThanSignKeyword_6_1 extends KeywordToken  {
 	
-	public FlowPathImpl_HyphenMinusGreaterThanSignKeyword_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowPathImpl_HyphenMinusGreaterThanSignKeyword_6_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_4_1();
+		return grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_6_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathImpl_Group_4_0(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowPathImpl_KindAssignment_3(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new FlowPathImpl_Group_6_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowPathImpl_IDTerminalRuleCall_5(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// flowElement+=[aadl2::Connection]
-protected class FlowPathImpl_FlowElementAssignment_4_2 extends AssignmentToken  {
+// ownedFlowSegment+=ConnectionFlow
+protected class FlowPathImpl_OwnedFlowSegmentAssignment_6_2 extends AssignmentToken  {
 	
-	public FlowPathImpl_FlowElementAssignment_4_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowPathImpl_OwnedFlowSegmentAssignment_6_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowPathImplAccess().getFlowElementAssignment_4_2();
+		return grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentAssignment_6_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathImpl_HyphenMinusGreaterThanSignKeyword_4_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ConnectionFlow_FlowElementAssignment(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("flowElement",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("flowElement");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+		if((value = eObjectConsumer.getConsumable("ownedFlowSegment",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedFlowSegment");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowPathImplAccess().getFlowElementConnectionCrossReference_4_2_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowPathImplAccess().getFlowElementConnectionCrossReference_4_2_0(); 
-				return obj;
+			if(param.isInstanceOf(grammarAccess.getConnectionFlowRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_6_2_0(); 
+				consumed = obj;
+				return param;
 			}
 		}
 		return null;
 	}
 
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FlowPathImpl_HyphenMinusGreaterThanSignKeyword_6_1(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
 }
 
+
+// ID
+protected class FlowPathImpl_IDTerminalRuleCall_8 extends UnassignedTextToken {
+
+	public FlowPathImpl_IDTerminalRuleCall_8(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_8();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowPathImpl_Group_6(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowPathImpl_IDTerminalRuleCall_5(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
 
 
 /************ end Rule FlowPathImpl ****************/
@@ -82388,16 +82375,16 @@ protected class FlowPathImpl_FlowElementAssignment_4_2 extends AssignmentToken  
 /************ begin Rule EndToEndFlow ****************
  *
  * EndToEndFlow returns aadl2::EndToEndFlow:
- * 	name=ID ":" "end" "to" "end" "flow" ownedSubcomponentFlow+=SubcomponentFlow ("->" flowElement+=[aadl2::Connection]
- * 	"->" ownedSubcomponentFlow+=SubcomponentFlow)* ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
- * 	"(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
+ * 	name=ID ":" "end" "to" "end" "flow" ownedEndToEndFlowSegment+=ETESubcomponentFlow ("->"
+ * 	ownedEndToEndFlowSegment+=ETEConnectionFlow "->" ownedEndToEndFlowSegment+=ETESubcomponentFlow)* ("{"
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
-// name=ID ":" "end" "to" "end" "flow" ownedSubcomponentFlow+=SubcomponentFlow ("->" flowElement+=[aadl2::Connection] "->"
-// ownedSubcomponentFlow+=SubcomponentFlow)* ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "("
-// inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
+// name=ID ":" "end" "to" "end" "flow" ownedEndToEndFlowSegment+=ETESubcomponentFlow ("->"
+// ownedEndToEndFlowSegment+=ETEConnectionFlow "->" ownedEndToEndFlowSegment+=ETESubcomponentFlow)* ("{"
+// ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
 // ";"
 protected class EndToEndFlow_Group extends GroupToken {
 	
@@ -82570,35 +82557,35 @@ protected class EndToEndFlow_FlowKeyword_5 extends KeywordToken  {
 
 }
 
-// ownedSubcomponentFlow+=SubcomponentFlow
-protected class EndToEndFlow_OwnedSubcomponentFlowAssignment_6 extends AssignmentToken  {
+// ownedEndToEndFlowSegment+=ETESubcomponentFlow
+protected class EndToEndFlow_OwnedEndToEndFlowSegmentAssignment_6 extends AssignmentToken  {
 	
-	public EndToEndFlow_OwnedSubcomponentFlowAssignment_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlow_OwnedEndToEndFlowSegmentAssignment_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getEndToEndFlowAccess().getOwnedSubcomponentFlowAssignment_6();
+		return grammarAccess.getEndToEndFlowAccess().getOwnedEndToEndFlowSegmentAssignment_6();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubcomponentFlow_Group(this, this, 0, inst);
+			case 0: return new ETESubcomponentFlow_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("ownedSubcomponentFlow",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedSubcomponentFlow");
+		if((value = eObjectConsumer.getConsumable("ownedEndToEndFlowSegment",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedEndToEndFlowSegment");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSubcomponentFlowRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getETESubcomponentFlowRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getEndToEndFlowAccess().getOwnedSubcomponentFlowSubcomponentFlowParserRuleCall_6_0(); 
+				element = grammarAccess.getEndToEndFlowAccess().getOwnedEndToEndFlowSegmentETESubcomponentFlowParserRuleCall_6_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -82616,7 +82603,7 @@ protected class EndToEndFlow_OwnedSubcomponentFlowAssignment_6 extends Assignmen
 	}	
 }
 
-// ("->" flowElement+=[aadl2::Connection] "->" ownedSubcomponentFlow+=SubcomponentFlow)*
+// ("->" ownedEndToEndFlowSegment+=ETEConnectionFlow "->" ownedEndToEndFlowSegment+=ETESubcomponentFlow)*
 protected class EndToEndFlow_Group_7 extends GroupToken {
 	
 	public EndToEndFlow_Group_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -82631,7 +82618,7 @@ protected class EndToEndFlow_Group_7 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlow_OwnedSubcomponentFlowAssignment_7_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlow_OwnedEndToEndFlowSegmentAssignment_7_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -82654,48 +82641,57 @@ protected class EndToEndFlow_HyphenMinusGreaterThanSignKeyword_7_0 extends Keywo
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new EndToEndFlow_Group_7(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new EndToEndFlow_OwnedSubcomponentFlowAssignment_6(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new EndToEndFlow_OwnedEndToEndFlowSegmentAssignment_6(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// flowElement+=[aadl2::Connection]
-protected class EndToEndFlow_FlowElementAssignment_7_1 extends AssignmentToken  {
+// ownedEndToEndFlowSegment+=ETEConnectionFlow
+protected class EndToEndFlow_OwnedEndToEndFlowSegmentAssignment_7_1 extends AssignmentToken  {
 	
-	public EndToEndFlow_FlowElementAssignment_7_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlow_OwnedEndToEndFlowSegmentAssignment_7_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getEndToEndFlowAccess().getFlowElementAssignment_7_1();
+		return grammarAccess.getEndToEndFlowAccess().getOwnedEndToEndFlowSegmentAssignment_7_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlow_HyphenMinusGreaterThanSignKeyword_7_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ETEConnectionFlow_FlowElementAssignment(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("flowElement",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("flowElement");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+		if((value = eObjectConsumer.getConsumable("ownedEndToEndFlowSegment",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedEndToEndFlowSegment");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getEndToEndFlowAccess().getFlowElementConnectionCrossReference_7_1_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getEndToEndFlowAccess().getFlowElementConnectionCrossReference_7_1_0(); 
-				return obj;
+			if(param.isInstanceOf(grammarAccess.getETEConnectionFlowRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getEndToEndFlowAccess().getOwnedEndToEndFlowSegmentETEConnectionFlowParserRuleCall_7_1_0(); 
+				consumed = obj;
+				return param;
 			}
 		}
 		return null;
 	}
 
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new EndToEndFlow_HyphenMinusGreaterThanSignKeyword_7_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
 }
 
 // "->"
@@ -82713,42 +82709,42 @@ protected class EndToEndFlow_HyphenMinusGreaterThanSignKeyword_7_2 extends Keywo
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlow_FlowElementAssignment_7_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlow_OwnedEndToEndFlowSegmentAssignment_7_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// ownedSubcomponentFlow+=SubcomponentFlow
-protected class EndToEndFlow_OwnedSubcomponentFlowAssignment_7_3 extends AssignmentToken  {
+// ownedEndToEndFlowSegment+=ETESubcomponentFlow
+protected class EndToEndFlow_OwnedEndToEndFlowSegmentAssignment_7_3 extends AssignmentToken  {
 	
-	public EndToEndFlow_OwnedSubcomponentFlowAssignment_7_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlow_OwnedEndToEndFlowSegmentAssignment_7_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getEndToEndFlowAccess().getOwnedSubcomponentFlowAssignment_7_3();
+		return grammarAccess.getEndToEndFlowAccess().getOwnedEndToEndFlowSegmentAssignment_7_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubcomponentFlow_Group(this, this, 0, inst);
+			case 0: return new ETESubcomponentFlow_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("ownedSubcomponentFlow",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedSubcomponentFlow");
+		if((value = eObjectConsumer.getConsumable("ownedEndToEndFlowSegment",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedEndToEndFlowSegment");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSubcomponentFlowRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getETESubcomponentFlowRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getEndToEndFlowAccess().getOwnedSubcomponentFlowSubcomponentFlowParserRuleCall_7_3_0(); 
+				element = grammarAccess.getEndToEndFlowAccess().getOwnedEndToEndFlowSegmentETESubcomponentFlowParserRuleCall_7_3_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -82805,7 +82801,7 @@ protected class EndToEndFlow_LeftCurlyBracketKeyword_8_0 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new EndToEndFlow_Group_7(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new EndToEndFlow_OwnedSubcomponentFlowAssignment_6(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new EndToEndFlow_OwnedEndToEndFlowSegmentAssignment_6(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -82921,7 +82917,7 @@ protected class EndToEndFlow_InKeyword_9_0 extends KeywordToken  {
 		switch(index) {
 			case 0: return new EndToEndFlow_Group_8(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new EndToEndFlow_Group_7(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new EndToEndFlow_OwnedSubcomponentFlowAssignment_6(lastRuleCallOrigin, this, 2, inst);
+			case 2: return new EndToEndFlow_OwnedEndToEndFlowSegmentAssignment_6(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
 		}	
 	}
@@ -83051,7 +83047,7 @@ protected class EndToEndFlow_SemicolonKeyword_10 extends KeywordToken  {
 			case 0: return new EndToEndFlow_Group_9(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new EndToEndFlow_Group_8(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new EndToEndFlow_Group_7(lastRuleCallOrigin, this, 2, inst);
-			case 3: return new EndToEndFlow_OwnedSubcomponentFlowAssignment_6(lastRuleCallOrigin, this, 3, inst);
+			case 3: return new EndToEndFlow_OwnedEndToEndFlowSegmentAssignment_6(lastRuleCallOrigin, this, 3, inst);
 			default: return null;
 		}	
 	}
@@ -83563,14 +83559,12 @@ protected class EndToEndFlowRefinement_RightParenthesisKeyword_9_4 extends Keywo
 
 /************ begin Rule SubcomponentFlow ****************
  *
- * // could refer to data access which is stored as dataAccess instead of flowSpec
- * // could also refere to endtoend flow
- * SubcomponentFlow returns aadl2::SubcomponentFlow:
- * 	context=[aadl2::Subcomponent] "." flowSpecification=[aadl2::FlowSpecification];
+ * SubcomponentFlow returns aadl2::FlowSegment:
+ * 	(context=[aadl2::Subcomponent] ".")? flowElement=[aadl2::FlowElement];
  *
  **/
 
-// context=[aadl2::Subcomponent] "." flowSpecification=[aadl2::FlowSpecification]
+// (context=[aadl2::Subcomponent] ".")? flowElement=[aadl2::FlowElement]
 protected class SubcomponentFlow_Group extends GroupToken {
 	
 	public SubcomponentFlow_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -83585,7 +83579,7 @@ protected class SubcomponentFlow_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubcomponentFlow_FlowSpecificationAssignment_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SubcomponentFlow_FlowElementAssignment_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83599,16 +83593,38 @@ protected class SubcomponentFlow_Group extends GroupToken {
 
 }
 
-// context=[aadl2::Subcomponent]
-protected class SubcomponentFlow_ContextAssignment_0 extends AssignmentToken  {
+// (context=[aadl2::Subcomponent] ".")?
+protected class SubcomponentFlow_Group_0 extends GroupToken {
 	
-	public SubcomponentFlow_ContextAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SubcomponentFlow_Group_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getSubcomponentFlowAccess().getGroup_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SubcomponentFlow_FullStopKeyword_0_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// context=[aadl2::Subcomponent]
+protected class SubcomponentFlow_ContextAssignment_0_0 extends AssignmentToken  {
+	
+	public SubcomponentFlow_ContextAssignment_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSubcomponentFlowAccess().getContextAssignment_0();
+		return grammarAccess.getSubcomponentFlowAccess().getContextAssignment_0_0();
 	}
 
     @Override
@@ -83620,13 +83636,13 @@ protected class SubcomponentFlow_ContextAssignment_0 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("context",true)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("context",false)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("context");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSubcomponentFlowAccess().getContextSubcomponentCrossReference_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getSubcomponentFlowAccess().getContextSubcomponentCrossReference_0_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getSubcomponentFlowAccess().getContextSubcomponentCrossReference_0_0(); 
+				element = grammarAccess.getSubcomponentFlowAccess().getContextSubcomponentCrossReference_0_0_0(); 
 				return obj;
 			}
 		}
@@ -83636,56 +83652,57 @@ protected class SubcomponentFlow_ContextAssignment_0 extends AssignmentToken  {
 }
 
 // "."
-protected class SubcomponentFlow_FullStopKeyword_1 extends KeywordToken  {
+protected class SubcomponentFlow_FullStopKeyword_0_1 extends KeywordToken  {
 	
-	public SubcomponentFlow_FullStopKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SubcomponentFlow_FullStopKeyword_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getSubcomponentFlowAccess().getFullStopKeyword_1();
+		return grammarAccess.getSubcomponentFlowAccess().getFullStopKeyword_0_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubcomponentFlow_ContextAssignment_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SubcomponentFlow_ContextAssignment_0_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// flowSpecification=[aadl2::FlowSpecification]
-protected class SubcomponentFlow_FlowSpecificationAssignment_2 extends AssignmentToken  {
+
+// flowElement=[aadl2::FlowElement]
+protected class SubcomponentFlow_FlowElementAssignment_1 extends AssignmentToken  {
 	
-	public SubcomponentFlow_FlowSpecificationAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SubcomponentFlow_FlowElementAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSubcomponentFlowAccess().getFlowSpecificationAssignment_2();
+		return grammarAccess.getSubcomponentFlowAccess().getFlowElementAssignment_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubcomponentFlow_FullStopKeyword_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
+			case 0: return new SubcomponentFlow_Group_0(lastRuleCallOrigin, this, 0, inst);
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index - 1, inst);
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("flowSpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("flowSpecification");
+		if((value = eObjectConsumer.getConsumable("flowElement",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("flowElement");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSubcomponentFlowAccess().getFlowSpecificationFlowSpecificationCrossReference_2_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getSubcomponentFlowAccess().getFlowElementFlowElementCrossReference_1_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getSubcomponentFlowAccess().getFlowSpecificationFlowSpecificationCrossReference_2_0(); 
+				element = grammarAccess.getSubcomponentFlowAccess().getFlowElementFlowElementCrossReference_1_0(); 
 				return obj;
 			}
 		}
@@ -83696,6 +83713,260 @@ protected class SubcomponentFlow_FlowSpecificationAssignment_2 extends Assignmen
 
 
 /************ end Rule SubcomponentFlow ****************/
+
+
+/************ begin Rule ConnectionFlow ****************
+ *
+ * ConnectionFlow returns aadl2::FlowSegment:
+ * 	flowElement=[aadl2::Connection];
+ *
+ **/
+
+// flowElement=[aadl2::Connection]
+protected class ConnectionFlow_FlowElementAssignment extends AssignmentToken  {
+	
+	public ConnectionFlow_FlowElementAssignment(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getConnectionFlowAccess().getFlowElementAssignment();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getConnectionFlowRule().getType().getClassifier())
+			return null;
+		if((value = eObjectConsumer.getConsumable("flowElement",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("flowElement");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getConnectionFlowAccess().getFlowElementConnectionCrossReference_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getConnectionFlowAccess().getFlowElementConnectionCrossReference_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+/************ end Rule ConnectionFlow ****************/
+
+
+/************ begin Rule ETESubcomponentFlow ****************
+ *
+ * ETESubcomponentFlow returns aadl2::EndToEndFlowSegment:
+ * 	(context=[aadl2::Subcomponent] ".")? flowElement+=[aadl2::EndToEndFlowElement];
+ *
+ **/
+
+// (context=[aadl2::Subcomponent] ".")? flowElement+=[aadl2::EndToEndFlowElement]
+protected class ETESubcomponentFlow_Group extends GroupToken {
+	
+	public ETESubcomponentFlow_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getETESubcomponentFlowAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ETESubcomponentFlow_FlowElementAssignment_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getETESubcomponentFlowRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// (context=[aadl2::Subcomponent] ".")?
+protected class ETESubcomponentFlow_Group_0 extends GroupToken {
+	
+	public ETESubcomponentFlow_Group_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getETESubcomponentFlowAccess().getGroup_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ETESubcomponentFlow_FullStopKeyword_0_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// context=[aadl2::Subcomponent]
+protected class ETESubcomponentFlow_ContextAssignment_0_0 extends AssignmentToken  {
+	
+	public ETESubcomponentFlow_ContextAssignment_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getETESubcomponentFlowAccess().getContextAssignment_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("context",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("context");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getETESubcomponentFlowAccess().getContextSubcomponentCrossReference_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getETESubcomponentFlowAccess().getContextSubcomponentCrossReference_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// "."
+protected class ETESubcomponentFlow_FullStopKeyword_0_1 extends KeywordToken  {
+	
+	public ETESubcomponentFlow_FullStopKeyword_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getETESubcomponentFlowAccess().getFullStopKeyword_0_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ETESubcomponentFlow_ContextAssignment_0_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+// flowElement+=[aadl2::EndToEndFlowElement]
+protected class ETESubcomponentFlow_FlowElementAssignment_1 extends AssignmentToken  {
+	
+	public ETESubcomponentFlow_FlowElementAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getETESubcomponentFlowAccess().getFlowElementAssignment_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ETESubcomponentFlow_Group_0(lastRuleCallOrigin, this, 0, inst);
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index - 1, inst);
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("flowElement",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("flowElement");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getETESubcomponentFlowAccess().getFlowElementEndToEndFlowElementCrossReference_1_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getETESubcomponentFlowAccess().getFlowElementEndToEndFlowElementCrossReference_1_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+
+/************ end Rule ETESubcomponentFlow ****************/
+
+
+/************ begin Rule ETEConnectionFlow ****************
+ *
+ * ETEConnectionFlow returns aadl2::EndToEndFlowSegment:
+ * 	flowElement+=[aadl2::Connection];
+ *
+ **/
+
+// flowElement+=[aadl2::Connection]
+protected class ETEConnectionFlow_FlowElementAssignment extends AssignmentToken  {
+	
+	public ETEConnectionFlow_FlowElementAssignment(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getETEConnectionFlowAccess().getFlowElementAssignment();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getETEConnectionFlowRule().getType().getClassifier())
+			return null;
+		if((value = eObjectConsumer.getConsumable("flowElement",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("flowElement");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getETEConnectionFlowAccess().getFlowElementConnectionCrossReference_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getETEConnectionFlowAccess().getFlowElementConnectionCrossReference_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+/************ end Rule ETEConnectionFlow ****************/
 
 
 /************ begin Rule Mode ****************

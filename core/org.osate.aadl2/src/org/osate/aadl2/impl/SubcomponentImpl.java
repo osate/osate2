@@ -297,17 +297,17 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public SubcomponentType basicGetSubcomponentType() {
-		ComponentPrototype prototype = basicGetPrototype();
-		if (prototype != null) {
-			return prototype;
-		}
-		ComponentClassifier classifier = basicGetClassifier();
-		if (classifier != null) {
-			return classifier;
-		}
+//		ComponentPrototype prototype = basicGetPrototype();
+//		if (prototype != null) {
+//			return prototype;
+//		}
+//		ComponentClassifier classifier = basicGetClassifier();
+//		if (classifier != null) {
+//			return classifier;
+//		}
 		if (eIsSet(Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE)) {
 			return basicGetAbstractSubcomponentType();
 		}
