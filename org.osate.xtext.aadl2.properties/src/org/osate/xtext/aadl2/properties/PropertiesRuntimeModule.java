@@ -7,10 +7,10 @@ package org.osate.xtext.aadl2.properties;
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class PropertiesRuntimeModule extends org.osate.xtext.aadl2.properties.AbstractPropertiesRuntimeModule {
-	@Override
-	public Class<? extends org.eclipse.xtext.linking.ILinkingService> bindILinkingService() {
-		return org.osate.xtext.aadl2.properties.linking.MyLinkingService.class;
-	}
+//	@Override
+//	public Class<? extends org.eclipse.xtext.linking.ILinkingService> bindILinkingService() {
+//		return org.osate.xtext.aadl2.properties.linking.MyLinkingService.class;
+//	}
 //	@Override
 //	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
 //		return org.osate.xtext.aadl2.properties.naming.MyQualifiedNameProvider.class;

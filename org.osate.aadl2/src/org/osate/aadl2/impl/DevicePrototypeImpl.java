@@ -68,8 +68,8 @@ public class DevicePrototypeImpl extends ComponentPrototypeImpl implements Devic
 		return Aadl2Package.eINSTANCE.getDevicePrototype();
 	}
 
-	@Override
-	public ComponentCategory getCategory() {
+	
+	public ComponentCategory getCategory(){
 		return ComponentCategory.DEVICE;
 	}
 

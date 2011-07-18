@@ -225,6 +225,15 @@ public interface Aadl2Factory extends EFactory {
 	FlowSpecification createFlowSpecification();
 
 	/**
+	 * Returns a new object of class '<em>Flow End</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Flow End</em>'.
+	 * @generated
+	 */
+	FlowEnd createFlowEnd();
+
+	/**
 	 * Returns a new object of class '<em>Type Extension</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -277,15 +286,6 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	DataAccess createDataAccess();
-
-	/**
-	 * Returns a new object of class '<em>End To End Flow Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>End To End Flow Element</em>'.
-	 * @generated
-	 */
-	EndToEndFlowElement createEndToEndFlowElement();
 
 	/**
 	 * Returns a new object of class '<em>Data Port</em>'.
@@ -369,13 +369,13 @@ public interface Aadl2Factory extends EFactory {
 	FlowImplementation createFlowImplementation();
 
 	/**
-	 * Returns a new object of class '<em>Subcomponent Flow</em>'.
+	 * Returns a new object of class '<em>Flow Segment</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Subcomponent Flow</em>'.
+	 * @return a new object of class '<em>Flow Segment</em>'.
 	 * @generated
 	 */
-	SubcomponentFlow createSubcomponentFlow();
+	FlowSegment createFlowSegment();
 
 	/**
 	 * Returns a new object of class '<em>Connected Element</em>'.
@@ -412,6 +412,15 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	EndToEndFlow createEndToEndFlow();
+
+	/**
+	 * Returns a new object of class '<em>End To End Flow Segment</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>End To End Flow Segment</em>'.
+	 * @generated
+	 */
+	EndToEndFlowSegment createEndToEndFlowSegment();
 
 	/**
 	 * Returns a new object of class '<em>Abstract Subcomponent</em>'.
@@ -1071,6 +1080,15 @@ public interface Aadl2Factory extends EFactory {
 	ComponentPrototypeBinding createComponentPrototypeBinding();
 
 	/**
+	 * Returns a new object of class '<em>Component Prototype Actual</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Component Prototype Actual</em>'.
+	 * @generated
+	 */
+	ComponentPrototypeActual createComponentPrototypeActual();
+
+	/**
 	 * Returns a new object of class '<em>Feature Group Prototype</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1132,24 +1150,6 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	FeaturePrototypeReference createFeaturePrototypeReference();
-
-	/**
-	 * Returns a new object of class '<em>Component Prototype Reference</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Component Prototype Reference</em>'.
-	 * @generated
-	 */
-	ComponentPrototypeReference createComponentPrototypeReference();
-
-	/**
-	 * Returns a new object of class '<em>Component Reference</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Component Reference</em>'.
-	 * @generated
-	 */
-	ComponentReference createComponentReference();
 
 	/**
 	 * Returns a new object of class '<em>Feature Group Prototype Reference</em>'.

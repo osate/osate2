@@ -28,9 +28,8 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentPrototypeReference;
-import org.osate.aadl2.ComponentReference;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
@@ -59,6 +58,7 @@ import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.FeatureGroupPrototypeReference;
 import org.osate.aadl2.FeatureGroupReference;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.ListValue;
@@ -93,7 +93,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordField;
 import org.osate.aadl2.RecordType;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SubcomponentFlow;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramClassifier;
@@ -255,7 +255,7 @@ import org.osate.aadl2.UnitsType;
 							|| ((conn instanceof PortConnection) && (searchResult instanceof FeatureGroup || searchResult instanceof Subcomponent
 									|| searchResult instanceof DataPort || searchResult instanceof EventDataPort)))
 						return Collections.singletonList((EObject) searchResult);
-				} else if (context instanceof TriggerPort || context instanceof FlowSpecification|| context instanceof SubcomponentFlow){
+				} else if (context instanceof TriggerPort || context instanceof FlowSpecification|| context instanceof FlowSegment){
 					if (searchResult instanceof Subcomponent)
 						return Collections.singletonList((EObject) searchResult);
 				}
@@ -1115,12 +1115,13 @@ import org.osate.aadl2.UnitsType;
 			ComponentPrototypeBinding binding = (ComponentPrototypeBinding)findPrototypeBinding(containingClassifier, prototype);
 			if (binding != null && binding.getActuals().size() >= 1)
 			{
-				if (binding.getActuals().get(0) instanceof ComponentReference)
-					return ((ComponentReference)binding.getActuals().get(0)).getClassifier();
+				SubcomponentType st = ((ComponentPrototypeActual)binding.getActuals().get(0)).getSubcomponentType();
+				if (st instanceof ComponentClassifier)
+					return (ComponentClassifier)st;
 				else //It is a ComponentPrototypeReference
 				{
 					ComponentClassifier classifierForReferencedPrototype = findClassifierForComponentPrototype(containingClassifier,
-							((ComponentPrototypeReference)binding.getActuals().get(0)).getPrototype());
+							(ComponentPrototype)st);
 					if (classifierForReferencedPrototype != null)
 						return classifierForReferencedPrototype;
 				}
@@ -1155,12 +1156,13 @@ import org.osate.aadl2.UnitsType;
 					subcomponentPrototypeContext, prototype);
 			if (binding != null && binding.getActuals().size() >= 1)
 			{
-				if (binding.getActuals().get(0) instanceof ComponentReference)
-					return ((ComponentReference)binding.getActuals().get(0)).getClassifier();
+				SubcomponentType st = ((ComponentPrototypeActual)binding.getActuals().get(0)).getSubcomponentType();
+				if (st instanceof ComponentClassifier)
+					return (ComponentClassifier)st;
 				else //It is a ComponentPrototypeReference
 				{
 					ComponentClassifier classifierForReferencedPrototype = findClassifierForComponentPrototype(classifierPrototypeContext,
-							subcomponentPrototypeContext, ((ComponentPrototypeReference)binding.getActuals().get(0)).getPrototype());
+							subcomponentPrototypeContext, ((ComponentPrototype)st));
 					if (classifierForReferencedPrototype != null)
 						return classifierForReferencedPrototype;
 				}

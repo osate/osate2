@@ -68,8 +68,8 @@ public class MemoryPrototypeImpl extends ComponentPrototypeImpl implements Memor
 		return Aadl2Package.eINSTANCE.getMemoryPrototype();
 	}
 
-	@Override
-	public ComponentCategory getCategory() {
+	
+	public ComponentCategory getCategory(){
 		return ComponentCategory.MEMORY;
 	}
 

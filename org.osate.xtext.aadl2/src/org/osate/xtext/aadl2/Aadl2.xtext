@@ -907,9 +907,10 @@ ComponentPrototypeBinding returns aadl2::ComponentPrototypeBinding:
 	'(' actual+=ComponentReference (',' actual+=ComponentReference)* ')'
 	)
 	;
-ComponentReference returns aadl2::ComponentReference:
-	 category=ComponentCategory classifier=[aadl2::ComponentClassifier|QCREF]('(' binding+=PrototypeBinding (',' binding+=PrototypeBinding)*')')?
+ComponentReference returns aadl2::ComponentPrototypeActual:
+	 category=ComponentCategory subcomponentType=[aadl2::SubcomponentType|QCREF]('(' binding+=PrototypeBinding (',' binding+=PrototypeBinding)*')')?
 	;
+
 
 
 /*
@@ -1392,19 +1393,24 @@ FlowSpecification returns aadl2::FlowSpecification:
 FlowSourceSpec returns aadl2::FlowSpecification:
 	name=ID ':' 
 	'flow' kind=FlowSource 
-	(outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID]
+	outEnd=FlowEnd
 ;
 FlowSinkSpec returns aadl2::FlowSpecification:
 	name=ID ':' 
 	'flow' kind=FlowSink 
-	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
+	InEnd=FlowEnd
 ;
 FlowPathSpec returns aadl2::FlowSpecification:
 	name=ID ':' 
 	'flow' kind=FlowPath 
-	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
-	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
+	InEnd=FlowEnd
+	'->' 	outEnd=FlowEnd
 ;
+
+FlowEnd returns aadl2::FlowEnd:
+	(context=[aadl2::Context|ID] '.' )? feature=[aadl2::Feature|ID]
+;
+
 FlowSourceSpecRefinement returns aadl2::FlowSpecification:
 	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowSource 
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
@@ -1426,31 +1432,35 @@ FlowImplementation returns aadl2::FlowImplementation:
 ;
 
 FlowSourceImpl returns aadl2::FlowImplementation:
-	specification=[aadl2::FlowSpecification|ID]//name=ID 
+	specification=[aadl2::FlowSpecification|ID] 
 	':' 'flow' kind=FlowSource 
-    (  ownedSubcomponentFlow+=SubcomponentFlow '->' flowElement+=[aadl2::Connection|ID] '->' )*
+    (  ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->' )*
 //	(outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID]
+(ID '.')? ID
 ;
 FlowSinkImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	':' 'flow' kind=FlowSink 
 //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
-    ( '->' flowElement+=[aadl2::Connection|ID] '->' ownedSubcomponentFlow+=SubcomponentFlow  )*
+(ID '.')? ID
+    ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
 ;
 FlowPathImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	':' 'flow' kind=FlowPath 
 //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
-	(  ( '->' flowElement+=[aadl2::Connection|ID] '->' ownedSubcomponentFlow+=SubcomponentFlow   )*
-	    '->' flowElement+=[aadl2::Connection|ID] )?
+(ID '.')? ID
+	(  ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow   )*
+	    '->' ownedFlowSegment+=ConnectionFlow )?
 //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
+(ID '.')? ID
 ;
 
 
 EndToEndFlow returns aadl2::EndToEndFlow: 
     name=ID ':' 'end' 'to' 'end' 'flow'
-    ownedSubcomponentFlow+=SubcomponentFlow
-    ( '->' flowElement+=[aadl2::Connection|ID] '->' ownedSubcomponentFlow+=SubcomponentFlow )*
+    ownedEndToEndFlowSegment+=ETESubcomponentFlow
+    ( '->' ownedEndToEndFlowSegment+=ETEConnectionFlow '->' ownedEndToEndFlowSegment+=ETESubcomponentFlow )*
     
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	( => 'in' 'modes' '(' ((inModeOrTransition+=[aadl2::ModeFeature|ID])+ ) ')')? //| allModes?='all'
@@ -1463,10 +1473,20 @@ EndToEndFlowRefinement returns aadl2::EndToEndFlow:
 	( => 'in' 'modes' '(' ((inModeOrTransition+=[aadl2::ModeFeature|ID])+ ) ')')? //| allModes?='all'
 ;
 
-SubcomponentFlow returns aadl2::SubcomponentFlow:
-	context=[aadl2::Subcomponent|ID] '.' flowSpecification=[aadl2::FlowSpecification|ID]
-	// could refer to data access which is stored as dataAccess instead of flowSpec
-	// could also refere to endtoend flow
+SubcomponentFlow returns aadl2::FlowSegment:
+	(context=[aadl2::Subcomponent|ID] '.')? flowElement=[aadl2::FlowElement|ID]
+;
+
+ConnectionFlow returns aadl2::FlowSegment:
+	 flowElement=[aadl2::Connection|ID]
+;
+
+ETESubcomponentFlow returns aadl2::EndToEndFlowSegment:
+	(context=[aadl2::Subcomponent|ID] '.')? flowElement+=[aadl2::EndToEndFlowElement|ID]
+;
+
+ETEConnectionFlow returns aadl2::EndToEndFlowSegment:
+	 flowElement+=[aadl2::Connection|ID]
 ;
 
 

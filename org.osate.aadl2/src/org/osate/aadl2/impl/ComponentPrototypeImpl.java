@@ -55,7 +55,6 @@ import org.osate.aadl2.operations.TypeOperations;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.ComponentPrototypeImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentPrototypeImpl#isArray <em>Array</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentPrototypeImpl#getConstrainingClassifier <em>Constraining Classifier</em>}</li>
  * </ul>
@@ -64,26 +63,6 @@ import org.osate.aadl2.operations.TypeOperations;
  * @generated
  */
 public abstract class ComponentPrototypeImpl extends PrototypeImpl implements ComponentPrototype {
-	/**
-	 * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCategory()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final ComponentCategory CATEGORY_EDEFAULT = ComponentCategory.ABSTRACT;
-
-	/**
-	 * The cached value of the '{@link #getCategory() <em>Category</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCategory()
-	 * @generated
-	 * @ordered
-	 */
-	protected ComponentCategory category = CATEGORY_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #isArray() <em>Array</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -131,28 +110,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentPrototype();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ComponentCategory getCategory() {
-		return category;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCategory(ComponentCategory newCategory) {
-		ComponentCategory oldCategory = category;
-		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_PROTOTYPE__CATEGORY,
-					oldCategory, category));
 	}
 
 	/**
@@ -236,8 +193,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.COMPONENT_PROTOTYPE__CATEGORY:
-			return getCategory();
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
 			return isArray();
 		case Aadl2Package.COMPONENT_PROTOTYPE__CONSTRAINING_CLASSIFIER:
@@ -256,9 +211,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.COMPONENT_PROTOTYPE__CATEGORY:
-			setCategory((ComponentCategory) newValue);
-			return;
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
 			setArray((Boolean) newValue);
 			return;
@@ -277,9 +229,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.COMPONENT_PROTOTYPE__CATEGORY:
-			setCategory(CATEGORY_EDEFAULT);
-			return;
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
 			setArray(ARRAY_EDEFAULT);
 			return;
@@ -298,8 +247,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.COMPONENT_PROTOTYPE__CATEGORY:
-			return category != CATEGORY_EDEFAULT;
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
 			return array != ARRAY_EDEFAULT;
 		case Aadl2Package.COMPONENT_PROTOTYPE__CONSTRAINING_CLASSIFIER:
@@ -319,9 +266,7 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (category: ");
-		result.append(category);
-		result.append(", array: ");
+		result.append(" (array: ");
 		result.append(array);
 		result.append(')');
 		return result.toString();

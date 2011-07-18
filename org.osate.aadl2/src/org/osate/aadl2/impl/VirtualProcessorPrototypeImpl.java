@@ -68,8 +68,8 @@ public class VirtualProcessorPrototypeImpl extends ComponentPrototypeImpl implem
 		return Aadl2Package.eINSTANCE.getVirtualProcessorPrototype();
 	}
 
-	@Override
-	public ComponentCategory getCategory() {
+	
+	public ComponentCategory getCategory(){
 		return ComponentCategory.VIRTUAL_PROCESSOR;
 	}
 

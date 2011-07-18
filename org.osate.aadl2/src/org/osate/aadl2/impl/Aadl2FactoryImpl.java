@@ -71,9 +71,8 @@ import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.Comment;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementationReference;
+import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentPrototypeReference;
-import org.osate.aadl2.ComponentReference;
 import org.osate.aadl2.ComponentTypeRename;
 import org.osate.aadl2.ComputedValue;
 import org.osate.aadl2.ConnectedElement;
@@ -96,7 +95,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.ElementName;
 import org.osate.aadl2.ElementNameKind;
 import org.osate.aadl2.EndToEndFlow;
-import org.osate.aadl2.EndToEndFlowElement;
+import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.EnumerationValue;
@@ -114,8 +113,10 @@ import org.osate.aadl2.FeatureGroupTypeRename;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.FeaturePrototypeReference;
+import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowKind;
+import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.GlobalNamespace;
 import org.osate.aadl2.GroupExtension;
@@ -171,7 +172,6 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.SubcomponentFlow;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
@@ -209,6 +209,7 @@ import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorPrototype;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.VirtualProcessorType;
+import org.osate.aadl2.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -286,6 +287,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createModeTransition();
 		case Aadl2Package.FLOW_SPECIFICATION:
 			return (EObject) createFlowSpecification();
+		case Aadl2Package.FLOW_END:
+			return (EObject) createFlowEnd();
 		case Aadl2Package.TYPE_EXTENSION:
 			return (EObject) createTypeExtension();
 		case Aadl2Package.FEATURE_GROUP:
@@ -298,8 +301,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createBusAccess();
 		case Aadl2Package.DATA_ACCESS:
 			return (EObject) createDataAccess();
-		case Aadl2Package.END_TO_END_FLOW_ELEMENT:
-			return (EObject) createEndToEndFlowElement();
 		case Aadl2Package.DATA_PORT:
 			return (EObject) createDataPort();
 		case Aadl2Package.EVENT_DATA_PORT:
@@ -318,14 +319,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createModeBinding();
 		case Aadl2Package.FLOW_IMPLEMENTATION:
 			return (EObject) createFlowImplementation();
-		case Aadl2Package.SUBCOMPONENT_FLOW:
-			return (EObject) createSubcomponentFlow();
+		case Aadl2Package.FLOW_SEGMENT:
+			return (EObject) createFlowSegment();
 		case Aadl2Package.IMPLEMENTATION_EXTENSION:
 			return (EObject) createImplementationExtension();
 		case Aadl2Package.REALIZATION:
 			return (EObject) createRealization();
 		case Aadl2Package.END_TO_END_FLOW:
 			return (EObject) createEndToEndFlow();
+		case Aadl2Package.END_TO_END_FLOW_SEGMENT:
+			return (EObject) createEndToEndFlowSegment();
 		case Aadl2Package.ABSTRACT_SUBCOMPONENT:
 			return (EObject) createAbstractSubcomponent();
 		case Aadl2Package.ACCESS_CONNECTION:
@@ -362,6 +365,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createFeatureGroupTypeRename();
 		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING:
 			return (EObject) createComponentPrototypeBinding();
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL:
+			return (EObject) createComponentPrototypeActual();
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
 			return (EObject) createFeatureGroupPrototype();
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
@@ -376,10 +381,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createPortSpecification();
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
 			return (EObject) createFeaturePrototypeReference();
-		case Aadl2Package.COMPONENT_PROTOTYPE_REFERENCE:
-			return (EObject) createComponentPrototypeReference();
-		case Aadl2Package.COMPONENT_REFERENCE:
-			return (EObject) createComponentReference();
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE:
 			return (EObject) createFeatureGroupPrototypeReference();
 		case Aadl2Package.FEATURE_GROUP_REFERENCE:
@@ -848,6 +849,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public FlowEnd createFlowEnd() {
+		FlowEndImpl flowEnd = new FlowEndImpl();
+		return flowEnd;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TypeExtension createTypeExtension() {
 		TypeExtensionImpl typeExtension = new TypeExtensionImpl();
 		return typeExtension;
@@ -901,16 +912,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public DataAccess createDataAccess() {
 		DataAccessImpl dataAccess = new DataAccessImpl();
 		return dataAccess;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EndToEndFlowElement createEndToEndFlowElement() {
-		EndToEndFlowElementImpl endToEndFlowElement = new EndToEndFlowElementImpl();
-		return endToEndFlowElement;
 	}
 
 	/**
@@ -1008,9 +1009,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SubcomponentFlow createSubcomponentFlow() {
-		SubcomponentFlowImpl subcomponentFlow = new SubcomponentFlowImpl();
-		return subcomponentFlow;
+	public FlowSegment createFlowSegment() {
+		FlowSegmentImpl flowSegment = new FlowSegmentImpl();
+		return flowSegment;
 	}
 
 	/**
@@ -1051,6 +1052,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public EndToEndFlow createEndToEndFlow() {
 		EndToEndFlowImpl endToEndFlow = new EndToEndFlowImpl();
 		return endToEndFlow;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EndToEndFlowSegment createEndToEndFlowSegment() {
+		EndToEndFlowSegmentImpl endToEndFlowSegment = new EndToEndFlowSegmentImpl();
+		return endToEndFlowSegment;
 	}
 
 	/**
@@ -1788,6 +1799,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ComponentPrototypeActual createComponentPrototypeActual() {
+		ComponentPrototypeActualImpl componentPrototypeActual = new ComponentPrototypeActualImpl();
+		return componentPrototypeActual;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public FeatureGroupPrototype createFeatureGroupPrototype() {
 		FeatureGroupPrototypeImpl featureGroupPrototype = new FeatureGroupPrototypeImpl();
 		return featureGroupPrototype;
@@ -1851,26 +1872,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public FeaturePrototypeReference createFeaturePrototypeReference() {
 		FeaturePrototypeReferenceImpl featurePrototypeReference = new FeaturePrototypeReferenceImpl();
 		return featurePrototypeReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ComponentPrototypeReference createComponentPrototypeReference() {
-		ComponentPrototypeReferenceImpl componentPrototypeReference = new ComponentPrototypeReferenceImpl();
-		return componentPrototypeReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ComponentReference createComponentReference() {
-		ComponentReferenceImpl componentReference = new ComponentReferenceImpl();
-		return componentReference;
 	}
 
 	/**

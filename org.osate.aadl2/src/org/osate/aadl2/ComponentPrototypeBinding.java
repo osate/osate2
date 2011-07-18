@@ -76,11 +76,10 @@ public interface ComponentPrototypeBinding extends PrototypeBinding {
 	 * Creates a new {@link org.osate.aadl2.ComponentPrototypeActual} and appends it to the '<em><b>Actual</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eClass The Ecore class of the {@link org.osate.aadl2.ComponentPrototypeActual} to create.
 	 * @return The new {@link org.osate.aadl2.ComponentPrototypeActual}.
 	 * @see #getActuals()
 	 * @generated
 	 */
-	ComponentPrototypeActual createActual(EClass eClass);
+	ComponentPrototypeActual createActual();
 
 } // ComponentPrototypeBinding

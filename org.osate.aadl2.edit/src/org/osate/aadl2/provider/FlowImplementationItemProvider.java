@@ -38,12 +38,9 @@ package org.osate.aadl2.provider;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -53,9 +50,6 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.uml2.common.edit.command.SubsetAddCommand;
-import org.eclipse.uml2.common.edit.command.SubsetSupersetReplaceCommand;
-import org.eclipse.uml2.common.edit.command.SupersetRemoveCommand;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.FlowImplementation;
@@ -94,7 +88,6 @@ public class FlowImplementationItemProvider extends StructuralFeatureItemProvide
 			addInModeOrTransitionPropertyDescriptor(object);
 			addKindPropertyDescriptor(object);
 			addSpecificationPropertyDescriptor(object);
-			addFlowElementPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -148,22 +141,6 @@ public class FlowImplementationItemProvider extends StructuralFeatureItemProvide
 	}
 
 	/**
-	 * This adds a property descriptor for the Flow Element feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFlowElementPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_FlowImplementation_flowElement_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowImplementation_flowElement_feature",
-						"_UI_FlowImplementation_type"), Aadl2Package.eINSTANCE.getFlowImplementation_FlowElement(),
-				true, false, true, null, null, null));
-	}
-
-	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -175,7 +152,7 @@ public class FlowImplementationItemProvider extends StructuralFeatureItemProvide
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getFlowImplementation_OwnedSubcomponentFlow());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFlowImplementation_OwnedFlowSegment());
 		}
 		return childrenFeatures;
 	}
@@ -248,7 +225,7 @@ public class FlowImplementationItemProvider extends StructuralFeatureItemProvide
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
-		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW:
+		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -266,65 +243,8 @@ public class FlowImplementationItemProvider extends StructuralFeatureItemProvide
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getFlowImplementation_OwnedSubcomponentFlow(),
-				Aadl2Factory.eINSTANCE.createSubcomponentFlow()));
-	}
-
-	/**
-	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#createAddCommand(org.eclipse.emf.edit.domain.EditingDomain, org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EStructuralFeature, java.util.Collection, int)
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected Command createAddCommand(EditingDomain domain, EObject owner, EStructuralFeature feature,
-			Collection<?> collection, int index) {
-		if (feature == Aadl2Package.eINSTANCE.getFlowImplementation_OwnedSubcomponentFlow()) {
-			return new SubsetAddCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getFlowImplementation_FlowElement() },
-					collection, index);
-		}
-		return super.createAddCommand(domain, owner, feature, collection, index);
-	}
-
-	/**
-	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#createRemoveCommand(org.eclipse.emf.edit.domain.EditingDomain, org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EStructuralFeature, java.util.Collection)
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected Command createRemoveCommand(EditingDomain domain, EObject owner, EStructuralFeature feature,
-			Collection<?> collection) {
-		if (feature == Aadl2Package.eINSTANCE.getFlowImplementation_FlowElement()) {
-			return new SupersetRemoveCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getFlowImplementation_OwnedSubcomponentFlow() },
-					collection);
-		}
-		return super.createRemoveCommand(domain, owner, feature, collection);
-	}
-
-	/**
-	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#createReplaceCommand(org.eclipse.emf.edit.domain.EditingDomain, org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EStructuralFeature, org.eclipse.emf.ecore.EObject, java.util.Collection)
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected Command createReplaceCommand(EditingDomain domain, EObject owner, EStructuralFeature feature,
-			EObject value, Collection<?> collection) {
-		if (feature == Aadl2Package.eINSTANCE.getFlowImplementation_OwnedSubcomponentFlow()) {
-			return new SubsetSupersetReplaceCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getFlowImplementation_FlowElement() }, null,
-					value, collection);
-		}
-		if (feature == Aadl2Package.eINSTANCE.getFlowImplementation_FlowElement()) {
-			return new SubsetSupersetReplaceCommand(domain, owner, feature, null,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getFlowImplementation_OwnedSubcomponentFlow() },
-					value, collection);
-		}
-		return super.createReplaceCommand(domain, owner, feature, value, collection);
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFlowImplementation_OwnedFlowSegment(),
+				Aadl2Factory.eINSTANCE.createFlowSegment()));
 	}
 
 }

@@ -68,9 +68,9 @@ public class ProcessorPrototypeImpl extends ComponentPrototypeImpl implements Pr
 		return Aadl2Package.eINSTANCE.getProcessorPrototype();
 	}
 
-
-	@Override
-	public ComponentCategory getCategory() {
+	
+	public ComponentCategory getCategory(){
 		return ComponentCategory.PROCESSOR;
 	}
+
 } //ProcessorPrototypeImpl

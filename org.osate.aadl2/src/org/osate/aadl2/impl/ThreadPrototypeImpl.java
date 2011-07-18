@@ -68,8 +68,8 @@ public class ThreadPrototypeImpl extends ComponentPrototypeImpl implements Threa
 		return Aadl2Package.eINSTANCE.getThreadPrototype();
 	}
 
-	@Override
-	public ComponentCategory getCategory() {
+	
+	public ComponentCategory getCategory(){
 		return ComponentCategory.THREAD;
 	}
 

@@ -68,9 +68,9 @@ public class SubprogramPrototypeImpl extends ComponentPrototypeImpl implements S
 		return Aadl2Package.eINSTANCE.getSubprogramPrototype();
 	}
 
-
-	@Override
-	public ComponentCategory getCategory() {
+	
+	public ComponentCategory getCategory(){
 		return ComponentCategory.SUBPROGRAM;
 	}
+
 } //SubprogramPrototypeImpl

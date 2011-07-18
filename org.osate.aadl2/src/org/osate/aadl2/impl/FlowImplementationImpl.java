@@ -45,21 +45,19 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.uml2.common.util.SubsetSupersetEObjectContainmentEList;
-import org.eclipse.uml2.common.util.SubsetSupersetEObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowKind;
+import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
-import org.osate.aadl2.SubcomponentFlow;
 import org.osate.aadl2.operations.ModalElementOperations;
 
 /**
@@ -71,10 +69,9 @@ import org.osate.aadl2.operations.ModalElementOperations;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getFlowElements <em>Flow Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getSpecification <em>Specification</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getOwnedSubcomponentFlows <em>Owned Subcomponent Flow</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getOwnedFlowSegments <em>Owned Flow Segment</em>}</li>
  * </ul>
  * </p>
  *
@@ -101,16 +98,6 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 	 * @ordered
 	 */
 	protected EList<ModeFeature> inModeOrTransitions;
-
-	/**
-	 * The cached value of the '{@link #getFlowElements() <em>Flow Element</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFlowElements()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<FlowElement> flowElements;
 
 	/**
 	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
@@ -143,14 +130,14 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 	protected FlowSpecification specification;
 
 	/**
-	 * The cached value of the '{@link #getOwnedSubcomponentFlows() <em>Owned Subcomponent Flow</em>}' containment reference list.
+	 * The cached value of the '{@link #getOwnedFlowSegments() <em>Owned Flow Segment</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOwnedSubcomponentFlows()
+	 * @see #getOwnedFlowSegments()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<SubcomponentFlow> ownedSubcomponentFlows;
+	protected EList<FlowSegment> ownedFlowSegments;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -252,13 +239,12 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<SubcomponentFlow> getOwnedSubcomponentFlows() {
-		if (ownedSubcomponentFlows == null) {
-			ownedSubcomponentFlows = new SubsetSupersetEObjectContainmentEList<SubcomponentFlow>(
-					SubcomponentFlow.class, this, Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW,
-					OWNED_SUBCOMPONENT_FLOW_ESUPERSETS, null);
+	public EList<FlowSegment> getOwnedFlowSegments() {
+		if (ownedFlowSegments == null) {
+			ownedFlowSegments = new EObjectContainmentEList<FlowSegment>(FlowSegment.class, this,
+					Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT);
 		}
-		return ownedSubcomponentFlows;
+		return ownedFlowSegments;
 	}
 
 	/**
@@ -266,11 +252,10 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SubcomponentFlow createOwnedSubcomponentFlow() {
-		SubcomponentFlow newOwnedSubcomponentFlow = (SubcomponentFlow) create(Aadl2Package.eINSTANCE
-				.getSubcomponentFlow());
-		getOwnedSubcomponentFlows().add(newOwnedSubcomponentFlow);
-		return newOwnedSubcomponentFlow;
+	public FlowSegment createOwnedFlowSegment() {
+		FlowSegment newOwnedFlowSegment = (FlowSegment) create(Aadl2Package.eINSTANCE.getFlowSegment());
+		getOwnedFlowSegments().add(newOwnedFlowSegment);
+		return newOwnedFlowSegment;
 	}
 
 	/**
@@ -290,54 +275,11 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW:
-			return ((InternalEList<?>) getOwnedSubcomponentFlows()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
+			return ((InternalEList<?>) getOwnedFlowSegments()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public EList<FlowElement> getFlowElements() {
-		if (flowElements == null) {
-			flowElements = new SubsetSupersetEObjectResolvingEList<FlowElement>(FlowElement.class, this,
-					Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT, null, FLOW_ELEMENT_ESUBSETS) {
-				private static final long serialVersionUID = 1L;
-
-				/* (non-Javadoc)
-				 * @see org.eclipse.emf.ecore.util.EObjectEList#isUnique()
-				 */
-				@Override
-				protected boolean isUnique() {
-					return false;
-				}
-			};
-		}
-		return flowElements;
-	}
-
-	/**
-	 * The array of subset feature identifiers for the '{@link #getFlowElements() <em>Flow Element</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFlowElements()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int[] FLOW_ELEMENT_ESUBSETS = new int[] { Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW };
-
-	/**
-	 * The array of superset feature identifiers for the '{@link #getOwnedSubcomponentFlows() <em>Owned Subcomponent Flow</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOwnedSubcomponentFlows()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int[] OWNED_SUBCOMPONENT_FLOW_ESUPERSETS = new int[] { Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -372,16 +314,14 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 			return getInModes();
 		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
 			return getInModeOrTransitions();
-		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
-			return getFlowElements();
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
 			return getKind();
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
 			if (resolve)
 				return getSpecification();
 			return basicGetSpecification();
-		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW:
-			return getOwnedSubcomponentFlows();
+		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
+			return getOwnedFlowSegments();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -403,19 +343,15 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 			getInModeOrTransitions().clear();
 			getInModeOrTransitions().addAll((Collection<? extends ModeFeature>) newValue);
 			return;
-		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
-			getFlowElements().clear();
-			getFlowElements().addAll((Collection<? extends FlowElement>) newValue);
-			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
 			setKind((FlowKind) newValue);
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
 			setSpecification((FlowSpecification) newValue);
 			return;
-		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW:
-			getOwnedSubcomponentFlows().clear();
-			getOwnedSubcomponentFlows().addAll((Collection<? extends SubcomponentFlow>) newValue);
+		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
+			getOwnedFlowSegments().clear();
+			getOwnedFlowSegments().addAll((Collection<? extends FlowSegment>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -435,17 +371,14 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
 			getInModeOrTransitions().clear();
 			return;
-		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
-			getFlowElements().clear();
-			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
 			setKind(KIND_EDEFAULT);
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
 			setSpecification((FlowSpecification) null);
 			return;
-		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW:
-			getOwnedSubcomponentFlows().clear();
+		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
+			getOwnedFlowSegments().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -463,14 +396,12 @@ public class FlowImplementationImpl extends StructuralFeatureImpl implements Flo
 			return inModes != null && !inModes.isEmpty();
 		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
 			return inModeOrTransitions != null && !inModeOrTransitions.isEmpty();
-		case Aadl2Package.FLOW_IMPLEMENTATION__FLOW_ELEMENT:
-			return flowElements != null && !flowElements.isEmpty();
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
 			return kind != KIND_EDEFAULT;
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
 			return specification != null;
-		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_SUBCOMPONENT_FLOW:
-			return ownedSubcomponentFlows != null && !ownedSubcomponentFlows.isEmpty();
+		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
+			return ownedFlowSegments != null && !ownedFlowSegments.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
