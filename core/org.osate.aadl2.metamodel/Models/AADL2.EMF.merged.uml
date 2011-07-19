@@ -6447,168 +6447,10 @@ For access features, the classifier specifies the type of the shared component.<
   <Ecore:EDataType xmi:id="_W2_wICNjEd2QgNjfZP9I5g" instanceClassName="double" base_PrimitiveType="Real"/>
   <Ecore:EDataType xmi:id="_ny3oAJ60Edy3O8JSiftxsg" instanceClassName="java.lang.String" base_PrimitiveType="String"/>
   <Ecore:EPackage xmi:id="_BVoJQE28Ed2wX9l8Zwaacg" base_Package="_0" packageName="aadl2" nsPrefix="aadl2" nsURI="http://aadl.info/AADL/2.0" basePackage="org.osate" prefix="Aadl2"/>
-  <Ecore:EReference xmi:id="_H32fAE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H4mF4E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H4vP0E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H4vP0U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H4vP0k9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H4vP009PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H45A0E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H45A0U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H45A0k9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H45A009PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H45A1E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H45A1U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx0E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx0U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx0k9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx009PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx1E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx1U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx1k9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7wE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7wU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7wk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7w09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7xE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7xU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7xk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5VswE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5VswU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Vswk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Vsw09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5VsxE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5VsxU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdwE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdwU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdwk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdw09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdxE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdxU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdxk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdx09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdyE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5onsE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5onsU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5onsk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5ons09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5ontE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5ontU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5ontk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5ont09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5onuE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYsE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYsU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYsk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYs09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYtE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYtU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYtk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYt09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57ioE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57ioU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57iok9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57io09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57ipE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57ipU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57ipk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57ip09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57iqE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FToE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FToU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FTok9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FTo09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FTpE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FTpU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FTpk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FTp09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEoE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEoU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEok9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEo09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEpE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEpU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEpk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6YOkE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6YOkU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6YOkk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6YOk09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6YOlE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6YOlU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606gE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606gU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606gk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606g09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606hE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606hU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606hk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rgE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rgU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rgk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rg09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rhE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rhU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rhk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rh09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-riE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1cE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1cU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1ck9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1c09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1dE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1dU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1dk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1d09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1eE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7RmcE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7RmcU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7Rmck9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7Rmc09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7RmdE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7RmdU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7Rmdk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7Rmd09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXcE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXcU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXck9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXc09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXdE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXdU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXdk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXd09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khYE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khYU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khYk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khY09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khZE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khZU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khZk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khZ09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khaE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSYE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSYU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSYk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSY09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSZE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSZU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSZk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSZ09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DYE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DYU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DYk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DY09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DZE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DZU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DZk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H8BNUE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H8BNUU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_EjgugE9REd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_BDZNYFl7Ed2rAYnnAX19tA" isTransient="true" isVolatile="true" base_Property="GlobalNamespace-package"/>
   <Ecore:EReference xmi:id="_hQEeUFl9Ed2rAYnnAX19tA" isTransient="true" isVolatile="true" base_Property="GlobalNamespace-propertySet"/>
   <Ecore:EReference xmi:id="_wVAMkFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Element-ownedElement"/>
-  <Ecore:EReference xmi:id="_wVAMkVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EAttribute xmi:id="_wVAMklm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="NamedElement-qualifiedName"/>
-  <Ecore:EReference xmi:id="_wVAMk1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVAMlFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Namespace-ownedMember"/>
   <Ecore:EReference xmi:id="_wVAMlVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Namespace-member"/>
   <Ecore:EReference xmi:id="_wVJ9kFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-classifierFeature"/>
@@ -6616,17 +6458,13 @@ For access features, the classifier specifies the type of the shared component.<
   <Ecore:EReference xmi:id="_wVJ9klm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-generalization"/>
   <Ecore:EReference xmi:id="_wVJ9k1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-general"/>
   <Ecore:EReference xmi:id="_wVJ9lFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ClassifierFeature-featuringClassifier" isResolveProxies="false"/>
-  <Ecore:EReference xmi:id="_wVJ9lVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_wVJ9llm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVJ9l1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Relationship-relatedElement"/>
   <Ecore:EReference xmi:id="_wVJ9mFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="DirectedRelationship-source"/>
   <Ecore:EReference xmi:id="_wVTukFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="DirectedRelationship-target"/>
   <Ecore:EReference xmi:id="_wVTukVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Generalization-specific"/>
   <Ecore:EReference xmi:id="_wVTuklm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Generalization-general"/>
-  <Ecore:EReference xmi:id="_wVTuk1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVTulFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="PublicPackageSection-privateSection"/>
   <Ecore:EReference xmi:id="_wVTulVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="PrivatePackageSection-publicSection"/>
-  <Ecore:EReference xmi:id="_wVc4gFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVc4gVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentType-ownedFeature"/>
   <Ecore:EReference xmi:id="_wVc4glm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentType-extended"/>
   <Ecore:EReference xmi:id="_wVc4g1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-type"/>
@@ -6634,7 +6472,6 @@ For access features, the classifier specifies the type of the shared component.<
   <Ecore:EReference xmi:id="_wVc4hVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-extended"/>
   <Ecore:EReference xmi:id="_wVc4hlm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedConnection"/>
   <Ecore:EReference xmi:id="_wV5kcFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-extended"/>
-  <Ecore:EAttribute xmi:id="_-CnqUFpGEd2kwugqS-aPYQ" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_8tGW8FpIEd2kwugqS-aPYQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedFeature"/>
   <Standard:Metamodel xmi:id="_NE82sVprEd2djcltMkYjuA" base_Model="_0"/>
   <Standard:Metaclass xmi:id="_NFPxoFprEd2djcltMkYjuA" base_Class="Element"/>
@@ -6642,47 +6479,28 @@ For access features, the classifier specifies the type of the shared component.<
   <Standard:Metaclass xmi:id="_NFPxolprEd2djcltMkYjuA" base_Class="Namespace"/>
   <Standard:Metaclass xmi:id="_NFPxo1prEd2djcltMkYjuA" base_Class="Classifier"/>
   <Standard:Metaclass xmi:id="_NFPxpFprEd2djcltMkYjuA" base_Class="ClassifierFeature"/>
-  <Standard:Metaclass xmi:id="_NFPxpVprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFPxplprEd2djcltMkYjuA" base_Class="Relationship"/>
   <Standard:Metaclass xmi:id="_NFPxp1prEd2djcltMkYjuA" base_Class="DirectedRelationship"/>
   <Standard:Metaclass xmi:id="_NFPxqFprEd2djcltMkYjuA" base_Class="Generalization"/>
-  <Standard:Metaclass xmi:id="_NFPxqVprEd2djcltMkYjuA"/>
-  <Standard:Metaclass xmi:id="_NFPxqlprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFPxq1prEd2djcltMkYjuA" base_Class="PublicPackageSection"/>
   <Standard:Metaclass xmi:id="_NFPxrFprEd2djcltMkYjuA" base_Class="PrivatePackageSection"/>
-  <Standard:Metaclass xmi:id="_NFPxrVprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFiskFprEd2djcltMkYjuA" base_Class="ComponentType"/>
   <Standard:Metaclass xmi:id="_NFiskVprEd2djcltMkYjuA" base_Class="ComponentImplementation"/>
-  <Standard:Metaclass xmi:id="_NFisklprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFisk1prEd2djcltMkYjuA" base_Class="AbstractImplementation"/>
-  <Standard:Metaclass xmi:id="_NFislFprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFislVprEd2djcltMkYjuA" base_Class="BusImplementation"/>
-  <Standard:Metaclass xmi:id="_NFisllprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFisl1prEd2djcltMkYjuA" base_Class="DataImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdkFprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFsdkVprEd2djcltMkYjuA" base_Class="DeviceImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdklprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFsdk1prEd2djcltMkYjuA" base_Class="MemoryImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdlFprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFsdlVprEd2djcltMkYjuA" base_Class="ProcessImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdllprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFsdl1prEd2djcltMkYjuA" base_Class="ProcessorImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdmFprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF1ngFprEd2djcltMkYjuA" base_Class="SubprogramImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1ngVprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF1nglprEd2djcltMkYjuA" base_Class="SubprogramGroupImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1ng1prEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF1nhFprEd2djcltMkYjuA" base_Class="SystemImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1nhVprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF1nhlprEd2djcltMkYjuA" base_Class="ThreadImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1nh1prEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF_YgFprEd2djcltMkYjuA" base_Class="ThreadGroupImplementation"/>
-  <Standard:Metaclass xmi:id="_NF_YgVprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF_YglprEd2djcltMkYjuA" base_Class="VirtualBusImplementation"/>
-  <Standard:Metaclass xmi:id="_NF_Yg1prEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF_YhFprEd2djcltMkYjuA" base_Class="VirtualProcessorImplementation"/>
   <Standard:Metaclass xmi:id="_NF_YhVprEd2djcltMkYjuA" base_Class="FeatureGroupType"/>
-  <Standard:Metaclass xmi:id="_NF_YhlprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF_Yh1prEd2djcltMkYjuA" base_Class="GlobalNamespace"/>
   <Ecore:EReference xmi:id="_cKPCQF11Ed2aqP4X3Bnz6w" isTransient="true" isVolatile="true" base_Property="BehavioredImplementation-callSpecification"/>
   <Standard:Metaclass xmi:id="_k5LIUF11Ed2aqP4X3Bnz6w" base_Class="BehavioredImplementation"/>
@@ -6700,287 +6518,238 @@ For access features, the classifier specifies the type of the shared component.<
   <Ecore:EReference xmi:id="_1OB-cF2XEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="ProcessImplementation-type"/>
   <Ecore:EReference xmi:id="_9xDvcF2XEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="MemoryImplementation-type"/>
   <Ecore:EReference xmi:id="_Bjll4F2YEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="DeviceImplementation-type"/>
-  <Ecore:EReference xmi:id="_u27UcF_yEd2sjtVCXhtQ3w" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_Dclw4F_zEd2sjtVCXhtQ3w" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_FaWeEF_zEd2sjtVCXhtQ3w" isTransient="true" isVolatile="true"/>
   <Ecore:EClass xmi:id="__CwukGhxEd21g9MLLnbMJw" xmlName="Package" base_Class="Package" className="AadlPackage"/>
   <Standard:Metaclass xmi:id="_KGjzMGhyEd21g9MLLnbMJw" base_Class="Package"/>
-  <Standard:Metaclass xmi:id="_DPzkMHOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci8HOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci8XOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci8nOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci83OeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci9HOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci9XOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci9nOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci93OeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci-HOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci-XOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci-nOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci-3OeEd2C5ocZYg6E4Q"/>
-  <Ecore:EReference xmi:id="_KjsokHOeEd2C5ocZYg6E4Q" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_RosVUHOeEd2C5ocZYg6E4Q" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_SlVjwHOeEd2C5ocZYg6E4Q" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_Tfv9kHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_XY5ZYHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_YQxckHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_ZDmAoHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_bC17kHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_cA--0HOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_dCsTcHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_dyFJAHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_efYT4HOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_ffdQ0HOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_uo2KQNBCEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_v2oMANBCEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_BvJswNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_CsPnINBDEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_DwWIcNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_eDY-cNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_e316MNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_UybwoNBoEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_WY9CgNBoEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_TqA3UNEpEd2TrpDReilpeg" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_Uu2_gNEpEd2TrpDReilpeg" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_bOON8NwREd29XoSWahFoew" isTransient="true" isVolatile="true"/>
-  <Standard:Metaclass xmi:id="_fgi-wNwREd29XoSWahFoew"/>
-  <Ecore:EReference xmi:id="_uAYh0NzUEd2vSrysotXGgg" isTransient="true" isVolatile="true"/>
-  <Standard:Metaclass xmi:id="_6bewkNzUEd2vSrysotXGgg"/>
-  <Standard:Metaclass xmi:id="_6bewkdzUEd2vSrysotXGgg"/>
-  <Ecore:EReference xmi:id="_dIpWgPFKEd2IiKl_nM_xpg" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_feeQ4P3sEd2Ro5zjTxEQsg" isTransient="true" isVolatile="true" base_Property="Feature-classifier"/>
   <Standard:Metaclass xmi:id="_lVhj0P3sEd2Ro5zjTxEQsg" base_Class="Feature"/>
   <Standard:Metaclass xmi:id="_4SVHAFHpEd6aXqaq3cmRZw" base_Class="Subcomponent"/>
   <Ecore:EReference xmi:id="_Bm0xMFHqEd6aXqaq3cmRZw" isTransient="true" isVolatile="true" base_Property="Subcomponent-classifier"/>
-  <Ecore:EReference xmi:id="_Yku3kFIPEd6K9OqcVNDX_A" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_FSqTkHhnEd6AFYIFq8D4AQ" isTransient="true" isVolatile="true"/>
   <Standard:Metaclass xmi:id="_2zZsQHAmEeCG1uAXqBr-RA" base_Class="ModalElement"/>
   <Standard:Metaclass xmi:id="_j4BVcHAoEeCG1uAXqBr-RA" base_Class="Mode"/>
   <Ecore:EReference xmi:id="_q4X6wKf3EeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="Subcomponent-prototype"/>
-  <Ecore:EReference xmi:id="_O1p14KgCEeCYEIHXYlP5sg"/>
   <Ecore:EReference xmi:id="_fexyAKgHEeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="Subcomponent-subcomponentType"/>
   <Standard:Metaclass xmi:id="_usN9ALIBEeCWmNkTdM4SSg" base_Class="FeatureGroup"/>
   <Ecore:EReference xmi:id="_4Z0qwLIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupType"/>
   <Ecore:EReference xmi:id="_5j1m0LIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupPrototype"/>
-  <Standard:Metaclass xmi:id="_4mpJULICEeCWmNkTdM4SSg" base_Class="Comment"/>
-  <Standard:Metaclass xmi:id="_4mpJUbICEeCWmNkTdM4SSg" base_Class="Type"/>
-  <Standard:Metaclass xmi:id="_4mpJUrICEeCWmNkTdM4SSg" base_Class="TypedElement"/>
-  <Standard:Metaclass xmi:id="_4mqXcLICEeCWmNkTdM4SSg" base_Class="RefinableElement"/>
-  <Standard:Metaclass xmi:id="_4mq-gLICEeCWmNkTdM4SSg" base_Class="StructuralFeature"/>
-  <Standard:Metaclass xmi:id="_4mq-gbICEeCWmNkTdM4SSg" base_Class="BehavioralFeature"/>
-  <Standard:Metaclass xmi:id="_4mq-grICEeCWmNkTdM4SSg" base_Class="ArraySpecification"/>
-  <Standard:Metaclass xmi:id="_4mrlkLICEeCWmNkTdM4SSg" base_Class="ArrayableElement"/>
-  <Standard:Metaclass xmi:id="_4mrlkbICEeCWmNkTdM4SSg" base_Class="Numeral"/>
-  <Standard:Metaclass xmi:id="_4mrlkrICEeCWmNkTdM4SSg" base_Class="ComponentImplementationReference"/>
-  <Standard:Metaclass xmi:id="_4msMoLICEeCWmNkTdM4SSg" base_Class="TypeExtension"/>
-  <Standard:Metaclass xmi:id="_4msMobICEeCWmNkTdM4SSg" base_Class="ImplementationExtension"/>
-  <Standard:Metaclass xmi:id="_4msMorICEeCWmNkTdM4SSg" base_Class="Realization"/>
-  <Standard:Metaclass xmi:id="_4muB0LICEeCWmNkTdM4SSg" base_Class="SubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4muB0bICEeCWmNkTdM4SSg" base_Class="Connection"/>
-  <Standard:Metaclass xmi:id="_4muo4LICEeCWmNkTdM4SSg" base_Class="ConnectionEnd"/>
-  <Standard:Metaclass xmi:id="_4muo4bICEeCWmNkTdM4SSg" base_Class="Context"/>
-  <Standard:Metaclass xmi:id="_4mvP8LICEeCWmNkTdM4SSg" base_Class="ConnectedElement"/>
-  <Standard:Metaclass xmi:id="_4mvP8bICEeCWmNkTdM4SSg" base_Class="ElementName"/>
-  <Standard:Metaclass xmi:id="_4mvP8rICEeCWmNkTdM4SSg" base_Class="AbstractConnectionEnd"/>
-  <Standard:Metaclass xmi:id="_4mv3ALICEeCWmNkTdM4SSg" base_Class="AnnexLibrary"/>
-  <Standard:Metaclass xmi:id="_4mv3AbICEeCWmNkTdM4SSg" base_Class="AnnexSubclause"/>
-  <Standard:Metaclass xmi:id="_4mv3ArICEeCWmNkTdM4SSg" base_Class="DefaultAnnexLibrary"/>
-  <Standard:Metaclass xmi:id="_4mv3A7ICEeCWmNkTdM4SSg" base_Class="DefaultAnnexSubclause"/>
-  <Standard:Metaclass xmi:id="_4mweELICEeCWmNkTdM4SSg" base_Class="Access"/>
-  <Standard:Metaclass xmi:id="_4mweEbICEeCWmNkTdM4SSg" base_Class="Port"/>
-  <Standard:Metaclass xmi:id="_4mxFILICEeCWmNkTdM4SSg" base_Class="GroupExtension"/>
-  <Standard:Metaclass xmi:id="_4mxsMLICEeCWmNkTdM4SSg" base_Class="AbstractFeature"/>
-  <Standard:Metaclass xmi:id="_4myTQLICEeCWmNkTdM4SSg" base_Class="DirectedFeature"/>
-  <Standard:Metaclass xmi:id="_4myTQbICEeCWmNkTdM4SSg" base_Class="FeatureType"/>
-  <Standard:Metaclass xmi:id="_4my6ULICEeCWmNkTdM4SSg" base_Class="FlowSpecification"/>
-  <Standard:Metaclass xmi:id="_4my6UbICEeCWmNkTdM4SSg" base_Class="FlowImplementation"/>
-  <Standard:Metaclass xmi:id="_4mzhYLICEeCWmNkTdM4SSg" base_Class="FlowElement"/>
-  <Standard:Metaclass xmi:id="_4mzhYbICEeCWmNkTdM4SSg" base_Class="EndToEndFlow"/>
-  <Standard:Metaclass xmi:id="_4m0IcLICEeCWmNkTdM4SSg" base_Class="EndToEndFlowElement"/>
-  <Standard:Metaclass xmi:id="_4m0vgLICEeCWmNkTdM4SSg" base_Class="Flow"/>
-  <Standard:Metaclass xmi:id="_4m0vgbICEeCWmNkTdM4SSg" base_Class="FlowEnd"/>
-  <Standard:Metaclass xmi:id="_4m1WkLICEeCWmNkTdM4SSg" base_Class="FlowSegment"/>
-  <Standard:Metaclass xmi:id="_4m19oLICEeCWmNkTdM4SSg" base_Class="EndToEndFlowSegment"/>
-  <Standard:Metaclass xmi:id="_4m2ksLICEeCWmNkTdM4SSg" base_Class="ModeTransition"/>
-  <Standard:Metaclass xmi:id="_4m2ksbICEeCWmNkTdM4SSg" base_Class="ModeTransitionTrigger"/>
-  <Standard:Metaclass xmi:id="_4m3LwLICEeCWmNkTdM4SSg" base_Class="ModeFeature"/>
-  <Standard:Metaclass xmi:id="_4m3LwbICEeCWmNkTdM4SSg" base_Class="ModalPath"/>
-  <Standard:Metaclass xmi:id="_4m3LwrICEeCWmNkTdM4SSg" base_Class="TriggerPort"/>
-  <Standard:Metaclass xmi:id="_4m3y0LICEeCWmNkTdM4SSg" base_Class="ModeBinding"/>
-  <Standard:Metaclass xmi:id="_4m5A8LICEeCWmNkTdM4SSg" base_Class="PackageRename"/>
-  <Standard:Metaclass xmi:id="_4m5A8bICEeCWmNkTdM4SSg" base_Class="ComponentTypeRename"/>
-  <Standard:Metaclass xmi:id="_4m62ILICEeCWmNkTdM4SSg" base_Class="FeatureGroupTypeRename"/>
-  <Standard:Metaclass xmi:id="_4m7dMLICEeCWmNkTdM4SSg" base_Class="Prototype"/>
-  <Standard:Metaclass xmi:id="_4m8EQLICEeCWmNkTdM4SSg" base_Class="PrototypeBinding"/>
-  <Standard:Metaclass xmi:id="_4m8rULICEeCWmNkTdM4SSg" base_Class="ComponentPrototype"/>
-  <Standard:Metaclass xmi:id="_4m9SYLICEeCWmNkTdM4SSg" base_Class="ComponentPrototypeBinding"/>
-  <Standard:Metaclass xmi:id="_4m9SYbICEeCWmNkTdM4SSg" base_Class="FeatureGroupPrototype"/>
-  <Standard:Metaclass xmi:id="_4m95cLICEeCWmNkTdM4SSg" base_Class="FeatureGroupPrototypeBinding"/>
-  <Standard:Metaclass xmi:id="_4m-ggLICEeCWmNkTdM4SSg" base_Class="FeaturePrototype"/>
-  <Standard:Metaclass xmi:id="_4m-ggbICEeCWmNkTdM4SSg" base_Class="FeaturePrototypeBinding"/>
-  <Standard:Metaclass xmi:id="_4m_uoLICEeCWmNkTdM4SSg" base_Class="FeaturePrototypeActual"/>
-  <Standard:Metaclass xmi:id="_4m_uobICEeCWmNkTdM4SSg" base_Class="AccessSpecification"/>
-  <Standard:Metaclass xmi:id="_4m_uorICEeCWmNkTdM4SSg" base_Class="PortSpecification"/>
-  <Standard:Metaclass xmi:id="_4nAVsLICEeCWmNkTdM4SSg" base_Class="FeaturePrototypeReference"/>
-  <Standard:Metaclass xmi:id="_4nA8wLICEeCWmNkTdM4SSg" base_Class="ComponentPrototypeActual"/>
-  <Standard:Metaclass xmi:id="_4nBj0LICEeCWmNkTdM4SSg" base_Class="FeatureGroupPrototypeActual"/>
-  <Standard:Metaclass xmi:id="_4nCx8LICEeCWmNkTdM4SSg" base_Class="SubprogramCallSequence"/>
-  <Standard:Metaclass xmi:id="_4nDZALICEeCWmNkTdM4SSg" base_Class="CallSpecification"/>
-  <Standard:Metaclass xmi:id="_4nDZAbICEeCWmNkTdM4SSg" base_Class="CalledSubprogram"/>
-  <Standard:Metaclass xmi:id="_4nEAELICEeCWmNkTdM4SSg" base_Class="ProcessorCall"/>
-  <Standard:Metaclass xmi:id="_4nEnILICEeCWmNkTdM4SSg" base_Class="SubprogramCall"/>
-  <Standard:Metaclass xmi:id="_4nFOMLICEeCWmNkTdM4SSg" base_Class="CallContext"/>
-  <Standard:Metaclass xmi:id="_4nFOMbICEeCWmNkTdM4SSg" base_Class="Abstract"/>
-  <Standard:Metaclass xmi:id="_4nFOMrICEeCWmNkTdM4SSg" base_Class="AbstractType"/>
-  <Standard:Metaclass xmi:id="_4nHqcLICEeCWmNkTdM4SSg" base_Class="AbstractClassifier"/>
-  <Standard:Metaclass xmi:id="_4nIRgLICEeCWmNkTdM4SSg" base_Class="AbstractSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4nNKALICEeCWmNkTdM4SSg" base_Class="AbstractSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4nNKAbICEeCWmNkTdM4SSg" base_Class="AbstractPrototype"/>
-  <Standard:Metaclass xmi:id="_4nNxELICEeCWmNkTdM4SSg" base_Class="Bus"/>
-  <Standard:Metaclass xmi:id="_4nNxEbICEeCWmNkTdM4SSg" base_Class="BusClassifier"/>
-  <Standard:Metaclass xmi:id="_4nOYILICEeCWmNkTdM4SSg" base_Class="BusSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4nOYIbICEeCWmNkTdM4SSg" base_Class="BusType"/>
-  <Standard:Metaclass xmi:id="_4nQNULICEeCWmNkTdM4SSg" base_Class="BusSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4nQNUbICEeCWmNkTdM4SSg" base_Class="BusPrototype"/>
-  <Standard:Metaclass xmi:id="_4nQNUrICEeCWmNkTdM4SSg" base_Class="DataSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4nQ0YLICEeCWmNkTdM4SSg" base_Class="DataClassifier"/>
-  <Standard:Metaclass xmi:id="_4nQ0YbICEeCWmNkTdM4SSg" base_Class="Data"/>
-  <Standard:Metaclass xmi:id="_4nQ0YrICEeCWmNkTdM4SSg" base_Class="DataType"/>
-  <Standard:Metaclass xmi:id="_4nTQoLICEeCWmNkTdM4SSg" base_Class="DataSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4nTQobICEeCWmNkTdM4SSg" base_Class="DataPrototype"/>
-  <Standard:Metaclass xmi:id="_4nTQorICEeCWmNkTdM4SSg" base_Class="Device"/>
-  <Standard:Metaclass xmi:id="_4nT3sLICEeCWmNkTdM4SSg" base_Class="DeviceClassifier"/>
-  <Standard:Metaclass xmi:id="_4nT3sbICEeCWmNkTdM4SSg" base_Class="DeviceSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4nT3srICEeCWmNkTdM4SSg" base_Class="DeviceType"/>
-  <Standard:Metaclass xmi:id="_4nXiELICEeCWmNkTdM4SSg" base_Class="DeviceSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4nYJILICEeCWmNkTdM4SSg" base_Class="DevicePrototype"/>
-  <Standard:Metaclass xmi:id="_4nYJIbICEeCWmNkTdM4SSg" base_Class="Memory"/>
-  <Standard:Metaclass xmi:id="_4nYJIrICEeCWmNkTdM4SSg" base_Class="MemoryClassifier"/>
-  <Standard:Metaclass xmi:id="_4nYJI7ICEeCWmNkTdM4SSg" base_Class="MemoryType"/>
-  <Standard:Metaclass xmi:id="_4nYwMLICEeCWmNkTdM4SSg" base_Class="MemorySubcomponent"/>
-  <Standard:Metaclass xmi:id="_4nalYLICEeCWmNkTdM4SSg" base_Class="MemoryPrototype"/>
-  <Standard:Metaclass xmi:id="_4nalYbICEeCWmNkTdM4SSg" base_Class="MemorySubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4nalYrICEeCWmNkTdM4SSg" base_Class="Subprogram"/>
-  <Standard:Metaclass xmi:id="_4nalY7ICEeCWmNkTdM4SSg" base_Class="SubprogramClassifier"/>
-  <Standard:Metaclass xmi:id="_4nbMcLICEeCWmNkTdM4SSg" base_Class="SubprogramSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4nbMcbICEeCWmNkTdM4SSg" base_Class="SubprogramType"/>
-  <Standard:Metaclass xmi:id="_4ne20LICEeCWmNkTdM4SSg" base_Class="SubprogramSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4ne20bICEeCWmNkTdM4SSg" base_Class="SubprogramPrototype"/>
-  <Standard:Metaclass xmi:id="_4ne20rICEeCWmNkTdM4SSg" base_Class="SubprogramGroup"/>
-  <Standard:Metaclass xmi:id="_4ne207ICEeCWmNkTdM4SSg" base_Class="SubprogramGroupClassifier"/>
-  <Standard:Metaclass xmi:id="_4nfd4LICEeCWmNkTdM4SSg" base_Class="SubprogramGroupType"/>
-  <Standard:Metaclass xmi:id="_4nfd4bICEeCWmNkTdM4SSg" base_Class="SubprogramGroupSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4nh6ILICEeCWmNkTdM4SSg" base_Class="SubprogramGroupSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4nh6IbICEeCWmNkTdM4SSg" base_Class="SubprogramGroupPrototype"/>
-  <Standard:Metaclass xmi:id="_4nihMLICEeCWmNkTdM4SSg" base_Class="System"/>
-  <Standard:Metaclass xmi:id="_4nihMbICEeCWmNkTdM4SSg" base_Class="SystemClassifier"/>
-  <Standard:Metaclass xmi:id="_4nihMrICEeCWmNkTdM4SSg" base_Class="SystemType"/>
-  <Standard:Metaclass xmi:id="_4njvULICEeCWmNkTdM4SSg" base_Class="SystemSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4nqdALICEeCWmNkTdM4SSg" base_Class="SystemSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4nqdAbICEeCWmNkTdM4SSg" base_Class="SystemPrototype"/>
-  <Standard:Metaclass xmi:id="_4nqdArICEeCWmNkTdM4SSg" base_Class="Processor"/>
-  <Standard:Metaclass xmi:id="_4nrEELICEeCWmNkTdM4SSg" base_Class="ProcessorClassifier"/>
-  <Standard:Metaclass xmi:id="_4nrEEbICEeCWmNkTdM4SSg" base_Class="ProcessorType"/>
-  <Standard:Metaclass xmi:id="_4nsSMLICEeCWmNkTdM4SSg" base_Class="ProcessorSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4nv8kLICEeCWmNkTdM4SSg" base_Class="ProcessorSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4nwjoLICEeCWmNkTdM4SSg" base_Class="ProcessorPrototype"/>
-  <Standard:Metaclass xmi:id="_4nwjobICEeCWmNkTdM4SSg" base_Class="Process"/>
-  <Standard:Metaclass xmi:id="_4nwjorICEeCWmNkTdM4SSg" base_Class="ProcessClassifier"/>
-  <Standard:Metaclass xmi:id="_4nxKsLICEeCWmNkTdM4SSg" base_Class="ProcessType"/>
-  <Standard:Metaclass xmi:id="_4nxxwLICEeCWmNkTdM4SSg" base_Class="ProcessSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4n2qQLICEeCWmNkTdM4SSg" base_Class="ProcessSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4n3RULICEeCWmNkTdM4SSg" base_Class="ProcessPrototype"/>
-  <Standard:Metaclass xmi:id="_4n3RUbICEeCWmNkTdM4SSg" base_Class="Thread"/>
-  <Standard:Metaclass xmi:id="_4n3RUrICEeCWmNkTdM4SSg" base_Class="ThreadClassifier"/>
-  <Standard:Metaclass xmi:id="_4n3RU7ICEeCWmNkTdM4SSg" base_Class="ThreadType"/>
-  <Standard:Metaclass xmi:id="_4n4fcLICEeCWmNkTdM4SSg" base_Class="ThreadSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4n8w4LICEeCWmNkTdM4SSg" base_Class="ThreadSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4n8w4bICEeCWmNkTdM4SSg" base_Class="ThreadPrototype"/>
-  <Standard:Metaclass xmi:id="_4n9X8LICEeCWmNkTdM4SSg" base_Class="ThreadGroup"/>
-  <Standard:Metaclass xmi:id="_4n9X8bICEeCWmNkTdM4SSg" base_Class="ThreadGroupClassifier"/>
-  <Standard:Metaclass xmi:id="_4n9X8rICEeCWmNkTdM4SSg" base_Class="ThreadGroupType"/>
-  <Standard:Metaclass xmi:id="_4n-mELICEeCWmNkTdM4SSg" base_Class="ThreadGroupSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4oEFoLICEeCWmNkTdM4SSg" base_Class="ThreadGroupSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4oEFobICEeCWmNkTdM4SSg" base_Class="ThreadGroupPrototype"/>
-  <Standard:Metaclass xmi:id="_4oEForICEeCWmNkTdM4SSg" base_Class="VirtualBus"/>
-  <Standard:Metaclass xmi:id="_4oEFo7ICEeCWmNkTdM4SSg" base_Class="VirtualBusClassifier"/>
-  <Standard:Metaclass xmi:id="_4oEssLICEeCWmNkTdM4SSg" base_Class="VirtualBusType"/>
-  <Standard:Metaclass xmi:id="_4oEssbICEeCWmNkTdM4SSg" base_Class="VirtualBusSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4oGh4LICEeCWmNkTdM4SSg" base_Class="VirtualBusPrototype"/>
-  <Standard:Metaclass xmi:id="_4oGh4bICEeCWmNkTdM4SSg" base_Class="VitualBusSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4oHI8LICEeCWmNkTdM4SSg" base_Class="VirtualProcessor"/>
-  <Standard:Metaclass xmi:id="_4oHI8bICEeCWmNkTdM4SSg" base_Class="VirtualProcessorClassifier"/>
-  <Standard:Metaclass xmi:id="_4oHI8rICEeCWmNkTdM4SSg" base_Class="VirtualProcessorSubcomponent"/>
-  <Standard:Metaclass xmi:id="_4oHwALICEeCWmNkTdM4SSg" base_Class="VirtualProcessorType"/>
-  <Standard:Metaclass xmi:id="_4oMBcLICEeCWmNkTdM4SSg" base_Class="VirtualProcessorSubcomponentType"/>
-  <Standard:Metaclass xmi:id="_4oMogLICEeCWmNkTdM4SSg" base_Class="VirtualProcessorPrototype"/>
-  <Standard:Metaclass xmi:id="_4oMogbICEeCWmNkTdM4SSg" base_Class="AccessConnection"/>
-  <Standard:Metaclass xmi:id="_4oMogrICEeCWmNkTdM4SSg" base_Class="ParameterConnection"/>
-  <Standard:Metaclass xmi:id="_4oNPkLICEeCWmNkTdM4SSg" base_Class="PortConnection"/>
-  <Standard:Metaclass xmi:id="_4oNPkbICEeCWmNkTdM4SSg" base_Class="AccessConnectionEnd"/>
-  <Standard:Metaclass xmi:id="_4oNPkrICEeCWmNkTdM4SSg" base_Class="ParameterConnectionEnd"/>
-  <Standard:Metaclass xmi:id="_4oN2oLICEeCWmNkTdM4SSg" base_Class="PortConnectionEnd"/>
-  <Standard:Metaclass xmi:id="_4oN2obICEeCWmNkTdM4SSg" base_Class="FeatureGroupConnection"/>
-  <Standard:Metaclass xmi:id="_4oOdsLICEeCWmNkTdM4SSg" base_Class="FeatureGroupConnectionEnd"/>
-  <Standard:Metaclass xmi:id="_4oOdsbICEeCWmNkTdM4SSg" base_Class="FeatureConnection"/>
-  <Standard:Metaclass xmi:id="_4oOdsrICEeCWmNkTdM4SSg" base_Class="FeatureConnectionEnd"/>
-  <Standard:Metaclass xmi:id="_4oSIELICEeCWmNkTdM4SSg" base_Class="DataAccess"/>
-  <Standard:Metaclass xmi:id="_4oSvILICEeCWmNkTdM4SSg" base_Class="BusAccess"/>
-  <Standard:Metaclass xmi:id="_4oTWMLICEeCWmNkTdM4SSg" base_Class="SubprogramAccess"/>
-  <Standard:Metaclass xmi:id="_4oTWMbICEeCWmNkTdM4SSg" base_Class="DataPort"/>
-  <Standard:Metaclass xmi:id="_4oT9QLICEeCWmNkTdM4SSg" base_Class="EventPort"/>
-  <Standard:Metaclass xmi:id="_4oUkULICEeCWmNkTdM4SSg" base_Class="EventDataPort"/>
-  <Standard:Metaclass xmi:id="_4oVLYLICEeCWmNkTdM4SSg" base_Class="Parameter"/>
-  <Standard:Metaclass xmi:id="_4oVycLICEeCWmNkTdM4SSg" base_Class="SubprogramGroupAccess"/>
-  <Standard:Metaclass xmi:id="_4oeVULICEeCWmNkTdM4SSg" base_Class="PackageSection"/>
-  <Standard:Metaclass xmi:id="_4olqELICEeCWmNkTdM4SSg" base_Class="ComponentClassifier"/>
-  <Standard:Metaclass xmi:id="_4om4MLICEeCWmNkTdM4SSg" base_Class="PropertyAssociation"/>
-  <Standard:Metaclass xmi:id="_4os-0LICEeCWmNkTdM4SSg" base_Class="BasicPropertyAssociation"/>
-  <Standard:Metaclass xmi:id="_4ouM8LICEeCWmNkTdM4SSg" base_Class="ArrayRange"/>
-  <Standard:Metaclass xmi:id="_4ouM8bICEeCWmNkTdM4SSg" base_Class="ContainedNamedElement"/>
-  <Standard:Metaclass xmi:id="_4ovbELICEeCWmNkTdM4SSg" base_Class="ContainmentPathElement"/>
-  <Standard:Metaclass xmi:id="_4o5zILICEeCWmNkTdM4SSg" base_Class="ModalPropertyValue"/>
-  <Standard:Metaclass xmi:id="_4o7oULICEeCWmNkTdM4SSg" base_Class="PropertyConstant"/>
-  <Standard:Metaclass xmi:id="_4o9dgLICEeCWmNkTdM4SSg" base_Class="Property"/>
-  <Standard:Metaclass xmi:id="_4o_SsLICEeCWmNkTdM4SSg" base_Class="PropertyOwner"/>
-  <Standard:Metaclass xmi:id="_4pAg0LICEeCWmNkTdM4SSg" base_Class="BasicProperty"/>
-  <Standard:Metaclass xmi:id="_4pCWALICEeCWmNkTdM4SSg" base_Class="PropertyExpression"/>
-  <Standard:Metaclass xmi:id="_4pCWAbICEeCWmNkTdM4SSg" base_Class="StringLiteral"/>
-  <Standard:Metaclass xmi:id="_4pC9ELICEeCWmNkTdM4SSg" base_Class="NumberValue"/>
-  <Standard:Metaclass xmi:id="_4pDkILICEeCWmNkTdM4SSg" base_Class="ClassifierValue"/>
-  <Standard:Metaclass xmi:id="_4pDkIbICEeCWmNkTdM4SSg" base_Class="ReferenceValue"/>
-  <Standard:Metaclass xmi:id="_4pELMLICEeCWmNkTdM4SSg" base_Class="BooleanLiteral"/>
-  <Standard:Metaclass xmi:id="_4pEyQLICEeCWmNkTdM4SSg" base_Class="RangeValue"/>
-  <Standard:Metaclass xmi:id="_4pGAYLICEeCWmNkTdM4SSg" base_Class="IntegerLiteral"/>
-  <Standard:Metaclass xmi:id="_4pGncLICEeCWmNkTdM4SSg" base_Class="RealLiteral"/>
-  <Standard:Metaclass xmi:id="_4pH1kLICEeCWmNkTdM4SSg" base_Class="PropertyValue"/>
-  <Standard:Metaclass xmi:id="_4pIcoLICEeCWmNkTdM4SSg" base_Class="Operation"/>
-  <Standard:Metaclass xmi:id="_4pKR0LICEeCWmNkTdM4SSg" base_Class="RecordValue"/>
-  <Standard:Metaclass xmi:id="_4pK44LICEeCWmNkTdM4SSg" base_Class="ArraySize"/>
-  <Standard:Metaclass xmi:id="_4pK44bICEeCWmNkTdM4SSg" base_Class="ComputedValue"/>
-  <Standard:Metaclass xmi:id="_4pLf8LICEeCWmNkTdM4SSg" base_Class="ListValue"/>
-  <Standard:Metaclass xmi:id="_4pMHALICEeCWmNkTdM4SSg" base_Class="AbstractNamedValue"/>
-  <Standard:Metaclass xmi:id="_4pMHAbICEeCWmNkTdM4SSg" base_Class="NamedValue"/>
-  <Standard:Metaclass xmi:id="_4pMuELICEeCWmNkTdM4SSg" base_Class="PropertySet"/>
-  <Standard:Metaclass xmi:id="_4pQYcLICEeCWmNkTdM4SSg" base_Class="ModelUnit"/>
-  <Standard:Metaclass xmi:id="_4pTbwLICEeCWmNkTdM4SSg" base_Class="PropertyType"/>
-  <Standard:Metaclass xmi:id="_4pTbwbICEeCWmNkTdM4SSg" base_Class="AadlBoolean"/>
-  <Standard:Metaclass xmi:id="_4pTbwrICEeCWmNkTdM4SSg" base_Class="AadlString"/>
-  <Standard:Metaclass xmi:id="_4pUC0LICEeCWmNkTdM4SSg" base_Class="AadlInteger"/>
-  <Standard:Metaclass xmi:id="_4pUC0bICEeCWmNkTdM4SSg" base_Class="AadlReal"/>
-  <Standard:Metaclass xmi:id="_4pUp4LICEeCWmNkTdM4SSg" base_Class="EnumerationType"/>
-  <Standard:Metaclass xmi:id="_4pVQ8LICEeCWmNkTdM4SSg" base_Class="EnumerationLiteral"/>
-  <Standard:Metaclass xmi:id="_4pV4ALICEeCWmNkTdM4SSg" base_Class="ClassifierType"/>
-  <Standard:Metaclass xmi:id="_4pWfELICEeCWmNkTdM4SSg" base_Class="MetaclassReference"/>
-  <Standard:Metaclass xmi:id="_4pXGILICEeCWmNkTdM4SSg" base_Class="NumberType"/>
-  <Standard:Metaclass xmi:id="_4pZiYLICEeCWmNkTdM4SSg" base_Class="NumericRange"/>
-  <Standard:Metaclass xmi:id="_4pawgLICEeCWmNkTdM4SSg" base_Class="RangeType"/>
-  <Standard:Metaclass xmi:id="_4pclsLICEeCWmNkTdM4SSg" base_Class="RecordType"/>
-  <Standard:Metaclass xmi:id="_4pdMwLICEeCWmNkTdM4SSg" base_Class="RecordField"/>
-  <Standard:Metaclass xmi:id="_4pdz0LICEeCWmNkTdM4SSg" base_Class="ReferenceType"/>
-  <Standard:Metaclass xmi:id="_4pea4LICEeCWmNkTdM4SSg" base_Class="UnitsType"/>
-  <Standard:Metaclass xmi:id="_4pfB8LICEeCWmNkTdM4SSg" base_Class="UnitLiteral"/>
-  <Standard:Metaclass xmi:id="_4pg3ILICEeCWmNkTdM4SSg" base_Class="ProcessorPort"/>
-  <Standard:Metaclass xmi:id="_4pg3IbICEeCWmNkTdM4SSg" base_Class="InternalEvent"/>
-  <Standard:Metaclass xmi:id="_4pheMLICEeCWmNkTdM4SSg" base_Class="ProcessorSubprogram"/>
+  <Standard:Metaclass xmi:id="_YSw40LIvEeC2OduVpwNurQ" base_Class="Comment"/>
+  <Standard:Metaclass xmi:id="_YSxf4LIvEeC2OduVpwNurQ" base_Class="Type"/>
+  <Standard:Metaclass xmi:id="_YSxf4bIvEeC2OduVpwNurQ" base_Class="TypedElement"/>
+  <Standard:Metaclass xmi:id="_YSzVELIvEeC2OduVpwNurQ" base_Class="RefinableElement"/>
+  <Standard:Metaclass xmi:id="_YSz8ILIvEeC2OduVpwNurQ" base_Class="StructuralFeature"/>
+  <Standard:Metaclass xmi:id="_YS0jMLIvEeC2OduVpwNurQ" base_Class="BehavioralFeature"/>
+  <Standard:Metaclass xmi:id="_YS0jMbIvEeC2OduVpwNurQ" base_Class="ArraySpecification"/>
+  <Standard:Metaclass xmi:id="_YS1KQLIvEeC2OduVpwNurQ" base_Class="ArrayableElement"/>
+  <Standard:Metaclass xmi:id="_YS1xULIvEeC2OduVpwNurQ" base_Class="Numeral"/>
+  <Standard:Metaclass xmi:id="_YS1xUbIvEeC2OduVpwNurQ" base_Class="ComponentImplementationReference"/>
+  <Standard:Metaclass xmi:id="_YS2_cLIvEeC2OduVpwNurQ" base_Class="TypeExtension"/>
+  <Standard:Metaclass xmi:id="_YS2_cbIvEeC2OduVpwNurQ" base_Class="ImplementationExtension"/>
+  <Standard:Metaclass xmi:id="_YS3mgLIvEeC2OduVpwNurQ" base_Class="Realization"/>
+  <Standard:Metaclass xmi:id="_YS738LIvEeC2OduVpwNurQ" base_Class="SubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YS738bIvEeC2OduVpwNurQ" base_Class="Connection"/>
+  <Standard:Metaclass xmi:id="_YS9tILIvEeC2OduVpwNurQ" base_Class="ConnectionEnd"/>
+  <Standard:Metaclass xmi:id="_YS9tIbIvEeC2OduVpwNurQ" base_Class="Context"/>
+  <Standard:Metaclass xmi:id="_YS-UMLIvEeC2OduVpwNurQ" base_Class="ConnectedElement"/>
+  <Standard:Metaclass xmi:id="_YS-7QLIvEeC2OduVpwNurQ" base_Class="ElementName"/>
+  <Standard:Metaclass xmi:id="_YS-7QbIvEeC2OduVpwNurQ" base_Class="AbstractConnectionEnd"/>
+  <Standard:Metaclass xmi:id="_YS_iULIvEeC2OduVpwNurQ" base_Class="AnnexLibrary"/>
+  <Standard:Metaclass xmi:id="_YS_iUbIvEeC2OduVpwNurQ" base_Class="AnnexSubclause"/>
+  <Standard:Metaclass xmi:id="_YS_iUrIvEeC2OduVpwNurQ" base_Class="DefaultAnnexLibrary"/>
+  <Standard:Metaclass xmi:id="_YTAJYLIvEeC2OduVpwNurQ" base_Class="DefaultAnnexSubclause"/>
+  <Standard:Metaclass xmi:id="_YTAwcLIvEeC2OduVpwNurQ" base_Class="Access"/>
+  <Standard:Metaclass xmi:id="_YTBXgLIvEeC2OduVpwNurQ" base_Class="Port"/>
+  <Standard:Metaclass xmi:id="_YTDMsLIvEeC2OduVpwNurQ" base_Class="GroupExtension"/>
+  <Standard:Metaclass xmi:id="_YTDzwLIvEeC2OduVpwNurQ" base_Class="AbstractFeature"/>
+  <Standard:Metaclass xmi:id="_YTFo8LIvEeC2OduVpwNurQ" base_Class="DirectedFeature"/>
+  <Standard:Metaclass xmi:id="_YTGQALIvEeC2OduVpwNurQ" base_Class="FeatureType"/>
+  <Standard:Metaclass xmi:id="_YTG3ELIvEeC2OduVpwNurQ" base_Class="FlowSpecification"/>
+  <Standard:Metaclass xmi:id="_YTHeILIvEeC2OduVpwNurQ" base_Class="FlowImplementation"/>
+  <Standard:Metaclass xmi:id="_YTIFMLIvEeC2OduVpwNurQ" base_Class="FlowElement"/>
+  <Standard:Metaclass xmi:id="_YTIFMbIvEeC2OduVpwNurQ" base_Class="EndToEndFlow"/>
+  <Standard:Metaclass xmi:id="_YTIsQLIvEeC2OduVpwNurQ" base_Class="EndToEndFlowElement"/>
+  <Standard:Metaclass xmi:id="_YTJ6YLIvEeC2OduVpwNurQ" base_Class="Flow"/>
+  <Standard:Metaclass xmi:id="_YTJ6YbIvEeC2OduVpwNurQ" base_Class="FlowEnd"/>
+  <Standard:Metaclass xmi:id="_YTKhcLIvEeC2OduVpwNurQ" base_Class="FlowSegment"/>
+  <Standard:Metaclass xmi:id="_YTLIgLIvEeC2OduVpwNurQ" base_Class="EndToEndFlowSegment"/>
+  <Standard:Metaclass xmi:id="_YTLvkLIvEeC2OduVpwNurQ" base_Class="ModeTransition"/>
+  <Standard:Metaclass xmi:id="_YTM9sLIvEeC2OduVpwNurQ" base_Class="ModeTransitionTrigger"/>
+  <Standard:Metaclass xmi:id="_YTM9sbIvEeC2OduVpwNurQ" base_Class="ModeFeature"/>
+  <Standard:Metaclass xmi:id="_YTM9srIvEeC2OduVpwNurQ" base_Class="ModalPath"/>
+  <Standard:Metaclass xmi:id="_YTNkwLIvEeC2OduVpwNurQ" base_Class="TriggerPort"/>
+  <Standard:Metaclass xmi:id="_YTOy4LIvEeC2OduVpwNurQ" base_Class="ModeBinding"/>
+  <Standard:Metaclass xmi:id="_YTQBALIvEeC2OduVpwNurQ" base_Class="PackageRename"/>
+  <Standard:Metaclass xmi:id="_YTQBAbIvEeC2OduVpwNurQ" base_Class="ComponentTypeRename"/>
+  <Standard:Metaclass xmi:id="_YTR2MLIvEeC2OduVpwNurQ" base_Class="FeatureGroupTypeRename"/>
+  <Standard:Metaclass xmi:id="_YTTEULIvEeC2OduVpwNurQ" base_Class="Prototype"/>
+  <Standard:Metaclass xmi:id="_YTTrYLIvEeC2OduVpwNurQ" base_Class="PrototypeBinding"/>
+  <Standard:Metaclass xmi:id="_YTU5gLIvEeC2OduVpwNurQ" base_Class="ComponentPrototype"/>
+  <Standard:Metaclass xmi:id="_YTVgkLIvEeC2OduVpwNurQ" base_Class="ComponentPrototypeBinding"/>
+  <Standard:Metaclass xmi:id="_YTWHoLIvEeC2OduVpwNurQ" base_Class="FeatureGroupPrototype"/>
+  <Standard:Metaclass xmi:id="_YTWHobIvEeC2OduVpwNurQ" base_Class="FeatureGroupPrototypeBinding"/>
+  <Standard:Metaclass xmi:id="_YTXVwLIvEeC2OduVpwNurQ" base_Class="FeaturePrototype"/>
+  <Standard:Metaclass xmi:id="_YTX80LIvEeC2OduVpwNurQ" base_Class="FeaturePrototypeBinding"/>
+  <Standard:Metaclass xmi:id="_YTYj4LIvEeC2OduVpwNurQ" base_Class="FeaturePrototypeActual"/>
+  <Standard:Metaclass xmi:id="_YTZK8LIvEeC2OduVpwNurQ" base_Class="AccessSpecification"/>
+  <Standard:Metaclass xmi:id="_YTZyALIvEeC2OduVpwNurQ" base_Class="PortSpecification"/>
+  <Standard:Metaclass xmi:id="_YTZyAbIvEeC2OduVpwNurQ" base_Class="FeaturePrototypeReference"/>
+  <Standard:Metaclass xmi:id="_YTbAILIvEeC2OduVpwNurQ" base_Class="ComponentPrototypeActual"/>
+  <Standard:Metaclass xmi:id="_YTbnMLIvEeC2OduVpwNurQ" base_Class="FeatureGroupPrototypeActual"/>
+  <Standard:Metaclass xmi:id="_YTeDcLIvEeC2OduVpwNurQ" base_Class="SubprogramCallSequence"/>
+  <Standard:Metaclass xmi:id="_YTeDcbIvEeC2OduVpwNurQ" base_Class="CallSpecification"/>
+  <Standard:Metaclass xmi:id="_YTeDcrIvEeC2OduVpwNurQ" base_Class="CalledSubprogram"/>
+  <Standard:Metaclass xmi:id="_YTeqgLIvEeC2OduVpwNurQ" base_Class="ProcessorCall"/>
+  <Standard:Metaclass xmi:id="_YTf4oLIvEeC2OduVpwNurQ" base_Class="SubprogramCall"/>
+  <Standard:Metaclass xmi:id="_YTgfsLIvEeC2OduVpwNurQ" base_Class="CallContext"/>
+  <Standard:Metaclass xmi:id="_YThGwLIvEeC2OduVpwNurQ" base_Class="Abstract"/>
+  <Standard:Metaclass xmi:id="_YThGwbIvEeC2OduVpwNurQ" base_Class="AbstractType"/>
+  <Standard:Metaclass xmi:id="_YTkKELIvEeC2OduVpwNurQ" base_Class="AbstractClassifier"/>
+  <Standard:Metaclass xmi:id="_YTkKEbIvEeC2OduVpwNurQ" base_Class="AbstractSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YTsF4LIvEeC2OduVpwNurQ" base_Class="AbstractSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YTsF4bIvEeC2OduVpwNurQ" base_Class="AbstractPrototype"/>
+  <Standard:Metaclass xmi:id="_YTss8LIvEeC2OduVpwNurQ" base_Class="Bus"/>
+  <Standard:Metaclass xmi:id="_YTss8bIvEeC2OduVpwNurQ" base_Class="BusClassifier"/>
+  <Standard:Metaclass xmi:id="_YTtUALIvEeC2OduVpwNurQ" base_Class="BusSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YTtUAbIvEeC2OduVpwNurQ" base_Class="BusType"/>
+  <Standard:Metaclass xmi:id="_YTvJMLIvEeC2OduVpwNurQ" base_Class="BusSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YTvJMbIvEeC2OduVpwNurQ" base_Class="BusPrototype"/>
+  <Standard:Metaclass xmi:id="_YTvwQLIvEeC2OduVpwNurQ" base_Class="DataSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YTvwQbIvEeC2OduVpwNurQ" base_Class="DataClassifier"/>
+  <Standard:Metaclass xmi:id="_YTwXULIvEeC2OduVpwNurQ" base_Class="Data"/>
+  <Standard:Metaclass xmi:id="_YTwXUbIvEeC2OduVpwNurQ" base_Class="DataType"/>
+  <Standard:Metaclass xmi:id="_YTyzkLIvEeC2OduVpwNurQ" base_Class="DataSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YTyzkbIvEeC2OduVpwNurQ" base_Class="DataPrototype"/>
+  <Standard:Metaclass xmi:id="_YTzaoLIvEeC2OduVpwNurQ" base_Class="Device"/>
+  <Standard:Metaclass xmi:id="_YTzaobIvEeC2OduVpwNurQ" base_Class="DeviceClassifier"/>
+  <Standard:Metaclass xmi:id="_YTzaorIvEeC2OduVpwNurQ" base_Class="DeviceSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YT0BsLIvEeC2OduVpwNurQ" base_Class="DeviceType"/>
+  <Standard:Metaclass xmi:id="_YT3sELIvEeC2OduVpwNurQ" base_Class="DeviceSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YT4TILIvEeC2OduVpwNurQ" base_Class="DevicePrototype"/>
+  <Standard:Metaclass xmi:id="_YT4TIbIvEeC2OduVpwNurQ" base_Class="Memory"/>
+  <Standard:Metaclass xmi:id="_YT4TIrIvEeC2OduVpwNurQ" base_Class="MemoryClassifier"/>
+  <Standard:Metaclass xmi:id="_YT4TI7IvEeC2OduVpwNurQ" base_Class="MemoryType"/>
+  <Standard:Metaclass xmi:id="_YT46MLIvEeC2OduVpwNurQ" base_Class="MemorySubcomponent"/>
+  <Standard:Metaclass xmi:id="_YT6vYLIvEeC2OduVpwNurQ" base_Class="MemoryPrototype"/>
+  <Standard:Metaclass xmi:id="_YT6vYbIvEeC2OduVpwNurQ" base_Class="MemorySubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YT7WcLIvEeC2OduVpwNurQ" base_Class="Subprogram"/>
+  <Standard:Metaclass xmi:id="_YT7WcbIvEeC2OduVpwNurQ" base_Class="SubprogramClassifier"/>
+  <Standard:Metaclass xmi:id="_YT7WcrIvEeC2OduVpwNurQ" base_Class="SubprogramSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YT79gLIvEeC2OduVpwNurQ" base_Class="SubprogramType"/>
+  <Standard:Metaclass xmi:id="_YT_A0LIvEeC2OduVpwNurQ" base_Class="SubprogramSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YT_n4LIvEeC2OduVpwNurQ" base_Class="SubprogramPrototype"/>
+  <Standard:Metaclass xmi:id="_YT_n4bIvEeC2OduVpwNurQ" base_Class="SubprogramGroup"/>
+  <Standard:Metaclass xmi:id="_YT_n4rIvEeC2OduVpwNurQ" base_Class="SubprogramGroupClassifier"/>
+  <Standard:Metaclass xmi:id="_YT_n47IvEeC2OduVpwNurQ" base_Class="SubprogramGroupType"/>
+  <Standard:Metaclass xmi:id="_YUAO8LIvEeC2OduVpwNurQ" base_Class="SubprogramGroupSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YUCrMLIvEeC2OduVpwNurQ" base_Class="SubprogramGroupSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YUCrMbIvEeC2OduVpwNurQ" base_Class="SubprogramGroupPrototype"/>
+  <Standard:Metaclass xmi:id="_YUDSQLIvEeC2OduVpwNurQ" base_Class="System"/>
+  <Standard:Metaclass xmi:id="_YUDSQbIvEeC2OduVpwNurQ" base_Class="SystemClassifier"/>
+  <Standard:Metaclass xmi:id="_YUDSQrIvEeC2OduVpwNurQ" base_Class="SystemType"/>
+  <Standard:Metaclass xmi:id="_YUEgYLIvEeC2OduVpwNurQ" base_Class="SystemSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YUL1ILIvEeC2OduVpwNurQ" base_Class="SystemSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YUL1IbIvEeC2OduVpwNurQ" base_Class="SystemPrototype"/>
+  <Standard:Metaclass xmi:id="_YUMcMLIvEeC2OduVpwNurQ" base_Class="Processor"/>
+  <Standard:Metaclass xmi:id="_YUMcMbIvEeC2OduVpwNurQ" base_Class="ProcessorClassifier"/>
+  <Standard:Metaclass xmi:id="_YUMcMrIvEeC2OduVpwNurQ" base_Class="ProcessorType"/>
+  <Standard:Metaclass xmi:id="_YUNqULIvEeC2OduVpwNurQ" base_Class="ProcessorSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YUR7wLIvEeC2OduVpwNurQ" base_Class="ProcessorSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YUR7wbIvEeC2OduVpwNurQ" base_Class="ProcessorPrototype"/>
+  <Standard:Metaclass xmi:id="_YUSi0LIvEeC2OduVpwNurQ" base_Class="Process"/>
+  <Standard:Metaclass xmi:id="_YUSi0bIvEeC2OduVpwNurQ" base_Class="ProcessClassifier"/>
+  <Standard:Metaclass xmi:id="_YUSi0rIvEeC2OduVpwNurQ" base_Class="ProcessType"/>
+  <Standard:Metaclass xmi:id="_YUTw8LIvEeC2OduVpwNurQ" base_Class="ProcessSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YUZQgLIvEeC2OduVpwNurQ" base_Class="ProcessSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YUZ3kLIvEeC2OduVpwNurQ" base_Class="ProcessPrototype"/>
+  <Standard:Metaclass xmi:id="_YUZ3kbIvEeC2OduVpwNurQ" base_Class="Thread"/>
+  <Standard:Metaclass xmi:id="_YUZ3krIvEeC2OduVpwNurQ" base_Class="ThreadClassifier"/>
+  <Standard:Metaclass xmi:id="_YUaeoLIvEeC2OduVpwNurQ" base_Class="ThreadType"/>
+  <Standard:Metaclass xmi:id="_YUcT0LIvEeC2OduVpwNurQ" base_Class="ThreadSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YUglQLIvEeC2OduVpwNurQ" base_Class="ThreadSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YUglQbIvEeC2OduVpwNurQ" base_Class="ThreadPrototype"/>
+  <Standard:Metaclass xmi:id="_YUhMULIvEeC2OduVpwNurQ" base_Class="ThreadGroup"/>
+  <Standard:Metaclass xmi:id="_YUhMUbIvEeC2OduVpwNurQ" base_Class="ThreadGroupClassifier"/>
+  <Standard:Metaclass xmi:id="_YUhMUrIvEeC2OduVpwNurQ" base_Class="ThreadGroupType"/>
+  <Standard:Metaclass xmi:id="_YUiacLIvEeC2OduVpwNurQ" base_Class="ThreadGroupSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YUn6ALIvEeC2OduVpwNurQ" base_Class="ThreadGroupSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YUohELIvEeC2OduVpwNurQ" base_Class="ThreadGroupPrototype"/>
+  <Standard:Metaclass xmi:id="_YUohEbIvEeC2OduVpwNurQ" base_Class="VirtualBus"/>
+  <Standard:Metaclass xmi:id="_YUohErIvEeC2OduVpwNurQ" base_Class="VirtualBusClassifier"/>
+  <Standard:Metaclass xmi:id="_YUpIILIvEeC2OduVpwNurQ" base_Class="VirtualBusType"/>
+  <Standard:Metaclass xmi:id="_YUpIIbIvEeC2OduVpwNurQ" base_Class="VirtualBusSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YUq9ULIvEeC2OduVpwNurQ" base_Class="VirtualBusPrototype"/>
+  <Standard:Metaclass xmi:id="_YUrkYLIvEeC2OduVpwNurQ" base_Class="VitualBusSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YUrkYbIvEeC2OduVpwNurQ" base_Class="VirtualProcessor"/>
+  <Standard:Metaclass xmi:id="_YUrkYrIvEeC2OduVpwNurQ" base_Class="VirtualProcessorClassifier"/>
+  <Standard:Metaclass xmi:id="_YUsLcLIvEeC2OduVpwNurQ" base_Class="VirtualProcessorSubcomponent"/>
+  <Standard:Metaclass xmi:id="_YUsLcbIvEeC2OduVpwNurQ" base_Class="VirtualProcessorType"/>
+  <Standard:Metaclass xmi:id="_YUxD8LIvEeC2OduVpwNurQ" base_Class="VirtualProcessorSubcomponentType"/>
+  <Standard:Metaclass xmi:id="_YUxrALIvEeC2OduVpwNurQ" base_Class="VirtualProcessorPrototype"/>
+  <Standard:Metaclass xmi:id="_YUxrAbIvEeC2OduVpwNurQ" base_Class="AccessConnection"/>
+  <Standard:Metaclass xmi:id="_YUySELIvEeC2OduVpwNurQ" base_Class="ParameterConnection"/>
+  <Standard:Metaclass xmi:id="_YUySEbIvEeC2OduVpwNurQ" base_Class="PortConnection"/>
+  <Standard:Metaclass xmi:id="_YUy5ILIvEeC2OduVpwNurQ" base_Class="AccessConnectionEnd"/>
+  <Standard:Metaclass xmi:id="_YUy5IbIvEeC2OduVpwNurQ" base_Class="ParameterConnectionEnd"/>
+  <Standard:Metaclass xmi:id="_YUzgMLIvEeC2OduVpwNurQ" base_Class="PortConnectionEnd"/>
+  <Standard:Metaclass xmi:id="_YUzgMbIvEeC2OduVpwNurQ" base_Class="FeatureGroupConnection"/>
+  <Standard:Metaclass xmi:id="_YUzgMrIvEeC2OduVpwNurQ" base_Class="FeatureGroupConnectionEnd"/>
+  <Standard:Metaclass xmi:id="_YU0HQLIvEeC2OduVpwNurQ" base_Class="FeatureConnection"/>
+  <Standard:Metaclass xmi:id="_YU0HQbIvEeC2OduVpwNurQ" base_Class="FeatureConnectionEnd"/>
+  <Standard:Metaclass xmi:id="_YU4YsLIvEeC2OduVpwNurQ" base_Class="DataAccess"/>
+  <Standard:Metaclass xmi:id="_YU4_wLIvEeC2OduVpwNurQ" base_Class="BusAccess"/>
+  <Standard:Metaclass xmi:id="_YU5m0LIvEeC2OduVpwNurQ" base_Class="SubprogramAccess"/>
+  <Standard:Metaclass xmi:id="_YU6N4LIvEeC2OduVpwNurQ" base_Class="DataPort"/>
+  <Standard:Metaclass xmi:id="_YU608LIvEeC2OduVpwNurQ" base_Class="EventPort"/>
+  <Standard:Metaclass xmi:id="_YU608bIvEeC2OduVpwNurQ" base_Class="EventDataPort"/>
+  <Standard:Metaclass xmi:id="_YU8DELIvEeC2OduVpwNurQ" base_Class="Parameter"/>
+  <Standard:Metaclass xmi:id="_YU8qILIvEeC2OduVpwNurQ" base_Class="SubprogramGroupAccess"/>
+  <Standard:Metaclass xmi:id="_YVGbILIvEeC2OduVpwNurQ" base_Class="PackageSection"/>
+  <Standard:Metaclass xmi:id="_YVOW8LIvEeC2OduVpwNurQ" base_Class="ComponentClassifier"/>
+  <Standard:Metaclass xmi:id="_YVPlELIvEeC2OduVpwNurQ" base_Class="PropertyAssociation"/>
+  <Standard:Metaclass xmi:id="_YVXg4LIvEeC2OduVpwNurQ" base_Class="BasicPropertyAssociation"/>
+  <Standard:Metaclass xmi:id="_YVZWELIvEeC2OduVpwNurQ" base_Class="ArrayRange"/>
+  <Standard:Metaclass xmi:id="_YVakMLIvEeC2OduVpwNurQ" base_Class="ContainedNamedElement"/>
+  <Standard:Metaclass xmi:id="_YVcZYLIvEeC2OduVpwNurQ" base_Class="ContainmentPathElement"/>
+  <Standard:Metaclass xmi:id="_YVtfILIvEeC2OduVpwNurQ" base_Class="ModalPropertyValue"/>
+  <Standard:Metaclass xmi:id="_YVwicLIvEeC2OduVpwNurQ" base_Class="PropertyConstant"/>
+  <Standard:Metaclass xmi:id="_YVy-sLIvEeC2OduVpwNurQ" base_Class="Property"/>
+  <Standard:Metaclass xmi:id="_YV1a8LIvEeC2OduVpwNurQ" base_Class="PropertyOwner"/>
+  <Standard:Metaclass xmi:id="_YV2pELIvEeC2OduVpwNurQ" base_Class="BasicProperty"/>
+  <Standard:Metaclass xmi:id="_YV4eQLIvEeC2OduVpwNurQ" base_Class="PropertyExpression"/>
+  <Standard:Metaclass xmi:id="_YV4eQbIvEeC2OduVpwNurQ" base_Class="StringLiteral"/>
+  <Standard:Metaclass xmi:id="_YV5FULIvEeC2OduVpwNurQ" base_Class="NumberValue"/>
+  <Standard:Metaclass xmi:id="_YV5sYLIvEeC2OduVpwNurQ" base_Class="ClassifierValue"/>
+  <Standard:Metaclass xmi:id="_YV6TcLIvEeC2OduVpwNurQ" base_Class="ReferenceValue"/>
+  <Standard:Metaclass xmi:id="_YV66gLIvEeC2OduVpwNurQ" base_Class="BooleanLiteral"/>
+  <Standard:Metaclass xmi:id="_YV7hkLIvEeC2OduVpwNurQ" base_Class="RangeValue"/>
+  <Standard:Metaclass xmi:id="_YV8vsLIvEeC2OduVpwNurQ" base_Class="IntegerLiteral"/>
+  <Standard:Metaclass xmi:id="_YV9WwLIvEeC2OduVpwNurQ" base_Class="RealLiteral"/>
+  <Standard:Metaclass xmi:id="_YV_L8LIvEeC2OduVpwNurQ" base_Class="PropertyValue"/>
+  <Standard:Metaclass xmi:id="_YV_zALIvEeC2OduVpwNurQ" base_Class="Operation"/>
+  <Standard:Metaclass xmi:id="_YWBoMLIvEeC2OduVpwNurQ" base_Class="RecordValue"/>
+  <Standard:Metaclass xmi:id="_YWC2ULIvEeC2OduVpwNurQ" base_Class="ArraySize"/>
+  <Standard:Metaclass xmi:id="_YWC2UbIvEeC2OduVpwNurQ" base_Class="ComputedValue"/>
+  <Standard:Metaclass xmi:id="_YWDdYLIvEeC2OduVpwNurQ" base_Class="ListValue"/>
+  <Standard:Metaclass xmi:id="_YWEEcLIvEeC2OduVpwNurQ" base_Class="AbstractNamedValue"/>
+  <Standard:Metaclass xmi:id="_YWEEcbIvEeC2OduVpwNurQ" base_Class="NamedValue"/>
+  <Standard:Metaclass xmi:id="_YWErgLIvEeC2OduVpwNurQ" base_Class="PropertySet"/>
+  <Standard:Metaclass xmi:id="_YWIV4LIvEeC2OduVpwNurQ" base_Class="ModelUnit"/>
+  <Standard:Metaclass xmi:id="_YWLZMLIvEeC2OduVpwNurQ" base_Class="PropertyType"/>
+  <Standard:Metaclass xmi:id="_YWLZMbIvEeC2OduVpwNurQ" base_Class="AadlBoolean"/>
+  <Standard:Metaclass xmi:id="_YWLZMrIvEeC2OduVpwNurQ" base_Class="AadlString"/>
+  <Standard:Metaclass xmi:id="_YWMAQLIvEeC2OduVpwNurQ" base_Class="AadlInteger"/>
+  <Standard:Metaclass xmi:id="_YWMAQbIvEeC2OduVpwNurQ" base_Class="AadlReal"/>
+  <Standard:Metaclass xmi:id="_YWMnULIvEeC2OduVpwNurQ" base_Class="EnumerationType"/>
+  <Standard:Metaclass xmi:id="_YWNOYLIvEeC2OduVpwNurQ" base_Class="EnumerationLiteral"/>
+  <Standard:Metaclass xmi:id="_YWN1cLIvEeC2OduVpwNurQ" base_Class="ClassifierType"/>
+  <Standard:Metaclass xmi:id="_YWOcgLIvEeC2OduVpwNurQ" base_Class="MetaclassReference"/>
+  <Standard:Metaclass xmi:id="_YWPDkLIvEeC2OduVpwNurQ" base_Class="NumberType"/>
+  <Standard:Metaclass xmi:id="_YWRf0LIvEeC2OduVpwNurQ" base_Class="NumericRange"/>
+  <Standard:Metaclass xmi:id="_YWSt8LIvEeC2OduVpwNurQ" base_Class="RangeType"/>
+  <Standard:Metaclass xmi:id="_YWUjILIvEeC2OduVpwNurQ" base_Class="RecordType"/>
+  <Standard:Metaclass xmi:id="_YWVKMLIvEeC2OduVpwNurQ" base_Class="RecordField"/>
+  <Standard:Metaclass xmi:id="_YWVxQLIvEeC2OduVpwNurQ" base_Class="ReferenceType"/>
+  <Standard:Metaclass xmi:id="_YWWYULIvEeC2OduVpwNurQ" base_Class="UnitsType"/>
+  <Standard:Metaclass xmi:id="_YWXmcLIvEeC2OduVpwNurQ" base_Class="UnitLiteral"/>
+  <Standard:Metaclass xmi:id="_YWY0kLIvEeC2OduVpwNurQ" base_Class="ProcessorPort"/>
+  <Standard:Metaclass xmi:id="_YWZboLIvEeC2OduVpwNurQ" base_Class="InternalEvent"/>
+  <Standard:Metaclass xmi:id="_YWZbobIvEeC2OduVpwNurQ" base_Class="ProcessorSubprogram"/>
 </xmi:XMI>
