@@ -1048,12 +1048,14 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="actual" ordered="false"
         lowerBound="1" eType="#//FeatureGroupPrototypeActual" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeActual" eSuperTypes="#//Element">
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeActual" eSuperTypes="#//FeaturePrototypeActual">
     <eStructuralFeatures xsi:type="ecore:EReference" name="binding" ordered="false"
         upperBound="-1" eType="#//PrototypeBinding" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureType" ordered="false"
         lowerBound="1" eType="#//FeatureType"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeActual" abstract="true"
+      eSuperTypes="#//Element"/>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototype" eSuperTypes="#//Prototype">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
         lowerBound="1" eType="#//DirectionType"/>
@@ -1070,8 +1072,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="actual" ordered="false"
         lowerBound="1" eType="#//FeaturePrototypeActual" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeActual" abstract="true"
-      eSuperTypes="#//Element"/>
   <eClassifiers xsi:type="ecore:EClass" name="AccessSpecification" eSuperTypes="#//FeaturePrototypeActual">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
         eType="#//AccessType"/>
