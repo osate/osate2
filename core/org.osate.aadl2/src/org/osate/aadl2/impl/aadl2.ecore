@@ -561,7 +561,7 @@
     <eLiterals name="path" value="1"/>
     <eLiterals name="sink" value="2"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FlowEnd">
+  <eClassifiers xsi:type="ecore:EClass" name="FlowEnd" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
         eType="#//Context"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" ordered="false"
@@ -806,7 +806,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AbstractSubcomponentType" abstract="true"
       eSuperTypes="#//Abstract #//SubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FlowImplementation" eSuperTypes="#//StructuralFeature #//ModalPath">
+  <eClassifiers xsi:type="ecore:EClass" name="FlowImplementation" eSuperTypes="#//ModalPath #//ClassifierFeature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
         eType="#//FlowKind" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="specification" ordered="false"
@@ -818,7 +818,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="inModeOrTransition" upperBound="-1"
         eType="#//ModeFeature"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FlowSegment">
+  <eClassifiers xsi:type="ecore:EClass" name="FlowSegment" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="flowElement" ordered="false"
         unique="false" lowerBound="1" eType="#//FlowElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
@@ -849,7 +849,7 @@
       <eAnnotations source="subsets" references="#//Generalization/general"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlow" eSuperTypes="#//Flow #//ModalPath">
+  <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlow" eSuperTypes="#//Flow #//ModalPath #//EndToEndFlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//EndToEndFlow">
       <eAnnotations source="redefines" references="#//RefinableElement/refinedElement"/>
@@ -858,9 +858,9 @@
         ordered="false" lowerBound="1" upperBound="-1" eType="#//EndToEndFlowSegment"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlowSegment" eSuperTypes="#//EndToEndFlowElement">
+  <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlowSegment" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="flowElement" unique="false"
-        lowerBound="1" upperBound="-1" eType="#//EndToEndFlowElement"/>
+        lowerBound="1" eType="#//EndToEndFlowElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
         eType="#//Context"/>
   </eClassifiers>
@@ -1890,13 +1890,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="constantValue" ordered="false"
         eType="#//PropertyExpression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EnumerationValue" eSuperTypes="#//PropertyValue">
+  <eClassifiers xsi:type="ecore:EClass" name="EnumerationValue" eSuperTypes="#//AbstractNamedValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="literal" ordered="false"
         lowerBound="1" eType="#//EnumerationLiteral"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyValue" abstract="true" eSuperTypes="#//PropertyExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractNamedValue" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="EnumerationLiteral" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="UnitValue" eSuperTypes="#//PropertyValue">
+  <eClassifiers xsi:type="ecore:EClass" name="UnitValue" eSuperTypes="#//AbstractNamedValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="literal" ordered="false"
         lowerBound="1" eType="#//UnitLiteral"/>
   </eClassifiers>
@@ -1909,6 +1909,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="NumberValue" abstract="true" eSuperTypes="#//PropertyValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="unit" ordered="false" eType="#//UnitLiteral"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyValue" abstract="true" eSuperTypes="#//PropertyExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="StringLiteral" eSuperTypes="#//PropertyValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
         lowerBound="1" eType="#//String"/>
@@ -1939,11 +1940,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
         lowerBound="1" eType="#//Real"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConstantValue" eSuperTypes="#//ArraySize #//PropertyValue">
+  <eClassifiers xsi:type="ecore:EClass" name="ConstantValue" eSuperTypes="#//ArraySize #//AbstractNamedValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="constant" ordered="false"
         lowerBound="1" eType="#//PropertyConstant"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyReference" eSuperTypes="#//ArraySize #//PropertyValue">
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyReference" eSuperTypes="#//ArraySize #//AbstractNamedValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="property" ordered="false"
         lowerBound="1" eType="#//Property"/>
   </eClassifiers>
@@ -1972,6 +1973,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="ListValue" eSuperTypes="#//PropertyExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedListElement" upperBound="-1"
         eType="#//PropertyExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedValue" eSuperTypes="#//PropertyValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="namedValue" ordered="false"
+        lowerBound="1" eType="#//AbstractNamedValue"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertySet" eSuperTypes="#//Namespace #//ModelUnit">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"

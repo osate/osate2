@@ -39,13 +39,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowSegment;
-import org.osate.aadl2.parsesupport.AObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -61,7 +58,7 @@ import org.osate.aadl2.parsesupport.AObjectImpl;
  *
  * @generated
  */
-public class FlowSegmentImpl extends AObjectImpl implements FlowSegment {
+public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	/**
 	 * The cached value of the '{@link #getFlowElement() <em>Flow Element</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -251,29 +248,6 @@ public class FlowSegmentImpl extends AObjectImpl implements FlowSegment {
 			return context != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * Creates a new instance of the specified Ecore class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param eClass The Ecore class of the instance to create.
-	 * @return The new instance.
-	 * @generated
-	 */
-	protected EObject create(EClass eClass) {
-		return EcoreUtil.create(eClass);
-	}
-
-	/**
-	 * Retrieves the cache adapter for this '<em><b>Flow Segment</b></em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return The cache adapter for this '<em><b>Flow Segment</b></em>'.
-	 * @generated
-	 */
-	protected CacheAdapter getCacheAdapter() {
-		return CacheAdapter.getCacheAdapter(this);
 	}
 
 } //FlowSegmentImpl

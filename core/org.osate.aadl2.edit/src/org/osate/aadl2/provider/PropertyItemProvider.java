@@ -245,12 +245,6 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements I
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
-				Aadl2Factory.eINSTANCE.createEnumerationValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
-				Aadl2Factory.eINSTANCE.createUnitValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
@@ -272,12 +266,6 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements I
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
-				Aadl2Factory.eINSTANCE.createConstantValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
-				Aadl2Factory.eINSTANCE.createPropertyReference()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
@@ -288,6 +276,9 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements I
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createListValue()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+				Aadl2Factory.eINSTANCE.createNamedValue()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_AppliesTo(),
 				Aadl2Factory.eINSTANCE.createMetaclassReference()));

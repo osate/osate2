@@ -172,12 +172,6 @@ public class RangeValueItemProvider extends PropertyValueItemProvider implements
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
-				Aadl2Factory.eINSTANCE.createEnumerationValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
-				Aadl2Factory.eINSTANCE.createUnitValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
@@ -199,12 +193,6 @@ public class RangeValueItemProvider extends PropertyValueItemProvider implements
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
-				Aadl2Factory.eINSTANCE.createConstantValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
-				Aadl2Factory.eINSTANCE.createPropertyReference()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
@@ -216,11 +204,8 @@ public class RangeValueItemProvider extends PropertyValueItemProvider implements
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createListValue()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
-				Aadl2Factory.eINSTANCE.createEnumerationValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
-				Aadl2Factory.eINSTANCE.createUnitValue()));
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+				Aadl2Factory.eINSTANCE.createNamedValue()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
@@ -244,12 +229,6 @@ public class RangeValueItemProvider extends PropertyValueItemProvider implements
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
-				Aadl2Factory.eINSTANCE.createConstantValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
-				Aadl2Factory.eINSTANCE.createPropertyReference()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
@@ -261,11 +240,8 @@ public class RangeValueItemProvider extends PropertyValueItemProvider implements
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createListValue()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
-				Aadl2Factory.eINSTANCE.createEnumerationValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
-				Aadl2Factory.eINSTANCE.createUnitValue()));
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+				Aadl2Factory.eINSTANCE.createNamedValue()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
@@ -289,12 +265,6 @@ public class RangeValueItemProvider extends PropertyValueItemProvider implements
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
-				Aadl2Factory.eINSTANCE.createConstantValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
-				Aadl2Factory.eINSTANCE.createPropertyReference()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
@@ -305,6 +275,9 @@ public class RangeValueItemProvider extends PropertyValueItemProvider implements
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createListValue()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+				Aadl2Factory.eINSTANCE.createNamedValue()));
 	}
 
 	/**

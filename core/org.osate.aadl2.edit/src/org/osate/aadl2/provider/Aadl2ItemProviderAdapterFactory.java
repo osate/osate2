@@ -3438,6 +3438,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.NamedValue} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NamedValueItemProvider namedValueItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.NamedValue}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNamedValueAdapter() {
+		if (namedValueItemProvider == null) {
+			namedValueItemProvider = new NamedValueItemProvider(this);
+		}
+
+		return namedValueItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PropertySet} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4142,6 +4165,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			computedValueItemProvider.dispose();
 		if (listValueItemProvider != null)
 			listValueItemProvider.dispose();
+		if (namedValueItemProvider != null)
+			namedValueItemProvider.dispose();
 		if (propertySetItemProvider != null)
 			propertySetItemProvider.dispose();
 		if (globalNamespaceItemProvider != null)

@@ -60,9 +60,8 @@ import org.osate.aadl2.FlowImplementation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FlowImplementationItemProvider extends StructuralFeatureItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class FlowImplementationItemProvider extends ModalPathItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -84,8 +83,7 @@ public class FlowImplementationItemProvider extends StructuralFeatureItemProvide
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addInModePropertyDescriptor(object);
-			addInModeOrTransitionPropertyDescriptor(object);
+			addFeaturingClassifierPropertyDescriptor(object);
 			addKindPropertyDescriptor(object);
 			addSpecificationPropertyDescriptor(object);
 		}
@@ -93,35 +91,19 @@ public class FlowImplementationItemProvider extends StructuralFeatureItemProvide
 	}
 
 	/**
-	 * This adds a property descriptor for the In Mode feature.
+	 * This adds a property descriptor for the Featuring Classifier feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addInModePropertyDescriptor(Object object) {
+	protected void addFeaturingClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_ModalElement_inMode_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
-						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
-				null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the In Mode Or Transition feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addInModeOrTransitionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ModalPath_inModeOrTransition_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalPath_inModeOrTransition_feature",
-						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition(), true, false,
-				true, null, null, null));
+				getString("_UI_ClassifierFeature_featuringClassifier_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ClassifierFeature_featuringClassifier_feature",
+						"_UI_ClassifierFeature_type"), Aadl2Package.eINSTANCE
+						.getClassifierFeature_FeaturingClassifier(), false, false, false, null, null, null));
 	}
 
 	/**

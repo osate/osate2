@@ -57,7 +57,7 @@ import org.osate.aadl2.EnumerationValue;
  *
  * @generated
  */
-public class EnumerationValueImpl extends PropertyValueImpl implements EnumerationValue {
+public class EnumerationValueImpl extends AbstractNamedValueImpl implements EnumerationValue {
 	/**
 	 * The cached value of the '{@link #getLiteral() <em>Literal</em>}' reference.
 	 * <!-- begin-user-doc -->

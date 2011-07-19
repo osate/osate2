@@ -47,7 +47,6 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.EndToEndFlowSegment;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.EndToEndFlowSegment} object.
@@ -55,9 +54,8 @@ import org.osate.aadl2.EndToEndFlowSegment;
  * <!-- end-user-doc -->
  * @generated
  */
-public class EndToEndFlowSegmentItemProvider extends EndToEndFlowElementItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class EndToEndFlowSegmentItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -136,9 +134,7 @@ public class EndToEndFlowSegmentItemProvider extends EndToEndFlowElementItemProv
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((EndToEndFlowSegment) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_EndToEndFlowSegment_type")
-				: getString("_UI_EndToEndFlowSegment_type") + " " + label;
+		return getString("_UI_EndToEndFlowSegment_type");
 	}
 
 	/**
