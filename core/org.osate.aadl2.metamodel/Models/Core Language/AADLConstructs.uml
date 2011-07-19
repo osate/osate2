@@ -797,6 +797,7 @@
         <generalization xmi:id="Templates-FeatureGroupPrototypeActual-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
+        <generalization xmi:id="_Ch4CkLIzEeC2OduVpwNurQ" general="Templates-FeaturePrototypeActual"/>
         <ownedAttribute xmi:id="Templates-FeatureGroupReference-binding" name="binding" type="Templates-PrototypeBinding" aggregation="composite" association="Templates-A_featureGroupPrototypeActual_binding">
           <ownedComment xmi:id="Templates-FeatureGroupReference-binding-_ownedComment.0">
             <body>A list of prototype bindings. These bindings apply to the feature group type of this reference.</body>

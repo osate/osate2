@@ -56,7 +56,7 @@ import org.eclipse.emf.ecore.EClass;
  * @model
  * @generated
  */
-public interface FeatureGroupPrototypeActual extends Element {
+public interface FeatureGroupPrototypeActual extends FeaturePrototypeActual {
 
 	/**
 	 * Returns the value of the '<em><b>Binding</b></em>' containment reference list.

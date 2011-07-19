@@ -7762,7 +7762,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeaturePrototype() {
 		if (featurePrototypeEClass == null) {
 			featurePrototypeEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(138);
+					.getEClassifiers().get(139);
 		}
 		return featurePrototypeEClass;
 	}
@@ -7793,7 +7793,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeaturePrototypeBinding() {
 		if (featurePrototypeBindingEClass == null) {
 			featurePrototypeBindingEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(139);
+					.getEClassifiers().get(140);
 		}
 		return featurePrototypeBindingEClass;
 	}
@@ -7815,7 +7815,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EClass getFeaturePrototypeActual() {
 		if (featurePrototypeActualEClass == null) {
 			featurePrototypeActualEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
-					.getEClassifiers().get(140);
+					.getEClassifiers().get(138);
 		}
 		return featurePrototypeActualEClass;
 	}

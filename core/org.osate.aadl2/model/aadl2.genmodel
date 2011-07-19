@@ -718,6 +718,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupPrototypeActual/featureType"/>
     </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//FeaturePrototypeActual"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//FeaturePrototype">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//FeaturePrototype/direction"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -727,7 +728,6 @@
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeaturePrototypeBinding/actual"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//FeaturePrototypeActual"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//AccessSpecification">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//AccessSpecification/kind"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//AccessSpecification/category"/>

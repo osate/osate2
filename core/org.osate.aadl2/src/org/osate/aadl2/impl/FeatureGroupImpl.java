@@ -174,7 +174,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * @generated NOT
 	 */
 	public FeatureGroupPrototype basicGetFeatureGroupPrototype() {
-		return (basicGetFeatureType() instanceof FeatureGroupPrototype) ? (FeatureGroupPrototype) basicGetFeatureType() : null;
+		return (basicGetFeatureType() instanceof FeatureGroupPrototype) ? (FeatureGroupPrototype) basicGetFeatureType()
+				: null;
 	}
 
 	/**

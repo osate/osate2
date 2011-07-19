@@ -66,7 +66,7 @@ import org.osate.aadl2.PrototypeBinding;
  *
  * @generated
  */
-public class FeatureGroupPrototypeActualImpl extends ElementImpl implements FeatureGroupPrototypeActual {
+public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl implements FeatureGroupPrototypeActual {
 	/**
 	 * The cached value of the '{@link #getBindings() <em>Binding</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

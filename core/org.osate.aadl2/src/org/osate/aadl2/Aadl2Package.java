@@ -2582,7 +2582,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototype()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE = 126;
+	int FEATURE_PROTOTYPE = 127;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeBindingImpl <em>Feature Prototype Binding</em>}' class.
@@ -2592,7 +2592,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeBinding()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE_BINDING = 127;
+	int FEATURE_PROTOTYPE_BINDING = 128;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeActualImpl <em>Feature Prototype Actual</em>}' class.
@@ -2602,7 +2602,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeActual()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE_ACTUAL = 128;
+	int FEATURE_PROTOTYPE_ACTUAL = 126;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessSpecificationImpl <em>Access Specification</em>}' class.
@@ -13263,7 +13263,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+	int FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -13272,7 +13272,34 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+	int FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The number of structural features of the '<em>Feature Prototype Actual</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_ELEMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Binding</b></em>' containment reference list.
@@ -13281,7 +13308,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING = ELEMENT_FEATURE_COUNT + 0;
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Feature Type</b></em>' reference.
@@ -13290,7 +13317,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL__FEATURE_TYPE = ELEMENT_FEATURE_COUNT + 1;
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL__FEATURE_TYPE = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Feature Group Prototype Actual</em>' class.
@@ -13299,7 +13326,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -13453,33 +13480,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int FEATURE_PROTOTYPE_BINDING_FEATURE_COUNT = PROTOTYPE_BINDING_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Feature Prototype Actual</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
