@@ -66,7 +66,7 @@ import org.eclipse.emf.common.util.EList;
  * @model annotation="http://www.topcased.org/documentation documentation='To be merged with AADLConstructs::Features::FeatureGroupType'"
  * @generated
  */
-public interface FeatureGroupType extends Classifier {
+public interface FeatureGroupType extends Classifier, FeatureType {
 	/**
 	 * Returns the value of the '<em><b>Owned Feature</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.Feature}.

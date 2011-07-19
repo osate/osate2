@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,83 +31,67 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: FeatureGroupReference.java,v 1.2 2009-02-09 19:29:23 lwrage Exp $
  */
-package org.osate.aadl2;
+package org.osate.aadl2.impl;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.uml2.common.util.CacheAdapter;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.parsesupport.AObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Feature Group Reference</b></em>'.
+ * An implementation of the model object '<em><b>Feature Type</b></em>'.
  * <!-- end-user-doc -->
- *
  * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.osate.aadl2.FeatureGroupReference#getBindings <em>Binding</em>}</li>
- *   <li>{@link org.osate.aadl2.FeatureGroupReference#getFeatureGroupType <em>Feature Group Type</em>}</li>
- * </ul>
  * </p>
  *
- * @see org.osate.aadl2.Aadl2Package#getFeatureGroupReference()
- * @model
  * @generated
  */
-public interface FeatureGroupReference extends FeatureGroupPrototypeActual {
+public abstract class FeatureTypeImpl extends AObjectImpl implements FeatureType {
 	/**
-	 * Returns the value of the '<em><b>Binding</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.PrototypeBinding}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Binding</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Binding</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupReference_Binding()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	EList<PrototypeBinding> getBindings();
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.PrototypeBinding} and appends it to the '<em><b>Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eClass The Ecore class of the {@link org.osate.aadl2.PrototypeBinding} to create.
-	 * @return The new {@link org.osate.aadl2.PrototypeBinding}.
-	 * @see #getBindings()
 	 * @generated
 	 */
-	PrototypeBinding createBinding(EClass eClass);
+	protected FeatureTypeImpl() {
+		super();
+	}
 
 	/**
-	 * Returns the value of the '<em><b>Feature Group Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Feature Group Type</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Feature Group Type</em>' reference.
-	 * @see #setFeatureGroupType(FeatureGroupType)
-	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupReference_FeatureGroupType()
-	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	FeatureGroupType getFeatureGroupType();
+	@Override
+	protected EClass eStaticClass() {
+		return Aadl2Package.eINSTANCE.getFeatureType();
+	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.FeatureGroupReference#getFeatureGroupType <em>Feature Group Type</em>}' reference.
+	 * Creates a new instance of the specified Ecore class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Feature Group Type</em>' reference.
-	 * @see #getFeatureGroupType()
+	 * @param eClass The Ecore class of the instance to create.
+	 * @return The new instance.
 	 * @generated
 	 */
-	void setFeatureGroupType(FeatureGroupType value);
+	protected EObject create(EClass eClass) {
+		return EcoreUtil.create(eClass);
+	}
 
-} // FeatureGroupReference
+	/**
+	 * Retrieves the cache adapter for this '<em><b>Feature Type</b></em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The cache adapter for this '<em><b>Feature Type</b></em>'.
+	 * @generated
+	 */
+	protected CacheAdapter getCacheAdapter() {
+		return CacheAdapter.getCacheAdapter(this);
+	}
+
+} //FeatureTypeImpl

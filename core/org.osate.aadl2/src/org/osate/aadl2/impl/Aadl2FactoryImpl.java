@@ -146,6 +146,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createSubprogramGroupAccess();
 		case Aadl2Package.ABSTRACT_FEATURE:
 			return (EObject) createAbstractFeature();
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
+			return (EObject) createFeatureGroupPrototype();
 		case Aadl2Package.MODE_BINDING:
 			return (EObject) createModeBinding();
 		case Aadl2Package.FLOW_IMPLEMENTATION:
@@ -198,10 +200,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createComponentPrototypeBinding();
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL:
 			return (EObject) createComponentPrototypeActual();
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
-			return (EObject) createFeatureGroupPrototype();
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
 			return (EObject) createFeatureGroupPrototypeBinding();
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL:
+			return (EObject) createFeatureGroupPrototypeActual();
 		case Aadl2Package.FEATURE_PROTOTYPE:
 			return (EObject) createFeaturePrototype();
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
@@ -212,10 +214,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createPortSpecification();
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
 			return (EObject) createFeaturePrototypeReference();
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE:
-			return (EObject) createFeatureGroupPrototypeReference();
-		case Aadl2Package.FEATURE_GROUP_REFERENCE:
-			return (EObject) createFeatureGroupReference();
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
 			return (EObject) createSubprogramCallSequence();
 		case Aadl2Package.PROCESSOR_CALL:
@@ -1656,6 +1654,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public FeatureGroupPrototypeActual createFeatureGroupPrototypeActual() {
+		FeatureGroupPrototypeActualImpl featureGroupPrototypeActual = new FeatureGroupPrototypeActualImpl();
+		return featureGroupPrototypeActual;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public FeaturePrototype createFeaturePrototype() {
 		FeaturePrototypeImpl featurePrototype = new FeaturePrototypeImpl();
 		return featurePrototype;
@@ -1699,26 +1707,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public FeaturePrototypeReference createFeaturePrototypeReference() {
 		FeaturePrototypeReferenceImpl featurePrototypeReference = new FeaturePrototypeReferenceImpl();
 		return featurePrototypeReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureGroupPrototypeReference createFeatureGroupPrototypeReference() {
-		FeatureGroupPrototypeReferenceImpl featureGroupPrototypeReference = new FeatureGroupPrototypeReferenceImpl();
-		return featureGroupPrototypeReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureGroupReference createFeatureGroupReference() {
-		FeatureGroupReferenceImpl featureGroupReference = new FeatureGroupReferenceImpl();
-		return featureGroupReference;
 	}
 
 	/**

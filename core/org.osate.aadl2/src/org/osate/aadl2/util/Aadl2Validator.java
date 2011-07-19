@@ -295,6 +295,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateDirectedFeature((DirectedFeature) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP_CONNECTION_END:
 			return validateFeatureGroupConnectionEnd((FeatureGroupConnectionEnd) value, diagnostics, context);
+		case Aadl2Package.FEATURE_TYPE:
+			return validateFeatureType((FeatureType) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP_TYPE:
 			return validateFeatureGroupType((FeatureGroupType) value, diagnostics, context);
 		case Aadl2Package.GROUP_EXTENSION:
@@ -354,6 +356,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateSubprogramGroup((SubprogramGroup) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_FEATURE:
 			return validateAbstractFeature((AbstractFeature) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
+			return validateFeatureGroupPrototype((FeatureGroupPrototype) value, diagnostics, context);
 		case Aadl2Package.SUBCOMPONENT:
 			return validateSubcomponent((Subcomponent) value, diagnostics, context);
 		case Aadl2Package.COMPONENT_PROTOTYPE:
@@ -426,8 +430,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateComponentPrototypeBinding((ComponentPrototypeBinding) value, diagnostics, context);
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL:
 			return validateComponentPrototypeActual((ComponentPrototypeActual) value, diagnostics, context);
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
-			return validateFeatureGroupPrototype((FeatureGroupPrototype) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
 			return validateFeatureGroupPrototypeBinding((FeatureGroupPrototypeBinding) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL:
@@ -444,10 +446,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validatePortSpecification((PortSpecification) value, diagnostics, context);
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
 			return validateFeaturePrototypeReference((FeaturePrototypeReference) value, diagnostics, context);
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE:
-			return validateFeatureGroupPrototypeReference((FeatureGroupPrototypeReference) value, diagnostics, context);
-		case Aadl2Package.FEATURE_GROUP_REFERENCE:
-			return validateFeatureGroupReference((FeatureGroupReference) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
 			return validateSubprogramCallSequence((SubprogramCallSequence) value, diagnostics, context);
 		case Aadl2Package.CALL_SPECIFICATION:
@@ -2411,6 +2409,15 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateFeatureType(FeatureType featureType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject) featureType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateCallContext(CallContext callContext, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) callContext, diagnostics, context))
 			return false;
@@ -3224,72 +3231,6 @@ public class Aadl2Validator extends EObjectValidator {
 			result &= validateElement_not_own_self(featurePrototypeReference, diagnostics, context);
 		if (result || diagnostics != null)
 			result &= validateElement_has_owner(featurePrototypeReference, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateFeatureGroupPrototypeReference(
-			FeatureGroupPrototypeReference featureGroupPrototypeReference, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featureGroupPrototypeReference, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featureGroupPrototypeReference, diagnostics,
-				context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featureGroupPrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featureGroupPrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featureGroupPrototypeReference,
-					diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featureGroupPrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featureGroupPrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featureGroupPrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featureGroupPrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(featureGroupPrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(featureGroupPrototypeReference, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateFeatureGroupReference(FeatureGroupReference featureGroupReference,
-			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featureGroupReference, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featureGroupReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featureGroupReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featureGroupReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featureGroupReference, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featureGroupReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featureGroupReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featureGroupReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featureGroupReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(featureGroupReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(featureGroupReference, diagnostics, context);
 		return result;
 	}
 

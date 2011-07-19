@@ -382,6 +382,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseFeatureType(FeatureType object) {
+			return createFeatureTypeAdapter();
+		}
+
+		@Override
 		public Adapter caseFeatureGroupType(FeatureGroupType object) {
 			return createFeatureGroupTypeAdapter();
 		}
@@ -524,6 +529,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseAbstractFeature(AbstractFeature object) {
 			return createAbstractFeatureAdapter();
+		}
+
+		@Override
+		public Adapter caseFeatureGroupPrototype(FeatureGroupPrototype object) {
+			return createFeatureGroupPrototypeAdapter();
 		}
 
 		@Override
@@ -707,11 +717,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseFeatureGroupPrototype(FeatureGroupPrototype object) {
-			return createFeatureGroupPrototypeAdapter();
-		}
-
-		@Override
 		public Adapter caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding object) {
 			return createFeatureGroupPrototypeBindingAdapter();
 		}
@@ -749,16 +754,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseFeaturePrototypeReference(FeaturePrototypeReference object) {
 			return createFeaturePrototypeReferenceAdapter();
-		}
-
-		@Override
-		public Adapter caseFeatureGroupPrototypeReference(FeatureGroupPrototypeReference object) {
-			return createFeatureGroupPrototypeReferenceAdapter();
-		}
-
-		@Override
-		public Adapter caseFeatureGroupReference(FeatureGroupReference object) {
-			return createFeatureGroupReferenceAdapter();
 		}
 
 		@Override
@@ -2059,6 +2054,20 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.FeatureType <em>Feature Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.FeatureType
+	 * @generated
+	 */
+	public Adapter createFeatureTypeAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.CallContext <em>Call Context</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -2405,34 +2414,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFeaturePrototypeReferenceAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.FeatureGroupPrototypeReference <em>Feature Group Prototype Reference</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.FeatureGroupPrototypeReference
-	 * @generated
-	 */
-	public Adapter createFeatureGroupPrototypeReferenceAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.FeatureGroupReference <em>Feature Group Reference</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.FeatureGroupReference
-	 * @generated
-	 */
-	public Adapter createFeatureGroupReferenceAdapter() {
 		return null;
 	}
 

@@ -6,14 +6,14 @@
     </packageMerge>
     <packagedElement xmi:type="uml:Class" xmi:id="Element" name="Element" isAbstract="true">
       <ownedAttribute xmi:id="Element-ownedElement" name="ownedElement" isDerived="true" aggregation="composite"/>
-      <ownedOperation xmi:id="_bAVvYHgFEeC4Xe5PtADoMg" name="getOwner">
-        <ownedParameter xmi:id="_fUSQ0HgFEeC4Xe5PtADoMg" type="Element" direction="return"/>
+      <ownedOperation xmi:id="Element-getOwner" name="getOwner">
+        <ownedParameter xmi:id="Element-getOwner-_ownedParameter.0" type="Element" direction="return"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="NamedElement" name="NamedElement" isAbstract="true">
       <ownedAttribute xmi:id="NamedElement-qualifiedName" name="qualifiedName" isDerived="true"/>
-      <ownedOperation xmi:id="_jI6ZAHgFEeC4Xe5PtADoMg" name="getNamespace">
-        <ownedParameter xmi:id="_jI6ZAXgFEeC4Xe5PtADoMg" type="Namespace" direction="return"/>
+      <ownedOperation xmi:id="NamedElement-getNamespace" name="getNamespace">
+        <ownedParameter xmi:id="NamedElement-getNamespace-_ownedParameter.0" type="Namespace" direction="return"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Namespace" name="Namespace" isAbstract="true">
@@ -51,6 +51,10 @@
     <packagedElement xmi:type="uml:Class" xmi:id="PrivatePackageSection" name="PrivatePackageSection">
       <ownedAttribute xmi:id="PrivatePackageSection-publicSection" name="publicSection" isDerived="true"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="FeatureGroup" name="FeatureGroup">
+      <ownedAttribute xmi:id="FeatureGroup-featureGroupType" name="featureGroupType"/>
+      <ownedAttribute xmi:id="FeatureGroup-featureGroupPrototype" name="featureGroupPrototype"/>
+    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FeatureGroupType" name="FeatureGroupType">
       <ownedAttribute xmi:id="FeatureGroupType-extended" name="extended" isDerived="true"/>
       <ownedAttribute xmi:id="FeatureGroupType-ownedFeature" name="ownedFeature" isDerived="true" aggregation="composite"/>
@@ -70,8 +74,8 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Subcomponent" name="Subcomponent" isAbstract="true">
       <ownedAttribute xmi:id="Subcomponent-classifier" name="classifier" isDerived="true"/>
-      <ownedAttribute xmi:id="_mN5IoKf3EeCYEIHXYlP5sg" name="prototype" isDerived="true"/>
-      <ownedAttribute xmi:id="_XImKMKgHEeCYEIHXYlP5sg" name="subcomponentType" isDerived="true"/>
+      <ownedAttribute xmi:id="Subcomponent-prototype" name="prototype" isDerived="true"/>
+      <ownedAttribute xmi:id="Subcomponent-subcomponentType" name="subcomponentType" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BehavioredImplementation" name="BehavioredImplementation" isAbstract="true">
       <ownedAttribute xmi:id="BehavioredImplementation-callSpecification" name="callSpecification" isDerived="true"/>
@@ -474,7 +478,10 @@
   <Ecore:EReference xmi:id="_FSqTkHhnEd6AFYIFq8D4AQ" isTransient="true" isVolatile="true"/>
   <Standard:Metaclass xmi:id="_2zZsQHAmEeCG1uAXqBr-RA" base_Class="ModalElement"/>
   <Standard:Metaclass xmi:id="_j4BVcHAoEeCG1uAXqBr-RA" base_Class="Mode"/>
-  <Ecore:EReference xmi:id="_q4X6wKf3EeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="_mN5IoKf3EeCYEIHXYlP5sg"/>
+  <Ecore:EReference xmi:id="_q4X6wKf3EeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="Subcomponent-prototype"/>
   <Ecore:EReference xmi:id="_O1p14KgCEeCYEIHXYlP5sg"/>
-  <Ecore:EReference xmi:id="_fexyAKgHEeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="_XImKMKgHEeCYEIHXYlP5sg"/>
+  <Ecore:EReference xmi:id="_fexyAKgHEeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="Subcomponent-subcomponentType"/>
+  <Standard:Metaclass xmi:id="_usN9ALIBEeCWmNkTdM4SSg" base_Class="FeatureGroup"/>
+  <Ecore:EReference xmi:id="_4Z0qwLIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupType"/>
+  <Ecore:EReference xmi:id="_5j1m0LIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupPrototype"/>
 </xmi:XMI>

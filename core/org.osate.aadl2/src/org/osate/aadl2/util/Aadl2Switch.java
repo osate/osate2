@@ -846,11 +846,20 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.FEATURE_TYPE: {
+			FeatureType featureType = (FeatureType) theEObject;
+			T result = caseFeatureType(featureType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.FEATURE_GROUP_TYPE: {
 			FeatureGroupType featureGroupType = (FeatureGroupType) theEObject;
 			T result = caseFeatureGroupType(featureGroupType);
 			if (result == null)
 				result = caseClassifier(featureGroupType);
+			if (result == null)
+				result = caseFeatureType(featureGroupType);
 			if (result == null)
 				result = caseNamespace(featureGroupType);
 			if (result == null)
@@ -1487,6 +1496,27 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE: {
+			FeatureGroupPrototype featureGroupPrototype = (FeatureGroupPrototype) theEObject;
+			T result = caseFeatureGroupPrototype(featureGroupPrototype);
+			if (result == null)
+				result = casePrototype(featureGroupPrototype);
+			if (result == null)
+				result = caseFeatureType(featureGroupPrototype);
+			if (result == null)
+				result = caseStructuralFeature(featureGroupPrototype);
+			if (result == null)
+				result = caseRefinableElement(featureGroupPrototype);
+			if (result == null)
+				result = caseClassifierFeature(featureGroupPrototype);
+			if (result == null)
+				result = caseNamedElement(featureGroupPrototype);
+			if (result == null)
+				result = caseElement(featureGroupPrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.SUBCOMPONENT: {
 			Subcomponent subcomponent = (Subcomponent) theEObject;
 			T result = caseSubcomponent(subcomponent);
@@ -2069,25 +2099,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE: {
-			FeatureGroupPrototype featureGroupPrototype = (FeatureGroupPrototype) theEObject;
-			T result = caseFeatureGroupPrototype(featureGroupPrototype);
-			if (result == null)
-				result = casePrototype(featureGroupPrototype);
-			if (result == null)
-				result = caseStructuralFeature(featureGroupPrototype);
-			if (result == null)
-				result = caseRefinableElement(featureGroupPrototype);
-			if (result == null)
-				result = caseClassifierFeature(featureGroupPrototype);
-			if (result == null)
-				result = caseNamedElement(featureGroupPrototype);
-			if (result == null)
-				result = caseElement(featureGroupPrototype);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING: {
 			FeatureGroupPrototypeBinding featureGroupPrototypeBinding = (FeatureGroupPrototypeBinding) theEObject;
 			T result = caseFeatureGroupPrototypeBinding(featureGroupPrototypeBinding);
@@ -2176,28 +2187,6 @@ public class Aadl2Switch<T> {
 				result = caseFeaturePrototypeActual(featurePrototypeReference);
 			if (result == null)
 				result = caseElement(featurePrototypeReference);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE: {
-			FeatureGroupPrototypeReference featureGroupPrototypeReference = (FeatureGroupPrototypeReference) theEObject;
-			T result = caseFeatureGroupPrototypeReference(featureGroupPrototypeReference);
-			if (result == null)
-				result = caseFeatureGroupPrototypeActual(featureGroupPrototypeReference);
-			if (result == null)
-				result = caseElement(featureGroupPrototypeReference);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.FEATURE_GROUP_REFERENCE: {
-			FeatureGroupReference featureGroupReference = (FeatureGroupReference) theEObject;
-			T result = caseFeatureGroupReference(featureGroupReference);
-			if (result == null)
-				result = caseFeatureGroupPrototypeActual(featureGroupReference);
-			if (result == null)
-				result = caseElement(featureGroupReference);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -5731,6 +5720,21 @@ public class Aadl2Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFeatureType(FeatureType object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Call Context</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -6102,36 +6106,6 @@ public class Aadl2Switch<T> {
 	 * @generated
 	 */
 	public T caseFeaturePrototypeReference(FeaturePrototypeReference object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Feature Group Prototype Reference</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Feature Group Prototype Reference</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFeatureGroupPrototypeReference(FeatureGroupPrototypeReference object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Feature Group Reference</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Feature Group Reference</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFeatureGroupReference(FeatureGroupReference object) {
 		return null;
 	}
 
