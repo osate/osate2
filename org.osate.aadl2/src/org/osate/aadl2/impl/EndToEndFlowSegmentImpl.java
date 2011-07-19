@@ -203,7 +203,6 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
