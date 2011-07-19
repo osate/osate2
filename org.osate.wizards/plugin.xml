@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         point="org.eclipse.ui.actionSets">
+         
+      <actionSet
+      		id="org.osate.wizards.actionSet"
+      		label="OSATE Wizards"
+      		visible="false">
+         
+         <action
+               id="org.osate.wizards.AadlProjectWizard.action"
+               label="New Aadl Project"
+               tooltip="New Aadl Project"
+               icon="icons/new_aadl_project.gif"
+               class="org.osate.ui.actions.WizardLauncherAction"
+               toolbarPath="OSATE-newWizards.toolbar/project.grp">
+         </action>
+
+         
+         <action
+               id="org.osate.wizards.PackageWizard.action"
+               label="New Aadl Package"
+               tooltip="New Aadl Package"
+               icon="icons/new_package.gif"
+               class="org.osate.ui.actions.NewPackageWizardAction"
+               toolbarPath="OSATE-newWizards.toolbar/model.grp">
+         </action>
+         
+         <action
+               id="org.osate.wizards.PropertySetWizard.action"
+               label="New Aadl Property Set"
+               tooltip="New Aadl Property Set"
+               icon="icons/new_ps.gif"
+               class="org.osate.ui.actions.NewPropertySetWizardAction"
+               toolbarPath="OSATE-newWizards.toolbar/model.grp">
+         </action>
+      </actionSet>
+   </extension>
+   
+   <extension point="org.eclipse.ui.commands">
+      <category
+            name="OSATE Commands"
+            description="Commands for the OSATE plug-ins"
+            id="org.osate.wizards.category.osate"/>
+            
+      <command
+            name="New AADL Specification"
+            description="Creates a new AADL specification"
+            categoryId="org.osate.wizards.category.osate"
+            id="org.osate.wizards.commands.newAADLSpec">
+      </command>
+   </extension>
+
+   <extension point="org.eclipse.ui.bindings">
+      <key
+            sequence="M1+F12"
+            commandId="org.osate.wizards.commands.newAADLSpec"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+   </extension>
+      
+   <extension
+   	   point="org.eclipse.ui.perspectiveExtensions">
+   	   <perspectiveExtension
+   		   targetID="org.osate.ui.perspective.AadlPerspective">
+   		   <actionSet
+   		 	   id="org.osate.wizards.actionSet"/>
+   	   </perspectiveExtension>
+   </extension>
+   
+</plugin>

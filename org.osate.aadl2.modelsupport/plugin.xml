@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eclipse.core.resources.IResource"
+            class="org.osate.aadl2.modelsupport.adapter.IResourceAdapterFactory">
+         <adapter
+               type="org.osate.aadl2.Element">
+         </adapter>
+      </factory>
+   </extension>
+   <extension
+         id="AadlObjectMarker"
+         name="Aadl Model Object Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <super
+            type="org.eclipse.emf.ecore.diagnostic">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         id="AadlGotoMarker"
+         name="Goto AObject Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.osate.aadl2.modelsupport.AadlObjectMarker">
+      </super>
+      <super
+            type="org.eclipse.emf.ecore.diagnostic">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         id="AadlTextMarker"
+         name="Aadl Text Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         id="AadlTextGotoMarker"
+         name="Goto AADL Source Text Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.osate.aadl2.modelsupport.AadlTextMarker">
+      </super>
+      <persistent
+            value="false">
+      </persistent>
+   </extension>
+
+</plugin>

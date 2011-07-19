@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         id="aadlnature"
+         name="%aadlNature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.osate.core.AadlNature">
+         </run>
+      </runtime>
+      <builder
+            id="org.osate.core.aadlbuilder">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.ide.projectNatureImages">
+      <image
+            icon="icons/AadlNature.gif"
+            natureId="org.osate.core.aadlnature"
+            id="org.osate.core.natureimage">
+      </image>
+   </extension>
+   <extension
+         id="aadlbuilder"
+         name="%aadlBuilder"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+         <run
+               class="org.osate.core.builder.AadlBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.team.core.fileTypes">
+      <fileTypes
+            type="text"
+            extension="aadl">
+      </fileTypes>
+   </extension>
+
+   <extension
+         id="InstantiationObjectMarker"
+         name="Instantiation Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+
+   <extension
+         id="DuplicateFileMarker"
+         name="Duplicate AADL File Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlTextMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   <extension
+         id="DuplicatePackageOrPropertySetErrorMarker"
+         name="Duplicate Package or Property Set Error Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+ </plugin>

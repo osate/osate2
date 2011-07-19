@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="edu.cmu.sei.osate.reporter.actionSet"
+            label="Reporter"
+            visible="false">
+
+         
+
+         <menu
+               id="menu.osate"
+               label="OSATE"
+               path="project">
+            <groupMarker name="reporter.grp"/>
+            <groupMarker name="file.grp"/>
+            <separator name="instance.grp"/>
+            <separator name="general.grp"/>
+         </menu>
+
+        
+         <action
+               id="org.osate.ui.actions.Reporter.action"
+               label="Generate Marker Report"
+               tooltip="Generate Marker Report"
+               icon="icons/gr.gif"
+               class="org.osate.reporter.ReporterAction"
+               menubarPath="menu.osate/reporter.grp"
+               toolbarPath="OSATE.toolbar/general.grp"
+               enablesFor="1">
+            <enablement>
+                  <objectClass name="org.eclipse.core.resources.IResource"/>
+            </enablement>
+         </action>
+         
+         <action
+         		id="org.osate.ui.actions.Reporter.ReporterSettingsAction"
+         		label="Report Generator Settings"
+         		tooltip="Report Generator Settings"
+         		class="org.osate.reporter.ReporterSettingsAction"
+         		menubarPath="menu.osate/reporter.grp">
+         	<enablement>
+         		<objectClass name="org.eclipse.core.resources.IResource"/>
+         	</enablement>
+         </action>
+      </actionSet>
+   </extension>
+   
+   <extension
+   	   point="org.eclipse.ui.perspectiveExtensions">
+   	   <perspectiveExtension
+   		   targetID="org.osate.ui.perspective.AadlPerspective">
+   		   <actionSet
+   		 	   id="edu.cmu.sei.osate.reporter.actionSet"/>
+   	   </perspectiveExtension>
+   </extension>
+
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="edu.cmu.sei.aadl.toMetaH.oc1"
+            objectClass="java.lang.Object">
+         <visibility>
+       		<objectClass name="org.eclipse.core.resources.IResource"/>
+         </visibility>
+         
+         <menu
+               id="org.osate.ui.popupMenu.Aadl"
+               label="%popupMenu.aadl.label"
+               path="additions">
+            <groupMarker name="file.grp"/>
+            <separator name="instance.grp"/>
+            <separator name="general.grp"/>
+            <groupMarker name="subMenus.grp"/>
+         </menu>
+
+         <action
+               id="org.osate.ui.actions.Reporter.popupAction"
+               label="Generate Marker Report"
+               tooltip="Generate Marker Report"
+               icon="icons/gr.gif"
+               class="org.osate.reporter.ReporterAction"
+               menubarPath="org.osate.ui.popupMenu.Aadl/general.grp"
+               enablesFor="1"/>
+
+         <action
+               id="org.osate.ui.actions.Reporter.ReporterSettingsAction.popupAction"
+               label="Report Generator Settings"
+               tooltip="Report Generator Settings"
+               class="org.osate.reporter.ReporterSettingsAction"
+               menubarPath="org.osate.ui.popupMenu.Aadl/general.grp"
+               enablesFor="1"/>
+      </objectContribution>
+   </extension>
+</plugin>

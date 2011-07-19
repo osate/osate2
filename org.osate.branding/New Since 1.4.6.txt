@@ -1,0 +1,28 @@
+Bug Fixes
+---------
+
+Fixed Bug 676: End-to-end flow instances dropped connection instances if they involved port groups.  
+The effect was that end-to-end latency analysis did not include the connection latency.
+
+Fixed Bug 673: There was a problem with using the double quote character in string literals.  The standard specifies that double quote characters can
+be represented using two double quote characters.  Example: "not ""too"" bad".  The problem was that the second double quote character encountered
+was being interpreted as the end of the literal.  The interpreted literal would be "not " and an error would occur because the parser found a double
+quote character instead of a semi-colon.  This has been fixed so that two double quote characters is a legal sequence in a string literal.  Note that
+the internal representation of the string is the same as the text entered in the literal.
+
+Fixed Bug 671: The reference to a server subprogram of a thread did not get resolved, if the thread was declared with a thread type only. 
+Such a reference is only used in remote subprogram call bindings.
+
+Fixed Bugs 661, 665, 666, 667: There was a problem when opening a project or importing model files.  In these situations, the aaxl files were not being
+loaded into memory properly.  This caused numerous side effects.  When opening one of these incompletely loaded files, the editor would be empty.  Also,
+unparsing these model files would lead to corrupt aadl source files.
+
+Resource budget analysis
+------------------------
+This plug-in now treats MIPS, cycletime, and execution time consistently.  
+This problem only showed if budget analysis based on MIPS was compared against budget analysis bsaed on thread data.
+
+
+Performance Impovement
+----------------------
+Model Instantiation runs faster for very large models.

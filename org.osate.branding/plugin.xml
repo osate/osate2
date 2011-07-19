@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.ui.ide.workbench"
+            description="%productBlurb"
+            name="%productName">
+         <property
+               name="featureImage"
+               value="icons/32aadl.jpg"/>
+         <property
+               name="aboutImage"
+               value="icons/osateAbout_hc90.jpg"/>
+         <property
+               name="aboutText"
+               value="%aboutText"/>
+         <property
+               name="appName"
+               value="%productName"/>
+         <property
+               name="welcomePage"
+               value="welcome.xml"/>
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini"/>
+         <property
+               name="startupProgressRect"
+               value="20,10,400,20"/>
+      </product>
+   </extension>
+
+</plugin>
