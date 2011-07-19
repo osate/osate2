@@ -228,12 +228,6 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 				Aadl2Factory.eINSTANCE.createReferenceType()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
-				Aadl2Factory.eINSTANCE.createEnumerationValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
-				Aadl2Factory.eINSTANCE.createUnitValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
@@ -255,12 +249,6 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
-				Aadl2Factory.eINSTANCE.createConstantValue()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
-				Aadl2Factory.eINSTANCE.createPropertyReference()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
@@ -271,6 +259,9 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
 				Aadl2Factory.eINSTANCE.createListValue()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
+				Aadl2Factory.eINSTANCE.createNamedValue()));
 	}
 
 	/**

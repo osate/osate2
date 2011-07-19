@@ -34,15 +34,11 @@
  */
 package org.osate.aadl2.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.EndToEndFlowElement;
@@ -55,23 +51,23 @@ import org.osate.aadl2.EndToEndFlowSegment;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.EndToEndFlowSegmentImpl#getFlowElements <em>Flow Element</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.EndToEndFlowSegmentImpl#getFlowElement <em>Flow Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.EndToEndFlowSegmentImpl#getContext <em>Context</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class EndToEndFlowSegmentImpl extends EndToEndFlowElementImpl implements EndToEndFlowSegment {
+public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlowSegment {
 	/**
-	 * The cached value of the '{@link #getFlowElements() <em>Flow Element</em>}' reference list.
+	 * The cached value of the '{@link #getFlowElement() <em>Flow Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFlowElements()
+	 * @see #getFlowElement()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<EndToEndFlowElement> flowElements;
+	protected EndToEndFlowElement flowElement;
 
 	/**
 	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
@@ -107,12 +103,39 @@ public class EndToEndFlowSegmentImpl extends EndToEndFlowElementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<EndToEndFlowElement> getFlowElements() {
-		if (flowElements == null) {
-			flowElements = new EObjectResolvingEList<EndToEndFlowElement>(EndToEndFlowElement.class, this,
-					Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT);
+	public EndToEndFlowElement getFlowElement() {
+		if (flowElement != null && ((EObject) flowElement).eIsProxy()) {
+			InternalEObject oldFlowElement = (InternalEObject) flowElement;
+			flowElement = (EndToEndFlowElement) eResolveProxy(oldFlowElement);
+			if (flowElement != oldFlowElement) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT, oldFlowElement, flowElement));
+			}
 		}
-		return flowElements;
+		return flowElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EndToEndFlowElement basicGetFlowElement() {
+		return flowElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFlowElement(EndToEndFlowElement newFlowElement) {
+		EndToEndFlowElement oldFlowElement = flowElement;
+		flowElement = newFlowElement;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT,
+					oldFlowElement, flowElement));
 	}
 
 	/**
@@ -164,7 +187,9 @@ public class EndToEndFlowSegmentImpl extends EndToEndFlowElementImpl implements 
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
-			return getFlowElements();
+			if (resolve)
+				return getFlowElement();
+			return basicGetFlowElement();
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT:
 			if (resolve)
 				return getContext();
@@ -183,8 +208,7 @@ public class EndToEndFlowSegmentImpl extends EndToEndFlowElementImpl implements 
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
-			getFlowElements().clear();
-			getFlowElements().addAll((Collection<? extends EndToEndFlowElement>) newValue);
+			setFlowElement((EndToEndFlowElement) newValue);
 			return;
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT:
 			setContext((Context) newValue);
@@ -202,7 +226,7 @@ public class EndToEndFlowSegmentImpl extends EndToEndFlowElementImpl implements 
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
-			getFlowElements().clear();
+			setFlowElement((EndToEndFlowElement) null);
 			return;
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT:
 			setContext((Context) null);
@@ -220,7 +244,7 @@ public class EndToEndFlowSegmentImpl extends EndToEndFlowElementImpl implements 
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
-			return flowElements != null && !flowElements.isEmpty();
+			return flowElement != null;
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT:
 			return context != null;
 		}

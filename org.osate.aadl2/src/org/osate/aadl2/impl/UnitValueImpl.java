@@ -57,7 +57,7 @@ import org.osate.aadl2.UnitValue;
  *
  * @generated
  */
-public class UnitValueImpl extends PropertyValueImpl implements UnitValue {
+public class UnitValueImpl extends AbstractNamedValueImpl implements UnitValue {
 	/**
 	 * The cached value of the '{@link #getLiteral() <em>Literal</em>}' reference.
 	 * <!-- begin-user-doc -->

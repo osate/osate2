@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
@@ -406,6 +407,12 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 				return -1;
 			}
 		}
+		if (baseClass == EndToEndFlowElement.class) {
+			switch (derivedFeatureID) {
+			default:
+				return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -428,6 +435,12 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 			switch (baseFeatureID) {
 			case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
 				return Aadl2Package.END_TO_END_FLOW__IN_MODE_OR_TRANSITION;
+			default:
+				return -1;
+			}
+		}
+		if (baseClass == EndToEndFlowElement.class) {
+			switch (baseFeatureID) {
 			default:
 				return -1;
 			}

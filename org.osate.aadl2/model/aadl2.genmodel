@@ -1165,7 +1165,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//EnumerationValue/literal"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//PropertyValue"/>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//AbstractNamedValue"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EnumerationLiteral"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//UnitValue">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -1181,6 +1181,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumberValue/unit"/>
     </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//PropertyValue"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//StringLiteral">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//StringLiteral/value"/>
     </genClasses>
@@ -1230,6 +1231,10 @@
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ListValue">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ListValue/ownedListElement"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//NamedValue">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//NamedValue/namedValue"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PropertySet">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"

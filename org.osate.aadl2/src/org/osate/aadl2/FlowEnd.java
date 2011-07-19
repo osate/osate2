@@ -34,8 +34,6 @@
  */
 package org.osate.aadl2;
 
-import org.osate.aadl2.parsesupport.AObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Flow End</b></em>'.
@@ -51,10 +49,9 @@ import org.osate.aadl2.parsesupport.AObject;
  *
  * @see org.osate.aadl2.Aadl2Package#getFlowEnd()
  * @model
- * @extends AObject
  * @generated
  */
-public interface FlowEnd extends AObject {
+public interface FlowEnd extends Element {
 	/**
 	 * Returns the value of the '<em><b>Context</b></em>' reference.
 	 * <!-- begin-user-doc -->

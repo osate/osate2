@@ -51,7 +51,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface EnumerationValue extends PropertyValue {
+public interface EnumerationValue extends AbstractNamedValue {
 	/**
 	 * Returns the value of the '<em><b>Literal</b></em>' reference.
 	 * <!-- begin-user-doc -->

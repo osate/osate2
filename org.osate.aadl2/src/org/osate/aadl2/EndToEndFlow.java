@@ -54,7 +54,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface EndToEndFlow extends Flow, ModalPath {
+public interface EndToEndFlow extends Flow, ModalPath, EndToEndFlowElement {
 	/**
 	 * Returns the value of the '<em><b>Refined</b></em>' reference.
 	 * <p>
