@@ -2794,6 +2794,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupPrototypeActual} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FeatureGroupPrototypeActualItemProvider featureGroupPrototypeActualItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupPrototypeActual}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFeatureGroupPrototypeActualAdapter() {
+		if (featureGroupPrototypeActualItemProvider == null) {
+			featureGroupPrototypeActualItemProvider = new FeatureGroupPrototypeActualItemProvider(this);
+		}
+
+		return featureGroupPrototypeActualItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeaturePrototype} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2906,52 +2929,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return featurePrototypeReferenceItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupPrototypeReference} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FeatureGroupPrototypeReferenceItemProvider featureGroupPrototypeReferenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupPrototypeReference}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFeatureGroupPrototypeReferenceAdapter() {
-		if (featureGroupPrototypeReferenceItemProvider == null) {
-			featureGroupPrototypeReferenceItemProvider = new FeatureGroupPrototypeReferenceItemProvider(this);
-		}
-
-		return featureGroupPrototypeReferenceItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupReference} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FeatureGroupReferenceItemProvider featureGroupReferenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupReference}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFeatureGroupReferenceAdapter() {
-		if (featureGroupReferenceItemProvider == null) {
-			featureGroupReferenceItemProvider = new FeatureGroupReferenceItemProvider(this);
-		}
-
-		return featureGroupReferenceItemProvider;
 	}
 
 	/**
@@ -3849,6 +3826,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			subprogramGroupAccessItemProvider.dispose();
 		if (abstractFeatureItemProvider != null)
 			abstractFeatureItemProvider.dispose();
+		if (featureGroupPrototypeItemProvider != null)
+			featureGroupPrototypeItemProvider.dispose();
 		if (modeBindingItemProvider != null)
 			modeBindingItemProvider.dispose();
 		if (flowImplementationItemProvider != null)
@@ -3901,10 +3880,10 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			componentPrototypeBindingItemProvider.dispose();
 		if (componentPrototypeActualItemProvider != null)
 			componentPrototypeActualItemProvider.dispose();
-		if (featureGroupPrototypeItemProvider != null)
-			featureGroupPrototypeItemProvider.dispose();
 		if (featureGroupPrototypeBindingItemProvider != null)
 			featureGroupPrototypeBindingItemProvider.dispose();
+		if (featureGroupPrototypeActualItemProvider != null)
+			featureGroupPrototypeActualItemProvider.dispose();
 		if (featurePrototypeItemProvider != null)
 			featurePrototypeItemProvider.dispose();
 		if (featurePrototypeBindingItemProvider != null)
@@ -3915,10 +3894,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			portSpecificationItemProvider.dispose();
 		if (featurePrototypeReferenceItemProvider != null)
 			featurePrototypeReferenceItemProvider.dispose();
-		if (featureGroupPrototypeReferenceItemProvider != null)
-			featureGroupPrototypeReferenceItemProvider.dispose();
-		if (featureGroupReferenceItemProvider != null)
-			featureGroupReferenceItemProvider.dispose();
 		if (subprogramCallSequenceItemProvider != null)
 			subprogramCallSequenceItemProvider.dispose();
 		if (processorCallItemProvider != null)

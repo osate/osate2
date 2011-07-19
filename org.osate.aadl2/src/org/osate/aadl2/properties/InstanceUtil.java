@@ -51,11 +51,11 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
-import org.osate.aadl2.FeatureGroupPrototypeReference;
-import org.osate.aadl2.FeatureGroupReference;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.FeaturePrototypeReference;
+import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
@@ -73,6 +73,7 @@ public class InstanceUtil {
 	/**
 	 * @author lwrage
 	 */
+	// TODO-LW: handle arrays
 	public static class InstantiatedClassifier {
 		/**
 		 * 
@@ -228,10 +229,10 @@ public class InstanceUtil {
 				prototypeBindings = sub.getOwnedPrototypeBindings();
 				prototype = sub.getPrototype();
 			} else if (iobj instanceof FeatureInstance) {
-				FeatureGroup fg = (FeatureGroup) ((FeatureInstance) iobj).getFeature();
+				FeatureType ft = ((FeatureGroup) ((FeatureInstance) iobj).getFeature()).getFeatureType();
 
-				classifier = fg.getFeatureGroupType();
-				prototype = fg.getPrototype();
+				classifier = (ft instanceof Classifier) ? (Classifier) ft : null;
+				prototype = (ft instanceof Prototype) ? (Prototype) ft : null;
 			} else {
 				return null;
 			}
@@ -244,16 +245,16 @@ public class InstanceUtil {
 				if (prototype != null) {
 					// resolve prototype
 					if (prototype instanceof ComponentPrototype) {
-						ComponentReference cr = resolveComponentPrototype(prototype, iobj, classifierCache);
+						ComponentPrototypeActual cpa = resolveComponentPrototype(prototype, iobj, classifierCache);
 
-						if (cr != null) {
-							ic = new InstantiatedClassifier(cr.getClassifier(), cr.getBindings());
+						if (cpa != null) {
+							ic = new InstantiatedClassifier((ComponentClassifier)cpa.getSubcomponentType(), cpa.getBindings());
 						}
 					} else if (prototype instanceof FeatureGroupPrototype) {
-						FeatureGroupReference fr = resolveFeatureGroupPrototype(prototype, iobj, classifierCache);
+						FeatureGroupPrototypeActual fpa = resolveFeatureGroupPrototype(prototype, iobj, classifierCache);
 
-						if (fr != null) {
-							ic = new InstantiatedClassifier(fr.getFeatureGroupType(), fr.getBindings());
+						if (fpa != null) {
+							ic = new InstantiatedClassifier((FeatureGroupType) fpa.getFeatureType(), fpa.getBindings());
 						}
 					}
 				}
@@ -275,11 +276,11 @@ public class InstanceUtil {
 	 *            subcomponent instance
 	 * @param classifierCache an optional cache of known instantiated
 	 *            classifiers, may be null
-	 * @return The component reference that the prototype resolves to.
+	 * @return The component prototype actual that the prototype resolves to.
 	 */
-	public static ComponentReference resolveComponentPrototype(Prototype proto, InstanceObject context,
+	public static ComponentPrototypeActual resolveComponentPrototype(Prototype proto, InstanceObject context,
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
-		ComponentReference cr = null;
+		ComponentPrototypeActual cpa = null;
 		ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) resolvePrototype(proto, context, classifierCache);
 
 		if (cpb == null) {
@@ -291,15 +292,15 @@ public class InstanceUtil {
 		if (actuals != null && actuals.size() > 0) {
 			ComponentPrototypeActual actual = actuals.get(0);
 
-			if (actual instanceof ComponentReference) {
-				cr = (ComponentReference) actual;
+			if (actual.getSubcomponentType() instanceof ComponentClassifier) {
+				cpa = actual;
 			} else {
 				// resolve recursively
-				cr = resolveComponentPrototype(((ComponentPrototypeReference) actual).getPrototype(), context
+				cpa = resolveComponentPrototype((ComponentPrototype) actual.getSubcomponentType(), context
 						.getContainingComponentInstance(), classifierCache);
 			}
 		}
-		return cr;
+		return cpa;
 	}
 
 	/**
@@ -310,11 +311,11 @@ public class InstanceUtil {
 	 *            subcomponent instance
 	 * @param classifierCache an optional cache of known instantiated
 	 *            classifiers, may be null
-	 * @return The feature group reference the prototype is bound to.
+	 * @return The feature group prototype actual the prototype is bound to.
 	 */
-	public static FeatureGroupReference resolveFeatureGroupPrototype(Prototype proto, InstanceObject context,
+	public static FeatureGroupPrototypeActual resolveFeatureGroupPrototype(Prototype proto, InstanceObject context,
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
-		FeatureGroupReference result = null;
+		FeatureGroupPrototypeActual result = null;
 		FeatureGroupPrototypeBinding fgpb = (FeatureGroupPrototypeBinding) resolvePrototype(proto, context,
 				classifierCache);
 
@@ -324,11 +325,11 @@ public class InstanceUtil {
 		}
 		FeatureGroupPrototypeActual actual = fgpb.getActual();
 
-		if (actual instanceof FeatureGroupReference) {
-			result = (FeatureGroupReference) actual;
+		if (actual.getFeatureType() instanceof FeatureGroupType) {
+			result = actual;
 		} else {
 			// resolve recursively
-			result = resolveFeatureGroupPrototype(((FeatureGroupPrototypeReference) actual).getPrototype(), context
+			result = resolveFeatureGroupPrototype((FeatureGroupPrototype) actual.getFeatureType(), context
 					.getContainingComponentInstance(), classifierCache);
 		}
 		return result;

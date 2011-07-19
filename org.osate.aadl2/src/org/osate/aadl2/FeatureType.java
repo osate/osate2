@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,52 +31,21 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: FeatureGroupPrototypeReference.java,v 1.1 2009-01-26 19:22:15 lwrage Exp $
  */
 package org.osate.aadl2;
 
+import org.osate.aadl2.parsesupport.AObject;
+
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Feature Group Prototype Reference</b></em>'.
+ * A representation of the model object '<em><b>Feature Type</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.osate.aadl2.FeatureGroupPrototypeReference#getPrototype <em>Prototype</em>}</li>
- * </ul>
- * </p>
  *
- * @see org.osate.aadl2.Aadl2Package#getFeatureGroupPrototypeReference()
- * @model
+ * @see org.osate.aadl2.Aadl2Package#getFeatureType()
+ * @model abstract="true"
+ * @extends AObject
  * @generated
  */
-public interface FeatureGroupPrototypeReference extends FeatureGroupPrototypeActual {
-	/**
-	 * Returns the value of the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Prototype</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Prototype</em>' reference.
-	 * @see #setPrototype(FeatureGroupPrototype)
-	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupPrototypeReference_Prototype()
-	 * @model required="true" ordered="false"
-	 * @generated
-	 */
-	FeatureGroupPrototype getPrototype();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.FeatureGroupPrototypeReference#getPrototype <em>Prototype</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Prototype</em>' reference.
-	 * @see #getPrototype()
-	 * @generated
-	 */
-	void setPrototype(FeatureGroupPrototype value);
-
-} // FeatureGroupPrototypeReference
+public interface FeatureType extends AObject {
+} // FeatureType

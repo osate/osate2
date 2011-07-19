@@ -890,8 +890,18 @@
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroup" eSuperTypes="#//DirectedFeature #//Context #//FeatureGroupConnectionEnd #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="inverse" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureType" ordered="false"
+        lowerBound="1" eType="#//FeatureType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureGroupType" ordered="false"
-        lowerBound="1" eType="#//FeatureGroupType"/>
+        eType="#//FeatureGroupType" changeable="false" volatile="true" transient="true"
+        derived="true">
+      <eAnnotations source="subsets" references="#//FeatureGroup/featureType"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureGroupPrototype"
+        ordered="false" eType="#//FeatureGroupPrototype" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="subsets" references="#//FeatureGroup/featureType"/>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CallContext" abstract="true" eSuperTypes="#//Element"/>
   <eClassifiers xsi:type="ecore:EClass" name="DirectedFeature" abstract="true" eSuperTypes="#//Feature">
@@ -905,7 +915,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupConnectionEnd" abstract="true"
       eSuperTypes="#//ConnectionEnd"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupType" eSuperTypes="#//Classifier">
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureType" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupType" eSuperTypes="#//Classifier #//FeatureType">
     <eAnnotations source="http://www.topcased.org/documentation">
       <details key="documentation" value="To be merged with AADLConstructs::Features::FeatureGroupType"/>
     </eAnnotations>
@@ -1069,6 +1080,10 @@
         eType="#//ComponentClassifier">
       <eAnnotations source="subsets" references="#//Feature/classifier"/>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototype" eSuperTypes="#//Prototype #//FeatureType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingFeatureGroupType"
+        ordered="false" eType="#//FeatureGroupType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Subcomponent" abstract="true" eSuperTypes="#//StructuralFeature #//ModalElement #//Context #//FlowElement #//ArrayableElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponentType" ordered="false"
@@ -1335,10 +1350,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponentType" ordered="false"
         lowerBound="1" eType="#//SubcomponentType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototype" eSuperTypes="#//Prototype">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingFeatureGroupType"
-        ordered="false" eType="#//FeatureGroupType"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeBinding" eSuperTypes="#//PrototypeBinding">
     <eAnnotations source="duplicates">
       <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
@@ -1349,8 +1360,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="actual" ordered="false"
         lowerBound="1" eType="#//FeatureGroupPrototypeActual" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeActual" abstract="true"
-      eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeActual" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="binding" ordered="false"
+        upperBound="-1" eType="#//PrototypeBinding" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureType" ordered="false"
+        lowerBound="1" eType="#//FeatureType"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototype" eSuperTypes="#//Prototype">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
         lowerBound="1" eType="#//DirectionType"/>
@@ -1390,16 +1405,6 @@
         lowerBound="1" eType="#//DirectionType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
         lowerBound="1" eType="#//FeaturePrototype"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeReference" eSuperTypes="#//FeatureGroupPrototypeActual">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
-        lowerBound="1" eType="#//FeatureGroupPrototype"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupReference" eSuperTypes="#//FeatureGroupPrototypeActual">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="binding" ordered="false"
-        upperBound="-1" eType="#//PrototypeBinding" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="featureGroupType" ordered="false"
-        lowerBound="1" eType="#//FeatureGroupType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramCallSequence" eSuperTypes="#//BehavioralFeature #//ModalElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedCallSpecification"

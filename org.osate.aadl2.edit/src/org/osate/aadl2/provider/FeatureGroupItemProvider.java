@@ -82,7 +82,9 @@ public class FeatureGroupItemProvider extends DirectedFeatureItemProvider implem
 			super.getPropertyDescriptors(object);
 
 			addInversePropertyDescriptor(object);
+			addFeatureTypePropertyDescriptor(object);
 			addFeatureGroupTypePropertyDescriptor(object);
+			addFeatureGroupPrototypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -104,6 +106,22 @@ public class FeatureGroupItemProvider extends DirectedFeatureItemProvider implem
 	}
 
 	/**
+	 * This adds a property descriptor for the Feature Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFeatureTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_FeatureGroup_featureType_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroup_featureType_feature",
+						"_UI_FeatureGroup_type"), Aadl2Package.eINSTANCE.getFeatureGroup_FeatureType(), true, false,
+				true, null, null, null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Feature Group Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -117,6 +135,22 @@ public class FeatureGroupItemProvider extends DirectedFeatureItemProvider implem
 				getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroup_featureGroupType_feature",
 						"_UI_FeatureGroup_type"), Aadl2Package.eINSTANCE.getFeatureGroup_FeatureGroupType(), true,
 				false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Feature Group Prototype feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFeatureGroupPrototypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_FeatureGroup_featureGroupPrototype_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroup_featureGroupPrototype_feature",
+						"_UI_FeatureGroup_type"), Aadl2Package.eINSTANCE.getFeatureGroup_FeatureGroupPrototype(),
+				false, false, false, null, null, null));
 	}
 
 	/**

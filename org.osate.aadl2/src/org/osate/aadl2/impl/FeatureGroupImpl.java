@@ -44,7 +44,9 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
@@ -56,14 +58,25 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.aadl2.impl.FeatureGroupImpl#getFeatureType <em>Feature Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupImpl#isInverse <em>Inverse</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupImpl#getFeatureGroupType <em>Feature Group Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FeatureGroupImpl#getFeatureGroupPrototype <em>Feature Group Prototype</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGroup {
+	/**
+	 * The cached value of the '{@link #getFeatureType() <em>Feature Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFeatureType()
+	 * @generated
+	 * @ordered
+	 */
+	protected FeatureType featureType;
 	/**
 	 * The default value of the '{@link #isInverse() <em>Inverse</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -82,15 +95,6 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * @ordered
 	 */
 	protected boolean inverse = INVERSE_EDEFAULT;
-	/**
-	 * The cached value of the '{@link #getFeatureGroupType() <em>Feature Group Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFeatureGroupType()
-	 * @generated
-	 * @ordered
-	 */
-	protected FeatureGroupType featureGroupType;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -139,25 +143,18 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * @generated
 	 */
 	public FeatureGroupType getFeatureGroupType() {
-		if (featureGroupType != null && ((EObject) featureGroupType).eIsProxy()) {
-			InternalEObject oldFeatureGroupType = (InternalEObject) featureGroupType;
-			featureGroupType = (FeatureGroupType) eResolveProxy(oldFeatureGroupType);
-			if (featureGroupType != oldFeatureGroupType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FEATURE_GROUP__FEATURE_GROUP_TYPE, oldFeatureGroupType, featureGroupType));
-			}
-		}
-		return featureGroupType;
+		FeatureGroupType featureGroupType = basicGetFeatureGroupType();
+		return featureGroupType != null && ((EObject) featureGroupType).eIsProxy() ? (FeatureGroupType) eResolveProxy((InternalEObject) featureGroupType)
+				: featureGroupType;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public FeatureGroupType basicGetFeatureGroupType() {
-		return featureGroupType;
+		return (basicGetFeatureType() instanceof FeatureGroupType) ? (FeatureGroupType) basicGetFeatureType() : null;
 	}
 
 	/**
@@ -165,12 +162,59 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFeatureGroupType(FeatureGroupType newFeatureGroupType) {
-		FeatureGroupType oldFeatureGroupType = featureGroupType;
-		featureGroupType = newFeatureGroupType;
+	public FeatureGroupPrototype getFeatureGroupPrototype() {
+		FeatureGroupPrototype featureGroupPrototype = basicGetFeatureGroupPrototype();
+		return featureGroupPrototype != null && ((EObject) featureGroupPrototype).eIsProxy() ? (FeatureGroupPrototype) eResolveProxy((InternalEObject) featureGroupPrototype)
+				: featureGroupPrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public FeatureGroupPrototype basicGetFeatureGroupPrototype() {
+		return (basicGetFeatureType() instanceof FeatureGroupPrototype) ? (FeatureGroupPrototype) basicGetFeatureType() : null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureType getFeatureType() {
+		if (featureType != null && ((EObject) featureType).eIsProxy()) {
+			InternalEObject oldFeatureType = (InternalEObject) featureType;
+			featureType = (FeatureType) eResolveProxy(oldFeatureType);
+			if (featureType != oldFeatureType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FEATURE_GROUP__FEATURE_TYPE,
+							oldFeatureType, featureType));
+			}
+		}
+		return featureType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureType basicGetFeatureType() {
+		return featureType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFeatureType(FeatureType newFeatureType) {
+		FeatureType oldFeatureType = featureType;
+		featureType = newFeatureType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP__FEATURE_GROUP_TYPE,
-					oldFeatureGroupType, featureGroupType));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP__FEATURE_TYPE,
+					oldFeatureType, featureType));
 	}
 
 	/**
@@ -181,12 +225,20 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+		case Aadl2Package.FEATURE_GROUP__FEATURE_TYPE:
+			if (resolve)
+				return getFeatureType();
+			return basicGetFeatureType();
 		case Aadl2Package.FEATURE_GROUP__INVERSE:
 			return isInverse();
 		case Aadl2Package.FEATURE_GROUP__FEATURE_GROUP_TYPE:
 			if (resolve)
 				return getFeatureGroupType();
 			return basicGetFeatureGroupType();
+		case Aadl2Package.FEATURE_GROUP__FEATURE_GROUP_PROTOTYPE:
+			if (resolve)
+				return getFeatureGroupPrototype();
+			return basicGetFeatureGroupPrototype();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -199,11 +251,11 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case Aadl2Package.FEATURE_GROUP__FEATURE_TYPE:
+			setFeatureType((FeatureType) newValue);
+			return;
 		case Aadl2Package.FEATURE_GROUP__INVERSE:
 			setInverse((Boolean) newValue);
-			return;
-		case Aadl2Package.FEATURE_GROUP__FEATURE_GROUP_TYPE:
-			setFeatureGroupType((FeatureGroupType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -217,11 +269,11 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.FEATURE_GROUP__FEATURE_TYPE:
+			setFeatureType((FeatureType) null);
+			return;
 		case Aadl2Package.FEATURE_GROUP__INVERSE:
 			setInverse(INVERSE_EDEFAULT);
-			return;
-		case Aadl2Package.FEATURE_GROUP__FEATURE_GROUP_TYPE:
-			setFeatureGroupType((FeatureGroupType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -235,10 +287,14 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.FEATURE_GROUP__FEATURE_TYPE:
+			return featureType != null;
 		case Aadl2Package.FEATURE_GROUP__INVERSE:
 			return inverse != INVERSE_EDEFAULT;
 		case Aadl2Package.FEATURE_GROUP__FEATURE_GROUP_TYPE:
-			return featureGroupType != null;
+			return basicGetFeatureGroupType() != null;
+		case Aadl2Package.FEATURE_GROUP__FEATURE_GROUP_PROTOTYPE:
+			return basicGetFeatureGroupPrototype() != null;
 		}
 		return super.eIsSet(featureID);
 	}
