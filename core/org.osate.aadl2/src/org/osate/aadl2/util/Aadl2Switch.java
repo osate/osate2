@@ -1052,15 +1052,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.CALL_CONTEXT: {
-			CallContext callContext = (CallContext) theEObject;
-			T result = caseCallContext(callContext);
-			if (result == null)
-				result = caseElement(callContext);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.DIRECTED_FEATURE: {
 			DirectedFeature directedFeature = (DirectedFeature) theEObject;
 			T result = caseDirectedFeature(directedFeature);
@@ -1082,6 +1073,15 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(directedFeature);
 			if (result == null)
 				result = caseElement(directedFeature);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.CALL_CONTEXT: {
+			CallContext callContext = (CallContext) theEObject;
+			T result = caseCallContext(callContext);
+			if (result == null)
+				result = caseElement(callContext);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2446,97 +2446,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE: {
-			SubprogramCallSequence subprogramCallSequence = (SubprogramCallSequence) theEObject;
-			T result = caseSubprogramCallSequence(subprogramCallSequence);
-			if (result == null)
-				result = caseBehavioralFeature(subprogramCallSequence);
-			if (result == null)
-				result = caseModalElement(subprogramCallSequence);
-			if (result == null)
-				result = caseClassifierFeature(subprogramCallSequence);
-			if (result == null)
-				result = caseNamedElement(subprogramCallSequence);
-			if (result == null)
-				result = caseElement(subprogramCallSequence);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.CALL_SPECIFICATION: {
-			CallSpecification callSpecification = (CallSpecification) theEObject;
-			T result = caseCallSpecification(callSpecification);
-			if (result == null)
-				result = caseBehavioralFeature(callSpecification);
-			if (result == null)
-				result = caseClassifierFeature(callSpecification);
-			if (result == null)
-				result = caseNamedElement(callSpecification);
-			if (result == null)
-				result = caseElement(callSpecification);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.PROCESSOR_CALL: {
-			ProcessorCall processorCall = (ProcessorCall) theEObject;
-			T result = caseProcessorCall(processorCall);
-			if (result == null)
-				result = caseCallSpecification(processorCall);
-			if (result == null)
-				result = caseBehavioralFeature(processorCall);
-			if (result == null)
-				result = caseClassifierFeature(processorCall);
-			if (result == null)
-				result = caseNamedElement(processorCall);
-			if (result == null)
-				result = caseElement(processorCall);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.BEHAVIORED_IMPLEMENTATION: {
-			BehavioredImplementation behavioredImplementation = (BehavioredImplementation) theEObject;
-			T result = caseBehavioredImplementation(behavioredImplementation);
-			if (result == null)
-				result = caseComponentImplementation(behavioredImplementation);
-			if (result == null)
-				result = caseComponentClassifier(behavioredImplementation);
-			if (result == null)
-				result = caseClassifier(behavioredImplementation);
-			if (result == null)
-				result = caseSubcomponentType(behavioredImplementation);
-			if (result == null)
-				result = caseNamespace(behavioredImplementation);
-			if (result == null)
-				result = caseType(behavioredImplementation);
-			if (result == null)
-				result = caseNamedElement(behavioredImplementation);
-			if (result == null)
-				result = caseElement(behavioredImplementation);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.SUBPROGRAM_CALL: {
-			SubprogramCall subprogramCall = (SubprogramCall) theEObject;
-			T result = caseSubprogramCall(subprogramCall);
-			if (result == null)
-				result = caseCallSpecification(subprogramCall);
-			if (result == null)
-				result = caseContext(subprogramCall);
-			if (result == null)
-				result = caseBehavioralFeature(subprogramCall);
-			if (result == null)
-				result = caseClassifierFeature(subprogramCall);
-			if (result == null)
-				result = caseNamedElement(subprogramCall);
-			if (result == null)
-				result = caseElement(subprogramCall);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.ABSTRACT_TYPE: {
 			AbstractType abstractType = (AbstractType) theEObject;
 			T result = caseAbstractType(abstractType);
@@ -2620,6 +2529,61 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(abstractImplementation);
 			if (result == null)
 				result = caseElement(abstractImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.BEHAVIORED_IMPLEMENTATION: {
+			BehavioredImplementation behavioredImplementation = (BehavioredImplementation) theEObject;
+			T result = caseBehavioredImplementation(behavioredImplementation);
+			if (result == null)
+				result = caseComponentImplementation(behavioredImplementation);
+			if (result == null)
+				result = caseComponentClassifier(behavioredImplementation);
+			if (result == null)
+				result = caseClassifier(behavioredImplementation);
+			if (result == null)
+				result = caseSubcomponentType(behavioredImplementation);
+			if (result == null)
+				result = caseNamespace(behavioredImplementation);
+			if (result == null)
+				result = caseType(behavioredImplementation);
+			if (result == null)
+				result = caseNamedElement(behavioredImplementation);
+			if (result == null)
+				result = caseElement(behavioredImplementation);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.CALL_SPECIFICATION: {
+			CallSpecification callSpecification = (CallSpecification) theEObject;
+			T result = caseCallSpecification(callSpecification);
+			if (result == null)
+				result = caseBehavioralFeature(callSpecification);
+			if (result == null)
+				result = caseClassifierFeature(callSpecification);
+			if (result == null)
+				result = caseNamedElement(callSpecification);
+			if (result == null)
+				result = caseElement(callSpecification);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE: {
+			SubprogramCallSequence subprogramCallSequence = (SubprogramCallSequence) theEObject;
+			T result = caseSubprogramCallSequence(subprogramCallSequence);
+			if (result == null)
+				result = caseBehavioralFeature(subprogramCallSequence);
+			if (result == null)
+				result = caseModalElement(subprogramCallSequence);
+			if (result == null)
+				result = caseClassifierFeature(subprogramCallSequence);
+			if (result == null)
+				result = caseNamedElement(subprogramCallSequence);
+			if (result == null)
+				result = caseElement(subprogramCallSequence);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -5260,6 +5224,42 @@ public class Aadl2Switch<T> {
 				result = caseAbstractConnectionEnd(processorSubprogram);
 			if (result == null)
 				result = caseElement(processorSubprogram);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESSOR_CALL: {
+			ProcessorCall processorCall = (ProcessorCall) theEObject;
+			T result = caseProcessorCall(processorCall);
+			if (result == null)
+				result = caseCallSpecification(processorCall);
+			if (result == null)
+				result = caseBehavioralFeature(processorCall);
+			if (result == null)
+				result = caseClassifierFeature(processorCall);
+			if (result == null)
+				result = caseNamedElement(processorCall);
+			if (result == null)
+				result = caseElement(processorCall);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM_CALL: {
+			SubprogramCall subprogramCall = (SubprogramCall) theEObject;
+			T result = caseSubprogramCall(subprogramCall);
+			if (result == null)
+				result = caseCallSpecification(subprogramCall);
+			if (result == null)
+				result = caseContext(subprogramCall);
+			if (result == null)
+				result = caseBehavioralFeature(subprogramCall);
+			if (result == null)
+				result = caseClassifierFeature(subprogramCall);
+			if (result == null)
+				result = caseNamedElement(subprogramCall);
+			if (result == null)
+				result = caseElement(subprogramCall);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;

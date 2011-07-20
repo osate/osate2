@@ -380,16 +380,12 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createPortSpecification();
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
 			return (EObject) createFeaturePrototypeReference();
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
-			return (EObject) createSubprogramCallSequence();
-		case Aadl2Package.PROCESSOR_CALL:
-			return (EObject) createProcessorCall();
-		case Aadl2Package.SUBPROGRAM_CALL:
-			return (EObject) createSubprogramCall();
 		case Aadl2Package.ABSTRACT_TYPE:
 			return (EObject) createAbstractType();
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION:
 			return (EObject) createAbstractImplementation();
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
+			return (EObject) createSubprogramCallSequence();
 		case Aadl2Package.BUS_SUBCOMPONENT:
 			return (EObject) createBusSubcomponent();
 		case Aadl2Package.DATA_SUBCOMPONENT:
@@ -562,6 +558,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createInternalEvent();
 		case Aadl2Package.PROCESSOR_SUBPROGRAM:
 			return (EObject) createProcessorSubprogram();
+		case Aadl2Package.PROCESSOR_CALL:
+			return (EObject) createProcessorCall();
+		case Aadl2Package.SUBPROGRAM_CALL:
+			return (EObject) createSubprogramCall();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}

@@ -979,10 +979,8 @@ Additionally, it defines how a subcomponent array can be instantiated as a list 
           <body>A collection of simple features and nested feature groups.</body>
         </ownedComment>
         <generalization xmi:id="Features-FeatureGroup-_generalization.0" general="Connections-Context"/>
-        <generalization xmi:id="Features-FeatureGroup-_generalization.3">
-          <general xmi:type="uml:Class" href="AADLDetails.uml#Calls-CallContext"/>
-        </generalization>
         <generalization xmi:id="_6V6_pKErEd6mnLJeBA6B9Q" general="_r3p5SJyLEd64G8zRE2nwuA"/>
+        <generalization xmi:id="_NwQ6cLLfEeCesPeKpYsnOA" general="_WCb05LLOEeCesPeKpYsnOA"/>
         <ownedAttribute xmi:id="Features-FeatureGroup-inverse" name="inverse">
           <ownedComment xmi:id="Features-FeatureGroup-inverse-_ownedComment.0">
             <body>Specifies if this feature group is an inverse of its type.</body>
@@ -2265,6 +2263,114 @@ The context owns the connection end instance.</body>
         <ownedEnd xmi:id="_FgdHVKmSEeCfxLim1SVFOg" name="inMode" type="Modes-Mode" isDerived="true" subsettedProperty="Modes-ModalPath-inTransition" association="_FgdHUKmSEeCfxLim1SVFOg">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FgdHVamSEeCfxLim1SVFOg" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FgdHVqmSEeCfxLim1SVFOg"/>
+        </ownedEnd>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_WCbNoLLOEeCesPeKpYsnOA" name="Calls">
+      <packagedElement xmi:type="uml:Class" xmi:id="_WCbNobLOEeCesPeKpYsnOA" name="SubprogramCallSequence">
+        <generalization xmi:id="_WCbNorLOEeCesPeKpYsnOA">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#BehavioralFeature"/>
+        </generalization>
+        <generalization xmi:id="_WCbNo7LOEeCesPeKpYsnOA" general="Modes-ModalElement"/>
+        <ownedAttribute xmi:id="_WCbNpLLOEeCesPeKpYsnOA" name="ownedCallSpecification" type="_WCb0sLLOEeCesPeKpYsnOA" isOrdered="true" aggregation="composite" association="_WCb01LLOEeCesPeKpYsnOA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCbNpbLOEeCesPeKpYsnOA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCbNprLOEeCesPeKpYsnOA"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_WCb0sLLOEeCesPeKpYsnOA" name="CallSpecification" isAbstract="true">
+        <generalization xmi:id="_WCb0sbLOEeCesPeKpYsnOA">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#BehavioralFeature"/>
+        </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_WCb0srLOEeCesPeKpYsnOA" name="CalledSubprogram" isAbstract="true">
+        <generalization xmi:id="_WCb0s7LOEeCesPeKpYsnOA">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
+        </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_WCb0tLLOEeCesPeKpYsnOA" name="A_subprogramCall_calledSubprogram" memberEnd="_WCb0tbLOEeCesPeKpYsnOA _WCb027LOEeCesPeKpYsnOA">
+        <ownedEnd xmi:id="_WCb0tbLOEeCesPeKpYsnOA" name="subprogramCall" type="_WCb02LLOEeCesPeKpYsnOA" association="_WCb0tLLOEeCesPeKpYsnOA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCb0trLOEeCesPeKpYsnOA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCb0t7LOEeCesPeKpYsnOA"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_WCb0uLLOEeCesPeKpYsnOA" name="A_behavioredImplementation_callSpecification" memberEnd="_WCb0ubLOEeCesPeKpYsnOA _WCb0ybLOEeCesPeKpYsnOA">
+        <ownedEnd xmi:id="_WCb0ubLOEeCesPeKpYsnOA" name="implementation" type="_WCb0x7LOEeCesPeKpYsnOA" association="_WCb0uLLOEeCesPeKpYsnOA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCb0urLOEeCesPeKpYsnOA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCb0u7LOEeCesPeKpYsnOA" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_WCb0vLLOEeCesPeKpYsnOA" name="ProcessorCall">
+        <generalization xmi:id="_WCb0vbLOEeCesPeKpYsnOA" general="_WCb0sLLOEeCesPeKpYsnOA"/>
+        <ownedAttribute xmi:id="_WCb0vrLOEeCesPeKpYsnOA" name="subprogramAccessName">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_WCb0v7LOEeCesPeKpYsnOA" name="A_behavioredImplementation_ownedSubprogramCallSequence" memberEnd="_WCb0wLLOEeCesPeKpYsnOA _WCb0zLLOEeCesPeKpYsnOA">
+        <ownedEnd xmi:id="_WCb0wLLOEeCesPeKpYsnOA" name="owner" type="_WCb0x7LOEeCesPeKpYsnOA" association="_WCb0v7LOEeCesPeKpYsnOA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCb0wbLOEeCesPeKpYsnOA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCb0wrLOEeCesPeKpYsnOA" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_WCb0w7LOEeCesPeKpYsnOA" name="A_subprogramCall_prototype" memberEnd="_WCb0xLLOEeCesPeKpYsnOA _WCb03rLOEeCesPeKpYsnOA">
+        <ownedEnd xmi:id="_WCb0xLLOEeCesPeKpYsnOA" name="subprogramCall" type="_WCb02LLOEeCesPeKpYsnOA" association="_WCb0w7LOEeCesPeKpYsnOA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCb0xbLOEeCesPeKpYsnOA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCb0xrLOEeCesPeKpYsnOA"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_WCb0x7LOEeCesPeKpYsnOA" name="BehavioredImplementation" isAbstract="true">
+        <generalization xmi:id="_WCb0yLLOEeCesPeKpYsnOA" general="Components-ComponentImplementation"/>
+        <ownedAttribute xmi:id="_WCb0ybLOEeCesPeKpYsnOA" name="callSpecification" type="_WCb0sLLOEeCesPeKpYsnOA" isDerived="true" association="_WCb0uLLOEeCesPeKpYsnOA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCb0yrLOEeCesPeKpYsnOA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCb0y7LOEeCesPeKpYsnOA"/>
+          <subsettedProperty href="AADLInfrastructure.uml#Namespace-member"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_WCb0zLLOEeCesPeKpYsnOA" name="ownedSubprogramCallSequence" type="_WCbNobLOEeCesPeKpYsnOA" aggregation="composite" association="_WCb0v7LOEeCesPeKpYsnOA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCb0zbLOEeCesPeKpYsnOA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCb0zrLOEeCesPeKpYsnOA"/>
+          <subsettedProperty href="AADLInfrastructure.uml#Classifier-classifierFeature"/>
+          <subsettedProperty href="AADLInfrastructure.uml#Namespace-ownedMember"/>
+        </ownedAttribute>
+        <ownedOperation xmi:id="_WCb0z7LOEeCesPeKpYsnOA" name="callSpecifications" isQuery="true">
+          <ownedComment xmi:id="_WCb00LLOEeCesPeKpYsnOA" annotatedElement="_WCb0z7LOEeCesPeKpYsnOA">
+            <body>Get all calls owned by owned call sequences.</body>
+          </ownedComment>
+          <ownedParameter xmi:id="_WCb00bLOEeCesPeKpYsnOA" type="_WCb0sLLOEeCesPeKpYsnOA" direction="return">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCb00rLOEeCesPeKpYsnOA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCb007LOEeCesPeKpYsnOA"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_WCb01LLOEeCesPeKpYsnOA" name="A_subprogramCallSequence_ownedCallSpecification" memberEnd="_WCb01bLOEeCesPeKpYsnOA _WCbNpLLOEeCesPeKpYsnOA">
+        <ownedEnd xmi:id="_WCb01bLOEeCesPeKpYsnOA" name="sequence" type="_WCbNobLOEeCesPeKpYsnOA" association="_WCb01LLOEeCesPeKpYsnOA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCb01rLOEeCesPeKpYsnOA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCb017LOEeCesPeKpYsnOA" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_WCb02LLOEeCesPeKpYsnOA" name="SubprogramCall">
+        <generalization xmi:id="_WCb02bLOEeCesPeKpYsnOA" general="_WCb0sLLOEeCesPeKpYsnOA"/>
+        <generalization xmi:id="_WCb02rLOEeCesPeKpYsnOA" general="Connections-Context"/>
+        <ownedAttribute xmi:id="_WCb027LOEeCesPeKpYsnOA" name="calledSubprogram" type="_WCb0srLOEeCesPeKpYsnOA" association="_WCb0tLLOEeCesPeKpYsnOA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCb03LLOEeCesPeKpYsnOA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCb03bLOEeCesPeKpYsnOA"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_WCb03rLOEeCesPeKpYsnOA" name="prototype" type="Templates-Prototype" association="_WCb0w7LOEeCesPeKpYsnOA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCb037LOEeCesPeKpYsnOA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCb04LLOEeCesPeKpYsnOA"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_WCb04bLOEeCesPeKpYsnOA" name="context" type="_WCb05LLOEeCesPeKpYsnOA" association="_WCb05rLOEeCesPeKpYsnOA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCb04rLOEeCesPeKpYsnOA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCb047LOEeCesPeKpYsnOA"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_WCb05LLOEeCesPeKpYsnOA" name="CallContext" isAbstract="true">
+        <generalization xmi:id="_WCb05bLOEeCesPeKpYsnOA">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
+        </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_WCb05rLOEeCesPeKpYsnOA" name="A_subprogramCall_context" memberEnd="_WCb057LOEeCesPeKpYsnOA _WCb04bLOEeCesPeKpYsnOA">
+        <ownedEnd xmi:id="_WCb057LOEeCesPeKpYsnOA" name="subprogramCall" type="_WCb02LLOEeCesPeKpYsnOA" association="_WCb05rLOEeCesPeKpYsnOA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WCb06LLOEeCesPeKpYsnOA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WCb06bLOEeCesPeKpYsnOA"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>
