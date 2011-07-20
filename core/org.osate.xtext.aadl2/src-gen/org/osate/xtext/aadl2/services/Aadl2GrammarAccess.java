@@ -13411,17 +13411,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	public class NumeralElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Numeral");
 		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cValueGINTParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
+		private final RuleCall cValueINTVALUEParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
 		//Numeral returns aadl2::Numeral:
-		//	value=gINT;
+		//	value=INTVALUE;
 		public ParserRule getRule() { return rule; }
 
-		//value=gINT
+		//value=INTVALUE
 		public Assignment getValueAssignment() { return cValueAssignment; }
 
-		//gINT
-		public RuleCall getValueGINTParserRuleCall_0() { return cValueGINTParserRuleCall_0; }
+		//INTVALUE
+		public RuleCall getValueINTVALUEParserRuleCall_0() { return cValueINTVALUEParserRuleCall_0; }
 	}
 
 	public class ComponentImplementationReferenceElements extends AbstractParserRuleElementFinder {
@@ -14902,14 +14902,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cOwnedPrototypeBindingAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_3_1.eContents().get(0);
-		private final Group cGroup_3_2 = (Group)cGroup_3.eContents().get(2);
-		private final Keyword cCommaKeyword_3_2_0 = (Keyword)cGroup_3_2.eContents().get(0);
-		private final Assignment cOwnedPrototypeBindingAssignment_3_2_1 = (Assignment)cGroup_3_2.eContents().get(1);
-		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_2_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_3_2_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3_3 = (Keyword)cGroup_3.eContents().get(3);
+		private final Assignment cOwnedExtensionAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final RuleCall cOwnedExtensionGroupExtensionParserRuleCall_3_0_0 = (RuleCall)cOwnedExtensionAssignment_3_0.eContents().get(0);
+		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
+		private final Assignment cOwnedPrototypeBindingAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
+		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_1_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_3_1_1.eContents().get(0);
+		private final Group cGroup_3_1_2 = (Group)cGroup_3_1.eContents().get(2);
+		private final Keyword cCommaKeyword_3_1_2_0 = (Keyword)cGroup_3_1_2.eContents().get(0);
+		private final Assignment cOwnedPrototypeBindingAssignment_3_1_2_1 = (Assignment)cGroup_3_1_2.eContents().get(1);
+		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_1_2_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_3_1_2_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3_1_3 = (Keyword)cGroup_3_1.eContents().get(3);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cPrototypesKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
@@ -14950,17 +14953,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_11 = (Keyword)cGroup.eContents().get(11);
 		
 		//FeatureGroupType returns aadl2::FeatureGroupType:
-		//	"feature" "group" name=ID //ownedExtension=GroupExtension
-		//	("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
-		//	(noPrototypes?="none" ";" | ownedPrototype+=Prototype+))? ("features" // no none for FGT (noFeatures?='none' ';') |
+		//	"feature" "group" name=ID (ownedExtension=GroupExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//	ownedPrototype+=Prototype+))? ("features" // no none for FGT (noFeatures?='none' ';') |
 		//	(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+)? ("inverse" "of"
 		//	inverse=[aadl2::FeatureGroupType|QCREF])? ("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ |
 		//	noProperties?="none" ";"))? ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
 
-		//"feature" "group" name=ID //ownedExtension=GroupExtension
-		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
-		//(noPrototypes?="none" ";" | ownedPrototype+=Prototype+))? ("features" // no none for FGT (noFeatures?='none' ';') |
+		//"feature" "group" name=ID (ownedExtension=GroupExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//ownedPrototype+=Prototype+))? ("features" // no none for FGT (noFeatures?='none' ';') |
 		//(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+)? ("inverse" "of"
 		//inverse=[aadl2::FeatureGroupType|QCREF])? ("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ |
 		//noProperties?="none" ";"))? ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
@@ -14978,32 +14981,42 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//(ownedExtension=GroupExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_3() { return cGroup_3; }
 
+		//ownedExtension=GroupExtension
+		public Assignment getOwnedExtensionAssignment_3_0() { return cOwnedExtensionAssignment_3_0; }
+
+		//GroupExtension
+		public RuleCall getOwnedExtensionGroupExtensionParserRuleCall_3_0_0() { return cOwnedExtensionGroupExtensionParserRuleCall_3_0_0; }
+
+		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		public Group getGroup_3_1() { return cGroup_3_1; }
+
 		//=> "("
-		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
+		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
-		public Assignment getOwnedPrototypeBindingAssignment_3_1() { return cOwnedPrototypeBindingAssignment_3_1; }
+		public Assignment getOwnedPrototypeBindingAssignment_3_1_1() { return cOwnedPrototypeBindingAssignment_3_1_1; }
 
 		//PrototypeBinding
-		public RuleCall getOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_1_0() { return cOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_1_0; }
+		public RuleCall getOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_1_1_0() { return cOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_1_1_0; }
 
 		//("," ownedPrototypeBinding+=PrototypeBinding)*
-		public Group getGroup_3_2() { return cGroup_3_2; }
+		public Group getGroup_3_1_2() { return cGroup_3_1_2; }
 
 		//","
-		public Keyword getCommaKeyword_3_2_0() { return cCommaKeyword_3_2_0; }
+		public Keyword getCommaKeyword_3_1_2_0() { return cCommaKeyword_3_1_2_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
-		public Assignment getOwnedPrototypeBindingAssignment_3_2_1() { return cOwnedPrototypeBindingAssignment_3_2_1; }
+		public Assignment getOwnedPrototypeBindingAssignment_3_1_2_1() { return cOwnedPrototypeBindingAssignment_3_1_2_1; }
 
 		//PrototypeBinding
-		public RuleCall getOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_2_1_0() { return cOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_2_1_0; }
+		public RuleCall getOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_1_2_1_0() { return cOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_1_2_1_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_3_3() { return cRightParenthesisKeyword_3_3; }
+		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
 		//(=> "prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_4() { return cGroup_4; }
@@ -17371,10 +17384,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFlowElementEndToEndFlowElementIDTerminalRuleCall_1_0_1 = (RuleCall)cFlowElementEndToEndFlowElementCrossReference_1_0.eContents().get(1);
 		
 		//ETESubcomponentFlow returns aadl2::EndToEndFlowSegment:
-		//	(context=[aadl2::Subcomponent] ".")? flowElement+=[aadl2::EndToEndFlowElement];
+		//	(context=[aadl2::Subcomponent] ".")? flowElement=[aadl2::EndToEndFlowElement];
 		public ParserRule getRule() { return rule; }
 
-		//(context=[aadl2::Subcomponent] ".")? flowElement+=[aadl2::EndToEndFlowElement]
+		//(context=[aadl2::Subcomponent] ".")? flowElement=[aadl2::EndToEndFlowElement]
 		public Group getGroup() { return cGroup; }
 
 		//(context=[aadl2::Subcomponent] ".")?
@@ -17392,7 +17405,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"."
 		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
 
-		//flowElement+=[aadl2::EndToEndFlowElement]
+		//flowElement=[aadl2::EndToEndFlowElement]
 		public Assignment getFlowElementAssignment_1() { return cFlowElementAssignment_1; }
 
 		//[aadl2::EndToEndFlowElement]
@@ -17409,10 +17422,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFlowElementConnectionIDTerminalRuleCall_0_1 = (RuleCall)cFlowElementConnectionCrossReference_0.eContents().get(1);
 		
 		//ETEConnectionFlow returns aadl2::EndToEndFlowSegment:
-		//	flowElement+=[aadl2::Connection];
+		//	flowElement=[aadl2::Connection];
 		public ParserRule getRule() { return rule; }
 
-		//flowElement+=[aadl2::Connection]
+		//flowElement=[aadl2::Connection]
 		public Assignment getFlowElementAssignment() { return cFlowElementAssignment; }
 
 		//[aadl2::Connection]
@@ -18522,20 +18535,22 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAadlrealKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cRangeAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cRangeRealRangeParserRuleCall_4_0 = (RuleCall)cRangeAssignment_4.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cUnitsKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Alternatives cAlternatives_5_1 = (Alternatives)cGroup_5.eContents().get(1);
-		private final Assignment cOwnedUnitsTypeAssignment_5_1_0 = (Assignment)cAlternatives_5_1.eContents().get(0);
-		private final RuleCall cOwnedUnitsTypeUnitsTypeParserRuleCall_5_1_0_0 = (RuleCall)cOwnedUnitsTypeAssignment_5_1_0.eContents().get(0);
-		private final Assignment cUnitsTypeAssignment_5_1_1 = (Assignment)cAlternatives_5_1.eContents().get(1);
+		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
+		private final Assignment cOwnedUnitsTypeAssignment_5_0 = (Assignment)cAlternatives_5.eContents().get(0);
+		private final RuleCall cOwnedUnitsTypeUnnamedUnitsTypeParserRuleCall_5_0_0 = (RuleCall)cOwnedUnitsTypeAssignment_5_0.eContents().get(0);
+		private final Group cGroup_5_1 = (Group)cAlternatives_5.eContents().get(1);
+		private final Keyword cUnitsKeyword_5_1_0 = (Keyword)cGroup_5_1.eContents().get(0);
+		private final Assignment cUnitsTypeAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
 		private final CrossReference cUnitsTypeUnitsTypeCrossReference_5_1_1_0 = (CrossReference)cUnitsTypeAssignment_5_1_1.eContents().get(0);
-		private final RuleCall cUnitsTypeUnitsTypeIDTerminalRuleCall_5_1_1_0_1 = (RuleCall)cUnitsTypeUnitsTypeCrossReference_5_1_1_0.eContents().get(1);
+		private final RuleCall cUnitsTypeUnitsTypeQPREFParserRuleCall_5_1_1_0_1 = (RuleCall)cUnitsTypeUnitsTypeCrossReference_5_1_1_0.eContents().get(1);
 		
 		//RealType returns aadl2::AadlReal:
-		//	name=ID ":" "type" "aadlreal" range=RealRange? ("units" (ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]))?;
+		//	name=ID ":" "type" "aadlreal" range=RealRange? (ownedUnitsType=UnnamedUnitsType | "units"
+		//	unitsType=[aadl2::UnitsType|QPREF])?;
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "type" "aadlreal" range=RealRange? ("units" (ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]))?
+		//name=ID ":" "type" "aadlreal" range=RealRange? (ownedUnitsType=UnnamedUnitsType | "units"
+		//unitsType=[aadl2::UnitsType|QPREF])?
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -18559,29 +18574,29 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RealRange
 		public RuleCall getRangeRealRangeParserRuleCall_4_0() { return cRangeRealRangeParserRuleCall_4_0; }
 
-		//("units" (ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]))?
-		public Group getGroup_5() { return cGroup_5; }
+		//(ownedUnitsType=UnnamedUnitsType | "units" unitsType=[aadl2::UnitsType|QPREF])?
+		public Alternatives getAlternatives_5() { return cAlternatives_5; }
+
+		//ownedUnitsType=UnnamedUnitsType
+		public Assignment getOwnedUnitsTypeAssignment_5_0() { return cOwnedUnitsTypeAssignment_5_0; }
+
+		//UnnamedUnitsType
+		public RuleCall getOwnedUnitsTypeUnnamedUnitsTypeParserRuleCall_5_0_0() { return cOwnedUnitsTypeUnnamedUnitsTypeParserRuleCall_5_0_0; }
+
+		//"units" unitsType=[aadl2::UnitsType|QPREF]
+		public Group getGroup_5_1() { return cGroup_5_1; }
 
 		//"units"
-		public Keyword getUnitsKeyword_5_0() { return cUnitsKeyword_5_0; }
+		public Keyword getUnitsKeyword_5_1_0() { return cUnitsKeyword_5_1_0; }
 
-		//ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]
-		public Alternatives getAlternatives_5_1() { return cAlternatives_5_1; }
-
-		//ownedUnitsType=UnitsType
-		public Assignment getOwnedUnitsTypeAssignment_5_1_0() { return cOwnedUnitsTypeAssignment_5_1_0; }
-
-		//UnitsType
-		public RuleCall getOwnedUnitsTypeUnitsTypeParserRuleCall_5_1_0_0() { return cOwnedUnitsTypeUnitsTypeParserRuleCall_5_1_0_0; }
-
-		//unitsType=[aadl2::UnitsType]
+		//unitsType=[aadl2::UnitsType|QPREF]
 		public Assignment getUnitsTypeAssignment_5_1_1() { return cUnitsTypeAssignment_5_1_1; }
 
-		//[aadl2::UnitsType]
+		//[aadl2::UnitsType|QPREF]
 		public CrossReference getUnitsTypeUnitsTypeCrossReference_5_1_1_0() { return cUnitsTypeUnitsTypeCrossReference_5_1_1_0; }
 
-		//ID
-		public RuleCall getUnitsTypeUnitsTypeIDTerminalRuleCall_5_1_1_0_1() { return cUnitsTypeUnitsTypeIDTerminalRuleCall_5_1_1_0_1; }
+		//QPREF
+		public RuleCall getUnitsTypeUnitsTypeQPREFParserRuleCall_5_1_1_0_1() { return cUnitsTypeUnitsTypeQPREFParserRuleCall_5_1_1_0_1; }
 	}
 
 	public class UnnamedRealTypeElements extends AbstractParserRuleElementFinder {
@@ -18591,20 +18606,22 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAadlrealKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cRangeAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cRangeRealRangeParserRuleCall_2_0 = (RuleCall)cRangeAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cUnitsKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Alternatives cAlternatives_3_1 = (Alternatives)cGroup_3.eContents().get(1);
-		private final Assignment cOwnedUnitsTypeAssignment_3_1_0 = (Assignment)cAlternatives_3_1.eContents().get(0);
-		private final RuleCall cOwnedUnitsTypeUnitsTypeParserRuleCall_3_1_0_0 = (RuleCall)cOwnedUnitsTypeAssignment_3_1_0.eContents().get(0);
-		private final Assignment cUnitsTypeAssignment_3_1_1 = (Assignment)cAlternatives_3_1.eContents().get(1);
+		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
+		private final Assignment cOwnedUnitsTypeAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
+		private final RuleCall cOwnedUnitsTypeUnnamedUnitsTypeParserRuleCall_3_0_0 = (RuleCall)cOwnedUnitsTypeAssignment_3_0.eContents().get(0);
+		private final Group cGroup_3_1 = (Group)cAlternatives_3.eContents().get(1);
+		private final Keyword cUnitsKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
+		private final Assignment cUnitsTypeAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
 		private final CrossReference cUnitsTypeUnitsTypeCrossReference_3_1_1_0 = (CrossReference)cUnitsTypeAssignment_3_1_1.eContents().get(0);
-		private final RuleCall cUnitsTypeUnitsTypeIDTerminalRuleCall_3_1_1_0_1 = (RuleCall)cUnitsTypeUnitsTypeCrossReference_3_1_1_0.eContents().get(1);
+		private final RuleCall cUnitsTypeUnitsTypeQPREFParserRuleCall_3_1_1_0_1 = (RuleCall)cUnitsTypeUnitsTypeCrossReference_3_1_1_0.eContents().get(1);
 		
 		//UnnamedRealType returns aadl2::AadlReal:
-		//	{aadl2::AadlReal} "aadlreal" range=RealRange? ("units" (ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]))?;
+		//	{aadl2::AadlReal} "aadlreal" range=RealRange? (ownedUnitsType=UnnamedUnitsType | "units"
+		//	unitsType=[aadl2::UnitsType|QPREF])?;
 		public ParserRule getRule() { return rule; }
 
-		//{aadl2::AadlReal} "aadlreal" range=RealRange? ("units" (ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]))?
+		//{aadl2::AadlReal} "aadlreal" range=RealRange? (ownedUnitsType=UnnamedUnitsType | "units"
+		//unitsType=[aadl2::UnitsType|QPREF])?
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::AadlReal}
@@ -18619,29 +18636,29 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RealRange
 		public RuleCall getRangeRealRangeParserRuleCall_2_0() { return cRangeRealRangeParserRuleCall_2_0; }
 
-		//("units" (ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]))?
-		public Group getGroup_3() { return cGroup_3; }
+		//(ownedUnitsType=UnnamedUnitsType | "units" unitsType=[aadl2::UnitsType|QPREF])?
+		public Alternatives getAlternatives_3() { return cAlternatives_3; }
+
+		//ownedUnitsType=UnnamedUnitsType
+		public Assignment getOwnedUnitsTypeAssignment_3_0() { return cOwnedUnitsTypeAssignment_3_0; }
+
+		//UnnamedUnitsType
+		public RuleCall getOwnedUnitsTypeUnnamedUnitsTypeParserRuleCall_3_0_0() { return cOwnedUnitsTypeUnnamedUnitsTypeParserRuleCall_3_0_0; }
+
+		//"units" unitsType=[aadl2::UnitsType|QPREF]
+		public Group getGroup_3_1() { return cGroup_3_1; }
 
 		//"units"
-		public Keyword getUnitsKeyword_3_0() { return cUnitsKeyword_3_0; }
+		public Keyword getUnitsKeyword_3_1_0() { return cUnitsKeyword_3_1_0; }
 
-		//ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]
-		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
-
-		//ownedUnitsType=UnitsType
-		public Assignment getOwnedUnitsTypeAssignment_3_1_0() { return cOwnedUnitsTypeAssignment_3_1_0; }
-
-		//UnitsType
-		public RuleCall getOwnedUnitsTypeUnitsTypeParserRuleCall_3_1_0_0() { return cOwnedUnitsTypeUnitsTypeParserRuleCall_3_1_0_0; }
-
-		//unitsType=[aadl2::UnitsType]
+		//unitsType=[aadl2::UnitsType|QPREF]
 		public Assignment getUnitsTypeAssignment_3_1_1() { return cUnitsTypeAssignment_3_1_1; }
 
-		//[aadl2::UnitsType]
+		//[aadl2::UnitsType|QPREF]
 		public CrossReference getUnitsTypeUnitsTypeCrossReference_3_1_1_0() { return cUnitsTypeUnitsTypeCrossReference_3_1_1_0; }
 
-		//ID
-		public RuleCall getUnitsTypeUnitsTypeIDTerminalRuleCall_3_1_1_0_1() { return cUnitsTypeUnitsTypeIDTerminalRuleCall_3_1_1_0_1; }
+		//QPREF
+		public RuleCall getUnitsTypeUnitsTypeQPREFParserRuleCall_3_1_1_0_1() { return cUnitsTypeUnitsTypeQPREFParserRuleCall_3_1_1_0_1; }
 	}
 
 	public class IntegerTypeElements extends AbstractParserRuleElementFinder {
@@ -18654,22 +18671,22 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAadlintegerKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cRangeAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cRangeIntegerRangeParserRuleCall_4_0 = (RuleCall)cRangeAssignment_4.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cUnitsKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Alternatives cAlternatives_5_1 = (Alternatives)cGroup_5.eContents().get(1);
-		private final Assignment cOwnedUnitsTypeAssignment_5_1_0 = (Assignment)cAlternatives_5_1.eContents().get(0);
-		private final RuleCall cOwnedUnitsTypeUnitsTypeParserRuleCall_5_1_0_0 = (RuleCall)cOwnedUnitsTypeAssignment_5_1_0.eContents().get(0);
-		private final Assignment cUnitsTypeAssignment_5_1_1 = (Assignment)cAlternatives_5_1.eContents().get(1);
+		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
+		private final Assignment cOwnedUnitsTypeAssignment_5_0 = (Assignment)cAlternatives_5.eContents().get(0);
+		private final RuleCall cOwnedUnitsTypeUnnamedUnitsTypeParserRuleCall_5_0_0 = (RuleCall)cOwnedUnitsTypeAssignment_5_0.eContents().get(0);
+		private final Group cGroup_5_1 = (Group)cAlternatives_5.eContents().get(1);
+		private final Keyword cUnitsKeyword_5_1_0 = (Keyword)cGroup_5_1.eContents().get(0);
+		private final Assignment cUnitsTypeAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
 		private final CrossReference cUnitsTypeUnitsTypeCrossReference_5_1_1_0 = (CrossReference)cUnitsTypeAssignment_5_1_1.eContents().get(0);
-		private final RuleCall cUnitsTypeUnitsTypeIDTerminalRuleCall_5_1_1_0_1 = (RuleCall)cUnitsTypeUnitsTypeCrossReference_5_1_1_0.eContents().get(1);
+		private final RuleCall cUnitsTypeUnitsTypeQPREFParserRuleCall_5_1_1_0_1 = (RuleCall)cUnitsTypeUnitsTypeCrossReference_5_1_1_0.eContents().get(1);
 		
 		//IntegerType returns aadl2::AadlInteger:
-		//	name=ID ":" "type" "aadlinteger" range=IntegerRange? ("units" (ownedUnitsType=UnitsType |
-		//	unitsType=[aadl2::UnitsType]))?;
+		//	name=ID ":" "type" "aadlinteger" range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | "units"
+		//	unitsType=[aadl2::UnitsType|QPREF])?;
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "type" "aadlinteger" range=IntegerRange? ("units" (ownedUnitsType=UnitsType |
-		//unitsType=[aadl2::UnitsType]))?
+		//name=ID ":" "type" "aadlinteger" range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | "units"
+		//unitsType=[aadl2::UnitsType|QPREF])?
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -18693,29 +18710,29 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//IntegerRange
 		public RuleCall getRangeIntegerRangeParserRuleCall_4_0() { return cRangeIntegerRangeParserRuleCall_4_0; }
 
-		//("units" (ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]))?
-		public Group getGroup_5() { return cGroup_5; }
+		//(ownedUnitsType=UnnamedUnitsType | "units" unitsType=[aadl2::UnitsType|QPREF])?
+		public Alternatives getAlternatives_5() { return cAlternatives_5; }
+
+		//ownedUnitsType=UnnamedUnitsType
+		public Assignment getOwnedUnitsTypeAssignment_5_0() { return cOwnedUnitsTypeAssignment_5_0; }
+
+		//UnnamedUnitsType
+		public RuleCall getOwnedUnitsTypeUnnamedUnitsTypeParserRuleCall_5_0_0() { return cOwnedUnitsTypeUnnamedUnitsTypeParserRuleCall_5_0_0; }
+
+		//"units" unitsType=[aadl2::UnitsType|QPREF]
+		public Group getGroup_5_1() { return cGroup_5_1; }
 
 		//"units"
-		public Keyword getUnitsKeyword_5_0() { return cUnitsKeyword_5_0; }
+		public Keyword getUnitsKeyword_5_1_0() { return cUnitsKeyword_5_1_0; }
 
-		//ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]
-		public Alternatives getAlternatives_5_1() { return cAlternatives_5_1; }
-
-		//ownedUnitsType=UnitsType
-		public Assignment getOwnedUnitsTypeAssignment_5_1_0() { return cOwnedUnitsTypeAssignment_5_1_0; }
-
-		//UnitsType
-		public RuleCall getOwnedUnitsTypeUnitsTypeParserRuleCall_5_1_0_0() { return cOwnedUnitsTypeUnitsTypeParserRuleCall_5_1_0_0; }
-
-		//unitsType=[aadl2::UnitsType]
+		//unitsType=[aadl2::UnitsType|QPREF]
 		public Assignment getUnitsTypeAssignment_5_1_1() { return cUnitsTypeAssignment_5_1_1; }
 
-		//[aadl2::UnitsType]
+		//[aadl2::UnitsType|QPREF]
 		public CrossReference getUnitsTypeUnitsTypeCrossReference_5_1_1_0() { return cUnitsTypeUnitsTypeCrossReference_5_1_1_0; }
 
-		//ID
-		public RuleCall getUnitsTypeUnitsTypeIDTerminalRuleCall_5_1_1_0_1() { return cUnitsTypeUnitsTypeIDTerminalRuleCall_5_1_1_0_1; }
+		//QPREF
+		public RuleCall getUnitsTypeUnitsTypeQPREFParserRuleCall_5_1_1_0_1() { return cUnitsTypeUnitsTypeQPREFParserRuleCall_5_1_1_0_1; }
 	}
 
 	public class UnnamedIntegerTypeElements extends AbstractParserRuleElementFinder {
@@ -18725,22 +18742,22 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAadlintegerKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cRangeAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cRangeIntegerRangeParserRuleCall_2_0 = (RuleCall)cRangeAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cUnitsKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Alternatives cAlternatives_3_1 = (Alternatives)cGroup_3.eContents().get(1);
-		private final Assignment cOwnedUnitsTypeAssignment_3_1_0 = (Assignment)cAlternatives_3_1.eContents().get(0);
-		private final RuleCall cOwnedUnitsTypeUnitsTypeParserRuleCall_3_1_0_0 = (RuleCall)cOwnedUnitsTypeAssignment_3_1_0.eContents().get(0);
-		private final Assignment cUnitsTypeAssignment_3_1_1 = (Assignment)cAlternatives_3_1.eContents().get(1);
+		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
+		private final Assignment cOwnedUnitsTypeAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
+		private final RuleCall cOwnedUnitsTypeUnnamedUnitsTypeParserRuleCall_3_0_0 = (RuleCall)cOwnedUnitsTypeAssignment_3_0.eContents().get(0);
+		private final Group cGroup_3_1 = (Group)cAlternatives_3.eContents().get(1);
+		private final Keyword cUnitsKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
+		private final Assignment cUnitsTypeAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
 		private final CrossReference cUnitsTypeUnitsTypeCrossReference_3_1_1_0 = (CrossReference)cUnitsTypeAssignment_3_1_1.eContents().get(0);
-		private final RuleCall cUnitsTypeUnitsTypeIDTerminalRuleCall_3_1_1_0_1 = (RuleCall)cUnitsTypeUnitsTypeCrossReference_3_1_1_0.eContents().get(1);
+		private final RuleCall cUnitsTypeUnitsTypeQPREFParserRuleCall_3_1_1_0_1 = (RuleCall)cUnitsTypeUnitsTypeCrossReference_3_1_1_0.eContents().get(1);
 		
 		//UnnamedIntegerType returns aadl2::AadlInteger:
-		//	{aadl2::AadlInteger} "aadlinteger" range=IntegerRange? ("units" (ownedUnitsType=UnitsType |
-		//	unitsType=[aadl2::UnitsType]))?;
+		//	{aadl2::AadlInteger} "aadlinteger" range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | "units"
+		//	unitsType=[aadl2::UnitsType|QPREF])?;
 		public ParserRule getRule() { return rule; }
 
-		//{aadl2::AadlInteger} "aadlinteger" range=IntegerRange? ("units" (ownedUnitsType=UnitsType |
-		//unitsType=[aadl2::UnitsType]))?
+		//{aadl2::AadlInteger} "aadlinteger" range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | "units"
+		//unitsType=[aadl2::UnitsType|QPREF])?
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::AadlInteger}
@@ -18755,29 +18772,29 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//IntegerRange
 		public RuleCall getRangeIntegerRangeParserRuleCall_2_0() { return cRangeIntegerRangeParserRuleCall_2_0; }
 
-		//("units" (ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]))?
-		public Group getGroup_3() { return cGroup_3; }
+		//(ownedUnitsType=UnnamedUnitsType | "units" unitsType=[aadl2::UnitsType|QPREF])?
+		public Alternatives getAlternatives_3() { return cAlternatives_3; }
+
+		//ownedUnitsType=UnnamedUnitsType
+		public Assignment getOwnedUnitsTypeAssignment_3_0() { return cOwnedUnitsTypeAssignment_3_0; }
+
+		//UnnamedUnitsType
+		public RuleCall getOwnedUnitsTypeUnnamedUnitsTypeParserRuleCall_3_0_0() { return cOwnedUnitsTypeUnnamedUnitsTypeParserRuleCall_3_0_0; }
+
+		//"units" unitsType=[aadl2::UnitsType|QPREF]
+		public Group getGroup_3_1() { return cGroup_3_1; }
 
 		//"units"
-		public Keyword getUnitsKeyword_3_0() { return cUnitsKeyword_3_0; }
+		public Keyword getUnitsKeyword_3_1_0() { return cUnitsKeyword_3_1_0; }
 
-		//ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]
-		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
-
-		//ownedUnitsType=UnitsType
-		public Assignment getOwnedUnitsTypeAssignment_3_1_0() { return cOwnedUnitsTypeAssignment_3_1_0; }
-
-		//UnitsType
-		public RuleCall getOwnedUnitsTypeUnitsTypeParserRuleCall_3_1_0_0() { return cOwnedUnitsTypeUnitsTypeParserRuleCall_3_1_0_0; }
-
-		//unitsType=[aadl2::UnitsType]
+		//unitsType=[aadl2::UnitsType|QPREF]
 		public Assignment getUnitsTypeAssignment_3_1_1() { return cUnitsTypeAssignment_3_1_1; }
 
-		//[aadl2::UnitsType]
+		//[aadl2::UnitsType|QPREF]
 		public CrossReference getUnitsTypeUnitsTypeCrossReference_3_1_1_0() { return cUnitsTypeUnitsTypeCrossReference_3_1_1_0; }
 
-		//ID
-		public RuleCall getUnitsTypeUnitsTypeIDTerminalRuleCall_3_1_1_0_1() { return cUnitsTypeUnitsTypeIDTerminalRuleCall_3_1_1_0_1; }
+		//QPREF
+		public RuleCall getUnitsTypeUnitsTypeQPREFParserRuleCall_3_1_1_0_1() { return cUnitsTypeUnitsTypeQPREFParserRuleCall_3_1_1_0_1; }
 	}
 
 	public class RangeTypeElements extends AbstractParserRuleElementFinder {
@@ -19027,13 +19044,15 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSTARParserRuleCall_0_3 = (RuleCall)cGroup_0.eContents().get(3);
 		private final RuleCall cSTARParserRuleCall_0_4 = (RuleCall)cGroup_0.eContents().get(4);
 		private final Assignment cMetaclassNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cMetaclassNameIDTerminalRuleCall_1_0 = (RuleCall)cMetaclassNameAssignment_1.eContents().get(0);
+		private final Alternatives cMetaclassNameAlternatives_1_0 = (Alternatives)cMetaclassNameAssignment_1.eContents().get(0);
+		private final RuleCall cMetaclassNameCoreKeyWordParserRuleCall_1_0_0 = (RuleCall)cMetaclassNameAlternatives_1_0.eContents().get(0);
+		private final RuleCall cMetaclassNameIDTerminalRuleCall_1_0_1 = (RuleCall)cMetaclassNameAlternatives_1_0.eContents().get(1);
 		
 		//QCReference returns aadl2::MetaclassReference:
-		//	("{" annexName=ID "}" STAR STAR)? metaclassName+=ID;
+		//	("{" annexName=ID "}" STAR STAR)? metaclassName+=(CoreKeyWord | ID);
 		public ParserRule getRule() { return rule; }
 
-		//("{" annexName=ID "}" STAR STAR)? metaclassName+=ID
+		//("{" annexName=ID "}" STAR STAR)? metaclassName+=(CoreKeyWord | ID)
 		public Group getGroup() { return cGroup; }
 
 		//("{" annexName=ID "}" STAR STAR)?
@@ -19057,11 +19076,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//STAR
 		public RuleCall getSTARParserRuleCall_0_4() { return cSTARParserRuleCall_0_4; }
 
-		//metaclassName+=ID
+		//metaclassName+=(CoreKeyWord | ID)
 		public Assignment getMetaclassNameAssignment_1() { return cMetaclassNameAssignment_1; }
 
+		//CoreKeyWord | ID
+		public Alternatives getMetaclassNameAlternatives_1_0() { return cMetaclassNameAlternatives_1_0; }
+
+		//CoreKeyWord
+		public RuleCall getMetaclassNameCoreKeyWordParserRuleCall_1_0_0() { return cMetaclassNameCoreKeyWordParserRuleCall_1_0_0; }
+
 		//ID
-		public RuleCall getMetaclassNameIDTerminalRuleCall_1_0() { return cMetaclassNameIDTerminalRuleCall_1_0; }
+		public RuleCall getMetaclassNameIDTerminalRuleCall_1_0_1() { return cMetaclassNameIDTerminalRuleCall_1_0_1; }
 	}
 
 	public class ReferenceTypeElements extends AbstractParserRuleElementFinder {
@@ -19465,24 +19490,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	public class PropertyOwnerElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyOwner");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cClassifierValueParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cQCReferenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cQCReferenceParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//PropertyOwner returns aadl2::PropertyOwner:
-		//	ClassifierValue // classifier value is always qualified by a package name
-		//	| QCReference;
+		////(ClassifierValue|QCReference)
+		//PropertyOwner returns aadl2::PropertyOwner: // classifier value is always qualified by a package name
+		//	QCReference;
 		public ParserRule getRule() { return rule; }
 
-		//ClassifierValue // classifier value is always qualified by a package name
-		//| QCReference
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//ClassifierValue
-		public RuleCall getClassifierValueParserRuleCall_0() { return cClassifierValueParserRuleCall_0; }
-
+		//// classifier value is always qualified by a package name
 		//QCReference
-		public RuleCall getQCReferenceParserRuleCall_1() { return cQCReferenceParserRuleCall_1; }
+		public RuleCall getQCReferenceParserRuleCall() { return cQCReferenceParserRuleCall; }
 	}
 
 	public class ClassifierValueElements extends AbstractParserRuleElementFinder {
@@ -19599,33 +19616,33 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	public class RealLitElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "RealLit");
 		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cValueGREALParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
+		private final RuleCall cValueREALVALUEParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
 		//RealLit returns aadl2::RealLiteral:
-		//	value=gREAL;
+		//	value=REALVALUE;
 		public ParserRule getRule() { return rule; }
 
-		//value=gREAL
+		//value=REALVALUE
 		public Assignment getValueAssignment() { return cValueAssignment; }
 
-		//gREAL
-		public RuleCall getValueGREALParserRuleCall_0() { return cValueGREALParserRuleCall_0; }
+		//REALVALUE
+		public RuleCall getValueREALVALUEParserRuleCall_0() { return cValueREALVALUEParserRuleCall_0; }
 	}
 
 	public class IntegerLitElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "IntegerLit");
 		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cValueGINTParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
+		private final RuleCall cValueINTVALUEParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
 		//IntegerLit returns aadl2::IntegerLiteral:
-		//	value=gINT;
+		//	value=INTVALUE;
 		public ParserRule getRule() { return rule; }
 
-		//value=gINT
+		//value=INTVALUE
 		public Assignment getValueAssignment() { return cValueAssignment; }
 
-		//gINT
-		public RuleCall getValueGINTParserRuleCall_0() { return cValueGINTParserRuleCall_0; }
+		//INTVALUE
+		public RuleCall getValueINTVALUEParserRuleCall_0() { return cValueINTVALUEParserRuleCall_0; }
 	}
 
 	public class BasicPropertyAssociationElements extends AbstractParserRuleElementFinder {
@@ -20133,15 +20150,15 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cComponentClassifierTermParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		private final RuleCall cListTermParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
 		private final RuleCall cBooleanTermParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cLiteralorReferenceTermParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
 		
-		////| LiteralorReferenceTerm
 		//ConstantPropertyExpression returns aadl2::PropertyExpression:
 		//	RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
-		//	ListTerm | BooleanTerm;
+		//	ListTerm | BooleanTerm | LiteralorReferenceTerm;
 		public ParserRule getRule() { return rule; }
 
 		//RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm | ListTerm
-		//| BooleanTerm
+		//| BooleanTerm | LiteralorReferenceTerm
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//RecordTerm
@@ -20170,22 +20187,35 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//BooleanTerm
 		public RuleCall getBooleanTermParserRuleCall_8() { return cBooleanTermParserRuleCall_8; }
+
+		//LiteralorReferenceTerm
+		public RuleCall getLiteralorReferenceTermParserRuleCall_9() { return cLiteralorReferenceTermParserRuleCall_9; }
+	}
+
+	public class LiteralorReferenceTermElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "LiteralorReferenceTerm");
+		private final Assignment cNamedValueAssignment = (Assignment)rule.eContents().get(1);
+		private final CrossReference cNamedValueAbstractNamedValueCrossReference_0 = (CrossReference)cNamedValueAssignment.eContents().get(0);
+		private final RuleCall cNamedValueAbstractNamedValueQPREFParserRuleCall_0_1 = (RuleCall)cNamedValueAbstractNamedValueCrossReference_0.eContents().get(1);
+		
+		//LiteralorReferenceTerm returns aadl2::NamedValue:
+		//	namedValue=[aadl2::AbstractNamedValue|QPREF];
+		public ParserRule getRule() { return rule; }
+
+		//namedValue=[aadl2::AbstractNamedValue|QPREF]
+		public Assignment getNamedValueAssignment() { return cNamedValueAssignment; }
+
+		//[aadl2::AbstractNamedValue|QPREF]
+		public CrossReference getNamedValueAbstractNamedValueCrossReference_0() { return cNamedValueAbstractNamedValueCrossReference_0; }
+
+		//QPREF
+		public RuleCall getNamedValueAbstractNamedValueQPREFParserRuleCall_0_1() { return cNamedValueAbstractNamedValueQPREFParserRuleCall_0_1; }
 	}
 
 	public class BooleanTermElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "BooleanTerm");
 		private final RuleCall cOrTermParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		////LiteralorReferenceTerm returns aadl2::PropertyExpression:
-		////	reference=[enum, units, property, propertyConstant] ;
-		////ActualBooleanTerm returns aadl2::PropertyExpression:
-		////	ActualOrTerm | ActualAndTerm | BooleanLiteral  | NotTerm | ConstantValue;
-		////
-		////ActualOrTerm returns aadl2::Operation:
-		////  ownedPropertyExpression+=AndTerm  op=OrOp ownedPropertyExpression+=AndTerm (  op=OrOp ownedPropertyExpression+=AndTerm)*;
-		////
-		////ActualAndTerm returns aadl2::Operation:
-		////  ownedPropertyExpression+=BooleanAtom  op=AndOp ownedPropertyExpression+=BooleanAtom ( op=AndOp ownedPropertyExpression+=BooleanAtom)*;
 		//BooleanTerm returns aadl2::PropertyExpression:
 		//	OrTerm;
 		public ParserRule getRule() { return rule; }
@@ -20307,39 +20337,38 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cBooleanLiteralParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cNotTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cConstantValueParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
-		private final Keyword cLeftSquareBracketKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final RuleCall cBooleanTermParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
-		private final Keyword cRightSquareBracketKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final Keyword cLeftSquareBracketKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final RuleCall cBooleanTermParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Keyword cRightSquareBracketKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		
 		//BooleanAtom returns aadl2::PropertyExpression:
-		//	BooleanLiteral | NotTerm | ConstantValue | "[" BooleanTerm "]";
+		//	BooleanLiteral | //| ConstantValue
+		//	NotTerm | "[" BooleanTerm "]";
 		public ParserRule getRule() { return rule; }
 
-		//BooleanLiteral | NotTerm | ConstantValue | "[" BooleanTerm "]"
+		//BooleanLiteral | //| ConstantValue
+		//NotTerm | "[" BooleanTerm "]"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//BooleanLiteral
 		public RuleCall getBooleanLiteralParserRuleCall_0() { return cBooleanLiteralParserRuleCall_0; }
 
+		////| ConstantValue
 		//NotTerm
 		public RuleCall getNotTermParserRuleCall_1() { return cNotTermParserRuleCall_1; }
 
-		//ConstantValue
-		public RuleCall getConstantValueParserRuleCall_2() { return cConstantValueParserRuleCall_2; }
-
 		//"[" BooleanTerm "]"
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_2() { return cGroup_2; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_3_0() { return cLeftSquareBracketKeyword_3_0; }
+		public Keyword getLeftSquareBracketKeyword_2_0() { return cLeftSquareBracketKeyword_2_0; }
 
 		//BooleanTerm
-		public RuleCall getBooleanTermParserRuleCall_3_1() { return cBooleanTermParserRuleCall_3_1; }
+		public RuleCall getBooleanTermParserRuleCall_2_1() { return cBooleanTermParserRuleCall_2_1; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_3_2() { return cRightSquareBracketKeyword_3_2; }
+		public Keyword getRightSquareBracketKeyword_2_2() { return cRightSquareBracketKeyword_2_2; }
 	}
 
 	public class BooleanLiteralElements extends AbstractParserRuleElementFinder {
@@ -20377,22 +20406,22 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	public class ConstantValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConstantValue");
-		private final Assignment cConstantAssignment = (Assignment)rule.eContents().get(1);
-		private final CrossReference cConstantPropertyConstantCrossReference_0 = (CrossReference)cConstantAssignment.eContents().get(0);
-		private final RuleCall cConstantPropertyConstantQPREFParserRuleCall_0_1 = (RuleCall)cConstantPropertyConstantCrossReference_0.eContents().get(1);
+		private final Assignment cNamedValueAssignment = (Assignment)rule.eContents().get(1);
+		private final CrossReference cNamedValueAbstractNamedValueCrossReference_0 = (CrossReference)cNamedValueAssignment.eContents().get(0);
+		private final RuleCall cNamedValueAbstractNamedValueQPREFParserRuleCall_0_1 = (RuleCall)cNamedValueAbstractNamedValueCrossReference_0.eContents().get(1);
 		
-		//ConstantValue returns aadl2::ConstantValue:
-		//	constant=[aadl2::PropertyConstant|QPREF];
+		//ConstantValue returns aadl2::NamedValue:
+		//	namedValue=[aadl2::AbstractNamedValue|QPREF];
 		public ParserRule getRule() { return rule; }
 
-		//constant=[aadl2::PropertyConstant|QPREF]
-		public Assignment getConstantAssignment() { return cConstantAssignment; }
+		//namedValue=[aadl2::AbstractNamedValue|QPREF]
+		public Assignment getNamedValueAssignment() { return cNamedValueAssignment; }
 
-		//[aadl2::PropertyConstant|QPREF]
-		public CrossReference getConstantPropertyConstantCrossReference_0() { return cConstantPropertyConstantCrossReference_0; }
+		//[aadl2::AbstractNamedValue|QPREF]
+		public CrossReference getNamedValueAbstractNamedValueCrossReference_0() { return cNamedValueAbstractNamedValueCrossReference_0; }
 
 		//QPREF
-		public RuleCall getConstantPropertyConstantQPREFParserRuleCall_0_1() { return cConstantPropertyConstantQPREFParserRuleCall_0_1; }
+		public RuleCall getNamedValueAbstractNamedValueQPREFParserRuleCall_0_1() { return cNamedValueAbstractNamedValueQPREFParserRuleCall_0_1; }
 	}
 
 	public class ReferenceTermElements extends AbstractParserRuleElementFinder {
@@ -20820,18 +20849,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cArrayRangeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cLowerBoundAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cLowerBoundGINTParserRuleCall_2_0 = (RuleCall)cLowerBoundAssignment_2.eContents().get(0);
+		private final RuleCall cLowerBoundINTVALUEParserRuleCall_2_0 = (RuleCall)cLowerBoundAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cFullStopFullStopKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cUpperBoundAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cUpperBoundGINTParserRuleCall_3_1_0 = (RuleCall)cUpperBoundAssignment_3_1.eContents().get(0);
+		private final RuleCall cUpperBoundINTVALUEParserRuleCall_3_1_0 = (RuleCall)cUpperBoundAssignment_3_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//ArrayRange returns aadl2::ArrayRange:
-		//	{aadl2::ArrayRange} "[" lowerBound=gINT (".." upperBound=gINT)? "]";
+		//	{aadl2::ArrayRange} "[" lowerBound=INTVALUE (".." upperBound=INTVALUE)? "]";
 		public ParserRule getRule() { return rule; }
 
-		//{aadl2::ArrayRange} "[" lowerBound=gINT (".." upperBound=gINT)? "]"
+		//{aadl2::ArrayRange} "[" lowerBound=INTVALUE (".." upperBound=INTVALUE)? "]"
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::ArrayRange}
@@ -20840,23 +20869,23 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
-		//lowerBound=gINT
+		//lowerBound=INTVALUE
 		public Assignment getLowerBoundAssignment_2() { return cLowerBoundAssignment_2; }
 
-		//gINT
-		public RuleCall getLowerBoundGINTParserRuleCall_2_0() { return cLowerBoundGINTParserRuleCall_2_0; }
+		//INTVALUE
+		public RuleCall getLowerBoundINTVALUEParserRuleCall_2_0() { return cLowerBoundINTVALUEParserRuleCall_2_0; }
 
-		//(".." upperBound=gINT)?
+		//(".." upperBound=INTVALUE)?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//".."
 		public Keyword getFullStopFullStopKeyword_3_0() { return cFullStopFullStopKeyword_3_0; }
 
-		//upperBound=gINT
+		//upperBound=INTVALUE
 		public Assignment getUpperBoundAssignment_3_1() { return cUpperBoundAssignment_3_1; }
 
-		//gINT
-		public RuleCall getUpperBoundGINTParserRuleCall_3_1_0() { return cUpperBoundGINTParserRuleCall_3_1_0; }
+		//INTVALUE
+		public RuleCall getUpperBoundINTVALUEParserRuleCall_3_1_0() { return cUpperBoundINTVALUEParserRuleCall_3_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
@@ -21044,19 +21073,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cINTTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//SignedInt returns aadl2::Integer:
-		//	("+" // in O2 parser: minus sign handled strangely
-		//	// Need valueconverter
-		//	| "-")? INT;
+		//	("+" | "-")? INT;
 		public ParserRule getRule() { return rule; }
 
-		//("+" // in O2 parser: minus sign handled strangely
-		//// Need valueconverter
-		//| "-")? INT
+		//("+" | "-")? INT
 		public Group getGroup() { return cGroup; }
 
-		//("+" // in O2 parser: minus sign handled strangely
-		//// Need valueconverter
-		//| "-")?
+		//("+" | "-")?
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//"+"
@@ -21110,22 +21133,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
 		private final Keyword cPlusSignKeyword_0_0 = (Keyword)cAlternatives_0.eContents().get(0);
 		private final Keyword cHyphenMinusKeyword_0_1 = (Keyword)cAlternatives_0.eContents().get(1);
-		private final RuleCall cREALParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final RuleCall cREALTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//SignedReal returns aadl2::Real:
-		//	("+" // in O2 parser: minus sign handled strangely
-		//	// Need valueconverter
-		//	| "-")? REAL;
+		//	("+" | "-")? REAL;
 		public ParserRule getRule() { return rule; }
 
-		//("+" // in O2 parser: minus sign handled strangely
-		//// Need valueconverter
-		//| "-")? REAL
+		//("+" | "-")? REAL
 		public Group getGroup() { return cGroup; }
 
-		//("+" // in O2 parser: minus sign handled strangely
-		//// Need valueconverter
-		//| "-")?
+		//("+" | "-")?
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//"+"
@@ -21135,7 +21152,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getHyphenMinusKeyword_0_1() { return cHyphenMinusKeyword_0_1; }
 
 		//REAL
-		public RuleCall getREALParserRuleCall_1() { return cREALParserRuleCall_1; }
+		public RuleCall getREALTerminalRuleCall_1() { return cREALTerminalRuleCall_1; }
 	}
 
 	public class NumericRangeTermElements extends AbstractParserRuleElementFinder {
@@ -21236,52 +21253,80 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getDeltaConstantValueParserRuleCall_3_1_0_3() { return cDeltaConstantValueParserRuleCall_3_1_0_3; }
 	}
 
-	public class REALElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "REAL");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cINTTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cINTTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+	public class CoreKeyWordElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CoreKeyWord");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cSystemKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cThreadKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		private final Keyword cPrcoessKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
+		private final Keyword cDataKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
+		private final Keyword cProcessorKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
+		private final Keyword cPortKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
 		
-		//REAL:
-		//	INT "." INT;
+		//CoreKeyWord:
+		//	"system" | "thread" | "prcoess" | "data" | "processor" | "port";
 		public ParserRule getRule() { return rule; }
 
-		//INT "." INT
+		//"system" | "thread" | "prcoess" | "data" | "processor" | "port"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//"system"
+		public Keyword getSystemKeyword_0() { return cSystemKeyword_0; }
+
+		//"thread"
+		public Keyword getThreadKeyword_1() { return cThreadKeyword_1; }
+
+		//"prcoess"
+		public Keyword getPrcoessKeyword_2() { return cPrcoessKeyword_2; }
+
+		//"data"
+		public Keyword getDataKeyword_3() { return cDataKeyword_3; }
+
+		//"processor"
+		public Keyword getProcessorKeyword_4() { return cProcessorKeyword_4; }
+
+		//"port"
+		public Keyword getPortKeyword_5() { return cPortKeyword_5; }
+	}
+
+	public class INTVALUEElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "INTVALUE");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cINTTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword c_Keyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final RuleCall cINTTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		
+		//INTVALUE returns aadl2::Integer:
+		//	INT ("_" INT)*;
+		public ParserRule getRule() { return rule; }
+
+		//INT ("_" INT)*
 		public Group getGroup() { return cGroup; }
 
 		//INT
 		public RuleCall getINTTerminalRuleCall_0() { return cINTTerminalRuleCall_0; }
 
-		//"."
-		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
+		//("_" INT)*
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"_"
+		public Keyword get_Keyword_1_0() { return c_Keyword_1_0; }
 
 		//INT
-		public RuleCall getINTTerminalRuleCall_2() { return cINTTerminalRuleCall_2; }
+		public RuleCall getINTTerminalRuleCall_1_1() { return cINTTerminalRuleCall_1_1; }
 	}
 
-	public class GINTElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "gINT");
-		private final RuleCall cINTTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+	public class REALVALUEElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "REALVALUE");
+		private final RuleCall cREALTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//gINT returns aadl2::Integer:
-		//	INT;
-		public ParserRule getRule() { return rule; }
-
-		//INT
-		public RuleCall getINTTerminalRuleCall() { return cINTTerminalRuleCall; }
-	}
-
-	public class GREALElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "gREAL");
-		private final RuleCall cREALParserRuleCall = (RuleCall)rule.eContents().get(1);
-		
-		//gREAL returns aadl2::Real:
+		//REALVALUE returns aadl2::Real:
 		//	REAL;
 		public ParserRule getRule() { return rule; }
 
 		//REAL
-		public RuleCall getREALParserRuleCall() { return cREALParserRuleCall; }
+		public RuleCall getREALTerminalRuleCall() { return cREALTerminalRuleCall; }
 	}
 
 	public class QPREFElements extends AbstractParserRuleElementFinder {
@@ -21292,6 +21337,32 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
+		////
+		////terminal UINT : INT('_' INT)*;
+		////terminal fragment
+		////EXPONENT  :  ('e') ('+'|'-')? INT  ;
+		////
+		////terminal fragment
+		////INT_EXPONENT :  ('e') ('+')? INT ;
+		////
+		////
+		////terminal REAL_LIT : 	
+		////	UINT ( '.' UINT ( EXPONENT )?)
+		////  ;
+		////
+		////terminal INTEGER_LIT : 
+		////		UINT
+		////		(( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
+		////			| (INT_EXPONENT)?
+		////		)
+		////  ;
+		////
+		////terminal fragment
+		////EXTENDED_DIGIT     :  ( '0'..'9' | 'a'..'f' | 'A'..'F') ;
+		////
+		////terminal fragment
+		////BASED_INTEGER      :  ( EXTENDED_DIGIT ) ( ('_')? EXTENDED_DIGIT )* ;
+		//// property reference with optional propertyset name
 		//QPREF:
 		//	ID ("::" ID)?;
 		public ParserRule getRule() { return rule; }
@@ -21323,6 +21394,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		
+		//// classifier reference with optional package name
 		//QCREF:
 		//	(ID "::")* ID ("." ID)?;
 		public ParserRule getRule() { return rule; }
@@ -21363,6 +21435,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		
+		//// qualified classifier reference for properties
 		//EQCREF:
 		//	(ID "::")+ ID ("." ID)?;
 		public ParserRule getRule() { return rule; }
@@ -21412,6 +21485,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
+		//// package anme
 		//PNAME:
 		//	ID ("::" ID)*;
 		public ParserRule getRule() { return rule; }
@@ -21436,6 +21510,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "INAME");
 		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
+		//// implementation name (used by value converter)
 		//INAME:
 		//	ID;
 		public ParserRule getRule() { return rule; }
@@ -21448,6 +21523,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "REFINEDNAME");
 		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
+		//// name of refined entity. Used to set name field by value converter	
 		//REFINEDNAME:
 		//	ID;
 		public ParserRule getRule() { return rule; }
@@ -21740,6 +21816,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private PropertyValueElements pPropertyValue;
 	private PropertyExpressionElements pPropertyExpression;
 	private ConstantPropertyExpressionElements pConstantPropertyExpression;
+	private LiteralorReferenceTermElements pLiteralorReferenceTerm;
 	private BooleanTermElements pBooleanTerm;
 	private OrTermElements pOrTerm;
 	private AndTermElements pAndTerm;
@@ -21771,11 +21848,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private RealTermElements pRealTerm;
 	private SignedRealElements pSignedReal;
 	private NumericRangeTermElements pNumericRangeTerm;
+	private CoreKeyWordElements pCoreKeyWord;
 	private TerminalRule tANNEXTEXT;
 	private TerminalRule tSL_COMMENT;
-	private REALElements pREAL;
-	private GINTElements pGINT;
-	private GREALElements pGREAL;
+	private TerminalRule tREAL;
+	private INTVALUEElements pINTVALUE;
+	private REALVALUEElements pREALVALUE;
 	private QPREFElements pQPREF;
 	private QCREFElements pQCREF;
 	private EQCREFElements pEQCREF;
@@ -23024,7 +23102,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Numeral returns aadl2::Numeral:
-	//	value=gINT;
+	//	value=INTVALUE;
 	public NumeralElements getNumeralAccess() {
 		return (pNumeral != null) ? pNumeral : (pNumeral = new NumeralElements());
 	}
@@ -23224,9 +23302,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FeatureGroupType returns aadl2::FeatureGroupType:
-	//	"feature" "group" name=ID //ownedExtension=GroupExtension
-	//	("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
-	//	(noPrototypes?="none" ";" | ownedPrototype+=Prototype+))? ("features" // no none for FGT (noFeatures?='none' ';') |
+	//	"feature" "group" name=ID (ownedExtension=GroupExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
+	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+	//	ownedPrototype+=Prototype+))? ("features" // no none for FGT (noFeatures?='none' ';') |
 	//	(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+)? ("inverse" "of"
 	//	inverse=[aadl2::FeatureGroupType|QCREF])? ("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ |
 	//	noProperties?="none" ";"))? ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
@@ -23599,7 +23677,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ETESubcomponentFlow returns aadl2::EndToEndFlowSegment:
-	//	(context=[aadl2::Subcomponent] ".")? flowElement+=[aadl2::EndToEndFlowElement];
+	//	(context=[aadl2::Subcomponent] ".")? flowElement=[aadl2::EndToEndFlowElement];
 	public ETESubcomponentFlowElements getETESubcomponentFlowAccess() {
 		return (pETESubcomponentFlow != null) ? pETESubcomponentFlow : (pETESubcomponentFlow = new ETESubcomponentFlowElements());
 	}
@@ -23609,7 +23687,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ETEConnectionFlow returns aadl2::EndToEndFlowSegment:
-	//	flowElement+=[aadl2::Connection];
+	//	flowElement=[aadl2::Connection];
 	public ETEConnectionFlowElements getETEConnectionFlowAccess() {
 		return (pETEConnectionFlow != null) ? pETEConnectionFlow : (pETEConnectionFlow = new ETEConnectionFlowElements());
 	}
@@ -23867,7 +23945,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//RealType returns aadl2::AadlReal:
-	//	name=ID ":" "type" "aadlreal" range=RealRange? ("units" (ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]))?;
+	//	name=ID ":" "type" "aadlreal" range=RealRange? (ownedUnitsType=UnnamedUnitsType | "units"
+	//	unitsType=[aadl2::UnitsType|QPREF])?;
 	public RealTypeElements getRealTypeAccess() {
 		return (pRealType != null) ? pRealType : (pRealType = new RealTypeElements());
 	}
@@ -23877,7 +23956,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//UnnamedRealType returns aadl2::AadlReal:
-	//	{aadl2::AadlReal} "aadlreal" range=RealRange? ("units" (ownedUnitsType=UnitsType | unitsType=[aadl2::UnitsType]))?;
+	//	{aadl2::AadlReal} "aadlreal" range=RealRange? (ownedUnitsType=UnnamedUnitsType | "units"
+	//	unitsType=[aadl2::UnitsType|QPREF])?;
 	public UnnamedRealTypeElements getUnnamedRealTypeAccess() {
 		return (pUnnamedRealType != null) ? pUnnamedRealType : (pUnnamedRealType = new UnnamedRealTypeElements());
 	}
@@ -23887,8 +23967,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//IntegerType returns aadl2::AadlInteger:
-	//	name=ID ":" "type" "aadlinteger" range=IntegerRange? ("units" (ownedUnitsType=UnitsType |
-	//	unitsType=[aadl2::UnitsType]))?;
+	//	name=ID ":" "type" "aadlinteger" range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | "units"
+	//	unitsType=[aadl2::UnitsType|QPREF])?;
 	public IntegerTypeElements getIntegerTypeAccess() {
 		return (pIntegerType != null) ? pIntegerType : (pIntegerType = new IntegerTypeElements());
 	}
@@ -23898,8 +23978,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//UnnamedIntegerType returns aadl2::AadlInteger:
-	//	{aadl2::AadlInteger} "aadlinteger" range=IntegerRange? ("units" (ownedUnitsType=UnitsType |
-	//	unitsType=[aadl2::UnitsType]))?;
+	//	{aadl2::AadlInteger} "aadlinteger" range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | "units"
+	//	unitsType=[aadl2::UnitsType|QPREF])?;
 	public UnnamedIntegerTypeElements getUnnamedIntegerTypeAccess() {
 		return (pUnnamedIntegerType != null) ? pUnnamedIntegerType : (pUnnamedIntegerType = new UnnamedIntegerTypeElements());
 	}
@@ -23951,7 +24031,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QCReference returns aadl2::MetaclassReference:
-	//	("{" annexName=ID "}" STAR STAR)? metaclassName+=ID;
+	//	("{" annexName=ID "}" STAR STAR)? metaclassName+=(CoreKeyWord | ID);
 	public QCReferenceElements getQCReferenceAccess() {
 		return (pQCReference != null) ? pQCReference : (pQCReference = new QCReferenceElements());
 	}
@@ -24037,9 +24117,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getAllReferenceAccess().getRule();
 	}
 
-	//PropertyOwner returns aadl2::PropertyOwner:
-	//	ClassifierValue // classifier value is always qualified by a package name
-	//	| QCReference;
+	////(ClassifierValue|QCReference)
+	//PropertyOwner returns aadl2::PropertyOwner: // classifier value is always qualified by a package name
+	//	QCReference;
 	public PropertyOwnerElements getPropertyOwnerAccess() {
 		return (pPropertyOwner != null) ? pPropertyOwner : (pPropertyOwner = new PropertyOwnerElements());
 	}
@@ -24080,7 +24160,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//RealLit returns aadl2::RealLiteral:
-	//	value=gREAL;
+	//	value=REALVALUE;
 	public RealLitElements getRealLitAccess() {
 		return (pRealLit != null) ? pRealLit : (pRealLit = new RealLitElements());
 	}
@@ -24090,7 +24170,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//IntegerLit returns aadl2::IntegerLiteral:
-	//	value=gINT;
+	//	value=INTVALUE;
 	public IntegerLitElements getIntegerLitAccess() {
 		return (pIntegerLit != null) ? pIntegerLit : (pIntegerLit = new IntegerLitElements());
 	}
@@ -24180,10 +24260,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyExpressionAccess().getRule();
 	}
 
-	////| LiteralorReferenceTerm
 	//ConstantPropertyExpression returns aadl2::PropertyExpression:
 	//	RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
-	//	ListTerm | BooleanTerm;
+	//	ListTerm | BooleanTerm | LiteralorReferenceTerm;
 	public ConstantPropertyExpressionElements getConstantPropertyExpressionAccess() {
 		return (pConstantPropertyExpression != null) ? pConstantPropertyExpression : (pConstantPropertyExpression = new ConstantPropertyExpressionElements());
 	}
@@ -24192,16 +24271,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getConstantPropertyExpressionAccess().getRule();
 	}
 
-	////LiteralorReferenceTerm returns aadl2::PropertyExpression:
-	////	reference=[enum, units, property, propertyConstant] ;
-	////ActualBooleanTerm returns aadl2::PropertyExpression:
-	////	ActualOrTerm | ActualAndTerm | BooleanLiteral  | NotTerm | ConstantValue;
-	////
-	////ActualOrTerm returns aadl2::Operation:
-	////  ownedPropertyExpression+=AndTerm  op=OrOp ownedPropertyExpression+=AndTerm (  op=OrOp ownedPropertyExpression+=AndTerm)*;
-	////
-	////ActualAndTerm returns aadl2::Operation:
-	////  ownedPropertyExpression+=BooleanAtom  op=AndOp ownedPropertyExpression+=BooleanAtom ( op=AndOp ownedPropertyExpression+=BooleanAtom)*;
+	//LiteralorReferenceTerm returns aadl2::NamedValue:
+	//	namedValue=[aadl2::AbstractNamedValue|QPREF];
+	public LiteralorReferenceTermElements getLiteralorReferenceTermAccess() {
+		return (pLiteralorReferenceTerm != null) ? pLiteralorReferenceTerm : (pLiteralorReferenceTerm = new LiteralorReferenceTermElements());
+	}
+	
+	public ParserRule getLiteralorReferenceTermRule() {
+		return getLiteralorReferenceTermAccess().getRule();
+	}
+
 	//BooleanTerm returns aadl2::PropertyExpression:
 	//	OrTerm;
 	public BooleanTermElements getBooleanTermAccess() {
@@ -24243,7 +24322,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//BooleanAtom returns aadl2::PropertyExpression:
-	//	BooleanLiteral | NotTerm | ConstantValue | "[" BooleanTerm "]";
+	//	BooleanLiteral | //| ConstantValue
+	//	NotTerm | "[" BooleanTerm "]";
 	public BooleanAtomElements getBooleanAtomAccess() {
 		return (pBooleanAtom != null) ? pBooleanAtom : (pBooleanAtom = new BooleanAtomElements());
 	}
@@ -24263,8 +24343,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getBooleanLiteralAccess().getRule();
 	}
 
-	//ConstantValue returns aadl2::ConstantValue:
-	//	constant=[aadl2::PropertyConstant|QPREF];
+	//ConstantValue returns aadl2::NamedValue:
+	//	namedValue=[aadl2::AbstractNamedValue|QPREF];
 	public ConstantValueElements getConstantValueAccess() {
 		return (pConstantValue != null) ? pConstantValue : (pConstantValue = new ConstantValueElements());
 	}
@@ -24429,7 +24509,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ArrayRange returns aadl2::ArrayRange:
-	//	{aadl2::ArrayRange} "[" lowerBound=gINT (".." upperBound=gINT)? "]";
+	//	{aadl2::ArrayRange} "[" lowerBound=INTVALUE (".." upperBound=INTVALUE)? "]";
 	public ArrayRangeElements getArrayRangeAccess() {
 		return (pArrayRange != null) ? pArrayRange : (pArrayRange = new ArrayRangeElements());
 	}
@@ -24480,9 +24560,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SignedInt returns aadl2::Integer:
-	//	("+" // in O2 parser: minus sign handled strangely
-	//	// Need valueconverter
-	//	| "-")? INT;
+	//	("+" | "-")? INT;
 	public SignedIntElements getSignedIntAccess() {
 		return (pSignedInt != null) ? pSignedInt : (pSignedInt = new SignedIntElements());
 	}
@@ -24505,9 +24583,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SignedReal returns aadl2::Real:
-	//	("+" // in O2 parser: minus sign handled strangely
-	//	// Need valueconverter
-	//	| "-")? REAL;
+	//	("+" | "-")? REAL;
 	public SignedRealElements getSignedRealAccess() {
 		return (pSignedReal != null) ? pSignedReal : (pSignedReal = new SignedRealElements());
 	}
@@ -24527,6 +24603,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getNumericRangeTermAccess().getRule();
 	}
 
+	//CoreKeyWord:
+	//	"system" | "thread" | "prcoess" | "data" | "processor" | "port";
+	public CoreKeyWordElements getCoreKeyWordAccess() {
+		return (pCoreKeyWord != null) ? pCoreKeyWord : (pCoreKeyWord = new CoreKeyWordElements());
+	}
+	
+	public ParserRule getCoreKeyWordRule() {
+		return getCoreKeyWordAccess().getRule();
+	}
+
 	//terminal ANNEXTEXT:
 	//	"{**"->"**}";
 	public TerminalRule getANNEXTEXTRule() {
@@ -24540,36 +24626,58 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return (tSL_COMMENT != null) ? tSL_COMMENT : (tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_COMMENT"));
 	} 
 
-	//REAL:
+	//terminal REAL:
 	//	INT "." INT;
-	public REALElements getREALAccess() {
-		return (pREAL != null) ? pREAL : (pREAL = new REALElements());
+	public TerminalRule getREALRule() {
+		return (tREAL != null) ? tREAL : (tREAL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "REAL"));
+	} 
+
+	//INTVALUE returns aadl2::Integer:
+	//	INT ("_" INT)*;
+	public INTVALUEElements getINTVALUEAccess() {
+		return (pINTVALUE != null) ? pINTVALUE : (pINTVALUE = new INTVALUEElements());
 	}
 	
-	public ParserRule getREALRule() {
-		return getREALAccess().getRule();
+	public ParserRule getINTVALUERule() {
+		return getINTVALUEAccess().getRule();
 	}
 
-	//gINT returns aadl2::Integer:
-	//	INT;
-	public GINTElements getGINTAccess() {
-		return (pGINT != null) ? pGINT : (pGINT = new GINTElements());
-	}
-	
-	public ParserRule getGINTRule() {
-		return getGINTAccess().getRule();
-	}
-
-	//gREAL returns aadl2::Real:
+	//REALVALUE returns aadl2::Real:
 	//	REAL;
-	public GREALElements getGREALAccess() {
-		return (pGREAL != null) ? pGREAL : (pGREAL = new GREALElements());
+	public REALVALUEElements getREALVALUEAccess() {
+		return (pREALVALUE != null) ? pREALVALUE : (pREALVALUE = new REALVALUEElements());
 	}
 	
-	public ParserRule getGREALRule() {
-		return getGREALAccess().getRule();
+	public ParserRule getREALVALUERule() {
+		return getREALVALUEAccess().getRule();
 	}
 
+	////
+	////terminal UINT : INT('_' INT)*;
+	////terminal fragment
+	////EXPONENT  :  ('e') ('+'|'-')? INT  ;
+	////
+	////terminal fragment
+	////INT_EXPONENT :  ('e') ('+')? INT ;
+	////
+	////
+	////terminal REAL_LIT : 	
+	////	UINT ( '.' UINT ( EXPONENT )?)
+	////  ;
+	////
+	////terminal INTEGER_LIT : 
+	////		UINT
+	////		(( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
+	////			| (INT_EXPONENT)?
+	////		)
+	////  ;
+	////
+	////terminal fragment
+	////EXTENDED_DIGIT     :  ( '0'..'9' | 'a'..'f' | 'A'..'F') ;
+	////
+	////terminal fragment
+	////BASED_INTEGER      :  ( EXTENDED_DIGIT ) ( ('_')? EXTENDED_DIGIT )* ;
+	//// property reference with optional propertyset name
 	//QPREF:
 	//	ID ("::" ID)?;
 	public QPREFElements getQPREFAccess() {
@@ -24580,6 +24688,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getQPREFAccess().getRule();
 	}
 
+	//// classifier reference with optional package name
 	//QCREF:
 	//	(ID "::")* ID ("." ID)?;
 	public QCREFElements getQCREFAccess() {
@@ -24590,6 +24699,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getQCREFAccess().getRule();
 	}
 
+	//// qualified classifier reference for properties
 	//EQCREF:
 	//	(ID "::")+ ID ("." ID)?;
 	public EQCREFElements getEQCREFAccess() {
@@ -24610,6 +24720,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getSTARAccess().getRule();
 	}
 
+	//// package anme
 	//PNAME:
 	//	ID ("::" ID)*;
 	public PNAMEElements getPNAMEAccess() {
@@ -24620,6 +24731,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getPNAMEAccess().getRule();
 	}
 
+	//// implementation name (used by value converter)
 	//INAME:
 	//	ID;
 	public INAMEElements getINAMEAccess() {
@@ -24630,6 +24742,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getINAMEAccess().getRule();
 	}
 
+	//// name of refined entity. Used to set name field by value converter	
 	//REFINEDNAME:
 	//	ID;
 	public REFINEDNAMEElements getREFINEDNAMEAccess() {

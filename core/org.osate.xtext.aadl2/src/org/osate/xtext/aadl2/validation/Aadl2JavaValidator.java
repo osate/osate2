@@ -67,6 +67,7 @@ import org.osate.aadl2.MemoryType;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Operation;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
@@ -104,7 +105,7 @@ import org.osate.aadl2.VirtualBusImplementation;
 import org.osate.aadl2.VirtualBusType;
 import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorType;
-import org.osate.xtext.aadl2.linking.MyLinkingService;
+import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
 
  
 
@@ -395,20 +396,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	
 	
 	@Check(CheckType.FAST)
-	public void caseEnumerationValue(EnumerationValue enumerationValue)
-	{
-		insertNecessaryListValueObjects(enumerationValue);
-	}
-	
-	@Check(CheckType.FAST)
 	public void casePropertyAssociation(PropertyAssociation pa)
 	{
-		String s = pa.getProperty().getQualifiedName();
+		String s = pa.getProperty().getKwalifiedName();
 		String psname = null;
 		final int idx = s.lastIndexOf("::");
 		if (idx != -1 ){
 			psname = s.substring(0, idx);
-			EObject propertySet = MyLinkingService.findImportedPropertySet(psname, pa);
+			EObject propertySet = Aadl2LinkingService.findImportedPropertySet(psname, pa);
 			if (propertySet == null)
 			{
 				error(pa,"Property set containing property is not listed in with clause");
@@ -416,19 +411,26 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		} 
 	}
 	
-	@Check(CheckType.FAST)
-	public void caseConstantValue(ConstantValue constantValue)
-	{
-		insertNecessaryListValueObjects(constantValue);
-		
-	}
 	
 	@Check(CheckType.FAST)
-	public void casePropertyReference(PropertyReference propertyReference)
+	public void caseEnumerationValue(NamedValue enumerationValue)
 	{
-		insertNecessaryListValueObjects(propertyReference);
-		
+		insertNecessaryListValueObjects(enumerationValue);
 	}
+	//the next two now have the same type as above
+//	@Check(CheckType.FAST)
+//	public void caseConstantValue(NamedValue constantValue)
+//	{
+//		insertNecessaryListValueObjects(constantValue);
+//		
+//	}
+//	
+//	@Check(CheckType.FAST)
+//	public void casePropertyReference(NamedValue propertyReference)
+//	{
+//		insertNecessaryListValueObjects(propertyReference);
+//		
+//	}
 
 
 	/* supporting semantic check methods
@@ -477,7 +479,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	{
 		if (!componentTypeRename.getCategory().getName().equals(componentTypeRename.getRenamedComponentType().getCategory()))
 		{
-			error( "The category of '" + componentTypeRename.getRenamedComponentType().getQualifiedName() +
+			error( "The category of '" + componentTypeRename.getRenamedComponentType().getKwalifiedName() +
 					"' is not " + componentTypeRename.getCategory().getName(),componentTypeRename,Aadl2Package.eINSTANCE.getComponentTypeRename_RenamedComponentType());
 		}
 	}
@@ -492,7 +494,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentType parent = typeExtension.getExtended();
 		ComponentType child = (ComponentType)typeExtension.getSpecific();
 		if (!AadlParseUtil.canExtend(parent, child))
-			error("Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.",parent, Aadl2Package.eINSTANCE.getComponentType_OwnedExtension());
+			error("Cannot extend '" + parent.getKwalifiedName() + "'.  Incompatible categories.",parent, Aadl2Package.eINSTANCE.getComponentType_OwnedExtension());
 	}
 
 	
@@ -542,7 +544,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				isAncestor = true;
 		if (!isAncestor)
 			error(implementationExtension,
-					'\'' + typeOfParent.getQualifiedName() + "' is not an ancestor of '" + typeOfChild.getQualifiedName() + "'.");
+					'\'' + typeOfParent.getKwalifiedName() + "' is not an ancestor of '" + typeOfChild.getKwalifiedName() + "'.");
 	}
 	
 	/**
@@ -555,7 +557,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentType type = realization.getImplemented();
 		ComponentImplementation implementation = (ComponentImplementation)realization.getSpecific();
 		if (!type.getCategory().equals(implementation.getCategory()))
-			error(realization, "The category of '" + type.getQualifiedName() + "' is not " + implementation.getCategory() + '.');
+			error(realization, "The category of '" + type.getKwalifiedName() + "' is not " + implementation.getCategory() + '.');
 	}
 
 	
@@ -569,7 +571,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentImplementation parent = implementationExtension.getExtended();
 		ComponentImplementation child = (ComponentImplementation)implementationExtension.getSpecific();
 		if (!AadlParseUtil.canExtend(parent, child))
-			error(implementationExtension, "Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.");
+			error(implementationExtension, "Cannot extend '" + parent.getKwalifiedName() + "'.  Incompatible categories.");
 	}
 	
 	/**
@@ -837,7 +839,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (prototype.getConstrainingClassifier() != null &&
 				!prototype.getCategory().getName().equals(prototype.getConstrainingClassifier().getCategory()))
 		{
-			error(prototype, "The category of '" + prototype.getConstrainingClassifier().getQualifiedName() +
+			error(prototype, "The category of '" + prototype.getConstrainingClassifier().getKwalifiedName() +
 					"' is not " + prototype.getCategory().getName());
 		}
 	}

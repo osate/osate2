@@ -59,9 +59,6 @@ Workflow {
 				options = {
 					classSplitting = true
 				}
-			//  options = {
-			//		backtrack = true
-			//	}
 			}
 
 			// the Ecore2Xtext specific terminal converter
@@ -105,8 +102,6 @@ Workflow {
 			fragment = labeling.LabelProviderFragment {}
 
 			// outline API 
-	//		fragment = outline.TransformerFragment {}
-	//		fragment = outline.OutlineNodeAdapterFactoryFragment {}
 			fragment = outline.OutlineTreeProviderFragment {}
 			fragment = outline.QuickOutlineFragment {}
 			// quickfix API 
@@ -117,8 +112,6 @@ Workflow {
 			fragment = contentAssist.JavaBasedContentAssistFragment {}
 
 			
-			// rename refactoring  
-			fragment = refactoring.RefactorElementNameFragment {}
 			// provides a compare view
 //			fragment = compare.CompareFragment {
 //				fileExtensions = file.extensions

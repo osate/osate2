@@ -12,7 +12,7 @@ import org.osate.xtext.aadl2.valueconversion.Aadl2ValueConverter;
 public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2RuntimeModule {
 	@Override
 	public Class<? extends org.eclipse.xtext.linking.ILinkingService> bindILinkingService() {
-		return org.osate.xtext.aadl2.linking.MyLinkingService.class;
+		return org.osate.xtext.aadl2.linking.Aadl2LinkingService.class;
 	}
 	@Override
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
@@ -20,7 +20,7 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	}
 	@Override
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
-		return org.osate.xtext.aadl2.naming.MyQualifiedNameProvider.class;
+		return org.osate.xtext.aadl2.naming.Aadl2QualifiedNameProvider.class;
 	}
 
 }
