@@ -480,6 +480,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseCalledSubprogram(CalledSubprogram object) {
+			return createCalledSubprogramAdapter();
+		}
+
+		@Override
 		public Adapter casePrototypeBinding(PrototypeBinding object) {
 			return createPrototypeBindingAdapter();
 		}
@@ -737,11 +742,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseSubprogramAccess(SubprogramAccess object) {
 			return createSubprogramAccessAdapter();
-		}
-
-		@Override
-		public Adapter caseCalledSubprogram(CalledSubprogram object) {
-			return createCalledSubprogramAdapter();
 		}
 
 		@Override

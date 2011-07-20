@@ -494,6 +494,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateStructuralFeature((StructuralFeature) value, diagnostics, context);
 		case Aadl2Package.REFINABLE_ELEMENT:
 			return validateRefinableElement((RefinableElement) value, diagnostics, context);
+		case Aadl2Package.CALLED_SUBPROGRAM:
+			return validateCalledSubprogram((CalledSubprogram) value, diagnostics, context);
 		case Aadl2Package.PROTOTYPE_BINDING:
 			return validatePrototypeBinding((PrototypeBinding) value, diagnostics, context);
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT:
@@ -599,8 +601,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateParameter((Parameter) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_ACCESS:
 			return validateSubprogramAccess((SubprogramAccess) value, diagnostics, context);
-		case Aadl2Package.CALLED_SUBPROGRAM:
-			return validateCalledSubprogram((CalledSubprogram) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_CLASSIFIER:
 			return validateSubprogramClassifier((SubprogramClassifier) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT_TYPE:
@@ -2681,28 +2681,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateCallContext(CallContext callContext, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) callContext, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) callContext, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) callContext, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) callContext, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) callContext, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) callContext, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) callContext, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) callContext, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) callContext, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(callContext, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(callContext, diagnostics, context);
-		return result;
+		return validate_EveryDefaultConstraint((EObject) callContext, diagnostics, context);
 	}
 
 	/**
@@ -5211,28 +5190,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateCalledSubprogram(CalledSubprogram calledSubprogram, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) calledSubprogram, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) calledSubprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) calledSubprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) calledSubprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) calledSubprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) calledSubprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) calledSubprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) calledSubprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) calledSubprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(calledSubprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(calledSubprogram, diagnostics, context);
-		return result;
+		return validate_EveryDefaultConstraint((EObject) calledSubprogram, diagnostics, context);
 	}
 
 	/**

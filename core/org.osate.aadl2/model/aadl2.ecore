@@ -618,7 +618,7 @@
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModeFeature" abstract="true" eSuperTypes="#//ClassifierFeature"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Prototype" abstract="true" eSuperTypes="#//StructuralFeature">
+  <eClassifiers xsi:type="ecore:EClass" name="Prototype" abstract="true" eSuperTypes="#//StructuralFeature #//CalledSubprogram">
     <eOperations name="categoryConstraint" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
         <details key="body" value="self.constrainingCategory.oclIsUndefined() implies self.constrainingClassifier = self.constrainingCategory"/>
@@ -661,6 +661,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CalledSubprogram" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="PrototypeBinding" abstract="true" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="formal" ordered="false"
         lowerBound="1" eType="#//Prototype"/>
@@ -903,7 +904,7 @@
       <eAnnotations source="subsets" references="#//FeatureGroup/featureType"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CallContext" abstract="true" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CallContext" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="DirectedFeature" abstract="true" eSuperTypes="#//Feature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
         lowerBound="1" eType="#//DirectionType" defaultValueLiteral="inOut"/>
@@ -1058,7 +1059,6 @@
       <eAnnotations source="subsets" references="#//Feature/classifier"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CalledSubprogram" abstract="true" eSuperTypes="#//Element"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramClassifier" abstract="true"
       eSuperTypes="#//ComponentClassifier #//SubprogramSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramSubcomponentType" abstract="true"
@@ -1435,8 +1435,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramCall" eSuperTypes="#//CallSpecification #//Context">
     <eStructuralFeatures xsi:type="ecore:EReference" name="calledSubprogram" ordered="false"
         eType="#//CalledSubprogram"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
-        eType="#//Prototype"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
         eType="#//CallContext"/>
   </eClassifiers>

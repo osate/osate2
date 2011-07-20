@@ -37,8 +37,12 @@
 package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.uml2.common.util.CacheAdapter;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.CallContext;
+import org.osate.aadl2.parsesupport.AObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,7 +53,7 @@ import org.osate.aadl2.CallContext;
  *
  * @generated
  */
-public abstract class CallContextImpl extends ElementImpl implements CallContext {
+public abstract class CallContextImpl extends AObjectImpl implements CallContext {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,6 +71,29 @@ public abstract class CallContextImpl extends ElementImpl implements CallContext
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getCallContext();
+	}
+
+	/**
+	 * Creates a new instance of the specified Ecore class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param eClass The Ecore class of the instance to create.
+	 * @return The new instance.
+	 * @generated
+	 */
+	protected EObject create(EClass eClass) {
+		return EcoreUtil.create(eClass);
+	}
+
+	/**
+	 * Retrieves the cache adapter for this '<em><b>Call Context</b></em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The cache adapter for this '<em><b>Call Context</b></em>'.
+	 * @generated
+	 */
+	protected CacheAdapter getCacheAdapter() {
+		return CacheAdapter.getCacheAdapter(this);
 	}
 
 } //CallContextImpl
