@@ -74,6 +74,27 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
         };
     }
 
+    @ValueConverter(rule = "NoQuoteString")
+    public IValueConverter<String> NoQuoteString() {
+        return new IValueConverter<String>() {
+            public String toValue(String string, INode node) {
+            	if (string.charAt(0) == '"'){
+            		string = string.substring(1);
+            	}
+            	if (string.endsWith("\"")){
+            		string = string.substring(0, string.length()-1);
+            	}
+				return string;
+			}
+
+            public String toString(String value) {
+            	if (value.charAt(0) == '"')
+            		return value;
+            	return '"'+value+'"';
+            }
+        };
+    }
+
     
     
     @ValueConverter(rule = "PortCategory")
@@ -271,15 +292,61 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
     }
     
 
-    @ValueConverter(rule = "gINT")
-    public IValueConverter<Integer> gINT() {
-        return new IValueConverter<Integer>() {
-            public Integer toValue(String string, INode node) {
-            	
-				return Integer.getInteger(string);
+    @ValueConverter(rule = "INTVALUE")
+    public IValueConverter<Long> INTVALUE() {
+        return new IValueConverter<Long>() {
+            public Long toValue(String string, INode node) {
+            	if (string.indexOf('_')!=-1)
+            	string = string.replaceAll("_", "");
+				return Long.valueOf(string);
 			}
 
-            public String toString(Integer value) {
+            public String toString(Long value) {
+                return value.toString();
+            }
+        };
+    }
+
+    @ValueConverter(rule = "SignedInt")
+    public IValueConverter<Long> SignedInt() {
+        return new IValueConverter<Long>() {
+            public Long toValue(String string, INode node) {
+            	if (string.indexOf('_')!=-1)
+            	string = string.replaceAll("_", "");
+				return Long.valueOf(string);
+			}
+
+            public String toString(Long value) {
+                return value.toString();
+            }
+        };
+    }
+
+    @ValueConverter(rule = "REALVALUE")
+    public IValueConverter<Double> REALVALUE() {
+        return new IValueConverter<Double>() {
+            public Double toValue(String string, INode node) {
+            	if (string.indexOf('_')!=-1)
+            	string = string.replaceAll("_", "");
+				return Double.valueOf(string);
+			}
+
+            public String toString(Double value) {
+                return value.toString();
+            }
+        };
+    }
+
+    @ValueConverter(rule = "SignedReal")
+    public IValueConverter<Double> SignedReal() {
+        return new IValueConverter<Double>() {
+            public Double toValue(String string, INode node) {
+            	if (string.indexOf('_')!=-1)
+            	string = string.replaceAll("_", "");
+				return Double.valueOf(string);
+			}
+
+            public String toString(Double value) {
                 return value.toString();
             }
         };

@@ -1149,7 +1149,7 @@ SingleArraySpecification returns aadl2::ArraySpecification:
 
 
 Numeral returns aadl2::Numeral:
-	value=gINT 
+	value=INTVALUE 
 ;
 
 ComponentImplementationReference returns aadl2::ComponentImplementationReference:
@@ -1273,7 +1273,7 @@ PortCategory returns aadl2::PortCategory: 'data' | 'event' |  'event' 'data';
 
 FeatureGroupType returns aadl2::FeatureGroupType:
 	'feature' 'group' name=ID 
-	(  //ownedExtension=GroupExtension
+	(  ownedExtension=GroupExtension
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
 	(=> 'prototypes' ((noPrototypes?='none' ';') |
@@ -1482,11 +1482,11 @@ ConnectionFlow returns aadl2::FlowSegment:
 ;
 
 ETESubcomponentFlow returns aadl2::EndToEndFlowSegment:
-	(context=[aadl2::Subcomponent|ID] '.')? flowElement+=[aadl2::EndToEndFlowElement|ID]
+	(context=[aadl2::Subcomponent|ID] '.')? flowElement=[aadl2::EndToEndFlowElement|ID]
 ;
 
 ETEConnectionFlow returns aadl2::EndToEndFlowSegment:
-	 flowElement+=[aadl2::Connection|ID]
+	 flowElement=[aadl2::Connection|ID]
 ;
 
 
@@ -1607,22 +1607,22 @@ UnitLiteralConversion returns aadl2::UnitLiteral:
 
 RealType returns aadl2::AadlReal:
 	name=ID ':' 'type' 
-	'aadlreal' (range=RealRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
+	'aadlreal' (range=RealRange)? ( (ownedUnitsType=UnnamedUnitsType| ('units' unitsType=[aadl2::UnitsType|QPREF])))?
 	 ;
 
 UnnamedRealType returns aadl2::AadlReal:
 	{aadl2::AadlReal}
-	'aadlreal' (range=RealRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
+	'aadlreal' (range=RealRange)? ((ownedUnitsType=UnnamedUnitsType| ('units' unitsType=[aadl2::UnitsType|QPREF])))?
 	 ;
 
 IntegerType returns aadl2::AadlInteger:
 	name=ID ':' 'type' 
-	'aadlinteger' (range=IntegerRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
+	'aadlinteger' (range=IntegerRange)? ((ownedUnitsType=UnnamedUnitsType| ('units' unitsType=[aadl2::UnitsType|QPREF])))?
 	 ;
 
 UnnamedIntegerType returns aadl2::AadlInteger:
 	{aadl2::AadlInteger}
-	'aadlinteger' (range=IntegerRange)? ('units' (ownedUnitsType=UnitsType| unitsType=[aadl2::UnitsType|ID]))?
+	'aadlinteger' (range=IntegerRange)? ( (ownedUnitsType=UnnamedUnitsType| ('units' unitsType=[aadl2::UnitsType|QPREF])))?
 	 ;
 
 RangeType returns aadl2::RangeType:
@@ -1653,7 +1653,7 @@ UnnamedClassifierType returns aadl2::ClassifierType:
 
 QCReference returns aadl2::MetaclassReference:
 	('{'  annexName=ID '}' STAR STAR )?
-	metaclassName+=ID
+	metaclassName+=(CoreKeyWord|ID)
 	 ;
 
 ReferenceType returns aadl2::ReferenceType:
@@ -1710,7 +1710,8 @@ AllReference returns aadl2::MetaclassReference:
 
 PropertyOwner returns aadl2::PropertyOwner:
 	// classifier value is always qualified by a package name
-	(ClassifierValue|QCReference)
+	QCReference
+	//(ClassifierValue|QCReference)
 	 ;
 
 
@@ -1732,11 +1733,11 @@ NumberValue returns aadl2::NumberValue:
 	RealLit | IntegerLit ;
 
 RealLit returns aadl2::RealLiteral:
-	value=gREAL ;
+	value=REALVALUE ;
 
 
 IntegerLit returns aadl2::IntegerLiteral:
-	value=gINT ;
+	value=INTVALUE ;
 
 BasicPropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] // name=QPREF
@@ -1805,20 +1806,12 @@ ConstantPropertyExpression returns aadl2::PropertyExpression:
 	| ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
 	 | ComponentClassifierTerm 	| ListTerm | BooleanTerm
-	  //| LiteralorReferenceTerm
+	  | LiteralorReferenceTerm
 	;
 
-//LiteralorReferenceTerm returns aadl2::PropertyExpression:
-//	reference=[enum, units, property, propertyConstant] ;
-
-//ActualBooleanTerm returns aadl2::PropertyExpression:
-//	ActualOrTerm | ActualAndTerm | BooleanLiteral  | NotTerm | ConstantValue;
-//
-//ActualOrTerm returns aadl2::Operation:
-//  ownedPropertyExpression+=AndTerm  op=OrOp ownedPropertyExpression+=AndTerm (  op=OrOp ownedPropertyExpression+=AndTerm)*;
-//
-//ActualAndTerm returns aadl2::Operation:
-//  ownedPropertyExpression+=BooleanAtom  op=AndOp ownedPropertyExpression+=BooleanAtom ( op=AndOp ownedPropertyExpression+=BooleanAtom)*;
+LiteralorReferenceTerm returns aadl2::NamedValue:
+  namedValue=[aadl2::AbstractNamedValue|QPREF]
+;
 
 
 
@@ -1840,7 +1833,7 @@ NotTerm returns aadl2::Operation:
 
 
 BooleanAtom returns aadl2::PropertyExpression:
-	( BooleanLiteral  | NotTerm | ConstantValue
+	( BooleanLiteral  | NotTerm //| ConstantValue
 	| ('[' BooleanTerm ']')
 	);
 
@@ -1849,8 +1842,8 @@ BooleanLiteral returns aadl2::BooleanLiteral:
   //Assumes: default for value is false
   ;
 
-ConstantValue returns aadl2::ConstantValue:
-  constant=[aadl2::PropertyConstant|QPREF]
+ConstantValue returns aadl2::NamedValue:
+  namedValue=[aadl2::AbstractNamedValue|QPREF]
   ;
 
 ReferenceTerm returns aadl2::ReferenceValue:
@@ -1929,7 +1922,7 @@ NoQuoteString :
 
 
 ArrayRange returns aadl2::ArrayRange: {aadl2::ArrayRange}
-	'[' lowerBound=gINT ('..' upperBound=gINT)? 
+	'[' lowerBound=INTVALUE ('..' upperBound=INTVALUE)? 
 	']'
 ;
 
@@ -1952,8 +1945,6 @@ IntegerTerm returns aadl2::IntegerLiteral:
 	;
 
 SignedInt returns aadl2::Integer:
-	// in O2 parser: minus sign handled strangely
-	// Need valueconverter
 	('+'|'-')?INT ;
 	
 // IntegerLiteral allowing underscore in teh middle of the digits
@@ -1965,8 +1956,6 @@ RealTerm returns aadl2::RealLiteral:
 	;
 
 SignedReal returns aadl2::Real:
-	// in O2 parser: minus sign handled strangely
-	// Need valueconverter
 	('+'|'-')?REAL ;
 
 
@@ -1976,6 +1965,11 @@ NumericRangeTerm returns aadl2::RangeValue:
 	('delta' delta=(RealTerm|IntegerTerm| SignedConstant | ConstantValue))?
 	;
 
+
+
+CoreKeyWord :
+	"system" | "thread" | "prcoess" | "data" | "processor" | "port"
+;
 
 terminal ANNEXTEXT:
 	'{**'->'**}';
@@ -1987,35 +1981,68 @@ terminal SL_COMMENT:
 	'--' !('\n' | '\r')* ('\r'? '\n')?;
 
 
-REAL:
+terminal REAL:
 	INT '.' INT;
 
-gINT returns aadl2::Integer:
-	INT 	
+INTVALUE returns aadl2::Integer:
+	INT('_' INT)* 	
 ;
 
-gREAL returns aadl2::Real:
+REALVALUE returns aadl2::Real:
 	REAL 	
 ;
 
+//
+//terminal UINT : INT('_' INT)*;
 
+//terminal fragment
+//EXPONENT  :  ('e') ('+'|'-')? INT  ;
+//
+//terminal fragment
+//INT_EXPONENT :  ('e') ('+')? INT ;
+//
+//
+//terminal REAL_LIT : 	
+//	UINT ( '.' UINT ( EXPONENT )?)
+//  ;
+//
+//terminal INTEGER_LIT : 
+//		UINT
+//		(( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
+//			| (INT_EXPONENT)?
+//		)
+//  ;
+//
+//terminal fragment
+//EXTENDED_DIGIT     :  ( '0'..'9' | 'a'..'f' | 'A'..'F') ;
+//
+//terminal fragment
+//BASED_INTEGER      :  ( EXTENDED_DIGIT ) ( ('_')? EXTENDED_DIGIT )* ;
+
+
+// property reference with optional propertyset name
 QPREF:
 	ID ('::' ID)?;
 
+// classifier reference with optional package name
 QCREF:
 	(ID '::')* ID ('.' ID)?;
 
+// qualified classifier reference for properties
 EQCREF:
 	(ID '::')+ ID ('.' ID)?;
 	
 STAR : '*';
 
+// package anme
 PNAME:
 	ID ('::' ID)*;
 
+// implementation name (used by value converter)
 INAME:
 	ID;
-	
+
+// name of refined entity. Used to set name field by value converter	
 REFINEDNAME:
 	ID;
 

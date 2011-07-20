@@ -1,4 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ThreadType" deleted="false" description="Thread Type" enabled="true" name="ThreadType">thread ${name}&#13;
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataPort" deleted="false" description="Data Port" enabled="true" name="DataPort">${name} : ${direction:Enum('DirectionType')} data port ${dataClassifier:CrossReference('DataPort.dataClassifier')} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataType" deleted="false" description="Data Type" enabled="true" name="DataType">data ${name}&#13;
+  ${cursor}&#13;
+end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.EventDataPort" deleted="false" description="Event Data Port" enabled="true" name="EventDataPort">${name} : ${direction:Enum('DirectionType')} event data port ${dataClassifier:CrossReference('EventDataPort.dataClassifier')} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.EventPort" deleted="false" description="Event Port" enabled="true" name="EventPort">${name} : ${direction:Enum('DirectionType')} event port  ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.SystemImplementation" deleted="false" description="System Implementation" enabled="true" name="System Implementation">system implementation ${name}&#13;
+subcomponents&#13;
+  ${cursor}&#13;
+end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.SystemType" deleted="false" description="System Type" enabled="true" name="SystemType">system ${name}&#13;
+features&#13;
+  ${cursor}&#13;
+end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ThreadType" deleted="false" description="Thread Type" enabled="true" name="ThreadType">thread ${name}&#13;
 features&#13;
   ${cursor}&#13;
 end ${name} ;</template></templates>

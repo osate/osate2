@@ -16,171 +16,173 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-KEYWORD_96 : 'implementation';
+KEYWORD_98 : 'implementation';
 
-KEYWORD_95 : 'subcomponents';
+KEYWORD_97 : 'subcomponents';
 
-KEYWORD_91 : 'aadlboolean';
+KEYWORD_93 : 'aadlboolean';
 
-KEYWORD_92 : 'aadlinteger';
+KEYWORD_94 : 'aadlinteger';
 
-KEYWORD_93 : 'connections';
+KEYWORD_95 : 'connections';
 
-KEYWORD_94 : 'enumeration';
+KEYWORD_96 : 'enumeration';
 
-KEYWORD_86 : 'aadlstring';
+KEYWORD_88 : 'aadlstring';
 
-KEYWORD_87 : 'classifier';
+KEYWORD_89 : 'classifier';
 
-KEYWORD_88 : 'properties';
+KEYWORD_90 : 'properties';
 
-KEYWORD_89 : 'prototypes';
+KEYWORD_91 : 'prototypes';
 
-KEYWORD_90 : 'subprogram';
+KEYWORD_92 : 'subprogram';
 
-KEYWORD_83 : 'parameter';
+KEYWORD_85 : 'parameter';
 
-KEYWORD_84 : 'processor';
+KEYWORD_86 : 'processor';
 
-KEYWORD_85 : 'reference';
+KEYWORD_87 : 'reference';
 
-KEYWORD_76 : 'aadlreal';
+KEYWORD_78 : 'aadlreal';
 
-KEYWORD_77 : 'abstract';
+KEYWORD_79 : 'abstract';
 
-KEYWORD_78 : 'constant';
+KEYWORD_80 : 'constant';
 
-KEYWORD_79 : 'features';
+KEYWORD_81 : 'features';
 
-KEYWORD_80 : 'property';
+KEYWORD_82 : 'property';
 
-KEYWORD_81 : 'provides';
+KEYWORD_83 : 'provides';
 
-KEYWORD_82 : 'requires';
+KEYWORD_84 : 'requires';
 
-KEYWORD_63 : 'applies';
+KEYWORD_64 : 'applies';
 
-KEYWORD_64 : 'compute';
+KEYWORD_65 : 'compute';
 
-KEYWORD_65 : 'extends';
+KEYWORD_66 : 'extends';
 
-KEYWORD_66 : 'feature';
+KEYWORD_67 : 'feature';
 
-KEYWORD_67 : 'inherit';
+KEYWORD_68 : 'inherit';
 
-KEYWORD_68 : 'initial';
+KEYWORD_69 : 'initial';
 
-KEYWORD_69 : 'inverse';
+KEYWORD_70 : 'inverse';
 
-KEYWORD_70 : 'package';
+KEYWORD_71 : 'package';
 
-KEYWORD_71 : 'private';
+KEYWORD_72 : 'prcoess';
 
-KEYWORD_72 : 'process';
+KEYWORD_73 : 'private';
 
-KEYWORD_73 : 'refined';
+KEYWORD_74 : 'process';
 
-KEYWORD_74 : 'renames';
+KEYWORD_75 : 'refined';
 
-KEYWORD_75 : 'virtual';
+KEYWORD_76 : 'renames';
 
-KEYWORD_55 : 'access';
+KEYWORD_77 : 'virtual';
 
-KEYWORD_56 : 'device';
+KEYWORD_56 : 'access';
 
-KEYWORD_57 : 'memory';
+KEYWORD_57 : 'device';
 
-KEYWORD_58 : 'public';
+KEYWORD_58 : 'memory';
 
-KEYWORD_59 : 'record';
+KEYWORD_59 : 'public';
 
-KEYWORD_60 : 'source';
+KEYWORD_60 : 'record';
 
-KEYWORD_61 : 'system';
+KEYWORD_61 : 'source';
 
-KEYWORD_62 : 'thread';
+KEYWORD_62 : 'system';
 
-KEYWORD_45 : 'annex';
+KEYWORD_63 : 'thread';
 
-KEYWORD_46 : 'calls';
+KEYWORD_46 : 'annex';
 
-KEYWORD_47 : 'delta';
+KEYWORD_47 : 'calls';
 
-KEYWORD_48 : 'event';
+KEYWORD_48 : 'delta';
 
-KEYWORD_49 : 'false';
+KEYWORD_49 : 'event';
 
-KEYWORD_50 : 'flows';
+KEYWORD_50 : 'false';
 
-KEYWORD_51 : 'group';
+KEYWORD_51 : 'flows';
 
-KEYWORD_52 : 'modes';
+KEYWORD_52 : 'group';
 
-KEYWORD_53 : 'range';
+KEYWORD_53 : 'modes';
 
-KEYWORD_54 : 'units';
+KEYWORD_54 : 'range';
 
-KEYWORD_34 : 'data';
+KEYWORD_55 : 'units';
 
-KEYWORD_35 : 'flow';
+KEYWORD_35 : 'data';
 
-KEYWORD_36 : 'mode';
+KEYWORD_36 : 'flow';
 
-KEYWORD_37 : 'none';
+KEYWORD_37 : 'mode';
 
-KEYWORD_38 : 'path';
+KEYWORD_38 : 'none';
 
-KEYWORD_39 : 'port';
+KEYWORD_39 : 'path';
 
-KEYWORD_40 : 'self';
+KEYWORD_40 : 'port';
 
-KEYWORD_41 : 'sink';
+KEYWORD_41 : 'self';
 
-KEYWORD_42 : 'true';
+KEYWORD_42 : 'sink';
 
-KEYWORD_43 : 'type';
+KEYWORD_43 : 'true';
 
-KEYWORD_44 : 'with';
+KEYWORD_44 : 'type';
 
-KEYWORD_24 : '+=>';
+KEYWORD_45 : 'with';
 
-KEYWORD_25 : '<->';
+KEYWORD_25 : '+=>';
 
-KEYWORD_26 : ']->';
+KEYWORD_26 : '<->';
 
-KEYWORD_27 : 'all';
+KEYWORD_27 : ']->';
 
-KEYWORD_28 : 'and';
+KEYWORD_28 : 'all';
 
-KEYWORD_29 : 'bus';
+KEYWORD_29 : 'and';
 
-KEYWORD_30 : 'end';
+KEYWORD_30 : 'bus';
 
-KEYWORD_31 : 'not';
+KEYWORD_31 : 'end';
 
-KEYWORD_32 : 'out';
+KEYWORD_32 : 'not';
 
-KEYWORD_33 : 'set';
+KEYWORD_33 : 'out';
 
-KEYWORD_14 : '->';
+KEYWORD_34 : 'set';
 
-KEYWORD_15 : '-[';
+KEYWORD_15 : '->';
 
-KEYWORD_16 : '..';
+KEYWORD_16 : '-[';
 
-KEYWORD_17 : '::';
+KEYWORD_17 : '..';
 
-KEYWORD_18 : '=>';
+KEYWORD_18 : '::';
 
-KEYWORD_19 : 'in';
+KEYWORD_19 : '=>';
 
-KEYWORD_20 : 'is';
+KEYWORD_20 : 'in';
 
-KEYWORD_21 : 'of';
+KEYWORD_21 : 'is';
 
-KEYWORD_22 : 'or';
+KEYWORD_22 : 'of';
 
-KEYWORD_23 : 'to';
+KEYWORD_23 : 'or';
+
+KEYWORD_24 : 'to';
 
 KEYWORD_1 : '(';
 
@@ -204,15 +206,19 @@ KEYWORD_10 : '[';
 
 KEYWORD_11 : ']';
 
-KEYWORD_12 : '{';
+KEYWORD_12 : '_';
 
-KEYWORD_13 : '}';
+KEYWORD_13 : '{';
+
+KEYWORD_14 : '}';
 
 
 
 RULE_ANNEXTEXT : '{**' ( options {greedy=false;} : . )*'**}';
 
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
+
+RULE_REAL : RULE_INT '.' RULE_INT;
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 

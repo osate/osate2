@@ -106,7 +106,7 @@ import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 
 
-	public class MyLinkingService extends DefaultLinkingService {
+	public class Aadl2LinkingService extends DefaultLinkingService {
 
 		
 		public List<EObject> getIndexedObjects(EObject context, EReference reference, INode node){
@@ -123,6 +123,7 @@ import org.osate.aadl2.UnitsType;
 
 			final EClass cl = Aadl2Package.eINSTANCE.getClassifier();
 			final EClass sct = Aadl2Package.eINSTANCE.getSubcomponentType();
+			final EClass pt = Aadl2Package.eINSTANCE.getPropertyType();
 			final String s = getCrossRefNodeAsString(node);
 			if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType) ){
 				// resolve classifier reference
@@ -335,8 +336,8 @@ import org.osate.aadl2.UnitsType;
 				}
 				return Collections.<EObject> emptyList();
 
-			}  else if(Aadl2Package.eINSTANCE.getType() == requiredType ){
-				// look for property type  in property set
+			}  else if(pt.isSuperTypeOf(requiredType) || Aadl2Package.eINSTANCE.getType() == requiredType ){
+				// look for property type in property set
 				List<EObject> res = getIndexedObjects(context, reference, node);
 				if (!res.isEmpty()) 
 					return res;
@@ -352,6 +353,7 @@ import org.osate.aadl2.UnitsType;
 					return Collections.singletonList((EObject)e);
 				}
 				return Collections.<EObject> emptyList();
+			// AbstractNamedValue: constant reference, unit, enum, 
 			}  else if(Aadl2Package.eINSTANCE.getPropertyConstant() == requiredType ){
 				// look for property constant  in property set
 				List<EObject> res = getIndexedObjects(context, reference, node);
@@ -434,9 +436,9 @@ import org.osate.aadl2.UnitsType;
 				// look for enumeration literal 
 			  if (context instanceof EnumerationValue){
 				EnumerationValue enumValue = (EnumerationValue) context;
-				Element owner = enumValue.getOwner();
+				EObject owner = enumValue.eContainer();
 				while (owner instanceof ListValue){
-					owner = owner.getOwner();
+					owner = owner.eContainer();
 				}
 				PropertyType propertyType = null;
 				if (owner instanceof PropertyConstant) //Value of the property constant.
@@ -449,11 +451,11 @@ import org.osate.aadl2.UnitsType;
 					//TODO: Need to check that the type of the property definition is correct for the value.
 					//		We should do this when the type of the definition is resolved in PropertyValuePropertyTypeReference.
 					propertyType = (PropertyType) ((Property) owner).getType();
-				} else if (owner instanceof ModalPropertyValue && owner.getOwner() instanceof PropertyAssociation) //Value of an association.
+				} else if (owner instanceof ModalPropertyValue && owner.eContainer() instanceof PropertyAssociation) //Value of an association.
 				{
 					//TODO: Need to check that the type of the property definition is correct for the value.
 					//		We should do this when the definition of the association is resolved in PropertyDefinitionReference.
-					propertyType = (PropertyType) ((PropertyAssociation) owner.getOwner()).getProperty().getType();
+					propertyType = (PropertyType) ((PropertyAssociation) owner.eContainer()).getProperty().getType();
 				} else if (owner instanceof BasicPropertyAssociation) //Inner value of a record value.
 				{
 					//TODO: Need to check that the type of the record field is correct for the value.

@@ -11,35 +11,44 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.UnitLiteral;
 
-public class MyQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
+public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
 	
 	public String getDelimiter() {
 		return "::";
 	}
 	
 	public QualifiedName qualifiedName(final Classifier obj) {
-		return getConverter().toQualifiedName(obj.getQualifiedName());
+		return getConverter().toQualifiedName(obj.getKwalifiedName());
 	}
 	
 	public QualifiedName qualifiedName(final Element obj) {
 		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
 	}
+//	
+//	public QualifiedName qualifiedName(final NamedElement obj) {
+//		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
+//	}
+//	
+//	public QualifiedName qualifiedName(final UnitLiteral obj) {
+//		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
+//	}
 	
 	public QualifiedName qualifiedName(final AadlPackage obj) {
-		return getConverter().toQualifiedName(obj.getQualifiedName());
+		return getConverter().toQualifiedName(obj.getKwalifiedName());
 	}
 	
 	public QualifiedName qualifiedName(final PropertyType obj) {
-		return getConverter().toQualifiedName(obj.getQualifiedName());
+		return getConverter().toQualifiedName(obj.getKwalifiedName());
 	}
 	
 	public QualifiedName qualifiedName(final Property obj) {
-		return getConverter().toQualifiedName(obj.getQualifiedName());
+		return getConverter().toQualifiedName(obj.getKwalifiedName());
 	}
 	
 	public QualifiedName qualifiedName(final PropertySet obj) {
-		return getConverter().toQualifiedName(obj.getQualifiedName());
+		return getConverter().toQualifiedName(obj.getKwalifiedName());
 	}
 
 }
