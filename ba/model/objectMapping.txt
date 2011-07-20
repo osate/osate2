@@ -1,0 +1,68 @@
+AADLBA front end object mapping
+
+Description of the mapping between AADL2 meta model objects binded to AADLBA front end meta model objects (via aadlRef and baRef).
+
+Syntaxe                                AADLBA Class                  AADL2 binded object types or interfaces
+
+
+* Value variable
+
+
+
+incoming_port_name                     Name                          Port
+incoming_port_name ?                   Name                          Port
+port_name ' count                      Name                          Port
+port_name ' fresh                      Name                          Port
+
+data_component_reference => see section data component reference
+
+* Value constant
+
+boolean_literal                        BehaviorBooleanLiteral        none
+numeric_literal                        NumericLiteral                none
+string_literal                         BehaviorStringLiteral         none
+property_constant                      BehaviorPropertyConstant      PropertyConstant
+property_value                         BehaviorPropertyValue         Property
+
+enum_literal ==> see section enum literal
+
+* Data component reference
+
+data_component_reference               DataComponentReference        same as data_subcomponent_name
+data_subcomponent_name                 Name                          DataSubcomponent
+data_access_feature_name               Name                          DataAccess
+local_variable_name                    Name                          BehaviorVariable or Unique Component Classifier Reference (as the type of a for/forall iterative variable)
+data_access_feature_prototype_name     Name                          PrototypeBinding (for refined prototype), Prototype (for unrefined prototype)
+data_subcomponent_name                 Name                          DataSubcomponent or ClassifierValue (for struct/union member)
+
+
+* Parameter component reference
+
+parameter_component_reference          DataComponentReference        same as data_subcomponent_name
+subprogram_parameter_name              Name                          Parameter
+data_subcomponent_name                 Name                          DataSubcomponent or ClassifierValue (for struct/union member)
+
+
+* Behavior named element
+
+syntaxe :   { package_identifier :: }* component_type_identifier [ . component_implementation_identifier ]
+MM AADLBA   <------ namespace ------ > <-------------------------- name --------------------------------->
+            <-------------------------------------- qualified name -------------------------------------->
+
+namespace                              Identifier                    Namespace
+name or qualified name                 Identifier                    NamedElement
+
+
+* Enum literal
+
+syntaxe : { package_identifier :: }* component_type_identifier [ . component_implementation_identifier ] . enumerators # element_list_identifier
+
+See behavior named element
+
+enum_literal                           BehaviorEnumerationLiteral    same as # element_list_identifier
+.enumerators                           Identifier                    ListValue                       
+# element_list_identifier              Identifier                    StringLiteral
+
+* Target
+
+Apart the out direction, target is mostly the same as value variable.
