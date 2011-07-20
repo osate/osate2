@@ -35,13 +35,10 @@
 package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;

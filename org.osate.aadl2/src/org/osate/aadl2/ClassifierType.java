@@ -53,7 +53,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ClassifierType extends PropertyType {
+public interface ClassifierType extends NonListType {
 
 	/**
 	 * Returns the value of the '<em><b>Classifier Reference</b></em>' containment reference list.

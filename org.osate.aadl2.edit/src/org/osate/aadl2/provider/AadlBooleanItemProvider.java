@@ -54,7 +54,7 @@ import org.osate.aadl2.AadlBoolean;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AadlBooleanItemProvider extends PropertyTypeItemProvider implements IEditingDomainItemProvider,
+public class AadlBooleanItemProvider extends NonListTypeItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.

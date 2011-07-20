@@ -32,100 +32,62 @@
  * </copyright>
  * 
  */
-package org.osate.aadl2.provider;
+package org.osate.aadl2;
 
-import java.util.Collection;
-import java.util.List;
-
-import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.ecore.EClass;
 
 /**
- * This is the item provider adapter for a {@link org.osate.aadl2.FeatureType} object.
  * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>List Type</b></em>'.
  * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.osate.aadl2.ListType#getPropertyType <em>Property Type</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see org.osate.aadl2.Aadl2Package#getListType()
+ * @model
  * @generated
  */
-public class FeatureTypeItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public interface ListType extends PropertyType {
 	/**
-	 * This constructs an instance from a factory and a notifier.
+	 * Returns the value of the '<em><b>Property Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Property Type</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Property Type</em>' containment reference.
+	 * @see #setPropertyType(PropertyType)
+	 * @see org.osate.aadl2.Aadl2Package#getListType_PropertyType()
+	 * @model containment="true" required="true" ordered="false"
 	 * @generated
 	 */
-	public FeatureTypeItemProvider(AdapterFactory adapterFactory) {
-		super(adapterFactory);
-	}
+	PropertyType getPropertyType();
 
 	/**
-	 * This returns the property descriptors for the adapted class.
+	 * Sets the value of the '{@link org.osate.aadl2.ListType#getPropertyType <em>Property Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Property Type</em>' containment reference.
+	 * @see #getPropertyType()
 	 * @generated
 	 */
-	@Override
-	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
-			super.getPropertyDescriptors(object);
-
-		}
-		return itemPropertyDescriptors;
-	}
+	void setPropertyType(PropertyType value);
 
 	/**
-	 * This returns the label text for the adapted class.
+	 * Creates a new {@link org.osate.aadl2.PropertyType} and sets the '<em><b>Property Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param eClass The Ecore class of the {@link org.osate.aadl2.PropertyType} to create.
+	 * @return The new {@link org.osate.aadl2.PropertyType}.
+	 * @see #getPropertyType()
 	 * @generated
 	 */
-	@Override
-	public String getText(Object object) {
-		return getString("_UI_FeatureType_type");
-	}
+	PropertyType createPropertyType(EClass eClass);
 
-	/**
-	 * This handles model notifications by calling {@link #updateChildren} to update any cached
-	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void notifyChanged(Notification notification) {
-		updateChildren(notification);
-		super.notifyChanged(notification);
-	}
-
-	/**
-	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-	 * that can be created under this object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
-		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return Aadl2EditPlugin.INSTANCE;
-	}
-
-}
+} // ListType

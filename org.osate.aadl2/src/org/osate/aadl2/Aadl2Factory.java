@@ -1449,6 +1449,15 @@ public interface Aadl2Factory extends EFactory {
 	ReferenceType createReferenceType();
 
 	/**
+	 * Returns a new object of class '<em>List Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>List Type</em>'.
+	 * @generated
+	 */
+	ListType createListType();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

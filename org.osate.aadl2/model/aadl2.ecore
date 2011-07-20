@@ -264,8 +264,6 @@
         <eAnnotations source="redefines" references="#//TypedElement/type"/>
       </contents>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="list" ordered="false" lowerBound="1"
-        eType="#//Integer"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedType" ordered="false"
         eType="#//PropertyType" containment="true">
       <eAnnotations source="subsets" references="#//BasicProperty/%duplicates%/type"/>
@@ -283,11 +281,6 @@
         <details key="documentation" value="The type of the TypedElement."/>
       </eAnnotations>
     </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="Integer" instanceClassName="long">
-    <eAnnotations source="http://www.topcased.org/documentation">
-      <details key="documentation" value="An integer is a primitive type representing integer values."/>
-    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyType" abstract="true" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractNamedValue" abstract="true"/>
@@ -681,6 +674,11 @@
         lowerBound="1" eType="#//Integer"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="upperBound" ordered="false"
         lowerBound="1" eType="#//Integer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Integer" instanceClassName="long">
+    <eAnnotations source="http://www.topcased.org/documentation">
+      <details key="documentation" value="An integer is a primitive type representing integer values."/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModalPropertyValue" eSuperTypes="#//ModalElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedValue" ordered="false"
@@ -2307,10 +2305,11 @@
       <eAnnotations source="subsets" references="#//Namespace/member"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AadlBoolean" eSuperTypes="#//PropertyType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="AadlString" eSuperTypes="#//PropertyType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NonListType" abstract="true" eSuperTypes="#//PropertyType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AadlBoolean" eSuperTypes="#//NonListType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AadlString" eSuperTypes="#//NonListType"/>
   <eClassifiers xsi:type="ecore:EClass" name="AadlInteger" eSuperTypes="#//NumberType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="NumberType" abstract="true" eSuperTypes="#//PropertyType">
+  <eClassifiers xsi:type="ecore:EClass" name="NumberType" abstract="true" eSuperTypes="#//NonListType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedUnitsType" ordered="false"
         eType="#//UnitsType" containment="true">
       <eAnnotations source="subsets" references="#//NumberType/unitsType"/>
@@ -2329,7 +2328,7 @@
       </contents>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EnumerationType" eSuperTypes="#//Namespace #//PropertyType">
+  <eClassifiers xsi:type="ecore:EClass" name="EnumerationType" eSuperTypes="#//Namespace #//NonListType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedLiteral" ordered="false"
         lowerBound="1" upperBound="-1" eType="#//EnumerationLiteral" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
@@ -2342,11 +2341,11 @@
         lowerBound="1" eType="#//PropertyExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AadlReal" eSuperTypes="#//NumberType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ClassifierType" eSuperTypes="#//PropertyType">
+  <eClassifiers xsi:type="ecore:EClass" name="ClassifierType" eSuperTypes="#//NonListType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifierReference" ordered="false"
         lowerBound="1" upperBound="-1" eType="#//MetaclassReference" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RangeType" eSuperTypes="#//PropertyType">
+  <eClassifiers xsi:type="ecore:EClass" name="RangeType" eSuperTypes="#//NonListType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedNumberType" ordered="false"
         eType="#//NumberType" containment="true">
       <eAnnotations source="subsets" references="#//RangeType/numberType"/>
@@ -2354,17 +2353,21 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="numberType" ordered="false"
         lowerBound="1" eType="#//NumberType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RecordType" eSuperTypes="#//Namespace #//PropertyType">
+  <eClassifiers xsi:type="ecore:EClass" name="RecordType" eSuperTypes="#//Namespace #//NonListType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedField" ordered="false"
         upperBound="-1" eType="#//BasicProperty" containment="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RecordField" eSuperTypes="#//BasicProperty"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ReferenceType" eSuperTypes="#//PropertyType">
+  <eClassifiers xsi:type="ecore:EClass" name="ReferenceType" eSuperTypes="#//NonListType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="namedElementReference"
         ordered="false" lowerBound="1" upperBound="-1" eType="#//MetaclassReference"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ListType" eSuperTypes="#//PropertyType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyType" ordered="false"
+        lowerBound="1" eType="#//PropertyType" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorPort" eSuperTypes="#//NamedElement #//ModeTransitionTrigger #//AbstractConnectionEnd"/>
   <eClassifiers xsi:type="ecore:EClass" name="InternalEvent" eSuperTypes="#//NamedElement #//ModeTransitionTrigger #//AbstractConnectionEnd"/>

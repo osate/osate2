@@ -48,7 +48,7 @@ import org.osate.aadl2.AadlBoolean;
  *
  * @generated
  */
-public class AadlBooleanImpl extends PropertyTypeImpl implements AadlBoolean {
+public class AadlBooleanImpl extends NonListTypeImpl implements AadlBoolean {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

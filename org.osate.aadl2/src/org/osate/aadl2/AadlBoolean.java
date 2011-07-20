@@ -45,6 +45,6 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface AadlBoolean extends PropertyType {
+public interface AadlBoolean extends NonListType {
 
 } // AadlBoolean

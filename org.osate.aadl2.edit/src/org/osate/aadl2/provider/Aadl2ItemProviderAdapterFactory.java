@@ -3668,6 +3668,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ListType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ListTypeItemProvider listTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ListType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createListTypeAdapter() {
+		if (listTypeItemProvider == null) {
+			listTypeItemProvider = new ListTypeItemProvider(this);
+		}
+
+		return listTypeItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4070,6 +4093,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			recordFieldItemProvider.dispose();
 		if (referenceTypeItemProvider != null)
 			referenceTypeItemProvider.dispose();
+		if (listTypeItemProvider != null)
+			listTypeItemProvider.dispose();
 		if (processorPortItemProvider != null)
 			processorPortItemProvider.dispose();
 		if (internalEventItemProvider != null)

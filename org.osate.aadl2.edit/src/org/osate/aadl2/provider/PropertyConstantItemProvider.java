@@ -227,6 +227,9 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
 				Aadl2Factory.eINSTANCE.createReferenceType()));
 
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+				Aadl2Factory.eINSTANCE.createListType()));
+
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
