@@ -620,13 +620,13 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseDirectedFeature(DirectedFeature object) {
-			return createDirectedFeatureAdapter();
+		public Adapter caseCallContext(CallContext object) {
+			return createCallContextAdapter();
 		}
 
 		@Override
-		public Adapter caseCallContext(CallContext object) {
-			return createCallContextAdapter();
+		public Adapter caseDirectedFeature(DirectedFeature object) {
+			return createDirectedFeatureAdapter();
 		}
 
 		@Override
@@ -1010,6 +1010,31 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseSubprogramCallSequence(SubprogramCallSequence object) {
+			return createSubprogramCallSequenceAdapter();
+		}
+
+		@Override
+		public Adapter caseCallSpecification(CallSpecification object) {
+			return createCallSpecificationAdapter();
+		}
+
+		@Override
+		public Adapter caseProcessorCall(ProcessorCall object) {
+			return createProcessorCallAdapter();
+		}
+
+		@Override
+		public Adapter caseBehavioredImplementation(BehavioredImplementation object) {
+			return createBehavioredImplementationAdapter();
+		}
+
+		@Override
+		public Adapter caseSubprogramCall(SubprogramCall object) {
+			return createSubprogramCallAdapter();
+		}
+
+		@Override
 		public Adapter caseAbstractType(AbstractType object) {
 			return createAbstractTypeAdapter();
 		}
@@ -1022,21 +1047,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseAbstractImplementation(AbstractImplementation object) {
 			return createAbstractImplementationAdapter();
-		}
-
-		@Override
-		public Adapter caseBehavioredImplementation(BehavioredImplementation object) {
-			return createBehavioredImplementationAdapter();
-		}
-
-		@Override
-		public Adapter caseCallSpecification(CallSpecification object) {
-			return createCallSpecificationAdapter();
-		}
-
-		@Override
-		public Adapter caseSubprogramCallSequence(SubprogramCallSequence object) {
-			return createSubprogramCallSequenceAdapter();
 		}
 
 		@Override
@@ -1617,16 +1627,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseProcessorSubprogram(ProcessorSubprogram object) {
 			return createProcessorSubprogramAdapter();
-		}
-
-		@Override
-		public Adapter caseProcessorCall(ProcessorCall object) {
-			return createProcessorCallAdapter();
-		}
-
-		@Override
-		public Adapter caseSubprogramCall(SubprogramCall object) {
-			return createSubprogramCallAdapter();
 		}
 
 		@Override

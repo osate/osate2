@@ -551,10 +551,10 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateTypeExtension((TypeExtension) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP:
 			return validateFeatureGroup((FeatureGroup) value, diagnostics, context);
-		case Aadl2Package.DIRECTED_FEATURE:
-			return validateDirectedFeature((DirectedFeature) value, diagnostics, context);
 		case Aadl2Package.CALL_CONTEXT:
 			return validateCallContext((CallContext) value, diagnostics, context);
+		case Aadl2Package.DIRECTED_FEATURE:
+			return validateDirectedFeature((DirectedFeature) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP_CONNECTION_END:
 			return validateFeatureGroupConnectionEnd((FeatureGroupConnectionEnd) value, diagnostics, context);
 		case Aadl2Package.FEATURE_TYPE:
@@ -708,18 +708,22 @@ public class Aadl2Validator extends EObjectValidator {
 			return validatePortSpecification((PortSpecification) value, diagnostics, context);
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
 			return validateFeaturePrototypeReference((FeaturePrototypeReference) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
+			return validateSubprogramCallSequence((SubprogramCallSequence) value, diagnostics, context);
+		case Aadl2Package.CALL_SPECIFICATION:
+			return validateCallSpecification((CallSpecification) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_CALL:
+			return validateProcessorCall((ProcessorCall) value, diagnostics, context);
+		case Aadl2Package.BEHAVIORED_IMPLEMENTATION:
+			return validateBehavioredImplementation((BehavioredImplementation) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_CALL:
+			return validateSubprogramCall((SubprogramCall) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_TYPE:
 			return validateAbstractType((AbstractType) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_CLASSIFIER:
 			return validateAbstractClassifier((AbstractClassifier) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION:
 			return validateAbstractImplementation((AbstractImplementation) value, diagnostics, context);
-		case Aadl2Package.BEHAVIORED_IMPLEMENTATION:
-			return validateBehavioredImplementation((BehavioredImplementation) value, diagnostics, context);
-		case Aadl2Package.CALL_SPECIFICATION:
-			return validateCallSpecification((CallSpecification) value, diagnostics, context);
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
-			return validateSubprogramCallSequence((SubprogramCallSequence) value, diagnostics, context);
 		case Aadl2Package.BUS_SUBCOMPONENT:
 			return validateBusSubcomponent((BusSubcomponent) value, diagnostics, context);
 		case Aadl2Package.DATA_SUBCOMPONENT:
@@ -953,10 +957,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateInternalEvent((InternalEvent) value, diagnostics, context);
 		case Aadl2Package.PROCESSOR_SUBPROGRAM:
 			return validateProcessorSubprogram((ProcessorSubprogram) value, diagnostics, context);
-		case Aadl2Package.PROCESSOR_CALL:
-			return validateProcessorCall((ProcessorCall) value, diagnostics, context);
-		case Aadl2Package.SUBPROGRAM_CALL:
-			return validateSubprogramCall((SubprogramCall) value, diagnostics, context);
 		case Aadl2Package.FLOW_KIND:
 			return validateFlowKind((FlowKind) value, diagnostics, context);
 		case Aadl2Package.DIRECTION_TYPE:

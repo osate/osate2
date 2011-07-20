@@ -3894,12 +3894,16 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			portSpecificationItemProvider.dispose();
 		if (featurePrototypeReferenceItemProvider != null)
 			featurePrototypeReferenceItemProvider.dispose();
+		if (subprogramCallSequenceItemProvider != null)
+			subprogramCallSequenceItemProvider.dispose();
+		if (processorCallItemProvider != null)
+			processorCallItemProvider.dispose();
+		if (subprogramCallItemProvider != null)
+			subprogramCallItemProvider.dispose();
 		if (abstractTypeItemProvider != null)
 			abstractTypeItemProvider.dispose();
 		if (abstractImplementationItemProvider != null)
 			abstractImplementationItemProvider.dispose();
-		if (subprogramCallSequenceItemProvider != null)
-			subprogramCallSequenceItemProvider.dispose();
 		if (busSubcomponentItemProvider != null)
 			busSubcomponentItemProvider.dispose();
 		if (dataSubcomponentItemProvider != null)
@@ -4072,10 +4076,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			internalEventItemProvider.dispose();
 		if (processorSubprogramItemProvider != null)
 			processorSubprogramItemProvider.dispose();
-		if (processorCallItemProvider != null)
-			processorCallItemProvider.dispose();
-		if (subprogramCallItemProvider != null)
-			subprogramCallItemProvider.dispose();
 	}
 
 }
