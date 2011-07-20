@@ -53,7 +53,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ReferenceType extends PropertyType {
+public interface ReferenceType extends NonListType {
 	/**
 	 * Returns the value of the '<em><b>Named Element Reference</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.MetaclassReference}.

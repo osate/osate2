@@ -53,7 +53,7 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface NumberType extends PropertyType {
+public interface NumberType extends NonListType {
 	/**
 	 * Returns the value of the '<em><b>Owned Units Type</b></em>' containment reference.
 	 * <p>

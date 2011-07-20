@@ -171,7 +171,6 @@
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Property/emptyListDefault"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//BasicProperty">
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//BasicProperty/list"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BasicProperty/ownedType"/>
     </genClasses>
@@ -1234,6 +1233,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//GlobalNamespace/propertySet"/>
     </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//NonListType"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//AadlBoolean"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//AadlString"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//AadlInteger"/>
@@ -1275,6 +1275,10 @@
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ReferenceType">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ReferenceType/namedElementReference"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ListType">
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ListType/propertyType"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ProcessorPort"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//InternalEvent"/>

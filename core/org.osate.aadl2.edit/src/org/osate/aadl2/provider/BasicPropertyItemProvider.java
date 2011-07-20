@@ -44,14 +44,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.uml2.common.edit.command.SubsetSupersetSetCommand;
 import org.osate.aadl2.Aadl2Factory;
@@ -87,25 +85,8 @@ public class BasicPropertyItemProvider extends TypedElementItemProvider implemen
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addListPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the List feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addListPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_BasicProperty_list_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_BasicProperty_list_feature",
-						"_UI_BasicProperty_type"), Aadl2Package.eINSTANCE.getBasicProperty_List(), true, false, false,
-				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -174,9 +155,6 @@ public class BasicPropertyItemProvider extends TypedElementItemProvider implemen
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(BasicProperty.class)) {
-		case Aadl2Package.BASIC_PROPERTY__LIST:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
 		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -224,6 +202,9 @@ public class BasicPropertyItemProvider extends TypedElementItemProvider implemen
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
 				Aadl2Factory.eINSTANCE.createReferenceType()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
+				Aadl2Factory.eINSTANCE.createListType()));
 	}
 
 	/**
