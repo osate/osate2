@@ -112,7 +112,7 @@ public interface NamedElement extends Element {
 	 *        annotation="http://www.topcased.org/documentation documentation='A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself.'"
 	 * @generated
 	 */
-	String getQualifiedName();
+	String getKwalifiedName();
 
 	/**
 	 * Returns the value of the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -239,7 +239,7 @@ public interface NamedElement extends Element {
 	 *        ordered="false" annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='if self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty() then\r\n  self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))\r\nelse \r\n  \'\' \r\nendif'"
 	 * @generated
 	 */
-	String qualifiedName();
+	String kwalifiedName();
 
 	/**
 	 * Returns {@code true} if this {@code NamedElement} has a name. This method

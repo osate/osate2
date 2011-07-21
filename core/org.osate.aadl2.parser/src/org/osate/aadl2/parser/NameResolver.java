@@ -1287,7 +1287,7 @@ public class NameResolver {
 			errManager.error(prototypeBinding, '\'' + prototypeName + "' is not a prototype");
 		else
 			errManager.error(prototypeBinding,
-					'\'' + prototypeName + "' not found in '" + prototypeOwner.getQualifiedName() + '\'');
+					'\'' + prototypeName + "' not found in '" + prototypeOwner.getKwalifiedName() + '\'');
 	}
 
 	private void caseFeatureAccessSpecificationClassifierReference(AccessSpecification accessSpecification,

@@ -38,25 +38,27 @@ KEYWORD_91 : 'prototypes';
 
 KEYWORD_92 : 'subprogram';
 
-KEYWORD_85 : 'parameter';
+KEYWORD_84 : 'parameter';
 
-KEYWORD_86 : 'processor';
+KEYWORD_85 : 'processor';
+
+KEYWORD_86 : 'prototype';
 
 KEYWORD_87 : 'reference';
 
-KEYWORD_78 : 'aadlreal';
+KEYWORD_77 : 'aadlreal';
 
-KEYWORD_79 : 'abstract';
+KEYWORD_78 : 'abstract';
 
-KEYWORD_80 : 'constant';
+KEYWORD_79 : 'constant';
 
-KEYWORD_81 : 'features';
+KEYWORD_80 : 'features';
 
-KEYWORD_82 : 'property';
+KEYWORD_81 : 'property';
 
-KEYWORD_83 : 'provides';
+KEYWORD_82 : 'provides';
 
-KEYWORD_84 : 'requires';
+KEYWORD_83 : 'requires';
 
 KEYWORD_64 : 'applies';
 
@@ -74,17 +76,15 @@ KEYWORD_70 : 'inverse';
 
 KEYWORD_71 : 'package';
 
-KEYWORD_72 : 'prcoess';
+KEYWORD_72 : 'private';
 
-KEYWORD_73 : 'private';
+KEYWORD_73 : 'process';
 
-KEYWORD_74 : 'process';
+KEYWORD_74 : 'refined';
 
-KEYWORD_75 : 'refined';
+KEYWORD_75 : 'renames';
 
-KEYWORD_76 : 'renames';
-
-KEYWORD_77 : 'virtual';
+KEYWORD_76 : 'virtual';
 
 KEYWORD_56 : 'access';
 
@@ -122,9 +122,11 @@ KEYWORD_54 : 'range';
 
 KEYWORD_55 : 'units';
 
-KEYWORD_35 : 'data';
+KEYWORD_34 : 'data';
 
-KEYWORD_36 : 'flow';
+KEYWORD_35 : 'flow';
+
+KEYWORD_36 : 'list';
 
 KEYWORD_37 : 'mode';
 
@@ -144,45 +146,45 @@ KEYWORD_44 : 'type';
 
 KEYWORD_45 : 'with';
 
-KEYWORD_25 : '+=>';
+KEYWORD_24 : '+=>';
 
-KEYWORD_26 : '<->';
+KEYWORD_25 : '<->';
 
-KEYWORD_27 : ']->';
+KEYWORD_26 : ']->';
 
-KEYWORD_28 : 'all';
+KEYWORD_27 : 'all';
 
-KEYWORD_29 : 'and';
+KEYWORD_28 : 'and';
 
-KEYWORD_30 : 'bus';
+KEYWORD_29 : 'bus';
 
-KEYWORD_31 : 'end';
+KEYWORD_30 : 'end';
 
-KEYWORD_32 : 'not';
+KEYWORD_31 : 'not';
 
-KEYWORD_33 : 'out';
+KEYWORD_32 : 'out';
 
-KEYWORD_34 : 'set';
+KEYWORD_33 : 'set';
 
-KEYWORD_15 : '->';
+KEYWORD_14 : '->';
 
-KEYWORD_16 : '-[';
+KEYWORD_15 : '-[';
 
-KEYWORD_17 : '..';
+KEYWORD_16 : '..';
 
-KEYWORD_18 : '::';
+KEYWORD_17 : '::';
 
-KEYWORD_19 : '=>';
+KEYWORD_18 : '=>';
 
-KEYWORD_20 : 'in';
+KEYWORD_19 : 'in';
 
-KEYWORD_21 : 'is';
+KEYWORD_20 : 'is';
 
-KEYWORD_22 : 'of';
+KEYWORD_21 : 'of';
 
-KEYWORD_23 : 'or';
+KEYWORD_22 : 'or';
 
-KEYWORD_24 : 'to';
+KEYWORD_23 : 'to';
 
 KEYWORD_1 : '(';
 
@@ -206,11 +208,9 @@ KEYWORD_10 : '[';
 
 KEYWORD_11 : ']';
 
-KEYWORD_12 : '_';
+KEYWORD_12 : '{';
 
-KEYWORD_13 : '{';
-
-KEYWORD_14 : '}';
+KEYWORD_13 : '}';
 
 
 
@@ -218,19 +218,27 @@ RULE_ANNEXTEXT : '{**' ( options {greedy=false;} : . )*'**}';
 
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
-RULE_REAL : RULE_INT '.' RULE_INT;
+fragment RULE_EXPONENT : 'e' ('+'|'-')? RULE_DIGIT+;
 
-RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+fragment RULE_INT_EXPONENT : 'e' '+'? RULE_DIGIT+;
 
-RULE_INT : ('0'..'9')+;
+RULE_REAL_LIT : RULE_DIGIT+ ('_' RULE_DIGIT+)* '.' RULE_DIGIT+ ('_' RULE_DIGIT+)* RULE_EXPONENT?;
+
+RULE_INTEGER_LIT : RULE_DIGIT+ ('_' RULE_DIGIT+)* ('#' RULE_BASED_INTEGER '#' RULE_INT_EXPONENT?|RULE_INT_EXPONENT?);
+
+fragment RULE_BASE : RULE_DIGIT RULE_DIGIT?;
+
+fragment RULE_DIGIT : '0'..'9';
+
+fragment RULE_EXTENDED_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F');
+
+fragment RULE_BASED_INTEGER : RULE_EXTENDED_DIGIT ('_'? RULE_EXTENDED_DIGIT)*;
 
 RULE_STRING : ('"' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'"')))* '"'|'\'' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'\'')))* '\'');
 
-RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/';
+RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
 RULE_WS : (' '|'\t'|'\r'|'\n')+;
-
-RULE_ANY_OTHER : .;
 
 
 

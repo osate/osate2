@@ -55,10 +55,12 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
+import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
@@ -92,27 +94,27 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 	static class FlowIterator implements Iterator<EndToEndFlowElement> {
 
-		private EList<EndToEndFlowElement> eteElements;
+		private EList<EndToEndFlowSegment> eteElements;
 
-		private EList<FlowElement> flowElements;
+		private EList<FlowSegment> flowElements;
 
 		private int size;
 
 		private int index;
 
 		public FlowIterator(EndToEndFlow ete) {
-			this.eteElements = ete.getAllFlowElements();
+			this.eteElements = ete.getAllFlowSegments();
 			size = this.eteElements.size();
 			index = 0;
 		}
 
 		public FlowIterator(FlowImplementation flowImpl) {
-			this.flowElements = flowImpl.getFlowElements();
+			this.flowElements = flowImpl.getAllFlowSegments();
 			size = this.flowElements.size();
 			index = 0;
 		}
 
-		private FlowIterator(EList<EndToEndFlowElement> eteElements, EList<FlowElement> flowElements, int index) {
+		private FlowIterator(EList<EndToEndFlowSegment> eteElements, EList<FlowSegment> flowElements, int index) {
 			this.eteElements = eteElements;
 			this.flowElements = flowElements;
 			size = eteElements != null ? eteElements.size() : flowElements.size();
@@ -123,8 +125,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			return index < size;
 		}
 
-		public EndToEndFlowElement next() {
-			return eteElements != null ? eteElements.get(index++) : flowElements.get(index++);
+		public EndToEndFlowSegment next() {
+			return  (eteElements != null ? eteElements.get(index++) : flowElements.get(index++));
 		}
 
 		public void remove() {
@@ -253,7 +255,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		FlowIterator iter = new FlowIterator(ete);
 		// TODO-LW: is this loop necessary?
 		while (iter.hasNext()) {
-			EndToEndFlowElement fe = iter.next();
+			EndToEndFlowSegment fe = iter.next();
 
 			processETEElement(ci, etei, fe, iter, ete);
 			break;
@@ -269,7 +271,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param iter the position in the current ETE declaration
 	 * @param errorElement the model element that we attach errors to
 	 */
-	protected void processETEElement(ComponentInstance ci, EndToEndFlowInstance etei, EndToEndFlowElement fe,
+	protected void processETEElement(ComponentInstance ci, EndToEndFlowInstance etei, EndToEndFlowSegment fe,
 			FlowIterator iter, NamedElement errorElement) {
 		if (fe instanceof Connection) {
 			if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
@@ -520,7 +522,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					} else {
 						if (!errorReported) {
 							errorReported = true;
-							error(etei, "Data access feature " + da.getQualifiedName()
+							error(etei, "Data access feature " + da.getKwalifiedName()
 									+ " is not a proxy for a data component.");
 						}
 					}
@@ -593,7 +595,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		nestedETEs = ete2info.get(ete);
 		
 		if (nestedETEs.isEmpty()) {
-			error(etei, "No nested end to end flows instantiated for " + ete.getQualifiedName());
+			error(etei, "No nested end to end flows instantiated for " + ete.getKwalifiedName());
 			connections.clear();
 			return;
 		}

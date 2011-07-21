@@ -71,7 +71,7 @@ import org.osate.aadl2.util.Aadl2Validator;
  *   <li>{@link org.osate.aadl2.NamedElement#allNamespaces() <em>All Namespaces</em>}</li>
  *   <li>{@link org.osate.aadl2.NamedElement#isDistinguishableFrom(org.osate.aadl2.NamedElement, org.osate.aadl2.Namespace) <em>Is Distinguishable From</em>}</li>
  *   <li>{@link org.osate.aadl2.NamedElement#separator() <em>Separator</em>}</li>
- *   <li>{@link org.osate.aadl2.NamedElement#qualifiedName() <em>Qualified Name</em>}</li>
+ *   <li>{@link org.osate.aadl2.NamedElement#kwalifiedName() <em>Qualified Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -374,10 +374,10 @@ public class NamedElementOperations extends ElementOperations {
 	}
 
 	/**
-	 * The cached OCL expression body for the '{@link #qualifiedName(NamedElement) <em>Qualified Name</em>}' operation.
+	 * The cached OCL expression body for the '{@link #kwalifiedName(NamedElement) <em>Qualified Name</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #qualifiedName(NamedElement)
+	 * @see #kwalifiedName(NamedElement)
 	 * @generated
 	 * @ordered
 	 */
@@ -386,10 +386,10 @@ public class NamedElementOperations extends ElementOperations {
 			+ "else " + "  '' " + "endif";
 
 	/**
-	 * The cached OCL query for the '{@link #qualifiedName(NamedElement) <em>Qualified Name</em>}' query operation.
+	 * The cached OCL query for the '{@link #kwalifiedName(NamedElement) <em>Qualified Name</em>}' query operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #qualifiedName(NamedElement)
+	 * @see #kwalifiedName(NamedElement)
 	 * @generated
 	 * @ordered
 	 */
@@ -409,14 +409,15 @@ public class NamedElementOperations extends ElementOperations {
 	 * <!-- end-model-doc -->
 	 * @generated NOT
 	 */
-	public static String qualifiedName(NamedElement namedElement) {
+	
+	public static String kwalifiedName(NamedElement namedElement) {
 		if (namedElement.hasName()) {
 			Namespace namespace = namedElement.getNamespace();
 			if (namespace != null && namespace.hasName()) {
 				if (namespace instanceof PackageSection || namespace instanceof PropertySet)
 					return namespace.getName() + "::" + namedElement.getName();
 				else
-					return qualifiedName(namespace) + '.' + namedElement.getName();
+					return kwalifiedName(namespace) + '.' + namedElement.getName();
 			} else
 				return namedElement.getName();
 		} else

@@ -17,6 +17,7 @@ import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.OperationKind;
 import org.osate.aadl2.PortCategory;
+import org.osate.xtext.aadl2.util.ParseUtil;
 
 public class Aadl2ValueConverter extends DefaultTerminalConverters {
     @ValueConverter(rule = "INAME")
@@ -311,9 +312,8 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
     public IValueConverter<Long> SignedInt() {
         return new IValueConverter<Long>() {
             public Long toValue(String string, INode node) {
-            	if (string.indexOf('_')!=-1)
-            	string = string.replaceAll("_", "");
-				return Long.valueOf(string);
+            	long[] res = ParseUtil.parseAadlInteger(string);
+				return Long.valueOf(res[1]);
 			}
 
             public String toString(Long value) {
@@ -322,28 +322,12 @@ public class Aadl2ValueConverter extends DefaultTerminalConverters {
         };
     }
 
-    @ValueConverter(rule = "REALVALUE")
-    public IValueConverter<Double> REALVALUE() {
-        return new IValueConverter<Double>() {
-            public Double toValue(String string, INode node) {
-            	if (string.indexOf('_')!=-1)
-            	string = string.replaceAll("_", "");
-				return Double.valueOf(string);
-			}
-
-            public String toString(Double value) {
-                return value.toString();
-            }
-        };
-    }
 
     @ValueConverter(rule = "SignedReal")
     public IValueConverter<Double> SignedReal() {
         return new IValueConverter<Double>() {
             public Double toValue(String string, INode node) {
-            	if (string.indexOf('_')!=-1)
-            	string = string.replaceAll("_", "");
-				return Double.valueOf(string);
+				return ParseUtil.parseAadlReal(string);
 			}
 
             public String toString(Double value) {

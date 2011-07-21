@@ -7,6 +7,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertySet;
@@ -20,7 +21,7 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 	}
 	
 	public QualifiedName qualifiedName(final Classifier obj) {
-		return getConverter().toQualifiedName(obj.getKwalifiedName());
+		return getConverter().toQualifiedName(getTheName(obj));
 	}
 	
 	public QualifiedName qualifiedName(final Element obj) {
@@ -36,19 +37,29 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 //	}
 	
 	public QualifiedName qualifiedName(final AadlPackage obj) {
-		return getConverter().toQualifiedName(obj.getKwalifiedName());
+		return getConverter().toQualifiedName(obj.getName());
 	}
 	
 	public QualifiedName qualifiedName(final PropertyType obj) {
-		return getConverter().toQualifiedName(obj.getKwalifiedName());
+		return getConverter().toQualifiedName(getTheName(obj));
 	}
 	
 	public QualifiedName qualifiedName(final Property obj) {
-		return getConverter().toQualifiedName(obj.getKwalifiedName());
+		return getConverter().toQualifiedName(getTheName(obj));
 	}
 	
 	public QualifiedName qualifiedName(final PropertySet obj) {
-		return getConverter().toQualifiedName(obj.getKwalifiedName());
+		return getConverter().toQualifiedName(obj.getName());
 	}
+	
+	protected String getTheName(NamedElement namedElement){
+		Namespace namespace = namedElement.getNamespace();
+		if (namespace != null && namespace.hasName()) {
+			if (namespace instanceof PackageSection || namespace instanceof PropertySet)
+				return namespace.getName() + "::" + namedElement.getName();
+		}
+		return namedElement.getName();
+	}
+
 
 }
