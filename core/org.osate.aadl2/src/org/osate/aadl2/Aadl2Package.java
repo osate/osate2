@@ -33334,13 +33334,22 @@ public interface Aadl2Package extends EPackage {
 	int LIST_TYPE__OWNED_PROPERTY_ASSOCIATION = PROPERTY_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Property Type</b></em>' containment reference.
+	 * The feature id for the '<em><b>Owned Element Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_TYPE__PROPERTY_TYPE = PROPERTY_TYPE_FEATURE_COUNT + 0;
+	int LIST_TYPE__OWNED_ELEMENT_TYPE = PROPERTY_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Element Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_TYPE__ELEMENT_TYPE = PROPERTY_TYPE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>List Type</em>' class.
@@ -33349,7 +33358,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 1;
+	int LIST_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -40444,15 +40453,26 @@ public interface Aadl2Package extends EPackage {
 	EClass getListType();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ListType#getPropertyType <em>Property Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ListType#getOwnedElementType <em>Owned Element Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Property Type</em>'.
-	 * @see org.osate.aadl2.ListType#getPropertyType()
+	 * @return the meta object for the containment reference '<em>Owned Element Type</em>'.
+	 * @see org.osate.aadl2.ListType#getOwnedElementType()
 	 * @see #getListType()
 	 * @generated
 	 */
-	EReference getListType_PropertyType();
+	EReference getListType_OwnedElementType();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.ListType#getElementType <em>Element Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Element Type</em>'.
+	 * @see org.osate.aadl2.ListType#getElementType()
+	 * @see #getListType()
+	 * @generated
+	 */
+	EReference getListType_ElementType();
 
 	/**
 	 * Returns the meta object for enum '{@link org.osate.aadl2.DirectionType <em>Direction Type</em>}'.

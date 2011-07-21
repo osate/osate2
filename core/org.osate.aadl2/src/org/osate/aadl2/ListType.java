@@ -44,7 +44,8 @@ import org.eclipse.emf.ecore.EClass;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.ListType#getPropertyType <em>Property Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.ListType#getOwnedElementType <em>Owned Element Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.ListType#getElementType <em>Element Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,40 +55,72 @@ import org.eclipse.emf.ecore.EClass;
  */
 public interface ListType extends PropertyType {
 	/**
-	 * Returns the value of the '<em><b>Property Type</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Owned Element Type</b></em>' containment reference.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ListType#getElementType() <em>Element Type</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Property Type</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Owned Element Type</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Property Type</em>' containment reference.
-	 * @see #setPropertyType(PropertyType)
-	 * @see org.osate.aadl2.Aadl2Package#getListType_PropertyType()
-	 * @model containment="true" required="true" ordered="false"
+	 * @return the value of the '<em>Owned Element Type</em>' containment reference.
+	 * @see #setOwnedElementType(PropertyType)
+	 * @see org.osate.aadl2.Aadl2Package#getListType_OwnedElementType()
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
-	PropertyType getPropertyType();
+	PropertyType getOwnedElementType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ListType#getPropertyType <em>Property Type</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.ListType#getOwnedElementType <em>Owned Element Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Property Type</em>' containment reference.
-	 * @see #getPropertyType()
+	 * @param value the new value of the '<em>Owned Element Type</em>' containment reference.
+	 * @see #getOwnedElementType()
 	 * @generated
 	 */
-	void setPropertyType(PropertyType value);
+	void setOwnedElementType(PropertyType value);
 
 	/**
-	 * Creates a new {@link org.osate.aadl2.PropertyType} and sets the '<em><b>Property Type</b></em>' containment reference.
+	 * Creates a new {@link org.osate.aadl2.PropertyType} and sets the '<em><b>Owned Element Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param eClass The Ecore class of the {@link org.osate.aadl2.PropertyType} to create.
 	 * @return The new {@link org.osate.aadl2.PropertyType}.
-	 * @see #getPropertyType()
+	 * @see #getOwnedElementType()
 	 * @generated
 	 */
-	PropertyType createPropertyType(EClass eClass);
+	PropertyType createOwnedElementType(EClass eClass);
+
+	/**
+	 * Returns the value of the '<em><b>Element Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Element Type</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Element Type</em>' reference.
+	 * @see #setElementType(PropertyType)
+	 * @see org.osate.aadl2.Aadl2Package#getListType_ElementType()
+	 * @model required="true" ordered="false"
+	 * @generated
+	 */
+	PropertyType getElementType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.ListType#getElementType <em>Element Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Element Type</em>' reference.
+	 * @see #getElementType()
+	 * @generated
+	 */
+	void setElementType(PropertyType value);
 
 } // ListType
