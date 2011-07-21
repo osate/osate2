@@ -183,9 +183,12 @@ public abstract class NumberTypeImpl extends PropertyTypeImpl implements NumberT
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public UnitsType getUnitsType() {
+		if (unitsType == null){
+			return getOwnedUnitsType();
+		}
 		if (unitsType != null && ((EObject) unitsType).eIsProxy()) {
 			InternalEObject oldUnitsType = (InternalEObject) unitsType;
 			unitsType = (UnitsType) eResolveProxy(oldUnitsType);

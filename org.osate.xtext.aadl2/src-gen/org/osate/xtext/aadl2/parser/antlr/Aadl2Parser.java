@@ -15,7 +15,7 @@ public class Aadl2Parser extends org.eclipse.xtext.parser.antlr.AbstractAntlrPar
 	
 	@Override
 	protected void setInitialHiddenTokens(XtextTokenStream tokenStream) {
-		tokenStream.setInitialHiddenTokens("RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT");
+		tokenStream.setInitialHiddenTokens("RULE_WS", "RULE_SL_COMMENT");
 	}
 	
 	@Override

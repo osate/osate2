@@ -3,7 +3,9 @@ package org.osate.xtext.aadl2.linking;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -34,6 +36,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.ConstantValue;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Context;
@@ -67,6 +70,7 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.NumberValue;
@@ -104,6 +108,7 @@ import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
+import org.osate.xtext.aadl2.util.PSNode;
 
 
 	public class Aadl2LinkingService extends DefaultLinkingService {
@@ -111,6 +116,15 @@ import org.osate.aadl2.UnitsType;
 		
 		public List<EObject> getIndexedObjects(EObject context, EReference reference, INode node){
 			return super.getLinkedObjects(context, reference, node);
+		}
+		
+		@Override
+		public String getCrossRefNodeAsString(INode node) throws IllegalNodeException {
+			if (node instanceof PSNode){
+			return getLinkingHelper().getCrossRefNodeAsString(node, false);
+			} else {
+				return getLinkingHelper().getCrossRefNodeAsString(node, true);
+			}
 		}
 		
 		@Override
@@ -330,7 +344,7 @@ import org.osate.aadl2.UnitsType;
 					psname = s.substring(0, idx);
 					pname = s.substring(idx+2);
 				} 
-				EObject e = findNamedElementInPropertySet(psname,pname,getContainingTopLevelNamespace(context));
+				EObject e = findNamedElementInPropertySet(psname,pname,getContainingTopLevelNamespace(context),reference);
 				if(e != null && e instanceof Property) {
 					return Collections.singletonList((EObject)e);
 				}
@@ -348,13 +362,15 @@ import org.osate.aadl2.UnitsType;
 					psname = s.substring(0, idx);
 					pname = s.substring(idx+2);
 				} 
-				EObject e = findNamedElementInPropertySet(psname,pname,getContainingPropertySet(context));
+				EObject e = findNamedElementInPropertySet(psname,pname,getContainingPropertySet(context),reference);
 				if(e != null && e instanceof PropertyType) {
 					return Collections.singletonList((EObject)e);
 				}
 				return Collections.<EObject> emptyList();
 			// AbstractNamedValue: constant reference, unit, enum, 
-			}  else if(Aadl2Package.eINSTANCE.getPropertyConstant() == requiredType ){
+
+			}  else if(Aadl2Package.eINSTANCE.getPropertyConstant() == requiredType 
+					|| (Aadl2Package.eINSTANCE.getAbstractNamedValue() == requiredType && context instanceof NamedValue)){
 				// look for property constant  in property set
 				List<EObject> res = getIndexedObjects(context, reference, node);
 				if (!res.isEmpty()) 
@@ -366,7 +382,7 @@ import org.osate.aadl2.UnitsType;
 					psname = s.substring(0, idx);
 					pname = s.substring(idx+2);
 				} 
-				EObject e = findNamedElementInPropertySet(psname,pname,getContainingPropertySet(context));
+				EObject e = findNamedElementInPropertySet(psname,pname,getContainingPropertySet(context),reference);
 				if(e != null && e instanceof PropertyConstant) {
 					return Collections.singletonList((EObject)e);
 				}
@@ -484,8 +500,8 @@ import org.osate.aadl2.UnitsType;
 						return Collections.singletonList((EObject)rf);
 				} 
 			  }
-
 				return Collections.<EObject> emptyList();
+
 
 			} else if(Aadl2Package.eINSTANCE.getMode() == requiredType){
 				// referenced by mode transition and inmodes
@@ -1513,24 +1529,50 @@ import org.osate.aadl2.UnitsType;
 			}
 		}
 		
+		private static final Set<String> PREDECLARED_PROPERTY_SET_NAMES;
+
+		static {
+			HashSet<String> predeclaredPropertySetNames = new HashSet<String>();
+			predeclaredPropertySetNames.add("AADL_Project");
+			predeclaredPropertySetNames.add("Deployment_Properties");
+			predeclaredPropertySetNames.add("Thread_Properties");
+			predeclaredPropertySetNames.add("Timing_Properties");
+			predeclaredPropertySetNames.add("Communication_Properties");
+			predeclaredPropertySetNames.add("Memory_Properties");
+			predeclaredPropertySetNames.add("Programming_Properties");
+			predeclaredPropertySetNames.add("Modeling_Properties");
+			PREDECLARED_PROPERTY_SET_NAMES = Collections
+					.unmodifiableSet(predeclaredPropertySetNames);
+		}
+		
+		private static PSNode psNode = new PSNode();
+		
 		/**
 		 * Dependencies:
 		 * 		If propertySetName is the name of a different, non standard property set: WithStatementReference.
 		 */
-		public static EObject findNamedElementInPropertySet(String propertySetName, String elementName, Namespace context)
+		public  EObject findNamedElementInPropertySet(String propertySetName, String elementName, Namespace context,EReference reference)
 		{
-			if (propertySetName == null)
-			{
-//				for (PropertySet predeclaredPropertySet : OsateResourceManager.getPredeclaredPropertySets())
-//				{
-//					NamedElement searchResult = predeclaredPropertySet.findNamedElement(elementName);
-//					if (searchResult != null)
-//						return searchResult;
+			if (propertySetName == null) {
+//				for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
+//					psNode.setText(getQualifiedName(predeclaredPSName, elementName));
+//					List<EObject> res = getIndexedObjects(context, reference,
+//							psNode);
+//					if (!res.isEmpty())
+//						return res.get(0);
 //				}
+				for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
+					PropertySet predeclaredPropertySet = findPropertySet(context,
+							predeclaredPSName);
+					if (predeclaredPropertySet != null) {
+						NamedElement searchResult = predeclaredPropertySet
+								.findNamedElement(elementName);
+						if (searchResult != null)
+							return searchResult;
+					}
+				}
 				return null;
-			}
-			else
-			{
+			} else {
 				PropertySet propertySet;
 				if (context instanceof PropertySet && ((PropertySet)context).getName().equalsIgnoreCase(propertySetName))
 					propertySet = (PropertySet)context;
@@ -1572,7 +1614,7 @@ import org.osate.aadl2.UnitsType;
 				return null;
 		}
 		
-		public static String getQualifiedName(String packageOrPropertySetName, String elementName)
+		public  String getQualifiedName(String packageOrPropertySetName, String elementName)
 		{
 			if (packageOrPropertySetName == null)
 				return elementName;

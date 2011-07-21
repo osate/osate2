@@ -245,9 +245,9 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getUnnamedRangeTypeAccess().getAlternatives_3(), "rule__UnnamedRangeType__Alternatives_3");
 					put(grammarAccess.getUnnamedRangeTypeAccess().getOwnedNumberTypeAlternatives_3_0_0(), "rule__UnnamedRangeType__OwnedNumberTypeAlternatives_3_0_0");
 					put(grammarAccess.getQCReferenceAccess().getMetaclassNameAlternatives_1_0(), "rule__QCReference__MetaclassNameAlternatives_1_0");
-					put(grammarAccess.getRecordFieldAccess().getAlternatives_2(), "rule__RecordField__Alternatives_2");
-					put(grammarAccess.getPropertyDefinitionAccess().getAlternatives_3(), "rule__PropertyDefinition__Alternatives_3");
-					put(grammarAccess.getPropertyDefinitionAccess().getAlternatives_8(), "rule__PropertyDefinition__Alternatives_8");
+					put(grammarAccess.getRecordFieldAccess().getAlternatives_3(), "rule__RecordField__Alternatives_3");
+					put(grammarAccess.getPropertyDefinitionAccess().getAlternatives_4(), "rule__PropertyDefinition__Alternatives_4");
+					put(grammarAccess.getPropertyDefinitionAccess().getAlternatives_9(), "rule__PropertyDefinition__Alternatives_9");
 					put(grammarAccess.getPropertyConstantAccess().getAlternatives_3(), "rule__PropertyConstant__Alternatives_3");
 					put(grammarAccess.getNumberValueAccess().getAlternatives(), "rule__NumberValue__Alternatives");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAlternatives_1(), "rule__ContainedPropertyAssociation__Alternatives_1");
@@ -938,11 +938,11 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getRangeTypeAccess().getGroup(), "rule__RangeType__Group__0");
 					put(grammarAccess.getUnnamedRangeTypeAccess().getGroup(), "rule__UnnamedRangeType__Group__0");
 					put(grammarAccess.getClassifierTypeAccess().getGroup(), "rule__ClassifierType__Group__0");
-					put(grammarAccess.getClassifierTypeAccess().getGroup_4(), "rule__ClassifierType__Group_4__0");
-					put(grammarAccess.getClassifierTypeAccess().getGroup_4_1(), "rule__ClassifierType__Group_4_1__0");
+					put(grammarAccess.getClassifierTypeAccess().getGroup_5(), "rule__ClassifierType__Group_5__0");
+					put(grammarAccess.getClassifierTypeAccess().getGroup_5_1(), "rule__ClassifierType__Group_5_1__0");
 					put(grammarAccess.getUnnamedClassifierTypeAccess().getGroup(), "rule__UnnamedClassifierType__Group__0");
-					put(grammarAccess.getUnnamedClassifierTypeAccess().getGroup_2(), "rule__UnnamedClassifierType__Group_2__0");
-					put(grammarAccess.getUnnamedClassifierTypeAccess().getGroup_2_1(), "rule__UnnamedClassifierType__Group_2_1__0");
+					put(grammarAccess.getUnnamedClassifierTypeAccess().getGroup_3(), "rule__UnnamedClassifierType__Group_3__0");
+					put(grammarAccess.getUnnamedClassifierTypeAccess().getGroup_3_1(), "rule__UnnamedClassifierType__Group_3_1__0");
 					put(grammarAccess.getQCReferenceAccess().getGroup(), "rule__QCReference__Group__0");
 					put(grammarAccess.getQCReferenceAccess().getGroup_0(), "rule__QCReference__Group_0__0");
 					put(grammarAccess.getReferenceTypeAccess().getGroup(), "rule__ReferenceType__Group__0");
@@ -954,10 +954,12 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getRecordTypeAccess().getGroup(), "rule__RecordType__Group__0");
 					put(grammarAccess.getUnnamedRecordTypeAccess().getGroup(), "rule__UnnamedRecordType__Group__0");
 					put(grammarAccess.getRecordFieldAccess().getGroup(), "rule__RecordField__Group__0");
+					put(grammarAccess.getRecordFieldAccess().getGroup_2(), "rule__RecordField__Group_2__0");
 					put(grammarAccess.getPropertyDefinitionAccess().getGroup(), "rule__PropertyDefinition__Group__0");
-					put(grammarAccess.getPropertyDefinitionAccess().getGroup_4(), "rule__PropertyDefinition__Group_4__0");
-					put(grammarAccess.getPropertyDefinitionAccess().getGroup_8_0(), "rule__PropertyDefinition__Group_8_0__0");
-					put(grammarAccess.getPropertyDefinitionAccess().getGroup_8_0_1(), "rule__PropertyDefinition__Group_8_0_1__0");
+					put(grammarAccess.getPropertyDefinitionAccess().getGroup_3(), "rule__PropertyDefinition__Group_3__0");
+					put(grammarAccess.getPropertyDefinitionAccess().getGroup_5(), "rule__PropertyDefinition__Group_5__0");
+					put(grammarAccess.getPropertyDefinitionAccess().getGroup_9_0(), "rule__PropertyDefinition__Group_9_0__0");
+					put(grammarAccess.getPropertyDefinitionAccess().getGroup_9_0_1(), "rule__PropertyDefinition__Group_9_0_1__0");
 					put(grammarAccess.getPropertyConstantAccess().getGroup(), "rule__PropertyConstant__Group__0");
 					put(grammarAccess.getBasicPropertyAssociationAccess().getGroup(), "rule__BasicPropertyAssociation__Group__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup(), "rule__ContainedPropertyAssociation__Group__0");
@@ -1002,8 +1004,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSignedRealAccess().getGroup(), "rule__SignedReal__Group__0");
 					put(grammarAccess.getNumericRangeTermAccess().getGroup(), "rule__NumericRangeTerm__Group__0");
 					put(grammarAccess.getNumericRangeTermAccess().getGroup_3(), "rule__NumericRangeTerm__Group_3__0");
-					put(grammarAccess.getINTVALUEAccess().getGroup(), "rule__INTVALUE__Group__0");
-					put(grammarAccess.getINTVALUEAccess().getGroup_1(), "rule__INTVALUE__Group_1__0");
 					put(grammarAccess.getQPREFAccess().getGroup(), "rule__QPREF__Group__0");
 					put(grammarAccess.getQPREFAccess().getGroup_1(), "rule__QPREF__Group_1__0");
 					put(grammarAccess.getQCREFAccess().getGroup(), "rule__QCREF__Group__0");
@@ -1946,10 +1946,10 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getUnnamedRangeTypeAccess().getOwnedNumberTypeAssignment_3_0(), "rule__UnnamedRangeType__OwnedNumberTypeAssignment_3_0");
 					put(grammarAccess.getUnnamedRangeTypeAccess().getNumberTypeAssignment_3_1(), "rule__UnnamedRangeType__NumberTypeAssignment_3_1");
 					put(grammarAccess.getClassifierTypeAccess().getNameAssignment_0(), "rule__ClassifierType__NameAssignment_0");
-					put(grammarAccess.getClassifierTypeAccess().getClassifierReferenceAssignment_4_0(), "rule__ClassifierType__ClassifierReferenceAssignment_4_0");
-					put(grammarAccess.getClassifierTypeAccess().getClassifierReferenceAssignment_4_1_1(), "rule__ClassifierType__ClassifierReferenceAssignment_4_1_1");
-					put(grammarAccess.getUnnamedClassifierTypeAccess().getClassifierReferenceAssignment_2_0(), "rule__UnnamedClassifierType__ClassifierReferenceAssignment_2_0");
-					put(grammarAccess.getUnnamedClassifierTypeAccess().getClassifierReferenceAssignment_2_1_1(), "rule__UnnamedClassifierType__ClassifierReferenceAssignment_2_1_1");
+					put(grammarAccess.getClassifierTypeAccess().getClassifierReferenceAssignment_5_0(), "rule__ClassifierType__ClassifierReferenceAssignment_5_0");
+					put(grammarAccess.getClassifierTypeAccess().getClassifierReferenceAssignment_5_1_1(), "rule__ClassifierType__ClassifierReferenceAssignment_5_1_1");
+					put(grammarAccess.getUnnamedClassifierTypeAccess().getClassifierReferenceAssignment_3_0(), "rule__UnnamedClassifierType__ClassifierReferenceAssignment_3_0");
+					put(grammarAccess.getUnnamedClassifierTypeAccess().getClassifierReferenceAssignment_3_1_1(), "rule__UnnamedClassifierType__ClassifierReferenceAssignment_3_1_1");
 					put(grammarAccess.getQCReferenceAccess().getAnnexNameAssignment_0_1(), "rule__QCReference__AnnexNameAssignment_0_1");
 					put(grammarAccess.getQCReferenceAccess().getMetaclassNameAssignment_1(), "rule__QCReference__MetaclassNameAssignment_1");
 					put(grammarAccess.getReferenceTypeAccess().getNameAssignment_0(), "rule__ReferenceType__NameAssignment_0");
@@ -1961,16 +1961,16 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getRecordTypeAccess().getOwnedFieldAssignment_5(), "rule__RecordType__OwnedFieldAssignment_5");
 					put(grammarAccess.getUnnamedRecordTypeAccess().getOwnedFieldAssignment_2(), "rule__UnnamedRecordType__OwnedFieldAssignment_2");
 					put(grammarAccess.getRecordFieldAccess().getNameAssignment_0(), "rule__RecordField__NameAssignment_0");
-					put(grammarAccess.getRecordFieldAccess().getTypeAssignment_2_0(), "rule__RecordField__TypeAssignment_2_0");
-					put(grammarAccess.getRecordFieldAccess().getOwnedTypeAssignment_2_1(), "rule__RecordField__OwnedTypeAssignment_2_1");
+					put(grammarAccess.getRecordFieldAccess().getTypeAssignment_3_0(), "rule__RecordField__TypeAssignment_3_0");
+					put(grammarAccess.getRecordFieldAccess().getOwnedTypeAssignment_3_1(), "rule__RecordField__OwnedTypeAssignment_3_1");
 					put(grammarAccess.getPropertyDefinitionAccess().getNameAssignment_0(), "rule__PropertyDefinition__NameAssignment_0");
 					put(grammarAccess.getPropertyDefinitionAccess().getInheritAssignment_2(), "rule__PropertyDefinition__InheritAssignment_2");
-					put(grammarAccess.getPropertyDefinitionAccess().getTypeAssignment_3_0(), "rule__PropertyDefinition__TypeAssignment_3_0");
-					put(grammarAccess.getPropertyDefinitionAccess().getOwnedTypeAssignment_3_1(), "rule__PropertyDefinition__OwnedTypeAssignment_3_1");
-					put(grammarAccess.getPropertyDefinitionAccess().getDefaultValueAssignment_4_1(), "rule__PropertyDefinition__DefaultValueAssignment_4_1");
-					put(grammarAccess.getPropertyDefinitionAccess().getAppliesToAssignment_8_0_0(), "rule__PropertyDefinition__AppliesToAssignment_8_0_0");
-					put(grammarAccess.getPropertyDefinitionAccess().getAppliesToAssignment_8_0_1_1(), "rule__PropertyDefinition__AppliesToAssignment_8_0_1_1");
-					put(grammarAccess.getPropertyDefinitionAccess().getAppliesToAssignment_8_1(), "rule__PropertyDefinition__AppliesToAssignment_8_1");
+					put(grammarAccess.getPropertyDefinitionAccess().getTypeAssignment_4_0(), "rule__PropertyDefinition__TypeAssignment_4_0");
+					put(grammarAccess.getPropertyDefinitionAccess().getOwnedTypeAssignment_4_1(), "rule__PropertyDefinition__OwnedTypeAssignment_4_1");
+					put(grammarAccess.getPropertyDefinitionAccess().getDefaultValueAssignment_5_1(), "rule__PropertyDefinition__DefaultValueAssignment_5_1");
+					put(grammarAccess.getPropertyDefinitionAccess().getAppliesToAssignment_9_0_0(), "rule__PropertyDefinition__AppliesToAssignment_9_0_0");
+					put(grammarAccess.getPropertyDefinitionAccess().getAppliesToAssignment_9_0_1_1(), "rule__PropertyDefinition__AppliesToAssignment_9_0_1_1");
+					put(grammarAccess.getPropertyDefinitionAccess().getAppliesToAssignment_9_1(), "rule__PropertyDefinition__AppliesToAssignment_9_1");
 					put(grammarAccess.getAllReferenceAccess().getMetaclassNameAssignment(), "rule__AllReference__MetaclassNameAssignment");
 					put(grammarAccess.getClassifierValueAccess().getClassifierAssignment(), "rule__ClassifierValue__ClassifierAssignment");
 					put(grammarAccess.getPropertyConstantAccess().getNameAssignment_0(), "rule__PropertyConstant__NameAssignment_0");
@@ -2057,7 +2057,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 	
 	@Override
 	protected String[] getInitialHiddenTokens() {
-		return new String[] { "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT" };
+		return new String[] { "RULE_WS", "RULE_SL_COMMENT" };
 	}
 	
 	public Aadl2GrammarAccess getGrammarAccess() {

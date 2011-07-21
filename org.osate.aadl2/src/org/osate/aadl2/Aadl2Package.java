@@ -33704,7 +33704,7 @@ public interface Aadl2Package extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Qualified Name</em>'.
-	 * @see org.osate.aadl2.NamedElement#getQualifiedName()
+	 * @see org.osate.aadl2.NamedElement#getKwalifiedName()
 	 * @see #getNamedElement()
 	 * @generated
 	 */
