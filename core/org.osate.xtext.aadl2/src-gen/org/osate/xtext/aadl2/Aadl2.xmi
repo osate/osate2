@@ -7462,8 +7462,8 @@
       <elements xsi:type="xtext:Keyword" value=":"/>
       <elements xsi:type="xtext:Keyword" value="type"/>
       <elements xsi:type="xtext:Keyword" value="classifier"/>
-      <elements xsi:type="xtext:Keyword" value="("/>
       <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Assignment" feature="classifierReference" operator="+=">
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.170"/>
         </elements>
@@ -7488,8 +7488,8 @@
         </type>
       </elements>
       <elements xsi:type="xtext:Keyword" value="classifier"/>
-      <elements xsi:type="xtext:Keyword" value="("/>
       <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Assignment" feature="classifierReference" operator="+=">
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.170"/>
         </elements>
@@ -7537,6 +7537,7 @@
       <elements xsi:type="xtext:Keyword" value="type"/>
       <elements xsi:type="xtext:Keyword" value="reference"/>
       <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Assignment" feature="namedElementReference" operator="+=">
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.170"/>
         </elements>
@@ -7546,6 +7547,7 @@
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.170"/>
           </elements>
         </elements>
+        <elements xsi:type="xtext:Keyword" value=")"/>
       </elements>
     </alternatives>
   </rules>
@@ -7561,6 +7563,7 @@
         </type>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Assignment" feature="namedElementReference" operator="+=">
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.170"/>
         </elements>
@@ -7570,6 +7573,7 @@
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.170"/>
           </elements>
         </elements>
+        <elements xsi:type="xtext:Keyword" value=")"/>
       </elements>
     </alternatives>
   </rules>
@@ -7630,6 +7634,7 @@
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.150"/>
         </elements>
       </elements>
+      <elements xsi:type="xtext:Keyword" value=";"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="PropertyDefinition">
@@ -8543,6 +8548,7 @@
       <elements xsi:type="xtext:Keyword" value="end"/>
       <elements xsi:type="xtext:Keyword" value="abstract"/>
       <elements xsi:type="xtext:Keyword" value="access"/>
+      <elements xsi:type="xtext:Keyword" value="classifier"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="ANNEXTEXT">

@@ -27018,15 +27018,15 @@ ruleClassifierType returns [EObject current=null]
     {
     	newLeafNode(otherlv_3, grammarAccess.getClassifierTypeAccess().getClassifierKeyword_3());
     }
-
+(
 	otherlv_4=KEYWORD_1
     {
-    	newLeafNode(otherlv_4, grammarAccess.getClassifierTypeAccess().getLeftParenthesisKeyword_4());
+    	newLeafNode(otherlv_4, grammarAccess.getClassifierTypeAccess().getLeftParenthesisKeyword_4_0());
     }
-((
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getClassifierTypeAccess().getClassifierReferenceQCReferenceParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getClassifierTypeAccess().getClassifierReferenceQCReferenceParserRuleCall_4_1_0()); 
 	    }
 		lv_classifierReference_5_0=ruleQCReference		{
 	        if ($current==null) {
@@ -27044,12 +27044,12 @@ ruleClassifierType returns [EObject current=null]
 )(
 	otherlv_6=KEYWORD_5
     {
-    	newLeafNode(otherlv_6, grammarAccess.getClassifierTypeAccess().getCommaKeyword_5_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getClassifierTypeAccess().getCommaKeyword_4_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getClassifierTypeAccess().getClassifierReferenceQCReferenceParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getClassifierTypeAccess().getClassifierReferenceQCReferenceParserRuleCall_4_2_1_0()); 
 	    }
 		lv_classifierReference_7_0=ruleQCReference		{
 	        if ($current==null) {
@@ -27067,7 +27067,7 @@ ruleClassifierType returns [EObject current=null]
 ))*
 	otherlv_8=KEYWORD_2
     {
-    	newLeafNode(otherlv_8, grammarAccess.getClassifierTypeAccess().getRightParenthesisKeyword_5_2());
+    	newLeafNode(otherlv_8, grammarAccess.getClassifierTypeAccess().getRightParenthesisKeyword_4_3());
     }
 )?)
 ;
@@ -27101,15 +27101,15 @@ ruleUnnamedClassifierType returns [EObject current=null]
     {
     	newLeafNode(otherlv_1, grammarAccess.getUnnamedClassifierTypeAccess().getClassifierKeyword_1());
     }
-
+(
 	otherlv_2=KEYWORD_1
     {
-    	newLeafNode(otherlv_2, grammarAccess.getUnnamedClassifierTypeAccess().getLeftParenthesisKeyword_2());
+    	newLeafNode(otherlv_2, grammarAccess.getUnnamedClassifierTypeAccess().getLeftParenthesisKeyword_2_0());
     }
-((
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getUnnamedClassifierTypeAccess().getClassifierReferenceQCReferenceParserRuleCall_3_0_0()); 
+	        newCompositeNode(grammarAccess.getUnnamedClassifierTypeAccess().getClassifierReferenceQCReferenceParserRuleCall_2_1_0()); 
 	    }
 		lv_classifierReference_3_0=ruleQCReference		{
 	        if ($current==null) {
@@ -27127,12 +27127,12 @@ ruleUnnamedClassifierType returns [EObject current=null]
 )(
 	otherlv_4=KEYWORD_5
     {
-    	newLeafNode(otherlv_4, grammarAccess.getUnnamedClassifierTypeAccess().getCommaKeyword_3_1_0());
+    	newLeafNode(otherlv_4, grammarAccess.getUnnamedClassifierTypeAccess().getCommaKeyword_2_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getUnnamedClassifierTypeAccess().getClassifierReferenceQCReferenceParserRuleCall_3_1_1_0()); 
+	        newCompositeNode(grammarAccess.getUnnamedClassifierTypeAccess().getClassifierReferenceQCReferenceParserRuleCall_2_2_1_0()); 
 	    }
 		lv_classifierReference_5_0=ruleQCReference		{
 	        if ($current==null) {
@@ -27150,7 +27150,7 @@ ruleUnnamedClassifierType returns [EObject current=null]
 ))*
 	otherlv_6=KEYWORD_2
     {
-    	newLeafNode(otherlv_6, grammarAccess.getUnnamedClassifierTypeAccess().getRightParenthesisKeyword_3_2());
+    	newLeafNode(otherlv_6, grammarAccess.getUnnamedClassifierTypeAccess().getRightParenthesisKeyword_2_3());
     }
 )?)
 ;
@@ -27307,48 +27307,58 @@ ruleReferenceType returns [EObject current=null]
     {
     	newLeafNode(otherlv_3, grammarAccess.getReferenceTypeAccess().getReferenceKeyword_3());
     }
-((
+(
+	otherlv_4=KEYWORD_1
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getReferenceTypeAccess().getLeftParenthesisKeyword_4_0());
+    }
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getReferenceTypeAccess().getNamedElementReferenceQCReferenceParserRuleCall_4_0_0()); 
+	        newCompositeNode(grammarAccess.getReferenceTypeAccess().getNamedElementReferenceQCReferenceParserRuleCall_4_1_0()); 
 	    }
-		lv_namedElementReference_4_0=ruleQCReference		{
+		lv_namedElementReference_5_0=ruleQCReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getReferenceTypeRule());
 	        }
        		add(
        			$current, 
        			"namedElementReference",
-        		lv_namedElementReference_4_0, 
+        		lv_namedElementReference_5_0, 
         		"QCReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )(
-	otherlv_5=KEYWORD_5
+	otherlv_6=KEYWORD_5
     {
-    	newLeafNode(otherlv_5, grammarAccess.getReferenceTypeAccess().getCommaKeyword_4_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getReferenceTypeAccess().getCommaKeyword_4_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getReferenceTypeAccess().getNamedElementReferenceQCReferenceParserRuleCall_4_1_1_0()); 
+	        newCompositeNode(grammarAccess.getReferenceTypeAccess().getNamedElementReferenceQCReferenceParserRuleCall_4_2_1_0()); 
 	    }
-		lv_namedElementReference_6_0=ruleQCReference		{
+		lv_namedElementReference_7_0=ruleQCReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getReferenceTypeRule());
 	        }
        		add(
        			$current, 
        			"namedElementReference",
-        		lv_namedElementReference_6_0, 
+        		lv_namedElementReference_7_0, 
         		"QCReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*)?)
+))*
+	otherlv_8=KEYWORD_2
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getReferenceTypeAccess().getRightParenthesisKeyword_4_3());
+    }
+)?)
 ;
 
 
@@ -27380,48 +27390,58 @@ ruleUnnamedReferenceType returns [EObject current=null]
             grammarAccess.getUnnamedReferenceTypeAccess().getReferenceTypeAction_1(),
             $current);
     }
-)((
+)(
+	otherlv_2=KEYWORD_1
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getUnnamedReferenceTypeAccess().getLeftParenthesisKeyword_2_0());
+    }
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getUnnamedReferenceTypeAccess().getNamedElementReferenceQCReferenceParserRuleCall_2_0_0()); 
+	        newCompositeNode(grammarAccess.getUnnamedReferenceTypeAccess().getNamedElementReferenceQCReferenceParserRuleCall_2_1_0()); 
 	    }
-		lv_namedElementReference_2_0=ruleQCReference		{
+		lv_namedElementReference_3_0=ruleQCReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getUnnamedReferenceTypeRule());
 	        }
        		add(
        			$current, 
        			"namedElementReference",
-        		lv_namedElementReference_2_0, 
+        		lv_namedElementReference_3_0, 
         		"QCReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )(
-	otherlv_3=KEYWORD_5
+	otherlv_4=KEYWORD_5
     {
-    	newLeafNode(otherlv_3, grammarAccess.getUnnamedReferenceTypeAccess().getCommaKeyword_2_1_0());
+    	newLeafNode(otherlv_4, grammarAccess.getUnnamedReferenceTypeAccess().getCommaKeyword_2_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getUnnamedReferenceTypeAccess().getNamedElementReferenceQCReferenceParserRuleCall_2_1_1_0()); 
+	        newCompositeNode(grammarAccess.getUnnamedReferenceTypeAccess().getNamedElementReferenceQCReferenceParserRuleCall_2_2_1_0()); 
 	    }
-		lv_namedElementReference_4_0=ruleQCReference		{
+		lv_namedElementReference_5_0=ruleQCReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getUnnamedReferenceTypeRule());
 	        }
        		add(
        			$current, 
        			"namedElementReference",
-        		lv_namedElementReference_4_0, 
+        		lv_namedElementReference_5_0, 
         		"QCReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*)?)
+))*
+	otherlv_6=KEYWORD_2
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getUnnamedReferenceTypeAccess().getRightParenthesisKeyword_2_3());
+    }
+)?)
 ;
 
 
@@ -27645,7 +27665,12 @@ ruleRecordField returns [EObject current=null]
 	    }
 
 )
-)))
+))
+	otherlv_6=KEYWORD_9
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getRecordFieldAccess().getSemicolonKeyword_4());
+    }
+)
 ;
 
 
@@ -31220,6 +31245,13 @@ ruleCoreKeyWord returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTok
     {
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getCoreKeyWordAccess().getAccessKeyword_25()); 
+    }
+
+    |
+	kw=KEYWORD_89 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getCoreKeyWordAccess().getClassifierKeyword_26()); 
     }
 )
     ;
