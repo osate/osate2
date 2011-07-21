@@ -48,7 +48,6 @@ import org.osate.aadl2.properties.InvalidModelException;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.PropertyConstant#getList <em>List</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertyConstant#getOwnedType <em>Owned Type</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertyConstant#getConstantValue <em>Constant Value</em>}</li>
  * </ul>
@@ -58,33 +57,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  * @model
  * @generated
  */
-public interface PropertyConstant extends TypedElement {
-	/**
-	 * Returns the value of the '<em><b>List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>List</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>List</em>' attribute.
-	 * @see #setList(long)
-	 * @see org.osate.aadl2.Aadl2Package#getPropertyConstant_List()
-	 * @model dataType="org.osate.aadl2.Integer" required="true" ordered="false"
-	 * @generated
-	 */
-	long getList();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.PropertyConstant#getList <em>List</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>List</em>' attribute.
-	 * @see #getList()
-	 * @generated
-	 */
-	void setList(long value);
-
+public interface PropertyConstant extends TypedElement, AbstractNamedValue, ArraySizeProperty {
 	/**
 	 * Returns the value of the '<em><b>Owned Type</b></em>' containment reference.
 	 * <p>

@@ -54,7 +54,7 @@ import org.eclipse.emf.ecore.EClass;
  * @model
  * @generated
  */
-public interface RecordType extends Namespace, PropertyType {
+public interface RecordType extends Namespace, NonListType {
 	/**
 	 * Returns the value of the '<em><b>Owned Field</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.BasicProperty}.

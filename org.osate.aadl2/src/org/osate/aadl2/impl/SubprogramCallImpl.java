@@ -1,14 +1,14 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- *
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
+ * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
+ * 
  * NO WARRANTY
- *
+ * 
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
+ * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
  * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
  * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
@@ -16,22 +16,21 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
+ * 
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
+ * 
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- *
- * $Id: SubprogramCallImpl.java,v 1.18 2010-05-04 18:13:31 lwrage Exp $
+ * 
  */
 package org.osate.aadl2.impl;
 
@@ -48,7 +47,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.Prototype;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
@@ -61,7 +59,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubprogramCallImpl#getCalledSubprogram <em>Called Subprogram</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.SubprogramCallImpl#getPrototype <em>Prototype</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramCallImpl#getContext <em>Context</em>}</li>
  * </ul>
  * </p>
@@ -69,54 +66,38 @@ import org.osate.aadl2.properties.PropertyAcc;
  * @generated
  */
 public class SubprogramCallImpl extends CallSpecificationImpl implements SubprogramCall {
-	/*
-	 * The cached value of the '{@link #getCalledSubprogram() <em>Called
-	 * Subprogram</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
-	 * 
+	/**
+	 * The cached value of the '{@link #getCalledSubprogram() <em>Called Subprogram</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getCalledSubprogram()
-	 * 
 	 * @generated
-	 * 
 	 * @ordered
 	 */
 	protected CalledSubprogram calledSubprogram;
-	/*
-	 * The cached value of the '{@link #getPrototype() <em>Prototype</em>}'
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getPrototype()
-	 * 
-	 * @generated
-	 * 
-	 * @ordered
-	 */
-	protected Prototype prototype;
 
-	/*
-	 * The cached value of the '{@link #getContext() <em>Context</em>}'
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getContext()
-	 * 
 	 * @generated
-	 * 
 	 * @ordered
 	 */
 	protected CallContext context;
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected SubprogramCallImpl() {
 		super();
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -124,9 +105,9 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		return Aadl2Package.eINSTANCE.getSubprogramCall();
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public CalledSubprogram getCalledSubprogram() {
@@ -142,18 +123,18 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		return calledSubprogram;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public CalledSubprogram basicGetCalledSubprogram() {
 		return calledSubprogram;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setCalledSubprogram(CalledSubprogram newCalledSubprogram) {
@@ -164,49 +145,9 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 					oldCalledSubprogram, calledSubprogram));
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Prototype getPrototype() {
-		if (prototype != null && ((EObject) prototype).eIsProxy()) {
-			InternalEObject oldPrototype = (InternalEObject) prototype;
-			prototype = (Prototype) eResolveProxy(oldPrototype);
-			if (prototype != oldPrototype) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.SUBPROGRAM_CALL__PROTOTYPE,
-							oldPrototype, prototype));
-			}
-		}
-		return prototype;
-	}
-
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Prototype basicGetPrototype() {
-		return prototype;
-	}
-
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public void setPrototype(Prototype newPrototype) {
-		Prototype oldPrototype = prototype;
-		prototype = newPrototype;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBPROGRAM_CALL__PROTOTYPE,
-					oldPrototype, prototype));
-	}
-
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public CallContext getContext() {
@@ -222,18 +163,18 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		return context;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public CallContext basicGetContext() {
 		return context;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setContext(CallContext newContext) {
@@ -244,9 +185,9 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 					context));
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -256,10 +197,6 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 			if (resolve)
 				return getCalledSubprogram();
 			return basicGetCalledSubprogram();
-		case Aadl2Package.SUBPROGRAM_CALL__PROTOTYPE:
-			if (resolve)
-				return getPrototype();
-			return basicGetPrototype();
 		case Aadl2Package.SUBPROGRAM_CALL__CONTEXT:
 			if (resolve)
 				return getContext();
@@ -268,9 +205,9 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -279,9 +216,6 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
 			setCalledSubprogram((CalledSubprogram) newValue);
 			return;
-		case Aadl2Package.SUBPROGRAM_CALL__PROTOTYPE:
-			setPrototype((Prototype) newValue);
-			return;
 		case Aadl2Package.SUBPROGRAM_CALL__CONTEXT:
 			setContext((CallContext) newValue);
 			return;
@@ -289,9 +223,9 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		super.eSet(featureID, newValue);
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -300,9 +234,6 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
 			setCalledSubprogram((CalledSubprogram) null);
 			return;
-		case Aadl2Package.SUBPROGRAM_CALL__PROTOTYPE:
-			setPrototype((Prototype) null);
-			return;
 		case Aadl2Package.SUBPROGRAM_CALL__CONTEXT:
 			setContext((CallContext) null);
 			return;
@@ -310,9 +241,9 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		super.eUnset(featureID);
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -320,14 +251,11 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
 			return calledSubprogram != null;
-		case Aadl2Package.SUBPROGRAM_CALL__PROTOTYPE:
-			return prototype != null;
 		case Aadl2Package.SUBPROGRAM_CALL__CONTEXT:
 			return context != null;
 		}
 		return super.eIsSet(featureID);
 	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -373,4 +301,4 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		}
 	}
 
-} // SubprogramCallImpl
+} //SubprogramCallImpl

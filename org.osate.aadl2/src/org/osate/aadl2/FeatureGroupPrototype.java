@@ -52,7 +52,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface FeatureGroupPrototype extends Prototype {
+public interface FeatureGroupPrototype extends Prototype, FeatureType {
 	/**
 	 * Returns the value of the '<em><b>Constraining Feature Group Type</b></em>' reference.
 	 * <!-- begin-user-doc -->

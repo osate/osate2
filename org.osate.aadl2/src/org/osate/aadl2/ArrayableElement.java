@@ -35,6 +35,8 @@
  */
 package org.osate.aadl2;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Arrayable Element</b></em>'.
@@ -43,7 +45,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.ArrayableElement#getArraySpecification <em>Array Specification</em>}</li>
+ *   <li>{@link org.osate.aadl2.ArrayableElement#getArrayDimensions <em>Array Dimension</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,39 +55,29 @@ package org.osate.aadl2;
  */
 public interface ArrayableElement extends Element {
 	/**
-	 * Returns the value of the '<em><b>Array Specification</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.ArrayDimension}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Array Specification</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Array Dimension</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Array Specification</em>' containment reference.
-	 * @see #setArraySpecification(ArraySpecification)
-	 * @see org.osate.aadl2.Aadl2Package#getArrayableElement_ArraySpecification()
-	 * @model containment="true" ordered="false"
+	 * @return the value of the '<em>Array Dimension</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getArrayableElement_ArrayDimension()
+	 * @model containment="true"
 	 * @generated
 	 */
-	ArraySpecification getArraySpecification();
+	EList<ArrayDimension> getArrayDimensions();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ArrayableElement#getArraySpecification <em>Array Specification</em>}' containment reference.
+	 * Creates a new {@link org.osate.aadl2.ArrayDimension} and appends it to the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Array Specification</em>' containment reference.
-	 * @see #getArraySpecification()
+	 * @return The new {@link org.osate.aadl2.ArrayDimension}.
+	 * @see #getArrayDimensions()
 	 * @generated
 	 */
-	void setArraySpecification(ArraySpecification value);
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.ArraySpecification} and sets the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.ArraySpecification}.
-	 * @see #getArraySpecification()
-	 * @generated
-	 */
-	ArraySpecification createArraySpecification();
+	ArrayDimension createArrayDimension();
 
 } // ArrayableElement

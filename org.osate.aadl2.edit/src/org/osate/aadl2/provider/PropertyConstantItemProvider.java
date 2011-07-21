@@ -44,14 +44,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.uml2.common.edit.command.SubsetSupersetSetCommand;
 import org.osate.aadl2.Aadl2Factory;
@@ -87,25 +85,8 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addListPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the List feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addListPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PropertyConstant_list_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PropertyConstant_list_feature",
-						"_UI_PropertyConstant_type"), Aadl2Package.eINSTANCE.getPropertyConstant_List(), true, false,
-				false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -175,9 +156,6 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(PropertyConstant.class)) {
-		case Aadl2Package.PROPERTY_CONSTANT__LIST:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE:
 		case Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -226,6 +204,9 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
 				Aadl2Factory.eINSTANCE.createReferenceType()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+				Aadl2Factory.eINSTANCE.createListType()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));

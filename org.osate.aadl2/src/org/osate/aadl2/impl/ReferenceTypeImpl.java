@@ -60,7 +60,7 @@ import org.osate.aadl2.ReferenceType;
  *
  * @generated
  */
-public class ReferenceTypeImpl extends PropertyTypeImpl implements ReferenceType {
+public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType {
 	/**
 	 * The cached value of the '{@link #getNamedElementReferences() <em>Named Element Reference</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

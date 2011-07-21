@@ -36,8 +36,12 @@
 package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.uml2.common.util.CacheAdapter;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.CalledSubprogram;
+import org.osate.aadl2.parsesupport.AObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -48,7 +52,7 @@ import org.osate.aadl2.CalledSubprogram;
  *
  * @generated
  */
-public abstract class CalledSubprogramImpl extends ElementImpl implements CalledSubprogram {
+public abstract class CalledSubprogramImpl extends AObjectImpl implements CalledSubprogram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -66,6 +70,29 @@ public abstract class CalledSubprogramImpl extends ElementImpl implements Called
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getCalledSubprogram();
+	}
+
+	/**
+	 * Creates a new instance of the specified Ecore class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param eClass The Ecore class of the instance to create.
+	 * @return The new instance.
+	 * @generated
+	 */
+	protected EObject create(EClass eClass) {
+		return EcoreUtil.create(eClass);
+	}
+
+	/**
+	 * Retrieves the cache adapter for this '<em><b>Called Subprogram</b></em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The cache adapter for this '<em><b>Called Subprogram</b></em>'.
+	 * @generated
+	 */
+	protected CacheAdapter getCacheAdapter() {
+		return CacheAdapter.getCacheAdapter(this);
 	}
 
 } //CalledSubprogramImpl

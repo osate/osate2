@@ -153,22 +153,22 @@ public interface Aadl2Factory extends EFactory {
 	ModalPropertyValue createModalPropertyValue();
 
 	/**
-	 * Returns a new object of class '<em>Array Specification</em>'.
+	 * Returns a new object of class '<em>Array Dimension</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Array Specification</em>'.
+	 * @return a new object of class '<em>Array Dimension</em>'.
 	 * @generated
 	 */
-	ArraySpecification createArraySpecification();
+	ArrayDimension createArrayDimension();
 
 	/**
-	 * Returns a new object of class '<em>Numeral</em>'.
+	 * Returns a new object of class '<em>Array Size</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Numeral</em>'.
+	 * @return a new object of class '<em>Array Size</em>'.
 	 * @generated
 	 */
-	Numeral createNumeral();
+	ArraySize createArraySize();
 
 	/**
 	 * Returns a new object of class '<em>Component Implementation Reference</em>'.
@@ -1107,6 +1107,15 @@ public interface Aadl2Factory extends EFactory {
 	FeatureGroupPrototypeBinding createFeatureGroupPrototypeBinding();
 
 	/**
+	 * Returns a new object of class '<em>Feature Group Prototype Actual</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Feature Group Prototype Actual</em>'.
+	 * @generated
+	 */
+	FeatureGroupPrototypeActual createFeatureGroupPrototypeActual();
+
+	/**
 	 * Returns a new object of class '<em>Feature Prototype</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1152,24 +1161,6 @@ public interface Aadl2Factory extends EFactory {
 	FeaturePrototypeReference createFeaturePrototypeReference();
 
 	/**
-	 * Returns a new object of class '<em>Feature Group Prototype Reference</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Feature Group Prototype Reference</em>'.
-	 * @generated
-	 */
-	FeatureGroupPrototypeReference createFeatureGroupPrototypeReference();
-
-	/**
-	 * Returns a new object of class '<em>Feature Group Reference</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Feature Group Reference</em>'.
-	 * @generated
-	 */
-	FeatureGroupReference createFeatureGroupReference();
-
-	/**
 	 * Returns a new object of class '<em>Processor Call</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1206,15 +1197,6 @@ public interface Aadl2Factory extends EFactory {
 	PropertyConstant createPropertyConstant();
 
 	/**
-	 * Returns a new object of class '<em>Enumeration Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Enumeration Value</em>'.
-	 * @generated
-	 */
-	EnumerationValue createEnumerationValue();
-
-	/**
 	 * Returns a new object of class '<em>Enumeration Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1222,15 +1204,6 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	EnumerationLiteral createEnumerationLiteral();
-
-	/**
-	 * Returns a new object of class '<em>Unit Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Unit Value</em>'.
-	 * @generated
-	 */
-	UnitValue createUnitValue();
 
 	/**
 	 * Returns a new object of class '<em>Unit Literal</em>'.
@@ -1303,24 +1276,6 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	RealLiteral createRealLiteral();
-
-	/**
-	 * Returns a new object of class '<em>Constant Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Constant Value</em>'.
-	 * @generated
-	 */
-	ConstantValue createConstantValue();
-
-	/**
-	 * Returns a new object of class '<em>Property Reference</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Property Reference</em>'.
-	 * @generated
-	 */
-	PropertyReference createPropertyReference();
 
 	/**
 	 * Returns a new object of class '<em>Operation</em>'.
@@ -1492,6 +1447,15 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	ReferenceType createReferenceType();
+
+	/**
+	 * Returns a new object of class '<em>List Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>List Type</em>'.
+	 * @generated
+	 */
+	ListType createListType();
 
 	/**
 	 * Returns the package supported by this factory.

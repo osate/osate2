@@ -529,22 +529,13 @@ public interface Aadl2Package extends EPackage {
 	int BASIC_PROPERTY__TYPE = TYPED_ELEMENT__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BASIC_PROPERTY__LIST = TYPED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Owned Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BASIC_PROPERTY__OWNED_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 1;
+	int BASIC_PROPERTY__OWNED_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Basic Property</em>' class.
@@ -553,7 +544,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BASIC_PROPERTY_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 2;
+	int BASIC_PROPERTY_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyImpl <em>Property</em>}' class.
@@ -618,15 +609,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int PROPERTY__TYPE = BASIC_PROPERTY__TYPE;
-
-	/**
-	 * The feature id for the '<em><b>List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY__LIST = BASIC_PROPERTY__LIST;
 
 	/**
 	 * The feature id for the '<em><b>Owned Type</b></em>' containment reference.
@@ -772,34 +754,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyExpression()
 	 * @generated
 	 */
-	int PROPERTY_EXPRESSION = 9;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_EXPRESSION__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_EXPRESSION__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Property Expression</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_EXPRESSION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+	int PROPERTY_EXPRESSION = 11;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyOwnerImpl <em>Property Owner</em>}' class.
@@ -809,34 +764,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyOwner()
 	 * @generated
 	 */
-	int PROPERTY_OWNER = 11;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_OWNER__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_OWNER__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Property Owner</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_OWNER_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+	int PROPERTY_OWNER = 13;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MetaclassReferenceImpl <em>Metaclass Reference</em>}' class.
@@ -846,52 +774,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMetaclassReference()
 	 * @generated
 	 */
-	int METACLASS_REFERENCE = 10;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int METACLASS_REFERENCE__OWNED_ELEMENT = PROPERTY_OWNER__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int METACLASS_REFERENCE__OWNED_COMMENT = PROPERTY_OWNER__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Annex Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int METACLASS_REFERENCE__ANNEX_NAME = PROPERTY_OWNER_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Metaclass Name</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int METACLASS_REFERENCE__METACLASS_NAME = PROPERTY_OWNER_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Metaclass Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int METACLASS_REFERENCE_FEATURE_COUNT = PROPERTY_OWNER_FEATURE_COUNT + 2;
+	int METACLASS_REFERENCE = 12;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.NamespaceImpl <em>Namespace</em>}' class.
@@ -901,79 +784,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNamespace()
 	 * @generated
 	 */
-	int NAMESPACE = 13;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMESPACE__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMESPACE__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMESPACE__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMESPACE__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMESPACE__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMESPACE__OWNED_MEMBER = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMESPACE__MEMBER = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Namespace</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMESPACE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int NAMESPACE = 15;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ClassifierImpl <em>Classifier</em>}' class.
@@ -983,169 +794,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifier()
 	 * @generated
 	 */
-	int CLASSIFIER = 12;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__OWNED_ELEMENT = NAMESPACE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__OWNED_COMMENT = NAMESPACE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__NAME = NAMESPACE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__QUALIFIED_NAME = NAMESPACE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = NAMESPACE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__OWNED_MEMBER = NAMESPACE__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__MEMBER = NAMESPACE__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__CLASSIFIER_FEATURE = NAMESPACE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__INHERITED_MEMBER = NAMESPACE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__GENERALIZATION = NAMESPACE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__GENERAL = NAMESPACE_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = NAMESPACE_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__OWNED_PROTOTYPE = NAMESPACE_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__OWNED_PROTOTYPE_BINDING = NAMESPACE_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__NO_PROTOTYPES = NAMESPACE_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__NO_ANNEXES = NAMESPACE_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__NO_PROPERTIES = NAMESPACE_FEATURE_COUNT + 9;
-
-	/**
-	 * The number of structural features of the '<em>Classifier</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER_FEATURE_COUNT = NAMESPACE_FEATURE_COUNT + 10;
+	int CLASSIFIER = 14;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ClassifierFeatureImpl <em>Classifier Feature</em>}' class.
@@ -1155,70 +804,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierFeature()
 	 * @generated
 	 */
-	int CLASSIFIER_FEATURE = 14;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER_FEATURE__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER_FEATURE__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER_FEATURE__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER_FEATURE__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER_FEATURE__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER_FEATURE__FEATURING_CLASSIFIER = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Classifier Feature</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER_FEATURE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int CLASSIFIER_FEATURE = 16;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.RelationshipImpl <em>Relationship</em>}' class.
@@ -1228,43 +814,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRelationship()
 	 * @generated
 	 */
-	int RELATIONSHIP = 17;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RELATIONSHIP__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RELATIONSHIP__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RELATIONSHIP__RELATED_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Relationship</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RELATIONSHIP_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
+	int RELATIONSHIP = 19;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DirectedRelationshipImpl <em>Directed Relationship</em>}' class.
@@ -1274,61 +824,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDirectedRelationship()
 	 * @generated
 	 */
-	int DIRECTED_RELATIONSHIP = 16;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_RELATIONSHIP__OWNED_ELEMENT = RELATIONSHIP__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_RELATIONSHIP__OWNED_COMMENT = RELATIONSHIP__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_RELATIONSHIP__RELATED_ELEMENT = RELATIONSHIP__RELATED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_RELATIONSHIP__SOURCE = RELATIONSHIP_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_RELATIONSHIP__TARGET = RELATIONSHIP_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Directed Relationship</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_RELATIONSHIP_FEATURE_COUNT = RELATIONSHIP_FEATURE_COUNT + 2;
+	int DIRECTED_RELATIONSHIP = 18;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.GeneralizationImpl <em>Generalization</em>}' class.
@@ -1338,79 +834,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getGeneralization()
 	 * @generated
 	 */
-	int GENERALIZATION = 15;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERALIZATION__OWNED_ELEMENT = DIRECTED_RELATIONSHIP__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERALIZATION__OWNED_COMMENT = DIRECTED_RELATIONSHIP__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERALIZATION__RELATED_ELEMENT = DIRECTED_RELATIONSHIP__RELATED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERALIZATION__SOURCE = DIRECTED_RELATIONSHIP__SOURCE;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERALIZATION__TARGET = DIRECTED_RELATIONSHIP__TARGET;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERALIZATION__GENERAL = DIRECTED_RELATIONSHIP_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Specific</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERALIZATION__SPECIFIC = DIRECTED_RELATIONSHIP_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Generalization</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERALIZATION_FEATURE_COUNT = DIRECTED_RELATIONSHIP_FEATURE_COUNT + 2;
+	int GENERALIZATION = 17;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalElementImpl <em>Modal Element</em>}' class.
@@ -1420,70 +844,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalElement()
 	 * @generated
 	 */
-	int MODAL_ELEMENT = 19;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_ELEMENT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_ELEMENT__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_ELEMENT__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_ELEMENT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_ELEMENT__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_ELEMENT__IN_MODE = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Modal Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int MODAL_ELEMENT = 21;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AnnexSubclauseImpl <em>Annex Subclause</em>}' class.
@@ -1493,70 +854,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAnnexSubclause()
 	 * @generated
 	 */
-	int ANNEX_SUBCLAUSE = 18;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNEX_SUBCLAUSE__OWNED_ELEMENT = MODAL_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNEX_SUBCLAUSE__OWNED_COMMENT = MODAL_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNEX_SUBCLAUSE__NAME = MODAL_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNEX_SUBCLAUSE__QUALIFIED_NAME = MODAL_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNEX_SUBCLAUSE__OWNED_PROPERTY_ASSOCIATION = MODAL_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNEX_SUBCLAUSE__IN_MODE = MODAL_ELEMENT__IN_MODE;
-
-	/**
-	 * The number of structural features of the '<em>Annex Subclause</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNEX_SUBCLAUSE_FEATURE_COUNT = MODAL_ELEMENT_FEATURE_COUNT + 0;
+	int ANNEX_SUBCLAUSE = 20;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeFeatureImpl <em>Mode Feature</em>}' class.
@@ -1566,70 +864,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeFeature()
 	 * @generated
 	 */
-	int MODE_FEATURE = 21;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_FEATURE__OWNED_ELEMENT = CLASSIFIER_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_FEATURE__OWNED_COMMENT = CLASSIFIER_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_FEATURE__NAME = CLASSIFIER_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_FEATURE__QUALIFIED_NAME = CLASSIFIER_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_FEATURE__OWNED_PROPERTY_ASSOCIATION = CLASSIFIER_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_FEATURE__FEATURING_CLASSIFIER = CLASSIFIER_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The number of structural features of the '<em>Mode Feature</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_FEATURE_FEATURE_COUNT = CLASSIFIER_FEATURE_FEATURE_COUNT + 0;
+	int MODE_FEATURE = 23;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeImpl <em>Mode</em>}' class.
@@ -1639,88 +874,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMode()
 	 * @generated
 	 */
-	int MODE = 20;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE__OWNED_ELEMENT = MODE_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE__OWNED_COMMENT = MODE_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE__NAME = MODE_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE__QUALIFIED_NAME = MODE_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE__OWNED_PROPERTY_ASSOCIATION = MODE_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE__FEATURING_CLASSIFIER = MODE_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Initial</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE__INITIAL = MODE_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Derived</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE__DERIVED = MODE_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Mode</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_FEATURE_COUNT = MODE_FEATURE_FEATURE_COUNT + 2;
+	int MODE = 22;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.RefinableElementImpl <em>Refinable Element</em>}' class.
@@ -1730,79 +884,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRefinableElement()
 	 * @generated
 	 */
-	int REFINABLE_ELEMENT = 24;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFINABLE_ELEMENT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFINABLE_ELEMENT__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFINABLE_ELEMENT__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFINABLE_ELEMENT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFINABLE_ELEMENT__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFINABLE_ELEMENT__REFINEMENT_CONTEXT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFINABLE_ELEMENT__REFINED_ELEMENT = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Refinable Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFINABLE_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int REFINABLE_ELEMENT = 26;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.StructuralFeatureImpl <em>Structural Feature</em>}' class.
@@ -1812,88 +894,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getStructuralFeature()
 	 * @generated
 	 */
-	int STRUCTURAL_FEATURE = 23;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE__OWNED_ELEMENT = REFINABLE_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE__OWNED_COMMENT = REFINABLE_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE__NAME = REFINABLE_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE__QUALIFIED_NAME = REFINABLE_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION = REFINABLE_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE__REFINEMENT_CONTEXT = REFINABLE_ELEMENT__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE__REFINED_ELEMENT = REFINABLE_ELEMENT__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE__FEATURING_CLASSIFIER = REFINABLE_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Structural Feature</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE_FEATURE_COUNT = REFINABLE_ELEMENT_FEATURE_COUNT + 1;
+	int STRUCTURAL_FEATURE = 25;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PrototypeImpl <em>Prototype</em>}' class.
@@ -1903,97 +904,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrototype()
 	 * @generated
 	 */
-	int PROTOTYPE = 22;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE__OWNED_ELEMENT = STRUCTURAL_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE__OWNED_COMMENT = STRUCTURAL_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE__NAME = STRUCTURAL_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE__QUALIFIED_NAME = STRUCTURAL_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE__OWNED_PROPERTY_ASSOCIATION = STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE__REFINEMENT_CONTEXT = STRUCTURAL_FEATURE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE__REFINED_ELEMENT = STRUCTURAL_FEATURE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE__REFINED = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Prototype</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+	int PROTOTYPE = 24;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PrototypeBindingImpl <em>Prototype Binding</em>}' class.
@@ -2003,43 +914,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrototypeBinding()
 	 * @generated
 	 */
-	int PROTOTYPE_BINDING = 25;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE_BINDING__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE_BINDING__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Formal</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE_BINDING__FORMAL = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Prototype Binding</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROTOTYPE_BINDING_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
+	int PROTOTYPE_BINDING = 28;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ContainedNamedElementImpl <em>Contained Named Element</em>}' class.
@@ -2049,43 +924,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContainedNamedElement()
 	 * @generated
 	 */
-	int CONTAINED_NAMED_ELEMENT = 26;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINED_NAMED_ELEMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINED_NAMED_ELEMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Containment Path Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINED_NAMED_ELEMENT__CONTAINMENT_PATH_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Contained Named Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINED_NAMED_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
+	int CONTAINED_NAMED_ELEMENT = 29;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ContainmentPathElementImpl <em>Containment Path Element</em>}' class.
@@ -2095,52 +934,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContainmentPathElement()
 	 * @generated
 	 */
-	int CONTAINMENT_PATH_ELEMENT = 27;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINMENT_PATH_ELEMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINMENT_PATH_ELEMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Array Range</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Named Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Containment Path Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINMENT_PATH_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int CONTAINMENT_PATH_ELEMENT = 30;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ArrayRangeImpl <em>Array Range</em>}' class.
@@ -2150,52 +944,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArrayRange()
 	 * @generated
 	 */
-	int ARRAY_RANGE = 28;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_RANGE__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_RANGE__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_RANGE__LOWER_BOUND = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_RANGE__UPPER_BOUND = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Array Range</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_RANGE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int ARRAY_RANGE = 31;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalPropertyValueImpl <em>Modal Property Value</em>}' class.
@@ -2205,79 +954,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalPropertyValue()
 	 * @generated
 	 */
-	int MODAL_PROPERTY_VALUE = 29;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PROPERTY_VALUE__OWNED_ELEMENT = MODAL_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PROPERTY_VALUE__OWNED_COMMENT = MODAL_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PROPERTY_VALUE__NAME = MODAL_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PROPERTY_VALUE__QUALIFIED_NAME = MODAL_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PROPERTY_VALUE__OWNED_PROPERTY_ASSOCIATION = MODAL_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PROPERTY_VALUE__IN_MODE = MODAL_ELEMENT__IN_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Value</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PROPERTY_VALUE__OWNED_VALUE = MODAL_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Modal Property Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PROPERTY_VALUE_FEATURE_COUNT = MODAL_ELEMENT_FEATURE_COUNT + 1;
+	int MODAL_PROPERTY_VALUE = 32;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BehavioralFeatureImpl <em>Behavioral Feature</em>}' class.
@@ -2287,125 +964,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBehavioralFeature()
 	 * @generated
 	 */
-	int BEHAVIORAL_FEATURE = 30;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORAL_FEATURE__OWNED_ELEMENT = CLASSIFIER_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORAL_FEATURE__OWNED_COMMENT = CLASSIFIER_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORAL_FEATURE__NAME = CLASSIFIER_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORAL_FEATURE__QUALIFIED_NAME = CLASSIFIER_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORAL_FEATURE__OWNED_PROPERTY_ASSOCIATION = CLASSIFIER_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORAL_FEATURE__FEATURING_CLASSIFIER = CLASSIFIER_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The number of structural features of the '<em>Behavioral Feature</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORAL_FEATURE_FEATURE_COUNT = CLASSIFIER_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ArraySpecificationImpl <em>Array Specification</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ArraySpecificationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArraySpecification()
-	 * @generated
-	 */
-	int ARRAY_SPECIFICATION = 31;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_SPECIFICATION__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_SPECIFICATION__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Dimension</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_SPECIFICATION__DIMENSION = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Size</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_SPECIFICATION__SIZE = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Array Specification</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_SPECIFICATION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int BEHAVIORAL_FEATURE = 33;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ArraySizeImpl <em>Array Size</em>}' class.
@@ -2415,34 +974,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArraySize()
 	 * @generated
 	 */
-	int ARRAY_SIZE = 32;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_SIZE__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_SIZE__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Array Size</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_SIZE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+	int ARRAY_SIZE = 35;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ArrayableElementImpl <em>Arrayable Element</em>}' class.
@@ -2452,89 +984,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArrayableElement()
 	 * @generated
 	 */
-	int ARRAYABLE_ELEMENT = 33;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAYABLE_ELEMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAYABLE_ELEMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Arrayable Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAYABLE_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.NumeralImpl <em>Numeral</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.NumeralImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumeral()
-	 * @generated
-	 */
-	int NUMERAL = 34;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERAL__OWNED_ELEMENT = ARRAY_SIZE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERAL__OWNED_COMMENT = ARRAY_SIZE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERAL__VALUE = ARRAY_SIZE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Numeral</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERAL_FEATURE_COUNT = ARRAY_SIZE_FEATURE_COUNT + 1;
+	int ARRAYABLE_ELEMENT = 36;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentImplementationReferenceImpl <em>Component Implementation Reference</em>}' class.
@@ -2544,52 +994,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentImplementationReference()
 	 * @generated
 	 */
-	int COMPONENT_IMPLEMENTATION_REFERENCE = 35;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Implementation</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_PROTOTYPE_BINDING = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Component Implementation Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION_REFERENCE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int COMPONENT_IMPLEMENTATION_REFERENCE = 37;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentClassifierImpl <em>Component Classifier</em>}' class.
@@ -2599,205 +1004,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentClassifier()
 	 * @generated
 	 */
-	int COMPONENT_CLASSIFIER = 37;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__OWNED_ELEMENT = CLASSIFIER__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__OWNED_COMMENT = CLASSIFIER__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__NAME = CLASSIFIER__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__QUALIFIED_NAME = CLASSIFIER__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__OWNED_MEMBER = CLASSIFIER__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__MEMBER = CLASSIFIER__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE = CLASSIFIER__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__INHERITED_MEMBER = CLASSIFIER__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__GENERALIZATION = CLASSIFIER__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__GENERAL = CLASSIFIER__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__OWNED_PROTOTYPE = CLASSIFIER__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING = CLASSIFIER__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__NO_PROTOTYPES = CLASSIFIER__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__NO_ANNEXES = CLASSIFIER__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__NO_PROPERTIES = CLASSIFIER__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__OWNED_MODE = CLASSIFIER_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION = CLASSIFIER_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__NO_FLOWS = CLASSIFIER_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER__NO_MODES = CLASSIFIER_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>Component Classifier</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_CLASSIFIER_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 4;
+	int COMPONENT_CLASSIFIER = 39;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentImplementationImpl <em>Component Implementation</em>}' class.
@@ -2807,358 +1014,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentImplementation()
 	 * @generated
 	 */
-	int COMPONENT_IMPLEMENTATION = 36;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__NAME = COMPONENT_CLASSIFIER__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__TYPE = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Extended</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__EXTENDED = COMPONENT_CLASSIFIER_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Flow Implementation</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_REALIZATION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Owned End To End Flow</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW = COMPONENT_CLASSIFIER_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Owned Abstract Subcomponent</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Owned Access Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Owned Parameter Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Owned Port Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 11;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 12;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Group Connection</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 13;
-
-	/**
-	 * The feature id for the '<em><b>No Subcomponents</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS = COMPONENT_CLASSIFIER_FEATURE_COUNT + 14;
-
-	/**
-	 * The feature id for the '<em><b>No Connections</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__NO_CONNECTIONS = COMPONENT_CLASSIFIER_FEATURE_COUNT + 15;
-
-	/**
-	 * The feature id for the '<em><b>No Calls</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION__NO_CALLS = COMPONENT_CLASSIFIER_FEATURE_COUNT + 16;
-
-	/**
-	 * The number of structural features of the '<em>Component Implementation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 17;
+	int COMPONENT_IMPLEMENTATION = 38;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubcomponentTypeImpl <em>Subcomponent Type</em>}' class.
@@ -3168,61 +1024,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubcomponentType()
 	 * @generated
 	 */
-	int SUBCOMPONENT_TYPE = 38;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT_TYPE__OWNED_ELEMENT = TYPE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT_TYPE__OWNED_COMMENT = TYPE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT_TYPE__NAME = TYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT_TYPE__QUALIFIED_NAME = TYPE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = TYPE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Subcomponent Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 0;
+	int SUBCOMPONENT_TYPE = 40;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeTransitionImpl <em>Mode Transition</em>}' class.
@@ -3232,97 +1034,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeTransition()
 	 * @generated
 	 */
-	int MODE_TRANSITION = 39;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION__OWNED_ELEMENT = MODE_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION__OWNED_COMMENT = MODE_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION__NAME = MODE_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION__QUALIFIED_NAME = MODE_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION__OWNED_PROPERTY_ASSOCIATION = MODE_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION__FEATURING_CLASSIFIER = MODE_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION__SOURCE = MODE_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Destination</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION__DESTINATION = MODE_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Trigger</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION__OWNED_TRIGGER = MODE_FEATURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of structural features of the '<em>Mode Transition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION_FEATURE_COUNT = MODE_FEATURE_FEATURE_COUNT + 3;
+	int MODE_TRANSITION = 41;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeTransitionTriggerImpl <em>Mode Transition Trigger</em>}' class.
@@ -3332,34 +1044,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeTransitionTrigger()
 	 * @generated
 	 */
-	int MODE_TRANSITION_TRIGGER = 40;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION_TRIGGER__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION_TRIGGER__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Mode Transition Trigger</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_TRANSITION_TRIGGER_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+	int MODE_TRANSITION_TRIGGER = 42;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.TriggerPortImpl <em>Trigger Port</em>}' class.
@@ -3369,7 +1054,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getTriggerPort()
 	 * @generated
 	 */
-	int TRIGGER_PORT = 110;
+	int TRIGGER_PORT = 113;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ContextImpl <em>Context</em>}' class.
@@ -3379,7 +1064,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContext()
 	 * @generated
 	 */
-	int CONTEXT = 50;
+	int CONTEXT = 52;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureImpl <em>Feature</em>}' class.
@@ -3389,7 +1074,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeature()
 	 * @generated
 	 */
-	int FEATURE = 42;
+	int FEATURE = 44;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DirectedFeatureImpl <em>Directed Feature</em>}' class.
@@ -3399,7 +1084,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDirectedFeature()
 	 * @generated
 	 */
-	int DIRECTED_FEATURE = 54;
+	int DIRECTED_FEATURE = 56;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PortImpl <em>Port</em>}' class.
@@ -3409,7 +1094,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPort()
 	 * @generated
 	 */
-	int PORT = 71;
+	int PORT = 74;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectionEndImpl <em>Connection End</em>}' class.
@@ -3419,7 +1104,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnectionEnd()
 	 * @generated
 	 */
-	int CONNECTION_END = 44;
+	int CONNECTION_END = 46;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureConnectionEndImpl <em>Feature Connection End</em>}' class.
@@ -3429,7 +1114,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureConnectionEnd()
 	 * @generated
 	 */
-	int FEATURE_CONNECTION_END = 43;
+	int FEATURE_CONNECTION_END = 45;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PortConnectionEndImpl <em>Port Connection End</em>}' class.
@@ -3439,7 +1124,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortConnectionEnd()
 	 * @generated
 	 */
-	int PORT_CONNECTION_END = 66;
+	int PORT_CONNECTION_END = 69;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorPortImpl <em>Processor Port</em>}' class.
@@ -3449,7 +1134,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorPort()
 	 * @generated
 	 */
-	int PROCESSOR_PORT = 258;
+	int PROCESSOR_PORT = 255;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.InternalEventImpl <em>Internal Event</em>}' class.
@@ -3459,7 +1144,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getInternalEvent()
 	 * @generated
 	 */
-	int INTERNAL_EVENT = 259;
+	int INTERNAL_EVENT = 256;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentTypeImpl <em>Component Type</em>}' class.
@@ -3469,493 +1154,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentType()
 	 * @generated
 	 */
-	int COMPONENT_TYPE = 41;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__NAME = COMPONENT_CLASSIFIER__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_FEATURE = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Extended</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__EXTENDED = COMPONENT_CLASSIFIER_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Flow Specification</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_EXTENSION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Group</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_FEATURE_GROUP = COMPONENT_CLASSIFIER_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Owned Abstract Feature</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE = COMPONENT_CLASSIFIER_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>No Features</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE__NO_FEATURES = COMPONENT_CLASSIFIER_FEATURE_COUNT + 6;
-
-	/**
-	 * The number of structural features of the '<em>Component Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_TYPE_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__OWNED_ELEMENT = STRUCTURAL_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__OWNED_COMMENT = STRUCTURAL_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__NAME = STRUCTURAL_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__QUALIFIED_NAME = STRUCTURAL_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__OWNED_PROPERTY_ASSOCIATION = STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__REFINEMENT_CONTEXT = STRUCTURAL_FEATURE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__REFINED_ELEMENT = STRUCTURAL_FEATURE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__ARRAY_SPECIFICATION = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__PROTOTYPE = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__CLASSIFIER = STRUCTURAL_FEATURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__REFINED = STRUCTURAL_FEATURE_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>Feature</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_END__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_END__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_END__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_END__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_END__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Connection End</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_END_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_CONNECTION_END__OWNED_ELEMENT = CONNECTION_END__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_CONNECTION_END__OWNED_COMMENT = CONNECTION_END__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_CONNECTION_END__NAME = CONNECTION_END__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_CONNECTION_END__QUALIFIED_NAME = CONNECTION_END__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_CONNECTION_END__OWNED_PROPERTY_ASSOCIATION = CONNECTION_END__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Feature Connection End</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
+	int COMPONENT_TYPE = 43;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowImpl <em>Flow</em>}' class.
@@ -3965,88 +1164,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlow()
 	 * @generated
 	 */
-	int FLOW = 46;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW__OWNED_ELEMENT = STRUCTURAL_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW__OWNED_COMMENT = STRUCTURAL_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW__NAME = STRUCTURAL_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW__QUALIFIED_NAME = STRUCTURAL_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW__OWNED_PROPERTY_ASSOCIATION = STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW__REFINEMENT_CONTEXT = STRUCTURAL_FEATURE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW__REFINED_ELEMENT = STRUCTURAL_FEATURE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The number of structural features of the '<em>Flow</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
+	int FLOW = 48;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowSpecificationImpl <em>Flow Specification</em>}' class.
@@ -4056,133 +1174,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowSpecification()
 	 * @generated
 	 */
-	int FLOW_SPECIFICATION = 45;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__OWNED_ELEMENT = FLOW__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__OWNED_COMMENT = FLOW__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__NAME = FLOW__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__QUALIFIED_NAME = FLOW__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__OWNED_PROPERTY_ASSOCIATION = FLOW__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__REFINEMENT_CONTEXT = FLOW__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__REFINED_ELEMENT = FLOW__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__FEATURING_CLASSIFIER = FLOW__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__IN_MODE = FLOW_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__REFINED = FLOW_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__KIND = FLOW_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Out End</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__OUT_END = FLOW_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>In End</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION__IN_END = FLOW_FEATURE_COUNT + 4;
-
-	/**
-	 * The number of structural features of the '<em>Flow Specification</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SPECIFICATION_FEATURE_COUNT = FLOW_FEATURE_COUNT + 5;
+	int FLOW_SPECIFICATION = 47;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.TypeExtensionImpl <em>Type Extension</em>}' class.
@@ -4192,7 +1184,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getTypeExtension()
 	 * @generated
 	 */
-	int TYPE_EXTENSION = 51;
+	int TYPE_EXTENSION = 53;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupImpl <em>Feature Group</em>}' class.
@@ -4202,7 +1194,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroup()
 	 * @generated
 	 */
-	int FEATURE_GROUP = 52;
+	int FEATURE_GROUP = 54;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupConnectionEndImpl <em>Feature Group Connection End</em>}' class.
@@ -4212,7 +1204,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupConnectionEnd()
 	 * @generated
 	 */
-	int FEATURE_GROUP_CONNECTION_END = 55;
+	int FEATURE_GROUP_CONNECTION_END = 57;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.CallContextImpl <em>Call Context</em>}' class.
@@ -4222,7 +1214,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getCallContext()
 	 * @generated
 	 */
-	int CALL_CONTEXT = 53;
+	int CALL_CONTEXT = 55;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupTypeImpl <em>Feature Group Type</em>}' class.
@@ -4232,7 +1224,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupType()
 	 * @generated
 	 */
-	int FEATURE_GROUP_TYPE = 56;
+	int FEATURE_GROUP_TYPE = 59;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.GroupExtensionImpl <em>Group Extension</em>}' class.
@@ -4242,7 +1234,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getGroupExtension()
 	 * @generated
 	 */
-	int GROUP_EXTENSION = 57;
+	int GROUP_EXTENSION = 60;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessImpl <em>Access</em>}' class.
@@ -4252,7 +1244,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccess()
 	 * @generated
 	 */
-	int ACCESS = 59;
+	int ACCESS = 62;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusAccessImpl <em>Bus Access</em>}' class.
@@ -4262,7 +1254,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusAccess()
 	 * @generated
 	 */
-	int BUS_ACCESS = 58;
+	int BUS_ACCESS = 61;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessConnectionEndImpl <em>Access Connection End</em>}' class.
@@ -4272,7 +1264,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessConnectionEnd()
 	 * @generated
 	 */
-	int ACCESS_CONNECTION_END = 60;
+	int ACCESS_CONNECTION_END = 63;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusClassifierImpl <em>Bus Classifier</em>}' class.
@@ -4282,7 +1274,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusClassifier()
 	 * @generated
 	 */
-	int BUS_CLASSIFIER = 61;
+	int BUS_CLASSIFIER = 64;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusImpl <em>Bus</em>}' class.
@@ -4292,7 +1284,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBus()
 	 * @generated
 	 */
-	int BUS = 63;
+	int BUS = 66;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusSubcomponentTypeImpl <em>Bus Subcomponent Type</em>}' class.
@@ -4302,7 +1294,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusSubcomponentType()
 	 * @generated
 	 */
-	int BUS_SUBCOMPONENT_TYPE = 62;
+	int BUS_SUBCOMPONENT_TYPE = 65;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataAccessImpl <em>Data Access</em>}' class.
@@ -4312,7 +1304,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataAccess()
 	 * @generated
 	 */
-	int DATA_ACCESS = 64;
+	int DATA_ACCESS = 67;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ParameterConnectionEndImpl <em>Parameter Connection End</em>}' class.
@@ -4322,7 +1314,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getParameterConnectionEnd()
 	 * @generated
 	 */
-	int PARAMETER_CONNECTION_END = 65;
+	int PARAMETER_CONNECTION_END = 68;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EndToEndFlowElementImpl <em>End To End Flow Element</em>}' class.
@@ -4332,61 +1324,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEndToEndFlowElement()
 	 * @generated
 	 */
-	int END_TO_END_FLOW_ELEMENT = 48;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_ELEMENT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_ELEMENT__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_ELEMENT__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_ELEMENT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_ELEMENT__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>End To End Flow Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int END_TO_END_FLOW_ELEMENT = 50;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowElementImpl <em>Flow Element</em>}' class.
@@ -4396,61 +1334,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowElement()
 	 * @generated
 	 */
-	int FLOW_ELEMENT = 47;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_ELEMENT__OWNED_ELEMENT = END_TO_END_FLOW_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_ELEMENT__OWNED_COMMENT = END_TO_END_FLOW_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_ELEMENT__NAME = END_TO_END_FLOW_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_ELEMENT__QUALIFIED_NAME = END_TO_END_FLOW_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_ELEMENT__OWNED_PROPERTY_ASSOCIATION = END_TO_END_FLOW_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Flow Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_ELEMENT_FEATURE_COUNT = END_TO_END_FLOW_ELEMENT_FEATURE_COUNT + 0;
+	int FLOW_ELEMENT = 49;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowEndImpl <em>Flow End</em>}' class.
@@ -4460,1798 +1344,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowEnd()
 	 * @generated
 	 */
-	int FLOW_END = 49;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_END__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_END__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_END__CONTEXT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Feature</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_END__FEATURE = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Flow End</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_END_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTEXT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTEXT__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTEXT__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTEXT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTEXT__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Context</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTEXT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_EXTENSION__OWNED_ELEMENT = GENERALIZATION__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_EXTENSION__OWNED_COMMENT = GENERALIZATION__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_EXTENSION__RELATED_ELEMENT = GENERALIZATION__RELATED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_EXTENSION__SOURCE = GENERALIZATION__SOURCE;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_EXTENSION__TARGET = GENERALIZATION__TARGET;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_EXTENSION__GENERAL = GENERALIZATION__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Specific</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_EXTENSION__SPECIFIC = GENERALIZATION__SPECIFIC;
-
-	/**
-	 * The feature id for the '<em><b>Extended</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_EXTENSION__EXTENDED = GENERALIZATION_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Type Extension</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_EXTENSION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__OWNED_ELEMENT = FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__OWNED_COMMENT = FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__NAME = FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__QUALIFIED_NAME = FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__OWNED_PROPERTY_ASSOCIATION = FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__REFINEMENT_CONTEXT = FEATURE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__REFINED_ELEMENT = FEATURE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__FEATURING_CLASSIFIER = FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__ARRAY_SPECIFICATION = FEATURE__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__PROTOTYPE = FEATURE__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__CLASSIFIER = FEATURE__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__REFINED = FEATURE__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Direction</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE__DIRECTION = FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Directed Feature</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECTED_FEATURE_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__OWNED_ELEMENT = DIRECTED_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__OWNED_COMMENT = DIRECTED_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__NAME = DIRECTED_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__QUALIFIED_NAME = DIRECTED_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__OWNED_PROPERTY_ASSOCIATION = DIRECTED_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__REFINEMENT_CONTEXT = DIRECTED_FEATURE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__REFINED_ELEMENT = DIRECTED_FEATURE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__FEATURING_CLASSIFIER = DIRECTED_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__ARRAY_SPECIFICATION = DIRECTED_FEATURE__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__PROTOTYPE = DIRECTED_FEATURE__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__CLASSIFIER = DIRECTED_FEATURE__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__REFINED = DIRECTED_FEATURE__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Direction</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__DIRECTION = DIRECTED_FEATURE__DIRECTION;
-
-	/**
-	 * The feature id for the '<em><b>Inverse</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__INVERSE = DIRECTED_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Feature Group Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP__FEATURE_GROUP_TYPE = DIRECTED_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Feature Group</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALL_CONTEXT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALL_CONTEXT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Call Context</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALL_CONTEXT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_CONNECTION_END__OWNED_ELEMENT = CONNECTION_END__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_CONNECTION_END__OWNED_COMMENT = CONNECTION_END__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_CONNECTION_END__NAME = CONNECTION_END__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_CONNECTION_END__QUALIFIED_NAME = CONNECTION_END__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_CONNECTION_END__OWNED_PROPERTY_ASSOCIATION = CONNECTION_END__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Feature Group Connection End</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_ELEMENT = CLASSIFIER__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_COMMENT = CLASSIFIER__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__NAME = CLASSIFIER__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__QUALIFIED_NAME = CLASSIFIER__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_PROPERTY_ASSOCIATION = CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_MEMBER = CLASSIFIER__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__MEMBER = CLASSIFIER__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__CLASSIFIER_FEATURE = CLASSIFIER__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__INHERITED_MEMBER = CLASSIFIER__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__GENERALIZATION = CLASSIFIER__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__GENERAL = CLASSIFIER__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_ANNEX_SUBCLAUSE = CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_PROTOTYPE = CLASSIFIER__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_PROTOTYPE_BINDING = CLASSIFIER__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__NO_PROTOTYPES = CLASSIFIER__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__NO_ANNEXES = CLASSIFIER__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__NO_PROPERTIES = CLASSIFIER__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_FEATURE = CLASSIFIER_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Extended</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__EXTENDED = CLASSIFIER_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Inverse</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__INVERSE = CLASSIFIER_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_EXTENSION = CLASSIFIER_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Owned Bus Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_BUS_ACCESS = CLASSIFIER_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_DATA_ACCESS = CLASSIFIER_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Owned Data Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_DATA_PORT = CLASSIFIER_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Owned Event Data Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_EVENT_DATA_PORT = CLASSIFIER_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Owned Event Port</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_EVENT_PORT = CLASSIFIER_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Owned Feature Group</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_FEATURE_GROUP = CLASSIFIER_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_PARAMETER = CLASSIFIER_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS = CLASSIFIER_FEATURE_COUNT + 11;
-
-	/**
-	 * The feature id for the '<em><b>Owned Subprogram Group Access</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS = CLASSIFIER_FEATURE_COUNT + 12;
-
-	/**
-	 * The feature id for the '<em><b>Owned Abstract Feature</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE__OWNED_ABSTRACT_FEATURE = CLASSIFIER_FEATURE_COUNT + 13;
-
-	/**
-	 * The number of structural features of the '<em>Feature Group Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_TYPE_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 14;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP_EXTENSION__OWNED_ELEMENT = GENERALIZATION__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP_EXTENSION__OWNED_COMMENT = GENERALIZATION__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP_EXTENSION__RELATED_ELEMENT = GENERALIZATION__RELATED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP_EXTENSION__SOURCE = GENERALIZATION__SOURCE;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP_EXTENSION__TARGET = GENERALIZATION__TARGET;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP_EXTENSION__GENERAL = GENERALIZATION__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Specific</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP_EXTENSION__SPECIFIC = GENERALIZATION__SPECIFIC;
-
-	/**
-	 * The feature id for the '<em><b>Extended</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP_EXTENSION__EXTENDED = GENERALIZATION_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Group Extension</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP_EXTENSION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__OWNED_ELEMENT = FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__OWNED_COMMENT = FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__NAME = FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__QUALIFIED_NAME = FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__OWNED_PROPERTY_ASSOCIATION = FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__REFINEMENT_CONTEXT = FEATURE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__REFINED_ELEMENT = FEATURE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__FEATURING_CLASSIFIER = FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__ARRAY_SPECIFICATION = FEATURE__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__PROTOTYPE = FEATURE__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__CLASSIFIER = FEATURE__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__REFINED = FEATURE__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__KIND = FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS__CATEGORY = FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Access</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__OWNED_ELEMENT = ACCESS__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__OWNED_COMMENT = ACCESS__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__NAME = ACCESS__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__QUALIFIED_NAME = ACCESS__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__OWNED_PROPERTY_ASSOCIATION = ACCESS__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__REFINEMENT_CONTEXT = ACCESS__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__REFINED_ELEMENT = ACCESS__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__FEATURING_CLASSIFIER = ACCESS__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__ARRAY_SPECIFICATION = ACCESS__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__PROTOTYPE = ACCESS__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__CLASSIFIER = ACCESS__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__REFINED = ACCESS__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__KIND = ACCESS__KIND;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__CATEGORY = ACCESS__CATEGORY;
-
-	/**
-	 * The feature id for the '<em><b>Bus Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS__BUS_CLASSIFIER = ACCESS_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Bus Access</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_CONNECTION_END__OWNED_ELEMENT = CONNECTION_END__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_CONNECTION_END__OWNED_COMMENT = CONNECTION_END__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_CONNECTION_END__NAME = CONNECTION_END__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_CONNECTION_END__QUALIFIED_NAME = CONNECTION_END__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_CONNECTION_END__OWNED_PROPERTY_ASSOCIATION = CONNECTION_END__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Access Connection End</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCESS_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__NAME = COMPONENT_CLASSIFIER__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
-
-	/**
-	 * The number of structural features of the '<em>Bus Classifier</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Bus</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_SUBCOMPONENT_TYPE__OWNED_ELEMENT = BUS__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_SUBCOMPONENT_TYPE__OWNED_COMMENT = BUS__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_SUBCOMPONENT_TYPE__NAME = BUS__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_SUBCOMPONENT_TYPE__QUALIFIED_NAME = BUS__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = BUS__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Bus Subcomponent Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_SUBCOMPONENT_TYPE_FEATURE_COUNT = BUS_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__OWNED_ELEMENT = ACCESS__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__OWNED_COMMENT = ACCESS__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__NAME = ACCESS__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__QUALIFIED_NAME = ACCESS__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__OWNED_PROPERTY_ASSOCIATION = ACCESS__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__REFINEMENT_CONTEXT = ACCESS__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__REFINED_ELEMENT = ACCESS__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__FEATURING_CLASSIFIER = ACCESS__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__ARRAY_SPECIFICATION = ACCESS__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__PROTOTYPE = ACCESS__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__CLASSIFIER = ACCESS__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__REFINED = ACCESS__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__KIND = ACCESS__KIND;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__CATEGORY = ACCESS__CATEGORY;
-
-	/**
-	 * The feature id for the '<em><b>Data Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS__DATA_CLASSIFIER = ACCESS_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Data Access</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER_CONNECTION_END__OWNED_ELEMENT = CONNECTION_END__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER_CONNECTION_END__OWNED_COMMENT = CONNECTION_END__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER_CONNECTION_END__NAME = CONNECTION_END__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER_CONNECTION_END__QUALIFIED_NAME = CONNECTION_END__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER_CONNECTION_END__OWNED_PROPERTY_ASSOCIATION = CONNECTION_END__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Parameter Connection End</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_CONNECTION_END__OWNED_ELEMENT = CONNECTION_END__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_CONNECTION_END__OWNED_COMMENT = CONNECTION_END__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_CONNECTION_END__NAME = CONNECTION_END__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_CONNECTION_END__QUALIFIED_NAME = CONNECTION_END__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_CONNECTION_END__OWNED_PROPERTY_ASSOCIATION = CONNECTION_END__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Port Connection End</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
+	int FLOW_END = 51;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataClassifierImpl <em>Data Classifier</em>}' class.
@@ -6261,205 +1354,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataClassifier()
 	 * @generated
 	 */
-	int DATA_CLASSIFIER = 67;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__NAME = COMPONENT_CLASSIFIER__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
-
-	/**
-	 * The number of structural features of the '<em>Data Classifier</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
+	int DATA_CLASSIFIER = 70;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataImpl <em>Data</em>}' class.
@@ -6469,61 +1364,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getData()
 	 * @generated
 	 */
-	int DATA = 69;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Data</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int DATA = 72;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataSubcomponentTypeImpl <em>Data Subcomponent Type</em>}' class.
@@ -6533,196 +1374,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataSubcomponentType()
 	 * @generated
 	 */
-	int DATA_SUBCOMPONENT_TYPE = 68;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_SUBCOMPONENT_TYPE__OWNED_ELEMENT = DATA__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_SUBCOMPONENT_TYPE__OWNED_COMMENT = DATA__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_SUBCOMPONENT_TYPE__NAME = DATA__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_SUBCOMPONENT_TYPE__QUALIFIED_NAME = DATA__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = DATA__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Data Subcomponent Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_SUBCOMPONENT_TYPE_FEATURE_COUNT = DATA_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__OWNED_ELEMENT = DIRECTED_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__OWNED_COMMENT = DIRECTED_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__NAME = DIRECTED_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__QUALIFIED_NAME = DIRECTED_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__OWNED_PROPERTY_ASSOCIATION = DIRECTED_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__REFINEMENT_CONTEXT = DIRECTED_FEATURE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__REFINED_ELEMENT = DIRECTED_FEATURE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__FEATURING_CLASSIFIER = DIRECTED_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__ARRAY_SPECIFICATION = DIRECTED_FEATURE__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__PROTOTYPE = DIRECTED_FEATURE__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__CLASSIFIER = DIRECTED_FEATURE__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__REFINED = DIRECTED_FEATURE__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Direction</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__DIRECTION = DIRECTED_FEATURE__DIRECTION;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__CATEGORY = DIRECTED_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Port</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
+	int DATA_SUBCOMPONENT_TYPE = 71;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataPortImpl <em>Data Port</em>}' class.
@@ -6732,151 +1384,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataPort()
 	 * @generated
 	 */
-	int DATA_PORT = 70;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__OWNED_ELEMENT = PORT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__OWNED_COMMENT = PORT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__NAME = PORT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__QUALIFIED_NAME = PORT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__OWNED_PROPERTY_ASSOCIATION = PORT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__REFINEMENT_CONTEXT = PORT__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__REFINED_ELEMENT = PORT__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__FEATURING_CLASSIFIER = PORT__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__ARRAY_SPECIFICATION = PORT__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__PROTOTYPE = PORT__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__CLASSIFIER = PORT__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__REFINED = PORT__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Direction</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__DIRECTION = PORT__DIRECTION;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__CATEGORY = PORT__CATEGORY;
-
-	/**
-	 * The feature id for the '<em><b>Data Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT__DATA_CLASSIFIER = PORT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Data Port</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
+	int DATA_PORT = 73;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EventDataPortImpl <em>Event Data Port</em>}' class.
@@ -6886,151 +1394,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEventDataPort()
 	 * @generated
 	 */
-	int EVENT_DATA_PORT = 72;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__OWNED_ELEMENT = PORT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__OWNED_COMMENT = PORT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__NAME = PORT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__QUALIFIED_NAME = PORT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__OWNED_PROPERTY_ASSOCIATION = PORT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__REFINEMENT_CONTEXT = PORT__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__REFINED_ELEMENT = PORT__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__FEATURING_CLASSIFIER = PORT__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__ARRAY_SPECIFICATION = PORT__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__PROTOTYPE = PORT__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__CLASSIFIER = PORT__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__REFINED = PORT__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Direction</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__DIRECTION = PORT__DIRECTION;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__CATEGORY = PORT__CATEGORY;
-
-	/**
-	 * The feature id for the '<em><b>Data Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT__DATA_CLASSIFIER = PORT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Event Data Port</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
+	int EVENT_DATA_PORT = 75;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EventPortImpl <em>Event Port</em>}' class.
@@ -7040,142 +1404,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEventPort()
 	 * @generated
 	 */
-	int EVENT_PORT = 73;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__OWNED_ELEMENT = PORT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__OWNED_COMMENT = PORT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__NAME = PORT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__QUALIFIED_NAME = PORT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__OWNED_PROPERTY_ASSOCIATION = PORT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__REFINEMENT_CONTEXT = PORT__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__REFINED_ELEMENT = PORT__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__FEATURING_CLASSIFIER = PORT__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__ARRAY_SPECIFICATION = PORT__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__PROTOTYPE = PORT__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__CLASSIFIER = PORT__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__REFINED = PORT__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Direction</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__DIRECTION = PORT__DIRECTION;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT__CATEGORY = PORT__CATEGORY;
-
-	/**
-	 * The number of structural features of the '<em>Event Port</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 0;
+	int EVENT_PORT = 76;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ParameterImpl <em>Parameter</em>}' class.
@@ -7185,142 +1414,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getParameter()
 	 * @generated
 	 */
-	int PARAMETER = 74;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__OWNED_ELEMENT = DIRECTED_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__OWNED_COMMENT = DIRECTED_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__NAME = DIRECTED_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__QUALIFIED_NAME = DIRECTED_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__OWNED_PROPERTY_ASSOCIATION = DIRECTED_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__REFINEMENT_CONTEXT = DIRECTED_FEATURE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__REFINED_ELEMENT = DIRECTED_FEATURE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__FEATURING_CLASSIFIER = DIRECTED_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__ARRAY_SPECIFICATION = DIRECTED_FEATURE__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__PROTOTYPE = DIRECTED_FEATURE__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__CLASSIFIER = DIRECTED_FEATURE__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__REFINED = DIRECTED_FEATURE__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Direction</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__DIRECTION = DIRECTED_FEATURE__DIRECTION;
-
-	/**
-	 * The feature id for the '<em><b>Data Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__DATA_CLASSIFIER = DIRECTED_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Parameter</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
+	int PARAMETER = 77;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramAccessImpl <em>Subprogram Access</em>}' class.
@@ -7330,151 +1424,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramAccess()
 	 * @generated
 	 */
-	int SUBPROGRAM_ACCESS = 75;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__OWNED_ELEMENT = ACCESS__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__OWNED_COMMENT = ACCESS__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__NAME = ACCESS__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__QUALIFIED_NAME = ACCESS__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__OWNED_PROPERTY_ASSOCIATION = ACCESS__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__REFINEMENT_CONTEXT = ACCESS__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__REFINED_ELEMENT = ACCESS__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__FEATURING_CLASSIFIER = ACCESS__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__ARRAY_SPECIFICATION = ACCESS__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__PROTOTYPE = ACCESS__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__CLASSIFIER = ACCESS__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__REFINED = ACCESS__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__KIND = ACCESS__KIND;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__CATEGORY = ACCESS__CATEGORY;
-
-	/**
-	 * The feature id for the '<em><b>Subprogram Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS__SUBPROGRAM_CLASSIFIER = ACCESS_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram Access</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
+	int SUBPROGRAM_ACCESS = 78;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.CalledSubprogramImpl <em>Called Subprogram</em>}' class.
@@ -7484,34 +1434,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getCalledSubprogram()
 	 * @generated
 	 */
-	int CALLED_SUBPROGRAM = 76;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALLED_SUBPROGRAM__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALLED_SUBPROGRAM__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Called Subprogram</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALLED_SUBPROGRAM_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+	int CALLED_SUBPROGRAM = 27;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramClassifierImpl <em>Subprogram Classifier</em>}' class.
@@ -7521,205 +1444,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramClassifier()
 	 * @generated
 	 */
-	int SUBPROGRAM_CLASSIFIER = 77;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__NAME = COMPONENT_CLASSIFIER__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram Classifier</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
+	int SUBPROGRAM_CLASSIFIER = 79;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramSubcomponentTypeImpl <em>Subprogram Subcomponent Type</em>}' class.
@@ -7729,61 +1454,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramSubcomponentType()
 	 * @generated
 	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE = 78;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE__OWNED_ELEMENT = SUBCOMPONENT_TYPE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE__OWNED_COMMENT = SUBCOMPONENT_TYPE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE__NAME = SUBCOMPONENT_TYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE__QUALIFIED_NAME = SUBCOMPONENT_TYPE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram Subcomponent Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
+	int SUBPROGRAM_SUBCOMPONENT_TYPE = 80;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramImpl <em>Subprogram</em>}' class.
@@ -7793,61 +1464,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogram()
 	 * @generated
 	 */
-	int SUBPROGRAM = 79;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int SUBPROGRAM = 81;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupAccessImpl <em>Subprogram Group Access</em>}' class.
@@ -7857,151 +1474,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupAccess()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP_ACCESS = 80;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__OWNED_ELEMENT = ACCESS__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__OWNED_COMMENT = ACCESS__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__NAME = ACCESS__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__QUALIFIED_NAME = ACCESS__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__OWNED_PROPERTY_ASSOCIATION = ACCESS__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__REFINEMENT_CONTEXT = ACCESS__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__REFINED_ELEMENT = ACCESS__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__FEATURING_CLASSIFIER = ACCESS__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__ARRAY_SPECIFICATION = ACCESS__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__PROTOTYPE = ACCESS__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__CLASSIFIER = ACCESS__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__REFINED = ACCESS__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__KIND = ACCESS__KIND;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__CATEGORY = ACCESS__CATEGORY;
-
-	/**
-	 * The feature id for the '<em><b>Subprogram Group Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_CLASSIFIER = ACCESS_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram Group Access</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
+	int SUBPROGRAM_GROUP_ACCESS = 82;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupClassifierImpl <em>Subprogram Group Classifier</em>}' class.
@@ -8011,205 +1484,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupClassifier()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER = 81;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__NAME = COMPONENT_CLASSIFIER__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram Group Classifier</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
+	int SUBPROGRAM_GROUP_CLASSIFIER = 83;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentTypeImpl <em>Subprogram Group Subcomponent Type</em>}' class.
@@ -8219,61 +1494,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupSubcomponentType()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE = 82;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__OWNED_ELEMENT = SUBCOMPONENT_TYPE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__OWNED_COMMENT = SUBCOMPONENT_TYPE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__NAME = SUBCOMPONENT_TYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__QUALIFIED_NAME = SUBCOMPONENT_TYPE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram Group Subcomponent Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE = 84;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupImpl <em>Subprogram Group</em>}' class.
@@ -8283,61 +1504,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroup()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP = 83;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram Group</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int SUBPROGRAM_GROUP = 85;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractFeatureImpl <em>Abstract Feature</em>}' class.
@@ -8347,142 +1514,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractFeature()
 	 * @generated
 	 */
-	int ABSTRACT_FEATURE = 84;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__OWNED_ELEMENT = DIRECTED_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__OWNED_COMMENT = DIRECTED_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__NAME = DIRECTED_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__QUALIFIED_NAME = DIRECTED_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__OWNED_PROPERTY_ASSOCIATION = DIRECTED_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__REFINEMENT_CONTEXT = DIRECTED_FEATURE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__REFINED_ELEMENT = DIRECTED_FEATURE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__FEATURING_CLASSIFIER = DIRECTED_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__ARRAY_SPECIFICATION = DIRECTED_FEATURE__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__PROTOTYPE = DIRECTED_FEATURE__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__CLASSIFIER = DIRECTED_FEATURE__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__REFINED = DIRECTED_FEATURE__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Direction</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__DIRECTION = DIRECTED_FEATURE__DIRECTION;
-
-	/**
-	 * The feature id for the '<em><b>Component Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE__COMPONENT_CLASSIFIER = DIRECTED_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Abstract Feature</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
+	int ABSTRACT_FEATURE = 86;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubcomponentImpl <em>Subcomponent</em>}' class.
@@ -8492,187 +1524,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubcomponent()
 	 * @generated
 	 */
-	int SUBCOMPONENT = 85;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__OWNED_ELEMENT = STRUCTURAL_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__OWNED_COMMENT = STRUCTURAL_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__NAME = STRUCTURAL_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__QUALIFIED_NAME = STRUCTURAL_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__OWNED_PROPERTY_ASSOCIATION = STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__REFINEMENT_CONTEXT = STRUCTURAL_FEATURE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__REFINED_ELEMENT = STRUCTURAL_FEATURE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__IN_MODE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__ARRAY_SPECIFICATION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__SUBCOMPONENT_TYPE = STRUCTURAL_FEATURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__OWNED_PROTOTYPE_BINDING = STRUCTURAL_FEATURE_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__PROTOTYPE = STRUCTURAL_FEATURE_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__MODE_BINDING = STRUCTURAL_FEATURE_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__ALL_MODES = STRUCTURAL_FEATURE_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Implementation Reference</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__IMPLEMENTATION_REFERENCE = STRUCTURAL_FEATURE_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__REFINED = STRUCTURAL_FEATURE_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__CLASSIFIER = STRUCTURAL_FEATURE_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Abstract Subcomponent Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE = STRUCTURAL_FEATURE_FEATURE_COUNT + 10;
-
-	/**
-	 * The number of structural features of the '<em>Subcomponent</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBCOMPONENT_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 11;
+	int SUBCOMPONENT = 88;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeImpl <em>Component Prototype</em>}' class.
@@ -8682,115 +1534,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototype()
 	 * @generated
 	 */
-	int COMPONENT_PROTOTYPE = 86;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE__OWNED_ELEMENT = PROTOTYPE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE__OWNED_COMMENT = PROTOTYPE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE__NAME = PROTOTYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE__QUALIFIED_NAME = PROTOTYPE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE__OWNED_PROPERTY_ASSOCIATION = PROTOTYPE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE__REFINEMENT_CONTEXT = PROTOTYPE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE__REFINED_ELEMENT = PROTOTYPE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE__FEATURING_CLASSIFIER = PROTOTYPE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE__REFINED = PROTOTYPE__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Array</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE__ARRAY = PROTOTYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Constraining Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE__CONSTRAINING_CLASSIFIER = PROTOTYPE_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Component Prototype</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 2;
+	int COMPONENT_PROTOTYPE = 89;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeBindingImpl <em>Mode Binding</em>}' class.
@@ -8800,52 +1544,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeBinding()
 	 * @generated
 	 */
-	int MODE_BINDING = 87;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_BINDING__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_BINDING__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Parent Mode</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_BINDING__PARENT_MODE = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Derived Mode</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_BINDING__DERIVED_MODE = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Mode Binding</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODE_BINDING_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int MODE_BINDING = 90;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractClassifierImpl <em>Abstract Classifier</em>}' class.
@@ -8865,61 +1564,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstract()
 	 * @generated
 	 */
-	int ABSTRACT = 89;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Abstract</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int ABSTRACT = 92;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractSubcomponentTypeImpl <em>Abstract Subcomponent Type</em>}' class.
@@ -8929,61 +1574,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractSubcomponentType()
 	 * @generated
 	 */
-	int ABSTRACT_SUBCOMPONENT_TYPE = 88;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT_TYPE__OWNED_ELEMENT = ABSTRACT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT_TYPE__OWNED_COMMENT = ABSTRACT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT_TYPE__NAME = ABSTRACT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT_TYPE__QUALIFIED_NAME = ABSTRACT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = ABSTRACT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Abstract Subcomponent Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT_TYPE_FEATURE_COUNT = ABSTRACT_FEATURE_COUNT + 0;
+	int ABSTRACT_SUBCOMPONENT_TYPE = 91;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowImplementationImpl <em>Flow Implementation</em>}' class.
@@ -8993,7 +1584,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowImplementation()
 	 * @generated
 	 */
-	int FLOW_IMPLEMENTATION = 90;
+	int FLOW_IMPLEMENTATION = 93;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalPathImpl <em>Modal Path</em>}' class.
@@ -9003,187 +1594,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalPath()
 	 * @generated
 	 */
-	int MODAL_PATH = 91;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PATH__OWNED_ELEMENT = MODAL_ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PATH__OWNED_COMMENT = MODAL_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PATH__NAME = MODAL_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PATH__QUALIFIED_NAME = MODAL_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PATH__OWNED_PROPERTY_ASSOCIATION = MODAL_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PATH__IN_MODE = MODAL_ELEMENT__IN_MODE;
-
-	/**
-	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PATH__IN_MODE_OR_TRANSITION = MODAL_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Modal Path</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODAL_PATH_FEATURE_COUNT = MODAL_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__OWNED_ELEMENT = MODAL_PATH__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__OWNED_COMMENT = MODAL_PATH__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__NAME = MODAL_PATH__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__QUALIFIED_NAME = MODAL_PATH__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = MODAL_PATH__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__IN_MODE = MODAL_PATH__IN_MODE;
-
-	/**
-	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION = MODAL_PATH__IN_MODE_OR_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER = MODAL_PATH_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__KIND = MODAL_PATH_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Specification</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__SPECIFICATION = MODAL_PATH_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Flow Segment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT = MODAL_PATH_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>Flow Implementation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_IMPLEMENTATION_FEATURE_COUNT = MODAL_PATH_FEATURE_COUNT + 4;
+	int MODAL_PATH = 94;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowSegmentImpl <em>Flow Segment</em>}' class.
@@ -9193,52 +1604,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowSegment()
 	 * @generated
 	 */
-	int FLOW_SEGMENT = 92;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SEGMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SEGMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Flow Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SEGMENT__FLOW_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SEGMENT__CONTEXT = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Flow Segment</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_SEGMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int FLOW_SEGMENT = 95;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectionImpl <em>Connection</em>}' class.
@@ -9248,142 +1614,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnection()
 	 * @generated
 	 */
-	int CONNECTION = 93;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__OWNED_ELEMENT = STRUCTURAL_FEATURE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__OWNED_COMMENT = STRUCTURAL_FEATURE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__NAME = STRUCTURAL_FEATURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__QUALIFIED_NAME = STRUCTURAL_FEATURE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__OWNED_PROPERTY_ASSOCIATION = STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__REFINEMENT_CONTEXT = STRUCTURAL_FEATURE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__REFINED_ELEMENT = STRUCTURAL_FEATURE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__IN_MODE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__IN_MODE_OR_TRANSITION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Destination</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__DESTINATION = STRUCTURAL_FEATURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__SOURCE = STRUCTURAL_FEATURE_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Bidirectional</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__BIDIRECTIONAL = STRUCTURAL_FEATURE_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__REFINED = STRUCTURAL_FEATURE_FEATURE_COUNT + 5;
-
-	/**
-	 * The number of structural features of the '<em>Connection</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 6;
+	int CONNECTION = 96;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractConnectionEndImpl <em>Abstract Connection End</em>}' class.
@@ -9393,16 +1624,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractConnectionEnd()
 	 * @generated
 	 */
-	int ABSTRACT_CONNECTION_END = 94;
-
-	/**
-	 * The number of structural features of the '<em>Abstract Connection End</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_CONNECTION_END_FEATURE_COUNT = 0;
+	int ABSTRACT_CONNECTION_END = 97;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectedElementImpl <em>Connected Element</em>}' class.
@@ -9412,7 +1634,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnectedElement()
 	 * @generated
 	 */
-	int CONNECTED_ELEMENT = 105;
+	int CONNECTED_ELEMENT = 108;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ImplementationExtensionImpl <em>Implementation Extension</em>}' class.
@@ -9422,88 +1644,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getImplementationExtension()
 	 * @generated
 	 */
-	int IMPLEMENTATION_EXTENSION = 95;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION_EXTENSION__OWNED_ELEMENT = GENERALIZATION__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION_EXTENSION__OWNED_COMMENT = GENERALIZATION__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION_EXTENSION__RELATED_ELEMENT = GENERALIZATION__RELATED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION_EXTENSION__SOURCE = GENERALIZATION__SOURCE;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION_EXTENSION__TARGET = GENERALIZATION__TARGET;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION_EXTENSION__GENERAL = GENERALIZATION__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Specific</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION_EXTENSION__SPECIFIC = GENERALIZATION__SPECIFIC;
-
-	/**
-	 * The feature id for the '<em><b>Extended</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION_EXTENSION__EXTENDED = GENERALIZATION_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Implementation Extension</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION_EXTENSION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
+	int IMPLEMENTATION_EXTENSION = 98;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.RealizationImpl <em>Realization</em>}' class.
@@ -9513,88 +1654,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRealization()
 	 * @generated
 	 */
-	int REALIZATION = 96;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REALIZATION__OWNED_ELEMENT = GENERALIZATION__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REALIZATION__OWNED_COMMENT = GENERALIZATION__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REALIZATION__RELATED_ELEMENT = GENERALIZATION__RELATED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REALIZATION__SOURCE = GENERALIZATION__SOURCE;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REALIZATION__TARGET = GENERALIZATION__TARGET;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REALIZATION__GENERAL = GENERALIZATION__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Specific</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REALIZATION__SPECIFIC = GENERALIZATION__SPECIFIC;
-
-	/**
-	 * The feature id for the '<em><b>Implemented</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REALIZATION__IMPLEMENTED = GENERALIZATION_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Realization</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REALIZATION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
+	int REALIZATION = 99;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EndToEndFlowImpl <em>End To End Flow</em>}' class.
@@ -9604,124 +1664,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEndToEndFlow()
 	 * @generated
 	 */
-	int END_TO_END_FLOW = 97;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW__OWNED_ELEMENT = FLOW__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW__OWNED_COMMENT = FLOW__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW__NAME = FLOW__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW__QUALIFIED_NAME = FLOW__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW__OWNED_PROPERTY_ASSOCIATION = FLOW__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW__REFINEMENT_CONTEXT = FLOW__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW__REFINED_ELEMENT = FLOW__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW__FEATURING_CLASSIFIER = FLOW__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW__IN_MODE = FLOW_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW__IN_MODE_OR_TRANSITION = FLOW_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW__REFINED = FLOW_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned End To End Flow Segment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW__OWNED_END_TO_END_FLOW_SEGMENT = FLOW_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>End To End Flow</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_FEATURE_COUNT = FLOW_FEATURE_COUNT + 4;
+	int END_TO_END_FLOW = 100;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EndToEndFlowSegmentImpl <em>End To End Flow Segment</em>}' class.
@@ -9731,52 +1674,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEndToEndFlowSegment()
 	 * @generated
 	 */
-	int END_TO_END_FLOW_SEGMENT = 98;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_SEGMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_SEGMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Flow Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_SEGMENT__CONTEXT = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>End To End Flow Segment</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int END_TO_END_FLOW_SEGMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int END_TO_END_FLOW_SEGMENT = 101;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractSubcomponentImpl <em>Abstract Subcomponent</em>}' class.
@@ -9786,187 +1684,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractSubcomponent()
 	 * @generated
 	 */
-	int ABSTRACT_SUBCOMPONENT = 99;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__OWNED_ELEMENT = SUBCOMPONENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__OWNED_COMMENT = SUBCOMPONENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__NAME = SUBCOMPONENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__QUALIFIED_NAME = SUBCOMPONENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__OWNED_PROPERTY_ASSOCIATION = SUBCOMPONENT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__REFINEMENT_CONTEXT = SUBCOMPONENT__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__REFINED_ELEMENT = SUBCOMPONENT__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__FEATURING_CLASSIFIER = SUBCOMPONENT__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
-
-	/**
-	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__SUBCOMPONENT_TYPE = SUBCOMPONENT__SUBCOMPONENT_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__OWNED_PROTOTYPE_BINDING = SUBCOMPONENT__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__ALL_MODES = SUBCOMPONENT__ALL_MODES;
-
-	/**
-	 * The feature id for the '<em><b>Implementation Reference</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__IMPLEMENTATION_REFERENCE = SUBCOMPONENT__IMPLEMENTATION_REFERENCE;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__REFINED = SUBCOMPONENT__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__CLASSIFIER = SUBCOMPONENT__CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Abstract Subcomponent Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE = SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE;
-
-	/**
-	 * The number of structural features of the '<em>Abstract Subcomponent</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 0;
+	int ABSTRACT_SUBCOMPONENT = 102;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ElementNameImpl <em>Element Name</em>}' class.
@@ -9976,7 +1694,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getElementName()
 	 * @generated
 	 */
-	int ELEMENT_NAME = 106;
+	int ELEMENT_NAME = 109;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessConnectionImpl <em>Access Connection</em>}' class.
@@ -9986,7 +1704,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessConnection()
 	 * @generated
 	 */
-	int ACCESS_CONNECTION = 100;
+	int ACCESS_CONNECTION = 103;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ParameterConnectionImpl <em>Parameter Connection</em>}' class.
@@ -9996,7 +1714,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getParameterConnection()
 	 * @generated
 	 */
-	int PARAMETER_CONNECTION = 101;
+	int PARAMETER_CONNECTION = 104;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PortConnectionImpl <em>Port Connection</em>}' class.
@@ -10006,7 +1724,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortConnection()
 	 * @generated
 	 */
-	int PORT_CONNECTION = 102;
+	int PORT_CONNECTION = 105;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureConnectionImpl <em>Feature Connection</em>}' class.
@@ -10016,7 +1734,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureConnection()
 	 * @generated
 	 */
-	int FEATURE_CONNECTION = 103;
+	int FEATURE_CONNECTION = 106;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupConnectionImpl <em>Feature Group Connection</em>}' class.
@@ -10026,7 +1744,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupConnection()
 	 * @generated
 	 */
-	int FEATURE_GROUP_CONNECTION = 104;
+	int FEATURE_GROUP_CONNECTION = 107;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorSubprogramImpl <em>Processor Subprogram</em>}' class.
@@ -10036,7 +1754,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubprogram()
 	 * @generated
 	 */
-	int PROCESSOR_SUBPROGRAM = 260;
+	int PROCESSOR_SUBPROGRAM = 257;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AnnexLibraryImpl <em>Annex Library</em>}' class.
@@ -10046,7 +1764,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAnnexLibrary()
 	 * @generated
 	 */
-	int ANNEX_LIBRARY = 107;
+	int ANNEX_LIBRARY = 110;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DefaultAnnexLibraryImpl <em>Default Annex Library</em>}' class.
@@ -10056,7 +1774,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDefaultAnnexLibrary()
 	 * @generated
 	 */
-	int DEFAULT_ANNEX_LIBRARY = 108;
+	int DEFAULT_ANNEX_LIBRARY = 111;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DefaultAnnexSubclauseImpl <em>Default Annex Subclause</em>}' class.
@@ -10066,7 +1784,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDefaultAnnexSubclause()
 	 * @generated
 	 */
-	int DEFAULT_ANNEX_SUBCLAUSE = 109;
+	int DEFAULT_ANNEX_SUBCLAUSE = 112;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PackageSectionImpl <em>Package Section</em>}' class.
@@ -10076,7 +1794,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPackageSection()
 	 * @generated
 	 */
-	int PACKAGE_SECTION = 112;
+	int PACKAGE_SECTION = 115;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PublicPackageSectionImpl <em>Public Package Section</em>}' class.
@@ -10086,7 +1804,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPublicPackageSection()
 	 * @generated
 	 */
-	int PUBLIC_PACKAGE_SECTION = 111;
+	int PUBLIC_PACKAGE_SECTION = 114;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PackageRenameImpl <em>Package Rename</em>}' class.
@@ -10096,7 +1814,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPackageRename()
 	 * @generated
 	 */
-	int PACKAGE_RENAME = 113;
+	int PACKAGE_RENAME = 116;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModelUnitImpl <em>Model Unit</em>}' class.
@@ -10106,7 +1824,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModelUnit()
 	 * @generated
 	 */
-	int MODEL_UNIT = 115;
+	int MODEL_UNIT = 118;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AadlPackageImpl <em>Aadl Package</em>}' class.
@@ -10116,7 +1834,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlPackage()
 	 * @generated
 	 */
-	int AADL_PACKAGE = 114;
+	int AADL_PACKAGE = 117;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PrivatePackageSectionImpl <em>Private Package Section</em>}' class.
@@ -10126,7 +1844,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrivatePackageSection()
 	 * @generated
 	 */
-	int PRIVATE_PACKAGE_SECTION = 116;
+	int PRIVATE_PACKAGE_SECTION = 119;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentTypeRenameImpl <em>Component Type Rename</em>}' class.
@@ -10136,7 +1854,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentTypeRename()
 	 * @generated
 	 */
-	int COMPONENT_TYPE_RENAME = 117;
+	int COMPONENT_TYPE_RENAME = 120;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupTypeRenameImpl <em>Feature Group Type Rename</em>}' class.
@@ -10146,7 +1864,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupTypeRename()
 	 * @generated
 	 */
-	int FEATURE_GROUP_TYPE_RENAME = 118;
+	int FEATURE_GROUP_TYPE_RENAME = 121;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractTypeImpl <em>Abstract Type</em>}' class.
@@ -10776,7 +2494,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeBinding()
 	 * @generated
 	 */
-	int COMPONENT_PROTOTYPE_BINDING = 119;
+	int COMPONENT_PROTOTYPE_BINDING = 122;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl <em>Component Prototype Actual</em>}' class.
@@ -10786,7 +2504,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeActual()
 	 * @generated
 	 */
-	int COMPONENT_PROTOTYPE_ACTUAL = 120;
+	int COMPONENT_PROTOTYPE_ACTUAL = 123;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeImpl <em>Feature Group Prototype</em>}' class.
@@ -10796,7 +2514,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototype()
 	 * @generated
 	 */
-	int FEATURE_GROUP_PROTOTYPE = 121;
+	int FEATURE_GROUP_PROTOTYPE = 87;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeBindingImpl <em>Feature Group Prototype Binding</em>}' class.
@@ -10806,7 +2524,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeBinding()
 	 * @generated
 	 */
-	int FEATURE_GROUP_PROTOTYPE_BINDING = 122;
+	int FEATURE_GROUP_PROTOTYPE_BINDING = 124;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl <em>Feature Group Prototype Actual</em>}' class.
@@ -10816,7 +2534,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeActual()
 	 * @generated
 	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL = 123;
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL = 125;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeImpl <em>Feature Prototype</em>}' class.
@@ -10826,7 +2544,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototype()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE = 124;
+	int FEATURE_PROTOTYPE = 127;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeBindingImpl <em>Feature Prototype Binding</em>}' class.
@@ -10836,7 +2554,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeBinding()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE_BINDING = 125;
+	int FEATURE_PROTOTYPE_BINDING = 128;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeActualImpl <em>Feature Prototype Actual</em>}' class.
@@ -10856,7 +2574,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessSpecification()
 	 * @generated
 	 */
-	int ACCESS_SPECIFICATION = 127;
+	int ACCESS_SPECIFICATION = 129;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PortSpecificationImpl <em>Port Specification</em>}' class.
@@ -10866,7 +2584,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortSpecification()
 	 * @generated
 	 */
-	int PORT_SPECIFICATION = 128;
+	int PORT_SPECIFICATION = 130;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeReferenceImpl <em>Feature Prototype Reference</em>}' class.
@@ -10876,27 +2594,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeReference()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE_REFERENCE = 129;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeReferenceImpl <em>Feature Group Prototype Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupPrototypeReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeReference()
-	 * @generated
-	 */
-	int FEATURE_GROUP_PROTOTYPE_REFERENCE = 130;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupReferenceImpl <em>Feature Group Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.FeatureGroupReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupReference()
-	 * @generated
-	 */
-	int FEATURE_GROUP_REFERENCE = 131;
+	int FEATURE_PROTOTYPE_REFERENCE = 131;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorCallImpl <em>Processor Call</em>}' class.
@@ -11147,6 +2845,8391 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	int VIRTUAL_PROCESSOR_PROTOTYPE = 219;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.BasicPropertyAssociationImpl <em>Basic Property Association</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.BasicPropertyAssociationImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBasicPropertyAssociation()
+	 * @generated
+	 */
+	int BASIC_PROPERTY_ASSOCIATION = 220;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyConstantImpl <em>Property Constant</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.PropertyConstantImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyConstant()
+	 * @generated
+	 */
+	int PROPERTY_CONSTANT = 221;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractNamedValueImpl <em>Abstract Named Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractNamedValueImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractNamedValue()
+	 * @generated
+	 */
+	int ABSTRACT_NAMED_VALUE = 9;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Named Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_NAMED_VALUE_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ArraySizePropertyImpl <em>Array Size Property</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ArraySizePropertyImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArraySizeProperty()
+	 * @generated
+	 */
+	int ARRAY_SIZE_PROPERTY = 10;
+
+	/**
+	 * The number of structural features of the '<em>Array Size Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_SIZE_PROPERTY_FEATURE_COUNT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_EXPRESSION__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_EXPRESSION__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The number of structural features of the '<em>Property Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_EXPRESSION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_OWNER__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_OWNER__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The number of structural features of the '<em>Property Owner</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_OWNER_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METACLASS_REFERENCE__OWNED_ELEMENT = PROPERTY_OWNER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METACLASS_REFERENCE__OWNED_COMMENT = PROPERTY_OWNER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Annex Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METACLASS_REFERENCE__ANNEX_NAME = PROPERTY_OWNER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Metaclass Name</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METACLASS_REFERENCE__METACLASS_NAME = PROPERTY_OWNER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Metaclass Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METACLASS_REFERENCE_FEATURE_COUNT = PROPERTY_OWNER_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMESPACE__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMESPACE__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMESPACE__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMESPACE__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMESPACE__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMESPACE__OWNED_MEMBER = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMESPACE__MEMBER = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Namespace</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMESPACE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__OWNED_ELEMENT = NAMESPACE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__OWNED_COMMENT = NAMESPACE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__NAME = NAMESPACE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__QUALIFIED_NAME = NAMESPACE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = NAMESPACE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__OWNED_MEMBER = NAMESPACE__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__MEMBER = NAMESPACE__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__CLASSIFIER_FEATURE = NAMESPACE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__INHERITED_MEMBER = NAMESPACE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__GENERALIZATION = NAMESPACE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__GENERAL = NAMESPACE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = NAMESPACE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__OWNED_PROTOTYPE = NAMESPACE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__OWNED_PROTOTYPE_BINDING = NAMESPACE_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__NO_PROTOTYPES = NAMESPACE_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__NO_ANNEXES = NAMESPACE_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__NO_PROPERTIES = NAMESPACE_FEATURE_COUNT + 9;
+
+	/**
+	 * The number of structural features of the '<em>Classifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER_FEATURE_COUNT = NAMESPACE_FEATURE_COUNT + 10;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER_FEATURE__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER_FEATURE__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER_FEATURE__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER_FEATURE__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER_FEATURE__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER_FEATURE__FEATURING_CLASSIFIER = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Classifier Feature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER_FEATURE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATIONSHIP__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATIONSHIP__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATIONSHIP__RELATED_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Relationship</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATIONSHIP_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_RELATIONSHIP__OWNED_ELEMENT = RELATIONSHIP__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_RELATIONSHIP__OWNED_COMMENT = RELATIONSHIP__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_RELATIONSHIP__RELATED_ELEMENT = RELATIONSHIP__RELATED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_RELATIONSHIP__SOURCE = RELATIONSHIP_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_RELATIONSHIP__TARGET = RELATIONSHIP_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Directed Relationship</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_RELATIONSHIP_FEATURE_COUNT = RELATIONSHIP_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERALIZATION__OWNED_ELEMENT = DIRECTED_RELATIONSHIP__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERALIZATION__OWNED_COMMENT = DIRECTED_RELATIONSHIP__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERALIZATION__RELATED_ELEMENT = DIRECTED_RELATIONSHIP__RELATED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERALIZATION__SOURCE = DIRECTED_RELATIONSHIP__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERALIZATION__TARGET = DIRECTED_RELATIONSHIP__TARGET;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERALIZATION__GENERAL = DIRECTED_RELATIONSHIP_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Specific</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERALIZATION__SPECIFIC = DIRECTED_RELATIONSHIP_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Generalization</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERALIZATION_FEATURE_COUNT = DIRECTED_RELATIONSHIP_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_ELEMENT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_ELEMENT__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_ELEMENT__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_ELEMENT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_ELEMENT__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_ELEMENT__IN_MODE = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Modal Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_SUBCLAUSE__OWNED_ELEMENT = MODAL_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_SUBCLAUSE__OWNED_COMMENT = MODAL_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_SUBCLAUSE__NAME = MODAL_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_SUBCLAUSE__QUALIFIED_NAME = MODAL_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_SUBCLAUSE__OWNED_PROPERTY_ASSOCIATION = MODAL_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_SUBCLAUSE__IN_MODE = MODAL_ELEMENT__IN_MODE;
+
+	/**
+	 * The number of structural features of the '<em>Annex Subclause</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_SUBCLAUSE_FEATURE_COUNT = MODAL_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_FEATURE__OWNED_ELEMENT = CLASSIFIER_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_FEATURE__OWNED_COMMENT = CLASSIFIER_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_FEATURE__NAME = CLASSIFIER_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_FEATURE__QUALIFIED_NAME = CLASSIFIER_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_FEATURE__OWNED_PROPERTY_ASSOCIATION = CLASSIFIER_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_FEATURE__FEATURING_CLASSIFIER = CLASSIFIER_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The number of structural features of the '<em>Mode Feature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_FEATURE_FEATURE_COUNT = CLASSIFIER_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE__OWNED_ELEMENT = MODE_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE__OWNED_COMMENT = MODE_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE__NAME = MODE_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE__QUALIFIED_NAME = MODE_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE__OWNED_PROPERTY_ASSOCIATION = MODE_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE__FEATURING_CLASSIFIER = MODE_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Initial</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE__INITIAL = MODE_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Derived</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE__DERIVED = MODE_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Mode</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_FEATURE_COUNT = MODE_FEATURE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFINABLE_ELEMENT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFINABLE_ELEMENT__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFINABLE_ELEMENT__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFINABLE_ELEMENT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFINABLE_ELEMENT__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFINABLE_ELEMENT__REFINEMENT_CONTEXT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFINABLE_ELEMENT__REFINED_ELEMENT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Refinable Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFINABLE_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURAL_FEATURE__OWNED_ELEMENT = REFINABLE_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURAL_FEATURE__OWNED_COMMENT = REFINABLE_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURAL_FEATURE__NAME = REFINABLE_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURAL_FEATURE__QUALIFIED_NAME = REFINABLE_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION = REFINABLE_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURAL_FEATURE__REFINEMENT_CONTEXT = REFINABLE_ELEMENT__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURAL_FEATURE__REFINED_ELEMENT = REFINABLE_ELEMENT__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURAL_FEATURE__FEATURING_CLASSIFIER = REFINABLE_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Structural Feature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURAL_FEATURE_FEATURE_COUNT = REFINABLE_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE__OWNED_ELEMENT = STRUCTURAL_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE__OWNED_COMMENT = STRUCTURAL_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE__NAME = STRUCTURAL_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE__QUALIFIED_NAME = STRUCTURAL_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE__OWNED_PROPERTY_ASSOCIATION = STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE__REFINEMENT_CONTEXT = STRUCTURAL_FEATURE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE__REFINED_ELEMENT = STRUCTURAL_FEATURE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE__REFINED = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Prototype</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureTypeImpl <em>Feature Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.FeatureTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureType()
+	 * @generated
+	 */
+	int FEATURE_TYPE = 58;
+
+	/**
+	 * The number of structural features of the '<em>Called Subprogram</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALLED_SUBPROGRAM_FEATURE_COUNT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE_BINDING__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE_BINDING__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Formal</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE_BINDING__FORMAL = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Prototype Binding</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROTOTYPE_BINDING_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINED_NAMED_ELEMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINED_NAMED_ELEMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Containment Path Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINED_NAMED_ELEMENT__CONTAINMENT_PATH_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Contained Named Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINED_NAMED_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINMENT_PATH_ELEMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINMENT_PATH_ELEMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Array Range</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Named Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Containment Path Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINMENT_PATH_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_RANGE__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_RANGE__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_RANGE__LOWER_BOUND = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_RANGE__UPPER_BOUND = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Array Range</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_RANGE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PROPERTY_VALUE__OWNED_ELEMENT = MODAL_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PROPERTY_VALUE__OWNED_COMMENT = MODAL_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PROPERTY_VALUE__NAME = MODAL_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PROPERTY_VALUE__QUALIFIED_NAME = MODAL_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PROPERTY_VALUE__OWNED_PROPERTY_ASSOCIATION = MODAL_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PROPERTY_VALUE__IN_MODE = MODAL_ELEMENT__IN_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PROPERTY_VALUE__OWNED_VALUE = MODAL_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Modal Property Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PROPERTY_VALUE_FEATURE_COUNT = MODAL_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORAL_FEATURE__OWNED_ELEMENT = CLASSIFIER_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORAL_FEATURE__OWNED_COMMENT = CLASSIFIER_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORAL_FEATURE__NAME = CLASSIFIER_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORAL_FEATURE__QUALIFIED_NAME = CLASSIFIER_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORAL_FEATURE__OWNED_PROPERTY_ASSOCIATION = CLASSIFIER_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORAL_FEATURE__FEATURING_CLASSIFIER = CLASSIFIER_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The number of structural features of the '<em>Behavioral Feature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORAL_FEATURE_FEATURE_COUNT = CLASSIFIER_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ArrayDimensionImpl <em>Array Dimension</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ArrayDimensionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArrayDimension()
+	 * @generated
+	 */
+	int ARRAY_DIMENSION = 34;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_DIMENSION__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_DIMENSION__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_DIMENSION__SIZE = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Array Dimension</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_DIMENSION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_SIZE__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_SIZE__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_SIZE__SIZE = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Size Property</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_SIZE__SIZE_PROPERTY = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Array Size</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_SIZE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAYABLE_ELEMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAYABLE_ELEMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAYABLE_ELEMENT__ARRAY_DIMENSION = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Arrayable Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAYABLE_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Implementation</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_PROTOTYPE_BINDING = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Component Implementation Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION_REFERENCE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__OWNED_ELEMENT = CLASSIFIER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__OWNED_COMMENT = CLASSIFIER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__NAME = CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__QUALIFIED_NAME = CLASSIFIER__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__OWNED_MEMBER = CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__MEMBER = CLASSIFIER__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE = CLASSIFIER__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__INHERITED_MEMBER = CLASSIFIER__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__GENERALIZATION = CLASSIFIER__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__GENERAL = CLASSIFIER__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__OWNED_PROTOTYPE = CLASSIFIER__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING = CLASSIFIER__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__NO_PROTOTYPES = CLASSIFIER__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__NO_ANNEXES = CLASSIFIER__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__NO_PROPERTIES = CLASSIFIER__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__OWNED_MODE = CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION = CLASSIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__NO_FLOWS = CLASSIFIER_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__NO_MODES = CLASSIFIER_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Component Classifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__NAME = COMPONENT_CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__TYPE = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Extended</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__EXTENDED = COMPONENT_CLASSIFIER_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Flow Implementation</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_EXTENSION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Owned Realization</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_REALIZATION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Owned End To End Flow</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW = COMPONENT_CLASSIFIER_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Owned Abstract Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Owned Access Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Owned Parameter Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 10;
+
+	/**
+	 * The feature id for the '<em><b>Owned Port Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 11;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 12;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature Group Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 13;
+
+	/**
+	 * The feature id for the '<em><b>No Subcomponents</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS = COMPONENT_CLASSIFIER_FEATURE_COUNT + 14;
+
+	/**
+	 * The feature id for the '<em><b>No Connections</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__NO_CONNECTIONS = COMPONENT_CLASSIFIER_FEATURE_COUNT + 15;
+
+	/**
+	 * The feature id for the '<em><b>No Calls</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__NO_CALLS = COMPONENT_CLASSIFIER_FEATURE_COUNT + 16;
+
+	/**
+	 * The number of structural features of the '<em>Component Implementation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 17;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT_TYPE__OWNED_ELEMENT = TYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT_TYPE__OWNED_COMMENT = TYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT_TYPE__NAME = TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT_TYPE__QUALIFIED_NAME = TYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = TYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Subcomponent Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION__OWNED_ELEMENT = MODE_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION__OWNED_COMMENT = MODE_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION__NAME = MODE_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION__QUALIFIED_NAME = MODE_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION__OWNED_PROPERTY_ASSOCIATION = MODE_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION__FEATURING_CLASSIFIER = MODE_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION__SOURCE = MODE_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Destination</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION__DESTINATION = MODE_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Trigger</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION__OWNED_TRIGGER = MODE_FEATURE_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Mode Transition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION_FEATURE_COUNT = MODE_FEATURE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION_TRIGGER__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION_TRIGGER__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The number of structural features of the '<em>Mode Transition Trigger</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION_TRIGGER_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__NAME = COMPONENT_CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_FEATURE = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Extended</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__EXTENDED = COMPONENT_CLASSIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Flow Specification</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_EXTENSION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature Group</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_FEATURE_GROUP = COMPONENT_CLASSIFIER_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Abstract Feature</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE = COMPONENT_CLASSIFIER_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>No Features</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__NO_FEATURES = COMPONENT_CLASSIFIER_FEATURE_COUNT + 6;
+
+	/**
+	 * The number of structural features of the '<em>Component Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__OWNED_ELEMENT = STRUCTURAL_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__OWNED_COMMENT = STRUCTURAL_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__NAME = STRUCTURAL_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__QUALIFIED_NAME = STRUCTURAL_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__OWNED_PROPERTY_ASSOCIATION = STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__REFINEMENT_CONTEXT = STRUCTURAL_FEATURE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__REFINED_ELEMENT = STRUCTURAL_FEATURE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__ARRAY_DIMENSION = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__PROTOTYPE = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__CLASSIFIER = STRUCTURAL_FEATURE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__REFINED = STRUCTURAL_FEATURE_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Feature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Connection End</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_END_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_CONNECTION_END__OWNED_ELEMENT = CONNECTION_END__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_CONNECTION_END__OWNED_COMMENT = CONNECTION_END__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_CONNECTION_END__NAME = CONNECTION_END__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_CONNECTION_END__QUALIFIED_NAME = CONNECTION_END__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_CONNECTION_END__OWNED_PROPERTY_ASSOCIATION = CONNECTION_END__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Feature Connection End</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW__OWNED_ELEMENT = STRUCTURAL_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW__OWNED_COMMENT = STRUCTURAL_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW__NAME = STRUCTURAL_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW__QUALIFIED_NAME = STRUCTURAL_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW__OWNED_PROPERTY_ASSOCIATION = STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW__REFINEMENT_CONTEXT = STRUCTURAL_FEATURE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW__REFINED_ELEMENT = STRUCTURAL_FEATURE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The number of structural features of the '<em>Flow</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__OWNED_ELEMENT = FLOW__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__OWNED_COMMENT = FLOW__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__NAME = FLOW__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__QUALIFIED_NAME = FLOW__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__OWNED_PROPERTY_ASSOCIATION = FLOW__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__REFINEMENT_CONTEXT = FLOW__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__REFINED_ELEMENT = FLOW__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__FEATURING_CLASSIFIER = FLOW__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__IN_MODE = FLOW_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__REFINED = FLOW_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__KIND = FLOW_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Out End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__OUT_END = FLOW_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>In End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION__IN_END = FLOW_FEATURE_COUNT + 4;
+
+	/**
+	 * The number of structural features of the '<em>Flow Specification</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION_FEATURE_COUNT = FLOW_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_ELEMENT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_ELEMENT__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_ELEMENT__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_ELEMENT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_ELEMENT__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>End To End Flow Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_ELEMENT__OWNED_ELEMENT = END_TO_END_FLOW_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_ELEMENT__OWNED_COMMENT = END_TO_END_FLOW_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_ELEMENT__NAME = END_TO_END_FLOW_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_ELEMENT__QUALIFIED_NAME = END_TO_END_FLOW_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_ELEMENT__OWNED_PROPERTY_ASSOCIATION = END_TO_END_FLOW_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Flow Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_ELEMENT_FEATURE_COUNT = END_TO_END_FLOW_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_END__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_END__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_END__CONTEXT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_END__FEATURE = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Flow End</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_END_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTEXT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTEXT__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTEXT__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTEXT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTEXT__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Context</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTEXT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_EXTENSION__OWNED_ELEMENT = GENERALIZATION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_EXTENSION__OWNED_COMMENT = GENERALIZATION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_EXTENSION__RELATED_ELEMENT = GENERALIZATION__RELATED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_EXTENSION__SOURCE = GENERALIZATION__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_EXTENSION__TARGET = GENERALIZATION__TARGET;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_EXTENSION__GENERAL = GENERALIZATION__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Specific</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_EXTENSION__SPECIFIC = GENERALIZATION__SPECIFIC;
+
+	/**
+	 * The feature id for the '<em><b>Extended</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_EXTENSION__EXTENDED = GENERALIZATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Type Extension</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_EXTENSION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__OWNED_ELEMENT = FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__OWNED_COMMENT = FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__NAME = FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__QUALIFIED_NAME = FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__OWNED_PROPERTY_ASSOCIATION = FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__REFINEMENT_CONTEXT = FEATURE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__REFINED_ELEMENT = FEATURE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__FEATURING_CLASSIFIER = FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__ARRAY_DIMENSION = FEATURE__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__PROTOTYPE = FEATURE__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__CLASSIFIER = FEATURE__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__REFINED = FEATURE__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__DIRECTION = FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Directed Feature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__OWNED_ELEMENT = DIRECTED_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__OWNED_COMMENT = DIRECTED_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__NAME = DIRECTED_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__QUALIFIED_NAME = DIRECTED_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__OWNED_PROPERTY_ASSOCIATION = DIRECTED_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__REFINEMENT_CONTEXT = DIRECTED_FEATURE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__REFINED_ELEMENT = DIRECTED_FEATURE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__FEATURING_CLASSIFIER = DIRECTED_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__ARRAY_DIMENSION = DIRECTED_FEATURE__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__PROTOTYPE = DIRECTED_FEATURE__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__CLASSIFIER = DIRECTED_FEATURE__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__REFINED = DIRECTED_FEATURE__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__DIRECTION = DIRECTED_FEATURE__DIRECTION;
+
+	/**
+	 * The feature id for the '<em><b>Inverse</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__INVERSE = DIRECTED_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Feature Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__FEATURE_TYPE = DIRECTED_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Feature Group Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__FEATURE_GROUP_TYPE = DIRECTED_FEATURE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Feature Group Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__FEATURE_GROUP_PROTOTYPE = DIRECTED_FEATURE_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Feature Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 4;
+
+	/**
+	 * The number of structural features of the '<em>Call Context</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALL_CONTEXT_FEATURE_COUNT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_CONNECTION_END__OWNED_ELEMENT = CONNECTION_END__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_CONNECTION_END__OWNED_COMMENT = CONNECTION_END__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_CONNECTION_END__NAME = CONNECTION_END__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_CONNECTION_END__QUALIFIED_NAME = CONNECTION_END__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_CONNECTION_END__OWNED_PROPERTY_ASSOCIATION = CONNECTION_END__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Feature Group Connection End</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Feature Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_TYPE_FEATURE_COUNT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_ELEMENT = CLASSIFIER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_COMMENT = CLASSIFIER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__NAME = CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__QUALIFIED_NAME = CLASSIFIER__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_PROPERTY_ASSOCIATION = CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_MEMBER = CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__MEMBER = CLASSIFIER__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__CLASSIFIER_FEATURE = CLASSIFIER__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__INHERITED_MEMBER = CLASSIFIER__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__GENERALIZATION = CLASSIFIER__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__GENERAL = CLASSIFIER__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_ANNEX_SUBCLAUSE = CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_PROTOTYPE = CLASSIFIER__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_PROTOTYPE_BINDING = CLASSIFIER__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__NO_PROTOTYPES = CLASSIFIER__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__NO_ANNEXES = CLASSIFIER__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__NO_PROPERTIES = CLASSIFIER__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_FEATURE = CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Extended</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__EXTENDED = CLASSIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Inverse</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__INVERSE = CLASSIFIER_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Extension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_EXTENSION = CLASSIFIER_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Owned Bus Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_BUS_ACCESS = CLASSIFIER_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Data Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_DATA_ACCESS = CLASSIFIER_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Owned Data Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_DATA_PORT = CLASSIFIER_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Owned Event Data Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_EVENT_DATA_PORT = CLASSIFIER_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Owned Event Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_EVENT_PORT = CLASSIFIER_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Owned Feature Group</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_FEATURE_GROUP = CLASSIFIER_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_PARAMETER = CLASSIFIER_FEATURE_COUNT + 10;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subprogram Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS = CLASSIFIER_FEATURE_COUNT + 11;
+
+	/**
+	 * The feature id for the '<em><b>Owned Subprogram Group Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS = CLASSIFIER_FEATURE_COUNT + 12;
+
+	/**
+	 * The feature id for the '<em><b>Owned Abstract Feature</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE__OWNED_ABSTRACT_FEATURE = CLASSIFIER_FEATURE_COUNT + 13;
+
+	/**
+	 * The number of structural features of the '<em>Feature Group Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_TYPE_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 14;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GROUP_EXTENSION__OWNED_ELEMENT = GENERALIZATION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GROUP_EXTENSION__OWNED_COMMENT = GENERALIZATION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GROUP_EXTENSION__RELATED_ELEMENT = GENERALIZATION__RELATED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GROUP_EXTENSION__SOURCE = GENERALIZATION__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GROUP_EXTENSION__TARGET = GENERALIZATION__TARGET;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GROUP_EXTENSION__GENERAL = GENERALIZATION__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Specific</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GROUP_EXTENSION__SPECIFIC = GENERALIZATION__SPECIFIC;
+
+	/**
+	 * The feature id for the '<em><b>Extended</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GROUP_EXTENSION__EXTENDED = GENERALIZATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Group Extension</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GROUP_EXTENSION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__OWNED_ELEMENT = FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__OWNED_COMMENT = FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__NAME = FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__QUALIFIED_NAME = FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__OWNED_PROPERTY_ASSOCIATION = FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__REFINEMENT_CONTEXT = FEATURE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__REFINED_ELEMENT = FEATURE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__FEATURING_CLASSIFIER = FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__ARRAY_DIMENSION = FEATURE__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__PROTOTYPE = FEATURE__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__CLASSIFIER = FEATURE__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__REFINED = FEATURE__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__KIND = FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS__CATEGORY = FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Access</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__OWNED_ELEMENT = ACCESS__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__OWNED_COMMENT = ACCESS__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__NAME = ACCESS__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__QUALIFIED_NAME = ACCESS__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__OWNED_PROPERTY_ASSOCIATION = ACCESS__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__REFINEMENT_CONTEXT = ACCESS__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__REFINED_ELEMENT = ACCESS__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__FEATURING_CLASSIFIER = ACCESS__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__ARRAY_DIMENSION = ACCESS__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__PROTOTYPE = ACCESS__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__CLASSIFIER = ACCESS__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__REFINED = ACCESS__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__KIND = ACCESS__KIND;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__CATEGORY = ACCESS__CATEGORY;
+
+	/**
+	 * The feature id for the '<em><b>Bus Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS__BUS_CLASSIFIER = ACCESS_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Bus Access</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_CONNECTION_END__OWNED_ELEMENT = CONNECTION_END__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_CONNECTION_END__OWNED_COMMENT = CONNECTION_END__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_CONNECTION_END__NAME = CONNECTION_END__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_CONNECTION_END__QUALIFIED_NAME = CONNECTION_END__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_CONNECTION_END__OWNED_PROPERTY_ASSOCIATION = CONNECTION_END__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Access Connection End</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__NAME = COMPONENT_CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
+
+	/**
+	 * The number of structural features of the '<em>Bus Classifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Bus</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_SUBCOMPONENT_TYPE__OWNED_ELEMENT = BUS__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_SUBCOMPONENT_TYPE__OWNED_COMMENT = BUS__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_SUBCOMPONENT_TYPE__NAME = BUS__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_SUBCOMPONENT_TYPE__QUALIFIED_NAME = BUS__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = BUS__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Bus Subcomponent Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_SUBCOMPONENT_TYPE_FEATURE_COUNT = BUS_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__OWNED_ELEMENT = ACCESS__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__OWNED_COMMENT = ACCESS__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__NAME = ACCESS__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__QUALIFIED_NAME = ACCESS__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__OWNED_PROPERTY_ASSOCIATION = ACCESS__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__REFINEMENT_CONTEXT = ACCESS__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__REFINED_ELEMENT = ACCESS__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__FEATURING_CLASSIFIER = ACCESS__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__ARRAY_DIMENSION = ACCESS__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__PROTOTYPE = ACCESS__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__CLASSIFIER = ACCESS__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__REFINED = ACCESS__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__KIND = ACCESS__KIND;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__CATEGORY = ACCESS__CATEGORY;
+
+	/**
+	 * The feature id for the '<em><b>Data Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS__DATA_CLASSIFIER = ACCESS_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Data Access</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER_CONNECTION_END__OWNED_ELEMENT = CONNECTION_END__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER_CONNECTION_END__OWNED_COMMENT = CONNECTION_END__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER_CONNECTION_END__NAME = CONNECTION_END__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER_CONNECTION_END__QUALIFIED_NAME = CONNECTION_END__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER_CONNECTION_END__OWNED_PROPERTY_ASSOCIATION = CONNECTION_END__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Parameter Connection End</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_CONNECTION_END__OWNED_ELEMENT = CONNECTION_END__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_CONNECTION_END__OWNED_COMMENT = CONNECTION_END__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_CONNECTION_END__NAME = CONNECTION_END__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_CONNECTION_END__QUALIFIED_NAME = CONNECTION_END__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_CONNECTION_END__OWNED_PROPERTY_ASSOCIATION = CONNECTION_END__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Port Connection End</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__NAME = COMPONENT_CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
+
+	/**
+	 * The number of structural features of the '<em>Data Classifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SUBCOMPONENT_TYPE__OWNED_ELEMENT = DATA__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SUBCOMPONENT_TYPE__OWNED_COMMENT = DATA__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SUBCOMPONENT_TYPE__NAME = DATA__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SUBCOMPONENT_TYPE__QUALIFIED_NAME = DATA__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = DATA__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Data Subcomponent Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SUBCOMPONENT_TYPE_FEATURE_COUNT = DATA_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__OWNED_ELEMENT = DIRECTED_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__OWNED_COMMENT = DIRECTED_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__NAME = DIRECTED_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__QUALIFIED_NAME = DIRECTED_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__OWNED_PROPERTY_ASSOCIATION = DIRECTED_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__REFINEMENT_CONTEXT = DIRECTED_FEATURE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__REFINED_ELEMENT = DIRECTED_FEATURE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__FEATURING_CLASSIFIER = DIRECTED_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__ARRAY_DIMENSION = DIRECTED_FEATURE__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__PROTOTYPE = DIRECTED_FEATURE__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__CLASSIFIER = DIRECTED_FEATURE__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__REFINED = DIRECTED_FEATURE__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__DIRECTION = DIRECTED_FEATURE__DIRECTION;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__CATEGORY = DIRECTED_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Port</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__OWNED_ELEMENT = PORT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__OWNED_COMMENT = PORT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__NAME = PORT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__QUALIFIED_NAME = PORT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__OWNED_PROPERTY_ASSOCIATION = PORT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__REFINEMENT_CONTEXT = PORT__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__REFINED_ELEMENT = PORT__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__FEATURING_CLASSIFIER = PORT__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__ARRAY_DIMENSION = PORT__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__PROTOTYPE = PORT__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__CLASSIFIER = PORT__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__REFINED = PORT__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__DIRECTION = PORT__DIRECTION;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__CATEGORY = PORT__CATEGORY;
+
+	/**
+	 * The feature id for the '<em><b>Data Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__DATA_CLASSIFIER = PORT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Data Port</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__OWNED_ELEMENT = PORT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__OWNED_COMMENT = PORT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__NAME = PORT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__QUALIFIED_NAME = PORT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__OWNED_PROPERTY_ASSOCIATION = PORT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__REFINEMENT_CONTEXT = PORT__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__REFINED_ELEMENT = PORT__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__FEATURING_CLASSIFIER = PORT__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__ARRAY_DIMENSION = PORT__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__PROTOTYPE = PORT__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__CLASSIFIER = PORT__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__REFINED = PORT__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__DIRECTION = PORT__DIRECTION;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__CATEGORY = PORT__CATEGORY;
+
+	/**
+	 * The feature id for the '<em><b>Data Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__DATA_CLASSIFIER = PORT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Event Data Port</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__OWNED_ELEMENT = PORT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__OWNED_COMMENT = PORT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__NAME = PORT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__QUALIFIED_NAME = PORT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__OWNED_PROPERTY_ASSOCIATION = PORT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__REFINEMENT_CONTEXT = PORT__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__REFINED_ELEMENT = PORT__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__FEATURING_CLASSIFIER = PORT__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__ARRAY_DIMENSION = PORT__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__PROTOTYPE = PORT__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__CLASSIFIER = PORT__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__REFINED = PORT__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__DIRECTION = PORT__DIRECTION;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__CATEGORY = PORT__CATEGORY;
+
+	/**
+	 * The number of structural features of the '<em>Event Port</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__OWNED_ELEMENT = DIRECTED_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__OWNED_COMMENT = DIRECTED_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__NAME = DIRECTED_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__QUALIFIED_NAME = DIRECTED_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__OWNED_PROPERTY_ASSOCIATION = DIRECTED_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__REFINEMENT_CONTEXT = DIRECTED_FEATURE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__REFINED_ELEMENT = DIRECTED_FEATURE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__FEATURING_CLASSIFIER = DIRECTED_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__ARRAY_DIMENSION = DIRECTED_FEATURE__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__PROTOTYPE = DIRECTED_FEATURE__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__CLASSIFIER = DIRECTED_FEATURE__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__REFINED = DIRECTED_FEATURE__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__DIRECTION = DIRECTED_FEATURE__DIRECTION;
+
+	/**
+	 * The feature id for the '<em><b>Data Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__DATA_CLASSIFIER = DIRECTED_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Parameter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__OWNED_ELEMENT = ACCESS__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__OWNED_COMMENT = ACCESS__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__NAME = ACCESS__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__QUALIFIED_NAME = ACCESS__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__OWNED_PROPERTY_ASSOCIATION = ACCESS__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__REFINEMENT_CONTEXT = ACCESS__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__REFINED_ELEMENT = ACCESS__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__FEATURING_CLASSIFIER = ACCESS__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__ARRAY_DIMENSION = ACCESS__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__PROTOTYPE = ACCESS__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__CLASSIFIER = ACCESS__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__REFINED = ACCESS__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__KIND = ACCESS__KIND;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__CATEGORY = ACCESS__CATEGORY;
+
+	/**
+	 * The feature id for the '<em><b>Subprogram Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS__SUBPROGRAM_CLASSIFIER = ACCESS_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram Access</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__NAME = COMPONENT_CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram Classifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE__OWNED_ELEMENT = SUBCOMPONENT_TYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE__OWNED_COMMENT = SUBCOMPONENT_TYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE__NAME = SUBCOMPONENT_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE__QUALIFIED_NAME = SUBCOMPONENT_TYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram Subcomponent Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__OWNED_ELEMENT = ACCESS__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__OWNED_COMMENT = ACCESS__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__NAME = ACCESS__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__QUALIFIED_NAME = ACCESS__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__OWNED_PROPERTY_ASSOCIATION = ACCESS__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__REFINEMENT_CONTEXT = ACCESS__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__REFINED_ELEMENT = ACCESS__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__FEATURING_CLASSIFIER = ACCESS__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__ARRAY_DIMENSION = ACCESS__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__PROTOTYPE = ACCESS__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__CLASSIFIER = ACCESS__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__REFINED = ACCESS__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__KIND = ACCESS__KIND;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__CATEGORY = ACCESS__CATEGORY;
+
+	/**
+	 * The feature id for the '<em><b>Subprogram Group Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_CLASSIFIER = ACCESS_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram Group Access</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__NAME = COMPONENT_CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram Group Classifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__OWNED_ELEMENT = SUBCOMPONENT_TYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__OWNED_COMMENT = SUBCOMPONENT_TYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__NAME = SUBCOMPONENT_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__QUALIFIED_NAME = SUBCOMPONENT_TYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram Group Subcomponent Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__OWNED_ELEMENT = DIRECTED_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__OWNED_COMMENT = DIRECTED_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__NAME = DIRECTED_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__QUALIFIED_NAME = DIRECTED_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__OWNED_PROPERTY_ASSOCIATION = DIRECTED_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__REFINEMENT_CONTEXT = DIRECTED_FEATURE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__REFINED_ELEMENT = DIRECTED_FEATURE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__FEATURING_CLASSIFIER = DIRECTED_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__ARRAY_DIMENSION = DIRECTED_FEATURE__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__PROTOTYPE = DIRECTED_FEATURE__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__CLASSIFIER = DIRECTED_FEATURE__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__REFINED = DIRECTED_FEATURE__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__DIRECTION = DIRECTED_FEATURE__DIRECTION;
+
+	/**
+	 * The feature id for the '<em><b>Component Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__COMPONENT_CLASSIFIER = DIRECTED_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Feature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__OWNED_ELEMENT = PROTOTYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__OWNED_COMMENT = PROTOTYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__NAME = PROTOTYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__QUALIFIED_NAME = PROTOTYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__OWNED_PROPERTY_ASSOCIATION = PROTOTYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__REFINEMENT_CONTEXT = PROTOTYPE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__REFINED_ELEMENT = PROTOTYPE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__FEATURING_CLASSIFIER = PROTOTYPE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__REFINED = PROTOTYPE__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Constraining Feature Group Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE__CONSTRAINING_FEATURE_GROUP_TYPE = PROTOTYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Feature Group Prototype</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__OWNED_ELEMENT = STRUCTURAL_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__OWNED_COMMENT = STRUCTURAL_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__NAME = STRUCTURAL_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__QUALIFIED_NAME = STRUCTURAL_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__OWNED_PROPERTY_ASSOCIATION = STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__REFINEMENT_CONTEXT = STRUCTURAL_FEATURE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__REFINED_ELEMENT = STRUCTURAL_FEATURE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__IN_MODE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__ARRAY_DIMENSION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__SUBCOMPONENT_TYPE = STRUCTURAL_FEATURE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__OWNED_PROTOTYPE_BINDING = STRUCTURAL_FEATURE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__PROTOTYPE = STRUCTURAL_FEATURE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__MODE_BINDING = STRUCTURAL_FEATURE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__ALL_MODES = STRUCTURAL_FEATURE_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Implementation Reference</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__IMPLEMENTATION_REFERENCE = STRUCTURAL_FEATURE_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__REFINED = STRUCTURAL_FEATURE_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__CLASSIFIER = STRUCTURAL_FEATURE_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Abstract Subcomponent Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE = STRUCTURAL_FEATURE_FEATURE_COUNT + 10;
+
+	/**
+	 * The number of structural features of the '<em>Subcomponent</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBCOMPONENT_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 11;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE__OWNED_ELEMENT = PROTOTYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE__OWNED_COMMENT = PROTOTYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE__NAME = PROTOTYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE__QUALIFIED_NAME = PROTOTYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE__OWNED_PROPERTY_ASSOCIATION = PROTOTYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE__REFINEMENT_CONTEXT = PROTOTYPE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE__REFINED_ELEMENT = PROTOTYPE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE__FEATURING_CLASSIFIER = PROTOTYPE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE__REFINED = PROTOTYPE__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE__ARRAY = PROTOTYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Constraining Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE__CONSTRAINING_CLASSIFIER = PROTOTYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Component Prototype</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_BINDING__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_BINDING__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Parent Mode</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_BINDING__PARENT_MODE = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Derived Mode</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_BINDING__DERIVED_MODE = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Mode Binding</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_BINDING_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT__OWNED_COMMENT = NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Abstract</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT_TYPE__OWNED_ELEMENT = ABSTRACT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT_TYPE__OWNED_COMMENT = ABSTRACT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT_TYPE__NAME = ABSTRACT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT_TYPE__QUALIFIED_NAME = ABSTRACT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = ABSTRACT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Subcomponent Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT_TYPE_FEATURE_COUNT = ABSTRACT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PATH__OWNED_ELEMENT = MODAL_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PATH__OWNED_COMMENT = MODAL_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PATH__NAME = MODAL_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PATH__QUALIFIED_NAME = MODAL_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PATH__OWNED_PROPERTY_ASSOCIATION = MODAL_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PATH__IN_MODE = MODAL_ELEMENT__IN_MODE;
+
+	/**
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PATH__IN_MODE_OR_TRANSITION = MODAL_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Modal Path</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODAL_PATH_FEATURE_COUNT = MODAL_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__OWNED_ELEMENT = MODAL_PATH__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__OWNED_COMMENT = MODAL_PATH__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__NAME = MODAL_PATH__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__QUALIFIED_NAME = MODAL_PATH__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = MODAL_PATH__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__IN_MODE = MODAL_PATH__IN_MODE;
+
+	/**
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION = MODAL_PATH__IN_MODE_OR_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER = MODAL_PATH_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__KIND = MODAL_PATH_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Specification</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__SPECIFICATION = MODAL_PATH_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Flow Segment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT = MODAL_PATH_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Flow Implementation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION_FEATURE_COUNT = MODAL_PATH_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SEGMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SEGMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Flow Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SEGMENT__FLOW_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SEGMENT__CONTEXT = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Flow Segment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SEGMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__OWNED_ELEMENT = STRUCTURAL_FEATURE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__OWNED_COMMENT = STRUCTURAL_FEATURE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__NAME = STRUCTURAL_FEATURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__QUALIFIED_NAME = STRUCTURAL_FEATURE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__OWNED_PROPERTY_ASSOCIATION = STRUCTURAL_FEATURE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__REFINEMENT_CONTEXT = STRUCTURAL_FEATURE__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__REFINED_ELEMENT = STRUCTURAL_FEATURE__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__IN_MODE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__IN_MODE_OR_TRANSITION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Destination</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__DESTINATION = STRUCTURAL_FEATURE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__SOURCE = STRUCTURAL_FEATURE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Bidirectional</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__BIDIRECTIONAL = STRUCTURAL_FEATURE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__REFINED = STRUCTURAL_FEATURE_FEATURE_COUNT + 5;
+
+	/**
+	 * The number of structural features of the '<em>Connection</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 6;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Connection End</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_CONNECTION_END_FEATURE_COUNT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION_EXTENSION__OWNED_ELEMENT = GENERALIZATION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION_EXTENSION__OWNED_COMMENT = GENERALIZATION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION_EXTENSION__RELATED_ELEMENT = GENERALIZATION__RELATED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION_EXTENSION__SOURCE = GENERALIZATION__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION_EXTENSION__TARGET = GENERALIZATION__TARGET;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION_EXTENSION__GENERAL = GENERALIZATION__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Specific</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION_EXTENSION__SPECIFIC = GENERALIZATION__SPECIFIC;
+
+	/**
+	 * The feature id for the '<em><b>Extended</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION_EXTENSION__EXTENDED = GENERALIZATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Implementation Extension</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION_EXTENSION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REALIZATION__OWNED_ELEMENT = GENERALIZATION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REALIZATION__OWNED_COMMENT = GENERALIZATION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Related Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REALIZATION__RELATED_ELEMENT = GENERALIZATION__RELATED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REALIZATION__SOURCE = GENERALIZATION__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REALIZATION__TARGET = GENERALIZATION__TARGET;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REALIZATION__GENERAL = GENERALIZATION__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Specific</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REALIZATION__SPECIFIC = GENERALIZATION__SPECIFIC;
+
+	/**
+	 * The feature id for the '<em><b>Implemented</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REALIZATION__IMPLEMENTED = GENERALIZATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Realization</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REALIZATION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW__OWNED_ELEMENT = FLOW__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW__OWNED_COMMENT = FLOW__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW__NAME = FLOW__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW__QUALIFIED_NAME = FLOW__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW__OWNED_PROPERTY_ASSOCIATION = FLOW__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW__REFINEMENT_CONTEXT = FLOW__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW__REFINED_ELEMENT = FLOW__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW__FEATURING_CLASSIFIER = FLOW__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW__IN_MODE = FLOW_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW__IN_MODE_OR_TRANSITION = FLOW_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW__REFINED = FLOW_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned End To End Flow Segment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW__OWNED_END_TO_END_FLOW_SEGMENT = FLOW_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>End To End Flow</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_FEATURE_COUNT = FLOW_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_SEGMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_SEGMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Flow Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_SEGMENT__CONTEXT = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>End To End Flow Segment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_SEGMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__OWNED_ELEMENT = SUBCOMPONENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__OWNED_COMMENT = SUBCOMPONENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__NAME = SUBCOMPONENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__QUALIFIED_NAME = SUBCOMPONENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__OWNED_PROPERTY_ASSOCIATION = SUBCOMPONENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__REFINEMENT_CONTEXT = SUBCOMPONENT__REFINEMENT_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__REFINED_ELEMENT = SUBCOMPONENT__REFINED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__FEATURING_CLASSIFIER = SUBCOMPONENT__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
+
+	/**
+	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__SUBCOMPONENT_TYPE = SUBCOMPONENT__SUBCOMPONENT_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__OWNED_PROTOTYPE_BINDING = SUBCOMPONENT__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__ALL_MODES = SUBCOMPONENT__ALL_MODES;
+
+	/**
+	 * The feature id for the '<em><b>Implementation Reference</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__IMPLEMENTATION_REFERENCE = SUBCOMPONENT__IMPLEMENTATION_REFERENCE;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__REFINED = SUBCOMPONENT__REFINED;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__CLASSIFIER = SUBCOMPONENT__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Abstract Subcomponent Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE = SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Subcomponent</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -13063,105 +13146,6 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP_PROTOTYPE__OWNED_ELEMENT = PROTOTYPE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__OWNED_COMMENT = PROTOTYPE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__NAME = PROTOTYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__QUALIFIED_NAME = PROTOTYPE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__OWNED_PROPERTY_ASSOCIATION = PROTOTYPE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__REFINEMENT_CONTEXT = PROTOTYPE__REFINEMENT_CONTEXT;
-
-	/**
-	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__REFINED_ELEMENT = PROTOTYPE__REFINED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__FEATURING_CLASSIFIER = PROTOTYPE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>Refined</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__REFINED = PROTOTYPE__REFINED;
-
-	/**
-	 * The feature id for the '<em><b>Constraining Feature Group Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE__CONSTRAINING_FEATURE_GROUP_TYPE = PROTOTYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Feature Group Prototype</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
 	int FEATURE_GROUP_PROTOTYPE_BINDING__OWNED_ELEMENT = PROTOTYPE_BINDING__OWNED_ELEMENT;
 
 	/**
@@ -13207,7 +13191,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+	int FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -13216,7 +13200,52 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+	int FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The number of structural features of the '<em>Feature Prototype Actual</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_ELEMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Feature Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL__FEATURE_TYPE = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Feature Group Prototype Actual</em>' class.
@@ -13225,7 +13254,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -13387,33 +13416,6 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Feature Prototype Actual</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
 	int ACCESS_SPECIFICATION__OWNED_ELEMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
 
 	/**
@@ -13559,87 +13561,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int FEATURE_PROTOTYPE_REFERENCE_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_REFERENCE__OWNED_ELEMENT = FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_REFERENCE__OWNED_COMMENT = FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_REFERENCE__PROTOTYPE = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Feature Group Prototype Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_PROTOTYPE_REFERENCE_FEATURE_COUNT = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_REFERENCE__OWNED_ELEMENT = FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_REFERENCE__OWNED_COMMENT = FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_REFERENCE__BINDING = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Feature Group Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_REFERENCE__FEATURE_GROUP_TYPE = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Feature Group Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_GROUP_REFERENCE_FEATURE_COUNT = FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -14290,22 +14211,13 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_CALL__CALLED_SUBPROGRAM = CALL_SPECIFICATION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CALL__PROTOTYPE = CALL_SPECIFICATION_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Context</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_CALL__CONTEXT = CALL_SPECIFICATION_FEATURE_COUNT + 2;
+	int SUBPROGRAM_CALL__CONTEXT = CALL_SPECIFICATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Subprogram Call</em>' class.
@@ -14314,7 +14226,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_CALL_FEATURE_COUNT = CALL_SPECIFICATION_FEATURE_COUNT + 3;
+	int SUBPROGRAM_CALL_FEATURE_COUNT = CALL_SPECIFICATION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -15406,13 +15318,13 @@ public interface Aadl2Package extends EPackage {
 	int BUS_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int BUS_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -15595,13 +15507,13 @@ public interface Aadl2Package extends EPackage {
 	int DATA_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int DATA_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -15784,13 +15696,13 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEVICE_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int DEVICE_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -16081,13 +15993,13 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MEMORY_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int MEMORY_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -16378,13 +16290,13 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCESS_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int PROCESS_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -16675,13 +16587,13 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCESSOR_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int PROCESSOR_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -16972,13 +16884,13 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int SYSTEM_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -17269,13 +17181,13 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int SUBPROGRAM_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -17458,13 +17370,13 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int SUBPROGRAM_GROUP_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -17647,13 +17559,13 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THREAD_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int THREAD_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -17944,13 +17856,13 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THREAD_GROUP_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int THREAD_GROUP_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -18241,13 +18153,13 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIRTUAL_BUS_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int VIRTUAL_BUS_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -18538,13 +18450,13 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIRTUAL_PROCESSOR_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int VIRTUAL_PROCESSOR_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -30904,16 +30816,6 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.BasicPropertyAssociationImpl <em>Basic Property Association</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.BasicPropertyAssociationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBasicPropertyAssociation()
-	 * @generated
-	 */
-	int BASIC_PROPERTY_ASSOCIATION = 220;
-
-	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -30957,16 +30859,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int BASIC_PROPERTY_ASSOCIATION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyConstantImpl <em>Property Constant</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PropertyConstantImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyConstant()
-	 * @generated
-	 */
-	int PROPERTY_CONSTANT = 221;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31023,22 +30915,13 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_CONSTANT__TYPE = TYPED_ELEMENT__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_CONSTANT__LIST = TYPED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Owned Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_CONSTANT__OWNED_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 1;
+	int PROPERTY_CONSTANT__OWNED_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Constant Value</b></em>' containment reference.
@@ -31047,7 +30930,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_CONSTANT__CONSTANT_VALUE = TYPED_ELEMENT_FEATURE_COUNT + 2;
+	int PROPERTY_CONSTANT__CONSTANT_VALUE = TYPED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Property Constant</em>' class.
@@ -31056,26 +30939,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_CONSTANT_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractNamedValueImpl <em>Abstract Named Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AbstractNamedValueImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractNamedValue()
-	 * @generated
-	 */
-	int ABSTRACT_NAMED_VALUE = 223;
-
-	/**
-	 * The number of structural features of the '<em>Abstract Named Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_NAMED_VALUE_FEATURE_COUNT = 0;
+	int PROPERTY_CONSTANT_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyValueImpl <em>Property Value</em>}' class.
@@ -31085,35 +30949,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyValue()
 	 * @generated
 	 */
-	int PROPERTY_VALUE = 228;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.EnumerationValueImpl <em>Enumeration Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.EnumerationValueImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEnumerationValue()
-	 * @generated
-	 */
-	int ENUMERATION_VALUE = 222;
-
-	/**
-	 * The feature id for the '<em><b>Literal</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENUMERATION_VALUE__LITERAL = ABSTRACT_NAMED_VALUE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Enumeration Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENUMERATION_VALUE_FEATURE_COUNT = ABSTRACT_NAMED_VALUE_FEATURE_COUNT + 1;
+	int PROPERTY_VALUE = 223;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EnumerationLiteralImpl <em>Enumeration Literal</em>}' class.
@@ -31123,7 +30959,136 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEnumerationLiteral()
 	 * @generated
 	 */
-	int ENUMERATION_LITERAL = 224;
+	int ENUMERATION_LITERAL = 226;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.UnitLiteralImpl <em>Unit Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.UnitLiteralImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getUnitLiteral()
+	 * @generated
+	 */
+	int UNIT_LITERAL = 225;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_VALUE__OWNED_ELEMENT = PROPERTY_EXPRESSION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_VALUE__OWNED_COMMENT = PROPERTY_EXPRESSION__OWNED_COMMENT;
+
+	/**
+	 * The number of structural features of the '<em>Property Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_VALUE_FEATURE_COUNT = PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.NumberValueImpl <em>Number Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.NumberValueImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumberValue()
+	 * @generated
+	 */
+	int NUMBER_VALUE = 224;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.StringLiteralImpl <em>String Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.StringLiteralImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getStringLiteral()
+	 * @generated
+	 */
+	int STRING_LITERAL = 222;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL__OWNED_ELEMENT = PROPERTY_VALUE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL__OWNED_COMMENT = PROPERTY_VALUE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL__VALUE = PROPERTY_VALUE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>String Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMBER_VALUE__OWNED_ELEMENT = PROPERTY_VALUE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMBER_VALUE__OWNED_COMMENT = PROPERTY_VALUE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Unit</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMBER_VALUE__UNIT = PROPERTY_VALUE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Number Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMBER_VALUE_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31178,44 +31143,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int ENUMERATION_LITERAL_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.UnitValueImpl <em>Unit Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.UnitValueImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getUnitValue()
-	 * @generated
-	 */
-	int UNIT_VALUE = 225;
-
-	/**
-	 * The feature id for the '<em><b>Literal</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_VALUE__LITERAL = ABSTRACT_NAMED_VALUE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Unit Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIT_VALUE_FEATURE_COUNT = ABSTRACT_NAMED_VALUE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.UnitLiteralImpl <em>Unit Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.UnitLiteralImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getUnitLiteral()
-	 * @generated
-	 */
-	int UNIT_LITERAL = 226;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31290,125 +31217,6 @@ public interface Aadl2Package extends EPackage {
 	int UNIT_LITERAL_FEATURE_COUNT = ENUMERATION_LITERAL_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_VALUE__OWNED_ELEMENT = PROPERTY_EXPRESSION__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_VALUE__OWNED_COMMENT = PROPERTY_EXPRESSION__OWNED_COMMENT;
-
-	/**
-	 * The number of structural features of the '<em>Property Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_VALUE_FEATURE_COUNT = PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.NumberValueImpl <em>Number Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.NumberValueImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumberValue()
-	 * @generated
-	 */
-	int NUMBER_VALUE = 227;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMBER_VALUE__OWNED_ELEMENT = PROPERTY_VALUE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMBER_VALUE__OWNED_COMMENT = PROPERTY_VALUE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Unit</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMBER_VALUE__UNIT = PROPERTY_VALUE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Number Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMBER_VALUE_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.StringLiteralImpl <em>String Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.StringLiteralImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getStringLiteral()
-	 * @generated
-	 */
-	int STRING_LITERAL = 229;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__OWNED_ELEMENT = PROPERTY_VALUE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__OWNED_COMMENT = PROPERTY_VALUE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__VALUE = PROPERTY_VALUE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>String Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ClassifierValueImpl <em>Classifier Value</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -31416,7 +31224,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierValue()
 	 * @generated
 	 */
-	int CLASSIFIER_VALUE = 230;
+	int CLASSIFIER_VALUE = 227;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31462,7 +31270,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReferenceValue()
 	 * @generated
 	 */
-	int REFERENCE_VALUE = 231;
+	int REFERENCE_VALUE = 228;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31508,7 +31316,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBooleanLiteral()
 	 * @generated
 	 */
-	int BOOLEAN_LITERAL = 232;
+	int BOOLEAN_LITERAL = 229;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31554,7 +31362,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRangeValue()
 	 * @generated
 	 */
-	int RANGE_VALUE = 233;
+	int RANGE_VALUE = 230;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31618,7 +31426,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getIntegerLiteral()
 	 * @generated
 	 */
-	int INTEGER_LITERAL = 234;
+	int INTEGER_LITERAL = 231;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31682,7 +31490,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRealLiteral()
 	 * @generated
 	 */
-	int REAL_LITERAL = 235;
+	int REAL_LITERAL = 232;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31730,98 +31538,6 @@ public interface Aadl2Package extends EPackage {
 	int REAL_LITERAL_FEATURE_COUNT = NUMBER_VALUE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ConstantValueImpl <em>Constant Value</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ConstantValueImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConstantValue()
-	 * @generated
-	 */
-	int CONSTANT_VALUE = 236;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTANT_VALUE__OWNED_ELEMENT = ARRAY_SIZE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTANT_VALUE__OWNED_COMMENT = ARRAY_SIZE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Constant</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTANT_VALUE__CONSTANT = ARRAY_SIZE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Constant Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTANT_VALUE_FEATURE_COUNT = ARRAY_SIZE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyReferenceImpl <em>Property Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.PropertyReferenceImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyReference()
-	 * @generated
-	 */
-	int PROPERTY_REFERENCE = 237;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_REFERENCE__OWNED_ELEMENT = ARRAY_SIZE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_REFERENCE__OWNED_COMMENT = ARRAY_SIZE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Property</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_REFERENCE__PROPERTY = ARRAY_SIZE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Property Reference</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_REFERENCE_FEATURE_COUNT = ARRAY_SIZE_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.OperationImpl <em>Operation</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -31829,7 +31545,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getOperation()
 	 * @generated
 	 */
-	int OPERATION = 238;
+	int OPERATION = 233;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31884,7 +31600,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRecordValue()
 	 * @generated
 	 */
-	int RECORD_VALUE = 239;
+	int RECORD_VALUE = 234;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31930,7 +31646,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComputedValue()
 	 * @generated
 	 */
-	int COMPUTED_VALUE = 240;
+	int COMPUTED_VALUE = 235;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -31976,7 +31692,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getListValue()
 	 * @generated
 	 */
-	int LIST_VALUE = 241;
+	int LIST_VALUE = 236;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32022,7 +31738,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNamedValue()
 	 * @generated
 	 */
-	int NAMED_VALUE = 242;
+	int NAMED_VALUE = 237;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32068,7 +31784,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertySet()
 	 * @generated
 	 */
-	int PROPERTY_SET = 243;
+	int PROPERTY_SET = 238;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32186,7 +31902,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getGlobalNamespace()
 	 * @generated
 	 */
-	int GLOBAL_NAMESPACE = 244;
+	int GLOBAL_NAMESPACE = 239;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32279,14 +31995,14 @@ public interface Aadl2Package extends EPackage {
 	int GLOBAL_NAMESPACE_FEATURE_COUNT = NAMESPACE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.AadlBooleanImpl <em>Aadl Boolean</em>}' class.
+	 * The meta object id for the '{@link org.osate.aadl2.impl.NonListTypeImpl <em>Non List Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.AadlBooleanImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlBoolean()
+	 * @see org.osate.aadl2.impl.NonListTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNonListType()
 	 * @generated
 	 */
-	int AADL_BOOLEAN = 245;
+	int NON_LIST_TYPE = 240;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32295,7 +32011,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_BOOLEAN__OWNED_ELEMENT = PROPERTY_TYPE__OWNED_ELEMENT;
+	int NON_LIST_TYPE__OWNED_ELEMENT = PROPERTY_TYPE__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -32304,7 +32020,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_BOOLEAN__OWNED_COMMENT = PROPERTY_TYPE__OWNED_COMMENT;
+	int NON_LIST_TYPE__OWNED_COMMENT = PROPERTY_TYPE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -32313,7 +32029,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_BOOLEAN__NAME = PROPERTY_TYPE__NAME;
+	int NON_LIST_TYPE__NAME = PROPERTY_TYPE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -32322,7 +32038,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_BOOLEAN__QUALIFIED_NAME = PROPERTY_TYPE__QUALIFIED_NAME;
+	int NON_LIST_TYPE__QUALIFIED_NAME = PROPERTY_TYPE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -32331,7 +32047,71 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_BOOLEAN__OWNED_PROPERTY_ASSOCIATION = PROPERTY_TYPE__OWNED_PROPERTY_ASSOCIATION;
+	int NON_LIST_TYPE__OWNED_PROPERTY_ASSOCIATION = PROPERTY_TYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Non List Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NON_LIST_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AadlBooleanImpl <em>Aadl Boolean</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AadlBooleanImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlBoolean()
+	 * @generated
+	 */
+	int AADL_BOOLEAN = 241;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AADL_BOOLEAN__OWNED_ELEMENT = NON_LIST_TYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AADL_BOOLEAN__OWNED_COMMENT = NON_LIST_TYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AADL_BOOLEAN__NAME = NON_LIST_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AADL_BOOLEAN__QUALIFIED_NAME = NON_LIST_TYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AADL_BOOLEAN__OWNED_PROPERTY_ASSOCIATION = NON_LIST_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The number of structural features of the '<em>Aadl Boolean</em>' class.
@@ -32340,7 +32120,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_BOOLEAN_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 0;
+	int AADL_BOOLEAN_FEATURE_COUNT = NON_LIST_TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AadlStringImpl <em>Aadl String</em>}' class.
@@ -32350,7 +32130,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlString()
 	 * @generated
 	 */
-	int AADL_STRING = 246;
+	int AADL_STRING = 242;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32359,7 +32139,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_STRING__OWNED_ELEMENT = PROPERTY_TYPE__OWNED_ELEMENT;
+	int AADL_STRING__OWNED_ELEMENT = NON_LIST_TYPE__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -32368,7 +32148,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_STRING__OWNED_COMMENT = PROPERTY_TYPE__OWNED_COMMENT;
+	int AADL_STRING__OWNED_COMMENT = NON_LIST_TYPE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -32377,7 +32157,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_STRING__NAME = PROPERTY_TYPE__NAME;
+	int AADL_STRING__NAME = NON_LIST_TYPE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -32386,7 +32166,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_STRING__QUALIFIED_NAME = PROPERTY_TYPE__QUALIFIED_NAME;
+	int AADL_STRING__QUALIFIED_NAME = NON_LIST_TYPE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -32395,7 +32175,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_STRING__OWNED_PROPERTY_ASSOCIATION = PROPERTY_TYPE__OWNED_PROPERTY_ASSOCIATION;
+	int AADL_STRING__OWNED_PROPERTY_ASSOCIATION = NON_LIST_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The number of structural features of the '<em>Aadl String</em>' class.
@@ -32404,7 +32184,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_STRING_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 0;
+	int AADL_STRING_FEATURE_COUNT = NON_LIST_TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.NumberTypeImpl <em>Number Type</em>}' class.
@@ -32414,7 +32194,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumberType()
 	 * @generated
 	 */
-	int NUMBER_TYPE = 248;
+	int NUMBER_TYPE = 244;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32423,7 +32203,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_TYPE__OWNED_ELEMENT = PROPERTY_TYPE__OWNED_ELEMENT;
+	int NUMBER_TYPE__OWNED_ELEMENT = NON_LIST_TYPE__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -32432,7 +32212,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_TYPE__OWNED_COMMENT = PROPERTY_TYPE__OWNED_COMMENT;
+	int NUMBER_TYPE__OWNED_COMMENT = NON_LIST_TYPE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -32441,7 +32221,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_TYPE__NAME = PROPERTY_TYPE__NAME;
+	int NUMBER_TYPE__NAME = NON_LIST_TYPE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -32450,7 +32230,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_TYPE__QUALIFIED_NAME = PROPERTY_TYPE__QUALIFIED_NAME;
+	int NUMBER_TYPE__QUALIFIED_NAME = NON_LIST_TYPE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -32459,7 +32239,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_TYPE__OWNED_PROPERTY_ASSOCIATION = PROPERTY_TYPE__OWNED_PROPERTY_ASSOCIATION;
+	int NUMBER_TYPE__OWNED_PROPERTY_ASSOCIATION = NON_LIST_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Owned Units Type</b></em>' containment reference.
@@ -32468,7 +32248,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_TYPE__OWNED_UNITS_TYPE = PROPERTY_TYPE_FEATURE_COUNT + 0;
+	int NUMBER_TYPE__OWNED_UNITS_TYPE = NON_LIST_TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Units Type</b></em>' reference.
@@ -32477,7 +32257,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_TYPE__UNITS_TYPE = PROPERTY_TYPE_FEATURE_COUNT + 1;
+	int NUMBER_TYPE__UNITS_TYPE = NON_LIST_TYPE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Range</b></em>' containment reference.
@@ -32486,7 +32266,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_TYPE__RANGE = PROPERTY_TYPE_FEATURE_COUNT + 2;
+	int NUMBER_TYPE__RANGE = NON_LIST_TYPE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Number Type</em>' class.
@@ -32495,7 +32275,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 3;
+	int NUMBER_TYPE_FEATURE_COUNT = NON_LIST_TYPE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AadlIntegerImpl <em>Aadl Integer</em>}' class.
@@ -32505,7 +32285,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlInteger()
 	 * @generated
 	 */
-	int AADL_INTEGER = 247;
+	int AADL_INTEGER = 243;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32596,7 +32376,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEnumerationType()
 	 * @generated
 	 */
-	int ENUMERATION_TYPE = 250;
+	int ENUMERATION_TYPE = 246;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32687,7 +32467,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getUnitsType()
 	 * @generated
 	 */
-	int UNITS_TYPE = 249;
+	int UNITS_TYPE = 245;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32778,7 +32558,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumericRange()
 	 * @generated
 	 */
-	int NUMERIC_RANGE = 251;
+	int NUMERIC_RANGE = 247;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32833,7 +32613,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlReal()
 	 * @generated
 	 */
-	int AADL_REAL = 252;
+	int AADL_REAL = 248;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32924,7 +32704,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierType()
 	 * @generated
 	 */
-	int CLASSIFIER_TYPE = 253;
+	int CLASSIFIER_TYPE = 249;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -32933,7 +32713,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER_TYPE__OWNED_ELEMENT = PROPERTY_TYPE__OWNED_ELEMENT;
+	int CLASSIFIER_TYPE__OWNED_ELEMENT = NON_LIST_TYPE__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -32942,7 +32722,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER_TYPE__OWNED_COMMENT = PROPERTY_TYPE__OWNED_COMMENT;
+	int CLASSIFIER_TYPE__OWNED_COMMENT = NON_LIST_TYPE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -32951,7 +32731,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER_TYPE__NAME = PROPERTY_TYPE__NAME;
+	int CLASSIFIER_TYPE__NAME = NON_LIST_TYPE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -32960,7 +32740,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER_TYPE__QUALIFIED_NAME = PROPERTY_TYPE__QUALIFIED_NAME;
+	int CLASSIFIER_TYPE__QUALIFIED_NAME = NON_LIST_TYPE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -32969,7 +32749,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER_TYPE__OWNED_PROPERTY_ASSOCIATION = PROPERTY_TYPE__OWNED_PROPERTY_ASSOCIATION;
+	int CLASSIFIER_TYPE__OWNED_PROPERTY_ASSOCIATION = NON_LIST_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Classifier Reference</b></em>' containment reference list.
@@ -32978,7 +32758,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER_TYPE__CLASSIFIER_REFERENCE = PROPERTY_TYPE_FEATURE_COUNT + 0;
+	int CLASSIFIER_TYPE__CLASSIFIER_REFERENCE = NON_LIST_TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Classifier Type</em>' class.
@@ -32987,7 +32767,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 1;
+	int CLASSIFIER_TYPE_FEATURE_COUNT = NON_LIST_TYPE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.RangeTypeImpl <em>Range Type</em>}' class.
@@ -32997,7 +32777,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRangeType()
 	 * @generated
 	 */
-	int RANGE_TYPE = 254;
+	int RANGE_TYPE = 250;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33006,7 +32786,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RANGE_TYPE__OWNED_ELEMENT = PROPERTY_TYPE__OWNED_ELEMENT;
+	int RANGE_TYPE__OWNED_ELEMENT = NON_LIST_TYPE__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -33015,7 +32795,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RANGE_TYPE__OWNED_COMMENT = PROPERTY_TYPE__OWNED_COMMENT;
+	int RANGE_TYPE__OWNED_COMMENT = NON_LIST_TYPE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -33024,7 +32804,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RANGE_TYPE__NAME = PROPERTY_TYPE__NAME;
+	int RANGE_TYPE__NAME = NON_LIST_TYPE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -33033,7 +32813,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RANGE_TYPE__QUALIFIED_NAME = PROPERTY_TYPE__QUALIFIED_NAME;
+	int RANGE_TYPE__QUALIFIED_NAME = NON_LIST_TYPE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -33042,7 +32822,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RANGE_TYPE__OWNED_PROPERTY_ASSOCIATION = PROPERTY_TYPE__OWNED_PROPERTY_ASSOCIATION;
+	int RANGE_TYPE__OWNED_PROPERTY_ASSOCIATION = NON_LIST_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Owned Number Type</b></em>' containment reference.
@@ -33051,7 +32831,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RANGE_TYPE__OWNED_NUMBER_TYPE = PROPERTY_TYPE_FEATURE_COUNT + 0;
+	int RANGE_TYPE__OWNED_NUMBER_TYPE = NON_LIST_TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Number Type</b></em>' reference.
@@ -33060,7 +32840,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RANGE_TYPE__NUMBER_TYPE = PROPERTY_TYPE_FEATURE_COUNT + 1;
+	int RANGE_TYPE__NUMBER_TYPE = NON_LIST_TYPE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Range Type</em>' class.
@@ -33069,7 +32849,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RANGE_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 2;
+	int RANGE_TYPE_FEATURE_COUNT = NON_LIST_TYPE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.RecordTypeImpl <em>Record Type</em>}' class.
@@ -33079,7 +32859,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRecordType()
 	 * @generated
 	 */
-	int RECORD_TYPE = 255;
+	int RECORD_TYPE = 251;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33170,7 +32950,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRecordField()
 	 * @generated
 	 */
-	int RECORD_FIELD = 256;
+	int RECORD_FIELD = 252;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33227,15 +33007,6 @@ public interface Aadl2Package extends EPackage {
 	int RECORD_FIELD__TYPE = BASIC_PROPERTY__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RECORD_FIELD__LIST = BASIC_PROPERTY__LIST;
-
-	/**
 	 * The feature id for the '<em><b>Owned Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -33261,7 +33032,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReferenceType()
 	 * @generated
 	 */
-	int REFERENCE_TYPE = 257;
+	int REFERENCE_TYPE = 253;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33270,7 +33041,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_TYPE__OWNED_ELEMENT = PROPERTY_TYPE__OWNED_ELEMENT;
+	int REFERENCE_TYPE__OWNED_ELEMENT = NON_LIST_TYPE__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -33279,7 +33050,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_TYPE__OWNED_COMMENT = PROPERTY_TYPE__OWNED_COMMENT;
+	int REFERENCE_TYPE__OWNED_COMMENT = NON_LIST_TYPE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -33288,7 +33059,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_TYPE__NAME = PROPERTY_TYPE__NAME;
+	int REFERENCE_TYPE__NAME = NON_LIST_TYPE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -33297,7 +33068,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_TYPE__QUALIFIED_NAME = PROPERTY_TYPE__QUALIFIED_NAME;
+	int REFERENCE_TYPE__QUALIFIED_NAME = NON_LIST_TYPE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -33306,7 +33077,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_TYPE__OWNED_PROPERTY_ASSOCIATION = PROPERTY_TYPE__OWNED_PROPERTY_ASSOCIATION;
+	int REFERENCE_TYPE__OWNED_PROPERTY_ASSOCIATION = NON_LIST_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Named Element Reference</b></em>' containment reference list.
@@ -33315,7 +33086,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE = PROPERTY_TYPE_FEATURE_COUNT + 0;
+	int REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE = NON_LIST_TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Reference Type</em>' class.
@@ -33324,7 +33095,80 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 1;
+	int REFERENCE_TYPE_FEATURE_COUNT = NON_LIST_TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ListTypeImpl <em>List Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ListTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getListType()
+	 * @generated
+	 */
+	int LIST_TYPE = 254;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_TYPE__OWNED_ELEMENT = PROPERTY_TYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_TYPE__OWNED_COMMENT = PROPERTY_TYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_TYPE__NAME = PROPERTY_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_TYPE__QUALIFIED_NAME = PROPERTY_TYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_TYPE__OWNED_PROPERTY_ASSOCIATION = PROPERTY_TYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Property Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_TYPE__PROPERTY_TYPE = PROPERTY_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>List Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -33496,7 +33340,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDirectionType()
 	 * @generated
 	 */
-	int DIRECTION_TYPE = 262;
+	int DIRECTION_TYPE = 259;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.PortCategory <em>Port Category</em>}' enum.
@@ -33506,7 +33350,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortCategory()
 	 * @generated
 	 */
-	int PORT_CATEGORY = 265;
+	int PORT_CATEGORY = 262;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.FlowKind <em>Flow Kind</em>}' enum.
@@ -33516,7 +33360,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowKind()
 	 * @generated
 	 */
-	int FLOW_KIND = 261;
+	int FLOW_KIND = 258;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.AccessType <em>Access Type</em>}' enum.
@@ -33526,7 +33370,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessType()
 	 * @generated
 	 */
-	int ACCESS_TYPE = 263;
+	int ACCESS_TYPE = 260;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.AccessCategory <em>Access Category</em>}' enum.
@@ -33536,7 +33380,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessCategory()
 	 * @generated
 	 */
-	int ACCESS_CATEGORY = 264;
+	int ACCESS_CATEGORY = 261;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.ComponentCategory <em>Component Category</em>}' enum.
@@ -33546,7 +33390,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentCategory()
 	 * @generated
 	 */
-	int COMPONENT_CATEGORY = 266;
+	int COMPONENT_CATEGORY = 263;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.ConnectionKind <em>Connection Kind</em>}' enum.
@@ -33556,7 +33400,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnectionKind()
 	 * @generated
 	 */
-	int CONNECTION_KIND = 267;
+	int CONNECTION_KIND = 264;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.ElementNameKind <em>Element Name Kind</em>}' enum.
@@ -33566,7 +33410,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getElementNameKind()
 	 * @generated
 	 */
-	int ELEMENT_NAME_KIND = 268;
+	int ELEMENT_NAME_KIND = 265;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.OperationKind <em>Operation Kind</em>}' enum.
@@ -33576,7 +33420,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getOperationKind()
 	 * @generated
 	 */
-	int OPERATION_KIND = 269;
+	int OPERATION_KIND = 266;
 
 	/**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -33586,7 +33430,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getString()
 	 * @generated
 	 */
-	int STRING = 270;
+	int STRING = 267;
 
 	/**
 	 * The meta object id for the '<em>Boolean</em>' data type.
@@ -33595,7 +33439,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBoolean()
 	 * @generated
 	 */
-	int BOOLEAN = 271;
+	int BOOLEAN = 268;
 
 	/**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -33604,7 +33448,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 272;
+	int INTEGER = 269;
 
 	/**
 	 * The meta object id for the '<em>Real</em>' data type.
@@ -33613,7 +33457,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReal()
 	 * @generated
 	 */
-	int REAL = 273;
+	int REAL = 270;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.Element <em>Element</em>}'.
@@ -33882,17 +33726,6 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getBasicProperty();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.BasicProperty#getList <em>List</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>List</em>'.
-	 * @see org.osate.aadl2.BasicProperty#getList()
-	 * @see #getBasicProperty()
-	 * @generated
-	 */
-	EAttribute getBasicProperty_List();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.BasicProperty#getOwnedType <em>Owned Type</em>}'.
@@ -34520,36 +34353,25 @@ public interface Aadl2Package extends EPackage {
 	EClass getBehavioralFeature();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.ArraySpecification <em>Array Specification</em>}'.
+	 * Returns the meta object for class '{@link org.osate.aadl2.ArrayDimension <em>Array Dimension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Array Specification</em>'.
-	 * @see org.osate.aadl2.ArraySpecification
+	 * @return the meta object for class '<em>Array Dimension</em>'.
+	 * @see org.osate.aadl2.ArrayDimension
 	 * @generated
 	 */
-	EClass getArraySpecification();
+	EClass getArrayDimension();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.ArraySpecification#getDimension <em>Dimension</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ArrayDimension#getSize <em>Size</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Dimension</em>'.
-	 * @see org.osate.aadl2.ArraySpecification#getDimension()
-	 * @see #getArraySpecification()
+	 * @return the meta object for the containment reference '<em>Size</em>'.
+	 * @see org.osate.aadl2.ArrayDimension#getSize()
+	 * @see #getArrayDimension()
 	 * @generated
 	 */
-	EAttribute getArraySpecification_Dimension();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.ArraySpecification#getSizes <em>Size</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Size</em>'.
-	 * @see org.osate.aadl2.ArraySpecification#getSizes()
-	 * @see #getArraySpecification()
-	 * @generated
-	 */
-	EReference getArraySpecification_Size();
+	EReference getArrayDimension_Size();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ArraySize <em>Array Size</em>}'.
@@ -34562,6 +34384,28 @@ public interface Aadl2Package extends EPackage {
 	EClass getArraySize();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.ArraySize#getSize <em>Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Size</em>'.
+	 * @see org.osate.aadl2.ArraySize#getSize()
+	 * @see #getArraySize()
+	 * @generated
+	 */
+	EAttribute getArraySize_Size();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.ArraySize#getSizeProperty <em>Size Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Size Property</em>'.
+	 * @see org.osate.aadl2.ArraySize#getSizeProperty()
+	 * @see #getArraySize()
+	 * @generated
+	 */
+	EReference getArraySize_SizeProperty();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ArrayableElement <em>Arrayable Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -34572,36 +34416,15 @@ public interface Aadl2Package extends EPackage {
 	EClass getArrayableElement();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ArrayableElement#getArraySpecification <em>Array Specification</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.ArrayableElement#getArrayDimensions <em>Array Dimension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Array Specification</em>'.
-	 * @see org.osate.aadl2.ArrayableElement#getArraySpecification()
+	 * @return the meta object for the containment reference list '<em>Array Dimension</em>'.
+	 * @see org.osate.aadl2.ArrayableElement#getArrayDimensions()
 	 * @see #getArrayableElement()
 	 * @generated
 	 */
-	EReference getArrayableElement_ArraySpecification();
-
-	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.Numeral <em>Numeral</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Numeral</em>'.
-	 * @see org.osate.aadl2.Numeral
-	 * @generated
-	 */
-	EClass getNumeral();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.Numeral#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.osate.aadl2.Numeral#getValue()
-	 * @see #getNumeral()
-	 * @generated
-	 */
-	EAttribute getNumeral_Value();
+	EReference getArrayableElement_ArrayDimension();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ComponentImplementationReference <em>Component Implementation Reference</em>}'.
@@ -35320,6 +35143,17 @@ public interface Aadl2Package extends EPackage {
 	EAttribute getFeatureGroup_Inverse();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.FeatureGroup#getFeatureType <em>Feature Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Feature Type</em>'.
+	 * @see org.osate.aadl2.FeatureGroup#getFeatureType()
+	 * @see #getFeatureGroup()
+	 * @generated
+	 */
+	EReference getFeatureGroup_FeatureType();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.FeatureGroup#getFeatureGroupType <em>Feature Group Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -35331,6 +35165,17 @@ public interface Aadl2Package extends EPackage {
 	EReference getFeatureGroup_FeatureGroupType();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.FeatureGroup#getFeatureGroupPrototype <em>Feature Group Prototype</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Feature Group Prototype</em>'.
+	 * @see org.osate.aadl2.FeatureGroup#getFeatureGroupPrototype()
+	 * @see #getFeatureGroup()
+	 * @generated
+	 */
+	EReference getFeatureGroup_FeatureGroupPrototype();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.FeatureGroupConnectionEnd <em>Feature Group Connection End</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -35339,6 +35184,16 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getFeatureGroupConnectionEnd();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.FeatureType <em>Feature Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Feature Type</em>'.
+	 * @see org.osate.aadl2.FeatureType
+	 * @generated
+	 */
+	EClass getFeatureType();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.CallContext <em>Call Context</em>}'.
@@ -39310,6 +39165,28 @@ public interface Aadl2Package extends EPackage {
 	EClass getFeatureGroupPrototypeActual();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.FeatureGroupPrototypeActual#getBindings <em>Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Binding</em>'.
+	 * @see org.osate.aadl2.FeatureGroupPrototypeActual#getBindings()
+	 * @see #getFeatureGroupPrototypeActual()
+	 * @generated
+	 */
+	EReference getFeatureGroupPrototypeActual_Binding();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.FeatureGroupPrototypeActual#getFeatureType <em>Feature Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Feature Type</em>'.
+	 * @see org.osate.aadl2.FeatureGroupPrototypeActual#getFeatureType()
+	 * @see #getFeatureGroupPrototypeActual()
+	 * @generated
+	 */
+	EReference getFeatureGroupPrototypeActual_FeatureType();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.FeaturePrototype <em>Feature Prototype</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -39491,59 +39368,6 @@ public interface Aadl2Package extends EPackage {
 	EReference getFeaturePrototypeReference_Prototype();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.FeatureGroupPrototypeReference <em>Feature Group Prototype Reference</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Feature Group Prototype Reference</em>'.
-	 * @see org.osate.aadl2.FeatureGroupPrototypeReference
-	 * @generated
-	 */
-	EClass getFeatureGroupPrototypeReference();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.FeatureGroupPrototypeReference#getPrototype <em>Prototype</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Prototype</em>'.
-	 * @see org.osate.aadl2.FeatureGroupPrototypeReference#getPrototype()
-	 * @see #getFeatureGroupPrototypeReference()
-	 * @generated
-	 */
-	EReference getFeatureGroupPrototypeReference_Prototype();
-
-	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.FeatureGroupReference <em>Feature Group Reference</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Feature Group Reference</em>'.
-	 * @see org.osate.aadl2.FeatureGroupReference
-	 * @generated
-	 */
-	EClass getFeatureGroupReference();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.FeatureGroupReference#getBindings <em>Binding</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Binding</em>'.
-	 * @see org.osate.aadl2.FeatureGroupReference#getBindings()
-	 * @see #getFeatureGroupReference()
-	 * @generated
-	 */
-	EReference getFeatureGroupReference_Binding();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.FeatureGroupReference#getFeatureGroupType <em>Feature Group Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Feature Group Type</em>'.
-	 * @see org.osate.aadl2.FeatureGroupReference#getFeatureGroupType()
-	 * @see #getFeatureGroupReference()
-	 * @generated
-	 */
-	EReference getFeatureGroupReference_FeatureGroupType();
-
-	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ProcessorCall <em>Processor Call</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -39584,17 +39408,6 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getSubprogramCall_CalledSubprogram();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.SubprogramCall#getPrototype <em>Prototype</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Prototype</em>'.
-	 * @see org.osate.aadl2.SubprogramCall#getPrototype()
-	 * @see #getSubprogramCall()
-	 * @generated
-	 */
-	EReference getSubprogramCall_Prototype();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.SubprogramCall#getContext <em>Context</em>}'.
@@ -39650,17 +39463,6 @@ public interface Aadl2Package extends EPackage {
 	EClass getPropertyConstant();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.PropertyConstant#getList <em>List</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>List</em>'.
-	 * @see org.osate.aadl2.PropertyConstant#getList()
-	 * @see #getPropertyConstant()
-	 * @generated
-	 */
-	EAttribute getPropertyConstant_List();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.PropertyConstant#getOwnedType <em>Owned Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -39683,27 +39485,6 @@ public interface Aadl2Package extends EPackage {
 	EReference getPropertyConstant_ConstantValue();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.EnumerationValue <em>Enumeration Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Enumeration Value</em>'.
-	 * @see org.osate.aadl2.EnumerationValue
-	 * @generated
-	 */
-	EClass getEnumerationValue();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.EnumerationValue#getLiteral <em>Literal</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Literal</em>'.
-	 * @see org.osate.aadl2.EnumerationValue#getLiteral()
-	 * @see #getEnumerationValue()
-	 * @generated
-	 */
-	EReference getEnumerationValue_Literal();
-
-	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.AbstractNamedValue <em>Abstract Named Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -39712,6 +39493,16 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getAbstractNamedValue();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.ArraySizeProperty <em>Array Size Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Array Size Property</em>'.
+	 * @see org.osate.aadl2.ArraySizeProperty
+	 * @generated
+	 */
+	EClass getArraySizeProperty();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.PropertyValue <em>Property Value</em>}'.
@@ -39732,27 +39523,6 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getEnumerationLiteral();
-
-	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.UnitValue <em>Unit Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Unit Value</em>'.
-	 * @see org.osate.aadl2.UnitValue
-	 * @generated
-	 */
-	EClass getUnitValue();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.UnitValue#getLiteral <em>Literal</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Literal</em>'.
-	 * @see org.osate.aadl2.UnitValue#getLiteral()
-	 * @see #getUnitValue()
-	 * @generated
-	 */
-	EReference getUnitValue_Literal();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.UnitLiteral <em>Unit Literal</em>}'.
@@ -39977,48 +39747,6 @@ public interface Aadl2Package extends EPackage {
 	EAttribute getRealLiteral_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.ConstantValue <em>Constant Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Constant Value</em>'.
-	 * @see org.osate.aadl2.ConstantValue
-	 * @generated
-	 */
-	EClass getConstantValue();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.ConstantValue#getConstant <em>Constant</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Constant</em>'.
-	 * @see org.osate.aadl2.ConstantValue#getConstant()
-	 * @see #getConstantValue()
-	 * @generated
-	 */
-	EReference getConstantValue_Constant();
-
-	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.PropertyReference <em>Property Reference</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Property Reference</em>'.
-	 * @see org.osate.aadl2.PropertyReference
-	 * @generated
-	 */
-	EClass getPropertyReference();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.PropertyReference#getProperty <em>Property</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Property</em>'.
-	 * @see org.osate.aadl2.PropertyReference#getProperty()
-	 * @see #getPropertyReference()
-	 * @generated
-	 */
-	EReference getPropertyReference_Property();
-
-	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.Operation <em>Operation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -40219,6 +39947,16 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getGlobalNamespace_PropertySet();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.NonListType <em>Non List Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Non List Type</em>'.
+	 * @see org.osate.aadl2.NonListType
+	 * @generated
+	 */
+	EClass getNonListType();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.AadlBoolean <em>Aadl Boolean</em>}'.
@@ -40470,6 +40208,27 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getReferenceType_NamedElementReference();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.ListType <em>List Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>List Type</em>'.
+	 * @see org.osate.aadl2.ListType
+	 * @generated
+	 */
+	EClass getListType();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ListType#getPropertyType <em>Property Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Property Type</em>'.
+	 * @see org.osate.aadl2.ListType#getPropertyType()
+	 * @see #getListType()
+	 * @generated
+	 */
+	EReference getListType_PropertyType();
 
 	/**
 	 * Returns the meta object for enum '{@link org.osate.aadl2.DirectionType <em>Direction Type</em>}'.

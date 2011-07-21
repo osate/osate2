@@ -19,11 +19,7 @@
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#BehavioralFeature"/>
         </generalization>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Calls-CalledSubprogram" name="CalledSubprogram" isAbstract="true">
-        <generalization xmi:id="Calls-CalledSubprogram-_generalization.0">
-          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
-        </generalization>
-      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="Calls-CalledSubprogram" name="CalledSubprogram" isAbstract="true"/>
       <packagedElement xmi:type="uml:Association" xmi:id="Calls-A_subprogramCall_calledSubprogram" name="A_subprogramCall_calledSubprogram" memberEnd="Calls-A_subprogramCall_calledSubprogram-subprogramCall Calls-SubprogramCall-calledSubprogram">
         <ownedEnd xmi:id="Calls-A_subprogramCall_calledSubprogram-subprogramCall" name="subprogramCall" type="Calls-SubprogramCall" association="Calls-A_subprogramCall_calledSubprogram">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Calls-A_subprogramCall_calledSubprogram-subprogramCall-_upperValue" value="*"/>
@@ -46,12 +42,6 @@
         <ownedEnd xmi:id="Calls-A_behavioredImplementation_ownedSubprogramCallSequence-owner" name="owner" type="Calls-BehavioredImplementation" association="Calls-A_behavioredImplementation_ownedSubprogramCallSequence">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Calls-A_behavioredImplementation_ownedSubprogramCallSequence-owner-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Calls-A_behavioredImplementation_ownedSubprogramCallSequence-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Calls-A_subprogramCall_prototype" name="A_subprogramCall_prototype" memberEnd="Calls-A_subprogramCall_prototype-subprogramCall Calls-SubprogramCall-prototype">
-        <ownedEnd xmi:id="Calls-A_subprogramCall_prototype-subprogramCall" name="subprogramCall" type="Calls-SubprogramCall" association="Calls-A_subprogramCall_prototype">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Calls-A_subprogramCall_prototype-subprogramCall-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Calls-A_subprogramCall_prototype-subprogramCall-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Calls-BehavioredImplementation" name="BehavioredImplementation" isAbstract="true">
@@ -94,26 +84,20 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Calls-SubprogramCall-calledSubprogram-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Calls-SubprogramCall-calledSubprogram-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Calls-SubprogramCall-prototype" name="prototype" association="Calls-A_subprogramCall_prototype">
-          <type xmi:type="uml:Class" href="AADLConstructs.uml#Templates-Prototype"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Calls-SubprogramCall-prototype-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Calls-SubprogramCall-prototype-_lowerValue"/>
-        </ownedAttribute>
         <ownedAttribute xmi:id="Calls-SubprogramCall-context" name="context" type="Calls-CallContext" association="Calls-A_subprogramCall_context">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Calls-SubprogramCall-context-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Calls-SubprogramCall-context-_lowerValue"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Calls-CallContext" name="CallContext" isAbstract="true">
-        <generalization xmi:id="Calls-CallContext-_generalization.0">
-          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
-        </generalization>
-      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="Calls-CallContext" name="CallContext" isAbstract="true"/>
       <packagedElement xmi:type="uml:Association" xmi:id="Calls-A_subprogramCall_context" name="A_subprogramCall_context" memberEnd="Calls-A_subprogramCall_context-subprogramCall Calls-SubprogramCall-context">
         <ownedEnd xmi:id="Calls-A_subprogramCall_context-subprogramCall" name="subprogramCall" type="Calls-SubprogramCall" association="Calls-A_subprogramCall_context">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Calls-A_subprogramCall_context-subprogramCall-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Calls-A_subprogramCall_context-subprogramCall-_lowerValue"/>
         </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Hc2SQLL4EeCzMYz5ww7glA" name="Prototype" isAbstract="true">
+        <generalization xmi:id="_OZmpALL4EeCzMYz5ww7glA" general="Calls-CalledSubprogram"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Components" name="Components">

@@ -60,7 +60,7 @@ import org.osate.aadl2.MetaclassReference;
  *
  * @generated
  */
-public class ClassifierTypeImpl extends PropertyTypeImpl implements ClassifierType {
+public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierType {
 	/**
 	 * The cached value of the '{@link #getClassifierReferences() <em>Classifier Reference</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

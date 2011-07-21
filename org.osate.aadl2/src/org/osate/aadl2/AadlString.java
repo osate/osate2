@@ -45,6 +45,6 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface AadlString extends PropertyType {
+public interface AadlString extends NonListType {
 
 } // AadlString

@@ -80,7 +80,6 @@ public class SubprogramCallItemProvider extends CallSpecificationItemProvider im
 			super.getPropertyDescriptors(object);
 
 			addCalledSubprogramPropertyDescriptor(object);
-			addPrototypePropertyDescriptor(object);
 			addContextPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -100,22 +99,6 @@ public class SubprogramCallItemProvider extends CallSpecificationItemProvider im
 				getString("_UI_PropertyDescriptor_description", "_UI_SubprogramCall_calledSubprogram_feature",
 						"_UI_SubprogramCall_type"), Aadl2Package.eINSTANCE.getSubprogramCall_CalledSubprogram(), true,
 				false, true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Prototype feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPrototypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_SubprogramCall_prototype_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_SubprogramCall_prototype_feature",
-						"_UI_SubprogramCall_type"), Aadl2Package.eINSTANCE.getSubprogramCall_Prototype(), true, false,
-				true, null, null, null));
 	}
 
 	/**

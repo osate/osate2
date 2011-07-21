@@ -63,7 +63,7 @@ import org.osate.aadl2.NumberType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class NumberTypeItemProvider extends PropertyTypeItemProvider implements IEditingDomainItemProvider,
+public class NumberTypeItemProvider extends NonListTypeItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.

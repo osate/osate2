@@ -36,6 +36,8 @@
  */
 package org.osate.aadl2;
 
+import org.osate.aadl2.parsesupport.AObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Call Context</b></em>'.
@@ -44,7 +46,8 @@ package org.osate.aadl2;
  *
  * @see org.osate.aadl2.Aadl2Package#getCallContext()
  * @model abstract="true"
+ * @extends AObject
  * @generated
  */
-public interface CallContext extends Element {
+public interface CallContext extends AObject {
 } // CallContext

@@ -146,8 +146,9 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureGroupPrototypeActual createActual(EClass eClass) {
-		FeatureGroupPrototypeActual newActual = (FeatureGroupPrototypeActual) create(eClass);
+	public FeatureGroupPrototypeActual createActual() {
+		FeatureGroupPrototypeActual newActual = (FeatureGroupPrototypeActual) create(Aadl2Package.eINSTANCE
+				.getFeatureGroupPrototypeActual());
 		setActual(newActual);
 		return newActual;
 	}

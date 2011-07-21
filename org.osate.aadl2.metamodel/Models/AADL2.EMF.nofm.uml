@@ -6,14 +6,14 @@
     </packageMerge>
     <packagedElement xmi:type="uml:Class" xmi:id="Element" name="Element" isAbstract="true">
       <ownedAttribute xmi:id="Element-ownedElement" name="ownedElement" isDerived="true" aggregation="composite"/>
-      <ownedOperation xmi:id="_bAVvYHgFEeC4Xe5PtADoMg" name="getOwner">
-        <ownedParameter xmi:id="_fUSQ0HgFEeC4Xe5PtADoMg" type="Element" direction="return"/>
+      <ownedOperation xmi:id="Element-getOwner" name="getOwner">
+        <ownedParameter xmi:id="Element-getOwner-_ownedParameter.0" type="Element" direction="return"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="NamedElement" name="NamedElement" isAbstract="true">
       <ownedAttribute xmi:id="NamedElement-qualifiedName" name="qualifiedName" isDerived="true"/>
-      <ownedOperation xmi:id="_jI6ZAHgFEeC4Xe5PtADoMg" name="getNamespace">
-        <ownedParameter xmi:id="_jI6ZAXgFEeC4Xe5PtADoMg" type="Namespace" direction="return"/>
+      <ownedOperation xmi:id="NamedElement-getNamespace" name="getNamespace">
+        <ownedParameter xmi:id="NamedElement-getNamespace-_ownedParameter.0" type="Namespace" direction="return"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Namespace" name="Namespace" isAbstract="true">
@@ -51,6 +51,10 @@
     <packagedElement xmi:type="uml:Class" xmi:id="PrivatePackageSection" name="PrivatePackageSection">
       <ownedAttribute xmi:id="PrivatePackageSection-publicSection" name="publicSection" isDerived="true"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="FeatureGroup" name="FeatureGroup">
+      <ownedAttribute xmi:id="FeatureGroup-featureGroupType" name="featureGroupType"/>
+      <ownedAttribute xmi:id="FeatureGroup-featureGroupPrototype" name="featureGroupPrototype"/>
+    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FeatureGroupType" name="FeatureGroupType">
       <ownedAttribute xmi:id="FeatureGroupType-extended" name="extended" isDerived="true"/>
       <ownedAttribute xmi:id="FeatureGroupType-ownedFeature" name="ownedFeature" isDerived="true" aggregation="composite"/>
@@ -70,8 +74,8 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Subcomponent" name="Subcomponent" isAbstract="true">
       <ownedAttribute xmi:id="Subcomponent-classifier" name="classifier" isDerived="true"/>
-      <ownedAttribute xmi:id="_mN5IoKf3EeCYEIHXYlP5sg" name="prototype" isDerived="true"/>
-      <ownedAttribute xmi:id="_XImKMKgHEeCYEIHXYlP5sg" name="subcomponentType" isDerived="true"/>
+      <ownedAttribute xmi:id="Subcomponent-prototype" name="prototype" isDerived="true"/>
+      <ownedAttribute xmi:id="Subcomponent-subcomponentType" name="subcomponentType" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BehavioredImplementation" name="BehavioredImplementation" isAbstract="true">
       <ownedAttribute xmi:id="BehavioredImplementation-callSpecification" name="callSpecification" isDerived="true"/>
@@ -165,168 +169,10 @@
   <Ecore:EDataType xmi:id="_W2_wICNjEd2QgNjfZP9I5g" instanceClassName="double" base_PrimitiveType="Real"/>
   <Ecore:EDataType xmi:id="_ny3oAJ60Edy3O8JSiftxsg" instanceClassName="java.lang.String" base_PrimitiveType="String"/>
   <Ecore:EPackage xmi:id="_BVoJQE28Ed2wX9l8Zwaacg" base_Package="_0" packageName="aadl2" nsPrefix="aadl2" nsURI="http://aadl.info/AADL/2.0" basePackage="org.osate" prefix="Aadl2"/>
-  <Ecore:EReference xmi:id="_H32fAE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H4mF4E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H4vP0E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H4vP0U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H4vP0k9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H4vP009PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H45A0E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H45A0U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H45A0k9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H45A009PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H45A1E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H45A1U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx0E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx0U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx0k9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx009PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx1E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx1U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Cx1k9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7wE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7wU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7wk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7w09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7xE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7xU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5L7xk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5VswE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5VswU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Vswk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5Vsw09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5VsxE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5VsxU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdwE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdwU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdwk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdw09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdxE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdxU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdxk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdx09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5fdyE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5onsE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5onsU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5onsk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5ons09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5ontE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5ontU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5ontk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5ont09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5onuE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYsE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYsU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYsk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYs09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYtE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYtU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYtk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H5yYt09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57ioE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57ioU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57iok9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57io09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57ipE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57ipU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57ipk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57ip09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H57iqE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FToE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FToU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FTok9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FTo09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FTpE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FTpU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FTpk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6FTp09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEoE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEoU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEok9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEo09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEpE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEpU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6PEpk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6YOkE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6YOkU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6YOkk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6YOk09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6YOlE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6YOlU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606gE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606gU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606gk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606g09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606hE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606hU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H606hk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rgE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rgU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rgk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rg09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rhE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rhU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rhk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-rh09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H6-riE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1cE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1cU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1ck9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1c09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1dE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1dU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1dk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1d09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7H1eE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7RmcE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7RmcU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7Rmck9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7Rmc09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7RmdE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7RmdU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7Rmdk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7Rmd09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXcE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXcU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXck9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXc09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXdE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXdU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXdk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7bXd09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khYE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khYU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khYk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khY09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khZE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khZU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khZk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khZ09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7khaE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSYE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSYU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSYk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSY09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSZE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSZU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSZk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H7uSZ09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DYE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DYU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DYk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DY09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DZE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DZU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H74DZk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H8BNUE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_H8BNUU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_EjgugE9REd2F5ejekak9SQ" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_BDZNYFl7Ed2rAYnnAX19tA" isTransient="true" isVolatile="true" base_Property="GlobalNamespace-package"/>
   <Ecore:EReference xmi:id="_hQEeUFl9Ed2rAYnnAX19tA" isTransient="true" isVolatile="true" base_Property="GlobalNamespace-propertySet"/>
   <Ecore:EReference xmi:id="_wVAMkFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Element-ownedElement"/>
-  <Ecore:EReference xmi:id="_wVAMkVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EAttribute xmi:id="_wVAMklm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="NamedElement-qualifiedName"/>
-  <Ecore:EReference xmi:id="_wVAMk1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVAMlFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Namespace-ownedMember"/>
   <Ecore:EReference xmi:id="_wVAMlVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Namespace-member"/>
   <Ecore:EReference xmi:id="_wVJ9kFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-classifierFeature"/>
@@ -334,17 +180,13 @@
   <Ecore:EReference xmi:id="_wVJ9klm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-generalization"/>
   <Ecore:EReference xmi:id="_wVJ9k1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-general"/>
   <Ecore:EReference xmi:id="_wVJ9lFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ClassifierFeature-featuringClassifier"/>
-  <Ecore:EReference xmi:id="_wVJ9lVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_wVJ9llm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVJ9l1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Relationship-relatedElement"/>
   <Ecore:EReference xmi:id="_wVJ9mFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="DirectedRelationship-source"/>
   <Ecore:EReference xmi:id="_wVTukFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="DirectedRelationship-target"/>
   <Ecore:EReference xmi:id="_wVTukVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Generalization-specific"/>
   <Ecore:EReference xmi:id="_wVTuklm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Generalization-general"/>
-  <Ecore:EReference xmi:id="_wVTuk1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVTulFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="PublicPackageSection-privateSection"/>
   <Ecore:EReference xmi:id="_wVTulVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="PrivatePackageSection-publicSection"/>
-  <Ecore:EReference xmi:id="_wVc4gFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVc4gVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentType-ownedFeature"/>
   <Ecore:EReference xmi:id="_wVc4glm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentType-extended"/>
   <Ecore:EReference xmi:id="_wVc4g1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-type"/>
@@ -352,7 +194,6 @@
   <Ecore:EReference xmi:id="_wVc4hVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-extended"/>
   <Ecore:EReference xmi:id="_wVc4hlm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedConnection"/>
   <Ecore:EReference xmi:id="_wV5kcFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-extended"/>
-  <Ecore:EAttribute xmi:id="_-CnqUFpGEd2kwugqS-aPYQ" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_8tGW8FpIEd2kwugqS-aPYQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedFeature"/>
   <Standard:Metamodel xmi:id="_NE82sVprEd2djcltMkYjuA" base_Model="_0"/>
   <Standard:Metaclass xmi:id="_NFPxoFprEd2djcltMkYjuA" base_Class="Element"/>
@@ -360,47 +201,28 @@
   <Standard:Metaclass xmi:id="_NFPxolprEd2djcltMkYjuA" base_Class="Namespace"/>
   <Standard:Metaclass xmi:id="_NFPxo1prEd2djcltMkYjuA" base_Class="Classifier"/>
   <Standard:Metaclass xmi:id="_NFPxpFprEd2djcltMkYjuA" base_Class="ClassifierFeature"/>
-  <Standard:Metaclass xmi:id="_NFPxpVprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFPxplprEd2djcltMkYjuA" base_Class="Relationship"/>
   <Standard:Metaclass xmi:id="_NFPxp1prEd2djcltMkYjuA" base_Class="DirectedRelationship"/>
   <Standard:Metaclass xmi:id="_NFPxqFprEd2djcltMkYjuA" base_Class="Generalization"/>
-  <Standard:Metaclass xmi:id="_NFPxqVprEd2djcltMkYjuA"/>
-  <Standard:Metaclass xmi:id="_NFPxqlprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFPxq1prEd2djcltMkYjuA" base_Class="PublicPackageSection"/>
   <Standard:Metaclass xmi:id="_NFPxrFprEd2djcltMkYjuA" base_Class="PrivatePackageSection"/>
-  <Standard:Metaclass xmi:id="_NFPxrVprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFiskFprEd2djcltMkYjuA" base_Class="ComponentType"/>
   <Standard:Metaclass xmi:id="_NFiskVprEd2djcltMkYjuA" base_Class="ComponentImplementation"/>
-  <Standard:Metaclass xmi:id="_NFisklprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFisk1prEd2djcltMkYjuA" base_Class="AbstractImplementation"/>
-  <Standard:Metaclass xmi:id="_NFislFprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFislVprEd2djcltMkYjuA" base_Class="BusImplementation"/>
-  <Standard:Metaclass xmi:id="_NFisllprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFisl1prEd2djcltMkYjuA" base_Class="DataImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdkFprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFsdkVprEd2djcltMkYjuA" base_Class="DeviceImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdklprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFsdk1prEd2djcltMkYjuA" base_Class="MemoryImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdlFprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFsdlVprEd2djcltMkYjuA" base_Class="ProcessImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdllprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFsdl1prEd2djcltMkYjuA" base_Class="ProcessorImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdmFprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF1ngFprEd2djcltMkYjuA" base_Class="SubprogramImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1ngVprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF1nglprEd2djcltMkYjuA" base_Class="SubprogramGroupImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1ng1prEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF1nhFprEd2djcltMkYjuA" base_Class="SystemImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1nhVprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF1nhlprEd2djcltMkYjuA" base_Class="ThreadImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1nh1prEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF_YgFprEd2djcltMkYjuA" base_Class="ThreadGroupImplementation"/>
-  <Standard:Metaclass xmi:id="_NF_YgVprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF_YglprEd2djcltMkYjuA" base_Class="VirtualBusImplementation"/>
-  <Standard:Metaclass xmi:id="_NF_Yg1prEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF_YhFprEd2djcltMkYjuA" base_Class="VirtualProcessorImplementation"/>
   <Standard:Metaclass xmi:id="_NF_YhVprEd2djcltMkYjuA" base_Class="FeatureGroupType"/>
-  <Standard:Metaclass xmi:id="_NF_YhlprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NF_Yh1prEd2djcltMkYjuA" base_Class="GlobalNamespace"/>
   <Ecore:EReference xmi:id="_cKPCQF11Ed2aqP4X3Bnz6w" isTransient="true" isVolatile="true" base_Property="BehavioredImplementation-callSpecification"/>
   <Standard:Metaclass xmi:id="_k5LIUF11Ed2aqP4X3Bnz6w" base_Class="BehavioredImplementation"/>
@@ -418,63 +240,17 @@
   <Ecore:EReference xmi:id="_1OB-cF2XEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="ProcessImplementation-type"/>
   <Ecore:EReference xmi:id="_9xDvcF2XEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="MemoryImplementation-type"/>
   <Ecore:EReference xmi:id="_Bjll4F2YEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="DeviceImplementation-type"/>
-  <Ecore:EReference xmi:id="_u27UcF_yEd2sjtVCXhtQ3w" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_Dclw4F_zEd2sjtVCXhtQ3w" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_FaWeEF_zEd2sjtVCXhtQ3w" isTransient="true" isVolatile="true"/>
   <Ecore:EClass xmi:id="__CwukGhxEd21g9MLLnbMJw" xmlName="Package" base_Class="Package" className="AadlPackage"/>
   <Standard:Metaclass xmi:id="_KGjzMGhyEd21g9MLLnbMJw" base_Class="Package"/>
-  <Standard:Metaclass xmi:id="_DPzkMHOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci8HOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci8XOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci8nOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci83OeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci9HOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci9XOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci9nOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci93OeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci-HOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci-XOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci-nOeEd2C5ocZYg6E4Q"/>
-  <Standard:Metaclass xmi:id="_DRci-3OeEd2C5ocZYg6E4Q"/>
-  <Ecore:EReference xmi:id="_KjsokHOeEd2C5ocZYg6E4Q" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_RosVUHOeEd2C5ocZYg6E4Q" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_SlVjwHOeEd2C5ocZYg6E4Q" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_Tfv9kHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_XY5ZYHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_YQxckHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_ZDmAoHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_bC17kHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_cA--0HOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_dCsTcHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_dyFJAHOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_efYT4HOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_ffdQ0HOeEd2C5ocZYg6E4Q" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_uo2KQNBCEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_v2oMANBCEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_BvJswNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_CsPnINBDEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_DwWIcNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_eDY-cNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_e316MNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_UybwoNBoEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_WY9CgNBoEd20Gob2I471FQ" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_TqA3UNEpEd2TrpDReilpeg" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_Uu2_gNEpEd2TrpDReilpeg" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_bOON8NwREd29XoSWahFoew" isTransient="true" isVolatile="true"/>
-  <Standard:Metaclass xmi:id="_fgi-wNwREd29XoSWahFoew"/>
-  <Ecore:EReference xmi:id="_uAYh0NzUEd2vSrysotXGgg" isTransient="true" isVolatile="true"/>
-  <Standard:Metaclass xmi:id="_6bewkNzUEd2vSrysotXGgg"/>
-  <Standard:Metaclass xmi:id="_6bewkdzUEd2vSrysotXGgg"/>
-  <Ecore:EReference xmi:id="_dIpWgPFKEd2IiKl_nM_xpg" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_feeQ4P3sEd2Ro5zjTxEQsg" isTransient="true" isVolatile="true" base_Property="Feature-classifier"/>
   <Standard:Metaclass xmi:id="_lVhj0P3sEd2Ro5zjTxEQsg" base_Class="Feature"/>
   <Standard:Metaclass xmi:id="_4SVHAFHpEd6aXqaq3cmRZw" base_Class="Subcomponent"/>
   <Ecore:EReference xmi:id="_Bm0xMFHqEd6aXqaq3cmRZw" isTransient="true" isVolatile="true" base_Property="Subcomponent-classifier"/>
-  <Ecore:EReference xmi:id="_Yku3kFIPEd6K9OqcVNDX_A" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_FSqTkHhnEd6AFYIFq8D4AQ" isTransient="true" isVolatile="true"/>
   <Standard:Metaclass xmi:id="_2zZsQHAmEeCG1uAXqBr-RA" base_Class="ModalElement"/>
   <Standard:Metaclass xmi:id="_j4BVcHAoEeCG1uAXqBr-RA" base_Class="Mode"/>
-  <Ecore:EReference xmi:id="_q4X6wKf3EeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="_mN5IoKf3EeCYEIHXYlP5sg"/>
-  <Ecore:EReference xmi:id="_O1p14KgCEeCYEIHXYlP5sg"/>
-  <Ecore:EReference xmi:id="_fexyAKgHEeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="_XImKMKgHEeCYEIHXYlP5sg"/>
+  <Ecore:EReference xmi:id="_q4X6wKf3EeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="Subcomponent-prototype"/>
+  <Ecore:EReference xmi:id="_fexyAKgHEeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="Subcomponent-subcomponentType"/>
+  <Standard:Metaclass xmi:id="_usN9ALIBEeCWmNkTdM4SSg" base_Class="FeatureGroup"/>
+  <Ecore:EReference xmi:id="_4Z0qwLIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupType"/>
+  <Ecore:EReference xmi:id="_5j1m0LIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupPrototype"/>
 </xmi:XMI>

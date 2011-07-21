@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BasicProperty;
+import org.osate.aadl2.ListType;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.Type;
 
@@ -55,7 +56,6 @@ import org.osate.aadl2.Type;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getList <em>List</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getOwnedType <em>Owned Type</em>}</li>
  * </ul>
  * </p>
@@ -63,26 +63,6 @@ import org.osate.aadl2.Type;
  * @generated
  */
 public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty {
-	/**
-	 * The default value of the '{@link #getList() <em>List</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getList()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final long LIST_EDEFAULT = 0L;
-
-	/**
-	 * The cached value of the '{@link #getList() <em>List</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getList()
-	 * @generated
-	 * @ordered
-	 */
-	protected long list = LIST_EDEFAULT;
-
 	/**
 	 * The cached value of the '{@link #getOwnedType() <em>Owned Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -251,32 +231,9 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public long getList() {
-		return list;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setList(long newList) {
-		long oldList = list;
-		list = newList;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY__LIST, oldList, list));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.BASIC_PROPERTY__LIST:
-			return getList();
 		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
 			return getOwnedType();
 		}
@@ -291,9 +248,6 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.BASIC_PROPERTY__LIST:
-			setList((Long) newValue);
-			return;
 		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
 			setOwnedType((PropertyType) newValue);
 			return;
@@ -309,9 +263,6 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.BASIC_PROPERTY__LIST:
-			setList(LIST_EDEFAULT);
-			return;
 		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
 			setOwnedType((PropertyType) null);
 			return;
@@ -327,38 +278,17 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.BASIC_PROPERTY__LIST:
-			return list != LIST_EDEFAULT;
 		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
 			return ownedType != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (list: ");
-		result.append(list);
-		result.append(')');
-		return result.toString();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see org.osate.aadl2.BasicProperty#isList()
 	 */
 	public boolean isList() {
-		return list > 0;
+		return type instanceof ListType;
 	}
 
 } //BasicPropertyImpl

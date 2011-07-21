@@ -60,7 +60,7 @@ import org.osate.aadl2.RangeType;
  *
  * @generated
  */
-public class RangeTypeImpl extends PropertyTypeImpl implements RangeType {
+public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	/**
 	 * The cached value of the '{@link #getNumberType() <em>Number Type</em>}' reference.
 	 * <!-- begin-user-doc -->

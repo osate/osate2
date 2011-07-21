@@ -356,49 +356,49 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ArraySpecification} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ArrayDimension} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ArraySpecificationItemProvider arraySpecificationItemProvider;
+	protected ArrayDimensionItemProvider arrayDimensionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ArraySpecification}.
+	 * This creates an adapter for a {@link org.osate.aadl2.ArrayDimension}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createArraySpecificationAdapter() {
-		if (arraySpecificationItemProvider == null) {
-			arraySpecificationItemProvider = new ArraySpecificationItemProvider(this);
+	public Adapter createArrayDimensionAdapter() {
+		if (arrayDimensionItemProvider == null) {
+			arrayDimensionItemProvider = new ArrayDimensionItemProvider(this);
 		}
 
-		return arraySpecificationItemProvider;
+		return arrayDimensionItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.Numeral} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ArraySize} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected NumeralItemProvider numeralItemProvider;
+	protected ArraySizeItemProvider arraySizeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.Numeral}.
+	 * This creates an adapter for a {@link org.osate.aadl2.ArraySize}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createNumeralAdapter() {
-		if (numeralItemProvider == null) {
-			numeralItemProvider = new NumeralItemProvider(this);
+	public Adapter createArraySizeAdapter() {
+		if (arraySizeItemProvider == null) {
+			arraySizeItemProvider = new ArraySizeItemProvider(this);
 		}
 
-		return numeralItemProvider;
+		return arraySizeItemProvider;
 	}
 
 	/**
@@ -2794,6 +2794,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupPrototypeActual} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FeatureGroupPrototypeActualItemProvider featureGroupPrototypeActualItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupPrototypeActual}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFeatureGroupPrototypeActualAdapter() {
+		if (featureGroupPrototypeActualItemProvider == null) {
+			featureGroupPrototypeActualItemProvider = new FeatureGroupPrototypeActualItemProvider(this);
+		}
+
+		return featureGroupPrototypeActualItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeaturePrototype} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2909,52 +2932,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupPrototypeReference} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FeatureGroupPrototypeReferenceItemProvider featureGroupPrototypeReferenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupPrototypeReference}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFeatureGroupPrototypeReferenceAdapter() {
-		if (featureGroupPrototypeReferenceItemProvider == null) {
-			featureGroupPrototypeReferenceItemProvider = new FeatureGroupPrototypeReferenceItemProvider(this);
-		}
-
-		return featureGroupPrototypeReferenceItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FeatureGroupReference} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FeatureGroupReferenceItemProvider featureGroupReferenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.FeatureGroupReference}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFeatureGroupReferenceAdapter() {
-		if (featureGroupReferenceItemProvider == null) {
-			featureGroupReferenceItemProvider = new FeatureGroupReferenceItemProvider(this);
-		}
-
-		return featureGroupReferenceItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorCall} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3047,29 +3024,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EnumerationValue} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EnumerationValueItemProvider enumerationValueItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.EnumerationValue}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createEnumerationValueAdapter() {
-		if (enumerationValueItemProvider == null) {
-			enumerationValueItemProvider = new EnumerationValueItemProvider(this);
-		}
-
-		return enumerationValueItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EnumerationLiteral} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3090,29 +3044,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return enumerationLiteralItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.UnitValue} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected UnitValueItemProvider unitValueItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.UnitValue}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createUnitValueAdapter() {
-		if (unitValueItemProvider == null) {
-			unitValueItemProvider = new UnitValueItemProvider(this);
-		}
-
-		return unitValueItemProvider;
 	}
 
 	/**
@@ -3297,52 +3228,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return realLiteralItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ConstantValue} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ConstantValueItemProvider constantValueItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ConstantValue}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createConstantValueAdapter() {
-		if (constantValueItemProvider == null) {
-			constantValueItemProvider = new ConstantValueItemProvider(this);
-		}
-
-		return constantValueItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PropertyReference} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected PropertyReferenceItemProvider propertyReferenceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.PropertyReference}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createPropertyReferenceAdapter() {
-		if (propertyReferenceItemProvider == null) {
-			propertyReferenceItemProvider = new PropertyReferenceItemProvider(this);
-		}
-
-		return propertyReferenceItemProvider;
 	}
 
 	/**
@@ -3783,6 +3668,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ListType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ListTypeItemProvider listTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.ListType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createListTypeAdapter() {
+		if (listTypeItemProvider == null) {
+			listTypeItemProvider = new ListTypeItemProvider(this);
+		}
+
+		return listTypeItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3903,10 +3811,10 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			arrayRangeItemProvider.dispose();
 		if (modalPropertyValueItemProvider != null)
 			modalPropertyValueItemProvider.dispose();
-		if (arraySpecificationItemProvider != null)
-			arraySpecificationItemProvider.dispose();
-		if (numeralItemProvider != null)
-			numeralItemProvider.dispose();
+		if (arrayDimensionItemProvider != null)
+			arrayDimensionItemProvider.dispose();
+		if (arraySizeItemProvider != null)
+			arraySizeItemProvider.dispose();
 		if (componentImplementationReferenceItemProvider != null)
 			componentImplementationReferenceItemProvider.dispose();
 		if (modeTransitionItemProvider != null)
@@ -3941,6 +3849,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			subprogramGroupAccessItemProvider.dispose();
 		if (abstractFeatureItemProvider != null)
 			abstractFeatureItemProvider.dispose();
+		if (featureGroupPrototypeItemProvider != null)
+			featureGroupPrototypeItemProvider.dispose();
 		if (modeBindingItemProvider != null)
 			modeBindingItemProvider.dispose();
 		if (flowImplementationItemProvider != null)
@@ -3993,10 +3903,10 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			componentPrototypeBindingItemProvider.dispose();
 		if (componentPrototypeActualItemProvider != null)
 			componentPrototypeActualItemProvider.dispose();
-		if (featureGroupPrototypeItemProvider != null)
-			featureGroupPrototypeItemProvider.dispose();
 		if (featureGroupPrototypeBindingItemProvider != null)
 			featureGroupPrototypeBindingItemProvider.dispose();
+		if (featureGroupPrototypeActualItemProvider != null)
+			featureGroupPrototypeActualItemProvider.dispose();
 		if (featurePrototypeItemProvider != null)
 			featurePrototypeItemProvider.dispose();
 		if (featurePrototypeBindingItemProvider != null)
@@ -4007,10 +3917,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			portSpecificationItemProvider.dispose();
 		if (featurePrototypeReferenceItemProvider != null)
 			featurePrototypeReferenceItemProvider.dispose();
-		if (featureGroupPrototypeReferenceItemProvider != null)
-			featureGroupPrototypeReferenceItemProvider.dispose();
-		if (featureGroupReferenceItemProvider != null)
-			featureGroupReferenceItemProvider.dispose();
 		if (subprogramCallSequenceItemProvider != null)
 			subprogramCallSequenceItemProvider.dispose();
 		if (processorCallItemProvider != null)
@@ -4131,16 +4037,12 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			basicPropertyAssociationItemProvider.dispose();
 		if (propertyConstantItemProvider != null)
 			propertyConstantItemProvider.dispose();
-		if (enumerationValueItemProvider != null)
-			enumerationValueItemProvider.dispose();
-		if (enumerationLiteralItemProvider != null)
-			enumerationLiteralItemProvider.dispose();
-		if (unitValueItemProvider != null)
-			unitValueItemProvider.dispose();
-		if (unitLiteralItemProvider != null)
-			unitLiteralItemProvider.dispose();
 		if (stringLiteralItemProvider != null)
 			stringLiteralItemProvider.dispose();
+		if (unitLiteralItemProvider != null)
+			unitLiteralItemProvider.dispose();
+		if (enumerationLiteralItemProvider != null)
+			enumerationLiteralItemProvider.dispose();
 		if (classifierValueItemProvider != null)
 			classifierValueItemProvider.dispose();
 		if (referenceValueItemProvider != null)
@@ -4153,10 +4055,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			integerLiteralItemProvider.dispose();
 		if (realLiteralItemProvider != null)
 			realLiteralItemProvider.dispose();
-		if (constantValueItemProvider != null)
-			constantValueItemProvider.dispose();
-		if (propertyReferenceItemProvider != null)
-			propertyReferenceItemProvider.dispose();
 		if (operationItemProvider != null)
 			operationItemProvider.dispose();
 		if (recordValueItemProvider != null)
@@ -4195,6 +4093,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			recordFieldItemProvider.dispose();
 		if (referenceTypeItemProvider != null)
 			referenceTypeItemProvider.dispose();
+		if (listTypeItemProvider != null)
+			listTypeItemProvider.dispose();
 		if (processorPortItemProvider != null)
 			processorPortItemProvider.dispose();
 		if (internalEventItemProvider != null)

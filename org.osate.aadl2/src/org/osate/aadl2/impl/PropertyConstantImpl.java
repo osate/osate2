@@ -59,7 +59,6 @@ import org.osate.aadl2.properties.InvalidModelException;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getList <em>List</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getOwnedType <em>Owned Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getConstantValue <em>Constant Value</em>}</li>
  * </ul>
@@ -68,25 +67,6 @@ import org.osate.aadl2.properties.InvalidModelException;
  * @generated
  */
 public class PropertyConstantImpl extends TypedElementImpl implements PropertyConstant {
-	/**
-	 * The default value of the '{@link #getList() <em>List</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getList()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final long LIST_EDEFAULT = 0L;
-	/**
-	 * The cached value of the '{@link #getList() <em>List</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getList()
-	 * @generated
-	 * @ordered
-	 */
-	protected long list = LIST_EDEFAULT;
-
 	/**
 	 * The cached value of the '{@link #getOwnedType() <em>Owned Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -181,27 +161,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 */
 	public boolean isSetType() {
 		return type != null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public long getList() {
-		return list;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setList(long newList) {
-		long oldList = list;
-		list = newList;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_CONSTANT__LIST, oldList, list));
 	}
 
 	/**
@@ -358,8 +317,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.PROPERTY_CONSTANT__LIST:
-			return getList();
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE:
 			return getOwnedType();
 		case Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE:
@@ -376,9 +333,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.PROPERTY_CONSTANT__LIST:
-			setList((Long) newValue);
-			return;
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE:
 			setOwnedType((PropertyType) newValue);
 			return;
@@ -397,9 +351,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PROPERTY_CONSTANT__LIST:
-			setList(LIST_EDEFAULT);
-			return;
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE:
 			setOwnedType((PropertyType) null);
 			return;
@@ -418,31 +369,12 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PROPERTY_CONSTANT__LIST:
-			return list != LIST_EDEFAULT;
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE:
 			return ownedType != null;
 		case Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE:
 			return constantValue != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (list: ");
-		result.append(list);
-		result.append(')');
-		return result.toString();
 	}
 
 	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {

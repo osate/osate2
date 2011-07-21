@@ -36,8 +36,6 @@
  */
 package org.osate.aadl2;
 
-import org.eclipse.emf.ecore.EClass;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Feature Group Prototype Binding</b></em>'.
@@ -85,11 +83,10 @@ public interface FeatureGroupPrototypeBinding extends PrototypeBinding {
 	 * Creates a new {@link org.osate.aadl2.FeatureGroupPrototypeActual} and sets the '<em><b>Actual</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eClass The Ecore class of the {@link org.osate.aadl2.FeatureGroupPrototypeActual} to create.
 	 * @return The new {@link org.osate.aadl2.FeatureGroupPrototypeActual}.
 	 * @see #getActual()
 	 * @generated
 	 */
-	FeatureGroupPrototypeActual createActual(EClass eClass);
+	FeatureGroupPrototypeActual createActual();
 
 } // FeatureGroupPrototypeBinding

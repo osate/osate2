@@ -45,6 +45,6 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface EnumerationLiteral extends NamedElement {
+public interface EnumerationLiteral extends NamedElement, AbstractNamedValue {
 
 } // EnumerationLiteral

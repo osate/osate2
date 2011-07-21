@@ -48,7 +48,7 @@ import org.osate.aadl2.AadlString;
  *
  * @generated
  */
-public class AadlStringImpl extends PropertyTypeImpl implements AadlString {
+public class AadlStringImpl extends NonListTypeImpl implements AadlString {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
