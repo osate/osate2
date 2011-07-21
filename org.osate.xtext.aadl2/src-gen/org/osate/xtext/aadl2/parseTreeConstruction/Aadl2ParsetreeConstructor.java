@@ -95,7 +95,7 @@ protected class ThisRootNode extends RootToken {
 			case 61: return new FeaturePrototype_Group(this, this, 61, inst);
 			case 62: return new PrototypeBinding_Alternatives(this, this, 62, inst);
 			case 63: return new FeatureGroupPrototypeBinding_Group(this, this, 63, inst);
-			case 64: return new FeatureGroupTypeReference_FeatureGroupTypeAssignment(this, this, 64, inst);
+			case 64: return new FeatureGroupPrototypeActual_Group(this, this, 64, inst);
 			case 65: return new FeaturePrototypeBinding_Group(this, this, 65, inst);
 			case 66: return new PortSpecification_Group(this, this, 66, inst);
 			case 67: return new AccessSpecification_Group(this, this, 67, inst);
@@ -116,128 +116,127 @@ protected class ThisRootNode extends RootToken {
 			case 82: return new BusSubcomponent_Group(this, this, 82, inst);
 			case 83: return new VirtualBusSubcomponent_Group(this, this, 83, inst);
 			case 84: return new DataSubcomponent_Group(this, this, 84, inst);
-			case 85: return new ArraySpecification_Group(this, this, 85, inst);
-			case 86: return new SingleArraySpecification_Group(this, this, 86, inst);
-			case 87: return new Numeral_ValueAssignment(this, this, 87, inst);
-			case 88: return new ComponentImplementationReference_Group(this, this, 88, inst);
-			case 89: return new PropertyReference_PropertyAssignment(this, this, 89, inst);
-			case 90: return new DataPort_Group(this, this, 90, inst);
-			case 91: return new EventDataPort_Group(this, this, 91, inst);
-			case 92: return new EventPort_Group(this, this, 92, inst);
-			case 93: return new FeatureGroup_Group(this, this, 93, inst);
-			case 94: return new Parameter_Group(this, this, 94, inst);
-			case 95: return new SubprogramAccess_Group(this, this, 95, inst);
-			case 96: return new SubprogramGroupAccess_Group(this, this, 96, inst);
-			case 97: return new BusAccess_Group(this, this, 97, inst);
-			case 98: return new DataAccess_Group(this, this, 98, inst);
-			case 99: return new AbstractFeature_Group(this, this, 99, inst);
-			case 100: return new FeatureGroupType_Group(this, this, 100, inst);
-			case 101: return new ConnectedElement_Group(this, this, 101, inst);
-			case 102: return new ProcessorPort_Group(this, this, 102, inst);
-			case 103: return new InternalEventPort_Group(this, this, 103, inst);
-			case 104: return new ProcessorSubprogram_Group(this, this, 104, inst);
-			case 105: return new AbstractConnectionEnd_Alternatives(this, this, 105, inst);
-			case 106: return new ProcessorConnectionEnd_Alternatives(this, this, 106, inst);
-			case 107: return new PortConnection_Group(this, this, 107, inst);
-			case 108: return new AccessConnection_Group(this, this, 108, inst);
-			case 109: return new FeatureGroupConnection_Group(this, this, 109, inst);
-			case 110: return new FeatureConnection_Group(this, this, 110, inst);
-			case 111: return new ParameterConnection_Group(this, this, 111, inst);
-			case 112: return new FlowSpecification_Group(this, this, 112, inst);
-			case 113: return new FlowSourceSpec_Group(this, this, 113, inst);
-			case 114: return new FlowSinkSpec_Group(this, this, 114, inst);
-			case 115: return new FlowPathSpec_Group(this, this, 115, inst);
-			case 116: return new FlowEnd_Group(this, this, 116, inst);
-			case 117: return new FlowSourceSpecRefinement_Group(this, this, 117, inst);
-			case 118: return new FlowSinkSpecRefinement_Group(this, this, 118, inst);
-			case 119: return new FlowPathSpecRefinement_Group(this, this, 119, inst);
-			case 120: return new FlowImplementation_Group(this, this, 120, inst);
-			case 121: return new FlowSourceImpl_Group(this, this, 121, inst);
-			case 122: return new FlowSinkImpl_Group(this, this, 122, inst);
-			case 123: return new FlowPathImpl_Group(this, this, 123, inst);
-			case 124: return new EndToEndFlow_Group(this, this, 124, inst);
-			case 125: return new EndToEndFlowRefinement_Group(this, this, 125, inst);
-			case 126: return new SubcomponentFlow_Group(this, this, 126, inst);
-			case 127: return new ConnectionFlow_FlowElementAssignment(this, this, 127, inst);
-			case 128: return new ETESubcomponentFlow_Group(this, this, 128, inst);
-			case 129: return new ETEConnectionFlow_FlowElementAssignment(this, this, 129, inst);
-			case 130: return new Mode_Group(this, this, 130, inst);
-			case 131: return new RequiresMode_Group(this, this, 131, inst);
-			case 132: return new ModeTransition_Group(this, this, 132, inst);
-			case 133: return new Trigger_Alternatives(this, this, 133, inst);
-			case 134: return new TriggerPort_Group(this, this, 134, inst);
-			case 135: return new ModeRef_Group(this, this, 135, inst);
-			case 136: return new AnnexLibrary_DefaultAnnexLibraryParserRuleCall(this, this, 136, inst);
-			case 137: return new DefaultAnnexLibrary_Group(this, this, 137, inst);
-			case 138: return new AnnexSubclause_DefaultAnnexSubclauseParserRuleCall(this, this, 138, inst);
-			case 139: return new DefaultAnnexSubclause_Group(this, this, 139, inst);
-			case 140: return new PropertySet_Group(this, this, 140, inst);
-			case 141: return new PropertyType_Group(this, this, 141, inst);
-			case 142: return new UnnamedPropertyType_Alternatives(this, this, 142, inst);
-			case 143: return new BooleanType_Group(this, this, 143, inst);
-			case 144: return new UnnamedBooleanType_Group(this, this, 144, inst);
-			case 145: return new StringType_Group(this, this, 145, inst);
-			case 146: return new UnnamedStringType_Group(this, this, 146, inst);
-			case 147: return new EnumerationType_Group(this, this, 147, inst);
-			case 148: return new UnnamedEnumerationType_Group(this, this, 148, inst);
-			case 149: return new EnumerationLiteral_NameAssignment(this, this, 149, inst);
-			case 150: return new UnitsType_Group(this, this, 150, inst);
-			case 151: return new UnnamedUnitsType_Group(this, this, 151, inst);
-			case 152: return new UnitLiteral_NameAssignment(this, this, 152, inst);
-			case 153: return new UnitLiteralConversion_Group(this, this, 153, inst);
-			case 154: return new RealType_Group(this, this, 154, inst);
-			case 155: return new UnnamedRealType_Group(this, this, 155, inst);
-			case 156: return new IntegerType_Group(this, this, 156, inst);
-			case 157: return new UnnamedIntegerType_Group(this, this, 157, inst);
-			case 158: return new RangeType_Group(this, this, 158, inst);
-			case 159: return new UnnamedRangeType_Group(this, this, 159, inst);
-			case 160: return new ClassifierType_Group(this, this, 160, inst);
-			case 161: return new UnnamedClassifierType_Group(this, this, 161, inst);
-			case 162: return new QCReference_Group(this, this, 162, inst);
-			case 163: return new ReferenceType_Group(this, this, 163, inst);
-			case 164: return new UnnamedReferenceType_Group(this, this, 164, inst);
-			case 165: return new RecordType_Group(this, this, 165, inst);
-			case 166: return new UnnamedRecordType_Group(this, this, 166, inst);
-			case 167: return new RecordField_Group(this, this, 167, inst);
-			case 168: return new PropertyDefinition_Group(this, this, 168, inst);
-			case 169: return new AllReference_MetaclassNameAssignment(this, this, 169, inst);
-			case 170: return new PropertyOwner_QCReferenceParserRuleCall(this, this, 170, inst);
-			case 171: return new ClassifierValue_ClassifierAssignment(this, this, 171, inst);
-			case 172: return new PropertyConstant_Group(this, this, 172, inst);
-			case 173: return new NumberValue_Alternatives(this, this, 173, inst);
-			case 174: return new RealLit_ValueAssignment(this, this, 174, inst);
-			case 175: return new IntegerLit_ValueAssignment(this, this, 175, inst);
-			case 176: return new BasicPropertyAssociation_Group(this, this, 176, inst);
-			case 177: return new ContainedPropertyAssociation_Group(this, this, 177, inst);
-			case 178: return new PropertyAssociation_Group(this, this, 178, inst);
-			case 179: return new ContainmentPath_Group(this, this, 179, inst);
-			case 180: return new ModalPropertyValue_Group(this, this, 180, inst);
-			case 181: return new PropertyValue_OwnedValueAssignment(this, this, 181, inst);
-			case 182: return new PropertyExpression_Alternatives(this, this, 182, inst);
-			case 183: return new ConstantPropertyExpression_Alternatives(this, this, 183, inst);
-			case 184: return new LiteralorReferenceTerm_NamedValueAssignment(this, this, 184, inst);
-			case 185: return new BooleanTerm_OrTermParserRuleCall(this, this, 185, inst);
-			case 186: return new OrTerm_Group(this, this, 186, inst);
-			case 187: return new AndTerm_Group(this, this, 187, inst);
-			case 188: return new NotTerm_Group(this, this, 188, inst);
-			case 189: return new BooleanAtom_Alternatives(this, this, 189, inst);
-			case 190: return new BooleanLiteral_Group(this, this, 190, inst);
-			case 191: return new ConstantValue_NamedValueAssignment(this, this, 191, inst);
-			case 192: return new ReferenceTerm_Group(this, this, 192, inst);
-			case 193: return new RecordTerm_Group(this, this, 193, inst);
-			case 194: return new ComputedTerm_Group(this, this, 194, inst);
-			case 195: return new ComponentClassifierTerm_Group(this, this, 195, inst);
-			case 196: return new ListTerm_Group(this, this, 196, inst);
-			case 197: return new FieldPropertyAssociation_Group(this, this, 197, inst);
-			case 198: return new ContainmentPathElement_Alternatives(this, this, 198, inst);
-			case 199: return new StringTerm_ValueAssignment(this, this, 199, inst);
-			case 200: return new ArrayRange_Group(this, this, 200, inst);
-			case 201: return new IntegerRange_Group(this, this, 201, inst);
-			case 202: return new RealRange_Group(this, this, 202, inst);
-			case 203: return new SignedConstant_Group(this, this, 203, inst);
-			case 204: return new IntegerTerm_Group(this, this, 204, inst);
-			case 205: return new RealTerm_Group(this, this, 205, inst);
-			case 206: return new NumericRangeTerm_Group(this, this, 206, inst);
+			case 85: return new ArrayDimension_Group(this, this, 85, inst);
+			case 86: return new ArraySize_Alternatives(this, this, 86, inst);
+			case 87: return new ComponentImplementationReference_Group(this, this, 87, inst);
+			case 88: return new DataPort_Group(this, this, 88, inst);
+			case 89: return new EventDataPort_Group(this, this, 89, inst);
+			case 90: return new EventPort_Group(this, this, 90, inst);
+			case 91: return new FeatureGroup_Group(this, this, 91, inst);
+			case 92: return new Parameter_Group(this, this, 92, inst);
+			case 93: return new SubprogramAccess_Group(this, this, 93, inst);
+			case 94: return new SubprogramGroupAccess_Group(this, this, 94, inst);
+			case 95: return new BusAccess_Group(this, this, 95, inst);
+			case 96: return new DataAccess_Group(this, this, 96, inst);
+			case 97: return new AbstractFeature_Group(this, this, 97, inst);
+			case 98: return new FeatureGroupType_Group(this, this, 98, inst);
+			case 99: return new ConnectedElement_Group(this, this, 99, inst);
+			case 100: return new ProcessorPort_Group(this, this, 100, inst);
+			case 101: return new InternalEventPort_Group(this, this, 101, inst);
+			case 102: return new ProcessorSubprogram_Group(this, this, 102, inst);
+			case 103: return new AbstractConnectionEnd_Alternatives(this, this, 103, inst);
+			case 104: return new ProcessorConnectionEnd_Alternatives(this, this, 104, inst);
+			case 105: return new PortConnection_Group(this, this, 105, inst);
+			case 106: return new AccessConnection_Group(this, this, 106, inst);
+			case 107: return new FeatureGroupConnection_Group(this, this, 107, inst);
+			case 108: return new FeatureConnection_Group(this, this, 108, inst);
+			case 109: return new ParameterConnection_Group(this, this, 109, inst);
+			case 110: return new FlowSpecification_Group(this, this, 110, inst);
+			case 111: return new FlowSourceSpec_Group(this, this, 111, inst);
+			case 112: return new FlowSinkSpec_Group(this, this, 112, inst);
+			case 113: return new FlowPathSpec_Group(this, this, 113, inst);
+			case 114: return new FlowEnd_Group(this, this, 114, inst);
+			case 115: return new FlowSourceSpecRefinement_Group(this, this, 115, inst);
+			case 116: return new FlowSinkSpecRefinement_Group(this, this, 116, inst);
+			case 117: return new FlowPathSpecRefinement_Group(this, this, 117, inst);
+			case 118: return new FlowImplementation_Group(this, this, 118, inst);
+			case 119: return new FlowSourceImpl_Group(this, this, 119, inst);
+			case 120: return new FlowSinkImpl_Group(this, this, 120, inst);
+			case 121: return new FlowPathImpl_Group(this, this, 121, inst);
+			case 122: return new EndToEndFlow_Group(this, this, 122, inst);
+			case 123: return new EndToEndFlowRefinement_Group(this, this, 123, inst);
+			case 124: return new SubcomponentFlow_Group(this, this, 124, inst);
+			case 125: return new ConnectionFlow_FlowElementAssignment(this, this, 125, inst);
+			case 126: return new ETESubcomponentFlow_Group(this, this, 126, inst);
+			case 127: return new ETEConnectionFlow_FlowElementAssignment(this, this, 127, inst);
+			case 128: return new Mode_Group(this, this, 128, inst);
+			case 129: return new RequiresMode_Group(this, this, 129, inst);
+			case 130: return new ModeTransition_Group(this, this, 130, inst);
+			case 131: return new Trigger_Alternatives(this, this, 131, inst);
+			case 132: return new TriggerPort_Group(this, this, 132, inst);
+			case 133: return new ModeRef_Group(this, this, 133, inst);
+			case 134: return new AnnexLibrary_DefaultAnnexLibraryParserRuleCall(this, this, 134, inst);
+			case 135: return new DefaultAnnexLibrary_Group(this, this, 135, inst);
+			case 136: return new AnnexSubclause_DefaultAnnexSubclauseParserRuleCall(this, this, 136, inst);
+			case 137: return new DefaultAnnexSubclause_Group(this, this, 137, inst);
+			case 138: return new PropertySet_Group(this, this, 138, inst);
+			case 139: return new PropertyType_Group(this, this, 139, inst);
+			case 140: return new UnnamedPropertyType_Alternatives(this, this, 140, inst);
+			case 141: return new BooleanType_Group(this, this, 141, inst);
+			case 142: return new UnnamedBooleanType_Group(this, this, 142, inst);
+			case 143: return new StringType_Group(this, this, 143, inst);
+			case 144: return new UnnamedStringType_Group(this, this, 144, inst);
+			case 145: return new EnumerationType_Group(this, this, 145, inst);
+			case 146: return new UnnamedEnumerationType_Group(this, this, 146, inst);
+			case 147: return new EnumerationLiteral_NameAssignment(this, this, 147, inst);
+			case 148: return new UnitsType_Group(this, this, 148, inst);
+			case 149: return new UnnamedUnitsType_Group(this, this, 149, inst);
+			case 150: return new UnitLiteral_NameAssignment(this, this, 150, inst);
+			case 151: return new UnitLiteralConversion_Group(this, this, 151, inst);
+			case 152: return new RealType_Group(this, this, 152, inst);
+			case 153: return new UnnamedRealType_Group(this, this, 153, inst);
+			case 154: return new IntegerType_Group(this, this, 154, inst);
+			case 155: return new UnnamedIntegerType_Group(this, this, 155, inst);
+			case 156: return new RangeType_Group(this, this, 156, inst);
+			case 157: return new UnnamedRangeType_Group(this, this, 157, inst);
+			case 158: return new ClassifierType_Group(this, this, 158, inst);
+			case 159: return new UnnamedClassifierType_Group(this, this, 159, inst);
+			case 160: return new QCReference_Group(this, this, 160, inst);
+			case 161: return new ReferenceType_Group(this, this, 161, inst);
+			case 162: return new UnnamedReferenceType_Group(this, this, 162, inst);
+			case 163: return new RecordType_Group(this, this, 163, inst);
+			case 164: return new UnnamedRecordType_Group(this, this, 164, inst);
+			case 165: return new RecordField_Group(this, this, 165, inst);
+			case 166: return new PropertyDefinition_Group(this, this, 166, inst);
+			case 167: return new AllReference_MetaclassNameAssignment(this, this, 167, inst);
+			case 168: return new ListType_Group(this, this, 168, inst);
+			case 169: return new PropertyOwner_QCReferenceParserRuleCall(this, this, 169, inst);
+			case 170: return new ClassifierValue_ClassifierAssignment(this, this, 170, inst);
+			case 171: return new PropertyConstant_Group(this, this, 171, inst);
+			case 172: return new NumberValue_Alternatives(this, this, 172, inst);
+			case 173: return new RealLit_ValueAssignment(this, this, 173, inst);
+			case 174: return new IntegerLit_ValueAssignment(this, this, 174, inst);
+			case 175: return new BasicPropertyAssociation_Group(this, this, 175, inst);
+			case 176: return new ContainedPropertyAssociation_Group(this, this, 176, inst);
+			case 177: return new PropertyAssociation_Group(this, this, 177, inst);
+			case 178: return new ContainmentPath_Group(this, this, 178, inst);
+			case 179: return new ModalPropertyValue_Group(this, this, 179, inst);
+			case 180: return new PropertyValue_OwnedValueAssignment(this, this, 180, inst);
+			case 181: return new PropertyExpression_Alternatives(this, this, 181, inst);
+			case 182: return new ConstantPropertyExpression_Alternatives(this, this, 182, inst);
+			case 183: return new LiteralorReferenceTerm_NamedValueAssignment(this, this, 183, inst);
+			case 184: return new BooleanTerm_OrTermParserRuleCall(this, this, 184, inst);
+			case 185: return new OrTerm_Group(this, this, 185, inst);
+			case 186: return new AndTerm_Group(this, this, 186, inst);
+			case 187: return new NotTerm_Group(this, this, 187, inst);
+			case 188: return new BooleanAtom_Alternatives(this, this, 188, inst);
+			case 189: return new BooleanLiteral_Group(this, this, 189, inst);
+			case 190: return new ConstantValue_NamedValueAssignment(this, this, 190, inst);
+			case 191: return new ReferenceTerm_Group(this, this, 191, inst);
+			case 192: return new RecordTerm_Group(this, this, 192, inst);
+			case 193: return new ComputedTerm_Group(this, this, 193, inst);
+			case 194: return new ComponentClassifierTerm_Group(this, this, 194, inst);
+			case 195: return new ListTerm_Group(this, this, 195, inst);
+			case 196: return new FieldPropertyAssociation_Group(this, this, 196, inst);
+			case 197: return new ContainmentPathElement_Alternatives(this, this, 197, inst);
+			case 198: return new StringTerm_ValueAssignment(this, this, 198, inst);
+			case 199: return new ArrayRange_Group(this, this, 199, inst);
+			case 200: return new IntegerRange_Group(this, this, 200, inst);
+			case 201: return new RealRange_Group(this, this, 201, inst);
+			case 202: return new SignedConstant_Group(this, this, 202, inst);
+			case 203: return new IntegerTerm_Group(this, this, 203, inst);
+			case 204: return new RealTerm_Group(this, this, 204, inst);
+			case 205: return new NumericRangeTerm_Group(this, this, 205, inst);
 			default: return null;
 		}	
 	}	
@@ -47528,11 +47527,11 @@ protected class PrototypeBinding_ComponentPrototypeBindingParserRuleCall_2 exten
 /************ begin Rule FeatureGroupPrototypeBinding ****************
  *
  * FeatureGroupPrototypeBinding returns aadl2::FeatureGroupPrototypeBinding:
- * 	formal=[aadl2::Prototype] "=>" "feature" "group" actual=FeatureGroupTypeReference;
+ * 	formal=[aadl2::Prototype] "=>" "feature" "group" actual=FeatureGroupPrototypeActual;
  *
  **/
 
-// formal=[aadl2::Prototype] "=>" "feature" "group" actual=FeatureGroupTypeReference
+// formal=[aadl2::Prototype] "=>" "feature" "group" actual=FeatureGroupPrototypeActual
 protected class FeatureGroupPrototypeBinding_Group extends GroupToken {
 	
 	public FeatureGroupPrototypeBinding_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -47663,7 +47662,7 @@ protected class FeatureGroupPrototypeBinding_GroupKeyword_3 extends KeywordToken
 
 }
 
-// actual=FeatureGroupTypeReference
+// actual=FeatureGroupPrototypeActual
 protected class FeatureGroupPrototypeBinding_ActualAssignment_4 extends AssignmentToken  {
 	
 	public FeatureGroupPrototypeBinding_ActualAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -47678,7 +47677,7 @@ protected class FeatureGroupPrototypeBinding_ActualAssignment_4 extends Assignme
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FeatureGroupTypeReference_FeatureGroupTypeAssignment(this, this, 0, inst);
+			case 0: return new FeatureGroupPrototypeActual_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -47689,9 +47688,9 @@ protected class FeatureGroupPrototypeBinding_ActualAssignment_4 extends Assignme
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("actual");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFeatureGroupTypeReferenceRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFeatureGroupPrototypeActualRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getFeatureGroupPrototypeBindingAccess().getActualFeatureGroupTypeReferenceParserRuleCall_4_0(); 
+				element = grammarAccess.getFeatureGroupPrototypeBindingAccess().getActualFeatureGroupPrototypeActualParserRuleCall_4_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -47713,23 +47712,53 @@ protected class FeatureGroupPrototypeBinding_ActualAssignment_4 extends Assignme
 /************ end Rule FeatureGroupPrototypeBinding ****************/
 
 
-/************ begin Rule FeatureGroupTypeReference ****************
+/************ begin Rule FeatureGroupPrototypeActual ****************
  *
- * FeatureGroupTypeReference returns aadl2::FeatureGroupReference:
- * 	featureGroupType=[aadl2::FeatureGroupType|QCREF];
+ * FeatureGroupPrototypeActual returns aadl2::FeatureGroupPrototypeActual:
+ * 	featureType=[aadl2::FeatureType|QCREF] ("(" binding+=PrototypeBinding ("," binding+=PrototypeBinding)* ")")?;
  *
  **/
 
-// featureGroupType=[aadl2::FeatureGroupType|QCREF]
-protected class FeatureGroupTypeReference_FeatureGroupTypeAssignment extends AssignmentToken  {
+// featureType=[aadl2::FeatureType|QCREF] ("(" binding+=PrototypeBinding ("," binding+=PrototypeBinding)* ")")?
+protected class FeatureGroupPrototypeActual_Group extends GroupToken {
 	
-	public FeatureGroupTypeReference_FeatureGroupTypeAssignment(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FeatureGroupPrototypeActual_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFeatureGroupPrototypeActualAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FeatureGroupPrototypeActual_Group_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FeatureGroupPrototypeActual_FeatureTypeAssignment_0(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getFeatureGroupPrototypeActualRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// featureType=[aadl2::FeatureType|QCREF]
+protected class FeatureGroupPrototypeActual_FeatureTypeAssignment_0 extends AssignmentToken  {
+	
+	public FeatureGroupPrototypeActual_FeatureTypeAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFeatureGroupTypeReferenceAccess().getFeatureGroupTypeAssignment();
+		return grammarAccess.getFeatureGroupPrototypeActualAccess().getFeatureTypeAssignment_0();
 	}
 
     @Override
@@ -47741,15 +47770,13 @@ protected class FeatureGroupTypeReference_FeatureGroupTypeAssignment extends Ass
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getFeatureGroupTypeReferenceRule().getType().getClassifier())
-			return null;
-		if((value = eObjectConsumer.getConsumable("featureGroupType",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("featureGroupType");
+		if((value = eObjectConsumer.getConsumable("featureType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("featureType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFeatureGroupTypeReferenceAccess().getFeatureGroupTypeFeatureGroupTypeCrossReference_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFeatureGroupPrototypeActualAccess().getFeatureTypeFeatureTypeCrossReference_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFeatureGroupTypeReferenceAccess().getFeatureGroupTypeFeatureGroupTypeCrossReference_0(); 
+				element = grammarAccess.getFeatureGroupPrototypeActualAccess().getFeatureTypeFeatureTypeCrossReference_0_0(); 
 				return obj;
 			}
 		}
@@ -47758,7 +47785,214 @@ protected class FeatureGroupTypeReference_FeatureGroupTypeAssignment extends Ass
 
 }
 
-/************ end Rule FeatureGroupTypeReference ****************/
+// (=> "(" binding+=PrototypeBinding ("," binding+=PrototypeBinding)* ")")?
+protected class FeatureGroupPrototypeActual_Group_1 extends GroupToken {
+	
+	public FeatureGroupPrototypeActual_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFeatureGroupPrototypeActualAccess().getGroup_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FeatureGroupPrototypeActual_RightParenthesisKeyword_1_3(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// => "("
+protected class FeatureGroupPrototypeActual_LeftParenthesisKeyword_1_0 extends KeywordToken  {
+	
+	public FeatureGroupPrototypeActual_LeftParenthesisKeyword_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFeatureGroupPrototypeActualAccess().getLeftParenthesisKeyword_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FeatureGroupPrototypeActual_FeatureTypeAssignment_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// binding+=PrototypeBinding
+protected class FeatureGroupPrototypeActual_BindingAssignment_1_1 extends AssignmentToken  {
+	
+	public FeatureGroupPrototypeActual_BindingAssignment_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFeatureGroupPrototypeActualAccess().getBindingAssignment_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new PrototypeBinding_Alternatives(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("binding",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("binding");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getPrototypeBindingRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFeatureGroupPrototypeActualAccess().getBindingPrototypeBindingParserRuleCall_1_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FeatureGroupPrototypeActual_LeftParenthesisKeyword_1_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ("," binding+=PrototypeBinding)*
+protected class FeatureGroupPrototypeActual_Group_1_2 extends GroupToken {
+	
+	public FeatureGroupPrototypeActual_Group_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFeatureGroupPrototypeActualAccess().getGroup_1_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FeatureGroupPrototypeActual_BindingAssignment_1_2_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class FeatureGroupPrototypeActual_CommaKeyword_1_2_0 extends KeywordToken  {
+	
+	public FeatureGroupPrototypeActual_CommaKeyword_1_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFeatureGroupPrototypeActualAccess().getCommaKeyword_1_2_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FeatureGroupPrototypeActual_Group_1_2(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FeatureGroupPrototypeActual_BindingAssignment_1_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// binding+=PrototypeBinding
+protected class FeatureGroupPrototypeActual_BindingAssignment_1_2_1 extends AssignmentToken  {
+	
+	public FeatureGroupPrototypeActual_BindingAssignment_1_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFeatureGroupPrototypeActualAccess().getBindingAssignment_1_2_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new PrototypeBinding_Alternatives(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("binding",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("binding");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getPrototypeBindingRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFeatureGroupPrototypeActualAccess().getBindingPrototypeBindingParserRuleCall_1_2_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FeatureGroupPrototypeActual_CommaKeyword_1_2_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+
+// ")"
+protected class FeatureGroupPrototypeActual_RightParenthesisKeyword_1_3 extends KeywordToken  {
+	
+	public FeatureGroupPrototypeActual_RightParenthesisKeyword_1_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFeatureGroupPrototypeActualAccess().getRightParenthesisKeyword_1_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FeatureGroupPrototypeActual_Group_1_2(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FeatureGroupPrototypeActual_BindingAssignment_1_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+
+/************ end Rule FeatureGroupPrototypeActual ****************/
 
 
 /************ begin Rule FeaturePrototypeBinding ****************
@@ -49113,7 +49347,7 @@ protected class ComponentReference_RightParenthesisKeyword_2_3 extends KeywordTo
  *  * / AbstractSubcomponent returns aadl2::AbstractSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "abstract"
  * 	(abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
- * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -49123,7 +49357,7 @@ protected class ComponentReference_RightParenthesisKeyword_2_3 extends KeywordTo
 
 // (name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "abstract"
 // (abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -49672,7 +49906,7 @@ protected class AbstractSubcomponent_RightParenthesisKeyword_2_1_3 extends Keywo
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class AbstractSubcomponent_Group_3 extends GroupToken {
 	
@@ -49689,42 +49923,42 @@ protected class AbstractSubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new AbstractSubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new AbstractSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new AbstractSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class AbstractSubcomponent_ArraySpecificationAssignment_3_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class AbstractSubcomponent_ArrayDimensionAssignment_3_0 extends AssignmentToken  {
 	
-	public AbstractSubcomponent_ArraySpecificationAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public AbstractSubcomponent_ArrayDimensionAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getAbstractSubcomponentAccess().getArraySpecificationAssignment_3_0();
+		return grammarAccess.getAbstractSubcomponentAccess().getArrayDimensionAssignment_3_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getAbstractSubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_3_0_0(); 
+				element = grammarAccess.getAbstractSubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_3_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -49736,8 +49970,9 @@ protected class AbstractSubcomponent_ArraySpecificationAssignment_3_0 extends As
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new AbstractSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new AbstractSubcomponent_AbstractKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new AbstractSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new AbstractSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new AbstractSubcomponent_AbstractKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -49781,7 +50016,7 @@ protected class AbstractSubcomponent_LeftParenthesisKeyword_3_1_0 extends Keywor
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new AbstractSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new AbstractSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -50321,7 +50556,7 @@ protected class AbstractSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * SystemSubcomponent returns aadl2::SystemSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "system"
  * 	(systemSubcomponentType=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
- * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -50331,7 +50566,7 @@ protected class AbstractSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 
 // (name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "system"
 // (systemSubcomponentType=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -50880,7 +51115,7 @@ protected class SystemSubcomponent_RightParenthesisKeyword_2_1_3 extends Keyword
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class SystemSubcomponent_Group_3 extends GroupToken {
 	
@@ -50897,42 +51132,42 @@ protected class SystemSubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new SystemSubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new SystemSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new SystemSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class SystemSubcomponent_ArraySpecificationAssignment_3_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class SystemSubcomponent_ArrayDimensionAssignment_3_0 extends AssignmentToken  {
 	
-	public SystemSubcomponent_ArraySpecificationAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SystemSubcomponent_ArrayDimensionAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSystemSubcomponentAccess().getArraySpecificationAssignment_3_0();
+		return grammarAccess.getSystemSubcomponentAccess().getArrayDimensionAssignment_3_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getSystemSubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_3_0_0(); 
+				element = grammarAccess.getSystemSubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_3_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -50944,8 +51179,9 @@ protected class SystemSubcomponent_ArraySpecificationAssignment_3_0 extends Assi
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new SystemSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new SystemSubcomponent_SystemKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new SystemSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new SystemSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new SystemSubcomponent_SystemKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -50989,7 +51225,7 @@ protected class SystemSubcomponent_LeftParenthesisKeyword_3_1_0 extends KeywordT
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SystemSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SystemSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -51529,7 +51765,7 @@ protected class SystemSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * ProcessSubcomponent returns aadl2::ProcessSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::ProcessSubcomponent|REFINEDNAME] ":" "refined" "to") "process"
  * 	(processSubcomponentType=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
- * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -51539,7 +51775,7 @@ protected class SystemSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 
 // (name=ID ":" | refined=[aadl2::ProcessSubcomponent|REFINEDNAME] ":" "refined" "to") "process"
 // (processSubcomponentType=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -52088,7 +52324,7 @@ protected class ProcessSubcomponent_RightParenthesisKeyword_2_1_3 extends Keywor
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class ProcessSubcomponent_Group_3 extends GroupToken {
 	
@@ -52105,42 +52341,42 @@ protected class ProcessSubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new ProcessSubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ProcessSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new ProcessSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class ProcessSubcomponent_ArraySpecificationAssignment_3_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class ProcessSubcomponent_ArrayDimensionAssignment_3_0 extends AssignmentToken  {
 	
-	public ProcessSubcomponent_ArraySpecificationAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ProcessSubcomponent_ArrayDimensionAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getProcessSubcomponentAccess().getArraySpecificationAssignment_3_0();
+		return grammarAccess.getProcessSubcomponentAccess().getArrayDimensionAssignment_3_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getProcessSubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_3_0_0(); 
+				element = grammarAccess.getProcessSubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_3_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -52152,8 +52388,9 @@ protected class ProcessSubcomponent_ArraySpecificationAssignment_3_0 extends Ass
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new ProcessSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new ProcessSubcomponent_ProcessKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new ProcessSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new ProcessSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new ProcessSubcomponent_ProcessKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -52197,7 +52434,7 @@ protected class ProcessSubcomponent_LeftParenthesisKeyword_3_1_0 extends Keyword
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ProcessSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ProcessSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -52737,7 +52974,7 @@ protected class ProcessSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "thread" "group"
  * 	(threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
- * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -52747,7 +52984,7 @@ protected class ProcessSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 
 // (name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "thread" "group"
 // (threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -53318,7 +53555,7 @@ protected class ThreadGroupSubcomponent_RightParenthesisKeyword_3_1_3 extends Ke
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class ThreadGroupSubcomponent_Group_4 extends GroupToken {
 	
@@ -53335,42 +53572,42 @@ protected class ThreadGroupSubcomponent_Group_4 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new ThreadGroupSubcomponent_Group_4_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ThreadGroupSubcomponent_ArraySpecificationAssignment_4_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new ThreadGroupSubcomponent_ArrayDimensionAssignment_4_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class ThreadGroupSubcomponent_ArraySpecificationAssignment_4_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class ThreadGroupSubcomponent_ArrayDimensionAssignment_4_0 extends AssignmentToken  {
 	
-	public ThreadGroupSubcomponent_ArraySpecificationAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ThreadGroupSubcomponent_ArrayDimensionAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getThreadGroupSubcomponentAccess().getArraySpecificationAssignment_4_0();
+		return grammarAccess.getThreadGroupSubcomponentAccess().getArrayDimensionAssignment_4_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getThreadGroupSubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_4_0_0(); 
+				element = grammarAccess.getThreadGroupSubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_4_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -53382,8 +53619,9 @@ protected class ThreadGroupSubcomponent_ArraySpecificationAssignment_4_0 extends
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new ThreadGroupSubcomponent_Group_3(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new ThreadGroupSubcomponent_GroupKeyword_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new ThreadGroupSubcomponent_ArrayDimensionAssignment_4_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new ThreadGroupSubcomponent_Group_3(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new ThreadGroupSubcomponent_GroupKeyword_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -53427,7 +53665,7 @@ protected class ThreadGroupSubcomponent_LeftParenthesisKeyword_4_1_0 extends Key
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ThreadGroupSubcomponent_ArraySpecificationAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ThreadGroupSubcomponent_ArrayDimensionAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -53967,7 +54205,7 @@ protected class ThreadGroupSubcomponent_SemicolonKeyword_7 extends KeywordToken 
  * ThreadSubcomponent returns aadl2::ThreadSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::ThreadSubcomponent|REFINEDNAME] ":" "refined" "to") "thread"
  * 	(threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
- * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -53977,7 +54215,7 @@ protected class ThreadGroupSubcomponent_SemicolonKeyword_7 extends KeywordToken 
 
 // (name=ID ":" | refined=[aadl2::ThreadSubcomponent|REFINEDNAME] ":" "refined" "to") "thread"
 // (threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -54526,7 +54764,7 @@ protected class ThreadSubcomponent_RightParenthesisKeyword_2_1_3 extends Keyword
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class ThreadSubcomponent_Group_3 extends GroupToken {
 	
@@ -54543,42 +54781,42 @@ protected class ThreadSubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new ThreadSubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ThreadSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new ThreadSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class ThreadSubcomponent_ArraySpecificationAssignment_3_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class ThreadSubcomponent_ArrayDimensionAssignment_3_0 extends AssignmentToken  {
 	
-	public ThreadSubcomponent_ArraySpecificationAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ThreadSubcomponent_ArrayDimensionAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getThreadSubcomponentAccess().getArraySpecificationAssignment_3_0();
+		return grammarAccess.getThreadSubcomponentAccess().getArrayDimensionAssignment_3_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getThreadSubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_3_0_0(); 
+				element = grammarAccess.getThreadSubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_3_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -54590,8 +54828,9 @@ protected class ThreadSubcomponent_ArraySpecificationAssignment_3_0 extends Assi
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new ThreadSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new ThreadSubcomponent_ThreadKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new ThreadSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new ThreadSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new ThreadSubcomponent_ThreadKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -54635,7 +54874,7 @@ protected class ThreadSubcomponent_LeftParenthesisKeyword_3_1_0 extends KeywordT
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ThreadSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ThreadSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -55175,7 +55414,7 @@ protected class ThreadSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram"
  * 	(subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
- * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -55185,7 +55424,7 @@ protected class ThreadSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 
 // (name=ID ":" | refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram"
 // (subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -55734,7 +55973,7 @@ protected class SubprogramSubcomponent_RightParenthesisKeyword_2_1_3 extends Key
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class SubprogramSubcomponent_Group_3 extends GroupToken {
 	
@@ -55751,42 +55990,42 @@ protected class SubprogramSubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new SubprogramSubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new SubprogramSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new SubprogramSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class SubprogramSubcomponent_ArraySpecificationAssignment_3_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class SubprogramSubcomponent_ArrayDimensionAssignment_3_0 extends AssignmentToken  {
 	
-	public SubprogramSubcomponent_ArraySpecificationAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SubprogramSubcomponent_ArrayDimensionAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSubprogramSubcomponentAccess().getArraySpecificationAssignment_3_0();
+		return grammarAccess.getSubprogramSubcomponentAccess().getArrayDimensionAssignment_3_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getSubprogramSubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_3_0_0(); 
+				element = grammarAccess.getSubprogramSubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_3_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -55798,8 +56037,9 @@ protected class SubprogramSubcomponent_ArraySpecificationAssignment_3_0 extends 
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new SubprogramSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new SubprogramSubcomponent_SubprogramKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new SubprogramSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new SubprogramSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new SubprogramSubcomponent_SubprogramKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -55843,7 +56083,7 @@ protected class SubprogramSubcomponent_LeftParenthesisKeyword_3_1_0 extends Keyw
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubprogramSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SubprogramSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -56383,7 +56623,7 @@ protected class SubprogramSubcomponent_SemicolonKeyword_6 extends KeywordToken  
  * SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram" "group"
  * 	(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
- * 	("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -56393,7 +56633,7 @@ protected class SubprogramSubcomponent_SemicolonKeyword_6 extends KeywordToken  
 
 // (name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram" "group"
 // (subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
-// ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -56964,7 +57204,7 @@ protected class SubprogramGroupSubcomponent_RightParenthesisKeyword_3_1_3 extend
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class SubprogramGroupSubcomponent_Group_4 extends GroupToken {
 	
@@ -56981,42 +57221,42 @@ protected class SubprogramGroupSubcomponent_Group_4 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new SubprogramGroupSubcomponent_Group_4_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new SubprogramGroupSubcomponent_ArraySpecificationAssignment_4_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new SubprogramGroupSubcomponent_ArrayDimensionAssignment_4_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class SubprogramGroupSubcomponent_ArraySpecificationAssignment_4_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class SubprogramGroupSubcomponent_ArrayDimensionAssignment_4_0 extends AssignmentToken  {
 	
-	public SubprogramGroupSubcomponent_ArraySpecificationAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SubprogramGroupSubcomponent_ArrayDimensionAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSubprogramGroupSubcomponentAccess().getArraySpecificationAssignment_4_0();
+		return grammarAccess.getSubprogramGroupSubcomponentAccess().getArrayDimensionAssignment_4_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getSubprogramGroupSubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_4_0_0(); 
+				element = grammarAccess.getSubprogramGroupSubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_4_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -57028,8 +57268,9 @@ protected class SubprogramGroupSubcomponent_ArraySpecificationAssignment_4_0 ext
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new SubprogramGroupSubcomponent_Group_3(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new SubprogramGroupSubcomponent_GroupKeyword_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new SubprogramGroupSubcomponent_ArrayDimensionAssignment_4_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new SubprogramGroupSubcomponent_Group_3(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new SubprogramGroupSubcomponent_GroupKeyword_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -57073,7 +57314,7 @@ protected class SubprogramGroupSubcomponent_LeftParenthesisKeyword_4_1_0 extends
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubprogramGroupSubcomponent_ArraySpecificationAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SubprogramGroupSubcomponent_ArrayDimensionAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -57613,7 +57854,7 @@ protected class SubprogramGroupSubcomponent_SemicolonKeyword_7 extends KeywordTo
  * ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::ProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "processor"
  * 	(processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
- * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -57623,7 +57864,7 @@ protected class SubprogramGroupSubcomponent_SemicolonKeyword_7 extends KeywordTo
 
 // (name=ID ":" | refined=[aadl2::ProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "processor"
 // (processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -58172,7 +58413,7 @@ protected class ProcessorSubcomponent_RightParenthesisKeyword_2_1_3 extends Keyw
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class ProcessorSubcomponent_Group_3 extends GroupToken {
 	
@@ -58189,42 +58430,42 @@ protected class ProcessorSubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new ProcessorSubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ProcessorSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new ProcessorSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class ProcessorSubcomponent_ArraySpecificationAssignment_3_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class ProcessorSubcomponent_ArrayDimensionAssignment_3_0 extends AssignmentToken  {
 	
-	public ProcessorSubcomponent_ArraySpecificationAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ProcessorSubcomponent_ArrayDimensionAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getProcessorSubcomponentAccess().getArraySpecificationAssignment_3_0();
+		return grammarAccess.getProcessorSubcomponentAccess().getArrayDimensionAssignment_3_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getProcessorSubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_3_0_0(); 
+				element = grammarAccess.getProcessorSubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_3_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -58236,8 +58477,9 @@ protected class ProcessorSubcomponent_ArraySpecificationAssignment_3_0 extends A
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new ProcessorSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new ProcessorSubcomponent_ProcessorKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new ProcessorSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new ProcessorSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new ProcessorSubcomponent_ProcessorKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -58281,7 +58523,7 @@ protected class ProcessorSubcomponent_LeftParenthesisKeyword_3_1_0 extends Keywo
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ProcessorSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ProcessorSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -58822,7 +59064,7 @@ protected class ProcessorSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * 	(name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "virtual" "processor"
  * 	(virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF] ("("
  * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
- * 	(arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+ * 	(arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
  * 	";";
@@ -58832,7 +59074,7 @@ protected class ProcessorSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 // (name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "virtual" "processor"
 // (virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF] ("("
 // ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
 protected class VirtualProcessorSubcomponent_Group extends GroupToken {
@@ -59402,7 +59644,7 @@ protected class VirtualProcessorSubcomponent_RightParenthesisKeyword_3_1_3 exten
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class VirtualProcessorSubcomponent_Group_4 extends GroupToken {
 	
@@ -59419,42 +59661,42 @@ protected class VirtualProcessorSubcomponent_Group_4 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new VirtualProcessorSubcomponent_Group_4_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new VirtualProcessorSubcomponent_ArraySpecificationAssignment_4_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new VirtualProcessorSubcomponent_ArrayDimensionAssignment_4_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class VirtualProcessorSubcomponent_ArraySpecificationAssignment_4_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class VirtualProcessorSubcomponent_ArrayDimensionAssignment_4_0 extends AssignmentToken  {
 	
-	public VirtualProcessorSubcomponent_ArraySpecificationAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public VirtualProcessorSubcomponent_ArrayDimensionAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getVirtualProcessorSubcomponentAccess().getArraySpecificationAssignment_4_0();
+		return grammarAccess.getVirtualProcessorSubcomponentAccess().getArrayDimensionAssignment_4_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getVirtualProcessorSubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_4_0_0(); 
+				element = grammarAccess.getVirtualProcessorSubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_4_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -59466,8 +59708,9 @@ protected class VirtualProcessorSubcomponent_ArraySpecificationAssignment_4_0 ex
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new VirtualProcessorSubcomponent_Group_3(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new VirtualProcessorSubcomponent_ProcessorKeyword_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new VirtualProcessorSubcomponent_ArrayDimensionAssignment_4_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new VirtualProcessorSubcomponent_Group_3(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new VirtualProcessorSubcomponent_ProcessorKeyword_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -59511,7 +59754,7 @@ protected class VirtualProcessorSubcomponent_LeftParenthesisKeyword_4_1_0 extend
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new VirtualProcessorSubcomponent_ArraySpecificationAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new VirtualProcessorSubcomponent_ArrayDimensionAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -60051,7 +60294,7 @@ protected class VirtualProcessorSubcomponent_SemicolonKeyword_7 extends KeywordT
  * DeviceSubcomponent returns aadl2::DeviceSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::DeviceSubcomponent|REFINEDNAME] ":" "refined" "to") "device"
  * 	(deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
- * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -60061,7 +60304,7 @@ protected class VirtualProcessorSubcomponent_SemicolonKeyword_7 extends KeywordT
 
 // (name=ID ":" | refined=[aadl2::DeviceSubcomponent|REFINEDNAME] ":" "refined" "to") "device"
 // (deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -60610,7 +60853,7 @@ protected class DeviceSubcomponent_RightParenthesisKeyword_2_1_3 extends Keyword
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class DeviceSubcomponent_Group_3 extends GroupToken {
 	
@@ -60627,42 +60870,42 @@ protected class DeviceSubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new DeviceSubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new DeviceSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new DeviceSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class DeviceSubcomponent_ArraySpecificationAssignment_3_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class DeviceSubcomponent_ArrayDimensionAssignment_3_0 extends AssignmentToken  {
 	
-	public DeviceSubcomponent_ArraySpecificationAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public DeviceSubcomponent_ArrayDimensionAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getDeviceSubcomponentAccess().getArraySpecificationAssignment_3_0();
+		return grammarAccess.getDeviceSubcomponentAccess().getArrayDimensionAssignment_3_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getDeviceSubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_3_0_0(); 
+				element = grammarAccess.getDeviceSubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_3_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -60674,8 +60917,9 @@ protected class DeviceSubcomponent_ArraySpecificationAssignment_3_0 extends Assi
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new DeviceSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new DeviceSubcomponent_DeviceKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new DeviceSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new DeviceSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new DeviceSubcomponent_DeviceKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -60719,7 +60963,7 @@ protected class DeviceSubcomponent_LeftParenthesisKeyword_3_1_0 extends KeywordT
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DeviceSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DeviceSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -61259,7 +61503,7 @@ protected class DeviceSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * MemorySubcomponent returns aadl2::MemorySubcomponent:
  * 	(name=ID ":" | refined=[aadl2::MemorySubcomponent|REFINEDNAME] ":" "refined" "to") "memory"
  * 	(memorySubcomponentType=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
- * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -61269,7 +61513,7 @@ protected class DeviceSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 
 // (name=ID ":" | refined=[aadl2::MemorySubcomponent|REFINEDNAME] ":" "refined" "to") "memory"
 // (memorySubcomponentType=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -61818,7 +62062,7 @@ protected class MemorySubcomponent_RightParenthesisKeyword_2_1_3 extends Keyword
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class MemorySubcomponent_Group_3 extends GroupToken {
 	
@@ -61835,42 +62079,42 @@ protected class MemorySubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new MemorySubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new MemorySubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new MemorySubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class MemorySubcomponent_ArraySpecificationAssignment_3_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class MemorySubcomponent_ArrayDimensionAssignment_3_0 extends AssignmentToken  {
 	
-	public MemorySubcomponent_ArraySpecificationAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public MemorySubcomponent_ArrayDimensionAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getMemorySubcomponentAccess().getArraySpecificationAssignment_3_0();
+		return grammarAccess.getMemorySubcomponentAccess().getArrayDimensionAssignment_3_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getMemorySubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_3_0_0(); 
+				element = grammarAccess.getMemorySubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_3_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -61882,8 +62126,9 @@ protected class MemorySubcomponent_ArraySpecificationAssignment_3_0 extends Assi
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new MemorySubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new MemorySubcomponent_MemoryKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new MemorySubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new MemorySubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new MemorySubcomponent_MemoryKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -61927,7 +62172,7 @@ protected class MemorySubcomponent_LeftParenthesisKeyword_3_1_0 extends KeywordT
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new MemorySubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new MemorySubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -62467,7 +62712,7 @@ protected class MemorySubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * BusSubcomponent returns aadl2::BusSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::BusSubcomponent|REFINEDNAME] ":" "refined" "to") "bus"
  * 	(busSubcomponentType=[aadl2::BusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
- * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -62477,7 +62722,7 @@ protected class MemorySubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 
 // (name=ID ":" | refined=[aadl2::BusSubcomponent|REFINEDNAME] ":" "refined" "to") "bus"
 // (busSubcomponentType=[aadl2::BusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -63026,7 +63271,7 @@ protected class BusSubcomponent_RightParenthesisKeyword_2_1_3 extends KeywordTok
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class BusSubcomponent_Group_3 extends GroupToken {
 	
@@ -63043,42 +63288,42 @@ protected class BusSubcomponent_Group_3 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new BusSubcomponent_Group_3_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new BusSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new BusSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class BusSubcomponent_ArraySpecificationAssignment_3_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class BusSubcomponent_ArrayDimensionAssignment_3_0 extends AssignmentToken  {
 	
-	public BusSubcomponent_ArraySpecificationAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public BusSubcomponent_ArrayDimensionAssignment_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getBusSubcomponentAccess().getArraySpecificationAssignment_3_0();
+		return grammarAccess.getBusSubcomponentAccess().getArrayDimensionAssignment_3_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getBusSubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_3_0_0(); 
+				element = grammarAccess.getBusSubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_3_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -63090,8 +63335,9 @@ protected class BusSubcomponent_ArraySpecificationAssignment_3_0 extends Assignm
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new BusSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new BusSubcomponent_BusKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new BusSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new BusSubcomponent_Group_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new BusSubcomponent_BusKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -63135,7 +63381,7 @@ protected class BusSubcomponent_LeftParenthesisKeyword_3_1_0 extends KeywordToke
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BusSubcomponent_ArraySpecificationAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new BusSubcomponent_ArrayDimensionAssignment_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -63675,7 +63921,7 @@ protected class BusSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
  * 	(name=ID ":" | refined=[aadl2::VirtualBusSubcomponent|REFINEDNAME] ":" "refined" "to") "virtual" "bus"
  * 	(virtualBusSubcomponentType=[aadl2::VirtualBusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
- * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+ * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
  * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
@@ -63685,7 +63931,7 @@ protected class BusSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 
 // (name=ID ":" | refined=[aadl2::VirtualBusSubcomponent|REFINEDNAME] ":" "refined" "to") "virtual" "bus"
 // (virtualBusSubcomponentType=[aadl2::VirtualBusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arraySpecification=ArraySpecification ("("
+// ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 // "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
@@ -64256,7 +64502,7 @@ protected class VirtualBusSubcomponent_RightParenthesisKeyword_3_1_3 extends Key
 
 
 
-// (arraySpecification=ArraySpecification ("(" implementationReference+=ComponentImplementationReference (","
+// (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)?
 protected class VirtualBusSubcomponent_Group_4 extends GroupToken {
 	
@@ -64273,42 +64519,42 @@ protected class VirtualBusSubcomponent_Group_4 extends GroupToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new VirtualBusSubcomponent_Group_4_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new VirtualBusSubcomponent_ArraySpecificationAssignment_4_0(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new VirtualBusSubcomponent_ArrayDimensionAssignment_4_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// arraySpecification=ArraySpecification
-protected class VirtualBusSubcomponent_ArraySpecificationAssignment_4_0 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension+
+protected class VirtualBusSubcomponent_ArrayDimensionAssignment_4_0 extends AssignmentToken  {
 	
-	public VirtualBusSubcomponent_ArraySpecificationAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public VirtualBusSubcomponent_ArrayDimensionAssignment_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getVirtualBusSubcomponentAccess().getArraySpecificationAssignment_4_0();
+		return grammarAccess.getVirtualBusSubcomponentAccess().getArrayDimensionAssignment_4_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getVirtualBusSubcomponentAccess().getArraySpecificationArraySpecificationParserRuleCall_4_0_0(); 
+				element = grammarAccess.getVirtualBusSubcomponentAccess().getArrayDimensionArrayDimensionParserRuleCall_4_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -64320,8 +64566,9 @@ protected class VirtualBusSubcomponent_ArraySpecificationAssignment_4_0 extends 
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new VirtualBusSubcomponent_Group_3(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new VirtualBusSubcomponent_BusKeyword_2(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new VirtualBusSubcomponent_ArrayDimensionAssignment_4_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new VirtualBusSubcomponent_Group_3(lastRuleCallOrigin, next, actIndex, consumed);
+			case 2: return new VirtualBusSubcomponent_BusKeyword_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -64365,7 +64612,7 @@ protected class VirtualBusSubcomponent_LeftParenthesisKeyword_4_1_0 extends Keyw
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new VirtualBusSubcomponent_ArraySpecificationAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new VirtualBusSubcomponent_ArrayDimensionAssignment_4_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -65821,40 +66068,37 @@ protected class DataSubcomponent_SemicolonKeyword_5 extends KeywordToken  {
 /************ end Rule DataSubcomponent ****************/
 
 
-/************ begin Rule ArraySpecification ****************
+/************ begin Rule ArrayDimension ****************
  *
- * ArraySpecification returns aadl2::ArraySpecification: // dimension is the same as the size of a list recording '[' or size if we put a dummy object
- * 	{aadl2::ArraySpecification} "[" (size+=Numeral | size+=PropertyReference)? "]" ("[" (size+=Numeral |
- * 	size+=PropertyReference)? "]")*;
+ * ArrayDimension returns aadl2::ArrayDimension: // dimension is the same as the size of a list recording '[' or size if we put a dummy object
+ * 	{aadl2::ArrayDimension} "[" size=ArraySize? "]";
  *
  **/
 
 // // dimension is the same as the size of a list recording '[' or size if we put a dummy object
-// {aadl2::ArraySpecification} "[" (size+=Numeral | size+=PropertyReference)? "]" ("[" (size+=Numeral |
-// size+=PropertyReference)? "]")*
-protected class ArraySpecification_Group extends GroupToken {
+// {aadl2::ArrayDimension} "[" size=ArraySize? "]"
+protected class ArrayDimension_Group extends GroupToken {
 	
-	public ArraySpecification_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ArrayDimension_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Group getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getGroup();
+		return grammarAccess.getArrayDimensionAccess().getGroup();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Group_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ArraySpecification_RightSquareBracketKeyword_3(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new ArrayDimension_RightSquareBracketKeyword_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getArraySpecificationAccess().getArraySpecificationAction_0().getType().getClassifier())
+		if(getEObject().eClass() != grammarAccess.getArrayDimensionAccess().getArrayDimensionAction_0().getType().getClassifier())
 			return null;
 		return eObjectConsumer;
 	}
@@ -65862,16 +66106,16 @@ protected class ArraySpecification_Group extends GroupToken {
 }
 
 // // dimension is the same as the size of a list recording '[' or size if we put a dummy object
-// {aadl2::ArraySpecification}
-protected class ArraySpecification_ArraySpecificationAction_0 extends ActionToken  {
+// {aadl2::ArrayDimension}
+protected class ArrayDimension_ArrayDimensionAction_0 extends ActionToken  {
 
-	public ArraySpecification_ArraySpecificationAction_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ArrayDimension_ArrayDimensionAction_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Action getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getArraySpecificationAction_0();
+		return grammarAccess.getArrayDimensionAccess().getArrayDimensionAction_0();
 	}
 
     @Override
@@ -65889,79 +66133,56 @@ protected class ArraySpecification_ArraySpecificationAction_0 extends ActionToke
 }
 
 // "["
-protected class ArraySpecification_LeftSquareBracketKeyword_1 extends KeywordToken  {
+protected class ArrayDimension_LeftSquareBracketKeyword_1 extends KeywordToken  {
 	
-	public ArraySpecification_LeftSquareBracketKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ArrayDimension_LeftSquareBracketKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getLeftSquareBracketKeyword_1();
+		return grammarAccess.getArrayDimensionAccess().getLeftSquareBracketKeyword_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_ArraySpecificationAction_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ArrayDimension_ArrayDimensionAction_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// (size+=Numeral | size+=PropertyReference)?
-protected class ArraySpecification_Alternatives_2 extends AlternativesToken {
-
-	public ArraySpecification_Alternatives_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
+// size=ArraySize?
+protected class ArrayDimension_SizeAssignment_2 extends AssignmentToken  {
 	
-	@Override
-	public Alternatives getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getAlternatives_2();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new ArraySpecification_SizeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ArraySpecification_SizeAssignment_2_1(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// size+=Numeral
-protected class ArraySpecification_SizeAssignment_2_0 extends AssignmentToken  {
-	
-	public ArraySpecification_SizeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ArrayDimension_SizeAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getSizeAssignment_2_0();
+		return grammarAccess.getArrayDimensionAccess().getSizeAssignment_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Numeral_ValueAssignment(this, this, 0, inst);
+			case 0: return new ArraySize_Alternatives(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("size",true)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("size",false)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("size");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getNumeralRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArraySizeRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getArraySpecificationAccess().getSizeNumeralParserRuleCall_2_0_0(); 
+				element = grammarAccess.getArrayDimensionAccess().getSizeArraySizeParserRuleCall_2_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -65973,259 +66194,29 @@ protected class ArraySpecification_SizeAssignment_2_0 extends AssignmentToken  {
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new ArraySpecification_LeftSquareBracketKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new ArrayDimension_LeftSquareBracketKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
-
-// size+=PropertyReference
-protected class ArraySpecification_SizeAssignment_2_1 extends AssignmentToken  {
-	
-	public ArraySpecification_SizeAssignment_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getSizeAssignment_2_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new PropertyReference_PropertyAssignment(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("size",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("size");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getPropertyReferenceRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getArraySpecificationAccess().getSizePropertyReferenceParserRuleCall_2_1_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new ArraySpecification_LeftSquareBracketKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
 
 // "]"
-protected class ArraySpecification_RightSquareBracketKeyword_3 extends KeywordToken  {
+protected class ArrayDimension_RightSquareBracketKeyword_3 extends KeywordToken  {
 	
-	public ArraySpecification_RightSquareBracketKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ArrayDimension_RightSquareBracketKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getRightSquareBracketKeyword_3();
+		return grammarAccess.getArrayDimensionAccess().getRightSquareBracketKeyword_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ArraySpecification_Alternatives_2(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ArraySpecification_LeftSquareBracketKeyword_1(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// ("[" (size+=Numeral | size+=PropertyReference)? "]")*
-protected class ArraySpecification_Group_4 extends GroupToken {
-	
-	public ArraySpecification_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getGroup_4();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new ArraySpecification_RightSquareBracketKeyword_4_2(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// "["
-protected class ArraySpecification_LeftSquareBracketKeyword_4_0 extends KeywordToken  {
-	
-	public ArraySpecification_LeftSquareBracketKeyword_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getLeftSquareBracketKeyword_4_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new ArraySpecification_Group_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ArraySpecification_RightSquareBracketKeyword_3(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// (size+=Numeral | size+=PropertyReference)?
-protected class ArraySpecification_Alternatives_4_1 extends AlternativesToken {
-
-	public ArraySpecification_Alternatives_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Alternatives getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getAlternatives_4_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new ArraySpecification_SizeAssignment_4_1_0(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ArraySpecification_SizeAssignment_4_1_1(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// size+=Numeral
-protected class ArraySpecification_SizeAssignment_4_1_0 extends AssignmentToken  {
-	
-	public ArraySpecification_SizeAssignment_4_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getSizeAssignment_4_1_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new Numeral_ValueAssignment(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("size",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("size");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getNumeralRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getArraySpecificationAccess().getSizeNumeralParserRuleCall_4_1_0_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new ArraySpecification_LeftSquareBracketKeyword_4_0(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-// size+=PropertyReference
-protected class ArraySpecification_SizeAssignment_4_1_1 extends AssignmentToken  {
-	
-	public ArraySpecification_SizeAssignment_4_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getSizeAssignment_4_1_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new PropertyReference_PropertyAssignment(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("size",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("size");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getPropertyReferenceRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getArraySpecificationAccess().getSizePropertyReferenceParserRuleCall_4_1_1_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new ArraySpecification_LeftSquareBracketKeyword_4_0(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-
-// "]"
-protected class ArraySpecification_RightSquareBracketKeyword_4_2 extends KeywordToken  {
-	
-	public ArraySpecification_RightSquareBracketKeyword_4_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getArraySpecificationAccess().getRightSquareBracketKeyword_4_2();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new ArraySpecification_Alternatives_4_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ArrayDimension_SizeAssignment_2(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ArrayDimension_LeftSquareBracketKeyword_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -66233,41 +66224,41 @@ protected class ArraySpecification_RightSquareBracketKeyword_4_2 extends Keyword
 }
 
 
+/************ end Rule ArrayDimension ****************/
 
-/************ end Rule ArraySpecification ****************/
 
-
-/************ begin Rule SingleArraySpecification ****************
+/************ begin Rule ArraySize ****************
  *
- * SingleArraySpecification returns aadl2::ArraySpecification: // dimension is the same as the size of a list recording '[' or size if we put a dummy object
- * 	{aadl2::ArraySpecification} "[" (size+=Numeral | size+=PropertyReference)? "]";
+ * ArraySize returns aadl2::ArraySize: // dimension is the same as the size of a list recording '[' or size if we put a dummy object
+ * 	{aadl2::ArraySize} size=INTVALUE | sizeProperty=[aadl2::ArraySizeProperty|QPREF];
  *
  **/
 
 // // dimension is the same as the size of a list recording '[' or size if we put a dummy object
-// {aadl2::ArraySpecification} "[" (size+=Numeral | size+=PropertyReference)? "]"
-protected class SingleArraySpecification_Group extends GroupToken {
-	
-	public SingleArraySpecification_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+// {aadl2::ArraySize} size=INTVALUE | sizeProperty=[aadl2::ArraySizeProperty|QPREF]
+protected class ArraySize_Alternatives extends AlternativesToken {
+
+	public ArraySize_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getSingleArraySpecificationAccess().getGroup();
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getArraySizeAccess().getAlternatives();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SingleArraySpecification_RightSquareBracketKeyword_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ArraySize_Group_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ArraySize_SizePropertyAssignment_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getSingleArraySpecificationAccess().getArraySpecificationAction_0().getType().getClassifier())
+		if(getEObject().eClass() != grammarAccess.getArraySizeRule().getType().getClassifier())
 			return null;
 		return eObjectConsumer;
 	}
@@ -66275,16 +66266,39 @@ protected class SingleArraySpecification_Group extends GroupToken {
 }
 
 // // dimension is the same as the size of a list recording '[' or size if we put a dummy object
-// {aadl2::ArraySpecification}
-protected class SingleArraySpecification_ArraySpecificationAction_0 extends ActionToken  {
+// {aadl2::ArraySize} size=INTVALUE
+protected class ArraySize_Group_0 extends GroupToken {
+	
+	public ArraySize_Group_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getArraySizeAccess().getGroup_0();
+	}
 
-	public SingleArraySpecification_ArraySpecificationAction_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ArraySize_SizeAssignment_0_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// // dimension is the same as the size of a list recording '[' or size if we put a dummy object
+// {aadl2::ArraySize}
+protected class ArraySize_ArraySizeAction_0_0 extends ActionToken  {
+
+	public ArraySize_ArraySizeAction_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Action getGrammarElement() {
-		return grammarAccess.getSingleArraySpecificationAccess().getArraySpecificationAction_0();
+		return grammarAccess.getArraySizeAccess().getArraySizeAction_0_0();
 	}
 
     @Override
@@ -66301,67 +66315,22 @@ protected class SingleArraySpecification_ArraySpecificationAction_0 extends Acti
 	}
 }
 
-// "["
-protected class SingleArraySpecification_LeftSquareBracketKeyword_1 extends KeywordToken  {
+// size=INTVALUE
+protected class ArraySize_SizeAssignment_0_1 extends AssignmentToken  {
 	
-	public SingleArraySpecification_LeftSquareBracketKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getSingleArraySpecificationAccess().getLeftSquareBracketKeyword_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new SingleArraySpecification_ArraySpecificationAction_0(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// (size+=Numeral | size+=PropertyReference)?
-protected class SingleArraySpecification_Alternatives_2 extends AlternativesToken {
-
-	public SingleArraySpecification_Alternatives_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Alternatives getGrammarElement() {
-		return grammarAccess.getSingleArraySpecificationAccess().getAlternatives_2();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new SingleArraySpecification_SizeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new SingleArraySpecification_SizeAssignment_2_1(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// size+=Numeral
-protected class SingleArraySpecification_SizeAssignment_2_0 extends AssignmentToken  {
-	
-	public SingleArraySpecification_SizeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ArraySize_SizeAssignment_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSingleArraySpecificationAccess().getSizeAssignment_2_0();
+		return grammarAccess.getArraySizeAccess().getSizeAssignment_0_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Numeral_ValueAssignment(this, this, 0, inst);
+			case 0: return new ArraySize_ArraySizeAction_0_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -66370,137 +66339,9 @@ protected class SingleArraySpecification_SizeAssignment_2_0 extends AssignmentTo
 	public IEObjectConsumer tryConsume() {
 		if((value = eObjectConsumer.getConsumable("size",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("size");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getNumeralRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getSingleArraySpecificationAccess().getSizeNumeralParserRuleCall_2_0_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new SingleArraySpecification_LeftSquareBracketKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-// size+=PropertyReference
-protected class SingleArraySpecification_SizeAssignment_2_1 extends AssignmentToken  {
-	
-	public SingleArraySpecification_SizeAssignment_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getSingleArraySpecificationAccess().getSizeAssignment_2_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new PropertyReference_PropertyAssignment(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("size",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("size");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getPropertyReferenceRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getSingleArraySpecificationAccess().getSizePropertyReferenceParserRuleCall_2_1_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new SingleArraySpecification_LeftSquareBracketKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-
-// "]"
-protected class SingleArraySpecification_RightSquareBracketKeyword_3 extends KeywordToken  {
-	
-	public SingleArraySpecification_RightSquareBracketKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getSingleArraySpecificationAccess().getRightSquareBracketKeyword_3();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new SingleArraySpecification_Alternatives_2(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new SingleArraySpecification_LeftSquareBracketKeyword_1(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-
-/************ end Rule SingleArraySpecification ****************/
-
-
-/************ begin Rule Numeral ****************
- *
- * Numeral returns aadl2::Numeral:
- * 	value=INTVALUE;
- *
- **/
-
-// value=INTVALUE
-protected class Numeral_ValueAssignment extends AssignmentToken  {
-	
-	public Numeral_ValueAssignment(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getNumeralAccess().getValueAssignment();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getNumeralRule().getType().getClassifier())
-			return null;
-		if((value = eObjectConsumer.getConsumable("value",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("value");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getNumeralAccess().getValueINTVALUEParserRuleCall_0(), value, null)) {
+		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getArraySizeAccess().getSizeINTVALUEParserRuleCall_0_1_0(), value, null)) {
 			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getNumeralAccess().getValueINTVALUEParserRuleCall_0();
+			element = grammarAccess.getArraySizeAccess().getSizeINTVALUEParserRuleCall_0_1_0();
 			return obj;
 		}
 		return null;
@@ -66508,7 +66349,45 @@ protected class Numeral_ValueAssignment extends AssignmentToken  {
 
 }
 
-/************ end Rule Numeral ****************/
+
+// sizeProperty=[aadl2::ArraySizeProperty|QPREF]
+protected class ArraySize_SizePropertyAssignment_1 extends AssignmentToken  {
+	
+	public ArraySize_SizePropertyAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getArraySizeAccess().getSizePropertyAssignment_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("sizeProperty",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sizeProperty");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getArraySizeAccess().getSizePropertyArraySizePropertyCrossReference_1_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getArraySizeAccess().getSizePropertyArraySizePropertyCrossReference_1_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+
+/************ end Rule ArraySize ****************/
 
 
 /************ begin Rule ComponentImplementationReference ****************
@@ -66823,69 +66702,19 @@ protected class ComponentImplementationReference_RightParenthesisKeyword_2_3 ext
 /************ end Rule ComponentImplementationReference ****************/
 
 
-/************ begin Rule PropertyReference ****************
- *
- * // reference also could be to a property constant, which is recorded as reference in a
- * // ConstantValue object 
- * PropertyReference returns aadl2::PropertyReference:
- * 	property=[aadl2::Property|QPREF];
- *
- **/
-
-// property=[aadl2::Property|QPREF]
-protected class PropertyReference_PropertyAssignment extends AssignmentToken  {
-	
-	public PropertyReference_PropertyAssignment(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getPropertyReferenceAccess().getPropertyAssignment();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getPropertyReferenceRule().getType().getClassifier())
-			return null;
-		if((value = eObjectConsumer.getConsumable("property",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("property");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getPropertyReferenceAccess().getPropertyPropertyCrossReference_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getPropertyReferenceAccess().getPropertyPropertyCrossReference_0(); 
-				return obj;
-			}
-		}
-		return null;
-	}
-
-}
-
-/************ end Rule PropertyReference ****************/
-
-
 /************ begin Rule DataPort ****************
  *
  * // ******** Features
  * // needs to have classifier or prototype reference
  * DataPort returns aadl2::DataPort:
  * 	{aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
- * 	"data" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? ("{"
+ * 	"data" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // {aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
-// "data" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? ("{"
+// "data" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class DataPort_Group extends GroupToken {
 	
@@ -67285,35 +67114,35 @@ protected class DataPort_DataClassifierAssignment_5 extends AssignmentToken  {
 
 }
 
-// arraySpecification=SingleArraySpecification?
-protected class DataPort_ArraySpecificationAssignment_6 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension?
+protected class DataPort_ArrayDimensionAssignment_6 extends AssignmentToken  {
 	
-	public DataPort_ArraySpecificationAssignment_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public DataPort_ArrayDimensionAssignment_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getDataPortAccess().getArraySpecificationAssignment_6();
+		return grammarAccess.getDataPortAccess().getArrayDimensionAssignment_6();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SingleArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSingleArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getDataPortAccess().getArraySpecificationSingleArraySpecificationParserRuleCall_6_0(); 
+				element = grammarAccess.getDataPortAccess().getArrayDimensionArrayDimensionParserRuleCall_6_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -67369,7 +67198,7 @@ protected class DataPort_LeftCurlyBracketKeyword_7_0 extends KeywordToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DataPort_ArraySpecificationAssignment_6(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DataPort_ArrayDimensionAssignment_6(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new DataPort_DataClassifierAssignment_5(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new DataPort_PortKeyword_4(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
@@ -67464,7 +67293,7 @@ protected class DataPort_SemicolonKeyword_8 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new DataPort_Group_7(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new DataPort_ArraySpecificationAssignment_6(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new DataPort_ArrayDimensionAssignment_6(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new DataPort_DataClassifierAssignment_5(lastRuleCallOrigin, this, 2, inst);
 			case 3: return new DataPort_PortKeyword_4(lastRuleCallOrigin, this, 3, inst);
 			default: return null;
@@ -67482,13 +67311,13 @@ protected class DataPort_SemicolonKeyword_8 extends KeywordToken  {
  * EventDataPort returns aadl2::EventDataPort:
  * 	{aadl2::EventDataPort} (name=ID ":" | refined=[aadl2::EventDataPort|REFINEDNAME] ":" "refined" "to")
  * 	direction=PortDirection "event" "data" "port" dataClassifier=[aadl2::DataClassifier|QCREF]?
- * 	arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+ * 	arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // {aadl2::EventDataPort} (name=ID ":" | refined=[aadl2::EventDataPort|REFINEDNAME] ":" "refined" "to")
 // direction=PortDirection "event" "data" "port" dataClassifier=[aadl2::DataClassifier|QCREF]?
-// arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
+// arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class EventDataPort_Group extends GroupToken {
 	
 	public EventDataPort_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -67909,35 +67738,35 @@ protected class EventDataPort_DataClassifierAssignment_6 extends AssignmentToken
 
 }
 
-// arraySpecification=SingleArraySpecification?
-protected class EventDataPort_ArraySpecificationAssignment_7 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension?
+protected class EventDataPort_ArrayDimensionAssignment_7 extends AssignmentToken  {
 	
-	public EventDataPort_ArraySpecificationAssignment_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EventDataPort_ArrayDimensionAssignment_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getEventDataPortAccess().getArraySpecificationAssignment_7();
+		return grammarAccess.getEventDataPortAccess().getArrayDimensionAssignment_7();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SingleArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSingleArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getEventDataPortAccess().getArraySpecificationSingleArraySpecificationParserRuleCall_7_0(); 
+				element = grammarAccess.getEventDataPortAccess().getArrayDimensionArrayDimensionParserRuleCall_7_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -67993,7 +67822,7 @@ protected class EventDataPort_LeftCurlyBracketKeyword_8_0 extends KeywordToken  
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EventDataPort_ArraySpecificationAssignment_7(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EventDataPort_ArrayDimensionAssignment_7(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new EventDataPort_DataClassifierAssignment_6(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new EventDataPort_PortKeyword_5(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
@@ -68088,7 +67917,7 @@ protected class EventDataPort_SemicolonKeyword_9 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new EventDataPort_Group_8(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new EventDataPort_ArraySpecificationAssignment_7(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new EventDataPort_ArrayDimensionAssignment_7(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new EventDataPort_DataClassifierAssignment_6(lastRuleCallOrigin, this, 2, inst);
 			case 3: return new EventDataPort_PortKeyword_5(lastRuleCallOrigin, this, 3, inst);
 			default: return null;
@@ -68105,14 +67934,12 @@ protected class EventDataPort_SemicolonKeyword_9 extends KeywordToken  {
  *
  * EventPort returns aadl2::EventPort:
  * 	{aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
- * 	"event" "port" arraySpecification=SingleArraySpecification? ("{"
- * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+ * 	"event" "port" arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // {aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
-// "event" "port" arraySpecification=SingleArraySpecification? ("{"
-// ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
+// "event" "port" arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class EventPort_Group extends GroupToken {
 	
 	public EventPort_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -68474,35 +68301,35 @@ protected class EventPort_PortKeyword_4 extends KeywordToken  {
 
 }
 
-// arraySpecification=SingleArraySpecification?
-protected class EventPort_ArraySpecificationAssignment_5 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension?
+protected class EventPort_ArrayDimensionAssignment_5 extends AssignmentToken  {
 	
-	public EventPort_ArraySpecificationAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EventPort_ArrayDimensionAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getEventPortAccess().getArraySpecificationAssignment_5();
+		return grammarAccess.getEventPortAccess().getArrayDimensionAssignment_5();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SingleArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSingleArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getEventPortAccess().getArraySpecificationSingleArraySpecificationParserRuleCall_5_0(); 
+				element = grammarAccess.getEventPortAccess().getArrayDimensionArrayDimensionParserRuleCall_5_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -68557,7 +68384,7 @@ protected class EventPort_LeftCurlyBracketKeyword_6_0 extends KeywordToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EventPort_ArraySpecificationAssignment_5(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EventPort_ArrayDimensionAssignment_5(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new EventPort_PortKeyword_4(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -68651,7 +68478,7 @@ protected class EventPort_SemicolonKeyword_7 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new EventPort_Group_6(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new EventPort_ArraySpecificationAssignment_5(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new EventPort_ArrayDimensionAssignment_5(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new EventPort_PortKeyword_4(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
 		}	
@@ -68669,7 +68496,7 @@ protected class EventPort_SemicolonKeyword_7 extends KeywordToken  {
  * 	(name=ID ":" // default is inout if no direction
  * 	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
  * 	(inverse?="inverse" "of")? featureGroupType= // or prototype
- * 	[aadl2::FeatureGroupType|QCREF] arraySpecification=SingleArraySpecification? ("{"
+ * 	[aadl2::FeatureGroupType|QCREF] arrayDimension+=ArrayDimension? ("{"
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
@@ -68677,7 +68504,7 @@ protected class EventPort_SemicolonKeyword_7 extends KeywordToken  {
 // (name=ID ":" // default is inout if no direction
 // | refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
 // (inverse?="inverse" "of")? featureGroupType= // or prototype
-// [aadl2::FeatureGroupType|QCREF] arraySpecification=SingleArraySpecification? ("{"
+// [aadl2::FeatureGroupType|QCREF] arrayDimension+=ArrayDimension? ("{"
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class FeatureGroup_Group extends GroupToken {
 	
@@ -69131,35 +68958,35 @@ protected class FeatureGroup_FeatureGroupTypeAssignment_5 extends AssignmentToke
 
 }
 
-// arraySpecification=SingleArraySpecification?
-protected class FeatureGroup_ArraySpecificationAssignment_6 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension?
+protected class FeatureGroup_ArrayDimensionAssignment_6 extends AssignmentToken  {
 	
-	public FeatureGroup_ArraySpecificationAssignment_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FeatureGroup_ArrayDimensionAssignment_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFeatureGroupAccess().getArraySpecificationAssignment_6();
+		return grammarAccess.getFeatureGroupAccess().getArrayDimensionAssignment_6();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SingleArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSingleArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getFeatureGroupAccess().getArraySpecificationSingleArraySpecificationParserRuleCall_6_0(); 
+				element = grammarAccess.getFeatureGroupAccess().getArrayDimensionArrayDimensionParserRuleCall_6_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -69214,7 +69041,7 @@ protected class FeatureGroup_LeftCurlyBracketKeyword_7_0 extends KeywordToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FeatureGroup_ArraySpecificationAssignment_6(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FeatureGroup_ArrayDimensionAssignment_6(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new FeatureGroup_FeatureGroupTypeAssignment_5(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -69308,7 +69135,7 @@ protected class FeatureGroup_SemicolonKeyword_8 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new FeatureGroup_Group_7(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FeatureGroup_ArraySpecificationAssignment_6(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new FeatureGroup_ArrayDimensionAssignment_6(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new FeatureGroup_FeatureGroupTypeAssignment_5(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
 		}	
@@ -69324,13 +69151,13 @@ protected class FeatureGroup_SemicolonKeyword_8 extends KeywordToken  {
  *
  * Parameter returns aadl2::Parameter:
  * 	(name=ID ":" | refined=[aadl2::Parameter|REFINEDNAME] ":" "refined" "to") direction=PortDirection "parameter"
- * 	dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? ("{"
+ * 	dataClassifier=[aadl2::DataClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // (name=ID ":" | refined=[aadl2::Parameter|REFINEDNAME] ":" "refined" "to") direction=PortDirection "parameter"
-// dataClassifier=[aadl2::DataClassifier|QCREF]? arraySpecification=SingleArraySpecification? ("{"
+// dataClassifier=[aadl2::DataClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class Parameter_Group extends GroupToken {
 	
@@ -69680,35 +69507,35 @@ protected class Parameter_DataClassifierAssignment_3 extends AssignmentToken  {
 
 }
 
-// arraySpecification=SingleArraySpecification?
-protected class Parameter_ArraySpecificationAssignment_4 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension?
+protected class Parameter_ArrayDimensionAssignment_4 extends AssignmentToken  {
 	
-	public Parameter_ArraySpecificationAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public Parameter_ArrayDimensionAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getParameterAccess().getArraySpecificationAssignment_4();
+		return grammarAccess.getParameterAccess().getArrayDimensionAssignment_4();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SingleArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSingleArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getParameterAccess().getArraySpecificationSingleArraySpecificationParserRuleCall_4_0(); 
+				element = grammarAccess.getParameterAccess().getArrayDimensionArrayDimensionParserRuleCall_4_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -69764,7 +69591,7 @@ protected class Parameter_LeftCurlyBracketKeyword_5_0 extends KeywordToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Parameter_ArraySpecificationAssignment_4(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new Parameter_ArrayDimensionAssignment_4(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new Parameter_DataClassifierAssignment_3(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new Parameter_ParameterKeyword_2(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
@@ -69859,7 +69686,7 @@ protected class Parameter_SemicolonKeyword_6 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new Parameter_Group_5(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new Parameter_ArraySpecificationAssignment_4(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new Parameter_ArrayDimensionAssignment_4(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new Parameter_DataClassifierAssignment_3(lastRuleCallOrigin, this, 2, inst);
 			case 3: return new Parameter_ParameterKeyword_2(lastRuleCallOrigin, this, 3, inst);
 			default: return null;
@@ -69878,13 +69705,13 @@ protected class Parameter_SemicolonKeyword_6 extends KeywordToken  {
  * SubprogramAccess returns aadl2::SubprogramAccess:
  * 	(name=ID ":" | refined=[aadl2::SubprogramAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
  * 	AccessDirection "subprogram" "access" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]?
- * 	arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+ * 	arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // (name=ID ":" | refined=[aadl2::SubprogramAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
 // AccessDirection "subprogram" "access" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]?
-// arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
+// arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class SubprogramAccess_Group extends GroupToken {
 	
 	public SubprogramAccess_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -70256,35 +70083,35 @@ protected class SubprogramAccess_SubprogramClassifierAssignment_4 extends Assign
 
 }
 
-// arraySpecification=SingleArraySpecification?
-protected class SubprogramAccess_ArraySpecificationAssignment_5 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension?
+protected class SubprogramAccess_ArrayDimensionAssignment_5 extends AssignmentToken  {
 	
-	public SubprogramAccess_ArraySpecificationAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SubprogramAccess_ArrayDimensionAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSubprogramAccessAccess().getArraySpecificationAssignment_5();
+		return grammarAccess.getSubprogramAccessAccess().getArrayDimensionAssignment_5();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SingleArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSingleArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getSubprogramAccessAccess().getArraySpecificationSingleArraySpecificationParserRuleCall_5_0(); 
+				element = grammarAccess.getSubprogramAccessAccess().getArrayDimensionArrayDimensionParserRuleCall_5_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -70340,7 +70167,7 @@ protected class SubprogramAccess_LeftCurlyBracketKeyword_6_0 extends KeywordToke
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubprogramAccess_ArraySpecificationAssignment_5(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SubprogramAccess_ArrayDimensionAssignment_5(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new SubprogramAccess_SubprogramClassifierAssignment_4(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new SubprogramAccess_AccessKeyword_3(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
@@ -70435,7 +70262,7 @@ protected class SubprogramAccess_SemicolonKeyword_7 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new SubprogramAccess_Group_6(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new SubprogramAccess_ArraySpecificationAssignment_5(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new SubprogramAccess_ArrayDimensionAssignment_5(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new SubprogramAccess_SubprogramClassifierAssignment_4(lastRuleCallOrigin, this, 2, inst);
 			case 3: return new SubprogramAccess_AccessKeyword_3(lastRuleCallOrigin, this, 3, inst);
 			default: return null;
@@ -70453,13 +70280,13 @@ protected class SubprogramAccess_SemicolonKeyword_7 extends KeywordToken  {
  * SubprogramGroupAccess returns aadl2::SubprogramGroupAccess:
  * 	(name=ID ":" | refined=[aadl2::SubprogramGroupAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
  * 	AccessDirection "subprogram" "group" "access" subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF]?
- * 	arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+ * 	arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // (name=ID ":" | refined=[aadl2::SubprogramGroupAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
 // AccessDirection "subprogram" "group" "access" subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF]?
-// arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
+// arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class SubprogramGroupAccess_Group extends GroupToken {
 	
 	public SubprogramGroupAccess_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -70853,35 +70680,35 @@ protected class SubprogramGroupAccess_SubprogramGroupClassifierAssignment_5 exte
 
 }
 
-// arraySpecification=SingleArraySpecification?
-protected class SubprogramGroupAccess_ArraySpecificationAssignment_6 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension?
+protected class SubprogramGroupAccess_ArrayDimensionAssignment_6 extends AssignmentToken  {
 	
-	public SubprogramGroupAccess_ArraySpecificationAssignment_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SubprogramGroupAccess_ArrayDimensionAssignment_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSubprogramGroupAccessAccess().getArraySpecificationAssignment_6();
+		return grammarAccess.getSubprogramGroupAccessAccess().getArrayDimensionAssignment_6();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SingleArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSingleArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getSubprogramGroupAccessAccess().getArraySpecificationSingleArraySpecificationParserRuleCall_6_0(); 
+				element = grammarAccess.getSubprogramGroupAccessAccess().getArrayDimensionArrayDimensionParserRuleCall_6_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -70937,7 +70764,7 @@ protected class SubprogramGroupAccess_LeftCurlyBracketKeyword_7_0 extends Keywor
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubprogramGroupAccess_ArraySpecificationAssignment_6(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SubprogramGroupAccess_ArrayDimensionAssignment_6(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new SubprogramGroupAccess_SubprogramGroupClassifierAssignment_5(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new SubprogramGroupAccess_AccessKeyword_4(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
@@ -71032,7 +70859,7 @@ protected class SubprogramGroupAccess_SemicolonKeyword_8 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new SubprogramGroupAccess_Group_7(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new SubprogramGroupAccess_ArraySpecificationAssignment_6(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new SubprogramGroupAccess_ArrayDimensionAssignment_6(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new SubprogramGroupAccess_SubprogramGroupClassifierAssignment_5(lastRuleCallOrigin, this, 2, inst);
 			case 3: return new SubprogramGroupAccess_AccessKeyword_4(lastRuleCallOrigin, this, 3, inst);
 			default: return null;
@@ -71049,14 +70876,14 @@ protected class SubprogramGroupAccess_SemicolonKeyword_8 extends KeywordToken  {
  *
  * BusAccess returns aadl2::BusAccess:
  * 	(name=ID ":" | refined=[aadl2::BusAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
- * 	AccessDirection "bus" "access" busClassifier=[aadl2::BusClassifier|QCREF]? arraySpecification=SingleArraySpecification?
- * 	("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+ * 	AccessDirection "bus" "access" busClassifier=[aadl2::BusClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
+ * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // (name=ID ":" | refined=[aadl2::BusAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
-// AccessDirection "bus" "access" busClassifier=[aadl2::BusClassifier|QCREF]? arraySpecification=SingleArraySpecification?
-// ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
+// AccessDirection "bus" "access" busClassifier=[aadl2::BusClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
+// ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class BusAccess_Group extends GroupToken {
 	
 	public BusAccess_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -71428,35 +71255,35 @@ protected class BusAccess_BusClassifierAssignment_4 extends AssignmentToken  {
 
 }
 
-// arraySpecification=SingleArraySpecification?
-protected class BusAccess_ArraySpecificationAssignment_5 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension?
+protected class BusAccess_ArrayDimensionAssignment_5 extends AssignmentToken  {
 	
-	public BusAccess_ArraySpecificationAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public BusAccess_ArrayDimensionAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getBusAccessAccess().getArraySpecificationAssignment_5();
+		return grammarAccess.getBusAccessAccess().getArrayDimensionAssignment_5();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SingleArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSingleArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getBusAccessAccess().getArraySpecificationSingleArraySpecificationParserRuleCall_5_0(); 
+				element = grammarAccess.getBusAccessAccess().getArrayDimensionArrayDimensionParserRuleCall_5_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -71512,7 +71339,7 @@ protected class BusAccess_LeftCurlyBracketKeyword_6_0 extends KeywordToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BusAccess_ArraySpecificationAssignment_5(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new BusAccess_ArrayDimensionAssignment_5(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new BusAccess_BusClassifierAssignment_4(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new BusAccess_AccessKeyword_3(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
@@ -71607,7 +71434,7 @@ protected class BusAccess_SemicolonKeyword_7 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new BusAccess_Group_6(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new BusAccess_ArraySpecificationAssignment_5(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new BusAccess_ArrayDimensionAssignment_5(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new BusAccess_BusClassifierAssignment_4(lastRuleCallOrigin, this, 2, inst);
 			case 3: return new BusAccess_AccessKeyword_3(lastRuleCallOrigin, this, 3, inst);
 			default: return null;
@@ -71624,14 +71451,14 @@ protected class BusAccess_SemicolonKeyword_7 extends KeywordToken  {
  *
  * DataAccess returns aadl2::DataAccess:
  * 	(name=ID ":" | refined=[aadl2::DataAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
- * 	AccessDirection "data" "access" dataClassifier=[aadl2::DataClassifier|QCREF]?
- * 	arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+ * 	AccessDirection "data" "access" dataClassifier=[aadl2::DataClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
+ * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // (name=ID ":" | refined=[aadl2::DataAccess|REFINEDNAME] ":" "refined" "to") kind= // refined to with reference to access feature being refined.
-// AccessDirection "data" "access" dataClassifier=[aadl2::DataClassifier|QCREF]?
-// arraySpecification=SingleArraySpecification? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
+// AccessDirection "data" "access" dataClassifier=[aadl2::DataClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
+// ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class DataAccess_Group extends GroupToken {
 	
 	public DataAccess_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -72003,35 +71830,35 @@ protected class DataAccess_DataClassifierAssignment_4 extends AssignmentToken  {
 
 }
 
-// arraySpecification=SingleArraySpecification?
-protected class DataAccess_ArraySpecificationAssignment_5 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension?
+protected class DataAccess_ArrayDimensionAssignment_5 extends AssignmentToken  {
 	
-	public DataAccess_ArraySpecificationAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public DataAccess_ArrayDimensionAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getDataAccessAccess().getArraySpecificationAssignment_5();
+		return grammarAccess.getDataAccessAccess().getArrayDimensionAssignment_5();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SingleArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSingleArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getDataAccessAccess().getArraySpecificationSingleArraySpecificationParserRuleCall_5_0(); 
+				element = grammarAccess.getDataAccessAccess().getArrayDimensionArrayDimensionParserRuleCall_5_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -72087,7 +71914,7 @@ protected class DataAccess_LeftCurlyBracketKeyword_6_0 extends KeywordToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DataAccess_ArraySpecificationAssignment_5(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DataAccess_ArrayDimensionAssignment_5(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new DataAccess_DataClassifierAssignment_4(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new DataAccess_AccessKeyword_3(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
@@ -72182,7 +72009,7 @@ protected class DataAccess_SemicolonKeyword_7 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new DataAccess_Group_6(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new DataAccess_ArraySpecificationAssignment_5(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new DataAccess_ArrayDimensionAssignment_5(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new DataAccess_DataClassifierAssignment_4(lastRuleCallOrigin, this, 2, inst);
 			case 3: return new DataAccess_AccessKeyword_3(lastRuleCallOrigin, this, 3, inst);
 			default: return null;
@@ -72200,14 +72027,14 @@ protected class DataAccess_SemicolonKeyword_7 extends KeywordToken  {
  * AbstractFeature returns aadl2::AbstractFeature:
  * 	(name=ID ":" // need to set inout if no direction
  * 	| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature"
- * 	classifier=[aadl2::ComponentType|QCREF]? arraySpecification=SingleArraySpecification? ("{"
+ * 	classifier=[aadl2::ComponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // (name=ID ":" // need to set inout if no direction
 // | refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature"
-// classifier=[aadl2::ComponentType|QCREF]? arraySpecification=SingleArraySpecification? ("{"
+// classifier=[aadl2::ComponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class AbstractFeature_Group extends GroupToken {
 	
@@ -72559,35 +72386,35 @@ protected class AbstractFeature_ClassifierAssignment_3 extends AssignmentToken  
 
 }
 
-// arraySpecification=SingleArraySpecification?
-protected class AbstractFeature_ArraySpecificationAssignment_4 extends AssignmentToken  {
+// arrayDimension+=ArrayDimension?
+protected class AbstractFeature_ArrayDimensionAssignment_4 extends AssignmentToken  {
 	
-	public AbstractFeature_ArraySpecificationAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public AbstractFeature_ArrayDimensionAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getAbstractFeatureAccess().getArraySpecificationAssignment_4();
+		return grammarAccess.getAbstractFeatureAccess().getArrayDimensionAssignment_4();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SingleArraySpecification_Group(this, this, 0, inst);
+			case 0: return new ArrayDimension_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("arraySpecification",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arraySpecification");
+		if((value = eObjectConsumer.getConsumable("arrayDimension",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("arrayDimension");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSingleArraySpecificationRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getArrayDimensionRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getAbstractFeatureAccess().getArraySpecificationSingleArraySpecificationParserRuleCall_4_0(); 
+				element = grammarAccess.getAbstractFeatureAccess().getArrayDimensionArrayDimensionParserRuleCall_4_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -72643,7 +72470,7 @@ protected class AbstractFeature_LeftCurlyBracketKeyword_5_0 extends KeywordToken
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new AbstractFeature_ArraySpecificationAssignment_4(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new AbstractFeature_ArrayDimensionAssignment_4(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new AbstractFeature_ClassifierAssignment_3(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new AbstractFeature_FeatureKeyword_2(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
@@ -72738,7 +72565,7 @@ protected class AbstractFeature_SemicolonKeyword_6 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new AbstractFeature_Group_5(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new AbstractFeature_ArraySpecificationAssignment_4(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new AbstractFeature_ArrayDimensionAssignment_4(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new AbstractFeature_ClassifierAssignment_3(lastRuleCallOrigin, this, 2, inst);
 			case 3: return new AbstractFeature_FeatureKeyword_2(lastRuleCallOrigin, this, 3, inst);
 			default: return null;
@@ -93851,6 +93678,145 @@ protected class AllReference_MetaclassNameAssignment extends AssignmentToken  {
 }
 
 /************ end Rule AllReference ****************/
+
+
+/************ begin Rule ListType ****************
+ *
+ * ListType returns aadl2::ListType:
+ * 	"list" "of" propertyType=(UnnamedPropertyType | ListType);
+ *
+ **/
+
+// "list" "of" propertyType=(UnnamedPropertyType | ListType)
+protected class ListType_Group extends GroupToken {
+	
+	public ListType_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getListTypeAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ListType_PropertyTypeAssignment_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getListTypeRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// "list"
+protected class ListType_ListKeyword_0 extends KeywordToken  {
+	
+	public ListType_ListKeyword_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getListTypeAccess().getListKeyword_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+}
+
+// "of"
+protected class ListType_OfKeyword_1 extends KeywordToken  {
+	
+	public ListType_OfKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getListTypeAccess().getOfKeyword_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ListType_ListKeyword_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// propertyType=(UnnamedPropertyType | ListType)
+protected class ListType_PropertyTypeAssignment_2 extends AssignmentToken  {
+	
+	public ListType_PropertyTypeAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getListTypeAccess().getPropertyTypeAssignment_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new UnnamedPropertyType_Alternatives(this, this, 0, inst);
+			case 1: return new ListType_Group(this, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("propertyType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("propertyType");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getUnnamedPropertyTypeRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getListTypeAccess().getPropertyTypeUnnamedPropertyTypeParserRuleCall_2_0_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getListTypeRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getListTypeAccess().getPropertyTypeListTypeParserRuleCall_2_0_1(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new ListType_OfKeyword_1(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+
+/************ end Rule ListType ****************/
 
 
 /************ begin Rule PropertyOwner ****************
