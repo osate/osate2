@@ -488,7 +488,7 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-A_property_appliesTo-owner-_lowerValue" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Definitions-A_basicProperty_type" name="A_basicProperty_type" memberEnd="Definitions-A_basicProperty_type-propertyDefinition Definitions-BasicProperty-type">
+      <packagedElement xmi:type="uml:Association" xmi:id="Definitions-A_basicProperty_type" name="A_basicProperty_propertyType" memberEnd="Definitions-A_basicProperty_type-propertyDefinition Definitions-BasicProperty-type">
         <ownedEnd xmi:id="Definitions-A_basicProperty_type-propertyDefinition" name="propertyDefinition" type="Definitions-BasicProperty" association="Definitions-A_basicProperty_type">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-A_basicProperty_type-propertyDefinition-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-A_basicProperty_type-propertyDefinition-_lowerValue"/>
@@ -513,7 +513,7 @@
         <generalization xmi:id="Definitions-BasicProperty-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#TypedElement"/>
         </generalization>
-        <ownedAttribute xmi:id="Definitions-BasicProperty-type" name="type" type="_v97TQLMDEeCzMYz5ww7glA" association="Definitions-A_basicProperty_type">
+        <ownedAttribute xmi:id="Definitions-BasicProperty-type" name="propertyType" type="_v97TQLMDEeCzMYz5ww7glA" association="Definitions-A_basicProperty_type">
           <ownedComment xmi:id="Definitions-BasicProperty-type-_ownedComment.0">
             <body>References the type of this property.</body>
           </ownedComment>
@@ -827,7 +827,7 @@
         </generalization>
         <generalization xmi:id="_5wmQw64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
         <generalization xmi:id="_lAMNYLOSEeCzMYz5ww7glA" general="_JIGFILOSEeCzMYz5ww7glA"/>
-        <ownedAttribute xmi:id="Constants-PropertyConstant-type" name="type" type="_v97TQLMDEeCzMYz5ww7glA" association="Constants-A_propertyConstant_type">
+        <ownedAttribute xmi:id="Constants-PropertyConstant-type" name="propertyType" type="_v97TQLMDEeCzMYz5ww7glA" association="Constants-A_propertyConstant_type">
           <ownedComment xmi:id="Constants-PropertyConstant-type-_ownedComment.0">
             <body>References the type of this constant.</body>
           </ownedComment>
@@ -850,7 +850,7 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-PropertyConstant-ownedExpression-_lowerValue"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Constants-A_propertyConstant_type" name="A_propertyConstant_type" memberEnd="Constants-A_propertyConstant_type-propertyConstant Constants-PropertyConstant-type">
+      <packagedElement xmi:type="uml:Association" xmi:id="Constants-A_propertyConstant_type" name="A_propertyConstant_propertyType" memberEnd="Constants-A_propertyConstant_type-propertyConstant Constants-PropertyConstant-type">
         <ownedEnd xmi:id="Constants-A_propertyConstant_type-propertyConstant" name="propertyConstant" type="Constants-PropertyConstant" association="Constants-A_propertyConstant_type">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Constants-A_propertyConstant_type-propertyConstant-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-A_propertyConstant_type-propertyConstant-_lowerValue"/>

@@ -43,7 +43,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusClassifier;
-import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.FeatureClassifier;
 
 /**
  * <!-- begin-user-doc -->
@@ -52,7 +52,7 @@ import org.osate.aadl2.ComponentClassifier;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.BusAccessImpl#getClassifier <em>Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.BusAccessImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BusAccessImpl#getBusClassifier <em>Bus Classifier</em>}</li>
  * </ul>
  * </p>
@@ -95,10 +95,10 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
+	public FeatureClassifier getFeatureClassifier() {
+		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
+		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+				: featureClassifier;
 	}
 
 	/**
@@ -107,11 +107,11 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier basicGetClassifier() {
+	public FeatureClassifier basicGetFeatureClassifier() {
 		if (eIsSet(Aadl2Package.BUS_ACCESS__BUS_CLASSIFIER)) {
 			return basicGetBusClassifier();
 		}
-		return super.basicGetClassifier();
+		return super.basicGetFeatureClassifier();
 	}
 
 	/**
@@ -220,8 +220,8 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * @generated
 	 */
 	@Override
-	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.BUS_ACCESS__BUS_CLASSIFIER);
+	public boolean isSetFeatureClassifier() {
+		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.BUS_ACCESS__BUS_CLASSIFIER);
 	}
 
 } //BusAccessImpl

@@ -65,6 +65,8 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Feature" name="Feature" isAbstract="true">
       <ownedAttribute xmi:id="Feature-classifier" name="classifier" isDerived="true"/>
+      <ownedAttribute xmi:id="_8WI8ILO-EeCzMYz5ww7glA" name="prototype" isDerived="true"/>
+      <ownedAttribute xmi:id="_8WI8IbO-EeCzMYz5ww7glA" name="featureClassifier" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ComponentImplementation" name="ComponentImplementation" isAbstract="true">
       <ownedAttribute xmi:id="ComponentImplementation-type" name="type" isDerived="true"/>
@@ -253,4 +255,6 @@
   <Standard:Metaclass xmi:id="_usN9ALIBEeCWmNkTdM4SSg" base_Class="FeatureGroup"/>
   <Ecore:EReference xmi:id="_4Z0qwLIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupType"/>
   <Ecore:EReference xmi:id="_5j1m0LIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupPrototype"/>
+  <Ecore:EReference xmi:id="_-PSPELO-EeCzMYz5ww7glA" isTransient="true" isVolatile="true" base_Property="_8WI8ILO-EeCzMYz5ww7glA"/>
+  <Ecore:EReference xmi:id="_AIRJ8LO_EeCzMYz5ww7glA" isTransient="true" isVolatile="true" base_Property="_8WI8IbO-EeCzMYz5ww7glA"/>
 </xmi:XMI>

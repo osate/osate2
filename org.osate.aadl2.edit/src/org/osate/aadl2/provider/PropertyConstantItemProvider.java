@@ -44,6 +44,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -85,8 +86,25 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addPropertyTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Property Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPropertyTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_PropertyConstant_propertyType_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PropertyConstant_propertyType_feature",
+						"_UI_PropertyConstant_type"), Aadl2Package.eINSTANCE.getPropertyConstant_PropertyType(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -255,9 +273,9 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 	protected Command createSetCommand(EditingDomain domain, EObject owner, EStructuralFeature feature, Object value) {
 		if (feature == Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getTypedElement_Type() }, null, value);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getPropertyConstant_PropertyType() }, null, value);
 		}
-		if (feature == Aadl2Package.eINSTANCE.getTypedElement_Type()) {
+		if (feature == Aadl2Package.eINSTANCE.getPropertyConstant_PropertyType()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature, null,
 					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType() }, value);
 		}

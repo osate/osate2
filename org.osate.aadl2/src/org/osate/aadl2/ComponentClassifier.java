@@ -56,7 +56,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface ComponentClassifier extends Classifier, SubcomponentType {
+public interface ComponentClassifier extends Classifier, SubcomponentType, FeatureClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Mode</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.Mode}.

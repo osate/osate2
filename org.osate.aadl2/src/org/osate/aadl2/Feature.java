@@ -46,8 +46,9 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.Feature#getPrototype <em>Prototype</em>}</li>
- *   <li>{@link org.osate.aadl2.Feature#getClassifier <em>Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.Feature#getFeatureClassifier <em>Feature Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.Feature#getRefined <em>Refined</em>}</li>
+ *   <li>{@link org.osate.aadl2.Feature#getClassifier <em>Classifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,6 +59,12 @@ import org.eclipse.emf.common.util.EList;
 public interface Feature extends StructuralFeature, FeatureConnectionEnd, ArrayableElement {
 	/**
 	 * Returns the value of the '<em><b>Prototype</b></em>' reference.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.Feature#getFeatureClassifier() <em>Feature Classifier</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Prototype</em>' reference isn't clear,
@@ -65,26 +72,36 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Prototype</em>' reference.
-	 * @see #setPrototype(Prototype)
 	 * @see org.osate.aadl2.Aadl2Package#getFeature_Prototype()
-	 * @model ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	Prototype getPrototype();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Feature#getPrototype <em>Prototype</em>}' reference.
+	 * Returns the value of the '<em><b>Feature Classifier</b></em>' reference.
+	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Feature Classifier</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Prototype</em>' reference.
-	 * @see #getPrototype()
+	 * @return the value of the '<em>Feature Classifier</em>' reference.
+	 * @see org.osate.aadl2.Aadl2Package#getFeature_FeatureClassifier()
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
-	void setPrototype(Prototype value);
+	FeatureClassifier getFeatureClassifier();
 
 	/**
 	 * Returns the value of the '<em><b>Classifier</b></em>' reference.
-	 * This feature is a derived union.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.Feature#getFeatureClassifier() <em>Feature Classifier</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Classifier</em>' reference isn't clear,
