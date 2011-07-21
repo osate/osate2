@@ -432,6 +432,7 @@
         </ownedComment>
         <generalization xmi:id="Definitions-Property-_generalization.0" general="Definitions-BasicProperty"/>
         <generalization xmi:id="_6IBSQ64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
+        <generalization xmi:id="_rzqsULOSEeCzMYz5ww7glA" general="_JIGFILOSEeCzMYz5ww7glA"/>
         <ownedAttribute xmi:id="Definitions-Property-inherit" name="inherit">
           <ownedComment xmi:id="Definitions-Property-inherit-_ownedComment.0">
             <body>Specifies if the property value propagates down the containment hierarchy.</body>
@@ -773,11 +774,6 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_recordValue_ownedFieldValue-recordValue-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Expressions-ArraySize" name="ArraySize" isAbstract="true">
-        <ownedComment xmi:id="Expressions-ArraySize-_ownedComment.0">
-          <body>A specification of a one-dimensional array's size.</body>
-        </ownedComment>
-      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-ComputedValue" name="ComputedValue">
         <ownedComment xmi:id="Expressions-ComputedValue-_ownedComment.0">
           <body>A value that is computed by a function outside of AADL.</body>
@@ -830,12 +826,7 @@
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#TypedElement"/>
         </generalization>
         <generalization xmi:id="_5wmQw64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
-        <ownedAttribute xmi:id="Constants-PropertyConstant-list" name="list">
-          <ownedComment xmi:id="Constants-PropertyConstant-list-_ownedComment.0">
-            <body>Specifies if this constant is a list.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Integer"/>
-        </ownedAttribute>
+        <generalization xmi:id="_lAMNYLOSEeCzMYz5ww7glA" general="_JIGFILOSEeCzMYz5ww7glA"/>
         <ownedAttribute xmi:id="Constants-PropertyConstant-type" name="type" type="_v97TQLMDEeCzMYz5ww7glA" association="Constants-A_propertyConstant_type">
           <ownedComment xmi:id="Constants-PropertyConstant-type-_ownedComment.0">
             <body>References the type of this constant.</body>
@@ -1003,7 +994,7 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Associations-ArrayRange" name="ArrayRange">
         <ownedComment xmi:id="Associations-ArrayRange-_ownedComment.0">
-          <body>A range of array elements.</body>
+          <body>A range of array elements, including the elements at the lower and upper bound. To specify a single array element lower and upper bound must be equal.</body>
         </ownedComment>
         <generalization xmi:id="Associations-ArrayRange-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Element"/>
@@ -1124,6 +1115,24 @@
         <ownedEnd xmi:id="_1BNbO0cjEd-T9JmP5D10wg" name="owner" type="Associations-ModalPropertyValue" association="_1BNbOkcjEd-T9JmP5D10wg">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1BNbPEcjEd-T9JmP5D10wg" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1BNbPUcjEd-T9JmP5D10wg"/>
+        </ownedEnd>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_s2TqgLOREeCzMYz5ww7glA" name="Arrays">
+      <packagedElement xmi:type="uml:Class" xmi:id="Expressions-ArraySize" name="ArraySize">
+        <ownedComment xmi:id="Expressions-ArraySize-_ownedComment.0">
+          <body>A specification of a one-dimensional array's size.</body>
+        </ownedComment>
+        <ownedAttribute xmi:id="_NBXcwLOSEeCzMYz5ww7glA" name="sizeProperty" type="_JIGFILOSEeCzMYz5ww7glA" association="_NBhNwLOSEeCzMYz5ww7glA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NBXcwbOSEeCzMYz5ww7glA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NBXcwrOSEeCzMYz5ww7glA"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_JIGFILOSEeCzMYz5ww7glA" name="ArraySizeProperty" isAbstract="true"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_NBhNwLOSEeCzMYz5ww7glA" name="A_arraySize_sizeProperty" memberEnd="_NBhNwbOSEeCzMYz5ww7glA _NBXcwLOSEeCzMYz5ww7glA">
+        <ownedEnd xmi:id="_NBhNwbOSEeCzMYz5ww7glA" name="arraySize" type="Expressions-ArraySize" association="_NBhNwLOSEeCzMYz5ww7glA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NBhNwrOSEeCzMYz5ww7glA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NBhNw7OSEeCzMYz5ww7glA"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

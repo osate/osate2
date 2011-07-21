@@ -866,25 +866,18 @@
         <body>This package defines multi-dimensional arrays of subcomponents and features.&#xD;
 Additionally, it defines how a subcomponent array can be instantiated as a list of component implementations.</body>
       </ownedComment>
-      <packagedElement xmi:type="uml:Class" xmi:id="Arrays-ArraySpecification" name="ArraySpecification">
+      <packagedElement xmi:type="uml:Class" xmi:id="Arrays-ArraySpecification" name="ArrayDimension">
         <ownedComment xmi:id="Arrays-ArraySpecification-_ownedComment.0">
           <body>Specifies a one or multi-dimensional array. </body>
         </ownedComment>
         <generalization xmi:id="Arrays-ArraySpecification-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:id="Arrays-ArraySpecification-dimension" name="dimension" isUnique="false">
-          <ownedComment xmi:id="Arrays-ArraySpecification-dimension-_ownedComment.0">
-            <body>The number of dimensions in the array.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Integer"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-ArraySpecification-dimension-_upperValue" value="1"/>
-        </ownedAttribute>
         <ownedAttribute xmi:id="Arrays-ArraySpecification-size" name="size" type="Arrays-ArraySize" isOrdered="true" aggregation="composite" association="Arrays-A_arraySpecification_size">
           <ownedComment xmi:id="Arrays-ArraySpecification-size-_ownedComment.0">
             <body>References the specification of the size of an array dimension. </body>
           </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-ArraySpecification-size-_upperValue" value="*"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-ArraySpecification-size-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Arrays-ArraySpecification-size-_lowerValue"/>
         </ownedAttribute>
       </packagedElement>
@@ -895,45 +888,36 @@ Additionally, it defines how a subcomponent array can be instantiated as a list 
         <generalization xmi:id="Arrays-ArrayableElement-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:id="Arrays-ArrayableElement-arraySpecification" name="arraySpecification" type="Arrays-ArraySpecification" aggregation="composite" association="Arrays-A_arrayableElement_arraySpecification">
+        <ownedAttribute xmi:id="Arrays-ArrayableElement-arraySpecification" name="arrayDimension" type="Arrays-ArraySpecification" isOrdered="true" aggregation="composite" association="Arrays-A_arrayableElement_arraySpecification">
           <ownedComment xmi:id="Arrays-ArrayableElement-arraySpecification-_ownedComment.0">
             <body></body>
           </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-ArrayableElement-arraySpecification-_upperValue" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-ArrayableElement-arraySpecification-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Arrays-ArrayableElement-arraySpecification-_lowerValue"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Arrays-A_arrayableElement_arraySpecification" name="A_arrayableElement_arraySpecification" memberEnd="Arrays-A_arrayableElement_arraySpecification-owner Arrays-ArrayableElement-arraySpecification">
+      <packagedElement xmi:type="uml:Association" xmi:id="Arrays-A_arrayableElement_arraySpecification" name="A_arrayableElement_arrayDimension" memberEnd="Arrays-A_arrayableElement_arraySpecification-owner Arrays-ArrayableElement-arraySpecification">
         <ownedEnd xmi:id="Arrays-A_arrayableElement_arraySpecification-owner" name="owner" type="Arrays-ArrayableElement" association="Arrays-A_arrayableElement_arraySpecification">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-A_arrayableElement_arraySpecification-owner-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Arrays-A_arrayableElement_arraySpecification-owner-_lowerValue" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Arrays-ArraySize" name="ArraySize" isAbstract="true">
+      <packagedElement xmi:type="uml:Class" xmi:id="Arrays-ArraySize" name="ArraySize">
         <ownedComment xmi:id="Arrays-ArraySize-_ownedComment.0">
           <body>Specifies the size of an array dimension.</body>
         </ownedComment>
         <generalization xmi:id="Arrays-ArraySize-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
+        <ownedAttribute xmi:id="_ddrToLOREeCzMYz5ww7glA" name="size">
+          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Integer"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Arrays-A_arraySpecification_size" name="A_arraySpecification_size" memberEnd="Arrays-A_arraySpecification_size-owner Arrays-ArraySpecification-size">
         <ownedEnd xmi:id="Arrays-A_arraySpecification_size-owner" name="owner" type="Arrays-ArraySpecification" association="Arrays-A_arraySpecification_size">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-A_arraySpecification_size-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Arrays-A_arraySpecification_size-owner-_lowerValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Arrays-A_arraySpecification_size-owner-_lowerValue"/>
         </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Arrays-Numeral" name="Numeral">
-        <ownedComment xmi:id="Arrays-Numeral-_ownedComment.0">
-          <body>A numeral is a positive integer value.</body>
-        </ownedComment>
-        <generalization xmi:id="Arrays-Numeral-_generalization.0" general="Arrays-ArraySize"/>
-        <ownedAttribute xmi:id="Arrays-Numeral-value" name="value">
-          <ownedComment xmi:id="Arrays-Numeral-value-_ownedComment.0">
-            <body>The numeric value of the numeral.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Integer"/>
-        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Arrays-ComponentImplementationReference" name="ComponentImplementationReference">
         <ownedComment xmi:id="Arrays-ComponentImplementationReference-_ownedComment.0">

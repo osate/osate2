@@ -356,49 +356,49 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ArraySpecification} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ArrayDimension} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ArraySpecificationItemProvider arraySpecificationItemProvider;
+	protected ArrayDimensionItemProvider arrayDimensionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ArraySpecification}.
+	 * This creates an adapter for a {@link org.osate.aadl2.ArrayDimension}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createArraySpecificationAdapter() {
-		if (arraySpecificationItemProvider == null) {
-			arraySpecificationItemProvider = new ArraySpecificationItemProvider(this);
+	public Adapter createArrayDimensionAdapter() {
+		if (arrayDimensionItemProvider == null) {
+			arrayDimensionItemProvider = new ArrayDimensionItemProvider(this);
 		}
 
-		return arraySpecificationItemProvider;
+		return arrayDimensionItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.Numeral} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ArraySize} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected NumeralItemProvider numeralItemProvider;
+	protected ArraySizeItemProvider arraySizeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.Numeral}.
+	 * This creates an adapter for a {@link org.osate.aadl2.ArraySize}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createNumeralAdapter() {
-		if (numeralItemProvider == null) {
-			numeralItemProvider = new NumeralItemProvider(this);
+	public Adapter createArraySizeAdapter() {
+		if (arraySizeItemProvider == null) {
+			arraySizeItemProvider = new ArraySizeItemProvider(this);
 		}
 
-		return numeralItemProvider;
+		return arraySizeItemProvider;
 	}
 
 	/**
@@ -3811,10 +3811,10 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			arrayRangeItemProvider.dispose();
 		if (modalPropertyValueItemProvider != null)
 			modalPropertyValueItemProvider.dispose();
-		if (arraySpecificationItemProvider != null)
-			arraySpecificationItemProvider.dispose();
-		if (numeralItemProvider != null)
-			numeralItemProvider.dispose();
+		if (arrayDimensionItemProvider != null)
+			arrayDimensionItemProvider.dispose();
+		if (arraySizeItemProvider != null)
+			arraySizeItemProvider.dispose();
 		if (componentImplementationReferenceItemProvider != null)
 			componentImplementationReferenceItemProvider.dispose();
 		if (modeTransitionItemProvider != null)

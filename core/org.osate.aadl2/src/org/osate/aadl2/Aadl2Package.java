@@ -754,7 +754,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyExpression()
 	 * @generated
 	 */
-	int PROPERTY_EXPRESSION = 10;
+	int PROPERTY_EXPRESSION = 11;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyOwnerImpl <em>Property Owner</em>}' class.
@@ -764,7 +764,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyOwner()
 	 * @generated
 	 */
-	int PROPERTY_OWNER = 12;
+	int PROPERTY_OWNER = 13;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MetaclassReferenceImpl <em>Metaclass Reference</em>}' class.
@@ -774,7 +774,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMetaclassReference()
 	 * @generated
 	 */
-	int METACLASS_REFERENCE = 11;
+	int METACLASS_REFERENCE = 12;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.NamespaceImpl <em>Namespace</em>}' class.
@@ -784,7 +784,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNamespace()
 	 * @generated
 	 */
-	int NAMESPACE = 14;
+	int NAMESPACE = 15;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ClassifierImpl <em>Classifier</em>}' class.
@@ -794,7 +794,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifier()
 	 * @generated
 	 */
-	int CLASSIFIER = 13;
+	int CLASSIFIER = 14;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ClassifierFeatureImpl <em>Classifier Feature</em>}' class.
@@ -804,7 +804,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierFeature()
 	 * @generated
 	 */
-	int CLASSIFIER_FEATURE = 15;
+	int CLASSIFIER_FEATURE = 16;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.RelationshipImpl <em>Relationship</em>}' class.
@@ -814,7 +814,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRelationship()
 	 * @generated
 	 */
-	int RELATIONSHIP = 18;
+	int RELATIONSHIP = 19;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DirectedRelationshipImpl <em>Directed Relationship</em>}' class.
@@ -824,7 +824,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDirectedRelationship()
 	 * @generated
 	 */
-	int DIRECTED_RELATIONSHIP = 17;
+	int DIRECTED_RELATIONSHIP = 18;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.GeneralizationImpl <em>Generalization</em>}' class.
@@ -834,7 +834,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getGeneralization()
 	 * @generated
 	 */
-	int GENERALIZATION = 16;
+	int GENERALIZATION = 17;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalElementImpl <em>Modal Element</em>}' class.
@@ -844,7 +844,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalElement()
 	 * @generated
 	 */
-	int MODAL_ELEMENT = 20;
+	int MODAL_ELEMENT = 21;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AnnexSubclauseImpl <em>Annex Subclause</em>}' class.
@@ -854,7 +854,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAnnexSubclause()
 	 * @generated
 	 */
-	int ANNEX_SUBCLAUSE = 19;
+	int ANNEX_SUBCLAUSE = 20;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeFeatureImpl <em>Mode Feature</em>}' class.
@@ -864,7 +864,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeFeature()
 	 * @generated
 	 */
-	int MODE_FEATURE = 22;
+	int MODE_FEATURE = 23;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeImpl <em>Mode</em>}' class.
@@ -874,7 +874,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMode()
 	 * @generated
 	 */
-	int MODE = 21;
+	int MODE = 22;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.RefinableElementImpl <em>Refinable Element</em>}' class.
@@ -884,7 +884,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRefinableElement()
 	 * @generated
 	 */
-	int REFINABLE_ELEMENT = 25;
+	int REFINABLE_ELEMENT = 26;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.StructuralFeatureImpl <em>Structural Feature</em>}' class.
@@ -894,7 +894,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getStructuralFeature()
 	 * @generated
 	 */
-	int STRUCTURAL_FEATURE = 24;
+	int STRUCTURAL_FEATURE = 25;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PrototypeImpl <em>Prototype</em>}' class.
@@ -904,7 +904,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrototype()
 	 * @generated
 	 */
-	int PROTOTYPE = 23;
+	int PROTOTYPE = 24;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PrototypeBindingImpl <em>Prototype Binding</em>}' class.
@@ -914,7 +914,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrototypeBinding()
 	 * @generated
 	 */
-	int PROTOTYPE_BINDING = 27;
+	int PROTOTYPE_BINDING = 28;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ContainedNamedElementImpl <em>Contained Named Element</em>}' class.
@@ -924,7 +924,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContainedNamedElement()
 	 * @generated
 	 */
-	int CONTAINED_NAMED_ELEMENT = 28;
+	int CONTAINED_NAMED_ELEMENT = 29;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ContainmentPathElementImpl <em>Containment Path Element</em>}' class.
@@ -934,7 +934,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContainmentPathElement()
 	 * @generated
 	 */
-	int CONTAINMENT_PATH_ELEMENT = 29;
+	int CONTAINMENT_PATH_ELEMENT = 30;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ArrayRangeImpl <em>Array Range</em>}' class.
@@ -944,7 +944,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArrayRange()
 	 * @generated
 	 */
-	int ARRAY_RANGE = 30;
+	int ARRAY_RANGE = 31;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalPropertyValueImpl <em>Modal Property Value</em>}' class.
@@ -954,7 +954,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalPropertyValue()
 	 * @generated
 	 */
-	int MODAL_PROPERTY_VALUE = 31;
+	int MODAL_PROPERTY_VALUE = 32;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BehavioralFeatureImpl <em>Behavioral Feature</em>}' class.
@@ -964,17 +964,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBehavioralFeature()
 	 * @generated
 	 */
-	int BEHAVIORAL_FEATURE = 32;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.ArraySpecificationImpl <em>Array Specification</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.ArraySpecificationImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArraySpecification()
-	 * @generated
-	 */
-	int ARRAY_SPECIFICATION = 33;
+	int BEHAVIORAL_FEATURE = 33;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ArraySizeImpl <em>Array Size</em>}' class.
@@ -984,7 +974,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArraySize()
 	 * @generated
 	 */
-	int ARRAY_SIZE = 34;
+	int ARRAY_SIZE = 35;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ArrayableElementImpl <em>Arrayable Element</em>}' class.
@@ -994,17 +984,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArrayableElement()
 	 * @generated
 	 */
-	int ARRAYABLE_ELEMENT = 35;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.NumeralImpl <em>Numeral</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.NumeralImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumeral()
-	 * @generated
-	 */
-	int NUMERAL = 36;
+	int ARRAYABLE_ELEMENT = 36;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentImplementationReferenceImpl <em>Component Implementation Reference</em>}' class.
@@ -1454,7 +1434,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getCalledSubprogram()
 	 * @generated
 	 */
-	int CALLED_SUBPROGRAM = 26;
+	int CALLED_SUBPROGRAM = 27;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramClassifierImpl <em>Subprogram Classifier</em>}' class.
@@ -2906,6 +2886,25 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_NAMED_VALUE_FEATURE_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ArraySizePropertyImpl <em>Array Size Property</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ArraySizePropertyImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArraySizeProperty()
+	 * @generated
+	 */
+	int ARRAY_SIZE_PROPERTY = 10;
+
+	/**
+	 * The number of structural features of the '<em>Array Size Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_SIZE_PROPERTY_FEATURE_COUNT = 0;
+
+	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4293,13 +4292,23 @@ public interface Aadl2Package extends EPackage {
 	int BEHAVIORAL_FEATURE_FEATURE_COUNT = CLASSIFIER_FEATURE_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.ArrayDimensionImpl <em>Array Dimension</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.ArrayDimensionImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArrayDimension()
+	 * @generated
+	 */
+	int ARRAY_DIMENSION = 34;
+
+	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARRAY_SPECIFICATION__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+	int ARRAY_DIMENSION__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -4308,34 +4317,25 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARRAY_SPECIFICATION__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+	int ARRAY_DIMENSION__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Dimension</b></em>' attribute.
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARRAY_SPECIFICATION__DIMENSION = ELEMENT_FEATURE_COUNT + 0;
+	int ARRAY_DIMENSION__SIZE = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Size</b></em>' containment reference list.
+	 * The number of structural features of the '<em>Array Dimension</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARRAY_SPECIFICATION__SIZE = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Array Specification</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_SPECIFICATION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int ARRAY_DIMENSION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4356,13 +4356,31 @@ public interface Aadl2Package extends EPackage {
 	int ARRAY_SIZE__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
 
 	/**
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_SIZE__SIZE = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Size Property</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_SIZE__SIZE_PROPERTY = ELEMENT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Array Size</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARRAY_SIZE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+	int ARRAY_SIZE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -4383,13 +4401,13 @@ public interface Aadl2Package extends EPackage {
 	int ARRAYABLE_ELEMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION = ELEMENT_FEATURE_COUNT + 0;
+	int ARRAYABLE_ELEMENT__ARRAY_DIMENSION = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Arrayable Element</em>' class.
@@ -4399,42 +4417,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int ARRAYABLE_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERAL__OWNED_ELEMENT = ARRAY_SIZE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERAL__OWNED_COMMENT = ARRAY_SIZE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERAL__VALUE = ARRAY_SIZE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Numeral</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NUMERAL_FEATURE_COUNT = ARRAY_SIZE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -5535,13 +5517,13 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE__ARRAY_SPECIFICATION = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
+	int FEATURE__ARRAY_DIMENSION = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -6255,13 +6237,13 @@ public interface Aadl2Package extends EPackage {
 	int DIRECTED_FEATURE__FEATURING_CLASSIFIER = FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIRECTED_FEATURE__ARRAY_SPECIFICATION = FEATURE__ARRAY_SPECIFICATION;
+	int DIRECTED_FEATURE__ARRAY_DIMENSION = FEATURE__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -6381,13 +6363,13 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_GROUP__FEATURING_CLASSIFIER = DIRECTED_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP__ARRAY_SPECIFICATION = DIRECTED_FEATURE__ARRAY_SPECIFICATION;
+	int FEATURE_GROUP__ARRAY_DIMENSION = DIRECTED_FEATURE__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -6984,13 +6966,13 @@ public interface Aadl2Package extends EPackage {
 	int ACCESS__FEATURING_CLASSIFIER = FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACCESS__ARRAY_SPECIFICATION = FEATURE__ARRAY_SPECIFICATION;
+	int ACCESS__ARRAY_DIMENSION = FEATURE__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -7119,13 +7101,13 @@ public interface Aadl2Package extends EPackage {
 	int BUS_ACCESS__FEATURING_CLASSIFIER = ACCESS__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_ACCESS__ARRAY_SPECIFICATION = ACCESS__ARRAY_SPECIFICATION;
+	int BUS_ACCESS__ARRAY_DIMENSION = ACCESS__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -7623,13 +7605,13 @@ public interface Aadl2Package extends EPackage {
 	int DATA_ACCESS__FEATURING_CLASSIFIER = ACCESS__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_ACCESS__ARRAY_SPECIFICATION = ACCESS__ARRAY_SPECIFICATION;
+	int DATA_ACCESS__ARRAY_DIMENSION = ACCESS__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -8181,13 +8163,13 @@ public interface Aadl2Package extends EPackage {
 	int PORT__FEATURING_CLASSIFIER = DIRECTED_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT__ARRAY_SPECIFICATION = DIRECTED_FEATURE__ARRAY_SPECIFICATION;
+	int PORT__ARRAY_DIMENSION = DIRECTED_FEATURE__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -8316,13 +8298,13 @@ public interface Aadl2Package extends EPackage {
 	int DATA_PORT__FEATURING_CLASSIFIER = PORT__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_PORT__ARRAY_SPECIFICATION = PORT__ARRAY_SPECIFICATION;
+	int DATA_PORT__ARRAY_DIMENSION = PORT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -8460,13 +8442,13 @@ public interface Aadl2Package extends EPackage {
 	int EVENT_DATA_PORT__FEATURING_CLASSIFIER = PORT__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_DATA_PORT__ARRAY_SPECIFICATION = PORT__ARRAY_SPECIFICATION;
+	int EVENT_DATA_PORT__ARRAY_DIMENSION = PORT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -8604,13 +8586,13 @@ public interface Aadl2Package extends EPackage {
 	int EVENT_PORT__FEATURING_CLASSIFIER = PORT__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_PORT__ARRAY_SPECIFICATION = PORT__ARRAY_SPECIFICATION;
+	int EVENT_PORT__ARRAY_DIMENSION = PORT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -8739,13 +8721,13 @@ public interface Aadl2Package extends EPackage {
 	int PARAMETER__FEATURING_CLASSIFIER = DIRECTED_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__ARRAY_SPECIFICATION = DIRECTED_FEATURE__ARRAY_SPECIFICATION;
+	int PARAMETER__ARRAY_DIMENSION = DIRECTED_FEATURE__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -8874,13 +8856,13 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_ACCESS__FEATURING_CLASSIFIER = ACCESS__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_ACCESS__ARRAY_SPECIFICATION = ACCESS__ARRAY_SPECIFICATION;
+	int SUBPROGRAM_ACCESS__ARRAY_DIMENSION = ACCESS__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -9324,13 +9306,13 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_ACCESS__FEATURING_CLASSIFIER = ACCESS__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_GROUP_ACCESS__ARRAY_SPECIFICATION = ACCESS__ARRAY_SPECIFICATION;
+	int SUBPROGRAM_GROUP_ACCESS__ARRAY_DIMENSION = ACCESS__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -9774,13 +9756,13 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_FEATURE__FEATURING_CLASSIFIER = DIRECTED_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_FEATURE__ARRAY_SPECIFICATION = DIRECTED_FEATURE__ARRAY_SPECIFICATION;
+	int ABSTRACT_FEATURE__ARRAY_DIMENSION = DIRECTED_FEATURE__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -10017,13 +9999,13 @@ public interface Aadl2Package extends EPackage {
 	int SUBCOMPONENT__IN_MODE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBCOMPONENT__ARRAY_SPECIFICATION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+	int SUBCOMPONENT__ARRAY_DIMENSION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -11151,13 +11133,13 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int ABSTRACT_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -15336,13 +15318,13 @@ public interface Aadl2Package extends EPackage {
 	int BUS_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int BUS_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -15525,13 +15507,13 @@ public interface Aadl2Package extends EPackage {
 	int DATA_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int DATA_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -15714,13 +15696,13 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEVICE_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int DEVICE_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -16011,13 +15993,13 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MEMORY_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int MEMORY_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -16308,13 +16290,13 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCESS_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int PROCESS_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -16605,13 +16587,13 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCESSOR_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int PROCESSOR_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -16902,13 +16884,13 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int SYSTEM_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -17199,13 +17181,13 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int SUBPROGRAM_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -17388,13 +17370,13 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int SUBPROGRAM_GROUP_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -17577,13 +17559,13 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THREAD_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int THREAD_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -17874,13 +17856,13 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THREAD_GROUP_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int THREAD_GROUP_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -18171,13 +18153,13 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIRTUAL_BUS_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int VIRTUAL_BUS_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -18468,13 +18450,13 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_SUBCOMPONENT__IN_MODE = SUBCOMPONENT__IN_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Array Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIRTUAL_PROCESSOR_SUBCOMPONENT__ARRAY_SPECIFICATION = SUBCOMPONENT__ARRAY_SPECIFICATION;
+	int VIRTUAL_PROCESSOR_SUBCOMPONENT__ARRAY_DIMENSION = SUBCOMPONENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -30933,22 +30915,13 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_CONSTANT__TYPE = TYPED_ELEMENT__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_CONSTANT__LIST = TYPED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Owned Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_CONSTANT__OWNED_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 1;
+	int PROPERTY_CONSTANT__OWNED_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Constant Value</b></em>' containment reference.
@@ -30957,7 +30930,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_CONSTANT__CONSTANT_VALUE = TYPED_ELEMENT_FEATURE_COUNT + 2;
+	int PROPERTY_CONSTANT__CONSTANT_VALUE = TYPED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Property Constant</em>' class.
@@ -30966,7 +30939,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_CONSTANT_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 3;
+	int PROPERTY_CONSTANT_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyValueImpl <em>Property Value</em>}' class.
@@ -34380,36 +34353,25 @@ public interface Aadl2Package extends EPackage {
 	EClass getBehavioralFeature();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.ArraySpecification <em>Array Specification</em>}'.
+	 * Returns the meta object for class '{@link org.osate.aadl2.ArrayDimension <em>Array Dimension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Array Specification</em>'.
-	 * @see org.osate.aadl2.ArraySpecification
+	 * @return the meta object for class '<em>Array Dimension</em>'.
+	 * @see org.osate.aadl2.ArrayDimension
 	 * @generated
 	 */
-	EClass getArraySpecification();
+	EClass getArrayDimension();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.ArraySpecification#getDimension <em>Dimension</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ArrayDimension#getSize <em>Size</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Dimension</em>'.
-	 * @see org.osate.aadl2.ArraySpecification#getDimension()
-	 * @see #getArraySpecification()
+	 * @return the meta object for the containment reference '<em>Size</em>'.
+	 * @see org.osate.aadl2.ArrayDimension#getSize()
+	 * @see #getArrayDimension()
 	 * @generated
 	 */
-	EAttribute getArraySpecification_Dimension();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.ArraySpecification#getSizes <em>Size</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Size</em>'.
-	 * @see org.osate.aadl2.ArraySpecification#getSizes()
-	 * @see #getArraySpecification()
-	 * @generated
-	 */
-	EReference getArraySpecification_Size();
+	EReference getArrayDimension_Size();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ArraySize <em>Array Size</em>}'.
@@ -34422,6 +34384,28 @@ public interface Aadl2Package extends EPackage {
 	EClass getArraySize();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.ArraySize#getSize <em>Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Size</em>'.
+	 * @see org.osate.aadl2.ArraySize#getSize()
+	 * @see #getArraySize()
+	 * @generated
+	 */
+	EAttribute getArraySize_Size();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.ArraySize#getSizeProperty <em>Size Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Size Property</em>'.
+	 * @see org.osate.aadl2.ArraySize#getSizeProperty()
+	 * @see #getArraySize()
+	 * @generated
+	 */
+	EReference getArraySize_SizeProperty();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ArrayableElement <em>Arrayable Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -34432,36 +34416,15 @@ public interface Aadl2Package extends EPackage {
 	EClass getArrayableElement();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ArrayableElement#getArraySpecification <em>Array Specification</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.ArrayableElement#getArrayDimensions <em>Array Dimension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Array Specification</em>'.
-	 * @see org.osate.aadl2.ArrayableElement#getArraySpecification()
+	 * @return the meta object for the containment reference list '<em>Array Dimension</em>'.
+	 * @see org.osate.aadl2.ArrayableElement#getArrayDimensions()
 	 * @see #getArrayableElement()
 	 * @generated
 	 */
-	EReference getArrayableElement_ArraySpecification();
-
-	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.Numeral <em>Numeral</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Numeral</em>'.
-	 * @see org.osate.aadl2.Numeral
-	 * @generated
-	 */
-	EClass getNumeral();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.Numeral#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.osate.aadl2.Numeral#getValue()
-	 * @see #getNumeral()
-	 * @generated
-	 */
-	EAttribute getNumeral_Value();
+	EReference getArrayableElement_ArrayDimension();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ComponentImplementationReference <em>Component Implementation Reference</em>}'.
@@ -39500,17 +39463,6 @@ public interface Aadl2Package extends EPackage {
 	EClass getPropertyConstant();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.PropertyConstant#getList <em>List</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>List</em>'.
-	 * @see org.osate.aadl2.PropertyConstant#getList()
-	 * @see #getPropertyConstant()
-	 * @generated
-	 */
-	EAttribute getPropertyConstant_List();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.PropertyConstant#getOwnedType <em>Owned Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -39541,6 +39493,16 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getAbstractNamedValue();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.ArraySizeProperty <em>Array Size Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Array Size Property</em>'.
+	 * @see org.osate.aadl2.ArraySizeProperty
+	 * @generated
+	 */
+	EClass getArraySizeProperty();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.PropertyValue <em>Property Value</em>}'.

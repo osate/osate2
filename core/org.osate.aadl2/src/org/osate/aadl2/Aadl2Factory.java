@@ -153,22 +153,22 @@ public interface Aadl2Factory extends EFactory {
 	ModalPropertyValue createModalPropertyValue();
 
 	/**
-	 * Returns a new object of class '<em>Array Specification</em>'.
+	 * Returns a new object of class '<em>Array Dimension</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Array Specification</em>'.
+	 * @return a new object of class '<em>Array Dimension</em>'.
 	 * @generated
 	 */
-	ArraySpecification createArraySpecification();
+	ArrayDimension createArrayDimension();
 
 	/**
-	 * Returns a new object of class '<em>Numeral</em>'.
+	 * Returns a new object of class '<em>Array Size</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Numeral</em>'.
+	 * @return a new object of class '<em>Array Size</em>'.
 	 * @generated
 	 */
-	Numeral createNumeral();
+	ArraySize createArraySize();
 
 	/**
 	 * Returns a new object of class '<em>Component Implementation Reference</em>'.
