@@ -1285,7 +1285,9 @@
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ListType">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ListType/propertyType"/>
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ListType/ownedElementType"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ListType/elementType"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ProcessorPort"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//InternalEvent"/>

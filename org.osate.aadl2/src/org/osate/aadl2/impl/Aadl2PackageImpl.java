@@ -8860,8 +8860,17 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getListType_PropertyType() {
+	public EReference getListType_OwnedElementType() {
 		return (EReference) getListType().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getListType_ElementType() {
+		return (EReference) getListType().getEStructuralFeatures().get(1);
 	}
 
 	/**

@@ -2054,8 +2054,12 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ListType" eSuperTypes="#//PropertyType">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyType" ordered="false"
-        lowerBound="1" eType="#//PropertyType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedElementType" ordered="false"
+        eType="#//PropertyType" containment="true">
+      <eAnnotations source="subsets" references="#//ListType/elementType"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elementType" ordered="false"
+        lowerBound="1" eType="#//PropertyType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorPort" eSuperTypes="#//NamedElement #//ModeTransitionTrigger #//AbstractConnectionEnd"/>
   <eClassifiers xsi:type="ecore:EClass" name="InternalEvent" eSuperTypes="#//NamedElement #//ModeTransitionTrigger #//AbstractConnectionEnd"/>
