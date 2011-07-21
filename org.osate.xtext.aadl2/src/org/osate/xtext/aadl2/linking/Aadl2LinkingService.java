@@ -717,12 +717,12 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				return ((ConnectionEnd) searchResult);
 		} else if (cxt instanceof Subcomponent) {
 			Subcomponent subcomponent = (Subcomponent) cxt;
-			while (subcomponent.getClassifier() == null
-					&& subcomponent.getPrototype() == null
+			while (subcomponent.getSubcomponentType() == null
 					&& subcomponent.getRefined() != null)
 				subcomponent = subcomponent.getRefined();
-			if (subcomponent.getClassifier() != null) {
-				EObject searchResult = subcomponent.getClassifier()
+			SubcomponentType sct = subcomponent.getSubcomponentType();
+			if (sct instanceof Classifier) {
+				EObject searchResult = ((Classifier)sct)
 						.findNamedElement(portName);
 				if (searchResult instanceof Port
 						|| (cxt instanceof DataSubcomponent && searchResult instanceof DataSubcomponent)
@@ -730,10 +730,10 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 						(searchResult instanceof DataAccess && ((DataAccess) searchResult)
 								.getKind() == AccessType.PROVIDED))
 					return ((ConnectionEnd) searchResult);
-			} else if (subcomponent.getPrototype() != null) {
+			} else if (sct instanceof ComponentPrototype) {
 				ComponentClassifier classifier = findClassifierForComponentPrototype(
 						getContainingClassifier(conn),
-						subcomponent.getPrototype());
+						((ComponentPrototype)sct));
 				if (classifier != null) {
 					NamedElement searchResult = classifier
 							.findNamedElement(portName);
