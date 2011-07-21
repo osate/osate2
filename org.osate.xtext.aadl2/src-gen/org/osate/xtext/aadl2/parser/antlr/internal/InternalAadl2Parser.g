@@ -28941,21 +28941,31 @@ rulePropertyExpression returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getPropertyExpressionAccess().getBooleanTermParserRuleCall_8()); 
+        newCompositeNode(grammarAccess.getPropertyExpressionAccess().getListTermParserRuleCall_8()); 
     }
-    this_BooleanTerm_8=ruleBooleanTerm
+    this_ListTerm_8=ruleListTerm
     {
-        $current = $this_BooleanTerm_8.current;
+        $current = $this_ListTerm_8.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getPropertyExpressionAccess().getListTermParserRuleCall_9()); 
+        newCompositeNode(grammarAccess.getPropertyExpressionAccess().getBooleanTermParserRuleCall_9()); 
     }
-    this_ListTerm_9=ruleListTerm
+    this_BooleanTerm_9=ruleBooleanTerm
     {
-        $current = $this_ListTerm_9.current;
+        $current = $this_BooleanTerm_9.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getPropertyExpressionAccess().getLiteralorReferenceTermParserRuleCall_10()); 
+    }
+    this_LiteralorReferenceTerm_10=ruleLiteralorReferenceTerm
+    {
+        $current = $this_LiteralorReferenceTerm_10.current;
         afterParserOrEnumRuleCall();
     }
 )

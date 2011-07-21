@@ -20120,16 +20120,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRealTermParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cIntegerTermParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		private final RuleCall cComponentClassifierTermParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cBooleanTermParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cListTermParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cListTermParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cBooleanTermParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cLiteralorReferenceTermParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
 		
 		//PropertyExpression returns aadl2::PropertyExpression:
 		//	RecordTerm | NumericRangeTerm | ReferenceTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm |
-		//	ComponentClassifierTerm | BooleanTerm | ListTerm;
+		//	ComponentClassifierTerm | ListTerm | BooleanTerm | LiteralorReferenceTerm;
 		public ParserRule getRule() { return rule; }
 
 		//RecordTerm | NumericRangeTerm | ReferenceTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm |
-		//ComponentClassifierTerm | BooleanTerm | ListTerm
+		//ComponentClassifierTerm | ListTerm | BooleanTerm | LiteralorReferenceTerm
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//RecordTerm
@@ -20156,11 +20157,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ComponentClassifierTerm
 		public RuleCall getComponentClassifierTermParserRuleCall_7() { return cComponentClassifierTermParserRuleCall_7; }
 
-		//BooleanTerm
-		public RuleCall getBooleanTermParserRuleCall_8() { return cBooleanTermParserRuleCall_8; }
-
 		//ListTerm
-		public RuleCall getListTermParserRuleCall_9() { return cListTermParserRuleCall_9; }
+		public RuleCall getListTermParserRuleCall_8() { return cListTermParserRuleCall_8; }
+
+		//BooleanTerm
+		public RuleCall getBooleanTermParserRuleCall_9() { return cBooleanTermParserRuleCall_9; }
+
+		//LiteralorReferenceTerm
+		public RuleCall getLiteralorReferenceTermParserRuleCall_10() { return cLiteralorReferenceTermParserRuleCall_10; }
 	}
 
 	public class ConstantPropertyExpressionElements extends AbstractParserRuleElementFinder {
@@ -24300,7 +24304,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropertyExpression returns aadl2::PropertyExpression:
 	//	RecordTerm | NumericRangeTerm | ReferenceTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm |
-	//	ComponentClassifierTerm | BooleanTerm | ListTerm;
+	//	ComponentClassifierTerm | ListTerm | BooleanTerm | LiteralorReferenceTerm;
 	public PropertyExpressionElements getPropertyExpressionAccess() {
 		return (pPropertyExpression != null) ? pPropertyExpression : (pPropertyExpression = new PropertyExpressionElements());
 	}

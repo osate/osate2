@@ -13119,15 +13119,21 @@ rule__PropertyExpression__Alternatives
 )
 
     |(
-{ before(grammarAccess.getPropertyExpressionAccess().getBooleanTermParserRuleCall_8()); }
-	ruleBooleanTerm
-{ after(grammarAccess.getPropertyExpressionAccess().getBooleanTermParserRuleCall_8()); }
+{ before(grammarAccess.getPropertyExpressionAccess().getListTermParserRuleCall_8()); }
+	ruleListTerm
+{ after(grammarAccess.getPropertyExpressionAccess().getListTermParserRuleCall_8()); }
 )
 
     |(
-{ before(grammarAccess.getPropertyExpressionAccess().getListTermParserRuleCall_9()); }
-	ruleListTerm
-{ after(grammarAccess.getPropertyExpressionAccess().getListTermParserRuleCall_9()); }
+{ before(grammarAccess.getPropertyExpressionAccess().getBooleanTermParserRuleCall_9()); }
+	ruleBooleanTerm
+{ after(grammarAccess.getPropertyExpressionAccess().getBooleanTermParserRuleCall_9()); }
+)
+
+    |(
+{ before(grammarAccess.getPropertyExpressionAccess().getLiteralorReferenceTermParserRuleCall_10()); }
+	ruleLiteralorReferenceTerm
+{ after(grammarAccess.getPropertyExpressionAccess().getLiteralorReferenceTermParserRuleCall_10()); }
 )
 
 ;

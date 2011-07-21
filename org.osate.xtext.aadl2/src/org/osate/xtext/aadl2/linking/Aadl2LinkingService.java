@@ -154,7 +154,8 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				// the result satisfied the expected class
 				return Collections.singletonList((EObject) e);
 			}
-			return Collections.<EObject> emptyList();
+			if (cl.isSuperTypeOf(requiredType)) //only return null list in case of classifiers. Otherwise resolve prototype
+				return Collections.<EObject> emptyList();
 		} else if (sct.isSuperTypeOf(requiredType)) {
 			// need to resolve prototype
 			NamedElement searchResult = getContainingClassifier(context)
@@ -364,195 +365,36 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		} else if (pt.isSuperTypeOf(requiredType)
 				|| Aadl2Package.eINSTANCE.getType() == requiredType) {
 			// look for property type in property set
-			List<EObject> res = getIndexedObjects(context, reference, node);
-			if (!res.isEmpty())
-				return res;
-			String psname = null;
-			String pname = s;
-			final int idx = s.lastIndexOf("::");
-			if (idx != -1) {
-				psname = s.substring(0, idx);
-				pname = s.substring(idx + 2);
-			}
-			EObject e = findNamedElementInPropertySet(psname, pname,
-					getContainingPropertySet(context), reference);
-			if (e != null && e instanceof PropertyType) {
-				return Collections.singletonList((EObject) e);
-			}
-			return Collections.<EObject> emptyList();
-			// AbstractNamedValue: constant reference, unit, enum,
+			return findPropertyDefinition(context, reference, node, s);
 
 		} else if (Aadl2Package.eINSTANCE.getPropertyConstant() == requiredType
-				|| (Aadl2Package.eINSTANCE.getAbstractNamedValue() == requiredType && context instanceof NamedValue)) {
+				) {
 			// look for property constant in property set
-			List<EObject> res = getIndexedObjects(context, reference, node);
-			if (!res.isEmpty())
+			return findPropertyConstant(context, reference, node, s);
+			
+		}else if( Aadl2Package.eINSTANCE.getAbstractNamedValue() == requiredType ){
+			// AbstractNamedValue: constant reference, property definition reference, unit literal, enumeration literal
+			if (context instanceof NamedValue){
+				List<EObject> res = findPropertyConstant(context, reference, node, s);
+				if (res.isEmpty()){
+					res = findPropertyDefinition(context, reference, node, s);
+				}
+				if (res.isEmpty() && s.indexOf("::")==-1){
+					// names without qualifier. Must be enum/unit literal
+					res = findUnitLiteral(context, reference, node, s);
+					if (res.isEmpty())
+						res = findEnumLiteral(context, reference, node, s);
+				}
 				return res;
-			String psname = null;
-			String pname = s;
-			final int idx = s.lastIndexOf("::");
-			if (idx != -1) {
-				psname = s.substring(0, idx);
-				pname = s.substring(idx + 2);
 			}
-			EObject e = findNamedElementInPropertySet(psname, pname,
-					getContainingPropertySet(context), reference);
-			if (e != null && e instanceof PropertyConstant) {
-				return Collections.singletonList((EObject) e);
-			}
-			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getUnitLiteral() == requiredType) {
 			// look for unit literal pointed to by baseUnit
-			if (context instanceof UnitLiteral) {
-				UnitsType unitsType = (UnitsType) ((UnitLiteral) context)
-						.getOwner();
-				UnitLiteral baseUnit = (UnitLiteral) unitsType
-						.findNamedElement(s);
-				if (baseUnit != null) {
-					if (unitsType.getOwnedLiterals().indexOf(baseUnit) < unitsType
-							.getOwnedLiterals()
-							.indexOf(((UnitLiteral) context)))
-						return Collections.singletonList((EObject) baseUnit);
-				}
-			} else if (context instanceof NumberValue) {
-				UnitsType unitsType = null;
-				NumberValue numberValue = (NumberValue) context;
-				Element owner = numberValue.getOwner();
-				while (owner instanceof ListValue)
-					owner = owner.getOwner();
-				if (owner instanceof NumericRange) // Lower bound or upper bound
-													// values of a number
-													// property type.
-					unitsType = ((NumberType) owner.getOwner()).getUnitsType();
-				else {
-					if (owner instanceof RangeValue)
-						owner = owner.getOwner();
-					PropertyType propertyType = null;
-					if (owner instanceof PropertyConstant) // Value of the
-															// property
-															// constant.
-					{
-						// TODO: Need to check that the type of the property
-						// constant is correct for the value.
-						// We should do this when the type of the constant is
-						// resolved in PropertyTypeReference.
-						propertyType = (PropertyType) ((PropertyConstant) owner)
-								.getType();
-					} else if (owner instanceof Property) // Default value of a
-															// property
-															// definition.
-					{
-						// TODO: Need to check that the type of the property
-						// definition is correct for the value.
-						// We should do this when the type of the definition is
-						// resolved in PropertyValuePropertyTypeReference.
-						propertyType = (PropertyType) ((Property) owner)
-								.getType();
-					} else if (owner instanceof ModalPropertyValue
-							&& owner.getOwner() instanceof PropertyAssociation) // Value
-																				// of
-																				// an
-																				// association.
-					{
-						// TODO: Need to check that the type of the property
-						// definition is correct for the value.
-						// We should do this when the definition of the
-						// association is resolved in
-						// PropertyDefinitionReference.
-						propertyType = (PropertyType) ((PropertyAssociation) owner
-								.getOwner()).getProperty().getType();
-					} else if (owner instanceof BasicPropertyAssociation) // Inner
-																			// value
-																			// of
-																			// a
-																			// record
-																			// value.
-					{
-						// TODO: Need to check that the type of the record field
-						// is correct for the value.
-						// We should do this when the record field of the record
-						// value is resolved in PropertyRecordFieldReference.
-						propertyType = (PropertyType) ((BasicPropertyAssociation) owner)
-								.getProperty().getType();
-					}
-					if (propertyType instanceof NumberType)
-						unitsType = ((NumberType) propertyType).getUnitsType();
-					else if (propertyType instanceof RangeType)
-						unitsType = ((RangeType) propertyType).getNumberType()
-								.getUnitsType();
-				}
-				if (unitsType != null) {
-					UnitLiteral literal = (UnitLiteral) unitsType
-							.findNamedElement(s);
-					if (literal != null)
-						return Collections.singletonList((EObject) literal);
-				}
-			}
-
-			return Collections.<EObject> emptyList();
+			return findUnitLiteral(context, reference, node, s);
 
 		} else if (Aadl2Package.eINSTANCE.getEnumerationLiteral() == requiredType) {
 			// look for enumeration literal
-			if (context instanceof NamedValue) {
-				NamedValue value = (NamedValue) context;
-				EObject owner = value.getOwner();
-				while (owner instanceof ListValue) {
-					owner = owner.eContainer();
-				}
-				PropertyType propertyType = null;
-				if (owner instanceof PropertyConstant) // Value of the property
-														// constant.
-				{
-					// TODO: Need to check that the type of the property
-					// constant is correct for the value.
-					// We should do this when the type of the constant is
-					// resolved in PropertyTypeReference.
-					propertyType = (PropertyType) ((PropertyConstant) owner)
-							.getType();
-				} else if (owner instanceof Property) // Default value of a
-														// property definition.
-				{
-					// TODO: Need to check that the type of the property
-					// definition is correct for the value.
-					// We should do this when the type of the definition is
-					// resolved in PropertyValuePropertyTypeReference.
-					propertyType = (PropertyType) ((Property) owner).getType();
-				} else if (owner instanceof ModalPropertyValue
-						&& owner.eContainer() instanceof PropertyAssociation) // Value
-																				// of
-																				// an
-																				// association.
-				{
-					// TODO: Need to check that the type of the property
-					// definition is correct for the value.
-					// We should do this when the definition of the association
-					// is resolved in PropertyDefinitionReference.
-					propertyType = (PropertyType) ((PropertyAssociation) owner
-							.eContainer()).getProperty().getType();
-				} else if (owner instanceof BasicPropertyAssociation) // Inner
-																		// value
-																		// of a
-																		// record
-																		// value.
-				{
-					// TODO: Need to check that the type of the record field is
-					// correct for the value.
-					// We should do this when the record field of the record
-					// value is resolved in PropertyRecordFieldReference.
-					propertyType = (PropertyType) ((BasicPropertyAssociation) owner)
-							.getProperty().getType();
-				}
-				if (propertyType != null
-						&& propertyType instanceof EnumerationType) {
-					EnumerationLiteral literal = (EnumerationLiteral) ((EnumerationType) propertyType)
-							.findNamedElement(s);
-					if (literal != null)
-						return Collections.singletonList((EObject) literal);
-				}
-			}
-
-			return Collections.<EObject> emptyList();
+			return findEnumLiteral(context, reference, node, s);
 
 		} else if (Aadl2Package.eINSTANCE.getRecordField() == requiredType) {
 			// look for record field definition
@@ -560,8 +402,6 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				BasicPropertyAssociation bpa = (BasicPropertyAssociation) context;
 				// TODO: Need to check that the type of the record field is
 				// correct for the value.
-				// We should do this when the record field of the record value
-				// is resolved in PropertyRecordFieldReference.
 				PropertyType propertyType = (PropertyType) bpa.getProperty()
 						.getType();
 				if (propertyType != null && propertyType instanceof RecordType) {
@@ -682,6 +522,197 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		}
 
 		return Collections.emptyList();
+	}
+	
+	protected List<EObject> findPropertyConstant(EObject context,
+			EReference reference, INode node, String name){
+		// look for property constant in property set
+		List<EObject> res = getIndexedObjects(context, reference, node);
+		if (!res.isEmpty())
+			return res;
+		String psname = null;
+		String pname = name;
+		final int idx = name.lastIndexOf("::");
+		if (idx != -1) {
+			psname = name.substring(0, idx);
+			pname = name.substring(idx + 2);
+		}
+		EObject e = findNamedElementInPropertySet(psname, pname,
+				getContainingPropertySet(context), reference);
+		if (e != null && e instanceof PropertyConstant) {
+			return Collections.singletonList((EObject) e);
+		}
+		return Collections.<EObject> emptyList();
+	}
+
+	protected List<EObject> findPropertyDefinition(EObject context,
+			EReference reference, INode node, String name) {
+		// look for property definition in property set
+		List<EObject> res = getIndexedObjects(context, reference, node);
+		if (!res.isEmpty())
+			return res;
+		String psname = null;
+		String pname = name;
+		final int idx = name.lastIndexOf("::");
+		if (idx != -1) {
+			psname = name.substring(0, idx);
+			pname = name.substring(idx + 2);
+		}
+		EObject e = findNamedElementInPropertySet(psname, pname,
+				getContainingPropertySet(context), reference);
+		if (e != null && e instanceof PropertyType) {
+			return Collections.singletonList((EObject) e);
+		}
+		return Collections.<EObject> emptyList();
+	}
+	
+	protected List<EObject> findUnitLiteral(EObject context,
+			EReference reference, INode node, String name) {
+		// look for unit literal pointed to by baseUnit
+		if (context instanceof UnitLiteral) {
+			UnitsType unitsType = (UnitsType) ((UnitLiteral) context)
+					.getOwner();
+			UnitLiteral baseUnit = (UnitLiteral) unitsType
+					.findNamedElement(name);
+			if (baseUnit != null) {
+				if (unitsType.getOwnedLiterals().indexOf(baseUnit) < unitsType
+						.getOwnedLiterals()
+						.indexOf(((UnitLiteral) context)))
+					return Collections.singletonList((EObject) baseUnit);
+			}
+		} else if (context instanceof NumberValue) {
+			UnitsType unitsType = null;
+			NumberValue numberValue = (NumberValue) context;
+			Element owner = numberValue.getOwner();
+			while (owner instanceof ListValue)
+				owner = owner.getOwner();
+			if (owner instanceof NumericRange) // Lower bound or upper bound
+												// values of a number
+												// property type.
+				unitsType = ((NumberType) owner.getOwner()).getUnitsType();
+			else {
+				if (owner instanceof RangeValue)
+					owner = owner.getOwner();
+				PropertyType propertyType = null;
+				if (owner instanceof PropertyConstant) // Value of the
+														// property
+														// constant.
+				{
+					// TODO: Need to check that the type of the property
+					// constant is correct for the value.
+					// We should do this when the type of the constant is
+					// resolved in PropertyTypeReference.
+					propertyType = (PropertyType) ((PropertyConstant) owner)
+							.getType();
+				} else if (owner instanceof Property) // Default value of a
+														// property
+														// definition.
+				{
+					// TODO: Need to check that the type of the property
+					// definition is correct for the value.
+					// We should do this when the type of the definition is
+					// resolved in PropertyValuePropertyTypeReference.
+					propertyType = (PropertyType) ((Property) owner)
+							.getType();
+				} else if (owner instanceof ModalPropertyValue
+						&& owner.getOwner() instanceof PropertyAssociation) 
+					// Value of an association.
+				{
+					// TODO: Need to check that the type of the property
+					// definition is correct for the value.
+					// We should do this when the definition of the
+					// association is resolved in
+					// PropertyDefinitionReference.
+					propertyType = (PropertyType) ((PropertyAssociation) owner
+							.getOwner()).getProperty().getType();
+				} else if (owner instanceof BasicPropertyAssociation) 
+					// Inner value of a record value.
+				{
+					// TODO: Need to check that the type of the record field
+					// is correct for the value.
+					// We should do this when the record field of the record
+					// value is resolved in PropertyRecordFieldReference.
+					propertyType = (PropertyType) ((BasicPropertyAssociation) owner)
+							.getProperty().getType();
+				}
+				if (propertyType instanceof NumberType)
+					unitsType = ((NumberType) propertyType).getUnitsType();
+				else if (propertyType instanceof RangeType)
+					unitsType = ((RangeType) propertyType).getNumberType()
+							.getUnitsType();
+			}
+			if (unitsType != null) {
+				UnitLiteral literal = (UnitLiteral) unitsType
+						.findNamedElement(name);
+				if (literal != null)
+					return Collections.singletonList((EObject) literal);
+			}
+		}
+		return Collections.<EObject> emptyList();
+	}
+
+	
+	protected List<EObject> findEnumLiteral(EObject context,
+			EReference reference, INode node, String name) {
+		// look for enumeration literal
+		if (context instanceof NamedValue) {
+			NamedValue value = (NamedValue) context;
+			EObject owner = value.getOwner();
+			while (owner instanceof ListValue) {
+				owner = owner.eContainer();
+			}
+			PropertyType propertyType = null;
+			if (owner instanceof PropertyConstant) // Value of the property
+													// constant.
+			{
+				// TODO: Need to check that the type of the property
+				// constant is correct for the value.
+				// We should do this when the type of the constant is
+				// resolved in PropertyTypeReference.
+				propertyType = (PropertyType) ((PropertyConstant) owner)
+						.getType();
+			} else if (owner instanceof Property) // Default value of a
+													// property definition.
+			{
+				// TODO: Need to check that the type of the property
+				// definition is correct for the value.
+				// We should do this when the type of the definition is
+				// resolved in PropertyValuePropertyTypeReference.
+				propertyType = (PropertyType) ((Property) owner).getType();
+			} else if (owner instanceof ModalPropertyValue
+					&& owner.eContainer() instanceof PropertyAssociation) // Value
+																			// of
+																			// an
+																			// association.
+			{
+				// TODO: Need to check that the type of the property
+				// definition is correct for the value.
+				// We should do this when the definition of the association
+				// is resolved in PropertyDefinitionReference.
+				propertyType = (PropertyType) ((PropertyAssociation) owner
+						.eContainer()).getProperty().getType();
+			} else if (owner instanceof BasicPropertyAssociation) // Inner
+																	// value
+																	// of a
+																	// record
+																	// value.
+			{
+				// TODO: Need to check that the type of the record field is
+				// correct for the value.
+				// We should do this when the record field of the record
+				// value is resolved in PropertyRecordFieldReference.
+				propertyType = (PropertyType) ((BasicPropertyAssociation) owner)
+						.getProperty().getType();
+			}
+			if (propertyType != null
+					&& propertyType instanceof EnumerationType) {
+				EnumerationLiteral literal = (EnumerationLiteral) ((EnumerationType) propertyType)
+						.findNamedElement(name);
+				if (literal != null)
+					return Collections.singletonList((EObject) literal);
+			}
+		}
+		return Collections.<EObject> emptyList();
 	}
 
 	public static ConnectionEnd findPortConnectionEnd(PortConnection conn,

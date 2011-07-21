@@ -1801,8 +1801,8 @@ PropertyExpression returns aadl2::PropertyExpression:
 	  RecordTerm |NumericRangeTerm
 	| ReferenceTerm | ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
-	 | ComponentClassifierTerm 	| BooleanTerm
-	 | ListTerm
+	 | ComponentClassifierTerm 	| ListTerm | BooleanTerm
+	  | LiteralorReferenceTerm
 	;
 
 ConstantPropertyExpression returns aadl2::PropertyExpression:
