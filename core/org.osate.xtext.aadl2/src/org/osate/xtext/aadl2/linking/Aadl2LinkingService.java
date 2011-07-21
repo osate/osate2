@@ -54,8 +54,10 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.FeatureGroupConnectionEnd;
 import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
@@ -1410,17 +1412,18 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		FeatureGroupPrototypeBinding binding = (FeatureGroupPrototypeBinding) findPrototypeBinding(
 				containingClassifier, prototype);
 		if (binding != null) {
-			if (binding.getActual() instanceof FeatureGroupReference)
-				return ((FeatureGroupReference) binding.getActual())
-						.getFeatureGroupType();
-			else // It is a FeatureGroupPrototypeReference
-			{
-				FeatureGroupType featureGroupTypeForReferencedPrototype = findFeatureGroupTypeForFeatureGroupPrototype(
-						containingClassifier,
-						((FeatureGroupPrototypeReference) binding.getActual())
-								.getPrototype());
-				if (featureGroupTypeForReferencedPrototype != null)
-					return featureGroupTypeForReferencedPrototype;
+			if (binding.getActual() instanceof FeatureGroupPrototypeActual){
+				FeatureType ft = ((FeatureGroupPrototypeActual) binding.getActual())
+						.getFeatureType();
+				if (ft instanceof FeatureGroupType){
+					return (FeatureGroupType)ft;
+				} else {
+					FeatureGroupType featureGroupTypeForReferencedPrototype = findFeatureGroupTypeForFeatureGroupPrototype(
+							containingClassifier,
+							((FeatureGroupPrototype) ft));
+					if (featureGroupTypeForReferencedPrototype != null)
+						return featureGroupTypeForReferencedPrototype;
+				}
 			}
 		}
 		while (prototype.getConstrainingFeatureGroupType() == null
