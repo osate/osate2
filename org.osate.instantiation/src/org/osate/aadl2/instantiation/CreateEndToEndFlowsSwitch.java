@@ -522,7 +522,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					} else {
 						if (!errorReported) {
 							errorReported = true;
-							error(etei, "Data access feature " + da.getKwalifiedName()
+							error(etei, "Data access feature " + da.getQualifiedName()
 									+ " is not a proxy for a data component.");
 						}
 					}
@@ -595,7 +595,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		nestedETEs = ete2info.get(ete);
 		
 		if (nestedETEs.isEmpty()) {
-			error(etei, "No nested end to end flows instantiated for " + ete.getKwalifiedName());
+			error(etei, "No nested end to end flows instantiated for " + ete.getQualifiedName());
 			connections.clear();
 			return;
 		}

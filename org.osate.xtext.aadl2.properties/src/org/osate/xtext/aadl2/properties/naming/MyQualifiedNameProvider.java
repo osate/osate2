@@ -18,11 +18,11 @@ public class MyQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProv
 	}
 	
 	public QualifiedName qualifiedName(final PropertyType obj) {
-		return getConverter().toQualifiedName(obj.getKwalifiedName());
+		return getConverter().toQualifiedName(obj.getQualifiedName());
 	}
 	
 	public QualifiedName qualifiedName(final PropertySet obj) {
-		return getConverter().toQualifiedName(obj.getKwalifiedName());
+		return getConverter().toQualifiedName(obj.getQualifiedName());
 	}
 	
 	public QualifiedName qualifiedName(final Element obj) {

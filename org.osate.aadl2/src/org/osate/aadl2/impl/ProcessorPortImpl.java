@@ -70,7 +70,7 @@ public class ProcessorPortImpl extends NamedElementImpl implements ProcessorPort
 	}
 	
 	@Override
-	public String kwalifiedName() {
+	public String qualifiedName() {
 		return getName();
 	}
 

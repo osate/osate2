@@ -25,6 +25,6 @@ public class ComponentImplMemberInputValidator extends AadlIdentifierInputValida
 	}
 	
 	protected String getForbiddenErrorMessage(final String newText) {
-		return "Component implementation " + compImpl.getKwalifiedName() + " already has a member \"" + newText +"\"";
+		return "Component implementation " + compImpl.getQualifiedName() + " already has a member \"" + newText +"\"";
 	}
 }

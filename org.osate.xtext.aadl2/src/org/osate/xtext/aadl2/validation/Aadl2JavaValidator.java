@@ -341,7 +341,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void casePropertyAssociation(PropertyAssociation pa) {
-		String s = pa.getProperty().getKwalifiedName();
+		String s = pa.getProperty().getQualifiedName();
 		String psname = null;
 		final int idx = s.lastIndexOf("::");
 		if (idx != -1) {
@@ -414,7 +414,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						.getCategory())) {
 			error("The category of '"
 					+ componentTypeRename.getRenamedComponentType()
-							.getKwalifiedName() + "' is not "
+							.getQualifiedName() + "' is not "
 					+ componentTypeRename.getCategory().getName(),
 					componentTypeRename,
 					Aadl2Package.eINSTANCE
@@ -432,7 +432,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentType parent = typeExtension.getExtended();
 		ComponentType child = (ComponentType) typeExtension.getSpecific();
 		if (!AadlParseUtil.canExtend(parent, child))
-			error("Cannot extend '" + parent.getKwalifiedName()
+			error("Cannot extend '" + parent.getQualifiedName()
 					+ "'.  Incompatible categories.", parent,
 					Aadl2Package.eINSTANCE.getComponentType_OwnedExtension());
 	}
@@ -486,9 +486,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				isAncestor = true;
 		if (!isAncestor)
 			error(implementationExtension,
-					'\'' + typeOfParent.getKwalifiedName()
+					'\'' + typeOfParent.getQualifiedName()
 							+ "' is not an ancestor of '"
-							+ typeOfChild.getKwalifiedName() + "'.");
+							+ typeOfChild.getQualifiedName() + "'.");
 	}
 
 	/**
@@ -502,7 +502,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentImplementation implementation = (ComponentImplementation) realization
 				.getSpecific();
 		if (!type.getCategory().equals(implementation.getCategory()))
-			error(realization, "The category of '" + type.getKwalifiedName()
+			error(realization, "The category of '" + type.getQualifiedName()
 					+ "' is not " + implementation.getCategory() + '.');
 	}
 
@@ -519,7 +519,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				.getSpecific();
 		if (!AadlParseUtil.canExtend(parent, child))
 			error(implementationExtension,
-					"Cannot extend '" + parent.getKwalifiedName()
+					"Cannot extend '" + parent.getQualifiedName()
 							+ "'.  Incompatible categories.");
 	}
 
@@ -807,7 +807,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						.equals(prototype.getConstrainingClassifier()
 								.getCategory())) {
 			error(prototype, "The category of '"
-					+ prototype.getConstrainingClassifier().getKwalifiedName()
+					+ prototype.getConstrainingClassifier().getQualifiedName()
 					+ "' is not " + prototype.getCategory().getName());
 		}
 	}

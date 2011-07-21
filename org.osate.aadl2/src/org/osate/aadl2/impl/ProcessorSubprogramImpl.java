@@ -70,7 +70,7 @@ public class ProcessorSubprogramImpl extends NamedElementImpl implements Process
 	}
 	
 	@Override
-	public String kwalifiedName() {
+	public String qualifiedName() {
 		return getName();
 	}
 
