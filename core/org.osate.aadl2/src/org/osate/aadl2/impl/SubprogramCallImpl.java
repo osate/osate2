@@ -42,7 +42,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.Namespace;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyAcc;
 
 /**
  * <!-- begin-user-doc -->
@@ -248,6 +255,52 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 			return context != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osate.aadl2.impl.NamedElementImpl#getNamespace()
+	 */
+	@Override
+	public Namespace getNamespace() {
+		return (Namespace) eContainer().eContainer();
+	}
+
+	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osate.aadl2.impl.NamedElementImpl#getPropertyValueInternal
+	 * (org.osate.aadl2.Property,
+	 * org.osate.aadl2.properties.AadlPropertyValue, boolean)
+	 */
+	public final void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
+			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();
+
+		// local contained value
+		if (!fromInstanceSlaveCall && pas.addLocalContained(this, owner)) {
+			return;
+		}
+
+		// get local value
+		if (pas.addLocal(this)) {
+			return;
+		}
+
+		// get values from called subprogram
+		if (calledSubprogram instanceof Classifier) {
+			((Classifier) calledSubprogram).getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+		} else if (calledSubprogram instanceof Feature) {
+			((Feature) calledSubprogram).getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+		}
+
+		// get values from container
+		if (!fromInstanceSlaveCall && prop.isInherit()) {
+			owner.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+		}
 	}
 
 } //SubprogramCallImpl
