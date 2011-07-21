@@ -71,7 +71,7 @@ public class InternalEventImpl extends NamedElementImpl implements InternalEvent
 	}
 	
 	@Override
-	public String kwalifiedName() {
+	public String qualifiedName() {
 		return getName();
 	}
 

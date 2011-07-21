@@ -115,10 +115,10 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getKwalifiedName() <em>Qualified Name</em>}' attribute.
+	 * The default value of the '{@link #getQualifiedName() <em>Qualified Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getKwalifiedName()
+	 * @see #getQualifiedName()
 	 * @generated
 	 * @ordered
 	 */
@@ -192,9 +192,9 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getKwalifiedName() {
+	public String getQualifiedName() {
 		// DONE: implement this method to return the 'Qualified Name' attribute
-		return kwalifiedName();
+		return qualifiedName();
 	}
 
 	/**
@@ -281,8 +281,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String kwalifiedName() {
-		return NamedElementOperations.kwalifiedName(this);
+	public String qualifiedName() {
+		return NamedElementOperations.qualifiedName(this);
 	}
 
 	/**
@@ -310,7 +310,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		case Aadl2Package.NAMED_ELEMENT__NAME:
 			return getName();
 		case Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME:
-			return getKwalifiedName();
+			return getQualifiedName();
 		case Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION:
 			return getOwnedPropertyAssociations();
 		}
@@ -366,8 +366,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		case Aadl2Package.NAMED_ELEMENT__NAME:
 			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		case Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME:
-			return QUALIFIED_NAME_EDEFAULT == null ? getKwalifiedName() != null : !QUALIFIED_NAME_EDEFAULT
-					.equals(getKwalifiedName());
+			return QUALIFIED_NAME_EDEFAULT == null ? getQualifiedName() != null : !QUALIFIED_NAME_EDEFAULT
+					.equals(getQualifiedName());
 		case Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION:
 			return ownedPropertyAssociations != null && !ownedPropertyAssociations.isEmpty();
 		}

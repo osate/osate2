@@ -564,7 +564,7 @@ public class AadlSemanticCheckSwitch extends AadlProcessingSwitchWithProgress
 	{
 		if (!componentTypeRename.getCategory().getName().equals(componentTypeRename.getRenamedComponentType().getCategory()))
 		{
-			error(componentTypeRename, "The category of '" + componentTypeRename.getRenamedComponentType().getKwalifiedName() +
+			error(componentTypeRename, "The category of '" + componentTypeRename.getRenamedComponentType().getQualifiedName() +
 					"' is not " + componentTypeRename.getCategory().getName());
 		}
 	}
@@ -579,7 +579,7 @@ public class AadlSemanticCheckSwitch extends AadlProcessingSwitchWithProgress
 		ComponentType parent = typeExtension.getExtended();
 		ComponentType child = (ComponentType)typeExtension.getSpecific();
 		if (!AadlParseUtil.canExtend(parent, child))
-			error(typeExtension, "Cannot extend '" + parent.getKwalifiedName() + "'.  Incompatible categories.");
+			error(typeExtension, "Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.");
 	}
 	
 	/**
@@ -628,7 +628,7 @@ public class AadlSemanticCheckSwitch extends AadlProcessingSwitchWithProgress
 				isAncestor = true;
 		if (!isAncestor)
 			error(implementationExtension,
-					'\'' + typeOfParent.getKwalifiedName() + "' is not an ancestor of '" + typeOfChild.getKwalifiedName() + "'.");
+					'\'' + typeOfParent.getQualifiedName() + "' is not an ancestor of '" + typeOfChild.getQualifiedName() + "'.");
 	}
 	
 	/**
@@ -641,7 +641,7 @@ public class AadlSemanticCheckSwitch extends AadlProcessingSwitchWithProgress
 		ComponentType type = realization.getImplemented();
 		ComponentImplementation implementation = (ComponentImplementation)realization.getSpecific();
 		if (!type.getCategory().equals(implementation.getCategory()))
-			error(realization, "The category of '" + type.getKwalifiedName() + "' is not " + implementation.getCategory() + '.');
+			error(realization, "The category of '" + type.getQualifiedName() + "' is not " + implementation.getCategory() + '.');
 	}
 	
 	/**
@@ -654,7 +654,7 @@ public class AadlSemanticCheckSwitch extends AadlProcessingSwitchWithProgress
 		ComponentImplementation parent = implementationExtension.getExtended();
 		ComponentImplementation child = (ComponentImplementation)implementationExtension.getSpecific();
 		if (!AadlParseUtil.canExtend(parent, child))
-			error(implementationExtension, "Cannot extend '" + parent.getKwalifiedName() + "'.  Incompatible categories.");
+			error(implementationExtension, "Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.");
 	}
 	
 	/**
@@ -922,7 +922,7 @@ public class AadlSemanticCheckSwitch extends AadlProcessingSwitchWithProgress
 		if (prototype.getConstrainingClassifier() != null &&
 				!prototype.getCategory().getName().equals(prototype.getConstrainingClassifier().getCategory()))
 		{
-			error(prototype, "The category of '" + prototype.getConstrainingClassifier().getKwalifiedName() +
+			error(prototype, "The category of '" + prototype.getConstrainingClassifier().getQualifiedName() +
 					"' is not " + prototype.getCategory().getName());
 		}
 	}

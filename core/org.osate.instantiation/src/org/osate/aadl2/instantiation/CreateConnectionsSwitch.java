@@ -536,7 +536,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			if (toFi == null) {
 				error(ci,
 						"Connection from " + connInfo.src.getInstanceObjectPath() + " via "
-								+ newSegment.getKwalifiedName()
+								+ newSegment.getQualifiedName()
 								+ " has no valid direction. Connection instance not created.");
 			} else {
 				error(ci,
