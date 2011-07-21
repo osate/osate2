@@ -133,14 +133,13 @@
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BasicProperty" eSuperTypes="#//TypedElement">
-    <eAnnotations source="duplicates">
-      <contents xsi:type="ecore:EReference" name="type" ordered="false" eType="#//Type">
-        <eAnnotations source="redefines" references="#//TypedElement/type"/>
-      </contents>
-    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyType" ordered="false"
+        lowerBound="1" eType="#//PropertyType">
+      <eAnnotations source="redefines" references="#//TypedElement/type"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedType" ordered="false"
         eType="#//PropertyType" containment="true">
-      <eAnnotations source="subsets" references="#//BasicProperty/%duplicates%/type"/>
+      <eAnnotations source="subsets" references="#//BasicProperty/propertyType"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypedElement" abstract="true" eSuperTypes="#//NamedElement">
@@ -321,7 +320,7 @@
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModeFeature" abstract="true" eSuperTypes="#//ClassifierFeature"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Prototype" abstract="true" eSuperTypes="#//StructuralFeature #//CalledSubprogram">
+  <eClassifiers xsi:type="ecore:EClass" name="Prototype" abstract="true" eSuperTypes="#//StructuralFeature #//CalledSubprogram #//FeatureClassifier">
     <eOperations name="categoryConstraint" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain"/>
       <eParameters name="context">
@@ -343,6 +342,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="refinedElement" ordered="false"
         eType="#//RefinableElement" changeable="false"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureClassifier" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="CalledSubprogram" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="PrototypeBinding" abstract="true" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="formal" ordered="false"
@@ -469,7 +469,7 @@
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentClassifier" abstract="true"
-      eSuperTypes="#//Classifier #//SubcomponentType">
+      eSuperTypes="#//Classifier #//SubcomponentType #//FeatureClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMode" ordered="false"
         upperBound="-1" eType="#//Mode" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
@@ -526,15 +526,22 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Feature" abstract="true" eSuperTypes="#//StructuralFeature #//FeatureConnectionEnd #//ArrayableElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
-        eType="#//Prototype"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
-        eType="#//ComponentClassifier" changeable="false" volatile="true" transient="true"
+        eType="#//Prototype" changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureClassifier" ordered="false"
+        eType="#//FeatureClassifier" changeable="false" volatile="true" transient="true"
         derived="true">
       <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//Feature">
       <eAnnotations source="redefines" references="#//RefinableElement/refinedElement"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
+        eType="#//ComponentClassifier" changeable="false" volatile="true" transient="true"
+        derived="true">
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureConnectionEnd" abstract="true"
@@ -673,7 +680,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="BusAccess" eSuperTypes="#//Access">
     <eStructuralFeatures xsi:type="ecore:EReference" name="busClassifier" ordered="false"
         eType="#//BusClassifier">
-      <eAnnotations source="subsets" references="#//Feature/classifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Access" abstract="true" eSuperTypes="#//Feature #//AccessConnectionEnd">
@@ -701,7 +708,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="DataAccess" eSuperTypes="#//Access #//FlowElement #//ParameterConnectionEnd #//PortConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" ordered="false"
         eType="#//DataClassifier">
-      <eAnnotations source="subsets" references="#//Feature/classifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ParameterConnectionEnd" abstract="true"
@@ -714,7 +721,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="DataPort" eSuperTypes="#//Port #//Context #//ParameterConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" ordered="false"
         eType="#//DataClassifier">
-      <eAnnotations source="subsets" references="#//Feature/classifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Port" abstract="true" eSuperTypes="#//DirectedFeature #//PortConnectionEnd">
@@ -729,20 +736,20 @@
   <eClassifiers xsi:type="ecore:EClass" name="EventDataPort" eSuperTypes="#//Port #//Context #//ParameterConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" ordered="false"
         eType="#//DataClassifier">
-      <eAnnotations source="subsets" references="#//Feature/classifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventPort" eSuperTypes="#//Port"/>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//DirectedFeature #//Context #//ParameterConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" ordered="false"
         eType="#//DataClassifier">
-      <eAnnotations source="subsets" references="#//Feature/classifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//CalledSubprogram">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramClassifier" ordered="false"
         eType="#//SubprogramClassifier">
-      <eAnnotations source="subsets" references="#//Feature/classifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramClassifier" abstract="true"
@@ -753,7 +760,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupAccess" eSuperTypes="#//Access #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramGroupClassifier"
         ordered="false" eType="#//SubprogramGroupClassifier">
-      <eAnnotations source="subsets" references="#//Feature/classifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupClassifier" abstract="true"
@@ -764,7 +771,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AbstractFeature" eSuperTypes="#//DirectedFeature">
     <eStructuralFeatures xsi:type="ecore:EReference" name="componentClassifier" ordered="false"
         eType="#//ComponentClassifier">
-      <eAnnotations source="subsets" references="#//Feature/classifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototype" eSuperTypes="#//Prototype #//FeatureType">
@@ -1878,14 +1885,13 @@
         lowerBound="1" eType="#//PropertyExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyConstant" eSuperTypes="#//TypedElement #//AbstractNamedValue #//ArraySizeProperty">
-    <eAnnotations source="duplicates">
-      <contents xsi:type="ecore:EReference" name="type" ordered="false" eType="#//Type">
-        <eAnnotations source="redefines" references="#//TypedElement/type"/>
-      </contents>
-    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyType" ordered="false"
+        lowerBound="1" eType="#//PropertyType">
+      <eAnnotations source="redefines" references="#//TypedElement/type"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedType" ordered="false"
         eType="#//PropertyType" containment="true">
-      <eAnnotations source="subsets" references="#//PropertyConstant/%duplicates%/type"/>
+      <eAnnotations source="subsets" references="#//PropertyConstant/propertyType"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constantValue" ordered="false"
         eType="#//PropertyExpression" containment="true"/>

@@ -41,7 +41,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramClassifier;
 
@@ -52,7 +52,7 @@ import org.osate.aadl2.SubprogramClassifier;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.SubprogramAccessImpl#getClassifier <em>Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubprogramAccessImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramAccessImpl#getSubprogramClassifier <em>Subprogram Classifier</em>}</li>
  * </ul>
  * </p>
@@ -95,10 +95,10 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
+	public FeatureClassifier getFeatureClassifier() {
+		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
+		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+				: featureClassifier;
 	}
 
 	/**
@@ -107,11 +107,11 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier basicGetClassifier() {
+	public FeatureClassifier basicGetFeatureClassifier() {
 		if (eIsSet(Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_CLASSIFIER)) {
 			return basicGetSubprogramClassifier();
 		}
-		return super.basicGetClassifier();
+		return super.basicGetFeatureClassifier();
 	}
 
 	/**
@@ -222,8 +222,8 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * @generated
 	 */
 	@Override
-	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_CLASSIFIER);
+	public boolean isSetFeatureClassifier() {
+		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_CLASSIFIER);
 	}
 
 } //SubprogramAccessImpl

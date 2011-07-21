@@ -58,7 +58,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getPropertyType <em>Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getOwnedType <em>Owned Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getConstantValue <em>Constant Value</em>}</li>
  * </ul>
@@ -67,6 +67,16 @@ import org.osate.aadl2.properties.InvalidModelException;
  * @generated
  */
 public class PropertyConstantImpl extends TypedElementImpl implements PropertyConstant {
+	/**
+	 * The cached value of the '{@link #getPropertyType() <em>Property Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPropertyType()
+	 * @generated
+	 * @ordered
+	 */
+	protected PropertyType propertyType;
+
 	/**
 	 * The cached value of the '{@link #getOwnedType() <em>Owned Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -111,18 +121,58 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public Type getType() {
-		if (type != null && ((EObject) type).eIsProxy()) {
-			InternalEObject oldType = (InternalEObject) type;
-			type = (Type) eResolveProxy(oldType);
-			if (type != oldType) {
+	public PropertyType getPropertyType() {
+		if (propertyType != null && ((EObject) propertyType).eIsProxy()) {
+			InternalEObject oldPropertyType = (InternalEObject) propertyType;
+			propertyType = (PropertyType) eResolveProxy(oldPropertyType);
+			if (propertyType != oldPropertyType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PROPERTY_CONSTANT__TYPE,
-							oldType, type));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE, oldPropertyType, propertyType));
 			}
 		}
-		return type;
+		return propertyType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PropertyType basicGetPropertyType() {
+		return propertyType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void setPropertyType(PropertyType newPropertyType) {
+		PropertyType oldPropertyType = propertyType;
+		propertyType = newPropertyType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE,
+					oldPropertyType, propertyType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetPropertyType() {
+		return propertyType != null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Type getType() {
+		return getPropertyType();
 	}
 
 	/**
@@ -132,7 +182,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 */
 	@Override
 	public Type basicGetType() {
-		return type;
+		return basicGetPropertyType();
 	}
 
 	/**
@@ -142,16 +192,10 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 */
 	@Override
 	public void setType(Type newType) {
-		Type oldType = type;
-		type = newType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_CONSTANT__TYPE, oldType, type));
-		Resource.Internal eInternalResource = eInternalResource();
-		if (eInternalResource == null || !eInternalResource.isLoading()) {
-			if (ownedType != null && ownedType != newType) {
-				setOwnedType(null);
-			}
+		if (newType != null && !(newType instanceof PropertyType)) {
+			throw new IllegalArgumentException(String.valueOf(newType));
 		}
+		setPropertyType((PropertyType) newType);
 	}
 
 	/**
@@ -160,7 +204,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * @generated
 	 */
 	public boolean isSetType() {
-		return type != null;
+		return false;
 	}
 
 	/**
@@ -191,8 +235,8 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 		Resource.Internal eInternalResource = eInternalResource();
 		if (eInternalResource == null || !eInternalResource.isLoading()) {
 			if (newOwnedType != null) {
-				if (newOwnedType != type) {
-					setType(newOwnedType);
+				if (newOwnedType != propertyType) {
+					setPropertyType(newOwnedType);
 				}
 			}
 		}
@@ -317,6 +361,10 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+		case Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE:
+			if (resolve)
+				return getPropertyType();
+			return basicGetPropertyType();
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE:
 			return getOwnedType();
 		case Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE:
@@ -333,6 +381,9 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE:
+			setPropertyType((PropertyType) newValue);
+			return;
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE:
 			setOwnedType((PropertyType) newValue);
 			return;
@@ -351,6 +402,9 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE:
+			setPropertyType((PropertyType) null);
+			return;
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE:
 			setOwnedType((PropertyType) null);
 			return;
@@ -369,6 +423,8 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE:
+			return isSetPropertyType();
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE:
 			return ownedType != null;
 		case Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE:

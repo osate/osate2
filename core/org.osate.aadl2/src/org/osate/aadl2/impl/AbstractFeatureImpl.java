@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.FeatureClassifier;
 
 /**
  * <!-- begin-user-doc -->
@@ -52,7 +53,7 @@ import org.osate.aadl2.ComponentClassifier;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.AbstractFeatureImpl#getClassifier <em>Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.AbstractFeatureImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AbstractFeatureImpl#getComponentClassifier <em>Component Classifier</em>}</li>
  * </ul>
  * </p>
@@ -95,10 +96,10 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
+	public FeatureClassifier getFeatureClassifier() {
+		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
+		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+				: featureClassifier;
 	}
 
 	/**
@@ -107,11 +108,11 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * @generated
 	 */
 	@Override
-	public ComponentClassifier basicGetClassifier() {
+	public FeatureClassifier basicGetFeatureClassifier() {
 		if (eIsSet(Aadl2Package.ABSTRACT_FEATURE__COMPONENT_CLASSIFIER)) {
 			return basicGetComponentClassifier();
 		}
-		return super.basicGetClassifier();
+		return super.basicGetFeatureClassifier();
 	}
 
 	/**
@@ -221,8 +222,8 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * @generated
 	 */
 	@Override
-	public boolean isSetClassifier() {
-		return super.isSetClassifier() || eIsSet(Aadl2Package.ABSTRACT_FEATURE__COMPONENT_CLASSIFIER);
+	public boolean isSetFeatureClassifier() {
+		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.ABSTRACT_FEATURE__COMPONENT_CLASSIFIER);
 	}
 
 } //AbstractFeatureImpl
