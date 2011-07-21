@@ -218,7 +218,7 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getArrayableElement_ArraySpecification());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getArrayableElement_ArrayDimension());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubcomponent_OwnedPrototypeBinding());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubcomponent_ModeBinding());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubcomponent_ImplementationReference());
@@ -268,7 +268,7 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 		case Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
-		case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:
+		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
@@ -289,8 +289,8 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArrayableElement_ArraySpecification(),
-				Aadl2Factory.eINSTANCE.createArraySpecification()));
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArrayableElement_ArrayDimension(),
+				Aadl2Factory.eINSTANCE.createArrayDimension()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getSubcomponent_OwnedPrototypeBinding(),
 				Aadl2Factory.eINSTANCE.createComponentPrototypeBinding()));

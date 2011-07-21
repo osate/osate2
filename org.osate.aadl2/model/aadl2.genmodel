@@ -180,6 +180,7 @@
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//PropertyType"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//AbstractNamedValue"/>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ArraySizeProperty"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//PropertyExpression"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//MetaclassReference">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//MetaclassReference/annexName"/>
@@ -313,18 +314,18 @@
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalPropertyValue/ownedValue"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//BehavioralFeature"/>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ArraySpecification">
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ArraySpecification/dimension"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ArrayDimension">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ArraySpecification/size"/>
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ArrayDimension/size"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ArraySize"/>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ArraySize">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ArraySize/size"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ArraySize/sizeProperty"/>
+    </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ArrayableElement">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ArrayableElement/arraySpecification"/>
-    </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//Numeral">
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Numeral/value"/>
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ArrayableElement/arrayDimension"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ComponentImplementationReference">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -1153,7 +1154,6 @@
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BasicPropertyAssociation/ownedValue"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PropertyConstant">
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PropertyConstant/list"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/ownedType"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"

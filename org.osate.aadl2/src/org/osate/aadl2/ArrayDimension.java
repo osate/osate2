@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,52 +31,60 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: Numeral.java,v 1.2 2009-10-07 16:46:58 lwrage Exp $
  */
 package org.osate.aadl2;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Numeral</b></em>'.
+ * A representation of the model object '<em><b>Array Dimension</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.Numeral#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.aadl2.ArrayDimension#getSize <em>Size</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.aadl2.Aadl2Package#getNumeral()
+ * @see org.osate.aadl2.Aadl2Package#getArrayDimension()
  * @model
  * @generated
  */
-public interface Numeral extends ArraySize {
+public interface ArrayDimension extends Element {
 	/**
-	 * Returns the value of the '<em><b>Value</b></em>' attribute.
+	 * Returns the value of the '<em><b>Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Size</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(long)
-	 * @see org.osate.aadl2.Aadl2Package#getNumeral_Value()
-	 * @model dataType="org.osate.aadl2.Integer" required="true" ordered="false"
+	 * @return the value of the '<em>Size</em>' containment reference.
+	 * @see #setSize(ArraySize)
+	 * @see org.osate.aadl2.Aadl2Package#getArrayDimension_Size()
+	 * @model containment="true"
 	 * @generated
 	 */
-	long getValue();
+	ArraySize getSize();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Numeral#getValue <em>Value</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.aadl2.ArrayDimension#getSize <em>Size</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value</em>' attribute.
-	 * @see #getValue()
+	 * @param value the new value of the '<em>Size</em>' containment reference.
+	 * @see #getSize()
 	 * @generated
 	 */
-	void setValue(long value);
+	void setSize(ArraySize value);
 
-} // Numeral
+	/**
+	 * Creates a new {@link org.osate.aadl2.ArraySize} and sets the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.ArraySize}.
+	 * @see #getSize()
+	 * @generated
+	 */
+	ArraySize createSize();
+
+} // ArrayDimension

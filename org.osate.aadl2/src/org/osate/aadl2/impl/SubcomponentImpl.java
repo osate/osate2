@@ -51,7 +51,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractSubcomponentType;
-import org.osate.aadl2.ArraySpecification;
+import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -84,7 +84,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getInModes <em>In Mode</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getArraySpecification <em>Array Specification</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getArrayDimensions <em>Array Dimension</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getOwnedPrototypeBindings <em>Owned Prototype Binding</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getPrototype <em>Prototype</em>}</li>
@@ -111,14 +111,14 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	protected EList<Mode> inModes;
 
 	/**
-	 * The cached value of the '{@link #getArraySpecification() <em>Array Specification</em>}' containment reference.
+	 * The cached value of the '{@link #getArrayDimensions() <em>Array Dimension</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getArraySpecification()
+	 * @see #getArrayDimensions()
 	 * @generated
 	 * @ordered
 	 */
-	protected ArraySpecification arraySpecification;
+	protected EList<ArrayDimension> arrayDimensions;
 
 	/**
 	 * The cached value of the '{@link #getOwnedPrototypeBindings() <em>Owned Prototype Binding</em>}' containment reference list.
@@ -226,27 +226,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ArraySpecification getArraySpecification() {
-		return arraySpecification;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetArraySpecification(ArraySpecification newArraySpecification, NotificationChain msgs) {
-		ArraySpecification oldArraySpecification = arraySpecification;
-		arraySpecification = newArraySpecification;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION, oldArraySpecification, newArraySpecification);
-			if (msgs == null)
-				msgs = notification;
-			else
-				msgs.add(notification);
+	public EList<ArrayDimension> getArrayDimensions() {
+		if (arrayDimensions == null) {
+			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this,
+					Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION);
 		}
-		return msgs;
+		return arrayDimensions;
 	}
 
 	/**
@@ -254,33 +239,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setArraySpecification(ArraySpecification newArraySpecification) {
-		if (newArraySpecification != arraySpecification) {
-			NotificationChain msgs = null;
-			if (arraySpecification != null)
-				msgs = ((InternalEObject) arraySpecification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION, null, msgs);
-			if (newArraySpecification != null)
-				msgs = ((InternalEObject) newArraySpecification).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION, null, msgs);
-			msgs = basicSetArraySpecification(newArraySpecification, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION,
-					newArraySpecification, newArraySpecification));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ArraySpecification createArraySpecification() {
-		ArraySpecification newArraySpecification = (ArraySpecification) create(Aadl2Package.eINSTANCE
-				.getArraySpecification());
-		setArraySpecification(newArraySpecification);
-		return newArraySpecification;
+	public ArrayDimension createArrayDimension() {
+		ArrayDimension newArrayDimension = (ArrayDimension) create(Aadl2Package.eINSTANCE.getArrayDimension());
+		getArrayDimensions().add(newArrayDimension);
+		return newArrayDimension;
 	}
 
 	/**
@@ -555,8 +517,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:
-			return basicSetArraySpecification(null, msgs);
+		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
+			return ((InternalEList<?>) getArrayDimensions()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 			return ((InternalEList<?>) getOwnedPrototypeBindings()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
@@ -577,8 +539,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		switch (featureID) {
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
 			return getInModes();
-		case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:
-			return getArraySpecification();
+		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
+			return getArrayDimensions();
 		case Aadl2Package.SUBCOMPONENT__SUBCOMPONENT_TYPE:
 			if (resolve)
 				return getSubcomponentType();
@@ -624,8 +586,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			getInModes().clear();
 			getInModes().addAll((Collection<? extends Mode>) newValue);
 			return;
-		case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:
-			setArraySpecification((ArraySpecification) newValue);
+		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
+			getArrayDimensions().clear();
+			getArrayDimensions().addAll((Collection<? extends ArrayDimension>) newValue);
 			return;
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 			getOwnedPrototypeBindings().clear();
@@ -663,8 +626,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
 			getInModes().clear();
 			return;
-		case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:
-			setArraySpecification((ArraySpecification) null);
+		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
+			getArrayDimensions().clear();
 			return;
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 			getOwnedPrototypeBindings().clear();
@@ -698,8 +661,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		switch (featureID) {
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
 			return inModes != null && !inModes.isEmpty();
-		case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:
-			return arraySpecification != null;
+		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
+			return arrayDimensions != null && !arrayDimensions.isEmpty();
 		case Aadl2Package.SUBCOMPONENT__SUBCOMPONENT_TYPE:
 			return isSetSubcomponentType();
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
@@ -757,8 +720,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		}
 		if (baseClass == ArrayableElement.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION:
-				return Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION;
+			case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
+				return Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION;
 			default:
 				return -1;
 			}
@@ -801,8 +764,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		}
 		if (baseClass == ArrayableElement.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION:
-				return Aadl2Package.SUBCOMPONENT__ARRAY_SPECIFICATION;
+			case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION:
+				return Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION;
 			default:
 				return -1;
 			}

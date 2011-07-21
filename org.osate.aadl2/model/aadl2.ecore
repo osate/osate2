@@ -244,7 +244,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedValue" ordered="false"
         lowerBound="1" upperBound="-1" eType="#//ModalPropertyValue" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//BasicProperty #//AbstractNamedValue">
+  <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//BasicProperty #//AbstractNamedValue #//ArraySizeProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="inherit" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultValue" ordered="false"
@@ -284,6 +284,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyType" abstract="true" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractNamedValue" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ArraySizeProperty" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyExpression" abstract="true"
       eSuperTypes="#//Element"/>
   <eClassifiers xsi:type="ecore:EClass" name="MetaclassReference" eSuperTypes="#//PropertyOwner">
@@ -690,20 +691,19 @@
       <details key="documentation" value="A real is a primitive type representing real numeric values."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ArraySpecification" eSuperTypes="#//Element">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dimension" ordered="false"
-        unique="false" lowerBound="1" eType="#//Integer"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="size" upperBound="-1" eType="#//ArraySize"
+  <eClassifiers xsi:type="ecore:EClass" name="ArrayDimension" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="size" eType="#//ArraySize"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ArraySize" abstract="true" eSuperTypes="#//Element"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ArrayableElement" abstract="true" eSuperTypes="#//Element">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="arraySpecification" ordered="false"
-        eType="#//ArraySpecification" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ArraySize" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" ordered="false" lowerBound="1"
+        eType="#//Integer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sizeProperty" ordered="false"
+        eType="#//ArraySizeProperty"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Numeral" eSuperTypes="#//ArraySize">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
-        lowerBound="1" eType="#//Integer"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ArrayableElement" abstract="true" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arrayDimension" upperBound="-1"
+        eType="#//ArrayDimension" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentImplementationReference" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="implementation" ordered="false"
@@ -2193,14 +2193,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedValue" ordered="false"
         lowerBound="1" eType="#//PropertyExpression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyConstant" eSuperTypes="#//TypedElement #//AbstractNamedValue">
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyConstant" eSuperTypes="#//TypedElement #//AbstractNamedValue #//ArraySizeProperty">
     <eAnnotations source="duplicates">
       <contents xsi:type="ecore:EReference" name="type" ordered="false" eType="#//Type">
         <eAnnotations source="redefines" references="#//TypedElement/type"/>
       </contents>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="list" ordered="false" lowerBound="1"
-        eType="#//Integer"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedType" ordered="false"
         eType="#//PropertyType" containment="true">
       <eAnnotations source="subsets" references="#//PropertyConstant/%duplicates%/type"/>
