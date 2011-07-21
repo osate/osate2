@@ -567,6 +567,7 @@
           <body>A prototype that can be bound to a feature group type.</body>
         </ownedComment>
         <generalization xmi:id="Templates-FeatureGroupPrototype-_generalization.0" general="Templates-Prototype"/>
+        <generalization xmi:id="_-S-ecLFcEeCdCowcwygdUw" general="_Xq8BsLFcEeCdCowcwygdUw"/>
         <ownedAttribute xmi:id="Templates-FeatureGroupPrototype-constrainingFeatureGroupType" name="constrainingFeatureGroupType" type="Features-FeatureGroupType" association="Templates-A_featureGroupPrototype_constrainingFeatureGroupType">
           <ownedComment xmi:id="Templates-FeatureGroupPrototype-constrainingFeatureGroupType-_ownedComment.0">
             <body>Constrains any binding of this prototype to a classifier that extends the referenced feature group type.</body>
@@ -605,12 +606,6 @@
         <ownedEnd xmi:id="Templates-A_featureGroupPrototype_constrainingFeatureGroupType-prototype" name="prototype" type="Templates-FeatureGroupPrototype" association="Templates-A_featureGroupPrototype_constrainingFeatureGroupType">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_featureGroupPrototype_constrainingFeatureGroupType-prototype-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_featureGroupPrototype_constrainingFeatureGroupType-prototype-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Templates-A_featureGroupPrototypeBinding_featureGroupType" name="A_featureGroupPrototypeBinding_featureGroupType" memberEnd="Templates-A_featureGroupPrototypeBinding_featureGroupType-actual Templates-FeatureGroupReference-featureGroupType">
-        <ownedEnd xmi:id="Templates-A_featureGroupPrototypeBinding_featureGroupType-actual" name="actual" type="Templates-FeatureGroupReference" association="Templates-A_featureGroupPrototypeBinding_featureGroupType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_featureGroupPrototypeBinding_featureGroupType-actual-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_featureGroupPrototypeBinding_featureGroupType-actual-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Templates-FeaturePrototype" name="FeaturePrototype">
@@ -795,50 +790,14 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_classifierReference_binding-owner-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Templates-FeatureGroupPrototypeActual" name="FeatureGroupPrototypeActual" isAbstract="true">
+      <packagedElement xmi:type="uml:Class" xmi:id="Templates-FeatureGroupPrototypeActual" name="FeatureGroupPrototypeActual">
         <ownedComment xmi:id="Templates-FeatureGroupPrototypeActual-_ownedComment.0">
           <body>An element to which a feature group prototype may be bound.</body>
         </ownedComment>
         <generalization xmi:id="Templates-FeatureGroupPrototypeActual-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Templates-A_featureGroupPrototypeBinding_actual" name="A_featureGroupPrototypeBinding_actual" memberEnd="Templates-A_featureGroupPrototypeBinding_actual-owner Templates-FeatureGroupPrototypeBinding-actual">
-        <ownedEnd xmi:id="Templates-A_featureGroupPrototypeBinding_actual-owner" name="owner" type="Templates-FeatureGroupPrototypeBinding" association="Templates-A_featureGroupPrototypeBinding_actual">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_featureGroupPrototypeBinding_actual-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_featureGroupPrototypeBinding_actual-owner-_lowerValue" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Templates-A_featureGroupPrototypeActual_prototype" name="A_featureGroupPrototypeActual_prototype" memberEnd="Templates-A_featureGroupPrototypeActual_prototype-actual Templates-FeatureGroupPrototypeReference-prototype">
-        <ownedEnd xmi:id="Templates-A_featureGroupPrototypeActual_prototype-actual" name="actual" type="Templates-FeatureGroupPrototypeReference" association="Templates-A_featureGroupPrototypeActual_prototype">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_featureGroupPrototypeActual_prototype-actual-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_featureGroupPrototypeActual_prototype-actual-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Templates-A_featureGroupPrototypeActual_binding" name="A_featureGroupPrototypeActual_binding" memberEnd="Templates-A_featureGroupPrototypeActual_binding-owner Templates-FeatureGroupReference-binding">
-        <ownedEnd xmi:id="Templates-A_featureGroupPrototypeActual_binding-owner" name="owner" type="Templates-FeatureGroupReference" association="Templates-A_featureGroupPrototypeActual_binding">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_featureGroupPrototypeActual_binding-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_featureGroupPrototypeActual_binding-owner-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Templates-FeatureGroupPrototypeReference" name="FeatureGroupPrototypeReference">
-        <ownedComment xmi:id="Templates-FeatureGroupPrototypeReference-_ownedComment.0">
-          <body>A reference to a feature group prototype. This is used to pass  a prototype actual down the containment hierarchy.</body>
-        </ownedComment>
-        <generalization xmi:id="Templates-FeatureGroupPrototypeReference-_generalization.0" general="Templates-FeatureGroupPrototypeActual"/>
-        <ownedAttribute xmi:id="Templates-FeatureGroupPrototypeReference-prototype" name="prototype" type="Templates-FeatureGroupPrototype" association="Templates-A_featureGroupPrototypeActual_prototype">
-          <ownedComment xmi:id="Templates-FeatureGroupPrototypeReference-prototype-_ownedComment.0">
-            <body>References the feature group prototype that is used as a prototype actual.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-FeatureGroupPrototypeReference-prototype-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-FeatureGroupPrototypeReference-prototype-_lowerValue" value="1"/>
-        </ownedAttribute>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Templates-FeatureGroupReference" name="FeatureGroupReference">
-        <ownedComment xmi:id="Templates-FeatureGroupReference-_ownedComment.0">
-          <body>A reference to a feature group type that is used as a prototype actual.</body>
-        </ownedComment>
-        <generalization xmi:id="Templates-FeatureGroupReference-_generalization.0" general="Templates-FeatureGroupPrototypeActual"/>
+        <generalization xmi:id="_Ch4CkLIzEeC2OduVpwNurQ" general="Templates-FeaturePrototypeActual"/>
         <ownedAttribute xmi:id="Templates-FeatureGroupReference-binding" name="binding" type="Templates-PrototypeBinding" aggregation="composite" association="Templates-A_featureGroupPrototypeActual_binding">
           <ownedComment xmi:id="Templates-FeatureGroupReference-binding-_ownedComment.0">
             <body>A list of prototype bindings. These bindings apply to the feature group type of this reference.</body>
@@ -846,13 +805,22 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-FeatureGroupReference-binding-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-FeatureGroupReference-binding-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Templates-FeatureGroupReference-featureGroupType" name="featureGroupType" type="Features-FeatureGroupType" association="Templates-A_featureGroupPrototypeBinding_featureGroupType">
-          <ownedComment xmi:id="Templates-FeatureGroupReference-featureGroupType-_ownedComment.0">
-            <body>References the feature group type that is the prototype actual.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-FeatureGroupReference-featureGroupType-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-FeatureGroupReference-featureGroupType-_lowerValue" value="1"/>
+        <ownedAttribute xmi:id="_ftE2sLFdEeCdCowcwygdUw" name="featureType" type="_Xq8BsLFcEeCdCowcwygdUw" association="_ft4vALFdEeCdCowcwygdUw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ftE2sbFdEeCdCowcwygdUw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ftE2srFdEeCdCowcwygdUw" value="1"/>
         </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="Templates-A_featureGroupPrototypeBinding_actual" name="A_featureGroupPrototypeBinding_actual" memberEnd="Templates-A_featureGroupPrototypeBinding_actual-owner Templates-FeatureGroupPrototypeBinding-actual">
+        <ownedEnd xmi:id="Templates-A_featureGroupPrototypeBinding_actual-owner" name="owner" type="Templates-FeatureGroupPrototypeBinding" association="Templates-A_featureGroupPrototypeBinding_actual">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_featureGroupPrototypeBinding_actual-owner-_upperValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_featureGroupPrototypeBinding_actual-owner-_lowerValue" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="Templates-A_featureGroupPrototypeActual_binding" name="A_featureGroupPrototypeActual_binding" memberEnd="Templates-A_featureGroupPrototypeActual_binding-owner Templates-FeatureGroupReference-binding">
+        <ownedEnd xmi:id="Templates-A_featureGroupPrototypeActual_binding-owner" name="owner" type="Templates-FeatureGroupPrototypeActual" association="Templates-A_featureGroupPrototypeActual_binding">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_featureGroupPrototypeActual_binding-owner-_upperValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_featureGroupPrototypeActual_binding-owner-_lowerValue"/>
+        </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Templates-A_prototype_refined" name="A_prototype_refined" memberEnd="Templates-A_prototype_refined-prototype Templates-Prototype-refined">
         <ownedEnd xmi:id="Templates-A_prototype_refined-prototype" name="prototype" type="Templates-Prototype" association="Templates-A_prototype_refined">
@@ -886,31 +854,30 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RljAs6yOEeC0h7jzzZfZ7Q"/>
         </ownedEnd>
       </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_ft4vALFdEeCdCowcwygdUw" name="A_&lt;featureGroupPrototypeActual>_&lt;featureType>" memberEnd="_ft4vAbFdEeCdCowcwygdUw _ftE2sLFdEeCdCowcwygdUw">
+        <ownedEnd xmi:id="_ft4vAbFdEeCdCowcwygdUw" name="featureGroupPrototypeActual" type="Templates-FeatureGroupPrototypeActual" association="_ft4vALFdEeCdCowcwygdUw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ft4vArFdEeCdCowcwygdUw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ft4vA7FdEeCdCowcwygdUw"/>
+        </ownedEnd>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Arrays" name="Arrays">
       <ownedComment xmi:id="Arrays-_ownedComment.0">
         <body>This package defines multi-dimensional arrays of subcomponents and features.&#xD;
 Additionally, it defines how a subcomponent array can be instantiated as a list of component implementations.</body>
       </ownedComment>
-      <packagedElement xmi:type="uml:Class" xmi:id="Arrays-ArraySpecification" name="ArraySpecification">
+      <packagedElement xmi:type="uml:Class" xmi:id="Arrays-ArraySpecification" name="ArrayDimension">
         <ownedComment xmi:id="Arrays-ArraySpecification-_ownedComment.0">
           <body>Specifies a one or multi-dimensional array. </body>
         </ownedComment>
         <generalization xmi:id="Arrays-ArraySpecification-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:id="Arrays-ArraySpecification-dimension" name="dimension" isUnique="false">
-          <ownedComment xmi:id="Arrays-ArraySpecification-dimension-_ownedComment.0">
-            <body>The number of dimensions in the array.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Integer"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-ArraySpecification-dimension-_upperValue" value="1"/>
-        </ownedAttribute>
         <ownedAttribute xmi:id="Arrays-ArraySpecification-size" name="size" type="Arrays-ArraySize" isOrdered="true" aggregation="composite" association="Arrays-A_arraySpecification_size">
           <ownedComment xmi:id="Arrays-ArraySpecification-size-_ownedComment.0">
             <body>References the specification of the size of an array dimension. </body>
           </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-ArraySpecification-size-_upperValue" value="*"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-ArraySpecification-size-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Arrays-ArraySpecification-size-_lowerValue"/>
         </ownedAttribute>
       </packagedElement>
@@ -921,45 +888,36 @@ Additionally, it defines how a subcomponent array can be instantiated as a list 
         <generalization xmi:id="Arrays-ArrayableElement-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:id="Arrays-ArrayableElement-arraySpecification" name="arraySpecification" type="Arrays-ArraySpecification" aggregation="composite" association="Arrays-A_arrayableElement_arraySpecification">
+        <ownedAttribute xmi:id="Arrays-ArrayableElement-arraySpecification" name="arrayDimension" type="Arrays-ArraySpecification" isOrdered="true" aggregation="composite" association="Arrays-A_arrayableElement_arraySpecification">
           <ownedComment xmi:id="Arrays-ArrayableElement-arraySpecification-_ownedComment.0">
             <body></body>
           </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-ArrayableElement-arraySpecification-_upperValue" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-ArrayableElement-arraySpecification-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Arrays-ArrayableElement-arraySpecification-_lowerValue"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Arrays-A_arrayableElement_arraySpecification" name="A_arrayableElement_arraySpecification" memberEnd="Arrays-A_arrayableElement_arraySpecification-owner Arrays-ArrayableElement-arraySpecification">
+      <packagedElement xmi:type="uml:Association" xmi:id="Arrays-A_arrayableElement_arraySpecification" name="A_arrayableElement_arrayDimension" memberEnd="Arrays-A_arrayableElement_arraySpecification-owner Arrays-ArrayableElement-arraySpecification">
         <ownedEnd xmi:id="Arrays-A_arrayableElement_arraySpecification-owner" name="owner" type="Arrays-ArrayableElement" association="Arrays-A_arrayableElement_arraySpecification">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-A_arrayableElement_arraySpecification-owner-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Arrays-A_arrayableElement_arraySpecification-owner-_lowerValue" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Arrays-ArraySize" name="ArraySize" isAbstract="true">
+      <packagedElement xmi:type="uml:Class" xmi:id="Arrays-ArraySize" name="ArraySize">
         <ownedComment xmi:id="Arrays-ArraySize-_ownedComment.0">
           <body>Specifies the size of an array dimension.</body>
         </ownedComment>
         <generalization xmi:id="Arrays-ArraySize-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
+        <ownedAttribute xmi:id="_ddrToLOREeCzMYz5ww7glA" name="size">
+          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Integer"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Arrays-A_arraySpecification_size" name="A_arraySpecification_size" memberEnd="Arrays-A_arraySpecification_size-owner Arrays-ArraySpecification-size">
         <ownedEnd xmi:id="Arrays-A_arraySpecification_size-owner" name="owner" type="Arrays-ArraySpecification" association="Arrays-A_arraySpecification_size">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-A_arraySpecification_size-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Arrays-A_arraySpecification_size-owner-_lowerValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Arrays-A_arraySpecification_size-owner-_lowerValue"/>
         </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Arrays-Numeral" name="Numeral">
-        <ownedComment xmi:id="Arrays-Numeral-_ownedComment.0">
-          <body>A numeral is a positive integer value.</body>
-        </ownedComment>
-        <generalization xmi:id="Arrays-Numeral-_generalization.0" general="Arrays-ArraySize"/>
-        <ownedAttribute xmi:id="Arrays-Numeral-value" name="value">
-          <ownedComment xmi:id="Arrays-Numeral-value-_ownedComment.0">
-            <body>The numeric value of the numeral.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Integer"/>
-        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Arrays-ComponentImplementationReference" name="ComponentImplementationReference">
         <ownedComment xmi:id="Arrays-ComponentImplementationReference-_ownedComment.0">
@@ -1015,12 +973,20 @@ Additionally, it defines how a subcomponent array can be instantiated as a list 
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Boolean"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Features-FeatureGroup-featureGroupType" name="featureGroupType" type="Features-FeatureGroupType" association="Features-A_featureGroup_type">
+        <ownedAttribute xmi:id="Features-FeatureGroup-featureGroupType" name="featureType" type="_Xq8BsLFcEeCdCowcwygdUw" association="Features-A_featureGroup_type">
           <ownedComment xmi:id="Features-FeatureGroup-featureGroupType-_ownedComment.0">
             <body>References the type of this feature group.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-FeatureGroup-featureGroupType-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-FeatureGroup-featureGroupType-_lowerValue" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_u9Ac8LH_EeCWmNkTdM4SSg" name="featureGroupType" type="Features-FeatureGroupType" isReadOnly="true" isDerived="true" subsettedProperty="Features-FeatureGroup-featureGroupType" association="_u9HxuLH_EeCWmNkTdM4SSg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_u9Ac8bH_EeCWmNkTdM4SSg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_u9Ac8rH_EeCWmNkTdM4SSg"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_vj76ELH_EeCWmNkTdM4SSg" name="featureGroupPrototype" type="Templates-FeatureGroupPrototype" isReadOnly="true" isDerived="true" subsettedProperty="Features-FeatureGroup-featureGroupType" association="_vkALirH_EeCWmNkTdM4SSg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vj76EbH_EeCWmNkTdM4SSg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vj76ErH_EeCWmNkTdM4SSg"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Features-Feature" name="Feature" isAbstract="true">
@@ -1069,6 +1035,7 @@ For access features, the classifier specifies the type of the shared component.<
         <generalization xmi:id="Features-FeatureGroupType-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Classifier"/>
         </generalization>
+        <generalization xmi:id="_kWOBgLFcEeCdCowcwygdUw" general="_Xq8BsLFcEeCdCowcwygdUw"/>
         <ownedAttribute xmi:id="Features-FeatureGroupType-ownedFeature" name="ownedFeature" type="Features-Feature" isOrdered="true" isReadOnly="true" isDerived="true" isDerivedUnion="true" aggregation="composite" association="Features-A_featureGroupType_ownedFeature">
           <ownedComment xmi:id="Features-FeatureGroupType-ownedFeature-_ownedComment.0">
             <body>===TBD===</body>
@@ -1327,6 +1294,19 @@ For access features, the classifier specifies the type of the shared component.<
           </ownedComment>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_tq3g4J3NEeCdSYIh9KA8Hg" name="inOut" type="Features-DirectionType" value="inOut"/>
         </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Xq8BsLFcEeCdCowcwygdUw" name="FeatureType" isAbstract="true"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_u9HxuLH_EeCWmNkTdM4SSg" name="A_featureGroup_featureGroupType" memberEnd="_u9HxubH_EeCWmNkTdM4SSg _u9Ac8LH_EeCWmNkTdM4SSg">
+        <ownedEnd xmi:id="_u9HxubH_EeCWmNkTdM4SSg" name="featureGroup" type="Features-FeatureGroup" association="_u9HxuLH_EeCWmNkTdM4SSg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_u9HxurH_EeCWmNkTdM4SSg" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_u9Hxu7H_EeCWmNkTdM4SSg"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_vkALirH_EeCWmNkTdM4SSg" name="A_featureGroup_featureGroupPrototype" memberEnd="_vkALi7H_EeCWmNkTdM4SSg _vj76ELH_EeCWmNkTdM4SSg">
+        <ownedEnd xmi:id="_vkALi7H_EeCWmNkTdM4SSg" name="featureGroup" type="Features-FeatureGroup" association="_vkALirH_EeCWmNkTdM4SSg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vkALjLH_EeCWmNkTdM4SSg" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vkALjbH_EeCWmNkTdM4SSg"/>
+        </ownedEnd>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Packaging" name="Packaging">

@@ -58,7 +58,7 @@ import org.osate.aadl2.ReferenceType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ReferenceTypeItemProvider extends PropertyTypeItemProvider implements IEditingDomainItemProvider,
+public class ReferenceTypeItemProvider extends NonListTypeItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.

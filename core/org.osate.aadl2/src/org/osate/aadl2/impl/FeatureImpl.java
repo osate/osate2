@@ -1,14 +1,14 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- *
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
+ * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
+ * 
  * NO WARRANTY
- *
+ * 
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
+ * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
  * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
  * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
@@ -16,24 +16,25 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
+ * 
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
+ * 
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- *
- * $Id: FeatureImpl.java,v 1.27 2011-04-11 13:35:53 lwrage Exp $
+ * 
  */
 package org.osate.aadl2.impl;
+
+import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -43,8 +44,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ArraySpecification;
+import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -64,7 +67,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getArraySpecification <em>Array Specification</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getArrayDimensions <em>Array Dimension</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getClassifier <em>Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getPrototype <em>Prototype</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getRefined <em>Refined</em>}</li>
@@ -74,54 +77,48 @@ import org.osate.aadl2.properties.PropertyAcc;
  * @generated
  */
 public abstract class FeatureImpl extends StructuralFeatureImpl implements Feature {
-	/*
-	 * The cached value of the '{@link #getArraySpecification() <em>Array
-	 * Specification</em>}' containment reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @see #getArraySpecification()
-	 * 
+	/**
+	 * The cached value of the '{@link #getArrayDimensions() <em>Array Dimension</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getArrayDimensions()
 	 * @generated
-	 * 
 	 * @ordered
 	 */
-	protected ArraySpecification arraySpecification;
-	/*
-	 * The cached value of the '{@link #getPrototype() <em>Prototype</em>}'
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	protected EList<ArrayDimension> arrayDimensions;
+
+	/**
+	 * The cached value of the '{@link #getPrototype() <em>Prototype</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getPrototype()
-	 * 
 	 * @generated
-	 * 
 	 * @ordered
 	 */
 	protected Prototype prototype;
 
-	/*
-	 * The cached value of the '{@link #getRefined() <em>Refined</em>}'
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * The cached value of the '{@link #getRefined() <em>Refined</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getRefined()
-	 * 
 	 * @generated
-	 * 
 	 * @ordered
 	 */
 	protected Feature refined;
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected FeatureImpl() {
 		super();
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -129,71 +126,53 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		return Aadl2Package.eINSTANCE.getFeature();
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ArraySpecification getArraySpecification() {
-		return arraySpecification;
-	}
-
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public NotificationChain basicSetArraySpecification(ArraySpecification newArraySpecification, NotificationChain msgs) {
-		ArraySpecification oldArraySpecification = arraySpecification;
-		arraySpecification = newArraySpecification;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE__ARRAY_SPECIFICATION, oldArraySpecification, newArraySpecification);
-			if (msgs == null)
-				msgs = notification;
-			else
-				msgs.add(notification);
+	public EList<ArrayDimension> getArrayDimensions() {
+		if (arrayDimensions == null) {
+			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this,
+					Aadl2Package.FEATURE__ARRAY_DIMENSION);
 		}
-		return msgs;
+		return arrayDimensions;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setArraySpecification(ArraySpecification newArraySpecification) {
-		if (newArraySpecification != arraySpecification) {
-			NotificationChain msgs = null;
-			if (arraySpecification != null)
-				msgs = ((InternalEObject) arraySpecification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.FEATURE__ARRAY_SPECIFICATION, null, msgs);
-			if (newArraySpecification != null)
-				msgs = ((InternalEObject) newArraySpecification).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.FEATURE__ARRAY_SPECIFICATION, null, msgs);
-			msgs = basicSetArraySpecification(newArraySpecification, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE__ARRAY_SPECIFICATION,
-					newArraySpecification, newArraySpecification));
+	public ArrayDimension createArrayDimension() {
+		ArrayDimension newArrayDimension = (ArrayDimension) create(Aadl2Package.eINSTANCE.getArrayDimension());
+		getArrayDimensions().add(newArrayDimension);
+		return newArrayDimension;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ArraySpecification createArraySpecification() {
-		ArraySpecification newArraySpecification = (ArraySpecification) create(Aadl2Package.eINSTANCE
-				.getArraySpecification());
-		setArraySpecification(newArraySpecification);
-		return newArraySpecification;
+	public ComponentClassifier getClassifier() {
+		ComponentClassifier classifier = basicGetClassifier();
+		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
+				: classifier;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentClassifier basicGetClassifier() {
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Prototype getPrototype() {
@@ -209,18 +188,18 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		return prototype;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Prototype basicGetPrototype() {
 		return prototype;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setPrototype(Prototype newPrototype) {
@@ -231,9 +210,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 					prototype));
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Feature getRefined() {
@@ -249,18 +228,18 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		return refined;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Feature basicGetRefined() {
 		return refined;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setRefined(Feature newRefined) {
@@ -270,59 +249,39 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE__REFINED, oldRefined, refined));
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public boolean isSetRefined() {
 		return refined != null;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
-	}
-
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public ComponentClassifier basicGetClassifier() {
-		return null;
-	}
-
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Aadl2Package.FEATURE__ARRAY_SPECIFICATION:
-			return basicSetArraySpecification(null, msgs);
+		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
+			return ((InternalEList<?>) getArrayDimensions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.FEATURE__ARRAY_SPECIFICATION:
-			return getArraySpecification();
+		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
+			return getArrayDimensions();
 		case Aadl2Package.FEATURE__CLASSIFIER:
 			if (resolve)
 				return getClassifier();
@@ -339,16 +298,18 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.FEATURE__ARRAY_SPECIFICATION:
-			setArraySpecification((ArraySpecification) newValue);
+		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
+			getArrayDimensions().clear();
+			getArrayDimensions().addAll((Collection<? extends ArrayDimension>) newValue);
 			return;
 		case Aadl2Package.FEATURE__PROTOTYPE:
 			setPrototype((Prototype) newValue);
@@ -360,16 +321,16 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		super.eSet(featureID, newValue);
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.FEATURE__ARRAY_SPECIFICATION:
-			setArraySpecification((ArraySpecification) null);
+		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
+			getArrayDimensions().clear();
 			return;
 		case Aadl2Package.FEATURE__PROTOTYPE:
 			setPrototype((Prototype) null);
@@ -381,16 +342,16 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		super.eUnset(featureID);
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.FEATURE__ARRAY_SPECIFICATION:
-			return arraySpecification != null;
+		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
+			return arrayDimensions != null && !arrayDimensions.isEmpty();
 		case Aadl2Package.FEATURE__CLASSIFIER:
 			return isSetClassifier();
 		case Aadl2Package.FEATURE__PROTOTYPE:
@@ -401,9 +362,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		return super.eIsSet(featureID);
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -422,8 +383,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		}
 		if (baseClass == ArrayableElement.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.FEATURE__ARRAY_SPECIFICATION:
-				return Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION;
+			case Aadl2Package.FEATURE__ARRAY_DIMENSION:
+				return Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION;
 			default:
 				return -1;
 			}
@@ -431,9 +392,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -452,8 +413,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		}
 		if (baseClass == ArrayableElement.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION:
-				return Aadl2Package.FEATURE__ARRAY_SPECIFICATION;
+			case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION:
+				return Aadl2Package.FEATURE__ARRAY_DIMENSION;
 			default:
 				return -1;
 			}
@@ -461,18 +422,18 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public boolean isSetClassifier() {
 		return false;
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -480,9 +441,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		return getRefined();
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -490,9 +451,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		return basicGetRefined();
 	}
 
-	/*
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public boolean isSetRefinedElement() {
@@ -617,17 +578,4 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		}
 	}
 
-	/*
-	 * getName needs to get it from the refined pointer if it was refined
-	 * (non-Javadoc)
-	 * 
-	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
-	 */
-	@Override
-	public String getName() {
-		if (name != null)
-			return name;
-		return getRefined().getName();
-	}
-
-} // FeatureImpl
+} //FeatureImpl

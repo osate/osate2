@@ -170,6 +170,9 @@ public class FeaturePrototypeBindingItemProvider extends PrototypeBindingItemPro
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeaturePrototypeBinding_Actual(),
+				Aadl2Factory.eINSTANCE.createFeatureGroupPrototypeActual()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeaturePrototypeBinding_Actual(),
 				Aadl2Factory.eINSTANCE.createAccessSpecification()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeaturePrototypeBinding_Actual(),

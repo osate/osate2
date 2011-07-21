@@ -58,7 +58,7 @@ import org.osate.aadl2.ClassifierType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ClassifierTypeItemProvider extends PropertyTypeItemProvider implements IEditingDomainItemProvider,
+public class ClassifierTypeItemProvider extends NonListTypeItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.

@@ -108,10 +108,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createArrayRange();
 		case Aadl2Package.MODAL_PROPERTY_VALUE:
 			return (EObject) createModalPropertyValue();
-		case Aadl2Package.ARRAY_SPECIFICATION:
-			return (EObject) createArraySpecification();
-		case Aadl2Package.NUMERAL:
-			return (EObject) createNumeral();
+		case Aadl2Package.ARRAY_DIMENSION:
+			return (EObject) createArrayDimension();
+		case Aadl2Package.ARRAY_SIZE:
+			return (EObject) createArraySize();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE:
 			return (EObject) createComponentImplementationReference();
 		case Aadl2Package.MODE_TRANSITION:
@@ -146,6 +146,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createSubprogramGroupAccess();
 		case Aadl2Package.ABSTRACT_FEATURE:
 			return (EObject) createAbstractFeature();
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
+			return (EObject) createFeatureGroupPrototype();
 		case Aadl2Package.MODE_BINDING:
 			return (EObject) createModeBinding();
 		case Aadl2Package.FLOW_IMPLEMENTATION:
@@ -198,10 +200,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createComponentPrototypeBinding();
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL:
 			return (EObject) createComponentPrototypeActual();
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
-			return (EObject) createFeatureGroupPrototype();
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
 			return (EObject) createFeatureGroupPrototypeBinding();
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL:
+			return (EObject) createFeatureGroupPrototypeActual();
 		case Aadl2Package.FEATURE_PROTOTYPE:
 			return (EObject) createFeaturePrototype();
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
@@ -212,10 +214,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createPortSpecification();
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
 			return (EObject) createFeaturePrototypeReference();
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_REFERENCE:
-			return (EObject) createFeatureGroupPrototypeReference();
-		case Aadl2Package.FEATURE_GROUP_REFERENCE:
-			return (EObject) createFeatureGroupReference();
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
 			return (EObject) createSubprogramCallSequence();
 		case Aadl2Package.PROCESSOR_CALL:
@@ -336,16 +334,12 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createBasicPropertyAssociation();
 		case Aadl2Package.PROPERTY_CONSTANT:
 			return (EObject) createPropertyConstant();
-		case Aadl2Package.ENUMERATION_VALUE:
-			return (EObject) createEnumerationValue();
-		case Aadl2Package.ENUMERATION_LITERAL:
-			return (EObject) createEnumerationLiteral();
-		case Aadl2Package.UNIT_VALUE:
-			return (EObject) createUnitValue();
-		case Aadl2Package.UNIT_LITERAL:
-			return (EObject) createUnitLiteral();
 		case Aadl2Package.STRING_LITERAL:
 			return (EObject) createStringLiteral();
+		case Aadl2Package.UNIT_LITERAL:
+			return (EObject) createUnitLiteral();
+		case Aadl2Package.ENUMERATION_LITERAL:
+			return (EObject) createEnumerationLiteral();
 		case Aadl2Package.CLASSIFIER_VALUE:
 			return (EObject) createClassifierValue();
 		case Aadl2Package.REFERENCE_VALUE:
@@ -358,10 +352,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createIntegerLiteral();
 		case Aadl2Package.REAL_LITERAL:
 			return (EObject) createRealLiteral();
-		case Aadl2Package.CONSTANT_VALUE:
-			return (EObject) createConstantValue();
-		case Aadl2Package.PROPERTY_REFERENCE:
-			return (EObject) createPropertyReference();
 		case Aadl2Package.OPERATION:
 			return (EObject) createOperation();
 		case Aadl2Package.RECORD_VALUE:
@@ -400,6 +390,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createRecordField();
 		case Aadl2Package.REFERENCE_TYPE:
 			return (EObject) createReferenceType();
+		case Aadl2Package.LIST_TYPE:
+			return (EObject) createListType();
 		case Aadl2Package.PROCESSOR_PORT:
 			return (EObject) createProcessorPort();
 		case Aadl2Package.INTERNAL_EVENT:
@@ -602,9 +594,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ArraySpecification createArraySpecification() {
-		ArraySpecificationImpl arraySpecification = new ArraySpecificationImpl();
-		return arraySpecification;
+	public ArrayDimension createArrayDimension() {
+		ArrayDimensionImpl arrayDimension = new ArrayDimensionImpl();
+		return arrayDimension;
 	}
 
 	/**
@@ -612,9 +604,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Numeral createNumeral() {
-		NumeralImpl numeral = new NumeralImpl();
-		return numeral;
+	public ArraySize createArraySize() {
+		ArraySizeImpl arraySize = new ArraySizeImpl();
+		return arraySize;
 	}
 
 	/**
@@ -1662,6 +1654,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public FeatureGroupPrototypeActual createFeatureGroupPrototypeActual() {
+		FeatureGroupPrototypeActualImpl featureGroupPrototypeActual = new FeatureGroupPrototypeActualImpl();
+		return featureGroupPrototypeActual;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public FeaturePrototype createFeaturePrototype() {
 		FeaturePrototypeImpl featurePrototype = new FeaturePrototypeImpl();
 		return featurePrototype;
@@ -1712,26 +1714,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureGroupPrototypeReference createFeatureGroupPrototypeReference() {
-		FeatureGroupPrototypeReferenceImpl featureGroupPrototypeReference = new FeatureGroupPrototypeReferenceImpl();
-		return featureGroupPrototypeReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureGroupReference createFeatureGroupReference() {
-		FeatureGroupReferenceImpl featureGroupReference = new FeatureGroupReferenceImpl();
-		return featureGroupReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public ProcessorCall createProcessorCall() {
 		ProcessorCallImpl processorCall = new ProcessorCallImpl();
 		return processorCall;
@@ -1772,29 +1754,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EnumerationValue createEnumerationValue() {
-		EnumerationValueImpl enumerationValue = new EnumerationValueImpl();
-		return enumerationValue;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EnumerationLiteral createEnumerationLiteral() {
 		EnumerationLiteralImpl enumerationLiteral = new EnumerationLiteralImpl();
 		return enumerationLiteral;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public UnitValue createUnitValue() {
-		UnitValueImpl unitValue = new UnitValueImpl();
-		return unitValue;
 	}
 
 	/**
@@ -1875,26 +1837,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public RealLiteral createRealLiteral() {
 		RealLiteralImpl realLiteral = new RealLiteralImpl();
 		return realLiteral;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ConstantValue createConstantValue() {
-		ConstantValueImpl constantValue = new ConstantValueImpl();
-		return constantValue;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PropertyReference createPropertyReference() {
-		PropertyReferenceImpl propertyReference = new PropertyReferenceImpl();
-		return propertyReference;
 	}
 
 	/**
@@ -2085,6 +2027,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public ReferenceType createReferenceType() {
 		ReferenceTypeImpl referenceType = new ReferenceTypeImpl();
 		return referenceType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ListType createListType() {
+		ListTypeImpl listType = new ListTypeImpl();
+		return listType;
 	}
 
 	/**

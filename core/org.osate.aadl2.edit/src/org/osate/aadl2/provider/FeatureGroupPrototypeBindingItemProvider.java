@@ -170,10 +170,7 @@ public class FeatureGroupPrototypeBindingItemProvider extends PrototypeBindingIt
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupPrototypeBinding_Actual(),
-				Aadl2Factory.eINSTANCE.createFeatureGroupPrototypeReference()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupPrototypeBinding_Actual(),
-				Aadl2Factory.eINSTANCE.createFeatureGroupReference()));
+				Aadl2Factory.eINSTANCE.createFeatureGroupPrototypeActual()));
 	}
 
 }

@@ -62,7 +62,7 @@ import org.osate.aadl2.UnitsType;
  *
  * @generated
  */
-public abstract class NumberTypeImpl extends PropertyTypeImpl implements NumberType {
+public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberType {
 	/**
 	 * The cached value of the '{@link #getUnitsType() <em>Units Type</em>}' reference.
 	 * <!-- begin-user-doc -->

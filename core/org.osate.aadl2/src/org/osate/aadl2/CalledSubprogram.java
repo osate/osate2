@@ -35,6 +35,8 @@
  */
 package org.osate.aadl2;
 
+import org.osate.aadl2.parsesupport.AObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Called Subprogram</b></em>'.
@@ -43,8 +45,9 @@ package org.osate.aadl2;
  *
  * @see org.osate.aadl2.Aadl2Package#getCalledSubprogram()
  * @model abstract="true"
+ * @extends AObject
  * @generated
  */
-public interface CalledSubprogram extends Element {
+public interface CalledSubprogram extends AObject {
 
 } // CalledSubprogram

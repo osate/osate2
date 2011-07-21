@@ -54,7 +54,7 @@ import org.eclipse.emf.ecore.EClass;
  * @model
  * @generated
  */
-public interface RangeType extends PropertyType {
+public interface RangeType extends NonListType {
 	/**
 	 * Returns the value of the '<em><b>Owned Number Type</b></em>' containment reference.
 	 * <p>

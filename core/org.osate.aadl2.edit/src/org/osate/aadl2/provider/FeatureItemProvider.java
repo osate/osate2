@@ -143,7 +143,7 @@ public class FeatureItemProvider extends StructuralFeatureItemProvider implement
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getArrayableElement_ArraySpecification());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getArrayableElement_ArrayDimension());
 		}
 		return childrenFeatures;
 	}
@@ -186,7 +186,7 @@ public class FeatureItemProvider extends StructuralFeatureItemProvider implement
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Feature.class)) {
-		case Aadl2Package.FEATURE__ARRAY_SPECIFICATION:
+		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -204,8 +204,8 @@ public class FeatureItemProvider extends StructuralFeatureItemProvider implement
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArrayableElement_ArraySpecification(),
-				Aadl2Factory.eINSTANCE.createArraySpecification()));
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArrayableElement_ArrayDimension(),
+				Aadl2Factory.eINSTANCE.createArrayDimension()));
 	}
 
 }

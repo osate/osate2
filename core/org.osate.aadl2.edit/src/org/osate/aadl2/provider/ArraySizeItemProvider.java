@@ -41,12 +41,17 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ArraySize;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.ArraySize} object.
@@ -77,8 +82,41 @@ public class ArraySizeItemProvider extends ElementItemProvider implements IEditi
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addSizePropertyDescriptor(object);
+			addSizePropertyPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Size feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSizePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ArraySize_size_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ArraySize_size_feature", "_UI_ArraySize_type"),
+				Aadl2Package.eINSTANCE.getArraySize_Size(), true, false, false,
+				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Size Property feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSizePropertyPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ArraySize_sizeProperty_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ArraySize_sizeProperty_feature",
+						"_UI_ArraySize_type"), Aadl2Package.eINSTANCE.getArraySize_SizeProperty(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -89,7 +127,8 @@ public class ArraySizeItemProvider extends ElementItemProvider implements IEditi
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ArraySize_type");
+		ArraySize arraySize = (ArraySize) object;
+		return getString("_UI_ArraySize_type") + " " + arraySize.getSize();
 	}
 
 	/**
@@ -102,6 +141,12 @@ public class ArraySizeItemProvider extends ElementItemProvider implements IEditi
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(ArraySize.class)) {
+		case Aadl2Package.ARRAY_SIZE__SIZE:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			return;
+		}
 		super.notifyChanged(notification);
 	}
 

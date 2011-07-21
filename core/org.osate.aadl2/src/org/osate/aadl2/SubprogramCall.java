@@ -44,7 +44,6 @@ package org.osate.aadl2;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.SubprogramCall#getCalledSubprogram <em>Called Subprogram</em>}</li>
- *   <li>{@link org.osate.aadl2.SubprogramCall#getPrototype <em>Prototype</em>}</li>
  *   <li>{@link org.osate.aadl2.SubprogramCall#getContext <em>Context</em>}</li>
  * </ul>
  * </p>
@@ -79,32 +78,6 @@ public interface SubprogramCall extends CallSpecification, Context {
 	 * @generated
 	 */
 	void setCalledSubprogram(CalledSubprogram value);
-
-	/**
-	 * Returns the value of the '<em><b>Prototype</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Prototype</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Prototype</em>' reference.
-	 * @see #setPrototype(Prototype)
-	 * @see org.osate.aadl2.Aadl2Package#getSubprogramCall_Prototype()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	Prototype getPrototype();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.SubprogramCall#getPrototype <em>Prototype</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Prototype</em>' reference.
-	 * @see #getPrototype()
-	 * @generated
-	 */
-	void setPrototype(Prototype value);
 
 	/**
 	 * Returns the value of the '<em><b>Context</b></em>' reference.

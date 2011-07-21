@@ -44,7 +44,9 @@ package org.osate.aadl2;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.FeatureGroup#isInverse <em>Inverse</em>}</li>
+ *   <li>{@link org.osate.aadl2.FeatureGroup#getFeatureType <em>Feature Type</em>}</li>
  *   <li>{@link org.osate.aadl2.FeatureGroup#getFeatureGroupType <em>Feature Group Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.FeatureGroup#getFeatureGroupPrototype <em>Feature Group Prototype</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,7 +82,39 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	void setInverse(boolean value);
 
 	/**
+	 * Returns the value of the '<em><b>Feature Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Feature Type</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Feature Type</em>' reference.
+	 * @see #setFeatureType(FeatureType)
+	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroup_FeatureType()
+	 * @model required="true" ordered="false"
+	 * @generated
+	 */
+	FeatureType getFeatureType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.FeatureGroup#getFeatureType <em>Feature Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Feature Type</em>' reference.
+	 * @see #getFeatureType()
+	 * @generated
+	 */
+	void setFeatureType(FeatureType value);
+
+	/**
 	 * Returns the value of the '<em><b>Feature Group Type</b></em>' reference.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.FeatureGroup#getFeatureType() <em>Feature Type</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Feature Group Type</em>' reference isn't clear,
@@ -88,22 +122,32 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Feature Group Type</em>' reference.
-	 * @see #setFeatureGroupType(FeatureGroupType)
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroup_FeatureGroupType()
-	 * @model required="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	FeatureGroupType getFeatureGroupType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.FeatureGroup#getFeatureGroupType <em>Feature Group Type</em>}' reference.
+	 * Returns the value of the '<em><b>Feature Group Prototype</b></em>' reference.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.FeatureGroup#getFeatureType() <em>Feature Type</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Feature Group Prototype</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Feature Group Type</em>' reference.
-	 * @see #getFeatureGroupType()
+	 * @return the value of the '<em>Feature Group Prototype</em>' reference.
+	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroup_FeatureGroupPrototype()
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
-	void setFeatureGroupType(FeatureGroupType value);
+	FeatureGroupPrototype getFeatureGroupPrototype();
 
 	/**
 	 * return the index of the feature in the feature group type

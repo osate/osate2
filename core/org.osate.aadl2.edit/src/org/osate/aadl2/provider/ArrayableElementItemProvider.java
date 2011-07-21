@@ -97,7 +97,7 @@ public class ArrayableElementItemProvider extends ElementItemProvider implements
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getArrayableElement_ArraySpecification());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getArrayableElement_ArrayDimension());
 		}
 		return childrenFeatures;
 	}
@@ -138,7 +138,7 @@ public class ArrayableElementItemProvider extends ElementItemProvider implements
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ArrayableElement.class)) {
-		case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_SPECIFICATION:
+		case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -156,8 +156,8 @@ public class ArrayableElementItemProvider extends ElementItemProvider implements
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArrayableElement_ArraySpecification(),
-				Aadl2Factory.eINSTANCE.createArraySpecification()));
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArrayableElement_ArrayDimension(),
+				Aadl2Factory.eINSTANCE.createArrayDimension()));
 	}
 
 }
