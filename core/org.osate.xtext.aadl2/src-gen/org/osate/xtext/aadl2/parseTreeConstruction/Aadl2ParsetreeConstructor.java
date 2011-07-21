@@ -96405,12 +96405,12 @@ protected class PropertyValue_OwnedValueAssignment extends AssignmentToken  {
  *
  * PropertyExpression returns aadl2::PropertyExpression:
  * 	RecordTerm | NumericRangeTerm | ReferenceTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm |
- * 	ComponentClassifierTerm | BooleanTerm | ListTerm;
+ * 	ComponentClassifierTerm | ListTerm | BooleanTerm | LiteralorReferenceTerm;
  *
  **/
 
 // RecordTerm | NumericRangeTerm | ReferenceTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm |
-// ComponentClassifierTerm | BooleanTerm | ListTerm
+// ComponentClassifierTerm | ListTerm | BooleanTerm | LiteralorReferenceTerm
 protected class PropertyExpression_Alternatives extends AlternativesToken {
 
 	public PropertyExpression_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -96433,8 +96433,9 @@ protected class PropertyExpression_Alternatives extends AlternativesToken {
 			case 5: return new PropertyExpression_RealTermParserRuleCall_5(lastRuleCallOrigin, this, 5, inst);
 			case 6: return new PropertyExpression_IntegerTermParserRuleCall_6(lastRuleCallOrigin, this, 6, inst);
 			case 7: return new PropertyExpression_ComponentClassifierTermParserRuleCall_7(lastRuleCallOrigin, this, 7, inst);
-			case 8: return new PropertyExpression_BooleanTermParserRuleCall_8(lastRuleCallOrigin, this, 8, inst);
-			case 9: return new PropertyExpression_ListTermParserRuleCall_9(lastRuleCallOrigin, this, 9, inst);
+			case 8: return new PropertyExpression_ListTermParserRuleCall_8(lastRuleCallOrigin, this, 8, inst);
+			case 9: return new PropertyExpression_BooleanTermParserRuleCall_9(lastRuleCallOrigin, this, 9, inst);
+			case 10: return new PropertyExpression_LiteralorReferenceTermParserRuleCall_10(lastRuleCallOrigin, this, 10, inst);
 			default: return null;
 		}	
 	}
@@ -96446,6 +96447,7 @@ protected class PropertyExpression_Alternatives extends AlternativesToken {
 		   getEObject().eClass() != grammarAccess.getComputedTermRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getIntegerTermRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getListTermRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getLiteralorReferenceTermRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getNotTermRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getNumericRangeTermRule().getType().getClassifier() && 
 		   getEObject().eClass() != grammarAccess.getRealTermRule().getType().getClassifier() && 
@@ -96746,16 +96748,52 @@ protected class PropertyExpression_ComponentClassifierTermParserRuleCall_7 exten
 	}	
 }
 
-// BooleanTerm
-protected class PropertyExpression_BooleanTermParserRuleCall_8 extends RuleCallToken {
+// ListTerm
+protected class PropertyExpression_ListTermParserRuleCall_8 extends RuleCallToken {
 	
-	public PropertyExpression_BooleanTermParserRuleCall_8(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PropertyExpression_ListTermParserRuleCall_8(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getPropertyExpressionAccess().getBooleanTermParserRuleCall_8();
+		return grammarAccess.getPropertyExpressionAccess().getListTermParserRuleCall_8();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ListTerm_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getListTermRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(ListTerm_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// BooleanTerm
+protected class PropertyExpression_BooleanTermParserRuleCall_9 extends RuleCallToken {
+	
+	public PropertyExpression_BooleanTermParserRuleCall_9(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getPropertyExpressionAccess().getBooleanTermParserRuleCall_9();
 	}
 
     @Override
@@ -96783,31 +96821,31 @@ protected class PropertyExpression_BooleanTermParserRuleCall_8 extends RuleCallT
 	}	
 }
 
-// ListTerm
-protected class PropertyExpression_ListTermParserRuleCall_9 extends RuleCallToken {
+// LiteralorReferenceTerm
+protected class PropertyExpression_LiteralorReferenceTermParserRuleCall_10 extends RuleCallToken {
 	
-	public PropertyExpression_ListTermParserRuleCall_9(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PropertyExpression_LiteralorReferenceTermParserRuleCall_10(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getPropertyExpressionAccess().getListTermParserRuleCall_9();
+		return grammarAccess.getPropertyExpressionAccess().getLiteralorReferenceTermParserRuleCall_10();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ListTerm_Group(this, this, 0, inst);
+			case 0: return new LiteralorReferenceTerm_NamedValueAssignment(this, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getListTermRule().getType().getClassifier())
+		if(getEObject().eClass() != grammarAccess.getLiteralorReferenceTermRule().getType().getClassifier())
 			return null;
-		if(checkForRecursion(ListTerm_Group.class, eObjectConsumer)) return null;
+		if(checkForRecursion(LiteralorReferenceTerm_NamedValueAssignment.class, eObjectConsumer)) return null;
 		return eObjectConsumer;
 	}
 	

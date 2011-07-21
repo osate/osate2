@@ -7983,8 +7983,9 @@
       <elements xsi:type="xtext:RuleCall" rule="//@rules.222"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.220"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.204"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.194"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.205"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.194"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.193"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ConstantPropertyExpression">
