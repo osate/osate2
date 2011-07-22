@@ -190,7 +190,7 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PublicPackageSection getPublicSection() {
+	public PublicPackageSection getPublicSectionGen() {
 		if (publicSection != null && ((EObject) publicSection).eIsProxy()) {
 			InternalEObject oldPublicSection = (InternalEObject) publicSection;
 			publicSection = (PublicPackageSection) eResolveProxy(oldPublicSection);
@@ -206,10 +206,34 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PublicPackageSection getPublicSection() {
+		if (publicSection == null) {
+			publicSection = ownedPublicSection;
+		}
+		return getPublicSectionGen();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PublicPackageSection basicGetPublicSection() {
+	public PublicPackageSection basicGetPublicSectionGen() {
 		return publicSection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PublicPackageSection basicGetPublicSection() {
+		if (publicSection == null) {
+			publicSection = ownedPublicSection;
+		}
+		return basicGetPublicSectionGen();
 	}
 
 	/**
@@ -230,7 +254,7 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PrivatePackageSection getPrivateSection() {
+	public PrivatePackageSection getPrivateSectionGen() {
 		if (privateSection != null && ((EObject) privateSection).eIsProxy()) {
 			InternalEObject oldPrivateSection = (InternalEObject) privateSection;
 			privateSection = (PrivatePackageSection) eResolveProxy(oldPrivateSection);
@@ -246,10 +270,34 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PrivatePackageSection getPrivateSection() {
+		if (privateSection == null) {
+			privateSection = ownedPrivateSection;
+		}
+		return getPrivateSectionGen();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PrivatePackageSection basicGetPrivateSection() {
+	public PrivatePackageSection basicGetPrivateSectionGen() {
 		return privateSection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PrivatePackageSection basicGetPrivateSection() {
+		if (privateSection == null) {
+			privateSection = ownedPrivateSection;
+		}
+		return basicGetPrivateSectionGen();
 	}
 
 	/**
@@ -528,14 +576,20 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.AADL_PACKAGE__PUBLIC_SECTION:
+			if (publicSection == null) {
+				publicSection = ownedPublicSection;
+			}
 			return publicSection != null;
 		case Aadl2Package.AADL_PACKAGE__PRIVATE_SECTION:
+			if (privateSection == null) {
+				privateSection = ownedPrivateSection;
+			}
 			return privateSection != null;
 		case Aadl2Package.AADL_PACKAGE__OWNED_PUBLIC_SECTION:
 			return ownedPublicSection != null;

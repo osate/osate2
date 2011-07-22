@@ -37,8 +37,10 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.PropertyType;
@@ -50,7 +52,8 @@ import org.osate.aadl2.PropertyType;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.ListTypeImpl#getPropertyType <em>Property Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ListTypeImpl#getElementType <em>Element Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ListTypeImpl#getOwnedElementType <em>Owned Element Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,14 +61,23 @@ import org.osate.aadl2.PropertyType;
  */
 public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	/**
-	 * The cached value of the '{@link #getPropertyType() <em>Property Type</em>}' containment reference.
+	 * The cached value of the '{@link #getElementType() <em>Element Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPropertyType()
+	 * @see #getElementType()
 	 * @generated
 	 * @ordered
 	 */
-	protected PropertyType propertyType;
+	protected PropertyType elementType;
+	/**
+	 * The cached value of the '{@link #getOwnedElementType() <em>Owned Element Type</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedElementType()
+	 * @generated
+	 * @ordered
+	 */
+	protected PropertyType ownedElementType;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -91,8 +103,29 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyType getPropertyType() {
-		return propertyType;
+	public PropertyType getElementTypeGen() {
+		if (elementType != null && ((EObject) elementType).eIsProxy()) {
+			InternalEObject oldElementType = (InternalEObject) elementType;
+			elementType = (PropertyType) eResolveProxy(oldElementType);
+			if (elementType != oldElementType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.LIST_TYPE__ELEMENT_TYPE,
+							oldElementType, elementType));
+			}
+		}
+		return elementType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PropertyType getElementType() {
+		if (elementType == null) {
+			elementType = ownedElementType;
+		}
+		return getElementTypeGen();
 	}
 
 	/**
@@ -100,16 +133,67 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetPropertyType(PropertyType newPropertyType, NotificationChain msgs) {
-		PropertyType oldPropertyType = propertyType;
-		propertyType = newPropertyType;
+	public PropertyType basicGetElementTypeGen() {
+		return elementType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PropertyType basicGetElementType() {
+		if (elementType == null) {
+			elementType = ownedElementType;
+		}
+		return basicGetElementTypeGen();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void setElementType(PropertyType newElementType) {
+		PropertyType oldElementType = elementType;
+		elementType = newElementType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.LIST_TYPE__ELEMENT_TYPE, oldElementType,
+					elementType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PropertyType getOwnedElementType() {
+		return ownedElementType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetOwnedElementType(PropertyType newOwnedElementType, NotificationChain msgs) {
+		PropertyType oldOwnedElementType = ownedElementType;
+		ownedElementType = newOwnedElementType;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.LIST_TYPE__PROPERTY_TYPE, oldPropertyType, newPropertyType);
+					Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE, oldOwnedElementType, newOwnedElementType);
 			if (msgs == null)
 				msgs = notification;
 			else
 				msgs.add(notification);
+		}
+		Resource.Internal eInternalResource = eInternalResource();
+		if (eInternalResource == null || !eInternalResource.isLoading()) {
+			if (newOwnedElementType != null) {
+				if (newOwnedElementType != elementType) {
+					setElementType(newOwnedElementType);
+				}
+			}
 		}
 		return msgs;
 	}
@@ -119,21 +203,21 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPropertyType(PropertyType newPropertyType) {
-		if (newPropertyType != propertyType) {
+	public void setOwnedElementType(PropertyType newOwnedElementType) {
+		if (newOwnedElementType != ownedElementType) {
 			NotificationChain msgs = null;
-			if (propertyType != null)
-				msgs = ((InternalEObject) propertyType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.LIST_TYPE__PROPERTY_TYPE, null, msgs);
-			if (newPropertyType != null)
-				msgs = ((InternalEObject) newPropertyType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.LIST_TYPE__PROPERTY_TYPE, null, msgs);
-			msgs = basicSetPropertyType(newPropertyType, msgs);
+			if (ownedElementType != null)
+				msgs = ((InternalEObject) ownedElementType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE, null, msgs);
+			if (newOwnedElementType != null)
+				msgs = ((InternalEObject) newOwnedElementType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE, null, msgs);
+			msgs = basicSetOwnedElementType(newOwnedElementType, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.LIST_TYPE__PROPERTY_TYPE,
-					newPropertyType, newPropertyType));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE,
+					newOwnedElementType, newOwnedElementType));
 	}
 
 	/**
@@ -141,10 +225,10 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyType createPropertyType(EClass eClass) {
-		PropertyType newPropertyType = (PropertyType) create(eClass);
-		setPropertyType(newPropertyType);
-		return newPropertyType;
+	public PropertyType createOwnedElementType(EClass eClass) {
+		PropertyType newOwnedElementType = (PropertyType) create(eClass);
+		setOwnedElementType(newOwnedElementType);
+		return newOwnedElementType;
 	}
 
 	/**
@@ -155,8 +239,8 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Aadl2Package.LIST_TYPE__PROPERTY_TYPE:
-			return basicSetPropertyType(null, msgs);
+		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:
+			return basicSetOwnedElementType(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -169,8 +253,12 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.LIST_TYPE__PROPERTY_TYPE:
-			return getPropertyType();
+		case Aadl2Package.LIST_TYPE__ELEMENT_TYPE:
+			if (resolve)
+				return getElementType();
+			return basicGetElementType();
+		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:
+			return getOwnedElementType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -183,8 +271,11 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.LIST_TYPE__PROPERTY_TYPE:
-			setPropertyType((PropertyType) newValue);
+		case Aadl2Package.LIST_TYPE__ELEMENT_TYPE:
+			setElementType((PropertyType) newValue);
+			return;
+		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:
+			setOwnedElementType((PropertyType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -198,8 +289,11 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.LIST_TYPE__PROPERTY_TYPE:
-			setPropertyType((PropertyType) null);
+		case Aadl2Package.LIST_TYPE__ELEMENT_TYPE:
+			setElementType((PropertyType) null);
+			return;
+		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:
+			setOwnedElementType((PropertyType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -208,13 +302,18 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.LIST_TYPE__PROPERTY_TYPE:
-			return propertyType != null;
+		case Aadl2Package.LIST_TYPE__ELEMENT_TYPE:
+			if (elementType == null) {
+				elementType = ownedElementType;
+			}
+			return elementType != null;
+		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:
+			return ownedElementType != null;
 		}
 		return super.eIsSet(featureID);
 	}

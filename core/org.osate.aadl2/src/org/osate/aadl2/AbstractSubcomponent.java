@@ -40,11 +40,49 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Abstract Subcomponent</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.osate.aadl2.AbstractSubcomponent#getAbstractSubcomponentType <em>Abstract Subcomponent Type</em>}</li>
+ * </ul>
+ * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getAbstractSubcomponent()
  * @model
  * @generated
  */
 public interface AbstractSubcomponent extends Subcomponent, Abstract {
+
+	/**
+	 * Returns the value of the '<em><b>Abstract Subcomponent Type</b></em>' reference.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Abstract Subcomponent Type</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Abstract Subcomponent Type</em>' reference.
+	 * @see #setAbstractSubcomponentType(AbstractSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getAbstractSubcomponent_AbstractSubcomponentType()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	AbstractSubcomponentType getAbstractSubcomponentType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.AbstractSubcomponent#getAbstractSubcomponentType <em>Abstract Subcomponent Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Abstract Subcomponent Type</em>' reference.
+	 * @see #getAbstractSubcomponentType()
+	 * @generated
+	 */
+	void setAbstractSubcomponentType(AbstractSubcomponentType value);
 
 } // AbstractSubcomponent

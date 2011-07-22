@@ -55,7 +55,7 @@ import org.osate.aadl2.Type;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getPropertyType <em>Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getOwnedType <em>Owned Type</em>}</li>
  * </ul>
  * </p>
@@ -63,6 +63,15 @@ import org.osate.aadl2.Type;
  * @generated
  */
 public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty {
+	/**
+	 * The cached value of the '{@link #getPropertyType() <em>Property Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPropertyType()
+	 * @generated
+	 * @ordered
+	 */
+	protected PropertyType propertyType;
 	/**
 	 * The cached value of the '{@link #getOwnedType() <em>Owned Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -97,6 +106,91 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public PropertyType getPropertyTypeGen() {
+		if (propertyType != null && ((EObject) propertyType).eIsProxy()) {
+			InternalEObject oldPropertyType = (InternalEObject) propertyType;
+			propertyType = (PropertyType) eResolveProxy(oldPropertyType);
+			if (propertyType != oldPropertyType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE, oldPropertyType, propertyType));
+			}
+		}
+		return propertyType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PropertyType getPropertyType() {
+		if (propertyType == null) {
+			propertyType = ownedType;
+		}
+		return getPropertyTypeGen();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PropertyType basicGetPropertyTypeGen() {
+		return propertyType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PropertyType basicGetPropertyType() {
+		if (propertyType == null) {
+			propertyType = ownedType;
+		}
+		return basicGetPropertyTypeGen();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void setPropertyType(PropertyType newPropertyType) {
+		PropertyType oldPropertyType = propertyType;
+		propertyType = newPropertyType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE,
+					oldPropertyType, propertyType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetPropertyTypeGen() {
+		return propertyType != null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isSetPropertyType() {
+		if (propertyType == null) {
+			propertyType = ownedType;
+		}
+		return isSetPropertyTypeGen();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public PropertyType getOwnedType() {
 		return ownedType;
 	}
@@ -120,8 +214,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 		Resource.Internal eInternalResource = eInternalResource();
 		if (eInternalResource == null || !eInternalResource.isLoading()) {
 			if (newOwnedType != null) {
-				if (newOwnedType != type) {
-					setType(newOwnedType);
+				if (newOwnedType != propertyType) {
+					setPropertyType(newOwnedType);
 				}
 			}
 		}
@@ -182,16 +276,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 */
 	@Override
 	public Type getType() {
-		if (type != null && ((EObject) type).eIsProxy()) {
-			InternalEObject oldType = (InternalEObject) type;
-			type = (Type) eResolveProxy(oldType);
-			if (type != oldType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.BASIC_PROPERTY__TYPE,
-							oldType, type));
-			}
-		}
-		return type;
+		return getPropertyType();
 	}
 
 	/**
@@ -201,20 +286,20 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 */
 	@Override
 	public Type basicGetType() {
-		return type;
+		return basicGetPropertyType();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public void setType(Type newType) {
-		Type oldType = type;
-		type = newType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY__TYPE, oldType, type));
+		if (newType != null && !(newType instanceof PropertyType)) {
+			throw new IllegalArgumentException(String.valueOf(newType));
+		}
+		setPropertyType((PropertyType) newType);
 	}
 
 	/**
@@ -223,7 +308,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * @generated
 	 */
 	public boolean isSetType() {
-		return type != null;
+		return false;
 	}
 
 	/**
@@ -234,6 +319,10 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+		case Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE:
+			if (resolve)
+				return getPropertyType();
+			return basicGetPropertyType();
 		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
 			return getOwnedType();
 		}
@@ -248,6 +337,9 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE:
+			setPropertyType((PropertyType) newValue);
+			return;
 		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
 			setOwnedType((PropertyType) newValue);
 			return;
@@ -263,6 +355,9 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE:
+			setPropertyType((PropertyType) null);
+			return;
 		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
 			setOwnedType((PropertyType) null);
 			return;
@@ -278,6 +373,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE:
+			return isSetPropertyType();
 		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
 			return ownedType != null;
 		}
