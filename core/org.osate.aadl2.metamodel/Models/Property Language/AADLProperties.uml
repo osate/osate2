@@ -299,7 +299,7 @@
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_rangeType_numberType" name="A_rangeType_numberType" memberEnd="Types-A_rangeType_numberType-rangeType Types-RangeType-numberType">
         <ownedEnd xmi:id="Types-A_rangeType_numberType-rangeType" name="rangeType" type="Types-RangeType" association="Types-A_rangeType_numberType">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_rangeType_numberType-rangeType-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_rangeType_numberType-rangeType-_lowerValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_rangeType_numberType-rangeType-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-RecordType" name="RecordType">

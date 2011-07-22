@@ -54,7 +54,6 @@ import org.eclipse.emf.ecore.EClass;
  *   <li>{@link org.osate.aadl2.Subcomponent#getImplementationReferences <em>Implementation Reference</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getClassifier <em>Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.Subcomponent#getAbstractSubcomponentType <em>Abstract Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -99,38 +98,6 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * @generated
 	 */
 	ComponentClassifier getClassifier();
-
-	/**
-	 * Returns the value of the '<em><b>Abstract Subcomponent Type</b></em>' reference.
-	 * <p>
-	 * This feature subsets the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
-	 * </ul>
-	 * </p>
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Abstract Subcomponent Type</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Abstract Subcomponent Type</em>' reference.
-	 * @see #setAbstractSubcomponentType(AbstractSubcomponentType)
-	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_AbstractSubcomponentType()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	AbstractSubcomponentType getAbstractSubcomponentType();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Subcomponent#getAbstractSubcomponentType <em>Abstract Subcomponent Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Abstract Subcomponent Type</em>' reference.
-	 * @see #getAbstractSubcomponentType()
-	 * @generated
-	 */
-	void setAbstractSubcomponentType(AbstractSubcomponentType value);
 
 	/**
 	 * Returns the value of the '<em><b>Owned Prototype Binding</b></em>' containment reference list.

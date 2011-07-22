@@ -89,7 +89,6 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 			addAllModesPropertyDescriptor(object);
 			addRefinedPropertyDescriptor(object);
 			addClassifierPropertyDescriptor(object);
-			addAbstractSubcomponentTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -140,22 +139,6 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_classifier_feature",
 						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_Classifier(), false, false,
 				false, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Abstract Subcomponent Type feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addAbstractSubcomponentTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Subcomponent_abstractSubcomponentType_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_abstractSubcomponentType_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_AbstractSubcomponentType(),
-				true, false, false, null, null, null));
 	}
 
 	/**
@@ -265,7 +248,6 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 
 		switch (notification.getFeatureID(Subcomponent.class)) {
 		case Aadl2Package.SUBCOMPONENT__ALL_MODES:
-		case Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
