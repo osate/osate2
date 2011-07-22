@@ -1118,10 +1118,6 @@
         derived="true">
       <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="abstractSubcomponentType"
-        ordered="false" eType="#//AbstractSubcomponentType">
-      <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
-    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototype" abstract="true"
       eSuperTypes="#//Prototype #//SubcomponentType">
@@ -1136,9 +1132,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="derivedMode" ordered="false"
         lowerBound="1" eType="#//Mode"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractSubcomponentType" abstract="true"
-      eSuperTypes="#//Abstract #//SubcomponentType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Abstract" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="FlowImplementation" eSuperTypes="#//ModalPath #//ClassifierFeature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
         eType="#//FlowKind" derived="true"/>
@@ -1197,7 +1190,15 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
         eType="#//Context"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractSubcomponent" eSuperTypes="#//Subcomponent #//Abstract"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractSubcomponent" eSuperTypes="#//Subcomponent #//Abstract">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="abstractSubcomponentType"
+        ordered="false" eType="#//AbstractSubcomponentType">
+      <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Abstract" abstract="true" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractSubcomponentType" abstract="true"
+      eSuperTypes="#//Abstract #//SubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="AccessConnection" eSuperTypes="#//Connection">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="accessCategory" ordered="false"
         lowerBound="1" eType="#//AccessCategory"/>
@@ -1474,7 +1475,34 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractClassifier" abstract="true"
-      eSuperTypes="#//ComponentClassifier #//AbstractSubcomponentType"/>
+      eSuperTypes="#//ComponentClassifier #//AbstractSubcomponentType #//BusSubcomponentType #//DataSubcomponentType #//DeviceSubcomponentType #//MemorySubcomponentType #//ProcessorSubcomponentType #//ProcessSubcomponentType #//SubprogramGroupSubcomponentType #//SubprogramSubcomponentType #//SystemSubcomponentType #//ThreadGroupSubcomponentType #//ThreadSubcomponentType #//VirtualProcessorSubcomponentType #//VitualBusSubcomponentType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessorSubcomponentType" abstract="true"
+      eSuperTypes="#//SubcomponentType #//VirtualProcessor"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessor" abstract="true" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VitualBusSubcomponentType" abstract="true"
+      eSuperTypes="#//SubcomponentType #//VirtualBus"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VirtualBus" abstract="true" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ThreadGroupSubcomponentType" abstract="true"
+      eSuperTypes="#//SubcomponentType #//ThreadGroup"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ThreadGroup" abstract="true" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ThreadSubcomponentType" abstract="true"
+      eSuperTypes="#//SubcomponentType #//Thread"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Thread" abstract="true" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SystemSubcomponentType" abstract="true"
+      eSuperTypes="#//SubcomponentType #//System"/>
+  <eClassifiers xsi:type="ecore:EClass" name="System" abstract="true" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessSubcomponentType" abstract="true"
+      eSuperTypes="#//Process #//SubcomponentType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Process" abstract="true" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MemorySubcomponentType" abstract="true"
+      eSuperTypes="#//Memory #//SubcomponentType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Memory" abstract="true" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DeviceSubcomponentType" abstract="true"
+      eSuperTypes="#//Device #//SubcomponentType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Device" abstract="true" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessorSubcomponentType" abstract="true"
+      eSuperTypes="#//Processor #//SubcomponentType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Processor" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractImplementation" eSuperTypes="#//BehavioredImplementation #//AbstractClassifier">
     <eAnnotations source="duplicates">
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
@@ -1554,45 +1582,30 @@
       <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Device" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DeviceSubcomponentType" abstract="true"
-      eSuperTypes="#//Device #//SubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="MemorySubcomponent" eSuperTypes="#//Subcomponent #//Memory">
     <eStructuralFeatures xsi:type="ecore:EReference" name="memorySubcomponentType"
         ordered="false" eType="#//MemorySubcomponentType">
       <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Memory" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MemorySubcomponentType" abstract="true"
-      eSuperTypes="#//Memory #//SubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessSubcomponent" eSuperTypes="#//Subcomponent #//Process">
     <eStructuralFeatures xsi:type="ecore:EReference" name="processSubcomponentType"
         ordered="false" eType="#//ProcessSubcomponentType">
       <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Process" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessSubcomponentType" abstract="true"
-      eSuperTypes="#//Process #//SubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorSubcomponent" eSuperTypes="#//Subcomponent #//Processor">
     <eStructuralFeatures xsi:type="ecore:EReference" name="processorSubcomponentType"
         ordered="false" eType="#//ProcessorSubcomponentType">
       <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Processor" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorSubcomponentType" abstract="true"
-      eSuperTypes="#//Processor #//SubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SystemSubcomponent" eSuperTypes="#//Subcomponent #//System">
     <eStructuralFeatures xsi:type="ecore:EReference" name="systemSubcomponentType"
         ordered="false" eType="#//SystemSubcomponentType">
       <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="System" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SystemSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//System"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramSubcomponent" eSuperTypes="#//Subcomponent #//AccessConnectionEnd #//Subprogram">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramSubcomponentType"
         ordered="false" eType="#//SubprogramSubcomponentType">
@@ -1611,36 +1624,24 @@
       <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Thread" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ThreadSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//Thread"/>
   <eClassifiers xsi:type="ecore:EClass" name="ThreadGroupSubcomponent" eSuperTypes="#//Subcomponent #//ThreadGroup">
     <eStructuralFeatures xsi:type="ecore:EReference" name="threadGroupSubcomponentType"
         ordered="false" eType="#//ThreadGroupSubcomponentType">
       <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ThreadGroup" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ThreadGroupSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//ThreadGroup"/>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBusSubcomponent" eSuperTypes="#//Subcomponent #//VirtualBus">
     <eStructuralFeatures xsi:type="ecore:EReference" name="virtualBusSubcomponentType"
         ordered="false" eType="#//VitualBusSubcomponentType">
       <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VirtualBus" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="VitualBusSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//VirtualBus"/>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessorSubcomponent" eSuperTypes="#//Subcomponent #//VirtualProcessor">
     <eStructuralFeatures xsi:type="ecore:EReference" name="virtualProcessorSubcomponentType"
         ordered="false" eType="#//VirtualProcessorSubcomponentType">
       <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessor" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessorSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//VirtualProcessor"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractPrototype" eSuperTypes="#//ComponentPrototype #//AbstractSubcomponentType #//BusSubcomponentType #//DataSubcomponentType #//DeviceSubcomponentType #//MemorySubcomponentType #//ProcessorSubcomponentType #//ProcessSubcomponentType #//SubprogramGroupSubcomponentType #//SubprogramSubcomponentType #//SystemSubcomponentType #//ThreadGroupSubcomponentType #//ThreadSubcomponentType #//VirtualProcessorSubcomponentType #//VitualBusSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="BusType" eSuperTypes="#//ComponentType #//BusClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"

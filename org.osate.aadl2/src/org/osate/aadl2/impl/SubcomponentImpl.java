@@ -50,7 +50,6 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AbstractSubcomponentType;
 import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
@@ -93,7 +92,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getImplementationReferences <em>Implementation Reference</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getClassifier <em>Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getAbstractSubcomponentType <em>Abstract Subcomponent Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -181,16 +179,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	protected Subcomponent refined;
 
 	/**
-	 * The cached value of the '{@link #getAbstractSubcomponentType() <em>Abstract Subcomponent Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAbstractSubcomponentType()
-	 * @generated
-	 * @ordered
-	 */
-	protected AbstractSubcomponentType abstractSubcomponentType;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -259,11 +247,16 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public SubcomponentType basicGetSubcomponentType() {
-		if (eIsSet(Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE)) {
-			return basicGetAbstractSubcomponentType();
+		ComponentPrototype prototype = basicGetPrototype();
+		if (prototype != null) {
+			return prototype;
+		}
+		ComponentClassifier classifier = basicGetClassifier();
+		if (classifier != null) {
+			return classifier;
 		}
 		return null;
 	}
@@ -289,48 +282,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		SubcomponentType st = basicGetSubcomponentType();
 
 		return st instanceof ComponentClassifier ? (ComponentClassifier) st : null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AbstractSubcomponentType getAbstractSubcomponentType() {
-		if (abstractSubcomponentType != null && ((EObject) abstractSubcomponentType).eIsProxy()) {
-			InternalEObject oldAbstractSubcomponentType = (InternalEObject) abstractSubcomponentType;
-			abstractSubcomponentType = (AbstractSubcomponentType) eResolveProxy(oldAbstractSubcomponentType);
-			if (abstractSubcomponentType != oldAbstractSubcomponentType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE, oldAbstractSubcomponentType,
-							abstractSubcomponentType));
-			}
-		}
-		return abstractSubcomponentType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AbstractSubcomponentType basicGetAbstractSubcomponentType() {
-		return abstractSubcomponentType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAbstractSubcomponentType(AbstractSubcomponentType newAbstractSubcomponentType) {
-		AbstractSubcomponentType oldAbstractSubcomponentType = abstractSubcomponentType;
-		abstractSubcomponentType = newAbstractSubcomponentType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE, oldAbstractSubcomponentType,
-					abstractSubcomponentType));
 	}
 
 	/**
@@ -565,10 +516,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			if (resolve)
 				return getClassifier();
 			return basicGetClassifier();
-		case Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
-			if (resolve)
-				return getAbstractSubcomponentType();
-			return basicGetAbstractSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -608,9 +555,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__REFINED:
 			setRefined((Subcomponent) newValue);
 			return;
-		case Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
-			setAbstractSubcomponentType((AbstractSubcomponentType) newValue);
-			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -644,9 +588,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__REFINED:
 			setRefined((Subcomponent) null);
 			return;
-		case Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
-			setAbstractSubcomponentType((AbstractSubcomponentType) null);
-			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -679,8 +620,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			return isSetRefined();
 		case Aadl2Package.SUBCOMPONENT__CLASSIFIER:
 			return basicGetClassifier() != null;
-		case Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
-			return abstractSubcomponentType != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -796,8 +735,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * @generated
 	 */
 	public boolean isSetSubcomponentType() {
-		return eIsSet(Aadl2Package.SUBCOMPONENT__PROTOTYPE) || eIsSet(Aadl2Package.SUBCOMPONENT__CLASSIFIER)
-				|| eIsSet(Aadl2Package.SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE);
+		return eIsSet(Aadl2Package.SUBCOMPONENT__PROTOTYPE) || eIsSet(Aadl2Package.SUBCOMPONENT__CLASSIFIER);
 	}
 
 	/**

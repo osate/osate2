@@ -1603,34 +1603,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.ABSTRACT_SUBCOMPONENT_TYPE: {
-			AbstractSubcomponentType abstractSubcomponentType = (AbstractSubcomponentType) theEObject;
-			T result = caseAbstractSubcomponentType(abstractSubcomponentType);
-			if (result == null)
-				result = caseAbstract(abstractSubcomponentType);
-			if (result == null)
-				result = caseSubcomponentType(abstractSubcomponentType);
-			if (result == null)
-				result = caseType(abstractSubcomponentType);
-			if (result == null)
-				result = caseNamedElement(abstractSubcomponentType);
-			if (result == null)
-				result = caseElement(abstractSubcomponentType);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.ABSTRACT: {
-			Abstract abstract_ = (Abstract) theEObject;
-			T result = caseAbstract(abstract_);
-			if (result == null)
-				result = caseNamedElement(abstract_);
-			if (result == null)
-				result = caseElement(abstract_);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.FLOW_IMPLEMENTATION: {
 			FlowImplementation flowImplementation = (FlowImplementation) theEObject;
 			T result = caseFlowImplementation(flowImplementation);
@@ -1793,6 +1765,34 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(abstractSubcomponent);
 			if (result == null)
 				result = caseElement(abstractSubcomponent);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.ABSTRACT: {
+			Abstract abstract_ = (Abstract) theEObject;
+			T result = caseAbstract(abstract_);
+			if (result == null)
+				result = caseNamedElement(abstract_);
+			if (result == null)
+				result = caseElement(abstract_);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.ABSTRACT_SUBCOMPONENT_TYPE: {
+			AbstractSubcomponentType abstractSubcomponentType = (AbstractSubcomponentType) theEObject;
+			T result = caseAbstractSubcomponentType(abstractSubcomponentType);
+			if (result == null)
+				result = caseAbstract(abstractSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(abstractSubcomponentType);
+			if (result == null)
+				result = caseType(abstractSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(abstractSubcomponentType);
+			if (result == null)
+				result = caseElement(abstractSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2331,6 +2331,32 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseAbstractSubcomponentType(abstractType);
 			if (result == null)
+				result = caseBusSubcomponentType(abstractType);
+			if (result == null)
+				result = caseDataSubcomponentType(abstractType);
+			if (result == null)
+				result = caseDeviceSubcomponentType(abstractType);
+			if (result == null)
+				result = caseMemorySubcomponentType(abstractType);
+			if (result == null)
+				result = caseProcessorSubcomponentType(abstractType);
+			if (result == null)
+				result = caseProcessSubcomponentType(abstractType);
+			if (result == null)
+				result = caseSubprogramGroupSubcomponentType(abstractType);
+			if (result == null)
+				result = caseSubprogramSubcomponentType(abstractType);
+			if (result == null)
+				result = caseSystemSubcomponentType(abstractType);
+			if (result == null)
+				result = caseThreadGroupSubcomponentType(abstractType);
+			if (result == null)
+				result = caseThreadSubcomponentType(abstractType);
+			if (result == null)
+				result = caseVirtualProcessorSubcomponentType(abstractType);
+			if (result == null)
+				result = caseVitualBusSubcomponentType(abstractType);
+			if (result == null)
 				result = caseClassifier(abstractType);
 			if (result == null)
 				result = caseSubcomponentType(abstractType);
@@ -2339,9 +2365,37 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseAbstract(abstractType);
 			if (result == null)
+				result = caseBus(abstractType);
+			if (result == null)
+				result = caseData(abstractType);
+			if (result == null)
+				result = caseDevice(abstractType);
+			if (result == null)
+				result = caseMemory(abstractType);
+			if (result == null)
+				result = caseProcessor(abstractType);
+			if (result == null)
+				result = caseProcess(abstractType);
+			if (result == null)
+				result = caseSubprogramGroup(abstractType);
+			if (result == null)
+				result = caseSubprogram(abstractType);
+			if (result == null)
+				result = caseSystem(abstractType);
+			if (result == null)
+				result = caseThreadGroup(abstractType);
+			if (result == null)
+				result = caseThread(abstractType);
+			if (result == null)
+				result = caseVirtualProcessor(abstractType);
+			if (result == null)
+				result = caseVirtualBus(abstractType);
+			if (result == null)
 				result = caseNamespace(abstractType);
 			if (result == null)
 				result = caseType(abstractType);
+			if (result == null)
+				result = caseCalledSubprogram(abstractType);
 			if (result == null)
 				result = caseNamedElement(abstractType);
 			if (result == null)
@@ -2358,6 +2412,32 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseAbstractSubcomponentType(abstractClassifier);
 			if (result == null)
+				result = caseBusSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseDataSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseDeviceSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseMemorySubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseProcessorSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseProcessSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseSubprogramGroupSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseSubprogramSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseSystemSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseThreadGroupSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseThreadSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseVirtualProcessorSubcomponentType(abstractClassifier);
+			if (result == null)
+				result = caseVitualBusSubcomponentType(abstractClassifier);
+			if (result == null)
 				result = caseClassifier(abstractClassifier);
 			if (result == null)
 				result = caseSubcomponentType(abstractClassifier);
@@ -2366,13 +2446,293 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseAbstract(abstractClassifier);
 			if (result == null)
+				result = caseBus(abstractClassifier);
+			if (result == null)
+				result = caseData(abstractClassifier);
+			if (result == null)
+				result = caseDevice(abstractClassifier);
+			if (result == null)
+				result = caseMemory(abstractClassifier);
+			if (result == null)
+				result = caseProcessor(abstractClassifier);
+			if (result == null)
+				result = caseProcess(abstractClassifier);
+			if (result == null)
+				result = caseSubprogramGroup(abstractClassifier);
+			if (result == null)
+				result = caseSubprogram(abstractClassifier);
+			if (result == null)
+				result = caseSystem(abstractClassifier);
+			if (result == null)
+				result = caseThreadGroup(abstractClassifier);
+			if (result == null)
+				result = caseThread(abstractClassifier);
+			if (result == null)
+				result = caseVirtualProcessor(abstractClassifier);
+			if (result == null)
+				result = caseVirtualBus(abstractClassifier);
+			if (result == null)
 				result = caseNamespace(abstractClassifier);
 			if (result == null)
 				result = caseType(abstractClassifier);
 			if (result == null)
+				result = caseCalledSubprogram(abstractClassifier);
+			if (result == null)
 				result = caseNamedElement(abstractClassifier);
 			if (result == null)
 				result = caseElement(abstractClassifier);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE: {
+			VirtualProcessorSubcomponentType virtualProcessorSubcomponentType = (VirtualProcessorSubcomponentType) theEObject;
+			T result = caseVirtualProcessorSubcomponentType(virtualProcessorSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(virtualProcessorSubcomponentType);
+			if (result == null)
+				result = caseVirtualProcessor(virtualProcessorSubcomponentType);
+			if (result == null)
+				result = caseType(virtualProcessorSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(virtualProcessorSubcomponentType);
+			if (result == null)
+				result = caseElement(virtualProcessorSubcomponentType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.VIRTUAL_PROCESSOR: {
+			VirtualProcessor virtualProcessor = (VirtualProcessor) theEObject;
+			T result = caseVirtualProcessor(virtualProcessor);
+			if (result == null)
+				result = caseNamedElement(virtualProcessor);
+			if (result == null)
+				result = caseElement(virtualProcessor);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.VITUAL_BUS_SUBCOMPONENT_TYPE: {
+			VitualBusSubcomponentType vitualBusSubcomponentType = (VitualBusSubcomponentType) theEObject;
+			T result = caseVitualBusSubcomponentType(vitualBusSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(vitualBusSubcomponentType);
+			if (result == null)
+				result = caseVirtualBus(vitualBusSubcomponentType);
+			if (result == null)
+				result = caseType(vitualBusSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(vitualBusSubcomponentType);
+			if (result == null)
+				result = caseElement(vitualBusSubcomponentType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.VIRTUAL_BUS: {
+			VirtualBus virtualBus = (VirtualBus) theEObject;
+			T result = caseVirtualBus(virtualBus);
+			if (result == null)
+				result = caseNamedElement(virtualBus);
+			if (result == null)
+				result = caseElement(virtualBus);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT_TYPE: {
+			ThreadGroupSubcomponentType threadGroupSubcomponentType = (ThreadGroupSubcomponentType) theEObject;
+			T result = caseThreadGroupSubcomponentType(threadGroupSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(threadGroupSubcomponentType);
+			if (result == null)
+				result = caseThreadGroup(threadGroupSubcomponentType);
+			if (result == null)
+				result = caseType(threadGroupSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(threadGroupSubcomponentType);
+			if (result == null)
+				result = caseElement(threadGroupSubcomponentType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.THREAD_GROUP: {
+			org.osate.aadl2.ThreadGroup threadGroup = (org.osate.aadl2.ThreadGroup) theEObject;
+			T result = caseThreadGroup(threadGroup);
+			if (result == null)
+				result = caseNamedElement(threadGroup);
+			if (result == null)
+				result = caseElement(threadGroup);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.THREAD_SUBCOMPONENT_TYPE: {
+			ThreadSubcomponentType threadSubcomponentType = (ThreadSubcomponentType) theEObject;
+			T result = caseThreadSubcomponentType(threadSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(threadSubcomponentType);
+			if (result == null)
+				result = caseThread(threadSubcomponentType);
+			if (result == null)
+				result = caseType(threadSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(threadSubcomponentType);
+			if (result == null)
+				result = caseElement(threadSubcomponentType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.THREAD: {
+			org.osate.aadl2.Thread thread = (org.osate.aadl2.Thread) theEObject;
+			T result = caseThread(thread);
+			if (result == null)
+				result = caseNamedElement(thread);
+			if (result == null)
+				result = caseElement(thread);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SYSTEM_SUBCOMPONENT_TYPE: {
+			SystemSubcomponentType systemSubcomponentType = (SystemSubcomponentType) theEObject;
+			T result = caseSystemSubcomponentType(systemSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(systemSubcomponentType);
+			if (result == null)
+				result = caseSystem(systemSubcomponentType);
+			if (result == null)
+				result = caseType(systemSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(systemSubcomponentType);
+			if (result == null)
+				result = caseElement(systemSubcomponentType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SYSTEM: {
+			org.osate.aadl2.System system = (org.osate.aadl2.System) theEObject;
+			T result = caseSystem(system);
+			if (result == null)
+				result = caseNamedElement(system);
+			if (result == null)
+				result = caseElement(system);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESS_SUBCOMPONENT_TYPE: {
+			ProcessSubcomponentType processSubcomponentType = (ProcessSubcomponentType) theEObject;
+			T result = caseProcessSubcomponentType(processSubcomponentType);
+			if (result == null)
+				result = caseProcess(processSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(processSubcomponentType);
+			if (result == null)
+				result = caseType(processSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(processSubcomponentType);
+			if (result == null)
+				result = caseElement(processSubcomponentType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESS: {
+			org.osate.aadl2.Process process = (org.osate.aadl2.Process) theEObject;
+			T result = caseProcess(process);
+			if (result == null)
+				result = caseNamedElement(process);
+			if (result == null)
+				result = caseElement(process);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.MEMORY_SUBCOMPONENT_TYPE: {
+			MemorySubcomponentType memorySubcomponentType = (MemorySubcomponentType) theEObject;
+			T result = caseMemorySubcomponentType(memorySubcomponentType);
+			if (result == null)
+				result = caseMemory(memorySubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(memorySubcomponentType);
+			if (result == null)
+				result = caseType(memorySubcomponentType);
+			if (result == null)
+				result = caseNamedElement(memorySubcomponentType);
+			if (result == null)
+				result = caseElement(memorySubcomponentType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.MEMORY: {
+			Memory memory = (Memory) theEObject;
+			T result = caseMemory(memory);
+			if (result == null)
+				result = caseNamedElement(memory);
+			if (result == null)
+				result = caseElement(memory);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.DEVICE_SUBCOMPONENT_TYPE: {
+			DeviceSubcomponentType deviceSubcomponentType = (DeviceSubcomponentType) theEObject;
+			T result = caseDeviceSubcomponentType(deviceSubcomponentType);
+			if (result == null)
+				result = caseDevice(deviceSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(deviceSubcomponentType);
+			if (result == null)
+				result = caseType(deviceSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(deviceSubcomponentType);
+			if (result == null)
+				result = caseElement(deviceSubcomponentType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.DEVICE: {
+			Device device = (Device) theEObject;
+			T result = caseDevice(device);
+			if (result == null)
+				result = caseNamedElement(device);
+			if (result == null)
+				result = caseElement(device);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESSOR_SUBCOMPONENT_TYPE: {
+			ProcessorSubcomponentType processorSubcomponentType = (ProcessorSubcomponentType) theEObject;
+			T result = caseProcessorSubcomponentType(processorSubcomponentType);
+			if (result == null)
+				result = caseProcessor(processorSubcomponentType);
+			if (result == null)
+				result = caseSubcomponentType(processorSubcomponentType);
+			if (result == null)
+				result = caseType(processorSubcomponentType);
+			if (result == null)
+				result = caseNamedElement(processorSubcomponentType);
+			if (result == null)
+				result = caseElement(processorSubcomponentType);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESSOR: {
+			Processor processor = (Processor) theEObject;
+			T result = caseProcessor(processor);
+			if (result == null)
+				result = caseNamedElement(processor);
+			if (result == null)
+				result = caseElement(processor);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2389,15 +2749,69 @@ public class Aadl2Switch<T> {
 			if (result == null)
 				result = caseAbstractSubcomponentType(abstractImplementation);
 			if (result == null)
+				result = caseBusSubcomponentType(abstractImplementation);
+			if (result == null)
+				result = caseDataSubcomponentType(abstractImplementation);
+			if (result == null)
+				result = caseDeviceSubcomponentType(abstractImplementation);
+			if (result == null)
+				result = caseMemorySubcomponentType(abstractImplementation);
+			if (result == null)
+				result = caseProcessorSubcomponentType(abstractImplementation);
+			if (result == null)
+				result = caseProcessSubcomponentType(abstractImplementation);
+			if (result == null)
+				result = caseSubprogramGroupSubcomponentType(abstractImplementation);
+			if (result == null)
+				result = caseSubprogramSubcomponentType(abstractImplementation);
+			if (result == null)
+				result = caseSystemSubcomponentType(abstractImplementation);
+			if (result == null)
+				result = caseThreadGroupSubcomponentType(abstractImplementation);
+			if (result == null)
+				result = caseThreadSubcomponentType(abstractImplementation);
+			if (result == null)
+				result = caseVirtualProcessorSubcomponentType(abstractImplementation);
+			if (result == null)
+				result = caseVitualBusSubcomponentType(abstractImplementation);
+			if (result == null)
 				result = caseComponentClassifier(abstractImplementation);
 			if (result == null)
 				result = caseAbstract(abstractImplementation);
+			if (result == null)
+				result = caseBus(abstractImplementation);
+			if (result == null)
+				result = caseData(abstractImplementation);
+			if (result == null)
+				result = caseDevice(abstractImplementation);
+			if (result == null)
+				result = caseMemory(abstractImplementation);
+			if (result == null)
+				result = caseProcessor(abstractImplementation);
+			if (result == null)
+				result = caseProcess(abstractImplementation);
+			if (result == null)
+				result = caseSubprogramGroup(abstractImplementation);
+			if (result == null)
+				result = caseSubprogram(abstractImplementation);
+			if (result == null)
+				result = caseSystem(abstractImplementation);
+			if (result == null)
+				result = caseThreadGroup(abstractImplementation);
+			if (result == null)
+				result = caseThread(abstractImplementation);
+			if (result == null)
+				result = caseVirtualProcessor(abstractImplementation);
+			if (result == null)
+				result = caseVirtualBus(abstractImplementation);
 			if (result == null)
 				result = caseClassifier(abstractImplementation);
 			if (result == null)
 				result = caseSubcomponentType(abstractImplementation);
 			if (result == null)
 				result = caseFeatureClassifier(abstractImplementation);
+			if (result == null)
+				result = caseCalledSubprogram(abstractImplementation);
 			if (result == null)
 				result = caseNamespace(abstractImplementation);
 			if (result == null)
@@ -2515,34 +2929,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.DEVICE: {
-			Device device = (Device) theEObject;
-			T result = caseDevice(device);
-			if (result == null)
-				result = caseNamedElement(device);
-			if (result == null)
-				result = caseElement(device);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.DEVICE_SUBCOMPONENT_TYPE: {
-			DeviceSubcomponentType deviceSubcomponentType = (DeviceSubcomponentType) theEObject;
-			T result = caseDeviceSubcomponentType(deviceSubcomponentType);
-			if (result == null)
-				result = caseDevice(deviceSubcomponentType);
-			if (result == null)
-				result = caseSubcomponentType(deviceSubcomponentType);
-			if (result == null)
-				result = caseType(deviceSubcomponentType);
-			if (result == null)
-				result = caseNamedElement(deviceSubcomponentType);
-			if (result == null)
-				result = caseElement(deviceSubcomponentType);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.MEMORY_SUBCOMPONENT: {
 			MemorySubcomponent memorySubcomponent = (MemorySubcomponent) theEObject;
 			T result = caseMemorySubcomponent(memorySubcomponent);
@@ -2570,34 +2956,6 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(memorySubcomponent);
 			if (result == null)
 				result = caseElement(memorySubcomponent);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.MEMORY: {
-			Memory memory = (Memory) theEObject;
-			T result = caseMemory(memory);
-			if (result == null)
-				result = caseNamedElement(memory);
-			if (result == null)
-				result = caseElement(memory);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.MEMORY_SUBCOMPONENT_TYPE: {
-			MemorySubcomponentType memorySubcomponentType = (MemorySubcomponentType) theEObject;
-			T result = caseMemorySubcomponentType(memorySubcomponentType);
-			if (result == null)
-				result = caseMemory(memorySubcomponentType);
-			if (result == null)
-				result = caseSubcomponentType(memorySubcomponentType);
-			if (result == null)
-				result = caseType(memorySubcomponentType);
-			if (result == null)
-				result = caseNamedElement(memorySubcomponentType);
-			if (result == null)
-				result = caseElement(memorySubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2633,34 +2991,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.PROCESS: {
-			org.osate.aadl2.Process process = (org.osate.aadl2.Process) theEObject;
-			T result = caseProcess(process);
-			if (result == null)
-				result = caseNamedElement(process);
-			if (result == null)
-				result = caseElement(process);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.PROCESS_SUBCOMPONENT_TYPE: {
-			ProcessSubcomponentType processSubcomponentType = (ProcessSubcomponentType) theEObject;
-			T result = caseProcessSubcomponentType(processSubcomponentType);
-			if (result == null)
-				result = caseProcess(processSubcomponentType);
-			if (result == null)
-				result = caseSubcomponentType(processSubcomponentType);
-			if (result == null)
-				result = caseType(processSubcomponentType);
-			if (result == null)
-				result = caseNamedElement(processSubcomponentType);
-			if (result == null)
-				result = caseElement(processSubcomponentType);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT: {
 			ProcessorSubcomponent processorSubcomponent = (ProcessorSubcomponent) theEObject;
 			T result = caseProcessorSubcomponent(processorSubcomponent);
@@ -2692,34 +3022,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.PROCESSOR: {
-			Processor processor = (Processor) theEObject;
-			T result = caseProcessor(processor);
-			if (result == null)
-				result = caseNamedElement(processor);
-			if (result == null)
-				result = caseElement(processor);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.PROCESSOR_SUBCOMPONENT_TYPE: {
-			ProcessorSubcomponentType processorSubcomponentType = (ProcessorSubcomponentType) theEObject;
-			T result = caseProcessorSubcomponentType(processorSubcomponentType);
-			if (result == null)
-				result = caseProcessor(processorSubcomponentType);
-			if (result == null)
-				result = caseSubcomponentType(processorSubcomponentType);
-			if (result == null)
-				result = caseType(processorSubcomponentType);
-			if (result == null)
-				result = caseNamedElement(processorSubcomponentType);
-			if (result == null)
-				result = caseElement(processorSubcomponentType);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.SYSTEM_SUBCOMPONENT: {
 			SystemSubcomponent systemSubcomponent = (SystemSubcomponent) theEObject;
 			T result = caseSystemSubcomponent(systemSubcomponent);
@@ -2747,34 +3049,6 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(systemSubcomponent);
 			if (result == null)
 				result = caseElement(systemSubcomponent);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.SYSTEM: {
-			org.osate.aadl2.System system = (org.osate.aadl2.System) theEObject;
-			T result = caseSystem(system);
-			if (result == null)
-				result = caseNamedElement(system);
-			if (result == null)
-				result = caseElement(system);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.SYSTEM_SUBCOMPONENT_TYPE: {
-			SystemSubcomponentType systemSubcomponentType = (SystemSubcomponentType) theEObject;
-			T result = caseSystemSubcomponentType(systemSubcomponentType);
-			if (result == null)
-				result = caseSubcomponentType(systemSubcomponentType);
-			if (result == null)
-				result = caseSystem(systemSubcomponentType);
-			if (result == null)
-				result = caseType(systemSubcomponentType);
-			if (result == null)
-				result = caseNamedElement(systemSubcomponentType);
-			if (result == null)
-				result = caseElement(systemSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2884,34 +3158,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.THREAD: {
-			org.osate.aadl2.Thread thread = (org.osate.aadl2.Thread) theEObject;
-			T result = caseThread(thread);
-			if (result == null)
-				result = caseNamedElement(thread);
-			if (result == null)
-				result = caseElement(thread);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.THREAD_SUBCOMPONENT_TYPE: {
-			ThreadSubcomponentType threadSubcomponentType = (ThreadSubcomponentType) theEObject;
-			T result = caseThreadSubcomponentType(threadSubcomponentType);
-			if (result == null)
-				result = caseSubcomponentType(threadSubcomponentType);
-			if (result == null)
-				result = caseThread(threadSubcomponentType);
-			if (result == null)
-				result = caseType(threadSubcomponentType);
-			if (result == null)
-				result = caseNamedElement(threadSubcomponentType);
-			if (result == null)
-				result = caseElement(threadSubcomponentType);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT: {
 			ThreadGroupSubcomponent threadGroupSubcomponent = (ThreadGroupSubcomponent) theEObject;
 			T result = caseThreadGroupSubcomponent(threadGroupSubcomponent);
@@ -2939,34 +3185,6 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(threadGroupSubcomponent);
 			if (result == null)
 				result = caseElement(threadGroupSubcomponent);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.THREAD_GROUP: {
-			org.osate.aadl2.ThreadGroup threadGroup = (org.osate.aadl2.ThreadGroup) theEObject;
-			T result = caseThreadGroup(threadGroup);
-			if (result == null)
-				result = caseNamedElement(threadGroup);
-			if (result == null)
-				result = caseElement(threadGroup);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT_TYPE: {
-			ThreadGroupSubcomponentType threadGroupSubcomponentType = (ThreadGroupSubcomponentType) theEObject;
-			T result = caseThreadGroupSubcomponentType(threadGroupSubcomponentType);
-			if (result == null)
-				result = caseSubcomponentType(threadGroupSubcomponentType);
-			if (result == null)
-				result = caseThreadGroup(threadGroupSubcomponentType);
-			if (result == null)
-				result = caseType(threadGroupSubcomponentType);
-			if (result == null)
-				result = caseNamedElement(threadGroupSubcomponentType);
-			if (result == null)
-				result = caseElement(threadGroupSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3002,34 +3220,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.VIRTUAL_BUS: {
-			VirtualBus virtualBus = (VirtualBus) theEObject;
-			T result = caseVirtualBus(virtualBus);
-			if (result == null)
-				result = caseNamedElement(virtualBus);
-			if (result == null)
-				result = caseElement(virtualBus);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.VITUAL_BUS_SUBCOMPONENT_TYPE: {
-			VitualBusSubcomponentType vitualBusSubcomponentType = (VitualBusSubcomponentType) theEObject;
-			T result = caseVitualBusSubcomponentType(vitualBusSubcomponentType);
-			if (result == null)
-				result = caseSubcomponentType(vitualBusSubcomponentType);
-			if (result == null)
-				result = caseVirtualBus(vitualBusSubcomponentType);
-			if (result == null)
-				result = caseType(vitualBusSubcomponentType);
-			if (result == null)
-				result = caseNamedElement(vitualBusSubcomponentType);
-			if (result == null)
-				result = caseElement(vitualBusSubcomponentType);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT: {
 			VirtualProcessorSubcomponent virtualProcessorSubcomponent = (VirtualProcessorSubcomponent) theEObject;
 			T result = caseVirtualProcessorSubcomponent(virtualProcessorSubcomponent);
@@ -3057,34 +3247,6 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(virtualProcessorSubcomponent);
 			if (result == null)
 				result = caseElement(virtualProcessorSubcomponent);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.VIRTUAL_PROCESSOR: {
-			VirtualProcessor virtualProcessor = (VirtualProcessor) theEObject;
-			T result = caseVirtualProcessor(virtualProcessor);
-			if (result == null)
-				result = caseNamedElement(virtualProcessor);
-			if (result == null)
-				result = caseElement(virtualProcessor);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE: {
-			VirtualProcessorSubcomponentType virtualProcessorSubcomponentType = (VirtualProcessorSubcomponentType) theEObject;
-			T result = caseVirtualProcessorSubcomponentType(virtualProcessorSubcomponentType);
-			if (result == null)
-				result = caseSubcomponentType(virtualProcessorSubcomponentType);
-			if (result == null)
-				result = caseVirtualProcessor(virtualProcessorSubcomponentType);
-			if (result == null)
-				result = caseType(virtualProcessorSubcomponentType);
-			if (result == null)
-				result = caseNamedElement(virtualProcessorSubcomponentType);
-			if (result == null)
-				result = caseElement(virtualProcessorSubcomponentType);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
