@@ -6,11 +6,15 @@ package org.osate.xtext.aadl2.ui.labeling;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
+import org.osate.aadl2.AadlInteger;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusImplementation;
 import org.osate.aadl2.BusType;
+import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataImplementation;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponent;
@@ -19,7 +23,10 @@ import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DeviceType;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.MemoryType;
 import org.osate.aadl2.Mode;
@@ -33,6 +40,8 @@ import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupImplementation;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramImplementation;
@@ -199,10 +208,40 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 	String text(EventDataPort ele) {
 		  return "Event Data Port "+ele.getName();
 		}
+	String text(FeatureGroup ele) {
+		  return "Feature Group "+ele.getName();
+		}
+	String text(Feature ele) {
+		  return "Feature "+ele.getName();
+		}
+	String text(BusAccess ele) {
+		  return ele.getKind().getName()+" Bus Access "+ele.getName();
+		}
+	String text(DataAccess ele) {
+		  return ele.getKind().getName()+" Data Access "+ele.getName();
+		}
+	String text(SubprogramAccess ele) {
+		  return ele.getKind().getName()+" Subprogram Access "+ele.getName();
+		}
 
 	String text(IntegerLiteral ele) {
 		  return "int "+ele.getValue();
 	}
+	String text(RealLiteral ele) {
+		  return "real "+ele.getValue();
+	}
+	
+
+	String text(ListValue ele) {
+		  return "()";
+		}
+	String text(AadlInteger ele) {
+		  return "aadlinteger";
+		}
+	String text(AadlReal ele) {
+		  return "aadlreal";
+		}
+
 
 
 }
