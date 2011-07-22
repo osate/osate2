@@ -37,8 +37,6 @@
  */
 package org.osate.xtext.aadl2.validation;
 
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentType;
 
 
 
@@ -236,25 +234,5 @@ public class AadlParseUtil {
 			working.append(value.substring(lastUnderlineLoc));
 			return working.toString().toCharArray();
 		}
-	}
-	
-	/**
-	 * Checks if {@code child} can extend {@code parent}.
-	 */
-	public static boolean canExtend(ComponentType parent, ComponentType child)
-	{
-		String parentCategory = parent.getCategory();
-		String childCategory = child.getCategory();
-		return parentCategory.equals(childCategory) || parentCategory.equals("abstract");
-	}
-	
-	/**
-	 * Checks if {@code child} can extend {@code parent}.
-	 */
-	public static boolean canExtend(ComponentImplementation parent, ComponentImplementation child)
-	{
-		String parentCategory = parent.getCategory();
-		String childCategory = child.getCategory();
-		return parentCategory.equals(childCategory) || parentCategory.equals("abstract");
 	}
 }

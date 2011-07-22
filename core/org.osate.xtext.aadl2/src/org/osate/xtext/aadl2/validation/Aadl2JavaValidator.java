@@ -645,7 +645,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkTypeExtensionCategory(TypeExtension typeExtension) {
 		ComponentType parent = typeExtension.getExtended();
 		ComponentType child = (ComponentType) typeExtension.getSpecific();
-		if (!AadlParseUtil.canExtend(parent, child))
+		if (!canExtend(parent, child))
 			error("Cannot extend '" + parent.getQualifiedName()
 					+ "'.  Incompatible categories.", parent,
 					Aadl2Package.eINSTANCE.getComponentType_OwnedExtension());
@@ -731,7 +731,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentImplementation parent = implementationExtension.getExtended();
 		ComponentImplementation child = (ComponentImplementation) implementationExtension
 				.getSpecific();
-		if (!AadlParseUtil.canExtend(parent, child))
+		if (!canExtend(parent, child))
 			error(implementationExtension,
 					"Cannot extend '" + parent.getQualifiedName()
 							+ "'.  Incompatible categories.");
@@ -3269,6 +3269,22 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	protected void warning(String message) {
 		warning(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
 				null);
+	}
+
+	/**
+	 * Checks if {@code child} can extend {@code parent}.
+	 */
+	public static boolean canExtend(ComponentType parent, ComponentType child)
+	{
+		return parent.eClass()==child.eClass() || parent instanceof AbstractType;
+	}
+
+	/**
+	 * Checks if {@code child} can extend {@code parent}.
+	 */
+	public static boolean canExtend(ComponentImplementation parent, ComponentImplementation child)
+	{
+		return parent.eClass()==child.eClass() || parent instanceof AbstractImplementation;
 	}
 
 }

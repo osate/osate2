@@ -10,7 +10,6 @@ import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 
-
 Model returns aadl2::ModelUnit:
 	AadlPackage | PropertySet
 ;
@@ -1553,7 +1552,7 @@ PropertyType returns aadl2::PropertyType:
 	';';
 
 UnnamedPropertyType returns aadl2::PropertyType:
-	(UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType |UnnamedRealType
+	(ListType|UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType |UnnamedRealType
 	|UnnamedIntegerType|UnnamedRangeType|UnnamedClassifierType|UnnamedReferenceType|UnnamedRecordType) 
 	;
 
@@ -1676,11 +1675,9 @@ UnnamedRecordType returns aadl2::RecordType:
 	')'
 	 ;
 
-//&&&&&&& TODO list is currently a count
 RecordField returns aadl2::RecordField:
 	name=ID ':'
-//	(list+='list' 'of')*
-	('list' 'of')*
+//	('list' 'of')* is handled as part of UnnamedPropertytype
 	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
 	';'
 	 ;
@@ -1691,10 +1688,8 @@ RecordField returns aadl2::RecordField:
 PropertyDefinition returns aadl2::Property:
 	name=ID ':'
 	(inherit?='inherit')?
-//	(list+='list' 'of')*
-	('list' 'of')*
-	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
-	// &&&& We set only owned or reference - not both
+//	('list' 'of')* is handled as part of UnnamedPropertytype
+	(propertyType=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
 	('=>' defaultValue=PropertyExpression)?
 	'applies' 'to' '('
 	((appliesTo+=PropertyOwner (',' appliesTo+=PropertyOwner)*)|
@@ -1709,24 +1704,21 @@ AllReference returns aadl2::MetaclassReference:
 
 ListType returns aadl2::ListType:
 	 'list' 'of'  
-	propertyType=(UnnamedPropertyType|ListType)
+	(elementType=[aadl2::PropertyType|QPREF]|ownedElementType=UnnamedPropertyType)
 ;
 
 
 PropertyOwner returns aadl2::PropertyOwner:
 	// classifier value is always qualified by a package name
 	QCReference
-	//(ClassifierValue|QCReference)
 	 ;
 
 
-ClassifierValue returns aadl2::ClassifierValue:
-	classifier=[aadl2::ComponentClassifier|EQCREF] ;
 
 PropertyConstant returns aadl2::PropertyConstant:
 	name=ID ':' 'constant'
-//	(list+='list' 'of')*
-	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
+//	('list' 'of')* is handled as part of UnnamedPropertytype
+	(propertyType=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
 	'=>' constantValue=ConstantPropertyExpression  
 	';'
 	 ;
@@ -1745,13 +1737,12 @@ IntegerLit returns aadl2::IntegerLiteral:
 	value=SignedInt ;
 
 BasicPropertyAssociation returns aadl2::PropertyAssociation:
-	property=[aadl2::Property|QPREF] // name=QPREF
+	property=[aadl2::Property|QPREF] 
 	'=>' ownedValue+=PropertyValue ';'
 	;
 
 ContainedPropertyAssociation returns aadl2::PropertyAssociation:
-	// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
-	property=[aadl2::Property|QPREF] // name=QPREF
+	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
 	(( =>
 	'(' ownedValue+=ModalPropertyValue 
@@ -1766,8 +1757,7 @@ ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	';';
 
 PropertyAssociation returns aadl2::PropertyAssociation:
-	// &&&&&&&&& have name as attribute. It gets resolved into a reference to a property definition
-	property=[aadl2::Property|QPREF] // name=QPREF
+	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
 	(( =>
 	'(' ownedValue+=ModalPropertyValue 
@@ -1885,7 +1875,7 @@ ListTerm returns aadl2::ListValue:
   ;
 
 FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:
-	property=[aadl2::RecordField|ID] // name=QPREF
+	property=[aadl2::RecordField|ID] 
 	'=>' 
 	ownedValue=PropertyExpression 
 	';';
@@ -1952,12 +1942,9 @@ IntegerTerm returns aadl2::IntegerLiteral:
 SignedInt returns aadl2::Integer:
 	('+'|'-')?INTEGER_LIT ;
 	
-// IntegerLiteral allowing underscore in teh middle of the digits
 
 RealTerm returns aadl2::RealLiteral:
 	value=SignedReal (unit=[aadl2::UnitLiteral|ID])?
-	// or constant is not handled in O2 grammar
-	// valueString not set
 	;
 
 SignedReal returns aadl2::Real:
