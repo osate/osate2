@@ -117,7 +117,7 @@ RULE_WS=16
 'with'=64
 ';'=60
 'process'=29
-'list'=102
+'list'=103
 '<->'=110
 '=>'=40
 'is'=92
@@ -206,4 +206,4 @@ RULE_WS=16
 '*'=23
 'self'=86
 'record'=101
-'applies'=103
+'applies'=102

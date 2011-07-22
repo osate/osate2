@@ -56,7 +56,7 @@ public class Aadl2OutlinePage extends OutlinePage {
 	 */
 	@Override
 	protected int getDefaultExpansionLevel() {
-		return 3;
+		return 2;
 	}
 
 }
