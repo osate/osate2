@@ -185,7 +185,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public UnitsType getUnitsType() {
+	public UnitsType getUnitsTypeGen() {
 		if (unitsType != null && ((EObject) unitsType).eIsProxy()) {
 			InternalEObject oldUnitsType = (InternalEObject) unitsType;
 			unitsType = (UnitsType) eResolveProxy(oldUnitsType);
@@ -201,10 +201,13 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	public UnitsType basicGetUnitsType() {
-		return unitsType;
+	public UnitsType getUnitsType() {
+		if (unitsType == null) {
+			unitsType = ownedUnitsType;
+		}
+		return getUnitsTypeGen();
 	}
 
 	/**
@@ -212,18 +215,33 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public UnitsType basicGetUnitsTypeGen() {
+		return unitsType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public UnitsType basicGetUnitsType() {
+		if (unitsType == null) {
+			unitsType = ownedUnitsType;
+		}
+		return basicGetUnitsTypeGen();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public void setUnitsType(UnitsType newUnitsType) {
 		UnitsType oldUnitsType = unitsType;
 		unitsType = newUnitsType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_TYPE__UNITS_TYPE, oldUnitsType,
 					unitsType));
-		Resource.Internal eInternalResource = eInternalResource();
-		if (eInternalResource == null || !eInternalResource.isLoading()) {
-			if (ownedUnitsType != null && ownedUnitsType != newUnitsType) {
-				setOwnedUnitsType(null);
-			}
-		}
 	}
 
 	/**
@@ -367,12 +385,14 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_TYPE__UNITS_TYPE:
+			if (unitsType == null) {
+				unitsType = ownedUnitsType;
+			}
 			return unitsType != null;
 		case Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE:
 			return ownedUnitsType != null;

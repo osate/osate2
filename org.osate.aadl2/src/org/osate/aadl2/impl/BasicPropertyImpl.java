@@ -106,7 +106,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyType getPropertyType() {
+	public PropertyType getPropertyTypeGen() {
 		if (propertyType != null && ((EObject) propertyType).eIsProxy()) {
 			InternalEObject oldPropertyType = (InternalEObject) propertyType;
 			propertyType = (PropertyType) eResolveProxy(oldPropertyType);
@@ -122,10 +122,34 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PropertyType getPropertyType() {
+		if (propertyType == null) {
+			propertyType = ownedType;
+		}
+		return getPropertyTypeGen();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyType basicGetPropertyType() {
+	public PropertyType basicGetPropertyTypeGen() {
 		return propertyType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PropertyType basicGetPropertyType() {
+		if (propertyType == null) {
+			propertyType = ownedType;
+		}
+		return basicGetPropertyTypeGen();
 	}
 
 	/**
@@ -146,8 +170,20 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSetPropertyType() {
+	public boolean isSetPropertyTypeGen() {
 		return propertyType != null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isSetPropertyType() {
+		if (propertyType == null) {
+			propertyType = ownedType;
+		}
+		return isSetPropertyTypeGen();
 	}
 
 	/**
