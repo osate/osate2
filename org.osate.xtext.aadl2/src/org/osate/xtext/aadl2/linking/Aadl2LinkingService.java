@@ -103,6 +103,7 @@ import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.Type;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.xtext.aadl2.util.PSNode;
@@ -523,7 +524,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			pname = name.substring(idx + 2);
 		}
 		return findNamedElementInPropertySet(psname, pname,
-				getContainingPropertySet(context), reference);
+				context, reference);
 	}
 	
 	protected List<EObject> findPropertyConstant(EObject context,
@@ -592,8 +593,11 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 					// constant is correct for the value.
 					// We should do this when the type of the constant is
 					// resolved in PropertyTypeReference.
-					propertyType = (PropertyType) ((PropertyConstant) owner)
+					// TODO-phf: getType vs. Property type & proxy
+					Type t =  ((PropertyConstant) owner)
 							.getType();
+					if (t instanceof PropertyType)
+						propertyType = (PropertyType)t;
 				} else if (owner instanceof Property) // Default value of a
 														// property
 														// definition.
@@ -1746,6 +1750,13 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		PREDECLARED_PROPERTY_SET_NAMES = Collections
 				.unmodifiableSet(predeclaredPropertySetNames);
 	}
+	
+	public static boolean isPredeclaredPropertySet(String psname){
+		for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
+			if (psname.equalsIgnoreCase(predeclaredPSName)) return true;
+		}
+		return false;
+	}
 
 	private static PSNode psNode = new PSNode();
 
@@ -1754,15 +1765,15 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	 * property set: WithStatementReference.
 	 */
 	public EObject findNamedElementInPropertySet(String propertySetName,
-			String elementName, Namespace context, EReference reference) {
+			String elementName, EObject context, EReference reference) {
 		if (propertySetName == null) {
-			// for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
-			// psNode.setText(getQualifiedName(predeclaredPSName, elementName));
-			// List<EObject> res = getIndexedObjects(context, reference,
-			// psNode);
-			// if (!res.isEmpty())
-			// return res.get(0);
-			// }
+			for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
+				psNode.setText(getQualifiedName(predeclaredPSName, elementName));
+				List<EObject> res = getIndexedObjects(context, reference,
+						psNode);
+				if (!res.isEmpty())
+					return res.get(0);
+			}
 			for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
 				PropertySet predeclaredPropertySet = findPropertySet(context,
 						predeclaredPSName);
@@ -1775,19 +1786,10 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			}
 			return null;
 		} else {
-			PropertySet propertySet;
-			if (context instanceof PropertySet
-					&& ((PropertySet) context).getName().equalsIgnoreCase(
-							propertySetName))
-				propertySet = (PropertySet) context;
-			else {
+			PropertySet propertySet = getContainingPropertySet(context);
+			if (propertySet == null || 
+					(propertySet != null && !propertySet.getName().equalsIgnoreCase(propertySetName))){
 				propertySet = findImportedPropertySet(propertySetName, context);
-				// if (propertySet == null)
-				// for (PropertySet predeclaredPropertySet :
-				// OsateResourceManager.getPredeclaredPropertySets())
-				// if
-				// (predeclaredPropertySet.getName().equalsIgnoreCase(propertySetName))
-				// propertySet = predeclaredPropertySet;
 			}
 			if (propertySet != null)
 				return propertySet.findNamedElement(elementName);

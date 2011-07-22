@@ -3,6 +3,7 @@
 */
 package org.osate.xtext.aadl2.ui.labeling;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.osate.aadl2.AadlPackage;
@@ -13,6 +14,7 @@ import org.osate.aadl2.DataType;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.PublicPackageSection;
@@ -62,7 +64,12 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		  return "Data Impl "+ele.getName();
 		}
 	String text(SystemSubcomponent ele) {
-		  return "System Subcomponent "+ele.getName();
+		EList<Mode> ml = ele.getInModes();
+		String ms = "";
+		if (!ml.isEmpty()){
+			ms = " in modes "+ml.get(0).getName();
+		}
+		  return "System Subcomponent "+ele.getName()+ ms;
 		}
 	String text(DataSubcomponent ele) {
 		  return "Data Subcomponent "+ele.getName();

@@ -935,7 +935,7 @@ AbstractSubcomponent returns aadl2::AbstractSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 SystemSubcomponent returns aadl2::SystemSubcomponent:
@@ -951,7 +951,7 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 ProcessSubcomponent returns aadl2::ProcessSubcomponent:
@@ -967,7 +967,7 @@ ProcessSubcomponent returns aadl2::ProcessSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
@@ -983,7 +983,7 @@ ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 ThreadSubcomponent returns aadl2::ThreadSubcomponent:
@@ -999,7 +999,7 @@ ThreadSubcomponent returns aadl2::ThreadSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
@@ -1015,7 +1015,7 @@ SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
@@ -1031,7 +1031,7 @@ SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
@@ -1047,7 +1047,7 @@ ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	( => 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
@@ -1063,7 +1063,7 @@ VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	( => 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 DeviceSubcomponent returns aadl2::DeviceSubcomponent:
@@ -1079,7 +1079,7 @@ DeviceSubcomponent returns aadl2::DeviceSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	( => 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 MemorySubcomponent returns aadl2::MemorySubcomponent:
@@ -1095,7 +1095,7 @@ MemorySubcomponent returns aadl2::MemorySubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	( => 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 BusSubcomponent returns aadl2::BusSubcomponent:
@@ -1111,7 +1111,7 @@ BusSubcomponent returns aadl2::BusSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	( => 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
@@ -1127,7 +1127,7 @@ VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	( => 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 DataSubcomponent returns aadl2::DataSubcomponent:
@@ -1138,7 +1138,7 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 	 (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 
@@ -1517,7 +1517,7 @@ TriggerPort returns aadl2::TriggerPort:
 
 // used where component_in_modes is shown in standard grammar
 ModeRef returns aadl2::ModeBinding:
-	parentMode=[aadl2::Mode|ID] ('->' derivedMode=[aadl2::Mode|ID])?;
+	parentMode=[aadl2::Mode|ID] '=>' derivedMode=[aadl2::Mode|ID];
 
 
 AnnexLibrary returns aadl2::AnnexLibrary:
