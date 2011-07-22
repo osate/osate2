@@ -104,7 +104,7 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NumberType getNumberType() {
+	public NumberType getNumberTypeGen() {
 		if (numberType != null && ((EObject) numberType).eIsProxy()) {
 			InternalEObject oldNumberType = (InternalEObject) numberType;
 			numberType = (NumberType) eResolveProxy(oldNumberType);
@@ -120,10 +120,13 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	public NumberType basicGetNumberType() {
-		return numberType;
+	public NumberType getNumberType() {
+		if (numberType == null) {
+			numberType = ownedNumberType;
+		}
+		return getNumberTypeGen();
 	}
 
 	/**
@@ -131,18 +134,33 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NumberType basicGetNumberTypeGen() {
+		return numberType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public NumberType basicGetNumberType() {
+		if (numberType == null) {
+			numberType = ownedNumberType;
+		}
+		return basicGetNumberTypeGen();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public void setNumberType(NumberType newNumberType) {
 		NumberType oldNumberType = numberType;
 		numberType = newNumberType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.RANGE_TYPE__NUMBER_TYPE, oldNumberType,
 					numberType));
-		Resource.Internal eInternalResource = eInternalResource();
-		if (eInternalResource == null || !eInternalResource.isLoading()) {
-			if (ownedNumberType != null && ownedNumberType != newNumberType) {
-				setOwnedNumberType(null);
-			}
-		}
 	}
 
 	/**
@@ -285,12 +303,15 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_TYPE__NUMBER_TYPE:
+			if (numberType == null) {
+				numberType = ownedNumberType;
+			}
 			return numberType != null;
 		case Aadl2Package.RANGE_TYPE__OWNED_NUMBER_TYPE:
 			return ownedNumberType != null;

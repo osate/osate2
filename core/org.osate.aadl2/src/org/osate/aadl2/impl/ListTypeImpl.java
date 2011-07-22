@@ -103,7 +103,7 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyType getElementType() {
+	public PropertyType getElementTypeGen() {
 		if (elementType != null && ((EObject) elementType).eIsProxy()) {
 			InternalEObject oldElementType = (InternalEObject) elementType;
 			elementType = (PropertyType) eResolveProxy(oldElementType);
@@ -119,10 +119,34 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PropertyType getElementType() {
+		if (elementType == null) {
+			elementType = ownedElementType;
+		}
+		return getElementTypeGen();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyType basicGetElementType() {
+	public PropertyType basicGetElementTypeGen() {
 		return elementType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PropertyType basicGetElementType() {
+		if (elementType == null) {
+			elementType = ownedElementType;
+		}
+		return basicGetElementTypeGen();
 	}
 
 	/**
@@ -278,12 +302,15 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.LIST_TYPE__ELEMENT_TYPE:
+			if (elementType == null) {
+				elementType = ownedElementType;
+			}
 			return elementType != null;
 		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:
 			return ownedElementType != null;
