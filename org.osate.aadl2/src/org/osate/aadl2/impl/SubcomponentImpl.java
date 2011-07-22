@@ -247,17 +247,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public SubcomponentType basicGetSubcomponentType() {
-		ComponentPrototype prototype = basicGetPrototype();
-		if (prototype != null) {
-			return prototype;
-		}
-		ComponentClassifier classifier = basicGetClassifier();
-		if (classifier != null) {
-			return classifier;
-		}
 		return null;
 	}
 
