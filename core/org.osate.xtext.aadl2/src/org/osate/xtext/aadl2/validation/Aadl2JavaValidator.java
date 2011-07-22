@@ -346,6 +346,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		final int idx = s.lastIndexOf("::");
 		if (idx != -1) {
 			psname = s.substring(0, idx);
+			if (Aadl2LinkingService.isPredeclaredPropertySet(psname)) return;
 			EObject propertySet = Aadl2LinkingService.findImportedPropertySet(
 					psname, pa);
 			if (propertySet == null) {

@@ -1,11 +1,16 @@
 package org.osate.xtext.aadl2.ui.handlers;
 
+import java.util.HashMap;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.XMIResource;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.text.Region;
@@ -77,6 +82,18 @@ public class InstantiateHandler extends AbstractHandler {
 								} else {
 									System.out.println("instantiate" + targetElement.toString());
 								}
+								
+//								ResourceSet rs = new ResourceSetImpl();
+//								Resource resource = rs.getResource(URI.createURI("./mymodel.dmodel"), true);
+								EObject eobject = resource.getContents().get(0);
+								//persist xmi resource
+								XMIResourceFactoryImpl resFactory = new XMIResourceFactoryImpl();
+								URI xtxturi = resource.getURI();
+								URI xmiuri = xtxturi.trimFileExtension().appendFileExtension("aaxl");
+								XMIResource xmiresource = (XMIResource) resFactory.createResource(xmiuri);
+								xmiresource.getContents().add(eobject);
+								xmiresource.save(new HashMap());
+								
 								return null;
 							}
 							return null;

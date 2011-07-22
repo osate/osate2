@@ -49350,8 +49350,8 @@ protected class ComponentReference_RightParenthesisKeyword_2_3 extends KeywordTo
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -49360,7 +49360,7 @@ protected class ComponentReference_RightParenthesisKeyword_2_3 extends KeywordTo
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class AbstractSubcomponent_Group extends GroupToken {
 	
 	public AbstractSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -50302,7 +50302,7 @@ protected class AbstractSubcomponent_RightCurlyBracketKeyword_4_2 extends Keywor
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class AbstractSubcomponent_Group_5 extends GroupToken {
 	
 	public AbstractSubcomponent_Group_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -50393,7 +50393,7 @@ protected class AbstractSubcomponent_LeftParenthesisKeyword_5_2 extends KeywordT
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class AbstractSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 	public AbstractSubcomponent_Alternatives_5_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -50408,7 +50408,7 @@ protected class AbstractSubcomponent_Alternatives_5_3 extends AlternativesToken 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new AbstractSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new AbstractSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new AbstractSubcomponent_AllModesAssignment_5_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -50416,16 +50416,77 @@ protected class AbstractSubcomponent_Alternatives_5_3 extends AlternativesToken 
 
 }
 
-// modeBinding+=ModeRef+
-protected class AbstractSubcomponent_ModeBindingAssignment_5_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class AbstractSubcomponent_Alternatives_5_3_0 extends AlternativesToken {
+
+	public AbstractSubcomponent_Alternatives_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public AbstractSubcomponent_ModeBindingAssignment_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getAbstractSubcomponentAccess().getAlternatives_5_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AbstractSubcomponent_InModeAssignment_5_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new AbstractSubcomponent_ModeBindingAssignment_5_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class AbstractSubcomponent_InModeAssignment_5_3_0_0 extends AssignmentToken  {
+	
+	public AbstractSubcomponent_InModeAssignment_5_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getAbstractSubcomponentAccess().getModeBindingAssignment_5_3_0();
+		return grammarAccess.getAbstractSubcomponentAccess().getInModeAssignment_5_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AbstractSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new AbstractSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getAbstractSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getAbstractSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class AbstractSubcomponent_ModeBindingAssignment_5_3_0_1 extends AssignmentToken  {
+	
+	public AbstractSubcomponent_ModeBindingAssignment_5_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getAbstractSubcomponentAccess().getModeBindingAssignment_5_3_0_1();
 	}
 
     @Override
@@ -50444,7 +50505,7 @@ protected class AbstractSubcomponent_ModeBindingAssignment_5_3_0 extends Assignm
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getAbstractSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_0(); 
+				element = grammarAccess.getAbstractSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -50456,12 +50517,13 @@ protected class AbstractSubcomponent_ModeBindingAssignment_5_3_0 extends Assignm
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new AbstractSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new AbstractSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new AbstractSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class AbstractSubcomponent_AllModesAssignment_5_3_1 extends AssignmentToken  {
@@ -50559,8 +50621,8 @@ protected class AbstractSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -50569,7 +50631,7 @@ protected class AbstractSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class SystemSubcomponent_Group extends GroupToken {
 	
 	public SystemSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -51511,7 +51573,7 @@ protected class SystemSubcomponent_RightCurlyBracketKeyword_4_2 extends KeywordT
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class SystemSubcomponent_Group_5 extends GroupToken {
 	
 	public SystemSubcomponent_Group_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -51602,7 +51664,7 @@ protected class SystemSubcomponent_LeftParenthesisKeyword_5_2 extends KeywordTok
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class SystemSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 	public SystemSubcomponent_Alternatives_5_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -51617,7 +51679,7 @@ protected class SystemSubcomponent_Alternatives_5_3 extends AlternativesToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SystemSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SystemSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new SystemSubcomponent_AllModesAssignment_5_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -51625,16 +51687,77 @@ protected class SystemSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 }
 
-// modeBinding+=ModeRef+
-protected class SystemSubcomponent_ModeBindingAssignment_5_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class SystemSubcomponent_Alternatives_5_3_0 extends AlternativesToken {
+
+	public SystemSubcomponent_Alternatives_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public SystemSubcomponent_ModeBindingAssignment_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getSystemSubcomponentAccess().getAlternatives_5_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SystemSubcomponent_InModeAssignment_5_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new SystemSubcomponent_ModeBindingAssignment_5_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class SystemSubcomponent_InModeAssignment_5_3_0_0 extends AssignmentToken  {
+	
+	public SystemSubcomponent_InModeAssignment_5_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSystemSubcomponentAccess().getModeBindingAssignment_5_3_0();
+		return grammarAccess.getSystemSubcomponentAccess().getInModeAssignment_5_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SystemSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new SystemSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getSystemSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getSystemSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class SystemSubcomponent_ModeBindingAssignment_5_3_0_1 extends AssignmentToken  {
+	
+	public SystemSubcomponent_ModeBindingAssignment_5_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getSystemSubcomponentAccess().getModeBindingAssignment_5_3_0_1();
 	}
 
     @Override
@@ -51653,7 +51776,7 @@ protected class SystemSubcomponent_ModeBindingAssignment_5_3_0 extends Assignmen
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getSystemSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_0(); 
+				element = grammarAccess.getSystemSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -51665,12 +51788,13 @@ protected class SystemSubcomponent_ModeBindingAssignment_5_3_0 extends Assignmen
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new SystemSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new SystemSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new SystemSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class SystemSubcomponent_AllModesAssignment_5_3_1 extends AssignmentToken  {
@@ -51768,8 +51892,8 @@ protected class SystemSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -51778,7 +51902,7 @@ protected class SystemSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class ProcessSubcomponent_Group extends GroupToken {
 	
 	public ProcessSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -52720,7 +52844,7 @@ protected class ProcessSubcomponent_RightCurlyBracketKeyword_4_2 extends Keyword
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class ProcessSubcomponent_Group_5 extends GroupToken {
 	
 	public ProcessSubcomponent_Group_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -52811,7 +52935,7 @@ protected class ProcessSubcomponent_LeftParenthesisKeyword_5_2 extends KeywordTo
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class ProcessSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 	public ProcessSubcomponent_Alternatives_5_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -52826,7 +52950,7 @@ protected class ProcessSubcomponent_Alternatives_5_3 extends AlternativesToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ProcessSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ProcessSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new ProcessSubcomponent_AllModesAssignment_5_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -52834,16 +52958,77 @@ protected class ProcessSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 }
 
-// modeBinding+=ModeRef+
-protected class ProcessSubcomponent_ModeBindingAssignment_5_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class ProcessSubcomponent_Alternatives_5_3_0 extends AlternativesToken {
+
+	public ProcessSubcomponent_Alternatives_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public ProcessSubcomponent_ModeBindingAssignment_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getProcessSubcomponentAccess().getAlternatives_5_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ProcessSubcomponent_InModeAssignment_5_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ProcessSubcomponent_ModeBindingAssignment_5_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class ProcessSubcomponent_InModeAssignment_5_3_0_0 extends AssignmentToken  {
+	
+	public ProcessSubcomponent_InModeAssignment_5_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getProcessSubcomponentAccess().getModeBindingAssignment_5_3_0();
+		return grammarAccess.getProcessSubcomponentAccess().getInModeAssignment_5_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ProcessSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ProcessSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getProcessSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getProcessSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class ProcessSubcomponent_ModeBindingAssignment_5_3_0_1 extends AssignmentToken  {
+	
+	public ProcessSubcomponent_ModeBindingAssignment_5_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getProcessSubcomponentAccess().getModeBindingAssignment_5_3_0_1();
 	}
 
     @Override
@@ -52862,7 +53047,7 @@ protected class ProcessSubcomponent_ModeBindingAssignment_5_3_0 extends Assignme
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getProcessSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_0(); 
+				element = grammarAccess.getProcessSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -52874,12 +53059,13 @@ protected class ProcessSubcomponent_ModeBindingAssignment_5_3_0 extends Assignme
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new ProcessSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new ProcessSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new ProcessSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class ProcessSubcomponent_AllModesAssignment_5_3_1 extends AssignmentToken  {
@@ -52977,8 +53163,8 @@ protected class ProcessSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -52987,7 +53173,7 @@ protected class ProcessSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class ThreadGroupSubcomponent_Group extends GroupToken {
 	
 	public ThreadGroupSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -53951,7 +54137,7 @@ protected class ThreadGroupSubcomponent_RightCurlyBracketKeyword_5_2 extends Key
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class ThreadGroupSubcomponent_Group_6 extends GroupToken {
 	
 	public ThreadGroupSubcomponent_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -54042,7 +54228,7 @@ protected class ThreadGroupSubcomponent_LeftParenthesisKeyword_6_2 extends Keywo
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class ThreadGroupSubcomponent_Alternatives_6_3 extends AlternativesToken {
 
 	public ThreadGroupSubcomponent_Alternatives_6_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -54057,7 +54243,7 @@ protected class ThreadGroupSubcomponent_Alternatives_6_3 extends AlternativesTok
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ThreadGroupSubcomponent_ModeBindingAssignment_6_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ThreadGroupSubcomponent_Alternatives_6_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new ThreadGroupSubcomponent_AllModesAssignment_6_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -54065,16 +54251,77 @@ protected class ThreadGroupSubcomponent_Alternatives_6_3 extends AlternativesTok
 
 }
 
-// modeBinding+=ModeRef+
-protected class ThreadGroupSubcomponent_ModeBindingAssignment_6_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class ThreadGroupSubcomponent_Alternatives_6_3_0 extends AlternativesToken {
+
+	public ThreadGroupSubcomponent_Alternatives_6_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public ThreadGroupSubcomponent_ModeBindingAssignment_6_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getThreadGroupSubcomponentAccess().getAlternatives_6_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ThreadGroupSubcomponent_InModeAssignment_6_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ThreadGroupSubcomponent_ModeBindingAssignment_6_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class ThreadGroupSubcomponent_InModeAssignment_6_3_0_0 extends AssignmentToken  {
+	
+	public ThreadGroupSubcomponent_InModeAssignment_6_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getThreadGroupSubcomponentAccess().getModeBindingAssignment_6_3_0();
+		return grammarAccess.getThreadGroupSubcomponentAccess().getInModeAssignment_6_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ThreadGroupSubcomponent_Alternatives_6_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ThreadGroupSubcomponent_LeftParenthesisKeyword_6_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getThreadGroupSubcomponentAccess().getInModeModeCrossReference_6_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getThreadGroupSubcomponentAccess().getInModeModeCrossReference_6_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class ThreadGroupSubcomponent_ModeBindingAssignment_6_3_0_1 extends AssignmentToken  {
+	
+	public ThreadGroupSubcomponent_ModeBindingAssignment_6_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getThreadGroupSubcomponentAccess().getModeBindingAssignment_6_3_0_1();
 	}
 
     @Override
@@ -54093,7 +54340,7 @@ protected class ThreadGroupSubcomponent_ModeBindingAssignment_6_3_0 extends Assi
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getThreadGroupSubcomponentAccess().getModeBindingModeRefParserRuleCall_6_3_0_0(); 
+				element = grammarAccess.getThreadGroupSubcomponentAccess().getModeBindingModeRefParserRuleCall_6_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -54105,12 +54352,13 @@ protected class ThreadGroupSubcomponent_ModeBindingAssignment_6_3_0 extends Assi
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new ThreadGroupSubcomponent_ModeBindingAssignment_6_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new ThreadGroupSubcomponent_Alternatives_6_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new ThreadGroupSubcomponent_LeftParenthesisKeyword_6_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class ThreadGroupSubcomponent_AllModesAssignment_6_3_1 extends AssignmentToken  {
@@ -54208,8 +54456,8 @@ protected class ThreadGroupSubcomponent_SemicolonKeyword_7 extends KeywordToken 
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -54218,7 +54466,7 @@ protected class ThreadGroupSubcomponent_SemicolonKeyword_7 extends KeywordToken 
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class ThreadSubcomponent_Group extends GroupToken {
 	
 	public ThreadSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -55160,7 +55408,7 @@ protected class ThreadSubcomponent_RightCurlyBracketKeyword_4_2 extends KeywordT
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class ThreadSubcomponent_Group_5 extends GroupToken {
 	
 	public ThreadSubcomponent_Group_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -55251,7 +55499,7 @@ protected class ThreadSubcomponent_LeftParenthesisKeyword_5_2 extends KeywordTok
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class ThreadSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 	public ThreadSubcomponent_Alternatives_5_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -55266,7 +55514,7 @@ protected class ThreadSubcomponent_Alternatives_5_3 extends AlternativesToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ThreadSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ThreadSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new ThreadSubcomponent_AllModesAssignment_5_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -55274,16 +55522,77 @@ protected class ThreadSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 }
 
-// modeBinding+=ModeRef+
-protected class ThreadSubcomponent_ModeBindingAssignment_5_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class ThreadSubcomponent_Alternatives_5_3_0 extends AlternativesToken {
+
+	public ThreadSubcomponent_Alternatives_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public ThreadSubcomponent_ModeBindingAssignment_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getThreadSubcomponentAccess().getAlternatives_5_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ThreadSubcomponent_InModeAssignment_5_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ThreadSubcomponent_ModeBindingAssignment_5_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class ThreadSubcomponent_InModeAssignment_5_3_0_0 extends AssignmentToken  {
+	
+	public ThreadSubcomponent_InModeAssignment_5_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getThreadSubcomponentAccess().getModeBindingAssignment_5_3_0();
+		return grammarAccess.getThreadSubcomponentAccess().getInModeAssignment_5_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ThreadSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ThreadSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getThreadSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getThreadSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class ThreadSubcomponent_ModeBindingAssignment_5_3_0_1 extends AssignmentToken  {
+	
+	public ThreadSubcomponent_ModeBindingAssignment_5_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getThreadSubcomponentAccess().getModeBindingAssignment_5_3_0_1();
 	}
 
     @Override
@@ -55302,7 +55611,7 @@ protected class ThreadSubcomponent_ModeBindingAssignment_5_3_0 extends Assignmen
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getThreadSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_0(); 
+				element = grammarAccess.getThreadSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -55314,12 +55623,13 @@ protected class ThreadSubcomponent_ModeBindingAssignment_5_3_0 extends Assignmen
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new ThreadSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new ThreadSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new ThreadSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class ThreadSubcomponent_AllModesAssignment_5_3_1 extends AssignmentToken  {
@@ -55417,8 +55727,8 @@ protected class ThreadSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -55427,7 +55737,7 @@ protected class ThreadSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class SubprogramSubcomponent_Group extends GroupToken {
 	
 	public SubprogramSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -56369,7 +56679,7 @@ protected class SubprogramSubcomponent_RightCurlyBracketKeyword_4_2 extends Keyw
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class SubprogramSubcomponent_Group_5 extends GroupToken {
 	
 	public SubprogramSubcomponent_Group_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -56460,7 +56770,7 @@ protected class SubprogramSubcomponent_LeftParenthesisKeyword_5_2 extends Keywor
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class SubprogramSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 	public SubprogramSubcomponent_Alternatives_5_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -56475,7 +56785,7 @@ protected class SubprogramSubcomponent_Alternatives_5_3 extends AlternativesToke
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubprogramSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SubprogramSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new SubprogramSubcomponent_AllModesAssignment_5_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -56483,16 +56793,77 @@ protected class SubprogramSubcomponent_Alternatives_5_3 extends AlternativesToke
 
 }
 
-// modeBinding+=ModeRef+
-protected class SubprogramSubcomponent_ModeBindingAssignment_5_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class SubprogramSubcomponent_Alternatives_5_3_0 extends AlternativesToken {
+
+	public SubprogramSubcomponent_Alternatives_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public SubprogramSubcomponent_ModeBindingAssignment_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getSubprogramSubcomponentAccess().getAlternatives_5_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SubprogramSubcomponent_InModeAssignment_5_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new SubprogramSubcomponent_ModeBindingAssignment_5_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class SubprogramSubcomponent_InModeAssignment_5_3_0_0 extends AssignmentToken  {
+	
+	public SubprogramSubcomponent_InModeAssignment_5_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSubprogramSubcomponentAccess().getModeBindingAssignment_5_3_0();
+		return grammarAccess.getSubprogramSubcomponentAccess().getInModeAssignment_5_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SubprogramSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new SubprogramSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getSubprogramSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getSubprogramSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class SubprogramSubcomponent_ModeBindingAssignment_5_3_0_1 extends AssignmentToken  {
+	
+	public SubprogramSubcomponent_ModeBindingAssignment_5_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getSubprogramSubcomponentAccess().getModeBindingAssignment_5_3_0_1();
 	}
 
     @Override
@@ -56511,7 +56882,7 @@ protected class SubprogramSubcomponent_ModeBindingAssignment_5_3_0 extends Assig
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getSubprogramSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_0(); 
+				element = grammarAccess.getSubprogramSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -56523,12 +56894,13 @@ protected class SubprogramSubcomponent_ModeBindingAssignment_5_3_0 extends Assig
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new SubprogramSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new SubprogramSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new SubprogramSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class SubprogramSubcomponent_AllModesAssignment_5_3_1 extends AssignmentToken  {
@@ -56626,8 +56998,8 @@ protected class SubprogramSubcomponent_SemicolonKeyword_6 extends KeywordToken  
  * 	("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -56636,7 +57008,7 @@ protected class SubprogramSubcomponent_SemicolonKeyword_6 extends KeywordToken  
 // ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class SubprogramGroupSubcomponent_Group extends GroupToken {
 	
 	public SubprogramGroupSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -57600,7 +57972,7 @@ protected class SubprogramGroupSubcomponent_RightCurlyBracketKeyword_5_2 extends
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class SubprogramGroupSubcomponent_Group_6 extends GroupToken {
 	
 	public SubprogramGroupSubcomponent_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -57691,7 +58063,7 @@ protected class SubprogramGroupSubcomponent_LeftParenthesisKeyword_6_2 extends K
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class SubprogramGroupSubcomponent_Alternatives_6_3 extends AlternativesToken {
 
 	public SubprogramGroupSubcomponent_Alternatives_6_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -57706,7 +58078,7 @@ protected class SubprogramGroupSubcomponent_Alternatives_6_3 extends Alternative
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SubprogramGroupSubcomponent_ModeBindingAssignment_6_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SubprogramGroupSubcomponent_Alternatives_6_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new SubprogramGroupSubcomponent_AllModesAssignment_6_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -57714,16 +58086,77 @@ protected class SubprogramGroupSubcomponent_Alternatives_6_3 extends Alternative
 
 }
 
-// modeBinding+=ModeRef+
-protected class SubprogramGroupSubcomponent_ModeBindingAssignment_6_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class SubprogramGroupSubcomponent_Alternatives_6_3_0 extends AlternativesToken {
+
+	public SubprogramGroupSubcomponent_Alternatives_6_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public SubprogramGroupSubcomponent_ModeBindingAssignment_6_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getSubprogramGroupSubcomponentAccess().getAlternatives_6_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SubprogramGroupSubcomponent_InModeAssignment_6_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new SubprogramGroupSubcomponent_ModeBindingAssignment_6_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class SubprogramGroupSubcomponent_InModeAssignment_6_3_0_0 extends AssignmentToken  {
+	
+	public SubprogramGroupSubcomponent_InModeAssignment_6_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getSubprogramGroupSubcomponentAccess().getModeBindingAssignment_6_3_0();
+		return grammarAccess.getSubprogramGroupSubcomponentAccess().getInModeAssignment_6_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SubprogramGroupSubcomponent_Alternatives_6_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new SubprogramGroupSubcomponent_LeftParenthesisKeyword_6_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getSubprogramGroupSubcomponentAccess().getInModeModeCrossReference_6_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getSubprogramGroupSubcomponentAccess().getInModeModeCrossReference_6_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class SubprogramGroupSubcomponent_ModeBindingAssignment_6_3_0_1 extends AssignmentToken  {
+	
+	public SubprogramGroupSubcomponent_ModeBindingAssignment_6_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getSubprogramGroupSubcomponentAccess().getModeBindingAssignment_6_3_0_1();
 	}
 
     @Override
@@ -57742,7 +58175,7 @@ protected class SubprogramGroupSubcomponent_ModeBindingAssignment_6_3_0 extends 
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getSubprogramGroupSubcomponentAccess().getModeBindingModeRefParserRuleCall_6_3_0_0(); 
+				element = grammarAccess.getSubprogramGroupSubcomponentAccess().getModeBindingModeRefParserRuleCall_6_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -57754,12 +58187,13 @@ protected class SubprogramGroupSubcomponent_ModeBindingAssignment_6_3_0 extends 
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new SubprogramGroupSubcomponent_ModeBindingAssignment_6_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new SubprogramGroupSubcomponent_Alternatives_6_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new SubprogramGroupSubcomponent_LeftParenthesisKeyword_6_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class SubprogramGroupSubcomponent_AllModesAssignment_6_3_1 extends AssignmentToken  {
@@ -57857,8 +58291,8 @@ protected class SubprogramGroupSubcomponent_SemicolonKeyword_7 extends KeywordTo
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -57867,7 +58301,7 @@ protected class SubprogramGroupSubcomponent_SemicolonKeyword_7 extends KeywordTo
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class ProcessorSubcomponent_Group extends GroupToken {
 	
 	public ProcessorSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -58809,7 +59243,7 @@ protected class ProcessorSubcomponent_RightCurlyBracketKeyword_4_2 extends Keywo
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class ProcessorSubcomponent_Group_5 extends GroupToken {
 	
 	public ProcessorSubcomponent_Group_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -58900,7 +59334,7 @@ protected class ProcessorSubcomponent_LeftParenthesisKeyword_5_2 extends Keyword
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class ProcessorSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 	public ProcessorSubcomponent_Alternatives_5_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -58915,7 +59349,7 @@ protected class ProcessorSubcomponent_Alternatives_5_3 extends AlternativesToken
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ProcessorSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ProcessorSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new ProcessorSubcomponent_AllModesAssignment_5_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -58923,16 +59357,77 @@ protected class ProcessorSubcomponent_Alternatives_5_3 extends AlternativesToken
 
 }
 
-// modeBinding+=ModeRef+
-protected class ProcessorSubcomponent_ModeBindingAssignment_5_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class ProcessorSubcomponent_Alternatives_5_3_0 extends AlternativesToken {
+
+	public ProcessorSubcomponent_Alternatives_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public ProcessorSubcomponent_ModeBindingAssignment_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getProcessorSubcomponentAccess().getAlternatives_5_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ProcessorSubcomponent_InModeAssignment_5_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ProcessorSubcomponent_ModeBindingAssignment_5_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class ProcessorSubcomponent_InModeAssignment_5_3_0_0 extends AssignmentToken  {
+	
+	public ProcessorSubcomponent_InModeAssignment_5_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getProcessorSubcomponentAccess().getModeBindingAssignment_5_3_0();
+		return grammarAccess.getProcessorSubcomponentAccess().getInModeAssignment_5_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ProcessorSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ProcessorSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getProcessorSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getProcessorSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class ProcessorSubcomponent_ModeBindingAssignment_5_3_0_1 extends AssignmentToken  {
+	
+	public ProcessorSubcomponent_ModeBindingAssignment_5_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getProcessorSubcomponentAccess().getModeBindingAssignment_5_3_0_1();
 	}
 
     @Override
@@ -58951,7 +59446,7 @@ protected class ProcessorSubcomponent_ModeBindingAssignment_5_3_0 extends Assign
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getProcessorSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_0(); 
+				element = grammarAccess.getProcessorSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -58963,12 +59458,13 @@ protected class ProcessorSubcomponent_ModeBindingAssignment_5_3_0 extends Assign
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new ProcessorSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new ProcessorSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new ProcessorSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class ProcessorSubcomponent_AllModesAssignment_5_3_1 extends AssignmentToken  {
@@ -59066,8 +59562,8 @@ protected class ProcessorSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
  * 	(arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -59076,7 +59572,7 @@ protected class ProcessorSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 // ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 // (arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class VirtualProcessorSubcomponent_Group extends GroupToken {
 	
 	public VirtualProcessorSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -60040,7 +60536,7 @@ protected class VirtualProcessorSubcomponent_RightCurlyBracketKeyword_5_2 extend
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class VirtualProcessorSubcomponent_Group_6 extends GroupToken {
 	
 	public VirtualProcessorSubcomponent_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -60131,7 +60627,7 @@ protected class VirtualProcessorSubcomponent_LeftParenthesisKeyword_6_2 extends 
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class VirtualProcessorSubcomponent_Alternatives_6_3 extends AlternativesToken {
 
 	public VirtualProcessorSubcomponent_Alternatives_6_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -60146,7 +60642,7 @@ protected class VirtualProcessorSubcomponent_Alternatives_6_3 extends Alternativ
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new VirtualProcessorSubcomponent_ModeBindingAssignment_6_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new VirtualProcessorSubcomponent_Alternatives_6_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new VirtualProcessorSubcomponent_AllModesAssignment_6_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -60154,16 +60650,77 @@ protected class VirtualProcessorSubcomponent_Alternatives_6_3 extends Alternativ
 
 }
 
-// modeBinding+=ModeRef+
-protected class VirtualProcessorSubcomponent_ModeBindingAssignment_6_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class VirtualProcessorSubcomponent_Alternatives_6_3_0 extends AlternativesToken {
+
+	public VirtualProcessorSubcomponent_Alternatives_6_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public VirtualProcessorSubcomponent_ModeBindingAssignment_6_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getVirtualProcessorSubcomponentAccess().getAlternatives_6_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new VirtualProcessorSubcomponent_InModeAssignment_6_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new VirtualProcessorSubcomponent_ModeBindingAssignment_6_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class VirtualProcessorSubcomponent_InModeAssignment_6_3_0_0 extends AssignmentToken  {
+	
+	public VirtualProcessorSubcomponent_InModeAssignment_6_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getVirtualProcessorSubcomponentAccess().getModeBindingAssignment_6_3_0();
+		return grammarAccess.getVirtualProcessorSubcomponentAccess().getInModeAssignment_6_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new VirtualProcessorSubcomponent_Alternatives_6_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new VirtualProcessorSubcomponent_LeftParenthesisKeyword_6_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getVirtualProcessorSubcomponentAccess().getInModeModeCrossReference_6_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getVirtualProcessorSubcomponentAccess().getInModeModeCrossReference_6_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class VirtualProcessorSubcomponent_ModeBindingAssignment_6_3_0_1 extends AssignmentToken  {
+	
+	public VirtualProcessorSubcomponent_ModeBindingAssignment_6_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getVirtualProcessorSubcomponentAccess().getModeBindingAssignment_6_3_0_1();
 	}
 
     @Override
@@ -60182,7 +60739,7 @@ protected class VirtualProcessorSubcomponent_ModeBindingAssignment_6_3_0 extends
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getVirtualProcessorSubcomponentAccess().getModeBindingModeRefParserRuleCall_6_3_0_0(); 
+				element = grammarAccess.getVirtualProcessorSubcomponentAccess().getModeBindingModeRefParserRuleCall_6_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -60194,12 +60751,13 @@ protected class VirtualProcessorSubcomponent_ModeBindingAssignment_6_3_0 extends
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new VirtualProcessorSubcomponent_ModeBindingAssignment_6_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new VirtualProcessorSubcomponent_Alternatives_6_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new VirtualProcessorSubcomponent_LeftParenthesisKeyword_6_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class VirtualProcessorSubcomponent_AllModesAssignment_6_3_1 extends AssignmentToken  {
@@ -60297,8 +60855,8 @@ protected class VirtualProcessorSubcomponent_SemicolonKeyword_7 extends KeywordT
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -60307,7 +60865,7 @@ protected class VirtualProcessorSubcomponent_SemicolonKeyword_7 extends KeywordT
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class DeviceSubcomponent_Group extends GroupToken {
 	
 	public DeviceSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -61249,7 +61807,7 @@ protected class DeviceSubcomponent_RightCurlyBracketKeyword_4_2 extends KeywordT
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class DeviceSubcomponent_Group_5 extends GroupToken {
 	
 	public DeviceSubcomponent_Group_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -61340,7 +61898,7 @@ protected class DeviceSubcomponent_LeftParenthesisKeyword_5_2 extends KeywordTok
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class DeviceSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 	public DeviceSubcomponent_Alternatives_5_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -61355,7 +61913,7 @@ protected class DeviceSubcomponent_Alternatives_5_3 extends AlternativesToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DeviceSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DeviceSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new DeviceSubcomponent_AllModesAssignment_5_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -61363,16 +61921,77 @@ protected class DeviceSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 }
 
-// modeBinding+=ModeRef+
-protected class DeviceSubcomponent_ModeBindingAssignment_5_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class DeviceSubcomponent_Alternatives_5_3_0 extends AlternativesToken {
+
+	public DeviceSubcomponent_Alternatives_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public DeviceSubcomponent_ModeBindingAssignment_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getDeviceSubcomponentAccess().getAlternatives_5_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DeviceSubcomponent_InModeAssignment_5_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new DeviceSubcomponent_ModeBindingAssignment_5_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class DeviceSubcomponent_InModeAssignment_5_3_0_0 extends AssignmentToken  {
+	
+	public DeviceSubcomponent_InModeAssignment_5_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getDeviceSubcomponentAccess().getModeBindingAssignment_5_3_0();
+		return grammarAccess.getDeviceSubcomponentAccess().getInModeAssignment_5_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DeviceSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new DeviceSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getDeviceSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getDeviceSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class DeviceSubcomponent_ModeBindingAssignment_5_3_0_1 extends AssignmentToken  {
+	
+	public DeviceSubcomponent_ModeBindingAssignment_5_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getDeviceSubcomponentAccess().getModeBindingAssignment_5_3_0_1();
 	}
 
     @Override
@@ -61391,7 +62010,7 @@ protected class DeviceSubcomponent_ModeBindingAssignment_5_3_0 extends Assignmen
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getDeviceSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_0(); 
+				element = grammarAccess.getDeviceSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -61403,12 +62022,13 @@ protected class DeviceSubcomponent_ModeBindingAssignment_5_3_0 extends Assignmen
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new DeviceSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new DeviceSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new DeviceSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class DeviceSubcomponent_AllModesAssignment_5_3_1 extends AssignmentToken  {
@@ -61506,8 +62126,8 @@ protected class DeviceSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -61516,7 +62136,7 @@ protected class DeviceSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class MemorySubcomponent_Group extends GroupToken {
 	
 	public MemorySubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -62458,7 +63078,7 @@ protected class MemorySubcomponent_RightCurlyBracketKeyword_4_2 extends KeywordT
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class MemorySubcomponent_Group_5 extends GroupToken {
 	
 	public MemorySubcomponent_Group_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -62549,7 +63169,7 @@ protected class MemorySubcomponent_LeftParenthesisKeyword_5_2 extends KeywordTok
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class MemorySubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 	public MemorySubcomponent_Alternatives_5_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -62564,7 +63184,7 @@ protected class MemorySubcomponent_Alternatives_5_3 extends AlternativesToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new MemorySubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new MemorySubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new MemorySubcomponent_AllModesAssignment_5_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -62572,16 +63192,77 @@ protected class MemorySubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 }
 
-// modeBinding+=ModeRef+
-protected class MemorySubcomponent_ModeBindingAssignment_5_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class MemorySubcomponent_Alternatives_5_3_0 extends AlternativesToken {
+
+	public MemorySubcomponent_Alternatives_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public MemorySubcomponent_ModeBindingAssignment_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getMemorySubcomponentAccess().getAlternatives_5_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new MemorySubcomponent_InModeAssignment_5_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new MemorySubcomponent_ModeBindingAssignment_5_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class MemorySubcomponent_InModeAssignment_5_3_0_0 extends AssignmentToken  {
+	
+	public MemorySubcomponent_InModeAssignment_5_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getMemorySubcomponentAccess().getModeBindingAssignment_5_3_0();
+		return grammarAccess.getMemorySubcomponentAccess().getInModeAssignment_5_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new MemorySubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new MemorySubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getMemorySubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getMemorySubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class MemorySubcomponent_ModeBindingAssignment_5_3_0_1 extends AssignmentToken  {
+	
+	public MemorySubcomponent_ModeBindingAssignment_5_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getMemorySubcomponentAccess().getModeBindingAssignment_5_3_0_1();
 	}
 
     @Override
@@ -62600,7 +63281,7 @@ protected class MemorySubcomponent_ModeBindingAssignment_5_3_0 extends Assignmen
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getMemorySubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_0(); 
+				element = grammarAccess.getMemorySubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -62612,12 +63293,13 @@ protected class MemorySubcomponent_ModeBindingAssignment_5_3_0 extends Assignmen
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new MemorySubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new MemorySubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new MemorySubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class MemorySubcomponent_AllModesAssignment_5_3_1 extends AssignmentToken  {
@@ -62715,8 +63397,8 @@ protected class MemorySubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -62725,7 +63407,7 @@ protected class MemorySubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class BusSubcomponent_Group extends GroupToken {
 	
 	public BusSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -63667,7 +64349,7 @@ protected class BusSubcomponent_RightCurlyBracketKeyword_4_2 extends KeywordToke
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class BusSubcomponent_Group_5 extends GroupToken {
 	
 	public BusSubcomponent_Group_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -63758,7 +64440,7 @@ protected class BusSubcomponent_LeftParenthesisKeyword_5_2 extends KeywordToken 
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class BusSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 	public BusSubcomponent_Alternatives_5_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -63773,7 +64455,7 @@ protected class BusSubcomponent_Alternatives_5_3 extends AlternativesToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new BusSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new BusSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new BusSubcomponent_AllModesAssignment_5_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -63781,16 +64463,77 @@ protected class BusSubcomponent_Alternatives_5_3 extends AlternativesToken {
 
 }
 
-// modeBinding+=ModeRef+
-protected class BusSubcomponent_ModeBindingAssignment_5_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class BusSubcomponent_Alternatives_5_3_0 extends AlternativesToken {
+
+	public BusSubcomponent_Alternatives_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public BusSubcomponent_ModeBindingAssignment_5_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getBusSubcomponentAccess().getAlternatives_5_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new BusSubcomponent_InModeAssignment_5_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new BusSubcomponent_ModeBindingAssignment_5_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class BusSubcomponent_InModeAssignment_5_3_0_0 extends AssignmentToken  {
+	
+	public BusSubcomponent_InModeAssignment_5_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getBusSubcomponentAccess().getModeBindingAssignment_5_3_0();
+		return grammarAccess.getBusSubcomponentAccess().getInModeAssignment_5_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new BusSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new BusSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getBusSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getBusSubcomponentAccess().getInModeModeCrossReference_5_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class BusSubcomponent_ModeBindingAssignment_5_3_0_1 extends AssignmentToken  {
+	
+	public BusSubcomponent_ModeBindingAssignment_5_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getBusSubcomponentAccess().getModeBindingAssignment_5_3_0_1();
 	}
 
     @Override
@@ -63809,7 +64552,7 @@ protected class BusSubcomponent_ModeBindingAssignment_5_3_0 extends AssignmentTo
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getBusSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_0(); 
+				element = grammarAccess.getBusSubcomponentAccess().getModeBindingModeRefParserRuleCall_5_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -63821,12 +64564,13 @@ protected class BusSubcomponent_ModeBindingAssignment_5_3_0 extends AssignmentTo
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new BusSubcomponent_ModeBindingAssignment_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new BusSubcomponent_Alternatives_5_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new BusSubcomponent_LeftParenthesisKeyword_5_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class BusSubcomponent_AllModesAssignment_5_3_1 extends AssignmentToken  {
@@ -63924,8 +64668,8 @@ protected class BusSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
  * 	implementationReference+=ComponentImplementationReference (","
  * 	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
- * 	";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
+ * 	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
@@ -63934,7 +64678,7 @@ protected class BusSubcomponent_SemicolonKeyword_6 extends KeywordToken  {
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 // implementationReference+=ComponentImplementationReference (","
 // implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class VirtualBusSubcomponent_Group extends GroupToken {
 	
 	public VirtualBusSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -64898,7 +65642,7 @@ protected class VirtualBusSubcomponent_RightCurlyBracketKeyword_5_2 extends Keyw
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class VirtualBusSubcomponent_Group_6 extends GroupToken {
 	
 	public VirtualBusSubcomponent_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -64989,7 +65733,7 @@ protected class VirtualBusSubcomponent_LeftParenthesisKeyword_6_2 extends Keywor
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class VirtualBusSubcomponent_Alternatives_6_3 extends AlternativesToken {
 
 	public VirtualBusSubcomponent_Alternatives_6_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -65004,7 +65748,7 @@ protected class VirtualBusSubcomponent_Alternatives_6_3 extends AlternativesToke
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new VirtualBusSubcomponent_ModeBindingAssignment_6_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new VirtualBusSubcomponent_Alternatives_6_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new VirtualBusSubcomponent_AllModesAssignment_6_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -65012,16 +65756,77 @@ protected class VirtualBusSubcomponent_Alternatives_6_3 extends AlternativesToke
 
 }
 
-// modeBinding+=ModeRef+
-protected class VirtualBusSubcomponent_ModeBindingAssignment_6_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class VirtualBusSubcomponent_Alternatives_6_3_0 extends AlternativesToken {
+
+	public VirtualBusSubcomponent_Alternatives_6_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public VirtualBusSubcomponent_ModeBindingAssignment_6_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getVirtualBusSubcomponentAccess().getAlternatives_6_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new VirtualBusSubcomponent_InModeAssignment_6_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new VirtualBusSubcomponent_ModeBindingAssignment_6_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class VirtualBusSubcomponent_InModeAssignment_6_3_0_0 extends AssignmentToken  {
+	
+	public VirtualBusSubcomponent_InModeAssignment_6_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getVirtualBusSubcomponentAccess().getModeBindingAssignment_6_3_0();
+		return grammarAccess.getVirtualBusSubcomponentAccess().getInModeAssignment_6_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new VirtualBusSubcomponent_Alternatives_6_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new VirtualBusSubcomponent_LeftParenthesisKeyword_6_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getVirtualBusSubcomponentAccess().getInModeModeCrossReference_6_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getVirtualBusSubcomponentAccess().getInModeModeCrossReference_6_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class VirtualBusSubcomponent_ModeBindingAssignment_6_3_0_1 extends AssignmentToken  {
+	
+	public VirtualBusSubcomponent_ModeBindingAssignment_6_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getVirtualBusSubcomponentAccess().getModeBindingAssignment_6_3_0_1();
 	}
 
     @Override
@@ -65040,7 +65845,7 @@ protected class VirtualBusSubcomponent_ModeBindingAssignment_6_3_0 extends Assig
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getVirtualBusSubcomponentAccess().getModeBindingModeRefParserRuleCall_6_3_0_0(); 
+				element = grammarAccess.getVirtualBusSubcomponentAccess().getModeBindingModeRefParserRuleCall_6_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -65052,12 +65857,13 @@ protected class VirtualBusSubcomponent_ModeBindingAssignment_6_3_0 extends Assig
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new VirtualBusSubcomponent_ModeBindingAssignment_6_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new VirtualBusSubcomponent_Alternatives_6_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new VirtualBusSubcomponent_LeftParenthesisKeyword_6_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class VirtualBusSubcomponent_AllModesAssignment_6_3_1 extends AssignmentToken  {
@@ -65153,14 +65959,14 @@ protected class VirtualBusSubcomponent_SemicolonKeyword_7 extends KeywordToken  
  * 	(name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
  * 	(dataSubcomponentType=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
- * 	"modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";";
+ * 	"modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
  *
  **/
 
 // (name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
 // (dataSubcomponentType=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
-// "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")? ";"
+// "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 protected class DataSubcomponent_Group extends GroupToken {
 	
 	public DataSubcomponent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -65821,7 +66627,7 @@ protected class DataSubcomponent_RightCurlyBracketKeyword_3_2 extends KeywordTok
 }
 
 
-// (=> "in" "modes" "(" (modeBinding+=ModeRef+ | allModes?="all") ")")?
+// (=> "in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")?
 protected class DataSubcomponent_Group_4 extends GroupToken {
 	
 	public DataSubcomponent_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -65911,7 +66717,7 @@ protected class DataSubcomponent_LeftParenthesisKeyword_4_2 extends KeywordToken
 
 }
 
-// modeBinding+=ModeRef+ | allModes?="all"
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all"
 protected class DataSubcomponent_Alternatives_4_3 extends AlternativesToken {
 
 	public DataSubcomponent_Alternatives_4_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -65926,7 +66732,7 @@ protected class DataSubcomponent_Alternatives_4_3 extends AlternativesToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DataSubcomponent_ModeBindingAssignment_4_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DataSubcomponent_Alternatives_4_3_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new DataSubcomponent_AllModesAssignment_4_3_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -65934,16 +66740,77 @@ protected class DataSubcomponent_Alternatives_4_3 extends AlternativesToken {
 
 }
 
-// modeBinding+=ModeRef+
-protected class DataSubcomponent_ModeBindingAssignment_4_3_0 extends AssignmentToken  {
+// (inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+
+protected class DataSubcomponent_Alternatives_4_3_0 extends AlternativesToken {
+
+	public DataSubcomponent_Alternatives_4_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
 	
-	public DataSubcomponent_ModeBindingAssignment_4_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getDataSubcomponentAccess().getAlternatives_4_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DataSubcomponent_InModeAssignment_4_3_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new DataSubcomponent_ModeBindingAssignment_4_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class DataSubcomponent_InModeAssignment_4_3_0_0 extends AssignmentToken  {
+	
+	public DataSubcomponent_InModeAssignment_4_3_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getDataSubcomponentAccess().getModeBindingAssignment_4_3_0();
+		return grammarAccess.getDataSubcomponentAccess().getInModeAssignment_4_3_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DataSubcomponent_Alternatives_4_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new DataSubcomponent_LeftParenthesisKeyword_4_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getDataSubcomponentAccess().getInModeModeCrossReference_4_3_0_0_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getDataSubcomponentAccess().getInModeModeCrossReference_4_3_0_0_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// modeBinding+=ModeRef
+protected class DataSubcomponent_ModeBindingAssignment_4_3_0_1 extends AssignmentToken  {
+	
+	public DataSubcomponent_ModeBindingAssignment_4_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getDataSubcomponentAccess().getModeBindingAssignment_4_3_0_1();
 	}
 
     @Override
@@ -65962,7 +66829,7 @@ protected class DataSubcomponent_ModeBindingAssignment_4_3_0 extends AssignmentT
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getModeRefRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getDataSubcomponentAccess().getModeBindingModeRefParserRuleCall_4_3_0_0(); 
+				element = grammarAccess.getDataSubcomponentAccess().getModeBindingModeRefParserRuleCall_4_3_0_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -65974,12 +66841,13 @@ protected class DataSubcomponent_ModeBindingAssignment_4_3_0 extends AssignmentT
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new DataSubcomponent_ModeBindingAssignment_4_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new DataSubcomponent_Alternatives_4_3_0(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new DataSubcomponent_LeftParenthesisKeyword_4_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
+
 
 // allModes?="all"
 protected class DataSubcomponent_AllModesAssignment_4_3_1 extends AssignmentToken  {
@@ -85287,11 +86155,11 @@ protected class TriggerPort_PortAssignment_1 extends AssignmentToken  {
  *
  * // used where component_in_modes is shown in standard grammar
  * ModeRef returns aadl2::ModeBinding:
- * 	parentMode=[aadl2::Mode] ("->" derivedMode=[aadl2::Mode])?;
+ * 	parentMode=[aadl2::Mode] "=>" derivedMode=[aadl2::Mode];
  *
  **/
 
-// parentMode=[aadl2::Mode] ("->" derivedMode=[aadl2::Mode])?
+// parentMode=[aadl2::Mode] "=>" derivedMode=[aadl2::Mode]
 protected class ModeRef_Group extends GroupToken {
 	
 	public ModeRef_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -85306,8 +86174,7 @@ protected class ModeRef_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ModeRef_Group_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new ModeRef_ParentModeAssignment_0(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new ModeRef_DerivedModeAssignment_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -85357,38 +86224,16 @@ protected class ModeRef_ParentModeAssignment_0 extends AssignmentToken  {
 
 }
 
-// ("->" derivedMode=[aadl2::Mode])?
-protected class ModeRef_Group_1 extends GroupToken {
+// "=>"
+protected class ModeRef_EqualsSignGreaterThanSignKeyword_1 extends KeywordToken  {
 	
-	public ModeRef_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getModeRefAccess().getGroup_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new ModeRef_DerivedModeAssignment_1_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// "->"
-protected class ModeRef_HyphenMinusGreaterThanSignKeyword_1_0 extends KeywordToken  {
-	
-	public ModeRef_HyphenMinusGreaterThanSignKeyword_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ModeRef_EqualsSignGreaterThanSignKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getModeRefAccess().getHyphenMinusGreaterThanSignKeyword_1_0();
+		return grammarAccess.getModeRefAccess().getEqualsSignGreaterThanSignKeyword_1();
 	}
 
     @Override
@@ -85402,34 +86247,34 @@ protected class ModeRef_HyphenMinusGreaterThanSignKeyword_1_0 extends KeywordTok
 }
 
 // derivedMode=[aadl2::Mode]
-protected class ModeRef_DerivedModeAssignment_1_1 extends AssignmentToken  {
+protected class ModeRef_DerivedModeAssignment_2 extends AssignmentToken  {
 	
-	public ModeRef_DerivedModeAssignment_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ModeRef_DerivedModeAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getModeRefAccess().getDerivedModeAssignment_1_1();
+		return grammarAccess.getModeRefAccess().getDerivedModeAssignment_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ModeRef_HyphenMinusGreaterThanSignKeyword_1_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ModeRef_EqualsSignGreaterThanSignKeyword_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("derivedMode",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("derivedMode",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("derivedMode");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_1_1_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_2_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_1_1_0(); 
+				element = grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_2_0(); 
 				return obj;
 			}
 		}
@@ -85437,7 +86282,6 @@ protected class ModeRef_DerivedModeAssignment_1_1 extends AssignmentToken  {
 	}
 
 }
-
 
 
 /************ end Rule ModeRef ****************/
