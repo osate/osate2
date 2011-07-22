@@ -7,20 +7,47 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AbstractImplementation;
+import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.BusImplementation;
+import org.osate.aadl2.BusType;
 import org.osate.aadl2.DataImplementation;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DataType;
+import org.osate.aadl2.DeviceImplementation;
+import org.osate.aadl2.DeviceType;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.MemoryImplementation;
+import org.osate.aadl2.MemoryType;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.ProcessImplementation;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.VirtualBusImplementation;
+import org.osate.aadl2.VirtualBusType;
+import org.osate.aadl2.VirtualProcessorImplementation;
+import org.osate.aadl2.VirtualProcessorType;
 
 import com.google.inject.Inject;
 
@@ -43,10 +70,10 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		  return "Package "+ele.getName();
 		}
 	String text(PublicPackageSection ele) {
-		  return "Public";
+		  return "Package Public "+ele.getName();
 		}
 	String text(PrivatePackageSection ele) {
-		  return "Private";
+		  return "Package Private "+ele.getName();
 		}
 	String text(SystemType ele) {
 		  return "System "+ele.getName();
@@ -57,12 +84,101 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 	String text(DataType ele) {
 		  return "Data "+ele.getName();
 		}
+	String text(ProcessType ele) {
+		  return "Process "+ele.getName();
+		}
+	String text(ThreadGroupType ele) {
+		  return "Thread Group "+ele.getName();
+		}
+	String text(ThreadType ele) {
+		  return "Thread "+ele.getName();
+		}
+	String text(SubprogramType ele) {
+		  return "Subprogram "+ele.getName();
+		}
+	String text(SubprogramGroupType ele) {
+		  return "Subprogram Group "+ele.getName();
+		}
+	String text(AbstractType ele) {
+		  return "Abstract "+ele.getName();
+		}
+	String text(BusType ele) {
+		  return "Bus "+ele.getName();
+		}
+	String text(MemoryType ele) {
+		  return "Memory "+ele.getName();
+		}
+	String text(DeviceType ele) {
+		  return "Device "+ele.getName();
+		}
+	String text(VirtualBusType ele) {
+		  return "Virtual Bus "+ele.getName();
+		}
+	String text(VirtualProcessorType ele) {
+		  return "Viretual Processor "+ele.getName();
+		}
 	String text(SystemImplementation ele) {
 		  return "System Impl "+ele.getName();
 		}
 	String text(DataImplementation ele) {
 		  return "Data Impl "+ele.getName();
 		}
+	String text(ProcessorImplementation ele) {
+		  return "Processor Impl "+ele.getName();
+		}
+	String text(ProcessImplementation ele) {
+		  return "Process Impl "+ele.getName();
+		}
+	String text(ThreadGroupImplementation ele) {
+		  return "Thread Group Impl "+ele.getName();
+		}
+	String text(ThreadImplementation ele) {
+		  return "Thread Impl "+ele.getName();
+		}
+	String text(SubprogramImplementation ele) {
+		  return "Subprogram Impl "+ele.getName();
+		}
+	String text(SubprogramGroupImplementation ele) {
+		  return "Subprogram Group Impl "+ele.getName();
+		}
+	String text(AbstractImplementation ele) {
+		  return "Abstract Impl "+ele.getName();
+		}
+	String text(BusImplementation ele) {
+		  return "Bus Impl "+ele.getName();
+		}
+	String text(MemoryImplementation ele) {
+		  return "Memory Impl "+ele.getName();
+		}
+	String text(DeviceImplementation ele) {
+		  return "Device Impl "+ele.getName();
+		}
+	String text(VirtualBusImplementation ele) {
+		  return "Virtual Bus Impl "+ele.getName();
+		}
+	String text(VirtualProcessorImplementation ele) {
+		  return "Virtual Processor Impl "+ele.getName();
+		}
+	
+	// Property set and properties
+	String text(PropertySet ele) {
+		  return "Propertyset "+ele.getName();
+		}
+
+	String text(PropertyType ele) {
+		  return "Property Type "+ele.getName();
+		}
+
+	String text(PropertyConstant ele) {
+		  return "Property Constant "+ele.getName();
+		}
+
+	String text(Property ele) {
+		  return "Property "+ele.getName();
+		}
+
+	
+	// these next ones we need only if we go deeper than classifiers
 	String text(SystemSubcomponent ele) {
 		EList<Mode> ml = ele.getInModes();
 		String ms = "";

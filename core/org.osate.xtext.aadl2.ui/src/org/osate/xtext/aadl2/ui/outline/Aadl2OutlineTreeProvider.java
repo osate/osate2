@@ -4,11 +4,26 @@
 package org.osate.xtext.aadl2.ui.outline;
 
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
+import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.ModelUnit;
 
 /**
  * customization of the default outline structure
  * 
  */
 public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
-	
+
+	protected void _createChildren(DocumentRootNode parentNode,
+			ModelUnit domainModel) {
+		if (domainModel instanceof AadlPackage) {
+			for (Element element : domainModel.getChildren()) {
+				createNode(parentNode, element);
+			}
+		} else {
+			createNode(parentNode, domainModel);
+		}
+	}
+
 }

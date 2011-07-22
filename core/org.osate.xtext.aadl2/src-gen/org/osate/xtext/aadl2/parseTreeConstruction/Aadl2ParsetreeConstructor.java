@@ -93724,12 +93724,12 @@ protected class UnnamedRecordType_RightParenthesisKeyword_3 extends KeywordToken
 /************ begin Rule RecordField ****************
  *
  * RecordField returns aadl2::RecordField:
- * 	name=ID ":" (type=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
+ * 	name=ID ":" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
  * 	| ownedType=UnnamedPropertyType) ";";
  *
  **/
 
-// name=ID ":" (type=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
+// name=ID ":" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 // | ownedType=UnnamedPropertyType) ";"
 protected class RecordField_Group extends GroupToken {
 	
@@ -93814,7 +93814,7 @@ protected class RecordField_ColonKeyword_1 extends KeywordToken  {
 
 }
 
-// type=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
+// propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 // | ownedType=UnnamedPropertyType
 protected class RecordField_Alternatives_2 extends AlternativesToken {
 
@@ -93830,7 +93830,7 @@ protected class RecordField_Alternatives_2 extends AlternativesToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new RecordField_TypeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new RecordField_PropertyTypeAssignment_2_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new RecordField_OwnedTypeAssignment_2_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
@@ -93838,16 +93838,16 @@ protected class RecordField_Alternatives_2 extends AlternativesToken {
 
 }
 
-// type=[aadl2::PropertyType|QPREF]
-protected class RecordField_TypeAssignment_2_0 extends AssignmentToken  {
+// propertyType=[aadl2::PropertyType|QPREF]
+protected class RecordField_PropertyTypeAssignment_2_0 extends AssignmentToken  {
 	
-	public RecordField_TypeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public RecordField_PropertyTypeAssignment_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getRecordFieldAccess().getTypeAssignment_2_0();
+		return grammarAccess.getRecordFieldAccess().getPropertyTypeAssignment_2_0();
 	}
 
     @Override
@@ -93860,13 +93860,13 @@ protected class RecordField_TypeAssignment_2_0 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("type",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("type");
+		if((value = eObjectConsumer.getConsumable("propertyType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("propertyType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getRecordFieldAccess().getTypePropertyTypeCrossReference_2_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getRecordFieldAccess().getPropertyTypePropertyTypeCrossReference_2_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getRecordFieldAccess().getTypePropertyTypeCrossReference_2_0_0(); 
+				element = grammarAccess.getRecordFieldAccess().getPropertyTypePropertyTypeCrossReference_2_0_0(); 
 				return obj;
 			}
 		}

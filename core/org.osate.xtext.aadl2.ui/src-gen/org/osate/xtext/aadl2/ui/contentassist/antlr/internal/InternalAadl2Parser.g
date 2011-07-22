@@ -13234,9 +13234,9 @@ rule__RecordField__Alternatives_2
     }
 :
 (
-{ before(grammarAccess.getRecordFieldAccess().getTypeAssignment_2_0()); }
-(rule__RecordField__TypeAssignment_2_0)
-{ after(grammarAccess.getRecordFieldAccess().getTypeAssignment_2_0()); }
+{ before(grammarAccess.getRecordFieldAccess().getPropertyTypeAssignment_2_0()); }
+(rule__RecordField__PropertyTypeAssignment_2_0)
+{ after(grammarAccess.getRecordFieldAccess().getPropertyTypeAssignment_2_0()); }
 )
 
     |(
@@ -110024,18 +110024,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__RecordField__TypeAssignment_2_0
+rule__RecordField__PropertyTypeAssignment_2_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getRecordFieldAccess().getTypePropertyTypeCrossReference_2_0_0()); }
+{ before(grammarAccess.getRecordFieldAccess().getPropertyTypePropertyTypeCrossReference_2_0_0()); }
 (
-{ before(grammarAccess.getRecordFieldAccess().getTypePropertyTypeQPREFParserRuleCall_2_0_0_1()); }
-	ruleQPREF{ after(grammarAccess.getRecordFieldAccess().getTypePropertyTypeQPREFParserRuleCall_2_0_0_1()); }
+{ before(grammarAccess.getRecordFieldAccess().getPropertyTypePropertyTypeQPREFParserRuleCall_2_0_0_1()); }
+	ruleQPREF{ after(grammarAccess.getRecordFieldAccess().getPropertyTypePropertyTypeQPREFParserRuleCall_2_0_0_1()); }
 )
-{ after(grammarAccess.getRecordFieldAccess().getTypePropertyTypeCrossReference_2_0_0()); }
+{ after(grammarAccess.getRecordFieldAccess().getPropertyTypePropertyTypeCrossReference_2_0_0()); }
 )
 
 ;
