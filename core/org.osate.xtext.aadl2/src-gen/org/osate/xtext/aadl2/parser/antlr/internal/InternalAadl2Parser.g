@@ -30040,7 +30040,7 @@ ruleFieldPropertyAssociation returns [EObject current=null]
         }
 	otherlv_0=RULE_ID
 	{
-		newLeafNode(otherlv_0, grammarAccess.getFieldPropertyAssociationAccess().getPropertyRecordFieldCrossReference_0_0()); 
+		newLeafNode(otherlv_0, grammarAccess.getFieldPropertyAssociationAccess().getPropertyBasicPropertyCrossReference_0_0()); 
 	}
 
 )

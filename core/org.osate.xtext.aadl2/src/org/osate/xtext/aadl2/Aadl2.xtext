@@ -1675,7 +1675,7 @@ UnnamedRecordType returns aadl2::RecordType:
 	')'
 	 ;
 
-RecordField returns aadl2::RecordField:
+RecordField returns aadl2::BasicProperty:
 	name=ID ':'
 //	('list' 'of')* is handled as part of UnnamedPropertytype
 	(propertyType=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
@@ -1875,7 +1875,7 @@ ListTerm returns aadl2::ListValue:
   ;
 
 FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:
-	property=[aadl2::RecordField|ID] 
+	property=[aadl2::BasicProperty|ID] 
 	'=>' 
 	ownedValue=PropertyExpression 
 	';';
