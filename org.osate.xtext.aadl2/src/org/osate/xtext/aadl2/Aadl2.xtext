@@ -1678,7 +1678,7 @@ UnnamedRecordType returns aadl2::RecordType:
 RecordField returns aadl2::RecordField:
 	name=ID ':'
 //	('list' 'of')* is handled as part of UnnamedPropertytype
-	(type=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
+	(propertyType=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
 	';'
 	 ;
 

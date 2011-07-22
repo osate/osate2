@@ -27835,7 +27835,7 @@ ruleRecordField returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getRecordFieldAccess().getTypePropertyTypeCrossReference_2_0_0()); 
+	        newCompositeNode(grammarAccess.getRecordFieldAccess().getPropertyTypePropertyTypeCrossReference_2_0_0()); 
 	    }
 		ruleQPREF		{ 
 	        afterParserOrEnumRuleCall();

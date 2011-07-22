@@ -19494,19 +19494,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Assignment cTypeAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
-		private final CrossReference cTypePropertyTypeCrossReference_2_0_0 = (CrossReference)cTypeAssignment_2_0.eContents().get(0);
-		private final RuleCall cTypePropertyTypeQPREFParserRuleCall_2_0_0_1 = (RuleCall)cTypePropertyTypeCrossReference_2_0_0.eContents().get(1);
+		private final Assignment cPropertyTypeAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
+		private final CrossReference cPropertyTypePropertyTypeCrossReference_2_0_0 = (CrossReference)cPropertyTypeAssignment_2_0.eContents().get(0);
+		private final RuleCall cPropertyTypePropertyTypeQPREFParserRuleCall_2_0_0_1 = (RuleCall)cPropertyTypePropertyTypeCrossReference_2_0_0.eContents().get(1);
 		private final Assignment cOwnedTypeAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
 		private final RuleCall cOwnedTypeUnnamedPropertyTypeParserRuleCall_2_1_0 = (RuleCall)cOwnedTypeAssignment_2_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//RecordField returns aadl2::RecordField:
-		//	name=ID ":" (type=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
+		//	name=ID ":" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 		//	| ownedType=UnnamedPropertyType) ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" (type=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
+		//name=ID ":" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 		//| ownedType=UnnamedPropertyType) ";"
 		public Group getGroup() { return cGroup; }
 
@@ -19519,18 +19519,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//":"
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 
-		//type=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
+		//propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 		//| ownedType=UnnamedPropertyType
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
-		//type=[aadl2::PropertyType|QPREF]
-		public Assignment getTypeAssignment_2_0() { return cTypeAssignment_2_0; }
+		//propertyType=[aadl2::PropertyType|QPREF]
+		public Assignment getPropertyTypeAssignment_2_0() { return cPropertyTypeAssignment_2_0; }
 
 		//[aadl2::PropertyType|QPREF]
-		public CrossReference getTypePropertyTypeCrossReference_2_0_0() { return cTypePropertyTypeCrossReference_2_0_0; }
+		public CrossReference getPropertyTypePropertyTypeCrossReference_2_0_0() { return cPropertyTypePropertyTypeCrossReference_2_0_0; }
 
 		//QPREF
-		public RuleCall getTypePropertyTypeQPREFParserRuleCall_2_0_0_1() { return cTypePropertyTypeQPREFParserRuleCall_2_0_0_1; }
+		public RuleCall getPropertyTypePropertyTypeQPREFParserRuleCall_2_0_0_1() { return cPropertyTypePropertyTypeQPREFParserRuleCall_2_0_0_1; }
 
 		//ownedType=UnnamedPropertyType
 		public Assignment getOwnedTypeAssignment_2_1() { return cOwnedTypeAssignment_2_1; }
@@ -24315,7 +24315,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//RecordField returns aadl2::RecordField:
-	//	name=ID ":" (type=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
+	//	name=ID ":" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 	//	| ownedType=UnnamedPropertyType) ";";
 	public RecordFieldElements getRecordFieldAccess() {
 		return (pRecordField != null) ? pRecordField : (pRecordField = new RecordFieldElements());

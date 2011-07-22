@@ -1985,7 +1985,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getRecordTypeAccess().getOwnedFieldAssignment_5(), "rule__RecordType__OwnedFieldAssignment_5");
 					put(grammarAccess.getUnnamedRecordTypeAccess().getOwnedFieldAssignment_2(), "rule__UnnamedRecordType__OwnedFieldAssignment_2");
 					put(grammarAccess.getRecordFieldAccess().getNameAssignment_0(), "rule__RecordField__NameAssignment_0");
-					put(grammarAccess.getRecordFieldAccess().getTypeAssignment_2_0(), "rule__RecordField__TypeAssignment_2_0");
+					put(grammarAccess.getRecordFieldAccess().getPropertyTypeAssignment_2_0(), "rule__RecordField__PropertyTypeAssignment_2_0");
 					put(grammarAccess.getRecordFieldAccess().getOwnedTypeAssignment_2_1(), "rule__RecordField__OwnedTypeAssignment_2_1");
 					put(grammarAccess.getPropertyDefinitionAccess().getNameAssignment_0(), "rule__PropertyDefinition__NameAssignment_0");
 					put(grammarAccess.getPropertyDefinitionAccess().getInheritAssignment_2(), "rule__PropertyDefinition__InheritAssignment_2");
