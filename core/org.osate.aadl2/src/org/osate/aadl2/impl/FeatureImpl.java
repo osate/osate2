@@ -156,17 +156,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public FeatureClassifier basicGetFeatureClassifier() {
-		Prototype prototype = basicGetPrototype();
-		if (prototype != null) {
-			return prototype;
-		}
-		ComponentClassifier classifier = basicGetClassifier();
-		if (classifier != null) {
-			return classifier;
-		}
 		return null;
 	}
 
