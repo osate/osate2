@@ -32,95 +32,100 @@
  * </copyright>
  * 
  */
-package org.osate.aadl2;
+package org.osate.aadl2.provider;
 
-import org.eclipse.emf.ecore.EClass;
+import java.util.Collection;
+import java.util.List;
+
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
 /**
+ * This is the item provider adapter for a {@link org.osate.aadl2.FeatureClassifier} object.
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>List Type</b></em>'.
  * <!-- end-user-doc -->
- *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.osate.aadl2.ListType#getOwnedElementType <em>Owned Element Type</em>}</li>
- *   <li>{@link org.osate.aadl2.ListType#getElementType <em>Element Type</em>}</li>
- * </ul>
- * </p>
- *
- * @see org.osate.aadl2.Aadl2Package#getListType()
- * @model
  * @generated
  */
-public interface ListType extends PropertyType {
+public class FeatureClassifierItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
-	 * Returns the value of the '<em><b>Owned Element Type</b></em>' containment reference.
-	 * <p>
-	 * This feature subsets the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.ListType#getElementType() <em>Element Type</em>}'</li>
-	 * </ul>
-	 * </p>
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Element Type</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Element Type</em>' containment reference.
-	 * @see #setOwnedElementType(PropertyType)
-	 * @see org.osate.aadl2.Aadl2Package#getListType_OwnedElementType()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	PropertyType getOwnedElementType();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ListType#getOwnedElementType <em>Owned Element Type</em>}' containment reference.
+	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Owned Element Type</em>' containment reference.
-	 * @see #getOwnedElementType()
 	 * @generated
 	 */
-	void setOwnedElementType(PropertyType value);
+	public FeatureClassifierItemProvider(AdapterFactory adapterFactory) {
+		super(adapterFactory);
+	}
 
 	/**
-	 * Creates a new {@link org.osate.aadl2.PropertyType} and sets the '<em><b>Owned Element Type</b></em>' containment reference.
+	 * This returns the property descriptors for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eClass The Ecore class of the {@link org.osate.aadl2.PropertyType} to create.
-	 * @return The new {@link org.osate.aadl2.PropertyType}.
-	 * @see #getOwnedElementType()
 	 * @generated
 	 */
-	PropertyType createOwnedElementType(EClass eClass);
+	@Override
+	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
+		if (itemPropertyDescriptors == null) {
+			super.getPropertyDescriptors(object);
+
+		}
+		return itemPropertyDescriptors;
+	}
 
 	/**
-	 * Returns the value of the '<em><b>Element Type</b></em>' reference.
+	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Element Type</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Element Type</em>' reference.
-	 * @see #setElementType(PropertyType)
-	 * @see org.osate.aadl2.Aadl2Package#getListType_ElementType()
-	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	PropertyType getElementType();
+	@Override
+	public String getText(Object object) {
+		return getString("_UI_FeatureClassifier_type");
+	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ListType#getElementType <em>Element Type</em>}' reference.
+	 * This handles model notifications by calling {@link #updateChildren} to update any cached
+	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Element Type</em>' reference.
-	 * @see #getElementType()
 	 * @generated
 	 */
-	void setElementType(PropertyType value);
+	@Override
+	public void notifyChanged(Notification notification) {
+		updateChildren(notification);
+		super.notifyChanged(notification);
+	}
 
-} // ListType
+	/**
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+	 * that can be created under this object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return Aadl2EditPlugin.INSTANCE;
+	}
+
+}

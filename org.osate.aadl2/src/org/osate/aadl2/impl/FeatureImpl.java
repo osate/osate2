@@ -53,6 +53,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.FeatureConnectionEnd;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.Prototype;
@@ -68,9 +69,10 @@ import org.osate.aadl2.properties.PropertyAcc;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getArrayDimensions <em>Array Dimension</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getClassifier <em>Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getPrototype <em>Prototype</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getRefined <em>Refined</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getClassifier <em>Classifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -86,16 +88,6 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * @ordered
 	 */
 	protected EList<ArrayDimension> arrayDimensions;
-
-	/**
-	 * The cached value of the '{@link #getPrototype() <em>Prototype</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPrototype()
-	 * @generated
-	 * @ordered
-	 */
-	protected Prototype prototype;
 
 	/**
 	 * The cached value of the '{@link #getRefined() <em>Refined</em>}' reference.
@@ -155,6 +147,34 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public FeatureClassifier getFeatureClassifier() {
+		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
+		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+				: featureClassifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureClassifier basicGetFeatureClassifier() {
+		Prototype prototype = basicGetPrototype();
+		if (prototype != null) {
+			return prototype;
+		}
+		ComponentClassifier classifier = basicGetClassifier();
+		if (classifier != null) {
+			return classifier;
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ComponentClassifier getClassifier() {
 		ComponentClassifier classifier = basicGetClassifier();
 		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
@@ -167,7 +187,10 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * @generated
 	 */
 	public ComponentClassifier basicGetClassifier() {
-		return null;
+		// TODO: implement this method to return the 'Classifier' reference
+		// -> do not perform proxy resolution
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -176,16 +199,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * @generated
 	 */
 	public Prototype getPrototype() {
-		if (prototype != null && ((EObject) prototype).eIsProxy()) {
-			InternalEObject oldPrototype = (InternalEObject) prototype;
-			prototype = (Prototype) eResolveProxy(oldPrototype);
-			if (prototype != oldPrototype) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FEATURE__PROTOTYPE,
-							oldPrototype, prototype));
-			}
-		}
-		return prototype;
+		Prototype prototype = basicGetPrototype();
+		return prototype != null && ((EObject) prototype).eIsProxy() ? (Prototype) eResolveProxy((InternalEObject) prototype)
+				: prototype;
 	}
 
 	/**
@@ -194,20 +210,10 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * @generated
 	 */
 	public Prototype basicGetPrototype() {
-		return prototype;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPrototype(Prototype newPrototype) {
-		Prototype oldPrototype = prototype;
-		prototype = newPrototype;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE__PROTOTYPE, oldPrototype,
-					prototype));
+		// TODO: implement this method to return the 'Prototype' reference
+		// -> do not perform proxy resolution
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -282,10 +288,10 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		switch (featureID) {
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
 			return getArrayDimensions();
-		case Aadl2Package.FEATURE__CLASSIFIER:
+		case Aadl2Package.FEATURE__FEATURE_CLASSIFIER:
 			if (resolve)
-				return getClassifier();
-			return basicGetClassifier();
+				return getFeatureClassifier();
+			return basicGetFeatureClassifier();
 		case Aadl2Package.FEATURE__PROTOTYPE:
 			if (resolve)
 				return getPrototype();
@@ -294,6 +300,10 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 			if (resolve)
 				return getRefined();
 			return basicGetRefined();
+		case Aadl2Package.FEATURE__CLASSIFIER:
+			if (resolve)
+				return getClassifier();
+			return basicGetClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -310,9 +320,6 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
 			getArrayDimensions().clear();
 			getArrayDimensions().addAll((Collection<? extends ArrayDimension>) newValue);
-			return;
-		case Aadl2Package.FEATURE__PROTOTYPE:
-			setPrototype((Prototype) newValue);
 			return;
 		case Aadl2Package.FEATURE__REFINED:
 			setRefined((Feature) newValue);
@@ -332,9 +339,6 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
 			getArrayDimensions().clear();
 			return;
-		case Aadl2Package.FEATURE__PROTOTYPE:
-			setPrototype((Prototype) null);
-			return;
 		case Aadl2Package.FEATURE__REFINED:
 			setRefined((Feature) null);
 			return;
@@ -352,12 +356,14 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		switch (featureID) {
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
 			return arrayDimensions != null && !arrayDimensions.isEmpty();
-		case Aadl2Package.FEATURE__CLASSIFIER:
-			return isSetClassifier();
+		case Aadl2Package.FEATURE__FEATURE_CLASSIFIER:
+			return isSetFeatureClassifier();
 		case Aadl2Package.FEATURE__PROTOTYPE:
-			return prototype != null;
+			return basicGetPrototype() != null;
 		case Aadl2Package.FEATURE__REFINED:
 			return isSetRefined();
+		case Aadl2Package.FEATURE__CLASSIFIER:
+			return basicGetClassifier() != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -427,8 +433,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSetClassifier() {
-		return false;
+	public boolean isSetFeatureClassifier() {
+		return eIsSet(Aadl2Package.FEATURE__PROTOTYPE) || eIsSet(Aadl2Package.FEATURE__CLASSIFIER);
 	}
 
 	/**

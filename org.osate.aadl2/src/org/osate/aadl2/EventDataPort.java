@@ -57,7 +57,7 @@ public interface EventDataPort extends Port, Context, ParameterConnectionEnd {
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Feature#getClassifier() <em>Classifier</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Feature#getFeatureClassifier() <em>Feature Classifier</em>}'</li>
 	 * </ul>
 	 * </p>
 	 * <!-- begin-user-doc -->

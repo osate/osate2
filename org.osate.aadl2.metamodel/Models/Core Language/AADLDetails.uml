@@ -228,6 +228,19 @@
           <generalization xmi:id="Components-Abstract-AbstractClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_AnoM8LRjEeCUlOZHyZaJRw" general="_yOYr0KdDEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_LruzkLRjEeCUlOZHyZaJRw" general="_TgY98KfGEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_QFSNwLRjEeCUlOZHyZaJRw" general="_DoCvwKfHEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_VQ2TsLRjEeCUlOZHyZaJRw" general="_mRbloKfHEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_aTCbMLRjEeCUlOZHyZaJRw" general="_M2iDIKfIEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_fg_GwLRjEeCUlOZHyZaJRw" general="_0HeJ0KdCEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_k4fW8LRjEeCUlOZHyZaJRw" general="_5fL3IKfLEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_pYc7ILRjEeCUlOZHyZaJRw" general="_t5WKsKfyEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_tXHwILRjEeCUlOZHyZaJRw" general="_EHpY4KfzEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_23IGwLRjEeCUlOZHyZaJRw" general="_hHzVYKfzEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_DGpXoLRkEeCUlOZHyZaJRw" general="_9O0w4Kc3EeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_KO07QLRkEeCUlOZHyZaJRw" general="_5cLfQKfzEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_QvlSgLRkEeCUlOZHyZaJRw" general="_UmL5oKfMEeCYEIHXYlP5sg"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="Components-Abstract-A_abstractImplementation_abstractType" name="A_abstractImplementation_abstractType" memberEnd="Components-Abstract-A_abstractImplementation_abstractType-implementation Components-Abstract-AbstractImplementation-type" isDerived="true">
           <ownedEnd xmi:id="Components-Abstract-A_abstractImplementation_abstractType-implementation" name="implementation" type="Components-Abstract-AbstractImplementation" association="Components-Abstract-A_abstractImplementation_abstractType">
@@ -240,6 +253,11 @@
           <generalization xmi:id="Components-Abstract-AbstractSubcomponent-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
+          <ownedAttribute xmi:id="Components-Abstract-AbstractSubcomponent-abstractClassifier" name="abstractSubcomponentType" type="_fTRw4Kc8EeCYEIHXYlP5sg" association="Components-Abstract-A_abstractSubcomponent_abstractClassifier">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Abstract-AbstractSubcomponent-abstractClassifier-_upperValue" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Abstract-AbstractSubcomponent-abstractClassifier-_lowerValue"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="Components-Abstract-A_abstractImplementation_ownedBusSubcomponent" name="A_abstractImplementation_ownedBusSubcomponent" memberEnd="Components-Abstract-A_abstractImplementation_ownedBusSubcomponent-owner Components-Abstract-AbstractImplementation-ownedBusSubcomponent">
           <ownedEnd xmi:id="Components-Abstract-A_abstractImplementation_ownedBusSubcomponent-owner" name="owner" type="Components-Abstract-AbstractImplementation" association="Components-Abstract-A_abstractImplementation_ownedBusSubcomponent">
@@ -377,18 +395,11 @@
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-Abstract-A_abstractSubcomponent_abstractClassifier" name="A_subcomponent_abstractSubcomponentType" memberEnd="Components-Abstract-A_abstractSubcomponent_abstractClassifier-subcomponent Components-Abstract-AbstractSubcomponent-abstractClassifier">
-          <ownedEnd xmi:id="Components-Abstract-A_abstractSubcomponent_abstractClassifier-subcomponent" name="subcomponent" type="_yHZjsCq2Ed60yPuDwJXa_g" association="Components-Abstract-A_abstractSubcomponent_abstractClassifier">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-Abstract-A_abstractSubcomponent_abstractClassifier" name="A_abstractSubcomponent_abstractSubcomponentType" memberEnd="Components-Abstract-A_abstractSubcomponent_abstractClassifier-subcomponent Components-Abstract-AbstractSubcomponent-abstractClassifier">
+          <ownedEnd xmi:id="Components-Abstract-A_abstractSubcomponent_abstractClassifier-subcomponent" name="subcomponent" type="Components-Abstract-AbstractSubcomponent" association="Components-Abstract-A_abstractSubcomponent_abstractClassifier">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Abstract-A_abstractSubcomponent_abstractClassifier-subcomponent-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Abstract-A_abstractSubcomponent_abstractClassifier-subcomponent-_lowerValue"/>
           </ownedEnd>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_yHZjsCq2Ed60yPuDwJXa_g" name="Subcomponent" isAbstract="true">
-          <ownedAttribute xmi:id="Components-Abstract-AbstractSubcomponent-abstractClassifier" name="abstractSubcomponentType" type="_fTRw4Kc8EeCYEIHXYlP5sg" association="Components-Abstract-A_abstractSubcomponent_abstractClassifier">
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Abstract-AbstractSubcomponent-abstractClassifier-_upperValue" value="1"/>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Abstract-AbstractSubcomponent-abstractClassifier-_lowerValue"/>
-            <subsettedProperty href="AADLConstructs.uml#Components-Subcomponent-classifier"/>
-          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_fTRw4Kc8EeCYEIHXYlP5sg" name="AbstractSubcomponentType" isAbstract="true">
           <generalization xmi:id="_lCjo0Kf1EeCYEIHXYlP5sg">

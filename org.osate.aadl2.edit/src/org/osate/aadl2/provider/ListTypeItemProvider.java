@@ -37,9 +37,13 @@ package org.osate.aadl2.provider;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -47,6 +51,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.uml2.common.edit.command.SubsetSupersetSetCommand;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ListType;
@@ -80,8 +85,26 @@ public class ListTypeItemProvider extends PropertyTypeItemProvider implements IE
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addElementTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Element Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addElementTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_ListType_elementType_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ListType_elementType_feature",
+								"_UI_ListType_type"), Aadl2Package.eINSTANCE.getListType_ElementType(), true, false,
+						true, null, null, null));
 	}
 
 	/**
@@ -96,7 +119,7 @@ public class ListTypeItemProvider extends PropertyTypeItemProvider implements IE
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getListType_PropertyType());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getListType_OwnedElementType());
 		}
 		return childrenFeatures;
 	}
@@ -150,7 +173,7 @@ public class ListTypeItemProvider extends PropertyTypeItemProvider implements IE
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ListType.class)) {
-		case Aadl2Package.LIST_TYPE__PROPERTY_TYPE:
+		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -168,38 +191,57 @@ public class ListTypeItemProvider extends PropertyTypeItemProvider implements IE
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_PropertyType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_OwnedElementType(),
 				Aadl2Factory.eINSTANCE.createAadlBoolean()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_PropertyType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_OwnedElementType(),
 				Aadl2Factory.eINSTANCE.createAadlString()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_PropertyType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_OwnedElementType(),
 				Aadl2Factory.eINSTANCE.createAadlInteger()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_PropertyType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_OwnedElementType(),
 				Aadl2Factory.eINSTANCE.createEnumerationType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_PropertyType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_OwnedElementType(),
 				Aadl2Factory.eINSTANCE.createUnitsType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_PropertyType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_OwnedElementType(),
 				Aadl2Factory.eINSTANCE.createAadlReal()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_PropertyType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_OwnedElementType(),
 				Aadl2Factory.eINSTANCE.createClassifierType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_PropertyType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_OwnedElementType(),
 				Aadl2Factory.eINSTANCE.createRangeType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_PropertyType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_OwnedElementType(),
 				Aadl2Factory.eINSTANCE.createRecordType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_PropertyType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_OwnedElementType(),
 				Aadl2Factory.eINSTANCE.createReferenceType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_PropertyType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListType_OwnedElementType(),
 				Aadl2Factory.eINSTANCE.createListType()));
+	}
+
+	/**
+	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#createSetCommand(org.eclipse.emf.edit.domain.EditingDomain, org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object)
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected Command createSetCommand(EditingDomain domain, EObject owner, EStructuralFeature feature, Object value) {
+		if (feature == Aadl2Package.eINSTANCE.getListType_OwnedElementType()) {
+			return new SubsetSupersetSetCommand(domain, owner, feature,
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getListType_ElementType() }, null, value);
+		}
+		if (feature == Aadl2Package.eINSTANCE.getListType_ElementType()) {
+			return new SubsetSupersetSetCommand(domain, owner, feature, null,
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getListType_OwnedElementType() }, value);
+		}
+		return super.createSetCommand(domain, owner, feature, value);
 	}
 
 }

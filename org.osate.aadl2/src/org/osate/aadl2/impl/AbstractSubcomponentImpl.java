@@ -35,21 +35,42 @@
  */
 package org.osate.aadl2.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractSubcomponent;
+import org.osate.aadl2.AbstractSubcomponentType;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.SubcomponentType;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Abstract Subcomponent</b></em>'.
  * <!-- end-user-doc -->
  * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link org.osate.aadl2.impl.AbstractSubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.AbstractSubcomponentImpl#getAbstractSubcomponentType <em>Abstract Subcomponent Type</em>}</li>
+ * </ul>
  * </p>
  *
  * @generated
  */
 public class AbstractSubcomponentImpl extends SubcomponentImpl implements AbstractSubcomponent {
+	/**
+	 * The cached value of the '{@link #getAbstractSubcomponentType() <em>Abstract Subcomponent Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAbstractSubcomponentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected AbstractSubcomponentType abstractSubcomponentType;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,6 +88,143 @@ public class AbstractSubcomponentImpl extends SubcomponentImpl implements Abstra
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractSubcomponent();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public SubcomponentType getSubcomponentType() {
+		SubcomponentType subcomponentType = basicGetSubcomponentType();
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+				: subcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public SubcomponentType basicGetSubcomponentType() {
+		if (eIsSet(Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE)) {
+			return basicGetAbstractSubcomponentType();
+		}
+		return super.basicGetSubcomponentType();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AbstractSubcomponentType getAbstractSubcomponentType() {
+		if (abstractSubcomponentType != null && ((EObject) abstractSubcomponentType).eIsProxy()) {
+			InternalEObject oldAbstractSubcomponentType = (InternalEObject) abstractSubcomponentType;
+			abstractSubcomponentType = (AbstractSubcomponentType) eResolveProxy(oldAbstractSubcomponentType);
+			if (abstractSubcomponentType != oldAbstractSubcomponentType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE,
+							oldAbstractSubcomponentType, abstractSubcomponentType));
+			}
+		}
+		return abstractSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AbstractSubcomponentType basicGetAbstractSubcomponentType() {
+		return abstractSubcomponentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAbstractSubcomponentType(AbstractSubcomponentType newAbstractSubcomponentType) {
+		AbstractSubcomponentType oldAbstractSubcomponentType = abstractSubcomponentType;
+		abstractSubcomponentType = newAbstractSubcomponentType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE, oldAbstractSubcomponentType,
+					abstractSubcomponentType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
+			if (resolve)
+				return getAbstractSubcomponentType();
+			return basicGetAbstractSubcomponentType();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
+			setAbstractSubcomponentType((AbstractSubcomponentType) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
+			setAbstractSubcomponentType((AbstractSubcomponentType) null);
+			return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
+			return abstractSubcomponentType != null;
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isSetSubcomponentType() {
+		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE);
 	}
 
 	public ComponentCategory getCategory() {
