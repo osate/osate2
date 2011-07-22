@@ -67,7 +67,7 @@ Workflow {
 			// java-based API for validation 
 			fragment = validation.JavaValidatorFragment {
 //			 composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
-//			 composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+			 composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
 // complains about public section having a duplicate name of pacakge.
 			//	registerForImportedPackages = true
 			}

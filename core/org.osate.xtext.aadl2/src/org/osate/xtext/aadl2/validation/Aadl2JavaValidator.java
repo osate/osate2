@@ -1,97 +1,23 @@
 package org.osate.xtext.aadl2.validation;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.mwe2.language.mwe2.PropertyReference;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AbstractFeature;
-import org.osate.aadl2.AbstractImplementation;
-import org.osate.aadl2.AbstractType;
-import org.osate.aadl2.Access;
-import org.osate.aadl2.AccessSpecification;
-import org.osate.aadl2.AccessType;
-import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.BusImplementation;
-import org.osate.aadl2.BusType;
-import org.osate.aadl2.ClassifierFeature;
-import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentPrototype;
-import org.osate.aadl2.ComponentPrototypeActual;
-import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ComponentTypeRename;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.DataImplementation;
-import org.osate.aadl2.DataPort;
-import org.osate.aadl2.DataPrototype;
-import org.osate.aadl2.DataSubcomponent;
-import org.osate.aadl2.DataType;
-import org.osate.aadl2.DeviceImplementation;
-import org.osate.aadl2.DeviceType;
-import org.osate.aadl2.DirectedFeature;
-import org.osate.aadl2.DirectionType;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.EventDataPort;
-import org.osate.aadl2.EventPort;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupPrototypeBinding;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeaturePrototype;
-import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.FeaturePrototypeReference;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.MemoryImplementation;
-import org.osate.aadl2.MemoryType;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeFeature;
-import org.osate.aadl2.Parameter;
-import org.osate.aadl2.Port;
-import org.osate.aadl2.PortConnection;
-import org.osate.aadl2.PortSpecification;
-import org.osate.aadl2.ProcessImplementation;
-import org.osate.aadl2.ProcessType;
-import org.osate.aadl2.ProcessorImplementation;
-import org.osate.aadl2.ProcessorType;
-import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PublicPackageSection;
-import org.osate.aadl2.Realization;
-import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SubcomponentType;
-import org.osate.aadl2.SubprogramAccess;
-import org.osate.aadl2.SubprogramGroupAccess;
-import org.osate.aadl2.SubprogramGroupImplementation;
-import org.osate.aadl2.SubprogramGroupPrototype;
-import org.osate.aadl2.SubprogramGroupType;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.SubprogramPrototype;
-import org.osate.aadl2.SubprogramType;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.SystemType;
-import org.osate.aadl2.ThreadGroupImplementation;
-import org.osate.aadl2.ThreadGroupType;
-import org.osate.aadl2.ThreadImplementation;
-import org.osate.aadl2.ThreadType;
-import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.VirtualBusImplementation;
-import org.osate.aadl2.VirtualBusType;
-import org.osate.aadl2.VirtualProcessorImplementation;
-import org.osate.aadl2.VirtualProcessorType;
+import org.osate.aadl2.*;
 import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
@@ -140,6 +66,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkSubcomponentCategory(subcomponent);
 		checkSubcomponentRefinementCategory(subcomponent);
 		checkSubcomponentsHierarchy(subcomponent);
+//		checkPropertyAssocs(subcomponent);
 	}
 
 	@Check(CheckType.FAST)
@@ -269,7 +196,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkForFeatureArrays(feature);
 		checkForArraysInRefinedFeature(feature);
 		checkForArrayDimensionSizeInRefinedFeature(feature);
-
+//		checkPropertyAssocs(feature);
 	}
 
 	@Check(CheckType.FAST)
@@ -346,7 +273,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		final int idx = s.lastIndexOf("::");
 		if (idx != -1) {
 			psname = s.substring(0, idx);
-			if (Aadl2LinkingService.isPredeclaredPropertySet(psname)) return;
+			if (Aadl2LinkingService.isPredeclaredPropertySet(psname))
+				return;
 			EObject propertySet = Aadl2LinkingService.findImportedPropertySet(
 					psname, pa);
 			if (propertySet == null) {
@@ -355,6 +283,291 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
+
+//	@Check(CheckType.FAST)
+//	public void caseAadlPackageSection(PackageSection ps) {
+//		checkPropertyAssocs(ps);
+//	}
+//
+//	@Check(CheckType.FAST)
+//	public void caseMode(Mode m) {
+//		checkPropertyAssocs(m);
+//	}
+//
+//	@Check(CheckType.FAST)
+//	public void caseComponentClassifier(ComponentClassifier cc) {
+//		checkPropertyAssocs(cc);
+//	}
+//
+//	@Check(CheckType.FAST)
+//	public void caseThreadSubcomponent(ThreadSubcomponent ts) {
+//		checkPropertyAssocs(ts);
+//	}
+//
+//	// public void caseFeatureGroupType(FeatureGroupType f){
+//	// checkPropertyAssocs(f);
+//	// }
+//	// public void caseConnection(Connection conn) {
+//	// checkPropertyAssocs(conn);
+//	// }
+
+	@Check(CheckType.FAST)
+	public void caseRangeValue(final RangeValue rv) {
+		final NumberValue deltaNV = rv.getDeltaValue();
+		if (deltaNV != null) {
+			final double delta = deltaNV.getScaledValue();
+			if (delta < 0) {
+				error(rv, "Range value has a negative delta component");
+			}
+		}
+	}
+
+//	@Check(CheckType.FAST)
+//	public void caseClassifierValue(ClassifierValue cv) {
+//		final Classifier cc = cv.getClassifier();
+//		if (cc == null) {
+//			return;
+//		}
+//		final boolean good;
+//		switch (cv.getValue().getValue()) {
+//		case ComponentCategory.DATA:
+//			good = cc instanceof DataClassifier;
+//			break;
+//		case ComponentCategory.SUBPROGRAM:
+//			good = cc instanceof SubprogramClassifier;
+//			break;
+//		case ComponentCategory.THREAD:
+//			good = cc instanceof ThreadClassifier;
+//			break;
+//		case ComponentCategory.THREAD_GROUP:
+//			good = cc instanceof ThreadGroupClassifier;
+//			break;
+//		case ComponentCategory.PROCESS:
+//			good = cc instanceof ProcessClassifier;
+//			break;
+//		case ComponentCategory.MEMORY:
+//			good = cc instanceof MemoryClassifier;
+//			break;
+//		case ComponentCategory.PROCESSOR:
+//			good = cc instanceof ProcessorClassifier;
+//			break;
+//		case ComponentCategory.BUS:
+//			good = cc instanceof BusClassifier;
+//			break;
+//		case ComponentCategory.DEVICE:
+//			good = cc instanceof DeviceClassifier;
+//			break;
+//		case ComponentCategory.SYSTEM:
+//			good = cc instanceof SystemClassifier;
+//			break;
+//		default:
+//			good = true;
+//		}
+//
+//		if (!good) {
+//			error(cv,
+//					"Category of component classifier doesn't match the category of the classifier value");
+//		}
+//	}
+//
+//	/**
+//	 * Check that PropertyReference elements that are referenced in boolean
+//	 * expressions have boolean type.
+//	 */
+//	@Check(CheckType.FAST)
+//	public void casePropertyReference(PropertyReference bopr) {
+//		checkPropertyReference(bopr);
+//	}
+//
+//	@Check(CheckType.FAST)
+//	public void casePropertyConstant(PropertyConstant pc) {
+//		checkPropertyConstant(pc);
+//	}
+
+	/**
+	 * Check ranges for correctness.
+	 */
+//	@Check(CheckType.FAST)
+//	public void caseNumberType(NumberType nt) {
+//		checkNumberType(nt);
+//	}
+//
+//	@Check(CheckType.FAST)
+//	public void caseAadlinteger(final AadlInteger ai) {
+//		checkAadlinteger(ai);
+//		// TODO-phf: fall through to NumberType
+//	}
+//
+//	@Check(CheckType.FAST)
+//	public void caseFlowSpec(FlowSpecification fs) {
+//		checkPropertyAssocs(fs);
+//	}
+//
+//	@Check(CheckType.FAST)
+//	public void caseFlowSequence(FlowSequence fs) {
+//		checkPropertyAssocs(fs);
+//	}
+//
+//	/**
+//	 * check property definition
+//	 */
+//	@Check(CheckType.FAST)
+//	public void casePropertyDefinition(Property pd) {
+//		checkPropertyDefinition(pd);
+//	}
+
+	// NOTE: Handled by UniqueName checker of Xtext
+	// @Check(CheckType.FAST)
+	// public void caseUnitsType(final UnitsType ut) {
+	// final Set seen = new HashSet();
+	// final EList literals = ut.getOwnedLiterals();
+	// for (final Iterator i = literals.iterator(); i.hasNext();) {
+	// final UnitLiteral lit = (UnitLiteral) i.next();
+	// final String name = lit.getName();
+	// if (seen.contains(name)) {
+	// error(lit, "Unit '" + name
+	// + "' previously declared in units type");
+	// } else {
+	// seen.add(name);
+	// }
+	// }
+	// }
+	//
+	// @Check(CheckType.FAST)
+	// public void caseEnumerationType(final EnumerationType et) {
+	// final Set seen = new HashSet();
+	// final EList literals = et.getOwnedLiterals();
+	// for (final Iterator i = literals.iterator(); i.hasNext();) {
+	// final EnumerationLiteral lit = (EnumerationLiteral) i.next();
+	// final String name = lit.getName();
+	// if (seen.contains(name)) {
+	// error(lit, "Literal '" + name
+	// + "' previously declared in enumeration");
+	// } else {
+	// seen.add(name);
+	// }
+	// }
+	// }
+	// /**
+	// * check for unique feature names and flow spec names
+	// */
+	// @Check(CheckType.FAST)
+	// public void caseComponentType(ComponentType type) {
+	// // process in core package
+	// EList l = new BasicEList();
+	// l.addAll(type.getAllFlowSpec());
+	// l.addAll(type.allFeatures());
+	// EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
+	// if (doubles.size() > 0) {
+	// for (NamedElement ne : doubles) {
+	// error(ne,
+	// (ne instanceof Feature ? "feature " : "flow spec ") +
+	// " identifier '" + ne.getName() + "' previously defined");
+	// }
+	// }
+	// }
+	//
+	// /**
+	// * check for unique names in implementation
+	// */
+	// @Check(CheckType.FAST)
+	// public Object caseComponentImplementation(ComponentImplementation impl) {
+	// // process in core package
+	// EList usedNames = new BasicEList();
+	// usedNames.addAll(impl.allFeatures());
+	// usedNames.addAll(impl.getSubcomponents());
+	// usedNames.addAll(impl.getAllConnection());
+	// usedNames.addAll(impl.getModes());
+	// usedNames.addAll(impl.getType().getAllFlowSpec());
+	//
+	// EList allFlowSeqs = impl.getAllFlowSequence();
+	// for (final Iterator i = allFlowSeqs.iterator(); i.hasNext();) {
+	// final FlowSequence fs = (FlowSequence) i.next();
+	// // Filter out flow impls
+	// if (fs instanceof EndToEndFlow) {
+	// usedNames.add(fs);
+	// }
+	// }
+	//
+	// EList callSequenceList = impl.getXAllCallSequence();
+	// usedNames.addAll(callSequenceList);
+	//
+	// // add all the calls from the call sequences
+	// for (Iterator callIter = callSequenceList.iterator();
+	// callIter.hasNext();){
+	// CallSequence cseq = (CallSequence) callIter.next();
+	// usedNames.addAll(cseq.getCall());
+	// }
+	//
+	// EList<NamedElement> doubles =
+	// AadlUtil.findDoubleNamedElementsInList(usedNames);
+	// boolean noRefinesType = impl.getRefinesType() == null;
+	// if (doubles.size() > 0) {
+	// for (NamedElement ne : doubles) {
+	// if (!((noRefinesType && ne instanceof Feature) ))
+	// error(impl, "Identifier '" + ne.getName() +
+	// "' names more than one subcomponent/connection/flow/feature/mode in component "
+	// + impl.getQualifiedName());
+	// }
+	// }
+	//
+	// // Check that no flow spec impl appears in a mode more than once
+	// EList localFlowSeqs = impl.getFlowSequence();
+	// final Map map = new HashMap();
+	// for (final Iterator i = localFlowSeqs.iterator(); i.hasNext();) {
+	// final FlowSequence fs = (FlowSequence) i.next();
+	// // Filter out end-to-end flows -- they do not implement a
+	// // flow spec
+	// if (fs instanceof FlowImpl) {
+	// final String name = fs.getName();
+	// EList s = (EList) map.get(name);
+	// if (s == null) {
+	// s = new BasicEList();
+	// map.put(name, s);
+	// }
+	// s.add(fs);
+	// }
+	// }
+	// for (Iterator i = map.keySet().iterator(); i.hasNext();) {
+	// final String name = (String) i.next();
+	// final EList s = (EList) map.get(name);
+	// if (!AadlUtil.oncePerMode(s, impl.getModes())) {
+	// error(impl, "Flow spec " + name +
+	// " implemented more than once for a given mode");
+	// }
+	// }
+	//
+	// /* Check that no end to end flow appears in a mode more than once
+	// * and that its name isn't already used.
+	// */
+	// // map.clear();
+	// // EList allFlowSeqs = impl.getAllFlowSequence();
+	// // for (final Iterator i = allFlowSeqs.iterator(); i.hasNext();) {
+	// // final FlowSequence fs = (FlowSequence) i.next();
+	// // // Filter out flow impls
+	// // if (fs instanceof EndToEndFlow) {
+	// // final String name = fs.getName();
+	// // if (AadlUtil.findNamedElementInList(usedNames, name) != null) {
+	// // error(impl, "'" + name +
+	// "': identifier previously defined in component");
+	// // }
+	// // EList s = (EList) map.get(name);
+	// // if (s == null) {
+	// // s = new BasicEList();
+	// // map.put(name, s);
+	// // }
+	// // s.add(fs);
+	// // }
+	// // }
+	// // for (Iterator i = map.keySet().iterator(); i.hasNext();) {
+	// // final String name = (String) i.next();
+	// // final EList s = (EList) map.get(name);
+	// // if (!AadlUtil.oncePerMode(s, impl.getAllMode())) {
+	// // error(impl, "End to End Flow " + name +
+	// " implemented more than once for a given mode");
+	// // }
+	// // }
+	// }
 
 	/*
 	 * supporting semantic check methods They can on the error reporter thus
@@ -861,7 +1074,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		SubcomponentType st = actual.getSubcomponentType();
 		if (!actual.getCategory().equals(ComponentCategory.ABSTRACT)
 				&& !actual
-						.getCategory().getName()
+						.getCategory()
+						.getName()
 						.equals(st instanceof ComponentClassifier ? ((ComponentClassifier) st)
 								.getCategory() : ((ComponentPrototype) st)
 								.getCategory())) {
@@ -1877,6 +2091,645 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
+
+//	/**
+//	 * Make sure that a PropertyReference object referenced as a
+//	 * subclause of a boolean expression actually refers to a boolean-valued
+//	 * property.  Also make sure that if the property reference is to a 
+//	 * property definition, then the property holder or property definition 
+//	 * that it is a part of should have a compatible applies to clause.
+//	 */
+//	protected void checkPropertyReference(final PropertyReference pr) {
+//		final EObject parent = pr.eContainer();
+//		final ReferencedProperty rp = pr.getReferencedProperty();
+//		if (parent instanceof BooleanValue) {
+//			final PropertyType pt = rp.getThePropertyType();
+//			if (!(pt instanceof Aadlboolean) || rp.isList()) {
+//				error(pr, "Not a reference to a boolean-valued property");
+//			}
+//		}
+//		
+//		if (rp instanceof PropertyDefinition) {
+//			final PropertyDefinition refPD = (PropertyDefinition) rp;
+//			/* Find the property making refernece to us.  It is either the PD
+//			 * from a property association, or the enclosing PD if our use is
+//			 * as a default value.
+//			 */
+//			PropertyDefinition pd = null;
+//			EObject current = parent;
+//			while (current != null) {
+//				if (current instanceof PropertyAssociation) {
+//					pd = ((PropertyAssociation) current).getPropertyDefinition();
+//					break;
+//				}
+//				if (current instanceof PropertyDefinition) {
+//					pd = (PropertyDefinition) current;
+//					break;
+//				}
+//				current = current.eContainer();
+//			}
+//			
+//			if (current == null) {
+//				internalError("Couldn't find enclosing property association or property definition for property reference");
+//			} else {
+//				final List refAppliesTo = refPD.getAppliesto();
+//				final List appliesTo = pd.getAppliesto();
+//				if (!refAppliesTo.containsAll(appliesTo)) {
+//					error(pr, "Referenced property definition does not apply to all the categories that the referring property applies to");
+//				}
+//
+//				final List refAppliesToClass = new ArrayList();
+//				for (final Iterator i = refPD.getAppliesToClassifier().iterator(); i.hasNext();) {
+//					final ClassifierValue cv = (ClassifierValue) i.next();
+//					refAppliesToClass.add(cv.getComponentClassifier());
+//				}
+//				final List appliesToClass = new ArrayList();
+//				for (final Iterator i = pd.getAppliesToClassifier().iterator(); i.hasNext();) {
+//					final ClassifierValue cv = (ClassifierValue) i.next();
+//					appliesToClass.add(cv.getComponentClassifier());
+//				}
+//				if (!refAppliesToClass.containsAll(appliesToClass)) {
+//					error(pr, "Referenced property definition does not apply to all the classifiers that the referring property applies to");
+//				}
+//				
+//			}
+//		}
+//	}
+//
+//	public void checkProperties(EList pslist) {
+//		this.processPreOrderAll(pslist);
+//	}
+//
+//	/**
+//	 * @param pn
+//	 */
+//	private void checkPropertyDefinition(final PropertyDefinition pn) {
+//		// Check the access keyword
+//		checkAccessKeyword(pn);
+//
+//		// Check the type correctness of the default value, if any
+//		typeCheckPropertyValues(pn.getThePropertyType(), pn.isList(), pn.getDefaultpropertyValue());
+//	}
+//
+//
+//	private void checkPropertyConstant(final PropertyConstant pc) {
+//		/* Check the type correctness of the values.  The parser enforces
+//		 * some of this, but can't do it if the type is given by reference,
+//		 * and it cannot check that a int or real is within range.
+//		 */
+//		typeCheckPropertyValues(pc.getThePropertyType(), pc.isList(), pc.getConstantValue());
+//	}
+//
+//
+//	/**
+//	 * Check constraints on the use of the "access" keyword on property
+//	 * definitions, as specified in SEction 10.1.2:
+//	 *
+//	 * <blockquote>The reserved word access is only permitted for property name
+//	 * whose applies to property category list contains categories of
+//	 * subcomponents that can be required or provided subcomponents. These
+//	 * categories are data and bus. </blockquote>
+//	 *
+//	 * @param pn
+//	 *            The property definition to check.
+//	 */
+//	private void checkAccessKeyword(final PropertyDefinition pn) {
+//		// Access allowed only if applies to data/bus only.
+//		if (pn.isAccess()) {
+//			final EList appliesTo = pn.getAppliesto();
+//
+//			final boolean containsData =
+//				appliesTo.contains(PropertyOwnerCategory.DATA_LITERAL);
+//			final boolean containsBus =
+//				appliesTo.contains(PropertyOwnerCategory.BUS_LITERAL);
+//			final int size = appliesTo.size();
+//			// Okay if set is {DATA}, {BUS}, {DATA, BUS}
+//			final boolean okay =
+//				((size == 1) && (containsBus || containsData))
+//					|| ((size == 2) && containsBus && containsData);
+//			if (!okay) {
+//				error(pn,
+//						"Access property only applies to data or bus");
+//			}
+//		}
+//	}
+//
+//	private void checkPropertyAssocs(final PropertyHolder element) {
+//		checkPropertyAssocs(element, false);
+//	}
+//
+//	/**
+//	 * check property associations for the aObject element
+//	 * @param element aObject. It may not have a Properties object.
+//	 */
+//	private void checkPropertyAssocs(
+//		final PropertyHolder element, final boolean isSubcomponent) {
+//		final List assocs;
+//		if (element instanceof Classifier) {
+//			/* 15 February 2007: Not sure this what should really be done.
+//			 * This breaks list +=> for one thing.  Taking this out for
+//			 * the moment; it was put in on 6 Feb 2007.
+//			 */
+////			assocs = ((Classifier) element).getAllPropertyAssociation();
+//			assocs = element.getPropertyAssociation();
+//		} else {
+//			assocs = element.getPropertyAssociation();
+//		}
+//		if (assocs == null) return;
+//
+//		// map: PropertyDeclaration -> set of mode-binding pairs
+//		final Map propsToModes = new HashMap();
+//		// 2 level map: PropertyDeclaration -> EList of propertry holders -> set of mode-binding pairs
+//		final Map containedPropsToModes = new HashMap();
+//		for (final Iterator iter = assocs.iterator(); iter.hasNext(); ) {
+//			final PropertyAssociation pa = (PropertyAssociation) iter.next();
+//			// check only if property name was resolved
+//			final PropertyDefinition pd = pa.getPropertyDefinition();
+//			if (pd != null)	{
+//				/* This is where we should check constant property
+//				 * associations, but it's too much work to do that.
+//				 */
+//				if (pa.isConstant()) {
+//					warning(pa,
+//							"Constant property associations are not checked");
+//				}
+//				
+//				/* Check that the association follows the prop's  "applies to".
+//				 * We don't check this for package sections because they are
+//				 * allowed to declare assocations for any property.
+//				 */
+//				if (!(element instanceof AadlPackageSection)) {
+//					checkAssociationAppliesTo(element, pa);
+//				}
+//
+//				/* Check that this PA hasn't already associated a value with
+//				 * the property (modulo modes).
+//				 */
+//				checkUniqueAssociation(element, propsToModes, pa);
+//				checkUniqueContainedAssociation(element, containedPropsToModes, pa);
+//				
+//				// Check that the association has good "in modes"
+//				checkInModes(element, pa);
+//				
+//				// Check that the assocation is type correct
+//				typeCheckPropertyValues(pd.getThePropertyType(), pd.isList(), pa.getPropertyValue());
+//
+//				// Check access assocs: only allowed on bus data access features
+//				checkAssociationAccess(element, pa);
+//
+//				// Check "list of" issues
+//				checkListOf(pa);
+//
+//				// Check that Overflow_handling_protocol and Queue_size only
+//				// appear on in event ports and in event data ports
+//				checkPortProperties(element, pa);
+//			}
+//		}
+//	}
+//
+//	private static class ModeBindingPair {
+//		private final Mode mode;
+//		private final ComponentClassifier binding;
+//		
+//		public ModeBindingPair(final Mode m, final ComponentClassifier cc) {
+//			mode = m;
+//			binding = cc;
+//		}
+//		
+//		public boolean equals(final Object o) {
+//			if (o instanceof ModeBindingPair) {
+//				final ModeBindingPair mbp = (ModeBindingPair) o;
+//				return ((mode == null && mbp.mode == null) || mode.equals(mbp.mode))
+//					&& ((binding == null && mbp.binding == null) || binding.equals(mbp.binding));
+//			} else {
+//				return false;
+//			}
+//		}
+//		
+//		public int hashCode() {
+//			final int hc1 = (mode == null) ? 0 : mode.hashCode();
+//			final int hc2 = (binding == null) ? 0 : binding.hashCode();
+//			return hc1 * 13 + hc2;
+//		}
+//		
+//		public String toString() {
+//			final String s1 = (mode == null) ? "none" : mode.getName();
+//			final String s2 = (binding == null) ? "none" : binding.getQualifiedName();
+//			return "(" + s1 + ", " + s2 + ")";
+//		}
+//	}
+//	
+//	private static final List NULL_LIST = Collections.singletonList(null);
+//	
+//	private static Set createPairs(final List modes, final List bindings) {
+//		final Set pairs = new HashSet();
+//		
+//		final List modesList = (modes == null || modes.isEmpty()) ? NULL_LIST : modes;
+//		final List bindingsList = (bindings == null || bindings.isEmpty()) ? NULL_LIST : bindings;		
+//		for (final Iterator i = modesList.iterator(); i.hasNext();) {
+//			final Mode mode = (Mode) i.next();
+//			for (final Iterator j = bindingsList.iterator(); j.hasNext();) {
+//				final ComponentClassifier binding = (ComponentClassifier) j.next();
+//				pairs.add(new ModeBindingPair(mode, binding));
+//			}
+//		}
+//		return pairs;
+//	}
+//	
+//	private void checkUniqueAssociation(
+//			final PropertyHolder ph, final Map propsToModes, final PropertyAssociation pa) {
+//		if (pa.getAppliesTo() == null || pa.getAppliesTo().size() == 0) {
+//			final PropertyDefinition pd = pa.getPropertyDefinition();
+//			Set definedInModes = (Set) propsToModes.get(pd);
+//			if (definedInModes == null) {
+//				definedInModes = new HashSet();
+//				propsToModes.put(pd, definedInModes);
+//			}
+//			checkForDuplicateAssociation(ph, pa, definedInModes);
+//		}
+//	}
+//
+//	private void checkUniqueContainedAssociation(
+//			final PropertyHolder ph, 
+//			final Map containedPropsToModes, final PropertyAssociation pa) {
+//		final String appliesTo = unparseContainedAppliesToPath(pa);
+//		if (appliesTo.length() > 0) {
+//			final PropertyDefinition pd = pa.getPropertyDefinition();
+//			Map subMap = (Map) containedPropsToModes.get(pd);
+//			if (subMap == null) {
+//				subMap = new HashMap();
+//				containedPropsToModes.put(pd, subMap);
+//			}
+//			Set definedInModes = (Set) subMap.get(appliesTo);
+//			if (definedInModes == null) {
+//				definedInModes = new HashSet();
+//				subMap.put(appliesTo, definedInModes);
+//			}
+//			checkForDuplicateAssociation(ph, pa, definedInModes);
+//		}
+//	}
+//
+//	/**
+//	 * @param pa
+//	 * @param definedInModes
+//	 */
+//	private void checkForDuplicateAssociation(
+//			final PropertyHolder ph, 
+//			final PropertyAssociation pa, Set definedInModes) {
+//		final EList inModes = pa.getInModes();
+//		final EList inBinding = pa.getInBinding();
+//		final Set pairs = createPairs(inModes, inBinding);
+//		final Set alreadyDefined = new HashSet();
+//		for (final Iterator i = pairs.iterator(); i.hasNext(); ) {
+//			final ModeBindingPair mbp = (ModeBindingPair) i.next();
+//			if (definedInModes.contains(mbp)) {
+//				alreadyDefined.add(mbp);
+//			}
+//		}
+//		definedInModes.addAll(pairs);
+//		
+//		if (!alreadyDefined.isEmpty()) {
+//			final String appliesTo = unparseContainedAppliesToPath(pa);
+//			for (final Iterator i = alreadyDefined.iterator(); i.hasNext();) {
+//				final ModeBindingPair mbp = (ModeBindingPair) i.next();
+//				error(ph,
+//						"\"" + ph.getName() + "\" has multiple property associations for \"" + 
+//						pa.getPropertyDefinition().getQualifiedName() + "\"" +
+//						((appliesTo.length() == 0) ? "" : (" applying to " + appliesTo)) +
+//						((mbp.mode == null) ? "" : (" in mode " + mbp.mode.getName())) +
+//						((mbp.binding == null) ? "" : (" in binding " + mbp.binding.getQualifiedName())));
+//			}
+//		}
+//	}
+//
+//	private String unparseContainedAppliesToPath(final PropertyAssociation pa) {
+//		final List appliesTo = pa.getAppliesTo();
+//		final StringBuffer sb = new StringBuffer();
+//		for (final Iterator i = appliesTo.iterator(); i.hasNext();) {
+//			final NamedElement ne = (NamedElement) i.next();
+//			sb.append(ne.getName());
+//			if (i.hasNext()) sb.append('.');
+//		}
+//		return sb.toString();
+//	}
+//	
+//	/**
+//	 * Checks legality rule from Section 4.5 Subcomponents:
+//	 *
+//	 * <blockquote>If the subcomponent declaration contains an in_modes
+//	 * statement and any of its property associations also contains an in_modes
+//	 * statement, then the modes named in the property association must be a
+//	 * subset of those named in the subcomponent declaration. </blockquote>
+//	 *
+//	 * @param element
+//	 *            The property holder whose in_modes should be checked. This
+//	 *            method is only interested in SubprogramSubcomponent,
+//	 *            Subcomponent, Connection, and FlowSequence elements.
+//	 *
+//	 * @param pa
+//	 *            The particular property association whose in_modes must be a
+//	 *            subset of the modes in which <code>element</code> exists.
+//	 */
+//	private void checkInModes(final PropertyHolder element, final PropertyAssociation pa) {
+//		final EList innerModes = pa.getInModes();
+//		if (innerModes != null) {
+//			EList outerModes = null;
+//			if (element instanceof SubprogramSubcomponent) {
+//				/* We need to treat SubprogramSubcomponents specially because
+//				 * the modes they exist in are controlled by the CallSequence.
+//				 */
+//				final CallSequence cs = (CallSequence) element.eContainer();
+//				outerModes = cs.getInModes();
+//			} else if (element instanceof Subcomponent
+//					|| element instanceof Connection
+//					|| element instanceof FlowSequence) {
+//				outerModes = ((ModeMember) element).getInModes();
+//			}
+//
+//			if (outerModes != null) {
+//				// Empty set means that no modes were declared, i.e., all modes
+//				if (!outerModes.isEmpty()
+//						&& !outerModes.containsAll(innerModes)) {
+//					error(pa,
+//							"Property association has more modes than its container");
+//				}
+//			}
+//		}
+//	}
+//
+//	/**
+//	 * Check that non-list properties do not get associated with a list of
+//	 * values:
+//	 *
+//	 * <blockquote>
+//	 * If the property declaration for the associated property name
+//	 * does not contain the reserved words list of, the property_value must be a
+//	 * single_property_value. If the property declaration for the associated
+//	 * property name contains the reserved words list of, the property_value can
+//	 * be a single_property_value, which is interpreted to be a list of one
+//	 * value.
+//	 *
+//	 * The property association operator +=> must only be used if the property
+//	 * declaration for the associated property name contains the reserved words
+//	 * list of.
+//	 * </blockquote>
+//	 *
+//	 * @param pa
+//	 */
+//	private void checkListOf(final PropertyAssociation pa) {
+//		final PropertyDefinition pn = pa.getPropertyDefinition();
+//		if (pn == null)
+//			return;
+//		final EList value = pa.getPropertyValue();
+//		if (!pn.isList()) {
+//			// Must only have one value associated with the property
+//			if (value == null || value.size() == 0) {
+//				error(pa,
+//						"Scalar properties must have a value");
+//			} else if (value.size() > 1) {
+//				error(pa,
+//						"Scalar properties cannot be associated with a list");
+//			}
+//			if (pa.isAppend()) {
+//				error(pa,
+//						"Cannot append to a scalar property");
+//			}
+//		}
+//	}
+//
+//	/**
+//	 * Checks contraints on the <code>Overflow_Handling_Protocol</code>,
+//	 * <code>Queue_Processing_Protocol</code>, <code>Dequeue_Protocol</code>,
+//	 * <code>Queue_Size</code> properties as specificed in Section 8.1 Ports:
+//	 *
+//	 * <blockquote>The property names Overflow_Handling_Protocol,
+//	 * Queue_Processing_Protocol, Dequeue_Protocol, and Queue_Size
+//	 * may only appear in property associations for in event ports and in event
+//	 * data ports. </blockquote>
+//	 * 
+//	 * <p>The <code>applies to</code> clause in the property definition
+//	 * already makes sure they only appear on <code>event port</code> 
+//	 * and <code>event data port</code> (and <code>subprogram</code> for all
+//	 * but <code>Dequeue_Protocol</code>).  So here we check that the port 
+//	 * is an <code>in port</code>.
+//	 *
+//	 * @param ph
+//	 *            The property holder
+//	 * @param pa
+//	 *            The property association to check
+//	 */
+//	private void checkPortProperties(final PropertyHolder ph, final PropertyAssociation pa) {
+//		if (ph instanceof EventPort || ph instanceof EventDataPort) {
+//			final PropertyDefinition pd = pa.getPropertyDefinition();
+//			if (pd == OVERFLOW_HANDLING_PROTOCOL_PD ||
+//					pd == QUEUE_SIZE_PD ||
+//					pd == QUEUE_PROCESSING_PROTOTOCOL_PD ||
+//					pd == DEQUEUE_PROTOCOL_PD) {
+//				final PortDirection dir = ((Port) ph).getAllDirection();
+//				if (dir != PortDirection.IN_LITERAL) {
+//					error(pa,
+//							"Property \"" + pd.getName() +
+//							"\" is only allowed on in event ports and in event data ports");
+//				}
+//			}
+//		}
+//	}
+//
+//	/**
+//	 * Check constraints on the use of access property associations.
+//	 *
+//	 * <blockquote>The reserved word access is only permitted and is required
+//	 * in property associations declared in required and provided access
+//	 * subcomponent declarations and refinements </blockquote>
+//	 *
+//	 * @param element
+//	 *            The property holder to check.
+//	 * @param pa
+//	 *            The property association to check.
+//	 */
+//	private void checkAssociationAccess(
+//		final EObject element,
+//		final PropertyAssociation pa) {
+//		if (element instanceof ComponentAccess) {
+//			if (!pa.isAccess()) {
+//				error(pa,
+//						"Property association for access features requires the keyword access before the value");
+//			}
+//		} else {
+//			if (pa.isAccess()) {
+//				error(pa,
+//						"Property association should not use the keyword access before the value");
+//			}
+//		}
+//	}
+//
+//	/**
+//	 * Check constraints that property applies to the element it is associated
+//	 * with per Section 10.3:
+//	 *
+//	 * <blockquote>The property named by a property association must list the
+//	 * category of the component type, component implementation, subcomponent,
+//	 * feature, connection, flow, or mode the property association is declared
+//	 * for in its Property_Owner_Category list. </blockquote>
+//	 */
+//	private void checkAssociationAppliesTo(
+//		final PropertyHolder element,
+//		final PropertyAssociation pa) {
+//		final PropertyDefinition pn = pa.getPropertyDefinition();
+//		final EList appliesTo = pa.getAppliesTo();
+//		if (appliesTo == null || appliesTo.size() == 0) {
+//			final boolean applies = element.acceptsProperty(pn);
+//			if (!applies) {
+//				error(pa,
+//						"Property "	+ pa.getQualifiedName() +
+//						" only applies to " + unparseAppliesTo(pn));
+////				error(pa,
+////						"Property "	+ pa.getQualifiedName() +
+////						" does not apply to " + element.eClass().getName());
+//			}
+//		} else {
+//			// only the last value is interesing to us
+//			final PropertyHolder ph = (PropertyHolder) appliesTo.get(appliesTo.size()-1);
+//			final boolean applies = ph.acceptsProperty(pn);
+//			if (!applies) {
+//				error(pa,
+//						"Property " + pa.getQualifiedName() +
+//						" does not apply to named subcomponent");
+//			}
+//		}
+//	}
+//
+//	/**
+//	 * Check that a given list of PropertyValues are all of the given type.
+//	 *
+//	 * <blockquote>If a property expression list consists of a list of two or
+//	 * more property expressions, all of those property expressions must be of
+//	 * the same property type.
+//	 *
+//	 * In a property association, the type of the evaluated property expression
+//	 * must match the property type of the named property.
+//	 * </blockquote>
+//	 *
+//	 * @param pt
+//	 *            The property type to check the values against
+//	 * @param isList
+//	 *            Whether to accept a list of values or not
+//	 * @param values
+//	 *            The values to check.
+//	 */
+//	private void typeCheckPropertyValues(
+//			final PropertyType pt, final boolean isList, final EList values) {
+//		if (pt != null && values != null) {
+//			for (Iterator i = values.iterator(); i.hasNext();) {
+//				final PropertyValue pv = (PropertyValue) i.next();
+//				final String msg = pt.containsValue(isList, pv);
+//				if (msg != PropertyType.VALUE_OKAY) {
+//					error(pv,
+//							"Property expression '" + pv.getValueAsString() +
+//							"' has wrong type: " + msg);
+//				}
+//			}
+//		}
+//	}
+//
+//
+//	/**
+//	 * Check that a number type is well formed.  The range values (if any)
+//	 * should be such that the lower bound is not greater than the upper bound.
+//	 * Satisfies legality rule from Section 10.1.1:
+//	 *
+//	 * <blockquote>
+//	 * The value of the first numeric literal that appears in a range of a
+//	 * number_type must not be greater than the value of the second numeric
+//	 * literal.
+//	 * </blockquote>
+//	 */
+//	private void checkNumberType(final NumberType nt) {
+//		/* NOTE: NumericResolver + Parser already make sure the bounds are
+//		 * both reals or both integers, as appropriate.
+//		 */
+//		final NumberOrPropertyReference lowerref = nt.getLower();
+//		final NumberOrPropertyReference upperref = nt.getUpper();
+//		NumberValue lowerNV = null;
+//		NumberValue upperNV = null;
+//		if (lowerref != null) lowerNV = lowerref.getNumberValue();
+//		if (upperref != null) upperNV = upperref.getNumberValue();
+//		/* Both of lowerref and upperref should be set, or both should be null.
+//		 * But even if both lowerref and upperref are non-null it is possible
+//		 * for one of lowerNV or upperNV to be null because getNumberValue()
+//		 * will return null if the NumberOrPropertyReference is a
+//		 * PropertyReference whose ReferencedProperty is a property declaration
+//		 * insteads of a property constant.  Thus, we must check both of
+//		 * lowerNv and upperNV against null.
+//		 */
+//		if (lowerNV != null && upperNV != null) {
+//			/* Check: (1) the bounds have units if the type has units;
+//			 * (2) the lower bounds is <= the upper bound.
+//			 */
+//			if (nt.getTheUnitsType() != null) {
+//				if (lowerNV.getUnitLiteral() == null) {
+//					error(nt,
+//							"lower bound is missing a unit");
+//				}
+//				if (upperNV.getUnitLiteral() == null) {
+//					error(nt,
+//							"upper bound is missing a unit");
+//				}
+//			}
+//			final double lower = lowerNV.getScaledValue();
+//			final double upper = upperNV.getScaledValue();
+//			if (lower > upper) {
+//				error(nt,
+//						"Range lower bound is greater than range upper bound");
+//			}
+//		}
+//	}
+//
+//	/**
+//	 * Check that if an aadlinteger type has units that the units have only
+//	 * integer multipliers.
+//	 */
+//	private void checkAadlinteger(final Aadlinteger ai) {
+//		final UnitsType units = ai.getTheUnitsType();
+//		if (units != null) {
+//			for (Iterator i = units.getUnitLiteral().iterator(); i.hasNext();) {
+//				final UnitLiteral ul = (UnitLiteral) i.next();
+//				final NumberValue factor = ul.getFactor();
+//				if (factor != null && !(factor instanceof IntegerValue)) {
+//					error(ai,
+//							"Integer type has unit (" + ul.getName() +
+//							") with non-integer factor (" +
+//							ul.getFactor().getValueString() + ")");
+//				}
+//			}
+//		}
+//	}
+//
+//	private static String unparseAppliesTo(final PropertyDefinition pd) {
+//		final StringBuffer sb = new StringBuffer();
+//		final EList at = pd.getAppliesto();
+//		if (at.size() == PropertyOwnerCategory.VALUES.size()) {
+//			sb.append("all");
+//		} else {
+//			for (final Iterator it = at.iterator(); it.hasNext();) {
+//				final PropertyOwnerCategory pc = (PropertyOwnerCategory) it.next();
+//				sb.append(pc.getUnparseName());
+//				if (it.hasNext()) sb.append(", ");
+//			}
+//			final EList el = pd.getAppliesToClassifier();
+//			for (final Iterator it = el.iterator(); it.hasNext();) {
+//				final ClassifierValue cv = (ClassifierValue) it.next();
+//				sb.append(", ");
+//				sb.append(cv.getValue().getUnparseName());
+//				final String qn = cv.getQualifiedClassifierName();
+//				if (qn != null && qn.length() > 0) {
+//					sb.append(' ');
+//					sb.append(qn);
+//				}
+//			}
+//		}
+//		return sb.toString();
+//	}
 
 	// XXX: End of check methods marker.
 
