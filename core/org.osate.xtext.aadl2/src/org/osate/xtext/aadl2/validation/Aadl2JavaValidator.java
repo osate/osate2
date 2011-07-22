@@ -858,9 +858,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkComponentPrototypeActualComponentCategory(
 			ComponentPrototypeActual actual) {
 		SubcomponentType st = actual.getSubcomponentType();
-		if (!actual.getCategory().equals(ComponentCategory.ABSTRACT.getName())
+		if (!actual.getCategory().equals(ComponentCategory.ABSTRACT)
 				&& !actual
-						.getCategory()
+						.getCategory().getName()
 						.equals(st instanceof ComponentClassifier ? ((ComponentClassifier) st)
 								.getCategory() : ((ComponentPrototype) st)
 								.getCategory())) {
