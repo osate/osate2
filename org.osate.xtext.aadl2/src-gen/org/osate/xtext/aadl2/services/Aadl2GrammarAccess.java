@@ -19501,7 +19501,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedTypeUnnamedPropertyTypeParserRuleCall_2_1_0 = (RuleCall)cOwnedTypeAssignment_2_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//RecordField returns aadl2::RecordField:
+		//RecordField returns aadl2::BasicProperty:
 		//	name=ID ":" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 		//	| ownedType=UnnamedPropertyType) ";";
 		public ParserRule getRule() { return rule; }
@@ -20839,28 +20839,28 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FieldPropertyAssociation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cPropertyAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cPropertyRecordFieldCrossReference_0_0 = (CrossReference)cPropertyAssignment_0.eContents().get(0);
-		private final RuleCall cPropertyRecordFieldIDTerminalRuleCall_0_0_1 = (RuleCall)cPropertyRecordFieldCrossReference_0_0.eContents().get(1);
+		private final CrossReference cPropertyBasicPropertyCrossReference_0_0 = (CrossReference)cPropertyAssignment_0.eContents().get(0);
+		private final RuleCall cPropertyBasicPropertyIDTerminalRuleCall_0_0_1 = (RuleCall)cPropertyBasicPropertyCrossReference_0_0.eContents().get(1);
 		private final Keyword cEqualsSignGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cOwnedValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cOwnedValuePropertyExpressionParserRuleCall_2_0 = (RuleCall)cOwnedValueAssignment_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:
-		//	property=[aadl2::RecordField] "=>" ownedValue=PropertyExpression ";";
+		//	property=[aadl2::BasicProperty] "=>" ownedValue=PropertyExpression ";";
 		public ParserRule getRule() { return rule; }
 
-		//property=[aadl2::RecordField] "=>" ownedValue=PropertyExpression ";"
+		//property=[aadl2::BasicProperty] "=>" ownedValue=PropertyExpression ";"
 		public Group getGroup() { return cGroup; }
 
-		//property=[aadl2::RecordField]
+		//property=[aadl2::BasicProperty]
 		public Assignment getPropertyAssignment_0() { return cPropertyAssignment_0; }
 
-		//[aadl2::RecordField]
-		public CrossReference getPropertyRecordFieldCrossReference_0_0() { return cPropertyRecordFieldCrossReference_0_0; }
+		//[aadl2::BasicProperty]
+		public CrossReference getPropertyBasicPropertyCrossReference_0_0() { return cPropertyBasicPropertyCrossReference_0_0; }
 
 		//ID
-		public RuleCall getPropertyRecordFieldIDTerminalRuleCall_0_0_1() { return cPropertyRecordFieldIDTerminalRuleCall_0_0_1; }
+		public RuleCall getPropertyBasicPropertyIDTerminalRuleCall_0_0_1() { return cPropertyBasicPropertyIDTerminalRuleCall_0_0_1; }
 
 		//"=>"
 		public Keyword getEqualsSignGreaterThanSignKeyword_1() { return cEqualsSignGreaterThanSignKeyword_1; }
@@ -24314,7 +24314,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getUnnamedRecordTypeAccess().getRule();
 	}
 
-	//RecordField returns aadl2::RecordField:
+	//RecordField returns aadl2::BasicProperty:
 	//	name=ID ":" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 	//	| ownedType=UnnamedPropertyType) ";";
 	public RecordFieldElements getRecordFieldAccess() {
@@ -24633,7 +24633,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:
-	//	property=[aadl2::RecordField] "=>" ownedValue=PropertyExpression ";";
+	//	property=[aadl2::BasicProperty] "=>" ownedValue=PropertyExpression ";";
 	public FieldPropertyAssociationElements getFieldPropertyAssociationAccess() {
 		return (pFieldPropertyAssociation != null) ? pFieldPropertyAssociation : (pFieldPropertyAssociation = new FieldPropertyAssociationElements());
 	}

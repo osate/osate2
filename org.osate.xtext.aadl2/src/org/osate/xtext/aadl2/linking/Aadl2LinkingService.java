@@ -23,6 +23,7 @@ import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessConnectionEnd;
 import org.osate.aadl2.AccessType;
+import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.Classifier;
@@ -61,6 +62,7 @@ import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
+import org.osate.aadl2.ListType;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
@@ -348,8 +350,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			// look for property definition in property set
 			return findPropertyDefinition(context, reference, node, s);
 
-		} else if (pt.isSuperTypeOf(requiredType)
-				|| Aadl2Package.eINSTANCE.getType() == requiredType) {
+		} else if (pt.isSuperTypeOf(requiredType)) {
 			// look for property type in property set
 			return findPropertyType(context, reference, node, s);
 
@@ -382,17 +383,39 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			// look for enumeration literal
 			return findEnumLiteral(context, reference, node, s);
 
-		} else if (Aadl2Package.eINSTANCE.getRecordField() == requiredType) {
+		} else if (Aadl2Package.eINSTANCE.getBasicProperty() == requiredType) {
 			// look for record field definition
 			if (context instanceof BasicPropertyAssociation) {
 				BasicPropertyAssociation bpa = (BasicPropertyAssociation) context;
 				// TODO: Need to check that the type of the record field is
 				// correct for the value.
-				PropertyType propertyType = (PropertyType) bpa.getProperty()
-						.getType();
+				Element parent = bpa.getOwner();
+				while (parent != null && !(parent instanceof BasicPropertyAssociation || parent instanceof PropertyAssociation
+						|| parent instanceof Property || parent instanceof PropertyConstant)){
+					parent = parent.getOwner();
+				}
+				PropertyType propertyType =null;
+				if (parent instanceof BasicPropertyAssociation){
+					BasicProperty bp = ((BasicPropertyAssociation)parent).getProperty();
+					if (bp != null){
+						propertyType=bp.getPropertyType();
+					}
+				} else if (parent instanceof PropertyAssociation){
+					Property pd =((PropertyAssociation)parent).getProperty();
+					if (pd != null){
+						propertyType=pd.getPropertyType();
+					}
+				} else if (parent instanceof Property){
+					propertyType =((Property)parent).getPropertyType();
+				} else if (parent instanceof PropertyConstant){
+					propertyType =((PropertyConstant)parent).getPropertyType();
+				}
+				while (propertyType instanceof ListType){
+					propertyType = ((ListType)propertyType).getElementType();
+				}
+				
 				if (propertyType != null && propertyType instanceof RecordType) {
-					RecordField rf = (RecordField) ((RecordType) propertyType)
-							.findNamedElement(s);
+					BasicProperty rf = (BasicProperty) ((RecordType) propertyType).findNamedElement(s);
 					if (rf != null)
 						return Collections.singletonList((EObject) rf);
 				}
@@ -593,11 +616,8 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 					// constant is correct for the value.
 					// We should do this when the type of the constant is
 					// resolved in PropertyTypeReference.
-					// TODO-phf: getType vs. Property type & proxy
-					Type t =  ((PropertyConstant) owner)
-							.getType();
-					if (t instanceof PropertyType)
-						propertyType = (PropertyType)t;
+					propertyType =  ((PropertyConstant) owner)
+							.getPropertyType();
 				} else if (owner instanceof Property) // Default value of a
 														// property
 														// definition.
@@ -607,7 +627,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 					// We should do this when the type of the definition is
 					// resolved in PropertyValuePropertyTypeReference.
 					propertyType = (PropertyType) ((Property) owner)
-							.getType();
+							.getPropertyType();
 				} else if (owner instanceof ModalPropertyValue
 						&& owner.getOwner() instanceof PropertyAssociation) 
 					// Value of an association.
@@ -618,7 +638,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 					// association is resolved in
 					// PropertyDefinitionReference.
 					propertyType = (PropertyType) ((PropertyAssociation) owner
-							.getOwner()).getProperty().getType();
+							.getOwner()).getProperty().getPropertyType();
 				} else if (owner instanceof BasicPropertyAssociation) 
 					// Inner value of a record value.
 				{
@@ -627,7 +647,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 					// We should do this when the record field of the record
 					// value is resolved in PropertyRecordFieldReference.
 					propertyType = (PropertyType) ((BasicPropertyAssociation) owner)
-							.getProperty().getType();
+							.getProperty().getPropertyType();
 				}
 				if (propertyType instanceof NumberType)
 					unitsType = ((NumberType) propertyType).getUnitsType();
@@ -664,7 +684,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				// We should do this when the type of the constant is
 				// resolved in PropertyTypeReference.
 				propertyType = (PropertyType) ((PropertyConstant) owner)
-						.getType();
+						.getPropertyType();
 			} else if (owner instanceof Property) // Default value of a
 													// property definition.
 			{
@@ -672,7 +692,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				// definition is correct for the value.
 				// We should do this when the type of the definition is
 				// resolved in PropertyValuePropertyTypeReference.
-				propertyType = (PropertyType) ((Property) owner).getType();
+				propertyType = (PropertyType) ((Property) owner).getPropertyType();
 			} else if (owner instanceof ModalPropertyValue
 					&& owner.eContainer() instanceof PropertyAssociation) // Value
 																			// of
@@ -684,7 +704,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				// We should do this when the definition of the association
 				// is resolved in PropertyDefinitionReference.
 				propertyType = (PropertyType) ((PropertyAssociation) owner
-						.eContainer()).getProperty().getType();
+						.eContainer()).getProperty().getPropertyType();
 			} else if (owner instanceof BasicPropertyAssociation) // Inner
 																	// value
 																	// of a
@@ -696,7 +716,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				// We should do this when the record field of the record
 				// value is resolved in PropertyRecordFieldReference.
 				propertyType = (PropertyType) ((BasicPropertyAssociation) owner)
-						.getProperty().getType();
+						.getProperty().getPropertyType();
 			}
 			if (propertyType != null
 					&& propertyType instanceof EnumerationType) {
@@ -1903,41 +1923,41 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 					return (AadlPackage) rootObject;
 			}
 		}
-		/* load the resource from the file system */
-		Resource res = context.eResource();
-		URI uri = res.getURI().trimFileExtension().trimSegments(1)
-				.appendSegment(name).appendFileExtension("aadl2");
-		Resource xtextResource;
-		try {
-			xtextResource = context.eResource().getResourceSet()
-					.getResource(uri, true);
-		} catch (Exception e) {
-			try {
-				xtextResource = context.eResource().getResourceSet()
-						.getResource(uri, false);
-				if (xtextResource != null) {
-					xtextResource.delete(null);
-				}
-			} catch (Exception ee) {
-			}
-			return null;
-		}
-		if (xtextResource == null)
-			return null;
-		if (!xtextResource.getContents().isEmpty()) {
-			EObject rootObject = xtextResource.getContents().get(0);
-			if ((rootObject instanceof AadlPackage)
-					&& ((AadlPackage) rootObject).getName().equalsIgnoreCase(
-							name))
-				return (AadlPackage) rootObject;
-		} else {
-			try {
-				xtextResource.delete(null);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+//		/* load the resource from the file system */
+//		Resource res = context.eResource();
+//		URI uri = res.getURI().trimFileExtension().trimSegments(1)
+//				.appendSegment(name).appendFileExtension("aadl2");
+//		Resource xtextResource;
+//		try {
+//			xtextResource = context.eResource().getResourceSet()
+//					.getResource(uri, true);
+//		} catch (Exception e) {
+//			try {
+//				xtextResource = context.eResource().getResourceSet()
+//						.getResource(uri, false);
+//				if (xtextResource != null) {
+//					xtextResource.delete(null);
+//				}
+//			} catch (Exception ee) {
+//			}
+//			return null;
+//		}
+//		if (xtextResource == null)
+//			return null;
+//		if (!xtextResource.getContents().isEmpty()) {
+//			EObject rootObject = xtextResource.getContents().get(0);
+//			if ((rootObject instanceof AadlPackage)
+//					&& ((AadlPackage) rootObject).getName().equalsIgnoreCase(
+//							name))
+//				return (AadlPackage) rootObject;
+//		} else {
+//			try {
+//				xtextResource.delete(null);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 		return null;
 	}
 
@@ -1954,41 +1974,41 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 					return (PropertySet) rootObject;
 			}
 		}
-		/* load the resource from the file system */
-		Resource res = context.eResource();
-		URI uri = res.getURI().trimFileExtension().trimSegments(1)
-				.appendSegment(name).appendFileExtension("aadl2");
-		Resource xtextResource;
-		try {
-			xtextResource = context.eResource().getResourceSet()
-					.getResource(uri, true);
-		} catch (Exception e) {
-			try {
-				xtextResource = context.eResource().getResourceSet()
-						.getResource(uri, false);
-				if (xtextResource != null) {
-					xtextResource.delete(null);
-				}
-			} catch (Exception ee) {
-			}
-			return null;
-		}
-		if (xtextResource == null)
-			return null;
-		if (!xtextResource.getContents().isEmpty()) {
-			EObject rootObject = xtextResource.getContents().get(0);
-			if ((rootObject instanceof PropertySet)
-					&& ((PropertySet) rootObject).getName().equalsIgnoreCase(
-							name))
-				return (PropertySet) rootObject;
-		} else {
-			try {
-				xtextResource.delete(null);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+//		/* load the resource from the file system */
+//		Resource res = context.eResource();
+//		URI uri = res.getURI().trimFileExtension().trimSegments(1)
+//				.appendSegment(name).appendFileExtension("aadl2");
+//		Resource xtextResource;
+//		try {
+//			xtextResource = context.eResource().getResourceSet()
+//					.getResource(uri, true);
+//		} catch (Exception e) {
+//			try {
+//				xtextResource = context.eResource().getResourceSet()
+//						.getResource(uri, false);
+//				if (xtextResource != null) {
+//					xtextResource.delete(null);
+//				}
+//			} catch (Exception ee) {
+//			}
+//			return null;
+//		}
+//		if (xtextResource == null)
+//			return null;
+//		if (!xtextResource.getContents().isEmpty()) {
+//			EObject rootObject = xtextResource.getContents().get(0);
+//			if ((rootObject instanceof PropertySet)
+//					&& ((PropertySet) rootObject).getName().equalsIgnoreCase(
+//							name))
+//				return (PropertySet) rootObject;
+//		} else {
+//			try {
+//				xtextResource.delete(null);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 		return null;
 	}
 

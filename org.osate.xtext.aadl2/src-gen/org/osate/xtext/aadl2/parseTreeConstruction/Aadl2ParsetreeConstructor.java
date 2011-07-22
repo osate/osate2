@@ -93723,7 +93723,7 @@ protected class UnnamedRecordType_RightParenthesisKeyword_3 extends KeywordToken
 
 /************ begin Rule RecordField ****************
  *
- * RecordField returns aadl2::RecordField:
+ * RecordField returns aadl2::BasicProperty:
  * 	name=ID ":" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
  * 	| ownedType=UnnamedPropertyType) ";";
  *
@@ -100206,11 +100206,11 @@ protected class ListTerm_RightParenthesisKeyword_3 extends KeywordToken  {
 /************ begin Rule FieldPropertyAssociation ****************
  *
  * FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:
- * 	property=[aadl2::RecordField] "=>" ownedValue=PropertyExpression ";";
+ * 	property=[aadl2::BasicProperty] "=>" ownedValue=PropertyExpression ";";
  *
  **/
 
-// property=[aadl2::RecordField] "=>" ownedValue=PropertyExpression ";"
+// property=[aadl2::BasicProperty] "=>" ownedValue=PropertyExpression ";"
 protected class FieldPropertyAssociation_Group extends GroupToken {
 	
 	public FieldPropertyAssociation_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -100239,7 +100239,7 @@ protected class FieldPropertyAssociation_Group extends GroupToken {
 
 }
 
-// property=[aadl2::RecordField]
+// property=[aadl2::BasicProperty]
 protected class FieldPropertyAssociation_PropertyAssignment_0 extends AssignmentToken  {
 	
 	public FieldPropertyAssociation_PropertyAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -100264,9 +100264,9 @@ protected class FieldPropertyAssociation_PropertyAssignment_0 extends Assignment
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("property");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFieldPropertyAssociationAccess().getPropertyRecordFieldCrossReference_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFieldPropertyAssociationAccess().getPropertyBasicPropertyCrossReference_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFieldPropertyAssociationAccess().getPropertyRecordFieldCrossReference_0_0(); 
+				element = grammarAccess.getFieldPropertyAssociationAccess().getPropertyBasicPropertyCrossReference_0_0(); 
 				return obj;
 			}
 		}

@@ -7749,7 +7749,7 @@
   </rules>
   <rules xsi:type="xtext:ParserRule" name="RecordField">
     <type metamodel="//@metamodelDeclarations.0">
-      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//RecordField"/>
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//BasicProperty"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -8342,7 +8342,7 @@
       <elements xsi:type="xtext:Assignment" feature="property" operator="=">
         <terminal xsi:type="xtext:CrossReference">
           <type metamodel="//@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//RecordField"/>
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//BasicProperty"/>
           </type>
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.244"/>
         </terminal>

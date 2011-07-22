@@ -110989,12 +110989,12 @@ rule__FieldPropertyAssociation__PropertyAssignment_0
     }
 :
 (
-{ before(grammarAccess.getFieldPropertyAssociationAccess().getPropertyRecordFieldCrossReference_0_0()); }
+{ before(grammarAccess.getFieldPropertyAssociationAccess().getPropertyBasicPropertyCrossReference_0_0()); }
 (
-{ before(grammarAccess.getFieldPropertyAssociationAccess().getPropertyRecordFieldIDTerminalRuleCall_0_0_1()); }
-	RULE_ID{ after(grammarAccess.getFieldPropertyAssociationAccess().getPropertyRecordFieldIDTerminalRuleCall_0_0_1()); }
+{ before(grammarAccess.getFieldPropertyAssociationAccess().getPropertyBasicPropertyIDTerminalRuleCall_0_0_1()); }
+	RULE_ID{ after(grammarAccess.getFieldPropertyAssociationAccess().getPropertyBasicPropertyIDTerminalRuleCall_0_0_1()); }
 )
-{ after(grammarAccess.getFieldPropertyAssociationAccess().getPropertyRecordFieldCrossReference_0_0()); }
+{ after(grammarAccess.getFieldPropertyAssociationAccess().getPropertyBasicPropertyCrossReference_0_0()); }
 )
 
 ;
