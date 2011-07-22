@@ -176,13 +176,11 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ComponentClassifier basicGetClassifier() {
-		// TODO: implement this method to return the 'Classifier' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		// DONE: implement this method to return the 'Classifier' reference
+		return (basicGetFeatureClassifier() instanceof ComponentClassifier) ? (ComponentClassifier) basicGetFeatureClassifier() : null;
 	}
 
 	/**
@@ -199,13 +197,11 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public Prototype basicGetPrototype() {
-		// TODO: implement this method to return the 'Prototype' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		// DONE: implement this method to return the 'Prototype' reference
+		return (basicGetFeatureClassifier() instanceof Prototype) ? (Prototype) basicGetFeatureClassifier() : null;
 	}
 
 	/**
