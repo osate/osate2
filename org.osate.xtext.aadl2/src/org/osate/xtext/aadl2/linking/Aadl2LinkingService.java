@@ -41,6 +41,7 @@ import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DataType;
 import org.osate.aadl2.Element;
@@ -157,15 +158,19 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				// the result satisfied the expected class
 				return Collections.singletonList((EObject) e);
 			}
-			if (cl.isSuperTypeOf(requiredType)) //only return null list in case of classifiers. Otherwise resolve prototype
-				return Collections.<EObject> emptyList();
-		} else if (sct.isSuperTypeOf(requiredType)) {
-			// need to resolve prototype
-			NamedElement searchResult = getContainingClassifier(context)
-					.findNamedElement(s);
-			if (searchResult instanceof ComponentPrototype) {
-				return Collections.singletonList((EObject) searchResult);
+			if (sct.isSuperTypeOf(requiredType)){
+				// need to resolve prototype
+				NamedElement searchResult = getContainingClassifier(context)
+						.findNamedElement(s);
+				if (Aadl2Package.eINSTANCE.getDataPrototype()==reference ){
+					if( searchResult instanceof DataPrototype ){
+						return Collections.singletonList((EObject) searchResult);
+					}
+				} else if ( searchResult instanceof ComponentPrototype) {
+					return Collections.singletonList((EObject) searchResult);
+				}
 			}
+			return Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getModelUnit() == requiredType) {
 			List<EObject> res = getIndexedObjects(context, reference, node);
 			if (!res.isEmpty())

@@ -88,7 +88,7 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		    }
 	    for (Keyword end : f.findKeywords("end")) {
 		      c.setIndentationDecrement().before(end);
-		      c.setLinewrap().before(end);
+//		      c.setLinewrap().before(end);
 		    }
 	    for (Keyword is : f.findKeywords("is")) {
 		      c.setIndentationIncrement().after(is);
@@ -105,8 +105,7 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 
 	      c.setLinewrap().before(f.getPublicPackageSectionAccess().getWithKeyword_2_0_0());
 
-	      // handle modes as section and as in modes
-
+	      // modes, requires modes and in modes
 	      c.setIndentationDecrement().before(f.getComponentTypeAccess().getModesKeyword_3_0());
 	      c.setLinewrap().around(f.getComponentTypeAccess().getModesKeyword_3_0());
 	      c.setIndentationIncrement().after(f.getComponentTypeAccess().getModesKeyword_3_0());
@@ -125,10 +124,13 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 	      c.setIndentationIncrement().before(f.getComponentTypeRule());
 	      c.setIndentationDecrement().after(f.getComponentTypeRule());
 	      c.setLinewrap(2).after(f.getComponentTypeRule());
-	      c.setIndentationIncrement().after(f.getSystemTypeAccess().getSystemKeyword_0());
+	      
 	      c.setIndentationIncrement().before(f.getComponentImplementationRule());
 	      c.setIndentationDecrement().after(f.getComponentImplementationRule());
 	      c.setLinewrap(2).after(f.getComponentImplementationRule());
+	      
+	      
+	      c.setIndentationIncrement().after(f.getSystemTypeAccess().getSystemKeyword_0());
 	      c.setIndentationIncrement().after(f.getSystemImplementationAccess().getSystemKeyword_0());
 
 	      // Need to leave category specific rules in those cases where the rule is not part of the Component Type/Impl rule
@@ -259,7 +261,7 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 
 // It's usually a good idea to activate the following three statements.
 // They will add and preserve newlines around comments
-//			c.setLinewrap(0, 1, 2).before(getGrammarAccess().getSL_COMMENTRule());
+			c.setLinewrap(1, 1, 2).before(f.getSL_COMMENTRule());
 //			c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
 //			c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
 

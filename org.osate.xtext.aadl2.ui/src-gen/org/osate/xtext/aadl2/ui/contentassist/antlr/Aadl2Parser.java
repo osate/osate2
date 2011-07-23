@@ -1797,7 +1797,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getAbstractFeatureAccess().getNameAssignment_0_0_0(), "rule__AbstractFeature__NameAssignment_0_0_0");
 					put(grammarAccess.getAbstractFeatureAccess().getRefinedAssignment_0_1_0(), "rule__AbstractFeature__RefinedAssignment_0_1_0");
 					put(grammarAccess.getAbstractFeatureAccess().getDirectionAssignment_1(), "rule__AbstractFeature__DirectionAssignment_1");
-					put(grammarAccess.getAbstractFeatureAccess().getClassifierAssignment_3(), "rule__AbstractFeature__ClassifierAssignment_3");
+					put(grammarAccess.getAbstractFeatureAccess().getFeatureClassifierAssignment_3(), "rule__AbstractFeature__FeatureClassifierAssignment_3");
 					put(grammarAccess.getAbstractFeatureAccess().getArrayDimensionAssignment_4(), "rule__AbstractFeature__ArrayDimensionAssignment_4");
 					put(grammarAccess.getAbstractFeatureAccess().getOwnedPropertyAssociationAssignment_5_1(), "rule__AbstractFeature__OwnedPropertyAssociationAssignment_5_1");
 					put(grammarAccess.getFeatureGroupTypeAccess().getNameAssignment_2(), "rule__FeatureGroupType__NameAssignment_2");

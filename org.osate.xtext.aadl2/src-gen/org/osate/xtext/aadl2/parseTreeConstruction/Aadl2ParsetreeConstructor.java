@@ -72894,14 +72894,14 @@ protected class DataAccess_SemicolonKeyword_7 extends KeywordToken  {
  * AbstractFeature returns aadl2::AbstractFeature:
  * 	(name=ID ":" // need to set inout if no direction
  * 	| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature"
- * 	classifier=[aadl2::ComponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
+ * 	featureClassifier=[aadl2::FeatureClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // (name=ID ":" // need to set inout if no direction
 // | refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature"
-// classifier=[aadl2::ComponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
+// featureClassifier=[aadl2::FeatureClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class AbstractFeature_Group extends GroupToken {
 	
@@ -73216,16 +73216,16 @@ protected class AbstractFeature_FeatureKeyword_2 extends KeywordToken  {
 
 }
 
-// classifier=[aadl2::ComponentType|QCREF]?
-protected class AbstractFeature_ClassifierAssignment_3 extends AssignmentToken  {
+// featureClassifier=[aadl2::FeatureClassifier|QCREF]?
+protected class AbstractFeature_FeatureClassifierAssignment_3 extends AssignmentToken  {
 	
-	public AbstractFeature_ClassifierAssignment_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public AbstractFeature_FeatureClassifierAssignment_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getAbstractFeatureAccess().getClassifierAssignment_3();
+		return grammarAccess.getAbstractFeatureAccess().getFeatureClassifierAssignment_3();
 	}
 
     @Override
@@ -73238,13 +73238,13 @@ protected class AbstractFeature_ClassifierAssignment_3 extends AssignmentToken  
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("classifier",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("classifier");
+		if((value = eObjectConsumer.getConsumable("featureClassifier",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("featureClassifier");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getAbstractFeatureAccess().getClassifierComponentTypeCrossReference_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getAbstractFeatureAccess().getFeatureClassifierFeatureClassifierCrossReference_3_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getAbstractFeatureAccess().getClassifierComponentTypeCrossReference_3_0(); 
+				element = grammarAccess.getAbstractFeatureAccess().getFeatureClassifierFeatureClassifierCrossReference_3_0(); 
 				return obj;
 			}
 		}
@@ -73293,7 +73293,7 @@ protected class AbstractFeature_ArrayDimensionAssignment_4 extends AssignmentTok
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new AbstractFeature_ClassifierAssignment_3(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new AbstractFeature_FeatureClassifierAssignment_3(lastRuleCallOrigin, next, actIndex, consumed);
 			case 1: return new AbstractFeature_FeatureKeyword_2(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
@@ -73338,7 +73338,7 @@ protected class AbstractFeature_LeftCurlyBracketKeyword_5_0 extends KeywordToken
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new AbstractFeature_ArrayDimensionAssignment_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new AbstractFeature_ClassifierAssignment_3(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new AbstractFeature_FeatureClassifierAssignment_3(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new AbstractFeature_FeatureKeyword_2(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
 		}	
@@ -73433,7 +73433,7 @@ protected class AbstractFeature_SemicolonKeyword_6 extends KeywordToken  {
 		switch(index) {
 			case 0: return new AbstractFeature_Group_5(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new AbstractFeature_ArrayDimensionAssignment_4(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new AbstractFeature_ClassifierAssignment_3(lastRuleCallOrigin, this, 2, inst);
+			case 2: return new AbstractFeature_FeatureClassifierAssignment_3(lastRuleCallOrigin, this, 2, inst);
 			case 3: return new AbstractFeature_FeatureKeyword_2(lastRuleCallOrigin, this, 3, inst);
 			default: return null;
 		}	
