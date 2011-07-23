@@ -1252,7 +1252,7 @@ AbstractFeature returns aadl2::AbstractFeature:
 	// need to set inout if no direction
 	((name=ID ':' )|
 	(refined=[aadl2::AbstractFeature|REFINEDNAME] ':' 'refined' 'to'))
-	(direction=InOutDirection)? 'feature' (classifier=[aadl2::ComponentType|QCREF])? 
+	(direction=InOutDirection)? 'feature' (featureClassifier=[aadl2::FeatureClassifier|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 	;
@@ -1274,7 +1274,11 @@ FeatureGroupType returns aadl2::FeatureGroupType:
 	(=> 'prototypes' ((noPrototypes?='none' ';') |
 	(ownedPrototype+=Prototype)+))?
 	(=> 'features' (// no none for FGT (noFeatures?='none' ';') |
-	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+ ) )?
+	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
+	| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess
+	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
 	(=> 'inverse' 'of' inverse=[aadl2::FeatureGroupType|QCREF])?
 	(=> 'properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+

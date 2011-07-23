@@ -14858,9 +14858,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDirectionAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cDirectionInOutDirectionParserRuleCall_1_0 = (RuleCall)cDirectionAssignment_1.eContents().get(0);
 		private final Keyword cFeatureKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cClassifierComponentTypeCrossReference_3_0 = (CrossReference)cClassifierAssignment_3.eContents().get(0);
-		private final RuleCall cClassifierComponentTypeQCREFParserRuleCall_3_0_1 = (RuleCall)cClassifierComponentTypeCrossReference_3_0.eContents().get(1);
+		private final Assignment cFeatureClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cFeatureClassifierFeatureClassifierCrossReference_3_0 = (CrossReference)cFeatureClassifierAssignment_3.eContents().get(0);
+		private final RuleCall cFeatureClassifierFeatureClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cFeatureClassifierFeatureClassifierCrossReference_3_0.eContents().get(1);
 		private final Assignment cArrayDimensionAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_4_0 = (RuleCall)cArrayDimensionAssignment_4.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
@@ -14873,13 +14873,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature returns aadl2::AbstractFeature:
 		//	(name=ID ":" // need to set inout if no direction
 		//	| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature"
-		//	classifier=[aadl2::ComponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
+		//	featureClassifier=[aadl2::FeatureClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
 		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" // need to set inout if no direction
 		//| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature"
-		//classifier=[aadl2::ComponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
+		//featureClassifier=[aadl2::FeatureClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
@@ -14929,14 +14929,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"feature"
 		public Keyword getFeatureKeyword_2() { return cFeatureKeyword_2; }
 
-		//classifier=[aadl2::ComponentType|QCREF]?
-		public Assignment getClassifierAssignment_3() { return cClassifierAssignment_3; }
+		//featureClassifier=[aadl2::FeatureClassifier|QCREF]?
+		public Assignment getFeatureClassifierAssignment_3() { return cFeatureClassifierAssignment_3; }
 
-		//[aadl2::ComponentType|QCREF]
-		public CrossReference getClassifierComponentTypeCrossReference_3_0() { return cClassifierComponentTypeCrossReference_3_0; }
+		//[aadl2::FeatureClassifier|QCREF]
+		public CrossReference getFeatureClassifierFeatureClassifierCrossReference_3_0() { return cFeatureClassifierFeatureClassifierCrossReference_3_0; }
 
 		//QCREF
-		public RuleCall getClassifierComponentTypeQCREFParserRuleCall_3_0_1() { return cClassifierComponentTypeQCREFParserRuleCall_3_0_1; }
+		public RuleCall getFeatureClassifierFeatureClassifierQCREFParserRuleCall_3_0_1() { return cFeatureClassifierFeatureClassifierQCREFParserRuleCall_3_0_1; }
 
 		//arrayDimension+=ArrayDimension?
 		public Assignment getArrayDimensionAssignment_4() { return cArrayDimensionAssignment_4; }
@@ -23481,7 +23481,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//AbstractFeature returns aadl2::AbstractFeature:
 	//	(name=ID ":" // need to set inout if no direction
 	//	| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature"
-	//	classifier=[aadl2::ComponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
+	//	featureClassifier=[aadl2::FeatureClassifier|QCREF]? arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 	public AbstractFeatureElements getAbstractFeatureAccess() {
 		return (pAbstractFeature != null) ? pAbstractFeature : (pAbstractFeature = new AbstractFeatureElements());

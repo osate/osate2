@@ -5812,10 +5812,10 @@
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.100"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="feature"/>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="classifier" operator="=">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="featureClassifier" operator="=">
         <terminal xsi:type="xtext:CrossReference">
           <type metamodel="//@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ComponentType"/>
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//FeatureClassifier"/>
           </type>
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.237"/>
         </terminal>

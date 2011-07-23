@@ -10,6 +10,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.UnitLiteral;
@@ -41,6 +42,10 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 	}
 	
 	public QualifiedName qualifiedName(final PropertyType obj) {
+		return getConverter().toQualifiedName(getTheName(obj));
+	}
+	
+	public QualifiedName qualifiedName(final PropertyConstant obj) {
 		return getConverter().toQualifiedName(getTheName(obj));
 	}
 	

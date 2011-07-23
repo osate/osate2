@@ -70489,9 +70489,9 @@ rule__AbstractFeature__Group__3__Impl
     }
 :
 (
-{ before(grammarAccess.getAbstractFeatureAccess().getClassifierAssignment_3()); }
-(rule__AbstractFeature__ClassifierAssignment_3)?
-{ after(grammarAccess.getAbstractFeatureAccess().getClassifierAssignment_3()); }
+{ before(grammarAccess.getAbstractFeatureAccess().getFeatureClassifierAssignment_3()); }
+(rule__AbstractFeature__FeatureClassifierAssignment_3)?
+{ after(grammarAccess.getAbstractFeatureAccess().getFeatureClassifierAssignment_3()); }
 )
 
 ;
@@ -106850,18 +106850,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__AbstractFeature__ClassifierAssignment_3
+rule__AbstractFeature__FeatureClassifierAssignment_3
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getAbstractFeatureAccess().getClassifierComponentTypeCrossReference_3_0()); }
+{ before(grammarAccess.getAbstractFeatureAccess().getFeatureClassifierFeatureClassifierCrossReference_3_0()); }
 (
-{ before(grammarAccess.getAbstractFeatureAccess().getClassifierComponentTypeQCREFParserRuleCall_3_0_1()); }
-	ruleQCREF{ after(grammarAccess.getAbstractFeatureAccess().getClassifierComponentTypeQCREFParserRuleCall_3_0_1()); }
+{ before(grammarAccess.getAbstractFeatureAccess().getFeatureClassifierFeatureClassifierQCREFParserRuleCall_3_0_1()); }
+	ruleQCREF{ after(grammarAccess.getAbstractFeatureAccess().getFeatureClassifierFeatureClassifierQCREFParserRuleCall_3_0_1()); }
 )
-{ after(grammarAccess.getAbstractFeatureAccess().getClassifierComponentTypeCrossReference_3_0()); }
+{ after(grammarAccess.getAbstractFeatureAccess().getFeatureClassifierFeatureClassifierCrossReference_3_0()); }
 )
 
 ;
