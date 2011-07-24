@@ -73455,18 +73455,24 @@ protected class AbstractFeature_SemicolonKeyword_6 extends KeywordToken  {
  * 	"feature" "group" name=ID (ownedExtension=GroupExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
  * 	ownedPrototype+=Prototype+))? ("features" // no none for FGT (noFeatures?='none' ';') |
- * 	(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+)? ("inverse" "of"
- * 	inverse=[aadl2::FeatureGroupType|QCREF])? ("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ |
- * 	noProperties?="none" ";"))? ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
+ * 	(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+ * 	ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
+ * 	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+ * 	ownedAbstractFeature+=AbstractFeature)+)? ("inverse" "of" inverse=[aadl2::FeatureGroupType|QCREF])? ("properties"
+ * 	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+ * 	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
  *
  **/
 
 // "feature" "group" name=ID (ownedExtension=GroupExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
 // ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 // ownedPrototype+=Prototype+))? ("features" // no none for FGT (noFeatures?='none' ';') |
-// (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+)? ("inverse" "of"
-// inverse=[aadl2::FeatureGroupType|QCREF])? ("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ |
-// noProperties?="none" ";"))? ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
+// (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+// ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
+// ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+// ownedAbstractFeature+=AbstractFeature)+)? ("inverse" "of" inverse=[aadl2::FeatureGroupType|QCREF])? ("properties"
+// (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+// ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 protected class FeatureGroupType_Group extends GroupToken {
 	
 	public FeatureGroupType_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -74046,7 +74052,10 @@ protected class FeatureGroupType_OwnedPrototypeAssignment_4_1_1 extends Assignme
 
 
 // (=> "features" // no none for FGT (noFeatures?='none' ';') |
-// (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+)?
+// (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+// ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
+// ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+// ownedAbstractFeature+=AbstractFeature)+)?
 protected class FeatureGroupType_Group_5 extends GroupToken {
 	
 	public FeatureGroupType_Group_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -74092,7 +74101,10 @@ protected class FeatureGroupType_FeaturesKeyword_5_0 extends KeywordToken  {
 
 }
 
-// (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort)+
+// (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+// ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
+// ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+// ownedAbstractFeature+=AbstractFeature)+
 protected class FeatureGroupType_Alternatives_5_1 extends AlternativesToken {
 
 	public FeatureGroupType_Alternatives_5_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -74110,6 +74122,12 @@ protected class FeatureGroupType_Alternatives_5_1 extends AlternativesToken {
 			case 0: return new FeatureGroupType_OwnedDataPortAssignment_5_1_0(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new FeatureGroupType_OwnedEventPortAssignment_5_1_1(lastRuleCallOrigin, this, 1, inst);
 			case 2: return new FeatureGroupType_OwnedEventDataPortAssignment_5_1_2(lastRuleCallOrigin, this, 2, inst);
+			case 3: return new FeatureGroupType_OwnedFeatureGroupAssignment_5_1_3(lastRuleCallOrigin, this, 3, inst);
+			case 4: return new FeatureGroupType_OwnedDataAccessAssignment_5_1_4(lastRuleCallOrigin, this, 4, inst);
+			case 5: return new FeatureGroupType_OwnedBusAccessAssignment_5_1_5(lastRuleCallOrigin, this, 5, inst);
+			case 6: return new FeatureGroupType_OwnedSubprogramAccessAssignment_5_1_6(lastRuleCallOrigin, this, 6, inst);
+			case 7: return new FeatureGroupType_OwnedSubprogramGroupAccessAssignment_5_1_7(lastRuleCallOrigin, this, 7, inst);
+			case 8: return new FeatureGroupType_OwnedAbstractFeatureAssignment_5_1_8(lastRuleCallOrigin, this, 8, inst);
 			default: return null;
 		}	
 	}
@@ -74239,6 +74257,288 @@ protected class FeatureGroupType_OwnedEventDataPortAssignment_5_1_2 extends Assi
 			if(param.isInstanceOf(grammarAccess.getEventDataPortRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
 				element = grammarAccess.getFeatureGroupTypeAccess().getOwnedEventDataPortEventDataPortParserRuleCall_5_1_2_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FeatureGroupType_Alternatives_5_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new FeatureGroupType_FeaturesKeyword_5_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ownedFeatureGroup+=FeatureGroup
+protected class FeatureGroupType_OwnedFeatureGroupAssignment_5_1_3 extends AssignmentToken  {
+	
+	public FeatureGroupType_OwnedFeatureGroupAssignment_5_1_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFeatureGroupTypeAccess().getOwnedFeatureGroupAssignment_5_1_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FeatureGroup_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedFeatureGroup",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedFeatureGroup");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getFeatureGroupRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFeatureGroupTypeAccess().getOwnedFeatureGroupFeatureGroupParserRuleCall_5_1_3_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FeatureGroupType_Alternatives_5_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new FeatureGroupType_FeaturesKeyword_5_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ownedDataAccess+=DataAccess
+protected class FeatureGroupType_OwnedDataAccessAssignment_5_1_4 extends AssignmentToken  {
+	
+	public FeatureGroupType_OwnedDataAccessAssignment_5_1_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFeatureGroupTypeAccess().getOwnedDataAccessAssignment_5_1_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new DataAccess_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedDataAccess",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedDataAccess");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getDataAccessRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFeatureGroupTypeAccess().getOwnedDataAccessDataAccessParserRuleCall_5_1_4_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FeatureGroupType_Alternatives_5_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new FeatureGroupType_FeaturesKeyword_5_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ownedBusAccess+=BusAccess
+protected class FeatureGroupType_OwnedBusAccessAssignment_5_1_5 extends AssignmentToken  {
+	
+	public FeatureGroupType_OwnedBusAccessAssignment_5_1_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFeatureGroupTypeAccess().getOwnedBusAccessAssignment_5_1_5();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new BusAccess_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedBusAccess",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedBusAccess");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getBusAccessRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFeatureGroupTypeAccess().getOwnedBusAccessBusAccessParserRuleCall_5_1_5_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FeatureGroupType_Alternatives_5_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new FeatureGroupType_FeaturesKeyword_5_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ownedSubprogramAccess+=SubprogramAccess
+protected class FeatureGroupType_OwnedSubprogramAccessAssignment_5_1_6 extends AssignmentToken  {
+	
+	public FeatureGroupType_OwnedSubprogramAccessAssignment_5_1_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFeatureGroupTypeAccess().getOwnedSubprogramAccessAssignment_5_1_6();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SubprogramAccess_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedSubprogramAccess",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedSubprogramAccess");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getSubprogramAccessRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFeatureGroupTypeAccess().getOwnedSubprogramAccessSubprogramAccessParserRuleCall_5_1_6_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FeatureGroupType_Alternatives_5_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new FeatureGroupType_FeaturesKeyword_5_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ownedSubprogramGroupAccess+=SubprogramGroupAccess
+protected class FeatureGroupType_OwnedSubprogramGroupAccessAssignment_5_1_7 extends AssignmentToken  {
+	
+	public FeatureGroupType_OwnedSubprogramGroupAccessAssignment_5_1_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFeatureGroupTypeAccess().getOwnedSubprogramGroupAccessAssignment_5_1_7();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SubprogramGroupAccess_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedSubprogramGroupAccess",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedSubprogramGroupAccess");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getSubprogramGroupAccessRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFeatureGroupTypeAccess().getOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_5_1_7_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FeatureGroupType_Alternatives_5_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new FeatureGroupType_FeaturesKeyword_5_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ownedAbstractFeature+=AbstractFeature
+protected class FeatureGroupType_OwnedAbstractFeatureAssignment_5_1_8 extends AssignmentToken  {
+	
+	public FeatureGroupType_OwnedAbstractFeatureAssignment_5_1_8(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFeatureGroupTypeAccess().getOwnedAbstractFeatureAssignment_5_1_8();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new AbstractFeature_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedAbstractFeature",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedAbstractFeature");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getAbstractFeatureRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFeatureGroupTypeAccess().getOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_8_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -82684,7 +82984,7 @@ protected class FlowSinkImpl_OwnedFlowSegmentAssignment_6_3 extends AssignmentTo
  * 	[aadl2::FlowSpecification] ":" "flow" kind=FlowPath //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
  * 	(ID ".")? ID (("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* "->"
  * 	ownedFlowSegment+=ConnectionFlow)? //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
- * 	(ID ".")? ID;
+ * 	"->" (ID ".")? ID;
  *
  **/
 
@@ -82692,7 +82992,7 @@ protected class FlowSinkImpl_OwnedFlowSegmentAssignment_6_3 extends AssignmentTo
 // [aadl2::FlowSpecification] ":" "flow" kind=FlowPath //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
 // (ID ".")? ID (("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* "->"
 // ownedFlowSegment+=ConnectionFlow)? //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
-// (ID ".")? ID
+// "->" (ID ".")? ID
 protected class FlowPathImpl_Group extends GroupToken {
 	
 	public FlowPathImpl_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -82707,7 +83007,7 @@ protected class FlowPathImpl_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathImpl_IDTerminalRuleCall_8(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowPathImpl_IDTerminalRuleCall_9(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83111,16 +83411,17 @@ protected class FlowPathImpl_OwnedFlowSegmentAssignment_6_2 extends AssignmentTo
 }
 
 
-// ID
-protected class FlowPathImpl_IDTerminalRuleCall_8 extends UnassignedTextToken {
-
-	public FlowPathImpl_IDTerminalRuleCall_8(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+// //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
+// "->"
+protected class FlowPathImpl_HyphenMinusGreaterThanSignKeyword_7 extends KeywordToken  {
+	
+	public FlowPathImpl_HyphenMinusGreaterThanSignKeyword_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_8();
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_7();
 	}
 
     @Override
@@ -83128,6 +83429,28 @@ protected class FlowPathImpl_IDTerminalRuleCall_8 extends UnassignedTextToken {
 		switch(index) {
 			case 0: return new FlowPathImpl_Group_6(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new FlowPathImpl_IDTerminalRuleCall_5(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ID
+protected class FlowPathImpl_IDTerminalRuleCall_9 extends UnassignedTextToken {
+
+	public FlowPathImpl_IDTerminalRuleCall_9(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_9();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowPathImpl_HyphenMinusGreaterThanSignKeyword_7(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}

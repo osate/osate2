@@ -46,6 +46,8 @@ import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DataType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EndToEndFlowElement;
+import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.EventDataPort;
@@ -60,6 +62,7 @@ import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
@@ -158,7 +161,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				// the result satisfied the expected class
 				return Collections.singletonList((EObject) e);
 			}
-			if (sct.isSuperTypeOf(requiredType)){
+			if (Aadl2Package.eINSTANCE.getPrototype().isSuperTypeOf(requiredType)){
 				// need to resolve prototype
 				NamedElement searchResult = getContainingClassifier(context)
 						.findNamedElement(s);
@@ -285,7 +288,8 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 					return Collections.singletonList((EObject) searchResult);
 			} else if (context instanceof TriggerPort
 					|| context instanceof FlowSpecification
-					|| context instanceof FlowSegment) {
+					|| context instanceof FlowSegment
+					|| context instanceof EndToEndFlowSegment) {
 				if (searchResult instanceof Subcomponent)
 					return Collections.singletonList((EObject) searchResult);
 			}
@@ -348,6 +352,48 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			EObject searchResult = ns.findNamedElement(s);
 			if (searchResult instanceof Subcomponent) {
 				return Collections.singletonList((EObject) searchResult);
+			}
+			return Collections.<EObject> emptyList();
+
+		} else if (Aadl2Package.eINSTANCE.getFlowElement() == requiredType) {
+			// look for flow element in flow segment
+			FlowSegment fs = (FlowSegment) context;
+			Context flowContext = fs.getContext();
+			if (flowContext == null){
+				ComponentImplementation cc = fs.getContainingComponentImpl();
+				EObject searchResult = cc.findNamedElement(s);
+				if (searchResult instanceof FlowElement){
+					return Collections.singletonList((EObject) searchResult);
+				}
+			} else {
+				if (flowContext instanceof Subcomponent){
+					ComponentType cc = ((Subcomponent)flowContext).getComponentType();
+					EObject searchResult = cc.findNamedElement(s);
+					if (searchResult instanceof FlowSpecification){
+						return Collections.singletonList( searchResult);
+					}
+				}  
+			}
+			return Collections.<EObject> emptyList();
+
+		} else if (Aadl2Package.eINSTANCE.getEndToEndFlowElement() == requiredType) {
+			// look for flow element in flow segment
+			EndToEndFlowSegment fs = (EndToEndFlowSegment) context;
+			Context flowContext = fs.getContext();
+			if (flowContext == null){
+				ComponentImplementation cc = fs.getContainingComponentImpl();
+				EObject searchResult = cc.findNamedElement(s);
+				if (searchResult instanceof EndToEndFlowElement){
+					return Collections.singletonList((EObject) searchResult);
+				}
+			} else {
+				if (flowContext instanceof Subcomponent){
+					ComponentType cc = ((Subcomponent)flowContext).getComponentType();
+					EObject searchResult = cc.findNamedElement(s);
+					if (searchResult instanceof FlowSpecification){
+						return Collections.singletonList( searchResult);
+					}
+				}  
 			}
 			return Collections.<EObject> emptyList();
 
