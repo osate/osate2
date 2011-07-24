@@ -1452,7 +1452,7 @@ FlowPathImpl returns aadl2::FlowImplementation:
 	(  ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow   )*
 	    '->' ownedFlowSegment+=ConnectionFlow )?
 //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
-(ID '.')? ID
+ '->' (ID '.')? ID
 ;
 
 

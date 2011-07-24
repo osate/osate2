@@ -899,7 +899,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFlowPathImplAccess().getGroup_4(), "rule__FlowPathImpl__Group_4__0");
 					put(grammarAccess.getFlowPathImplAccess().getGroup_6(), "rule__FlowPathImpl__Group_6__0");
 					put(grammarAccess.getFlowPathImplAccess().getGroup_6_0(), "rule__FlowPathImpl__Group_6_0__0");
-					put(grammarAccess.getFlowPathImplAccess().getGroup_7(), "rule__FlowPathImpl__Group_7__0");
+					put(grammarAccess.getFlowPathImplAccess().getGroup_8(), "rule__FlowPathImpl__Group_8__0");
 					put(grammarAccess.getEndToEndFlowAccess().getGroup(), "rule__EndToEndFlow__Group__0");
 					put(grammarAccess.getEndToEndFlowAccess().getGroup_7(), "rule__EndToEndFlow__Group_7__0");
 					put(grammarAccess.getEndToEndFlowAccess().getGroup_8(), "rule__EndToEndFlow__Group_8__0");
@@ -1809,6 +1809,12 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedDataPortAssignment_5_1_0(), "rule__FeatureGroupType__OwnedDataPortAssignment_5_1_0");
 					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedEventPortAssignment_5_1_1(), "rule__FeatureGroupType__OwnedEventPortAssignment_5_1_1");
 					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedEventDataPortAssignment_5_1_2(), "rule__FeatureGroupType__OwnedEventDataPortAssignment_5_1_2");
+					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedFeatureGroupAssignment_5_1_3(), "rule__FeatureGroupType__OwnedFeatureGroupAssignment_5_1_3");
+					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedDataAccessAssignment_5_1_4(), "rule__FeatureGroupType__OwnedDataAccessAssignment_5_1_4");
+					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedBusAccessAssignment_5_1_5(), "rule__FeatureGroupType__OwnedBusAccessAssignment_5_1_5");
+					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedSubprogramAccessAssignment_5_1_6(), "rule__FeatureGroupType__OwnedSubprogramAccessAssignment_5_1_6");
+					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedSubprogramGroupAccessAssignment_5_1_7(), "rule__FeatureGroupType__OwnedSubprogramGroupAccessAssignment_5_1_7");
+					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedAbstractFeatureAssignment_5_1_8(), "rule__FeatureGroupType__OwnedAbstractFeatureAssignment_5_1_8");
 					put(grammarAccess.getFeatureGroupTypeAccess().getInverseAssignment_6_2(), "rule__FeatureGroupType__InverseAssignment_6_2");
 					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedPropertyAssociationAssignment_7_1_0(), "rule__FeatureGroupType__OwnedPropertyAssociationAssignment_7_1_0");
 					put(grammarAccess.getFeatureGroupTypeAccess().getNoPropertiesAssignment_7_1_1_0(), "rule__FeatureGroupType__NoPropertiesAssignment_7_1_1_0");

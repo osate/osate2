@@ -5931,6 +5931,24 @@
           <elements xsi:type="xtext:Assignment" feature="ownedEventDataPort" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.90"/>
           </elements>
+          <elements xsi:type="xtext:Assignment" feature="ownedFeatureGroup" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.92"/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="ownedDataAccess" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.97"/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="ownedBusAccess" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.96"/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="ownedSubprogramAccess" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.94"/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="ownedSubprogramGroupAccess" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.95"/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="ownedAbstractFeature" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.98"/>
+          </elements>
         </elements>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="?">
@@ -6761,6 +6779,7 @@
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.135"/>
         </elements>
       </elements>
+      <elements xsi:type="xtext:Keyword" value="->"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:RuleCall" rule="//@rules.244"/>
         <elements xsi:type="xtext:Keyword" value="."/>
