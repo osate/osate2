@@ -535,7 +535,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public ComponentImplementation basicGetExtended() {
 		// DONE: implement this method to return the 'Extended' reference
 		ImplementationExtension extension = getOwnedExtension();
-		return extension == null ? null : ((ImplementationExtensionImpl) extension).getExtended();
+		 if (extension == null) return null;
+		ComponentImplementation ct = ((ImplementationExtensionImpl) extension).getExtended();
+		return ct.eIsProxy()? null:ct;
 		// phf: replaced to resolve proxy basicGetExtended();
 	}
 
@@ -632,8 +634,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'ComponentType' reference
 		Realization realization = getOwnedRealization();
-		return realization == null ? null : ((RealizationImpl) realization).getImplemented();
-		// phf: replaced to resolve proxy which is of type abtracttype	.basicGetImplemented();
+		 if (realization == null) return null;
+		ComponentType ct = ((RealizationImpl) realization).getImplemented();
+		return ct.eIsProxy()? null:ct;
+		// DONE: phf: replaced to resolve proxy which is of type abtracttype	.basicGetImplemented();
 	}
 
 	/**

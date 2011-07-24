@@ -56,11 +56,13 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
+import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.TypeExtension;
@@ -398,10 +400,10 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	public ComponentType basicGetExtended() {
 		// DONE: implement this method to return the 'Extended' reference
-		if (getOwnedExtension() == null) {
-			return null;
-		}
-		return ((TypeExtensionImpl) getOwnedExtension()).getExtended();
+		TypeExtension extension = getOwnedExtension();
+		 if (extension == null) return null;
+		ComponentType ct = ((TypeExtensionImpl) extension).getExtended();
+		return ct.eIsProxy()? null:ct;
 		// phf: replaced to resolve proxy basicGetExtended();
 	}
 
