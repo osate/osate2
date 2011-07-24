@@ -38,9 +38,12 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.DelegatingEList.UnmodifiableEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ModalPath;
@@ -167,18 +170,22 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 * @see org.osate.aadl2.impl.ModalElementImpl#getInModes()
 	 */
 	@Override
-	public UnmodifiableEList<Mode> getInModes() {
+	public EList<Mode> getInModes() {
 		if (inModes == null) {
 			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.MODAL_ELEMENT__IN_MODE);
 		} else {
 			inModes.clear();
+		}
+		// TODO-phf: added check for null. also had to change unmodifiableEList to BasicEList
+		if (inModeOrTransitions == null){
+			return inModes;
 		}
 		for (ModeFeature mf : inModeOrTransitions) {
 			if (mf instanceof Mode) {
 				inModes.add((Mode) mf);
 			}
 		}
-		return new UnmodifiableEList<Mode>(inModes);
+		return inModes;
 	}
 
 } //ModalPathImpl
