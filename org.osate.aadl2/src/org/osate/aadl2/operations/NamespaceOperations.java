@@ -54,7 +54,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.util.Aadl2Validator;
 
-
 /**
  * <!-- begin-user-doc -->
  * A static utility class that provides operations related to '<em><b>Namespace</b></em>' model objects.
@@ -113,8 +112,8 @@ public class NamespaceOperations extends NamedElementOperations {
 	 * <!-- end-model-doc -->
 	 * @generated
 	 */
-	public static boolean members_distinguishable(Namespace namespace, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
+	public static boolean members_distinguishable(Namespace namespace,
+			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (MEMBERS_DISTINGUISHABLE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setContext(Aadl2Package.eINSTANCE.getNamespace());
@@ -122,19 +121,29 @@ public class NamespaceOperations extends NamedElementOperations {
 				MEMBERS_DISTINGUISHABLE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
 						.createInvariant(MEMBERS_DISTINGUISHABLE__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
-		if (!EOCL_ENV.createQuery(MEMBERS_DISTINGUISHABLE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(namespace)) {
+		if (!EOCL_ENV.createQuery(
+				MEMBERS_DISTINGUISHABLE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(
+				namespace)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.NAMESPACE__MEMBERS_DISTINGUISHABLE,
-						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-								.getString("_UI_GenericInvariant_diagnostic",
-										new Object[] {
-												"members_distinguishable",
-												org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(namespace,
-														context) }), new Object[] { namespace }));
+				diagnostics
+						.add(new BasicDiagnostic(
+								Diagnostic.ERROR,
+								Aadl2Validator.DIAGNOSTIC_SOURCE,
+								Aadl2Validator.NAMESPACE__MEMBERS_DISTINGUISHABLE,
+								org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
+										.getString(
+												"_UI_GenericInvariant_diagnostic",
+												new Object[] {
+														"members_distinguishable",
+														org.eclipse.emf.ecore.util.EObjectValidator
+																.getObjectLabel(
+																		namespace,
+																		context) }),
+								new Object[] { namespace }));
 			}
 			return false;
 		}
@@ -176,24 +185,31 @@ public class NamespaceOperations extends NamedElementOperations {
 	 * <!-- end-model-doc -->
 	 * @generated
 	 */
-	public static EList<String> getNamesOfMember(Namespace namespace, NamedElement element) {
+	public static EList<String> getNamesOfMember(Namespace namespace,
+			NamedElement element) {
 		if (GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(), Aadl2Package.eINSTANCE.getNamespace()
-					.getEAllOperations().get(13));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(),
+					Aadl2Package.eINSTANCE.getNamespace().getEAllOperations()
+							.get(13));
 			try {
 				GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY = helper
 						.createQuery(GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
-		OCL.Query query = EOCL_ENV.createQuery(GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
+		OCL.Query query = EOCL_ENV
+				.createQuery(GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY);
+		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query
+				.getEvaluationEnvironment();
 		environment.add("element", element);
 		@SuppressWarnings("unchecked")
-		Collection<String> result = (Collection<String>) query.evaluate(namespace);
-		return new BasicEList.UnmodifiableEList<String>(result.size(), result.toArray());
+		Collection<String> result = (Collection<String>) query
+				.evaluate(namespace);
+		return new BasicEList.UnmodifiableEList<String>(result.size(),
+				result.toArray());
 	}
 
 	/**
@@ -229,15 +245,19 @@ public class NamespaceOperations extends NamedElementOperations {
 	public static boolean membersAreDistinguishable(Namespace namespace) {
 		if (MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(), Aadl2Package.eINSTANCE.getNamespace()
-					.getEAllOperations().get(14));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(),
+					Aadl2Package.eINSTANCE.getNamespace().getEAllOperations()
+							.get(14));
 			try {
-				MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY = helper.createQuery(MEMBERS_ARE_DISTINGUISHABLE__EOCL_EXP);
+				MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY = helper
+						.createQuery(MEMBERS_ARE_DISTINGUISHABLE__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
-		OCL.Query query = EOCL_ENV.createQuery(MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY);
+		OCL.Query query = EOCL_ENV
+				.createQuery(MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY);
 		return ((Boolean) query.evaluate(namespace)).booleanValue();
 	}
 

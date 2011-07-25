@@ -58,7 +58,8 @@ import org.osate.aadl2.RefinableElement;
  *
  * @generated
  */
-public abstract class RefinableElementImpl extends NamedElementImpl implements RefinableElement {
+public abstract class RefinableElementImpl extends NamedElementImpl implements
+		RefinableElement {
 	/**
 	 * The cached value of the '{@link #getRefinementContext() <em>Refinement Context</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -103,13 +104,15 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * @generated
 	 */
 	public Classifier getRefinementContext() {
-		if (refinementContext != null && ((EObject) refinementContext).eIsProxy()) {
+		if (refinementContext != null
+				&& ((EObject) refinementContext).eIsProxy()) {
 			InternalEObject oldRefinementContext = (InternalEObject) refinementContext;
 			refinementContext = (Classifier) eResolveProxy(oldRefinementContext);
 			if (refinementContext != oldRefinementContext) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.REFINABLE_ELEMENT__REFINEMENT_CONTEXT, oldRefinementContext, refinementContext));
+							Aadl2Package.REFINABLE_ELEMENT__REFINEMENT_CONTEXT,
+							oldRefinementContext, refinementContext));
 			}
 		}
 		return refinementContext;
@@ -136,7 +139,8 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 			if (refinedElement != oldRefinedElement) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT, oldRefinedElement, refinedElement));
+							Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT,
+							oldRefinedElement, refinedElement));
 			}
 		}
 		return refinedElement;

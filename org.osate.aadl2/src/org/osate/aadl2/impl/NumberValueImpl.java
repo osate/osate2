@@ -57,7 +57,8 @@ import org.osate.aadl2.UnitLiteral;
  *
  * @generated
  */
-public abstract class NumberValueImpl extends PropertyValueImpl implements NumberValue {
+public abstract class NumberValueImpl extends PropertyValueImpl implements
+		NumberValue {
 	/**
 	 * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -98,8 +99,8 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 			unit = (UnitLiteral) eResolveProxy(oldUnit);
 			if (unit != oldUnit) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.NUMBER_VALUE__UNIT, oldUnit,
-							unit));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
 			}
 		}
 		return unit;
@@ -123,7 +124,8 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 		UnitLiteral oldUnit = unit;
 		unit = newUnit;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
 	}
 
 	/**
@@ -185,6 +187,5 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 		}
 		return super.eIsSet(featureID);
 	}
-
 
 } //NumberValueImpl

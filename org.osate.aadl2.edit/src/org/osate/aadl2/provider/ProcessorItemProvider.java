@@ -54,8 +54,9 @@ import org.osate.aadl2.Processor;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProcessorItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ProcessorItemProvider extends NamedElementItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -90,8 +91,8 @@ public class ProcessorItemProvider extends NamedElementItemProvider implements I
 	@Override
 	public String getText(Object object) {
 		String label = ((Processor) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Processor_type") : getString("_UI_Processor_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Processor_type")
+				: getString("_UI_Processor_type") + " " + label;
 	}
 
 	/**
@@ -115,7 +116,8 @@ public class ProcessorItemProvider extends NamedElementItemProvider implements I
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

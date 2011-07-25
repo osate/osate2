@@ -538,13 +538,13 @@ public interface Aadl2Package extends EPackage {
 	int BASIC_PROPERTY__PROPERTY_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Type</b></em>' containment reference.
+	 * The feature id for the '<em><b>Owned Property Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BASIC_PROPERTY__OWNED_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 1;
+	int BASIC_PROPERTY__OWNED_PROPERTY_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Basic Property</em>' class.
@@ -629,13 +629,13 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY__PROPERTY_TYPE = BASIC_PROPERTY__PROPERTY_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Type</b></em>' containment reference.
+	 * The feature id for the '<em><b>Owned Property Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__OWNED_TYPE = BASIC_PROPERTY__OWNED_TYPE;
+	int PROPERTY__OWNED_PROPERTY_TYPE = BASIC_PROPERTY__OWNED_PROPERTY_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Inherit</b></em>' attribute.
@@ -30961,13 +30961,13 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_CONSTANT__PROPERTY_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Type</b></em>' containment reference.
+	 * The feature id for the '<em><b>Owned Property Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_CONSTANT__OWNED_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 1;
+	int PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Constant Value</b></em>' containment reference.
@@ -33062,13 +33062,13 @@ public interface Aadl2Package extends EPackage {
 	int RECORD_FIELD__PROPERTY_TYPE = BASIC_PROPERTY__PROPERTY_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Type</b></em>' containment reference.
+	 * The feature id for the '<em><b>Owned Property Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECORD_FIELD__OWNED_TYPE = BASIC_PROPERTY__OWNED_TYPE;
+	int RECORD_FIELD__OWNED_PROPERTY_TYPE = BASIC_PROPERTY__OWNED_PROPERTY_TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Record Field</em>' class.
@@ -33803,15 +33803,15 @@ public interface Aadl2Package extends EPackage {
 	EReference getBasicProperty_PropertyType();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.BasicProperty#getOwnedType <em>Owned Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.BasicProperty#getOwnedPropertyType <em>Owned Property Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Owned Type</em>'.
-	 * @see org.osate.aadl2.BasicProperty#getOwnedType()
+	 * @return the meta object for the containment reference '<em>Owned Property Type</em>'.
+	 * @see org.osate.aadl2.BasicProperty#getOwnedPropertyType()
 	 * @see #getBasicProperty()
 	 * @generated
 	 */
-	EReference getBasicProperty_OwnedType();
+	EReference getBasicProperty_OwnedPropertyType();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.TypedElement <em>Typed Element</em>}'.
@@ -39570,15 +39570,15 @@ public interface Aadl2Package extends EPackage {
 	EReference getPropertyConstant_PropertyType();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.PropertyConstant#getOwnedType <em>Owned Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.PropertyConstant#getOwnedPropertyType <em>Owned Property Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Owned Type</em>'.
-	 * @see org.osate.aadl2.PropertyConstant#getOwnedType()
+	 * @return the meta object for the containment reference '<em>Owned Property Type</em>'.
+	 * @see org.osate.aadl2.PropertyConstant#getOwnedPropertyType()
 	 * @see #getPropertyConstant()
 	 * @generated
 	 */
-	EReference getPropertyConstant_OwnedType();
+	EReference getPropertyConstant_OwnedPropertyType();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.PropertyConstant#getConstantValue <em>Constant Value</em>}'.

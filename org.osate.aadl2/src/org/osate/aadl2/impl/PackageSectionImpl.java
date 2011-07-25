@@ -81,7 +81,8 @@ import org.osate.aadl2.PackageSection;
  *
  * @generated
  */
-public abstract class PackageSectionImpl extends NamespaceImpl implements PackageSection {
+public abstract class PackageSectionImpl extends NamespaceImpl implements
+		PackageSection {
 	/**
 	 * The cached value of the '{@link #getOwnedPackageRenames() <em>Owned Package Rename</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -192,17 +193,24 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
+			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-								Aadl2Package.PACKAGE_SECTION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
+						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(
+								NamedElement.class, this,
+								Aadl2Package.PACKAGE_SECTION__OWNED_MEMBER,
+								OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-				Aadl2Package.PACKAGE_SECTION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
+				this, Aadl2Package.PACKAGE_SECTION__OWNED_MEMBER,
+				OWNED_MEMBER_ESUBSETS);
 	}
 
 	/**
@@ -215,7 +223,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 */
 	protected static final int[] OWNED_MEMBER_ESUBSETS = new int[] {
 			Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME,
-			Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME, Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER,
+			Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME,
+			Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER,
 			Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME,
 			Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY };
 
@@ -226,7 +235,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 */
 	public EList<Classifier> getOwnedClassifiers() {
 		if (ownedClassifiers == null) {
-			ownedClassifiers = new EObjectContainmentEList<Classifier>(Classifier.class, this,
+			ownedClassifiers = new EObjectContainmentEList<Classifier>(
+					Classifier.class, this,
 					Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER);
 		}
 		return ownedClassifiers;
@@ -250,7 +260,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 */
 	public EList<PackageRename> getOwnedPackageRenames() {
 		if (ownedPackageRenames == null) {
-			ownedPackageRenames = new EObjectContainmentEList<PackageRename>(PackageRename.class, this,
+			ownedPackageRenames = new EObjectContainmentEList<PackageRename>(
+					PackageRename.class, this,
 					Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME);
 		}
 		return ownedPackageRenames;
@@ -262,7 +273,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	public PackageRename createOwnedPackageRename() {
-		PackageRename newOwnedPackageRename = (PackageRename) create(Aadl2Package.eINSTANCE.getPackageRename());
+		PackageRename newOwnedPackageRename = (PackageRename) create(Aadl2Package.eINSTANCE
+				.getPackageRename());
 		getOwnedPackageRenames().add(newOwnedPackageRename);
 		return newOwnedPackageRename;
 	}
@@ -274,8 +286,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 */
 	public EList<ComponentTypeRename> getOwnedComponentTypeRenames() {
 		if (ownedComponentTypeRenames == null) {
-			ownedComponentTypeRenames = new EObjectContainmentEList<ComponentTypeRename>(ComponentTypeRename.class,
-					this, Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME);
+			ownedComponentTypeRenames = new EObjectContainmentEList<ComponentTypeRename>(
+					ComponentTypeRename.class, this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME);
 		}
 		return ownedComponentTypeRenames;
 	}
@@ -310,8 +323,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		boolean oldNoAnnexes = noAnnexes;
 		noAnnexes = newNoAnnexes;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_SECTION__NO_ANNEXES,
-					oldNoAnnexes, noAnnexes));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PACKAGE_SECTION__NO_ANNEXES, oldNoAnnexes,
+					noAnnexes));
 	}
 
 	/**
@@ -322,7 +336,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	public EList<FeatureGroupTypeRename> getOwnedFeatureGroupTypeRenames() {
 		if (ownedFeatureGroupTypeRenames == null) {
 			ownedFeatureGroupTypeRenames = new EObjectContainmentEList<FeatureGroupTypeRename>(
-					FeatureGroupTypeRename.class, this, Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME);
+					FeatureGroupTypeRename.class,
+					this,
+					Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME);
 		}
 		return ownedFeatureGroupTypeRenames;
 	}
@@ -346,7 +362,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 */
 	public EList<AnnexLibrary> getOwnedAnnexLibraries() {
 		if (ownedAnnexLibraries == null) {
-			ownedAnnexLibraries = new EObjectContainmentEList<AnnexLibrary>(AnnexLibrary.class, this,
+			ownedAnnexLibraries = new EObjectContainmentEList<AnnexLibrary>(
+					AnnexLibrary.class, this,
 					Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY);
 		}
 		return ownedAnnexLibraries;
@@ -379,7 +396,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 */
 	public EList<ModelUnit> getImportedUnits() {
 		if (importedUnits == null) {
-			importedUnits = new EObjectResolvingEList<ModelUnit>(ModelUnit.class, this,
+			importedUnits = new EObjectResolvingEList<ModelUnit>(
+					ModelUnit.class, this,
 					Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT);
 		}
 		return importedUnits;
@@ -391,18 +409,24 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
-			return ((InternalEList<?>) getOwnedPackageRenames()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedPackageRenames()).basicRemove(
+					otherEnd, msgs);
 		case Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME:
-			return ((InternalEList<?>) getOwnedComponentTypeRenames()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedComponentTypeRenames())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER:
-			return ((InternalEList<?>) getOwnedClassifiers()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedClassifiers()).basicRemove(
+					otherEnd, msgs);
 		case Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME:
-			return ((InternalEList<?>) getOwnedFeatureGroupTypeRenames()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedFeatureGroupTypeRenames())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY:
-			return ((InternalEList<?>) getOwnedAnnexLibraries()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedAnnexLibraries()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -444,27 +468,33 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
 			getOwnedPackageRenames().clear();
-			getOwnedPackageRenames().addAll((Collection<? extends PackageRename>) newValue);
+			getOwnedPackageRenames().addAll(
+					(Collection<? extends PackageRename>) newValue);
 			return;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME:
 			getOwnedComponentTypeRenames().clear();
-			getOwnedComponentTypeRenames().addAll((Collection<? extends ComponentTypeRename>) newValue);
+			getOwnedComponentTypeRenames().addAll(
+					(Collection<? extends ComponentTypeRename>) newValue);
 			return;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER:
 			getOwnedClassifiers().clear();
-			getOwnedClassifiers().addAll((Collection<? extends Classifier>) newValue);
+			getOwnedClassifiers().addAll(
+					(Collection<? extends Classifier>) newValue);
 			return;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME:
 			getOwnedFeatureGroupTypeRenames().clear();
-			getOwnedFeatureGroupTypeRenames().addAll((Collection<? extends FeatureGroupTypeRename>) newValue);
+			getOwnedFeatureGroupTypeRenames().addAll(
+					(Collection<? extends FeatureGroupTypeRename>) newValue);
 			return;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY:
 			getOwnedAnnexLibraries().clear();
-			getOwnedAnnexLibraries().addAll((Collection<? extends AnnexLibrary>) newValue);
+			getOwnedAnnexLibraries().addAll(
+					(Collection<? extends AnnexLibrary>) newValue);
 			return;
 		case Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT:
 			getImportedUnits().clear();
-			getImportedUnits().addAll((Collection<? extends ModelUnit>) newValue);
+			getImportedUnits().addAll(
+					(Collection<? extends ModelUnit>) newValue);
 			return;
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
 			setNoAnnexes((Boolean) newValue);
@@ -515,15 +545,19 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
-			return ownedPackageRenames != null && !ownedPackageRenames.isEmpty();
+			return ownedPackageRenames != null
+					&& !ownedPackageRenames.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME:
-			return ownedComponentTypeRenames != null && !ownedComponentTypeRenames.isEmpty();
+			return ownedComponentTypeRenames != null
+					&& !ownedComponentTypeRenames.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER:
 			return ownedClassifiers != null && !ownedClassifiers.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME:
-			return ownedFeatureGroupTypeRenames != null && !ownedFeatureGroupTypeRenames.isEmpty();
+			return ownedFeatureGroupTypeRenames != null
+					&& !ownedFeatureGroupTypeRenames.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY:
-			return ownedAnnexLibraries != null && !ownedAnnexLibraries.isEmpty();
+			return ownedAnnexLibraries != null
+					&& !ownedAnnexLibraries.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT:
 			return importedUnits != null && !importedUnits.isEmpty();
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
@@ -556,7 +590,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 */
 	@Override
 	public boolean isSetOwnedMembers() {
-		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME)
+		return super.isSetOwnedMembers()
+				|| eIsSet(Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME)
 				|| eIsSet(Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME)
 				|| eIsSet(Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER)
 				|| eIsSet(Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME)
@@ -578,7 +613,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 */
 	@Override
 	public void setName(String newName) {
-		throw new UnsupportedOperationException("Cannot set name of package secton.");
+		throw new UnsupportedOperationException(
+				"Cannot set name of package secton.");
 	}
 
 	/**
@@ -603,16 +639,19 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		if (result instanceof ComponentTypeRename)
 			return ((ComponentTypeRename) result).getRenamedComponentType();
 		else if (result instanceof FeatureGroupTypeRename)
-			return ((FeatureGroupTypeRename) result).getRenamedFeatureGroupType();
+			return ((FeatureGroupTypeRename) result)
+					.getRenamedFeatureGroupType();
 		else if (result != null) {
 			// If result is a PackageRename, the PackageRename is returned and not the renamed AadlPackage.
 			return result;
 		} else {
 			for (PackageRename packageRename : getOwnedPackageRenames()) {
 				//packageRename.getRenamedPackage() might be null if this method is called before name resolution.
-				if (packageRename.isRenameAll() && packageRename.getRenamedPackage() != null
+				if (packageRename.isRenameAll()
+						&& packageRename.getRenamedPackage() != null
 						&& packageRename.getRenamedPackage().getPublicSection() != null) {
-					result = packageRename.getRenamedPackage().getPublicSection().findNamedElement(name, true);
+					result = packageRename.getRenamedPackage()
+							.getPublicSection().findNamedElement(name, true);
 					if (result != null)
 						return result;
 				}

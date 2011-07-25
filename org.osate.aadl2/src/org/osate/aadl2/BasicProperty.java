@@ -46,7 +46,7 @@ import org.eclipse.emf.ecore.EClass;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.BasicProperty#getPropertyType <em>Property Type</em>}</li>
- *   <li>{@link org.osate.aadl2.BasicProperty#getOwnedType <em>Owned Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.BasicProperty#getOwnedPropertyType <em>Owned Property Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -88,7 +88,7 @@ public interface BasicProperty extends TypedElement {
 	void setPropertyType(PropertyType value);
 
 	/**
-	 * Returns the value of the '<em><b>Owned Type</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Owned Property Type</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -97,38 +97,38 @@ public interface BasicProperty extends TypedElement {
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Owned Type</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Owned Property Type</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Type</em>' containment reference.
-	 * @see #setOwnedType(PropertyType)
-	 * @see org.osate.aadl2.Aadl2Package#getBasicProperty_OwnedType()
+	 * @return the value of the '<em>Owned Property Type</em>' containment reference.
+	 * @see #setOwnedPropertyType(PropertyType)
+	 * @see org.osate.aadl2.Aadl2Package#getBasicProperty_OwnedPropertyType()
 	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
-	PropertyType getOwnedType();
+	PropertyType getOwnedPropertyType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.BasicProperty#getOwnedType <em>Owned Type</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.BasicProperty#getOwnedPropertyType <em>Owned Property Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Owned Type</em>' containment reference.
-	 * @see #getOwnedType()
+	 * @param value the new value of the '<em>Owned Property Type</em>' containment reference.
+	 * @see #getOwnedPropertyType()
 	 * @generated
 	 */
-	void setOwnedType(PropertyType value);
+	void setOwnedPropertyType(PropertyType value);
 
 	/**
-	 * Creates a new {@link org.osate.aadl2.PropertyType} and sets the '<em><b>Owned Type</b></em>' containment reference.
+	 * Creates a new {@link org.osate.aadl2.PropertyType} and sets the '<em><b>Owned Property Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param eClass The Ecore class of the {@link org.osate.aadl2.PropertyType} to create.
 	 * @return The new {@link org.osate.aadl2.PropertyType}.
-	 * @see #getOwnedType()
+	 * @see #getOwnedPropertyType()
 	 * @generated
 	 */
-	PropertyType createOwnedType(EClass eClass);
+	PropertyType createOwnedPropertyType(EClass eClass);
 
 	/**
 	 * Check if this property is a list.

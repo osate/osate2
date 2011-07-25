@@ -67,7 +67,8 @@ import org.osate.aadl2.properties.PropertyAcc;
  *
  * @generated
  */
-public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGroup {
+public class FeatureGroupImpl extends DirectedFeatureImpl implements
+		FeatureGroup {
 	/**
 	 * The cached value of the '{@link #getFeatureType() <em>Feature Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -133,8 +134,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 		boolean oldInverse = inverse;
 		inverse = newInverse;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP__INVERSE, oldInverse,
-					inverse));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FEATURE_GROUP__INVERSE, oldInverse, inverse));
 	}
 
 	/**
@@ -144,7 +145,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 */
 	public FeatureGroupType getFeatureGroupType() {
 		FeatureGroupType featureGroupType = basicGetFeatureGroupType();
-		return featureGroupType != null && ((EObject) featureGroupType).eIsProxy() ? (FeatureGroupType) eResolveProxy((InternalEObject) featureGroupType)
+		return featureGroupType != null
+				&& ((EObject) featureGroupType).eIsProxy() ? (FeatureGroupType) eResolveProxy((InternalEObject) featureGroupType)
 				: featureGroupType;
 	}
 
@@ -154,7 +156,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * @generated NOT
 	 */
 	public FeatureGroupType basicGetFeatureGroupType() {
-		return (basicGetFeatureType() instanceof FeatureGroupType) ? (FeatureGroupType) basicGetFeatureType() : null;
+		return (basicGetFeatureType() instanceof FeatureGroupType) ? (FeatureGroupType) basicGetFeatureType()
+				: null;
 	}
 
 	/**
@@ -164,7 +167,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 */
 	public FeatureGroupPrototype getFeatureGroupPrototype() {
 		FeatureGroupPrototype featureGroupPrototype = basicGetFeatureGroupPrototype();
-		return featureGroupPrototype != null && ((EObject) featureGroupPrototype).eIsProxy() ? (FeatureGroupPrototype) eResolveProxy((InternalEObject) featureGroupPrototype)
+		return featureGroupPrototype != null
+				&& ((EObject) featureGroupPrototype).eIsProxy() ? (FeatureGroupPrototype) eResolveProxy((InternalEObject) featureGroupPrototype)
 				: featureGroupPrototype;
 	}
 
@@ -189,7 +193,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 			featureType = (FeatureType) eResolveProxy(oldFeatureType);
 			if (featureType != oldFeatureType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FEATURE_GROUP__FEATURE_TYPE,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.FEATURE_GROUP__FEATURE_TYPE,
 							oldFeatureType, featureType));
 			}
 		}
@@ -214,8 +219,9 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 		FeatureType oldFeatureType = featureType;
 		featureType = newFeatureType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP__FEATURE_TYPE,
-					oldFeatureType, featureType));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FEATURE_GROUP__FEATURE_TYPE, oldFeatureType,
+					featureType));
 	}
 
 	/**
@@ -339,8 +345,9 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	}
 
 	@Override
-	public void getPropertyValueInternalHelper(final Property prop, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+	public void getPropertyValueInternalHelper(final Property prop,
+			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
 		// values from feature group type
 		FeatureGroupType fgt = getFeatureGroupType();
 		// TODO: Check if the property applies to the feature group type? (-> property.checkAppliesTo(NamedElement)?)
@@ -349,7 +356,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 		}
 	}
 
-	public void getPropertyValueTestHelper(Property prop, PropertyAcc pas, Classifier cl) {
+	public void getPropertyValueTestHelper(Property prop, PropertyAcc pas,
+			Classifier cl) {
 		// values from feature group type
 		FeatureGroupType fgt = getFeatureGroupType();
 		// TODO: Check if the property applies to the feature group type? (-> property.checkAppliesTo(NamedElement)?)

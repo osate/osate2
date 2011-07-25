@@ -46,5 +46,6 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface ProcessorSubprogram extends NamedElement, AbstractConnectionEnd {
+public interface ProcessorSubprogram extends NamedElement,
+		AbstractConnectionEnd {
 } // ProcessorSubprogram

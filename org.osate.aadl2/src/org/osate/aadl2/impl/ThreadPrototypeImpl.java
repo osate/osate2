@@ -48,7 +48,8 @@ import org.osate.aadl2.ThreadPrototype;
  *
  * @generated
  */
-public class ThreadPrototypeImpl extends ComponentPrototypeImpl implements ThreadPrototype {
+public class ThreadPrototypeImpl extends ComponentPrototypeImpl implements
+		ThreadPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,8 +69,7 @@ public class ThreadPrototypeImpl extends ComponentPrototypeImpl implements Threa
 		return Aadl2Package.eINSTANCE.getThreadPrototype();
 	}
 
-	
-	public ComponentCategory getCategory(){
+	public ComponentCategory getCategory() {
 		return ComponentCategory.THREAD;
 	}
 

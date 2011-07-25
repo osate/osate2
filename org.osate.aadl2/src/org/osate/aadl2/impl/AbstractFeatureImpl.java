@@ -60,7 +60,8 @@ import org.osate.aadl2.FeatureClassifier;
  *
  * @generated
  */
-public class AbstractFeatureImpl extends DirectedFeatureImpl implements AbstractFeature {
+public class AbstractFeatureImpl extends DirectedFeatureImpl implements
+		AbstractFeature {
 	/**
 	 * The cached value of the '{@link #getComponentClassifier() <em>Component Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -98,7 +99,8 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+		return featureClassifier != null
+				&& ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
 				: featureClassifier;
 	}
 
@@ -121,14 +123,17 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * @generated
 	 */
 	public ComponentClassifier getComponentClassifier() {
-		if (componentClassifier != null && ((EObject) componentClassifier).eIsProxy()) {
+		if (componentClassifier != null
+				&& ((EObject) componentClassifier).eIsProxy()) {
 			InternalEObject oldComponentClassifier = (InternalEObject) componentClassifier;
 			componentClassifier = (ComponentClassifier) eResolveProxy(oldComponentClassifier);
 			if (componentClassifier != oldComponentClassifier) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.ABSTRACT_FEATURE__COMPONENT_CLASSIFIER, oldComponentClassifier,
-							componentClassifier));
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
+							Aadl2Package.ABSTRACT_FEATURE__COMPONENT_CLASSIFIER,
+							oldComponentClassifier, componentClassifier));
 			}
 		}
 		return componentClassifier;
@@ -148,11 +153,13 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setComponentClassifier(ComponentClassifier newComponentClassifier) {
+	public void setComponentClassifier(
+			ComponentClassifier newComponentClassifier) {
 		ComponentClassifier oldComponentClassifier = componentClassifier;
 		componentClassifier = newComponentClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ABSTRACT_FEATURE__COMPONENT_CLASSIFIER,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ABSTRACT_FEATURE__COMPONENT_CLASSIFIER,
 					oldComponentClassifier, componentClassifier));
 	}
 
@@ -223,7 +230,8 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 */
 	@Override
 	public boolean isSetFeatureClassifier() {
-		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.ABSTRACT_FEATURE__COMPONENT_CLASSIFIER);
+		return super.isSetFeatureClassifier()
+				|| eIsSet(Aadl2Package.ABSTRACT_FEATURE__COMPONENT_CLASSIFIER);
 	}
 
 } //AbstractFeatureImpl

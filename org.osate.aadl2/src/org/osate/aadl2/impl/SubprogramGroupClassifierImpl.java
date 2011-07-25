@@ -48,8 +48,8 @@ import org.osate.aadl2.SubprogramGroupClassifier;
  *
  * @generated
  */
-public abstract class SubprogramGroupClassifierImpl extends ComponentClassifierImpl implements
-		SubprogramGroupClassifier {
+public abstract class SubprogramGroupClassifierImpl extends
+		ComponentClassifierImpl implements SubprogramGroupClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -56,6 +56,7 @@ import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Type;
+import org.osate.aadl2.operations.TypeOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -71,7 +72,8 @@ import org.osate.aadl2.Type;
  *
  * @generated
  */
-public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationType {
+public class EnumerationTypeImpl extends NamespaceImpl implements
+		EnumerationType {
 	/**
 	 * The cached value of the '{@link #getOwnedLiterals() <em>Owned Literal</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -112,17 +114,24 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
+			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-								Aadl2Package.ENUMERATION_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
+						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(
+								NamedElement.class, this,
+								Aadl2Package.ENUMERATION_TYPE__OWNED_MEMBER,
+								OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-				Aadl2Package.ENUMERATION_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
+				this, Aadl2Package.ENUMERATION_TYPE__OWNED_MEMBER,
+				OWNED_MEMBER_ESUBSETS);
 	}
 
 	/**
@@ -142,7 +151,8 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 */
 	public EList<EnumerationLiteral> getOwnedLiterals() {
 		if (ownedLiterals == null) {
-			ownedLiterals = new EObjectContainmentEList<EnumerationLiteral>(EnumerationLiteral.class, this,
+			ownedLiterals = new EObjectContainmentEList<EnumerationLiteral>(
+					EnumerationLiteral.class, this,
 					Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL);
 		}
 		return ownedLiterals;
@@ -165,27 +175,9 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * @generated
 	 */
 	public EnumerationLiteral createOwnedLiteral() {
-		return createOwnedLiteral(Aadl2Package.eINSTANCE.getEnumerationLiteral());
+		return createOwnedLiteral(Aadl2Package.eINSTANCE
+				.getEnumerationLiteral());
 	}
-
-	/**
-	 * The cached OCL expression body for the '{@link #conformsTo(org.osate.aadl2.Type) <em>Conforms To</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #conformsTo(org.osate.aadl2.Type)
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String CONFORMS_TO__TYPE__EOCL_EXP = "result = false";
-	/**
-	 * The cached OCL query for the '{@link #conformsTo(org.osate.aadl2.Type) <em>Conforms To</em>}' query operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #conformsTo(org.osate.aadl2.Type)
-	 * @generated
-	 * @ordered
-	 */
-	protected static OCLExpression<EClassifier> CONFORMS_TO__TYPE__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -193,20 +185,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * @generated
 	 */
 	public boolean conformsTo(Type other) {
-		if (CONFORMS_TO__TYPE__EOCL_QRY == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getType(), Aadl2Package.eINSTANCE.getType()
-					.getEAllOperations().get(10));
-			try {
-				CONFORMS_TO__TYPE__EOCL_QRY = helper.createQuery(CONFORMS_TO__TYPE__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		OCL.Query query = EOCL_ENV.createQuery(CONFORMS_TO__TYPE__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
-		environment.add("other", other);
-		return ((Boolean) query.evaluate(this)).booleanValue();
+		return TypeOperations.conformsTo(this, other);
 	}
 
 	/**
@@ -215,10 +194,12 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL:
-			return ((InternalEList<?>) getOwnedLiterals()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedLiterals()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -248,7 +229,8 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 		switch (featureID) {
 		case Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL:
 			getOwnedLiterals().clear();
-			getOwnedLiterals().addAll((Collection<? extends EnumerationLiteral>) newValue);
+			getOwnedLiterals().addAll(
+					(Collection<? extends EnumerationLiteral>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -290,7 +272,8 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 */
 	@Override
 	public boolean isSetOwnedMembers() {
-		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL);
+		return super.isSetOwnedMembers()
+				|| eIsSet(Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL);
 	}
 
 	/*
