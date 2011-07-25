@@ -60,7 +60,8 @@ import org.osate.aadl2.SubcomponentType;
  *
  * @generated
  */
-public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcomponent {
+public class BusSubcomponentImpl extends SubcomponentImpl implements
+		BusSubcomponent {
 	/**
 	 * The cached value of the '{@link #getBusSubcomponentType() <em>Bus Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -98,7 +99,8 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+		return subcomponentType != null
+				&& ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
 				: subcomponentType;
 	}
 
@@ -121,14 +123,17 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	 * @generated
 	 */
 	public BusSubcomponentType getBusSubcomponentType() {
-		if (busSubcomponentType != null && ((EObject) busSubcomponentType).eIsProxy()) {
+		if (busSubcomponentType != null
+				&& ((EObject) busSubcomponentType).eIsProxy()) {
 			InternalEObject oldBusSubcomponentType = (InternalEObject) busSubcomponentType;
 			busSubcomponentType = (BusSubcomponentType) eResolveProxy(oldBusSubcomponentType);
 			if (busSubcomponentType != oldBusSubcomponentType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE, oldBusSubcomponentType,
-							busSubcomponentType));
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
+							Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE,
+							oldBusSubcomponentType, busSubcomponentType));
 			}
 		}
 		return busSubcomponentType;
@@ -148,11 +153,13 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBusSubcomponentType(BusSubcomponentType newBusSubcomponentType) {
+	public void setBusSubcomponentType(
+			BusSubcomponentType newBusSubcomponentType) {
 		BusSubcomponentType oldBusSubcomponentType = busSubcomponentType;
 		busSubcomponentType = newBusSubcomponentType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE,
 					oldBusSubcomponentType, busSubcomponentType));
 	}
 
@@ -223,7 +230,8 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	 */
 	@Override
 	public boolean isSetSubcomponentType() {
-		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE);
+		return super.isSetSubcomponentType()
+				|| eIsSet(Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE);
 	}
 
 	public ComponentCategory getCategory() {

@@ -54,9 +54,10 @@ import org.osate.aadl2.SystemImplementation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SystemImplementationItemProvider extends ComponentImplementationItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class SystemImplementationItemProvider extends
+		ComponentImplementationItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -90,7 +91,9 @@ public class SystemImplementationItemProvider extends ComponentImplementationIte
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemImplementation"));
+		return overlayImage(object,
+				getResourceLocator()
+						.getImage("full/obj16/SystemImplementation"));
 	}
 
 	/**
@@ -127,7 +130,8 @@ public class SystemImplementationItemProvider extends ComponentImplementationIte
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

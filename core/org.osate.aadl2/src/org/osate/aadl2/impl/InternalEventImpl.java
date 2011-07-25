@@ -50,7 +50,8 @@ import org.osate.aadl2.operations.NamedElementOperations;
  *
  * @generated
  */
-public class InternalEventImpl extends NamedElementImpl implements InternalEvent {
+public class InternalEventImpl extends NamedElementImpl implements
+		InternalEvent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,11 +70,10 @@ public class InternalEventImpl extends NamedElementImpl implements InternalEvent
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getInternalEvent();
 	}
-	
+
 	@Override
 	public String qualifiedName() {
 		return getName();
 	}
-
 
 } //InternalEventImpl

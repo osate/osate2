@@ -48,7 +48,8 @@ import org.osate.aadl2.SubprogramPrototype;
  *
  * @generated
  */
-public class SubprogramPrototypeImpl extends ComponentPrototypeImpl implements SubprogramPrototype {
+public class SubprogramPrototypeImpl extends ComponentPrototypeImpl implements
+		SubprogramPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,8 +69,7 @@ public class SubprogramPrototypeImpl extends ComponentPrototypeImpl implements S
 		return Aadl2Package.eINSTANCE.getSubprogramPrototype();
 	}
 
-	
-	public ComponentCategory getCategory(){
+	public ComponentCategory getCategory() {
 		return ComponentCategory.SUBPROGRAM;
 	}
 

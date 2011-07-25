@@ -53,9 +53,10 @@ import org.osate.aadl2.SubprogramSubcomponentType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubprogramSubcomponentTypeItemProvider extends SubcomponentTypeItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class SubprogramSubcomponentTypeItemProvider extends
+		SubcomponentTypeItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -91,7 +92,8 @@ public class SubprogramSubcomponentTypeItemProvider extends SubcomponentTypeItem
 	public String getText(Object object) {
 		String label = ((SubprogramSubcomponentType) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_SubprogramSubcomponentType_type")
-				: getString("_UI_SubprogramSubcomponentType_type") + " " + label;
+				: getString("_UI_SubprogramSubcomponentType_type") + " "
+						+ label;
 	}
 
 	/**
@@ -115,7 +117,8 @@ public class SubprogramSubcomponentTypeItemProvider extends SubcomponentTypeItem
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

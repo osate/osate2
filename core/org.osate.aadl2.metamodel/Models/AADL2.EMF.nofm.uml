@@ -82,6 +82,15 @@
     <packagedElement xmi:type="uml:Class" xmi:id="BehavioredImplementation" name="BehavioredImplementation" isAbstract="true">
       <ownedAttribute xmi:id="BehavioredImplementation-callSpecification" name="callSpecification" isDerived="true"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_jvN0ALbPEeCFTe7PfIxrcw" name="ModalPath">
+      <ownedAttribute xmi:id="_rJjeoLbPEeCFTe7PfIxrcw" name="inMode"/>
+      <ownedOperation xmi:id="_bqJqALbSEeCFTe7PfIxrcw" name="getInModes">
+        <ownedParameter xmi:id="_bqJqAbbSEeCFTe7PfIxrcw" name="" type="Mode" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bqJqArbSEeCFTe7PfIxrcw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_bqJqA7bSEeCFTe7PfIxrcw"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ModalElement" name="ModalElement">
       <ownedOperation xmi:id="ModalElement-getAllInModes" name="getAllInModes">
         <ownedParameter xmi:id="ModalElement-getAllInModes-_ownedParameter.0" name="" type="Mode" direction="return">
@@ -257,4 +266,7 @@
   <Ecore:EReference xmi:id="_5j1m0LIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupPrototype"/>
   <Ecore:EReference xmi:id="_-PSPELO-EeCzMYz5ww7glA" isTransient="true" isVolatile="true" base_Property="_8WI8ILO-EeCzMYz5ww7glA"/>
   <Ecore:EReference xmi:id="_AIRJ8LO_EeCzMYz5ww7glA" isTransient="true" isVolatile="true" base_Property="_8WI8IbO-EeCzMYz5ww7glA"/>
+  <Standard:Metaclass xmi:id="_p5XCELbPEeCFTe7PfIxrcw" base_Class="_jvN0ALbPEeCFTe7PfIxrcw"/>
+  <Ecore:EReference xmi:id="_sb-IwLbPEeCFTe7PfIxrcw" isTransient="true" isVolatile="true" base_Property="_rJjeoLbPEeCFTe7PfIxrcw"/>
+  <Ecore:EReference xmi:id="_8dymkLbPEeCFTe7PfIxrcw"/>
 </xmi:XMI>

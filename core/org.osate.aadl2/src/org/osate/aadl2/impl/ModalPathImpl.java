@@ -49,6 +49,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.operations.ModalPathOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -58,12 +59,14 @@ import org.osate.aadl2.ModeFeature;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ModalPathImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ModalPathImpl#getInModes <em>In Mode</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class ModalPathImpl extends ModalElementImpl implements ModalPath {
+public abstract class ModalPathImpl extends ModalElementImpl implements
+		ModalPath {
 	/**
 	 * The cached value of the '{@link #getInModeOrTransitions() <em>In Mode Or Transition</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -100,10 +103,40 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 */
 	public EList<ModeFeature> getInModeOrTransitions() {
 		if (inModeOrTransitions == null) {
-			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
+			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(
+					ModeFeature.class, this,
 					Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION);
 		}
 		return inModeOrTransitions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<Mode> getInModes() {
+		return ModalPathOperations.getInModes(this);
+	}
+
+	/**
+	 * The array of superset feature identifiers for the '{@link #getInModes() <em>In Mode</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInModes()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] IN_MODE_ESUPERSETS = new int[] { Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION };
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetInModes() {
+		return !getInModes().isEmpty();
 	}
 
 	/**
@@ -131,7 +164,8 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 		switch (featureID) {
 		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
 			getInModeOrTransitions().clear();
-			getInModeOrTransitions().addAll((Collection<? extends ModeFeature>) newValue);
+			getInModeOrTransitions().addAll(
+					(Collection<? extends ModeFeature>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -161,31 +195,10 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
-			return inModeOrTransitions != null && !inModeOrTransitions.isEmpty();
+			return inModeOrTransitions != null
+					&& !inModeOrTransitions.isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.osate.aadl2.impl.ModalElementImpl#getInModes()
-	 */
-	@Override
-	public EList<Mode> getInModes() {
-		if (inModes == null) {
-			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.MODAL_ELEMENT__IN_MODE);
-		} else {
-			inModes.clear();
-		}
-		// TODO-phf: added check for null. also had to change unmodifiableEList to BasicEList
-		if (inModeOrTransitions == null){
-			return inModes;
-		}
-		for (ModeFeature mf : inModeOrTransitions) {
-			if (mf instanceof Mode) {
-				inModes.add((Mode) mf);
-			}
-		}
-		return inModes;
 	}
 
 } //ModalPathImpl

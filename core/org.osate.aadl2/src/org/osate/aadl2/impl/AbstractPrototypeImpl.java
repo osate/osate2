@@ -48,7 +48,8 @@ import org.osate.aadl2.ComponentCategory;
  *
  * @generated
  */
-public class AbstractPrototypeImpl extends ComponentPrototypeImpl implements AbstractPrototype {
+public class AbstractPrototypeImpl extends ComponentPrototypeImpl implements
+		AbstractPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,10 +68,9 @@ public class AbstractPrototypeImpl extends ComponentPrototypeImpl implements Abs
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractPrototype();
 	}
-	
-	public ComponentCategory getCategory(){
+
+	public ComponentCategory getCategory() {
 		return ComponentCategory.ABSTRACT;
 	}
-
 
 } //AbstractPrototypeImpl

@@ -49,7 +49,8 @@ import org.osate.aadl2.ProcessorPort;
  *
  * @generated
  */
-public class ProcessorPortImpl extends NamedElementImpl implements ProcessorPort {
+public class ProcessorPortImpl extends NamedElementImpl implements
+		ProcessorPort {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,7 +69,7 @@ public class ProcessorPortImpl extends NamedElementImpl implements ProcessorPort
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessorPort();
 	}
-	
+
 	@Override
 	public String qualifiedName() {
 		return getName();

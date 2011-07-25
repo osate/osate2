@@ -48,7 +48,8 @@ import org.osate.aadl2.ProcessorPrototype;
  *
  * @generated
  */
-public class ProcessorPrototypeImpl extends ComponentPrototypeImpl implements ProcessorPrototype {
+public class ProcessorPrototypeImpl extends ComponentPrototypeImpl implements
+		ProcessorPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,8 +69,7 @@ public class ProcessorPrototypeImpl extends ComponentPrototypeImpl implements Pr
 		return Aadl2Package.eINSTANCE.getProcessorPrototype();
 	}
 
-	
-	public ComponentCategory getCategory(){
+	public ComponentCategory getCategory() {
 		return ComponentCategory.PROCESSOR;
 	}
 

@@ -60,8 +60,9 @@ import org.osate.aadl2.ComponentType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComponentTypeItemProvider extends ComponentClassifierItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ComponentTypeItemProvider extends ComponentClassifierItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -97,12 +98,15 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider i
 	 */
 	protected void addNoFeaturesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentType_noFeatures_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentType_noFeatures_feature",
-						"_UI_ComponentType_type"), Aadl2Package.eINSTANCE.getComponentType_NoFeatures(), true, false,
-				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ComponentType_noFeatures_feature",
+						"_UI_ComponentType_type"), Aadl2Package.eINSTANCE
+						.getComponentType_NoFeatures(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -113,12 +117,15 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider i
 	 */
 	protected void addExtendedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentType_extended_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentType_extended_feature",
-						"_UI_ComponentType_type"), Aadl2Package.eINSTANCE.getComponentType_Extended(), true, false,
-				true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ComponentType_extended_feature",
+						"_UI_ComponentType_type"), Aadl2Package.eINSTANCE
+						.getComponentType_Extended(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -130,12 +137,16 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider i
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentType_OwnedFlowSpecification());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentType_OwnedExtension());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getComponentType_OwnedFeature());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getComponentType_OwnedFlowSpecification());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getComponentType_OwnedExtension());
 		}
 		return childrenFeatures;
 	}
@@ -179,12 +190,14 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider i
 
 		switch (notification.getFeatureID(ComponentType.class)) {
 		case Aadl2Package.COMPONENT_TYPE__NO_FEATURES:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE:
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
 		case Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -198,13 +211,16 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider i
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentType_OwnedFlowSpecification(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
+				.getComponentType_OwnedFlowSpecification(),
 				Aadl2Factory.eINSTANCE.createFlowSpecification()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentType_OwnedExtension(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentType_OwnedExtension(),
 				Aadl2Factory.eINSTANCE.createTypeExtension()));
 	}
 

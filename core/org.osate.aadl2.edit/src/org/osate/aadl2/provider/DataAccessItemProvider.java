@@ -56,8 +56,9 @@ import org.osate.aadl2.DataAccess;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DataAccessItemProvider extends AccessItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class DataAccessItemProvider extends AccessItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -92,12 +93,15 @@ public class DataAccessItemProvider extends AccessItemProvider implements IEditi
 	 */
 	protected void addDataClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_DataAccess_dataClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_DataAccess_dataClassifier_feature",
-						"_UI_DataAccess_type"), Aadl2Package.eINSTANCE.getDataAccess_DataClassifier(), true, false,
-				true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_DataAccess_dataClassifier_feature",
+						"_UI_DataAccess_type"), Aadl2Package.eINSTANCE
+						.getDataAccess_DataClassifier(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -108,7 +112,8 @@ public class DataAccessItemProvider extends AccessItemProvider implements IEditi
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/DataAccess"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/DataAccess"));
 	}
 
 	/**
@@ -145,7 +150,8 @@ public class DataAccessItemProvider extends AccessItemProvider implements IEditi
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

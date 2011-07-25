@@ -59,9 +59,10 @@ import org.osate.aadl2.SubprogramCallSequence;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubprogramCallSequenceItemProvider extends BehavioralFeatureItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class SubprogramCallSequenceItemProvider extends
+		BehavioralFeatureItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,12 +97,15 @@ public class SubprogramCallSequenceItemProvider extends BehavioralFeatureItemPro
 	 */
 	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ModalElement_inMode_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
-						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ModalElement_inMode_feature",
+						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE
+						.getModalElement_InMode(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -113,10 +117,12 @@ public class SubprogramCallSequenceItemProvider extends BehavioralFeatureItemPro
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubprogramCallSequence_OwnedCallSpecification());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getSubprogramCallSequence_OwnedCallSpecification());
 		}
 		return childrenFeatures;
 	}
@@ -142,7 +148,10 @@ public class SubprogramCallSequenceItemProvider extends BehavioralFeatureItemPro
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramCallSequence"));
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/SubprogramCallSequence"));
 	}
 
 	/**
@@ -171,7 +180,8 @@ public class SubprogramCallSequenceItemProvider extends BehavioralFeatureItemPro
 
 		switch (notification.getFeatureID(SubprogramCallSequence.class)) {
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -185,15 +195,16 @@ public class SubprogramCallSequenceItemProvider extends BehavioralFeatureItemPro
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubprogramCallSequence_OwnedCallSpecification(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
+				.getSubprogramCallSequence_OwnedCallSpecification(),
 				Aadl2Factory.eINSTANCE.createProcessorCall()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubprogramCallSequence_OwnedCallSpecification(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
+				.getSubprogramCallSequence_OwnedCallSpecification(),
 				Aadl2Factory.eINSTANCE.createSubprogramCall()));
 	}
 

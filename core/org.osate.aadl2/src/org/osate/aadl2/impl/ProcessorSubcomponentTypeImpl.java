@@ -49,7 +49,8 @@ import org.osate.aadl2.operations.TypeOperations;
  *
  * @generated
  */
-public abstract class ProcessorSubcomponentTypeImpl extends ProcessorImpl implements ProcessorSubcomponentType {
+public abstract class ProcessorSubcomponentTypeImpl extends ProcessorImpl
+		implements ProcessorSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

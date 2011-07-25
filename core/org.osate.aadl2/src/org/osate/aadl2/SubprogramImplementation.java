@@ -53,7 +53,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SubprogramImplementation extends BehavioredImplementation, SubprogramClassifier {
+public interface SubprogramImplementation extends BehavioredImplementation,
+		SubprogramClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Data Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.DataSubcomponent}.

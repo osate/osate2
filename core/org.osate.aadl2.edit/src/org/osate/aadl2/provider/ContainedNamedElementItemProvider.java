@@ -59,8 +59,9 @@ import org.osate.aadl2.ContainedNamedElement;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ContainedNamedElementItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ContainedNamedElementItemProvider extends ElementItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,10 +96,12 @@ public class ContainedNamedElementItemProvider extends ElementItemProvider imple
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getContainedNamedElement_ContainmentPathElement());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getContainedNamedElement_ContainmentPathElement());
 		}
 		return childrenFeatures;
 	}
@@ -124,7 +127,10 @@ public class ContainedNamedElementItemProvider extends ElementItemProvider imple
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ContainedNamedElement"));
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/ContainedNamedElement"));
 	}
 
 	/**
@@ -151,7 +157,8 @@ public class ContainedNamedElementItemProvider extends ElementItemProvider imple
 
 		switch (notification.getFeatureID(ContainedNamedElement.class)) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__CONTAINMENT_PATH_ELEMENT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -165,11 +172,12 @@ public class ContainedNamedElementItemProvider extends ElementItemProvider imple
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getContainedNamedElement_ContainmentPathElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
+				.getContainedNamedElement_ContainmentPathElement(),
 				Aadl2Factory.eINSTANCE.createContainmentPathElement()));
 	}
 

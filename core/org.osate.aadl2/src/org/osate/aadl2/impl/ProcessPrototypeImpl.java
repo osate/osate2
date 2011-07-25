@@ -48,7 +48,8 @@ import org.osate.aadl2.ProcessPrototype;
  *
  * @generated
  */
-public class ProcessPrototypeImpl extends ComponentPrototypeImpl implements ProcessPrototype {
+public class ProcessPrototypeImpl extends ComponentPrototypeImpl implements
+		ProcessPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,10 +68,9 @@ public class ProcessPrototypeImpl extends ComponentPrototypeImpl implements Proc
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessPrototype();
 	}
-	
-	public ComponentCategory getCategory(){
+
+	public ComponentCategory getCategory() {
 		return ComponentCategory.PROCESS;
 	}
-
 
 } //ProcessPrototypeImpl

@@ -58,8 +58,9 @@ import org.osate.aadl2.ComponentTypeRename;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComponentTypeRenameItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ComponentTypeRenameItemProvider extends NamedElementItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,12 +96,15 @@ public class ComponentTypeRenameItemProvider extends NamedElementItemProvider im
 	 */
 	protected void addCategoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentTypeRename_category_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentTypeRename_category_feature",
-						"_UI_ComponentTypeRename_type"), Aadl2Package.eINSTANCE.getComponentTypeRename_Category(),
-				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ComponentTypeRename_category_feature",
+						"_UI_ComponentTypeRename_type"), Aadl2Package.eINSTANCE
+						.getComponentTypeRename_Category(), true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -110,13 +114,19 @@ public class ComponentTypeRenameItemProvider extends NamedElementItemProvider im
 	 * @generated
 	 */
 	protected void addRenamedComponentTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ComponentTypeRename_renamedComponentType_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentTypeRename_renamedComponentType_feature",
-						"_UI_ComponentTypeRename_type"), Aadl2Package.eINSTANCE
-						.getComponentTypeRename_RenamedComponentType(), true, false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_ComponentTypeRename_renamedComponentType_feature"),
+						getString(
+								"_UI_PropertyDescriptor_description",
+								"_UI_ComponentTypeRename_renamedComponentType_feature",
+								"_UI_ComponentTypeRename_type"),
+						Aadl2Package.eINSTANCE
+								.getComponentTypeRename_RenamedComponentType(),
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -127,7 +137,8 @@ public class ComponentTypeRenameItemProvider extends NamedElementItemProvider im
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ComponentTypeRename"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/ComponentTypeRename"));
 	}
 
 	/**
@@ -156,7 +167,8 @@ public class ComponentTypeRenameItemProvider extends NamedElementItemProvider im
 
 		switch (notification.getFeatureID(ComponentTypeRename.class)) {
 		case Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -170,7 +182,8 @@ public class ComponentTypeRenameItemProvider extends NamedElementItemProvider im
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

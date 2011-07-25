@@ -48,7 +48,8 @@ import org.osate.aadl2.BusClassifier;
  *
  * @generated
  */
-public abstract class BusClassifierImpl extends ComponentClassifierImpl implements BusClassifier {
+public abstract class BusClassifierImpl extends ComponentClassifierImpl
+		implements BusClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

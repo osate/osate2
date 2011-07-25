@@ -59,8 +59,9 @@ import org.osate.aadl2.EndToEndFlow;
  * <!-- end-user-doc -->
  * @generated
  */
-public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class EndToEndFlowItemProvider extends FlowItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -97,12 +98,15 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 */
 	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ModalElement_inMode_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
-						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ModalElement_inMode_feature",
+						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE
+						.getModalElement_InMode(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -113,12 +117,15 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 */
 	protected void addInModeOrTransitionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ModalPath_inModeOrTransition_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalPath_inModeOrTransition_feature",
-						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition(), true, false,
-				true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ModalPath_inModeOrTransition_feature",
+						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE
+						.getModalPath_InModeOrTransition(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -130,10 +137,12 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getEndToEndFlow_OwnedEndToEndFlowSegment());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getEndToEndFlow_OwnedEndToEndFlowSegment());
 		}
 		return childrenFeatures;
 	}
@@ -159,12 +168,15 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 */
 	protected void addRefinedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_EndToEndFlow_refined_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_EndToEndFlow_refined_feature",
-						"_UI_EndToEndFlow_type"), Aadl2Package.eINSTANCE.getEndToEndFlow_Refined(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_EndToEndFlow_refined_feature",
+						"_UI_EndToEndFlow_type"), Aadl2Package.eINSTANCE
+						.getEndToEndFlow_Refined(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -175,7 +187,8 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EndToEndFlow"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/EndToEndFlow"));
 	}
 
 	/**
@@ -204,7 +217,8 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 
 		switch (notification.getFeatureID(EndToEndFlow.class)) {
 		case Aadl2Package.END_TO_END_FLOW__OWNED_END_TO_END_FLOW_SEGMENT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -218,10 +232,12 @@ public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditi
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getEndToEndFlow_OwnedEndToEndFlowSegment(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
+				.getEndToEndFlow_OwnedEndToEndFlowSegment(),
 				Aadl2Factory.eINSTANCE.createEndToEndFlowSegment()));
 	}
 

@@ -56,7 +56,8 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface Feature extends StructuralFeature, FeatureConnectionEnd, ArrayableElement {
+public interface Feature extends StructuralFeature, FeatureConnectionEnd,
+		ArrayableElement {
 	/**
 	 * Returns the value of the '<em><b>Prototype</b></em>' reference.
 	 * <p>

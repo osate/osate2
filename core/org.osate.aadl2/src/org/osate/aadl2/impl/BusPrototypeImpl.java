@@ -48,7 +48,8 @@ import org.osate.aadl2.ComponentCategory;
  *
  * @generated
  */
-public class BusPrototypeImpl extends ComponentPrototypeImpl implements BusPrototype {
+public class BusPrototypeImpl extends ComponentPrototypeImpl implements
+		BusPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,8 +69,7 @@ public class BusPrototypeImpl extends ComponentPrototypeImpl implements BusProto
 		return Aadl2Package.eINSTANCE.getBusPrototype();
 	}
 
-	
-	public ComponentCategory getCategory(){
+	public ComponentCategory getCategory() {
 		return ComponentCategory.BUS;
 	}
 

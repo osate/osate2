@@ -97,7 +97,8 @@ public class DataAccessImpl extends AccessImpl implements DataAccess {
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+		return featureClassifier != null
+				&& ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
 				: featureClassifier;
 	}
 
@@ -126,7 +127,8 @@ public class DataAccessImpl extends AccessImpl implements DataAccess {
 			if (dataClassifier != oldDataClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.DATA_ACCESS__DATA_CLASSIFIER, oldDataClassifier, dataClassifier));
+							Aadl2Package.DATA_ACCESS__DATA_CLASSIFIER,
+							oldDataClassifier, dataClassifier));
 			}
 		}
 		return dataClassifier;
@@ -150,7 +152,8 @@ public class DataAccessImpl extends AccessImpl implements DataAccess {
 		DataClassifier oldDataClassifier = dataClassifier;
 		dataClassifier = newDataClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.DATA_ACCESS__DATA_CLASSIFIER,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.DATA_ACCESS__DATA_CLASSIFIER,
 					oldDataClassifier, dataClassifier));
 	}
 
@@ -221,7 +224,8 @@ public class DataAccessImpl extends AccessImpl implements DataAccess {
 	 */
 	@Override
 	public boolean isSetFeatureClassifier() {
-		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.DATA_ACCESS__DATA_CLASSIFIER);
+		return super.isSetFeatureClassifier()
+				|| eIsSet(Aadl2Package.DATA_ACCESS__DATA_CLASSIFIER);
 	}
 
 } //DataAccessImpl

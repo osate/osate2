@@ -44,5 +44,6 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface ThreadSubcomponentType extends SubcomponentType, org.osate.aadl2.Thread {
+public interface ThreadSubcomponentType extends SubcomponentType,
+		org.osate.aadl2.Thread {
 } // ThreadSubcomponentType

@@ -49,7 +49,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.PropertyConstant#getPropertyType <em>Property Type</em>}</li>
- *   <li>{@link org.osate.aadl2.PropertyConstant#getOwnedType <em>Owned Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.PropertyConstant#getOwnedPropertyType <em>Owned Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertyConstant#getConstantValue <em>Constant Value</em>}</li>
  * </ul>
  * </p>
@@ -58,7 +58,8 @@ import org.osate.aadl2.properties.InvalidModelException;
  * @model
  * @generated
  */
-public interface PropertyConstant extends TypedElement, AbstractNamedValue, ArraySizeProperty {
+public interface PropertyConstant extends TypedElement, AbstractNamedValue,
+		ArraySizeProperty {
 	/**
 	 * Returns the value of the '<em><b>Property Type</b></em>' reference.
 	 * <p>
@@ -92,7 +93,7 @@ public interface PropertyConstant extends TypedElement, AbstractNamedValue, Arra
 	void setPropertyType(PropertyType value);
 
 	/**
-	 * Returns the value of the '<em><b>Owned Type</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Owned Property Type</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -101,38 +102,38 @@ public interface PropertyConstant extends TypedElement, AbstractNamedValue, Arra
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Owned Type</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Owned Property Type</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Type</em>' containment reference.
-	 * @see #setOwnedType(PropertyType)
-	 * @see org.osate.aadl2.Aadl2Package#getPropertyConstant_OwnedType()
+	 * @return the value of the '<em>Owned Property Type</em>' containment reference.
+	 * @see #setOwnedPropertyType(PropertyType)
+	 * @see org.osate.aadl2.Aadl2Package#getPropertyConstant_OwnedPropertyType()
 	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
-	PropertyType getOwnedType();
+	PropertyType getOwnedPropertyType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.PropertyConstant#getOwnedType <em>Owned Type</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.PropertyConstant#getOwnedPropertyType <em>Owned Property Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Owned Type</em>' containment reference.
-	 * @see #getOwnedType()
+	 * @param value the new value of the '<em>Owned Property Type</em>' containment reference.
+	 * @see #getOwnedPropertyType()
 	 * @generated
 	 */
-	void setOwnedType(PropertyType value);
+	void setOwnedPropertyType(PropertyType value);
 
 	/**
-	 * Creates a new {@link org.osate.aadl2.PropertyType} and sets the '<em><b>Owned Type</b></em>' containment reference.
+	 * Creates a new {@link org.osate.aadl2.PropertyType} and sets the '<em><b>Owned Property Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param eClass The Ecore class of the {@link org.osate.aadl2.PropertyType} to create.
 	 * @return The new {@link org.osate.aadl2.PropertyType}.
-	 * @see #getOwnedType()
+	 * @see #getOwnedPropertyType()
 	 * @generated
 	 */
-	PropertyType createOwnedType(EClass eClass);
+	PropertyType createOwnedPropertyType(EClass eClass);
 
 	/**
 	 * Returns the value of the '<em><b>Constant Value</b></em>' containment reference.
@@ -183,6 +184,7 @@ public interface PropertyConstant extends TypedElement, AbstractNamedValue, Arra
 	 * @throws InvalidModelException Thrown if there is a problem with the
 	 * model that prevents the property value from being evaluated.
 	 */
-	EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException;
+	EvaluatedProperty evaluate(EvaluationContext ctx)
+			throws InvalidModelException;
 
 } // PropertyConstant

@@ -60,8 +60,9 @@ import org.osate.aadl2.FlowImplementation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FlowImplementationItemProvider extends ModalPathItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class FlowImplementationItemProvider extends ModalPathItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -98,12 +99,15 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 */
 	protected void addFeaturingClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ClassifierFeature_featuringClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ClassifierFeature_featuringClassifier_feature",
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ClassifierFeature_featuringClassifier_feature",
 						"_UI_ClassifierFeature_type"), Aadl2Package.eINSTANCE
-						.getClassifierFeature_FeaturingClassifier(), false, false, false, null, null, null));
+						.getClassifierFeature_FeaturingClassifier(), false,
+				false, false, null, null, null));
 	}
 
 	/**
@@ -114,12 +118,15 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 */
 	protected void addSpecificationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowImplementation_specification_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowImplementation_specification_feature",
-						"_UI_FlowImplementation_type"), Aadl2Package.eINSTANCE.getFlowImplementation_Specification(),
-				true, false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_FlowImplementation_specification_feature",
+						"_UI_FlowImplementation_type"), Aadl2Package.eINSTANCE
+						.getFlowImplementation_Specification(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -131,10 +138,12 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getFlowImplementation_OwnedFlowSegment());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getFlowImplementation_OwnedFlowSegment());
 		}
 		return childrenFeatures;
 	}
@@ -160,7 +169,8 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowImplementation"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/FlowImplementation"));
 	}
 
 	/**
@@ -171,12 +181,15 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 */
 	protected void addKindPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowImplementation_kind_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowImplementation_kind_feature",
-						"_UI_FlowImplementation_type"), Aadl2Package.eINSTANCE.getFlowImplementation_Kind(), true,
-				false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_FlowImplementation_kind_feature",
+						"_UI_FlowImplementation_type"), Aadl2Package.eINSTANCE
+						.getFlowImplementation_Kind(), true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -205,10 +218,12 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 
 		switch (notification.getFeatureID(FlowImplementation.class)) {
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -222,11 +237,14 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider implem
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFlowImplementation_OwnedFlowSegment(),
-				Aadl2Factory.eINSTANCE.createFlowSegment()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE
+						.getFlowImplementation_OwnedFlowSegment(),
+						Aadl2Factory.eINSTANCE.createFlowSegment()));
 	}
 
 }

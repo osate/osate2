@@ -106,17 +106,21 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(eResource, this,
+			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
 			if (ownedFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<Feature>(Feature.class, this,
-								Aadl2Package.BUS_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getComponentType_OwnedFeature(),
+						ownedFeatures = new DerivedUnionEObjectEList<Feature>(
+								Feature.class, this,
+								Aadl2Package.BUS_TYPE__OWNED_FEATURE,
+								OWNED_FEATURE_ESUBSETS));
 			}
 			return ownedFeatures;
 		}
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.BUS_TYPE__OWNED_FEATURE,
-				OWNED_FEATURE_ESUBSETS);
+		return new DerivedUnionEObjectEList<Feature>(Feature.class, this,
+				Aadl2Package.BUS_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS);
 	}
 
 	/**
@@ -127,8 +131,10 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] { Aadl2Package.BUS_TYPE__OWNED_FEATURE_GROUP,
-			Aadl2Package.BUS_TYPE__OWNED_ABSTRACT_FEATURE, Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS };
+	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] {
+			Aadl2Package.BUS_TYPE__OWNED_FEATURE_GROUP,
+			Aadl2Package.BUS_TYPE__OWNED_ABSTRACT_FEATURE,
+			Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -137,7 +143,8 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 */
 	public EList<BusAccess> getOwnedBusAccesses() {
 		if (ownedBusAccesses == null) {
-			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
+			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(
+					BusAccess.class, this,
 					Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS);
 		}
 		return ownedBusAccesses;
@@ -149,7 +156,8 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 * @generated
 	 */
 	public BusAccess createOwnedBusAccess() {
-		BusAccess newOwnedBusAccess = (BusAccess) create(Aadl2Package.eINSTANCE.getBusAccess());
+		BusAccess newOwnedBusAccess = (BusAccess) create(Aadl2Package.eINSTANCE
+				.getBusAccess());
 		getOwnedBusAccesses().add(newOwnedBusAccess);
 		return newOwnedBusAccess;
 	}
@@ -160,10 +168,12 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS:
-			return ((InternalEList<?>) getOwnedBusAccesses()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedBusAccesses()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -193,7 +203,8 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 		switch (featureID) {
 		case Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS:
 			getOwnedBusAccesses().clear();
-			getOwnedBusAccesses().addAll((Collection<? extends BusAccess>) newValue);
+			getOwnedBusAccesses().addAll(
+					(Collection<? extends BusAccess>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -235,7 +246,8 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 */
 	@Override
 	public boolean isSetOwnedFeatures() {
-		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS);
+		return super.isSetOwnedFeatures()
+				|| eIsSet(Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS);
 	}
 
 	public String getCategory() {

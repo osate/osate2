@@ -48,7 +48,8 @@ import org.osate.aadl2.DataPrototype;
  *
  * @generated
  */
-public class DataPrototypeImpl extends ComponentPrototypeImpl implements DataPrototype {
+public class DataPrototypeImpl extends ComponentPrototypeImpl implements
+		DataPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,8 +68,8 @@ public class DataPrototypeImpl extends ComponentPrototypeImpl implements DataPro
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDataPrototype();
 	}
-	
-	public ComponentCategory getCategory(){
+
+	public ComponentCategory getCategory() {
 		return ComponentCategory.DATA;
 	}
 

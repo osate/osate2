@@ -53,6 +53,7 @@ import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.RefinableElement;
+import org.osate.aadl2.operations.PrototypeOperations;
 import org.osate.aadl2.util.Aadl2Validator;
 
 /**
@@ -68,7 +69,8 @@ import org.osate.aadl2.util.Aadl2Validator;
  *
  * @generated
  */
-public abstract class PrototypeImpl extends StructuralFeatureImpl implements Prototype {
+public abstract class PrototypeImpl extends StructuralFeatureImpl implements
+		Prototype {
 
 	/**
 	 * The cached value of the '{@link #getRefined() <em>Refined</em>}' reference.
@@ -110,8 +112,9 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 			refined = (Prototype) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PROTOTYPE__REFINED,
-							oldRefined, refined));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.PROTOTYPE__REFINED, oldRefined,
+							refined));
 			}
 		}
 		return refined;
@@ -135,7 +138,8 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 		Prototype oldRefined = refined;
 		refined = newRefined;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROTOTYPE__REFINED, oldRefined, refined));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PROTOTYPE__REFINED, oldRefined, refined));
 	}
 
 	/**
@@ -148,50 +152,14 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	}
 
 	/**
-	 * The cached OCL expression body for the '{@link #categoryConstraint(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Category Constraint</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #categoryConstraint(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP = "self.constrainingCategory.oclIsUndefined() implies self.constrainingClassifier = self.constrainingCategory";
-	/**
-	 * The cached OCL invariant for the '{@link #categoryConstraint(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Category Constraint</em>}' invariant operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #categoryConstraint(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-	 * @generated
-	 * @ordered
-	 */
-	protected static Constraint CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean categoryConstraint(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
-			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setContext(Aadl2Package.eINSTANCE.getPrototype());
-			try {
-				CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
-						.createInvariant(CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
-			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
-			}
-		}
-		if (!EOCL_ENV.createQuery(CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
-			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.PROTOTYPE__CATEGORY_CONSTRAINT, EcorePlugin.INSTANCE.getString(
-								"_UI_GenericInvariant_diagnostic", new Object[] { "categoryConstraint",
-										EObjectValidator.getObjectLabel(this, context) }), new Object[] { this }));
-			}
-			return false;
-		}
-		return true;
+	public boolean categoryConstraint(DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		return PrototypeOperations.categoryConstraint(this, diagnostics,
+				context);
 	}
 
 	/**
