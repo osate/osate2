@@ -55,10 +55,9 @@ Workflow {
 			fragment = parser.antlr.ex.rt.AntlrGeneratorFragment {
     		options = {
         		ignoreCase = true
-    		}
-				options = {
+					backtrack = true
 					classSplitting = true
-				}
+    		}
 			}
 
 			// the Ecore2Xtext specific terminal converter

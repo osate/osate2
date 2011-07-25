@@ -718,7 +718,10 @@ SubprogramCallSequence returns aadl2::SubprogramCallSequence:
 
 CallSpecification returns aadl2::CallSpecification:
 	(({aadl2::ProcessorCall}name=ID 'subprogram' 'processor' '.' subprogramAccessName=ID ) | 
-     ({aadl2::SubprogramCall}name=ID 'subprogram'(context=[aadl2::CallContext|PNAME] '.')? calledSubprogram=[aadl2::CalledSubprogram|ID]))
+     ({aadl2::SubprogramCall}name=ID 'subprogram'
+     	((context=[aadl2::CallContext|PNAME] => '.' calledSubprogram=[aadl2::CalledSubprogram|ID]) 
+     	|calledSubprogram=[aadl2::CalledSubprogram|PNAME])
+     ))
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';'
 ;
@@ -1682,7 +1685,7 @@ UnnamedRecordType returns aadl2::RecordType:
 RecordField returns aadl2::BasicProperty:
 	name=ID ':'
 //	('list' 'of')* is handled as part of UnnamedPropertytype
-	(propertyType=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
+	(propertyType=[aadl2::PropertyType|QPREF]|ownedPropertyType=UnnamedPropertyType)
 	';'
 	 ;
 
@@ -1693,7 +1696,7 @@ PropertyDefinition returns aadl2::Property:
 	name=ID ':'
 	(inherit?='inherit')?
 //	('list' 'of')* is handled as part of UnnamedPropertytype
-	(propertyType=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
+	(propertyType=[aadl2::PropertyType|QPREF]|ownedPropertyType=UnnamedPropertyType)
 	('=>' defaultValue=PropertyExpression)?
 	'applies' 'to' '('
 	((appliesTo+=PropertyOwner (',' appliesTo+=PropertyOwner)*)|
@@ -1722,7 +1725,7 @@ PropertyOwner returns aadl2::PropertyOwner:
 PropertyConstant returns aadl2::PropertyConstant:
 	name=ID ':' 'constant'
 //	('list' 'of')* is handled as part of UnnamedPropertytype
-	(propertyType=[aadl2::PropertyType|QPREF]|ownedType=UnnamedPropertyType)
+	(propertyType=[aadl2::PropertyType|QPREF]|ownedPropertyType=UnnamedPropertyType)
 	'=>' constantValue=ConstantPropertyExpression  
 	';'
 	 ;
@@ -1763,10 +1766,9 @@ ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 PropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
-	(( =>
-	'(' ownedValue+=ModalPropertyValue 
-	(',' ownedValue+=ModalPropertyValue)*
-//	(',' ownedValue+=PropertyValue)?
+	(( 
+	'(' ( ownedValue+=ModalPropertyValue => ',')*
+	ownedValue+=OptionalModalPropertyValue
 	')' )
 	| ownedValue+=PropertyValue
 	)
@@ -1782,7 +1784,15 @@ ContainmentPath returns aadl2::ContainedNamedElement:
 ModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
 	// phf made this optional: need to check separately that only the last one is optional
-	('in' 'modes' '(' 
+	=> 'in' 'modes' '(' 
+	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
+	')'
+	;
+
+OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
+	ownedValue=PropertyExpression 
+	// phf made this optional: need to check separately that only the last one is optional
+	( 'in' 'modes' '(' 
 	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 	')')?
 	;
