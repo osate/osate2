@@ -79,27 +79,26 @@ public class SubprogramAccessItemProvider extends AccessItemProvider implements 
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addSubprogramClassifierPropertyDescriptor(object);
+			addSubprogramFeatureClassifierPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Subprogram Classifier feature.
+	 * This adds a property descriptor for the Subprogram Feature Classifier feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addSubprogramClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_SubprogramAccess_subprogramClassifier_feature"),
-						getString("_UI_PropertyDescriptor_description",
-								"_UI_SubprogramAccess_subprogramClassifier_feature", "_UI_SubprogramAccess_type"),
-						Aadl2Package.eINSTANCE.getSubprogramAccess_SubprogramClassifier(), true, false, true, null,
-						null, null));
+	protected void addSubprogramFeatureClassifierPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_SubprogramAccess_subprogramFeatureClassifier_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_SubprogramAccess_subprogramFeatureClassifier_feature", "_UI_SubprogramAccess_type"),
+				Aadl2Package.eINSTANCE.getSubprogramAccess_SubprogramFeatureClassifier(), true, false, true, null,
+				null, null));
 	}
 
 	/**

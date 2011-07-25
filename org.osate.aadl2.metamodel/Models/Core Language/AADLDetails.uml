@@ -508,6 +508,9 @@
           <generalization xmi:id="_SKEe8Kc8EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
+          <generalization xmi:id="_VpaJYLbvEeCFTe7PfIxrcw">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_hn8cMLOzEeCzMYz5ww7glA"/>
+          </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_a1vLYKc4EeCYEIHXYlP5sg" name="BusPrototype">
           <generalization xmi:id="_fvCcoKc4EeCYEIHXYlP5sg" general="_9O0w4Kc3EeCYEIHXYlP5sg"/>
@@ -620,6 +623,9 @@
           <generalization xmi:id="_EilL8Kf0EeCYEIHXYlP5sg" general="Components-Data-Data"/>
           <generalization xmi:id="_5xadgKf1EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+          <generalization xmi:id="_XS8TALbvEeCFTe7PfIxrcw">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_hn8cMLOzEeCzMYz5ww7glA"/>
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_5tUSkKfzEeCYEIHXYlP5sg" name="DataPrototype">
@@ -1390,6 +1396,9 @@
           <generalization xmi:id="_ViuoUKf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
+          <generalization xmi:id="_WIDNMLbvEeCFTe7PfIxrcw">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_hn8cMLOzEeCzMYz5ww7glA"/>
+          </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_5u9YgKfLEeCYEIHXYlP5sg" name="SubprogramPrototype">
           <generalization xmi:id="_JIu-4KfMEeCYEIHXYlP5sg" general="_5fL3IKfLEeCYEIHXYlP5sg"/>
@@ -1501,6 +1510,9 @@
           <generalization xmi:id="_K1KpwKdDEeCYEIHXYlP5sg" general="Components-SubprogramGroup-SubprogramGroup"/>
           <generalization xmi:id="_UOq_cKf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
+          </generalization>
+          <generalization xmi:id="_WuCPILbvEeCFTe7PfIxrcw">
+            <general xmi:type="uml:Class" href="AADLConstructs.uml#_hn8cMLOzEeCzMYz5ww7glA"/>
           </generalization>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_6GcCoKdCEeCYEIHXYlP5sg" name="SubprogramGroupPrototype">
@@ -2504,7 +2516,7 @@
         <generalization xmi:id="_oPsH9B-jEd6oIu99HumgeA">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Flows-FlowElement"/>
         </generalization>
-        <ownedAttribute xmi:id="Features-DataAccess-dataClassifier" name="dataClassifier" type="Components-Data-DataClassifier" association="Features-A_dataAccess_dataClassifier">
+        <ownedAttribute xmi:id="Features-DataAccess-dataClassifier" name="dataFeatureClassifier" type="_5cLfQKfzEeCYEIHXYlP5sg" association="Features-A_dataAccess_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-DataAccess-dataClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-DataAccess-dataClassifier-_lowerValue"/>
           <subsettedProperty href="AADLConstructs.uml#Features-Feature-classifier"/>
@@ -2514,7 +2526,7 @@
         <generalization xmi:id="Features-BusAccess-_generalization.0">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Features-AccessFeature"/>
         </generalization>
-        <ownedAttribute xmi:id="Features-BusAccess-busClassifier" name="busClassifier" type="Components-Bus-BusClassifier" association="Features-A_busAccess_busClassifier">
+        <ownedAttribute xmi:id="Features-BusAccess-busClassifier" name="busFeatureClassifier" type="_9O0w4Kc3EeCYEIHXYlP5sg" association="Features-A_busAccess_busClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-BusAccess-busClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-BusAccess-busClassifier-_lowerValue"/>
           <subsettedProperty href="AADLConstructs.uml#Features-Feature-classifier"/>
@@ -2525,7 +2537,7 @@
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Features-AccessFeature"/>
         </generalization>
         <generalization xmi:id="Features-SubprogramAccess-_generalization.1" general="Calls-CalledSubprogram"/>
-        <ownedAttribute xmi:id="Features-SubprogramAccess-subprogramClassifier" name="subprogramClassifier" type="Components-Subprogram-SubprogramClassifier" association="Features-A_subprogramAccess_subprogramClassifier">
+        <ownedAttribute xmi:id="Features-SubprogramAccess-subprogramClassifier" name="subprogramFeatureClassifier" type="_5fL3IKfLEeCYEIHXYlP5sg" association="Features-A_subprogramAccess_subprogramClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-SubprogramAccess-subprogramClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-SubprogramAccess-subprogramClassifier-_lowerValue"/>
           <subsettedProperty href="AADLConstructs.uml#Features-Feature-classifier"/>
@@ -2539,7 +2551,7 @@
         <generalization xmi:id="Features-DataPort-_generalization.2">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Context"/>
         </generalization>
-        <ownedAttribute xmi:id="Features-DataPort-dataClassifier" name="dataClassifier" type="Components-Data-DataClassifier" association="Features-A_dataPort_dataClassifier">
+        <ownedAttribute xmi:id="Features-DataPort-dataClassifier" name="dataFeatureClassifier" type="_5cLfQKfzEeCYEIHXYlP5sg" association="Features-A_dataPort_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-DataPort-dataClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-DataPort-dataClassifier-_lowerValue"/>
           <subsettedProperty href="AADLConstructs.uml#Features-Feature-classifier"/>
@@ -2558,19 +2570,19 @@
         <generalization xmi:id="Features-EventDataPort-_generalization.2">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Context"/>
         </generalization>
-        <ownedAttribute xmi:id="Features-EventDataPort-dataClassifier" name="dataClassifier" type="Components-Data-DataClassifier" association="Features-A_eventDataPort_dataClassifier">
+        <ownedAttribute xmi:id="Features-EventDataPort-dataClassifier" name="dataFeatureClassifier" type="_5cLfQKfzEeCYEIHXYlP5sg" association="Features-A_eventDataPort_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-EventDataPort-dataClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-EventDataPort-dataClassifier-_lowerValue"/>
           <subsettedProperty href="AADLConstructs.uml#Features-Feature-classifier"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_dataPort_dataClassifier" name="A_dataPort_dataClassifier" memberEnd="Features-A_dataPort_dataClassifier-dataPort Features-DataPort-dataClassifier">
+      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_dataPort_dataClassifier" name="A_dataPort_dataFeatureClassifier" memberEnd="Features-A_dataPort_dataClassifier-dataPort Features-DataPort-dataClassifier">
         <ownedEnd xmi:id="Features-A_dataPort_dataClassifier-dataPort" name="dataPort" type="Features-DataPort" association="Features-A_dataPort_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_dataPort_dataClassifier-dataPort-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_dataPort_dataClassifier-dataPort-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_eventDataPort_dataClassifier" name="A_eventDataPort_dataClassifier" memberEnd="Features-A_eventDataPort_dataClassifier-eventDataPort Features-EventDataPort-dataClassifier">
+      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_eventDataPort_dataClassifier" name="A_eventDataPort_dataFeatureClassifier" memberEnd="Features-A_eventDataPort_dataClassifier-eventDataPort Features-EventDataPort-dataClassifier">
         <ownedEnd xmi:id="Features-A_eventDataPort_dataClassifier-eventDataPort" name="eventDataPort" type="Features-EventDataPort" association="Features-A_eventDataPort_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_eventDataPort_dataClassifier-eventDataPort-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_eventDataPort_dataClassifier-eventDataPort-_lowerValue"/>
@@ -2581,7 +2593,7 @@
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Context"/>
         </generalization>
         <generalization xmi:id="_dHazxFELEd6kWIIn_VWR1g" general="Connections-ParameterConnectionEnd"/>
-        <ownedAttribute xmi:id="Features-Parameter-dataClassifier" name="dataClassifier" type="Components-Data-DataClassifier" association="Features-A_parameter_dataClassifier">
+        <ownedAttribute xmi:id="Features-Parameter-dataClassifier" name="dataFeatureClassifier" type="_5cLfQKfzEeCYEIHXYlP5sg" association="Features-A_parameter_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-Parameter-dataClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-Parameter-dataClassifier-_lowerValue"/>
           <subsettedProperty href="AADLConstructs.uml#Features-Feature-classifier"/>
@@ -2592,37 +2604,37 @@
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Features-AccessFeature"/>
         </generalization>
         <generalization xmi:id="Features-SubprogramGroupAccess-_generalization.1" general="Calls-CallContext"/>
-        <ownedAttribute xmi:id="Features-SubprogramGroupAccess-subprogramGroupClassifier" name="subprogramGroupClassifier" type="Components-SubprogramGroup-SubprogramGroupClassifier" association="Features-A_subprogramGroupAccess_subprogramGroupClassifier">
+        <ownedAttribute xmi:id="Features-SubprogramGroupAccess-subprogramGroupClassifier" name="subprogramGroupFeatureClassifier" type="_0HeJ0KdCEeCYEIHXYlP5sg" association="Features-A_subprogramGroupAccess_subprogramGroupClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-SubprogramGroupAccess-subprogramGroupClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-SubprogramGroupAccess-subprogramGroupClassifier-_lowerValue"/>
           <subsettedProperty href="AADLConstructs.uml#Features-Feature-classifier"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_dataAccess_dataClassifier" name="A_dataAccess_dataClassifier" memberEnd="Features-A_dataAccess_dataClassifier-dataAccess Features-DataAccess-dataClassifier">
+      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_dataAccess_dataClassifier" name="A_dataAccess_dataFeatureClassifier" memberEnd="Features-A_dataAccess_dataClassifier-dataAccess Features-DataAccess-dataClassifier">
         <ownedEnd xmi:id="Features-A_dataAccess_dataClassifier-dataAccess" name="dataAccess" type="Features-DataAccess" association="Features-A_dataAccess_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_dataAccess_dataClassifier-dataAccess-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_dataAccess_dataClassifier-dataAccess-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_parameter_dataClassifier" name="A_parameter_dataClassifier" memberEnd="Features-A_parameter_dataClassifier-parameter Features-Parameter-dataClassifier">
+      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_parameter_dataClassifier" name="A_parameter_dataFeatureClassifier" memberEnd="Features-A_parameter_dataClassifier-parameter Features-Parameter-dataClassifier">
         <ownedEnd xmi:id="Features-A_parameter_dataClassifier-parameter" name="parameter" type="Features-Parameter" association="Features-A_parameter_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_parameter_dataClassifier-parameter-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_parameter_dataClassifier-parameter-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_busAccess_busClassifier" name="A_busAccess_busClassifier" memberEnd="Features-A_busAccess_busClassifier-busAccess Features-BusAccess-busClassifier">
+      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_busAccess_busClassifier" name="A_busAccess_busFeatureClassifier" memberEnd="Features-A_busAccess_busClassifier-busAccess Features-BusAccess-busClassifier">
         <ownedEnd xmi:id="Features-A_busAccess_busClassifier-busAccess" name="busAccess" type="Features-BusAccess" association="Features-A_busAccess_busClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_busAccess_busClassifier-busAccess-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_busAccess_busClassifier-busAccess-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_subprogramAccess_subprogramClassifier" name="A_subprogramAccess_subprogramClassifier" memberEnd="Features-A_subprogramAccess_subprogramClassifier-subprogramAccess Features-SubprogramAccess-subprogramClassifier">
+      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_subprogramAccess_subprogramClassifier" name="A_subprogramAccess_subprogramFeatureClassifier" memberEnd="Features-A_subprogramAccess_subprogramClassifier-subprogramAccess Features-SubprogramAccess-subprogramClassifier">
         <ownedEnd xmi:id="Features-A_subprogramAccess_subprogramClassifier-subprogramAccess" name="subprogramAccess" type="Features-SubprogramAccess" association="Features-A_subprogramAccess_subprogramClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_subprogramAccess_subprogramClassifier-subprogramAccess-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_subprogramAccess_subprogramClassifier-subprogramAccess-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_subprogramGroupAccess_subprogramGroupClassifier" name="A_subprogramGroupAccess_subprogramGroupClassifier" memberEnd="Features-A_subprogramGroupAccess_subprogramGroupClassifier-subprogramGroupAccess Features-SubprogramGroupAccess-subprogramGroupClassifier">
+      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_subprogramGroupAccess_subprogramGroupClassifier" name="A_subprogramGroupAccess_subprogramGroupFeatureClassifier" memberEnd="Features-A_subprogramGroupAccess_subprogramGroupClassifier-subprogramGroupAccess Features-SubprogramGroupAccess-subprogramGroupClassifier">
         <ownedEnd xmi:id="Features-A_subprogramGroupAccess_subprogramGroupClassifier-subprogramGroupAccess" name="subprogramGroupAccess" type="Features-SubprogramGroupAccess" association="Features-A_subprogramGroupAccess_subprogramGroupClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_subprogramGroupAccess_subprogramGroupClassifier-subprogramGroupAccess-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_subprogramGroupAccess_subprogramGroupClassifier-subprogramGroupAccess-_lowerValue"/>

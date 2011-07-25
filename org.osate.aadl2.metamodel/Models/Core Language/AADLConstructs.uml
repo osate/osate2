@@ -1215,7 +1215,7 @@ For access features, the classifier specifies the type of the shared component.<
           <body>A generic feature.</body>
         </ownedComment>
         <generalization xmi:id="Features-AbstractFeature-_generalization.0" general="_r3p5SJyLEd64G8zRE2nwuA"/>
-        <ownedAttribute xmi:id="Features-AbstractFeature-componentClassifier" name="componentClassifier" type="Components-ComponentClassifier" subsettedProperty="Features-Feature-classifier" association="Features-A_abstractFeature_componentClassifier">
+        <ownedAttribute xmi:id="Features-AbstractFeature-componentClassifier" name="featureClassifier" type="_hn8cMLOzEeCzMYz5ww7glA" subsettedProperty="Features-Feature-classifier" association="Features-A_abstractFeature_componentClassifier">
           <ownedComment xmi:id="Features-AbstractFeature-componentClassifier-_ownedComment.0">
             <body>A component classifier referenced by the feature.</body>
           </ownedComment>
@@ -1280,7 +1280,7 @@ For access features, the classifier specifies the type of the shared component.<
           </ownedComment>
         </ownedLiteral>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_abstractFeature_componentClassifier" name="A_abstractFeature_componentClassifier" memberEnd="Features-A_abstractFeature_componentClassifier-abstractFeature Features-AbstractFeature-componentClassifier">
+      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_abstractFeature_componentClassifier" name="A_abstractFeature_featureClassifier" memberEnd="Features-A_abstractFeature_componentClassifier-abstractFeature Features-AbstractFeature-componentClassifier">
         <ownedEnd xmi:id="Features-A_abstractFeature_componentClassifier-abstractFeature" name="abstractFeature" type="Features-AbstractFeature" association="Features-A_abstractFeature_componentClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_abstractFeature_componentClassifier-abstractFeature-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_abstractFeature_componentClassifier-abstractFeature-_lowerValue"/>

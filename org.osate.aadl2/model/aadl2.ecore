@@ -837,14 +837,16 @@
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Feature" abstract="true" eSuperTypes="#//StructuralFeature #//FeatureConnectionEnd #//ArrayableElement">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EReference" name="featureClassifier" ordered="false"
+          eType="#//FeatureClassifier" changeable="false" volatile="true" transient="true"
+          derived="true">
+        <eAnnotations source="union"/>
+      </contents>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
         eType="#//Prototype" changeable="false" volatile="true" transient="true" derived="true">
-      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="featureClassifier" ordered="false"
-        eType="#//FeatureClassifier" changeable="false" volatile="true" transient="true"
-        derived="true">
-      <eAnnotations source="union"/>
+      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//Feature">
@@ -853,7 +855,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
         eType="#//ComponentClassifier" changeable="false" volatile="true" transient="true"
         derived="true">
-      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
+      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureConnectionEnd" abstract="true"
@@ -990,9 +992,9 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusAccess" eSuperTypes="#//Access">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="busClassifier" ordered="false"
-        eType="#//BusClassifier">
-      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="busFeatureClassifier" ordered="false"
+        eType="#//BusSubcomponentType">
+      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Access" abstract="true" eSuperTypes="#//Feature #//AccessConnectionEnd">
@@ -1013,27 +1015,25 @@
     <eLiterals name="subprogram" value="2"/>
     <eLiterals name="subprogramGroup" value="3"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BusClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//BusSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="BusSubcomponentType" abstract="true"
-      eSuperTypes="#//Bus #//SubcomponentType"/>
+      eSuperTypes="#//Bus #//SubcomponentType #//FeatureClassifier"/>
   <eClassifiers xsi:type="ecore:EClass" name="Bus" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataAccess" eSuperTypes="#//Access #//FlowElement #//ParameterConnectionEnd #//PortConnectionEnd">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" ordered="false"
-        eType="#//DataClassifier">
-      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataFeatureClassifier"
+        ordered="false" eType="#//DataSubcomponentType">
+      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ParameterConnectionEnd" abstract="true"
       eSuperTypes="#//ConnectionEnd"/>
   <eClassifiers xsi:type="ecore:EClass" name="PortConnectionEnd" abstract="true" eSuperTypes="#//ConnectionEnd"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DataClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//DataSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponentType" abstract="true"
-      eSuperTypes="#//Data #//SubcomponentType"/>
+      eSuperTypes="#//Data #//SubcomponentType #//FeatureClassifier"/>
   <eClassifiers xsi:type="ecore:EClass" name="Data" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataPort" eSuperTypes="#//Port #//Context #//ParameterConnectionEnd">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" ordered="false"
-        eType="#//DataClassifier">
-      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataFeatureClassifier"
+        ordered="false" eType="#//DataSubcomponentType">
+      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Port" abstract="true" eSuperTypes="#//DirectedFeature #//PortConnectionEnd">
@@ -1046,44 +1046,41 @@
     <eLiterals name="eventData" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventDataPort" eSuperTypes="#//Port #//Context #//ParameterConnectionEnd">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" ordered="false"
-        eType="#//DataClassifier">
-      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataFeatureClassifier"
+        ordered="false" eType="#//DataSubcomponentType">
+      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventPort" eSuperTypes="#//Port"/>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//DirectedFeature #//Context #//ParameterConnectionEnd">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" ordered="false"
-        eType="#//DataClassifier">
-      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataFeatureClassifier"
+        ordered="false" eType="#//DataSubcomponentType">
+      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//CalledSubprogram">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramClassifier" ordered="false"
-        eType="#//SubprogramClassifier">
-      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramFeatureClassifier"
+        ordered="false" eType="#//SubprogramSubcomponentType">
+      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramClassifier" abstract="true"
-      eSuperTypes="#//ComponentClassifier #//SubprogramSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//Subprogram"/>
+      eSuperTypes="#//SubcomponentType #//Subprogram #//FeatureClassifier"/>
   <eClassifiers xsi:type="ecore:EClass" name="Subprogram" abstract="true" eSuperTypes="#//NamedElement #//CalledSubprogram"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupAccess" eSuperTypes="#//Access #//CallContext">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramGroupClassifier"
-        ordered="false" eType="#//SubprogramGroupClassifier">
-      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramGroupFeatureClassifier"
+        ordered="false" eType="#//SubprogramGroupSubcomponentType">
+      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupClassifier" abstract="true"
-      eSuperTypes="#//ComponentClassifier #//SubprogramGroupSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//SubprogramGroup"/>
+      eSuperTypes="#//SubcomponentType #//SubprogramGroup #//FeatureClassifier"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroup" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractFeature" eSuperTypes="#//DirectedFeature">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="componentClassifier" ordered="false"
-        eType="#//ComponentClassifier">
-      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureClassifier" ordered="false"
+        eType="#//FeatureClassifier">
+      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
+      <eAnnotations source="redefines" references="#//Feature/%duplicates%/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototype" eSuperTypes="#//Prototype #//FeatureType">
@@ -1651,6 +1648,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractPrototype" eSuperTypes="#//ComponentPrototype #//AbstractSubcomponentType #//BusSubcomponentType #//DataSubcomponentType #//DeviceSubcomponentType #//MemorySubcomponentType #//ProcessorSubcomponentType #//ProcessSubcomponentType #//SubprogramGroupSubcomponentType #//SubprogramSubcomponentType #//SystemSubcomponentType #//ThreadGroupSubcomponentType #//ThreadSubcomponentType #//VirtualProcessorSubcomponentType #//VitualBusSubcomponentType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BusClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//BusSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="BusType" eSuperTypes="#//ComponentType #//BusClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
         upperBound="-1" eType="#//BusAccess" containment="true">
@@ -1671,6 +1669,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusPrototype" eSuperTypes="#//ComponentPrototype #//BusSubcomponentType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//DataSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataType" eSuperTypes="#//ComponentType #//DataClassifier #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
         ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
@@ -1773,6 +1772,8 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemoryPrototype" eSuperTypes="#//ComponentPrototype #//MemorySubcomponentType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramClassifier" abstract="true"
+      eSuperTypes="#//ComponentClassifier #//SubprogramSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramType" eSuperTypes="#//ComponentType #//SubprogramClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
         upperBound="-1" eType="#//EventDataPort" containment="true">
@@ -1813,6 +1814,8 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramPrototype" eSuperTypes="#//ComponentPrototype #//SubprogramSubcomponentType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupClassifier" abstract="true"
+      eSuperTypes="#//ComponentClassifier #//SubprogramGroupSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupType" eSuperTypes="#//ComponentType #//SubprogramGroupClassifier #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
         ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">

@@ -43,7 +43,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.SubprogramGroupAccess;
-import org.osate.aadl2.SubprogramGroupClassifier;
+import org.osate.aadl2.SubprogramGroupSubcomponentType;
 
 /**
  * <!-- begin-user-doc -->
@@ -53,7 +53,7 @@ import org.osate.aadl2.SubprogramGroupClassifier;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupAccessImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.SubprogramGroupAccessImpl#getSubprogramGroupClassifier <em>Subprogram Group Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubprogramGroupAccessImpl#getSubprogramGroupFeatureClassifier <em>Subprogram Group Feature Classifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -61,14 +61,14 @@ import org.osate.aadl2.SubprogramGroupClassifier;
  */
 public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramGroupAccess {
 	/**
-	 * The cached value of the '{@link #getSubprogramGroupClassifier() <em>Subprogram Group Classifier</em>}' reference.
+	 * The cached value of the '{@link #getSubprogramGroupFeatureClassifier() <em>Subprogram Group Feature Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSubprogramGroupClassifier()
+	 * @see #getSubprogramGroupFeatureClassifier()
 	 * @generated
 	 * @ordered
 	 */
-	protected SubprogramGroupClassifier subprogramGroupClassifier;
+	protected SubprogramGroupSubcomponentType subprogramGroupFeatureClassifier;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -108,8 +108,8 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	 */
 	@Override
 	public FeatureClassifier basicGetFeatureClassifier() {
-		if (eIsSet(Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_CLASSIFIER)) {
-			return basicGetSubprogramGroupClassifier();
+		if (eIsSet(Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER)) {
+			return basicGetSubprogramGroupFeatureClassifier();
 		}
 		return super.basicGetFeatureClassifier();
 	}
@@ -119,18 +119,18 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SubprogramGroupClassifier getSubprogramGroupClassifier() {
-		if (subprogramGroupClassifier != null && ((EObject) subprogramGroupClassifier).eIsProxy()) {
-			InternalEObject oldSubprogramGroupClassifier = (InternalEObject) subprogramGroupClassifier;
-			subprogramGroupClassifier = (SubprogramGroupClassifier) eResolveProxy(oldSubprogramGroupClassifier);
-			if (subprogramGroupClassifier != oldSubprogramGroupClassifier) {
+	public SubprogramGroupSubcomponentType getSubprogramGroupFeatureClassifier() {
+		if (subprogramGroupFeatureClassifier != null && ((EObject) subprogramGroupFeatureClassifier).eIsProxy()) {
+			InternalEObject oldSubprogramGroupFeatureClassifier = (InternalEObject) subprogramGroupFeatureClassifier;
+			subprogramGroupFeatureClassifier = (SubprogramGroupSubcomponentType) eResolveProxy(oldSubprogramGroupFeatureClassifier);
+			if (subprogramGroupFeatureClassifier != oldSubprogramGroupFeatureClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_CLASSIFIER,
-							oldSubprogramGroupClassifier, subprogramGroupClassifier));
+							Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER,
+							oldSubprogramGroupFeatureClassifier, subprogramGroupFeatureClassifier));
 			}
 		}
-		return subprogramGroupClassifier;
+		return subprogramGroupFeatureClassifier;
 	}
 
 	/**
@@ -138,8 +138,8 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SubprogramGroupClassifier basicGetSubprogramGroupClassifier() {
-		return subprogramGroupClassifier;
+	public SubprogramGroupSubcomponentType basicGetSubprogramGroupFeatureClassifier() {
+		return subprogramGroupFeatureClassifier;
 	}
 
 	/**
@@ -147,13 +147,13 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSubprogramGroupClassifier(SubprogramGroupClassifier newSubprogramGroupClassifier) {
-		SubprogramGroupClassifier oldSubprogramGroupClassifier = subprogramGroupClassifier;
-		subprogramGroupClassifier = newSubprogramGroupClassifier;
+	public void setSubprogramGroupFeatureClassifier(SubprogramGroupSubcomponentType newSubprogramGroupFeatureClassifier) {
+		SubprogramGroupSubcomponentType oldSubprogramGroupFeatureClassifier = subprogramGroupFeatureClassifier;
+		subprogramGroupFeatureClassifier = newSubprogramGroupFeatureClassifier;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_CLASSIFIER, oldSubprogramGroupClassifier,
-					subprogramGroupClassifier));
+					Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER,
+					oldSubprogramGroupFeatureClassifier, subprogramGroupFeatureClassifier));
 	}
 
 	/**
@@ -164,10 +164,10 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_CLASSIFIER:
+		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER:
 			if (resolve)
-				return getSubprogramGroupClassifier();
-			return basicGetSubprogramGroupClassifier();
+				return getSubprogramGroupFeatureClassifier();
+			return basicGetSubprogramGroupFeatureClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -180,8 +180,8 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_CLASSIFIER:
-			setSubprogramGroupClassifier((SubprogramGroupClassifier) newValue);
+		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER:
+			setSubprogramGroupFeatureClassifier((SubprogramGroupSubcomponentType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -195,8 +195,8 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_CLASSIFIER:
-			setSubprogramGroupClassifier((SubprogramGroupClassifier) null);
+		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER:
+			setSubprogramGroupFeatureClassifier((SubprogramGroupSubcomponentType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -210,8 +210,8 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_CLASSIFIER:
-			return subprogramGroupClassifier != null;
+		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER:
+			return subprogramGroupFeatureClassifier != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -224,7 +224,7 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	@Override
 	public boolean isSetFeatureClassifier() {
 		return super.isSetFeatureClassifier()
-				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_CLASSIFIER);
+				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER);
 	}
 
 } //SubprogramGroupAccessImpl

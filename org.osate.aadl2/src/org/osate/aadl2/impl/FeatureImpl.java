@@ -277,10 +277,6 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		switch (featureID) {
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
 			return getArrayDimensions();
-		case Aadl2Package.FEATURE__FEATURE_CLASSIFIER:
-			if (resolve)
-				return getFeatureClassifier();
-			return basicGetFeatureClassifier();
 		case Aadl2Package.FEATURE__PROTOTYPE:
 			if (resolve)
 				return getPrototype();
@@ -345,8 +341,6 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		switch (featureID) {
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
 			return arrayDimensions != null && !arrayDimensions.isEmpty();
-		case Aadl2Package.FEATURE__FEATURE_CLASSIFIER:
-			return isSetFeatureClassifier();
 		case Aadl2Package.FEATURE__PROTOTYPE:
 			return basicGetPrototype() != null;
 		case Aadl2Package.FEATURE__REFINED:

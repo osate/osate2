@@ -79,25 +79,25 @@ public class BusAccessItemProvider extends AccessItemProvider implements IEditin
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addBusClassifierPropertyDescriptor(object);
+			addBusFeatureClassifierPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Bus Classifier feature.
+	 * This adds a property descriptor for the Bus Feature Classifier feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addBusClassifierPropertyDescriptor(Object object) {
+	protected void addBusFeatureClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_BusAccess_busClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_BusAccess_busClassifier_feature",
-						"_UI_BusAccess_type"), Aadl2Package.eINSTANCE.getBusAccess_BusClassifier(), true, false, true,
-				null, null, null));
+				getString("_UI_BusAccess_busFeatureClassifier_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_BusAccess_busFeatureClassifier_feature",
+						"_UI_BusAccess_type"), Aadl2Package.eINSTANCE.getBusAccess_BusFeatureClassifier(), true, false,
+				true, null, null, null));
 	}
 
 	/**
