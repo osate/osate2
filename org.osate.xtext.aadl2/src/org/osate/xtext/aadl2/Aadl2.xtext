@@ -718,7 +718,7 @@ SubprogramCallSequence returns aadl2::SubprogramCallSequence:
 
 CallSpecification returns aadl2::CallSpecification:
 	(({aadl2::ProcessorCall}name=ID 'subprogram' 'processor' '.' subprogramAccessName=ID ) | 
-     ({aadl2::SubprogramCall}name=ID 'subprogram'(context=[aadl2::CallContext] '.')? calledSubprogram=[aadl2::CalledSubprogram|ID]))
+     ({aadl2::SubprogramCall}name=ID 'subprogram'(context=[aadl2::CallContext|PNAME] '.')? calledSubprogram=[aadl2::CalledSubprogram|ID]))
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';'
 ;
@@ -925,7 +925,7 @@ AbstractSubcomponent returns aadl2::AbstractSubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::SystemSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'abstract'
-	(abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] 
+	(abstractSubcomponentType=[aadl2::AbstractSubcomponentType|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
@@ -941,7 +941,7 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::SystemSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'system'
-	(systemSubcomponentType=[aadl2::SystemClassifier|QCREF] 
+	(systemSubcomponentType=[aadl2::SystemSubcomponentType|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
@@ -957,7 +957,7 @@ ProcessSubcomponent returns aadl2::ProcessSubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::ProcessSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'process'
-	(processSubcomponentType=[aadl2::ProcessClassifier|QCREF] 
+	(processSubcomponentType=[aadl2::ProcessSubcomponentType|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
@@ -973,7 +973,7 @@ ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'thread' 'group'
-	(threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] 
+	(threadGroupSubcomponentType=[aadl2::ThreadGroupSubcomponentType|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
@@ -989,7 +989,7 @@ ThreadSubcomponent returns aadl2::ThreadSubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::ThreadSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'thread'
-	(threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] 
+	(threadSubcomponentType=[aadl2::ThreadSubcomponentType|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
@@ -1005,7 +1005,7 @@ SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'subprogram'
-	(subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] 
+	(subprogramSubcomponentType=[aadl2::SubprogramSubcomponentType|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
@@ -1021,7 +1021,7 @@ SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'subprogram' 'group'
-	(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] 
+	(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupSubcomponentType|QCREF] 
 	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
@@ -1037,7 +1037,7 @@ ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::ProcessorSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'processor' 
-	 (processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF]
+	 (processorSubcomponentType=[aadl2::ProcessorSubcomponentType|QCREF]
 	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
@@ -1053,7 +1053,7 @@ VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'virtual' 'processor' 
-	 (virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF]
+	 (virtualProcessorSubcomponentType=[aadl2::VirtualProcessorSubcomponentType|QCREF]
 	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
@@ -1069,7 +1069,7 @@ DeviceSubcomponent returns aadl2::DeviceSubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::DeviceSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'device' 
-	 (deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF]
+	 (deviceSubcomponentType=[aadl2::DeviceSubcomponentType|QCREF]
 	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
@@ -1085,7 +1085,7 @@ MemorySubcomponent returns aadl2::MemorySubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::MemorySubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'memory' 
-	 (memorySubcomponentType=[aadl2::MemoryClassifier|QCREF]
+	 (memorySubcomponentType=[aadl2::MemorySubcomponentType|QCREF]
 	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
@@ -1101,7 +1101,7 @@ BusSubcomponent returns aadl2::BusSubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::BusSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'bus' 
-	 (busSubcomponentType=[aadl2::BusClassifier|QCREF]
+	 (busSubcomponentType=[aadl2::BusSubcomponentType|QCREF]
 	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
@@ -1133,7 +1133,7 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 	((name=ID ':' )|
 	(refined=[aadl2::DataSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'data' 
-	(dataSubcomponentType=[aadl2::DataClassifier|QCREF] 
+	(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] 
 	 (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
@@ -2037,6 +2037,11 @@ EQCREF:
 	(ID '::')+ ID ('.' ID)?;
 	
 STAR : '*';
+
+
+// qualified type reference
+QTREF: PNAME;
+
 
 // package anme
 PNAME:

@@ -6505,6 +6505,8 @@ finally {
 
 
 
+
+
 // Entry rule entryRulePNAME
 entryRulePNAME 
 :
@@ -101609,8 +101611,8 @@ rule__CallSpecification__ContextAssignment_0_1_3_0
 (
 { before(grammarAccess.getCallSpecificationAccess().getContextCallContextCrossReference_0_1_3_0_0()); }
 (
-{ before(grammarAccess.getCallSpecificationAccess().getContextCallContextIDTerminalRuleCall_0_1_3_0_0_1()); }
-	RULE_ID{ after(grammarAccess.getCallSpecificationAccess().getContextCallContextIDTerminalRuleCall_0_1_3_0_0_1()); }
+{ before(grammarAccess.getCallSpecificationAccess().getContextCallContextPNAMEParserRuleCall_0_1_3_0_0_1()); }
+	rulePNAME{ after(grammarAccess.getCallSpecificationAccess().getContextCallContextPNAMEParserRuleCall_0_1_3_0_0_1()); }
 )
 { after(grammarAccess.getCallSpecificationAccess().getContextCallContextCrossReference_0_1_3_0_0()); }
 )
@@ -103272,12 +103274,12 @@ rule__AbstractSubcomponent__AbstractSubcomponentTypeAssignment_2_0
     }
 :
 (
-{ before(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractClassifierCrossReference_2_0_0()); }
+{ before(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractSubcomponentTypeCrossReference_2_0_0()); }
 (
-{ before(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractClassifierQCREFParserRuleCall_2_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractClassifierQCREFParserRuleCall_2_0_0_1()); }
+{ before(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
 )
-{ after(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractClassifierCrossReference_2_0_0()); }
+{ after(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractSubcomponentTypeCrossReference_2_0_0()); }
 )
 
 ;
@@ -103472,12 +103474,12 @@ rule__SystemSubcomponent__SystemSubcomponentTypeAssignment_2_0
     }
 :
 (
-{ before(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemClassifierCrossReference_2_0_0()); }
+{ before(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemSubcomponentTypeCrossReference_2_0_0()); }
 (
-{ before(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemClassifierQCREFParserRuleCall_2_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemClassifierQCREFParserRuleCall_2_0_0_1()); }
+{ before(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
 )
-{ after(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemClassifierCrossReference_2_0_0()); }
+{ after(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemSubcomponentTypeCrossReference_2_0_0()); }
 )
 
 ;
@@ -103672,12 +103674,12 @@ rule__ProcessSubcomponent__ProcessSubcomponentTypeAssignment_2_0
     }
 :
 (
-{ before(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessClassifierCrossReference_2_0_0()); }
+{ before(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessSubcomponentTypeCrossReference_2_0_0()); }
 (
-{ before(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessClassifierQCREFParserRuleCall_2_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessClassifierQCREFParserRuleCall_2_0_0_1()); }
+{ before(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
 )
-{ after(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessClassifierCrossReference_2_0_0()); }
+{ after(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessSubcomponentTypeCrossReference_2_0_0()); }
 )
 
 ;
@@ -103872,12 +103874,12 @@ rule__ThreadGroupSubcomponent__ThreadGroupSubcomponentTypeAssignment_3_0
     }
 :
 (
-{ before(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupClassifierCrossReference_3_0_0()); }
+{ before(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeCrossReference_3_0_0()); }
 (
-{ before(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupClassifierQCREFParserRuleCall_3_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupClassifierQCREFParserRuleCall_3_0_0_1()); }
+{ before(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1()); }
 )
-{ after(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupClassifierCrossReference_3_0_0()); }
+{ after(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeCrossReference_3_0_0()); }
 )
 
 ;
@@ -104072,12 +104074,12 @@ rule__ThreadSubcomponent__ThreadSubcomponentTypeAssignment_2_0
     }
 :
 (
-{ before(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadClassifierCrossReference_2_0_0()); }
+{ before(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadSubcomponentTypeCrossReference_2_0_0()); }
 (
-{ before(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadClassifierQCREFParserRuleCall_2_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadClassifierQCREFParserRuleCall_2_0_0_1()); }
+{ before(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
 )
-{ after(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadClassifierCrossReference_2_0_0()); }
+{ after(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadSubcomponentTypeCrossReference_2_0_0()); }
 )
 
 ;
@@ -104272,12 +104274,12 @@ rule__SubprogramSubcomponent__SubprogramSubcomponentTypeAssignment_2_0
     }
 :
 (
-{ before(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramClassifierCrossReference_2_0_0()); }
+{ before(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramSubcomponentTypeCrossReference_2_0_0()); }
 (
-{ before(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramClassifierQCREFParserRuleCall_2_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramClassifierQCREFParserRuleCall_2_0_0_1()); }
+{ before(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
 )
-{ after(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramClassifierCrossReference_2_0_0()); }
+{ after(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramSubcomponentTypeCrossReference_2_0_0()); }
 )
 
 ;
@@ -104472,12 +104474,12 @@ rule__SubprogramGroupSubcomponent__SubprogramGroupSubcomponentTypeAssignment_3_0
     }
 :
 (
-{ before(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupClassifierCrossReference_3_0_0()); }
+{ before(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeCrossReference_3_0_0()); }
 (
-{ before(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupClassifierQCREFParserRuleCall_3_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupClassifierQCREFParserRuleCall_3_0_0_1()); }
+{ before(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1()); }
 )
-{ after(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupClassifierCrossReference_3_0_0()); }
+{ after(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeCrossReference_3_0_0()); }
 )
 
 ;
@@ -104672,12 +104674,12 @@ rule__ProcessorSubcomponent__ProcessorSubcomponentTypeAssignment_2_0
     }
 :
 (
-{ before(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorClassifierCrossReference_2_0_0()); }
+{ before(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorSubcomponentTypeCrossReference_2_0_0()); }
 (
-{ before(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorClassifierQCREFParserRuleCall_2_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorClassifierQCREFParserRuleCall_2_0_0_1()); }
+{ before(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
 )
-{ after(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorClassifierCrossReference_2_0_0()); }
+{ after(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorSubcomponentTypeCrossReference_2_0_0()); }
 )
 
 ;
@@ -104872,12 +104874,12 @@ rule__VirtualProcessorSubcomponent__VirtualProcessorSubcomponentTypeAssignment_3
     }
 :
 (
-{ before(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorClassifierCrossReference_3_0_0()); }
+{ before(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeCrossReference_3_0_0()); }
 (
-{ before(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorClassifierQCREFParserRuleCall_3_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorClassifierQCREFParserRuleCall_3_0_0_1()); }
+{ before(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeQCREFParserRuleCall_3_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeQCREFParserRuleCall_3_0_0_1()); }
 )
-{ after(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorClassifierCrossReference_3_0_0()); }
+{ after(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeCrossReference_3_0_0()); }
 )
 
 ;
@@ -105072,12 +105074,12 @@ rule__DeviceSubcomponent__DeviceSubcomponentTypeAssignment_2_0
     }
 :
 (
-{ before(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceClassifierCrossReference_2_0_0()); }
+{ before(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceSubcomponentTypeCrossReference_2_0_0()); }
 (
-{ before(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceClassifierQCREFParserRuleCall_2_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceClassifierQCREFParserRuleCall_2_0_0_1()); }
+{ before(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
 )
-{ after(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceClassifierCrossReference_2_0_0()); }
+{ after(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceSubcomponentTypeCrossReference_2_0_0()); }
 )
 
 ;
@@ -105272,12 +105274,12 @@ rule__MemorySubcomponent__MemorySubcomponentTypeAssignment_2_0
     }
 :
 (
-{ before(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemoryClassifierCrossReference_2_0_0()); }
+{ before(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemorySubcomponentTypeCrossReference_2_0_0()); }
 (
-{ before(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemoryClassifierQCREFParserRuleCall_2_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemoryClassifierQCREFParserRuleCall_2_0_0_1()); }
+{ before(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemorySubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemorySubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
 )
-{ after(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemoryClassifierCrossReference_2_0_0()); }
+{ after(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemorySubcomponentTypeCrossReference_2_0_0()); }
 )
 
 ;
@@ -105472,12 +105474,12 @@ rule__BusSubcomponent__BusSubcomponentTypeAssignment_2_0
     }
 :
 (
-{ before(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusClassifierCrossReference_2_0_0()); }
+{ before(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusSubcomponentTypeCrossReference_2_0_0()); }
 (
-{ before(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusClassifierQCREFParserRuleCall_2_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusClassifierQCREFParserRuleCall_2_0_0_1()); }
+{ before(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
 )
-{ after(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusClassifierCrossReference_2_0_0()); }
+{ after(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusSubcomponentTypeCrossReference_2_0_0()); }
 )
 
 ;
@@ -105872,12 +105874,12 @@ rule__DataSubcomponent__DataSubcomponentTypeAssignment_2_0
     }
 :
 (
-{ before(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataClassifierCrossReference_2_0_0()); }
+{ before(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataSubcomponentTypeCrossReference_2_0_0()); }
 (
-{ before(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataClassifierQCREFParserRuleCall_2_0_0_1()); }
-	ruleQCREF{ after(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataClassifierQCREFParserRuleCall_2_0_0_1()); }
+{ before(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
+	ruleQCREF{ after(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataSubcomponentTypeQCREFParserRuleCall_2_0_0_1()); }
 )
-{ after(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataClassifierCrossReference_2_0_0()); }
+{ after(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataSubcomponentTypeCrossReference_2_0_0()); }
 )
 
 ;

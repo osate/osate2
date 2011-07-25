@@ -144,20 +144,8 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		final String s = getCrossRefNodeAsString(node);
 		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
 			// resolve classifier reference
-			List<EObject> res = getIndexedObjects(context, reference, node);
-			if (!res.isEmpty())
-				return res;
-			final int idx = s.lastIndexOf("::");
-			String packname = null;
-			String cname = s;
-			EObject e;
-			PackageSection scope = getContainingPackageSection(context);
-			if (idx != -1) {
-				packname = s.substring(0, idx);
-				cname = s.substring(idx + 2);
-			}
-			e = findNamedElementInAadlPackage(packname, cname, scope);
-			if (e != null && requiredType.isSuperTypeOf(e.eClass())) {
+			EObject e = findClassifier(context, reference, node, s);
+			if (e != null ) {
 				// the result satisfied the expected class
 				return Collections.singletonList((EObject) e);
 			}
@@ -302,19 +290,50 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 					&& requiredType.isSuperTypeOf(searchResult.eClass())) {
 				return Collections.singletonList((EObject) searchResult);
 			}
+			searchResult = findClassifier(context, reference, node, s);
+			if (searchResult != null ) {
+				return Collections.singletonList((EObject) searchResult);
+			}
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getCalledSubprogram() == requiredType) {
 			// if cxt then search in context
 			Classifier ns = getContainingClassifier(context);
-			CallContext cxt = null;
-			if (reference.getFeatureID() == Aadl2Package.SUBPROGRAM_CALL__CONTEXT) {
-				cxt = ((SubprogramCall) context).getContext();
-			}
-			EObject searchResult = ns.findNamedElement(s);
-			if (searchResult != null
-					&& requiredType.isSuperTypeOf(searchResult.eClass())) {
-				return Collections.singletonList((EObject) searchResult);
+			if (context == null){
+				// look for prototype, subprogramsubcomponent
+				EObject searchResult = ns.findNamedElement(s);
+				if (searchResult == null){
+					// look for subprogramclassifier
+					searchResult = findClassifier(context, reference, node, s);
+				}
+				if (searchResult != null
+						&& requiredType.isSuperTypeOf(searchResult.eClass())) {
+					return Collections.singletonList((EObject) searchResult);
+				}
+			} else {
+				CallContext cxt = ((SubprogramCall) context).getContext();
+				if (cxt instanceof ComponentType){
+					ns = (ComponentType)cxt;
+				} else if (cxt instanceof SubprogramGroupSubcomponent){
+					ns = ((SubprogramGroupSubcomponent)cxt).getComponentType();
+					if (ns == null) {
+						return Collections.<EObject> emptyList();
+					}
+				} else if (cxt instanceof SubprogramGroupAccess && ((SubprogramGroupAccess)cxt).getKind() == AccessType.REQUIRED){
+					ns = ((SubprogramGroupAccess)cxt).getSubprogramGroupClassifier();
+					if (ns == null) {
+						return Collections.<EObject> emptyList();
+					}
+				} else if (cxt instanceof FeatureGroup ){
+					ns = ((FeatureGroup)cxt).getFeatureGroupType();
+					if (ns == null) {
+						return Collections.<EObject> emptyList();
+					}
+				}
+				EObject searchResult = ns.findNamedElement(s);
+				if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
+					return Collections.singletonList((EObject) searchResult);
+				}
 			}
 			return Collections.<EObject> emptyList();
 
@@ -582,6 +601,28 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		}
 
 		return Collections.emptyList();
+	}
+	
+	protected EObject findClassifier(EObject context,
+			EReference reference, INode node, String name){
+		List<EObject> res = getIndexedObjects(context, reference, node);
+		if (!res.isEmpty())
+			return res.get(0);
+		final int idx = name.lastIndexOf("::");
+		String packname = null;
+		String cname = name;
+		EObject e;
+		PackageSection scope = getContainingPackageSection(context);
+		if (idx != -1) {
+			packname = name.substring(0, idx);
+			cname = name.substring(idx + 2);
+		}
+		e = findNamedElementInAadlPackage(packname, cname, scope);
+		if (e != null && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
+			// the result satisfied the expected class
+			return e;
+		}
+		return null;
 	}
 	
 	protected EObject findPropertySetElement(EObject context,
