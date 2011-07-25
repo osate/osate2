@@ -119,7 +119,7 @@ public class BasicPropertyItemProvider extends TypedElementItemProvider implemen
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType());
 		}
 		return childrenFeatures;
 	}
@@ -173,7 +173,7 @@ public class BasicPropertyItemProvider extends TypedElementItemProvider implemen
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(BasicProperty.class)) {
-		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
+		case Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -191,37 +191,37 @@ public class BasicPropertyItemProvider extends TypedElementItemProvider implemen
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createAadlBoolean()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createAadlString()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createAadlInteger()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createEnumerationType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createUnitsType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createAadlReal()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createClassifierType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createRangeType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createRecordType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createReferenceType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createListType()));
 	}
 
@@ -233,13 +233,13 @@ public class BasicPropertyItemProvider extends TypedElementItemProvider implemen
 	 */
 	@Override
 	protected Command createSetCommand(EditingDomain domain, EObject owner, EStructuralFeature feature, Object value) {
-		if (feature == Aadl2Package.eINSTANCE.getBasicProperty_OwnedType()) {
+		if (feature == Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature,
 					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getBasicProperty_PropertyType() }, null, value);
 		}
 		if (feature == Aadl2Package.eINSTANCE.getBasicProperty_PropertyType()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature, null,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getBasicProperty_OwnedType() }, value);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getBasicProperty_OwnedPropertyType() }, value);
 		}
 		return super.createSetCommand(domain, owner, feature, value);
 	}

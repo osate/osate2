@@ -66,6 +66,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.operations.ModalElementOperations;
+import org.osate.aadl2.operations.ModalPathOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 
@@ -88,16 +89,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  * @generated
  */
 public abstract class ConnectionImpl extends StructuralFeatureImpl implements Connection {
-	/**
-	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getInModes()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Mode> inModes;
-
 	/**
 	 * The cached value of the '{@link #getInModeOrTransitions() <em>In Mode Or Transition</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -189,10 +180,26 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * @generated
 	 */
 	public EList<Mode> getInModes() {
-		if (inModes == null) {
-			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.CONNECTION__IN_MODE);
-		}
-		return inModes;
+		return ModalPathOperations.getInModes(this);
+	}
+
+	/**
+	 * The array of superset feature identifiers for the '{@link #getInModes() <em>In Mode</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInModes()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] IN_MODE_ESUPERSETS = new int[] { Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION };
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetInModes() {
+		return !getInModes().isEmpty();
 	}
 
 	/**
@@ -517,10 +524,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.CONNECTION__IN_MODE:
-			getInModes().clear();
-			getInModes().addAll((Collection<? extends Mode>) newValue);
-			return;
 		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
 			getInModeOrTransitions().clear();
 			getInModeOrTransitions().addAll((Collection<? extends ModeFeature>) newValue);
@@ -549,9 +552,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.CONNECTION__IN_MODE:
-			getInModes().clear();
-			return;
 		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
 			getInModeOrTransitions().clear();
 			return;
@@ -580,7 +580,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTION__IN_MODE:
-			return inModes != null && !inModes.isEmpty();
+			return isSetInModes();
 		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
 			return inModeOrTransitions != null && !inModeOrTransitions.isEmpty();
 		case Aadl2Package.CONNECTION__DESTINATION:

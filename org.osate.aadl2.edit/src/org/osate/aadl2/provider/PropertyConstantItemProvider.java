@@ -119,7 +119,7 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue());
 		}
 		return childrenFeatures;
@@ -174,7 +174,7 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(PropertyConstant.class)) {
-		case Aadl2Package.PROPERTY_CONSTANT__OWNED_TYPE:
+		case Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE:
 		case Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -193,37 +193,37 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createAadlBoolean()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createAadlString()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createAadlInteger()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createEnumerationType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createUnitsType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createAadlReal()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createClassifierType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createRangeType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createRecordType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createReferenceType()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType(),
 				Aadl2Factory.eINSTANCE.createListType()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertyConstant_ConstantValue(),
@@ -271,13 +271,13 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider imple
 	 */
 	@Override
 	protected Command createSetCommand(EditingDomain domain, EObject owner, EStructuralFeature feature, Object value) {
-		if (feature == Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType()) {
+		if (feature == Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature,
 					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getPropertyConstant_PropertyType() }, null, value);
 		}
 		if (feature == Aadl2Package.eINSTANCE.getPropertyConstant_PropertyType()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature, null,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getPropertyConstant_OwnedType() }, value);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getPropertyConstant_OwnedPropertyType() }, value);
 		}
 		return super.createSetCommand(domain, owner, feature, value);
 	}

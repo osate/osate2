@@ -56,7 +56,7 @@ import org.osate.aadl2.Type;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getPropertyType <em>Property Type</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getOwnedType <em>Owned Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getOwnedPropertyType <em>Owned Property Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,14 +73,14 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 */
 	protected PropertyType propertyType;
 	/**
-	 * The cached value of the '{@link #getOwnedType() <em>Owned Type</em>}' containment reference.
+	 * The cached value of the '{@link #getOwnedPropertyType() <em>Owned Property Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOwnedType()
+	 * @see #getOwnedPropertyType()
 	 * @generated
 	 * @ordered
 	 */
-	protected PropertyType ownedType;
+	protected PropertyType ownedPropertyType;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -126,7 +126,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 */
 	public PropertyType getPropertyType() {
 		if (propertyType == null) {
-			propertyType = ownedType;
+			propertyType = ownedPropertyType;
 		}
 		return getPropertyTypeGen();
 	}
@@ -147,7 +147,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 */
 	public PropertyType basicGetPropertyType() {
 		if (propertyType == null) {
-			propertyType = ownedType;
+			propertyType = ownedPropertyType;
 		}
 		return basicGetPropertyTypeGen();
 	}
@@ -181,7 +181,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 */
 	public boolean isSetPropertyType() {
 		if (propertyType == null) {
-			propertyType = ownedType;
+			propertyType = ownedPropertyType;
 		}
 		return isSetPropertyTypeGen();
 	}
@@ -191,8 +191,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyType getOwnedType() {
-		return ownedType;
+	public PropertyType getOwnedPropertyType() {
+		return ownedPropertyType;
 	}
 
 	/**
@@ -200,12 +200,12 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOwnedType(PropertyType newOwnedType, NotificationChain msgs) {
-		PropertyType oldOwnedType = ownedType;
-		ownedType = newOwnedType;
+	public NotificationChain basicSetOwnedPropertyType(PropertyType newOwnedPropertyType, NotificationChain msgs) {
+		PropertyType oldOwnedPropertyType = ownedPropertyType;
+		ownedPropertyType = newOwnedPropertyType;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.BASIC_PROPERTY__OWNED_TYPE, oldOwnedType, newOwnedType);
+					Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE, oldOwnedPropertyType, newOwnedPropertyType);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -213,9 +213,9 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 		}
 		Resource.Internal eInternalResource = eInternalResource();
 		if (eInternalResource == null || !eInternalResource.isLoading()) {
-			if (newOwnedType != null) {
-				if (newOwnedType != propertyType) {
-					setPropertyType(newOwnedType);
+			if (newOwnedPropertyType != null) {
+				if (newOwnedPropertyType != propertyType) {
+					setPropertyType(newOwnedPropertyType);
 				}
 			}
 		}
@@ -227,21 +227,21 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setOwnedType(PropertyType newOwnedType) {
-		if (newOwnedType != ownedType) {
+	public void setOwnedPropertyType(PropertyType newOwnedPropertyType) {
+		if (newOwnedPropertyType != ownedPropertyType) {
 			NotificationChain msgs = null;
-			if (ownedType != null)
-				msgs = ((InternalEObject) ownedType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.BASIC_PROPERTY__OWNED_TYPE, null, msgs);
-			if (newOwnedType != null)
-				msgs = ((InternalEObject) newOwnedType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.BASIC_PROPERTY__OWNED_TYPE, null, msgs);
-			msgs = basicSetOwnedType(newOwnedType, msgs);
+			if (ownedPropertyType != null)
+				msgs = ((InternalEObject) ownedPropertyType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE, null, msgs);
+			if (newOwnedPropertyType != null)
+				msgs = ((InternalEObject) newOwnedPropertyType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE, null, msgs);
+			msgs = basicSetOwnedPropertyType(newOwnedPropertyType, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY__OWNED_TYPE,
-					newOwnedType, newOwnedType));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE,
+					newOwnedPropertyType, newOwnedPropertyType));
 	}
 
 	/**
@@ -249,10 +249,10 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyType createOwnedType(EClass eClass) {
-		PropertyType newOwnedType = (PropertyType) create(eClass);
-		setOwnedType(newOwnedType);
-		return newOwnedType;
+	public PropertyType createOwnedPropertyType(EClass eClass) {
+		PropertyType newOwnedPropertyType = (PropertyType) create(eClass);
+		setOwnedPropertyType(newOwnedPropertyType);
+		return newOwnedPropertyType;
 	}
 
 	/**
@@ -263,8 +263,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
-			return basicSetOwnedType(null, msgs);
+		case Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE:
+			return basicSetOwnedPropertyType(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -323,8 +323,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 			if (resolve)
 				return getPropertyType();
 			return basicGetPropertyType();
-		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
-			return getOwnedType();
+		case Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE:
+			return getOwnedPropertyType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -340,8 +340,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 		case Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE:
 			setPropertyType((PropertyType) newValue);
 			return;
-		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
-			setOwnedType((PropertyType) newValue);
+		case Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE:
+			setOwnedPropertyType((PropertyType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -358,8 +358,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 		case Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE:
 			setPropertyType((PropertyType) null);
 			return;
-		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
-			setOwnedType((PropertyType) null);
+		case Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE:
+			setOwnedPropertyType((PropertyType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -375,8 +375,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE:
 			return isSetPropertyType();
-		case Aadl2Package.BASIC_PROPERTY__OWNED_TYPE:
-			return ownedType != null;
+		case Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE:
+			return ownedPropertyType != null;
 		}
 		return super.eIsSet(featureID);
 	}

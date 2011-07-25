@@ -2309,7 +2309,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBasicProperty_OwnedType() {
+	public EReference getBasicProperty_OwnedPropertyType() {
 		return (EReference) getBasicProperty().getEStructuralFeatures().get(1);
 	}
 
@@ -8072,7 +8072,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPropertyConstant_OwnedType() {
+	public EReference getPropertyConstant_OwnedPropertyType() {
 		return (EReference) getPropertyConstant().getEStructuralFeatures().get(1);
 	}
 

@@ -137,7 +137,7 @@
         lowerBound="1" eType="#//PropertyType">
       <eAnnotations source="redefines" references="#//TypedElement/type"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedType" ordered="false"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
         eType="#//PropertyType" containment="true">
       <eAnnotations source="subsets" references="#//BasicProperty/propertyType"/>
     </eStructuralFeatures>
@@ -829,6 +829,14 @@
         upperBound="-1" eType="#//FlowSegment" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModalPath" abstract="true" eSuperTypes="#//ModalElement">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EReference" name="inMode" upperBound="-1" eType="#//Mode"
+          changeable="false" volatile="true" transient="true" derived="true">
+        <eAnnotations source="redefines" references="#//ModalElement/inMode"/>
+        <eAnnotations source="subsets" references="#//ModalPath/inModeOrTransition"/>
+      </contents>
+    </eAnnotations>
+    <eOperations name="getInModes" ordered="false" upperBound="-1" eType="#//Mode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inModeOrTransition" upperBound="-1"
         eType="#//ModeFeature"/>
   </eClassifiers>
@@ -1890,7 +1898,7 @@
         lowerBound="1" eType="#//PropertyType">
       <eAnnotations source="redefines" references="#//TypedElement/type"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedType" ordered="false"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
         eType="#//PropertyType" containment="true">
       <eAnnotations source="subsets" references="#//PropertyConstant/propertyType"/>
     </eStructuralFeatures>
