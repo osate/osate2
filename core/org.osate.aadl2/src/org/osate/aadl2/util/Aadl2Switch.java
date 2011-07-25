@@ -39,6 +39,262 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlBoolean;
+import org.osate.aadl2.AadlInteger;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AadlReal;
+import org.osate.aadl2.AadlString;
+import org.osate.aadl2.Abstract;
+import org.osate.aadl2.AbstractClassifier;
+import org.osate.aadl2.AbstractConnectionEnd;
+import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractImplementation;
+import org.osate.aadl2.AbstractNamedValue;
+import org.osate.aadl2.AbstractPrototype;
+import org.osate.aadl2.AbstractSubcomponent;
+import org.osate.aadl2.AbstractSubcomponentType;
+import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.AccessConnectionEnd;
+import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.ArrayDimension;
+import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.ArraySize;
+import org.osate.aadl2.ArraySizeProperty;
+import org.osate.aadl2.ArrayableElement;
+import org.osate.aadl2.BasicProperty;
+import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.BehavioralFeature;
+import org.osate.aadl2.BehavioredImplementation;
+import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.Bus;
+import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.BusClassifier;
+import org.osate.aadl2.BusImplementation;
+import org.osate.aadl2.BusPrototype;
+import org.osate.aadl2.BusSubcomponent;
+import org.osate.aadl2.BusSubcomponentType;
+import org.osate.aadl2.BusType;
+import org.osate.aadl2.CallContext;
+import org.osate.aadl2.CallSpecification;
+import org.osate.aadl2.CalledSubprogram;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ClassifierType;
+import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.Comment;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentImplementationReference;
+import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.ComponentPrototypeBinding;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ComponentTypeRename;
+import org.osate.aadl2.ComputedValue;
+import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.Connection;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.Context;
+import org.osate.aadl2.Data;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataClassifier;
+import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
+import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DataSubcomponentType;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.Device;
+import org.osate.aadl2.DeviceClassifier;
+import org.osate.aadl2.DeviceImplementation;
+import org.osate.aadl2.DevicePrototype;
+import org.osate.aadl2.DeviceSubcomponent;
+import org.osate.aadl2.DeviceSubcomponentType;
+import org.osate.aadl2.DeviceType;
+import org.osate.aadl2.DirectedFeature;
+import org.osate.aadl2.DirectedRelationship;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.ElementName;
+import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EndToEndFlowElement;
+import org.osate.aadl2.EndToEndFlowSegment;
+import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureClassifier;
+import org.osate.aadl2.FeatureConnection;
+import org.osate.aadl2.FeatureConnectionEnd;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupConnectionEnd;
+import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
+import org.osate.aadl2.FeatureGroupPrototypeBinding;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeatureGroupTypeRename;
+import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeaturePrototypeActual;
+import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeReference;
+import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.Flow;
+import org.osate.aadl2.FlowElement;
+import org.osate.aadl2.FlowEnd;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSegment;
+import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.Generalization;
+import org.osate.aadl2.GlobalNamespace;
+import org.osate.aadl2.GroupExtension;
+import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.InternalEvent;
+import org.osate.aadl2.ListType;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.Memory;
+import org.osate.aadl2.MemoryClassifier;
+import org.osate.aadl2.MemoryImplementation;
+import org.osate.aadl2.MemoryPrototype;
+import org.osate.aadl2.MemorySubcomponent;
+import org.osate.aadl2.MemorySubcomponentType;
+import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.MetaclassReference;
+import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.ModalPath;
+import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeBinding;
+import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.Namespace;
+import org.osate.aadl2.NonListType;
+import org.osate.aadl2.NumberType;
+import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.NumericRange;
+import org.osate.aadl2.Operation;
+import org.osate.aadl2.PackageRename;
+import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.ParameterConnection;
+import org.osate.aadl2.ParameterConnectionEnd;
+import org.osate.aadl2.Port;
+import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortConnectionEnd;
+import org.osate.aadl2.PortSpecification;
+import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.ProcessClassifier;
+import org.osate.aadl2.ProcessImplementation;
+import org.osate.aadl2.ProcessPrototype;
+import org.osate.aadl2.ProcessSubcomponent;
+import org.osate.aadl2.ProcessSubcomponentType;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.Processor;
+import org.osate.aadl2.ProcessorCall;
+import org.osate.aadl2.ProcessorClassifier;
+import org.osate.aadl2.ProcessorImplementation;
+import org.osate.aadl2.ProcessorPort;
+import org.osate.aadl2.ProcessorPrototype;
+import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.ProcessorSubcomponentType;
+import org.osate.aadl2.ProcessorSubprogram;
+import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyOwner;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PrototypeBinding;
+import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.RangeType;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.Realization;
+import org.osate.aadl2.RecordField;
+import org.osate.aadl2.RecordType;
+import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.ReferenceType;
+import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.RefinableElement;
+import org.osate.aadl2.Relationship;
+import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.StructuralFeature;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
+import org.osate.aadl2.Subprogram;
+import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.aadl2.SubprogramClassifier;
+import org.osate.aadl2.SubprogramGroup;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupClassifier;
+import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramGroupPrototype;
+import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramGroupSubcomponentType;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.aadl2.SubprogramSubcomponentType;
+import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemClassifier;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.SystemPrototype;
+import org.osate.aadl2.SystemSubcomponent;
+import org.osate.aadl2.SystemSubcomponentType;
+import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadClassifier;
+import org.osate.aadl2.ThreadGroupClassifier;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadGroupPrototype;
+import org.osate.aadl2.ThreadGroupSubcomponent;
+import org.osate.aadl2.ThreadGroupSubcomponentType;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadPrototype;
+import org.osate.aadl2.ThreadSubcomponent;
+import org.osate.aadl2.ThreadSubcomponentType;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.Type;
+import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.TypedElement;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.VirtualBus;
+import org.osate.aadl2.VirtualBusClassifier;
+import org.osate.aadl2.VirtualBusImplementation;
+import org.osate.aadl2.VirtualBusPrototype;
+import org.osate.aadl2.VirtualBusSubcomponent;
+import org.osate.aadl2.VirtualBusType;
+import org.osate.aadl2.VirtualProcessor;
+import org.osate.aadl2.VirtualProcessorClassifier;
+import org.osate.aadl2.VirtualProcessorImplementation;
+import org.osate.aadl2.VirtualProcessorPrototype;
+import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.VirtualProcessorSubcomponentType;
+import org.osate.aadl2.VirtualProcessorType;
+import org.osate.aadl2.VitualBusSubcomponentType;
 import org.osate.aadl2.*;
 
 /**
@@ -976,33 +1232,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.BUS_CLASSIFIER: {
-			BusClassifier busClassifier = (BusClassifier) theEObject;
-			T result = caseBusClassifier(busClassifier);
-			if (result == null)
-				result = caseComponentClassifier(busClassifier);
-			if (result == null)
-				result = caseBusSubcomponentType(busClassifier);
-			if (result == null)
-				result = caseClassifier(busClassifier);
-			if (result == null)
-				result = caseSubcomponentType(busClassifier);
-			if (result == null)
-				result = caseFeatureClassifier(busClassifier);
-			if (result == null)
-				result = caseBus(busClassifier);
-			if (result == null)
-				result = caseNamespace(busClassifier);
-			if (result == null)
-				result = caseType(busClassifier);
-			if (result == null)
-				result = caseNamedElement(busClassifier);
-			if (result == null)
-				result = caseElement(busClassifier);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.BUS_SUBCOMPONENT_TYPE: {
 			BusSubcomponentType busSubcomponentType = (BusSubcomponentType) theEObject;
 			T result = caseBusSubcomponentType(busSubcomponentType);
@@ -1010,6 +1239,8 @@ public class Aadl2Switch<T> {
 				result = caseBus(busSubcomponentType);
 			if (result == null)
 				result = caseSubcomponentType(busSubcomponentType);
+			if (result == null)
+				result = caseFeatureClassifier(busSubcomponentType);
 			if (result == null)
 				result = caseType(busSubcomponentType);
 			if (result == null)
@@ -1094,33 +1325,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.DATA_CLASSIFIER: {
-			DataClassifier dataClassifier = (DataClassifier) theEObject;
-			T result = caseDataClassifier(dataClassifier);
-			if (result == null)
-				result = caseComponentClassifier(dataClassifier);
-			if (result == null)
-				result = caseDataSubcomponentType(dataClassifier);
-			if (result == null)
-				result = caseClassifier(dataClassifier);
-			if (result == null)
-				result = caseSubcomponentType(dataClassifier);
-			if (result == null)
-				result = caseFeatureClassifier(dataClassifier);
-			if (result == null)
-				result = caseData(dataClassifier);
-			if (result == null)
-				result = caseNamespace(dataClassifier);
-			if (result == null)
-				result = caseType(dataClassifier);
-			if (result == null)
-				result = caseNamedElement(dataClassifier);
-			if (result == null)
-				result = caseElement(dataClassifier);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.DATA_SUBCOMPONENT_TYPE: {
 			DataSubcomponentType dataSubcomponentType = (DataSubcomponentType) theEObject;
 			T result = caseDataSubcomponentType(dataSubcomponentType);
@@ -1128,6 +1332,8 @@ public class Aadl2Switch<T> {
 				result = caseData(dataSubcomponentType);
 			if (result == null)
 				result = caseSubcomponentType(dataSubcomponentType);
+			if (result == null)
+				result = caseFeatureClassifier(dataSubcomponentType);
 			if (result == null)
 				result = caseType(dataSubcomponentType);
 			if (result == null)
@@ -1341,35 +1547,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.SUBPROGRAM_CLASSIFIER: {
-			SubprogramClassifier subprogramClassifier = (SubprogramClassifier) theEObject;
-			T result = caseSubprogramClassifier(subprogramClassifier);
-			if (result == null)
-				result = caseComponentClassifier(subprogramClassifier);
-			if (result == null)
-				result = caseSubprogramSubcomponentType(subprogramClassifier);
-			if (result == null)
-				result = caseClassifier(subprogramClassifier);
-			if (result == null)
-				result = caseSubcomponentType(subprogramClassifier);
-			if (result == null)
-				result = caseFeatureClassifier(subprogramClassifier);
-			if (result == null)
-				result = caseSubprogram(subprogramClassifier);
-			if (result == null)
-				result = caseNamespace(subprogramClassifier);
-			if (result == null)
-				result = caseType(subprogramClassifier);
-			if (result == null)
-				result = caseCalledSubprogram(subprogramClassifier);
-			if (result == null)
-				result = caseNamedElement(subprogramClassifier);
-			if (result == null)
-				result = caseElement(subprogramClassifier);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT_TYPE: {
 			SubprogramSubcomponentType subprogramSubcomponentType = (SubprogramSubcomponentType) theEObject;
 			T result = caseSubprogramSubcomponentType(subprogramSubcomponentType);
@@ -1377,6 +1554,8 @@ public class Aadl2Switch<T> {
 				result = caseSubcomponentType(subprogramSubcomponentType);
 			if (result == null)
 				result = caseSubprogram(subprogramSubcomponentType);
+			if (result == null)
+				result = caseFeatureClassifier(subprogramSubcomponentType);
 			if (result == null)
 				result = caseType(subprogramSubcomponentType);
 			if (result == null)
@@ -1433,33 +1612,6 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.SUBPROGRAM_GROUP_CLASSIFIER: {
-			SubprogramGroupClassifier subprogramGroupClassifier = (SubprogramGroupClassifier) theEObject;
-			T result = caseSubprogramGroupClassifier(subprogramGroupClassifier);
-			if (result == null)
-				result = caseComponentClassifier(subprogramGroupClassifier);
-			if (result == null)
-				result = caseSubprogramGroupSubcomponentType(subprogramGroupClassifier);
-			if (result == null)
-				result = caseClassifier(subprogramGroupClassifier);
-			if (result == null)
-				result = caseSubcomponentType(subprogramGroupClassifier);
-			if (result == null)
-				result = caseFeatureClassifier(subprogramGroupClassifier);
-			if (result == null)
-				result = caseSubprogramGroup(subprogramGroupClassifier);
-			if (result == null)
-				result = caseNamespace(subprogramGroupClassifier);
-			if (result == null)
-				result = caseType(subprogramGroupClassifier);
-			if (result == null)
-				result = caseNamedElement(subprogramGroupClassifier);
-			if (result == null)
-				result = caseElement(subprogramGroupClassifier);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE: {
 			SubprogramGroupSubcomponentType subprogramGroupSubcomponentType = (SubprogramGroupSubcomponentType) theEObject;
 			T result = caseSubprogramGroupSubcomponentType(subprogramGroupSubcomponentType);
@@ -1467,6 +1619,8 @@ public class Aadl2Switch<T> {
 				result = caseSubcomponentType(subprogramGroupSubcomponentType);
 			if (result == null)
 				result = caseSubprogramGroup(subprogramGroupSubcomponentType);
+			if (result == null)
+				result = caseFeatureClassifier(subprogramGroupSubcomponentType);
 			if (result == null)
 				result = caseType(subprogramGroupSubcomponentType);
 			if (result == null)
@@ -3336,6 +3490,33 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.BUS_CLASSIFIER: {
+			BusClassifier busClassifier = (BusClassifier) theEObject;
+			T result = caseBusClassifier(busClassifier);
+			if (result == null)
+				result = caseComponentClassifier(busClassifier);
+			if (result == null)
+				result = caseBusSubcomponentType(busClassifier);
+			if (result == null)
+				result = caseClassifier(busClassifier);
+			if (result == null)
+				result = caseSubcomponentType(busClassifier);
+			if (result == null)
+				result = caseFeatureClassifier(busClassifier);
+			if (result == null)
+				result = caseBus(busClassifier);
+			if (result == null)
+				result = caseNamespace(busClassifier);
+			if (result == null)
+				result = caseType(busClassifier);
+			if (result == null)
+				result = caseNamedElement(busClassifier);
+			if (result == null)
+				result = caseElement(busClassifier);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.BUS_TYPE: {
 			BusType busType = (BusType) theEObject;
 			T result = caseBusType(busType);
@@ -3427,6 +3608,33 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(busPrototype);
 			if (result == null)
 				result = caseElement(busPrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.DATA_CLASSIFIER: {
+			DataClassifier dataClassifier = (DataClassifier) theEObject;
+			T result = caseDataClassifier(dataClassifier);
+			if (result == null)
+				result = caseComponentClassifier(dataClassifier);
+			if (result == null)
+				result = caseDataSubcomponentType(dataClassifier);
+			if (result == null)
+				result = caseClassifier(dataClassifier);
+			if (result == null)
+				result = caseSubcomponentType(dataClassifier);
+			if (result == null)
+				result = caseFeatureClassifier(dataClassifier);
+			if (result == null)
+				result = caseData(dataClassifier);
+			if (result == null)
+				result = caseNamespace(dataClassifier);
+			if (result == null)
+				result = caseType(dataClassifier);
+			if (result == null)
+				result = caseNamedElement(dataClassifier);
+			if (result == null)
+				result = caseElement(dataClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -3772,6 +3980,35 @@ public class Aadl2Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.SUBPROGRAM_CLASSIFIER: {
+			SubprogramClassifier subprogramClassifier = (SubprogramClassifier) theEObject;
+			T result = caseSubprogramClassifier(subprogramClassifier);
+			if (result == null)
+				result = caseComponentClassifier(subprogramClassifier);
+			if (result == null)
+				result = caseSubprogramSubcomponentType(subprogramClassifier);
+			if (result == null)
+				result = caseClassifier(subprogramClassifier);
+			if (result == null)
+				result = caseSubcomponentType(subprogramClassifier);
+			if (result == null)
+				result = caseFeatureClassifier(subprogramClassifier);
+			if (result == null)
+				result = caseSubprogram(subprogramClassifier);
+			if (result == null)
+				result = caseNamespace(subprogramClassifier);
+			if (result == null)
+				result = caseType(subprogramClassifier);
+			if (result == null)
+				result = caseCalledSubprogram(subprogramClassifier);
+			if (result == null)
+				result = caseNamedElement(subprogramClassifier);
+			if (result == null)
+				result = caseElement(subprogramClassifier);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.SUBPROGRAM_TYPE: {
 			SubprogramType subprogramType = (SubprogramType) theEObject;
 			T result = caseSubprogramType(subprogramType);
@@ -3869,6 +4106,33 @@ public class Aadl2Switch<T> {
 				result = caseNamedElement(subprogramPrototype);
 			if (result == null)
 				result = caseElement(subprogramPrototype);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM_GROUP_CLASSIFIER: {
+			SubprogramGroupClassifier subprogramGroupClassifier = (SubprogramGroupClassifier) theEObject;
+			T result = caseSubprogramGroupClassifier(subprogramGroupClassifier);
+			if (result == null)
+				result = caseComponentClassifier(subprogramGroupClassifier);
+			if (result == null)
+				result = caseSubprogramGroupSubcomponentType(subprogramGroupClassifier);
+			if (result == null)
+				result = caseClassifier(subprogramGroupClassifier);
+			if (result == null)
+				result = caseSubcomponentType(subprogramGroupClassifier);
+			if (result == null)
+				result = caseFeatureClassifier(subprogramGroupClassifier);
+			if (result == null)
+				result = caseSubprogramGroup(subprogramGroupClassifier);
+			if (result == null)
+				result = caseNamespace(subprogramGroupClassifier);
+			if (result == null)
+				result = caseType(subprogramGroupClassifier);
+			if (result == null)
+				result = caseNamedElement(subprogramGroupClassifier);
+			if (result == null)
+				result = caseElement(subprogramGroupClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;

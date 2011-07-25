@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.Parameter#getDataClassifier <em>Data Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.Parameter#getDataFeatureClassifier <em>Data Feature Classifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,7 +53,7 @@ package org.osate.aadl2;
  */
 public interface Parameter extends DirectedFeature, Context, ParameterConnectionEnd {
 	/**
-	 * Returns the value of the '<em><b>Data Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Data Feature Classifier</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -62,26 +62,26 @@ public interface Parameter extends DirectedFeature, Context, ParameterConnection
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Data Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Data Feature Classifier</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Data Classifier</em>' reference.
-	 * @see #setDataClassifier(DataClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getParameter_DataClassifier()
+	 * @return the value of the '<em>Data Feature Classifier</em>' reference.
+	 * @see #setDataFeatureClassifier(DataSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getParameter_DataFeatureClassifier()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	DataClassifier getDataClassifier();
+	DataSubcomponentType getDataFeatureClassifier();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Parameter#getDataClassifier <em>Data Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.Parameter#getDataFeatureClassifier <em>Data Feature Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Data Classifier</em>' reference.
-	 * @see #getDataClassifier()
+	 * @param value the new value of the '<em>Data Feature Classifier</em>' reference.
+	 * @see #getDataFeatureClassifier()
 	 * @generated
 	 */
-	void setDataClassifier(DataClassifier value);
+	void setDataFeatureClassifier(DataSubcomponentType value);
 
 } // Parameter

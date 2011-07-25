@@ -79,25 +79,25 @@ public class EventDataPortItemProvider extends PortItemProvider implements IEdit
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDataClassifierPropertyDescriptor(object);
+			addDataFeatureClassifierPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Data Classifier feature.
+	 * This adds a property descriptor for the Data Feature Classifier feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDataClassifierPropertyDescriptor(Object object) {
+	protected void addDataFeatureClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_EventDataPort_dataClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_EventDataPort_dataClassifier_feature",
-						"_UI_EventDataPort_type"), Aadl2Package.eINSTANCE.getEventDataPort_DataClassifier(), true,
-				false, true, null, null, null));
+				getString("_UI_EventDataPort_dataFeatureClassifier_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_EventDataPort_dataFeatureClassifier_feature",
+						"_UI_EventDataPort_type"), Aadl2Package.eINSTANCE.getEventDataPort_DataFeatureClassifier(),
+				true, false, true, null, null, null));
 	}
 
 	/**

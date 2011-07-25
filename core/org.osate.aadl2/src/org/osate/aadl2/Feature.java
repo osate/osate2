@@ -46,7 +46,6 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.Feature#getPrototype <em>Prototype</em>}</li>
- *   <li>{@link org.osate.aadl2.Feature#getFeatureClassifier <em>Feature Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.Feature#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.Feature#getClassifier <em>Classifier</em>}</li>
  * </ul>

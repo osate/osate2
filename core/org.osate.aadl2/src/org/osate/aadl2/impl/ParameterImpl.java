@@ -41,7 +41,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.DataClassifier;
+import org.osate.aadl2.DataSubcomponentType;
 import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.Parameter;
 
@@ -53,7 +53,7 @@ import org.osate.aadl2.Parameter;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ParameterImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ParameterImpl#getDataClassifier <em>Data Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ParameterImpl#getDataFeatureClassifier <em>Data Feature Classifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -61,14 +61,14 @@ import org.osate.aadl2.Parameter;
  */
 public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	/**
-	 * The cached value of the '{@link #getDataClassifier() <em>Data Classifier</em>}' reference.
+	 * The cached value of the '{@link #getDataFeatureClassifier() <em>Data Feature Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDataClassifier()
+	 * @see #getDataFeatureClassifier()
 	 * @generated
 	 * @ordered
 	 */
-	protected DataClassifier dataClassifier;
+	protected DataSubcomponentType dataFeatureClassifier;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -108,8 +108,8 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 */
 	@Override
 	public FeatureClassifier basicGetFeatureClassifier() {
-		if (eIsSet(Aadl2Package.PARAMETER__DATA_CLASSIFIER)) {
-			return basicGetDataClassifier();
+		if (eIsSet(Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER)) {
+			return basicGetDataFeatureClassifier();
 		}
 		return super.basicGetFeatureClassifier();
 	}
@@ -119,17 +119,18 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DataClassifier getDataClassifier() {
-		if (dataClassifier != null && ((EObject) dataClassifier).eIsProxy()) {
-			InternalEObject oldDataClassifier = (InternalEObject) dataClassifier;
-			dataClassifier = (DataClassifier) eResolveProxy(oldDataClassifier);
-			if (dataClassifier != oldDataClassifier) {
+	public DataSubcomponentType getDataFeatureClassifier() {
+		if (dataFeatureClassifier != null && ((EObject) dataFeatureClassifier).eIsProxy()) {
+			InternalEObject oldDataFeatureClassifier = (InternalEObject) dataFeatureClassifier;
+			dataFeatureClassifier = (DataSubcomponentType) eResolveProxy(oldDataFeatureClassifier);
+			if (dataFeatureClassifier != oldDataFeatureClassifier) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PARAMETER__DATA_CLASSIFIER,
-							oldDataClassifier, dataClassifier));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER, oldDataFeatureClassifier,
+							dataFeatureClassifier));
 			}
 		}
-		return dataClassifier;
+		return dataFeatureClassifier;
 	}
 
 	/**
@@ -137,8 +138,8 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DataClassifier basicGetDataClassifier() {
-		return dataClassifier;
+	public DataSubcomponentType basicGetDataFeatureClassifier() {
+		return dataFeatureClassifier;
 	}
 
 	/**
@@ -146,12 +147,12 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDataClassifier(DataClassifier newDataClassifier) {
-		DataClassifier oldDataClassifier = dataClassifier;
-		dataClassifier = newDataClassifier;
+	public void setDataFeatureClassifier(DataSubcomponentType newDataFeatureClassifier) {
+		DataSubcomponentType oldDataFeatureClassifier = dataFeatureClassifier;
+		dataFeatureClassifier = newDataFeatureClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PARAMETER__DATA_CLASSIFIER,
-					oldDataClassifier, dataClassifier));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER,
+					oldDataFeatureClassifier, dataFeatureClassifier));
 	}
 
 	/**
@@ -162,10 +163,10 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.PARAMETER__DATA_CLASSIFIER:
+		case Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER:
 			if (resolve)
-				return getDataClassifier();
-			return basicGetDataClassifier();
+				return getDataFeatureClassifier();
+			return basicGetDataFeatureClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -178,8 +179,8 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.PARAMETER__DATA_CLASSIFIER:
-			setDataClassifier((DataClassifier) newValue);
+		case Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER:
+			setDataFeatureClassifier((DataSubcomponentType) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -193,8 +194,8 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PARAMETER__DATA_CLASSIFIER:
-			setDataClassifier((DataClassifier) null);
+		case Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER:
+			setDataFeatureClassifier((DataSubcomponentType) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -208,8 +209,8 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PARAMETER__DATA_CLASSIFIER:
-			return dataClassifier != null;
+		case Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER:
+			return dataFeatureClassifier != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -221,7 +222,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 */
 	@Override
 	public boolean isSetFeatureClassifier() {
-		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.PARAMETER__DATA_CLASSIFIER);
+		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER);
 	}
 
 } //ParameterImpl

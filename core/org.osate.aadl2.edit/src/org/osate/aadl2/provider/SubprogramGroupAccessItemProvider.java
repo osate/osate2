@@ -79,28 +79,27 @@ public class SubprogramGroupAccessItemProvider extends AccessItemProvider implem
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addSubprogramGroupClassifierPropertyDescriptor(object);
+			addSubprogramGroupFeatureClassifierPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Subprogram Group Classifier feature.
+	 * This adds a property descriptor for the Subprogram Group Feature Classifier feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addSubprogramGroupClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_SubprogramGroupAccess_subprogramGroupClassifier_feature"),
-						getString("_UI_PropertyDescriptor_description",
-								"_UI_SubprogramGroupAccess_subprogramGroupClassifier_feature",
-								"_UI_SubprogramGroupAccess_type"), Aadl2Package.eINSTANCE
-								.getSubprogramGroupAccess_SubprogramGroupClassifier(), true, false, true, null, null,
-						null));
+	protected void addSubprogramGroupFeatureClassifierPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_SubprogramGroupAccess_subprogramGroupFeatureClassifier_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_SubprogramGroupAccess_subprogramGroupFeatureClassifier_feature",
+						"_UI_SubprogramGroupAccess_type"), Aadl2Package.eINSTANCE
+						.getSubprogramGroupAccess_SubprogramGroupFeatureClassifier(), true, false, true, null, null,
+				null));
 	}
 
 	/**

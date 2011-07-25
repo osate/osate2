@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.SubprogramAccess#getSubprogramClassifier <em>Subprogram Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.SubprogramAccess#getSubprogramFeatureClassifier <em>Subprogram Feature Classifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,7 +53,7 @@ package org.osate.aadl2;
  */
 public interface SubprogramAccess extends Access, CalledSubprogram {
 	/**
-	 * Returns the value of the '<em><b>Subprogram Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Subprogram Feature Classifier</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -62,26 +62,26 @@ public interface SubprogramAccess extends Access, CalledSubprogram {
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Subprogram Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Subprogram Feature Classifier</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Subprogram Classifier</em>' reference.
-	 * @see #setSubprogramClassifier(SubprogramClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getSubprogramAccess_SubprogramClassifier()
+	 * @return the value of the '<em>Subprogram Feature Classifier</em>' reference.
+	 * @see #setSubprogramFeatureClassifier(SubprogramSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getSubprogramAccess_SubprogramFeatureClassifier()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	SubprogramClassifier getSubprogramClassifier();
+	SubprogramSubcomponentType getSubprogramFeatureClassifier();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.SubprogramAccess#getSubprogramClassifier <em>Subprogram Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.SubprogramAccess#getSubprogramFeatureClassifier <em>Subprogram Feature Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Subprogram Classifier</em>' reference.
-	 * @see #getSubprogramClassifier()
+	 * @param value the new value of the '<em>Subprogram Feature Classifier</em>' reference.
+	 * @see #getSubprogramFeatureClassifier()
 	 * @generated
 	 */
-	void setSubprogramClassifier(SubprogramClassifier value);
+	void setSubprogramFeatureClassifier(SubprogramSubcomponentType value);
 
 } // SubprogramAccess
