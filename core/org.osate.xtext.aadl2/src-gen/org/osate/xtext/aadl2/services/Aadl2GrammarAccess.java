@@ -7790,7 +7790,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_0_1_3 = (Group)cGroup_0_1.eContents().get(3);
 		private final Assignment cContextAssignment_0_1_3_0 = (Assignment)cGroup_0_1_3.eContents().get(0);
 		private final CrossReference cContextCallContextCrossReference_0_1_3_0_0 = (CrossReference)cContextAssignment_0_1_3_0.eContents().get(0);
-		private final RuleCall cContextCallContextIDTerminalRuleCall_0_1_3_0_0_1 = (RuleCall)cContextCallContextCrossReference_0_1_3_0_0.eContents().get(1);
+		private final RuleCall cContextCallContextPNAMEParserRuleCall_0_1_3_0_0_1 = (RuleCall)cContextCallContextCrossReference_0_1_3_0_0.eContents().get(1);
 		private final Keyword cFullStopKeyword_0_1_3_1 = (Keyword)cGroup_0_1_3.eContents().get(1);
 		private final Assignment cCalledSubprogramAssignment_0_1_4 = (Assignment)cGroup_0_1.eContents().get(4);
 		private final CrossReference cCalledSubprogramCalledSubprogramCrossReference_0_1_4_0 = (CrossReference)cCalledSubprogramAssignment_0_1_4.eContents().get(0);
@@ -7804,17 +7804,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//CallSpecification returns aadl2::CallSpecification:
 		//	({aadl2::ProcessorCall} name=ID "subprogram" "processor" "." subprogramAccessName=ID | {aadl2::SubprogramCall} name=ID
-		//	"subprogram" (context=[aadl2::CallContext] ".")? calledSubprogram=[aadl2::CalledSubprogram]) ("{"
+		//	"subprogram" (context=[aadl2::CallContext|PNAME] ".")? calledSubprogram=[aadl2::CalledSubprogram]) ("{"
 		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//({aadl2::ProcessorCall} name=ID "subprogram" "processor" "." subprogramAccessName=ID | {aadl2::SubprogramCall} name=ID
-		//"subprogram" (context=[aadl2::CallContext] ".")? calledSubprogram=[aadl2::CalledSubprogram]) ("{"
+		//"subprogram" (context=[aadl2::CallContext|PNAME] ".")? calledSubprogram=[aadl2::CalledSubprogram]) ("{"
 		//ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::ProcessorCall} name=ID "subprogram" "processor" "." subprogramAccessName=ID | {aadl2::SubprogramCall} name=ID
-		//"subprogram" (context=[aadl2::CallContext] ".")? calledSubprogram=[aadl2::CalledSubprogram]
+		//"subprogram" (context=[aadl2::CallContext|PNAME] ".")? calledSubprogram=[aadl2::CalledSubprogram]
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//{aadl2::ProcessorCall} name=ID "subprogram" "processor" "." subprogramAccessName=ID
@@ -7844,7 +7844,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getSubprogramAccessNameIDTerminalRuleCall_0_0_5_0() { return cSubprogramAccessNameIDTerminalRuleCall_0_0_5_0; }
 
-		//{aadl2::SubprogramCall} name=ID "subprogram" (context=[aadl2::CallContext] ".")?
+		//{aadl2::SubprogramCall} name=ID "subprogram" (context=[aadl2::CallContext|PNAME] ".")?
 		//calledSubprogram=[aadl2::CalledSubprogram]
 		public Group getGroup_0_1() { return cGroup_0_1; }
 
@@ -7860,17 +7860,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"subprogram"
 		public Keyword getSubprogramKeyword_0_1_2() { return cSubprogramKeyword_0_1_2; }
 
-		//(context=[aadl2::CallContext] ".")?
+		//(context=[aadl2::CallContext|PNAME] ".")?
 		public Group getGroup_0_1_3() { return cGroup_0_1_3; }
 
-		//context=[aadl2::CallContext]
+		//context=[aadl2::CallContext|PNAME]
 		public Assignment getContextAssignment_0_1_3_0() { return cContextAssignment_0_1_3_0; }
 
-		//[aadl2::CallContext]
+		//[aadl2::CallContext|PNAME]
 		public CrossReference getContextCallContextCrossReference_0_1_3_0_0() { return cContextCallContextCrossReference_0_1_3_0_0; }
 
-		//ID
-		public RuleCall getContextCallContextIDTerminalRuleCall_0_1_3_0_0_1() { return cContextCallContextIDTerminalRuleCall_0_1_3_0_0_1; }
+		//PNAME
+		public RuleCall getContextCallContextPNAMEParserRuleCall_0_1_3_0_0_1() { return cContextCallContextPNAMEParserRuleCall_0_1_3_0_0_1; }
 
 		//"."
 		public Keyword getFullStopKeyword_0_1_3_1() { return cFullStopKeyword_0_1_3_1; }
@@ -9988,8 +9988,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAbstractKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cAbstractSubcomponentTypeAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final CrossReference cAbstractSubcomponentTypeAbstractClassifierCrossReference_2_0_0 = (CrossReference)cAbstractSubcomponentTypeAssignment_2_0.eContents().get(0);
-		private final RuleCall cAbstractSubcomponentTypeAbstractClassifierQCREFParserRuleCall_2_0_0_1 = (RuleCall)cAbstractSubcomponentTypeAbstractClassifierCrossReference_2_0_0.eContents().get(1);
+		private final CrossReference cAbstractSubcomponentTypeAbstractSubcomponentTypeCrossReference_2_0_0 = (CrossReference)cAbstractSubcomponentTypeAssignment_2_0.eContents().get(0);
+		private final RuleCall cAbstractSubcomponentTypeAbstractSubcomponentTypeQCREFParserRuleCall_2_0_0_1 = (RuleCall)cAbstractSubcomponentTypeAbstractSubcomponentTypeCrossReference_2_0_0.eContents().get(1);
 		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
@@ -10036,7 +10036,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		// * Subcomponents
 		// * / AbstractSubcomponent returns aadl2::AbstractSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "abstract"
-		//	(abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//	(abstractSubcomponentType=[aadl2::AbstractSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//	implementationReference+=ComponentImplementationReference (","
 		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -10045,7 +10045,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "abstract"
-		//(abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(abstractSubcomponentType=[aadl2::AbstractSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -10091,18 +10091,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"abstract"
 		public Keyword getAbstractKeyword_1() { return cAbstractKeyword_1; }
 
-		//(abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(abstractSubcomponentType=[aadl2::AbstractSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF]
+		//abstractSubcomponentType=[aadl2::AbstractSubcomponentType|QCREF]
 		public Assignment getAbstractSubcomponentTypeAssignment_2_0() { return cAbstractSubcomponentTypeAssignment_2_0; }
 
-		//[aadl2::AbstractClassifier|QCREF]
-		public CrossReference getAbstractSubcomponentTypeAbstractClassifierCrossReference_2_0_0() { return cAbstractSubcomponentTypeAbstractClassifierCrossReference_2_0_0; }
+		//[aadl2::AbstractSubcomponentType|QCREF]
+		public CrossReference getAbstractSubcomponentTypeAbstractSubcomponentTypeCrossReference_2_0_0() { return cAbstractSubcomponentTypeAbstractSubcomponentTypeCrossReference_2_0_0; }
 
 		//QCREF
-		public RuleCall getAbstractSubcomponentTypeAbstractClassifierQCREFParserRuleCall_2_0_0_1() { return cAbstractSubcomponentTypeAbstractClassifierQCREFParserRuleCall_2_0_0_1; }
+		public RuleCall getAbstractSubcomponentTypeAbstractSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cAbstractSubcomponentTypeAbstractSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
@@ -10248,8 +10248,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSystemKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cSystemSubcomponentTypeAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final CrossReference cSystemSubcomponentTypeSystemClassifierCrossReference_2_0_0 = (CrossReference)cSystemSubcomponentTypeAssignment_2_0.eContents().get(0);
-		private final RuleCall cSystemSubcomponentTypeSystemClassifierQCREFParserRuleCall_2_0_0_1 = (RuleCall)cSystemSubcomponentTypeSystemClassifierCrossReference_2_0_0.eContents().get(1);
+		private final CrossReference cSystemSubcomponentTypeSystemSubcomponentTypeCrossReference_2_0_0 = (CrossReference)cSystemSubcomponentTypeAssignment_2_0.eContents().get(0);
+		private final RuleCall cSystemSubcomponentTypeSystemSubcomponentTypeQCREFParserRuleCall_2_0_0_1 = (RuleCall)cSystemSubcomponentTypeSystemSubcomponentTypeCrossReference_2_0_0.eContents().get(1);
 		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
@@ -10294,7 +10294,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//SystemSubcomponent returns aadl2::SystemSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "system"
-		//	(systemSubcomponentType=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//	(systemSubcomponentType=[aadl2::SystemSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//	implementationReference+=ComponentImplementationReference (","
 		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -10303,7 +10303,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "system"
-		//(systemSubcomponentType=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(systemSubcomponentType=[aadl2::SystemSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -10349,18 +10349,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"system"
 		public Keyword getSystemKeyword_1() { return cSystemKeyword_1; }
 
-		//(systemSubcomponentType=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(systemSubcomponentType=[aadl2::SystemSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//systemSubcomponentType=[aadl2::SystemClassifier|QCREF]
+		//systemSubcomponentType=[aadl2::SystemSubcomponentType|QCREF]
 		public Assignment getSystemSubcomponentTypeAssignment_2_0() { return cSystemSubcomponentTypeAssignment_2_0; }
 
-		//[aadl2::SystemClassifier|QCREF]
-		public CrossReference getSystemSubcomponentTypeSystemClassifierCrossReference_2_0_0() { return cSystemSubcomponentTypeSystemClassifierCrossReference_2_0_0; }
+		//[aadl2::SystemSubcomponentType|QCREF]
+		public CrossReference getSystemSubcomponentTypeSystemSubcomponentTypeCrossReference_2_0_0() { return cSystemSubcomponentTypeSystemSubcomponentTypeCrossReference_2_0_0; }
 
 		//QCREF
-		public RuleCall getSystemSubcomponentTypeSystemClassifierQCREFParserRuleCall_2_0_0_1() { return cSystemSubcomponentTypeSystemClassifierQCREFParserRuleCall_2_0_0_1; }
+		public RuleCall getSystemSubcomponentTypeSystemSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cSystemSubcomponentTypeSystemSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
@@ -10506,8 +10506,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cProcessKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cProcessSubcomponentTypeAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final CrossReference cProcessSubcomponentTypeProcessClassifierCrossReference_2_0_0 = (CrossReference)cProcessSubcomponentTypeAssignment_2_0.eContents().get(0);
-		private final RuleCall cProcessSubcomponentTypeProcessClassifierQCREFParserRuleCall_2_0_0_1 = (RuleCall)cProcessSubcomponentTypeProcessClassifierCrossReference_2_0_0.eContents().get(1);
+		private final CrossReference cProcessSubcomponentTypeProcessSubcomponentTypeCrossReference_2_0_0 = (CrossReference)cProcessSubcomponentTypeAssignment_2_0.eContents().get(0);
+		private final RuleCall cProcessSubcomponentTypeProcessSubcomponentTypeQCREFParserRuleCall_2_0_0_1 = (RuleCall)cProcessSubcomponentTypeProcessSubcomponentTypeCrossReference_2_0_0.eContents().get(1);
 		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
@@ -10552,7 +10552,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ProcessSubcomponent returns aadl2::ProcessSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::ProcessSubcomponent|REFINEDNAME] ":" "refined" "to") "process"
-		//	(processSubcomponentType=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//	(processSubcomponentType=[aadl2::ProcessSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//	implementationReference+=ComponentImplementationReference (","
 		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -10561,7 +10561,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::ProcessSubcomponent|REFINEDNAME] ":" "refined" "to") "process"
-		//(processSubcomponentType=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(processSubcomponentType=[aadl2::ProcessSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -10607,18 +10607,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"process"
 		public Keyword getProcessKeyword_1() { return cProcessKeyword_1; }
 
-		//(processSubcomponentType=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(processSubcomponentType=[aadl2::ProcessSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//processSubcomponentType=[aadl2::ProcessClassifier|QCREF]
+		//processSubcomponentType=[aadl2::ProcessSubcomponentType|QCREF]
 		public Assignment getProcessSubcomponentTypeAssignment_2_0() { return cProcessSubcomponentTypeAssignment_2_0; }
 
-		//[aadl2::ProcessClassifier|QCREF]
-		public CrossReference getProcessSubcomponentTypeProcessClassifierCrossReference_2_0_0() { return cProcessSubcomponentTypeProcessClassifierCrossReference_2_0_0; }
+		//[aadl2::ProcessSubcomponentType|QCREF]
+		public CrossReference getProcessSubcomponentTypeProcessSubcomponentTypeCrossReference_2_0_0() { return cProcessSubcomponentTypeProcessSubcomponentTypeCrossReference_2_0_0; }
 
 		//QCREF
-		public RuleCall getProcessSubcomponentTypeProcessClassifierQCREFParserRuleCall_2_0_0_1() { return cProcessSubcomponentTypeProcessClassifierQCREFParserRuleCall_2_0_0_1; }
+		public RuleCall getProcessSubcomponentTypeProcessSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cProcessSubcomponentTypeProcessSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
@@ -10765,8 +10765,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cGroupKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Assignment cThreadGroupSubcomponentTypeAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
-		private final CrossReference cThreadGroupSubcomponentTypeThreadGroupClassifierCrossReference_3_0_0 = (CrossReference)cThreadGroupSubcomponentTypeAssignment_3_0.eContents().get(0);
-		private final RuleCall cThreadGroupSubcomponentTypeThreadGroupClassifierQCREFParserRuleCall_3_0_0_1 = (RuleCall)cThreadGroupSubcomponentTypeThreadGroupClassifierCrossReference_3_0_0.eContents().get(1);
+		private final CrossReference cThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeCrossReference_3_0_0 = (CrossReference)cThreadGroupSubcomponentTypeAssignment_3_0.eContents().get(0);
+		private final RuleCall cThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1 = (RuleCall)cThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeCrossReference_3_0_0.eContents().get(1);
 		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
@@ -10811,8 +10811,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "thread" "group"
-		//	(threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
+		//	(threadGroupSubcomponentType=[aadl2::ThreadGroupSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
+		//	("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//	implementationReference+=ComponentImplementationReference (","
 		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
 		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
@@ -10820,8 +10820,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "thread" "group"
-		//(threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
+		//(threadGroupSubcomponentType=[aadl2::ThreadGroupSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
+		//("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 		//"}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
@@ -10869,18 +10869,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"group"
 		public Keyword getGroupKeyword_2() { return cGroupKeyword_2; }
 
-		//(threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
+		//(threadGroupSubcomponentType=[aadl2::ThreadGroupSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
+		//("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF]
+		//threadGroupSubcomponentType=[aadl2::ThreadGroupSubcomponentType|QCREF]
 		public Assignment getThreadGroupSubcomponentTypeAssignment_3_0() { return cThreadGroupSubcomponentTypeAssignment_3_0; }
 
-		//[aadl2::ThreadGroupClassifier|QCREF]
-		public CrossReference getThreadGroupSubcomponentTypeThreadGroupClassifierCrossReference_3_0_0() { return cThreadGroupSubcomponentTypeThreadGroupClassifierCrossReference_3_0_0; }
+		//[aadl2::ThreadGroupSubcomponentType|QCREF]
+		public CrossReference getThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeCrossReference_3_0_0() { return cThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeCrossReference_3_0_0; }
 
 		//QCREF
-		public RuleCall getThreadGroupSubcomponentTypeThreadGroupClassifierQCREFParserRuleCall_3_0_0_1() { return cThreadGroupSubcomponentTypeThreadGroupClassifierQCREFParserRuleCall_3_0_0_1; }
+		public RuleCall getThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1() { return cThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
@@ -11026,8 +11026,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cThreadKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cThreadSubcomponentTypeAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final CrossReference cThreadSubcomponentTypeThreadClassifierCrossReference_2_0_0 = (CrossReference)cThreadSubcomponentTypeAssignment_2_0.eContents().get(0);
-		private final RuleCall cThreadSubcomponentTypeThreadClassifierQCREFParserRuleCall_2_0_0_1 = (RuleCall)cThreadSubcomponentTypeThreadClassifierCrossReference_2_0_0.eContents().get(1);
+		private final CrossReference cThreadSubcomponentTypeThreadSubcomponentTypeCrossReference_2_0_0 = (CrossReference)cThreadSubcomponentTypeAssignment_2_0.eContents().get(0);
+		private final RuleCall cThreadSubcomponentTypeThreadSubcomponentTypeQCREFParserRuleCall_2_0_0_1 = (RuleCall)cThreadSubcomponentTypeThreadSubcomponentTypeCrossReference_2_0_0.eContents().get(1);
 		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
@@ -11072,7 +11072,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ThreadSubcomponent returns aadl2::ThreadSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::ThreadSubcomponent|REFINEDNAME] ":" "refined" "to") "thread"
-		//	(threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//	(threadSubcomponentType=[aadl2::ThreadSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//	implementationReference+=ComponentImplementationReference (","
 		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -11081,7 +11081,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::ThreadSubcomponent|REFINEDNAME] ":" "refined" "to") "thread"
-		//(threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(threadSubcomponentType=[aadl2::ThreadSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -11127,18 +11127,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"thread"
 		public Keyword getThreadKeyword_1() { return cThreadKeyword_1; }
 
-		//(threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(threadSubcomponentType=[aadl2::ThreadSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//threadSubcomponentType=[aadl2::ThreadClassifier|QCREF]
+		//threadSubcomponentType=[aadl2::ThreadSubcomponentType|QCREF]
 		public Assignment getThreadSubcomponentTypeAssignment_2_0() { return cThreadSubcomponentTypeAssignment_2_0; }
 
-		//[aadl2::ThreadClassifier|QCREF]
-		public CrossReference getThreadSubcomponentTypeThreadClassifierCrossReference_2_0_0() { return cThreadSubcomponentTypeThreadClassifierCrossReference_2_0_0; }
+		//[aadl2::ThreadSubcomponentType|QCREF]
+		public CrossReference getThreadSubcomponentTypeThreadSubcomponentTypeCrossReference_2_0_0() { return cThreadSubcomponentTypeThreadSubcomponentTypeCrossReference_2_0_0; }
 
 		//QCREF
-		public RuleCall getThreadSubcomponentTypeThreadClassifierQCREFParserRuleCall_2_0_0_1() { return cThreadSubcomponentTypeThreadClassifierQCREFParserRuleCall_2_0_0_1; }
+		public RuleCall getThreadSubcomponentTypeThreadSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cThreadSubcomponentTypeThreadSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
@@ -11284,8 +11284,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSubprogramKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cSubprogramSubcomponentTypeAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final CrossReference cSubprogramSubcomponentTypeSubprogramClassifierCrossReference_2_0_0 = (CrossReference)cSubprogramSubcomponentTypeAssignment_2_0.eContents().get(0);
-		private final RuleCall cSubprogramSubcomponentTypeSubprogramClassifierQCREFParserRuleCall_2_0_0_1 = (RuleCall)cSubprogramSubcomponentTypeSubprogramClassifierCrossReference_2_0_0.eContents().get(1);
+		private final CrossReference cSubprogramSubcomponentTypeSubprogramSubcomponentTypeCrossReference_2_0_0 = (CrossReference)cSubprogramSubcomponentTypeAssignment_2_0.eContents().get(0);
+		private final RuleCall cSubprogramSubcomponentTypeSubprogramSubcomponentTypeQCREFParserRuleCall_2_0_0_1 = (RuleCall)cSubprogramSubcomponentTypeSubprogramSubcomponentTypeCrossReference_2_0_0.eContents().get(1);
 		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
@@ -11330,8 +11330,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram"
-		//	(subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
+		//	(subprogramSubcomponentType=[aadl2::SubprogramSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
+		//	("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//	implementationReference+=ComponentImplementationReference (","
 		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
 		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
@@ -11339,7 +11339,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram"
-		//(subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(subprogramSubcomponentType=[aadl2::SubprogramSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -11385,18 +11385,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"subprogram"
 		public Keyword getSubprogramKeyword_1() { return cSubprogramKeyword_1; }
 
-		//(subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(subprogramSubcomponentType=[aadl2::SubprogramSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF]
+		//subprogramSubcomponentType=[aadl2::SubprogramSubcomponentType|QCREF]
 		public Assignment getSubprogramSubcomponentTypeAssignment_2_0() { return cSubprogramSubcomponentTypeAssignment_2_0; }
 
-		//[aadl2::SubprogramClassifier|QCREF]
-		public CrossReference getSubprogramSubcomponentTypeSubprogramClassifierCrossReference_2_0_0() { return cSubprogramSubcomponentTypeSubprogramClassifierCrossReference_2_0_0; }
+		//[aadl2::SubprogramSubcomponentType|QCREF]
+		public CrossReference getSubprogramSubcomponentTypeSubprogramSubcomponentTypeCrossReference_2_0_0() { return cSubprogramSubcomponentTypeSubprogramSubcomponentTypeCrossReference_2_0_0; }
 
 		//QCREF
-		public RuleCall getSubprogramSubcomponentTypeSubprogramClassifierQCREFParserRuleCall_2_0_0_1() { return cSubprogramSubcomponentTypeSubprogramClassifierQCREFParserRuleCall_2_0_0_1; }
+		public RuleCall getSubprogramSubcomponentTypeSubprogramSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cSubprogramSubcomponentTypeSubprogramSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
@@ -11543,8 +11543,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cGroupKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Assignment cSubprogramGroupSubcomponentTypeAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
-		private final CrossReference cSubprogramGroupSubcomponentTypeSubprogramGroupClassifierCrossReference_3_0_0 = (CrossReference)cSubprogramGroupSubcomponentTypeAssignment_3_0.eContents().get(0);
-		private final RuleCall cSubprogramGroupSubcomponentTypeSubprogramGroupClassifierQCREFParserRuleCall_3_0_0_1 = (RuleCall)cSubprogramGroupSubcomponentTypeSubprogramGroupClassifierCrossReference_3_0_0.eContents().get(1);
+		private final CrossReference cSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeCrossReference_3_0_0 = (CrossReference)cSubprogramGroupSubcomponentTypeAssignment_3_0.eContents().get(0);
+		private final RuleCall cSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1 = (RuleCall)cSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeCrossReference_3_0_0.eContents().get(1);
 		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
@@ -11589,18 +11589,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram" "group"
-		//	(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
-		//	("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
-		//	implementationReference+=ComponentImplementationReference (","
+		//	(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupSubcomponentType|QCREF] ("("
+		//	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
+		//	(arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
 		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
 		//	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram" "group"
-		//(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
-		//("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
-		//implementationReference+=ComponentImplementationReference (","
+		//(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupSubcomponentType|QCREF] ("("
+		//ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
+		//(arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
 		//"}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 		public Group getGroup() { return cGroup; }
@@ -11647,18 +11647,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"group"
 		public Keyword getGroupKeyword_2() { return cGroupKeyword_2; }
 
-		//(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
-		//("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
+		//(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupSubcomponentType|QCREF] ("("
+		//ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF]
+		//subprogramGroupSubcomponentType=[aadl2::SubprogramGroupSubcomponentType|QCREF]
 		public Assignment getSubprogramGroupSubcomponentTypeAssignment_3_0() { return cSubprogramGroupSubcomponentTypeAssignment_3_0; }
 
-		//[aadl2::SubprogramGroupClassifier|QCREF]
-		public CrossReference getSubprogramGroupSubcomponentTypeSubprogramGroupClassifierCrossReference_3_0_0() { return cSubprogramGroupSubcomponentTypeSubprogramGroupClassifierCrossReference_3_0_0; }
+		//[aadl2::SubprogramGroupSubcomponentType|QCREF]
+		public CrossReference getSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeCrossReference_3_0_0() { return cSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeCrossReference_3_0_0; }
 
 		//QCREF
-		public RuleCall getSubprogramGroupSubcomponentTypeSubprogramGroupClassifierQCREFParserRuleCall_3_0_0_1() { return cSubprogramGroupSubcomponentTypeSubprogramGroupClassifierQCREFParserRuleCall_3_0_0_1; }
+		public RuleCall getSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1() { return cSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
@@ -11804,8 +11804,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cProcessorKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cProcessorSubcomponentTypeAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final CrossReference cProcessorSubcomponentTypeProcessorClassifierCrossReference_2_0_0 = (CrossReference)cProcessorSubcomponentTypeAssignment_2_0.eContents().get(0);
-		private final RuleCall cProcessorSubcomponentTypeProcessorClassifierQCREFParserRuleCall_2_0_0_1 = (RuleCall)cProcessorSubcomponentTypeProcessorClassifierCrossReference_2_0_0.eContents().get(1);
+		private final CrossReference cProcessorSubcomponentTypeProcessorSubcomponentTypeCrossReference_2_0_0 = (CrossReference)cProcessorSubcomponentTypeAssignment_2_0.eContents().get(0);
+		private final RuleCall cProcessorSubcomponentTypeProcessorSubcomponentTypeQCREFParserRuleCall_2_0_0_1 = (RuleCall)cProcessorSubcomponentTypeProcessorSubcomponentTypeCrossReference_2_0_0.eContents().get(1);
 		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
@@ -11850,7 +11850,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::ProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "processor"
-		//	(processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//	(processorSubcomponentType=[aadl2::ProcessorSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//	implementationReference+=ComponentImplementationReference (","
 		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -11859,7 +11859,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::ProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "processor"
-		//(processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(processorSubcomponentType=[aadl2::ProcessorSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -11905,18 +11905,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"processor"
 		public Keyword getProcessorKeyword_1() { return cProcessorKeyword_1; }
 
-		//(processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(processorSubcomponentType=[aadl2::ProcessorSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF]
+		//processorSubcomponentType=[aadl2::ProcessorSubcomponentType|QCREF]
 		public Assignment getProcessorSubcomponentTypeAssignment_2_0() { return cProcessorSubcomponentTypeAssignment_2_0; }
 
-		//[aadl2::ProcessorClassifier|QCREF]
-		public CrossReference getProcessorSubcomponentTypeProcessorClassifierCrossReference_2_0_0() { return cProcessorSubcomponentTypeProcessorClassifierCrossReference_2_0_0; }
+		//[aadl2::ProcessorSubcomponentType|QCREF]
+		public CrossReference getProcessorSubcomponentTypeProcessorSubcomponentTypeCrossReference_2_0_0() { return cProcessorSubcomponentTypeProcessorSubcomponentTypeCrossReference_2_0_0; }
 
 		//QCREF
-		public RuleCall getProcessorSubcomponentTypeProcessorClassifierQCREFParserRuleCall_2_0_0_1() { return cProcessorSubcomponentTypeProcessorClassifierQCREFParserRuleCall_2_0_0_1; }
+		public RuleCall getProcessorSubcomponentTypeProcessorSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cProcessorSubcomponentTypeProcessorSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
@@ -12063,8 +12063,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cProcessorKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Assignment cVirtualProcessorSubcomponentTypeAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
-		private final CrossReference cVirtualProcessorSubcomponentTypeVirtualProcessorClassifierCrossReference_3_0_0 = (CrossReference)cVirtualProcessorSubcomponentTypeAssignment_3_0.eContents().get(0);
-		private final RuleCall cVirtualProcessorSubcomponentTypeVirtualProcessorClassifierQCREFParserRuleCall_3_0_0_1 = (RuleCall)cVirtualProcessorSubcomponentTypeVirtualProcessorClassifierCrossReference_3_0_0.eContents().get(1);
+		private final CrossReference cVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeCrossReference_3_0_0 = (CrossReference)cVirtualProcessorSubcomponentTypeAssignment_3_0.eContents().get(0);
+		private final RuleCall cVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeQCREFParserRuleCall_3_0_0_1 = (RuleCall)cVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeCrossReference_3_0_0.eContents().get(1);
 		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
@@ -12109,7 +12109,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "virtual" "processor"
-		//	(virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF] ("("
+		//	(virtualProcessorSubcomponentType=[aadl2::VirtualProcessorSubcomponentType|QCREF] ("("
 		//	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		//	(arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -12118,7 +12118,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "virtual" "processor"
-		//(virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF] ("("
+		//(virtualProcessorSubcomponentType=[aadl2::VirtualProcessorSubcomponentType|QCREF] ("("
 		//ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		//(arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -12167,18 +12167,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"processor"
 		public Keyword getProcessorKeyword_2() { return cProcessorKeyword_2; }
 
-		//(virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
-		//("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
+		//(virtualProcessorSubcomponentType=[aadl2::VirtualProcessorSubcomponentType|QCREF] ("("
+		//ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF]
+		//virtualProcessorSubcomponentType=[aadl2::VirtualProcessorSubcomponentType|QCREF]
 		public Assignment getVirtualProcessorSubcomponentTypeAssignment_3_0() { return cVirtualProcessorSubcomponentTypeAssignment_3_0; }
 
-		//[aadl2::VirtualProcessorClassifier|QCREF]
-		public CrossReference getVirtualProcessorSubcomponentTypeVirtualProcessorClassifierCrossReference_3_0_0() { return cVirtualProcessorSubcomponentTypeVirtualProcessorClassifierCrossReference_3_0_0; }
+		//[aadl2::VirtualProcessorSubcomponentType|QCREF]
+		public CrossReference getVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeCrossReference_3_0_0() { return cVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeCrossReference_3_0_0; }
 
 		//QCREF
-		public RuleCall getVirtualProcessorSubcomponentTypeVirtualProcessorClassifierQCREFParserRuleCall_3_0_0_1() { return cVirtualProcessorSubcomponentTypeVirtualProcessorClassifierQCREFParserRuleCall_3_0_0_1; }
+		public RuleCall getVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeQCREFParserRuleCall_3_0_0_1() { return cVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeQCREFParserRuleCall_3_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
@@ -12324,8 +12324,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cDeviceKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cDeviceSubcomponentTypeAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final CrossReference cDeviceSubcomponentTypeDeviceClassifierCrossReference_2_0_0 = (CrossReference)cDeviceSubcomponentTypeAssignment_2_0.eContents().get(0);
-		private final RuleCall cDeviceSubcomponentTypeDeviceClassifierQCREFParserRuleCall_2_0_0_1 = (RuleCall)cDeviceSubcomponentTypeDeviceClassifierCrossReference_2_0_0.eContents().get(1);
+		private final CrossReference cDeviceSubcomponentTypeDeviceSubcomponentTypeCrossReference_2_0_0 = (CrossReference)cDeviceSubcomponentTypeAssignment_2_0.eContents().get(0);
+		private final RuleCall cDeviceSubcomponentTypeDeviceSubcomponentTypeQCREFParserRuleCall_2_0_0_1 = (RuleCall)cDeviceSubcomponentTypeDeviceSubcomponentTypeCrossReference_2_0_0.eContents().get(1);
 		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
@@ -12370,7 +12370,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//DeviceSubcomponent returns aadl2::DeviceSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::DeviceSubcomponent|REFINEDNAME] ":" "refined" "to") "device"
-		//	(deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//	(deviceSubcomponentType=[aadl2::DeviceSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//	implementationReference+=ComponentImplementationReference (","
 		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -12379,7 +12379,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::DeviceSubcomponent|REFINEDNAME] ":" "refined" "to") "device"
-		//(deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(deviceSubcomponentType=[aadl2::DeviceSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -12425,18 +12425,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"device"
 		public Keyword getDeviceKeyword_1() { return cDeviceKeyword_1; }
 
-		//(deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(deviceSubcomponentType=[aadl2::DeviceSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF]
+		//deviceSubcomponentType=[aadl2::DeviceSubcomponentType|QCREF]
 		public Assignment getDeviceSubcomponentTypeAssignment_2_0() { return cDeviceSubcomponentTypeAssignment_2_0; }
 
-		//[aadl2::DeviceClassifier|QCREF]
-		public CrossReference getDeviceSubcomponentTypeDeviceClassifierCrossReference_2_0_0() { return cDeviceSubcomponentTypeDeviceClassifierCrossReference_2_0_0; }
+		//[aadl2::DeviceSubcomponentType|QCREF]
+		public CrossReference getDeviceSubcomponentTypeDeviceSubcomponentTypeCrossReference_2_0_0() { return cDeviceSubcomponentTypeDeviceSubcomponentTypeCrossReference_2_0_0; }
 
 		//QCREF
-		public RuleCall getDeviceSubcomponentTypeDeviceClassifierQCREFParserRuleCall_2_0_0_1() { return cDeviceSubcomponentTypeDeviceClassifierQCREFParserRuleCall_2_0_0_1; }
+		public RuleCall getDeviceSubcomponentTypeDeviceSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cDeviceSubcomponentTypeDeviceSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
@@ -12582,8 +12582,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cMemoryKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cMemorySubcomponentTypeAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final CrossReference cMemorySubcomponentTypeMemoryClassifierCrossReference_2_0_0 = (CrossReference)cMemorySubcomponentTypeAssignment_2_0.eContents().get(0);
-		private final RuleCall cMemorySubcomponentTypeMemoryClassifierQCREFParserRuleCall_2_0_0_1 = (RuleCall)cMemorySubcomponentTypeMemoryClassifierCrossReference_2_0_0.eContents().get(1);
+		private final CrossReference cMemorySubcomponentTypeMemorySubcomponentTypeCrossReference_2_0_0 = (CrossReference)cMemorySubcomponentTypeAssignment_2_0.eContents().get(0);
+		private final RuleCall cMemorySubcomponentTypeMemorySubcomponentTypeQCREFParserRuleCall_2_0_0_1 = (RuleCall)cMemorySubcomponentTypeMemorySubcomponentTypeCrossReference_2_0_0.eContents().get(1);
 		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
@@ -12628,7 +12628,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//MemorySubcomponent returns aadl2::MemorySubcomponent:
 		//	(name=ID ":" | refined=[aadl2::MemorySubcomponent|REFINEDNAME] ":" "refined" "to") "memory"
-		//	(memorySubcomponentType=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//	(memorySubcomponentType=[aadl2::MemorySubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//	implementationReference+=ComponentImplementationReference (","
 		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -12637,7 +12637,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::MemorySubcomponent|REFINEDNAME] ":" "refined" "to") "memory"
-		//(memorySubcomponentType=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(memorySubcomponentType=[aadl2::MemorySubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -12683,18 +12683,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"memory"
 		public Keyword getMemoryKeyword_1() { return cMemoryKeyword_1; }
 
-		//(memorySubcomponentType=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(memorySubcomponentType=[aadl2::MemorySubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//memorySubcomponentType=[aadl2::MemoryClassifier|QCREF]
+		//memorySubcomponentType=[aadl2::MemorySubcomponentType|QCREF]
 		public Assignment getMemorySubcomponentTypeAssignment_2_0() { return cMemorySubcomponentTypeAssignment_2_0; }
 
-		//[aadl2::MemoryClassifier|QCREF]
-		public CrossReference getMemorySubcomponentTypeMemoryClassifierCrossReference_2_0_0() { return cMemorySubcomponentTypeMemoryClassifierCrossReference_2_0_0; }
+		//[aadl2::MemorySubcomponentType|QCREF]
+		public CrossReference getMemorySubcomponentTypeMemorySubcomponentTypeCrossReference_2_0_0() { return cMemorySubcomponentTypeMemorySubcomponentTypeCrossReference_2_0_0; }
 
 		//QCREF
-		public RuleCall getMemorySubcomponentTypeMemoryClassifierQCREFParserRuleCall_2_0_0_1() { return cMemorySubcomponentTypeMemoryClassifierQCREFParserRuleCall_2_0_0_1; }
+		public RuleCall getMemorySubcomponentTypeMemorySubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cMemorySubcomponentTypeMemorySubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
@@ -12840,8 +12840,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cBusKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cBusSubcomponentTypeAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final CrossReference cBusSubcomponentTypeBusClassifierCrossReference_2_0_0 = (CrossReference)cBusSubcomponentTypeAssignment_2_0.eContents().get(0);
-		private final RuleCall cBusSubcomponentTypeBusClassifierQCREFParserRuleCall_2_0_0_1 = (RuleCall)cBusSubcomponentTypeBusClassifierCrossReference_2_0_0.eContents().get(1);
+		private final CrossReference cBusSubcomponentTypeBusSubcomponentTypeCrossReference_2_0_0 = (CrossReference)cBusSubcomponentTypeAssignment_2_0.eContents().get(0);
+		private final RuleCall cBusSubcomponentTypeBusSubcomponentTypeQCREFParserRuleCall_2_0_0_1 = (RuleCall)cBusSubcomponentTypeBusSubcomponentTypeCrossReference_2_0_0.eContents().get(1);
 		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
@@ -12886,7 +12886,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//BusSubcomponent returns aadl2::BusSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::BusSubcomponent|REFINEDNAME] ":" "refined" "to") "bus"
-		//	(busSubcomponentType=[aadl2::BusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//	(busSubcomponentType=[aadl2::BusSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//	implementationReference+=ComponentImplementationReference (","
 		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -12895,7 +12895,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::BusSubcomponent|REFINEDNAME] ":" "refined" "to") "bus"
-		//(busSubcomponentType=[aadl2::BusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(busSubcomponentType=[aadl2::BusSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
@@ -12941,18 +12941,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"bus"
 		public Keyword getBusKeyword_1() { return cBusKeyword_1; }
 
-		//(busSubcomponentType=[aadl2::BusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(busSubcomponentType=[aadl2::BusSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//busSubcomponentType=[aadl2::BusClassifier|QCREF]
+		//busSubcomponentType=[aadl2::BusSubcomponentType|QCREF]
 		public Assignment getBusSubcomponentTypeAssignment_2_0() { return cBusSubcomponentTypeAssignment_2_0; }
 
-		//[aadl2::BusClassifier|QCREF]
-		public CrossReference getBusSubcomponentTypeBusClassifierCrossReference_2_0_0() { return cBusSubcomponentTypeBusClassifierCrossReference_2_0_0; }
+		//[aadl2::BusSubcomponentType|QCREF]
+		public CrossReference getBusSubcomponentTypeBusSubcomponentTypeCrossReference_2_0_0() { return cBusSubcomponentTypeBusSubcomponentTypeCrossReference_2_0_0; }
 
 		//QCREF
-		public RuleCall getBusSubcomponentTypeBusClassifierQCREFParserRuleCall_2_0_0_1() { return cBusSubcomponentTypeBusClassifierQCREFParserRuleCall_2_0_0_1; }
+		public RuleCall getBusSubcomponentTypeBusSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cBusSubcomponentTypeBusSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
@@ -13360,8 +13360,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cDataKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cDataSubcomponentTypeAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final CrossReference cDataSubcomponentTypeDataClassifierCrossReference_2_0_0 = (CrossReference)cDataSubcomponentTypeAssignment_2_0.eContents().get(0);
-		private final RuleCall cDataSubcomponentTypeDataClassifierQCREFParserRuleCall_2_0_0_1 = (RuleCall)cDataSubcomponentTypeDataClassifierCrossReference_2_0_0.eContents().get(1);
+		private final CrossReference cDataSubcomponentTypeDataSubcomponentTypeCrossReference_2_0_0 = (CrossReference)cDataSubcomponentTypeAssignment_2_0.eContents().get(0);
+		private final RuleCall cDataSubcomponentTypeDataSubcomponentTypeQCREFParserRuleCall_2_0_0_1 = (RuleCall)cDataSubcomponentTypeDataSubcomponentTypeCrossReference_2_0_0.eContents().get(1);
 		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cOwnedPrototypeBindingAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
@@ -13394,13 +13394,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//DataSubcomponent returns aadl2::DataSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
-		//	(dataSubcomponentType=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//	(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
 		//	"modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
-		//(dataSubcomponentType=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
 		//"modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";"
 		public Group getGroup() { return cGroup; }
@@ -13444,18 +13444,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"data"
 		public Keyword getDataKeyword_1() { return cDataKeyword_1; }
 
-		//(dataSubcomponentType=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+		//(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//dataSubcomponentType=[aadl2::DataClassifier|QCREF]
+		//dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF]
 		public Assignment getDataSubcomponentTypeAssignment_2_0() { return cDataSubcomponentTypeAssignment_2_0; }
 
-		//[aadl2::DataClassifier|QCREF]
-		public CrossReference getDataSubcomponentTypeDataClassifierCrossReference_2_0_0() { return cDataSubcomponentTypeDataClassifierCrossReference_2_0_0; }
+		//[aadl2::DataSubcomponentType|QCREF]
+		public CrossReference getDataSubcomponentTypeDataSubcomponentTypeCrossReference_2_0_0() { return cDataSubcomponentTypeDataSubcomponentTypeCrossReference_2_0_0; }
 
 		//QCREF
-		public RuleCall getDataSubcomponentTypeDataClassifierQCREFParserRuleCall_2_0_0_1() { return cDataSubcomponentTypeDataClassifierQCREFParserRuleCall_2_0_0_1; }
+		public RuleCall getDataSubcomponentTypeDataSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cDataSubcomponentTypeDataSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
 		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
@@ -21798,6 +21798,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getAsteriskKeyword() { return cAsteriskKeyword; }
 	}
 
+	public class QTREFElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QTREF");
+		private final RuleCall cPNAMEParserRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//// qualified type reference
+		//QTREF:
+		//	PNAME;
+		public ParserRule getRule() { return rule; }
+
+		//PNAME
+		public RuleCall getPNAMEParserRuleCall() { return cPNAMEParserRuleCall; }
+	}
+
 	public class PNAMEElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PNAME");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -22183,6 +22196,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private QCREFElements pQCREF;
 	private EQCREFElements pEQCREF;
 	private STARElements pSTAR;
+	private QTREFElements pQTREF;
 	private PNAMEElements pPNAME;
 	private INAMEElements pINAME;
 	private REFINEDNAMEElements pREFINEDNAME;
@@ -22883,7 +22897,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//CallSpecification returns aadl2::CallSpecification:
 	//	({aadl2::ProcessorCall} name=ID "subprogram" "processor" "." subprogramAccessName=ID | {aadl2::SubprogramCall} name=ID
-	//	"subprogram" (context=[aadl2::CallContext] ".")? calledSubprogram=[aadl2::CalledSubprogram]) ("{"
+	//	"subprogram" (context=[aadl2::CallContext|PNAME] ".")? calledSubprogram=[aadl2::CalledSubprogram]) ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public CallSpecificationElements getCallSpecificationAccess() {
 		return (pCallSpecification != null) ? pCallSpecification : (pCallSpecification = new CallSpecificationElements());
@@ -23181,7 +23195,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	// * Subcomponents
 	// * / AbstractSubcomponent returns aadl2::AbstractSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "abstract"
-	//	(abstractSubcomponentType=[aadl2::AbstractClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+	//	(abstractSubcomponentType=[aadl2::AbstractSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 	//	implementationReference+=ComponentImplementationReference (","
 	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -23197,7 +23211,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//SystemSubcomponent returns aadl2::SystemSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::SystemSubcomponent|REFINEDNAME] ":" "refined" "to") "system"
-	//	(systemSubcomponentType=[aadl2::SystemClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+	//	(systemSubcomponentType=[aadl2::SystemSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 	//	implementationReference+=ComponentImplementationReference (","
 	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -23213,7 +23227,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//ProcessSubcomponent returns aadl2::ProcessSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::ProcessSubcomponent|REFINEDNAME] ":" "refined" "to") "process"
-	//	(processSubcomponentType=[aadl2::ProcessClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+	//	(processSubcomponentType=[aadl2::ProcessSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 	//	implementationReference+=ComponentImplementationReference (","
 	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -23229,8 +23243,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "thread" "group"
-	//	(threadGroupSubcomponentType=[aadl2::ThreadGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
+	//	(threadGroupSubcomponentType=[aadl2::ThreadGroupSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
+	//	("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 	//	implementationReference+=ComponentImplementationReference (","
 	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
@@ -23245,7 +23259,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//ThreadSubcomponent returns aadl2::ThreadSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::ThreadSubcomponent|REFINEDNAME] ":" "refined" "to") "thread"
-	//	(threadSubcomponentType=[aadl2::ThreadClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+	//	(threadSubcomponentType=[aadl2::ThreadSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 	//	implementationReference+=ComponentImplementationReference (","
 	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -23261,8 +23275,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram"
-	//	(subprogramSubcomponentType=[aadl2::SubprogramClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
+	//	(subprogramSubcomponentType=[aadl2::SubprogramSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
+	//	("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 	//	implementationReference+=ComponentImplementationReference (","
 	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
@@ -23277,9 +23291,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram" "group"
-	//	(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
-	//	("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
-	//	implementationReference+=ComponentImplementationReference (","
+	//	(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupSubcomponentType|QCREF] ("("
+	//	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
+	//	(arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" ((inMode+=[aadl2::Mode] |
 	//	modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
@@ -23293,7 +23307,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::ProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "processor"
-	//	(processorSubcomponentType=[aadl2::ProcessorClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+	//	(processorSubcomponentType=[aadl2::ProcessorSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 	//	implementationReference+=ComponentImplementationReference (","
 	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -23309,7 +23323,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME] ":" "refined" "to") "virtual" "processor"
-	//	(virtualProcessorSubcomponentType=[aadl2::VirtualProcessorClassifier|QCREF] ("("
+	//	(virtualProcessorSubcomponentType=[aadl2::VirtualProcessorSubcomponentType|QCREF] ("("
 	//	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)?
 	//	(arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
 	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -23325,7 +23339,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//DeviceSubcomponent returns aadl2::DeviceSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::DeviceSubcomponent|REFINEDNAME] ":" "refined" "to") "device"
-	//	(deviceSubcomponentType=[aadl2::DeviceClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+	//	(deviceSubcomponentType=[aadl2::DeviceSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 	//	implementationReference+=ComponentImplementationReference (","
 	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -23341,7 +23355,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//MemorySubcomponent returns aadl2::MemorySubcomponent:
 	//	(name=ID ":" | refined=[aadl2::MemorySubcomponent|REFINEDNAME] ":" "refined" "to") "memory"
-	//	(memorySubcomponentType=[aadl2::MemoryClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+	//	(memorySubcomponentType=[aadl2::MemorySubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 	//	implementationReference+=ComponentImplementationReference (","
 	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -23357,7 +23371,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//BusSubcomponent returns aadl2::BusSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::BusSubcomponent|REFINEDNAME] ":" "refined" "to") "bus"
-	//	(busSubcomponentType=[aadl2::BusClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+	//	(busSubcomponentType=[aadl2::BusSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 	//	implementationReference+=ComponentImplementationReference (","
 	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
@@ -23389,7 +23403,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//DataSubcomponent returns aadl2::DataSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
-	//	(dataSubcomponentType=[aadl2::DataClassifier|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
+	//	(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
 	//	"modes" "(" ((inMode+=[aadl2::Mode] | modeBinding+=ModeRef)+ | allModes?="all") ")")? ";";
 	public DataSubcomponentElements getDataSubcomponentAccess() {
@@ -25026,6 +25040,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getSTARRule() {
 		return getSTARAccess().getRule();
+	}
+
+	//// qualified type reference
+	//QTREF:
+	//	PNAME;
+	public QTREFElements getQTREFAccess() {
+		return (pQTREF != null) ? pQTREF : (pQTREF = new QTREFElements());
+	}
+	
+	public ParserRule getQTREFRule() {
+		return getQTREFAccess().getRule();
 	}
 
 	//// package anme

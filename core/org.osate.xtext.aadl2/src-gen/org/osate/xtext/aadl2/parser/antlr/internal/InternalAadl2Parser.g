@@ -11695,10 +11695,12 @@ ruleCallSpecification returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getCallSpecificationRule());
 	        }
         }
-	otherlv_9=RULE_ID
-	{
-		newLeafNode(otherlv_9, grammarAccess.getCallSpecificationAccess().getContextCallContextCrossReference_0_1_3_0_0()); 
-	}
+		{ 
+	        newCompositeNode(grammarAccess.getCallSpecificationAccess().getContextCallContextCrossReference_0_1_3_0_0()); 
+	    }
+		rulePNAME		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )
@@ -14640,7 +14642,7 @@ ruleAbstractSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractClassifierCrossReference_2_0_0()); 
+	        newCompositeNode(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractSubcomponentTypeCrossReference_2_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -14965,7 +14967,7 @@ ruleSystemSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemClassifierCrossReference_2_0_0()); 
+	        newCompositeNode(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemSubcomponentTypeCrossReference_2_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -15290,7 +15292,7 @@ ruleProcessSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessClassifierCrossReference_2_0_0()); 
+	        newCompositeNode(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessSubcomponentTypeCrossReference_2_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -15620,7 +15622,7 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupClassifierCrossReference_3_0_0()); 
+	        newCompositeNode(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeCrossReference_3_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -15945,7 +15947,7 @@ ruleThreadSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadClassifierCrossReference_2_0_0()); 
+	        newCompositeNode(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadSubcomponentTypeCrossReference_2_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -16270,7 +16272,7 @@ ruleSubprogramSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramClassifierCrossReference_2_0_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramSubcomponentTypeCrossReference_2_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -16600,7 +16602,7 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupClassifierCrossReference_3_0_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeCrossReference_3_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -16925,7 +16927,7 @@ ruleProcessorSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorClassifierCrossReference_2_0_0()); 
+	        newCompositeNode(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorSubcomponentTypeCrossReference_2_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -17255,7 +17257,7 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorClassifierCrossReference_3_0_0()); 
+	        newCompositeNode(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeCrossReference_3_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -17580,7 +17582,7 @@ ruleDeviceSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceClassifierCrossReference_2_0_0()); 
+	        newCompositeNode(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceSubcomponentTypeCrossReference_2_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -17905,7 +17907,7 @@ ruleMemorySubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemoryClassifierCrossReference_2_0_0()); 
+	        newCompositeNode(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemorySubcomponentTypeCrossReference_2_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -18230,7 +18232,7 @@ ruleBusSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusClassifierCrossReference_2_0_0()); 
+	        newCompositeNode(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusSubcomponentTypeCrossReference_2_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -18885,7 +18887,7 @@ ruleDataSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataClassifierCrossReference_2_0_0()); 
+	        newCompositeNode(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataSubcomponentTypeCrossReference_2_0_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -31712,6 +31714,8 @@ ruleSTAR returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     }
 
     ;
+
+
 
 
 
