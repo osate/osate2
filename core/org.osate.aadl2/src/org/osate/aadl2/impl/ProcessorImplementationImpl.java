@@ -279,9 +279,8 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 */
 	@Override
 	public ProcessorType getType() {
-		ProcessorType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (ProcessorType) eResolveProxy((InternalEObject) type)
-				: type;
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? null : (ProcessorType) type;
 	}
 
 	/**
@@ -289,9 +288,9 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public ProcessorType basicGetType() {
+	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
-		return (ProcessorType) super.basicGetType();
+		return super.basicGetType();
 	}
 
 	/**

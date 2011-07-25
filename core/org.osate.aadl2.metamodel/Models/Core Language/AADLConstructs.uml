@@ -2169,7 +2169,7 @@ The context owns the connection end instance.</body>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-ModalPath-inTransition-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-ModalPath-inTransition-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_FgdHVKmSEeCfxLim1SVFOg" name="inMode" type="Modes-Mode" isReadOnly="true" isDerived="true" subsettedProperty="Modes-ModalPath-inTransition" association="_FgdHUKmSEeCfxLim1SVFOg">
+        <ownedAttribute xmi:id="_FgdHVKmSEeCfxLim1SVFOg" name="inMode" type="Modes-Mode" isDerived="true" subsettedProperty="Modes-ModalPath-inTransition" association="_FgdHUKmSEeCfxLim1SVFOg">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FgdHVamSEeCfxLim1SVFOg" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FgdHVqmSEeCfxLim1SVFOg"/>
         </ownedAttribute>

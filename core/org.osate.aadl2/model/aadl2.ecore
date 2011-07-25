@@ -1143,7 +1143,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ModalPath" abstract="true" eSuperTypes="#//ModalElement">
     <eAnnotations source="duplicates">
       <contents xsi:type="ecore:EReference" name="inMode" upperBound="-1" eType="#//Mode"
-          changeable="false" volatile="true" transient="true" derived="true">
+          volatile="true" transient="true" derived="true">
         <eAnnotations source="redefines" references="#//ModalElement/inMode"/>
         <eAnnotations source="subsets" references="#//ModalPath/inModeOrTransition"/>
       </contents>

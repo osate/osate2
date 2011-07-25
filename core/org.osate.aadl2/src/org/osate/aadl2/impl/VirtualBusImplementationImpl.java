@@ -169,9 +169,8 @@ public class VirtualBusImplementationImpl extends ComponentImplementationImpl im
 	 */
 	@Override
 	public VirtualBusType getType() {
-		VirtualBusType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (VirtualBusType) eResolveProxy((InternalEObject) type)
-				: type;
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? null : (VirtualBusType) type;
 	}
 
 	/**
@@ -179,9 +178,9 @@ public class VirtualBusImplementationImpl extends ComponentImplementationImpl im
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public VirtualBusType basicGetType() {
+	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
-		return (VirtualBusType) super.basicGetType();
+		return super.basicGetType();
 	}
 
 	/**

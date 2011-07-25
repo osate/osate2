@@ -540,8 +540,8 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public SystemType getType() {
-		SystemType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (SystemType) eResolveProxy((InternalEObject) type) : type;
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? null : (SystemType) type;
 	}
 
 	/**
@@ -549,9 +549,9 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public SystemType basicGetType() {
+	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
-		return (SystemType) super.basicGetType();
+		return super.basicGetType();
 	}
 
 	/**

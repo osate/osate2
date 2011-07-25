@@ -203,8 +203,8 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public MemoryType getType() {
-		MemoryType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (MemoryType) eResolveProxy((InternalEObject) type) : type;
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? null : (MemoryType) type;
 	}
 
 	/**
@@ -212,9 +212,9 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public MemoryType basicGetType() {
+	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
-		return (MemoryType) super.basicGetType();
+		return super.basicGetType();
 	}
 
 	/**

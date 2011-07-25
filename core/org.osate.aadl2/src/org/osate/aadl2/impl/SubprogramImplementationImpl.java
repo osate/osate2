@@ -170,9 +170,8 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 	 */
 	@Override
 	public SubprogramType getType() {
-		SubprogramType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (SubprogramType) eResolveProxy((InternalEObject) type)
-				: type;
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? null : (SubprogramType) type;
 	}
 
 	/**
@@ -180,9 +179,9 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public SubprogramType basicGetType() {
+	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
-		return (SubprogramType) super.basicGetType();
+		return super.basicGetType();
 	}
 
 	/**

@@ -208,9 +208,8 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 */
 	@Override
 	public VirtualProcessorType getType() {
-		VirtualProcessorType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (VirtualProcessorType) eResolveProxy((InternalEObject) type)
-				: type;
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? null : (VirtualProcessorType) type;
 	}
 
 	/**
@@ -218,9 +217,9 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public VirtualProcessorType basicGetType() {
+	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
-		return (VirtualProcessorType) super.basicGetType();
+		return super.basicGetType();
 	}
 
 	/**

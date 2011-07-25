@@ -319,9 +319,8 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	 */
 	@Override
 	public ThreadGroupType getType() {
-		ThreadGroupType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (ThreadGroupType) eResolveProxy((InternalEObject) type)
-				: type;
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? null : (ThreadGroupType) type;
 	}
 
 	/**
@@ -329,9 +328,9 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public ThreadGroupType basicGetType() {
+	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
-		return (ThreadGroupType) super.basicGetType();
+		return super.basicGetType();
 	}
 
 	/**

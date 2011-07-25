@@ -243,8 +243,8 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 */
 	@Override
 	public ThreadType getType() {
-		ThreadType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (ThreadType) eResolveProxy((InternalEObject) type) : type;
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? null : (ThreadType) type;
 	}
 
 	/**
@@ -252,9 +252,9 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public ThreadType basicGetType() {
+	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
-		return (ThreadType) super.basicGetType();
+		return super.basicGetType();
 	}
 
 	/**
