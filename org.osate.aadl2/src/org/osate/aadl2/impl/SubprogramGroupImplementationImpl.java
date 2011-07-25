@@ -208,9 +208,8 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 */
 	@Override
 	public SubprogramGroupType getType() {
-		SubprogramGroupType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (SubprogramGroupType) eResolveProxy((InternalEObject) type)
-				: type;
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? null : (SubprogramGroupType) type;
 	}
 
 	/**
@@ -218,9 +217,9 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public SubprogramGroupType basicGetType() {
+	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
-		return (SubprogramGroupType) super.basicGetType();
+		return super.basicGetType();
 	}
 
 	/**

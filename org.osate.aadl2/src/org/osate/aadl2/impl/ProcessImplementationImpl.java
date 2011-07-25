@@ -318,8 +318,8 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 	 */
 	@Override
 	public ProcessType getType() {
-		ProcessType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (ProcessType) eResolveProxy((InternalEObject) type) : type;
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? null : (ProcessType) type;
 	}
 
 	/**
@@ -327,9 +327,9 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public ProcessType basicGetType() {
+	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
-		return (ProcessType) super.basicGetType();
+		return super.basicGetType();
 	}
 
 	/**

@@ -524,6 +524,10 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case Aadl2Package.CONNECTION__IN_MODE:
+			getInModes().clear();
+			getInModes().addAll((Collection<? extends Mode>) newValue);
+			return;
 		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
 			getInModeOrTransitions().clear();
 			getInModeOrTransitions().addAll((Collection<? extends ModeFeature>) newValue);
@@ -552,6 +556,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.CONNECTION__IN_MODE:
+			getInModes().clear();
+			return;
 		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
 			getInModeOrTransitions().clear();
 			return;

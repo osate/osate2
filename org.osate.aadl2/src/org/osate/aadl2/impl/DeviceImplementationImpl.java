@@ -242,8 +242,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public DeviceType getType() {
-		DeviceType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (DeviceType) eResolveProxy((InternalEObject) type) : type;
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? null : (DeviceType) type;
 	}
 
 	/**
@@ -251,9 +251,9 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public DeviceType basicGetType() {
+	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
-		return (DeviceType) super.basicGetType();
+		return super.basicGetType();
 	}
 
 	/**

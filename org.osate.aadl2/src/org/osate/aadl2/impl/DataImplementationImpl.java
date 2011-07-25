@@ -204,8 +204,8 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 */
 	@Override
 	public DataType getType() {
-		DataType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (DataType) eResolveProxy((InternalEObject) type) : type;
+		ComponentType type = basicGetType();
+		return type != null && ((EObject) type).eIsProxy() ? null : (DataType) type;
 	}
 
 	/**
@@ -213,9 +213,9 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public DataType basicGetType() {
+	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
-		return (DataType) super.basicGetType();
+		return super.basicGetType();
 	}
 
 	/**

@@ -139,8 +139,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/**
 	 * The cached value of the '{@link #getOwnedRealization() <em>Owned Realization</em>}' containment reference.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc-->
+	 * <!-- end-user-doc -->
 	 * @see #getOwnedRealization()
 	 * @generated
 	 * @ordered
@@ -219,8 +219,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/**
 	 * The default value of the '{@link #isNoSubcomponents() <em>No Subcomponents</em>}' attribute.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isNoSubcomponents()
 	 * @generated
 	 * @ordered
@@ -229,8 +229,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/**
 	 * The cached value of the '{@link #isNoSubcomponents() <em>No Subcomponents</em>}' attribute.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isNoSubcomponents()
 	 * @generated
 	 * @ordered
@@ -239,8 +239,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/**
 	 * The default value of the '{@link #isNoConnections() <em>No Connections</em>}' attribute.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isNoConnections()
 	 * @generated
 	 * @ordered
@@ -249,8 +249,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/**
 	 * The cached value of the '{@link #isNoConnections() <em>No Connections</em>}' attribute.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isNoConnections()
 	 * @generated
 	 * @ordered
@@ -259,7 +259,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/**
 	 * The default value of the '{@link #isNoCalls() <em>No Calls</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isNoCalls()
 	 * @generated
 	 * @ordered
@@ -268,7 +269,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/**
 	 * The cached value of the '{@link #isNoCalls() <em>No Calls</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #isNoCalls()
 	 * @generated
 	 * @ordered
@@ -276,7 +278,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	protected boolean noCalls = NO_CALLS_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected ComponentImplementationImpl() {
@@ -284,7 +287,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -293,7 +297,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<Subcomponent> getOwnedSubcomponents() {
@@ -315,7 +320,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -339,7 +345,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -362,7 +369,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -386,8 +394,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/**
 	 * The array of subset feature identifiers for the '{@link #getGenerals() <em>General</em>}' reference list.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getGenerals()
 	 * @generated
 	 * @ordered
@@ -397,7 +405,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/**
 	 * The array of subset feature identifiers for the '{@link #getOwnedSubcomponents() <em>Owned Subcomponent</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getOwnedSubcomponents()
 	 * @generated
 	 * @ordered
@@ -406,7 +415,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/**
 	 * The array of subset feature identifiers for the '{@link #getClassifierFeatures() <em>Classifier Feature</em>}' reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getClassifierFeatures()
 	 * @generated
 	 * @ordered
@@ -421,7 +431,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/**
 	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getOwnedMembers()
 	 * @generated
 	 * @ordered
@@ -458,7 +469,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public boolean isNoSubcomponents() {
@@ -466,7 +478,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setNoSubcomponents(boolean newNoSubcomponents) {
@@ -478,7 +491,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public boolean isNoCalls() {
@@ -486,7 +500,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setNoCalls(boolean newNoCalls) {
@@ -498,7 +513,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public boolean isNoConnections() {
@@ -506,7 +522,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setNoConnections(boolean newNoConnections) {
@@ -518,7 +535,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public ComponentImplementation getExtended() {
@@ -528,7 +546,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated NOT
 	 */
@@ -539,7 +558,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setExtended(ComponentImplementation newExtended) {
@@ -549,7 +569,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<FlowImplementation> getOwnedFlowImplementations() {
@@ -561,7 +582,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public FlowImplementation createOwnedFlowImplementation() {
@@ -572,7 +594,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated NOT
 	 */
@@ -604,7 +627,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/**
 	 * The array of subset feature identifiers for the '{@link #getGeneralizations() <em>Generalization</em>}' reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getGeneralizations()
 	 * @generated
 	 * @ordered
@@ -614,7 +638,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION };
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public ComponentType getType() {
@@ -624,7 +649,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated NOT
 	 */
@@ -635,7 +661,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setType(ComponentType newType) {
@@ -645,7 +672,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public ImplementationExtension getOwnedExtension() {
@@ -672,7 +700,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setOwnedExtension(ImplementationExtension newOwnedExtension) {
@@ -705,7 +734,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Realization getOwnedRealization() {
@@ -732,7 +762,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setOwnedRealization(Realization newOwnedRealization) {
@@ -764,7 +795,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<AbstractSubcomponent> getOwnedAbstractSubcomponents() {
@@ -776,7 +808,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public AbstractSubcomponent createOwnedAbstractSubcomponent() {
@@ -912,7 +945,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<EndToEndFlow> getOwnedEndToEndFlows() {
@@ -924,7 +958,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EndToEndFlow createOwnedEndToEndFlow() {
@@ -934,7 +969,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -965,7 +1001,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -1014,7 +1051,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -1079,7 +1117,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -1135,7 +1174,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -1180,7 +1220,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -1200,7 +1241,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -1210,7 +1252,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public boolean isSetOwnedSubcomponents() {
@@ -1218,7 +1261,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -1229,7 +1273,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -1252,7 +1297,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
