@@ -29,60 +29,60 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 			createNode(parentNode, aadlModel);
 		}
 	}
-	protected void _createChildren(DocumentRootNode parentNode,
-			Classifier aadlModel) {
-	}
-
-	// Classifier nodes are leafs and not expandable
-	protected boolean _isLeaf(Classifier feature) {
-	    return true;
-	}
-
-	protected void _createChildren(DocumentRootNode parentNode,
-			Property aadlModel) {
-		if (aadlModel instanceof AadlPackage) {
-			for (Element element : aadlModel.getChildren()) {
-				createNode(parentNode, element);
-			}
-		} else {
-			createNode(parentNode, aadlModel);
-		}
-	}
-	// Property nodes are leafs and not expandable
-	protected boolean _isLeaf(Property feature) {
-	    return true;
-	}
-
-	protected void _createChildren(DocumentRootNode parentNode,
-			PropertyConstant aadlModel) {
-		if (aadlModel instanceof AadlPackage) {
-			for (Element element : aadlModel.getChildren()) {
-				createNode(parentNode, element);
-			}
-		} else {
-			createNode(parentNode, aadlModel);
-		}
-	}
-	// PropertyConstant nodes are leafs and not expandable
-	protected boolean _isLeaf(PropertyConstant feature) {
-	    return true;
-	}
-
-	protected void _createChildren(DocumentRootNode parentNode,
-			PropertyType aadlModel) {
-		if (aadlModel instanceof AadlPackage) {
-			for (Element element : aadlModel.getChildren()) {
-				createNode(parentNode, element);
-			}
-		} else {
-			createNode(parentNode, aadlModel);
-		}
-	}
-	// PropertyType nodes are leafs and not expandable
-	protected boolean _isLeaf(PropertyType feature) {
-	    return true;
-	}
-
+//	protected void _createChildren(DocumentRootNode parentNode,
+//			Classifier aadlModel) {
+//	}
+//
+//	// Classifier nodes are leafs and not expandable
+//	protected boolean _isLeaf(Classifier feature) {
+//	    return true;
+//	}
+//
+//	protected void _createChildren(DocumentRootNode parentNode,
+//			Property aadlModel) {
+//		if (aadlModel instanceof AadlPackage) {
+//			for (Element element : aadlModel.getChildren()) {
+//				createNode(parentNode, element);
+//			}
+//		} else {
+//			createNode(parentNode, aadlModel);
+//		}
+//	}
+//	// Property nodes are leafs and not expandable
+//	protected boolean _isLeaf(Property feature) {
+//	    return true;
+//	}
+//
+//	protected void _createChildren(DocumentRootNode parentNode,
+//			PropertyConstant aadlModel) {
+//		if (aadlModel instanceof AadlPackage) {
+//			for (Element element : aadlModel.getChildren()) {
+//				createNode(parentNode, element);
+//			}
+//		} else {
+//			createNode(parentNode, aadlModel);
+//		}
+//	}
+//	// PropertyConstant nodes are leafs and not expandable
+//	protected boolean _isLeaf(PropertyConstant feature) {
+//	    return true;
+//	}
+//
+//	protected void _createChildren(DocumentRootNode parentNode,
+//			PropertyType aadlModel) {
+//		if (aadlModel instanceof AadlPackage) {
+//			for (Element element : aadlModel.getChildren()) {
+//				createNode(parentNode, element);
+//			}
+//		} else {
+//			createNode(parentNode, aadlModel);
+//		}
+//	}
+//	// PropertyType nodes are leafs and not expandable
+//	protected boolean _isLeaf(PropertyType feature) {
+//	    return true;
+//	}
+//
 	
 
 }

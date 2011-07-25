@@ -79,6 +79,16 @@ public abstract class AbstractAadl2RuntimeModule extends DefaultRuntimeModule {
 		return org.eclipse.xtext.parser.antlr.AntlrTokenDefProvider.class;
 	}
 
+	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
+	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITokenSerializer.IKeywordSerializer> bindITokenSerializer$IKeywordSerializer() {
+		return org.eclipse.xtext.parsetree.reconstr.impl.IgnoreCaseKeywordSerializer.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
+	public Class<? extends org.eclipse.xtext.conversion.impl.AbstractIDValueConverter> bindAbstractIDValueConverter() {
+		return org.eclipse.xtext.conversion.impl.IgnoreCaseIDValueConverter.class;
+	}
+
 	// contributed by org.eclipse.xtext.generator.ecore2xtext.Ecore2XtextValueConverterServiceFragment
 	public Class<? extends org.eclipse.xtext.conversion.IValueConverterService> bindIValueConverterService() {
 		return org.eclipse.xtext.common.services.Ecore2XtextTerminalConverters.class;

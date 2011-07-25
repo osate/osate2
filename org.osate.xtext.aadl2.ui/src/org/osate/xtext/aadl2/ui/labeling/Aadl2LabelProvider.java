@@ -36,6 +36,7 @@ import org.osate.aadl2.ProcessType;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
@@ -186,15 +187,16 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		  return "Property "+ele.getName();
 		}
 
+	String text(PropertyAssociation ele) {
+		if (ele.getProperty()!= null)
+		  return ele.getProperty().getName()+" =>";
+		return "Property =>";
+		}
+
 	
 	// these next ones we need only if we go deeper than classifiers
 	String text(SystemSubcomponent ele) {
-		EList<Mode> ml = ele.getInModes();
-		String ms = "";
-		if (!ml.isEmpty()){
-			ms = " in modes "+ml.get(0).getName();
-		}
-		  return "System Subcomponent "+ele.getName()+ ms;
+		  return "System Subcomponent "+ele.getName();
 		}
 	String text(DataSubcomponent ele) {
 		  return "Data Subcomponent "+ele.getName();
