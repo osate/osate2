@@ -2169,6 +2169,10 @@ The context owns the connection end instance.</body>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-ModalPath-inTransition-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-ModalPath-inTransition-_lowerValue"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_FgdHVKmSEeCfxLim1SVFOg" name="inMode" type="Modes-Mode" isReadOnly="true" isDerived="true" subsettedProperty="Modes-ModalPath-inTransition" association="_FgdHUKmSEeCfxLim1SVFOg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FgdHVamSEeCfxLim1SVFOg" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FgdHVqmSEeCfxLim1SVFOg"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Modes-A_modalPath_inTransition" name="A_modalPath_inModeOrTransition" memberEnd="Modes-A_modalPath_inTransition-modalPath Modes-ModalPath-inTransition">
         <ownedEnd xmi:id="Modes-A_modalPath_inTransition-modalPath" name="modalPath" type="Modes-ModalPath" association="Modes-A_modalPath_inTransition">
@@ -2254,14 +2258,10 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-A_modeBinding_derivedMode-modeBinding-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_FgdHUKmSEeCfxLim1SVFOg" name="A_modalPath_inMode" memberEnd="_FgdHUamSEeCfxLim1SVFOg _FgdHVKmSEeCfxLim1SVFOg" navigableOwnedEnd="_FgdHVKmSEeCfxLim1SVFOg">
+      <packagedElement xmi:type="uml:Association" xmi:id="_FgdHUKmSEeCfxLim1SVFOg" name="A_modalPath_inMode" memberEnd="_FgdHUamSEeCfxLim1SVFOg _FgdHVKmSEeCfxLim1SVFOg">
         <ownedEnd xmi:id="_FgdHUamSEeCfxLim1SVFOg" name="modalPath" type="Modes-ModalPath" association="_FgdHUKmSEeCfxLim1SVFOg">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FgdHUqmSEeCfxLim1SVFOg" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FgdHU6mSEeCfxLim1SVFOg"/>
-        </ownedEnd>
-        <ownedEnd xmi:id="_FgdHVKmSEeCfxLim1SVFOg" name="inMode" type="Modes-Mode" isDerived="true" subsettedProperty="Modes-ModalPath-inTransition" association="_FgdHUKmSEeCfxLim1SVFOg">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FgdHVamSEeCfxLim1SVFOg" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FgdHVqmSEeCfxLim1SVFOg"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

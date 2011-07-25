@@ -180,7 +180,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 */
 	public ComponentClassifier basicGetClassifier() {
 		// DONE: implement this method to return the 'Classifier' reference
-		return (basicGetFeatureClassifier() instanceof ComponentClassifier) ? (ComponentClassifier) basicGetFeatureClassifier() : null;
+		return (basicGetFeatureClassifier() instanceof ComponentClassifier) ? (ComponentClassifier) basicGetFeatureClassifier()
+				: null;
 	}
 
 	/**
