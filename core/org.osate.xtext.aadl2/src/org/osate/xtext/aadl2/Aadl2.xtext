@@ -1806,7 +1806,8 @@ PropertyExpression returns aadl2::PropertyExpression:
 	  RecordTerm |NumericRangeTerm
 	| ReferenceTerm | ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
-	 | ComponentClassifierTerm 	| ListTerm | BooleanTerm
+	 | ComponentClassifierTerm 	| ListTerm |ActualBooleanTerm
+	 //| BooleanTerm
 	  | LiteralorReferenceTerm
 	;
 
@@ -1814,7 +1815,8 @@ ConstantPropertyExpression returns aadl2::PropertyExpression:
 	 RecordTerm |NumericRangeTerm
 	| ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
-	 | ComponentClassifierTerm 	| ListTerm | BooleanTerm
+	 | ComponentClassifierTerm 	| ListTerm |ActualBooleanTerm
+	 //| BooleanTerm
 	  | LiteralorReferenceTerm
 	;
 
@@ -1822,6 +1824,14 @@ LiteralorReferenceTerm returns aadl2::NamedValue:
   namedValue=[aadl2::AbstractNamedValue|QPREF]
 ;
 
+ActualBooleanTerm returns aadl2::PropertyExpression:
+	ActualOrTerm | ActualAndTerm | BooleanLiteral  | NotTerm | ConstantValue;
+
+ActualOrTerm returns aadl2::Operation:
+  ownedPropertyExpression+=AndTerm  op=OrOp ownedPropertyExpression+=AndTerm (  op=OrOp ownedPropertyExpression+=AndTerm)*;
+
+ActualAndTerm returns aadl2::Operation:
+  ownedPropertyExpression+=BooleanAtom  op=AndOp ownedPropertyExpression+=BooleanAtom ( op=AndOp ownedPropertyExpression+=BooleanAtom)*;
 
 
 BooleanTerm returns aadl2::PropertyExpression:
@@ -1842,17 +1852,16 @@ NotTerm returns aadl2::Operation:
 
 
 BooleanAtom returns aadl2::PropertyExpression:
-	( BooleanLiteral  | NotTerm //| ConstantValue
-	| ('[' BooleanTerm ']')
+	( BooleanLiteral  | NotTerm | ConstantValue
+	| ('(' BooleanTerm ')')
 	);
 
 BooleanLiteral returns aadl2::BooleanLiteral:
   {aadl2::BooleanLiteral}(value?='true'|'false')
-  //Assumes: default for value is false
   ;
 
 ConstantValue returns aadl2::NamedValue:
-  namedValue=[aadl2::AbstractNamedValue|QPREF]
+  namedValue=[aadl2::PropertyConstant|QPREF]
   ;
 
 ReferenceTerm returns aadl2::ReferenceValue:
