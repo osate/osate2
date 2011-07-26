@@ -29,6 +29,7 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessImplementation;
@@ -125,7 +126,7 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		  return "Virtual Bus "+ele.getName();
 		}
 	String text(VirtualProcessorType ele) {
-		  return "Viretual Processor "+ele.getName();
+		  return "Virtual Processor "+ele.getName();
 		}
 	String text(SystemImplementation ele) {
 		  return "System Impl "+ele.getName();
@@ -189,8 +190,18 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 
 	String text(PropertyAssociation ele) {
 		if (ele.getProperty()!= null)
-		  return ele.getProperty().getName()+" =>";
+		  return "Property "+ele.getProperty().getName()+" =>";
 		return "Property =>";
+		}
+
+	String text(ModalPropertyValue ele) {
+		EList<Mode> ml = ele.getInModes();
+		if (ml.isEmpty())
+		  return "Property value ";
+		String modes = "";
+		for (Mode m : ml)
+			modes = modes + " "+m.getName();
+		return "Modal property value ("+modes+")";
 		}
 
 	
