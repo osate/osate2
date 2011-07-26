@@ -34,14 +34,11 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.SystemImplementation;
 
 import com.google.inject.Inject;
 
-public class InstantiateHandler extends AbstractHandler {
+public class SaveAsXMIHandler extends AbstractHandler {
 
 
 	@Inject
@@ -80,15 +77,16 @@ public class InstantiateHandler extends AbstractHandler {
 							}
 							
 							if (targetElement != null) {
-								if (targetElement instanceof NamedElement){
-									System.out.println("instantiate " + ((NamedElement)targetElement).getName());
-									ComponentImplementation cc = ((NamedElement) targetElement).getContainingComponentImpl();
-									if (cc instanceof SystemImplementation){
-										System.out.println("instantiate system impl " + cc.getName());
-									}
-								} else {
-									System.out.println("instantiate" + targetElement.toString());
-								}
+//								ResourceSet rs = new ResourceSetImpl();
+//								Resource resource = rs.getResource(URI.createURI("./mymodel.dmodel"), true);
+								EObject eobject = resource.getContents().get(0);
+								//persist xmi resource
+								XMIResourceFactoryImpl resFactory = new XMIResourceFactoryImpl();
+								URI xtxturi = resource.getURI();
+								URI xmiuri = xtxturi.trimFileExtension().appendFileExtension("aaxl2");
+								XMIResource xmiresource = (XMIResource) resFactory.createResource(xmiuri);
+								xmiresource.getContents().add(eobject);
+								xmiresource.save(new HashMap());
 								
 								return null;
 							}
