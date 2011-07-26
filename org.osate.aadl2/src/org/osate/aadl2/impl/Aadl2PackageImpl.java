@@ -4458,7 +4458,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSubcomponent_ModeBinding() {
+	public EReference getSubcomponent_OwnedModeBinding() {
 		return (EReference) getSubcomponent().getEStructuralFeatures().get(3);
 	}
 

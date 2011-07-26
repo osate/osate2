@@ -601,8 +601,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="AnnexSubclause" abstract="true" eSuperTypes="#//ModalElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ModalElement" eSuperTypes="#//NamedElement">
     <eOperations name="getAllInModes" ordered="false" upperBound="-1" eType="#//Mode"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inMode" upperBound="-1"
-        eType="#//Mode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inMode" ordered="false"
+        upperBound="-1" eType="#//Mode"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Mode" eSuperTypes="#//ModeFeature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="initial" ordered="false"
@@ -1088,6 +1088,12 @@
         ordered="false" eType="#//FeatureGroupType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Subcomponent" abstract="true" eSuperTypes="#//StructuralFeature #//ModalElement #//Context #//FlowElement #//ArrayableElement">
+    <eAnnotations source="duplicates">
+      <contents xsi:type="ecore:EReference" name="inMode" ordered="false" upperBound="-1"
+          eType="#//Mode" volatile="true" transient="true" derived="true">
+        <eAnnotations source="redefines" references="#//ModalElement/inMode"/>
+      </contents>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponentType" ordered="false"
         unique="false" eType="#//SubcomponentType" changeable="false" volatile="true"
         transient="true" derived="true">
@@ -1100,7 +1106,7 @@
         derived="true">
       <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modeBinding" ordered="false"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedModeBinding" ordered="false"
         upperBound="-1" eType="#//ModeBinding" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="allModes" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
@@ -1139,15 +1145,15 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModalPath" abstract="true" eSuperTypes="#//ModalElement">
     <eAnnotations source="duplicates">
-      <contents xsi:type="ecore:EReference" name="inMode" upperBound="-1" eType="#//Mode"
-          volatile="true" transient="true" derived="true">
+      <contents xsi:type="ecore:EReference" name="inMode" ordered="false" upperBound="-1"
+          eType="#//Mode" volatile="true" transient="true" derived="true">
         <eAnnotations source="redefines" references="#//ModalElement/inMode"/>
         <eAnnotations source="subsets" references="#//ModalPath/inModeOrTransition"/>
       </contents>
     </eAnnotations>
     <eOperations name="getInModes" ordered="false" upperBound="-1" eType="#//Mode"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inModeOrTransition" upperBound="-1"
-        eType="#//ModeFeature"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inModeOrTransition" ordered="false"
+        upperBound="-1" eType="#//ModeFeature"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FlowSegment" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="flowElement" ordered="false"

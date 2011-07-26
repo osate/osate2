@@ -47,7 +47,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ArrayDimension;
@@ -87,7 +86,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getOwnedPrototypeBindings <em>Owned Prototype Binding</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getPrototype <em>Prototype</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getModeBindings <em>Mode Binding</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getOwnedModeBindings <em>Owned Mode Binding</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#isAllModes <em>All Modes</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getImplementationReferences <em>Implementation Reference</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getRefined <em>Refined</em>}</li>
@@ -98,16 +97,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  * @generated
  */
 public abstract class SubcomponentImpl extends StructuralFeatureImpl implements Subcomponent {
-	/**
-	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getInModes()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Mode> inModes;
-
 	/**
 	 * The cached value of the '{@link #getArrayDimensions() <em>Array Dimension</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -129,14 +118,14 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	protected EList<PrototypeBinding> ownedPrototypeBindings;
 
 	/**
-	 * The cached value of the '{@link #getModeBindings() <em>Mode Binding</em>}' containment reference list.
+	 * The cached value of the '{@link #getOwnedModeBindings() <em>Owned Mode Binding</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getModeBindings()
+	 * @see #getOwnedModeBindings()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ModeBinding> modeBindings;
+	protected EList<ModeBinding> ownedModeBindings;
 
 	/**
 	 * The default value of the '{@link #isAllModes() <em>All Modes</em>}' attribute.
@@ -203,10 +192,22 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * @generated
 	 */
 	public EList<Mode> getInModes() {
-		if (inModes == null) {
-			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.SUBCOMPONENT__IN_MODE);
+		// DONE: implement this method to return the 'In Mode' reference list
+		EList<Mode> inModes = new BasicEList<Mode>();
+		
+		for (ModeBinding binding : getOwnedModeBindings()) {
+			inModes.add(binding.getParentMode());
 		}
 		return inModes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetInModes() {
+		return !getInModes().isEmpty();
 	}
 
 	/**
@@ -328,12 +329,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ModeBinding> getModeBindings() {
-		if (modeBindings == null) {
-			modeBindings = new EObjectContainmentEList<ModeBinding>(ModeBinding.class, this,
-					Aadl2Package.SUBCOMPONENT__MODE_BINDING);
+	public EList<ModeBinding> getOwnedModeBindings() {
+		if (ownedModeBindings == null) {
+			ownedModeBindings = new EObjectContainmentEList<ModeBinding>(ModeBinding.class, this,
+					Aadl2Package.SUBCOMPONENT__OWNED_MODE_BINDING);
 		}
-		return modeBindings;
+		return ownedModeBindings;
 	}
 
 	/**
@@ -341,10 +342,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ModeBinding createModeBinding() {
-		ModeBinding newModeBinding = (ModeBinding) create(Aadl2Package.eINSTANCE.getModeBinding());
-		getModeBindings().add(newModeBinding);
-		return newModeBinding;
+	public ModeBinding createOwnedModeBinding() {
+		ModeBinding newOwnedModeBinding = (ModeBinding) create(Aadl2Package.eINSTANCE.getModeBinding());
+		getOwnedModeBindings().add(newOwnedModeBinding);
+		return newOwnedModeBinding;
 	}
 
 	/**
@@ -464,8 +465,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			return ((InternalEList<?>) getArrayDimensions()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 			return ((InternalEList<?>) getOwnedPrototypeBindings()).basicRemove(otherEnd, msgs);
-		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
-			return ((InternalEList<?>) getModeBindings()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.SUBCOMPONENT__OWNED_MODE_BINDING:
+			return ((InternalEList<?>) getOwnedModeBindings()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
 			return ((InternalEList<?>) getImplementationReferences()).basicRemove(otherEnd, msgs);
 		}
@@ -494,8 +495,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			if (resolve)
 				return getPrototype();
 			return basicGetPrototype();
-		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
-			return getModeBindings();
+		case Aadl2Package.SUBCOMPONENT__OWNED_MODE_BINDING:
+			return getOwnedModeBindings();
 		case Aadl2Package.SUBCOMPONENT__ALL_MODES:
 			return isAllModes();
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
@@ -533,9 +534,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			getOwnedPrototypeBindings().clear();
 			getOwnedPrototypeBindings().addAll((Collection<? extends PrototypeBinding>) newValue);
 			return;
-		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
-			getModeBindings().clear();
-			getModeBindings().addAll((Collection<? extends ModeBinding>) newValue);
+		case Aadl2Package.SUBCOMPONENT__OWNED_MODE_BINDING:
+			getOwnedModeBindings().clear();
+			getOwnedModeBindings().addAll((Collection<? extends ModeBinding>) newValue);
 			return;
 		case Aadl2Package.SUBCOMPONENT__ALL_MODES:
 			setAllModes((Boolean) newValue);
@@ -568,8 +569,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 			getOwnedPrototypeBindings().clear();
 			return;
-		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
-			getModeBindings().clear();
+		case Aadl2Package.SUBCOMPONENT__OWNED_MODE_BINDING:
+			getOwnedModeBindings().clear();
 			return;
 		case Aadl2Package.SUBCOMPONENT__ALL_MODES:
 			setAllModes(ALL_MODES_EDEFAULT);
@@ -593,7 +594,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
-			return inModes != null && !inModes.isEmpty();
+			return isSetInModes();
 		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
 			return arrayDimensions != null && !arrayDimensions.isEmpty();
 		case Aadl2Package.SUBCOMPONENT__SUBCOMPONENT_TYPE:
@@ -602,8 +603,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			return ownedPrototypeBindings != null && !ownedPrototypeBindings.isEmpty();
 		case Aadl2Package.SUBCOMPONENT__PROTOTYPE:
 			return basicGetPrototype() != null;
-		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
-			return modeBindings != null && !modeBindings.isEmpty();
+		case Aadl2Package.SUBCOMPONENT__OWNED_MODE_BINDING:
+			return ownedModeBindings != null && !ownedModeBindings.isEmpty();
 		case Aadl2Package.SUBCOMPONENT__ALL_MODES:
 			return allModes != ALL_MODES_EDEFAULT;
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
