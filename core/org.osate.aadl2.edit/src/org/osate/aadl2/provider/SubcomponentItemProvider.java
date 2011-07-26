@@ -203,7 +203,7 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getArrayableElement_ArrayDimension());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubcomponent_OwnedPrototypeBinding());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubcomponent_ModeBinding());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubcomponent_OwnedModeBinding());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubcomponent_ImplementationReference());
 		}
 		return childrenFeatures;
@@ -252,7 +252,7 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 			return;
 		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
-		case Aadl2Package.SUBCOMPONENT__MODE_BINDING:
+		case Aadl2Package.SUBCOMPONENT__OWNED_MODE_BINDING:
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -283,7 +283,7 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getSubcomponent_OwnedPrototypeBinding(),
 				Aadl2Factory.eINSTANCE.createFeaturePrototypeBinding()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getSubcomponent_ModeBinding(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getSubcomponent_OwnedModeBinding(),
 				Aadl2Factory.eINSTANCE.createModeBinding()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getSubcomponent_ImplementationReference(),

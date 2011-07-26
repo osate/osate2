@@ -66,7 +66,7 @@ public interface ModalPath extends ModalElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>In Mode Or Transition</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getModalPath_InModeOrTransition()
-	 * @model
+	 * @model ordered="false"
 	 * @generated
 	 */
 	EList<ModeFeature> getInModeOrTransitions();

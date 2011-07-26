@@ -9280,13 +9280,13 @@ public interface Aadl2Package extends EPackage {
 	int SUBCOMPONENT__PROTOTYPE = STRUCTURAL_FEATURE_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBCOMPONENT__MODE_BINDING = STRUCTURAL_FEATURE_FEATURE_COUNT + 5;
+	int SUBCOMPONENT__OWNED_MODE_BINDING = STRUCTURAL_FEATURE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -10297,13 +10297,13 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int ABSTRACT_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -15562,13 +15562,13 @@ public interface Aadl2Package extends EPackage {
 	int BUS_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int BUS_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -15742,13 +15742,13 @@ public interface Aadl2Package extends EPackage {
 	int DATA_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int DATA_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -15922,13 +15922,13 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEVICE_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int DEVICE_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -16102,13 +16102,13 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MEMORY_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int MEMORY_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -16282,13 +16282,13 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCESS_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int PROCESS_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -16462,13 +16462,13 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCESSOR_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int PROCESSOR_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -16642,13 +16642,13 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int SYSTEM_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -16822,13 +16822,13 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int SUBPROGRAM_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -17002,13 +17002,13 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int SUBPROGRAM_GROUP_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -17182,13 +17182,13 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THREAD_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int THREAD_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -17362,13 +17362,13 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THREAD_GROUP_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int THREAD_GROUP_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -17542,13 +17542,13 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIRTUAL_BUS_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int VIRTUAL_BUS_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -17722,13 +17722,13 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_SUBCOMPONENT__PROTOTYPE = SUBCOMPONENT__PROTOTYPE;
 
 	/**
-	 * The feature id for the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIRTUAL_PROCESSOR_SUBCOMPONENT__MODE_BINDING = SUBCOMPONENT__MODE_BINDING;
+	int VIRTUAL_PROCESSOR_SUBCOMPONENT__OWNED_MODE_BINDING = SUBCOMPONENT__OWNED_MODE_BINDING;
 
 	/**
 	 * The feature id for the '<em><b>All Modes</b></em>' attribute.
@@ -35816,15 +35816,15 @@ public interface Aadl2Package extends EPackage {
 	EReference getSubcomponent_Prototype();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.Subcomponent#getModeBindings <em>Mode Binding</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.Subcomponent#getOwnedModeBindings <em>Owned Mode Binding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Mode Binding</em>'.
-	 * @see org.osate.aadl2.Subcomponent#getModeBindings()
+	 * @return the meta object for the containment reference list '<em>Owned Mode Binding</em>'.
+	 * @see org.osate.aadl2.Subcomponent#getOwnedModeBindings()
 	 * @see #getSubcomponent()
 	 * @generated
 	 */
-	EReference getSubcomponent_ModeBinding();
+	EReference getSubcomponent_OwnedModeBinding();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.aadl2.Subcomponent#isAllModes <em>All Modes</em>}'.

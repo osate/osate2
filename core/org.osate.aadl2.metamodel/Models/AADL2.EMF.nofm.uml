@@ -65,8 +65,8 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Feature" name="Feature" isAbstract="true">
       <ownedAttribute xmi:id="Feature-classifier" name="classifier" isDerived="true"/>
-      <ownedAttribute xmi:id="_8WI8ILO-EeCzMYz5ww7glA" name="prototype" isDerived="true"/>
-      <ownedAttribute xmi:id="_8WI8IbO-EeCzMYz5ww7glA" name="featureClassifier" isDerived="true"/>
+      <ownedAttribute xmi:id="Feature-prototype" name="prototype" isDerived="true"/>
+      <ownedAttribute xmi:id="Feature-featureClassifier" name="featureClassifier" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ComponentImplementation" name="ComponentImplementation" isAbstract="true">
       <ownedAttribute xmi:id="ComponentImplementation-type" name="type" isDerived="true"/>
@@ -78,16 +78,17 @@
       <ownedAttribute xmi:id="Subcomponent-classifier" name="classifier" isDerived="true"/>
       <ownedAttribute xmi:id="Subcomponent-prototype" name="prototype" isDerived="true"/>
       <ownedAttribute xmi:id="Subcomponent-subcomponentType" name="subcomponentType" isDerived="true"/>
+      <ownedAttribute xmi:id="Subcomponent-inMode" name="inMode" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BehavioredImplementation" name="BehavioredImplementation" isAbstract="true">
       <ownedAttribute xmi:id="BehavioredImplementation-callSpecification" name="callSpecification" isDerived="true"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_jvN0ALbPEeCFTe7PfIxrcw" name="ModalPath">
-      <ownedAttribute xmi:id="_rJjeoLbPEeCFTe7PfIxrcw" name="inMode"/>
-      <ownedOperation xmi:id="_bqJqALbSEeCFTe7PfIxrcw" name="getInModes">
-        <ownedParameter xmi:id="_bqJqAbbSEeCFTe7PfIxrcw" name="" type="Mode" direction="return">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bqJqArbSEeCFTe7PfIxrcw" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_bqJqA7bSEeCFTe7PfIxrcw"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="ModalPath" name="ModalPath">
+      <ownedAttribute xmi:id="ModalPath-inMode" name="inMode" isDerived="true"/>
+      <ownedOperation xmi:id="ModalPath-getInModes" name="getInModes">
+        <ownedParameter xmi:id="ModalPath-getInModes-_ownedParameter.0" name="" type="Mode" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getInModes-_ownedParameter.0-_upperValue" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getInModes-_ownedParameter.0-_lowerValue"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
@@ -264,9 +265,10 @@
   <Standard:Metaclass xmi:id="_usN9ALIBEeCWmNkTdM4SSg" base_Class="FeatureGroup"/>
   <Ecore:EReference xmi:id="_4Z0qwLIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupType"/>
   <Ecore:EReference xmi:id="_5j1m0LIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupPrototype"/>
-  <Ecore:EReference xmi:id="_-PSPELO-EeCzMYz5ww7glA" isTransient="true" isVolatile="true" base_Property="_8WI8ILO-EeCzMYz5ww7glA"/>
-  <Ecore:EReference xmi:id="_AIRJ8LO_EeCzMYz5ww7glA" isTransient="true" isVolatile="true" base_Property="_8WI8IbO-EeCzMYz5ww7glA"/>
-  <Standard:Metaclass xmi:id="_p5XCELbPEeCFTe7PfIxrcw" base_Class="_jvN0ALbPEeCFTe7PfIxrcw"/>
-  <Ecore:EReference xmi:id="_sb-IwLbPEeCFTe7PfIxrcw" isTransient="true" isVolatile="true" base_Property="_rJjeoLbPEeCFTe7PfIxrcw"/>
+  <Ecore:EReference xmi:id="_-PSPELO-EeCzMYz5ww7glA" isTransient="true" isVolatile="true" base_Property="Feature-prototype"/>
+  <Ecore:EReference xmi:id="_AIRJ8LO_EeCzMYz5ww7glA" isTransient="true" isVolatile="true" base_Property="Feature-featureClassifier"/>
+  <Standard:Metaclass xmi:id="_p5XCELbPEeCFTe7PfIxrcw" base_Class="ModalPath"/>
+  <Ecore:EReference xmi:id="_sb-IwLbPEeCFTe7PfIxrcw" isTransient="true" isVolatile="true" base_Property="ModalPath-inMode"/>
   <Ecore:EReference xmi:id="_8dymkLbPEeCFTe7PfIxrcw"/>
+  <Ecore:EReference xmi:id="_2pccALcUEeCm2_IbD3l0tA" isTransient="true" isVolatile="true" base_Property="Subcomponent-inMode"/>
 </xmi:XMI>

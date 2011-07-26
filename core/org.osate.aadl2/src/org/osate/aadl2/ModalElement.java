@@ -65,7 +65,7 @@ public interface ModalElement extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>In Mode</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getModalElement_InMode()
-	 * @model
+	 * @model ordered="false"
 	 * @generated
 	 */
 	EList<Mode> getInModes();
