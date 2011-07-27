@@ -79,6 +79,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getRefinedElement <em>Refined Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#isBidirectional <em>Bidirectional</em>}</li>
@@ -222,7 +223,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 */
 	@Override
 	public RefinableElement getRefinedElement() {
-		return getRefined();
+		RefinableElement refinedElement = basicGetRefinedElement();
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**
@@ -232,7 +235,10 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 */
 	@Override
 	public RefinableElement basicGetRefinedElement() {
-		return basicGetRefined();
+		if (eIsSet(Aadl2Package.CONNECTION__REFINED)) {
+			return basicGetRefined();
+		}
+		return super.basicGetRefinedElement();
 	}
 
 	/**
@@ -240,8 +246,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRefinedElement() {
-		return false;
+		return super.isSetRefinedElement() || eIsSet(Aadl2Package.CONNECTION__REFINED);
 	}
 
 	/**
@@ -460,15 +467,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSetRefined() {
-		return refined != null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<Mode> getAllInModes() {
 		return ModalElementOperations.getAllInModes(this);
 	}
@@ -597,7 +595,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		case Aadl2Package.CONNECTION__BIDIRECTIONAL:
 			return bidirectional != BIDIRECTIONAL_EDEFAULT;
 		case Aadl2Package.CONNECTION__REFINED:
-			return isSetRefined();
+			return refined != null;
 		}
 		return super.eIsSet(featureID);
 	}
