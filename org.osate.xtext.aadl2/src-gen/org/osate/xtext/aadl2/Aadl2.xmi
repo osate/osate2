@@ -3901,18 +3901,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4003,18 +3993,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4105,18 +4085,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4208,18 +4178,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4310,18 +4270,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4412,18 +4362,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4515,18 +4455,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4617,18 +4547,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4720,18 +4640,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4822,18 +4732,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4924,18 +4824,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -5026,18 +4916,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -5129,18 +5009,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -5213,18 +5083,8 @@
         <elements xsi:type="xtext:Keyword" value="modes"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives" cardinality="+">
-            <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.249"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="modeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.143"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -5346,10 +5206,10 @@
       </elements>
       <elements xsi:type="xtext:Keyword" value="data"/>
       <elements xsi:type="xtext:Keyword" value="port"/>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="dataClassifier" operator="=">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="dataFeatureClassifier" operator="=">
         <terminal xsi:type="xtext:CrossReference">
           <type metamodel="//@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataClassifier"/>
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataSubcomponentType"/>
           </type>
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.241"/>
         </terminal>
@@ -5404,10 +5264,10 @@
       <elements xsi:type="xtext:Keyword" value="event"/>
       <elements xsi:type="xtext:Keyword" value="data"/>
       <elements xsi:type="xtext:Keyword" value="port"/>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="dataClassifier" operator="=">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="dataFeatureClassifier" operator="=">
         <terminal xsi:type="xtext:CrossReference">
           <type metamodel="//@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataClassifier"/>
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataSubcomponentType"/>
           </type>
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.241"/>
         </terminal>
@@ -5562,10 +5422,10 @@
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.99"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="parameter"/>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="dataClassifier" operator="=">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="dataFeatureClassifier" operator="=">
         <terminal xsi:type="xtext:CrossReference">
           <type metamodel="//@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataClassifier"/>
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataSubcomponentType"/>
           </type>
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.241"/>
         </terminal>
@@ -5614,10 +5474,10 @@
       </elements>
       <elements xsi:type="xtext:Keyword" value="subprogram"/>
       <elements xsi:type="xtext:Keyword" value="access"/>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="subprogramClassifier" operator="=">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="subprogramFeatureClassifier" operator="=">
         <terminal xsi:type="xtext:CrossReference">
           <type metamodel="//@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//SubprogramClassifier"/>
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//SubprogramSubcomponentType"/>
           </type>
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.241"/>
         </terminal>
@@ -5667,10 +5527,10 @@
       <elements xsi:type="xtext:Keyword" value="subprogram"/>
       <elements xsi:type="xtext:Keyword" value="group"/>
       <elements xsi:type="xtext:Keyword" value="access"/>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="subprogramGroupClassifier" operator="=">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="subprogramGroupFeatureClassifier" operator="=">
         <terminal xsi:type="xtext:CrossReference">
           <type metamodel="//@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//SubprogramGroupClassifier"/>
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//SubprogramGroupSubcomponentType"/>
           </type>
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.241"/>
         </terminal>
@@ -5719,10 +5579,10 @@
       </elements>
       <elements xsi:type="xtext:Keyword" value="bus"/>
       <elements xsi:type="xtext:Keyword" value="access"/>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="busClassifier" operator="=">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="busFeatureClassifier" operator="=">
         <terminal xsi:type="xtext:CrossReference">
           <type metamodel="//@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//BusClassifier"/>
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//BusSubcomponentType"/>
           </type>
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.241"/>
         </terminal>
@@ -5771,10 +5631,10 @@
       </elements>
       <elements xsi:type="xtext:Keyword" value="data"/>
       <elements xsi:type="xtext:Keyword" value="access"/>
-      <elements xsi:type="xtext:Assignment" cardinality="?" feature="dataClassifier" operator="=">
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="dataFeatureClassifier" operator="=">
         <terminal xsi:type="xtext:CrossReference">
           <type metamodel="//@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataClassifier"/>
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//DataSubcomponentType"/>
           </type>
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.241"/>
         </terminal>

@@ -1,7 +1,4 @@
 grammar org.osate.xtext.aadl2.Aadl2 hidden(WS, SL_COMMENT)
-//with org.eclipse.xtext.common.Terminals
-
-//org.osate.xtext.aadl2.properties.Properties
 
 //generate aadl2 "http://www.osate.org/aadl2/Aadl2"
 
@@ -937,7 +934,8 @@ AbstractSubcomponent returns aadl2::AbstractSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+//	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 SystemSubcomponent returns aadl2::SystemSubcomponent:
@@ -953,7 +951,7 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 ProcessSubcomponent returns aadl2::ProcessSubcomponent:
@@ -969,7 +967,7 @@ ProcessSubcomponent returns aadl2::ProcessSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
@@ -985,7 +983,7 @@ ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 ThreadSubcomponent returns aadl2::ThreadSubcomponent:
@@ -1001,7 +999,7 @@ ThreadSubcomponent returns aadl2::ThreadSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
@@ -1017,7 +1015,7 @@ SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
@@ -1033,7 +1031,7 @@ SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
@@ -1049,7 +1047,7 @@ ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
@@ -1065,7 +1063,7 @@ VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 DeviceSubcomponent returns aadl2::DeviceSubcomponent:
@@ -1081,7 +1079,7 @@ DeviceSubcomponent returns aadl2::DeviceSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 MemorySubcomponent returns aadl2::MemorySubcomponent:
@@ -1097,7 +1095,7 @@ MemorySubcomponent returns aadl2::MemorySubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 BusSubcomponent returns aadl2::BusSubcomponent:
@@ -1113,7 +1111,7 @@ BusSubcomponent returns aadl2::BusSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
@@ -1129,7 +1127,7 @@ VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 DataSubcomponent returns aadl2::DataSubcomponent:
@@ -1140,7 +1138,7 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 	 (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((inMode+=[aadl2::Mode|ID]|modeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
 	';';
 
 
@@ -1171,7 +1169,7 @@ DataPort returns aadl2::DataPort:
 	((name=ID ':' )|
 	(refined=[aadl2::DataPort|REFINEDNAME] ':' 'refined' 'to'))
 	direction=PortDirection 
-	'data' 'port' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
+	'data' 'port' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
 	';' 
@@ -1182,7 +1180,7 @@ EventDataPort returns aadl2::EventDataPort:
 	((name=ID ':' )|
 	(refined=[aadl2::EventDataPort|REFINEDNAME] ':' 'refined' 'to'))
 	direction=PortDirection 
-	'event' 'data' 'port' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
+	'event' 'data' 'port' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
 	';' 
@@ -1213,7 +1211,7 @@ FeatureGroup returns aadl2::FeatureGroup:
 Parameter returns aadl2::Parameter:
 	((name=ID ':' )|
 	(refined=[aadl2::Parameter|REFINEDNAME] ':' 'refined' 'to'))
-	direction=PortDirection 'parameter' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
+	direction=PortDirection 'parameter' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 	;
@@ -1223,7 +1221,7 @@ SubprogramAccess returns aadl2::SubprogramAccess:
 	((name=ID ':' )|
 	(refined=[aadl2::SubprogramAccess|REFINEDNAME] ':' 'refined' 'to'))
 	kind=AccessDirection // refined to with reference to access feature being refined.
-	'subprogram' 'access' (subprogramClassifier=[aadl2::SubprogramClassifier|QCREF])? 
+	'subprogram' 'access' (subprogramFeatureClassifier=[aadl2::SubprogramSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 ;
@@ -1231,7 +1229,7 @@ SubprogramGroupAccess returns aadl2::SubprogramGroupAccess:
 	((name=ID ':' )|
 	(refined=[aadl2::SubprogramGroupAccess|REFINEDNAME] ':' 'refined' 'to'))
 	kind=AccessDirection // refined to with reference to access feature being refined.
-	'subprogram' 'group' 'access' (subprogramGroupClassifier=[aadl2::SubprogramGroupClassifier|QCREF])? 
+	'subprogram' 'group' 'access' (subprogramGroupFeatureClassifier=[aadl2::SubprogramGroupSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 ;
@@ -1239,7 +1237,7 @@ BusAccess returns aadl2::BusAccess:
 	((name=ID ':' )|
 	(refined=[aadl2::BusAccess|REFINEDNAME] ':' 'refined' 'to'))
 	kind=AccessDirection  // refined to with reference to access feature being refined.
-	'bus' 'access' (busClassifier=[aadl2::BusClassifier|QCREF])? 
+	'bus' 'access' (busFeatureClassifier=[aadl2::BusSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 ;
@@ -1247,7 +1245,7 @@ DataAccess returns aadl2::DataAccess:
 	((name=ID ':' )|
 	(refined=[aadl2::DataAccess|REFINEDNAME] ':' 'refined' 'to'))
 	kind=AccessDirection // refined to with reference to access feature being refined.
-	'data' 'access' (dataClassifier=[aadl2::DataClassifier|QCREF])? 
+	'data' 'access' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 ;

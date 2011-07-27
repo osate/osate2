@@ -806,7 +806,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						"The category of the subcomponent is incompatible with the category of the classifier");
 			}
 		} else if (componentPrototype != null) {
-			if (!subcomponentCategory.equals(componentPrototype.getCategory()))
+			if (!subcomponentCategory.equals(getComponentPrototypeCategory(componentPrototype)))
 				error(subcomponent,
 						"The category of the subcomponent is incompatible with the category of the prototype");
 		}
@@ -1015,14 +1015,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkComponentPrototypeCategory(ComponentPrototype prototype) {
 		if (prototype.getConstrainingClassifier() != null
-				&& !prototype
-						.getCategory()
-						.getName()
-						.equals(prototype.getConstrainingClassifier()
-								.getCategory())) {
+				&& !getComponentPrototypeCategory(prototype).getName()
+						.equals(prototype.getConstrainingClassifier().getCategory())) {
 			error(prototype, "The category of '"
 					+ prototype.getConstrainingClassifier().getQualifiedName()
-					+ "' is not " + prototype.getCategory().getName());
+					+ "' is not " + getComponentPrototypeCategory(prototype).getName());
 		}
 	}
 
@@ -1042,8 +1039,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkComponentPrototypeBindingCategory(
 			ComponentPrototypeBinding binding) {
 		if (binding.getFormal() instanceof ComponentPrototype) {
-			ComponentCategory formalCategory = ((ComponentPrototype) binding
-					.getFormal()).getCategory();
+			ComponentCategory formalCategory = getComponentPrototypeCategory((ComponentPrototype) binding.getFormal());
 			if (!formalCategory.equals(ComponentCategory.ABSTRACT)) {
 				for (ComponentPrototypeActual actual : binding.getActuals()) {
 					if (!formalCategory.equals(actual.getCategory())) {
@@ -1077,8 +1073,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						.getCategory()
 						.getName()
 						.equals(st instanceof ComponentClassifier ? ((ComponentClassifier) st)
-								.getCategory() : ((ComponentPrototype) st)
-								.getCategory())) {
+								.getCategory() : getComponentPrototypeCategory((ComponentPrototype) st))) {
 			error(actual,
 					"The category of the referenced classifier is not compatible the category specified in the prototype binding.");
 		}
@@ -1204,11 +1199,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			ComponentPrototype prototype) {
 		if (prototype.getRefined() != null
 				&& prototype.getRefined() instanceof ComponentPrototype) {
-			ComponentCategory refinedPrototypeCategory = ((ComponentPrototype) prototype
-					.getRefined()).getCategory();
+			ComponentCategory refinedPrototypeCategory = getComponentPrototypeCategory((ComponentPrototype) prototype.getRefined());
 			if (!refinedPrototypeCategory.equals(ComponentCategory.ABSTRACT)
 					&& !refinedPrototypeCategory
-							.equals(prototype.getCategory()))
+							.equals(getComponentPrototypeCategory(prototype)))
 				error(prototype,
 						"Incompatible category for prototype refinement.");
 		}
@@ -3285,6 +3279,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static boolean canExtend(ComponentImplementation parent, ComponentImplementation child)
 	{
 		return parent.eClass()==child.eClass() || parent instanceof AbstractImplementation;
+	}
+	
+	public static ComponentCategory getComponentPrototypeCategory(ComponentPrototype prototype)
+	{
+	String eClassname =  prototype.eClass().getName();
+	String s= eClassname.substring(0, eClassname.length()-9);
+	ComponentCategory prototypeCategory = ComponentCategory.get(s.toLowerCase());
+	return prototypeCategory;
 	}
 
 }

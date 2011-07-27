@@ -1,22 +1,11 @@
 package org.osate.xtext.aadl2.ui.handlers;
 
-import java.util.HashMap;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.XMIResource;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextSelection;
-import org.eclipse.jface.text.Region;
-import org.eclipse.jface.text.hyperlink.IHyperlink;
-import org.eclipse.jface.text.hyperlink.IHyperlinkDetector;
-import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
@@ -26,15 +15,13 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
-import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
-import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
+import org.osate.aadl2.util.Aadl2ResourceImpl;
 
 import com.google.inject.Inject;
 
@@ -81,12 +68,12 @@ public class SaveAsXMIHandler extends AbstractHandler {
 //								Resource resource = rs.getResource(URI.createURI("./mymodel.dmodel"), true);
 								EObject eobject = resource.getContents().get(0);
 								//persist xmi resource
-								XMIResourceFactoryImpl resFactory = new XMIResourceFactoryImpl();
+								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
 								URI xtxturi = resource.getURI();
 								URI xmiuri = xtxturi.trimFileExtension().appendFileExtension("aaxl2");
-								XMIResource xmiresource = (XMIResource) resFactory.createResource(xmiuri);
+								Aadl2ResourceImpl xmiresource =  (Aadl2ResourceImpl) resFactory.createResource(xmiuri);
 								xmiresource.getContents().add(eobject);
-								xmiresource.save(new HashMap());
+								xmiresource.save();
 								
 								return null;
 							}
