@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ArrayDimension;
@@ -189,12 +190,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<Mode> getInModes() {
 		// DONE: implement this method to return the 'In Mode' reference list
-		EList<Mode> inModes = new BasicEList<Mode>();
-		
+		EList<Mode> inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.SUBCOMPONENT__IN_MODE);
+
 		for (ModeBinding binding : getOwnedModeBindings()) {
 			inModes.add(binding.getParentMode());
 		}
@@ -858,8 +859,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.osate.aadl2.Subcomponent#getPrototypeActual(org.osate.aadl2.Prototype)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osate.aadl2.Subcomponent#getPrototypeActual(org.osate.aadl2.Prototype
+	 * )
 	 */
 	public PrototypeBinding lookupPrototypeBinding(Prototype proto) {
 		for (PrototypeBinding pb : getOwnedPrototypeBindings()) {
