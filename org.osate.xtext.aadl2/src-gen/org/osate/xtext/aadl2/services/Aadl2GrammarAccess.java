@@ -17782,17 +17782,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cParentModeAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final CrossReference cParentModeModeCrossReference_0_0 = (CrossReference)cParentModeAssignment_0.eContents().get(0);
 		private final RuleCall cParentModeModeIDTerminalRuleCall_0_0_1 = (RuleCall)cParentModeModeCrossReference_0_0.eContents().get(1);
-		private final Keyword cEqualsSignGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cDerivedModeAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cDerivedModeModeCrossReference_2_0 = (CrossReference)cDerivedModeAssignment_2.eContents().get(0);
-		private final RuleCall cDerivedModeModeIDTerminalRuleCall_2_0_1 = (RuleCall)cDerivedModeModeCrossReference_2_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cEqualsSignGreaterThanSignKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cDerivedModeAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final CrossReference cDerivedModeModeCrossReference_1_1_0 = (CrossReference)cDerivedModeAssignment_1_1.eContents().get(0);
+		private final RuleCall cDerivedModeModeIDTerminalRuleCall_1_1_0_1 = (RuleCall)cDerivedModeModeCrossReference_1_1_0.eContents().get(1);
 		
 		//// used where component_in_modes is shown in standard grammar
 		//ModeRef returns aadl2::ModeBinding:
-		//	parentMode=[aadl2::Mode] "=>" derivedMode=[aadl2::Mode];
+		//	parentMode=[aadl2::Mode] ("=>" derivedMode=[aadl2::Mode])?;
 		public ParserRule getRule() { return rule; }
 
-		//parentMode=[aadl2::Mode] "=>" derivedMode=[aadl2::Mode]
+		//parentMode=[aadl2::Mode] ("=>" derivedMode=[aadl2::Mode])?
 		public Group getGroup() { return cGroup; }
 
 		//parentMode=[aadl2::Mode]
@@ -17804,17 +17805,20 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getParentModeModeIDTerminalRuleCall_0_0_1() { return cParentModeModeIDTerminalRuleCall_0_0_1; }
 
+		//("=>" derivedMode=[aadl2::Mode])?
+		public Group getGroup_1() { return cGroup_1; }
+
 		//"=>"
-		public Keyword getEqualsSignGreaterThanSignKeyword_1() { return cEqualsSignGreaterThanSignKeyword_1; }
+		public Keyword getEqualsSignGreaterThanSignKeyword_1_0() { return cEqualsSignGreaterThanSignKeyword_1_0; }
 
 		//derivedMode=[aadl2::Mode]
-		public Assignment getDerivedModeAssignment_2() { return cDerivedModeAssignment_2; }
+		public Assignment getDerivedModeAssignment_1_1() { return cDerivedModeAssignment_1_1; }
 
 		//[aadl2::Mode]
-		public CrossReference getDerivedModeModeCrossReference_2_0() { return cDerivedModeModeCrossReference_2_0; }
+		public CrossReference getDerivedModeModeCrossReference_1_1_0() { return cDerivedModeModeCrossReference_1_1_0; }
 
 		//ID
-		public RuleCall getDerivedModeModeIDTerminalRuleCall_2_0_1() { return cDerivedModeModeIDTerminalRuleCall_2_0_1; }
+		public RuleCall getDerivedModeModeIDTerminalRuleCall_1_1_0_1() { return cDerivedModeModeIDTerminalRuleCall_1_1_0_1; }
 	}
 
 	public class AnnexLibraryElements extends AbstractParserRuleElementFinder {
@@ -24084,7 +24088,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//// used where component_in_modes is shown in standard grammar
 	//ModeRef returns aadl2::ModeBinding:
-	//	parentMode=[aadl2::Mode] "=>" derivedMode=[aadl2::Mode];
+	//	parentMode=[aadl2::Mode] ("=>" derivedMode=[aadl2::Mode])?;
 	public ModeRefElements getModeRefAccess() {
 		return (pModeRef != null) ? pModeRef : (pModeRef = new ModeRefElements());
 	}

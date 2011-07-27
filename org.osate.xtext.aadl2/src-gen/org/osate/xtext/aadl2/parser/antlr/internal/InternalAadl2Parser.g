@@ -25857,10 +25857,10 @@ ruleModeRef returns [EObject current=null]
 	}
 
 )
-)
+)(
 	otherlv_1=KEYWORD_18
     {
-    	newLeafNode(otherlv_1, grammarAccess.getModeRefAccess().getEqualsSignGreaterThanSignKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getModeRefAccess().getEqualsSignGreaterThanSignKeyword_1_0());
     }
 (
 (
@@ -25874,11 +25874,11 @@ ruleModeRef returns [EObject current=null]
         }
 	otherlv_2=RULE_ID
 	{
-		newLeafNode(otherlv_2, grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_2_0()); 
+		newLeafNode(otherlv_2, grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_1_1_0()); 
 	}
 
 )
-))
+))?)
 ;
 
 
