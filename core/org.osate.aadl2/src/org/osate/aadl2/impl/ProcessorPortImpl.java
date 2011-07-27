@@ -69,4 +69,13 @@ public class ProcessorPortImpl extends NamedElementImpl implements ProcessorPort
 		return Aadl2Package.eINSTANCE.getProcessorPort();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.impl.NamedElementImpl#qualifiedName()
+	 */
+	@Override
+	public String qualifiedName() {
+		return getName();
+	}
+
+	
 } //ProcessorPortImpl
