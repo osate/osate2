@@ -2241,7 +2241,7 @@ The context owns the connection end instance.</body>
             <body>Specifies the derived mode of the modal element that owns this mode binding.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-ModeBinding-derivedMode-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-ModeBinding-derivedMode-_lowerValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-ModeBinding-derivedMode-_lowerValue"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Modes-A_subcomponent_modeBinding" name="A_subcomponent_ownedModeBinding" memberEnd="Modes-A_subcomponent_modeBinding-owner Components-Subcomponent-modeBinding">
