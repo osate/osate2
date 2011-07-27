@@ -69,4 +69,12 @@ public class InternalEventImpl extends NamedElementImpl implements InternalEvent
 		return Aadl2Package.eINSTANCE.getInternalEvent();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.impl.NamedElementImpl#qualifiedName()
+	 */
+	@Override
+	public String qualifiedName() {
+		return getName();
+	}
+
 } //InternalEventImpl
