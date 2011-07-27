@@ -82779,7 +82779,6 @@ rule__ModeRef__Group__1
     }
 :
 	rule__ModeRef__Group__1__Impl
-	rule__ModeRef__Group__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -82791,11 +82790,9 @@ rule__ModeRef__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getModeRefAccess().getEqualsSignGreaterThanSignKeyword_1()); }
-
-	'=>' 
-
-{ after(grammarAccess.getModeRefAccess().getEqualsSignGreaterThanSignKeyword_1()); }
+{ before(grammarAccess.getModeRefAccess().getGroup_1()); }
+(rule__ModeRef__Group_1__0)?
+{ after(grammarAccess.getModeRefAccess().getGroup_1()); }
 )
 
 ;
@@ -82804,26 +82801,33 @@ finally {
 }
 
 
-rule__ModeRef__Group__2
+
+
+
+
+rule__ModeRef__Group_1__0
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__ModeRef__Group__2__Impl
+	rule__ModeRef__Group_1__0__Impl
+	rule__ModeRef__Group_1__1
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ModeRef__Group__2__Impl
+rule__ModeRef__Group_1__0__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getModeRefAccess().getDerivedModeAssignment_2()); }
-(rule__ModeRef__DerivedModeAssignment_2)
-{ after(grammarAccess.getModeRefAccess().getDerivedModeAssignment_2()); }
+{ before(grammarAccess.getModeRefAccess().getEqualsSignGreaterThanSignKeyword_1_0()); }
+
+	'=>' 
+
+{ after(grammarAccess.getModeRefAccess().getEqualsSignGreaterThanSignKeyword_1_0()); }
 )
 
 ;
@@ -82832,6 +82836,32 @@ finally {
 }
 
 
+rule__ModeRef__Group_1__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__ModeRef__Group_1__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ModeRef__Group_1__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getModeRefAccess().getDerivedModeAssignment_1_1()); }
+(rule__ModeRef__DerivedModeAssignment_1_1)
+{ after(grammarAccess.getModeRefAccess().getDerivedModeAssignment_1_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 
 
@@ -109376,18 +109406,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ModeRef__DerivedModeAssignment_2
+rule__ModeRef__DerivedModeAssignment_1_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_2_0()); }
+{ before(grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_1_1_0()); }
 (
-{ before(grammarAccess.getModeRefAccess().getDerivedModeModeIDTerminalRuleCall_2_0_1()); }
-	RULE_ID{ after(grammarAccess.getModeRefAccess().getDerivedModeModeIDTerminalRuleCall_2_0_1()); }
+{ before(grammarAccess.getModeRefAccess().getDerivedModeModeIDTerminalRuleCall_1_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getModeRefAccess().getDerivedModeModeIDTerminalRuleCall_1_1_0_1()); }
 )
-{ after(grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_2_0()); }
+{ after(grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_1_1_0()); }
 )
 
 ;

@@ -85680,11 +85680,11 @@ protected class TriggerPort_PortAssignment_1 extends AssignmentToken  {
  *
  * // used where component_in_modes is shown in standard grammar
  * ModeRef returns aadl2::ModeBinding:
- * 	parentMode=[aadl2::Mode] "=>" derivedMode=[aadl2::Mode];
+ * 	parentMode=[aadl2::Mode] ("=>" derivedMode=[aadl2::Mode])?;
  *
  **/
 
-// parentMode=[aadl2::Mode] "=>" derivedMode=[aadl2::Mode]
+// parentMode=[aadl2::Mode] ("=>" derivedMode=[aadl2::Mode])?
 protected class ModeRef_Group extends GroupToken {
 	
 	public ModeRef_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -85699,7 +85699,8 @@ protected class ModeRef_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ModeRef_DerivedModeAssignment_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ModeRef_Group_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ModeRef_ParentModeAssignment_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -85749,16 +85750,38 @@ protected class ModeRef_ParentModeAssignment_0 extends AssignmentToken  {
 
 }
 
-// "=>"
-protected class ModeRef_EqualsSignGreaterThanSignKeyword_1 extends KeywordToken  {
+// ("=>" derivedMode=[aadl2::Mode])?
+protected class ModeRef_Group_1 extends GroupToken {
 	
-	public ModeRef_EqualsSignGreaterThanSignKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ModeRef_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getModeRefAccess().getGroup_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ModeRef_DerivedModeAssignment_1_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "=>"
+protected class ModeRef_EqualsSignGreaterThanSignKeyword_1_0 extends KeywordToken  {
+	
+	public ModeRef_EqualsSignGreaterThanSignKeyword_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getModeRefAccess().getEqualsSignGreaterThanSignKeyword_1();
+		return grammarAccess.getModeRefAccess().getEqualsSignGreaterThanSignKeyword_1_0();
 	}
 
     @Override
@@ -85772,34 +85795,34 @@ protected class ModeRef_EqualsSignGreaterThanSignKeyword_1 extends KeywordToken 
 }
 
 // derivedMode=[aadl2::Mode]
-protected class ModeRef_DerivedModeAssignment_2 extends AssignmentToken  {
+protected class ModeRef_DerivedModeAssignment_1_1 extends AssignmentToken  {
 	
-	public ModeRef_DerivedModeAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ModeRef_DerivedModeAssignment_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getModeRefAccess().getDerivedModeAssignment_2();
+		return grammarAccess.getModeRefAccess().getDerivedModeAssignment_1_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ModeRef_EqualsSignGreaterThanSignKeyword_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ModeRef_EqualsSignGreaterThanSignKeyword_1_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("derivedMode",true)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("derivedMode",false)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("derivedMode");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_2_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_1_1_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_2_0(); 
+				element = grammarAccess.getModeRefAccess().getDerivedModeModeCrossReference_1_1_0(); 
 				return obj;
 			}
 		}
@@ -85807,6 +85830,7 @@ protected class ModeRef_DerivedModeAssignment_2 extends AssignmentToken  {
 	}
 
 }
+
 
 
 /************ end Rule ModeRef ****************/

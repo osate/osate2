@@ -910,6 +910,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getTriggerPortAccess().getGroup(), "rule__TriggerPort__Group__0");
 					put(grammarAccess.getTriggerPortAccess().getGroup_0(), "rule__TriggerPort__Group_0__0");
 					put(grammarAccess.getModeRefAccess().getGroup(), "rule__ModeRef__Group__0");
+					put(grammarAccess.getModeRefAccess().getGroup_1(), "rule__ModeRef__Group_1__0");
 					put(grammarAccess.getDefaultAnnexLibraryAccess().getGroup(), "rule__DefaultAnnexLibrary__Group__0");
 					put(grammarAccess.getDefaultAnnexSubclauseAccess().getGroup(), "rule__DefaultAnnexSubclause__Group__0");
 					put(grammarAccess.getPropertySetAccess().getGroup(), "rule__PropertySet__Group__0");
@@ -1909,7 +1910,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getTriggerPortAccess().getContextAssignment_0_0(), "rule__TriggerPort__ContextAssignment_0_0");
 					put(grammarAccess.getTriggerPortAccess().getPortAssignment_1(), "rule__TriggerPort__PortAssignment_1");
 					put(grammarAccess.getModeRefAccess().getParentModeAssignment_0(), "rule__ModeRef__ParentModeAssignment_0");
-					put(grammarAccess.getModeRefAccess().getDerivedModeAssignment_2(), "rule__ModeRef__DerivedModeAssignment_2");
+					put(grammarAccess.getModeRefAccess().getDerivedModeAssignment_1_1(), "rule__ModeRef__DerivedModeAssignment_1_1");
 					put(grammarAccess.getDefaultAnnexLibraryAccess().getNameAssignment_1(), "rule__DefaultAnnexLibrary__NameAssignment_1");
 					put(grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextAssignment_2(), "rule__DefaultAnnexLibrary__SourceTextAssignment_2");
 					put(grammarAccess.getDefaultAnnexSubclauseAccess().getNameAssignment_1(), "rule__DefaultAnnexSubclause__NameAssignment_1");

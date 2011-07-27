@@ -1521,7 +1521,7 @@ TriggerPort returns aadl2::TriggerPort:
 
 // used where component_in_modes is shown in standard grammar
 ModeRef returns aadl2::ModeBinding:
-	parentMode=[aadl2::Mode|ID] '=>' derivedMode=[aadl2::Mode|ID];
+	parentMode=[aadl2::Mode|ID] ('=>' derivedMode=[aadl2::Mode|ID])?;
 
 
 AnnexLibrary returns aadl2::AnnexLibrary:
