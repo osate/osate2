@@ -197,7 +197,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		EList<Mode> inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.SUBCOMPONENT__IN_MODE);
 
 		for (ModeBinding binding : getOwnedModeBindings()) {
-			inModes.add(binding.getParentMode());
+			// null test for XText linking service
+			if (binding.getParentMode() != null) {
+				inModes.add(binding.getParentMode());
+			}
 		}
 		return inModes;
 	}
