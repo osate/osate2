@@ -72,6 +72,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getRefinedElement <em>Refined Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getOwnedEndToEndFlowSegments <em>Owned End To End Flow Segment</em>}</li>
  * </ul>
@@ -178,7 +179,9 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	 */
 	@Override
 	public RefinableElement getRefinedElement() {
-		return getRefined();
+		RefinableElement refinedElement = basicGetRefinedElement();
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**
@@ -188,7 +191,10 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	 */
 	@Override
 	public RefinableElement basicGetRefinedElement() {
-		return basicGetRefined();
+		if (eIsSet(Aadl2Package.END_TO_END_FLOW__REFINED)) {
+			return basicGetRefined();
+		}
+		return super.basicGetRefinedElement();
 	}
 
 	/**
@@ -196,8 +202,9 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRefinedElement() {
-		return false;
+		return super.isSetRefinedElement() || eIsSet(Aadl2Package.END_TO_END_FLOW__REFINED);
 	}
 
 	/**
@@ -238,15 +245,6 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.END_TO_END_FLOW__REFINED, oldRefined,
 					refined));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isSetRefined() {
-		return refined != null;
 	}
 
 	/**
@@ -384,7 +382,7 @@ public class EndToEndFlowImpl extends FlowImpl implements EndToEndFlow {
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE_OR_TRANSITION:
 			return inModeOrTransitions != null && !inModeOrTransitions.isEmpty();
 		case Aadl2Package.END_TO_END_FLOW__REFINED:
-			return isSetRefined();
+			return refined != null;
 		case Aadl2Package.END_TO_END_FLOW__OWNED_END_TO_END_FLOW_SEGMENT:
 			return ownedEndToEndFlowSegments != null && !ownedEndToEndFlowSegments.isEmpty();
 		}

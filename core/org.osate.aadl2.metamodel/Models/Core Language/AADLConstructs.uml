@@ -346,7 +346,7 @@
         <ownedAttribute xmi:id="Components-Subcomponent-refined" name="refined" type="Components-Subcomponent" association="Components-A_subcomponent_refined">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Subcomponent-refined-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Subcomponent-refined-_lowerValue"/>
-          <redefinedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
+          <subsettedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_ps-i5KcsEeCYEIHXYlP5sg" name="classifier" type="Components-ComponentClassifier" isReadOnly="true" isDerived="true" subsettedProperty="Components-Subcomponent-classifier" association="_ps-i4KcsEeCYEIHXYlP5sg">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ps-i5acsEeCYEIHXYlP5sg" value="1"/>
@@ -442,7 +442,7 @@
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-Prototype-refined-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-Prototype-refined-_lowerValue"/>
-          <redefinedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
+          <subsettedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Templates-PrototypeBinding" name="PrototypeBinding" isAbstract="true">
@@ -1025,7 +1025,7 @@ For access features, the classifier specifies the type of the shared component.<
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-Feature-refined-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-Feature-refined-_lowerValue"/>
-          <redefinedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
+          <subsettedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_v6CzYLO0EeCzMYz5ww7glA" name="classifier" type="Components-ComponentClassifier" isReadOnly="true" isDerived="true" subsettedProperty="Features-Feature-classifier" association="_v62EoLO0EeCzMYz5ww7glA">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_v6CzYbO0EeCzMYz5ww7glA" value="1"/>
@@ -1721,7 +1721,7 @@ For access features, the classifier specifies the type of the shared component.<
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-Connection-refined-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-Connection-refined-_lowerValue"/>
-          <redefinedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
+          <subsettedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Connections-A_connection_destination" name="A_connection_destination" memberEnd="Connections-A_connection_destination-connection Connections-Connection-destination">
@@ -1843,7 +1843,7 @@ The context owns the connection end instance.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-FlowSpecification-refined-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-FlowSpecification-refined-_lowerValue"/>
-          <redefinedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
+          <subsettedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Flows-FlowSpecification-kind" name="kind" type="Flows-FlowKind">
           <ownedComment xmi:id="Flows-FlowSpecification-kind-_ownedComment.0">
@@ -1921,7 +1921,7 @@ The context owns the connection end instance.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Flows-EndToEndFlow-refined-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-EndToEndFlow-refined-_lowerValue"/>
-          <redefinedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
+          <subsettedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_fU3tIKvuEeC0h7jzzZfZ7Q" name="ownedEndToEndFlowSegment" type="_xtnbgKvtEeC0h7jzzZfZ7Q" aggregation="composite" association="_fVf_QKvuEeC0h7jzzZfZ7Q">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fU3tIavuEeC0h7jzzZfZ7Q" value="*"/>

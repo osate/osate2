@@ -636,7 +636,7 @@
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//Prototype">
-      <eAnnotations source="redefines" references="#//RefinableElement/refinedElement"/>
+      <eAnnotations source="subsets" references="#//RefinableElement/refinedElement"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StructuralFeature" abstract="true" eSuperTypes="#//RefinableElement #//ClassifierFeature"/>
@@ -648,10 +648,11 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refinedElement" ordered="false"
-        eType="#//RefinableElement" changeable="false">
+        eType="#//RefinableElement" changeable="false" volatile="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The refinable element that is being refined by this element."/>
       </eAnnotations>
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureClassifier" abstract="true"/>
@@ -850,7 +851,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//Feature">
-      <eAnnotations source="redefines" references="#//RefinableElement/refinedElement"/>
+      <eAnnotations source="subsets" references="#//RefinableElement/refinedElement"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
         eType="#//ComponentClassifier" changeable="false" volatile="true" transient="true"
@@ -864,7 +865,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="FlowSpecification" eSuperTypes="#//Flow #//ModalElement #//FlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//FlowSpecification">
-      <eAnnotations source="redefines" references="#//RefinableElement/refinedElement"/>
+      <eAnnotations source="subsets" references="#//RefinableElement/refinedElement"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
         eType="#//FlowKind"/>
@@ -1114,7 +1115,7 @@
         upperBound="-1" eType="#//ComponentImplementationReference" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//Subcomponent">
-      <eAnnotations source="redefines" references="#//RefinableElement/refinedElement"/>
+      <eAnnotations source="subsets" references="#//RefinableElement/refinedElement"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
         eType="#//ComponentClassifier" changeable="false" volatile="true" transient="true"
@@ -1170,7 +1171,7 @@
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//Connection">
-      <eAnnotations source="redefines" references="#//RefinableElement/refinedElement"/>
+      <eAnnotations source="subsets" references="#//RefinableElement/refinedElement"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractConnectionEnd" abstract="true"/>
@@ -1189,7 +1190,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlow" eSuperTypes="#//Flow #//ModalPath #//EndToEndFlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//EndToEndFlow">
-      <eAnnotations source="redefines" references="#//RefinableElement/refinedElement"/>
+      <eAnnotations source="subsets" references="#//RefinableElement/refinedElement"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEndToEndFlowSegment"
         ordered="false" lowerBound="1" upperBound="-1" eType="#//EndToEndFlowSegment"
