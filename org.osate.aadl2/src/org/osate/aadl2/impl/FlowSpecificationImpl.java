@@ -68,6 +68,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getInModes <em>In Mode</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getRefinedElement <em>Refined Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowSpecificationImpl#getOutEnd <em>Out End</em>}</li>
@@ -357,15 +358,6 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSetRefined() {
-		return refined != null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<Mode> getAllInModes() {
 		return ModalElementOperations.getAllInModes(this);
 	}
@@ -477,7 +469,7 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
 			return inModes != null && !inModes.isEmpty();
 		case Aadl2Package.FLOW_SPECIFICATION__REFINED:
-			return isSetRefined();
+			return refined != null;
 		case Aadl2Package.FLOW_SPECIFICATION__KIND:
 			return kind != KIND_EDEFAULT;
 		case Aadl2Package.FLOW_SPECIFICATION__OUT_END:
@@ -572,7 +564,9 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	 */
 	@Override
 	public RefinableElement getRefinedElement() {
-		return getRefined();
+		RefinableElement refinedElement = basicGetRefinedElement();
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**
@@ -582,7 +576,10 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	 */
 	@Override
 	public RefinableElement basicGetRefinedElement() {
-		return basicGetRefined();
+		if (eIsSet(Aadl2Package.FLOW_SPECIFICATION__REFINED)) {
+			return basicGetRefined();
+		}
+		return super.basicGetRefinedElement();
 	}
 
 	/**
@@ -590,8 +587,9 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRefinedElement() {
-		return false;
+		return super.isSetRefinedElement() || eIsSet(Aadl2Package.FLOW_SPECIFICATION__REFINED);
 	}
 
 	// FIXME-LW: instantiation

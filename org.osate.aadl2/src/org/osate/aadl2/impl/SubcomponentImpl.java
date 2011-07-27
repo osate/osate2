@@ -85,6 +85,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getArrayDimensions <em>Array Dimension</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getRefinedElement <em>Refined Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getOwnedPrototypeBindings <em>Owned Prototype Binding</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getPrototype <em>Prototype</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getOwnedModeBindings <em>Owned Mode Binding</em>}</li>
@@ -197,8 +198,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		EList<Mode> inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.SUBCOMPONENT__IN_MODE);
 
 		for (ModeBinding binding : getOwnedModeBindings()) {
-			if (binding.getParentMode()!= null)
-			inModes.add(binding.getParentMode());
+			// null test for XText linking service
+			if (binding.getParentMode() != null) {
+				inModes.add(binding.getParentMode());
+			}
 		}
 		return inModes;
 	}
@@ -442,15 +445,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSetRefined() {
-		return refined != null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<Mode> getAllInModes() {
 		return ModalElementOperations.getAllInModes(this);
 	}
@@ -612,7 +606,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
 			return implementationReferences != null && !implementationReferences.isEmpty();
 		case Aadl2Package.SUBCOMPONENT__REFINED:
-			return isSetRefined();
+			return refined != null;
 		case Aadl2Package.SUBCOMPONENT__CLASSIFIER:
 			return basicGetClassifier() != null;
 		}
@@ -740,7 +734,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	@Override
 	public RefinableElement getRefinedElement() {
-		return getRefined();
+		RefinableElement refinedElement = basicGetRefinedElement();
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**
@@ -750,7 +746,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	@Override
 	public RefinableElement basicGetRefinedElement() {
-		return basicGetRefined();
+		if (eIsSet(Aadl2Package.SUBCOMPONENT__REFINED)) {
+			return basicGetRefined();
+		}
+		return super.basicGetRefinedElement();
 	}
 
 	/**
@@ -758,8 +757,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRefinedElement() {
-		return false;
+		return super.isSetRefinedElement() || eIsSet(Aadl2Package.SUBCOMPONENT__REFINED);
 	}
 
 	/**

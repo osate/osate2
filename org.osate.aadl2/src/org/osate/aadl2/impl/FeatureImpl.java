@@ -70,6 +70,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getArrayDimensions <em>Array Dimension</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getRefinedElement <em>Refined Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getPrototype <em>Prototype</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getClassifier <em>Classifier</em>}</li>
@@ -250,15 +251,6 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSetRefined() {
-		return refined != null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -345,7 +337,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		case Aadl2Package.FEATURE__PROTOTYPE:
 			return basicGetPrototype() != null;
 		case Aadl2Package.FEATURE__REFINED:
-			return isSetRefined();
+			return refined != null;
 		case Aadl2Package.FEATURE__CLASSIFIER:
 			return basicGetClassifier() != null;
 		}
@@ -429,7 +421,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 */
 	@Override
 	public RefinableElement getRefinedElement() {
-		return getRefined();
+		RefinableElement refinedElement = basicGetRefinedElement();
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**
@@ -439,7 +433,10 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 */
 	@Override
 	public RefinableElement basicGetRefinedElement() {
-		return basicGetRefined();
+		if (eIsSet(Aadl2Package.FEATURE__REFINED)) {
+			return basicGetRefined();
+		}
+		return super.basicGetRefinedElement();
 	}
 
 	/**
@@ -447,8 +444,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRefinedElement() {
-		return false;
+		return super.isSetRefinedElement() || eIsSet(Aadl2Package.FEATURE__REFINED);
 	}
 
 	/*

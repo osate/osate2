@@ -55,6 +55,7 @@ import org.osate.aadl2.operations.PrototypeOperations;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.aadl2.impl.PrototypeImpl#getRefinedElement <em>Refined Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PrototypeImpl#getRefined <em>Refined</em>}</li>
  * </ul>
  * </p>
@@ -136,15 +137,6 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSetRefined() {
-		return refined != null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean categoryConstraint(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return PrototypeOperations.categoryConstraint(this, diagnostics, context);
 	}
@@ -204,7 +196,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE__REFINED:
-			return isSetRefined();
+			return refined != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -216,7 +208,9 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 */
 	@Override
 	public RefinableElement getRefinedElement() {
-		return getRefined();
+		RefinableElement refinedElement = basicGetRefinedElement();
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**
@@ -226,7 +220,10 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 */
 	@Override
 	public RefinableElement basicGetRefinedElement() {
-		return basicGetRefined();
+		if (eIsSet(Aadl2Package.PROTOTYPE__REFINED)) {
+			return basicGetRefined();
+		}
+		return super.basicGetRefinedElement();
 	}
 
 	/**
@@ -234,8 +231,9 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRefinedElement() {
-		return false;
+		return super.isSetRefinedElement() || eIsSet(Aadl2Package.PROTOTYPE__REFINED);
 	}
 
 } //PrototypeImpl

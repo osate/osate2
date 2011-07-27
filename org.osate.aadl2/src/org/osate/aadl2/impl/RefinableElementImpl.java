@@ -51,8 +51,8 @@ import org.osate.aadl2.RefinableElement;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.RefinableElementImpl#getRefinementContext <em>Refinement Context</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.RefinableElementImpl#getRefinedElement <em>Refined Element</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.RefinableElementImpl#getRefinementContext <em>Refinement Context</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,15 +68,6 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * @ordered
 	 */
 	protected Classifier refinementContext;
-	/**
-	 * The cached value of the '{@link #getRefinedElement() <em>Refined Element</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRefinedElement()
-	 * @generated
-	 * @ordered
-	 */
-	protected RefinableElement refinedElement;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -130,16 +121,9 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * @generated
 	 */
 	public RefinableElement getRefinedElement() {
-		if (refinedElement != null && ((EObject) refinedElement).eIsProxy()) {
-			InternalEObject oldRefinedElement = (InternalEObject) refinedElement;
-			refinedElement = (RefinableElement) eResolveProxy(oldRefinedElement);
-			if (refinedElement != oldRefinedElement) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT, oldRefinedElement, refinedElement));
-			}
-		}
-		return refinedElement;
+		RefinableElement refinedElement = basicGetRefinedElement();
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**
@@ -148,7 +132,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * @generated
 	 */
 	public RefinableElement basicGetRefinedElement() {
-		return refinedElement;
+		return null;
 	}
 
 	/**
@@ -159,14 +143,14 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.REFINABLE_ELEMENT__REFINEMENT_CONTEXT:
-			if (resolve)
-				return getRefinementContext();
-			return basicGetRefinementContext();
 		case Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT:
 			if (resolve)
 				return getRefinedElement();
 			return basicGetRefinedElement();
+		case Aadl2Package.REFINABLE_ELEMENT__REFINEMENT_CONTEXT:
+			if (resolve)
+				return getRefinementContext();
+			return basicGetRefinementContext();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -179,11 +163,20 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT:
+			return isSetRefinedElement();
 		case Aadl2Package.REFINABLE_ELEMENT__REFINEMENT_CONTEXT:
 			return refinementContext != null;
-		case Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT:
-			return refinedElement != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetRefinedElement() {
+		return false;
 	}
 } //RefinableElementImpl
