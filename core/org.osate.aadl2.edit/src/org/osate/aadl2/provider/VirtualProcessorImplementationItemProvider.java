@@ -54,18 +54,16 @@ import org.osate.aadl2.VirtualProcessorImplementation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class VirtualProcessorImplementationItemProvider extends
-		ComponentImplementationItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class VirtualProcessorImplementationItemProvider extends ComponentImplementationItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public VirtualProcessorImplementationItemProvider(
-			AdapterFactory adapterFactory) {
+	public VirtualProcessorImplementationItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -92,10 +90,7 @@ public class VirtualProcessorImplementationItemProvider extends
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/VirtualProcessorImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualProcessorImplementation"));
 	}
 
 	/**
@@ -108,8 +103,7 @@ public class VirtualProcessorImplementationItemProvider extends
 	public String getText(Object object) {
 		String label = ((VirtualProcessorImplementation) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_VirtualProcessorImplementation_type")
-				: getString("_UI_VirtualProcessorImplementation_type") + " "
-						+ label;
+				: getString("_UI_VirtualProcessorImplementation_type") + " " + label;
 	}
 
 	/**
@@ -133,8 +127,7 @@ public class VirtualProcessorImplementationItemProvider extends
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

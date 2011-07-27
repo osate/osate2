@@ -59,9 +59,8 @@ import org.osate.aadl2.FeaturePrototype;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeaturePrototypeItemProvider extends PrototypeItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class FeaturePrototypeItemProvider extends PrototypeItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -97,15 +96,12 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider
 	 */
 	protected void addDirectionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FeaturePrototype_direction_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_FeaturePrototype_direction_feature",
-						"_UI_FeaturePrototype_type"), Aadl2Package.eINSTANCE
-						.getFeaturePrototype_Direction(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_FeaturePrototype_direction_feature",
+						"_UI_FeaturePrototype_type"), Aadl2Package.eINSTANCE.getFeaturePrototype_Direction(), true,
+				false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -115,19 +111,13 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider
 	 * @generated
 	 */
 	protected void addConstrainingClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_FeaturePrototype_constrainingClassifier_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_FeaturePrototype_constrainingClassifier_feature",
-								"_UI_FeaturePrototype_type"),
-						Aadl2Package.eINSTANCE
-								.getFeaturePrototype_ConstrainingClassifier(),
-						true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_FeaturePrototype_constrainingClassifier_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FeaturePrototype_constrainingClassifier_feature",
+						"_UI_FeaturePrototype_type"), Aadl2Package.eINSTANCE
+						.getFeaturePrototype_ConstrainingClassifier(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -138,8 +128,7 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/FeaturePrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeaturePrototype"));
 	}
 
 	/**
@@ -168,8 +157,7 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider
 
 		switch (notification.getFeatureID(FeaturePrototype.class)) {
 		case Aadl2Package.FEATURE_PROTOTYPE__DIRECTION:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -183,8 +171,7 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

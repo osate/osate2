@@ -36,7 +36,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.SystemPrototype;
 
 /**
@@ -48,8 +47,7 @@ import org.osate.aadl2.SystemPrototype;
  *
  * @generated
  */
-public class SystemPrototypeImpl extends ComponentPrototypeImpl implements
-		SystemPrototype {
+public class SystemPrototypeImpl extends ComponentPrototypeImpl implements SystemPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,10 +65,6 @@ public class SystemPrototypeImpl extends ComponentPrototypeImpl implements
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSystemPrototype();
-	}
-
-	public ComponentCategory getCategory() {
-		return ComponentCategory.SYSTEM;
 	}
 
 } //SystemPrototypeImpl

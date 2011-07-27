@@ -56,9 +56,8 @@ import org.osate.aadl2.TypedElement;
  * <!-- end-user-doc -->
  * @generated
  */
-public class TypedElementItemProvider extends NamedElementItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class TypedElementItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -93,15 +92,12 @@ public class TypedElementItemProvider extends NamedElementItemProvider
 	 */
 	protected void addTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_TypedElement_type_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_TypedElement_type_feature",
-						"_UI_TypedElement_type"), Aadl2Package.eINSTANCE
-						.getTypedElement_Type(), true, false, true, null, null,
-				null));
+				getString("_UI_PropertyDescriptor_description", "_UI_TypedElement_type_feature",
+						"_UI_TypedElement_type"), Aadl2Package.eINSTANCE.getTypedElement_Type(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -138,8 +134,7 @@ public class TypedElementItemProvider extends NamedElementItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

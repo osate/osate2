@@ -43,7 +43,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.SubprogramGroupAccess#getSubprogramGroupClassifier <em>Subprogram Group Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.SubprogramGroupAccess#getSubprogramGroupFeatureClassifier <em>Subprogram Group Feature Classifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,7 +53,7 @@ package org.osate.aadl2;
  */
 public interface SubprogramGroupAccess extends Access, CallContext {
 	/**
-	 * Returns the value of the '<em><b>Subprogram Group Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Subprogram Group Feature Classifier</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -62,26 +62,26 @@ public interface SubprogramGroupAccess extends Access, CallContext {
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Subprogram Group Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Subprogram Group Feature Classifier</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Subprogram Group Classifier</em>' reference.
-	 * @see #setSubprogramGroupClassifier(SubprogramGroupClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupAccess_SubprogramGroupClassifier()
+	 * @return the value of the '<em>Subprogram Group Feature Classifier</em>' reference.
+	 * @see #setSubprogramGroupFeatureClassifier(SubprogramGroupSubcomponentType)
+	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupAccess_SubprogramGroupFeatureClassifier()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	SubprogramGroupClassifier getSubprogramGroupClassifier();
+	SubprogramGroupSubcomponentType getSubprogramGroupFeatureClassifier();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.SubprogramGroupAccess#getSubprogramGroupClassifier <em>Subprogram Group Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.SubprogramGroupAccess#getSubprogramGroupFeatureClassifier <em>Subprogram Group Feature Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Subprogram Group Classifier</em>' reference.
-	 * @see #getSubprogramGroupClassifier()
+	 * @param value the new value of the '<em>Subprogram Group Feature Classifier</em>' reference.
+	 * @see #getSubprogramGroupFeatureClassifier()
 	 * @generated
 	 */
-	void setSubprogramGroupClassifier(SubprogramGroupClassifier value);
+	void setSubprogramGroupFeatureClassifier(SubprogramGroupSubcomponentType value);
 
 } // SubprogramGroupAccess

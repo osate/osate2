@@ -56,10 +56,9 @@ import org.osate.aadl2.PrivatePackageSection;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PrivatePackageSectionItemProvider extends
-		PackageSectionItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider,
-		IItemLabelProvider, IItemPropertySource {
+public class PrivatePackageSectionItemProvider extends PackageSectionItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -93,19 +92,13 @@ public class PrivatePackageSectionItemProvider extends
 	 * @generated
 	 */
 	protected void addPublicSectionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_PrivatePackageSection_publicSection_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_PrivatePackageSection_publicSection_feature",
-								"_UI_PrivatePackageSection_type"),
-						Aadl2Package.eINSTANCE
-								.getPrivatePackageSection_PublicSection(),
-						false, false, false, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_PrivatePackageSection_publicSection_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PrivatePackageSection_publicSection_feature",
+						"_UI_PrivatePackageSection_type"), Aadl2Package.eINSTANCE
+						.getPrivatePackageSection_PublicSection(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -116,10 +109,7 @@ public class PrivatePackageSectionItemProvider extends
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/PrivatePackageSection"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PrivatePackageSection"));
 	}
 
 	/**
@@ -156,8 +146,7 @@ public class PrivatePackageSectionItemProvider extends
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

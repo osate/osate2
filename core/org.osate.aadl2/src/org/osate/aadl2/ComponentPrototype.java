@@ -106,7 +106,4 @@ public interface ComponentPrototype extends Prototype, SubcomponentType {
 	 */
 	void setConstrainingClassifier(ComponentClassifier value);
 
-	/* returns component category */
-	public ComponentCategory getCategory();
-
 } // ComponentPrototype

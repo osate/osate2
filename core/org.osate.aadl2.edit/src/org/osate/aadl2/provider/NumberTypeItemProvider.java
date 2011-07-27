@@ -63,9 +63,8 @@ import org.osate.aadl2.NumberType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class NumberTypeItemProvider extends NonListTypeItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class NumberTypeItemProvider extends NonListTypeItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -100,15 +99,12 @@ public class NumberTypeItemProvider extends NonListTypeItemProvider implements
 	 */
 	protected void addUnitsTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_NumberType_unitsType_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_NumberType_unitsType_feature",
-						"_UI_NumberType_type"), Aadl2Package.eINSTANCE
-						.getNumberType_UnitsType(), true, false, true, null,
-				null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_NumberType_unitsType_feature",
+						"_UI_NumberType_type"), Aadl2Package.eINSTANCE.getNumberType_UnitsType(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -120,12 +116,10 @@ public class NumberTypeItemProvider extends NonListTypeItemProvider implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getNumberType_OwnedUnitsType());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getNumberType_OwnedUnitsType());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getNumberType_Range());
 		}
 		return childrenFeatures;
@@ -171,8 +165,7 @@ public class NumberTypeItemProvider extends NonListTypeItemProvider implements
 		switch (notification.getFeatureID(NumberType.class)) {
 		case Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE:
 		case Aadl2Package.NUMBER_TYPE__RANGE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -186,16 +179,13 @@ public class NumberTypeItemProvider extends NonListTypeItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getNumberType_OwnedUnitsType(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumberType_OwnedUnitsType(),
 				Aadl2Factory.eINSTANCE.createUnitsType()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getNumberType_Range(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumberType_Range(),
 				Aadl2Factory.eINSTANCE.createNumericRange()));
 	}
 
@@ -206,17 +196,14 @@ public class NumberTypeItemProvider extends NonListTypeItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected Command createSetCommand(EditingDomain domain, EObject owner,
-			EStructuralFeature feature, Object value) {
+	protected Command createSetCommand(EditingDomain domain, EObject owner, EStructuralFeature feature, Object value) {
 		if (feature == Aadl2Package.eINSTANCE.getNumberType_OwnedUnitsType()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE
-							.getNumberType_UnitsType() }, null, value);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getNumberType_UnitsType() }, null, value);
 		}
 		if (feature == Aadl2Package.eINSTANCE.getNumberType_UnitsType()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature, null,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE
-							.getNumberType_OwnedUnitsType() }, value);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getNumberType_OwnedUnitsType() }, value);
 		}
 		return super.createSetCommand(domain, owner, feature, value);
 	}

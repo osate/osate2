@@ -56,40 +56,40 @@ public enum AccessKind implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #BUS_VALUE
-	 * @generated NOT
+	 * @generated
 	 * @ordered
 	 */
-	BUS(0, "bus", "bus"),
+	BUS(0, "BUS", "BUS"),
 
 	/**
 	 * The '<em><b>DATA</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #DATA_VALUE
-	 * @generated NOT
+	 * @generated
 	 * @ordered
 	 */
-	DATA(1, "data", "data"),
+	DATA(1, "DATA", "DATA"),
 
 	/**
 	 * The '<em><b>SUBPROGRAM</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SUBPROGRAM_VALUE
-	 * @generated NOT
+	 * @generated
 	 * @ordered
 	 */
-	SUBPROGRAM(2, "subprogram", "subprogram"),
+	SUBPROGRAM(2, "SUBPROGRAM", "SUBPROGRAM"),
 
 	/**
 	 * The '<em><b>SUBPROGRAM GROUP</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SUBPROGRAM_GROUP_VALUE
-	 * @generated NOT
+	 * @generated
 	 * @ordered
 	 */
-	SUBPROGRAM_GROUP(3, "subprogram group", "subprogram group");
+	SUBPROGRAM_GROUP(3, "SUBPROGRAM_GROUP", "SUBPROGRAM_GROUP");
 
 	/**
 	 * The '<em><b>BUS</b></em>' literal value.

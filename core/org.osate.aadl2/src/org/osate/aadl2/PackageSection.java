@@ -37,7 +37,6 @@ package org.osate.aadl2;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
  * <!-- begin-user-doc -->
@@ -295,6 +294,5 @@ public interface PackageSection extends Namespace {
 	 * {@code null} because there are no elements of a {@link PrivatePackageSection} that are
 	 * externally visible.
 	 */
-	NamedElement findNamedElement(String name,
-			boolean externallyVisibleElementsOnly);
+	NamedElement findNamedElement(String name, boolean externallyVisibleElementsOnly);
 } // PackageSection

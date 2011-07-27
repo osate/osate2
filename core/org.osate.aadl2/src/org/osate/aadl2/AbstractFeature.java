@@ -44,7 +44,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.AbstractFeature#getComponentClassifier <em>Component Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.AbstractFeature#getFeatureClassifier <em>Feature Classifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,35 +54,41 @@ package org.osate.aadl2;
  */
 public interface AbstractFeature extends DirectedFeature {
 	/**
-	 * Returns the value of the '<em><b>Component Classifier</b></em>' reference.
+	 * Returns the value of the '<em><b>Feature Classifier</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Feature#getFeatureClassifier() <em>Feature Classifier</em>}'</li>
 	 * </ul>
 	 * </p>
+	 * <p>
+	 * This feature redefines the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.Feature#getFeatureClassifier() <em>Feature Classifier</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Component Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Feature Classifier</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Component Classifier</em>' reference.
-	 * @see #setComponentClassifier(ComponentClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getAbstractFeature_ComponentClassifier()
+	 * @return the value of the '<em>Feature Classifier</em>' reference.
+	 * @see #setFeatureClassifier(FeatureClassifier)
+	 * @see org.osate.aadl2.Aadl2Package#getAbstractFeature_FeatureClassifier()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	ComponentClassifier getComponentClassifier();
+	FeatureClassifier getFeatureClassifier();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.AbstractFeature#getComponentClassifier <em>Component Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.AbstractFeature#getFeatureClassifier <em>Feature Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Component Classifier</em>' reference.
-	 * @see #getComponentClassifier()
+	 * @param value the new value of the '<em>Feature Classifier</em>' reference.
+	 * @see #getFeatureClassifier()
 	 * @generated
 	 */
-	void setComponentClassifier(ComponentClassifier value);
+	void setFeatureClassifier(FeatureClassifier value);
 
 } // AbstractFeature

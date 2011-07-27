@@ -48,8 +48,7 @@ import org.osate.aadl2.AnnexSubclause;
  *
  * @generated
  */
-public abstract class AnnexSubclauseImpl extends ModalElementImpl implements
-		AnnexSubclause {
+public abstract class AnnexSubclauseImpl extends ModalElementImpl implements AnnexSubclause {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

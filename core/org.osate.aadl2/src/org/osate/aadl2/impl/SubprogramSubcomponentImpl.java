@@ -60,8 +60,7 @@ import org.osate.aadl2.SubprogramSubcomponentType;
  *
  * @generated
  */
-public class SubprogramSubcomponentImpl extends SubcomponentImpl implements
-		SubprogramSubcomponent {
+public class SubprogramSubcomponentImpl extends SubcomponentImpl implements SubprogramSubcomponent {
 	/**
 	 * The cached value of the '{@link #getSubprogramSubcomponentType() <em>Subprogram Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -99,8 +98,7 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null
-				&& ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
 				: subcomponentType;
 	}
 
@@ -123,18 +121,14 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements
 	 * @generated
 	 */
 	public SubprogramSubcomponentType getSubprogramSubcomponentType() {
-		if (subprogramSubcomponentType != null
-				&& ((EObject) subprogramSubcomponentType).eIsProxy()) {
+		if (subprogramSubcomponentType != null && ((EObject) subprogramSubcomponentType).eIsProxy()) {
 			InternalEObject oldSubprogramSubcomponentType = (InternalEObject) subprogramSubcomponentType;
 			subprogramSubcomponentType = (SubprogramSubcomponentType) eResolveProxy(oldSubprogramSubcomponentType);
 			if (subprogramSubcomponentType != oldSubprogramSubcomponentType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE,
-							oldSubprogramSubcomponentType,
-							subprogramSubcomponentType));
+							oldSubprogramSubcomponentType, subprogramSubcomponentType));
 			}
 		}
 		return subprogramSubcomponentType;
@@ -154,16 +148,13 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSubprogramSubcomponentType(
-			SubprogramSubcomponentType newSubprogramSubcomponentType) {
+	public void setSubprogramSubcomponentType(SubprogramSubcomponentType newSubprogramSubcomponentType) {
 		SubprogramSubcomponentType oldSubprogramSubcomponentType = subprogramSubcomponentType;
 		subprogramSubcomponentType = newSubprogramSubcomponentType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(
-					this,
-					Notification.SET,
-					Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE,
-					oldSubprogramSubcomponentType, subprogramSubcomponentType));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE, oldSubprogramSubcomponentType,
+					subprogramSubcomponentType));
 	}
 
 	/**

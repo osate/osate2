@@ -138,8 +138,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 		boolean oldInitial = initial;
 		initial = newInitial;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.MODE__INITIAL, oldInitial, initial));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE__INITIAL, oldInitial, initial));
 	}
 
 	/**
@@ -160,8 +159,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 		boolean oldDerived = derived;
 		derived = newDerived;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.MODE__DERIVED, oldDerived, derived));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE__DERIVED, oldDerived, derived));
 	}
 
 	/**
@@ -252,8 +250,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	}
 
 	// Cannot make this final because I need to override in SystemOperationMode
-	public void getPropertyValueInternal(final Property prop,
-			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
 			throws InvalidModelException {
 		final Classifier owner = getContainingClassifier();
 		final boolean inType = (owner instanceof ComponentType);
@@ -276,8 +273,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 			if (owner != null) {
 				owner.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
 			} else {
-				throw new InvalidModelException(this,
-						"Mode is not contained in a component type or implementation");
+				throw new InvalidModelException(this, "Mode is not contained in a component type or implementation");
 			}
 		}
 	}

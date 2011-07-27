@@ -134,8 +134,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 		long oldLowerBound = lowerBound;
 		lowerBound = newLowerBound;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ARRAY_RANGE__LOWER_BOUND, oldLowerBound,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ARRAY_RANGE__LOWER_BOUND, oldLowerBound,
 					lowerBound));
 	}
 
@@ -157,8 +156,7 @@ public class ArrayRangeImpl extends ElementImpl implements ArrayRange {
 		long oldUpperBound = upperBound;
 		upperBound = newUpperBound;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ARRAY_RANGE__UPPER_BOUND, oldUpperBound,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ARRAY_RANGE__UPPER_BOUND, oldUpperBound,
 					upperBound));
 	}
 

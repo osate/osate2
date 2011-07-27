@@ -74,14 +74,11 @@ public class BehavioredImplementationOperations extends ClassifierOperations {
 	 * <!-- end-model-doc -->
 	 * @generated NOT
 	 */
-	public static EList<CallSpecification> callSpecifications(
-			BehavioredImplementation behavioredImplementation) {
+	public static EList<CallSpecification> callSpecifications(BehavioredImplementation behavioredImplementation) {
 		EList<CallSpecification> allCallSpecifications = new BasicInternalEList<CallSpecification>(
 				CallSpecification.class);
-		for (SubprogramCallSequence callSequence : behavioredImplementation
-				.getOwnedSubprogramCallSequences())
-			allCallSpecifications.addAll(callSequence
-					.getOwnedCallSpecifications());
+		for (SubprogramCallSequence callSequence : behavioredImplementation.getOwnedSubprogramCallSequences())
+			allCallSpecifications.addAll(callSequence.getOwnedCallSpecifications());
 		return allCallSpecifications;
 	}
 

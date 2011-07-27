@@ -58,9 +58,8 @@ import org.osate.aadl2.Mode;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ModeItemProvider extends ModeFeatureItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ModeItemProvider extends ModeFeatureItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,12 +95,9 @@ public class ModeItemProvider extends ModeFeatureItemProvider implements
 	 */
 	protected void addInitialPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Mode_initial_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Mode_initial_feature", "_UI_Mode_type"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Mode_initial_feature", "_UI_Mode_type"),
 				Aadl2Package.eINSTANCE.getMode_Initial(), true, false, false,
 				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
@@ -114,12 +110,9 @@ public class ModeItemProvider extends ModeFeatureItemProvider implements
 	 */
 	protected void addDerivedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Mode_derived_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Mode_derived_feature", "_UI_Mode_type"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Mode_derived_feature", "_UI_Mode_type"),
 				Aadl2Package.eINSTANCE.getMode_Derived(), true, false, false,
 				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
@@ -132,8 +125,7 @@ public class ModeItemProvider extends ModeFeatureItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Mode"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Mode"));
 	}
 
 	/**
@@ -145,8 +137,8 @@ public class ModeItemProvider extends ModeFeatureItemProvider implements
 	@Override
 	public String getText(Object object) {
 		String label = ((Mode) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Mode_type")
-				: getString("_UI_Mode_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Mode_type") : getString("_UI_Mode_type") + " "
+				+ label;
 	}
 
 	/**
@@ -163,8 +155,7 @@ public class ModeItemProvider extends ModeFeatureItemProvider implements
 		switch (notification.getFeatureID(Mode.class)) {
 		case Aadl2Package.MODE__INITIAL:
 		case Aadl2Package.MODE__DERIVED:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -178,8 +169,7 @@ public class ModeItemProvider extends ModeFeatureItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

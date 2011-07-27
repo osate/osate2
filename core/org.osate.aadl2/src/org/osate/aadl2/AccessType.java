@@ -107,8 +107,7 @@ public enum AccessType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final AccessType[] VALUES_ARRAY = new AccessType[] {
-			PROVIDED, REQUIRED, };
+	private static final AccessType[] VALUES_ARRAY = new AccessType[] { PROVIDED, REQUIRED, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Access Type</b></em>' enumerators.
@@ -116,8 +115,7 @@ public enum AccessType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<AccessType> VALUES = Collections
-			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<AccessType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Access Type</b></em>' literal with the specified literal value.

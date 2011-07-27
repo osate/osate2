@@ -38,23 +38,15 @@ package org.osate.aadl2.impl;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.BasicDiagnostic;
-import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.util.EObjectValidator;
-import org.eclipse.ocl.ParserException;
-import org.eclipse.ocl.ecore.Constraint;
-import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.operations.PrototypeOperations;
-import org.osate.aadl2.util.Aadl2Validator;
 
 /**
  * <!-- begin-user-doc -->
@@ -69,8 +61,7 @@ import org.osate.aadl2.util.Aadl2Validator;
  *
  * @generated
  */
-public abstract class PrototypeImpl extends StructuralFeatureImpl implements
-		Prototype {
+public abstract class PrototypeImpl extends StructuralFeatureImpl implements Prototype {
 
 	/**
 	 * The cached value of the '{@link #getRefined() <em>Refined</em>}' reference.
@@ -112,9 +103,8 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements
 			refined = (Prototype) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PROTOTYPE__REFINED, oldRefined,
-							refined));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PROTOTYPE__REFINED,
+							oldRefined, refined));
 			}
 		}
 		return refined;
@@ -138,8 +128,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements
 		Prototype oldRefined = refined;
 		refined = newRefined;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PROTOTYPE__REFINED, oldRefined, refined));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROTOTYPE__REFINED, oldRefined, refined));
 	}
 
 	/**
@@ -156,10 +145,8 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean categoryConstraint(DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
-		return PrototypeOperations.categoryConstraint(this, diagnostics,
-				context);
+	public boolean categoryConstraint(DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return PrototypeOperations.categoryConstraint(this, diagnostics, context);
 	}
 
 	/**
@@ -249,19 +236,6 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements
 	 */
 	public boolean isSetRefinedElement() {
 		return false;
-	}
-
-	/*
-	 * getName needs to get it from the refined pointer if it was refined
-	 * (non-Javadoc)
-	 * 
-	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
-	 */
-	@Override
-	public String getName() {
-		if (name != null)
-			return name;
-		return getRefined().getName();
 	}
 
 } //PrototypeImpl

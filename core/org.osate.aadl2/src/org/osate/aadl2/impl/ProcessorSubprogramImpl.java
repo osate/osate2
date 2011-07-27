@@ -49,8 +49,7 @@ import org.osate.aadl2.ProcessorSubprogram;
  *
  * @generated
  */
-public class ProcessorSubprogramImpl extends NamedElementImpl implements
-		ProcessorSubprogram {
+public class ProcessorSubprogramImpl extends NamedElementImpl implements ProcessorSubprogram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -70,6 +69,9 @@ public class ProcessorSubprogramImpl extends NamedElementImpl implements
 		return Aadl2Package.eINSTANCE.getProcessorSubprogram();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.impl.NamedElementImpl#qualifiedName()
+	 */
 	@Override
 	public String qualifiedName() {
 		return getName();

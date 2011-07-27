@@ -36,7 +36,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.VirtualBusPrototype;
 
 /**
@@ -48,8 +47,7 @@ import org.osate.aadl2.VirtualBusPrototype;
  *
  * @generated
  */
-public class VirtualBusPrototypeImpl extends ComponentPrototypeImpl implements
-		VirtualBusPrototype {
+public class VirtualBusPrototypeImpl extends ComponentPrototypeImpl implements VirtualBusPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,10 +65,6 @@ public class VirtualBusPrototypeImpl extends ComponentPrototypeImpl implements
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualBusPrototype();
-	}
-
-	public ComponentCategory getCategory() {
-		return ComponentCategory.VIRTUAL_BUS;
 	}
 
 } //VirtualBusPrototypeImpl

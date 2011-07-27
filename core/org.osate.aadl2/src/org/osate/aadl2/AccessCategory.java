@@ -87,10 +87,10 @@ public enum AccessCategory implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SUBPROGRAM_GROUP_VALUE
-	 * @generated NOT
+	 * @generated
 	 * @ordered
 	 */
-	SUBPROGRAM_GROUP(3, "subprogram group", "subprogram group");
+	SUBPROGRAM_GROUP(3, "subprogramGroup", "subprogramGroup");
 
 	/**
 	 * The '<em><b>Bus</b></em>' literal value.
@@ -158,8 +158,8 @@ public enum AccessCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final AccessCategory[] VALUES_ARRAY = new AccessCategory[] {
-			BUS, DATA, SUBPROGRAM, SUBPROGRAM_GROUP, };
+	private static final AccessCategory[] VALUES_ARRAY = new AccessCategory[] { BUS, DATA, SUBPROGRAM,
+			SUBPROGRAM_GROUP, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Access Category</b></em>' enumerators.
@@ -167,8 +167,7 @@ public enum AccessCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<AccessCategory> VALUES = Collections
-			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<AccessCategory> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Access Category</b></em>' literal with the specified literal value.

@@ -60,9 +60,8 @@ import org.osate.aadl2.ContainmentPathElement;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ContainmentPathElementItemProvider extends ElementItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ContainmentPathElementItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,19 +95,13 @@ public class ContainmentPathElementItemProvider extends ElementItemProvider
 	 * @generated
 	 */
 	protected void addNamedElementPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ContainmentPathElement_namedElement_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_ContainmentPathElement_namedElement_feature",
-								"_UI_ContainmentPathElement_type"),
-						Aadl2Package.eINSTANCE
-								.getContainmentPathElement_NamedElement(),
-						true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ContainmentPathElement_namedElement_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ContainmentPathElement_namedElement_feature",
+						"_UI_ContainmentPathElement_type"), Aadl2Package.eINSTANCE
+						.getContainmentPathElement_NamedElement(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -120,12 +113,10 @@ public class ContainmentPathElementItemProvider extends ElementItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getContainmentPathElement_ArrayRange());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getContainmentPathElement_ArrayRange());
 		}
 		return childrenFeatures;
 	}
@@ -151,10 +142,7 @@ public class ContainmentPathElementItemProvider extends ElementItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/ContainmentPathElement"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ContainmentPathElement"));
 	}
 
 	/**
@@ -181,8 +169,7 @@ public class ContainmentPathElementItemProvider extends ElementItemProvider
 
 		switch (notification.getFeatureID(ContainmentPathElement.class)) {
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -196,12 +183,10 @@ public class ContainmentPathElementItemProvider extends ElementItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getContainmentPathElement_ArrayRange(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getContainmentPathElement_ArrayRange(),
 				Aadl2Factory.eINSTANCE.createArrayRange()));
 	}
 

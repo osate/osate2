@@ -58,10 +58,9 @@ import org.osate.aadl2.DefaultAnnexSubclause;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DefaultAnnexSubclauseItemProvider extends
-		AnnexSubclauseItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider,
-		IItemLabelProvider, IItemPropertySource {
+public class DefaultAnnexSubclauseItemProvider extends AnnexSubclauseItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,16 +95,13 @@ public class DefaultAnnexSubclauseItemProvider extends
 	 */
 	protected void addSourceTextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_DefaultAnnexSubclause_sourceText_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_DefaultAnnexSubclause_sourceText_feature",
+				getString("_UI_PropertyDescriptor_description", "_UI_DefaultAnnexSubclause_sourceText_feature",
 						"_UI_DefaultAnnexSubclause_type"),
-				Aadl2Package.eINSTANCE.getDefaultAnnexSubclause_SourceText(),
-				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				null, null));
+				Aadl2Package.eINSTANCE.getDefaultAnnexSubclause_SourceText(), true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -116,10 +112,7 @@ public class DefaultAnnexSubclauseItemProvider extends
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/DefaultAnnexSubclause"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DefaultAnnexSubclause"));
 	}
 
 	/**
@@ -148,8 +141,7 @@ public class DefaultAnnexSubclauseItemProvider extends
 
 		switch (notification.getFeatureID(DefaultAnnexSubclause.class)) {
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -163,8 +155,7 @@ public class DefaultAnnexSubclauseItemProvider extends
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

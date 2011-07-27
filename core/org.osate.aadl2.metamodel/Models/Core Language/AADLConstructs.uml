@@ -329,7 +329,7 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Subcomponent-prototype-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Subcomponent-prototype-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Components-Subcomponent-modeBinding" name="modeBinding" type="Modes-ModeBinding" aggregation="composite" association="Modes-A_subcomponent_modeBinding">
+        <ownedAttribute xmi:id="Components-Subcomponent-modeBinding" name="ownedModeBinding" type="Modes-ModeBinding" aggregation="composite" association="Modes-A_subcomponent_modeBinding">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Subcomponent-modeBinding-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Subcomponent-modeBinding-_lowerValue"/>
         </ownedAttribute>
@@ -351,6 +351,10 @@
         <ownedAttribute xmi:id="_ps-i5KcsEeCYEIHXYlP5sg" name="classifier" type="Components-ComponentClassifier" isReadOnly="true" isDerived="true" subsettedProperty="Components-Subcomponent-classifier" association="_ps-i4KcsEeCYEIHXYlP5sg">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ps-i5acsEeCYEIHXYlP5sg" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ps-i5qcsEeCYEIHXYlP5sg"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_jdnb8Lb2EeCgTIUWwCMxzQ" name="inMode" type="Modes-Mode" isDerived="true" association="_jdm04Lb2EeCgTIUWwCMxzQ">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jdnb8bb2EeCgTIUWwCMxzQ" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jdnb8rb2EeCgTIUWwCMxzQ"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Components-A_subcomponent_classifier" name="A_subcomponent_subcomponentType" memberEnd="Components-A_subcomponent_classifier-subcomponent Components-Subcomponent-classifier">
@@ -1215,7 +1219,7 @@ For access features, the classifier specifies the type of the shared component.<
           <body>A generic feature.</body>
         </ownedComment>
         <generalization xmi:id="Features-AbstractFeature-_generalization.0" general="_r3p5SJyLEd64G8zRE2nwuA"/>
-        <ownedAttribute xmi:id="Features-AbstractFeature-componentClassifier" name="componentClassifier" type="Components-ComponentClassifier" subsettedProperty="Features-Feature-classifier" association="Features-A_abstractFeature_componentClassifier">
+        <ownedAttribute xmi:id="Features-AbstractFeature-componentClassifier" name="featureClassifier" type="_hn8cMLOzEeCzMYz5ww7glA" subsettedProperty="Features-Feature-classifier" association="Features-A_abstractFeature_componentClassifier">
           <ownedComment xmi:id="Features-AbstractFeature-componentClassifier-_ownedComment.0">
             <body>A component classifier referenced by the feature.</body>
           </ownedComment>
@@ -1280,7 +1284,7 @@ For access features, the classifier specifies the type of the shared component.<
           </ownedComment>
         </ownedLiteral>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_abstractFeature_componentClassifier" name="A_abstractFeature_componentClassifier" memberEnd="Features-A_abstractFeature_componentClassifier-abstractFeature Features-AbstractFeature-componentClassifier">
+      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_abstractFeature_componentClassifier" name="A_abstractFeature_featureClassifier" memberEnd="Features-A_abstractFeature_componentClassifier-abstractFeature Features-AbstractFeature-componentClassifier">
         <ownedEnd xmi:id="Features-A_abstractFeature_componentClassifier-abstractFeature" name="abstractFeature" type="Features-AbstractFeature" association="Features-A_abstractFeature_componentClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_abstractFeature_componentClassifier-abstractFeature-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_abstractFeature_componentClassifier-abstractFeature-_lowerValue"/>
@@ -2153,7 +2157,7 @@ The context owns the connection end instance.</body>
         <generalization xmi:id="Modes-ModalElement-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
         </generalization>
-        <ownedAttribute xmi:id="Modes-ModalElement-inMode" name="inMode" type="Modes-Mode" isOrdered="true" association="Modes-A_modalElement_inMode">
+        <ownedAttribute xmi:id="Modes-ModalElement-inMode" name="inMode" type="Modes-Mode" association="Modes-A_modalElement_inMode">
           <ownedComment xmi:id="Modes-ModalElement-inMode-_ownedComment.0"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-ModalElement-inMode-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-ModalElement-inMode-_lowerValue"/>
@@ -2164,12 +2168,12 @@ The context owns the connection end instance.</body>
           <body>===TBD===</body>
         </ownedComment>
         <generalization xmi:id="_vbv6AKmREeCfxLim1SVFOg" general="Modes-ModalElement"/>
-        <ownedAttribute xmi:id="Modes-ModalPath-inTransition" name="inModeOrTransition" type="Modes-ModeFeature" isOrdered="true" association="Modes-A_modalPath_inTransition">
+        <ownedAttribute xmi:id="Modes-ModalPath-inTransition" name="inModeOrTransition" type="Modes-ModeFeature" association="Modes-A_modalPath_inTransition">
           <ownedComment xmi:id="Modes-ModalPath-inTransition-_ownedComment.0"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-ModalPath-inTransition-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-ModalPath-inTransition-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_FgdHVKmSEeCfxLim1SVFOg" name="inMode" type="Modes-Mode" isReadOnly="true" isDerived="true" subsettedProperty="Modes-ModalPath-inTransition" association="_FgdHUKmSEeCfxLim1SVFOg">
+        <ownedAttribute xmi:id="_FgdHVKmSEeCfxLim1SVFOg" name="inMode" type="Modes-Mode" isDerived="true" subsettedProperty="Modes-ModalPath-inTransition" association="_FgdHUKmSEeCfxLim1SVFOg">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FgdHVamSEeCfxLim1SVFOg" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FgdHVqmSEeCfxLim1SVFOg"/>
         </ownedAttribute>
@@ -2237,10 +2241,10 @@ The context owns the connection end instance.</body>
             <body>Specifies the derived mode of the modal element that owns this mode binding.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-ModeBinding-derivedMode-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-ModeBinding-derivedMode-_lowerValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-ModeBinding-derivedMode-_lowerValue"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Modes-A_subcomponent_modeBinding" name="A_subcomponent_modeBinding" memberEnd="Modes-A_subcomponent_modeBinding-owner Components-Subcomponent-modeBinding">
+      <packagedElement xmi:type="uml:Association" xmi:id="Modes-A_subcomponent_modeBinding" name="A_subcomponent_ownedModeBinding" memberEnd="Modes-A_subcomponent_modeBinding-owner Components-Subcomponent-modeBinding">
         <ownedEnd xmi:id="Modes-A_subcomponent_modeBinding-owner" name="owner" type="Components-Subcomponent" association="Modes-A_subcomponent_modeBinding">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-A_subcomponent_modeBinding-owner-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-A_subcomponent_modeBinding-owner-_lowerValue" value="1"/>
@@ -2262,6 +2266,12 @@ The context owns the connection end instance.</body>
         <ownedEnd xmi:id="_FgdHUamSEeCfxLim1SVFOg" name="modalPath" type="Modes-ModalPath" association="_FgdHUKmSEeCfxLim1SVFOg">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FgdHUqmSEeCfxLim1SVFOg" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FgdHU6mSEeCfxLim1SVFOg"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_jdm04Lb2EeCgTIUWwCMxzQ" name="A_subcomponent_inMode" memberEnd="_jdm04bb2EeCgTIUWwCMxzQ _jdnb8Lb2EeCgTIUWwCMxzQ">
+        <ownedEnd xmi:id="_jdm04bb2EeCgTIUWwCMxzQ" name="subcomponent" type="Components-Subcomponent" association="_jdm04Lb2EeCgTIUWwCMxzQ">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jdm04rb2EeCgTIUWwCMxzQ" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jdm047b2EeCgTIUWwCMxzQ"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

@@ -54,8 +54,7 @@ import org.osate.aadl2.BooleanLiteral;
  *
  * @generated
  */
-public class BooleanLiteralImpl extends PropertyValueImpl implements
-		BooleanLiteral {
+public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLiteral {
 	/**
 	 * The default value of the '{@link #isValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -117,8 +116,7 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements
 		boolean oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.BOOLEAN_LITERAL__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BOOLEAN_LITERAL__VALUE, oldValue, value));
 	}
 
 	/**
@@ -196,26 +194,14 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements
 		return result.toString();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (value ? 1231 : 1237);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BooleanLiteralImpl other = (BooleanLiteralImpl) obj;
-		if (value != other.value)
-			return false;
-		return true;
+	public boolean equals(Object other) {
+		return (other instanceof BooleanLiteral) && (((BooleanLiteral) other).getValue() == value);
 	}
 
 } //BooleanLiteralImpl

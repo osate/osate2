@@ -65,9 +65,8 @@ import org.osate.aadl2.AadlPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AadlPackageItemProvider extends ModelUnitItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class AadlPackageItemProvider extends ModelUnitItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -104,15 +103,12 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider implements
 	 */
 	protected void addPublicSectionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_AadlPackage_publicSection_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_AadlPackage_publicSection_feature",
-						"_UI_AadlPackage_type"), Aadl2Package.eINSTANCE
-						.getAadlPackage_PublicSection(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_AadlPackage_publicSection_feature",
+						"_UI_AadlPackage_type"), Aadl2Package.eINSTANCE.getAadlPackage_PublicSection(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -123,15 +119,12 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider implements
 	 */
 	protected void addPrivateSectionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_AadlPackage_privateSection_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_AadlPackage_privateSection_feature",
-						"_UI_AadlPackage_type"), Aadl2Package.eINSTANCE
-						.getAadlPackage_PrivateSection(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_AadlPackage_privateSection_feature",
+						"_UI_AadlPackage_type"), Aadl2Package.eINSTANCE.getAadlPackage_PrivateSection(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -142,15 +135,12 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider implements
 	 */
 	protected void addNoPropertiesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_AadlPackage_noProperties_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_AadlPackage_noProperties_feature",
-						"_UI_AadlPackage_type"), Aadl2Package.eINSTANCE
-						.getAadlPackage_NoProperties(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_AadlPackage_noProperties_feature",
+						"_UI_AadlPackage_type"), Aadl2Package.eINSTANCE.getAadlPackage_NoProperties(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -162,14 +152,11 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getAadlPackage_OwnedPublicSection());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getAadlPackage_OwnedPrivateSection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getAadlPackage_OwnedPublicSection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getAadlPackage_OwnedPrivateSection());
 		}
 		return childrenFeatures;
 	}
@@ -195,8 +182,7 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/AadlPackage"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AadlPackage"));
 	}
 
 	/**
@@ -225,13 +211,11 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider implements
 
 		switch (notification.getFeatureID(AadlPackage.class)) {
 		case Aadl2Package.AADL_PACKAGE__NO_PROPERTIES:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.AADL_PACKAGE__OWNED_PUBLIC_SECTION:
 		case Aadl2Package.AADL_PACKAGE__OWNED_PRIVATE_SECTION:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -245,16 +229,13 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getAadlPackage_OwnedPublicSection(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getAadlPackage_OwnedPublicSection(),
 				Aadl2Factory.eINSTANCE.createPublicPackageSection()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getAadlPackage_OwnedPrivateSection(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getAadlPackage_OwnedPrivateSection(),
 				Aadl2Factory.eINSTANCE.createPrivatePackageSection()));
 	}
 
@@ -265,29 +246,22 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected Command createSetCommand(EditingDomain domain, EObject owner,
-			EStructuralFeature feature, Object value) {
-		if (feature == Aadl2Package.eINSTANCE
-				.getAadlPackage_OwnedPublicSection()) {
+	protected Command createSetCommand(EditingDomain domain, EObject owner, EStructuralFeature feature, Object value) {
+		if (feature == Aadl2Package.eINSTANCE.getAadlPackage_OwnedPublicSection()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE
-							.getAadlPackage_PublicSection() }, null, value);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getAadlPackage_PublicSection() }, null, value);
 		}
-		if (feature == Aadl2Package.eINSTANCE
-				.getAadlPackage_OwnedPrivateSection()) {
+		if (feature == Aadl2Package.eINSTANCE.getAadlPackage_OwnedPrivateSection()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE
-							.getAadlPackage_PrivateSection() }, null, value);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getAadlPackage_PrivateSection() }, null, value);
 		}
 		if (feature == Aadl2Package.eINSTANCE.getAadlPackage_PublicSection()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature, null,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE
-							.getAadlPackage_OwnedPublicSection() }, value);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getAadlPackage_OwnedPublicSection() }, value);
 		}
 		if (feature == Aadl2Package.eINSTANCE.getAadlPackage_PrivateSection()) {
 			return new SubsetSupersetSetCommand(domain, owner, feature, null,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE
-							.getAadlPackage_OwnedPrivateSection() }, value);
+					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getAadlPackage_OwnedPrivateSection() }, value);
 		}
 		return super.createSetCommand(domain, owner, feature, value);
 	}

@@ -109,8 +109,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 			flowElement = (FlowElement) eResolveProxy(oldFlowElement);
 			if (flowElement != oldFlowElement) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT,
 							oldFlowElement, flowElement));
 			}
 		}
@@ -135,9 +134,8 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 		FlowElement oldFlowElement = flowElement;
 		flowElement = newFlowElement;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT, oldFlowElement,
-					flowElement));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT,
+					oldFlowElement, flowElement));
 	}
 
 	/**
@@ -151,9 +149,8 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_SEGMENT__CONTEXT, oldContext,
-							context));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FLOW_SEGMENT__CONTEXT,
+							oldContext, context));
 			}
 		}
 		return context;
@@ -177,8 +174,8 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 		Context oldContext = context;
 		context = newContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FLOW_SEGMENT__CONTEXT, oldContext, context));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SEGMENT__CONTEXT, oldContext,
+					context));
 	}
 
 	/**

@@ -49,8 +49,7 @@ import org.osate.aadl2.operations.TypeOperations;
  *
  * @generated
  */
-public abstract class DataSubcomponentTypeImpl extends DataImpl implements
-		DataSubcomponentType {
+public abstract class DataSubcomponentTypeImpl extends DataImpl implements DataSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
