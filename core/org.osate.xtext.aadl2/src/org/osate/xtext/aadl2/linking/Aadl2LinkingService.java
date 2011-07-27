@@ -106,6 +106,7 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.TriggerPort;
@@ -320,7 +321,9 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 						return Collections.<EObject> emptyList();
 					}
 				} else if (cxt instanceof SubprogramGroupAccess && ((SubprogramGroupAccess)cxt).getKind() == AccessType.REQUIRED){
-					ns = ((SubprogramGroupAccess)cxt).getSubprogramGroupClassifier();
+					SubprogramGroupSubcomponentType sst = ((SubprogramGroupAccess)cxt).getSubprogramGroupFeatureClassifier();
+					if (sst instanceof Classifier)
+						ns = (Classifier) sst;;
 					if (ns == null) {
 						return Collections.<EObject> emptyList();
 					}
