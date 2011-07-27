@@ -1133,7 +1133,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentMode" ordered="false"
         lowerBound="1" eType="#//Mode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="derivedMode" ordered="false"
-        lowerBound="1" eType="#//Mode"/>
+        eType="#//Mode"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FlowImplementation" eSuperTypes="#//ModalPath #//ClassifierFeature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"

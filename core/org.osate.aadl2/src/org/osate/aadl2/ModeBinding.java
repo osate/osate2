@@ -91,7 +91,7 @@ public interface ModeBinding extends Element {
 	 * @return the value of the '<em>Derived Mode</em>' reference.
 	 * @see #setDerivedMode(Mode)
 	 * @see org.osate.aadl2.Aadl2Package#getModeBinding_DerivedMode()
-	 * @model required="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	Mode getDerivedMode();

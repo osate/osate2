@@ -5571,7 +5571,7 @@
         <waypoints>[278, 0, 0, 83]</waypoints>
       </contained>
     </diagrams>
-    <diagrams xmi:id="_XXBRINHEEd283ego4K9MdA" position="0,0" size="100,100" name="Modal Subcomponents" viewport="0,0">
+    <diagrams xmi:id="_XXBRINHEEd283ego4K9MdA" position="0,0" size="100,100" name="Modal Subcomponents" viewport="2,0">
       <property xmi:id="_XaJdoNHEEd283ego4K9MdA" key="pageFormatName" value="A4"/>
       <property xmi:id="_XaJdodHEEd283ego4K9MdA" key="diagramWidth" value="840"/>
       <property xmi:id="_XaJdotHEEd283ego4K9MdA" key="diagramHeight" value="1188"/>
