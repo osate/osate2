@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_x9UmEBY7Ed6zisWXYu7oqQ" activeDiagram="_t5-DMBidEd6R9IqgCj6J2g">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_x9UmEBY7Ed6zisWXYu7oqQ" activeDiagram="_-0szEBiqEd6R9IqgCj6J2g">
   <model href="AADLInfrastructure.uml#_0"/>
   <diagrams xmi:id="_x9UmERY7Ed6zisWXYu7oqQ" position="0,0" size="100,100" name="Primitive Types" viewport="0,0">
     <property xmi:id="_yGa3sBY7Ed6zisWXYu7oqQ" key="pageFormatName" value="A1"/>

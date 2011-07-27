@@ -639,7 +639,7 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="RefinableElement-refinementContext-_upperValue" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="RefinableElement-refinementContext-_lowerValue"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="RefinableElement-refinedElement" name="refinedElement" type="RefinableElement" isReadOnly="true" association="A_refiningElement_refinedElement">
+      <ownedAttribute xmi:id="RefinableElement-refinedElement" name="refinedElement" type="RefinableElement" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_refiningElement_refinedElement">
         <ownedComment xmi:id="RefinableElement-refinedElement-_ownedComment.0" annotatedElement="RefinableElement-refinedElement">
           <body>The refinable element that is being refined by this element.</body>
         </ownedComment>

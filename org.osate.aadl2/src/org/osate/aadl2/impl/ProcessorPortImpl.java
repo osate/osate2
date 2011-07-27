@@ -77,5 +77,4 @@ public class ProcessorPortImpl extends NamedElementImpl implements ProcessorPort
 		return getName();
 	}
 
-	
 } //ProcessorPortImpl

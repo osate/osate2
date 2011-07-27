@@ -159,7 +159,7 @@ public interface FlowSpecification extends Flow, ModalElement, FlowElement {
 	/**
 	 * Returns the value of the '<em><b>Refined</b></em>' reference.
 	 * <p>
-	 * This feature redefines the following features:
+	 * This feature subsets the following features:
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.RefinableElement#getRefinedElement() <em>Refined Element</em>}'</li>
 	 * </ul>

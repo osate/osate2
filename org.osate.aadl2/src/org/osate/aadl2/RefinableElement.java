@@ -70,6 +70,7 @@ public interface RefinableElement extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Refined Element</b></em>' reference.
+	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -77,7 +78,7 @@ public interface RefinableElement extends NamedElement {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Refined Element</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getRefinableElement_RefinedElement()
-	 * @model changeable="false" ordered="false"
+	 * @model changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	RefinableElement getRefinedElement();
