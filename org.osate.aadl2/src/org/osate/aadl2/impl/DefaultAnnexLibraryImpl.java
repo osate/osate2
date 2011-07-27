@@ -54,8 +54,7 @@ import org.osate.aadl2.DefaultAnnexLibrary;
  *
  * @generated
  */
-public class DefaultAnnexLibraryImpl extends AnnexLibraryImpl implements
-		DefaultAnnexLibrary {
+public class DefaultAnnexLibraryImpl extends AnnexLibraryImpl implements DefaultAnnexLibrary {
 	/**
 	 * The default value of the '{@link #getSourceText() <em>Source Text</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -113,8 +112,7 @@ public class DefaultAnnexLibraryImpl extends AnnexLibraryImpl implements
 		String oldSourceText = sourceText;
 		sourceText = newSourceText;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.DEFAULT_ANNEX_LIBRARY__SOURCE_TEXT,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.DEFAULT_ANNEX_LIBRARY__SOURCE_TEXT,
 					oldSourceText, sourceText));
 	}
 
@@ -171,8 +169,7 @@ public class DefaultAnnexLibraryImpl extends AnnexLibraryImpl implements
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY__SOURCE_TEXT:
-			return SOURCE_TEXT_EDEFAULT == null ? sourceText != null
-					: !SOURCE_TEXT_EDEFAULT.equals(sourceText);
+			return SOURCE_TEXT_EDEFAULT == null ? sourceText != null : !SOURCE_TEXT_EDEFAULT.equals(sourceText);
 		}
 		return super.eIsSet(featureID);
 	}

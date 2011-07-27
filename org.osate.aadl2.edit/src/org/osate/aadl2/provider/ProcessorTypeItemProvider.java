@@ -54,9 +54,8 @@ import org.osate.aadl2.ProcessorType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProcessorTypeItemProvider extends ComponentTypeItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ProcessorTypeItemProvider extends ComponentTypeItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -90,8 +89,7 @@ public class ProcessorTypeItemProvider extends ComponentTypeItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/ProcessorType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessorType"));
 	}
 
 	/**
@@ -128,8 +126,7 @@ public class ProcessorTypeItemProvider extends ComponentTypeItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

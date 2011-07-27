@@ -34,7 +34,6 @@
  */
 package org.osate.aadl2.operations;
 
-import org.eclipse.emf.common.util.DelegatingEList.UnmodifiableEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
@@ -74,7 +73,8 @@ public class ModalPathOperations extends ModalElementOperations {
 	 */
 	public static EList<Mode> getInModes(ModalPath modalPath) {
 		// DONE: implement this method
-		EList<Mode> inModes = new EObjectResolvingEList<Mode>(Mode.class, (InternalEObject) modalPath, Aadl2Package.MODAL_ELEMENT__IN_MODE);
+		EList<Mode> inModes = new EObjectResolvingEList<Mode>(Mode.class, (InternalEObject) modalPath,
+				Aadl2Package.MODAL_ELEMENT__IN_MODE);
 		for (ModeFeature mf : modalPath.getInModeOrTransitions()) {
 			if (mf instanceof Mode) {
 				inModes.add((Mode) mf);

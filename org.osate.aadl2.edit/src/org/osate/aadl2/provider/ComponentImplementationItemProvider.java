@@ -60,10 +60,9 @@ import org.osate.aadl2.ComponentImplementation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComponentImplementationItemProvider extends
-		ComponentClassifierItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider,
-		IItemLabelProvider, IItemPropertySource {
+public class ComponentImplementationItemProvider extends ComponentClassifierItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -103,15 +102,12 @@ public class ComponentImplementationItemProvider extends
 	 */
 	protected void addTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentImplementation_type_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ComponentImplementation_type_feature",
-						"_UI_ComponentImplementation_type"),
-				Aadl2Package.eINSTANCE.getComponentImplementation_Type(), true,
-				false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_type_feature",
+						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE.getComponentImplementation_Type(),
+				true, false, true, null, null, null));
 	}
 
 	/**
@@ -121,20 +117,14 @@ public class ComponentImplementationItemProvider extends
 	 * @generated
 	 */
 	protected void addNoSubcomponentsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ComponentImplementation_noSubcomponents_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_ComponentImplementation_noSubcomponents_feature",
-								"_UI_ComponentImplementation_type"),
-						Aadl2Package.eINSTANCE
-								.getComponentImplementation_NoSubcomponents(),
-						true, false, false,
-						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ComponentImplementation_noSubcomponents_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_noSubcomponents_feature",
+						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
+						.getComponentImplementation_NoSubcomponents(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -145,16 +135,13 @@ public class ComponentImplementationItemProvider extends
 	 */
 	protected void addNoCallsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentImplementation_noCalls_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ComponentImplementation_noCalls_feature",
-						"_UI_ComponentImplementation_type"),
-				Aadl2Package.eINSTANCE.getComponentImplementation_NoCalls(),
-				true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_noCalls_feature",
+						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
+						.getComponentImplementation_NoCalls(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -165,17 +152,13 @@ public class ComponentImplementationItemProvider extends
 	 */
 	protected void addNoConnectionsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentImplementation_noConnections_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ComponentImplementation_noConnections_feature",
-						"_UI_ComponentImplementation_type"),
-				Aadl2Package.eINSTANCE
-						.getComponentImplementation_NoConnections(), true,
-				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null,
-				null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_noConnections_feature",
+						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
+						.getComponentImplementation_NoConnections(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -186,15 +169,12 @@ public class ComponentImplementationItemProvider extends
 	 */
 	protected void addExtendedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentImplementation_extended_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ComponentImplementation_extended_feature",
-						"_UI_ComponentImplementation_type"),
-				Aadl2Package.eINSTANCE.getComponentImplementation_Extended(),
-				true, false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_extended_feature",
+						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
+						.getComponentImplementation_Extended(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -204,19 +184,13 @@ public class ComponentImplementationItemProvider extends
 	 * @generated
 	 */
 	protected void addOwnedExtensionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ComponentImplementation_ownedExtension_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_ComponentImplementation_ownedExtension_feature",
-								"_UI_ComponentImplementation_type"),
-						Aadl2Package.eINSTANCE
-								.getComponentImplementation_OwnedExtension(),
-						true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ComponentImplementation_ownedExtension_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_ownedExtension_feature",
+						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
+						.getComponentImplementation_OwnedExtension(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -228,26 +202,17 @@ public class ComponentImplementationItemProvider extends
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getComponentImplementation_OwnedSubcomponent());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getComponentImplementation_OwnedConnection());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getComponentImplementation_OwnedRealization());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getComponentImplementation_OwnedAccessConnection());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getComponentImplementation_OwnedParameterConnection());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getComponentImplementation_OwnedPortConnection());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getComponentImplementation_OwnedFeatureConnection());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getComponentImplementation_OwnedFeatureGroupConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedRealization());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAccessConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedParameterConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedPortConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureGroupConnection());
 		}
 		return childrenFeatures;
 	}
@@ -293,8 +258,7 @@ public class ComponentImplementationItemProvider extends
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CONNECTIONS:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
@@ -304,8 +268,7 @@ public class ComponentImplementationItemProvider extends
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -319,32 +282,31 @@ public class ComponentImplementationItemProvider extends
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
-				.getComponentImplementation_OwnedRealization(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedRealization(),
 				Aadl2Factory.eINSTANCE.createRealization()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
-				.getComponentImplementation_OwnedAccessConnection(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAccessConnection(),
 				Aadl2Factory.eINSTANCE.createAccessConnection()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
-				.getComponentImplementation_OwnedParameterConnection(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedParameterConnection(),
 				Aadl2Factory.eINSTANCE.createParameterConnection()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
-				.getComponentImplementation_OwnedPortConnection(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedPortConnection(),
 				Aadl2Factory.eINSTANCE.createPortConnection()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
-				.getComponentImplementation_OwnedFeatureConnection(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureConnection(),
 				Aadl2Factory.eINSTANCE.createFeatureConnection()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
-				.getComponentImplementation_OwnedFeatureGroupConnection(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureGroupConnection(),
 				Aadl2Factory.eINSTANCE.createFeatureGroupConnection()));
 	}
 

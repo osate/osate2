@@ -56,9 +56,8 @@ import org.osate.aadl2.ThreadSubcomponent;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ThreadSubcomponentItemProvider extends SubcomponentItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ThreadSubcomponentItemProvider extends SubcomponentItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -92,19 +91,14 @@ public class ThreadSubcomponentItemProvider extends SubcomponentItemProvider
 	 * @generated
 	 */
 	protected void addThreadSubcomponentTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ThreadSubcomponent_threadSubcomponentType_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_ThreadSubcomponent_threadSubcomponentType_feature",
-								"_UI_ThreadSubcomponent_type"),
-						Aadl2Package.eINSTANCE
-								.getThreadSubcomponent_ThreadSubcomponentType(),
-						true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ThreadSubcomponent_threadSubcomponentType_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ThreadSubcomponent_threadSubcomponentType_feature", "_UI_ThreadSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getThreadSubcomponent_ThreadSubcomponentType(), true, false, true, null, null,
+				null));
 	}
 
 	/**
@@ -115,8 +109,7 @@ public class ThreadSubcomponentItemProvider extends SubcomponentItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/ThreadSubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ThreadSubcomponent"));
 	}
 
 	/**
@@ -153,8 +146,7 @@ public class ThreadSubcomponentItemProvider extends SubcomponentItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

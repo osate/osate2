@@ -36,7 +36,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.SubprogramGroupPrototype;
 
 /**
@@ -48,8 +47,7 @@ import org.osate.aadl2.SubprogramGroupPrototype;
  *
  * @generated
  */
-public class SubprogramGroupPrototypeImpl extends ComponentPrototypeImpl
-		implements SubprogramGroupPrototype {
+public class SubprogramGroupPrototypeImpl extends ComponentPrototypeImpl implements SubprogramGroupPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,10 +65,6 @@ public class SubprogramGroupPrototypeImpl extends ComponentPrototypeImpl
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramGroupPrototype();
-	}
-
-	public ComponentCategory getCategory() {
-		return ComponentCategory.SUBPROGRAM_GROUP;
 	}
 
 } //SubprogramGroupPrototypeImpl

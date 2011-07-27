@@ -54,8 +54,7 @@ import org.osate.aadl2.StringLiteral;
  *
  * @generated
  */
-public class StringLiteralImpl extends PropertyValueImpl implements
-		StringLiteral {
+public class StringLiteralImpl extends PropertyValueImpl implements StringLiteral {
 	/**
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -113,8 +112,7 @@ public class StringLiteralImpl extends PropertyValueImpl implements
 		String oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.STRING_LITERAL__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.STRING_LITERAL__VALUE, oldValue, value));
 	}
 
 	/**
@@ -170,8 +168,7 @@ public class StringLiteralImpl extends PropertyValueImpl implements
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.STRING_LITERAL__VALUE:
-			return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT
-					.equals(value);
+			return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -193,29 +190,12 @@ public class StringLiteralImpl extends PropertyValueImpl implements
 		return result.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((value == null) ? 0 : value.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		StringLiteralImpl other = (StringLiteralImpl) obj;
-		if (value == null) {
-			if (other.value != null)
-				return false;
-		} else if (!value.equals(other.value))
-			return false;
-		return true;
+	public boolean equals(Object other) {
+		return (other instanceof StringLiteral) && ((StringLiteral) other).getValue().equals(value);
 	}
 
 } //StringLiteralImpl

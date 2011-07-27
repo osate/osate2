@@ -36,7 +36,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.MemoryPrototype;
 
 /**
@@ -48,8 +47,7 @@ import org.osate.aadl2.MemoryPrototype;
  *
  * @generated
  */
-public class MemoryPrototypeImpl extends ComponentPrototypeImpl implements
-		MemoryPrototype {
+public class MemoryPrototypeImpl extends ComponentPrototypeImpl implements MemoryPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,10 +65,6 @@ public class MemoryPrototypeImpl extends ComponentPrototypeImpl implements
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getMemoryPrototype();
-	}
-
-	public ComponentCategory getCategory() {
-		return ComponentCategory.MEMORY;
 	}
 
 } //MemoryPrototypeImpl

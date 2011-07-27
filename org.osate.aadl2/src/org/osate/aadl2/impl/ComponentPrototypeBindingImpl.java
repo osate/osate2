@@ -66,8 +66,7 @@ import org.osate.aadl2.Prototype;
  *
  * @generated
  */
-public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
-		implements ComponentPrototypeBinding {
+public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl implements ComponentPrototypeBinding {
 	/**
 	 * The cached value of the '{@link #getActuals() <em>Actual</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -104,8 +103,7 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
 	 */
 	public EList<ComponentPrototypeActual> getActuals() {
 		if (actuals == null) {
-			actuals = new EObjectContainmentEList<ComponentPrototypeActual>(
-					ComponentPrototypeActual.class, this,
+			actuals = new EObjectContainmentEList<ComponentPrototypeActual>(ComponentPrototypeActual.class, this,
 					Aadl2Package.COMPONENT_PROTOTYPE_BINDING__ACTUAL);
 		}
 		return actuals;
@@ -136,8 +134,7 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
 			if (formal != oldFormal) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.COMPONENT_PROTOTYPE_BINDING__FORMAL,
-							oldFormal, formal));
+							Aadl2Package.COMPONENT_PROTOTYPE_BINDING__FORMAL, oldFormal, formal));
 			}
 		}
 		return formal;
@@ -163,8 +160,7 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
 		Prototype oldFormal = formal;
 		formal = newFormal;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_PROTOTYPE_BINDING__FORMAL,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_PROTOTYPE_BINDING__FORMAL,
 					oldFormal, formal));
 	}
 
@@ -183,12 +179,10 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING__ACTUAL:
-			return ((InternalEList<?>) getActuals())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getActuals()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -218,8 +212,7 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING__ACTUAL:
 			getActuals().clear();
-			getActuals().addAll(
-					(Collection<? extends ComponentPrototypeActual>) newValue);
+			getActuals().addAll((Collection<? extends ComponentPrototypeActual>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

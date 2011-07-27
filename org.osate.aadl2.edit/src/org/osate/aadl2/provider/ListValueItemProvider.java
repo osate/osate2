@@ -59,9 +59,8 @@ import org.osate.aadl2.ListValue;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ListValueItemProvider extends PropertyExpressionItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ListValueItemProvider extends PropertyExpressionItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,12 +95,10 @@ public class ListValueItemProvider extends PropertyExpressionItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getListValue_OwnedListElement());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getListValue_OwnedListElement());
 		}
 		return childrenFeatures;
 	}
@@ -127,8 +124,7 @@ public class ListValueItemProvider extends PropertyExpressionItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/ListValue"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ListValue"));
 	}
 
 	/**
@@ -155,8 +151,7 @@ public class ListValueItemProvider extends PropertyExpressionItemProvider
 
 		switch (notification.getFeatureID(ListValue.class)) {
 		case Aadl2Package.LIST_VALUE__OWNED_LIST_ELEMENT:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -170,56 +165,43 @@ public class ListValueItemProvider extends PropertyExpressionItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
 				Aadl2Factory.eINSTANCE.createClassifierValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
 				Aadl2Factory.eINSTANCE.createReferenceValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
 				Aadl2Factory.eINSTANCE.createBooleanLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
 				Aadl2Factory.eINSTANCE.createRangeValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
 				Aadl2Factory.eINSTANCE.createIntegerLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
 				Aadl2Factory.eINSTANCE.createRecordValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
 				Aadl2Factory.eINSTANCE.createComputedValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
 				Aadl2Factory.eINSTANCE.createListValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getListValue_OwnedListElement(),
 				Aadl2Factory.eINSTANCE.createNamedValue()));
 	}
 

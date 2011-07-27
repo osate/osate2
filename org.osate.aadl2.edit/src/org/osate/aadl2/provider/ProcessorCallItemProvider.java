@@ -58,9 +58,8 @@ import org.osate.aadl2.ProcessorCall;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProcessorCallItemProvider extends CallSpecificationItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ProcessorCallItemProvider extends CallSpecificationItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,15 +94,12 @@ public class ProcessorCallItemProvider extends CallSpecificationItemProvider
 	 */
 	protected void addSubprogramAccessNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ProcessorCall_subprogramAccessName_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ProcessorCall_subprogramAccessName_feature",
-						"_UI_ProcessorCall_type"), Aadl2Package.eINSTANCE
-						.getProcessorCall_SubprogramAccessName(), true, false,
-				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ProcessorCall_subprogramAccessName_feature",
+						"_UI_ProcessorCall_type"), Aadl2Package.eINSTANCE.getProcessorCall_SubprogramAccessName(),
+				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -114,8 +110,7 @@ public class ProcessorCallItemProvider extends CallSpecificationItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/ProcessorCall"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessorCall"));
 	}
 
 	/**
@@ -144,8 +139,7 @@ public class ProcessorCallItemProvider extends CallSpecificationItemProvider
 
 		switch (notification.getFeatureID(ProcessorCall.class)) {
 		case Aadl2Package.PROCESSOR_CALL__SUBPROGRAM_ACCESS_NAME:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -159,8 +153,7 @@ public class ProcessorCallItemProvider extends CallSpecificationItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

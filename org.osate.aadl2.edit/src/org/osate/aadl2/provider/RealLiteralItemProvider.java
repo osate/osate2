@@ -58,9 +58,8 @@ import org.osate.aadl2.RealLiteral;
  * <!-- end-user-doc -->
  * @generated
  */
-public class RealLiteralItemProvider extends NumberValueItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class RealLiteralItemProvider extends NumberValueItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,15 +95,12 @@ public class RealLiteralItemProvider extends NumberValueItemProvider implements
 	protected void addValuePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_RealLiteral_value_feature"),
-						getString("_UI_PropertyDescriptor_description",
-								"_UI_RealLiteral_value_feature",
-								"_UI_RealLiteral_type"), Aadl2Package.eINSTANCE
-								.getRealLiteral_Value(), true, false, false,
-						ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+						getString("_UI_PropertyDescriptor_description", "_UI_RealLiteral_value_feature",
+								"_UI_RealLiteral_type"), Aadl2Package.eINSTANCE.getRealLiteral_Value(), true, false,
+						false, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -115,8 +111,7 @@ public class RealLiteralItemProvider extends NumberValueItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/RealLiteral"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/RealLiteral"));
 	}
 
 	/**
@@ -144,8 +139,7 @@ public class RealLiteralItemProvider extends NumberValueItemProvider implements
 
 		switch (notification.getFeatureID(RealLiteral.class)) {
 		case Aadl2Package.REAL_LITERAL__VALUE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -159,8 +153,7 @@ public class RealLiteralItemProvider extends NumberValueItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

@@ -62,8 +62,7 @@ import org.osate.aadl2.MetaclassReference;
  *
  * @generated
  */
-public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
-		MetaclassReference {
+public class MetaclassReferenceImpl extends PropertyOwnerImpl implements MetaclassReference {
 	/**
 	 * The default value of the '{@link #getAnnexName() <em>Annex Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -134,9 +133,8 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 		String oldAnnexName = annexName;
 		annexName = newAnnexName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.METACLASS_REFERENCE__ANNEX_NAME, oldAnnexName,
-					annexName));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.METACLASS_REFERENCE__ANNEX_NAME,
+					oldAnnexName, annexName));
 	}
 
 	/**
@@ -215,8 +213,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.METACLASS_REFERENCE__ANNEX_NAME:
-			return ANNEX_NAME_EDEFAULT == null ? annexName != null
-					: !ANNEX_NAME_EDEFAULT.equals(annexName);
+			return ANNEX_NAME_EDEFAULT == null ? annexName != null : !ANNEX_NAME_EDEFAULT.equals(annexName);
 		case Aadl2Package.METACLASS_REFERENCE__METACLASS_NAME:
 			return metaclassNames != null && !metaclassNames.isEmpty();
 		}
@@ -247,19 +244,15 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 		if (metaclass == null) {
 			StringBuilder metaclassName = new StringBuilder();
 			String errorMessage = null;
-			for (Iterator<String> iter = getMetaclassNames().iterator(); iter
-					.hasNext();) {
-				StringBuilder namePart = new StringBuilder(iter.next()
-						.toLowerCase());
+			for (Iterator<String> iter = getMetaclassNames().iterator(); iter.hasNext();) {
+				StringBuilder namePart = new StringBuilder(iter.next().toLowerCase());
 				namePart.setCharAt(0, Character.toUpperCase(namePart.charAt(0)));
 				metaclassName.append(namePart);
 			}
-			EClassifier searchResult = Aadl2Package.eINSTANCE
-					.getEClassifier(metaclassName.toString());
+			EClassifier searchResult = Aadl2Package.eINSTANCE.getEClassifier(metaclassName.toString());
 			if (searchResult instanceof EClass) {
 				EClass searchResultAsEClass = (EClass) searchResult;
-				if (Aadl2Package.eINSTANCE.getNamedElement().isSuperTypeOf(
-						searchResultAsEClass))
+				if (Aadl2Package.eINSTANCE.getNamedElement().isSuperTypeOf(searchResultAsEClass))
 					metaclass = searchResultAsEClass;
 				else
 					errorMessage = "' is not a 'named element' or a subtype of 'named element'";
@@ -267,15 +260,13 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 				errorMessage = "' is not the name of an AADL 2 meta class";
 			if (errorMessage != null) {
 				StringBuilder errorMessageBuilder = new StringBuilder("'");
-				for (Iterator<String> iter = getMetaclassNames().iterator(); iter
-						.hasNext();) {
+				for (Iterator<String> iter = getMetaclassNames().iterator(); iter.hasNext();) {
 					errorMessageBuilder.append(iter.next());
 					if (iter.hasNext())
 						errorMessageBuilder.append(' ');
 				}
 				errorMessageBuilder.append(errorMessage);
-				throw new IllegalArgumentException(
-						errorMessageBuilder.toString());
+				throw new IllegalArgumentException(errorMessageBuilder.toString());
 			}
 		}
 		return metaclass;

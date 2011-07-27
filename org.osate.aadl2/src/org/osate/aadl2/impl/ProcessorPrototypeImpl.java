@@ -36,7 +36,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ProcessorPrototype;
 
 /**
@@ -48,8 +47,7 @@ import org.osate.aadl2.ProcessorPrototype;
  *
  * @generated
  */
-public class ProcessorPrototypeImpl extends ComponentPrototypeImpl implements
-		ProcessorPrototype {
+public class ProcessorPrototypeImpl extends ComponentPrototypeImpl implements ProcessorPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,10 +65,6 @@ public class ProcessorPrototypeImpl extends ComponentPrototypeImpl implements
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessorPrototype();
-	}
-
-	public ComponentCategory getCategory() {
-		return ComponentCategory.PROCESSOR;
 	}
 
 } //ProcessorPrototypeImpl

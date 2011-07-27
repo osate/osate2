@@ -112,8 +112,7 @@ public class ElementNameImpl extends ConnectionEndImpl implements ElementName {
 		ElementNameKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ELEMENT_NAME__KIND, oldKind, kind));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ELEMENT_NAME__KIND, oldKind, kind));
 	}
 
 	/**

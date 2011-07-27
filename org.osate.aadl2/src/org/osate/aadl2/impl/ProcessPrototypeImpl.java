@@ -36,7 +36,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ProcessPrototype;
 
 /**
@@ -48,8 +47,7 @@ import org.osate.aadl2.ProcessPrototype;
  *
  * @generated
  */
-public class ProcessPrototypeImpl extends ComponentPrototypeImpl implements
-		ProcessPrototype {
+public class ProcessPrototypeImpl extends ComponentPrototypeImpl implements ProcessPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,10 +65,6 @@ public class ProcessPrototypeImpl extends ComponentPrototypeImpl implements
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessPrototype();
-	}
-
-	public ComponentCategory getCategory() {
-		return ComponentCategory.PROCESS;
 	}
 
 } //ProcessPrototypeImpl

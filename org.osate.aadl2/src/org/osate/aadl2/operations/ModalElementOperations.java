@@ -77,8 +77,7 @@ public class ModalElementOperations extends NamedElementOperations {
 			if (inmodes != null && !inmodes.isEmpty())
 				return inmodes;
 			if (modalElement instanceof RefinableElement)
-				modalElement = (ModalElement) ((RefinableElement) modalElement)
-						.getRefinedElement();
+				modalElement = (ModalElement) ((RefinableElement) modalElement).getRefinedElement();
 			else
 				modalElement = null;
 		}

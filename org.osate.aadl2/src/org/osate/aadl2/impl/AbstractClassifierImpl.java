@@ -48,8 +48,7 @@ import org.osate.aadl2.AbstractClassifier;
  *
  * @generated
  */
-public abstract class AbstractClassifierImpl extends ComponentClassifierImpl
-		implements AbstractClassifier {
+public abstract class AbstractClassifierImpl extends ComponentClassifierImpl implements AbstractClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

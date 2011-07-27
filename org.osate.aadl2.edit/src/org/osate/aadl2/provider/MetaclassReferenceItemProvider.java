@@ -59,9 +59,8 @@ import org.osate.aadl2.MetaclassReference;
  * <!-- end-user-doc -->
  * @generated
  */
-public class MetaclassReferenceItemProvider extends PropertyOwnerItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class MetaclassReferenceItemProvider extends PropertyOwnerItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -97,15 +96,12 @@ public class MetaclassReferenceItemProvider extends PropertyOwnerItemProvider
 	 */
 	protected void addAnnexNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_MetaclassReference_annexName_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_MetaclassReference_annexName_feature",
-						"_UI_MetaclassReference_type"), Aadl2Package.eINSTANCE
-						.getMetaclassReference_AnnexName(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_MetaclassReference_annexName_feature",
+						"_UI_MetaclassReference_type"), Aadl2Package.eINSTANCE.getMetaclassReference_AnnexName(), true,
+				false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -116,15 +112,12 @@ public class MetaclassReferenceItemProvider extends PropertyOwnerItemProvider
 	 */
 	protected void addMetaclassNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_MetaclassReference_metaclassName_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_MetaclassReference_metaclassName_feature",
-						"_UI_MetaclassReference_type"), Aadl2Package.eINSTANCE
-						.getMetaclassReference_MetaclassName(), true, false,
-				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_MetaclassReference_metaclassName_feature",
+						"_UI_MetaclassReference_type"), Aadl2Package.eINSTANCE.getMetaclassReference_MetaclassName(),
+				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -135,8 +128,7 @@ public class MetaclassReferenceItemProvider extends PropertyOwnerItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/MetaclassReference"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/MetaclassReference"));
 	}
 
 	/**
@@ -166,8 +158,7 @@ public class MetaclassReferenceItemProvider extends PropertyOwnerItemProvider
 		switch (notification.getFeatureID(MetaclassReference.class)) {
 		case Aadl2Package.METACLASS_REFERENCE__ANNEX_NAME:
 		case Aadl2Package.METACLASS_REFERENCE__METACLASS_NAME:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -181,8 +172,7 @@ public class MetaclassReferenceItemProvider extends PropertyOwnerItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

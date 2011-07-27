@@ -47,8 +47,7 @@ import org.osate.aadl2.Aadl2Package;
  *
  * @generated
  */
-public abstract class ThreadImpl extends NamedElementImpl implements
-		org.osate.aadl2.Thread {
+public abstract class ThreadImpl extends NamedElementImpl implements org.osate.aadl2.Thread {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -44,6 +44,5 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface SubprogramPrototype extends ComponentPrototype,
-		SubprogramSubcomponentType {
+public interface SubprogramPrototype extends ComponentPrototype, SubprogramSubcomponentType {
 } // SubprogramPrototype

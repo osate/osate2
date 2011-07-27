@@ -56,9 +56,8 @@ import org.osate.aadl2.Aadl2Package;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ModeBindingItemProvider extends ElementItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ModeBindingItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -94,15 +93,12 @@ public class ModeBindingItemProvider extends ElementItemProvider implements
 	 */
 	protected void addParentModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ModeBinding_parentMode_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ModeBinding_parentMode_feature",
-						"_UI_ModeBinding_type"), Aadl2Package.eINSTANCE
-						.getModeBinding_ParentMode(), true, false, true, null,
-				null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ModeBinding_parentMode_feature",
+						"_UI_ModeBinding_type"), Aadl2Package.eINSTANCE.getModeBinding_ParentMode(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -113,15 +109,12 @@ public class ModeBindingItemProvider extends ElementItemProvider implements
 	 */
 	protected void addDerivedModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ModeBinding_derivedMode_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ModeBinding_derivedMode_feature",
-						"_UI_ModeBinding_type"), Aadl2Package.eINSTANCE
-						.getModeBinding_DerivedMode(), true, false, true, null,
-				null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ModeBinding_derivedMode_feature",
+						"_UI_ModeBinding_type"), Aadl2Package.eINSTANCE.getModeBinding_DerivedMode(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -132,8 +125,7 @@ public class ModeBindingItemProvider extends ElementItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/ModeBinding"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ModeBinding"));
 	}
 
 	/**
@@ -168,8 +160,7 @@ public class ModeBindingItemProvider extends ElementItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

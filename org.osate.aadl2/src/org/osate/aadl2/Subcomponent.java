@@ -49,7 +49,7 @@ import org.eclipse.emf.ecore.EClass;
  *   <li>{@link org.osate.aadl2.Subcomponent#getSubcomponentType <em>Subcomponent Type</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getOwnedPrototypeBindings <em>Owned Prototype Binding</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getPrototype <em>Prototype</em>}</li>
- *   <li>{@link org.osate.aadl2.Subcomponent#getModeBindings <em>Mode Binding</em>}</li>
+ *   <li>{@link org.osate.aadl2.Subcomponent#getOwnedModeBindings <em>Owned Mode Binding</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#isAllModes <em>All Modes</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getImplementationReferences <em>Implementation Reference</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getRefined <em>Refined</em>}</li>
@@ -61,8 +61,7 @@ import org.eclipse.emf.ecore.EClass;
  * @model abstract="true"
  * @generated
  */
-public interface Subcomponent extends StructuralFeature, ModalElement, Context,
-		FlowElement, ArrayableElement {
+public interface Subcomponent extends StructuralFeature, ModalElement, Context, FlowElement, ArrayableElement {
 	/**
 	 * Returns the value of the '<em><b>Subcomponent Type</b></em>' reference.
 	 * This feature is a derived union.
@@ -149,30 +148,30 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context,
 	ComponentPrototype getPrototype();
 
 	/**
-	 * Returns the value of the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.ModeBinding}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Mode Binding</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Owned Mode Binding</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Mode Binding</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_ModeBinding()
+	 * @return the value of the '<em>Owned Mode Binding</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_OwnedModeBinding()
 	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
-	EList<ModeBinding> getModeBindings();
+	EList<ModeBinding> getOwnedModeBindings();
 
 	/**
-	 * Creates a new {@link org.osate.aadl2.ModeBinding} and appends it to the '<em><b>Mode Binding</b></em>' containment reference list.
+	 * Creates a new {@link org.osate.aadl2.ModeBinding} and appends it to the '<em><b>Owned Mode Binding</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return The new {@link org.osate.aadl2.ModeBinding}.
-	 * @see #getModeBindings()
+	 * @see #getOwnedModeBindings()
 	 * @generated
 	 */
-	ModeBinding createModeBinding();
+	ModeBinding createOwnedModeBinding();
 
 	/**
 	 * Returns the value of the '<em><b>All Modes</b></em>' attribute.

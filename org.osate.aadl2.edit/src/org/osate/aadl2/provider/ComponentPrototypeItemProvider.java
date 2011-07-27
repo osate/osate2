@@ -59,9 +59,8 @@ import org.osate.aadl2.ComponentPrototype;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComponentPrototypeItemProvider extends PrototypeItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ComponentPrototypeItemProvider extends PrototypeItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -97,15 +96,12 @@ public class ComponentPrototypeItemProvider extends PrototypeItemProvider
 	 */
 	protected void addArrayPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentPrototype_array_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ComponentPrototype_array_feature",
-						"_UI_ComponentPrototype_type"), Aadl2Package.eINSTANCE
-						.getComponentPrototype_Array(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentPrototype_array_feature",
+						"_UI_ComponentPrototype_type"), Aadl2Package.eINSTANCE.getComponentPrototype_Array(), true,
+				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -115,19 +111,14 @@ public class ComponentPrototypeItemProvider extends PrototypeItemProvider
 	 * @generated
 	 */
 	protected void addConstrainingClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ComponentPrototype_constrainingClassifier_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_ComponentPrototype_constrainingClassifier_feature",
-								"_UI_ComponentPrototype_type"),
-						Aadl2Package.eINSTANCE
-								.getComponentPrototype_ConstrainingClassifier(),
-						true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ComponentPrototype_constrainingClassifier_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ComponentPrototype_constrainingClassifier_feature", "_UI_ComponentPrototype_type"),
+				Aadl2Package.eINSTANCE.getComponentPrototype_ConstrainingClassifier(), true, false, true, null, null,
+				null));
 	}
 
 	/**
@@ -138,8 +129,7 @@ public class ComponentPrototypeItemProvider extends PrototypeItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/ComponentPrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ComponentPrototype"));
 	}
 
 	/**
@@ -168,8 +158,7 @@ public class ComponentPrototypeItemProvider extends PrototypeItemProvider
 
 		switch (notification.getFeatureID(ComponentPrototype.class)) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -183,8 +172,7 @@ public class ComponentPrototypeItemProvider extends PrototypeItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

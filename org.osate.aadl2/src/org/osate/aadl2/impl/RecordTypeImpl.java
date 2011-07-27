@@ -40,15 +40,10 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.ocl.EvaluationEnvironment;
-import org.eclipse.ocl.ParserException;
-import org.eclipse.ocl.ecore.OCL;
-import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -113,24 +108,17 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(
-					eResource, this,
+			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
-				cache.put(
-						eResource,
-						this,
-						Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(
-								NamedElement.class, this,
-								Aadl2Package.RECORD_TYPE__OWNED_MEMBER,
-								OWNED_MEMBER_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
+						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+								Aadl2Package.RECORD_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
-				this, Aadl2Package.RECORD_TYPE__OWNED_MEMBER,
-				OWNED_MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+				Aadl2Package.RECORD_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
 	/**
@@ -150,8 +138,7 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 */
 	public EList<BasicProperty> getOwnedFields() {
 		if (ownedFields == null) {
-			ownedFields = new EObjectContainmentEList<BasicProperty>(
-					BasicProperty.class, this,
+			ownedFields = new EObjectContainmentEList<BasicProperty>(BasicProperty.class, this,
 					Aadl2Package.RECORD_TYPE__OWNED_FIELD);
 		}
 		return ownedFields;
@@ -192,12 +179,10 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_TYPE__OWNED_FIELD:
-			return ((InternalEList<?>) getOwnedFields()).basicRemove(otherEnd,
-					msgs);
+			return ((InternalEList<?>) getOwnedFields()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -227,8 +212,7 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 		switch (featureID) {
 		case Aadl2Package.RECORD_TYPE__OWNED_FIELD:
 			getOwnedFields().clear();
-			getOwnedFields().addAll(
-					(Collection<? extends BasicProperty>) newValue);
+			getOwnedFields().addAll((Collection<? extends BasicProperty>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -270,8 +254,7 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 */
 	@Override
 	public boolean isSetOwnedMembers() {
-		return super.isSetOwnedMembers()
-				|| eIsSet(Aadl2Package.RECORD_TYPE__OWNED_FIELD);
+		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.RECORD_TYPE__OWNED_FIELD);
 	}
 
 } //RecordTypeImpl

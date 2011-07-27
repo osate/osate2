@@ -56,9 +56,8 @@ import org.osate.aadl2.AbstractSubcomponent;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AbstractSubcomponentItemProvider extends SubcomponentItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class AbstractSubcomponentItemProvider extends SubcomponentItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -92,19 +91,14 @@ public class AbstractSubcomponentItemProvider extends SubcomponentItemProvider
 	 * @generated
 	 */
 	protected void addAbstractSubcomponentTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_AbstractSubcomponent_abstractSubcomponentType_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_AbstractSubcomponent_abstractSubcomponentType_feature",
-								"_UI_AbstractSubcomponent_type"),
-						Aadl2Package.eINSTANCE
-								.getAbstractSubcomponent_AbstractSubcomponentType(),
-						true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_AbstractSubcomponent_abstractSubcomponentType_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_AbstractSubcomponent_abstractSubcomponentType_feature", "_UI_AbstractSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getAbstractSubcomponent_AbstractSubcomponentType(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -115,9 +109,7 @@ public class AbstractSubcomponentItemProvider extends SubcomponentItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator()
-						.getImage("full/obj16/AbstractSubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractSubcomponent"));
 	}
 
 	/**
@@ -154,8 +146,7 @@ public class AbstractSubcomponentItemProvider extends SubcomponentItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

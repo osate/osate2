@@ -48,8 +48,7 @@ import org.osate.aadl2.ThreadClassifier;
  *
  * @generated
  */
-public abstract class ThreadClassifierImpl extends ComponentClassifierImpl
-		implements ThreadClassifier {
+public abstract class ThreadClassifierImpl extends ComponentClassifierImpl implements ThreadClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

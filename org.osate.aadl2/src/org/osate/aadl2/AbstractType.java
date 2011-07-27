@@ -59,8 +59,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface AbstractType extends ComponentType, AbstractClassifier,
-		CallContext {
+public interface AbstractType extends ComponentType, AbstractClassifier, CallContext {
 	/**
 	 * Returns the value of the '<em><b>Owned Bus Access</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.BusAccess}.

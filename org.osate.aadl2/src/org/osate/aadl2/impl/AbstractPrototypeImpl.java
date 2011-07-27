@@ -37,7 +37,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractPrototype;
-import org.osate.aadl2.ComponentCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -48,8 +47,7 @@ import org.osate.aadl2.ComponentCategory;
  *
  * @generated
  */
-public class AbstractPrototypeImpl extends ComponentPrototypeImpl implements
-		AbstractPrototype {
+public class AbstractPrototypeImpl extends ComponentPrototypeImpl implements AbstractPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,10 +65,6 @@ public class AbstractPrototypeImpl extends ComponentPrototypeImpl implements
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractPrototype();
-	}
-
-	public ComponentCategory getCategory() {
-		return ComponentCategory.ABSTRACT;
 	}
 
 } //AbstractPrototypeImpl

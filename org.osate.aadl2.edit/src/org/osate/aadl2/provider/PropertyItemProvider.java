@@ -60,9 +60,8 @@ import org.osate.aadl2.Property;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PropertyItemProvider extends BasicPropertyItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class PropertyItemProvider extends BasicPropertyItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -100,14 +99,11 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements
 	 */
 	protected void addInheritPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Property_inherit_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Property_inherit_feature", "_UI_Property_type"),
-				Aadl2Package.eINSTANCE.getProperty_Inherit(), true, false,
-				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Property_inherit_feature", "_UI_Property_type"),
+				Aadl2Package.eINSTANCE.getProperty_Inherit(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -118,15 +114,12 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements
 	 */
 	protected void addAppliesToMetaclassPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Property_appliesToMetaclass_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Property_appliesToMetaclass_feature",
-						"_UI_Property_type"), Aadl2Package.eINSTANCE
-						.getProperty_AppliesToMetaclass(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Property_appliesToMetaclass_feature",
+						"_UI_Property_type"), Aadl2Package.eINSTANCE.getProperty_AppliesToMetaclass(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -137,15 +130,12 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements
 	 */
 	protected void addAppliesToClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Property_appliesToClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Property_appliesToClassifier_feature",
-						"_UI_Property_type"), Aadl2Package.eINSTANCE
-						.getProperty_AppliesToClassifier(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Property_appliesToClassifier_feature",
+						"_UI_Property_type"), Aadl2Package.eINSTANCE.getProperty_AppliesToClassifier(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -156,15 +146,12 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements
 	 */
 	protected void addEmptyListDefaultPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_Property_emptyListDefault_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Property_emptyListDefault_feature",
-						"_UI_Property_type"), Aadl2Package.eINSTANCE
-						.getProperty_EmptyListDefault(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Property_emptyListDefault_feature",
+						"_UI_Property_type"), Aadl2Package.eINSTANCE.getProperty_EmptyListDefault(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -176,14 +163,11 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getProperty_DefaultValue());
-			childrenFeatures
-					.add(Aadl2Package.eINSTANCE.getProperty_AppliesTo());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getProperty_DefaultValue());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getProperty_AppliesTo());
 		}
 		return childrenFeatures;
 	}
@@ -209,8 +193,7 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Property"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Property"));
 	}
 
 	/**
@@ -222,8 +205,8 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements
 	@Override
 	public String getText(Object object) {
 		String label = ((Property) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Property_type")
-				: getString("_UI_Property_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Property_type") : getString("_UI_Property_type")
+				+ " " + label;
 	}
 
 	/**
@@ -240,13 +223,11 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements
 		switch (notification.getFeatureID(Property.class)) {
 		case Aadl2Package.PROPERTY__INHERIT:
 		case Aadl2Package.PROPERTY__EMPTY_LIST_DEFAULT:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.PROPERTY__DEFAULT_VALUE:
 		case Aadl2Package.PROPERTY__APPLIES_TO:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -260,64 +241,49 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createClassifierValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createReferenceValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createBooleanLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createRangeValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createIntegerLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createRecordValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createComputedValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createListValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_DefaultValue(),
 				Aadl2Factory.eINSTANCE.createNamedValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_AppliesTo(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_AppliesTo(),
 				Aadl2Factory.eINSTANCE.createMetaclassReference()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProperty_AppliesTo(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProperty_AppliesTo(),
 				Aadl2Factory.eINSTANCE.createClassifierValue()));
 	}
 
@@ -328,20 +294,16 @@ public class PropertyItemProvider extends BasicPropertyItemProvider implements
 	 * @generated
 	 */
 	@Override
-	public String getCreateChildText(Object owner, Object feature,
-			Object child, Collection<?> selection) {
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
 		Object childFeature = feature;
 		Object childObject = child;
 
-		boolean qualify = childFeature == Aadl2Package.eINSTANCE
-				.getProperty_DefaultValue()
-				|| childFeature == Aadl2Package.eINSTANCE
-						.getProperty_AppliesTo();
+		boolean qualify = childFeature == Aadl2Package.eINSTANCE.getProperty_DefaultValue()
+				|| childFeature == Aadl2Package.eINSTANCE.getProperty_AppliesTo();
 
 		if (qualify) {
-			return getString("_UI_CreateChild_text2", new Object[] {
-					getTypeText(childObject), getFeatureText(childFeature),
-					getTypeText(owner) });
+			return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject),
+					getFeatureText(childFeature), getTypeText(owner) });
 		}
 		return super.getCreateChildText(owner, feature, child, selection);
 	}

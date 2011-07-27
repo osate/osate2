@@ -56,9 +56,8 @@ import org.osate.aadl2.SubprogramAccess;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubprogramAccessItemProvider extends AccessItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class SubprogramAccessItemProvider extends AccessItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -80,28 +79,26 @@ public class SubprogramAccessItemProvider extends AccessItemProvider implements
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addSubprogramClassifierPropertyDescriptor(object);
+			addSubprogramFeatureClassifierPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Subprogram Classifier feature.
+	 * This adds a property descriptor for the Subprogram Feature Classifier feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addSubprogramClassifierPropertyDescriptor(Object object) {
+	protected void addSubprogramFeatureClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_SubprogramAccess_subprogramClassifier_feature"),
+				getString("_UI_SubprogramAccess_subprogramFeatureClassifier_feature"),
 				getString("_UI_PropertyDescriptor_description",
-						"_UI_SubprogramAccess_subprogramClassifier_feature",
-						"_UI_SubprogramAccess_type"), Aadl2Package.eINSTANCE
-						.getSubprogramAccess_SubprogramClassifier(), true,
-				false, true, null, null, null));
+						"_UI_SubprogramAccess_subprogramFeatureClassifier_feature", "_UI_SubprogramAccess_type"),
+				Aadl2Package.eINSTANCE.getSubprogramAccess_SubprogramFeatureClassifier(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -112,8 +109,7 @@ public class SubprogramAccessItemProvider extends AccessItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/SubprogramAccess"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramAccess"));
 	}
 
 	/**
@@ -150,8 +146,7 @@ public class SubprogramAccessItemProvider extends AccessItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

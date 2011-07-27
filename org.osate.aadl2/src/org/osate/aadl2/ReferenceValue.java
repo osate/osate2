@@ -52,8 +52,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  */
 public interface ReferenceValue extends ContainedNamedElement, PropertyValue {
 
-	public PropertyExpression instantiate(ComponentInstance root)
-			throws InvalidModelException;
+	public PropertyExpression instantiate(ComponentInstance root) throws InvalidModelException;
 
 	public EvaluatedProperty evaluate(EvaluationContext ctx);
 

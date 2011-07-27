@@ -39,7 +39,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.InternalEvent;
-import org.osate.aadl2.operations.NamedElementOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -50,8 +49,7 @@ import org.osate.aadl2.operations.NamedElementOperations;
  *
  * @generated
  */
-public class InternalEventImpl extends NamedElementImpl implements
-		InternalEvent {
+public class InternalEventImpl extends NamedElementImpl implements InternalEvent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -71,6 +69,9 @@ public class InternalEventImpl extends NamedElementImpl implements
 		return Aadl2Package.eINSTANCE.getInternalEvent();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.impl.NamedElementImpl#qualifiedName()
+	 */
 	@Override
 	public String qualifiedName() {
 		return getName();

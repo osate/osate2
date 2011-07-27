@@ -60,9 +60,8 @@ import org.osate.aadl2.ComponentClassifier;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComponentClassifierItemProvider extends ClassifierItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ComponentClassifierItemProvider extends ClassifierItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -98,15 +97,12 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider
 	 */
 	protected void addNoFlowsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentClassifier_noFlows_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ComponentClassifier_noFlows_feature",
-						"_UI_ComponentClassifier_type"), Aadl2Package.eINSTANCE
-						.getComponentClassifier_NoFlows(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentClassifier_noFlows_feature",
+						"_UI_ComponentClassifier_type"), Aadl2Package.eINSTANCE.getComponentClassifier_NoFlows(), true,
+				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -117,15 +113,12 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider
 	 */
 	protected void addNoModesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComponentClassifier_noModes_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ComponentClassifier_noModes_feature",
-						"_UI_ComponentClassifier_type"), Aadl2Package.eINSTANCE
-						.getComponentClassifier_NoModes(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentClassifier_noModes_feature",
+						"_UI_ComponentClassifier_type"), Aadl2Package.eINSTANCE.getComponentClassifier_NoModes(), true,
+				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -137,14 +130,11 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getComponentClassifier_OwnedMode());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getComponentClassifier_OwnedModeTransition());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentClassifier_OwnedMode());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentClassifier_OwnedModeTransition());
 		}
 		return childrenFeatures;
 	}
@@ -189,13 +179,11 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider
 		switch (notification.getFeatureID(ComponentClassifier.class)) {
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS:
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_MODES:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE:
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -209,16 +197,14 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentClassifier_OwnedMode(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentClassifier_OwnedMode(),
 				Aadl2Factory.eINSTANCE.createMode()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
-				.getComponentClassifier_OwnedModeTransition(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentClassifier_OwnedModeTransition(),
 				Aadl2Factory.eINSTANCE.createModeTransition()));
 	}
 

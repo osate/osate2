@@ -58,10 +58,9 @@ import org.osate.aadl2.DeviceImplementation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DeviceImplementationItemProvider extends
-		ComponentImplementationItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class DeviceImplementationItemProvider extends ComponentImplementationItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,14 +95,11 @@ public class DeviceImplementationItemProvider extends
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getDeviceImplementation_OwnedDataSubcomponent());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getDeviceImplementation_OwnedVirtualBusSubcomponent());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedDataSubcomponent());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedVirtualBusSubcomponent());
 		}
 		return childrenFeatures;
 	}
@@ -129,9 +125,7 @@ public class DeviceImplementationItemProvider extends
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator()
-						.getImage("full/obj16/DeviceImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DeviceImplementation"));
 	}
 
 	/**
@@ -161,8 +155,7 @@ public class DeviceImplementationItemProvider extends
 		switch (notification.getFeatureID(DeviceImplementation.class)) {
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -176,16 +169,15 @@ public class DeviceImplementationItemProvider extends
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
-				.getDeviceImplementation_OwnedDataSubcomponent(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedDataSubcomponent(),
 				Aadl2Factory.eINSTANCE.createDataSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
-				.getDeviceImplementation_OwnedVirtualBusSubcomponent(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedVirtualBusSubcomponent(),
 				Aadl2Factory.eINSTANCE.createVirtualBusSubcomponent()));
 	}
 

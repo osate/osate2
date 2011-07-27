@@ -58,9 +58,8 @@ import org.osate.aadl2.IntegerLiteral;
  * <!-- end-user-doc -->
  * @generated
  */
-public class IntegerLiteralItemProvider extends NumberValueItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class IntegerLiteralItemProvider extends NumberValueItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,15 +95,12 @@ public class IntegerLiteralItemProvider extends NumberValueItemProvider
 	 */
 	protected void addBasePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_IntegerLiteral_base_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_IntegerLiteral_base_feature",
-						"_UI_IntegerLiteral_type"), Aadl2Package.eINSTANCE
-						.getIntegerLiteral_Base(), true, false, false,
-				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_IntegerLiteral_base_feature",
+						"_UI_IntegerLiteral_type"), Aadl2Package.eINSTANCE.getIntegerLiteral_Base(), true, false,
+				false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -115,15 +111,12 @@ public class IntegerLiteralItemProvider extends NumberValueItemProvider
 	 */
 	protected void addValuePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_IntegerLiteral_value_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_IntegerLiteral_value_feature",
-						"_UI_IntegerLiteral_type"), Aadl2Package.eINSTANCE
-						.getIntegerLiteral_Value(), true, false, false,
-				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_IntegerLiteral_value_feature",
+						"_UI_IntegerLiteral_type"), Aadl2Package.eINSTANCE.getIntegerLiteral_Value(), true, false,
+				false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -134,8 +127,7 @@ public class IntegerLiteralItemProvider extends NumberValueItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/IntegerLiteral"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/IntegerLiteral"));
 	}
 
 	/**
@@ -147,8 +139,7 @@ public class IntegerLiteralItemProvider extends NumberValueItemProvider
 	@Override
 	public String getText(Object object) {
 		IntegerLiteral integerLiteral = (IntegerLiteral) object;
-		return getString("_UI_IntegerLiteral_type") + " "
-				+ integerLiteral.getBase();
+		return getString("_UI_IntegerLiteral_type") + " " + integerLiteral.getBase();
 	}
 
 	/**
@@ -165,8 +156,7 @@ public class IntegerLiteralItemProvider extends NumberValueItemProvider
 		switch (notification.getFeatureID(IntegerLiteral.class)) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:
 		case Aadl2Package.INTEGER_LITERAL__VALUE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -180,8 +170,7 @@ public class IntegerLiteralItemProvider extends NumberValueItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

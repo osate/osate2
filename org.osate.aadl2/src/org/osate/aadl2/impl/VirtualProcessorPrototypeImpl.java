@@ -36,7 +36,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.VirtualProcessorPrototype;
 
 /**
@@ -48,8 +47,7 @@ import org.osate.aadl2.VirtualProcessorPrototype;
  *
  * @generated
  */
-public class VirtualProcessorPrototypeImpl extends ComponentPrototypeImpl
-		implements VirtualProcessorPrototype {
+public class VirtualProcessorPrototypeImpl extends ComponentPrototypeImpl implements VirtualProcessorPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,10 +65,6 @@ public class VirtualProcessorPrototypeImpl extends ComponentPrototypeImpl
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualProcessorPrototype();
-	}
-
-	public ComponentCategory getCategory() {
-		return ComponentCategory.VIRTUAL_PROCESSOR;
 	}
 
 } //VirtualProcessorPrototypeImpl

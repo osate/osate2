@@ -54,8 +54,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SubprogramGroupType extends ComponentType,
-		SubprogramGroupClassifier, CallContext {
+public interface SubprogramGroupType extends ComponentType, SubprogramGroupClassifier, CallContext {
 	/**
 	 * Returns the value of the '<em><b>Owned Subprogram Access</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramAccess}.

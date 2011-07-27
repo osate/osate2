@@ -60,10 +60,9 @@ import org.osate.aadl2.FeaturePrototypeReference;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeaturePrototypeReferenceItemProvider extends
-		FeaturePrototypeActualItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class FeaturePrototypeReferenceItemProvider extends FeaturePrototypeActualItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -98,20 +97,14 @@ public class FeaturePrototypeReferenceItemProvider extends
 	 * @generated
 	 */
 	protected void addDirectionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_FeaturePrototypeReference_direction_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_FeaturePrototypeReference_direction_feature",
-								"_UI_FeaturePrototypeReference_type"),
-						Aadl2Package.eINSTANCE
-								.getFeaturePrototypeReference_Direction(),
-						true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_FeaturePrototypeReference_direction_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FeaturePrototypeReference_direction_feature",
+						"_UI_FeaturePrototypeReference_type"), Aadl2Package.eINSTANCE
+						.getFeaturePrototypeReference_Direction(), true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -121,19 +114,13 @@ public class FeaturePrototypeReferenceItemProvider extends
 	 * @generated
 	 */
 	protected void addPrototypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_FeaturePrototypeReference_prototype_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_FeaturePrototypeReference_prototype_feature",
-								"_UI_FeaturePrototypeReference_type"),
-						Aadl2Package.eINSTANCE
-								.getFeaturePrototypeReference_Prototype(),
-						true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_FeaturePrototypeReference_prototype_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FeaturePrototypeReference_prototype_feature",
+						"_UI_FeaturePrototypeReference_type"), Aadl2Package.eINSTANCE
+						.getFeaturePrototypeReference_Prototype(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -144,10 +131,7 @@ public class FeaturePrototypeReferenceItemProvider extends
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/FeaturePrototypeReference"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeaturePrototypeReference"));
 	}
 
 	/**
@@ -158,8 +142,7 @@ public class FeaturePrototypeReferenceItemProvider extends
 	 */
 	@Override
 	public String getText(Object object) {
-		DirectionType labelValue = ((FeaturePrototypeReference) object)
-				.getDirection();
+		DirectionType labelValue = ((FeaturePrototypeReference) object).getDirection();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ? getString("_UI_FeaturePrototypeReference_type")
 				: getString("_UI_FeaturePrototypeReference_type") + " " + label;
@@ -178,8 +161,7 @@ public class FeaturePrototypeReferenceItemProvider extends
 
 		switch (notification.getFeatureID(FeaturePrototypeReference.class)) {
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__DIRECTION:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -193,8 +175,7 @@ public class FeaturePrototypeReferenceItemProvider extends
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

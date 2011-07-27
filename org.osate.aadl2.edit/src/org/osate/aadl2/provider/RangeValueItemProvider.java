@@ -58,9 +58,8 @@ import org.osate.aadl2.RangeValue;
  * <!-- end-user-doc -->
  * @generated
  */
-public class RangeValueItemProvider extends PropertyValueItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class RangeValueItemProvider extends PropertyValueItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,14 +94,11 @@ public class RangeValueItemProvider extends PropertyValueItemProvider implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures
-					.add(Aadl2Package.eINSTANCE.getRangeValue_Minimum());
-			childrenFeatures
-					.add(Aadl2Package.eINSTANCE.getRangeValue_Maximum());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getRangeValue_Minimum());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getRangeValue_Maximum());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getRangeValue_Delta());
 		}
 		return childrenFeatures;
@@ -129,8 +125,7 @@ public class RangeValueItemProvider extends PropertyValueItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/RangeValue"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/RangeValue"));
 	}
 
 	/**
@@ -159,8 +154,7 @@ public class RangeValueItemProvider extends PropertyValueItemProvider implements
 		case Aadl2Package.RANGE_VALUE__MINIMUM:
 		case Aadl2Package.RANGE_VALUE__MAXIMUM:
 		case Aadl2Package.RANGE_VALUE__DELTA:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -174,152 +168,115 @@ public class RangeValueItemProvider extends PropertyValueItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createClassifierValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createReferenceValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createBooleanLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createRangeValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createIntegerLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createRecordValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createComputedValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createListValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Minimum(),
 				Aadl2Factory.eINSTANCE.createNamedValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createClassifierValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createReferenceValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createBooleanLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createRangeValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createIntegerLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createRecordValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createComputedValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createListValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Maximum(),
 				Aadl2Factory.eINSTANCE.createNamedValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createClassifierValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createReferenceValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createBooleanLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createRangeValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createIntegerLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createRecordValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createComputedValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createListValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getRangeValue_Delta(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRangeValue_Delta(),
 				Aadl2Factory.eINSTANCE.createNamedValue()));
 	}
 
@@ -330,21 +287,17 @@ public class RangeValueItemProvider extends PropertyValueItemProvider implements
 	 * @generated
 	 */
 	@Override
-	public String getCreateChildText(Object owner, Object feature,
-			Object child, Collection<?> selection) {
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
 		Object childFeature = feature;
 		Object childObject = child;
 
-		boolean qualify = childFeature == Aadl2Package.eINSTANCE
-				.getRangeValue_Minimum()
-				|| childFeature == Aadl2Package.eINSTANCE
-						.getRangeValue_Maximum()
+		boolean qualify = childFeature == Aadl2Package.eINSTANCE.getRangeValue_Minimum()
+				|| childFeature == Aadl2Package.eINSTANCE.getRangeValue_Maximum()
 				|| childFeature == Aadl2Package.eINSTANCE.getRangeValue_Delta();
 
 		if (qualify) {
-			return getString("_UI_CreateChild_text2", new Object[] {
-					getTypeText(childObject), getFeatureText(childFeature),
-					getTypeText(owner) });
+			return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject),
+					getFeatureText(childFeature), getTypeText(owner) });
 		}
 		return super.getCreateChildText(owner, feature, child, selection);
 	}

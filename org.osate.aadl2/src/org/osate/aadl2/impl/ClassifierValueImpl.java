@@ -61,8 +61,7 @@ import org.osate.aadl2.properties.EvaluationContext;
  *
  * @generated
  */
-public class ClassifierValueImpl extends PropertyOwnerImpl implements
-		ClassifierValue {
+public class ClassifierValueImpl extends PropertyOwnerImpl implements ClassifierValue {
 	/**
 	 * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -104,8 +103,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements
 			if (classifier != oldClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER,
-							oldClassifier, classifier));
+							Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER, oldClassifier, classifier));
 			}
 		}
 		return classifier;
@@ -129,9 +127,8 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements
 		Classifier oldClassifier = classifier;
 		classifier = newClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER, oldClassifier,
-					classifier));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER,
+					oldClassifier, classifier));
 	}
 
 	/**
@@ -206,30 +203,12 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements
 		return this;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((classifier == null) ? 0 : classifier.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ClassifierValueImpl other = (ClassifierValueImpl) obj;
-		if (classifier == null) {
-			if (other.classifier != null)
-				return false;
-		} else if (!classifier.equals(other.classifier))
-			return false;
-		return true;
+	public boolean equals(Object other) {
+		return (other instanceof ClassifierValue) && ((ClassifierValue) other).getClassifier() == classifier;
 	}
 
 } //ClassifierValueImpl
