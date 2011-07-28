@@ -144,21 +144,6 @@ public class PredeclaredProperties {
 			try {
 				pluginResourcesProject.create(null);
 				pluginResourcesProject.open(null);
-				IFolder modelDirectory = pluginResourcesProject
-						.getFolder(WorkspacePlugin.DEFAULT_MODEL_DIR);
-				IFolder sourceDirectory = pluginResourcesProject
-						.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR);
-				modelDirectory.create(true, true, null);
-				sourceDirectory.create(true, true, null);
-				PreferenceStore preferenceStore = new PreferenceStore(
-						pluginResourcesProject.getFile(
-								WorkspacePlugin.AADLPATH_FILENAME)
-								.getRawLocation().toString());
-				preferenceStore.setValue(WorkspacePlugin.PROJECT_SOURCE_DIR,
-						WorkspacePlugin.DEFAULT_SOURCE_DIR);
-				preferenceStore.setValue(WorkspacePlugin.PROJECT_MODEL_DIR,
-						WorkspacePlugin.DEFAULT_MODEL_DIR);
-				preferenceStore.save();
 				pluginResourcesProject.refreshLocal(1, null);
 
 				/*
@@ -176,15 +161,6 @@ public class PredeclaredProperties {
 //				pluginResourcesProject.setDescription(
 //						pluginResourcesProjectDescription, null);
 			} catch (CoreException e) {
-				if (pluginResourcesProject.exists()) {
-					try {
-						pluginResourcesProject.delete(true, true, null);
-					} catch (CoreException ex) {
-						// Ignore this exception.
-					}
-				}
-				throw e;
-			} catch (IOException e) {
 				if (pluginResourcesProject.exists()) {
 					try {
 						pluginResourcesProject.delete(true, true, null);
