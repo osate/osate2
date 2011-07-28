@@ -31,6 +31,7 @@ import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.MemoryType;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.ProcessType;
@@ -235,6 +236,12 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		}
 	String text(SubprogramAccess ele) {
 		  return ele.getKind().getName()+" Subprogram Access "+ele.getName();
+		}
+	String text(Mode ele) {
+		  return "Mode "+ele.getName();
+		}
+	String text(ModeTransition ele) {
+		  return "Mode Transition "+ele.getSource().getName()+" -> "+ele.getDestination().getName();
 		}
 
 	String text(IntegerLiteral ele) {
