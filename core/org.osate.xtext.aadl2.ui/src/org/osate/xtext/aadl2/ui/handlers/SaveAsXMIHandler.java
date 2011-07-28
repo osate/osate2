@@ -1,10 +1,17 @@
 package org.osate.xtext.aadl2.ui.handlers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -22,6 +29,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
+import org.osate.workspace.WorkspacePlugin;
 
 import com.google.inject.Inject;
 
@@ -70,9 +78,10 @@ public class SaveAsXMIHandler extends AbstractHandler {
 								//persist xmi resource
 								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
 								URI xtxturi = resource.getURI();
-								URI xmiuri = xtxturi.trimFileExtension().appendFileExtension("aaxl2");
+								URI xmiuri = xtxturi.trimFileExtension().appendFileExtension(WorkspacePlugin.MODEL_FILE_EXT);
 								Aadl2ResourceImpl xmiresource =  (Aadl2ResourceImpl) resFactory.createResource(xmiuri);
 								xmiresource.getContents().add(eobject);
+
 								xmiresource.save();
 								
 								return null;
