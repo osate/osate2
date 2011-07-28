@@ -37,9 +37,9 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.EnumerationValue;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Property;
@@ -283,7 +283,7 @@ public class PropertyUtils {
 			IllegalArgumentException, PropertyDoesNotApplyToHolderException, PropertyIsListException,
 			ClassCastException {
 		final PropertyExpression pv = getSimplePropertyValue(ph, pd);
-		return ((EnumerationValue) pv).getLiteral();
+		return (EnumerationLiteral)((NamedValue) pv).getNamedValue();
 	}
 
 	/**
@@ -776,12 +776,12 @@ public class PropertyUtils {
 	 * @return An enumeration value for the given literal
 	 * @throws IllegalArgumentException Thrown if literal is null
 	 */
-	public static EnumerationValue createEnumValue(EnumerationLiteral literal) throws IllegalArgumentException {
+	public static NamedValue createEnumValue(EnumerationLiteral literal) throws IllegalArgumentException {
 		if (literal == null) {
 			throw new IllegalArgumentException("Enumeration literal is null.");
 		}
-		EnumerationValue newPropertyValue = Aadl2Factory.eINSTANCE.createEnumerationValue();
-		newPropertyValue.setLiteral(literal);
+		NamedValue newPropertyValue = Aadl2Factory.eINSTANCE.createNamedValue();
+		newPropertyValue.setNamedValue(literal);
 		return newPropertyValue;
 	}
 
