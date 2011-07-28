@@ -114,10 +114,13 @@ import org.osate.aadl2.Type;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.xtext.aadl2.util.PSNode;
+import org.osate.aadl2.modelsupport.properties.PredeclaredProperties;
 
 public class Aadl2LinkingService extends DefaultLinkingService {
+	
+	public static Aadl2LinkingService eInstance = new Aadl2LinkingService();
 
-	public List<EObject> getIndexedObjects(EObject context,
+	public  List<EObject> getIndexedObjects(EObject context,
 			EReference reference, INode node) {
 		return super.getLinkedObjects(context, reference, node);
 	}
@@ -135,6 +138,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	@Override
 	public List<EObject> getLinkedObjects(EObject context,
 			EReference reference, INode node) throws IllegalNodeException {
+		PredeclaredProperties.initPluginContributedAadl();
 		final EClass requiredType = reference.getEReferenceType();
 		if (requiredType == null)
 			return Collections.<EObject> emptyList();
@@ -164,9 +168,9 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			}
 			return Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getModelUnit() == requiredType) {
-			List<EObject> res = getIndexedObjects(context, reference, node);
-			if (!res.isEmpty())
-				return res;
+//			List<EObject> res = getIndexedObjects(context, reference, node);
+//			if (!res.isEmpty())
+//				return res;
 			AadlPackage pack = findAadlPackage(context, s);
 			if (pack != null) {
 				return Collections.singletonList((EObject) pack);
@@ -178,9 +182,9 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getAadlPackage() == requiredType) {
-			List<EObject> res = getIndexedObjects(context, reference, node);
-			if (!res.isEmpty())
-				return res;
+//			List<EObject> res = getIndexedObjects(context, reference, node);
+//			if (!res.isEmpty())
+//				return res;
 			AadlPackage pack = findAadlPackage(context, s);
 			if (pack != null) {
 				return Collections.singletonList((EObject) pack);
@@ -188,9 +192,9 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getPropertySet() == requiredType) {
-			List<EObject> res = getIndexedObjects(context, reference, node);
-			if (!res.isEmpty())
-				return res;
+//			List<EObject> res = getIndexedObjects(context, reference, node);
+//			if (!res.isEmpty())
+//				return res;
 			PropertySet ps = findPropertySet(context, s);
 			if (ps != null) {
 				return Collections.singletonList((EObject) ps);
@@ -628,12 +632,13 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return null;
 	}
 	
-	protected EObject findPropertySetElement(EObject context,
+	public EObject findPropertySetElement(EObject context,
 			EReference reference, INode node, String name){
-		// look for property constant in property set
+		// look for element in property set
 		List<EObject> res = getIndexedObjects(context, reference, node);
-		if (!res.isEmpty())
+		if (!res.isEmpty()){
 			return res.get(0);
+		}
 		String psname = null;
 		String pname = name;
 		final int idx = name.lastIndexOf("::");
@@ -645,6 +650,18 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				context, reference);
 	}
 	
+	public PropertyConstant findPropertyConstant(EObject context,String name){
+		// look for property constant in property set
+		EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
+		psNode.setText(name);
+		EObject e = findPropertySetElement(context, reference, psNode, name);
+		if (e != null && e instanceof PropertyConstant) {
+			return (PropertyConstant)e;
+		}
+		return null;
+	}
+
+	
 	protected List<EObject> findPropertyConstant(EObject context,
 			EReference reference, INode node, String name){
 		// look for property constant in property set
@@ -655,6 +672,18 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return Collections.<EObject> emptyList();
 	}
 	
+	
+	public PropertyType findPropertyType(EObject context,String name){
+		// look for property type in property set
+		EReference reference = Aadl2Package.eINSTANCE.getBasicProperty_PropertyType();
+		psNode.setText(name);
+		EObject e = findPropertySetElement(context, reference, psNode, name);
+		if (e != null && e instanceof PropertyType) {
+			return (PropertyType)e;
+		}
+		return null;
+	}
+
 	protected List<EObject> findPropertyType(EObject context,
 			EReference reference, INode node, String name){
 		// look for property constant in property set
@@ -663,6 +692,17 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			return Collections.singletonList((EObject) e);
 		}
 		return Collections.<EObject> emptyList();
+	}
+	
+	public Property findPropertyDefinition(EObject context,String name){
+		// look for property type in property set
+		EReference reference = Aadl2Package.eINSTANCE.getPropertyAssociation_Property();
+		psNode.setText(name);
+		EObject e = findPropertySetElement(context, reference, psNode, name);
+		if (e != null && e instanceof Property) {
+			return (Property)e;
+		}
+		return null;
 	}
 
 	protected List<EObject> findPropertyDefinition(EObject context,
@@ -2005,7 +2045,15 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return null;
 	}
 
-	public static AadlPackage findAadlPackage(EObject context, String name) {
+	public AadlPackage findAadlPackage(EObject context, String name) {
+		EReference reference = Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit();
+		psNode.setText(name);
+		List<EObject> res = getIndexedObjects(context, reference, psNode);
+		if (!res.isEmpty()){
+			EObject eres = res.get(0);
+			if (eres instanceof AadlPackage)
+				return (AadlPackage)eres;
+		}
 		if (name == null || name.length() == 0)
 			return null;
 		ResourceSet rs = context.eResource().getResourceSet();
@@ -2056,7 +2104,15 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return null;
 	}
 
-	public static PropertySet findPropertySet(EObject context, String name) {
+	public PropertySet findPropertySet(EObject context, String name) {
+		EReference reference = Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit();
+		psNode.setText(name);
+		List<EObject> res = getIndexedObjects(context, reference, psNode);
+		if (!res.isEmpty()){
+			EObject eres = res.get(0);
+			if (eres instanceof PropertySet)
+				return (PropertySet)eres;
+		}
 		if (name == null || name.length() == 0)
 			return null;
 		ResourceSet rs = context.eResource().getResourceSet();
