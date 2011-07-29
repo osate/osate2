@@ -6,10 +6,12 @@ import java.util.Map;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
@@ -75,19 +77,25 @@ public class SaveAsXMIHandler extends AbstractHandler {
 							if (targetElement != null) {
 //								ResourceSet rs = new ResourceSetImpl();
 //								Resource resource = rs.getResource(URI.createURI("./mymodel.dmodel"), true);
-								EObject eobject = resource.getContents().get(0);
+								// Resolve references such that HREFs use symbolix XMI links rather than XText links
+								EcoreUtil.resolveAll(resource);
+								EList<EObject> content = resource.getContents();
+								if (!content.isEmpty()){
+								EObject eobject = content.get(0);
 								//persist xmi resource
 								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
 								URI xtxturi = resource.getURI();
 								URI xmiuri = xtxturi.trimFileExtension().appendFileExtension(WorkspacePlugin.MODEL_FILE_EXT);
 								Aadl2ResourceImpl xmiresource =  (Aadl2ResourceImpl) resFactory.createResource(xmiuri);
 								xmiresource.getContents().add(eobject);
-								// putting the resource into the same resourceset results in aadl HREFs to be used instead of XText HREFs
-								ResourceSet rss = resource.getResourceSet();
-								rss.getResources().add(xmiresource);
+								// putting the resource into the same resourceset does not seem to be necessary
+//								ResourceSet rss = resource.getResourceSet();
+//								rss.getResources().add(xmiresource);
 
 								xmiresource.save();
-								rss.getResources().remove(xmiresource);
+								resource.getContents().add(eobject);
+//								rss.getResources().remove(xmiresource);
+								}
 								
 								return null;
 							}
