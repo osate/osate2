@@ -9,6 +9,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
@@ -81,8 +82,12 @@ public class SaveAsXMIHandler extends AbstractHandler {
 								URI xmiuri = xtxturi.trimFileExtension().appendFileExtension(WorkspacePlugin.MODEL_FILE_EXT);
 								Aadl2ResourceImpl xmiresource =  (Aadl2ResourceImpl) resFactory.createResource(xmiuri);
 								xmiresource.getContents().add(eobject);
+								// putting the resource into the same resourceset results in aadl HREFs to be used instead of XText HREFs
+								ResourceSet rss = resource.getResourceSet();
+								rss.getResources().add(xmiresource);
 
 								xmiresource.save();
+								rss.getResources().remove(xmiresource);
 								
 								return null;
 							}
