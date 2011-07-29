@@ -67178,9 +67178,9 @@ rule__FeatureGroup__Group__5__Impl
     }
 :
 (
-{ before(grammarAccess.getFeatureGroupAccess().getFeatureGroupTypeAssignment_5()); }
-(rule__FeatureGroup__FeatureGroupTypeAssignment_5)
-{ after(grammarAccess.getFeatureGroupAccess().getFeatureGroupTypeAssignment_5()); }
+{ before(grammarAccess.getFeatureGroupAccess().getFeatureTypeAssignment_5()); }
+(rule__FeatureGroup__FeatureTypeAssignment_5)
+{ after(grammarAccess.getFeatureGroupAccess().getFeatureTypeAssignment_5()); }
 )
 
 ;
@@ -106744,18 +106744,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__FeatureGroup__FeatureGroupTypeAssignment_5
+rule__FeatureGroup__FeatureTypeAssignment_5
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getFeatureGroupAccess().getFeatureGroupTypeFeatureGroupTypeCrossReference_5_0()); }
+{ before(grammarAccess.getFeatureGroupAccess().getFeatureTypeFeatureTypeCrossReference_5_0()); }
 (
-{ before(grammarAccess.getFeatureGroupAccess().getFeatureGroupTypeFeatureGroupTypeQCREFParserRuleCall_5_0_1()); }
-	ruleQCREF{ after(grammarAccess.getFeatureGroupAccess().getFeatureGroupTypeFeatureGroupTypeQCREFParserRuleCall_5_0_1()); }
+{ before(grammarAccess.getFeatureGroupAccess().getFeatureTypeFeatureTypeQCREFParserRuleCall_5_0_1()); }
+	ruleQCREF{ after(grammarAccess.getFeatureGroupAccess().getFeatureTypeFeatureTypeQCREFParserRuleCall_5_0_1()); }
 )
-{ after(grammarAccess.getFeatureGroupAccess().getFeatureGroupTypeFeatureGroupTypeCrossReference_5_0()); }
+{ after(grammarAccess.getFeatureGroupAccess().getFeatureTypeFeatureTypeCrossReference_5_0()); }
 )
 
 ;

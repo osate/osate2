@@ -68563,16 +68563,14 @@ protected class EventPort_SemicolonKeyword_7 extends KeywordToken  {
  * FeatureGroup returns aadl2::FeatureGroup:
  * 	(name=ID ":" // default is inout if no direction
  * 	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
- * 	(inverse?="inverse" "of")? featureGroupType= // or prototype
- * 	[aadl2::FeatureGroupType|QCREF] arrayDimension+=ArrayDimension? ("{"
+ * 	(inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF] arrayDimension+=ArrayDimension? ("{"
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // (name=ID ":" // default is inout if no direction
 // | refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
-// (inverse?="inverse" "of")? featureGroupType= // or prototype
-// [aadl2::FeatureGroupType|QCREF] arrayDimension+=ArrayDimension? ("{"
+// (inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF] arrayDimension+=ArrayDimension? ("{"
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class FeatureGroup_Group extends GroupToken {
 	
@@ -68987,17 +68985,16 @@ protected class FeatureGroup_OfKeyword_4_1 extends KeywordToken  {
 }
 
 
-// featureGroupType= // or prototype
-// [aadl2::FeatureGroupType|QCREF]
-protected class FeatureGroup_FeatureGroupTypeAssignment_5 extends AssignmentToken  {
+// featureType=[aadl2::FeatureType|QCREF]
+protected class FeatureGroup_FeatureTypeAssignment_5 extends AssignmentToken  {
 	
-	public FeatureGroup_FeatureGroupTypeAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FeatureGroup_FeatureTypeAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFeatureGroupAccess().getFeatureGroupTypeAssignment_5();
+		return grammarAccess.getFeatureGroupAccess().getFeatureTypeAssignment_5();
 	}
 
     @Override
@@ -69011,13 +69008,13 @@ protected class FeatureGroup_FeatureGroupTypeAssignment_5 extends AssignmentToke
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("featureGroupType",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("featureGroupType");
+		if((value = eObjectConsumer.getConsumable("featureType",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("featureType");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFeatureGroupAccess().getFeatureGroupTypeFeatureGroupTypeCrossReference_5_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFeatureGroupAccess().getFeatureTypeFeatureTypeCrossReference_5_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFeatureGroupAccess().getFeatureGroupTypeFeatureGroupTypeCrossReference_5_0(); 
+				element = grammarAccess.getFeatureGroupAccess().getFeatureTypeFeatureTypeCrossReference_5_0(); 
 				return obj;
 			}
 		}
@@ -69066,7 +69063,7 @@ protected class FeatureGroup_ArrayDimensionAssignment_6 extends AssignmentToken 
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new FeatureGroup_FeatureGroupTypeAssignment_5(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new FeatureGroup_FeatureTypeAssignment_5(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
@@ -69110,7 +69107,7 @@ protected class FeatureGroup_LeftCurlyBracketKeyword_7_0 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new FeatureGroup_ArrayDimensionAssignment_6(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FeatureGroup_FeatureGroupTypeAssignment_5(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new FeatureGroup_FeatureTypeAssignment_5(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -69204,7 +69201,7 @@ protected class FeatureGroup_SemicolonKeyword_8 extends KeywordToken  {
 		switch(index) {
 			case 0: return new FeatureGroup_Group_7(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new FeatureGroup_ArrayDimensionAssignment_6(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new FeatureGroup_FeatureGroupTypeAssignment_5(lastRuleCallOrigin, this, 2, inst);
+			case 2: return new FeatureGroup_FeatureTypeAssignment_5(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
 		}	
 	}

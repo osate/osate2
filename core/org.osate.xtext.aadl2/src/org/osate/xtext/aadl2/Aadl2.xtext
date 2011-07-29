@@ -1203,7 +1203,7 @@ FeatureGroup returns aadl2::FeatureGroup:
 	(refined=[aadl2::FeatureGroup|REFINEDNAME] ':' 'refined' 'to'))
 	direction=InOutDirection 'feature' 'group' 
 	( inverse?='inverse' 'of')?
-	featureGroupType=[aadl2::FeatureGroupType|QCREF] // or prototype
+	featureType=[aadl2::FeatureType|QCREF] 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 	;

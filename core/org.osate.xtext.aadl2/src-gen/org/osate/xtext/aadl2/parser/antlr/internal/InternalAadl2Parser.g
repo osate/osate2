@@ -20216,7 +20216,7 @@ ruleFeatureGroup returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getFeatureGroupAccess().getFeatureGroupTypeFeatureGroupTypeCrossReference_5_0()); 
+	        newCompositeNode(grammarAccess.getFeatureGroupAccess().getFeatureTypeFeatureTypeCrossReference_5_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();

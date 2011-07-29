@@ -13884,9 +13884,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cInverseAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
 		private final Keyword cInverseInverseKeyword_4_0_0 = (Keyword)cInverseAssignment_4_0.eContents().get(0);
 		private final Keyword cOfKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
-		private final Assignment cFeatureGroupTypeAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cFeatureGroupTypeFeatureGroupTypeCrossReference_5_0 = (CrossReference)cFeatureGroupTypeAssignment_5.eContents().get(0);
-		private final RuleCall cFeatureGroupTypeFeatureGroupTypeQCREFParserRuleCall_5_0_1 = (RuleCall)cFeatureGroupTypeFeatureGroupTypeCrossReference_5_0.eContents().get(1);
+		private final Assignment cFeatureTypeAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final CrossReference cFeatureTypeFeatureTypeCrossReference_5_0 = (CrossReference)cFeatureTypeAssignment_5.eContents().get(0);
+		private final RuleCall cFeatureTypeFeatureTypeQCREFParserRuleCall_5_0_1 = (RuleCall)cFeatureTypeFeatureTypeCrossReference_5_0.eContents().get(1);
 		private final Assignment cArrayDimensionAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_6_0 = (RuleCall)cArrayDimensionAssignment_6.eContents().get(0);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
@@ -13899,15 +13899,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FeatureGroup returns aadl2::FeatureGroup:
 		//	(name=ID ":" // default is inout if no direction
 		//	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
-		//	(inverse?="inverse" "of")? featureGroupType= // or prototype
-		//	[aadl2::FeatureGroupType|QCREF] arrayDimension+=ArrayDimension? ("{"
+		//	(inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF] arrayDimension+=ArrayDimension? ("{"
 		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" // default is inout if no direction
 		//| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
-		//(inverse?="inverse" "of")? featureGroupType= // or prototype
-		//[aadl2::FeatureGroupType|QCREF] arrayDimension+=ArrayDimension? ("{"
+		//(inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF] arrayDimension+=ArrayDimension? ("{"
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
@@ -13972,16 +13970,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"of"
 		public Keyword getOfKeyword_4_1() { return cOfKeyword_4_1; }
 
-		//featureGroupType= // or prototype
-		//[aadl2::FeatureGroupType|QCREF]
-		public Assignment getFeatureGroupTypeAssignment_5() { return cFeatureGroupTypeAssignment_5; }
+		//featureType=[aadl2::FeatureType|QCREF]
+		public Assignment getFeatureTypeAssignment_5() { return cFeatureTypeAssignment_5; }
 
-		//// or prototype
-		//[aadl2::FeatureGroupType|QCREF]
-		public CrossReference getFeatureGroupTypeFeatureGroupTypeCrossReference_5_0() { return cFeatureGroupTypeFeatureGroupTypeCrossReference_5_0; }
+		//[aadl2::FeatureType|QCREF]
+		public CrossReference getFeatureTypeFeatureTypeCrossReference_5_0() { return cFeatureTypeFeatureTypeCrossReference_5_0; }
 
 		//QCREF
-		public RuleCall getFeatureGroupTypeFeatureGroupTypeQCREFParserRuleCall_5_0_1() { return cFeatureGroupTypeFeatureGroupTypeQCREFParserRuleCall_5_0_1; }
+		public RuleCall getFeatureTypeFeatureTypeQCREFParserRuleCall_5_0_1() { return cFeatureTypeFeatureTypeQCREFParserRuleCall_5_0_1; }
 
 		//arrayDimension+=ArrayDimension?
 		public Assignment getArrayDimensionAssignment_6() { return cArrayDimensionAssignment_6; }
@@ -23509,8 +23505,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FeatureGroup returns aadl2::FeatureGroup:
 	//	(name=ID ":" // default is inout if no direction
 	//	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
-	//	(inverse?="inverse" "of")? featureGroupType= // or prototype
-	//	[aadl2::FeatureGroupType|QCREF] arrayDimension+=ArrayDimension? ("{"
+	//	(inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF] arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 	public FeatureGroupElements getFeatureGroupAccess() {
 		return (pFeatureGroup != null) ? pFeatureGroup : (pFeatureGroup = new FeatureGroupElements());
