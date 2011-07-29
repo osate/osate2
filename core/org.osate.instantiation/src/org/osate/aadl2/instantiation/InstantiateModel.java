@@ -57,8 +57,9 @@ import org.eclipse.emf.transaction.TransactionalCommandStack;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArraySize;
-import org.osate.aadl2.ArraySpecification;
+import org.osate.aadl2.ArraySizeProperty;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -70,20 +71,23 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupReference;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeActual;
+import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Numeral;
 import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.SystemSubcomponent;
@@ -409,15 +413,15 @@ public class InstantiateModel {
 				errManager.error(ci, "Cyclic containment dependency: Subcomponent '" + sub.getName()
 						+ "' has already been instantiated as enclosing component.");
 			} else {
-				final ArraySpecification arraySpec = sub.getArraySpecification();
+				final EList<ArrayDimension> arraySpec = sub.getArrayDimensions();
 
-				if (arraySpec == null) {
+				if (arraySpec.isEmpty()) {
 					instantiateSubcomponent(ci, sub, sub, 0);
 				} else {
-					final int dimensions = arraySpec.getSizes().size();
+					final int dimensions = arraySpec.size();
 					class ArrayInstantiator {
 						void process(int dim) {
-							ArraySize arraySize = arraySpec.getSizes().get(dim);
+							ArraySize arraySize = (ArraySize)arraySpec.get(dim);
 							long count = getElementCount(arraySize);
 
 							for (long i = 0; i < count; i++) {
@@ -428,9 +432,6 @@ public class InstantiateModel {
 								}
 							}
 						}
-					}
-					if (arraySpec.getDimension() != dimensions) {
-						errManager.warning(ci, "Array dimension mismatch for subcomponent " + sub.getName());
 					}
 					new ArrayInstantiator().process(0);
 				}
@@ -499,9 +500,9 @@ public class InstantiateModel {
 	 */
 	protected void instantiateFeatures(final ComponentInstance ci) {
 		for (final Feature feature : getInstantiatedClassifier(ci, 0).classifier.getAllFeatures()) {
-			final ArraySpecification arraySpec = feature.getArraySpecification();
+			final EList<ArrayDimension> arraySpec = feature.getArrayDimensions();
 
-			if (arraySpec == null) {
+			if (arraySpec.isEmpty()) {
 				final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
 
 				// must add before prototype resolution in fillFeatureInstance
@@ -513,10 +514,10 @@ public class InstantiateModel {
 				}
 				fillFeatureInstance(feature, fi, false);
 			} else {
-				final int dimensions = arraySpec.getSizes().size();
+				final int dimensions = arraySpec.size();
 				class ArrayInstantiator {
 					void process(int dim) {
-						ArraySize arraySize = arraySpec.getSizes().get(dim);
+						ArraySize arraySize = (ArraySize)arraySpec.get(dim);
 						long count = getElementCount(arraySize);
 
 						for (long i = 0; i < count; i++) {
@@ -536,9 +537,6 @@ public class InstantiateModel {
 							}
 						}
 					}
-				}
-				if (arraySpec.getDimension() != dimensions) {
-					errManager.warning(ci, "Array dimension mismatch for feature " + feature.getName());
 				}
 				new ArrayInstantiator().process(0);
 			}
@@ -611,21 +609,23 @@ public class InstantiateModel {
 	protected void expandFeatureGroupInstance(Feature feature, FeatureInstance fi, boolean inverse) {
 		if (feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup) feature;
-			FeatureGroupType fgt = ((FeatureGroup) feature).getFeatureGroupType();
+			FeatureType ft = ((FeatureGroup) feature).getFeatureType();
 
 			inverse ^= fg.isInverse();
 
-			if (fgt == null && feature.getPrototype() instanceof FeatureGroupPrototype) {
-				FeatureGroupReference fgr = InstanceUtil.resolveFeatureGroupPrototype(feature.getPrototype(), fi,
+			while (ft instanceof FeatureGroupPrototype) {
+				FeatureGroupPrototype fgp = (FeatureGroupPrototype)ft;
+				FeatureGroupPrototypeActual fgr = InstanceUtil.resolveFeatureGroupPrototype(fgp, fi,
 						classifierCache);
 				if (fgr != null) {
-					fgt = fgr.getFeatureGroupType();
+					ft = fgr.getFeatureType();
 				}
 			}
-			if (fgt == null) {
+			if (ft == null) {
 				errManager.error(fi, "Could not resolve feature group type of " + fi.getInstanceObjectPath());
 				return;
 			}
+			FeatureGroupType fgt = (FeatureGroupType)ft;
 
 			List<Feature> localFeatures = fgt.getOwnedFeatures();
 			final FeatureGroupType inverseFgt = fgt.getInverse();
@@ -691,10 +691,18 @@ public class InstantiateModel {
 	// --------------------------------------------------------------------------------------------
 
 	private long getElementCount(ArraySize as) {
-		long result = 0;
-
-		if (as instanceof Numeral) {
-			result = ((Numeral) as).getValue();
+		long result = 0L;
+		if (as.getSizeProperty() == null) {
+			result = as.getSize();
+		} else {
+			ArraySizeProperty asp = as.getSizeProperty();
+			if (asp instanceof PropertyConstant){
+				PropertyConstant pc = (PropertyConstant)asp;
+				PropertyExpression cv = pc.getConstantValue();
+				if (cv instanceof IntegerLiteral){
+					result = ((IntegerLiteral)cv).getValue();
+				}
+			}
 		}
 		return result;
 	}
