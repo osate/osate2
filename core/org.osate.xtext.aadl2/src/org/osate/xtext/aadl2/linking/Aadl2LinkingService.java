@@ -138,7 +138,6 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	@Override
 	public List<EObject> getLinkedObjects(EObject context,
 			EReference reference, INode node) throws IllegalNodeException {
-		PredeclaredProperties.initPluginContributedAadl();
 		final EClass requiredType = reference.getEReferenceType();
 		if (requiredType == null)
 			return Collections.<EObject> emptyList();
