@@ -99,6 +99,8 @@ public interface FlowSpecification extends Flow, ModalElement, FlowElement {
 	 * @generated
 	 */
 	FlowEnd getOutEnd();
+	
+	FlowEnd getAllOutEnd();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.FlowSpecification#getOutEnd <em>Out End</em>}' containment reference.
@@ -135,6 +137,8 @@ public interface FlowSpecification extends Flow, ModalElement, FlowElement {
 	 * @generated
 	 */
 	FlowEnd getInEnd();
+	
+	FlowEnd getAllInEnd();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.FlowSpecification#getInEnd <em>In End</em>}' containment reference.
