@@ -67,6 +67,7 @@ public class PredeclaredProperties {
 	public static final String PLUGIN_RESOURCES_DIRECTORY_NAME = "Plugin_Resources";
 
 	public static void initPluginContributedAadl() {
+		if (isInitialized) return;
 		try {
 			if (!existsPluginResourcesProject()){
 			new WorkspaceModifyOperation() {
@@ -97,7 +98,6 @@ public class PredeclaredProperties {
 											+ PLUGIN_RESOURCES_DIRECTORY_NAME
 											+ "' is closed.");
 						}
-						isInitialized = true;
 					} catch (IOException e) {
 						throw new InvocationTargetException(e);
 					}
@@ -112,6 +112,7 @@ public class PredeclaredProperties {
 						+ "' is closed.");
 				}
 			}
+			isInitialized = true;
 		} catch (InvocationTargetException e) {
 			Activator.logThrowable(e.getCause());
 			Activator
