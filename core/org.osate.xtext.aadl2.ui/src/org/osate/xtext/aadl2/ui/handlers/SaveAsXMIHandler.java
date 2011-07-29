@@ -62,19 +62,19 @@ public class SaveAsXMIHandler extends AbstractHandler {
 			xtextEditor.getDocument().readOnly(
 					new IUnitOfWork<EObject, XtextResource>() {
 						public EObject exec(XtextResource resource) throws Exception {
-							EObject targetElement = null;
-							if (selection instanceof IStructuredSelection) {
-								IStructuredSelection ss = (IStructuredSelection) selection;
-								Object eon = ss.getFirstElement();
-								if (eon instanceof EObjectNode) {
-									targetElement = ((EObjectNode)eon).getEObject(resource);
-								}
-							} else {
-								targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
-										((ITextSelection)selection).getOffset());
-							}
-							
-							if (targetElement != null) {
+//							EObject targetElement = null;
+//							if (selection instanceof IStructuredSelection) {
+//								IStructuredSelection ss = (IStructuredSelection) selection;
+//								Object eon = ss.getFirstElement();
+//								if (eon instanceof EObjectNode) {
+//									targetElement = ((EObjectNode)eon).getEObject(resource);
+//								}
+//							} else {
+//								targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
+//										((ITextSelection)selection).getOffset());
+//							}
+//							
+//							if (targetElement != null) {
 //								ResourceSet rs = new ResourceSetImpl();
 //								Resource resource = rs.getResource(URI.createURI("./mymodel.dmodel"), true);
 								// Resolve references such that HREFs use symbolix XMI links rather than XText links
@@ -83,23 +83,23 @@ public class SaveAsXMIHandler extends AbstractHandler {
 								if (!content.isEmpty()){
 								EObject eobject = content.get(0);
 								//persist xmi resource
-								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
 								URI xtxturi = resource.getURI();
 								URI xmiuri = xtxturi.trimFileExtension().appendFileExtension(WorkspacePlugin.MODEL_FILE_EXT);
-								Aadl2ResourceImpl xmiresource =  (Aadl2ResourceImpl) resFactory.createResource(xmiuri);
-								xmiresource.getContents().add(eobject);
+								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
+								Aadl2ResourceImpl aadlresource =  (Aadl2ResourceImpl) resFactory.createResource(xmiuri);
+								aadlresource.getContents().add(eobject);
 								// putting the resource into the same resourceset does not seem to be necessary
 //								ResourceSet rss = resource.getResourceSet();
 //								rss.getResources().add(xmiresource);
 
-								xmiresource.save();
+								aadlresource.save();
 								resource.getContents().add(eobject);
 //								rss.getResources().remove(xmiresource);
 								}
 								
 								return null;
-							}
-							return null;
+//							}
+//							return null;
 						}
 					});
 		}

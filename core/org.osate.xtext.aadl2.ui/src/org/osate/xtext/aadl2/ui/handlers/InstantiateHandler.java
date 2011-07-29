@@ -6,6 +6,7 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -38,6 +39,17 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.aadl2.modelsupport.AadlConstants;
+import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
+import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
+import org.osate.aadl2.util.Aadl2ResourceImpl;
+import org.osate.core.OsateCorePlugin;
 
 import com.google.inject.Inject;
 
@@ -47,6 +59,11 @@ public class InstantiateHandler extends AbstractHandler {
 	@Inject
 	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
 
+
+	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
+			.getDefault().getBundle());
+
+	
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
@@ -84,7 +101,19 @@ public class InstantiateHandler extends AbstractHandler {
 									System.out.println("instantiate " + ((NamedElement)targetElement).getName());
 									ComponentImplementation cc = ((NamedElement) targetElement).getContainingComponentImpl();
 									if (cc instanceof SystemImplementation){
-										System.out.println("instantiate system impl " + cc.getName());
+										SystemImplementation si = (SystemImplementation)cc;
+										URI instanceURI = InstantiateModel.getInstanceModelURI(si);
+										Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
+										Aadl2ResourceImpl aadlResource =  (Aadl2ResourceImpl) resFactory.createResource(instanceURI);
+
+										// now instantiate the rest of the model
+										final InstantiateModel instantiateModel =
+												new InstantiateModel(new NullProgressMonitor(),
+														new AnalysisErrorReporterManager(
+																internalErrorLogger,
+																new MarkerAnalysisErrorReporter.Factory(
+																		AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+										SystemInstance root = instantiateModel.createSystemInstanceInt(si,aadlResource);
 									}
 								} else {
 									System.out.println("instantiate" + targetElement.toString());
