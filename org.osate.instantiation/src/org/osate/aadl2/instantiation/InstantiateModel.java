@@ -237,25 +237,30 @@ public class InstantiateModel {
 		} else {
 		OsateResourceManager.save(aadlResource);
 		}
+		createXSystemInstance(root);
+		return root;
+	}
+		
+public void createXSystemInstance(SystemInstance root){
 		this.populateComponentInstance(root, 0);
 		if (monitor.isCanceled()) {
-			return null;
+			return ;
 		}
 
 		monitor.subTask("Creating system operation modes");
 		this.createSystemOperationModes(root);
 		if (monitor.isCanceled()) {
-			return null;
+			return ;
 		}
 
 		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			return null;
+			return ;
 		}
 
 		new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			return null;
+			return ;
 		}
 
 		/*
@@ -284,26 +289,27 @@ public class InstantiateModel {
 		// we could also use getAllPropertyDefinition(as), which returns all declared property definitions
 		// retrieving that set is faster, but it may contain property definitions that are not used;
 		// this in that case the caching of those properties would be slower
-		EList<Property> propertyDefinitionList = AadlUtil.getAllUsedPropertyDefinition(si);
+		EList<Property> propertyDefinitionList = AadlUtil.getAllUsedPropertyDefinition(root.getSystemImplementation());
 		CacheContainedPropertyAssociationsSwitch ccpas = new CacheContainedPropertyAssociationsSwitch(classifierCache,
 				monitor, errManager);
 		ccpas.processPostOrderAll(root);
 		if (monitor.isCanceled()) {
-			return null;
+			return ;
 		}
 
 		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch(monitor, errManager, root,
 				propertyDefinitionList, classifierCache, mode2som);
 		cpas.processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			return null;
+			return ;
 		}
 
 		// We're done: Save the model.
 		// We don't respond to a cancel at this point
 
 		monitor.subTask("Saving instance model");
-		((Aadl2ResourceImpl)aadlResource).save();
+		
+//		root.eResource().save();
 //		OsateResourceManager.save(aadlResource);
 //		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
 		// Run some checks over the model.
@@ -315,7 +321,7 @@ public class InstantiateModel {
 //					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
 //			semanticsSwitch.processPostOrderAll(root);
 //		}
-		return root;
+		return ;
 	}
 
 	// --------------------------------------------------------------------------------------------
