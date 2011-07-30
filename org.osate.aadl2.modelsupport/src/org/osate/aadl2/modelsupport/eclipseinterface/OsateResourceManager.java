@@ -192,8 +192,8 @@ public class OsateResourceManager {
 	public static OsateResourceSet getResourceSet() {
 		if (resourceSet == null) {
 			resourceSet = new OsateResourceSet();
-			populateResourceSet();
-			loadPluginContributedAadl();
+//			populateResourceSet();
+//			loadPluginContributedAadl();
 			Activator.getWorkspace().addResourceChangeListener(resourceSet,
 					IResourceChangeEvent.POST_CHANGE);
 		}
