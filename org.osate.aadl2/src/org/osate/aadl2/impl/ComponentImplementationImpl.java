@@ -554,7 +554,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public ComponentImplementation basicGetExtended() {
 		// DONE: implement this method to return the 'Extended' reference
 		ImplementationExtension extension = getOwnedExtension();
-		return extension == null ? null : ((ImplementationExtensionImpl) extension).basicGetExtended();
+		return extension == null ? null : ((ImplementationExtensionImpl) extension).getExtended();
 	}
 
 	/**
@@ -657,7 +657,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'ComponentType' reference
 		Realization realization = getOwnedRealization();
-		return realization == null ? null : ((RealizationImpl) realization).basicGetImplemented();
+		return realization == null ? null : ((RealizationImpl) realization).getImplemented();
 	}
 
 	/**
