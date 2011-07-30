@@ -86,6 +86,34 @@ finally {
 
 
 
+// Entry rule entryRuleSystemInstance
+entryRuleSystemInstance 
+:
+{ before(grammarAccess.getSystemInstanceRule()); }
+	 ruleSystemInstance
+{ after(grammarAccess.getSystemInstanceRule()); } 
+	 EOF 
+;
+
+// Rule SystemInstance
+ruleSystemInstance
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getSystemInstanceAccess().getGroup()); }
+(rule__SystemInstance__Group__0)
+{ after(grammarAccess.getSystemInstanceAccess().getGroup()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleAadlPackage
 entryRuleAadlPackage 
 :
@@ -6622,6 +6650,12 @@ rule__Model__Alternatives
 { before(grammarAccess.getModelAccess().getPropertySetParserRuleCall_1()); }
 	rulePropertySet
 { after(grammarAccess.getModelAccess().getPropertySetParserRuleCall_1()); }
+)
+
+    |(
+{ before(grammarAccess.getModelAccess().getSystemInstanceParserRuleCall_2()); }
+	ruleSystemInstance
+{ after(grammarAccess.getModelAccess().getSystemInstanceParserRuleCall_2()); }
 )
 
 ;
@@ -13998,6 +14032,166 @@ rule__CoreKeyWord__Alternatives
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+
+
+
+rule__SystemInstance__Group__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__SystemInstance__Group__0__Impl
+	rule__SystemInstance__Group__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__SystemInstance__Group__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getSystemInstanceAccess().getSystemKeyword_0()); }
+
+	'system' 
+
+{ after(grammarAccess.getSystemInstanceAccess().getSystemKeyword_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__SystemInstance__Group__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__SystemInstance__Group__1__Impl
+	rule__SystemInstance__Group__2
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__SystemInstance__Group__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getSystemInstanceAccess().getInstanceKeyword_1()); }
+
+	'instance' 
+
+{ after(grammarAccess.getSystemInstanceAccess().getInstanceKeyword_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__SystemInstance__Group__2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__SystemInstance__Group__2__Impl
+	rule__SystemInstance__Group__3
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__SystemInstance__Group__2__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getSystemInstanceAccess().getNameAssignment_2()); }
+(rule__SystemInstance__NameAssignment_2)
+{ after(grammarAccess.getSystemInstanceAccess().getNameAssignment_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__SystemInstance__Group__3
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__SystemInstance__Group__3__Impl
+	rule__SystemInstance__Group__4
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__SystemInstance__Group__3__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getSystemInstanceAccess().getFromKeyword_3()); }
+
+	'from' 
+
+{ after(grammarAccess.getSystemInstanceAccess().getFromKeyword_3()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__SystemInstance__Group__4
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__SystemInstance__Group__4__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__SystemInstance__Group__4__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getSystemInstanceAccess().getSystemImplementationAssignment_4()); }
+(rule__SystemInstance__SystemImplementationAssignment_4)
+{ after(grammarAccess.getSystemInstanceAccess().getSystemImplementationAssignment_4()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+
 
 
 
@@ -94673,6 +94867,40 @@ finally {
 
 
 
+
+rule__SystemInstance__NameAssignment_2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getSystemInstanceAccess().getNameIDTerminalRuleCall_2_0()); }
+	RULE_ID{ after(grammarAccess.getSystemInstanceAccess().getNameIDTerminalRuleCall_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__SystemInstance__SystemImplementationAssignment_4
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getSystemInstanceAccess().getSystemImplementationSystemImplementationCrossReference_4_0()); }
+(
+{ before(grammarAccess.getSystemInstanceAccess().getSystemImplementationSystemImplementationQCREFParserRuleCall_4_0_1()); }
+	ruleQCREF{ after(grammarAccess.getSystemInstanceAccess().getSystemImplementationSystemImplementationQCREFParserRuleCall_4_0_1()); }
+)
+{ after(grammarAccess.getSystemInstanceAccess().getSystemImplementationSystemImplementationCrossReference_4_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 rule__AadlPackage__NameAssignment_1
     @init {

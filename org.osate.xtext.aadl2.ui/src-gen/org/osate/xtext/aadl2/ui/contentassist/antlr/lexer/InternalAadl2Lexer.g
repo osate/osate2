@@ -16,135 +16,139 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-KEYWORD_98 : 'implementation';
+KEYWORD_100 : 'implementation';
 
-KEYWORD_97 : 'subcomponents';
+KEYWORD_99 : 'subcomponents';
 
-KEYWORD_93 : 'aadlboolean';
+KEYWORD_95 : 'aadlboolean';
 
-KEYWORD_94 : 'aadlinteger';
+KEYWORD_96 : 'aadlinteger';
 
-KEYWORD_95 : 'connections';
+KEYWORD_97 : 'connections';
 
-KEYWORD_96 : 'enumeration';
+KEYWORD_98 : 'enumeration';
 
-KEYWORD_88 : 'aadlstring';
+KEYWORD_90 : 'aadlstring';
 
-KEYWORD_89 : 'classifier';
+KEYWORD_91 : 'classifier';
 
-KEYWORD_90 : 'properties';
+KEYWORD_92 : 'properties';
 
-KEYWORD_91 : 'prototypes';
+KEYWORD_93 : 'prototypes';
 
-KEYWORD_92 : 'subprogram';
+KEYWORD_94 : 'subprogram';
 
-KEYWORD_84 : 'parameter';
+KEYWORD_86 : 'parameter';
 
-KEYWORD_85 : 'processor';
+KEYWORD_87 : 'processor';
 
-KEYWORD_86 : 'prototype';
+KEYWORD_88 : 'prototype';
 
-KEYWORD_87 : 'reference';
+KEYWORD_89 : 'reference';
 
-KEYWORD_77 : 'aadlreal';
+KEYWORD_78 : 'aadlreal';
 
-KEYWORD_78 : 'abstract';
+KEYWORD_79 : 'abstract';
 
-KEYWORD_79 : 'constant';
+KEYWORD_80 : 'constant';
 
-KEYWORD_80 : 'features';
+KEYWORD_81 : 'features';
 
-KEYWORD_81 : 'property';
+KEYWORD_82 : 'instance';
 
-KEYWORD_82 : 'provides';
+KEYWORD_83 : 'property';
 
-KEYWORD_83 : 'requires';
+KEYWORD_84 : 'provides';
 
-KEYWORD_64 : 'applies';
+KEYWORD_85 : 'requires';
 
-KEYWORD_65 : 'compute';
+KEYWORD_65 : 'applies';
 
-KEYWORD_66 : 'extends';
+KEYWORD_66 : 'compute';
 
-KEYWORD_67 : 'feature';
+KEYWORD_67 : 'extends';
 
-KEYWORD_68 : 'inherit';
+KEYWORD_68 : 'feature';
 
-KEYWORD_69 : 'initial';
+KEYWORD_69 : 'inherit';
 
-KEYWORD_70 : 'inverse';
+KEYWORD_70 : 'initial';
 
-KEYWORD_71 : 'package';
+KEYWORD_71 : 'inverse';
 
-KEYWORD_72 : 'private';
+KEYWORD_72 : 'package';
 
-KEYWORD_73 : 'process';
+KEYWORD_73 : 'private';
 
-KEYWORD_74 : 'refined';
+KEYWORD_74 : 'process';
 
-KEYWORD_75 : 'renames';
+KEYWORD_75 : 'refined';
 
-KEYWORD_76 : 'virtual';
+KEYWORD_76 : 'renames';
 
-KEYWORD_56 : 'access';
+KEYWORD_77 : 'virtual';
 
-KEYWORD_57 : 'device';
+KEYWORD_57 : 'access';
 
-KEYWORD_58 : 'memory';
+KEYWORD_58 : 'device';
 
-KEYWORD_59 : 'public';
+KEYWORD_59 : 'memory';
 
-KEYWORD_60 : 'record';
+KEYWORD_60 : 'public';
 
-KEYWORD_61 : 'source';
+KEYWORD_61 : 'record';
 
-KEYWORD_62 : 'system';
+KEYWORD_62 : 'source';
 
-KEYWORD_63 : 'thread';
+KEYWORD_63 : 'system';
 
-KEYWORD_46 : 'annex';
+KEYWORD_64 : 'thread';
 
-KEYWORD_47 : 'calls';
+KEYWORD_47 : 'annex';
 
-KEYWORD_48 : 'delta';
+KEYWORD_48 : 'calls';
 
-KEYWORD_49 : 'event';
+KEYWORD_49 : 'delta';
 
-KEYWORD_50 : 'false';
+KEYWORD_50 : 'event';
 
-KEYWORD_51 : 'flows';
+KEYWORD_51 : 'false';
 
-KEYWORD_52 : 'group';
+KEYWORD_52 : 'flows';
 
-KEYWORD_53 : 'modes';
+KEYWORD_53 : 'group';
 
-KEYWORD_54 : 'range';
+KEYWORD_54 : 'modes';
 
-KEYWORD_55 : 'units';
+KEYWORD_55 : 'range';
+
+KEYWORD_56 : 'units';
 
 KEYWORD_34 : 'data';
 
 KEYWORD_35 : 'flow';
 
-KEYWORD_36 : 'list';
+KEYWORD_36 : 'from';
 
-KEYWORD_37 : 'mode';
+KEYWORD_37 : 'list';
 
-KEYWORD_38 : 'none';
+KEYWORD_38 : 'mode';
 
-KEYWORD_39 : 'path';
+KEYWORD_39 : 'none';
 
-KEYWORD_40 : 'port';
+KEYWORD_40 : 'path';
 
-KEYWORD_41 : 'self';
+KEYWORD_41 : 'port';
 
-KEYWORD_42 : 'sink';
+KEYWORD_42 : 'self';
 
-KEYWORD_43 : 'true';
+KEYWORD_43 : 'sink';
 
-KEYWORD_44 : 'type';
+KEYWORD_44 : 'true';
 
-KEYWORD_45 : 'with';
+KEYWORD_45 : 'type';
+
+KEYWORD_46 : 'with';
 
 KEYWORD_24 : '+=>';
 
