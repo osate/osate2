@@ -387,7 +387,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		if (getOwnedExtension() == null) {
 			return null;
 		}
-		return ((TypeExtensionImpl) getOwnedExtension()).basicGetExtended();
+		return ((TypeExtensionImpl) getOwnedExtension()).getExtended();
 	}
 
 	/**
