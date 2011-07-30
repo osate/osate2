@@ -452,7 +452,19 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					// prepare next connection filter
 					connections.clear();
 					if (iter.hasNext()) {
-						connections.add((Connection) iter.next());
+						Element obj = iter.next();
+						Connection conn = null;
+						if (obj instanceof FlowSegment){
+							FlowElement fe = ((FlowSegment)obj).getFlowElement();
+							if (fe instanceof Connection) 
+								conn = (Connection)fe;
+						} else if (obj instanceof EndToEndFlowSegment){
+							EndToEndFlowElement fe = ((EndToEndFlowSegment)obj).getFlowElement();
+							if (fe instanceof Connection) 
+								conn = (Connection)fe;
+						}
+						if (conn != null)
+							connections.add(conn);
 					}
 
 					continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
