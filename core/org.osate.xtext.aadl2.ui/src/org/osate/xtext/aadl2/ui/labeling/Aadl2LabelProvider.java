@@ -14,6 +14,7 @@ import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusImplementation;
 import org.osate.aadl2.BusType;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataImplementation;
 import org.osate.aadl2.DataPort;
@@ -32,6 +33,7 @@ import org.osate.aadl2.MemoryType;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.ProcessType;
@@ -60,6 +62,8 @@ import org.osate.aadl2.VirtualBusImplementation;
 import org.osate.aadl2.VirtualBusType;
 import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorType;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemInstance;
 
 import com.google.inject.Inject;
 
@@ -263,5 +267,24 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		}
 
 
+    String image(NamedElement ele) {
+        return ele.eClass().getName() + ".gif";
+      }	 
+    String image(ComponentInstance ele) {
+        ComponentCategory cat =((ComponentInstance)ele).getCategory();
+        if (cat != null){
+        	String name = cat.getLiteral();
+        	int idx = name.indexOf(" ");
+        	if (idx < 0){
+               return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase()+".gif";
+        	} else {
+        		return name.substring(0, 1).toUpperCase() + name.substring(1,idx).toLowerCase()
+        		+ name.substring(idx+1, idx+2).toUpperCase()+ name.substring(idx+2).toLowerCase()+".gif";
+        	}
+        }
+        if (ele instanceof SystemInstance)
+        	return "System.gif";
+    	return ele.eClass().getName() + ".gif";
+      }	 
 
 }

@@ -12,6 +12,8 @@ import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemInstance;
 
 /**
  * customization of the default outline structure
@@ -29,6 +31,20 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 			createNode(parentNode, aadlModel);
 		}
 	}
+	
+	
+	protected void _createChildren(DocumentRootNode parentNode,
+			SystemInstance aadlModel) {
+		createNode(parentNode, aadlModel);
+	}
+	protected boolean _isLeaf(SystemInstance feature) {
+	    return false;
+	}
+	protected void _createChildren(DocumentRootNode parentNode,
+			ComponentInstance aadlModel) {
+		createNode(parentNode, aadlModel);
+	}
+
 //	protected void _createChildren(DocumentRootNode parentNode,
 //			Classifier aadlModel) {
 //	}

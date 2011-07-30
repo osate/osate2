@@ -100,20 +100,30 @@ public class InstantiateHandler extends AbstractHandler {
 								if (targetElement instanceof NamedElement){
 									System.out.println("instantiate " + ((NamedElement)targetElement).getName());
 									ComponentImplementation cc = ((NamedElement) targetElement).getContainingComponentImpl();
-									if (cc instanceof SystemImplementation){
-										SystemImplementation si = (SystemImplementation)cc;
-										URI instanceURI = InstantiateModel.getInstanceModelURI(si);
-										Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
-										Aadl2ResourceImpl aadlResource =  (Aadl2ResourceImpl) resFactory.createResource(instanceURI);
-
-										// now instantiate the rest of the model
+//									if (cc instanceof SystemImplementation){
+//										SystemImplementation si = (SystemImplementation)cc;
+//										URI instanceURI = InstantiateModel.getInstanceModelURI(si);
+//										Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
+//										Aadl2ResourceImpl aadlResource =  (Aadl2ResourceImpl) resFactory.createResource(instanceURI);
+//
+//										// now instantiate the rest of the model
+//										final InstantiateModel instantiateModel =
+//												new InstantiateModel(new NullProgressMonitor(),
+//														new AnalysisErrorReporterManager(
+//																internalErrorLogger,
+//																new MarkerAnalysisErrorReporter.Factory(
+//																		AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+//										SystemInstance root = instantiateModel.createSystemInstanceInt(si,aadlResource);
+//									}
+									if (targetElement instanceof SystemInstance){
 										final InstantiateModel instantiateModel =
-												new InstantiateModel(new NullProgressMonitor(),
-														new AnalysisErrorReporterManager(
-																internalErrorLogger,
-																new MarkerAnalysisErrorReporter.Factory(
-																		AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-										SystemInstance root = instantiateModel.createSystemInstanceInt(si,aadlResource);
+										new InstantiateModel(new NullProgressMonitor(),
+												new AnalysisErrorReporterManager(
+														internalErrorLogger,
+														new MarkerAnalysisErrorReporter.Factory(
+																AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+								instantiateModel.createXSystemInstance((SystemInstance)targetElement);
+										
 									}
 								} else {
 									System.out.println("instantiate" + targetElement.toString());
