@@ -273,7 +273,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getCoreKeyWordAccess().getAlternatives(), "rule__CoreKeyWord__Alternatives");
 					put(grammarAccess.getFlowKindAccess().getAlternatives(), "rule__FlowKind__Alternatives");
 					put(grammarAccess.getOperationKindAccess().getAlternatives(), "rule__OperationKind__Alternatives");
-					put(grammarAccess.getSystemInstanceAccess().getGroup(), "rule__SystemInstance__Group__0");
 					put(grammarAccess.getAadlPackageAccess().getGroup(), "rule__AadlPackage__Group__0");
 					put(grammarAccess.getAadlPackageAccess().getGroup_2_0(), "rule__AadlPackage__Group_2_0__0");
 					put(grammarAccess.getAadlPackageAccess().getGroup_3(), "rule__AadlPackage__Group_3__0");
@@ -1023,8 +1022,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getEQCREFAccess().getGroup_2(), "rule__EQCREF__Group_2__0");
 					put(grammarAccess.getPNAMEAccess().getGroup(), "rule__PNAME__Group__0");
 					put(grammarAccess.getPNAMEAccess().getGroup_1(), "rule__PNAME__Group_1__0");
-					put(grammarAccess.getSystemInstanceAccess().getNameAssignment_2(), "rule__SystemInstance__NameAssignment_2");
-					put(grammarAccess.getSystemInstanceAccess().getSystemImplementationAssignment_4(), "rule__SystemInstance__SystemImplementationAssignment_4");
 					put(grammarAccess.getAadlPackageAccess().getNameAssignment_1(), "rule__AadlPackage__NameAssignment_1");
 					put(grammarAccess.getAadlPackageAccess().getOwnedPublicSectionAssignment_2_0_0(), "rule__AadlPackage__OwnedPublicSectionAssignment_2_0_0");
 					put(grammarAccess.getAadlPackageAccess().getOwnedPrivateSectionAssignment_2_0_1(), "rule__AadlPackage__OwnedPrivateSectionAssignment_2_0_1");
