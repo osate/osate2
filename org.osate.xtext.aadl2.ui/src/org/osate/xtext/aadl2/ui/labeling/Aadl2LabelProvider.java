@@ -182,8 +182,9 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		}
 
 	String text(PropertyType ele) {
-		  return "Property Type "+ele.getName();
-		}
+		if (ele.getName()==null) return "Unnamed Property Type";
+		  return "Property Type  "+ele.getName();
+	}
 
 	String text(PropertyConstant ele) {
 		  return "Property Constant "+ele.getName();
@@ -269,7 +270,12 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 
     String image(NamedElement ele) {
         return ele.eClass().getName() + ".gif";
-      }	 
+      }	
+
+    String image(PropertyType ele) {
+        return "PropertyType.gif";
+      }	
+    
     String image(ComponentInstance ele) {
         ComponentCategory cat =((ComponentInstance)ele).getCategory();
         if (cat != null){
