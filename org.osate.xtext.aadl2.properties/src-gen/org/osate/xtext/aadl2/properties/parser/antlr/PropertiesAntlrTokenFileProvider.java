@@ -10,6 +10,6 @@ public class PropertiesAntlrTokenFileProvider implements IAntlrTokenFileProvider
 	
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
-    	return classLoader.getResourceAsStream("org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalProperties.tokens");
+    	return classLoader.getResourceAsStream("org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalPropertiesParser.tokens");
 	}
 }
