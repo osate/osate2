@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.BusImplementation;
 import org.osate.aadl2.BusType;
 import org.osate.aadl2.ComponentType;
@@ -142,8 +143,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 */
 	@Override
 	public BusType getType() {
-		ComponentType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? null : (BusType) type;
+		return (BusType) super.getType();
 	}
 
 	/**

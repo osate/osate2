@@ -540,8 +540,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public SystemType getType() {
-		ComponentType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? null : (SystemType) type;
+		return (SystemType) super.getType();
 	}
 
 	/**

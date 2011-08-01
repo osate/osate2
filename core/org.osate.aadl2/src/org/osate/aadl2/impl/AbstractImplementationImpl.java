@@ -61,6 +61,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SystemSubcomponent;
+import org.osate.aadl2.SystemType;
 import org.osate.aadl2.ThreadGroupSubcomponent;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.VirtualBusSubcomponent;
@@ -616,9 +617,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public AbstractType getType() {
-		AbstractType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (AbstractType) eResolveProxy((InternalEObject) type)
-				: type;
+		return (AbstractType) super.getType();
 	}
 
 	/**
