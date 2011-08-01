@@ -128,7 +128,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		}
 
 		public Element next() {
-			return eteSegments.get(index++);
+			return eteSegments != null ? eteSegments.get(index++) : flowSegments.get(index++);
 		}
 
 		public void remove() {
@@ -263,6 +263,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			break;
 		}
 	}
+	
 
 	/**
 	 * Add all flow instances that continue through the next flow element.
@@ -273,9 +274,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param iter the position in the current ETE declaration
 	 * @param errorElement the model element that we attach errors to
 	 */
-	protected void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, EndToEndFlowSegment fs,
+	protected void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, Element fs,
 			FlowIterator iter, NamedElement errorElement) {
-		EndToEndFlowElement fe = fs.getFlowElement();
+		Element fe = fs instanceof FlowSegment? ((FlowSegment)fs).getFlowElement():((EndToEndFlowSegment)fs).getFlowElement();
 		if (fe instanceof Connection) {
 			if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
 				myInfo.preConns.add((Connection) fe);
@@ -284,7 +285,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			}
 		} else {
 			if (fe instanceof FlowSpecification) {
-				Subcomponent sc = (Subcomponent)fs.getContext();
+				Subcomponent sc = (Subcomponent)(fs instanceof FlowSegment? ((FlowSegment)fs).getContext():((EndToEndFlowSegment)fs).getContext());
 				ComponentInstance sci = ci.findSubcomponentInstance(sc);
 				if (sci != null) {
 					processSubcomponentFlow(sci, etei, (FlowSpecification)fe, iter);
@@ -415,7 +416,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param leaf the next ETE element
 	 * @param iter the position in the current end to end flow declaration
 	 */
-	protected void processFlowStep(ComponentInstance ci, EndToEndFlowInstance etei, EndToEndFlowElement leaf,
+	protected void processFlowStep(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf,
 			FlowIterator iter) {
 		// add connection(s), will be empty when starting the ETE
 		if (connections.isEmpty()) {
@@ -725,7 +726,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param etei
 	 * @param leaf
 	 */
-	private void addLeafElement(ComponentInstance ci, EndToEndFlowInstance etei, EndToEndFlowElement leaf) {
+	private void addLeafElement(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf) {
 		FlowSpecification fs;
 		FlowSpecificationInstance fsi;
 		if (leaf instanceof FlowSpecification) {
@@ -810,9 +811,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				return;
 			}
 			while (iter.hasNext()) {
-				EndToEndFlowSegment fe = (EndToEndFlowSegment)iter.next();
-
-				processETESegment(ci, etei, fe, iter, errorElement);
+				Element e = iter.next();
+				processETESegment(ci, etei, e, iter, errorElement);
 			}
 			if (state.size() == 0) {
 				// a flow is done
