@@ -50,6 +50,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.RollbackException;
@@ -238,10 +239,20 @@ public class InstantiateModel {
 		OsateResourceManager.save(aadlResource);
 		}
 		createXSystemInstance(root);
+		// We're done: Save the model.
+		// We don't respond to a cancel at this point
+
+		monitor.subTask("Saving instance model");
+		
+		((Aadl2ResourceImpl)root.eResource()).save();
 		return root;
 	}
 		
-public void createXSystemInstance(SystemInstance root){
+/** 
+ * Will create instance model under systeminstance but not save it
+ * @param root
+ */
+	public void createXSystemInstance(SystemInstance root){
 		this.populateComponentInstance(root, 0);
 		if (monitor.isCanceled()) {
 			return ;
@@ -304,12 +315,6 @@ public void createXSystemInstance(SystemInstance root){
 			return ;
 		}
 
-		// We're done: Save the model.
-		// We don't respond to a cancel at this point
-
-		monitor.subTask("Saving instance model");
-		
-//		root.eResource().save();
 //		OsateResourceManager.save(aadlResource);
 //		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
 		// Run some checks over the model.
@@ -796,6 +801,22 @@ public void createXSystemInstance(SystemInstance root){
 		URI instanceURI = modeluri.trimSegments(1).appendSegment(
 				filename + "_" + si.getTypeName() + "_" + si.getImplementationName() + "_"
 						+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
+		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
+		return instanceURI;
+	}
+
+	/**
+	 * 
+	 * @param siName System Instance name. to be used as file name
+	 * @param context Model object, whose resource location is to be used to place the instance model
+	 * @return URI that places the instance model in an instances folder relative to the given context resource
+	 */
+	public static URI getInstanceModelURI(String siName, EObject context) {
+		Resource res = context.eResource();
+		URI modeluri = res.getURI();
+		String last = modeluri.lastSegment();
+		String filename = last.substring(0, last.indexOf('.'));
+		URI instanceURI = modeluri.trimSegments(1).appendSegment("instances").appendSegment(siName);
 		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
 		return instanceURI;
 	}
