@@ -1,23 +1,12 @@
 package org.osate.xtext.aadl2.ui.handlers;
 
-import java.util.HashMap;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.XMIResource;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextSelection;
-import org.eclipse.jface.text.Region;
-import org.eclipse.jface.text.hyperlink.IHyperlink;
-import org.eclipse.jface.text.hyperlink.IHyperlinkDetector;
-import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
@@ -27,22 +16,17 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
-import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
-import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.AadlConstants;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
@@ -100,21 +84,21 @@ public class InstantiateHandler extends AbstractHandler {
 								if (targetElement instanceof NamedElement){
 									System.out.println("instantiate " + ((NamedElement)targetElement).getName());
 									ComponentImplementation cc = ((NamedElement) targetElement).getContainingComponentImpl();
-//									if (cc instanceof SystemImplementation){
-//										SystemImplementation si = (SystemImplementation)cc;
-//										URI instanceURI = InstantiateModel.getInstanceModelURI(si);
-//										Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
-//										Aadl2ResourceImpl aadlResource =  (Aadl2ResourceImpl) resFactory.createResource(instanceURI);
-//
-//										// now instantiate the rest of the model
-//										final InstantiateModel instantiateModel =
-//												new InstantiateModel(new NullProgressMonitor(),
-//														new AnalysisErrorReporterManager(
-//																internalErrorLogger,
-//																new MarkerAnalysisErrorReporter.Factory(
-//																		AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-//										SystemInstance root = instantiateModel.createSystemInstanceInt(si,aadlResource);
-//									}
+									if (cc instanceof SystemImplementation){
+										SystemImplementation si = (SystemImplementation)cc;
+										URI instanceURI = InstantiateModel.getInstanceModelURI(si);
+										Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
+										Aadl2ResourceImpl aadlResource =  (Aadl2ResourceImpl) resFactory.createResource(instanceURI);
+
+										// now instantiate the rest of the model
+										final InstantiateModel instantiateModel =
+												new InstantiateModel(new NullProgressMonitor(),
+														new AnalysisErrorReporterManager(
+																internalErrorLogger,
+																new MarkerAnalysisErrorReporter.Factory(
+																		AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+										SystemInstance root = instantiateModel.createSystemInstanceInt(si,aadlResource);
+									}
 									if (targetElement instanceof SystemInstance){
 										final InstantiateModel instantiateModel =
 										new InstantiateModel(new NullProgressMonitor(),

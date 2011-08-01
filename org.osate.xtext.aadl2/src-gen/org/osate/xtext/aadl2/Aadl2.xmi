@@ -4,12 +4,15 @@
     <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="aadl2">
       <ePackage href="http://aadl.info/AADL/2.0#/"/>
     </metamodelDeclarations>
+    <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="instance">
+      <ePackage href="http://aadl.info/AADL/2.0/instance#/"/>
+    </metamodelDeclarations>
     <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="ecore">
       <ePackage href="http://www.eclipse.org/emf/2002/Ecore#/"/>
     </metamodelDeclarations>
     <rules xsi:type="xtext:ParserRule" name="Model">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModelUnit"/>
+        <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Element"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.1"/>
@@ -7871,7 +7874,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="CoreKeyWord">
-      <type metamodel="/0/@metamodelDeclarations.1">
+      <type metamodel="/0/@metamodelDeclarations.2">
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
@@ -7905,7 +7908,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:TerminalRule" name="ANNEXTEXT">
-      <type metamodel="/0/@metamodelDeclarations.1">
+      <type metamodel="/0/@metamodelDeclarations.2">
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -7916,7 +7919,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="PNAME">
-      <type metamodel="/0/@metamodelDeclarations.1">
+      <type metamodel="/0/@metamodelDeclarations.2">
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -7928,13 +7931,13 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="INAME">
-      <type metamodel="/0/@metamodelDeclarations.1">
+      <type metamodel="/0/@metamodelDeclarations.2">
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:RuleCall" rule="/1/@rules.55"/>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="REFINEDNAME">
-      <type metamodel="/0/@metamodelDeclarations.1">
+      <type metamodel="/0/@metamodelDeclarations.2">
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:RuleCall" rule="/1/@rules.55"/>

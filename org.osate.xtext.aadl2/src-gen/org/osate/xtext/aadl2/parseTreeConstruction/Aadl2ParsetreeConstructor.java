@@ -249,12 +249,14 @@ protected class ThisRootNode extends RootToken {
 
 /************ begin Rule Model ****************
  *
- * Model returns aadl2::ModelUnit:
- * 	AadlPackage | PropertySet;
+ * Model returns aadl2::Element:
+ * 	AadlPackage | //| SystemInstance
+ * 	PropertySet;
  *
  **/
 
-// AadlPackage | PropertySet
+// AadlPackage | //| SystemInstance
+// PropertySet
 protected class Model_Alternatives extends AlternativesToken {
 
 	public Model_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -321,6 +323,7 @@ protected class Model_AadlPackageParserRuleCall_0 extends RuleCallToken {
 	}	
 }
 
+// //| SystemInstance
 // PropertySet
 protected class Model_PropertySetParserRuleCall_1 extends RuleCallToken {
 	
@@ -363,6 +366,9 @@ protected class Model_PropertySetParserRuleCall_1 extends RuleCallToken {
 
 /************ begin Rule AadlPackage ****************
  *
+ * //SystemInstance returns instance::SystemInstance:
+ * //	"system" "instance" name = ID "from" systemImplementation=[aadl2::SystemImplementation|QCREF]
+ * //;
  * AadlPackage returns aadl2::AadlPackage:
  * 	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
  * 	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')

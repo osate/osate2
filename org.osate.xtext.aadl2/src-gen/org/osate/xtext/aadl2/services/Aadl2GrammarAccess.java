@@ -23,16 +23,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAadlPackageParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cPropertySetParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//Model returns aadl2::ModelUnit:
-		//	AadlPackage | PropertySet;
+		//Model returns aadl2::Element:
+		//	AadlPackage | //| SystemInstance
+		//	PropertySet;
 		public ParserRule getRule() { return rule; }
 
-		//AadlPackage | PropertySet
+		//AadlPackage | //| SystemInstance
+		//PropertySet
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//AadlPackage
 		public RuleCall getAadlPackageParserRuleCall_0() { return cAadlPackageParserRuleCall_0; }
 
+		////| SystemInstance
 		//PropertySet
 		public RuleCall getPropertySetParserRuleCall_1() { return cPropertySetParserRuleCall_1; }
 	}
@@ -62,6 +65,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_6_1 = (RuleCall)cGroup_6.eContents().get(1);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
+		////SystemInstance returns instance::SystemInstance:
+		////	"system" "instance" name = ID "from" systemImplementation=[aadl2::SystemImplementation|QCREF]
+		////;
 		//AadlPackage returns aadl2::AadlPackage:
 		//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
 		//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
@@ -20351,8 +20357,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
-	//Model returns aadl2::ModelUnit:
-	//	AadlPackage | PropertySet;
+	//Model returns aadl2::Element:
+	//	AadlPackage | //| SystemInstance
+	//	PropertySet;
 	public ModelElements getModelAccess() {
 		return (pModel != null) ? pModel : (pModel = new ModelElements());
 	}
@@ -20361,6 +20368,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getModelAccess().getRule();
 	}
 
+	////SystemInstance returns instance::SystemInstance:
+	////	"system" "instance" name = ID "from" systemImplementation=[aadl2::SystemImplementation|QCREF]
+	////;
 	//AadlPackage returns aadl2::AadlPackage:
 	//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
 	//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')

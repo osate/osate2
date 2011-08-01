@@ -303,7 +303,7 @@
 	</menuContribution>
    </extension> 
 
-<!-- Create Plugin Resoruce project -->
+<!-- Create Plugin Resource project -->
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
