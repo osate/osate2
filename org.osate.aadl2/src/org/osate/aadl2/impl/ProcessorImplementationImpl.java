@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.BusSubcomponent;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.MemorySubcomponent;
@@ -279,8 +280,7 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 */
 	@Override
 	public ProcessorType getType() {
-		ComponentType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? null : (ProcessorType) type;
+		return (ProcessorType) super.getType();
 	}
 
 	/**

@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Subcomponent;
@@ -243,8 +244,7 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 */
 	@Override
 	public ThreadType getType() {
-		ComponentType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? null : (ThreadType) type;
+		return (ThreadType) super.getType();
 	}
 
 	/**

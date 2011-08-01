@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.ProcessImplementation;
@@ -318,8 +319,7 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 	 */
 	@Override
 	public ProcessType getType() {
-		ComponentType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? null : (ProcessType) type;
+		return (ProcessType) super.getType();
 	}
 
 	/**

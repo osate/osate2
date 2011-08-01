@@ -537,11 +537,13 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ComponentImplementation getExtended() {
 		ComponentImplementation extended = basicGetExtended();
-		return extended != null && ((EObject) extended).eIsProxy() ? (ComponentImplementation) eResolveProxy((InternalEObject) extended)
+		extended = extended != null && ((EObject) extended).eIsProxy() ? (ComponentImplementation) eResolveProxy((InternalEObject) extended)
+				: extended;
+		return extended != null && ((EObject) extended).eIsProxy() ? null // unresolved proxy
 				: extended;
 	}
 
@@ -554,7 +556,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public ComponentImplementation basicGetExtended() {
 		// DONE: implement this method to return the 'Extended' reference
 		ImplementationExtension extension = getOwnedExtension();
-		return extension == null ? null : ((ImplementationExtensionImpl) extension).getExtended();
+		return extension == null ? null : ((ImplementationExtensionImpl) extension).basicGetExtended();
 	}
 
 	/**
@@ -640,11 +642,13 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ComponentType getType() {
 		ComponentType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) type)
+		type = type != null && ((EObject) type).eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) type)
+				: type;
+		return type != null && ((EObject) type).eIsProxy() ? null // unresolved proxy
 				: type;
 	}
 
@@ -657,7 +661,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'ComponentType' reference
 		Realization realization = getOwnedRealization();
-		return realization == null ? null : ((RealizationImpl) realization).getImplemented();
+		return realization == null ? null : ((RealizationImpl) realization).basicGetImplemented();
 	}
 
 	/**

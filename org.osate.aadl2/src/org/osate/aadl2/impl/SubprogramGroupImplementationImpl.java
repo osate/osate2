@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramGroupImplementation;
@@ -208,8 +209,7 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 */
 	@Override
 	public SubprogramGroupType getType() {
-		ComponentType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? null : (SubprogramGroupType) type;
+		return (SubprogramGroupType) super.getType();
 	}
 
 	/**
