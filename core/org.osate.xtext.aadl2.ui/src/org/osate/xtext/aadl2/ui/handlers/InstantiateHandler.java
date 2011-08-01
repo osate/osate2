@@ -6,6 +6,8 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -89,6 +91,8 @@ public class InstantiateHandler extends AbstractHandler {
 										URI instanceURI = InstantiateModel.getInstanceModelURI(si);
 										Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
 										Aadl2ResourceImpl aadlResource =  (Aadl2ResourceImpl) resFactory.createResource(instanceURI);
+//										XMIResourceFactoryImpl resFactory = new XMIResourceFactoryImpl();
+//										XMIResourceImpl aadlResource =  (XMIResourceImpl) resFactory.createResource(instanceURI);
 
 										// now instantiate the rest of the model
 										final InstantiateModel instantiateModel =
@@ -110,7 +114,7 @@ public class InstantiateHandler extends AbstractHandler {
 										
 									}
 								} else {
-									System.out.println("instantiate" + targetElement.toString());
+									System.out.println("instantiate " + targetElement.toString());
 								}
 								
 								return null;
