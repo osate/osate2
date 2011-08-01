@@ -76,6 +76,7 @@ import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.GlobalNamespace;
@@ -1916,7 +1917,7 @@ public class OsateResourceManager {
 				IProjectDescription pluginResourcesProjectDescription = pluginResourcesProject
 						.getDescription();
 				pluginResourcesProjectDescription
-						.setNatureIds(new String[] { "edu.cmu.sei.osate.core.aadlnature" });
+						.setNatureIds(new String[] { "edu.cmu.sei.osate.core.aadlnature" , XtextProjectHelper.NATURE_ID});
 				pluginResourcesProject.setDescription(
 						pluginResourcesProjectDescription, null);
 			} catch (CoreException e) {
