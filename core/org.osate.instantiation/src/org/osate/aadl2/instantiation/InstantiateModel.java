@@ -244,7 +244,11 @@ public class InstantiateModel {
 
 		monitor.subTask("Saving instance model");
 		
-		((Aadl2ResourceImpl)root.eResource()).save();
+		if (aadlResource instanceof Aadl2ResourceImpl ){
+			((Aadl2ResourceImpl)aadlResource).save();
+		} else {
+		OsateResourceManager.save(aadlResource);
+		}
 		return root;
 	}
 		
