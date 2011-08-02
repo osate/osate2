@@ -34,6 +34,7 @@ import org.osate.workspace.names.standard.ModelingProperties;
 import org.osate.workspace.names.standard.ProgrammingProperties;
 import org.osate.workspace.names.standard.ThreadProperties;
 import org.osate.workspace.names.standard.TimingProperties;
+import org.eclipse.xtext.ui.XtextProjectHelper;
 
 public class PredeclaredProperties {
 
@@ -155,12 +156,12 @@ public class PredeclaredProperties {
 				 * plugin dependencies. Perhaps this can be cleaned up at a
 				 * later date, but this solution is good enough for now.
 				 */
-//				IProjectDescription pluginResourcesProjectDescription = pluginResourcesProject
-//						.getDescription();
-//				pluginResourcesProjectDescription
-//						.setNatureIds(new String[] { "edu.cmu.sei.osate.core.aadlnature" });
-//				pluginResourcesProject.setDescription(
-//						pluginResourcesProjectDescription, null);
+				IProjectDescription pluginResourcesProjectDescription = pluginResourcesProject
+						.getDescription();
+				pluginResourcesProjectDescription
+						.setNatureIds(new String[] { "edu.cmu.sei.osate.core.aadlnature" , XtextProjectHelper.NATURE_ID});
+				pluginResourcesProject.setDescription(
+						pluginResourcesProjectDescription, null);
 			} catch (CoreException e) {
 				if (pluginResourcesProject.exists()) {
 					try {
