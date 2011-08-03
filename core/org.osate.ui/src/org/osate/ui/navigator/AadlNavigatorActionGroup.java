@@ -54,6 +54,7 @@ import org.eclipse.ui.views.navigator.IResourceNavigator;
 import org.eclipse.ui.views.navigator.MainActionGroup;
 import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
 import org.osate.ui.OsateUiPlugin;
+import org.osate.xtext.aadl2.properties.PredeclaredProperties;
 
 
 public class AadlNavigatorActionGroup extends MainActionGroup
@@ -156,7 +157,7 @@ public class AadlNavigatorActionGroup extends MainActionGroup
 				IFile file = (IFile)((IStructuredSelection)getNavigator().getViewer().getSelection()).getFirstElement();
 				try
 				{
-					OsateResourceManager.revertToContributed(file);
+					PredeclaredProperties.revertToContributed(file);
 					getNavigator().getViewer().update(file, null);
 				}
 				catch (IOException e)

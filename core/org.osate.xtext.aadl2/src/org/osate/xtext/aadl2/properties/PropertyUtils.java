@@ -31,7 +31,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.modelsupport.properties;
+package org.osate.xtext.aadl2.properties;
 
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.BooleanLiteral;

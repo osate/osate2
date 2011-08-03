@@ -114,8 +114,7 @@ public class AadlNavigator extends ResourceNavigator implements IResourceChangeL
 						if (element instanceof IResource)
 						{
 							IResource elementAsIResource = (IResource)element;
-							return !elementAsIResource.getName().startsWith(".") &&
-									!OsateResourceManager.isModelTaggedWithSyntaxErrors(elementAsIResource);
+							return !elementAsIResource.getName().startsWith(".") ;
 						}
 						else
 							return true;
@@ -171,19 +170,6 @@ public class AadlNavigator extends ResourceNavigator implements IResourceChangeL
 			IResourceDelta delta = event.getDelta();
 			if (delta != null)
 			{
-				if ((delta.getKind() & IResourceDelta.ADDED) != 0 && (delta.getFlags() & IResourceDelta.MOVED_FROM) != 0)
-				{
-					IPath moved = delta.getMovedFromPath();
-					final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(moved);
-					ctrl.getDisplay().asyncExec(
-							new Runnable()
-							{
-								public void run()
-								{
-									OsateResourceManager.deleteComplementFile(file);
-								}
-							});
-				}
 				if (!hasChangedDelta(event.getDelta()))
 					return;
 			}
@@ -230,37 +216,9 @@ public class AadlNavigator extends ResourceNavigator implements IResourceChangeL
 			IPath moved = delta.getMovedFromPath();
 			if (added instanceof IFile)
 			{
-				final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(moved);
-				final Control ctrl = getTreeViewer().getControl();
-				//We test if the file exists because when renaming a project, the resource listener is notified that a file was moved.
-				if (ctrl != null && !ctrl.isDisposed() && file.exists())
-				{
-					ctrl.getDisplay().asyncExec(
-							new Runnable()
-							{
-								public void run()
-								{
-									OsateResourceManager.deleteComplementFile(file);
-								}
-							});
-				}
 			}
 			else if (added instanceof IFolder)
 			{
-				final IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(moved);
-				final Control ctrl = getTreeViewer().getControl();
-				//We test if the file exists because when renaming a project, the resource listener is notified that a folder was moved.
-				if (ctrl != null && !ctrl.isDisposed() && folder.exists())
-				{
-					ctrl.getDisplay().asyncExec(
-							new Runnable()
-							{
-								public void run()
-								{
-									OsateResourceManager.deleteComplementFolder(folder);
-								}
-							});
-				}
 			}
 		}
 	}

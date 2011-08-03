@@ -31,7 +31,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.workspace.names.standard;
+package org.osate.xtext.aadl2.properties;
 
 public final class DeploymentProperties {
 	private DeploymentProperties() {

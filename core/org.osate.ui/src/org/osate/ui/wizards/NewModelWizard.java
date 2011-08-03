@@ -183,9 +183,6 @@ public class NewModelWizard extends Wizard implements INewWizard
 	@Override
 	public boolean performFinish()
 	{
-		if (newObjectCreationPage.getFileType().equals(FileType.OBJECT_FILE))
-			return addAadlModel(newObjectRelativePath());
-		else
 			return addAadlSource(newObjectRelativePath());
 	}
 	
@@ -244,89 +241,6 @@ public class NewModelWizard extends Wizard implements INewWizard
 				WorkspacePlugin.AADL_PACKAGE_SEPARATOR, WorkspacePlugin.FILE_PACKAGE_SEPARATOR) + fileExtension);
 	}
 	
-	/**
-	 * Creates a new Aadl Object Model and adds it to the project.
-	 */
-	private boolean addAadlModel(IPath modelPath)
-	{
-		try
-		{
-			//Remember the file.
-			final IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(modelPath);
-			
-			//Do the work within an operation.
-			WorkspaceModifyOperation operation = new WorkspaceModifyOperation()
-			{
-				@Override
-				protected void execute(IProgressMonitor monitor)
-				{
-					try
-					{
-						//Get the URI of the model file.
-						URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString(), false);
-						
-						//Create a resource for this file.
-						Resource resource = OsateResourceManager.getEmptyResource(fileURI);
-						
-						//Add the initial model object to the contents.
-						NamedElement rootObject = createInitialModel();
-						resource.getContents().add(rootObject);
-						rootObject.setName(newObjectCreationPage.getNewObjectName());
-						
-						//Save the contents of the resource to the file system.
-						OsateResourceManager.save(resource);
-						IResourceUtility.setGenerated(OsateResourceManager.convertToIResource(resource), false);
-					}
-					catch (Exception exception)
-					{
-						OsateUiPlugin.log(exception);
-					}
-					finally
-					{
-						monitor.done();
-					}
-				}
-			};
-			
-			getContainer().run(false, false, operation);
-			
-			//Select the new file resource in the current view.
-			IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
-			IWorkbenchPage page = workbenchWindow.getActivePage();
-			final IWorkbenchPart activePart = page.getActivePart();
-			if (activePart instanceof ISetSelectionTarget)
-			{
-				final ISelection targetSelection = new StructuredSelection(modelFile);
-				getShell().getDisplay().asyncExec(
-						new Runnable()
-						{
-//							@Override
-							public void run()
-							{
-								((ISetSelectionTarget)activePart).selectReveal(targetSelection);
-							}
-						});
-			}
-			
-			//Open an editor on the new file.
-			try
-			{
-				page.openEditor(new FileEditorInput(modelFile),
-						workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());
-			}
-			catch (PartInitException exception)
-			{
-				MessageDialog.openError(workbenchWindow.getShell(), "Open Editor", exception.getMessage());
-				return false;
-			}
-			return true;
-		}
-		catch (Exception exception)
-		{
-			OsateUiPlugin.log(exception);
-			return false;
-		}
-	}
 	
 	private boolean addAadlSource(final IPath sourcePath)
 	{

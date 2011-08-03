@@ -31,11 +31,17 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.workspace.names.standard;
+package org.osate.xtext.aadl2.properties;
 
-public final class ProgrammingProperties {
-	private ProgrammingProperties() {
+public final class CommunicationProperties {
+	private CommunicationProperties() {
 	}
 
-	public static final String _NAME = "Programming_Properties";
+	public static final String _NAME = "Communication_Properties";
+	public static final String TRANSMISSION_TIME = "Transmission_Time";
+	public static final String LATENCY = "Latency";
+	public static final String ACTUAL_LATENCY = "Actual_Latency";
+	public static final String QUEUE_SIZE = "Queue_Size";
+	public static final String REQUIRED_CONNECTION = "Required_Connection";
+	public static final String TIMING = "Timing";
 }

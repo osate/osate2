@@ -1,8 +1,6 @@
 /*
- * Created on Jan 30, 2004
- *
  * <copyright>
- * Copyright  2004 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2009 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -31,79 +29,13 @@
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
- *
  * </copyright>
- *
- *
- * @version $Id: ReloadResourceSet.java,v 1.4 2010-04-02 19:44:45 jseibel Exp $
  */
-package org.osate.ui.actions;
+package org.osate.xtext.aadl2.properties;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
-
-
-/**
- * ReloadResourceset implements workbench action delegate.
- * The action proxy will be created by the workbench and
- * shown in the UI. When the user tries to use the action,
- * this delegate will be created and execution will be
- * delegated to it.
- * @see IWorkbenchWindowActionDelegate
- */
-public class ReloadResourceSet implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
-	/**
-	 * The constructor.
-	 */
-	public ReloadResourceSet() {
+public final class ModelingProperties {
+	private ModelingProperties() {
 	}
 
-    /**
-     * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-     */
-    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-    }
-
-	/**
-	 * The action has been activated. The argument of the
-	 * method represents the 'real' action sitting
-	 * in the workbench UI.
-	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
-	 */
-	public void run(IAction action) {
-		OsateResourceManager.removeResources();
-		OsateResourceManager.populateResourceSet();
-	}
-
-	/**
-	 * Selection in the workbench has been changed. We
-	 * can change the state of the 'real' action here
-	 * if we want, but this can only happen after
-	 * the delegate has been created.
-	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
-	 */
-	public void selectionChanged(IAction action, ISelection selection) {
-		// don't care about the selection
-	}
-
-	/**
-	 * We can use this method to dispose of any system
-	 * resources we previously allocated.
-	 * @see IWorkbenchWindowActionDelegate#dispose
-	 */
-	public void dispose() {
-	}
-
-	/**
-	 * We will cache window object in order to
-	 * be able to provide parent shell for the message dialog.
-	 * @see IWorkbenchWindowActionDelegate#init
-	 */
-	public void init(IWorkbenchWindow window) {
-	}
+	public static final String _NAME = "Modeling_Properties";
 }

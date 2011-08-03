@@ -110,7 +110,6 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
-import org.osate.workspace.IResourceUtility;
 import org.osate.workspace.WorkspacePlugin;
 
 
@@ -182,7 +181,7 @@ public class InstantiateModel {
 	// Methods
 
 	@SuppressWarnings("unchecked")
-	public SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource) {
+	public SystemInstance createSystemInstance(final SystemImplementation si, final Aadl2ResourceImpl aadlResource) {
 		final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
 				.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
 		// We execute this command on the command stack because otherwise, we will not
@@ -220,9 +219,7 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
-	public SystemInstance createSystemInstanceInt(SystemImplementation si, Resource aadlResource) {
-//		boolean oldProp = OsateResourceManager.getResourceSet().isPropagateNameChange();
-//		OsateResourceManager.getResourceSet().setPropagateNameChange(false);
+	public SystemInstance createSystemInstanceInt(SystemImplementation si, Aadl2ResourceImpl aadlResource) {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = si.getTypeName() + "_" + si.getImplementationName() + "_"
 				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
@@ -233,22 +230,14 @@ public class InstantiateModel {
 		aadlResource.getContents().add(root);
 		// Needed to save the root object because we may attach warnings to the
 		// IResource as we build it.
-		if (aadlResource instanceof Aadl2ResourceImpl ){
-			((Aadl2ResourceImpl)aadlResource).save();
-		} else {
-		OsateResourceManager.save(aadlResource);
-		}
+		aadlResource.save();
 		createXSystemInstance(root);
 		// We're done: Save the model.
 		// We don't respond to a cancel at this point
 
 		monitor.subTask("Saving instance model");
 		
-		if (aadlResource instanceof Aadl2ResourceImpl ){
-			((Aadl2ResourceImpl)aadlResource).save();
-		} else {
-		OsateResourceManager.save(aadlResource);
-		}
+	aadlResource.save();
 		return root;
 	}
 		
@@ -741,15 +730,11 @@ public class InstantiateModel {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
 		URI instanceURI = getInstanceModelURI(si);
-		Resource aadlResource = OsateResourceManager.getEmptyResource(instanceURI);
+		OsateResourceManager.setResourceSet(si);
+		Aadl2ResourceImpl aadlResource = OsateResourceManager.getEmptyAadl2Resource(instanceURI);
 
 		// now instantiate the rest of the model
 		SystemInstance root = this.createSystemInstance(si, aadlResource);
-		IResourceUtility.tagAsInstanceModel(OsateResourceManager.convertToIResource(aadlResource));
-		if (root == null) {
-			// cancelled, clean up model file
-			OsateResourceManager.reload(aadlResource);
-		}
 		return root;
 	}
 

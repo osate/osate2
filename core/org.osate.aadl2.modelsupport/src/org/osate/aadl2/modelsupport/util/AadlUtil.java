@@ -1967,14 +1967,6 @@ public final class AadlUtil {
 		}
 	}
 
-	/**
-	 * Get all the property definitions.
-	 */
-	public static EList<Property> getAllPropertyDefinitions() {
-		final Set<PropertySet> propSets = OsateResourceManager.getAllPropertySets();
-		return getPropertyDefinitions(propSets);
-	}
-
 	private static EList<Property> getPropertyDefinitions(final Set<PropertySet> propSets) {
 		final EList<Property> result = new BasicEList<Property>();
 		for (PropertySet ps : propSets) {

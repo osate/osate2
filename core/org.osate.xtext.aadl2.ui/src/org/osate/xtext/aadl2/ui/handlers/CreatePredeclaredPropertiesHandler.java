@@ -22,7 +22,7 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.modelsupport.properties.PredeclaredProperties;
+import org.osate.xtext.aadl2.properties.PredeclaredProperties;
 
 import com.google.inject.Inject;
 

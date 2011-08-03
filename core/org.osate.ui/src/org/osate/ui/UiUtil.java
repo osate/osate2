@@ -107,9 +107,6 @@ public final class UiUtil {
 			return;
 		}
 		Aadl2ResourceImpl res = (Aadl2ResourceImpl)root.eResource();
-		if (OsateResourceManager.isModelTaggedWithSyntaxErrors(res)){
-			return;
-		}
 		Element target = AadlUtil.findElement(root, linenumber);
 		if (target != null){
 			gotoAaxlModel(page, target);
@@ -127,9 +124,6 @@ public final class UiUtil {
 			return;
 		}
 		Aadl2ResourceImpl res = (Aadl2ResourceImpl)target.eResource();
-		if (OsateResourceManager.isModelTaggedWithSyntaxErrors(res)){
-			return;
-		}
 		final IResource ires = OsateResourceManager.convertToIResource(res);
 		if (ires != null && ires.exists())
 		{
@@ -184,9 +178,6 @@ public final class UiUtil {
 			}
 		}
 		Aadl2ResourceImpl res = (Aadl2ResourceImpl)target.eResource();
-		if (OsateResourceManager.isModelTaggedWithSyntaxErrors(res)){
-			return SYNTAX_ERROR;
-		}
 		final IResource ires = OsateResourceManager.convertToIResource(res);
 		if (ires == null){
 			return SILENT_FAILURE;

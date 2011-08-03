@@ -113,12 +113,15 @@ import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.Type;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
+import org.osate.xtext.aadl2.properties.PredeclaredProperties;
 import org.osate.xtext.aadl2.util.PSNode;
-import org.osate.aadl2.modelsupport.properties.PredeclaredProperties;
 
 public class Aadl2LinkingService extends DefaultLinkingService {
 	
 	public static Aadl2LinkingService eInstance = new Aadl2LinkingService();
+	
+	private static PSNode psNode = new PSNode();
+
 
 	public  List<EObject> getIndexedObjects(EObject context,
 			EReference reference, INode node) {
@@ -148,7 +151,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		final String s = getCrossRefNodeAsString(node);
 		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
 			// resolve classifier reference
-			EObject e = findClassifier(context, reference, node, s);
+			EObject e = findClassifier(context, reference,  s);
 			if (e != null ) {
 				// the result satisfied the expected class
 				return Collections.singletonList((EObject) e);
@@ -294,7 +297,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 					&& requiredType.isSuperTypeOf(searchResult.eClass())) {
 				return Collections.singletonList((EObject) searchResult);
 			}
-			searchResult = findClassifier(context, reference, node, s);
+			searchResult = findClassifier(context, reference, s);
 			if (searchResult != null ) {
 				return Collections.singletonList((EObject) searchResult);
 			}
@@ -308,7 +311,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				EObject searchResult = ns.findNamedElement(s);
 				if (searchResult == null){
 					// look for subprogramclassifier
-					searchResult = findClassifier(context, reference, node, s);
+					searchResult = findClassifier(context, reference,  s);
 				}
 				if (searchResult != null
 						&& requiredType.isSuperTypeOf(searchResult.eClass())) {
@@ -424,40 +427,40 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 
 		} else if (Aadl2Package.eINSTANCE.getProperty() == requiredType) {
 			// look for property definition in property set
-			return findPropertyDefinition(context, reference, node, s);
+			return findPropertyDefinition(context, reference, s);
 
 		} else if (pt.isSuperTypeOf(requiredType)) {
 			// look for property type in property set
-			return findPropertyType(context, reference, node, s);
+			return findPropertyType(context, reference, s);
 
 		} else if (Aadl2Package.eINSTANCE.getPropertyConstant() == requiredType
 				) {
 			// look for property constant in property set
-			return findPropertyConstant(context, reference, node, s);
+			return findPropertyConstant(context, reference, s);
 			
 		}else if( Aadl2Package.eINSTANCE.getAbstractNamedValue() == requiredType ){
 			// AbstractNamedValue: constant reference, property definition reference, unit literal, enumeration literal
 			if (context instanceof NamedValue){
-				List<EObject> res = findPropertyConstant(context, reference, node, s);
+				List<EObject> res = findPropertyConstant(context, reference, s);
 				if (res.isEmpty()){
-					res = findPropertyDefinition(context, reference, node, s);
+					res = findPropertyDefinition(context, reference, s);
 				}
 				if (res.isEmpty() && s.indexOf("::")==-1){
 					// names without qualifier. Must be enum/unit literal
-					res = findUnitLiteral(context, reference, node, s);
+					res = findUnitLiteralAsList(context, reference, s);
 					if (res.isEmpty())
-						res = findEnumLiteral(context, reference, node, s);
+						res = findEnumLiteral(context, reference, s);
 				}
 				return res;
 			}
 
 		} else if (Aadl2Package.eINSTANCE.getUnitLiteral() == requiredType) {
 			// look for unit literal pointed to by baseUnit
-			return findUnitLiteral(context, reference, node, s);
+			return findUnitLiteralAsList(context, reference, s);
 
 		} else if (Aadl2Package.eINSTANCE.getEnumerationLiteral() == requiredType) {
 			// look for enumeration literal
-			return findEnumLiteral(context, reference, node, s);
+			return findEnumLiteral(context, reference, s);
 
 		} else if (Aadl2Package.eINSTANCE.getBasicProperty() == requiredType) {
 			// look for record field definition
@@ -609,9 +612,20 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return Collections.emptyList();
 	}
 	
+	public ComponentClassifier findComponentClassifier(EObject context,String name){
+		EReference reference = Aadl2Package.eINSTANCE.getComponentPrototype_ConstrainingClassifier();
+		return (ComponentClassifier)findClassifier(context, reference, name);
+	}
+	
+	public FeatureGroupType findFeatureGroupType(EObject context,String name){
+		EReference reference = Aadl2Package.eINSTANCE.getFeatureGroupPrototype_ConstrainingFeatureGroupType();
+		return (FeatureGroupType)findClassifier(context, reference, name);
+	}
+	
 	protected EObject findClassifier(EObject context,
-			EReference reference, INode node, String name){
-		List<EObject> res = getIndexedObjects(context, reference, node);
+			EReference reference,  String name){
+		psNode.setText(name);
+		List<EObject> res = getIndexedObjects(context, reference, psNode);
 		if (!res.isEmpty())
 			return res.get(0);
 		final int idx = name.lastIndexOf("::");
@@ -631,10 +645,11 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return null;
 	}
 	
-	public EObject findPropertySetElement(EObject context,
-			EReference reference, INode node, String name){
+	protected EObject findPropertySetElement(EObject context,
+			EReference reference, String name){
 		// look for element in property set
-		List<EObject> res = getIndexedObjects(context, reference, node);
+		psNode.setText(name);
+		List<EObject> res = Aadl2LinkingService.eInstance.getIndexedObjects(context, reference, psNode);
 		if (!res.isEmpty()){
 			return res.get(0);
 		}
@@ -649,11 +664,11 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				context, reference);
 	}
 	
+	
 	public PropertyConstant findPropertyConstant(EObject context,String name){
 		// look for property constant in property set
 		EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
-		psNode.setText(name);
-		EObject e = findPropertySetElement(context, reference, psNode, name);
+		EObject e = findPropertySetElement(context, reference, name);
 		if (e != null && e instanceof PropertyConstant) {
 			return (PropertyConstant)e;
 		}
@@ -662,9 +677,9 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 
 	
 	protected List<EObject> findPropertyConstant(EObject context,
-			EReference reference, INode node, String name){
+			EReference reference, String name){
 		// look for property constant in property set
-		EObject e = findPropertySetElement(context, reference, node, name);
+		EObject e = findPropertySetElement(context, reference, name);
 		if (e != null && e instanceof PropertyConstant) {
 			return Collections.singletonList((EObject) e);
 		}
@@ -675,8 +690,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	public PropertyType findPropertyType(EObject context,String name){
 		// look for property type in property set
 		EReference reference = Aadl2Package.eINSTANCE.getBasicProperty_PropertyType();
-		psNode.setText(name);
-		EObject e = findPropertySetElement(context, reference, psNode, name);
+		EObject e = findPropertySetElement(context, reference, name);
 		if (e != null && e instanceof PropertyType) {
 			return (PropertyType)e;
 		}
@@ -684,9 +698,9 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	}
 
 	protected List<EObject> findPropertyType(EObject context,
-			EReference reference, INode node, String name){
+			EReference reference, String name){
 		// look for property constant in property set
-		EObject e = findPropertySetElement(context, reference, node, name);
+		EObject e = findPropertySetElement(context, reference, name);
 		if (e != null && e instanceof PropertyType) {
 			return Collections.singletonList((EObject) e);
 		}
@@ -696,8 +710,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	public Property findPropertyDefinition(EObject context,String name){
 		// look for property type in property set
 		EReference reference = Aadl2Package.eINSTANCE.getPropertyAssociation_Property();
-		psNode.setText(name);
-		EObject e = findPropertySetElement(context, reference, psNode, name);
+		EObject e = findPropertySetElement(context, reference, name);
 		if (e != null && e instanceof Property) {
 			return (Property)e;
 		}
@@ -705,17 +718,43 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	}
 
 	protected List<EObject> findPropertyDefinition(EObject context,
-			EReference reference, INode node, String name) {
+			EReference reference, String name) {
 		// look for property definition in property set
-		EObject e = findPropertySetElement(context, reference, node, name);
+		EObject e = findPropertySetElement(context, reference, name);
 		if (e != null && e instanceof Property) {
 			return Collections.singletonList((EObject) e);
 		}
 		return Collections.<EObject> emptyList();
 	}
 	
-	protected List<EObject> findUnitLiteral(EObject context,
-			EReference reference, INode node, String name) {
+	public UnitLiteral findUnitLiteral(Property propertyType, String name){
+		UnitsType unitsType= null;
+		if (propertyType instanceof NumberType)
+			unitsType = ((NumberType) propertyType).getUnitsType();
+		else if (propertyType instanceof RangeType)
+			unitsType = ((RangeType) propertyType).getNumberType()
+					.getUnitsType();
+		if (unitsType != null) {
+			return (UnitLiteral) unitsType
+					.findNamedElement(name);
+		}
+		return null;
+	}
+	
+	
+	public UnitLiteral findUnitLiteral(NumberValue nv, String name){
+		return null;
+	}
+	
+	protected List<EObject> findUnitLiteralAsList(EObject context,
+			EReference reference, String name) {
+		EObject e = findUnitLiteral(context,reference,name);
+		if (e == null) Collections.<EObject> emptyList(); 
+		return Collections.singletonList((EObject) e);
+	}
+	
+	protected UnitLiteral findUnitLiteral(EObject context,
+			EReference reference, String name) {
 		// look for unit literal pointed to by baseUnit
 		if (context instanceof UnitLiteral) {
 			UnitsType unitsType = (UnitsType) ((UnitLiteral) context)
@@ -726,7 +765,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				if (unitsType.getOwnedLiterals().indexOf(baseUnit) < unitsType
 						.getOwnedLiterals()
 						.indexOf(((UnitLiteral) context)))
-					return Collections.singletonList((EObject) baseUnit);
+					return baseUnit;
 			}
 		} else if (context instanceof NumberValue) {
 			UnitsType unitsType = null;
@@ -790,18 +829,16 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 							.getUnitsType();
 			}
 			if (unitsType != null) {
-				UnitLiteral literal = (UnitLiteral) unitsType
+				return (UnitLiteral) unitsType
 						.findNamedElement(name);
-				if (literal != null)
-					return Collections.singletonList((EObject) literal);
 			}
 		}
-		return Collections.<EObject> emptyList();
+		return null;
 	}
 
 	
 	protected List<EObject> findEnumLiteral(EObject context,
-			EReference reference, INode node, String name) {
+			EReference reference, String name) {
 		// look for enumeration literal
 		if (context instanceof NamedValue) {
 			NamedValue value = (NamedValue) context;
@@ -863,7 +900,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return Collections.<EObject> emptyList();
 	}
 
-	public static ConnectionEnd findPortConnectionEnd(PortConnection conn,
+	public ConnectionEnd findPortConnectionEnd(PortConnection conn,
 			Context cxt, String portName) {
 		if (cxt == null) {
 			EObject searchResult = ((ComponentImplementation) getContainingClassifier(conn))
@@ -950,7 +987,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return null;
 	}
 
-	public static ConnectionEnd findAccessConnectionEnd(AccessConnection conn,
+	public ConnectionEnd findAccessConnectionEnd(AccessConnection conn,
 			Context cxt, String name) {
 		if (cxt == null) {
 			NamedElement searchResult = getContainingClassifier(conn)
@@ -1006,7 +1043,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return null;
 	}
 
-	public static ConnectionEnd findParameterConnectionEnd(
+	public ConnectionEnd findParameterConnectionEnd(
 			ParameterConnection conn, Context cxt, String name) {
 		if (cxt == null) {
 			NamedElement searchResult = getContainingClassifier(conn)
@@ -1252,7 +1289,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return null;
 	}
 
-	public static ConnectionEnd findFeatureGroupConnectionEnd(
+	public ConnectionEnd findFeatureGroupConnectionEnd(
 			FeatureGroupConnection connection, Context cxt, String name) {
 		if (cxt == null) {
 			NamedElement searchResult = getContainingClassifier(connection)
@@ -1309,7 +1346,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return null;
 	}
 
-	public static ConnectionEnd findFeatureConnectionEnd(
+	public ConnectionEnd findFeatureConnectionEnd(
 			FeatureConnection connection, Context cxt, String name) {
 		if (cxt == null) {
 			NamedElement searchResult = getContainingClassifier(connection)
@@ -1399,7 +1436,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	 * 
 	 * This will cause a stack overflow!
 	 */
-	private static ComponentClassifier findClassifierForComponentPrototype(
+	private ComponentClassifier findClassifierForComponentPrototype(
 			Classifier containingClassifier, ComponentPrototype prototype) {
 		// TODO: Need to check that the prototype binding is a component
 		// prototype binding. In PrototypeFormalReference,
@@ -1444,7 +1481,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	/*
 	 * TODO: Check for circular dependencies with prototypes.
 	 */
-	private static ComponentClassifier findClassifierForComponentPrototype(
+	private ComponentClassifier findClassifierForComponentPrototype(
 			Classifier classifierPrototypeContext,
 			Subcomponent subcomponentPrototypeContext,
 			ComponentPrototype prototype) {
@@ -1582,7 +1619,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	 * FeatureGroupTypeExtendReference.
 	 */
 	// TODO: Check for circular dependencies with prototypes.
-	private static FeatureGroupType findFeatureGroupTypeForFeatureGroupPrototype(
+	private FeatureGroupType findFeatureGroupTypeForFeatureGroupPrototype(
 			Classifier containingClassifier, FeatureGroupPrototype prototype) {
 		// TODO: Need to check that the prototype binding is a feature group
 		// prototype binding. In PrototypeFormalReference,
@@ -1710,7 +1747,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	// return null;
 	// }
 
-	public static AadlPackage findImportedPackage(String name, EObject context) {
+	public AadlPackage findImportedPackage(String name, EObject context) {
 		EList<ModelUnit> imports;
 		if (!(context instanceof PropertySet || context instanceof PackageSection)) {
 			context = getContainingTopLevelNamespace(context);
@@ -1739,7 +1776,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return null;
 	}
 
-	public static PropertySet findImportedPropertySet(String name,
+	public PropertySet findImportedPropertySet(String name,
 			EObject context) {
 		EList<ModelUnit> importedPropertySets;
 		if (!(context instanceof PropertySet || context instanceof PackageSection)) {
@@ -1758,21 +1795,21 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return null;
 	}
 
-	public static PackageSection getContainingPackageSection(EObject element) {
+	public PackageSection getContainingPackageSection(EObject element) {
 		EObject container = element.eContainer();
 		while (container != null && !(container instanceof PackageSection))
 			container = container.eContainer();
 		return (PackageSection) container;
 	}
 
-	public static PropertySet getContainingPropertySet(EObject element) {
+	public PropertySet getContainingPropertySet(EObject element) {
 		EObject container = element.eContainer();
 		while (container != null && !(container instanceof PropertySet))
 			container = container.eContainer();
 		return (PropertySet) container;
 	}
 
-	public static Namespace getContainingTopLevelNamespace(EObject element) {
+	public Namespace getContainingTopLevelNamespace(EObject element) {
 		EObject container = element.eContainer();
 		while (container != null && !(container instanceof PackageSection)
 				&& !(container instanceof PropertySet))
@@ -1780,7 +1817,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		return (Namespace) container;
 	}
 
-	public static Namespace getContainingNamespace(EObject element) {
+	public Namespace getContainingNamespace(EObject element) {
 		EObject container = element.eContainer();
 		while (container != null && !(container instanceof Namespace))
 			container = container.eContainer();
@@ -1820,7 +1857,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	 *            that needs the search result.
 	 * @return The {@link NamedElement} or {@code null} if it cannot be found.
 	 */
-	public static NamedElement findNamedElementInAadlPackage(String name,
+	public NamedElement findNamedElementInAadlPackage(String name,
 			PackageSection context) {
 		NamedElement result = context.findNamedElement(name);
 		if (result == null
@@ -1856,7 +1893,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	 *            specified {@link Element}.
 	 * @return The {@link NamedElement} or {@code null} if it cannot be found.
 	 */
-	public static EObject findNamedElementInAadlPackage(String packageName,
+	public EObject findNamedElementInAadlPackage(String packageName,
 			String elementName, Namespace context) {
 		if (context instanceof PackageSection
 				&& (packageName == null || /*
@@ -1905,15 +1942,12 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 				.unmodifiableSet(predeclaredPropertySetNames);
 	}
 	
-	public static boolean isPredeclaredPropertySet(String psname){
+	public boolean isPredeclaredPropertySet(String psname){
 		for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
 			if (psname.equalsIgnoreCase(predeclaredPSName)) return true;
 		}
 		return false;
 	}
-
-	private static PSNode psNode = new PSNode();
-
 	/**
 	 * Dependencies: If propertySetName is the name of a different, non standard
 	 * property set: WithStatementReference.
@@ -1967,7 +2001,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	 *            that needs a {@link PackageRename}.
 	 * @return The {@link PackageRename} or {@code null} if it cannot be found.
 	 */
-	public static PackageRename findPackageRename(String name,
+	public PackageRename findPackageRename(String name,
 			PackageSection context) {
 		NamedElement searchResult = context.findNamedElement(name, false);
 		if (searchResult == null
@@ -1990,7 +2024,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			return packageOrPropertySetName + "::" + elementName;
 	}
 
-	public static Classifier getContainingClassifier(EObject element) {
+	public Classifier getContainingClassifier(EObject element) {
 		EObject container = element.eContainer();
 		while (container != null && !(container instanceof Classifier))
 			container = container.eContainer();
@@ -2003,7 +2037,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	 * ComponentImplementationExtensionReference, RealizationReference,
 	 * FeatureGroupTypeExtendReference.
 	 */
-	public static PrototypeBinding findPrototypeBinding(Classifier classifier,
+	public PrototypeBinding findPrototypeBinding(Classifier classifier,
 			Prototype prototype) {
 		for (PrototypeBinding binding : classifier.getOwnedPrototypeBindings())
 			if (binding.getFormal().equals(prototype))
@@ -2023,7 +2057,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	 * ComponentImplementationExtensionReference, RealizationReference,
 	 * FeatureGroupTypeExtendReference.
 	 */
-	private static PrototypeBinding findPrototypeBinding(
+	private PrototypeBinding findPrototypeBinding(
 			Classifier classifierPrototypeContext,
 			Subcomponent subcomponentPrototypeContext, Prototype prototype) {
 		for (PrototypeBinding binding : subcomponentPrototypeContext
@@ -2065,41 +2099,6 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 					return (AadlPackage) rootObject;
 			}
 		}
-//		/* load the resource from the file system */
-//		Resource res = context.eResource();
-//		URI uri = res.getURI().trimFileExtension().trimSegments(1)
-//				.appendSegment(name).appendFileExtension("aadl2");
-//		Resource xtextResource;
-//		try {
-//			xtextResource = context.eResource().getResourceSet()
-//					.getResource(uri, true);
-//		} catch (Exception e) {
-//			try {
-//				xtextResource = context.eResource().getResourceSet()
-//						.getResource(uri, false);
-//				if (xtextResource != null) {
-//					xtextResource.delete(null);
-//				}
-//			} catch (Exception ee) {
-//			}
-//			return null;
-//		}
-//		if (xtextResource == null)
-//			return null;
-//		if (!xtextResource.getContents().isEmpty()) {
-//			EObject rootObject = xtextResource.getContents().get(0);
-//			if ((rootObject instanceof AadlPackage)
-//					&& ((AadlPackage) rootObject).getName().equalsIgnoreCase(
-//							name))
-//				return (AadlPackage) rootObject;
-//		} else {
-//			try {
-//				xtextResource.delete(null);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
 		return null;
 	}
 
@@ -2124,48 +2123,13 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 					return (PropertySet) rootObject;
 			}
 		}
-//		/* load the resource from the file system */
-//		Resource res = context.eResource();
-//		URI uri = res.getURI().trimFileExtension().trimSegments(1)
-//				.appendSegment(name).appendFileExtension("aadl2");
-//		Resource xtextResource;
-//		try {
-//			xtextResource = context.eResource().getResourceSet()
-//					.getResource(uri, true);
-//		} catch (Exception e) {
-//			try {
-//				xtextResource = context.eResource().getResourceSet()
-//						.getResource(uri, false);
-//				if (xtextResource != null) {
-//					xtextResource.delete(null);
-//				}
-//			} catch (Exception ee) {
-//			}
-//			return null;
-//		}
-//		if (xtextResource == null)
-//			return null;
-//		if (!xtextResource.getContents().isEmpty()) {
-//			EObject rootObject = xtextResource.getContents().get(0);
-//			if ((rootObject instanceof PropertySet)
-//					&& ((PropertySet) rootObject).getName().equalsIgnoreCase(
-//							name))
-//				return (PropertySet) rootObject;
-//		} else {
-//			try {
-//				xtextResource.delete(null);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
 		return null;
 	}
 
 	/**
 	 * Dependencies: PrototypeFormalReference.
 	 */
-	private static PrototypeBinding findPrototypeBinding(
+	private PrototypeBinding findPrototypeBinding(
 			Subcomponent subcomponent, Prototype prototype) {
 		for (PrototypeBinding binding : subcomponent
 				.getOwnedPrototypeBindings())

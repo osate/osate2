@@ -59,8 +59,7 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 							internalErrorLogger,
 							new MarkerAnalysisErrorReporter.Factory(
 									AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-	instantiateModel.createXSystemInstance(aadlModel);
-
+			instantiateModel.createXSystemInstance(aadlModel);
 		}
 		super._createChildren(parentNode, aadlModel);
 	}

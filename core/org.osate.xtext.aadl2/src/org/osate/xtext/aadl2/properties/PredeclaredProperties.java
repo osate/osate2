@@ -1,68 +1,30 @@
-package org.osate.aadl2.modelsupport.properties;
+package org.osate.xtext.aadl2.properties;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.osate.aadl2.modelsupport.Activator;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceSet;
+import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
 import org.osate.pluginsupport.PluginSupportUtil;
 import org.osate.workspace.WorkspacePlugin;
-import org.osate.workspace.names.standard.AadlProject;
-import org.osate.workspace.names.standard.CommunicationProperties;
-import org.osate.workspace.names.standard.DeploymentProperties;
-import org.osate.workspace.names.standard.MemoryProperties;
-import org.osate.workspace.names.standard.ModelingProperties;
-import org.osate.workspace.names.standard.ProgrammingProperties;
-import org.osate.workspace.names.standard.ThreadProperties;
-import org.osate.workspace.names.standard.TimingProperties;
-import org.eclipse.xtext.ui.XtextProjectHelper;
 
 public class PredeclaredProperties {
 
-	private static final Set<String> PREDECLARED_PROPERTY_SET_UPPER_CASE_NAMES;
 	
 	private static boolean isInitialized = false;
 
-	static {
-		HashSet<String> predeclaredPropertySetUpperCaseNames = new HashSet<String>();
-		predeclaredPropertySetUpperCaseNames.add(DeploymentProperties._NAME
-				.toUpperCase());
-		predeclaredPropertySetUpperCaseNames.add(ThreadProperties._NAME
-				.toUpperCase());
-		predeclaredPropertySetUpperCaseNames.add(TimingProperties._NAME
-				.toUpperCase());
-		predeclaredPropertySetUpperCaseNames.add(CommunicationProperties._NAME
-				.toUpperCase());
-		predeclaredPropertySetUpperCaseNames.add(MemoryProperties._NAME
-				.toUpperCase());
-		predeclaredPropertySetUpperCaseNames.add(ProgrammingProperties._NAME
-				.toUpperCase());
-		predeclaredPropertySetUpperCaseNames.add(ModelingProperties._NAME
-				.toUpperCase());
-		predeclaredPropertySetUpperCaseNames.add(AadlProject._NAME
-				.toUpperCase());
-		PREDECLARED_PROPERTY_SET_UPPER_CASE_NAMES = Collections
-				.unmodifiableSet(predeclaredPropertySetUpperCaseNames);
-	}
 
 
 	public static final String PLUGIN_RESOURCES_DIRECTORY_NAME = "Plugin_Resources";
@@ -179,7 +141,7 @@ public class PredeclaredProperties {
 	private static void copyContributedResourceIntoWorkspace(
 			URI contributedResourceUri, IFile contributedResourceInWorkspace)
 			throws IOException, CoreException {
-		URIConverter uricvt = getResourceSet().getURIConverter();
+		URIConverter uricvt = OsateResourceManager.getResourceSet().getURIConverter();
 		InputStream contributedResourceContentsAsStream = uricvt
 				.createInputStream(contributedResourceUri.trimFileExtension()
 						.appendFileExtension(WorkspacePlugin.OLD_SOURCE_FILE_EXT));
@@ -199,14 +161,47 @@ public class PredeclaredProperties {
 		attributes.setReadOnly(true);
 		contributedResourceInWorkspace.setResourceAttributes(attributes);
 	}
-	
-	private static ResourceSet resourceSet;
-	
-	public static ResourceSet getResourceSet() {
-		if (resourceSet == null) {
-			resourceSet = new ResourceSetImpl();
-		}
-		return resourceSet;
-	}
 
+	public static void revertToContributed(
+			final IFile contributedResourceInWorkspace) throws IOException,
+			CoreException {
+		if (!contributedResourceInWorkspace.getProject().getName().equals(
+				PLUGIN_RESOURCES_DIRECTORY_NAME))
+			throw new IllegalArgumentException(
+					"contributedResourceInWorkspace is not in the project "
+							+ PLUGIN_RESOURCES_DIRECTORY_NAME);
+		for (final URI contributedResourceUri : PluginSupportUtil
+				.getContributedAadl()) {
+			if (contributedResourceUri.trimFileExtension().appendFileExtension(
+					WorkspacePlugin.OLD_SOURCE_FILE_EXT).lastSegment().equals(
+					contributedResourceInWorkspace.getName())) {
+				try {
+					new WorkspaceModifyOperation() {
+						@Override
+						protected void execute(IProgressMonitor monitor)
+								throws CoreException, InvocationTargetException {
+							try {
+								copyContributedResourceIntoWorkspace(
+										contributedResourceUri,
+										contributedResourceInWorkspace);
+							} catch (IOException e) {
+								throw new InvocationTargetException(e);
+							}
+						}
+					}.run(null);
+				} catch (InvocationTargetException e) {
+					if (e.getCause() instanceof IOException)
+						throw (IOException) e.getCause();
+					else if (e.getCause() instanceof CoreException)
+						throw (CoreException) e.getCause();
+					else
+						Activator.logThrowable(e);
+				} catch (InterruptedException e) {
+					Activator.logThrowable(e);
+				}
+				break;
+			}
+		}
+	}
+	
 }

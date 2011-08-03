@@ -1,6 +1,6 @@
 /*
  * <copyright>
- * Copyright  2010 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2009 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -31,59 +31,11 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.ui.actions;
+package org.osate.xtext.aadl2.properties;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
-import org.osate.core.builder.AadlBuilder;
-import org.osate.ui.OsateUiPlugin;
-
-
-public class ParseAllAction implements IWorkbenchWindowActionDelegate
-{
-
-	public void dispose()
-	{
+public final class ProgrammingProperties {
+	private ProgrammingProperties() {
 	}
 
-	public void init(IWorkbenchWindow window)
-	{
-	}
-
-	public void run(IAction action)
-	{
-		try
-		{
-			PlatformUI.getWorkbench().getProgressService().busyCursorWhile(
-					new WorkspaceModifyOperation()
-					{
-						@Override
-						protected void execute(IProgressMonitor monitor) throws CoreException,
-								InvocationTargetException, InterruptedException
-						{
-							new AadlBuilder().parseAllAadlFiles(monitor);
-						}
-					});
-		}
-		catch (InterruptedException e)
-		{
-			OsateUiPlugin.log(e);
-		}
-		catch (InvocationTargetException e)
-		{
-			OsateUiPlugin.log(e);
-		}
-	}
-
-	public void selectionChanged(IAction action, ISelection selection)
-	{
-	}
+	public static final String _NAME = "Programming_Properties";
 }

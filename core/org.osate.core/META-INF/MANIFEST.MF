@@ -7,15 +7,13 @@ Bundle-ClassPath: .
 Bundle-Activator: org.osate.core.OsateCorePlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.osate.core,
- org.osate.core.builder
+Export-Package: org.osate.core
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.emf.edit,
- org.osate.aadl2.parser,
  org.osate.workspace,
  org.osate.aadl2.instantiation,
  org.osate.annexsupport,
