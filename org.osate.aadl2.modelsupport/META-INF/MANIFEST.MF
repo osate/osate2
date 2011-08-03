@@ -20,6 +20,5 @@ Export-Package: org.osate.aadl2.modelsupport,
  org.osate.aadl2.modelsupport.eclipseinterface,
  org.osate.aadl2.modelsupport.errorreporting,
  org.osate.aadl2.modelsupport.modeltraversal,
- org.osate.aadl2.modelsupport.properties,
  org.osate.aadl2.modelsupport.util
 Bundle-Vendor: sei.cmu.edu

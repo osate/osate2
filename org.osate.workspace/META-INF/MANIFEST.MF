@@ -30,5 +30,4 @@ Export-Package: org.antlr.runtime,
    org.eclipse.emf.common.util,
    org.eclipse.core.resources,
    org.eclipse.ui.plugin,
-   org.osgi.framework",
- org.osate.workspace.names.standard
+   org.osgi.framework"

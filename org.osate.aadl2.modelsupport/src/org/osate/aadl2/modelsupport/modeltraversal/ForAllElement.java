@@ -1123,7 +1123,6 @@ public class ForAllElement implements IProcessingMethod {
 			final Set<? super Resource> outputBad) {
 		final Set<Resource> good = new HashSet<Resource>();
 		for (final Resource r : inputResourceSet) {
-			if (!OsateResourceManager.isModelTaggedWithSyntaxErrors(r)) {
 				final EList<EObject> rc = r.getContents();
 				final AnalysisErrorReporter errReporter = errManager.getReporter(r);
 				final int errCountBefore = errReporter.getNumErrors();
@@ -1138,7 +1137,6 @@ public class ForAllElement implements IProcessingMethod {
 				} else {
 					good.add(r);
 				}
-			}
 		}
 		return Collections.unmodifiableSet(good);
 	}

@@ -50,6 +50,7 @@ import java.util.List;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -77,6 +78,8 @@ import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
+import org.osate.xtext.aadl2.properties.GetProperties;
 import org.osgi.framework.Bundle;
 
 
@@ -199,7 +202,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		
 		// Root cannot be null (see above)
 		// init the context object. It is used by the lookup methods for initializing property references
-		AbstractAaxlAction.this. context = root;
+		AbstractAaxlAction.this.context = root;
 
 		// Init the properties
 		notFound.clear();
@@ -236,7 +239,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final Property lookupPropertyDefinition(
 			final String ps, final String name) {
 		final Property pd = 
-			OsateResourceManager.findProperty(ps, name);
+				GetProperties.lookupPropertyDefinition(context,ps, name);
 		if (pd == null) notFound.add(PROP_DEF + ps + COLON_COLON + name);
 		return pd;
 	}
@@ -252,7 +255,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final Property lookupOptionalPropertyDefinition(
 			final String ps, final String name) {
-		return OsateResourceManager.findProperty(ps, name);
+		return GetProperties.lookupPropertyDefinition(context,ps, name);
 	}
 
 	/**
@@ -265,7 +268,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final Property lookupPropertyDefinition(
 			final String name) {
 		final Property pd = 
-			OsateResourceManager.findProperty(name);
+				GetProperties.lookupPropertyDefinition(context,null, name);
 		if (pd == null) notFound.add(PREDECLARED + PROP_DEF + name);
 		return pd;
 	}
@@ -279,7 +282,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final PropertyType lookupPropertyType(
 			final String ps, final String name) {
 		final PropertyType pt = 
-			OsateResourceManager.findPropertyType(ps, name);
+				Aadl2LinkingService.eInstance.findPropertyType(context,ps+COLON_COLON+name);
 		if (pt == null) notFound.add(PROP_TYPE + ps + COLON_COLON + name);
 		return pt;
 	}
@@ -340,7 +343,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyType lookupOptionalPropertyType(
 			final String ps, final String name) {
-		return OsateResourceManager.findPropertyType(ps, name);
+		return Aadl2LinkingService.eInstance.findPropertyType(context,ps+COLON_COLON+name);
 	}
 
 	/**
@@ -351,7 +354,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyType lookupPropertyType(final String name) {
 		final PropertyType pt = 
-			OsateResourceManager.findPropertyType(name);
+				Aadl2LinkingService.eInstance.findPropertyType(context,name);
 		if (pt == null) notFound.add(PREDECLARED + PROP_TYPE + name);
 		return pt;
 	}
@@ -411,7 +414,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyConstant lookupPropertyConstant(final String name) {
 		final PropertyConstant pc =
-			OsateResourceManager.findPropertyConstant(name);
+				Aadl2LinkingService.eInstance.findPropertyConstant(context,name);
 		if (pc == null) notFound.add(PREDECLARED + PROP_CONST + name);
 		return pc;
 	}
@@ -425,7 +428,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final PropertyConstant lookupPropertyConstant(
 			final String ps, final String name) {
 		final PropertyConstant pc =
-			OsateResourceManager.findPropertyConstant(ps, name);
+				Aadl2LinkingService.eInstance.findPropertyConstant(context,ps+COLON_COLON+name);
 		if (pc == null) notFound.add(PROP_CONST + ps + COLON_COLON + name);
 		return pc;
 	}
@@ -440,7 +443,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyConstant lookupOptionalPropertyConstant(
 			final String ps, final String name) {
-		return OsateResourceManager.findPropertyConstant(ps, name);
+		return Aadl2LinkingService.eInstance.findPropertyConstant(context,ps+COLON_COLON+name);
 	}
 
 	/**

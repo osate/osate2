@@ -1,6 +1,6 @@
 /*
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2009 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -31,37 +31,14 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.modelsupport.adapter;
+package org.osate.xtext.aadl2.properties;
 
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.IAdapterFactory;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
-
-
-/**
- * Adapter factory that adapts {@link org.eclipse.core.resources.IResource} instances to
- * {@link org.osate.aadl2.Element} instances.  The resource is
- * adapted to the root Element instance contained in the resource if the
- * resource is an aadl meta model file.
- * 
- * @author aarong
- */
-public class IResourceAdapterFactory implements IAdapterFactory {
-	public IResourceAdapterFactory() {
-		super();
+public final class ThreadProperties {
+	private ThreadProperties() {
 	}
 
-	public Object getAdapter(
-			final Object adaptableObject, final Class adapterType) {
-		if (adapterType == Element.class) {
-			return OsateResourceManager.getElementFromIResource((IResource)adaptableObject);
-		}
-		return null;
-	}
+	public static final String _NAME = "Thread_Properties";
 
-	public Class[] getAdapterList() {
-		return new Class[] { Element.class };
-	}
-
+	public static final String DISPATCH_PROTOCOL = "Dispatch_Protocol";
+	public static final String PRIORITY = "Priority";
 }
