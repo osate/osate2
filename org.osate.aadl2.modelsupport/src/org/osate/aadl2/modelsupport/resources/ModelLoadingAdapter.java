@@ -28,7 +28,7 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger
         .getLogger(ModelLoadingAdapter.class);
     final private static Injector injector = OsateCorePlugin
-        .getDefault().getInjector("org.xtext.aadl2.Aadl2");
+        .getDefault().getInjector("org.osate.xtext.aadl2.Aadl2");
  
     @Override
     public Object getAdapter(Object adaptableObject, Class adapterType) {
@@ -69,7 +69,7 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
     }
     
     public static XtextResourceSet getResourceSet(){
-        if (injector==null) {
+    	if (injector==null) {
             log.error("Could not obtain injector for Aadl2");
             return null;
         }
