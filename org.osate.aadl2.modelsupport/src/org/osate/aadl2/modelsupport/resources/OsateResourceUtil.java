@@ -31,33 +31,28 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.modelsupport.eclipseinterface;
+package org.osate.aadl2.modelsupport.resources;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.xtext.resource.XtextResource;
+import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
-import org.osate.pluginsupport.PluginSupportUtil;
 import org.osate.workspace.WorkspacePlugin;
 
 
@@ -69,7 +64,7 @@ import org.osate.workspace.WorkspacePlugin;
  * @version $Id: OsateResourceManager.java,v 1.17 2009-07-09 19:23:11 jseibel
  *          Exp $
  */
-public class OsateResourceManager {
+public class OsateResourceUtil {
 
 
 	private static boolean DEBUG = true;
@@ -104,34 +99,6 @@ public class OsateResourceManager {
 	 * Note that graphical editors may want to load their own instance of models 
 	 * rather than sharing it with the Xtext editor.
 	 */
-	protected static OsateResourceSet resourceSet;
-	/**
-	 * Get the shared resource set  
-	 * 
-	 * @return ResourceSet
-	 */
-	public static OsateResourceSet getResourceSet() {
-		if (resourceSet == null) {
-			resourceSet = new OsateResourceSet();
-		}
-		return resourceSet;
-	}
-	/**
-	 * Get the shared resource set  
-	 * 
-	 * @return ResourceSet
-	 */
-	public static OsateResourceSet setResourceSet(EObject obj) {
-		if (resourceSet == null) {
-			ResourceSet rs = obj.eResource().getResourceSet();
-			if (rs instanceof OsateResourceSet) {
-				resourceSet = (OsateResourceSet) rs;
-			} else {
-				resourceSet = getResourceSet();
-			}
-		}
-		return resourceSet;
-	}
 	
 	private static Map<String, Object> XMISaveOptions = null;
 	
@@ -143,6 +110,10 @@ public class OsateResourceManager {
 			Boolean.TRUE);
 			}
 			return XMISaveOptions;
+	}
+	
+	public static ResourceSet getResourceSet(){
+		return ModelLoadingAdapter.getResourceSet();
 	}
 
 
@@ -329,6 +300,39 @@ public class OsateResourceManager {
 				res = getResourceSet().createResource(uri);
 		}
 		return res;
+	}
+
+	/*
+	 * returns the instance model URI for a given system implementation
+	 * 
+	 * @param si
+	 * 
+	 * @return URI for instance model file
+	 */
+	public static URI getInstanceModelURI(SystemImplementation si) {
+		Resource res = si.eResource();
+		URI modeluri = res.getURI();
+		String last = modeluri.lastSegment();
+		String filename = last.substring(0, last.indexOf('.'));
+		URI instanceURI = modeluri.trimSegments(1).appendSegment(
+				filename + "_" + si.getTypeName() + "_" + si.getImplementationName() + "_"
+						+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
+		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
+		return instanceURI;
+	}
+
+	/**
+	 * 
+	 * @param siName System Instance name. to be used as file name
+	 * @param context Model object, whose resource location is to be used to place the instance model
+	 * @return URI that places the instance model in an instances folder relative to the given context resource
+	 */
+	public static URI getInstanceModelURI(String siName, EObject context) {
+		Resource res = context.eResource();
+		URI modeluri = res.getURI();
+		URI instanceURI = modeluri.trimSegments(1).appendSegment("instances").appendSegment(siName);
+		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
+		return instanceURI;
 	}
 
 }

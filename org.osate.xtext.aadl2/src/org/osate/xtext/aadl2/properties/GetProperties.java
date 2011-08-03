@@ -42,7 +42,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
@@ -58,7 +57,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
@@ -505,4 +503,18 @@ public class GetProperties {
 		Property byteCount = lookupPropertyDefinition(ne,MemoryProperties._NAME, MemoryProperties.BYTE_COUNT);
 		return PropertyUtils.getIntegerValue(ne, byteCount, 0);
 	}
+
+	public static double getStreamMissRate(final NamedElement ne) {
+		return PropertyUtils.getRealValue(ne, GetProperties.lookupPropertyDefinition(ne,SEI._NAME, SEI.STREAM_MISS_RATE));
+	}
+	
+	public static boolean getRequiredConnection(final NamedElement ne) {
+		try {
+			Property requiredConnection = lookupPropertyDefinition(ne,DeploymentProperties._NAME, DeploymentProperties.REQUIRED_CONNECTION);
+			return PropertyUtils.getBooleanValue(ne, requiredConnection);
+		} catch (PropertyLookupException e) {
+			return false;
+		}
+	}
+
 }

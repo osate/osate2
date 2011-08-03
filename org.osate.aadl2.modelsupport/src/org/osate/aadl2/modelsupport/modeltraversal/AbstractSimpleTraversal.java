@@ -43,7 +43,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 
 
@@ -65,7 +65,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 *         encapsulated processing method.
 	 */
 	public final EList<Element> visitWorkspace() {
-		final EList<Resource> resources = OsateResourceManager.getResourceSet().getResources();
+		final EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
 		for (Iterator<Resource> it = resources.iterator(); processingMethod.notCancelled() && it.hasNext();) {
 			final Resource res = it.next();
 			if (res instanceof Aadl2ResourceImpl) {
@@ -91,7 +91,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 *         encapsulated processing method.
 	 */
 	public final EList visitWorkspaceDeclarativeModels() {
-		final EList<Resource> resources = OsateResourceManager.getResourceSet().getResources();
+		final EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
 		for (Iterator<Resource> it = resources.iterator(); processingMethod.notCancelled() && it.hasNext();) {
 			final Resource res = it.next();
 			if (res instanceof Aadl2ResourceImpl) {
@@ -119,7 +119,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 *         encapsulated processing method.
 	 */
 	public final EList visitWorkspaceInstanceModels() {
-		final EList<Resource> resources = OsateResourceManager.getResourceSet().getResources();
+		final EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
 		for (Iterator<Resource> it = resources.iterator(); processingMethod.notCancelled() && it.hasNext();) {
 			final Resource res = it.next();
 			if (res instanceof Aadl2ResourceImpl) {

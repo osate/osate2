@@ -1,13 +1,11 @@
 package org.osate.xtext.aadl2.linking;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -97,7 +95,6 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.RangeType;
 import org.osate.aadl2.RangeValue;
-import org.osate.aadl2.RecordField;
 import org.osate.aadl2.RecordType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
@@ -110,10 +107,8 @@ import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.Type;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
-import org.osate.xtext.aadl2.properties.PredeclaredProperties;
 import org.osate.xtext.aadl2.util.PSNode;
 
 public class Aadl2LinkingService extends DefaultLinkingService {

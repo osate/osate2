@@ -50,11 +50,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
@@ -74,20 +71,16 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.ContainerGenerator;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.ui.part.ISetSelectionTarget;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.IResourceUtility;
 import org.osate.workspace.WorkspacePlugin;
@@ -146,7 +139,7 @@ public class NewModelWizard extends Wizard implements INewWizard
 			if (selectedElement instanceof IResource)
 			{
 				IProject project = ((IResource)selectedElement).getProject();
-				if (!project.getName().equals(OsateResourceManager.PLUGIN_RESOURCES_DIRECTORY_NAME))
+				if (!project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME))
 					this.project = project;
 				else
 					this.project = null;
@@ -422,7 +415,7 @@ public class NewModelWizard extends Wizard implements INewWizard
 							IProject[] projects = ((IWorkspace)element).getRoot().getProjects();
 							ArrayList<IProject> openProjects = new ArrayList<IProject>();
 							for (IProject project : projects)
-								if (project.isOpen() && !project.getName().equals(OsateResourceManager.PLUGIN_RESOURCES_DIRECTORY_NAME))
+								if (project.isOpen() && !project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME))
 									openProjects.add(project);
 							return openProjects.size() == 0 ? new Object[0] : openProjects.toArray();
 						}

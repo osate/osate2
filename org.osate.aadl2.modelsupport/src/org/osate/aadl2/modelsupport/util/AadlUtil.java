@@ -104,9 +104,9 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.SimpleSubclassCounter;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.parsesupport.LocationReference;
 
 
@@ -290,7 +290,7 @@ public final class AadlUtil {
 	// EList<ComponentImplementation> result = new
 	// BasicEList<ComponentImplementation>();
 	// EList<Resource> resources =
-	// OsateResourceManager.getResourceSet().getResources();
+	// ResourceUtil.getResourceSet().getResources();
 	// for (Resource res : resources) {
 	// EList<EObject> content = res.getContents();
 	// if (!content.isEmpty()){
@@ -345,7 +345,7 @@ public final class AadlUtil {
 	// ComponentCategory compCat){
 	// EList result = new BasicEList();
 	// EList<Resource> resources =
-	// OsateResourceManager.getResourceSet().getResources();
+	// ResourceUtil.getResourceSet().getResources();
 	// for (Resource res : resources){
 	// EList<EObject> content = res.getContents();
 	// if (!content.isEmpty()){
@@ -449,7 +449,7 @@ public final class AadlUtil {
 	// public static EList getAllVisiblePortGroupTypes(AObject aobj){
 	// EList result = new BasicEList();
 	// EList<Resource> resources =
-	// OsateResourceManager.getResourceSet().getResources();
+	// ResourceUtil.getResourceSet().getResources();
 	// for (Resource res : resources){
 	// EList<EObject> content = res.getContents();
 	// if (!content.isEmpty()){
@@ -500,7 +500,7 @@ public final class AadlUtil {
 	// */
 	// public static EList<PropertyDefinition> getAllPropertyDefinition() {
 	// final Set<PropertySet> propSets =
-	// OsateResourceManager.getAllPropertySets();
+	// ResourceUtil.getAllPropertySets();
 	// return getPropertyDefinitions(propSets);
 	// }
 
@@ -512,12 +512,12 @@ public final class AadlUtil {
 	// * @param context
 	// * The model object on whose behalf the lookup is being
 	// * performed. See
-	// * {@link OsateResourceManager#findPropertySet(String, AObject)}.
+	// * {@link ResourceUtil#findPropertySet(String, AObject)}.
 	// */
 	// public static EList<PropertyDefinition> getAllPropertyDefinition(final
 	// AObject context) {
 	// final Set<PropertySet> propSets =
-	// OsateResourceManager.getAllPropertySets(context);
+	// ResourceUtil.getAllPropertySets(context);
 	// return getPropertyDefinitions(propSets);
 	// }
 
@@ -714,9 +714,9 @@ public final class AadlUtil {
 	// }
 	// }
 	//
-	// pack = OsateResourceManager.findPublicAadlPackage(pkgName,fromNS);
+	// pack = ResourceUtil.findPublicAadlPackage(pkgName,fromNS);
 	// if (pack != null ){
-	// pack2 = OsateResourceManager.findPrivateOnlyAadlPackage(pkgName,fromNS);
+	// pack2 = ResourceUtil.findPrivateOnlyAadlPackage(pkgName,fromNS);
 	// }
 	// String mypkgname;
 	//
@@ -2093,7 +2093,7 @@ public final class AadlUtil {
 	 */
 	public static EList<ComponentImplementation> getAllComponentImpl() {
 		EList<ComponentImplementation> result = new BasicEList<ComponentImplementation>();
-		EList<Resource> resources = OsateResourceManager.getResourceSet().getResources();
+		EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
 		for (Resource res : resources) {
 			EList<EObject> content = res.getContents();
 			if (!content.isEmpty()) {

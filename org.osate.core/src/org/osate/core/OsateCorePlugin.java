@@ -37,6 +37,8 @@ package org.osate.core;
 
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -54,6 +56,8 @@ import org.osate.internal.workspace.AadlWorkspace;
 import org.osate.workspace.IAadlProject;
 import org.osate.workspace.IAadlWorkspace;
 import org.osgi.framework.BundleContext;
+
+import com.google.inject.Injector;
 
 
 /**
@@ -75,6 +79,16 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 
 	//Resource bundle.
 	private ResourceBundle resourceBundle;
+
+	private Map<String,Injector> injectors = new HashMap<String,Injector>();
+
+	public Injector getInjector(String languageName) {
+		return injectors.get(languageName);
+	}
+	
+	public void registerInjectorFor(String language, Injector inject) throws Exception {
+		injectors.put(language, inject);
+	}
 
 	/**
 	 * The constructor.
@@ -100,6 +114,7 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	 * This method is called when the plug-in is stopped
 	 */
 	public void stop(BundleContext context) throws Exception {
+		injectors.clear();
 		super.stop(context);
 	}
 

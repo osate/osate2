@@ -1,6 +1,5 @@
 package org.osate.xtext.aadl2.properties.validation;
 
-import org.osate.xtext.aadl2.properties.validation.AbstractPropertiesJavaValidator;
  
 
 public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {

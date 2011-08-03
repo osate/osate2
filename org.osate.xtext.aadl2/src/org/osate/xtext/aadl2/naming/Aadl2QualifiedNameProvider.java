@@ -1,6 +1,5 @@
 package org.osate.xtext.aadl2.naming;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.osate.aadl2.AadlPackage;
@@ -13,7 +12,6 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
-import org.osate.aadl2.UnitLiteral;
 
 public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
 	

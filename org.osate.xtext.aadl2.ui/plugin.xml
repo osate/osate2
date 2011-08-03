@@ -332,11 +332,11 @@
 	
 	<!-- adapter for loading aadl2 files -->
 <extension point="org.eclipse.core.runtime.adapters">
-      <factory adaptableType="org.eclipse.core.resources.IFile" class="org.osate.xtext.aadl2.ui.util.ModelLoadingAdapter">
-         <adapter type="org.osate.aadl2.Element" />
+      <factory adaptableType="org.eclipse.core.resources.IFile" class="org.osate.xtext.aadl2.ui.resources.ModelLoadingAdapter">
+         <adapter type="org.osate.aadl2.ModelUnit" />
       </factory>
-      <factory adaptableType="org.eclipse.jface.viewers.ISelection" class="org.osate.xtext.aadl2.ui.util.ModelLoadingAdapter">
-         <adapter type="org.osate.aadl2.Element" />
+      <factory adaptableType="org.eclipse.jface.viewers.ISelection" class="org.osate.xtext.aadl2.ui.resources.ModelLoadingAdapter">
+         <adapter type="org.osate.aadl2.ModelUnit" />
       </factory>
 </extension>
 

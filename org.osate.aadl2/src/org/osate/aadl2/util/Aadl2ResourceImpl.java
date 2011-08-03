@@ -55,21 +55,12 @@ public class Aadl2ResourceImpl extends XMIResourceImpl {
 
 	static final XMLParserPoolImpl parserPool = new XMLParserPoolImpl();
 
-	/**
-	 * remember whether the file has just been parsed and needs to be name resolved
-	 */
-	private boolean justParsed = false;
 
 	/**
 	 * Flag to indicate the resource is a plug-in property set that has been
 	 * shadowed by a property set with the same name in the workspace.
 	 */
 	private boolean isShadowed = false;
-
-	/**
-	 * remember whether the file has just been saved by CoreEditor (or Graphical editor)
-	 */
-	private boolean justSaved = false;
 
 	/**
 	 * Creates an instance of the resource.
@@ -82,36 +73,11 @@ public class Aadl2ResourceImpl extends XMIResourceImpl {
 		super(uri);
 	}
 
-	/**
-	 * Set the just parsed flag value
-	 */
-	public void setJustParsed(boolean b) {
-		justParsed = b;
-	}
 
 	public void setShadowed(final boolean s) {
 		isShadowed = s;
 	}
 
-	public boolean getJustParsed() {
-		return justParsed;
-	}
-
-	/**
-	 * Get the just saved flag value
-	 * 
-	 * @return true if just saved.
-	 */
-	public boolean getJustSaved() {
-		return justSaved;
-	}
-
-	/**
-	 * Set the just saved flag value
-	 */
-	public void setJustSaved(boolean b) {
-		justSaved = b;
-	}
 
 	public void save() {
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -126,8 +92,6 @@ public class Aadl2ResourceImpl extends XMIResourceImpl {
 		try {
 			super.save(options);
 		} catch (IOException e1) {
-			setJustSaved(false);
-
 		}
 	}
 

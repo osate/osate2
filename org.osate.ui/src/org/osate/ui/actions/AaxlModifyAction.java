@@ -42,7 +42,7 @@ package org.osate.ui.actions;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 
 /**
@@ -64,7 +64,7 @@ public abstract class AaxlModifyAction extends AaxlReadOnlyAction {
 		resource.setTrackingModification(true);
 		doAaxlAction(root);
 		if (resource.isModified()){
-			OsateResourceManager.save(resource);
+			OsateResourceUtil.save(resource);
 		}
 		resource.setTrackingModification(prev);
 	}

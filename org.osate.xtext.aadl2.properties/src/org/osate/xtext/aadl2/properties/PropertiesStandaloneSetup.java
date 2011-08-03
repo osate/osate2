@@ -1,7 +1,6 @@
 
 package org.osate.xtext.aadl2.properties;
 
-import org.osate.xtext.aadl2.properties.PropertiesStandaloneSetupGenerated;
 
 /**
  * Initialization support for running Xtext languages 
