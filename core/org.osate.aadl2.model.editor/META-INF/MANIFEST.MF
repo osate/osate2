@@ -8,11 +8,7 @@ Bundle-Activator: org.osate.aadl2.presentation.Aadl2EditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.osate.aadl2.presentation
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.core.resources;visibility:=reexport,
- org.osate.aadl2.edit;visibility:=reexport,
- org.eclipse.emf.ecore.edit;visibility:=reexport,
- org.eclipse.emf.edit.ui;visibility:=reexport,
+Require-Bundle: org.osate.aadl2.edit;visibility:=reexport,
  org.eclipse.ui.ide;visibility:=reexport,
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
  org.eclipse.emf.workspace,

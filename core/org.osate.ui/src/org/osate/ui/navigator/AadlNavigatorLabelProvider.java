@@ -44,7 +44,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
 
@@ -62,7 +62,7 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider
 		if (element instanceof IFile)
 		{
 			IFile file = (IFile)element;
-			if (file.getProject().getName().equals(OsateResourceManager.PLUGIN_RESOURCES_DIRECTORY_NAME) &&
+			if (file.getProject().getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME) &&
 					!file.getResourceAttributes().isReadOnly())
 			{
 				text.append(" (Modified)");
@@ -74,7 +74,7 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider
 	public Image getImage(Object element)
 	{
 		Image image;
-		if (element instanceof IProject && ((IProject)element).getName().equals(OsateResourceManager.PLUGIN_RESOURCES_DIRECTORY_NAME))
+		if (element instanceof IProject && ((IProject)element).getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME))
 			image = OsateUiPlugin.getImageDescriptor("icons/library_obj.gif").createImage();
 		else
 			image = super.getImage(element);

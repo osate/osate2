@@ -32,7 +32,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.provider.InstanceItemProviderAdapterFactory;
 import org.osate.aadl2.modelsupport.AadlConstants;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.parsesupport.LocationReference;
 import org.osate.aadl2.provider.Aadl2ItemProviderAdapterFactory;
@@ -124,7 +124,7 @@ public final class UiUtil {
 			return;
 		}
 		Aadl2ResourceImpl res = (Aadl2ResourceImpl)target.eResource();
-		final IResource ires = OsateResourceManager.convertToIResource(res);
+		final IResource ires = OsateResourceUtil.convertToIResource(res);
 		if (ires != null && ires.exists())
 		{
 			try {
@@ -178,7 +178,7 @@ public final class UiUtil {
 			}
 		}
 		Aadl2ResourceImpl res = (Aadl2ResourceImpl)target.eResource();
-		final IResource ires = OsateResourceManager.convertToIResource(res);
+		final IResource ires = OsateResourceUtil.convertToIResource(res);
 		if (ires == null){
 			return SILENT_FAILURE;
 		}
@@ -223,7 +223,7 @@ public final class UiUtil {
 				return;
 			}
 		}
-		final IResource aaxlResource = OsateResourceManager.convertToIResource(obj.eResource());
+		final IResource aaxlResource = OsateResourceUtil.convertToIResource(obj.eResource());
 		if (aaxlResource == null || !aaxlResource.exists() ){
 			return;
 		}
@@ -262,7 +262,7 @@ public final class UiUtil {
 	 */
 	public static final EditingDomain openEditorFor(final Element obj) {
 		final IFile file =
-			(IFile) OsateResourceManager.convertToIResource(obj.eResource());
+			(IFile) OsateResourceUtil.convertToIResource(obj.eResource());
 		if (file != null) {
 			if (openEditor(OsateUiPlugin.getActiveWorkbenchPage(), file, true)) {
 				return AdapterFactoryEditingDomain.getEditingDomainFor(obj);
@@ -293,7 +293,7 @@ public final class UiUtil {
 	 */
 	public static final void executeCommand(final Element obj, final Command command) {
 		final IFile file =
-			(IFile) OsateResourceManager.convertToIResource(obj.eResource());
+			(IFile) OsateResourceUtil.convertToIResource(obj.eResource());
 		if (file != null) {
 			final EditingDomain editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(obj);
 			if (editingDomain != null) {
@@ -331,7 +331,7 @@ public final class UiUtil {
 	 */
 	public static final void openEditorAndExecute(final Element obj, final Command command) {
 		final IFile file =
-			(IFile) OsateResourceManager.convertToIResource(obj.eResource());
+			(IFile) OsateResourceUtil.convertToIResource(obj.eResource());
 		if (file != null) {
 			if (openEditor(OsateUiPlugin.getActiveWorkbenchPage(), file, true)) {
 				final EditingDomain editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(obj);

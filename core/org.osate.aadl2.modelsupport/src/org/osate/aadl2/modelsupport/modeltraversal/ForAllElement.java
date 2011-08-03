@@ -51,7 +51,6 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;

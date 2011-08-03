@@ -9,15 +9,13 @@ import org.eclipse.xtext.conversion.ValueConverter;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.OperationKind;
 import org.osate.aadl2.PortCategory;
-import org.osate.xtext.aadl2.util.ParseUtil;
 
 public class Aadl2ValueConverter extends DefaultTerminalConverters {
     @ValueConverter(rule = "INAME")

@@ -49,4 +49,5 @@ public final class DeploymentProperties {
 	public static final String ACTUAL_CONNECTION_BINDING = "Actual_Connection_Binding";
 	public static final String ALLOWED_CONNECTION_BINDING = "Allowed_Connection_Binding";
 	public static final String ALLOWED_CONNECTION_BINDING_CLASS = "Allowed_Connection_Binding_Class";
+	public static final String REQUIRED_CONNECTION = "Required_Connection";
 }

@@ -49,9 +49,6 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalCommandStack;
@@ -103,7 +100,6 @@ import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -715,99 +711,6 @@ public class InstantiateModel {
 			}
 		}
 		return result;
-	}
-
-	/*
-	 * This method will construct an instance model, save it on disk and return
-	 * its root object This method has the knowledge of how the instance model
-	 * file name is constructed
-	 * 
-	 * @param si system implementation
-	 * 
-	 * @return SystemInstance or <code>null</code> if cancelled.
-	 */
-	public SystemInstance buildInstanceModelFile(final SystemImplementation si) {
-		// add it to a resource; otherwise we cannot attach error messages to
-		// the instance file
-		URI instanceURI = getInstanceModelURI(si);
-		OsateResourceManager.setResourceSet(si);
-		Aadl2ResourceImpl aadlResource = OsateResourceManager.getEmptyAadl2Resource(instanceURI);
-
-		// now instantiate the rest of the model
-		SystemInstance root = this.createSystemInstance(si, aadlResource);
-		return root;
-	}
-
-	/*
-	 * This method returns a system instance for the given system
-	 * implementation. If the instance model already exists it will be returned.
-	 * If it does not exist one will be constructed.
-	 * 
-	 * @param si system implementation
-	 * 
-	 * @return SystemInstance
-	 */
-	public SystemInstance getSystemInstance(final SystemImplementation si) {
-		SystemInstance systemInstance = findSystemInstance(si);
-		if (systemInstance == null) {
-			systemInstance = buildInstanceModelFile(si);
-		}
-		return systemInstance;
-	}
-
-	/*
-	 * This method returns a system instance for the given system
-	 * implementation. If the instance model already exists it will be returned.
-	 * If it does not exist null is returned
-	 * 
-	 * @param si system implementation
-	 * 
-	 * @return SystemInstance or null if it does not exist
-	 */
-	public SystemInstance findSystemInstance(final SystemImplementation si) {
-		URI instanceURI = getInstanceModelURI(si);
-		Resource instanceRes = OsateResourceManager.findResource(instanceURI);
-		if (instanceRes == null || instanceRes.getContents().isEmpty()) {
-			return null;
-		} else {
-			SystemInstance systemInstance = (SystemInstance) instanceRes.getContents().get(0);
-			return systemInstance;
-		}
-	}
-
-	/*
-	 * returns the instance model URI for a given system implementation
-	 * 
-	 * @param si
-	 * 
-	 * @return URI for instance model file
-	 */
-	public static URI getInstanceModelURI(SystemImplementation si) {
-		Resource res = si.eResource();
-		URI modeluri = res.getURI();
-		String last = modeluri.lastSegment();
-		String filename = last.substring(0, last.indexOf('.'));
-		URI instanceURI = modeluri.trimSegments(1).appendSegment(
-				filename + "_" + si.getTypeName() + "_" + si.getImplementationName() + "_"
-						+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
-		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
-		return instanceURI;
-	}
-
-	/**
-	 * 
-	 * @param siName System Instance name. to be used as file name
-	 * @param context Model object, whose resource location is to be used to place the instance model
-	 * @return URI that places the instance model in an instances folder relative to the given context resource
-	 */
-	public static URI getInstanceModelURI(String siName, EObject context) {
-		Resource res = context.eResource();
-		URI modeluri = res.getURI();
-		String last = modeluri.lastSegment();
-		String filename = last.substring(0, last.indexOf('.'));
-		URI instanceURI = modeluri.trimSegments(1).appendSegment("instances").appendSegment(siName);
-		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
-		return instanceURI;
 	}
 
 	// --------------------------------------------------------------------------------------------

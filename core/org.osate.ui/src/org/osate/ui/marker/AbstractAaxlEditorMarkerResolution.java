@@ -9,7 +9,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.markers.WorkbenchMarkerResolution;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.UiUtil;
 
 
@@ -36,7 +36,7 @@ public abstract class AbstractAaxlEditorMarkerResolution extends WorkbenchMarker
 		final String value = marker.getAttribute(attr, null);
 		if (value != null) {
 			final URI uri = URI.createURI(value);
-			return (Element) OsateResourceManager.getResourceSet().getEObject(uri, true);
+			return (Element) OsateResourceUtil.getResourceSet().getEObject(uri, true);
 		} else {
 			return null;
 		}

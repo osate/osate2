@@ -9,6 +9,5 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.osate.wizards
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.osate.ui
+ org.eclipse.core.runtime
 Eclipse-LazyStart: true

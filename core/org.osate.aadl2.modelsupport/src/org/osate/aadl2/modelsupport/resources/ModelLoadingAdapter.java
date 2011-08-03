@@ -1,6 +1,10 @@
-package org.osate.xtext.aadl2.ui.util;
+package org.osate.aadl2.modelsupport.resources;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -10,7 +14,8 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
 import org.osate.aadl2.Element;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
+import org.osate.aadl2.ModelUnit;
+import org.osate.core.OsateCorePlugin;
 
 import com.google.inject.Injector;
 /* Author: Robert Coop
@@ -22,12 +27,12 @@ import com.google.inject.Injector;
 public class ModelLoadingAdapter  implements IAdapterFactory {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger
         .getLogger(ModelLoadingAdapter.class);
-    final private static Injector injector = Aadl2Activator
-        .getInstance().getInjector("org.xtext.aadl2.Aadl2");
+    final private static Injector injector = OsateCorePlugin
+        .getDefault().getInjector("org.xtext.aadl2.Aadl2");
  
     @Override
     public Object getAdapter(Object adaptableObject, Class adapterType) {
-        if (adapterType == Element.class) {
+        if (adapterType == ModelUnit.class) {
             if (injector==null) {
                 log.error("Could not obtain injector for Aadl2");
                 return null;
@@ -50,7 +55,7 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
                     .get(file.getProject());
                 resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
                 Resource resource = resourceSet.getResource(URI.createURI(file.getLocationURI().toString()),true);
-                Element model = (Element) resource.getContents().get(0);
+                ModelUnit model = (ModelUnit) resource.getContents().get(0);
                 return model;
             }
         }
@@ -61,5 +66,22 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
     @Override
     public Class[] getAdapterList() {
         return new Class[] { Element.class };
+    }
+    
+    public static XtextResourceSet getResourceSet(){
+        if (injector==null) {
+            log.error("Could not obtain injector for Aadl2");
+            return null;
+        }
+        PredeclaredProperties.initPluginContributedAadl();
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        IWorkspaceRoot root = workspace.getRoot();
+        IProject project = root.getProject(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME);
+
+        XtextResourceSet resourceSet = (XtextResourceSet) injector
+            .getInstance(XtextResourceSetProvider.class)
+            .get(project);
+        return resourceSet;
+   	
     }
 }

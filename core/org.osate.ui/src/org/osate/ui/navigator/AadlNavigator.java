@@ -50,7 +50,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
 import org.eclipse.ui.views.navigator.ResourceNavigator;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
 
 
@@ -90,10 +90,10 @@ public class AadlNavigator extends ResourceNavigator implements IResourceChangeL
 				{
 					public int compare(Viewer viewer, Object o1, Object o2)
 					{
-						if (o1 instanceof IProject && ((IProject)o1).getName().equals(OsateResourceManager.PLUGIN_RESOURCES_DIRECTORY_NAME))
+						if (o1 instanceof IProject && ((IProject)o1).getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME))
 							return 1;
 						else if (o2 instanceof IProject &&
-								((IProject)o2).getName().equals(OsateResourceManager.PLUGIN_RESOURCES_DIRECTORY_NAME))
+								((IProject)o2).getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME))
 						{
 							return -1;
 						}
