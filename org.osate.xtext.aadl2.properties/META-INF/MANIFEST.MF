@@ -8,7 +8,12 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext.generator;resolution:=optional,
  org.eclipse.emf.mwe2.launch;resolution:=optional,
  org.osate.aadl2;bundle-version="2.0.0",
- org.eclipse.core.runtime;bundle-version="3.7.0"
+ org.eclipse.core.runtime;bundle-version="3.7.0",
+ org.apache.log4j;bundle-version="1.2.15",
+ org.apache.commons.logging;bundle-version="1.1.1",
+ org.eclipse.xtext,
+ org.eclipse.xtext.util,
+ org.antlr.runtime
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.osate.xtext.aadl2.properties,
  org.osate.xtext.aadl2.properties.linking,
@@ -18,3 +23,6 @@ Export-Package: org.osate.xtext.aadl2.properties,
  org.osate.xtext.aadl2.properties.services,
  org.osate.xtext.aadl2.properties.validation,
  org.osate.xtext.aadl2.properties.parser.antlr.lexer
+Import-Package: org.apache.log4j,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtext.xtend2.lib

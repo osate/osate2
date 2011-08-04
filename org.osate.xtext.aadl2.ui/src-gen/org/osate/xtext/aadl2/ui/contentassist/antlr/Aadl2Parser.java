@@ -4,17 +4,18 @@
 package org.osate.xtext.aadl2.ui.contentassist.antlr;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.xtext.AbstractElement;
 import org.eclipse.xtext.ui.editor.contentassist.antlr.AbstractContentAssistParser;
 import org.eclipse.xtext.ui.editor.contentassist.antlr.FollowElement;
 import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.AbstractInternalContentAssistParser;
-import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
 import com.google.inject.Inject;
+
+import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
 public class Aadl2Parser extends AbstractContentAssistParser {
 	
@@ -228,8 +229,12 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureConnectionAccess().getAlternatives_3(), "rule__FeatureConnection__Alternatives_3");
 					put(grammarAccess.getParameterConnectionAccess().getAlternatives_0(), "rule__ParameterConnection__Alternatives_0");
 					put(grammarAccess.getAccessCategoryAccess().getAlternatives(), "rule__AccessCategory__Alternatives");
-					put(grammarAccess.getFlowSpecificationAccess().getAlternatives_0(), "rule__FlowSpecification__Alternatives_0");
+					put(grammarAccess.getFlowSpecificationAccess().getAlternatives(), "rule__FlowSpecification__Alternatives");
+					put(grammarAccess.getFlowSpecificationAccess().getAlternatives_0_0(), "rule__FlowSpecification__Alternatives_0_0");
+					put(grammarAccess.getFlowSpecRefinementAccess().getAlternatives(), "rule__FlowSpecRefinement__Alternatives");
+					put(grammarAccess.getFlowSpecRefinementAccess().getAlternatives_0_0(), "rule__FlowSpecRefinement__Alternatives_0_0");
 					put(grammarAccess.getFlowImplementationAccess().getAlternatives_0(), "rule__FlowImplementation__Alternatives_0");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getAlternatives(), "rule__EndToEndFlowRefinement__Alternatives");
 					put(grammarAccess.getTriggerAccess().getAlternatives(), "rule__Trigger__Alternatives");
 					put(grammarAccess.getPropertySetAccess().getAlternatives_5(), "rule__PropertySet__Alternatives_5");
 					put(grammarAccess.getPropertyTypeAccess().getAlternatives_0(), "rule__PropertyType__Alternatives_0");
@@ -860,23 +865,29 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getParameterConnectionAccess().getGroup_5(), "rule__ParameterConnection__Group_5__0");
 					put(grammarAccess.getParameterConnectionAccess().getGroup_6(), "rule__ParameterConnection__Group_6__0");
 					put(grammarAccess.getAccessCategoryAccess().getGroup_3(), "rule__AccessCategory__Group_3__0");
-					put(grammarAccess.getFlowSpecificationAccess().getGroup(), "rule__FlowSpecification__Group__0");
-					put(grammarAccess.getFlowSpecificationAccess().getGroup_1(), "rule__FlowSpecification__Group_1__0");
-					put(grammarAccess.getFlowSpecificationAccess().getGroup_2(), "rule__FlowSpecification__Group_2__0");
+					put(grammarAccess.getFlowSpecificationAccess().getGroup_0(), "rule__FlowSpecification__Group_0__0");
+					put(grammarAccess.getFlowSpecificationAccess().getGroup_0_1(), "rule__FlowSpecification__Group_0_1__0");
+					put(grammarAccess.getFlowSpecificationAccess().getGroup_0_2(), "rule__FlowSpecification__Group_0_2__0");
+					put(grammarAccess.getFlowSpecificationAccess().getGroup_0_2_4(), "rule__FlowSpecification__Group_0_2_4__0");
 					put(grammarAccess.getFlowSourceSpecAccess().getGroup(), "rule__FlowSourceSpec__Group__0");
 					put(grammarAccess.getFlowSinkSpecAccess().getGroup(), "rule__FlowSinkSpec__Group__0");
 					put(grammarAccess.getFlowPathSpecAccess().getGroup(), "rule__FlowPathSpec__Group__0");
 					put(grammarAccess.getFlowEndAccess().getGroup(), "rule__FlowEnd__Group__0");
 					put(grammarAccess.getFlowEndAccess().getGroup_0(), "rule__FlowEnd__Group_0__0");
+					put(grammarAccess.getFlowSpecRefinementAccess().getGroup_0(), "rule__FlowSpecRefinement__Group_0__0");
+					put(grammarAccess.getFlowSpecRefinementAccess().getGroup_0_1(), "rule__FlowSpecRefinement__Group_0_1__0");
+					put(grammarAccess.getFlowSpecRefinementAccess().getGroup_0_1_3(), "rule__FlowSpecRefinement__Group_0_1_3__0");
+					put(grammarAccess.getFlowSpecRefinementAccess().getGroup_0_1_3_4(), "rule__FlowSpecRefinement__Group_0_1_3_4__0");
+					put(grammarAccess.getFlowSpecRefinementAccess().getGroup_1(), "rule__FlowSpecRefinement__Group_1__0");
+					put(grammarAccess.getFlowSpecRefinementAccess().getGroup_1_0(), "rule__FlowSpecRefinement__Group_1_0__0");
+					put(grammarAccess.getFlowSpecRefinementAccess().getGroup_1_0_4(), "rule__FlowSpecRefinement__Group_1_0_4__0");
 					put(grammarAccess.getFlowSourceSpecRefinementAccess().getGroup(), "rule__FlowSourceSpecRefinement__Group__0");
-					put(grammarAccess.getFlowSourceSpecRefinementAccess().getGroup_6(), "rule__FlowSourceSpecRefinement__Group_6__0");
 					put(grammarAccess.getFlowSinkSpecRefinementAccess().getGroup(), "rule__FlowSinkSpecRefinement__Group__0");
-					put(grammarAccess.getFlowSinkSpecRefinementAccess().getGroup_6(), "rule__FlowSinkSpecRefinement__Group_6__0");
 					put(grammarAccess.getFlowPathSpecRefinementAccess().getGroup(), "rule__FlowPathSpecRefinement__Group__0");
-					put(grammarAccess.getFlowPathSpecRefinementAccess().getGroup_6(), "rule__FlowPathSpecRefinement__Group_6__0");
 					put(grammarAccess.getFlowImplementationAccess().getGroup(), "rule__FlowImplementation__Group__0");
 					put(grammarAccess.getFlowImplementationAccess().getGroup_1(), "rule__FlowImplementation__Group_1__0");
 					put(grammarAccess.getFlowImplementationAccess().getGroup_2(), "rule__FlowImplementation__Group_2__0");
+					put(grammarAccess.getFlowImplementationAccess().getGroup_2_4(), "rule__FlowImplementation__Group_2_4__0");
 					put(grammarAccess.getFlowSourceImplAccess().getGroup(), "rule__FlowSourceImpl__Group__0");
 					put(grammarAccess.getFlowSourceImplAccess().getGroup_4(), "rule__FlowSourceImpl__Group_4__0");
 					put(grammarAccess.getFlowSourceImplAccess().getGroup_5(), "rule__FlowSourceImpl__Group_5__0");
@@ -892,9 +903,13 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getEndToEndFlowAccess().getGroup_7(), "rule__EndToEndFlow__Group_7__0");
 					put(grammarAccess.getEndToEndFlowAccess().getGroup_8(), "rule__EndToEndFlow__Group_8__0");
 					put(grammarAccess.getEndToEndFlowAccess().getGroup_9(), "rule__EndToEndFlow__Group_9__0");
-					put(grammarAccess.getEndToEndFlowRefinementAccess().getGroup(), "rule__EndToEndFlowRefinement__Group__0");
-					put(grammarAccess.getEndToEndFlowRefinementAccess().getGroup_8(), "rule__EndToEndFlowRefinement__Group_8__0");
-					put(grammarAccess.getEndToEndFlowRefinementAccess().getGroup_9(), "rule__EndToEndFlowRefinement__Group_9__0");
+					put(grammarAccess.getEndToEndFlowAccess().getGroup_9_4(), "rule__EndToEndFlow__Group_9_4__0");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getGroup_0(), "rule__EndToEndFlowRefinement__Group_0__0");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getGroup_0_8(), "rule__EndToEndFlowRefinement__Group_0_8__0");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getGroup_0_8_3(), "rule__EndToEndFlowRefinement__Group_0_8_3__0");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getGroup_0_8_3_4(), "rule__EndToEndFlowRefinement__Group_0_8_3_4__0");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getGroup_1(), "rule__EndToEndFlowRefinement__Group_1__0");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getGroup_1_4(), "rule__EndToEndFlowRefinement__Group_1_4__0");
 					put(grammarAccess.getSubcomponentFlowAccess().getGroup(), "rule__SubcomponentFlow__Group__0");
 					put(grammarAccess.getSubcomponentFlowAccess().getGroup_0(), "rule__SubcomponentFlow__Group_0__0");
 					put(grammarAccess.getETESubcomponentFlowAccess().getGroup(), "rule__ETESubcomponentFlow__Group__0");
@@ -1838,8 +1853,9 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getParameterConnectionAccess().getDestinationAssignment_4(), "rule__ParameterConnection__DestinationAssignment_4");
 					put(grammarAccess.getParameterConnectionAccess().getOwnedPropertyAssociationAssignment_5_1(), "rule__ParameterConnection__OwnedPropertyAssociationAssignment_5_1");
 					put(grammarAccess.getParameterConnectionAccess().getInModeOrTransitionAssignment_6_3(), "rule__ParameterConnection__InModeOrTransitionAssignment_6_3");
-					put(grammarAccess.getFlowSpecificationAccess().getOwnedPropertyAssociationAssignment_1_1(), "rule__FlowSpecification__OwnedPropertyAssociationAssignment_1_1");
-					put(grammarAccess.getFlowSpecificationAccess().getInModeAssignment_2_3(), "rule__FlowSpecification__InModeAssignment_2_3");
+					put(grammarAccess.getFlowSpecificationAccess().getOwnedPropertyAssociationAssignment_0_1_1(), "rule__FlowSpecification__OwnedPropertyAssociationAssignment_0_1_1");
+					put(grammarAccess.getFlowSpecificationAccess().getInModeAssignment_0_2_3(), "rule__FlowSpecification__InModeAssignment_0_2_3");
+					put(grammarAccess.getFlowSpecificationAccess().getInModeAssignment_0_2_4_1(), "rule__FlowSpecification__InModeAssignment_0_2_4_1");
 					put(grammarAccess.getFlowSourceSpecAccess().getNameAssignment_0(), "rule__FlowSourceSpec__NameAssignment_0");
 					put(grammarAccess.getFlowSourceSpecAccess().getKindAssignment_3(), "rule__FlowSourceSpec__KindAssignment_3");
 					put(grammarAccess.getFlowSourceSpecAccess().getOutEndAssignment_4(), "rule__FlowSourceSpec__OutEndAssignment_4");
@@ -1852,17 +1868,20 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFlowPathSpecAccess().getOutEndAssignment_6(), "rule__FlowPathSpec__OutEndAssignment_6");
 					put(grammarAccess.getFlowEndAccess().getContextAssignment_0_0(), "rule__FlowEnd__ContextAssignment_0_0");
 					put(grammarAccess.getFlowEndAccess().getFeatureAssignment_1(), "rule__FlowEnd__FeatureAssignment_1");
+					put(grammarAccess.getFlowSpecRefinementAccess().getOwnedPropertyAssociationAssignment_0_1_1(), "rule__FlowSpecRefinement__OwnedPropertyAssociationAssignment_0_1_1");
+					put(grammarAccess.getFlowSpecRefinementAccess().getInModeAssignment_0_1_3_3(), "rule__FlowSpecRefinement__InModeAssignment_0_1_3_3");
+					put(grammarAccess.getFlowSpecRefinementAccess().getInModeAssignment_0_1_3_4_1(), "rule__FlowSpecRefinement__InModeAssignment_0_1_3_4_1");
+					put(grammarAccess.getFlowSpecRefinementAccess().getInModeAssignment_1_0_3(), "rule__FlowSpecRefinement__InModeAssignment_1_0_3");
+					put(grammarAccess.getFlowSpecRefinementAccess().getInModeAssignment_1_0_4_1(), "rule__FlowSpecRefinement__InModeAssignment_1_0_4_1");
 					put(grammarAccess.getFlowSourceSpecRefinementAccess().getRefinedAssignment_0(), "rule__FlowSourceSpecRefinement__RefinedAssignment_0");
 					put(grammarAccess.getFlowSourceSpecRefinementAccess().getKindAssignment_5(), "rule__FlowSourceSpecRefinement__KindAssignment_5");
-					put(grammarAccess.getFlowSourceSpecRefinementAccess().getOwnedPropertyAssociationAssignment_6_1(), "rule__FlowSourceSpecRefinement__OwnedPropertyAssociationAssignment_6_1");
 					put(grammarAccess.getFlowSinkSpecRefinementAccess().getRefinedAssignment_0(), "rule__FlowSinkSpecRefinement__RefinedAssignment_0");
 					put(grammarAccess.getFlowSinkSpecRefinementAccess().getKindAssignment_5(), "rule__FlowSinkSpecRefinement__KindAssignment_5");
-					put(grammarAccess.getFlowSinkSpecRefinementAccess().getOwnedPropertyAssociationAssignment_6_1(), "rule__FlowSinkSpecRefinement__OwnedPropertyAssociationAssignment_6_1");
 					put(grammarAccess.getFlowPathSpecRefinementAccess().getRefinedAssignment_0(), "rule__FlowPathSpecRefinement__RefinedAssignment_0");
 					put(grammarAccess.getFlowPathSpecRefinementAccess().getKindAssignment_5(), "rule__FlowPathSpecRefinement__KindAssignment_5");
-					put(grammarAccess.getFlowPathSpecRefinementAccess().getOwnedPropertyAssociationAssignment_6_1(), "rule__FlowPathSpecRefinement__OwnedPropertyAssociationAssignment_6_1");
 					put(grammarAccess.getFlowImplementationAccess().getOwnedPropertyAssociationAssignment_1_1(), "rule__FlowImplementation__OwnedPropertyAssociationAssignment_1_1");
 					put(grammarAccess.getFlowImplementationAccess().getInModeOrTransitionAssignment_2_3(), "rule__FlowImplementation__InModeOrTransitionAssignment_2_3");
+					put(grammarAccess.getFlowImplementationAccess().getInModeOrTransitionAssignment_2_4_1(), "rule__FlowImplementation__InModeOrTransitionAssignment_2_4_1");
 					put(grammarAccess.getFlowSourceImplAccess().getSpecificationAssignment_0(), "rule__FlowSourceImpl__SpecificationAssignment_0");
 					put(grammarAccess.getFlowSourceImplAccess().getKindAssignment_3(), "rule__FlowSourceImpl__KindAssignment_3");
 					put(grammarAccess.getFlowSourceImplAccess().getOwnedFlowSegmentAssignment_4_0(), "rule__FlowSourceImpl__OwnedFlowSegmentAssignment_4_0");
@@ -1882,9 +1901,13 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getEndToEndFlowAccess().getOwnedEndToEndFlowSegmentAssignment_7_3(), "rule__EndToEndFlow__OwnedEndToEndFlowSegmentAssignment_7_3");
 					put(grammarAccess.getEndToEndFlowAccess().getOwnedPropertyAssociationAssignment_8_1(), "rule__EndToEndFlow__OwnedPropertyAssociationAssignment_8_1");
 					put(grammarAccess.getEndToEndFlowAccess().getInModeOrTransitionAssignment_9_3(), "rule__EndToEndFlow__InModeOrTransitionAssignment_9_3");
-					put(grammarAccess.getEndToEndFlowRefinementAccess().getRefinedAssignment_0(), "rule__EndToEndFlowRefinement__RefinedAssignment_0");
-					put(grammarAccess.getEndToEndFlowRefinementAccess().getOwnedPropertyAssociationAssignment_8_1(), "rule__EndToEndFlowRefinement__OwnedPropertyAssociationAssignment_8_1");
-					put(grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionAssignment_9_3(), "rule__EndToEndFlowRefinement__InModeOrTransitionAssignment_9_3");
+					put(grammarAccess.getEndToEndFlowAccess().getInModeOrTransitionAssignment_9_4_1(), "rule__EndToEndFlow__InModeOrTransitionAssignment_9_4_1");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getRefinedAssignment_0_0(), "rule__EndToEndFlowRefinement__RefinedAssignment_0_0");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getOwnedPropertyAssociationAssignment_0_8_1(), "rule__EndToEndFlowRefinement__OwnedPropertyAssociationAssignment_0_8_1");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionAssignment_0_8_3_3(), "rule__EndToEndFlowRefinement__InModeOrTransitionAssignment_0_8_3_3");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionAssignment_0_8_3_4_1(), "rule__EndToEndFlowRefinement__InModeOrTransitionAssignment_0_8_3_4_1");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionAssignment_1_3(), "rule__EndToEndFlowRefinement__InModeOrTransitionAssignment_1_3");
+					put(grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionAssignment_1_4_1(), "rule__EndToEndFlowRefinement__InModeOrTransitionAssignment_1_4_1");
 					put(grammarAccess.getSubcomponentFlowAccess().getContextAssignment_0_0(), "rule__SubcomponentFlow__ContextAssignment_0_0");
 					put(grammarAccess.getSubcomponentFlowAccess().getFlowElementAssignment_1(), "rule__SubcomponentFlow__FlowElementAssignment_1");
 					put(grammarAccess.getConnectionFlowAccess().getFlowElementAssignment(), "rule__ConnectionFlow__FlowElementAssignment");
