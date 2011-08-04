@@ -1636,7 +1636,7 @@ FlowSpecification returns aadl2::FlowSpecification:
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
 	';')
-	| FlowSpecRefinement
+//	| FlowSpecRefinement
 	;
 
 FlowSourceSpec returns aadl2::FlowSpecification:
