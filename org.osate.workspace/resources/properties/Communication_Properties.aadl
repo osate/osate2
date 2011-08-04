@@ -72,5 +72,5 @@ property set Communication_Properties is
 		applies to (flow);
 	
 	Latency: Time_Range
-		applies to (flow, connection, bus);
+		applies to (flow, connection, bus, processor, device, port);
 end Communication_Properties;

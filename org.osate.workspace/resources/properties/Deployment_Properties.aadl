@@ -16,13 +16,13 @@ property set Deployment_Properties is
 	
 	Allowed_Memory_Binding_Class:
 		inherit list of classifier (memory, system, processor)
-		applies to (thread, thread group, process, system, device, data, data port, event data port, subprogram, processor);
+		applies to (thread, thread group, process, system, device, data, data port, event data port, subprogram, subprogram group, processor);
 	
 	Allowed_Memory_Binding: inherit list of reference (memory, system, processor)
-		applies to (thread, thread group, process, system, device, data, data port, event data port, subprogram, processor);
+		applies to (thread, thread group, process, system, device, data, data port, event data port, subprogram, subprogram group, processor);
 	
 	Actual_Memory_Binding: inherit list of reference (memory)
-		applies to (thread, thread group, process, system, processor, device, data, data port, event data port, subprogram);
+		applies to (thread, thread group, process, system, processor, device, data, data port, event data port, subprogram, subprogram group);
 	
 	Allowed_Connection_Binding_Class:
 		inherit list of classifier (processor, virtual processor, bus, virtual bus, device, memory)
@@ -41,7 +41,7 @@ property set Deployment_Properties is
 		applies to (subprogram access);
 	
 	Allowed_Subprogram_Call_Binding:
-		inherit list of reference (bus, processor, device)
+		list of reference (bus, processor, device)
 		applies to (subprogram, thread, thread group, process, system);
 	
 	Actual_Subprogram_Call_Binding: inherit list of reference (bus, processor, memory, device)
@@ -51,13 +51,13 @@ property set Deployment_Properties is
 		applies to (bus, virtual bus, processor, virtual processor, device, memory, system);
 	
 	Required_Virtual_Bus_Class: inherit list of classifier (virtual bus)
-		applies to (virtual bus, connection, port);
+		applies to (virtual bus, connection, port, thread, thread group, process, system, device);
 	
 	Provided_Connection_Quality_Of_Service: inherit list of Supported_Connection_QoS
 		applies to (bus, virtual bus, processor, virtual processor, system, device, memory);
 	
 	Required_Connection_Quality_Of_Service: inherit list of Supported_Connection_QoS
-		applies to (port, connection, virtual bus);
+		applies to (port, connection, virtual bus, thread, thread group, process, system, device);
 	
 	Not_Collocated: record (
 		Targets: list of reference (data, thread, process, system, connection);
@@ -77,10 +77,10 @@ property set Deployment_Properties is
 		applies to (bus, device);
 	
 	Allowed_Dispatch_Protocol: list of Supported_Dispatch_Protocols
-		applies to (processor);
+		applies to (processor, virtual processor);
 	
 	Allowed_Period: list of Time_Range
-		applies to (processor, system);
+		applies to (processor, system, virtual processor);
 	
 	Allowed_Physical_Access_Class: list of classifier (device, processor, memory, bus)
 		applies to (bus);
