@@ -5,7 +5,7 @@
 
 property set Thread_Properties is
 	Dispatch_Protocol: Supported_Dispatch_Protocols
-		applies to (thread, device);
+		applies to (thread, device, virtual processor);
 	
 	Dispatch_Trigger: list of reference (port)
 		applies to (device, thread);
@@ -38,10 +38,10 @@ property set Thread_Properties is
 		applies to (mode transition);
 	
 	Resumption_Policy: enumeration (restart, resume)
-		applies to (thread, thread group, process, system, device, processor, memory, bus, system);
+		applies to (thread, thread group, process, system, device, processor, memory, bus, system, virtual bus, virtual processor, subprogram);
 	
 	Active_Thread_Handling_Protocol:
-		inherit Supported_Active_Thread_Handling_Protocols => stop
+		inherit Supported_Active_Thread_Handling_Protocols => abort
 		applies to (thread, thread group, process, system);
 	
 	Active_Thread_Queue_Handling_Protocol:
@@ -49,7 +49,7 @@ property set Thread_Properties is
 		applies to (thread, thread group, process, system);
 	
 	Deactivation_Policy: enumeration (inactive, unload) => inactive
-		applies to (process, virtual processor, processor);
+		applies to (thread, process, virtual processor, processor);
 	
 	Runtime_Protection: inherit aadlboolean
 		applies to (process, system);
